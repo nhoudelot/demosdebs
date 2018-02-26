@@ -179,7 +179,7 @@ CFLAGS := $(CFLAGS:-g=-g0)
 endif
 
 %:
-	dh $@
+	dh $@  --parallel
 
 override_dh_auto_build-arch:
 	$(MAKE) $(DEB_OPTS) $(DEB_MAME_OPTS)
@@ -217,6 +217,12 @@ override_dh_fixperms-indep:
 	find debian/mame-data/usr/share/games/mame/language -type f -name "*.po" -delete
 	find debian/mame-data/usr/share/games/mame/language -type f -execdir chmod 644 {} \;
 	find debian/mame-data/usr/share/games/mame/plugins -type f -execdir chmod 644 {} \;
+
+override_dh_clean:
+	dh_clean
+	rm -rf docs/build
+	rm -rf docs/source/_ext/__pycache__
+	find language -type f -name "*.mo" -delete
 
 PKD := $(abspath $(dir $(MAKEFILE_LIST)))
 VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Version | sed -e 's/\(.*\)-.*/\1/')
