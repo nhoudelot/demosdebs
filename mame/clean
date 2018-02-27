@@ -15,8 +15,8 @@ src2html
 srcclean
 unidasm
 default.mame.ini
-mame
-nlwav
-scripts/build/png.pyc
-default.plugin.ini
-default.ui.ini
+mame 
+nlwav 
+scripts/build/png.pyc 
+default.plugin.ini 
+default.ui.ini 

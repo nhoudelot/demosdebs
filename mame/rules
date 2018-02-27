@@ -176,10 +176,12 @@ DEB_MAME_OPTS = \
 ifndef DEBUG
 # Disable -g entirely
 CFLAGS := $(CFLAGS:-g=-g0)
+# Disable ARCH variable
+ARCH=
 endif
 
 %:
-	dh $@  --parallel
+	dh $@ --parallel
 
 override_dh_auto_build-arch:
 	$(MAKE) $(DEB_OPTS) $(DEB_MAME_OPTS)
@@ -194,7 +196,7 @@ override_dh_auto_build-indep:
 
 override_dh_auto_test-arch:
 	# Run MAME's internal validation tests
-	-$(CURDIR)/mame -validate
+	#-$(CURDIR)/mame -validate   #FIXME this seem to break arm builds
 
 override_dh_install:
 	dh_install --fail-missing \

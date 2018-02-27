@@ -2,11 +2,9 @@ Author: Jordi Mallach <jordi@debian.org>
 Description: Several FTBFS fixes for Hurd systems.
 Forwarded: no
 
-Index: mame/makefile
-===================================================================
---- mame.orig/makefile
-+++ mame/makefile
-@@ -194,6 +194,9 @@ ifeq ($(firstword $(filter OpenBSD,$(UNA
+--- a/makefile
++++ b/makefile
+@@ -194,6 +194,9 @@
  OS := openbsd
  GENIEOS := freebsd
  endif
@@ -16,7 +14,7 @@ Index: mame/makefile
  ifeq ($(firstword $(filter Darwin,$(UNAME))),Darwin)
  OS := macosx
  GENIEOS := darwin
-@@ -1253,6 +1256,16 @@ linux: generate $(PROJECTDIR)/$(MAKETYPE
+@@ -1257,6 +1260,16 @@
  	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/$(MAKETYPE)-linux config=$(CONFIG) precompile
  	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/$(MAKETYPE)-linux config=$(CONFIG)
  
@@ -33,11 +31,9 @@ Index: mame/makefile
  #-------------------------------------------------
  # gmake-linux-clang
  #-------------------------------------------------
-Index: mame/scripts/src/osd/sdl.lua
-===================================================================
---- mame.orig/scripts/src/osd/sdl.lua
-+++ mame/scripts/src/osd/sdl.lua
-@@ -221,6 +221,9 @@ if _OPTIONS["targetos"]=="linux" then
+--- a/scripts/src/osd/sdl.lua
++++ b/scripts/src/osd/sdl.lua
+@@ -222,6 +222,9 @@
  elseif _OPTIONS["targetos"]=="openbsd" then
  elseif _OPTIONS["targetos"]=="netbsd" then
  	SDL_NETWORK         = "pcap"
@@ -47,11 +43,9 @@ Index: mame/scripts/src/osd/sdl.lua
  elseif _OPTIONS["targetos"]=="haiku" then
  elseif _OPTIONS["targetos"]=="asmjs" then
  elseif _OPTIONS["targetos"]=="windows" then
-Index: mame/src/osd/sdl/sdlprefix.h
-===================================================================
---- mame.orig/src/osd/sdl/sdlprefix.h
-+++ mame/src/osd/sdl/sdlprefix.h
-@@ -41,7 +41,7 @@
+--- a/src/osd/sdl/sdlprefix.h
++++ b/src/osd/sdl/sdlprefix.h
+@@ -40,7 +40,7 @@
  /* Large file support on IRIX needs _SGI_SOURCE */
  #undef _POSIX_SOURCE
  
@@ -60,10 +54,8 @@ Index: mame/src/osd/sdl/sdlprefix.h
  #define SDLMAME_LINUX 1
  
  #elif defined(__FreeBSD__)
-Index: mame/src/osd/modules/file/posixfile.cpp
-===================================================================
---- mame.orig/src/osd/modules/file/posixfile.cpp
-+++ mame/src/osd/modules/file/posixfile.cpp
+--- a/src/osd/modules/file/posixfile.cpp
++++ b/src/osd/modules/file/posixfile.cpp
 @@ -37,6 +37,12 @@
  #endif
  #endif
@@ -77,10 +69,8 @@ Index: mame/src/osd/modules/file/posixfile.cpp
  // MAME headers
  #include "posixfile.h"
  #include "unicode.h"
-Index: mame/src/osd/modules/file/posixptty.cpp
-===================================================================
---- mame.orig/src/osd/modules/file/posixptty.cpp
-+++ mame/src/osd/modules/file/posixptty.cpp
+--- a/src/osd/modules/file/posixptty.cpp
++++ b/src/osd/modules/file/posixptty.cpp
 @@ -27,10 +27,18 @@
  #include <util.h>
  #elif defined(__linux__) || defined(EMSCRIPTEN)
@@ -100,11 +90,9 @@ Index: mame/src/osd/modules/file/posixptty.cpp
  
  namespace {
  #if defined(__APPLE__)
-Index: mame/scripts/genie.lua
-===================================================================
---- mame.orig/scripts/genie.lua
-+++ mame/scripts/genie.lua
-@@ -129,6 +129,7 @@ newoption {
+--- a/scripts/genie.lua
++++ b/scripts/genie.lua
+@@ -129,6 +129,7 @@
  		{ "freebsd",       "FreeBSD"                },
  		{ "netbsd",        "NetBSD"                 },
  		{ "openbsd",       "OpenBSD"                },
@@ -112,11 +100,9 @@ Index: mame/scripts/genie.lua
  		{ "pnacl",         "Native Client - PNaCl"  },
  		{ "linux",         "Linux"                  },
  		{ "ios",           "iOS"                    },
-Index: mame/src/osd/modules/render/drawbgfx.cpp
-===================================================================
---- mame.orig/src/osd/modules/render/drawbgfx.cpp
-+++ mame/src/osd/modules/render/drawbgfx.cpp
-@@ -142,7 +142,7 @@ static void* sdlNativeWindowHandle(SDL_W
+--- a/src/osd/modules/render/drawbgfx.cpp
++++ b/src/osd/modules/render/drawbgfx.cpp
+@@ -153,7 +153,7 @@
  		return nullptr;
  	}
  

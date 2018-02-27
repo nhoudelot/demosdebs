@@ -1,17 +1,22 @@
-mame (0.192+dfsg.1-0ubuntu1~ddebs1) unstable; urgency=medium
-
-  * Non-maintainer upload.
-  * Created special version for my repo
-
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 17 Dec 2017 18:59:13 +0100
-
-mame (0.192+dfsg.1-0ubuntu1~ppa1~zesty1) zesty; urgency=medium
+mame (0.194+dfsg.1-0ddebs1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Cesare Falco <c.falco@ubuntu.com>  Wed, 29 Nov 2017 10:17:45 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 26 Feb 2018 14:07:51 +0100
 
-mame (0.190+dfsg.1-1) UNRELEASED; urgency=medium
+mame (0.193+dfsg.1-0ubuntu1~ppa3~artful1) artful; urgency=medium
+
+  * New upstream release.
+
+ -- Cesare Falco <c.falco@ubuntu.com>  Thu, 28 Dec 2017 16:21:38 +0100
+
+mame (0.192+dfsg.1-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Cesare Falco <c.falco@ubuntu.com>  Sun, 03 Dec 2017 22:24:20 +0100
+
+mame (0.190+dfsg.1-1) unstable; urgency=medium
 
   * New upstream release.
 
