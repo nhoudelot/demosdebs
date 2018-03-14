@@ -1,0 +1,17 @@
+reicast (7~rc+gitd9e65bf-0ddebs1) unstable; urgency=medium
+
+  * upstream update
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Mar 2018 01:11:29 +0100
+
+reicast (7~rc+b445~20~ubuntu14.04.1) trusty; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Fri, 13 Nov 2015 17:31:40 +0000
+
+reicast (7~rc-1) UNRELEASED; urgency=low
+
+  * Initial release, Git last version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 23 May 2015 17:05:00 -0300

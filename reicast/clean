@@ -1,0 +1,4 @@
+debian/reicast-by-reicastteam.6
+shell/linux/nosym-reicast.elf
+shell/linux/reicast.elf.map
+shell/linux/.map

@@ -1,0 +1,104 @@
+--- a/core/cfg/cl.cpp
++++ b/core/cfg/cl.cpp
+@@ -103,7 +103,7 @@
+ {
+ 	printf("Available commands :\n");
+ 
+-	printf("-config	section:key=value [, ..]: add a virtual config value\n Virtual config values wont be saved to the .cfg file\n unless a different value is writen to em\nNote :\n You can specify many settings in the xx:yy=zz , gg:hh=jj , ...\n format.The spaces betwen the values and ',' are needed.");
++	printf("-config	section:key=value [, ..]: add a virtual config value\n Virtual config values won't be saved to the .cfg file\n unless a different value is written to em\nNote :\n You can specify many settings in the xx:yy=zz , gg:hh=jj , ...\n format.The spaces between the values and ',' are needed.");
+ 
+ 	return 0;
+ }
+@@ -146,7 +146,7 @@
+ 			}
+ 			else
+ 			{
+-				printf("wtf %s is suposed to do ?\n",*arg);
++				printf("wtf %s is supposed to do ?\n",*arg);
+ 			}
+ 		}
+ 		arg++;
+--- a/core/hw/naomi/naomi.cpp
++++ b/core/hw/naomi/naomi.cpp
+@@ -389,7 +389,7 @@
+ //n1 bios writes the value -1, meaning it expects the bit 0 to be set
+ //.//
+ 
+-u32 reg_dimm_3c;	//IO window ! writen, 0x1E03 some flag ?
++u32 reg_dimm_3c;	//IO window ! written, 0x1E03 some flag ?
+ u32 reg_dimm_40;	//parameters
+ u32 reg_dimm_44;	//parameters
+ u32 reg_dimm_48;	//parameters
+@@ -809,4 +809,4 @@
+ 		}
+ 	}
+ #endif
+-}
+\ No newline at end of file
++}
+--- a/core/rend/gles/gles.cpp
++++ b/core/rend/gles/gles.cpp
+@@ -853,7 +853,7 @@
+ 
+ #ifndef GLES
+ 	//create vao
+-	//This is really not "proper", vaos are suposed to be defined once
++	//This is really not "proper", vaos are supposed to be defined once
+ 	//i keep updating the same one to make the es2 code work in 3.1 context
+ 	glGenVertexArrays(1, &gl.vbo.vao);
+ #endif
+--- a/core/oslib/audiobackend_oss.cpp
++++ b/core/oslib/audiobackend_oss.cpp
+@@ -16,7 +16,7 @@
+ 	}
+ 	else
+ 	{
+-		printf("sound enabled, dsp openned for write\n");
++		printf("sound enabled, dsp opened for write\n");
+ 		int tmp=44100;
+ 		int err_ret;
+ 		err_ret=ioctl(oss_audio_fd,SNDCTL_DSP_SPEED,&tmp);
+--- a/core/linux/nixprof/nixprof.cpp
++++ b/core/linux/nixprof/nixprof.cpp
+@@ -302,7 +302,7 @@
+ 
+ 			if (!(tick_count % 10000))
+ 			{
+-				printf("Profiler: %d ticks, flusing ..\n", tick_count);
++				printf("Profiler: %d ticks, flushing ..\n", tick_count);
+ 				fflush(prof_out);
+ 			}
+ 		} while (prof_run);
+--- a/shell/linux/man/reicast-joyconfig.1
++++ b/shell/linux/man/reicast-joyconfig.1
+@@ -68,7 +68,7 @@
+ \fIhttps://github.com/reicast/reicast-emulator\fP
+ 
+ .TP
+-This is free software; you can redistribute it and/or modify it under the terms of the GNU Public License (Version 2).
++This is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License (Version 2).
+ 
+ .SH "SEE ALSO"
+ \fBreicast\fR(1)
+--- a/shell/linux/man/reicast.1
++++ b/shell/linux/man/reicast.1
+@@ -124,7 +124,7 @@
+ \fIhttps://github.com/reicast/reicast-emulator\fP
+ 
+ .TP
+-This is free software; you can redistribute it and/or modify it under the terms of the GNU Public License (Version 2).
++This is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License (Version 2).
+ 
+ .SH "SEE ALSO"
+ \fBreicast-joyconfig\fR(1)
+--- a/core/hw/sh4/dyna/driver.cpp
++++ b/core/hw/sh4/dyna/driver.cpp
+@@ -61,7 +61,7 @@
+ 	{
+ 		fwrite(CodeCache,LastAddr,1,f);
+ 		fclose(f);
+-		printf("Writen!\n");
++		printf("Written!\n");
+ 	}
+ 
+ 	bm_WriteBlockMap(pt2+".map");

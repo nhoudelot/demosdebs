@@ -1,0 +1,5 @@
+usr/games/reicast
+usr/share/applications/reicast.desktop
+usr/share/man/man6/reicast.6
+usr/share/pixmaps/reicast.png
+usr/share/reicast/mappings/*.cfg
