@@ -1,0 +1,22 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -19,8 +19,8 @@
+ AC_SUBST(dunelegacydatadir)
+ 
+ dnl Some flags for gcc
+-CXXFLAGS="-std=c++11 -pthread -fPIC -O3 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -Wno-shift-negative-value -DNDEBUG"
+-CFLAGS="-std=c99 -pthread -fPIC -O3 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -Wno-shift-negative-value -DNDEBUG"
++CXXFLAGS="-std=c++11 -flto -pthread -fPIC -O3 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -Wno-shift-negative-value -DNDEBUG"
++CFLAGS="-std=c99 -flto -pthread -fPIC -O3 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -Wno-shift-negative-value -DNDEBUG"
+ dnl Additional flags: -Wconversion -Wno-sign-conversion -Wlogical-op
+ 
+ dnl Some flags for clang
+@@ -44,7 +44,7 @@
+ dnl PKG_CHECK_MODULES(SDL, sdl2 SDL2_mixer)
+ CFLAGS="$CFLAGS $SDL_CFLAGS"
+ CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
+-LIBS="$LIBS $SDL_LIBS"
++LIBS="$LIBS -flto $SDL_LIBS"
+ 
+ dnl Check for SDL_mixer library.
+ AC_CHECK_LIB(SDL2_mixer, 

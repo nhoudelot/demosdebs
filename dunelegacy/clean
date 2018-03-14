@@ -1,0 +1,12 @@
+Makefile.in
+configure
+src/Makefile.in
+tests/INIFileTestCase2.ini.out1
+tests/INIFileTestCase2.ini.out2
+tests/INIFileTestCase2.ini.out3
+tests/INIFileTestCase3.ini.out1
+tests/INIFileTestCase3.ini.out2
+tests/INIFileTestCase3.ini.out3
+tests/INIFileTestCase3.ini.out4
+tests/Makefile.in
+

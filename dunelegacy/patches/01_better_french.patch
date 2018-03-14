@@ -1,0 +1,878 @@
+--- a/data/locale/French.fr.po
++++ b/data/locale/French.fr.po
+@@ -24,7 +24,7 @@
+ 
+ #: include/GUI/ObjectInterfaces/BuilderInterface.h:51
+ msgid "Upgrade this structure (Hotkey: U)"
+-msgstr "Mets cette structure (Hotkey: U)"
++msgstr "Améliorer cette structure (Hotkey: U)"
+ 
+ #: include/GUI/ObjectInterfaces/DefaultStructureInterface.h:46
+ msgid "Repair this structure (Hotkey: R)"
+@@ -38,7 +38,7 @@
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:76
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:63
+ msgid "Attack a unit, structure or position (Hotkey: A)"
+-msgstr "Attaque d'une unité, la structure ou la position (Hotkey: A)"
++msgstr "Attaque une unité, structure ou position (Hotkey: A)"
+ 
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:84
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:71
+@@ -48,12 +48,12 @@
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:92
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:79
+ msgid "Capture a building (Hotkey: C)"
+-msgstr "Capture d'un bâtiment (Hotkey: C)"
++msgstr "Capturer un bâtiment (Hotkey: C)"
+ 
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:102
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:90
+ msgid "Return harvester to refinery (Hotkey: H)"
+-msgstr "Retour à la raffinerie de moissonneuse (Hotkey: H)"
++msgstr "Retour de la moissonneuse à la raffinerie (Hotkey: H)"
+ 
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:109
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:98
+@@ -78,7 +78,7 @@
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:133
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:124
+ msgid "Unit will not move from location"
+-msgstr "Unité ne se déplace pas de l'endroit"
++msgstr "L'unité ne se déplacera pas de cet endroit"
+ 
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:140
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:131
+@@ -88,7 +88,7 @@
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:142
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:133
+ msgid "Unit will engage any unit within guard range"
+-msgstr "Unité engager tout appareil à portée de garde"
++msgstr "L'unité engagera tout appareil à portée de garde"
+ 
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:149
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:140
+@@ -98,7 +98,7 @@
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:151
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:142
+ msgid "Unit will not move, nor attack"
+-msgstr "Unité ne se déplace pas, ni d'attaque"
++msgstr "L'unité ne se déplacera pas, ni attaquera"
+ 
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:158
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:149
+@@ -108,7 +108,7 @@
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:160
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:151
+ msgid "Unit will not move until enemy unit spotted"
+-msgstr "Unité ne bougera pas jusqu'à unité ennemie spoted"
++msgstr "L'unité ne bougera pas jusqu'à voir une unité ennemie"
+ 
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:167
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:158
+@@ -118,7 +118,7 @@
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:169
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:160
+ msgid "Unit will immediately start to engage an enemy unit"
+-msgstr "Unité va immédiatement commencer à engager une unit\\351 ennemie"
++msgstr "L'unité va immédiatement commencer à engager une unité ennemie"
+ 
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:176
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:167
+@@ -128,7 +128,7 @@
+ #: include/GUI/ObjectInterfaces/MultiUnitInterface.h:178
+ #: include/GUI/ObjectInterfaces/UnitInterface.h:169
+ msgid "Unit will retreat back to base"
+-msgstr "Unité reculera retour à la base"
++msgstr "L'unité se retirera à la base"
+ 
+ #: include/GUI/ObjectInterfaces/PalaceInterface.h:47
+ msgid "READY"
+@@ -136,19 +136,19 @@
+ 
+ #: include/GUI/ObjectInterfaces/RefineryAndSiloInterface.h:69
+ msgid "Capacity"
+-msgstr "capac"
++msgstr "Capacité"
+ 
+ #: include/GUI/ObjectInterfaces/RefineryAndSiloInterface.h:70
+ msgid "Stored"
+-msgstr "stockées"
++msgstr "En Stock"
+ 
+ #: include/GUI/ObjectInterfaces/WindTrapInterface.h:69
+ msgid "Required"
+-msgstr "nécess."
++msgstr "Requis"
+ 
+ #: include/GUI/ObjectInterfaces/WindTrapInterface.h:70
+ msgid "Produced"
+-msgstr "produit"
++msgstr "Produit"
+ 
+ #: src/Choam.cpp:109
+ msgid "New Starport prices"
+@@ -1303,7 +1303,7 @@
+ 
+ #: src/Game.cpp:582
+ msgid "You Have Failed Your Mission."
+-msgstr "Vous avez échoué dans votre mission."
++msgstr "Vous avez échoué votre mission."
+ 
+ #: src/Game.cpp:823
+ msgid "@DUNE.ENG|226#Harvester"
+@@ -1339,19 +1339,19 @@
+ 
+ #: src/Game.cpp:845
+ msgid "@DUNE.ENG|125#empty"
+-msgstr "@DUNE.FRE|125"
++msgstr "@DUNE.FRE|125#vide"
+ 
+ #: src/Game.cpp:2018 src/Game.cpp:2030 src/GUI/dune/GameOptionsWindow.cpp:127
+ msgid "Game speed"
+-msgstr "Vitesse de jeu"
++msgstr "Vitesse de la partie"
+ 
+ #: src/Game.cpp:2235
+ msgid "Game resumed!"
+-msgstr "Jeu reprend!"
++msgstr "Reprise de la partie!"
+ 
+ #: src/Game.cpp:2238
+ msgid "Game paused!"
+-msgstr "Jeu pause!"
++msgstr "Partie en pause!"
+ 
+ #: src/Game.cpp:2270 src/Game.cpp:2291
+ msgid "@DUNE.ENG|135#Cannot place slab here."
+@@ -1364,11 +1364,11 @@
+ 
+ #: src/Game.cpp:2484
+ msgid "Screenshot saved"
+-msgstr "Screenshot sauvegardées"
++msgstr "Captures d'écran enregistrées"
+ 
+ #: src/GUI/dune/BuilderList.cpp:60
+ msgid "Order"
+-msgstr "Commander"
++msgstr "Ordonner"
+ 
+ #: src/GUI/dune/BuilderList.cpp:67
+ msgid "SOLD OUT"
+@@ -1388,7 +1388,7 @@
+ 
+ #: src/GUI/dune/BuilderList.cpp:70
+ msgid "ON HOLD"
+-msgstr "ATTENTE"
++msgstr "EN ATTENTE"
+ 
+ #: src/GUI/dune/BuilderList.cpp:71
+ msgid ""
+@@ -1396,15 +1396,15 @@
+ "REACHED"
+ msgstr ""
+ "LIMITE\n"
+-"d'UNITÉ"
++"d'UNITÉ ATTEINTE"
+ 
+ #: src/GUI/dune/GameOptionsWindow.cpp:32
+ msgid "Game Options"
+-msgstr ""
++msgstr "Options de la partie"
+ 
+ #: src/GUI/dune/GameOptionsWindow.cpp:45
+ msgid "Start with Explored Map"
+-msgstr ""
++msgstr "Démarrer avec une carté explorée"
+ 
+ #: src/GUI/dune/GameOptionsWindow.cpp:46
+ msgid "If checked the complete map is unhidden at the beginning of the game."
+@@ -1476,7 +1476,7 @@
+ 
+ #: src/GUI/dune/GameOptionsWindow.cpp:103
+ msgid "Instant Build"
+-msgstr ""
++msgstr "Construction instantanée"
+ 
+ #: src/GUI/dune/GameOptionsWindow.cpp:104
+ msgid "If checked the building of structures and units does not take any time."
+@@ -1492,11 +1492,11 @@
+ 
+ #: src/GUI/dune/GameOptionsWindow.cpp:115
+ msgid "Only One Palace per House"
+-msgstr ""
++msgstr "Seulement un palais par maison"
+ 
+ #: src/GUI/dune/GameOptionsWindow.cpp:116
+ msgid "If checked only one palace can be build per house."
+-msgstr ""
++msgstr "Si coché, seulement un palais peut être construit par maison."
+ 
+ #: src/GUI/dune/GameOptionsWindow.cpp:143
+ #: src/GUI/dune/InGameSettingsMenu.cpp:86 src/MapEditor/ChoamWindow.cpp:131
+@@ -1513,20 +1513,20 @@
+ 
+ #: src/GUI/dune/InGameMenu.cpp:58 src/GUI/dune/InGameMenu.cpp:193
+ msgid "Save Game"
+-msgstr "Sauvegarder jeu"
++msgstr "Sauvegarder la partie"
+ 
+ #: src/GUI/dune/InGameMenu.cpp:65 src/GUI/dune/InGameMenu.cpp:201
+ #: src/Menu/CustomGameMenu.cpp:230 src/Menu/SinglePlayerMenu.cpp:153
+ msgid "Load Game"
+-msgstr "Charger jeu"
++msgstr "Charger partie"
+ 
+ #: src/GUI/dune/InGameMenu.cpp:74
+ msgid "Game Settings"
+-msgstr "Paramétres de jeu"
++msgstr "Paramètres de partie"
+ 
+ #: src/GUI/dune/InGameMenu.cpp:83
+ msgid "Restart Game"
+-msgstr "Recommencer le jeu"
++msgstr "Recommencer la partie"
+ 
+ #: src/GUI/dune/InGameMenu.cpp:92
+ msgid "Quit to Menu"
+@@ -1534,11 +1534,11 @@
+ 
+ #: src/GUI/dune/InGameMenu.cpp:161 src/GUI/dune/InGameMenu.cpp:218
+ msgid "Do you really want to quit this game?"
+-msgstr "Voulez-vous vraiment quitter ce jeu?"
++msgstr "Voulez-vous vraiment quitter cette partie ?"
+ 
+ #: src/GUI/dune/InGameMenu.cpp:206
+ msgid "Do you really want to restart this game?"
+-msgstr "Voulez-vous vraiment à redémarrer ce jeu?"
++msgstr "Voulez-vous vraiment redémarrer cette partie ?"
+ 
+ #: src/GUI/dune/InGameMenu.cpp:207 src/GUI/dune/InGameMenu.cpp:219
+ #: src/GUI/dune/LoadSaveWindow.cpp:155 src/MapEditor/LoadMapWindow.cpp:155
+@@ -1562,12 +1562,12 @@
+ 
+ #: src/GUI/dune/LoadSaveWindow.cpp:89
+ msgid "Save"
+-msgstr "Sauvegarder"
++msgstr "Enregistrer"
+ 
+ #: src/GUI/dune/LoadSaveWindow.cpp:154 src/MapEditor/LoadMapWindow.cpp:154
+ #, c-format
+ msgid "Do you really want to delete '%s' ?"
+-msgstr ""
++msgstr "Voulez-vous vraiment effacer '%s' ?"
+ 
+ #: src/GUI/dune/LoadSaveWindow.cpp:221
+ msgid ""
+@@ -1577,7 +1577,7 @@
+ #: src/GUI/dune/WaitingForOtherPlayers.cpp:44
+ #: src/MapEditor/ReinforcementsWindow.cpp:99 src/MapEditor/TeamsWindow.cpp:91
+ msgid "Remove"
+-msgstr ""
++msgstr "Enlever"
+ 
+ #: src/GUI/dune/WaitingForOtherPlayers.cpp:67
+ msgid "Waiting for other players... "
+@@ -1591,7 +1591,7 @@
+ #: src/House.cpp:525
+ #, c-format
+ msgid "House '%s' has been defeated."
+-msgstr "Maison '%s' a été défait."
++msgstr "Maison '%s' a été vaincue."
+ 
+ #: src/MapEditor/ChoamWindow.cpp:58 src/MapEditor/MapEditorInterface.cpp:150
+ msgid "Choam"
+@@ -1606,7 +1606,7 @@
+ #: src/MapEditor/LoadMapWindow.cpp:56 src/MapEditor/MapEditorInterface.cpp:108
+ #: src/MapEditor/NewMapWindow.cpp:210
+ msgid "Load Map"
+-msgstr ""
++msgstr "Charger la carte"
+ 
+ #: src/MapEditor/LoadMapWindow.cpp:68 src/Menu/CustomGameMenu.cpp:75
+ msgid "SP User Maps"
+@@ -1619,12 +1619,12 @@
+ #: src/MapEditor/LoadMapWindow.cpp:93 src/Menu/CustomGameMenu.cpp:115
+ #: src/Menu/CustomGamePlayers.cpp:85
+ msgid "Choose map"
+-msgstr "choisir la carte"
++msgstr "Choisir la carte"
+ 
+ #: src/MapEditor/LoadMapWindow.cpp:100 src/Menu/CustomGameMenu.cpp:122
+ #: src/Menu/CustomGamePlayers.cpp:139
+ msgid "Size"
+-msgstr "Dimen."
++msgstr "Taille"
+ 
+ #: src/MapEditor/LoadMapWindow.cpp:103 src/Menu/CustomGameMenu.cpp:124
+ #: src/Menu/CustomGamePlayers.cpp:141
+@@ -1647,39 +1647,39 @@
+ 
+ #: src/MapEditor/LoadMapWindow.cpp:248 src/Menu/CustomGameMenu.cpp:273
+ msgid "No map available"
+-msgstr "Carte pas dispo."
++msgstr "Carte non disponible"
+ 
+ #: src/MapEditor/MapEditor.cpp:112 src/MapEditor/MapEditorInterface.cpp:101
+ #: src/MapEditor/NewMapWindow.cpp:56
+ msgid "New Map"
+-msgstr ""
++msgstr "Nouvelle carte"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:94
+ msgid "Leave Mapeditor"
+-msgstr ""
++msgstr "Quitter l'éditeur de carte"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:115
+ #: src/MapEditor/MapEditorInterface.cpp:909
+ msgid "Save Map"
+-msgstr ""
++msgstr "Enregistrer la carte"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:122
+ msgid "Undo"
+-msgstr ""
++msgstr "Défaire"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:129
+ msgid "Redo"
+-msgstr ""
++msgstr "Refaire"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:136
+ #: src/MapEditor/PlayerSettingsWindow.cpp:53
+ msgid "Player Settings"
+-msgstr ""
++msgstr "Configuration des joueurs"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:143
+ #: src/MapEditor/MapSettingsWindow.cpp:55
+ msgid "Map Settings"
+-msgstr ""
++msgstr "Configuration de la carte"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:157
+ #: src/MapEditor/ReinforcementsWindow.cpp:54
+@@ -1688,7 +1688,7 @@
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:164 src/MapEditor/TeamsWindow.cpp:53
+ msgid "Teams"
+-msgstr ""
++msgstr "Équipes"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:173
+ #: src/MapEditor/MapEditorInterface.cpp:182
+@@ -1696,47 +1696,47 @@
+ #: src/MapEditor/MapEditorInterface.cpp:200
+ #: src/MapEditor/MapEditorInterface.cpp:209 src/MapEditor/NewMapWindow.cpp:157
+ msgid "Mirror mode"
+-msgstr ""
++msgstr "Mode miroir"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:173 src/MapEditor/NewMapWindow.cpp:160
+ msgid "Off"
+-msgstr ""
++msgstr "Désactivé"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:182 src/MapEditor/NewMapWindow.cpp:161
+ msgid "Horizontal"
+-msgstr ""
++msgstr "Horizontal"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:191 src/MapEditor/NewMapWindow.cpp:162
+ msgid "Vertical"
+-msgstr ""
++msgstr "Vertical"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:200 src/MapEditor/NewMapWindow.cpp:163
+ msgid "Horizontal and vertical"
+-msgstr ""
++msgstr "Horizontal et vertical"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:209 src/MapEditor/NewMapWindow.cpp:164
+ msgid "Inverse"
+-msgstr ""
++msgstr "Inverser"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:350
+ msgid "Set starting screen"
+-msgstr ""
++msgstr "Écran de démarrage"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:679
+ msgid "Health"
+-msgstr ""
++msgstr "Santé"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:692
+ msgid "Attack mode"
+-msgstr ""
++msgstr "Mode d'attaque"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:709
+ msgid "Rotate left"
+-msgstr ""
++msgstr "Rotation gauche"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:716
+ msgid "Rotate right"
+-msgstr ""
++msgstr "Rotation droite"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:745
+ #: src/MapEditor/ReinforcementsWindow.cpp:109 src/MapEditor/TeamsWindow.cpp:101
+@@ -1746,41 +1746,41 @@
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:869
+ msgid "Do you really want to quit and lose unsaved changes to this map?"
+-msgstr ""
++msgstr "Voulez-vous vraiment quitter et perdre tout les changement de cette carte ?"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:885 src/Menu/CustomGameMenu.cpp:70
+ msgid "SP Maps"
+-msgstr "SP cartes"
++msgstr "Cartes SP"
+ 
+ #: src/MapEditor/MapEditorInterface.cpp:889 src/Menu/CustomGameMenu.cpp:80
+ msgid "MP Maps"
+-msgstr "MP cartes"
++msgstr "Cartes MP"
+ 
+ #: src/MapEditor/MapSettingsWindow.cpp:65
+ msgid "Picture on winning"
+-msgstr ""
++msgstr "Image de victoire"
+ 
+ #: src/MapEditor/MapSettingsWindow.cpp:91
+ msgid "Picture on losing"
+-msgstr ""
++msgstr "Image de perte"
+ 
+ #: src/MapEditor/MapSettingsWindow.cpp:117
+ msgid "Picture for briefing"
+-msgstr ""
++msgstr "Image de briefing"
+ 
+ #: src/MapEditor/MapSettingsWindow.cpp:149
+ msgid "Conditions for finishing the game"
+-msgstr ""
++msgstr "conditions pour finir la partie"
+ 
+ #: src/MapEditor/MapSettingsWindow.cpp:154
+ #: src/MapEditor/MapSettingsWindow.cpp:192
+ msgid "Timeout reached"
+-msgstr ""
++msgstr "Temps imparti atteins"
+ 
+ #: src/MapEditor/MapSettingsWindow.cpp:165
+ #: src/MapEditor/MapSettingsWindow.cpp:199
+ msgid "Spice quota reached"
+-msgstr ""
++msgstr "Quota d'épice atteins"
+ 
+ #: src/MapEditor/MapSettingsWindow.cpp:172
+ msgid "Player has no units/structures left"
+@@ -1846,23 +1846,23 @@
+ 
+ #: src/MapEditor/NewMapWindow.cpp:68
+ msgid "Empty Map"
+-msgstr ""
++msgstr "Carte vide"
+ 
+ #: src/MapEditor/NewMapWindow.cpp:72
+ msgid "Random Map"
+-msgstr ""
++msgstr "Carte aléatoire"
+ 
+ #: src/MapEditor/NewMapWindow.cpp:76
+ msgid "Dune2-compatible  Map"
+-msgstr ""
++msgstr "Carte compatible Dune2"
+ 
+ #: src/MapEditor/NewMapWindow.cpp:88
+ msgid "Map Width:"
+-msgstr ""
++msgstr "Largeur de carte"
+ 
+ #: src/MapEditor/NewMapWindow.cpp:96
+ msgid "Map Height:"
+-msgstr ""
++msgstr "Hauteur de carte"
+ 
+ #: src/MapEditor/NewMapWindow.cpp:106
+ msgid "Map Scale:"
+@@ -1886,11 +1886,11 @@
+ 
+ #: src/MapEditor/NewMapWindow.cpp:130
+ msgid "Rock:"
+-msgstr ""
++msgstr "Rocher:"
+ 
+ #: src/MapEditor/NewMapWindow.cpp:142
+ msgid "Spice:"
+-msgstr ""
++msgstr "Épice:"
+ 
+ #: src/MapEditor/NewMapWindow.cpp:218
+ msgid "Create"
+@@ -1918,25 +1918,25 @@
+ #: src/MapEditor/PlayerSettingsWindow.cpp:109
+ #: src/Menu/CustomGamePlayers.cpp:236 src/Menu/CustomGamePlayers.cpp:243
+ msgid "Team"
+-msgstr "L'équipe"
++msgstr "Équipe"
+ 
+ #: src/MapEditor/PlayerSettingsWindow.cpp:142
+ msgid "Quota"
+-msgstr ""
++msgstr "Quota"
+ 
+ #: src/MapEditor/PlayerSettingsWindow.cpp:150
+ msgid "Max Units"
+-msgstr ""
++msgstr "Unités maxi"
+ 
+ #: src/MapEditor/PlayerSettingsWindow.cpp:180
+ #: src/MapEditor/PlayerSettingsWindow.cpp:205
+ #: src/MapEditor/PlayerSettingsWindow.cpp:224
+ msgid "Advanced..."
+-msgstr ""
++msgstr "Avancé..."
+ 
+ #: src/MapEditor/PlayerSettingsWindow.cpp:206
+ msgid "Basic..."
+-msgstr ""
++msgstr "Basique..."
+ 
+ #: src/MapEditor/ReinforcementsWindow.cpp:63
+ msgid ""
+@@ -1954,7 +1954,7 @@
+ 
+ #: src/MapEditor/ReinforcementsWindow.cpp:93 src/MapEditor/TeamsWindow.cpp:85
+ msgid "Add"
+-msgstr ""
++msgstr "Ajouter"
+ 
+ #: src/MapEditor/ReinforcementsWindow.cpp:117
+ #: src/MapEditor/ReinforcementsWindow.cpp:348 src/MapEditor/TeamsWindow.cpp:110
+@@ -1973,11 +1973,11 @@
+ 
+ #: src/MapEditor/ReinforcementsWindow.cpp:158
+ msgid "Time"
+-msgstr ""
++msgstr "Temps"
+ 
+ #: src/MapEditor/ReinforcementsWindow.cpp:166
+ msgid "Repeat"
+-msgstr ""
++msgstr "Répeter"
+ 
+ #: src/MapEditor/ReinforcementsWindow.cpp:258 src/MapEditor/TeamsWindow.cpp:251
+ msgid "Dune2-compatible maps support only up to 16 entries!"
+@@ -1985,11 +1985,11 @@
+ 
+ #: src/MapEditor/TeamsWindow.cpp:117
+ msgid "Team Behavior"
+-msgstr ""
++msgstr "Comportement d'équipe"
+ 
+ #: src/MapEditor/TeamsWindow.cpp:135
+ msgid "Team Type"
+-msgstr ""
++msgstr "Type d'équipe"
+ 
+ #: src/MapEditor/TeamsWindow.cpp:140
+ msgid "Foot (Infantry, Troopers)"
+@@ -2017,7 +2017,7 @@
+ 
+ #: src/MapEditor/TeamsWindow.cpp:149
+ msgid "Units"
+-msgstr ""
++msgstr "Unités"
+ 
+ #: src/MapEditor/TeamsWindow.cpp:156
+ msgid "to"
+@@ -2031,7 +2031,7 @@
+ #: src/Menu/CampaignStatsMenu.cpp:60 src/Menu/CustomGameStatsMenu.cpp:171
+ #, c-format
+ msgid "@DUNE.ENG|22#Time: %d:%02d"
+-msgstr "@DUNE.FRE|22"
++msgstr "@DUNE.FRE|22#Temps: %d:%02d"
+ 
+ #: src/Menu/CampaignStatsMenu.cpp:65
+ msgid "@DUNE.ENG|23#You have attained the rank"
+@@ -2117,7 +2117,7 @@
+ 
+ #: src/Menu/CustomGameMenu.cpp:56
+ msgid "Custom Game"
+-msgstr "Jeu personnalisé"
++msgstr "Partie personnalisé"
+ 
+ #: src/Menu/CustomGameMenu.cpp:99
+ msgid "Multiple players per house"
+@@ -2125,7 +2125,7 @@
+ 
+ #: src/Menu/CustomGameMenu.cpp:102
+ msgid "Game Options..."
+-msgstr ""
++msgstr "Options de la partie..."
+ 
+ #: src/Menu/CustomGameMenu.cpp:139 src/Menu/CustomGamePlayers.cpp:156
+ #: src/Menu/MultiPlayerMenu.cpp:98 src/Menu/OptionsMenu.cpp:222
+@@ -2154,7 +2154,7 @@
+ "At least 2 houses must be controlled\n"
+ "by a human player or an AI player!"
+ msgstr ""
+-"Au moins 2 maisons doivent être contràlées\n"
++"Au moins 2 maisons doivent être controlées\n"
+ "par un joueur humain ou un joueurs AI!"
+ 
+ #: src/Menu/CustomGamePlayers.cpp:683
+@@ -2167,19 +2167,19 @@
+ 
+ #: src/Menu/CustomGameStatsMenu.cpp:63
+ msgid "Built Object"
+-msgstr ""
++msgstr "Construire objet"
+ 
+ #: src/Menu/CustomGameStatsMenu.cpp:68
+ msgid "Destroyed"
+-msgstr ""
++msgstr "Détruit"
+ 
+ #: src/Menu/CustomGameStatsMenu.cpp:72
+ msgid "Harvested Spice"
+-msgstr ""
++msgstr "Épice moissonnée"
+ 
+ #: src/Menu/MainMenu.cpp:65
+ msgid "SINGLE PLAYER"
+-msgstr "JEU SOLO"
++msgstr "PARTIE SOLO"
+ 
+ #: src/Menu/MainMenu.cpp:72
+ msgid "MULTIPLAYER"
+@@ -2187,7 +2187,7 @@
+ 
+ #: src/Menu/MainMenu.cpp:79
+ msgid "MAP EDITOR"
+-msgstr "ÉDITEUR DE NIVEAU"
++msgstr "ÉDITEUR DE CARTE"
+ 
+ #: src/Menu/MainMenu.cpp:85
+ msgid "OPTIONS"
+@@ -2195,7 +2195,7 @@
+ 
+ #: src/Menu/MainMenu.cpp:91
+ msgid "ABOUT"
+-msgstr "ABOUT"
++msgstr "À PROPOS"
+ 
+ #: src/Menu/MainMenu.cpp:97
+ msgid "QUIT"
+@@ -2219,23 +2219,23 @@
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:41
+ msgid "Connect"
+-msgstr "Communiquer"
++msgstr "Se connecter"
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:55
+ msgid "Create LAN Game"
+-msgstr "Créer LAN-Jeu"
++msgstr "Créer une partie LAN"
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:61
+ msgid "Create Internet Game"
+-msgstr "Créer Internet-Jeu"
++msgstr "Créer une partie Internet"
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:72
+ msgid "LAN Games"
+-msgstr "LAN-Jeux"
++msgstr "Parties LAN"
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:77
+ msgid "Internet Games"
+-msgstr "Internet-Jeux"
++msgstr "Parties Internet"
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:104
+ msgid "Join"
+@@ -2243,11 +2243,11 @@
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:161 src/Menu/MultiPlayerMenu.cpp:184
+ msgid "Connecting..."
+-msgstr ""
++msgstr "Connection en cours..."
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:374
+ msgid "The game host quit the game!"
+-msgstr ""
++msgstr "L'hôte de la partie à quitté la partie!"
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:378
+ msgid "The server timed out!"
+@@ -2255,23 +2255,23 @@
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:382
+ msgid "A player with the same name as yours already exists!"
+-msgstr ""
++msgstr "Un joueur avec le même nom que le votre existe déjà!"
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:386
+ msgid "There is no free player slot in this game left!"
+-msgstr ""
++msgstr "Il ne reste pas de slot libre dans cette partie"
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:390
+ msgid "The connection to the game host was lost!"
+-msgstr ""
++msgstr "La connexion à la partie à été perdue!"
+ 
+ #: src/Menu/OptionsMenu.cpp:68
+ msgid "Player Name"
+-msgstr "Nom de joueur"
++msgstr "Nom du joueur"
+ 
+ #: src/Menu/OptionsMenu.cpp:81
+ msgid "Default Game Options"
+-msgstr ""
++msgstr "Partie par défaut"
+ 
+ #: src/Menu/OptionsMenu.cpp:82
+ msgid "Change..."
+@@ -2287,11 +2287,11 @@
+ 
+ #: src/Menu/OptionsMenu.cpp:122
+ msgid "Play Intro"
+-msgstr "Voir l'Introduction"
++msgstr "Voir l'Intro"
+ 
+ #: src/Menu/OptionsMenu.cpp:133
+ msgid "Video Resolution"
+-msgstr "Définition d'écran"
++msgstr "Résolution de l'écran"
+ 
+ #: src/Menu/OptionsMenu.cpp:168
+ msgid "Full Screen"
+@@ -2303,11 +2303,11 @@
+ 
+ #: src/Menu/OptionsMenu.cpp:183
+ msgid "Play SFX"
+-msgstr "Jouer son effet"
++msgstr "Jouer les effets"
+ 
+ #: src/Menu/OptionsMenu.cpp:187
+ msgid "Play Music"
+-msgstr "Jouer musique"
++msgstr "Jouer la musique"
+ 
+ #: src/Menu/OptionsMenu.cpp:198
+ msgid "Port"
+@@ -2315,7 +2315,7 @@
+ 
+ #: src/Menu/OptionsMenu.cpp:211
+ msgid "MetaServer"
+-msgstr ""
++msgstr "Metaserveur"
+ 
+ #: src/Menu/OptionsMenu.cpp:228
+ msgid "Accept"
+@@ -2323,7 +2323,7 @@
+ 
+ #: src/Menu/OptionsMenu.cpp:282
+ msgid "Please enter a Player Name."
+-msgstr ""
++msgstr "Veuillez entrer un nom de joueur."
+ 
+ #: src/Menu/OptionsMenu.cpp:288
+ #, c-format
+@@ -2334,7 +2334,7 @@
+ 
+ #: src/Menu/OptionsMenu.cpp:294
+ msgid "Please enter a MetaServer."
+-msgstr ""
++msgstr "Entrer un metaserveur"
+ 
+ #: src/Menu/SinglePlayerMenu.cpp:70
+ msgid "CAMPAIGN"
+@@ -2342,7 +2342,7 @@
+ 
+ #: src/Menu/SinglePlayerMenu.cpp:77
+ msgid "CUSTOM GAME"
+-msgstr "JEU PERSONNALISÉ"
++msgstr "PARTIE PERSONNALISÉ"
+ 
+ #: src/Menu/SinglePlayerMenu.cpp:83
+ msgid "SKIRMISH"
+@@ -2350,7 +2350,7 @@
+ 
+ #: src/Menu/SinglePlayerMenu.cpp:89
+ msgid "LOAD GAME"
+-msgstr "CHARGER JEU"
++msgstr "CHARGER PARTIE"
+ 
+ #: src/Menu/SinglePlayerMenu.cpp:95
+ msgid "LOAD REPLAY"
+@@ -2637,19 +2637,19 @@
+ 
+ #: src/sand.cpp:534
+ msgid "top edge"
+-msgstr ""
++msgstr "bord haut"
+ 
+ #: src/sand.cpp:535
+ msgid "right edge"
+-msgstr ""
++msgstr "bord droit"
+ 
+ #: src/sand.cpp:536
+ msgid "bottom edge"
+-msgstr ""
++msgstr "bord bas "
+ 
+ #: src/sand.cpp:537
+ msgid "left edge"
+-msgstr ""
++msgstr "bord gauche"
+ 
+ #: src/sand.cpp:538
+ msgid "random"
+@@ -2657,11 +2657,11 @@
+ 
+ #: src/sand.cpp:539
+ msgid "middle"
+-msgstr ""
++msgstr "milieu"
+ 
+ #: src/sand.cpp:540
+ msgid "enemy base"
+-msgstr ""
++msgstr "base enemie"
+ 
+ #: src/sand.cpp:541
+ msgid "home base"
+@@ -2677,7 +2677,7 @@
+ 
+ #: src/structures/Palace.cpp:156
+ msgid "@DUNE.ENG|81#Missile is approaching"
+-msgstr "@DUNE.FRE|81"
++msgstr "@DUNE.FRE|81#Missile en approche"
+ 
+ #: src/structures/Palace.cpp:171
+ msgid "Palace is ready"
+@@ -2689,11 +2689,11 @@
+ 
+ #: src/structures/Palace.cpp:264
+ msgid "@DUNE.ENG|79#Saboteur is approaching"
+-msgstr "@DUNE.FRE|79"
++msgstr "@DUNE.FRE|79#Saboteur en approche"
+ 
+ #: src/structures/StarPort.cpp:102
+ msgid "This unit is sold out"
+-msgstr ""
++msgstr "Cette unité est en rupture de stock"
+ 
+ #: src/structures/StarPort.cpp:255
+ msgid "@DUNE.ENG|80#Frigate has arrived"
