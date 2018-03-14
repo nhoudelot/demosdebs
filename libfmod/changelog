@@ -1,0 +1,17 @@
+libfmod (3.75-0ddebs3) unstable; urgency=medium
+
+  * added libfmod.so as symlink to libfmod-3.75.so
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Sep 2016 22:38:35 +0200
+
+libfmod (3.75-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 01 Aug 2016 01:37:35 +0200
+
+libfmod (3.75-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 18 Mar 2016 12:55:37 +0100

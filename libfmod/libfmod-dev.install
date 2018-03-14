@@ -1,0 +1,4 @@
+fmoddyn.h usr/include/
+fmod_errors.h usr/include/
+fmod.h usr/include/
+wincompat.h usr/include/

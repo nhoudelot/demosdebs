@@ -1,0 +1,24 @@
+Source: libfmod
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends: debhelper (>= 9.0.0)
+Standards-Version: 3.9.7
+Section: libs
+Homepage: http://www.fmod.org/
+
+Package: libfmod-dev
+Section: libdevel
+Architecture: any
+Depends: libfmod
+Description: Programming library for audio playback
+ Programming library and toolkit for the creation and playback 
+ of interactive audio. 
+
+Package: libfmod
+Section: libs
+Architecture: i386
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Headers files of this library for audio playback
+ Programming library and toolkit for the creation and playback
+ of interactive audio.
+ Header files
