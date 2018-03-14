@@ -1,0 +1,13 @@
+--- a/gthread/Makefile.am
++++ b/gthread/Makefile.am
+@@ -20,8 +20,8 @@
+ 	-no-undefined -Wl,--no-undefined \
+ 	-export-dynamic
+ 
+-libgthread_la_DEPENDENCIES = $(libglib) $(top_builddir)/gmodule/libgmodule.la
+-libgthread_la_LIBADD = @G_THREAD_LIBS@ $(libglib) $(top_builddir)/gmodule/libgmodule.la
++libgthread_la_DEPENDENCIES = $(libglib)
++libgthread_la_LIBADD = @G_THREAD_LIBS@ $(libglib)
+ 
+ noinst_PROGRAMS = testgthread
+ testgthread_LDADD = libgthread.la 

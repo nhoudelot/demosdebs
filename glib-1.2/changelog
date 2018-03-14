@@ -1,0 +1,11 @@
+glib-1.2 (10-47ddebs2) unstable; urgency=medium
+
+  * use dh $@  --with autoreconf instead of dh $@ --with autotools-dev
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 31 Oct 2016 23:48:03 +0100
+
+glib-1.2 (10-47ddebs1) unstable; urgency=medium
+
+  * new package rebuild from Fedora24
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 09 Oct 2016 15:07:54 +0200

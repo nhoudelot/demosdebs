@@ -1,0 +1,9 @@
+01_isowarning.patch
+02_gcc34.patch
+03_underquoted.patch
+04_no_undefined.patch
+05_multilib.patch
+06_unused-dep.patch
+07_autotools.patch
+08_format.patch
+09_gcc5.patch

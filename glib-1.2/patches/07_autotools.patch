@@ -1,0 +1,395 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -1,6 +1,6 @@
+-# Makefile.in generated automatically by automake 1.4 from Makefile.am
++# Makefile.in generated automatically by automake 1.4-p6 from Makefile.am
+ 
+-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
++# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+ # gives unlimited permission to copy and/or distribute it,
+ # with or without modifications, as long as this notice is preserved.
+@@ -106,24 +106,70 @@
+ 
+ INCLUDES = -DG_LOG_DOMAIN=g_log_domain_glib @GLIB_DEBUG_FLAGS@
+ 
+-EXTRA_DIST =  	glib.m4				glib.spec.in			acglib.m4			sanity_check			README.win32			glib.def			makefile.msc.in			makefile.msc			giowin32.c			glibconfig.h.win32		glibconfig.h.win32.in		config.h.win32			config.h.win32.in		glib.pc.in 			gmodule.pc.in			gthread.pc.in
++EXTRA_DIST = \
++	glib.m4			\
++	glib.spec.in		\
++	acglib.m4		\
++	sanity_check		\
++	README.win32		\
++	glib.def		\
++	makefile.msc.in		\
++	makefile.msc		\
++	giowin32.c		\
++	glibconfig.h.win32	\
++	glibconfig.h.win32.in	\
++	config.h.win32		\
++	config.h.win32.in	\
++	glib.pc.in 		\
++	gmodule.pc.in		\
++	gthread.pc.in
+ 
+ 
+ lib_LTLIBRARIES = libglib.la
+ 
+-libglib_la_SOURCES =  	garray.c		gcache.c		gcompletion.c		gdataset.c		gdate.c         	gerror.c		ghash.c			ghook.c			giochannel.c    	giounix.c       	glist.c			gmain.c         	gmem.c			gmessages.c		gmutex.c		gnode.c			gprimes.c		grel.c			gscanner.c		gslist.c		gstrfuncs.c		gstring.c		gtimer.c		gtree.c			gutils.c
++libglib_la_SOURCES = \
++	garray.c	\
++	gcache.c	\
++	gcompletion.c	\
++	gdataset.c	\
++	gdate.c         \
++	gerror.c	\
++	ghash.c		\
++	ghook.c		\
++	giochannel.c    \
++	giounix.c       \
++	glist.c		\
++	gmain.c         \
++	gmem.c		\
++	gmessages.c	\
++	gmutex.c	\
++	gnode.c		\
++	gprimes.c	\
++	grel.c		\
++	gscanner.c	\
++	gslist.c	\
++	gstrfuncs.c	\
++	gstring.c	\
++	gtimer.c	\
++	gtree.c		\
++	gutils.c
+ 
+ 
+ glibincludedir = $(includedir)/glib-1.2
+-glibinclude_HEADERS =  	glib.h
++glibinclude_HEADERS = \
++	glib.h
+ 
+ 
+-configinclude_DATA =  	glibconfig.h
++configinclude_DATA = \
++	glibconfig.h
+ 
+ 
+ CONFIGURE_DEPENDENCIES = acglib.m4		
+ 
+-libglib_la_LDFLAGS =  	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) 	-release $(LT_RELEASE) 	-export-dynamic
++libglib_la_LDFLAGS = \
++	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
++	-release $(LT_RELEASE) \
++	-export-dynamic
+ 
+ 
+ noinst_PROGRAMS = testglib testgdate testgdateparser
+@@ -190,6 +236,14 @@
+ 
+ TAR = gtar
+ GZIP_ENV = --best
++DEP_FILES =  .deps/garray.P .deps/gcache.P .deps/gcompletion.P \
++.deps/gdataset.P .deps/gdate.P .deps/gerror.P .deps/ghash.P \
++.deps/ghook.P .deps/giochannel.P .deps/giounix.P .deps/glist.P \
++.deps/gmain.P .deps/gmem.P .deps/gmessages.P .deps/gmutex.P \
++.deps/gnode.P .deps/gprimes.P .deps/grel.P .deps/gscanner.P \
++.deps/gslist.P .deps/gstrfuncs.P .deps/gstring.P .deps/gtimer.P \
++.deps/gtree.P .deps/gutils.P .deps/testgdate.P .deps/testgdateparser.P \
++.deps/testglib.P
+ SOURCES = $(libglib_la_SOURCES) testglib.c testgdate.c testgdateparser.c
+ OBJECTS = $(libglib_la_OBJECTS) testglib.o testgdate.o testgdateparser.o
+ 
+@@ -197,9 +251,9 @@
+ .SUFFIXES:
+ .SUFFIXES: .S .c .lo .o .s
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+-	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps Makefile
++	cd $(top_srcdir) && $(AUTOMAKE) --gnu Makefile
+ 
+-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
++Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+ 	cd $(top_builddir) \
+ 	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+@@ -274,9 +328,6 @@
+ 	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+ 	done
+ 
+-.c.o:
+-	$(COMPILE) -c $<
+-
+ .s.o:
+ 	$(COMPILE) -c $<
+ 
+@@ -293,9 +344,6 @@
+ 
+ maintainer-clean-compile:
+ 
+-.c.lo:
+-	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+-
+ .s.lo:
+ 	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+ 
+@@ -439,7 +487,7 @@
+ all-recursive install-data-recursive install-exec-recursive \
+ installdirs-recursive install-recursive uninstall-recursive  \
+ check-recursive installcheck-recursive info-recursive dvi-recursive:
+-	@set fnord $(MAKEFLAGS); amf=$$2; \
++	@set fnord $$MAKEFLAGS; amf=$$2; \
+ 	dot_seen=no; \
+ 	target=`echo $@ | sed s/-recursive//`; \
+ 	list='$(SUBDIRS)'; for subdir in $$list; do \
+@@ -459,11 +507,11 @@
+ 
+ mostlyclean-recursive clean-recursive distclean-recursive \
+ maintainer-clean-recursive:
+-	@set fnord $(MAKEFLAGS); amf=$$2; \
++	@set fnord $$MAKEFLAGS; amf=$$2; \
+ 	dot_seen=no; \
+ 	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
+ 	  rev="$$subdir $$rev"; \
+-	  test "$$subdir" = "." && dot_seen=yes; \
++	  test "$$subdir" != "." || dot_seen=yes; \
+ 	done; \
+ 	test "$$dot_seen" = "no" && rev=". $$rev"; \
+ 	target=`echo $@ | sed s/-recursive//`; \
+@@ -553,7 +601,12 @@
+ distdir: $(DISTFILES)
+ 	-rm -rf $(distdir)
+ 	mkdir $(distdir)
+-	-chmod 777 $(distdir)
++	-chmod 755 $(distdir)
++	here=`cd $(top_builddir) && pwd`; \
++	top_distdir=`cd $(distdir) && pwd`; \
++	distdir=`cd $(distdir) && pwd`; \
++	cd $(top_srcdir) \
++	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --gnu Makefile
+ 	@for file in $(DISTFILES); do \
+ 	  d=$(srcdir); \
+ 	  if test -d $$d/$$file; then \
+@@ -569,41 +622,44 @@
+ 	    test -d $(distdir)/$$subdir \
+ 	    || mkdir $(distdir)/$$subdir \
+ 	    || exit 1; \
+-	    chmod 777 $(distdir)/$$subdir; \
++	    chmod 755 $(distdir)/$$subdir; \
+ 	    (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir=../$(distdir) distdir=../$(distdir)/$$subdir distdir) \
+ 	      || exit 1; \
+ 	  fi; \
+ 	done
+ 	$(MAKE) $(AM_MAKEFLAGS) top_distdir="$(top_distdir)" distdir="$(distdir)" dist-hook
+-garray.lo garray.o : garray.c glib.h glibconfig.h
+-gcache.lo gcache.o : gcache.c glib.h glibconfig.h
+-gcompletion.lo gcompletion.o : gcompletion.c glib.h glibconfig.h
+-gdataset.lo gdataset.o : gdataset.c glib.h glibconfig.h
+-gdate.lo gdate.o : gdate.c config.h glib.h glibconfig.h
+-gerror.lo gerror.o : gerror.c config.h glib.h glibconfig.h
+-ghash.lo ghash.o : ghash.c glib.h glibconfig.h
+-ghook.lo ghook.o : ghook.c glib.h glibconfig.h
+-giochannel.lo giochannel.o : giochannel.c config.h glib.h glibconfig.h
+-giounix.lo giounix.o : giounix.c glib.h glibconfig.h
+-glist.lo glist.o : glist.c glib.h glibconfig.h
+-gmain.lo gmain.o : gmain.c config.h glib.h glibconfig.h
+-gmem.lo gmem.o : gmem.c config.h glib.h glibconfig.h
+-gmessages.lo gmessages.o : gmessages.c config.h glib.h glibconfig.h
+-gmutex.lo gmutex.o : gmutex.c glib.h glibconfig.h
+-gnode.lo gnode.o : gnode.c glib.h glibconfig.h
+-gprimes.lo gprimes.o : gprimes.c glib.h glibconfig.h
+-grel.lo grel.o : grel.c glib.h glibconfig.h
+-gscanner.lo gscanner.o : gscanner.c config.h glib.h glibconfig.h
+-gslist.lo gslist.o : gslist.c glib.h glibconfig.h
+-gstrfuncs.lo gstrfuncs.o : gstrfuncs.c config.h glib.h glibconfig.h
+-gstring.lo gstring.o : gstring.c glib.h glibconfig.h
+-gtimer.lo gtimer.o : gtimer.c config.h glib.h glibconfig.h
+-gtree.lo gtree.o : gtree.c glib.h glibconfig.h
+-gutils.lo gutils.o : gutils.c config.h glibconfig.h glib.h
+-testgdate.o: testgdate.c glib.h glibconfig.h
+-testgdateparser.o: testgdateparser.c glib.h glibconfig.h
+-testglib.o: testglib.c glib.h glibconfig.h
+ 
++DEPS_MAGIC := $(shell mkdir .deps > /dev/null 2>&1 || :)
++
++-include $(DEP_FILES)
++
++mostlyclean-depend:
++
++clean-depend:
++
++distclean-depend:
++	-rm -rf .deps
++
++maintainer-clean-depend:
++
++%.o: %.c
++	@echo '$(COMPILE) -c $<'; \
++	$(COMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
++	@-cp .deps/$(*F).pp .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	    >> .deps/$(*F).P; \
++	rm .deps/$(*F).pp
++
++%.lo: %.c
++	@echo '$(LTCOMPILE) -c $<'; \
++	$(LTCOMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
++	@-sed -e 's/^\([^:]*\)\.o[ 	]*:/\1.lo \1.o :/' \
++	  < .deps/$(*F).pp > .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	    >> .deps/$(*F).P; \
++	rm -f .deps/$(*F).pp
+ info-am:
+ info: info-recursive
+ dvi-am:
+@@ -654,19 +710,20 @@
+ mostlyclean-am:  mostlyclean-hdr mostlyclean-libLTLIBRARIES \
+ 		mostlyclean-compile mostlyclean-libtool \
+ 		mostlyclean-noinstPROGRAMS mostlyclean-tags \
+-		mostlyclean-generic
++		mostlyclean-depend mostlyclean-generic
+ 
+ mostlyclean: mostlyclean-recursive
+ 
+ clean-am:  clean-hdr clean-libLTLIBRARIES clean-compile clean-libtool \
+-		clean-noinstPROGRAMS clean-tags clean-generic \
+-		mostlyclean-am
++		clean-noinstPROGRAMS clean-tags clean-depend \
++		clean-generic mostlyclean-am
+ 
+ clean: clean-recursive
+ 
+ distclean-am:  distclean-hdr distclean-libLTLIBRARIES distclean-compile \
+ 		distclean-libtool distclean-noinstPROGRAMS \
+-		distclean-tags distclean-generic clean-am
++		distclean-tags distclean-depend distclean-generic \
++		clean-am
+ 	-rm -f libtool
+ 
+ distclean: distclean-recursive
+@@ -676,7 +733,8 @@
+ 		maintainer-clean-libLTLIBRARIES \
+ 		maintainer-clean-compile maintainer-clean-libtool \
+ 		maintainer-clean-noinstPROGRAMS maintainer-clean-tags \
+-		maintainer-clean-generic distclean-am
++		maintainer-clean-depend maintainer-clean-generic \
++		distclean-am
+ 	@echo "This command is intended for maintainers to use;"
+ 	@echo "it deletes files that may require special tools to rebuild."
+ 
+@@ -701,10 +759,12 @@
+ all-recursive check-recursive installcheck-recursive info-recursive \
+ dvi-recursive mostlyclean-recursive distclean-recursive clean-recursive \
+ maintainer-clean-recursive tags tags-recursive mostlyclean-tags \
+-distclean-tags clean-tags maintainer-clean-tags distdir info-am info \
+-dvi-am dvi check check-am installcheck-am installcheck all-recursive-am \
+-install-exec-am install-exec install-data-am install-data install-am \
+-install uninstall-am uninstall all-redirect all-am all installdirs-am \
++distclean-tags clean-tags maintainer-clean-tags distdir \
++mostlyclean-depend distclean-depend clean-depend \
++maintainer-clean-depend info-am info dvi-am dvi check check-am \
++installcheck-am installcheck all-recursive-am install-exec-am \
++install-exec install-data-am install-data install-am install \
++uninstall-am uninstall all-redirect all-am all installdirs-am \
+ installdirs mostlyclean-generic distclean-generic clean-generic \
+ maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+ 
+--- a/configure
++++ b/configure
+@@ -2550,12 +2550,12 @@
+ #line 2551 "configure"
+ #include "confdefs.h"
+ #include <stdio.h>
+-main()
++int main()
+ {
+   FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
++  if (!f) return(1);
+   fprintf(f, "%d\n", sizeof(char));
+-  exit(0);
++  return(0);
+ }
+ EOF
+ if { (eval echo configure:2562: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+@@ -2589,12 +2589,12 @@
+ #line 2590 "configure"
+ #include "confdefs.h"
+ #include <stdio.h>
+-main()
++int main()
+ {
+   FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
++  if (!f) return(1);
+   fprintf(f, "%d\n", sizeof(short));
+-  exit(0);
++  return(0);
+ }
+ EOF
+ if { (eval echo configure:2601: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+@@ -2628,12 +2628,12 @@
+ #line 2629 "configure"
+ #include "confdefs.h"
+ #include <stdio.h>
+-main()
++int main()
+ {
+   FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
++  if (!f) return(1);
+   fprintf(f, "%d\n", sizeof(long));
+-  exit(0);
++  return(0);
+ }
+ EOF
+ if { (eval echo configure:2640: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+@@ -2667,12 +2667,12 @@
+ #line 2668 "configure"
+ #include "confdefs.h"
+ #include <stdio.h>
+-main()
++int main()
+ {
+   FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
++  if (!f) return(1);
+   fprintf(f, "%d\n", sizeof(int));
+-  exit(0);
++  return(0);
+ }
+ EOF
+ if { (eval echo configure:2679: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+@@ -2706,12 +2706,12 @@
+ #line 2707 "configure"
+ #include "confdefs.h"
+ #include <stdio.h>
+-main()
++int main()
+ {
+   FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
++  if (!f) return(1);
+   fprintf(f, "%d\n", sizeof(void *));
+-  exit(0);
++  return(0);
+ }
+ EOF
+ if { (eval echo configure:2718: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+@@ -2745,12 +2745,12 @@
+ #line 2746 "configure"
+ #include "confdefs.h"
+ #include <stdio.h>
+-main()
++int main()
+ {
+   FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
++  if (!f) return(1);
+   fprintf(f, "%d\n", sizeof(long long));
+-  exit(0);
++  return(0);
+ }
+ EOF
+ if { (eval echo configure:2757: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null

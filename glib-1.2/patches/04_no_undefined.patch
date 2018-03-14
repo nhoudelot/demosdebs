@@ -1,0 +1,48 @@
+--- a/gmodule/Makefile.am
++++ b/gmodule/Makefile.am
+@@ -27,23 +27,25 @@
+ 	@G_MODULE_LDFLAGS@ \
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+ 	-release $(LT_RELEASE) \
++	-no-undefined -Wl,--no-undefined \
+ 	-export-dynamic
+ 
+-libgmodule_la_LIBADD = @G_MODULE_LIBS@ # $(libglib)
++libgmodule_la_DEPENDENCIES = $(libglib)
++libgmodule_la_LIBADD = @G_MODULE_LIBS@ $(libglib)
+ # we should really depend on $(libglib) for libgmodule.la, but libtool has a
+ # problem with this ;(
+ 
+ libgplugin_a_la_SOURCES = libgplugin_a.c
+ libgplugin_a_la_LDFLAGS = @G_MODULE_LDFLAGS@ -avoid-version -module
+-libgplugin_a_la_LIBADD = @G_MODULE_LIBS@ # $(libglib)
++libgplugin_a_la_LIBADD = @G_MODULE_LIBS@ $(libglib)
+ 
+ libgplugin_b_la_SOURCES = libgplugin_b.c
+ libgplugin_b_la_LDFLAGS = @G_MODULE_LDFLAGS@ -avoid-version -module
+-libgplugin_b_la_LIBADD = @G_MODULE_LIBS@ # $(libglib)
++libgplugin_b_la_LIBADD = @G_MODULE_LIBS@ $(libglib)
+ 
+ noinst_PROGRAMS = testgmodule
+ testgmodule_LDFLAGS += @G_MODULE_LDFLAGS@
+-testgmodule_LDADD = libgmodule.la $(libglib) @G_MODULE_LIBS@
++testgmodule_LDADD = libgmodule.la @G_MODULE_LIBS@
+ 
+ .PHONY: files release
+ 
+--- a/gthread/Makefile.am
++++ b/gthread/Makefile.am
+@@ -17,9 +17,11 @@
+ libgthread_la_LDFLAGS = \
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+ 	-release $(LT_RELEASE) \
++	-no-undefined -Wl,--no-undefined \
+ 	-export-dynamic
+ 
+-libgthread_la_LIBADD = @G_THREAD_LIBS@
++libgthread_la_DEPENDENCIES = $(libglib) $(top_builddir)/gmodule/libgmodule.la
++libgthread_la_LIBADD = @G_THREAD_LIBS@ $(libglib) $(top_builddir)/gmodule/libgmodule.la
+ 
+ noinst_PROGRAMS = testgthread
+-testgthread_LDADD = ../libglib.la libgthread.la 
++testgthread_LDADD = libgthread.la 
