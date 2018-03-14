@@ -1,0 +1,3 @@
+debian/resources/fightcade.desktop usr/share/applications/
+debian/resources/fightcade.png usr/share/icons/hicolor/128x128/apps/
+fightcade usr/games/

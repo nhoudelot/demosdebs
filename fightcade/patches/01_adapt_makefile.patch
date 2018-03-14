@@ -1,0 +1,19 @@
+--- a/Makefile
++++ b/Makefile
+@@ -5,6 +5,7 @@
+ UIPYFILES := $(UIFILES:.ui=_ui.py)
+ QRCFILES := $(wildcard ggpo/resources/*.qrc)
+ QRCPYFILES := $(QRCFILES:.qrc=_rc.py)
++PYCFILES := $(wildcard ggpo/*.pyc) $(wildcard ggpo/gui/*.pyc) $(wildcard ggpo/gui/ui/*.pyc)  $(wildcard ggpo/common/*.pyc)
+ 
+ %_ui.py: %.ui
+ 	$(PYUIC) $< --output $@
+@@ -18,7 +19,7 @@
+ qrc: $(QRCPYFILES)
+ 
+ clean:
+-	rm -f $(UIPYFILES) $(UIPYFILES:.py=.pyc) $(QRCPYFILES:.py=.pyc) 
++	rm -f $(UIPYFILES) $(UIPYFILES:.py=.pyc) $(QRCPYFILES:.py=.pyc)  $(PYCFILES)
+ 
+ linux: cleanbuild
+ 	rm -rf /tmp/FightCade/

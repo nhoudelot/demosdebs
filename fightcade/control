@@ -1,0 +1,34 @@
+Source: fightcade
+Section: games
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,dh-python,
+ python:any | python-all:any | python-dev:any | python-all-dev:any,
+ pyqt4-dev-tools
+Standards-Version: 3.9.7
+Homepage: https://github.com/poliva/pyqtggpo
+Vcs-Git: https://github.com/poliva/pyqtggpo.git
+
+Package: fightcade
+Architecture: any
+Depends:
+ ${python:Depends},
+ ${misc:Depends},
+ wine,
+ python-qt4-phonon,
+ python-qt4,
+ fightcade-data
+Description: client for FightCade written in Python
+ client use ggpo to connect to server
+
+Package: fightcade-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ python:any,
+ ${misc:Depends}
+Description: Data files for FightCade
+ FightCade data files
+

@@ -1,0 +1,55 @@
+--- a/fightcade
++++ b/fightcade
+@@ -10,6 +10,6 @@
+ 	sed -i '' -e 's/nVidSelect.*/nVidSelect 3/' ~/ggpofba-ng.bkp.ini 2>/dev/null
+ fi
+ 
+-. ggpo/scripts/shell-functions.sh
++. /usr/share/games/fightcade/ggpo/scripts/shell-functions.sh
+ find_python
+-${PYTHON} ./main.py 2>/dev/null &
++${PYTHON} /usr/share/games/fightcade/main.py 2>/dev/null &
+--- a/ggpofba.sh
++++ b/ggpofba.sh
+@@ -11,7 +11,7 @@
+ # keep OSX happy:
+ cd "${0%/*}"
+ 
+-. ggpo/scripts/shell-functions.sh
++. /usr/share/games/fightcade/ggpo/scripts/shell-functions.sh
+ find_python
+ 
+ PARAM=${1+"$@"}
+@@ -19,7 +19,7 @@
+ THIS_SCRIPT_PATH=`readlink -f $0 2>/dev/null || pwd`
+ THIS_SCRIPT_DIR=`dirname ${THIS_SCRIPT_PATH}`
+ 
+-FBA="./ggpofba.py"
++FBA="/usr/share/games/fightcade/ggpofba.py"
+ if [ ! -x ${FBA} ] ; then
+ 	FBA="${THIS_SCRIPT_DIR}/ggpofba.py"
+ fi
+--- a/ggpo/common/settings.py
++++ b/ggpo/common/settings.py
+@@ -50,7 +50,7 @@
+     CHANNELS_FAVORITES = 'channelsFavorites'
+     FILTER_FAVORITES = 'filterFavorites'
+ 
+-    _settings = QSettings(os.path.join(os.path.abspath(os.path.expanduser("~")), 'ggpo-ng.ini'), QSettings.IniFormat)
++    _settings = QSettings(os.path.join(os.path.abspath(os.path.expanduser("~")), '.config/fightcade/ggpo-ng.ini'), QSettings.IniFormat)
+ 
+     @staticmethod
+     def setBoolean(key, val):
+--- a/ggpofba.py
++++ b/ggpofba.py
+@@ -431,8 +431,8 @@
+ 
+ if __name__ == "__main__":
+ 
+-	log = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "ggpofba.log")
+-	errorlog = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "ggpofba-errors.log")
++	log = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "/tmp/ggpofba.log")
++	errorlog = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "/tmp/ggpofba-errors.log")
+ 
+ 	try:
+ 		#loglevel=logging.DEBUG

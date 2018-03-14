@@ -1,0 +1,57 @@
+--- a/config.init/ggpofba-ng.ini
++++ b/config.init/ggpofba-ng.ini
+@@ -17,9 +17,9 @@
+ // --- Video ------------------------------------------------------------------
+ 
+ // The display mode to use for fullscreen
+-nVidWidth 640
+-nVidHeight 480
+-nVidDepth 16
++nVidWidth 1024
++nVidHeight 768
++nVidDepth 32
+ 
+ // Specify the refresh rate, 0 = default (changing this will not work with many video cards)
+ nVidRefresh 0
+@@ -69,7 +69,7 @@
+ bVidCorrectAspect 1
+ 
+ // If non-zero, try to use a triple buffer in fullscreen
+-bVidTripleBuffer 0
++bVidTripleBuffer 1
+ 
+ // If non-zero, try to synchronise blits with the display
+ bVidVSync 0
+@@ -80,7 +80,7 @@
+ nVidTransferMethod -1
+ 
+ // If non-zero, draw scanlines to simulate a low-res monitor
+-bVidScanlines 0
++bVidScanlines 1
+ 
+ // Maximum scanline intensity
+ nVidScanIntensity 12566463
+@@ -98,11 +98,11 @@
+ nVidBlitterOpt[3] 0
+ 
+ // The aspect ratio of the monitor
+-nVidScrnAspectX 4
+-nVidScrnAspectY 3
++nVidScrnAspectX 16
++nVidScrnAspectY 9
+ 
+ // If non-zero, force all games to use a 60Hz refresh rate
+-bForce60Hz 0
++bForce60Hz 1
+ 
+ // If non-zero, skip frames when needed to keep the emulation running at full speed
+ bAlwaysDrawFrames 0
+@@ -209,7 +209,7 @@
+ // --- Load Game Dialog -------------------------------------------------------
+ 
+ // Load game dialog options
+-nLoadMenuShowX 0
++nLoadMenuShowX 65536
+ 
+ // The paths to search for rom zips (include trailing backslash)
+ szAppRomPaths[0] 

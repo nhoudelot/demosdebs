@@ -1,0 +1,11 @@
+ggpo/ usr/share/games/fightcade/
+config.init usr/share/games/fightcade/
+assets/ usr/share/games/fightcade/
+main.py usr/share/games/fightcade/
+ggpofba.sh usr/share/games/fightcade/
+ggpofba.py usr/share/games/fightcade/
+ggponet.dll usr/share/games/fightcade/
+kailleraclient.dll usr/share/games/fightcade/
+ggpofba-ng.exe usr/share/games/fightcade/
+ggpofba.py usr/share/games/fightcade/
+ggpofba.sh usr/share/games/fightcade/

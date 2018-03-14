@@ -1,0 +1,30 @@
+fightcade (0.42.1+multiserver-0ddebs1) unstable; urgency=medium
+
+  * added vandersonmota to allow selection of server
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 15 Feb 2018 12:33:26 +0100
+
+fightcade (0.42.1-0ddebs2) unstable; urgency=medium
+
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 31 Jan 2018 23:14:21 +0100
+
+fightcade (0.42.1-0ddebs1) unstable; urgency=medium
+
+  * Bugfix : config files couldn't be saved
+   * created a $HOME/.config/fightcade
+   * moved ggpo-ng.ini there
+   * ggpofba-ng.ini 
+     * scanline by default 
+     * screen is 16/9 by default (so the game display correctly on todays 
+     monitors)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Feb 2017 23:18:29 +0100
+
+fightcade (0.42-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 04 Nov 2016 00:42:59 +0100

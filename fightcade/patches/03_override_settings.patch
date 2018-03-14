@@ -1,0 +1,13 @@
+--- a/ggpo/common/settings.py
++++ b/ggpo/common/settings.py
+@@ -41,8 +41,8 @@
+     USER_LOG_CHAT = 'userlogchat'
+     USER_LOG_PLAYHISTORY = 'userlogplayhistory'
+     SAVE_USERNAME_PASSWORD = 'saveUsernameAndPassword'
+-    #GGPOFBA_LOCATION = 'ggpofbaLocation'
+-    ROMS_DIR = 'romsLocation'
++    GGPOFBA_LOCATION = '/usr/share/games/fightcade/'
++    ROMS_DIR = '/usr/share/games/fightcade/roms/'
+     GEOIP2DB_LOCATION = 'geoip2dbLocation'
+     CUSTOM_CHALLENGE_SOUND_LOCATION = 'customChallengeSoundLocation'
+     UNSUPPORTED_GAMESAVES_DIR = 'unsupportedGamesavesDir'

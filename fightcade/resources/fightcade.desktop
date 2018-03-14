@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=FightCade
+GenericName=Game
+Comment=client for FightCade written in python
+Type=Application
+Exec=/usr/games/fightcade
+Icon=fightcade
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=FightCade

@@ -1,0 +1,5 @@
+01_adapt_makefile.patch
+02_adapt_path.patch
+03_override_settings.patch
+04_adapt_configfiles.patch
+05_modernize_configfile

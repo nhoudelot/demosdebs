@@ -1,0 +1,2 @@
+fightcade binary: desktop-entry-lacks-keywords-entry usr/share/applications/fightcade.desktop
+fightcade binary: dir-or-file-in-tmp symlink usr/share/games/fightcade/config point to /tmp/fightcade/config

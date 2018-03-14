@@ -1,0 +1,34 @@
+--- a/fightcade
++++ b/fightcade
+@@ -10,6 +10,31 @@
+ 	sed -i '' -e 's/nVidSelect.*/nVidSelect 3/' ~/ggpofba-ng.bkp.ini 2>/dev/null
+ fi
+ 
++domain=fightcade
++# creating tmp directory
++if [ ! -e /tmp/${domain} ]
++then
++    mkdir /tmp/${domain}
++else
++	rm -rf /tmp/${domain}
++	mkdir /tmp/${domain}
++fi
++
++# creating user config if not exist
++if [ ! -e ~/.config/${domain} ]
++then
++	mkdir ~/.config/${domain}
++fi
++
++# linking before launch
++if [ -e ~/.config/${domain}/config ]
++then
++	ln -s ~/.config/${domain}/config  /tmp/${domain}/config
++else
++	cp -r /usr/share/games/fightcade/config.init ~/.config/${domain}/config
++	ln -s ~/.config/${domain}/config  /tmp/${domain}/config
++fi
++
+ . /usr/share/games/fightcade/ggpo/scripts/shell-functions.sh
+ find_python
+ ${PYTHON} /usr/share/games/fightcade/main.py 2>/dev/null &
