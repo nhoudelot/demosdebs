@@ -1,0 +1,54 @@
+#!/bin/bash -e
+
+# create local config if not exist
+if [ ! -e ~/.config/cannonball ]
+then
+	mkdir ~/.config/cannonball
+fi
+if [ ! -e /tmp/cannonball ]
+then
+    mkdir /tmp/cannonball
+else
+	rm -rf /tmp/cannonball
+	mkdir /tmp/cannonball
+fi
+# config.xml
+if [ -e ~/.config/cannonball/config.xml ]
+then
+	ln -s ~/.config/cannonball/config.xml  /tmp/cannonball/config.xml
+else
+	cp -r /usr/share/games/cannonball/dist/config.xml.init ~/.config/cannonball/config.xml
+	ln -s ~/.config/cannonball/config.xml  /tmp/cannonball/config.xml
+fi
+# create local savegame if not exist
+if [ ! -e ~/.local/share/cannonball ]
+then
+	mkdir ~/.local/share/cannonball
+fi
+# hiscores.xml
+if [ -e ~/.local/share/cannonball/hiscores.xml ]
+then
+	ln -s ~/.local/share/cannonball/hiscores.xml /tmp/cannonball/hiscores.xml
+else
+	touch ~/.local/share/cannonball/hiscores.xml
+	ln -s ~/.local/share/cannonball/hiscores.xml /tmp/cannonball/hiscores.xml
+fi
+# hiscores_timetrial.xml
+if [ -e ~/.local/share/cannonball/hiscores_timetrial.xml ]
+then
+	ln -s ~/.local/share/cannonball/hiscores_timetrial.xml  /tmp/cannonball/hiscores_timetrial.xml
+else
+	touch ~/.local/share/cannonball/hiscores_timetrial.xml
+	ln -s ~/.local/share/cannonball/hiscores_timetrial.xml  /tmp/cannonball/hiscores_timetrial.xml
+fi
+# hiscores_continuous.xml
+if [ -e ~/.local/share/cannonball/hiscores_continuous.xml ]
+then
+	ln -s ~/.local/share/cannonball/hiscores_continuous.xml  /tmp/cannonball/hiscores_continuous.xml
+else
+	touch ~/.local/share/cannonball/hiscores_continuous.xml
+	ln -s ~/.local/share/cannonball/hiscores_continuous.xml  /tmp/cannonball/hiscores_continuous.xml
+fi
+cannonball
+
+exit 0

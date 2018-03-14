@@ -1,0 +1,24 @@
+--- a/cmake/CMakeLists.txt
++++ b/cmake/CMakeLists.txt
+@@ -1,8 +1,8 @@
+ cmake_minimum_required (VERSION 2.6.2)
+ project (cannonball)
+ 
+-set(DCMAKE default.cmake)
+-set(CMDIR ../cmake)
++set(DCMAKE debian.cmake)
++set(CMDIR cmake)
+ 
+ # Uncomment for debug output
+ #set(Boost_DEBUG 1)
+--- a/cmake/debian.cmake
++++ b/cmake/debian.cmake
+@@ -3,6 +3,8 @@
+ set(lib_base /usr/include)
+ set(sdl_root ${lib_base}/SDL)
+ 
++set_target_properties(sdl PROPERTIES SKIP_BUILD_RPATH TRUE)
++
+ include_directories("${sdl_root}")
+ 
+ link_libraries(cannonball 

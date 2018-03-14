@@ -1,0 +1,20 @@
+Source: cannonball
+Section: games
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ cmake(>=2.6.2),
+ libsdl2-dev,
+ libboost-dev (>=1.54),
+ debhelper (>= 9.0.0)
+Standards-Version: 3.9.7
+Homepage: http://reassembler.blogspot.de/
+Vcs-Browser: https://github.com/djyt/cannonball.git
+
+Package: cannonball
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Enhanced OutRun Engine
+ Engine for the game OutRun
