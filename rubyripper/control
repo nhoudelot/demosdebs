@@ -1,0 +1,31 @@
+Source: rubyripper
+Section: sound
+Priority: optional
+Maintainer: Joao Pinto <joao.pinto@getdeb.net>
+Uploaders: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends: debhelper (>= 9~),
+               gem2deb,
+               rake,
+               ruby-rspec
+Standards-Version: 3.9.7
+Vcs-Git: https://github.com/bleskodev/rubyripper.git
+Vcs-Browser: https://github.com/bleskodev/rubyripper
+Homepage: https://github.com/bleskodev/rubyripper
+Testsuite: autopkgtest-pkg-ruby
+XS-Ruby-Versions: all
+
+Package: rubyripper
+Architecture: all
+XB-Ruby-Versions: ${ruby:Versions}
+Depends: ruby | ruby-interpreter,
+		 cdparanoia,
+         eject,
+         gedit | xed | kwrite | mousepad,
+         ruby-gtk2,
+         vorbis-tools,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Digital audio extraction algorithm 
+ It uses cdparanoia in a sophisticated way to make sure that a CD rip is done 
+ successfully and accurately. It is very similar to and inspired by EAC. 
+ Rubyripper is written in the ruby programming language.
