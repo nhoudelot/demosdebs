@@ -1,0 +1,19 @@
+Source: unlzx
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://xavprods.free.fr/lzx/
+
+Package: unlzx
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Unarchiver for Amiga LZX archives
+ LZX is the name of an LZ77 family compression algorithm
+ popular on the Amiga family computer
+ unlzx uncompress those archive

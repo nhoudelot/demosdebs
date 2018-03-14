@@ -1,0 +1,29 @@
+unlzx (1.1-0ddebs5) unstable; urgency=medium
+
+  * modernize packaging
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 17 Jul 2017 01:00:49 +0200
+
+unlzx (1.1-0ddebs4) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 17:25:44 +0200
+
+unlzx (1.1-0ddebs3) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 29 Apr 2016 00:24:12 +0200
+
+unlzx (1.1-0ddebs2) unstable; urgency=medium
+
+  * using debian recommended CFLAGS and habits
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 09 Mar 2016 01:26:02 +0100
+
+unlzx (1.1-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 23 Jun 2015 01:29:00 +0200
