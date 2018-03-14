@@ -1,0 +1,29 @@
+elfkickers (3.1-0ddebs2) unstable; urgency=medium
+
+  * fixed spelling error
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 29 Jan 2018 14:36:27 +0100
+
+elfkickers (3.1-0ddebs1) unstable; urgency=medium
+
+  * new upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Jul 2017 02:55:22 +0200
+
+elfkickers (3.0a-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 17:08:29 +0200
+
+elfkickers (3.0a-0ddebs2) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 May 2016 01:49:40 +0200
+
+elfkickers (3.0a-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 Apr 2016 13:00:14 +0200
