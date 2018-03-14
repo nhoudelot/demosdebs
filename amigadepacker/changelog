@@ -1,0 +1,30 @@
+amigadepacker (0.04-0ddebs5) unstable; urgency=medium
+
+  * fixed C standard
+  * cleanup orig
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Jul 2017 16:18:39 +0200
+
+amigadepacker (0.04-0ddebs4) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 16:59:41 +0200
+
+amigadepacker (0.04-0ddebs3) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 May 2016 01:17:22 +0200
+
+amigadepacker (0.04-0ddebs2) unstable; urgency=medium
+
+  * using debian recommended FLAGS
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 11 Mar 2016 01:43:54 +0100
+
+amigadepacker (0.04-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2016 21:35:32 +0100

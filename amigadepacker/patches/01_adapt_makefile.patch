@@ -1,0 +1,87 @@
+--- a/tests/check.sh
++++ b/tests/check.sh
+@@ -1,3 +1,5 @@
++#!/bin/bash
++
+ prog="../amigadepacker"
+ 
+ echo "Executing a test set."
+@@ -78,4 +80,6 @@
+     echo "All tests were successful."
+ fi
+ 
++rm depack.tmp
++
+ exit $res
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -1,11 +1,37 @@
+-CC = {CC}
+-CFLAGS = -Wall -O2 -g
+-LDFLAGS =
+-MODULES = main.o decrunch.o ppdepack.o mmcmp.o s404_dec.o unsqsh.o compat.o {EXTRAMODULES}
+-RELDIR = amigadepacker-{VERSION}
++#variables de compilation
++SHELL := /bin/sh
++CC    := gcc
++CFLAGS += -O3 -flto -Wall -ffast-math -std=gnu90 -pipe
++LDFLAGS +=
++MODULES := main.o decrunch.o ppdepack.o mmcmp.o s404_dec.o unsqsh.o compat.o
++RELDIR := amigadepacker-0.04
++TARGET := amigadepacker
++#variable de nettoyage
++RM_F := rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    = $(INSTALL) -p    -o root -g root  -m  644
++
++prefix = /usr
++exec_prefix = $(prefix)
++bindir = $(exec_prefix)/bin
++mandir = $(prefix)/share/man
++man1dir = $(mandir)/man1
++
++#parallel compilation if available
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+-amigadepacker:	$(MODULES)
+-	$(CC) -o $@ $(MODULES)
++export
++
++all: $(TARGET)
++
++$(TARGET):	$(MODULES)
++	$(CC) -flto -o $@ $(MODULES) $(LDFLAGS)
+ 
+ main.o:	main.c decrunch.h version.h
+ 	$(CC) $(CFLAGS) -c $<
+@@ -28,11 +54,13 @@
+ unsqsh.o:	unsqsh.c unsqsh.h decrunch.h compat.h
+ 	$(CC) $(CFLAGS) -c $<
+ 
+-install:	amigadepacker
+-	mkdir -p {PREFIX}/bin
+-	install amigadepacker {PREFIX}/bin/
+-	mkdir -p {PREFIX}/share/man/man1
+-	install amigadepacker.1 {PREFIX}/share/man/man1/
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_DIR) $(DESTDIR)$(man1dir)
++	-@$(RM_F) $(DESTDIR)$(man1dir)/amigadepacker.1
++	$(INSTALL_DATA) amigadepacker.1 $(DESTDIR)$(man1dir)
+ 
+ release:	
+ 	rm -rf $(RELDIR)
+@@ -45,4 +73,4 @@
+ 	cd tests && ./check.sh
+ 
+ clean:	
+-	rm -f *.o
++	-@$(RM_F) *.o $(TARGET)
