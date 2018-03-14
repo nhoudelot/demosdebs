@@ -1,0 +1,27 @@
+Source: adobeair
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0.0),
+  	libfontconfig1-dev,
+  	libnss3-dev,
+  	libxml2-dev,
+  	libxaw7-dev,
+  	libxslt1-dev,
+  	libgtk2.0-dev,
+  	kdelibs5-dev
+Standards-Version: 3.9.7
+Homepage: https://helpx.adobe.com/air/kb/archived-air-sdk-version.html
+
+Package: adobeair
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Conflicts: adobeair1.0
+Description: Adobe AIR 2
+ The Adobe® AIR® runtime lets developers use proven web technologies to build
+ rich Internet applications that run outside the browser on multiple
+ operating systems.
+Pre-Depends: lzma | xz-utils

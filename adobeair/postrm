@@ -1,0 +1,3 @@
+#!/bin/sh
+rm -rf "/var/opt/Adobe AIR" "/opt/Adobe AIR" "/etc/opt/Adobe/certificates/AIR"
+exit 0

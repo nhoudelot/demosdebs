@@ -1,0 +1,11 @@
+adobeair (1:2.6.0.20002-0ddebs1) unstable; urgency=medium
+
+  * modernise package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 26 Feb 2018 00:01:37 +0100
+
+adobeair (1:2.6.0.20002-xenial) xenial; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- kimpe andy <andykimpe@gmail.com>  Thu, 12 Nov 2015 11:59:18 +0100
