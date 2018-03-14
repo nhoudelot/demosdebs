@@ -1,0 +1,74 @@
+--- a/source/build/src/polymost.cpp
++++ b/source/build/src/polymost.cpp
+@@ -5875,7 +5875,7 @@
+     if (parm->numparms != 1)
+     {
+         OSD_Printf("Current texturing mode is %s\n", glfiltermodes[gltexfiltermode].name);
+-        OSD_Printf("  Vaild modes are:\n");
++        OSD_Printf("  Valid modes are:\n");
+         for (m = 0; m < NUMGLFILTERMODES; m++)
+             OSD_Printf("     %d - %s\n", m, glfiltermodes[m].name);
+ 
+@@ -6034,20 +6034,20 @@
+         { "r_pr_gpusmoothing", "toggles model animation interpolation", (void *)&pr_gpusmoothing, CVAR_INT, 0, 1 },
+         { "r_pr_overrideparallax", "overrides parallax mapping scale and bias values with values from the pr_parallaxscale and pr_parallaxbias cvars; use it to fine-tune DEF tokens",
+           (void *) &pr_overrideparallax, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
+-        { "r_pr_parallaxscale", "overriden parallax mapping offset scale", (void *) &pr_parallaxscale, CVAR_FLOAT | CVAR_NOSAVE, -10, 10 },
+-        { "r_pr_parallaxbias", "overriden parallax mapping offset bias", (void *) &pr_parallaxbias, CVAR_FLOAT | CVAR_NOSAVE, -10, 10 },
++        { "r_pr_parallaxscale", "overridden parallax mapping offset scale", (void *) &pr_parallaxscale, CVAR_FLOAT | CVAR_NOSAVE, -10, 10 },
++        { "r_pr_parallaxbias", "overridden parallax mapping offset bias", (void *) &pr_parallaxbias, CVAR_FLOAT | CVAR_NOSAVE, -10, 10 },
+         { "r_pr_overridespecular", "overrides specular material power and factor values with values from the pr_specularpower and pr_specularfactor cvars; use it to fine-tune DEF tokens",
+           (void *) &pr_overridespecular, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
+-        { "r_pr_specularpower", "overriden specular material power", (void *) &pr_specularpower, CVAR_FLOAT | CVAR_NOSAVE, -10, 1000 },
+-        { "r_pr_specularfactor", "overriden specular material factor", (void *) &pr_specularfactor, CVAR_FLOAT | CVAR_NOSAVE, -10, 1000 },
++        { "r_pr_specularpower", "overridden specular material power", (void *) &pr_specularpower, CVAR_FLOAT | CVAR_NOSAVE, -10, 1000 },
++        { "r_pr_specularfactor", "overridden specular material factor", (void *) &pr_specularfactor, CVAR_FLOAT | CVAR_NOSAVE, -10, 1000 },
+         { "r_pr_highpalookups", "enable/disable highpalookups", (void *) &pr_highpalookups, CVAR_BOOL, 0, 1 },
+         { "r_pr_artmapping", "enable/disable art mapping", (void *) &pr_artmapping, CVAR_BOOL | CVAR_INVALIDATEART, 0, 1 },
+         { "r_pr_overridehud", "overrides hud model parameters with values from the pr_hud* cvars; use it to fine-tune DEF tokens", (void *) &pr_overridehud, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
+-        { "r_pr_hudxadd", "overriden HUD xadd; see r_pr_overridehud", (void *) &pr_hudxadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
+-        { "r_pr_hudyadd", "overriden HUD yadd; see r_pr_overridehud", (void *) &pr_hudyadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
+-        { "r_pr_hudzadd", "overriden HUD zadd; see r_pr_overridehud", (void *) &pr_hudzadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
+-        { "r_pr_hudangadd", "overriden HUD angadd; see r_pr_overridehud", (void *) &pr_hudangadd, CVAR_INT | CVAR_NOSAVE, -1024, 1024 },
+-        { "r_pr_hudfov", "overriden HUD fov; see r_pr_overridehud", (void *) &pr_hudfov, CVAR_INT | CVAR_NOSAVE, 0, 1023 },
++        { "r_pr_hudxadd", "overridden HUD xadd; see r_pr_overridehud", (void *) &pr_hudxadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
++        { "r_pr_hudyadd", "overridden HUD yadd; see r_pr_overridehud", (void *) &pr_hudyadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
++        { "r_pr_hudzadd", "overridden HUD zadd; see r_pr_overridehud", (void *) &pr_hudzadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
++        { "r_pr_hudangadd", "overridden HUD angadd; see r_pr_overridehud", (void *) &pr_hudangadd, CVAR_INT | CVAR_NOSAVE, -1024, 1024 },
++        { "r_pr_hudfov", "overridden HUD fov; see r_pr_overridehud", (void *) &pr_hudfov, CVAR_INT | CVAR_NOSAVE, 0, 1023 },
+         { "r_pr_overridemodelscale", "overrides model scale if non-zero; use it to fine-tune DEF tokens", (void *) &pr_overridemodelscale, CVAR_FLOAT | CVAR_NOSAVE, 0, 500 },
+         { "r_pr_ati_fboworkaround", "enable this to workaround an ATI driver bug that causes sprite shadows to be square - you need to restart the renderer for it to take effect", (void *) &pr_ati_fboworkaround, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
+         { "r_pr_ati_nodepthoffset", "enable this to workaround an ATI driver bug that causes sprite drawing to freeze the game on Radeon X1x00 hardware - you need to restart the renderer for it to take effect", (void *) &pr_ati_nodepthoffset, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
+--- a/source/build/src/animvpx.cpp
++++ b/source/build/src/animvpx.cpp
+@@ -191,7 +191,7 @@
+ 
+ const char *animvpx_nextpic_errmsg[] = {
+     "All OK",
+-    "INTERNAL ERROR, animvpx_codec_ctx not initalized!",
++    "INTERNAL ERROR, animvpx_codec_ctx not initialized!",
+     "OUT OF MEMORY",
+     "couldn't read whole frame",
+     "decoder error, couldn't decode frame",
+--- a/source/duke3d/src/astub.cpp
++++ b/source/duke3d/src/astub.cpp
+@@ -7708,7 +7708,7 @@
+             }
+             else
+             {
+-                printmessage16("No sprite higlighted, cannot cycle linking sprites.");
++                printmessage16("No sprite highlighted, cannot cycle linking sprites.");
+             }
+         }
+         else if (wallsprite==0)
+--- a/source/build/src/config.cpp
++++ b/source/build/src/config.cpp
+@@ -475,7 +475,7 @@
+              "; Reverse meaning of Q and W keys in side view mode\n"
+              "sideview_reversehorizrot = %d\n"
+              "\n"
+-             "; Revert CTRL for tile selction\n"
++             "; Revert CTRL for tile selection\n"
+              ";   0 - WHEEL:scrolling, CTRL+WHEEL:zooming\n"
+              ";   1 - CTRL+WHEEL:scrolling, WHEEL:zooming\n"
+              "revertCTRL = %d\n"

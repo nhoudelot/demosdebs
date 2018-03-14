@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=eduke32
+GenericName=Game
+Comment=Game by eduke32, released in 2016
+Type=Application
+Exec=/usr/games/eduke32
+Icon=eduke32
+Categories=AudioVideo;Game;
+Name[fr_FR]=eduke32
+Keywords=Duke;nukem

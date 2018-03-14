@@ -1,0 +1,26 @@
+eduke32 (1.0+20170720-6372-0ddebs1) unstable; urgency=medium
+
+  * new upstream release
+  * added an icon
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Jul 2017 15:42:53 +0200
+
+eduke32 (1.0+20170322-6089-0ddebs1) unstable; urgency=medium
+
+  * new upstream release
+  * added watch file
+  * moved resources in debian/
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 02 Apr 2017 21:02:09 +0200
+
+eduke32 (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 14:34:15 +0200
+
+eduke32 (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 01 Jun 2016 15:04:22 +0200

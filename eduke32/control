@@ -1,0 +1,31 @@
+Source: eduke32
+Section: games
+Priority: optional
+Maintainer: Nicolas HOUDELOT <lenashou@gmail.com>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ nasm,
+ libgl1-mesa-dev,
+ libglu1-mesa-dev,
+ libsdl1.2-dev,
+ libsdl-mixer1.2-dev,
+ libsdl2-dev,
+ libsdl2-mixer-dev,
+ flac,
+ libflac-dev,
+ libvorbis-dev,
+ libpng-dev,
+ libvpx-dev,
+ libgtk2.0-dev,
+ freepats
+Standards-Version: 3.9.7
+Homepage: http://www.eduke32.com/
+
+Package: eduke32
+Architecture: any
+Depends: 
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: duke nukem Game/2016/Linux
+ Game by eduke32, released in 2016

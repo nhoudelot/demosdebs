@@ -1,0 +1,39 @@
+--- a/GNUmakefile
++++ b/GNUmakefile
+@@ -782,6 +782,16 @@
+     EDITOR \
+ 
+ 
++#variables d'instalation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/games
++
+ ifeq ($(PRETTY_OUTPUT),1)
+ .SILENT:
+ endif
+@@ -983,13 +993,18 @@
+ 
+ clean: cleanduke3d cleantools
+ 	-rm -rf $(obj)/
+-	-rm -f $(EBACKTRACEDLL)
++	-rm -f $(EBACKTRACEDLL) *.log
+ 
+ printtools:
+ 	echo "$(addsuffix $(EXESUFFIX),$(TOOLS_TARGETS))"
+ 
+ rev: $(ENGINE_OBJ)/rev.$o
+ 
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(DUKE3D_GAME)$(EXESUFFIX) $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) $(DUKE3D_EDITOR)$(EXESUFFIX) $(DESTDIR)$(bindir)
+ 
+ ### Compatibility
+ 
