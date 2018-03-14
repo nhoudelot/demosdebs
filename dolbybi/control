@@ -1,0 +1,26 @@
+Source: dolbybi
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ fp-compiler
+Standards-Version: 3.9.7
+Homepage: https://dolbybcsoftwaredecode.sourceforge.io/
+
+Package: dolbybi
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: Dolby B software decoder
+ Many people may have old recordings made in Dolby B or C.
+ However if your expensive Dolby deck breaks down, it may be hard to justify the
+ expense of buying a new Dolby deck.
+ .
+ Why recordings can't be digitised using a cheaper deck, and then
+ decoded in software ?
+ .
+ So far it's a program to decode recordings made in Dolby B. It was
+ intend to implement Dolby C decoding, but still working on that.

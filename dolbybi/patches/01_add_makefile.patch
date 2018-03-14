@@ -1,0 +1,32 @@
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,29 @@
++#variables de compilation
++SHELL := /bin/sh
++
++TARGET   := dolbybi
++#variable de nettoyage
++RM_F := rm -f
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++all: $(TARGET)
++
++$(TARGET):
++	fpc -O2 -g -XX -TLINUX -o$(TARGET) DolbyBi64.PP
++
++clean:
++	-@$(RM_F) $(TARGET)
++	-@$(RM_F) *.o
++	-@$(RM_F) link.res
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
