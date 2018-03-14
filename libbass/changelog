@@ -1,0 +1,17 @@
+libbass (2.4-0ddebs3) unstable; urgency=medium
+
+  * updated to Standards-Version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Oct 2016 14:21:12 +0200
+
+libbass (2.4-0ddebs2) unstable; urgency=medium
+
+  * packaging corrections
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 19 Mar 2016 01:55:10 +0100
+
+libbass (2.4-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Feb 2016 20:03:33 +0100
