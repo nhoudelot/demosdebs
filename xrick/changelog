@@ -1,0 +1,17 @@
+xrick (021212-0ddebs3) unstable; urgency=medium
+
+  * Created a data package to save some space
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 01 Feb 2018 09:29:16 +0100
+
+xrick (021212-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 16:28:13 +0200
+
+xrick (021212-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 May 2016 10:55:00 +0200

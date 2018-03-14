@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=xrick
+GenericName=Game
+Comment=Demo by BigOrno, released in 2002
+Type=Application
+Exec=/usr/games/xrick
+Icon=xrick
+Categories=AudioVideo;Game;
+Name[fr_FR]=xrick.desktop
+Keywords=Rick;Dangerous

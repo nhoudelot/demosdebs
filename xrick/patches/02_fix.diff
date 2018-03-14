@@ -1,0 +1,11 @@
+--- a/src/system.c
++++ b/src/system.c
+@@ -64,7 +64,7 @@
+   va_start(argptr, msg);
+   vsprintf(s, msg, argptr);
+   va_end(argptr);
+-  printf(s);
++  fprintf(stderr,"%s",s);
+ }
+ 
+ /*

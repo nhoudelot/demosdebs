@@ -1,0 +1,158 @@
+--- a/Makefile
++++ b/Makefile
+@@ -14,11 +14,12 @@
+ #
+ # Vars
+ #
+-
+-SDLVERSION=$(shell sdl-config --version 2>/dev/null)
+-ROOTDIR=$(shell pwd)
+-TARGET=$(shell uname -s | tr [a-z] [A-Z])
+-
++SHELL := /bin/sh
++SDLVERSION:=$(shell sdl-config --version 2>/dev/null)
++ROOTDIR:=$(shell pwd)
++PLATFORM:=$(shell uname -s | tr [a-z] [A-Z])
++TARGET   := xrick
++RM_F := rm -f
+ #
+ # Config
+ #
+@@ -56,34 +57,54 @@
+ $(error SDL version $(SDL_MAJ_REQ).$(SDL_MIN_REQ).$(SDL_MIC_REQ) is required)
+ endif
+ 
+-ifneq (,$(findstring CYGWIN,$(TARGET)))
++ifneq (,$(findstring CYGWIN,$(PLATFORM)))
+ XOBJ=xrick.res
+ endif
+ 
+-ifneq (,$(findstring MINGW,$(TARGET)))
++ifneq (,$(findstring MINGW,$(PLATFORM)))
+ XOBJ=xrick.res
+ endif
+ 
++#variables d'instalation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/games
++datarootdir     := $(prefix)/share
++datadir         := $(prefix)/share/xrick
++
+ #
+-# Rules
++# Rules
+ #
+ 
+ all:
+ 	@echo "ROOTDIR=$(ROOTDIR)" > Makefile.global
+ 	@echo "XOBJ=$(XOBJ)" >> Makefile.global
+-	@echo "CFLAGS=-g -ansi -pedantic -Wall -W -O2 -I $(ROOTDIR)/include $(shell sdl-config --cflags)" >> Makefile.global
+-	@echo "LDFLAGS=-lz $(shell sdl-config --libs)" >> Makefile.global
++	@echo "CFLAGS+= -O3 -flto -Wall -ffast-math -std=gnu90 -pedantic -W -I $(ROOTDIR)/include $(shell sdl-config --cflags)" >> Makefile.global
++	@echo "LDFLAGS+=-lz $(shell sdl-config --libs)" >> Makefile.global
+ 	@echo "CC=gcc" >> Makefile.global
+-	@echo "CPP=gcc -E" >> Makefile.global
++	@echo "CPP=g++" >> Makefile.global
+ 	$(MAKE) -C src all
+ 
+ clean:
+ 	for i in src include; do \
+ 	  $(MAKE) -C $$i clean; \
+ 	done
+-	rm -f *~ log.txt Makefile.global
++	-@$(RM_F) *~ log.txt Makefile.global
+ 
+ depend:
+ 	$(MAKE) -C src depend
+ 
++install:
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) src/$(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) data.zip $(DESTDIR)$(datadir)
++
++
+ # eof
+--- a/include/Makefile
++++ b/include/Makefile
+@@ -15,8 +15,10 @@
+ # rules
+ #
+ #
++SHELL := /bin/sh
++RM_F := rm -f
+ clean:
+-	rm -f *~
++	-@$(RM_F) *~
+ 
+ # eof
+ 
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -15,6 +15,10 @@
+ # Includes
+ #
+ #
++SHELL := /bin/sh
++CFLAGS += -O3 -flto -Wall
++RM_F := rm -f
++
+ ifeq (.depend, $(wildcard .depend))
+ include .depend
+ endif
+@@ -25,11 +29,17 @@
+ $(error Oops)
+ endif
+ 
++#compilation en paralelle si disponible
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
+ #
+ # Defs
+ #
+ #
+-TARGET = ../xrick
++TARGET = xrick
+ OBJECTS = unzip.o data.o scr_xrick.o scr_pause.o scr_imain.o scr_imap.o scr_gameover.o scr_getname.o dat_picsPC.o dat_picsST.o dat_screens.o dat_tilesPC.o dat_tilesST.o dat_maps.o dat_ents.o dat_spritesST.o dat_spritesPC.o ents.o e_bullet.o e_bomb.o e_rick.o e_sbonus.o e_them.o e_bonus.o e_box.o rects.o util.o game.o xrick.o draw.o maps.o sysvid.o syskbd.o control.o system.o scroller.o sysevt.o sysarg.o syssnd.o sysjoy.o dat_snd.o
+ 
+ #
+@@ -37,10 +47,11 @@
+ #
+ #
+ 
++
+ all: $(TARGET)
+ 
+ $(TARGET): $(OBJECTS) $(XOBJ)
+-	$(CC) $(OBJECTS) $(XOBJ) $(LDFLAGS) -o $(TARGET)
++	$(CC) -flto $(OBJECTS) $(XOBJ) $(LDFLAGS) -o $(TARGET)
+ 
+ %.o: %.c
+ 	$(CC) $(CFLAGS) -c $< -o $@
+@@ -49,15 +60,9 @@
+ 	windres $< -O coff -o $@
+ 
+ clean:
+-	rm -f *~ *.o core .depend $(TARGET)
+-	rm -f *.exe *.core *.res
+-	rm -f $(LINKS)
++	-@$(RM_F) *~ *.o core .depend $(TARGET) *.exe *.core *.res $(LINKS)
+ 
+ depend:
+ 	for i in *.c; do $(CPP) $(CFLAGS) -I$(ROOTDIR)/include -MM $$i; done > .depend
+ 
+ # eof
+-
+-
+-
+-

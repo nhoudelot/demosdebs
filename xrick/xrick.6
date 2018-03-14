@@ -1,0 +1,292 @@
+.TH XRICK 6 2002-12-12
+.SH NAME
+xrick \- clone of the platform game Rick Dangerous
+.SH SYNOPSIS
+.B xrick \-help
+.br
+.B xrick \-h
+.br
+.\" Keep the options in alphabetical order
+.B xrick
+.RB [ \-fullscreen ]
+.RB [ \-keys
+.IR left\fB\-\fIright\fB\-\fIup\fB\-\fIdown\fB\-\fIfire\fR]
+.RB [ \-map
+.IR num ]
+.RB [ \-nosound ]
+.RB [ \-speed
+.IR num ]
+.RB [ \-submap
+.IR num ]
+.RB [ \-vol
+.IR num ]
+.RB [ \-zoom
+.IR num ]
+.RB [ \-data
+.IR arch ]
+.SH DESCRIPTION
+xrick is a clone of the platform game \fIRick Dangerous\fP.
+Walk through the maps, avoid traps, kill the Bad Guys... and
+try to stay alive long enough to accomplish your mission!
+
+Rick can fire bullets, lay sticks of dynamite, walk, crawl,
+climb, and also poke walls or Bad Guys with his stick.
+Poking walls can trigger traps, open doors, etc. although
+sometime a dynamite stick or a bullet is needed.
+Go figure.
+Rick starts with six bullets in his gun, and six sticks of
+dynamite, as shown by the icons at the top of the screen.
+.SS Controls
+Throughout the game, use these commands to control Rick:
+.TP
+.RB [ Left ],\ [ Z ]
+\fIleft\fP \- move Rick left.
+.TP
+.RB [ Right ],\ [ X ]
+\fIright\fP \- move Rick right.
+.TP
+.RB [ Up ],\ [ O ]
+\fIup\fP \- jump or climb up.
+.TP
+.RB [ Down ],\ [ K ]
+\fIdown\fP \- crouch or climb down.
+.TP
+.RB [ Space ]
+\fIfire\fP \- fire.
+.PP
+You can redefine these keys from the command line, with the
+\fB\-keys\fP option (see
+.SM OPTIONS\c
+).
+
+By holding down \fIfire\fP and pressing \fIleft\fP or
+\fIright\fP, you can poke a wall (or anything else) with your stick.
+
+By holding down \fIfire\fP and pressing \fIdown\fP, you can lay
+a stick of dynamite.
+
+By holding down \fIfire\fP and pressing \fIup\fP, you can fire a
+bullet.
+.SS Cheats
+.TP
+.RB [ F7 ]
+Toggle trainer mode (always six bullets, six sticks, six Rick).
+.TP
+.RB [ F8 ]
+Toggle "never die" mode (nothing can kill Rick).
+Use with care.
+Although it lets you walk through Bad Guys unharmed, it can
+produce strange results.
+Some Bad Guys are meant to be killed, and if you don't, who
+knows what will happen?
+Also, if a block of bricks moves over Rick, it won't kill him,
+but then Rick will be trapped because, well, you can't move
+through bricks.
+.TP
+.RB [ F9 ]
+Toggle "expose" mode (see all entities).
+.PP
+.SS Miscellaneous commands
+.TP
+.RB [ E ]
+End.
+.TP
+.RB [ P ]
+Pause.
+.TP
+.RB [ Esc ]
+Exit.
+.TP
+.RB [ F1 ]
+Toggle full-screen mode.
+.TP
+.RB [ F2 ]
+Zoom out (only when not running full-screen).
+.TP
+.RB [ F3 ]
+Zoom in (only when not running full-screen).
+.TP
+.RB [ F4 ]
+Mute.
+.TP
+.RB [ F5 ]
+Decrease sound volume.
+.TP
+.RB [ F6 ]
+Increase sound volume.
+.SH OPTIONS
+.\" Keep the options in alphabetical order
+.TP
+.B \-fullscreen
+Run in full screen mode.
+The default is to run in a window.
+.TP
+.B \-h,\ \-help
+Print help to stderr and exit with a non-zero value.
+.TP
+.BI \-keys \ left\fB\-\fIright\fB\-\fIup\fB\-\fIdown\fB\-\fIfire
+Override the default key bindings.
+.IR left ,
+.IR right ,
+.IR up ,
+.IR down \ and
+.I fire
+may be one of the following:
+
+BACKSPACE
+TAB
+CLEAR
+RETURN
+PAUSE
+ESCAPE
+SPACE
+EXCLAIM
+QUOTEDBL
+HASH
+DOLLAR
+AMPERSAND
+QUOTE
+LEFTPAREN
+RIGHTPAREN
+ASTERISK
+PLUS
+COMMA
+MINUS
+PERIOD
+SLASH
+0 ... 9
+COLON
+SEMICOLON
+LESS
+EQUALS
+GREATER
+QUESTION
+AT
+LEFTBRACKET
+BACKSLASH
+RIGHTBRACKET
+CARET
+UNDERSCORE
+BACKQUOTE
+a ... z
+DELETE
+WORLD_0 ... WORLD_95
+KP0 ... KP9
+KP_PERIOD
+KP_DIVIDE
+KP_MULTIPLY
+KP_MINUS
+KP_PLUS
+KP_ENTER
+KP_EQUALS
+UP
+DOWN
+RIGHT
+LEFT
+INSERT
+HOME
+END
+PAGEUP
+PAGEDOWN
+F1 ... F15
+NUMLOCK
+CAPSLOCK
+SCROLLOCK
+RSHIFT
+LSHIFT
+RCTRL
+LCTRL
+RALT
+LALT
+RMETA
+LMETA
+LSUPER
+RSUPER
+MODE
+COMPOSE
+HELP
+PRINT
+SYSREQ
+BREAK
+MENU
+POWER
+EURO
+
+For example \fB\-keys f\-g\-u\-h\-space\fP maps [\fBF\fP] to
+\fIleft\fP, [\fBG\fP] to \fIright\fP, [\fBU\fP] to \fIup\fP,
+[\fBH\fP] to \fIdown\fP and [\fBSpace\fP] to \fIfire\fP.
+The \fBKeyCodes\fP file contains a complete list of available
+key codes.
+The default bindings are listed in the
+.SM DESCRIPTION
+section.
+.TP
+.BI \-map \ num
+Start at map number \fInum\fP.
+\fInum\fP must be an integer between 1 and 4.
+The default is to start at map 1.
+.TP
+.BI \-nosound
+Disable sound.
+.TP
+.BI \-speed \ num
+Run at speed \fInum\fP.
+\fInum\fP must be an integer between 1 (fast) and 100 (slow).
+The default is 75.
+.TP
+.BI \-submap \ num
+Start at submap number \fInum\fP.
+\fInum\fP must be an integer between 1 and 47.
+The default is to start at submap 1.
+.TP
+.BI \-vol \ num
+Play sounds at volume \fInum\fP.
+\fInum\fP must be an integer between 1 and 10.
+The default is to play sounds at maximal volume (10).
+.TP
+.BI \-zoom \ num
+Display with zoom factor \fInum\fP.
+\fInum\fP must be an integer between 1 and 4.
+The default is 2.
+.TP
+.BI \-data \ arch
+Use data archive \fIarch\fP.
+\fIarch\fP must be either a zip file, or a directory.
+The default is to look for data.zip in the directory where xrick is
+run from.
+.SH ENVIRONMENT
+None except the usual Xlib/SDL ones that may apply.
+.SH FILES
+None.
+.SH EXIT VALUE
+.BR 0 	OK
+.br
+.BR >0 	An\ error\ occurred
+.SH AUTHOR
+.\" Home page URL are preferred over email addresses for antispam reasons
+BigOrno (http://www.bigorno.net/).
+
+xrick relies on the Simple MediaLayer Libray (http://www.libsdl.org/).
+
+xrick uses zlib (http://www.gzip.org/zlib/).
+
+Graphics and maps by the authors of the original \fIRick Dangerous\fP game.
+
+Original man page by André Majorel (http://www.teaser.fr/~amajorel/).
+.SH LEGAL
+I have written the xrick code. However, graphics and maps and sounds
+are by the authors of the original Rick Dangerous game, and "Rick
+Dangerous" remains a trademark of its owner(s) -- maybe Core Design
+(who wrote the game) or FireBird (who published it). As of today, I
+have not been successful at contacting Core Design.
+
+This makes it a bit difficult to formally release the whole code,
+including data for graphics and maps and sounds, under the terms of
+licences such as the GNU General Public Licence. So the code is
+released in the spirit of the GNU GPL. Whatever that means.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.  
+.SH SEE ALSO
+.BR intro (6)
