@@ -1,0 +1,11 @@
+gtk+ (1.2.10-82ddebs2) unstable; urgency=medium
+
+  * use dh $@  --with autoreconf instead of dh $@ --with autotools-dev
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 31 Oct 2016 23:48:24 +0100
+
+gtk+ (1.2.10-82ddebs1) unstable; urgency=medium
+
+  * new package rebuild from Fedora24
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 09 Oct 2016 19:33:01 +0200

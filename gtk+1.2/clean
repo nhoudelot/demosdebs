@@ -1,0 +1,4 @@
+intl/po2tbl.sed
+po/gtk+.pot
+gtk+.spec
+gtk/gtkfeatures.h

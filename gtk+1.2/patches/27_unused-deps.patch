@@ -1,0 +1,28 @@
+--- a/gdk/Makefile.am
++++ b/gdk/Makefile.am
+@@ -22,10 +22,9 @@
+ 	-release $(LT_RELEASE) \
+ 	-export-dynamic \
+ 	-no-undefined -Wl,--no-undefined \
+-	@GLIB_DEPLIBS@	\
++	$(filter-out -lgmodule -ldl, @GLIB_DEPLIBS@) \
+ 	@x_ldflags@	\
+ 	@x_libs@	\
+-	-lm		\
+ @STRIP_END@
+ 
+ #
+--- a/gtk/Makefile.am
++++ b/gtk/Makefile.am
+@@ -32,9 +32,9 @@
+ 	-release $(LT_RELEASE) 					\
+ 	-export-dynamic						\
+ 	-no-undefined -Wl,--no-undefined			\
+-	@GLIB_DEPLIBS@ 						\
++	$(filter-out -ldl, @GLIB_DEPLIBS@)			\
+ 	@x_ldflags@						\
+-	@x_libs@ 						\
++	$(filter-out -lXi -lXext, @x_libs@)			\
+ 	-lm							\
+ @STRIP_END@
+ #	$(top_builddir)/gdk/libgdk.la

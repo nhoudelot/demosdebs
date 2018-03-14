@@ -1,0 +1,11 @@
+--- a/gdk/gdk.c
++++ b/gdk/gdk.c
+@@ -989,7 +989,7 @@
+ void
+ gdk_beep (void)
+ {
+-  XBell(gdk_display, 100);
++  XBell(gdk_display, 0);
+ }
+ 
+ /*

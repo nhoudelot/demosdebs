@@ -1,0 +1,485 @@
+--- a/gdk/gdki18n.h
++++ b/gdk/gdki18n.h
+@@ -51,4 +51,32 @@
+ #  define gdk_iswspace(c) ((wchar_t)(c) <= 0xFF && isspace(c))
+ #endif
+ 
++/* The following 9 macros are added in gtk+ 1.2.X. Don't use them without
++ * checking GTK_CHECK_VERSION. For example,
++ *	#if GTK_CHECK_VERSION (1,2,X)
++ *	    ... code which uses gdk_iswalpha(), gdk_iswcntrl(), etc. ...
++ *      #endif
++ */
++#if !defined(G_HAVE_BROKEN_WCTYPE) && (defined(G_HAVE_WCTYPE_H) || defined(G_HAVE_WCHAR_H)) && !defined(X_LOCALE)
++#  define gdk_iswalpha(c)  iswalpha(c)
++#  define gdk_iswcntrl(c)  iswcntrl(c)
++#  define gdk_iswdigit(c)  iswdigit(c)
++#  define gdk_iswlower(c)  iswlower(c)
++#  define gdk_iswgraph(c)  iswgraph(c)
++#  define gdk_iswprint(c)  iswprint(c)
++#  define gdk_iswpunct(c)  iswpunct(c)
++#  define gdk_iswupper(c)  iswupper(c)
++#  define gdk_iswxdigit(c) iswxdigit(c)
++#else
++#  define gdk_iswalpha(c)  ((wchar_t)(c) <= 0xFF && isalpha(c))
++#  define gdk_iswcntrl(c)  ((wchar_t)(c) <= 0xFF && iscntrl(c))
++#  define gdk_iswdigit(c)  ((wchar_t)(c) <= 0xFF && isdigit(c))
++#  define gdk_iswlower(c)  ((wchar_t)(c) <= 0xFF && islower(c))
++#  define gdk_iswgraph(c)  ((wchar_t)(c) >  0xFF || isgraph(c))
++#  define gdk_iswprint(c)  ((wchar_t)(c) >  0xFF || isprint(c))
++#  define gdk_iswpunct(c)  ((wchar_t)(c) <= 0xFF && ispunct(c))
++#  define gdk_iswupper(c)  ((wchar_t)(c) <= 0xFF && isupper(c))
++#  define gdk_iswxdigit(c) ((wchar_t)(c) <= 0xFF && isxdigit(c))
++#endif
++
+ #endif /* __GDK_I18N_H__ */
+--- a/gtk/gtkentry.c
++++ b/gtk/gtkentry.c
+@@ -2036,11 +2036,21 @@
+     }
+ }
+ 
++static gboolean
++alnum_or_ideogram (GtkEntry *entry, guint index)
++{
++  GdkWChar ch;
++  ch = entry->text[index];
++  if (entry->use_wchar)
++    return !(gdk_iswpunct (ch) || gdk_iswcntrl (ch) || gdk_iswspace (ch));
++  else
++    return !(ispunct (ch) || iscntrl (ch) || isspace (ch));
++}
++
+ static void
+ gtk_move_forward_word (GtkEntry *entry)
+ {
+   GtkEditable *editable;
+-  GdkWChar *text;
+   gint i;
+ 
+   editable = GTK_EDITABLE (entry);
+@@ -2054,21 +2064,12 @@
+ 
+   if (entry->text && (editable->current_pos < entry->text_length))
+     {
+-      text = entry->text;
+-      i = editable->current_pos;
+-	  
+-      if ((entry->use_wchar) ? (!gdk_iswalnum (text[i])) : (!isalnum (text[i])))
+-	for (; i < entry->text_length; i++)
+-	  {
+-	    if ((entry->use_wchar) ? gdk_iswalnum (text[i]) : isalnum (text[i]))
+-	      break;
+-	  }
+-
++      for (i = editable->current_pos; i < entry->text_length; i++)
++	if (alnum_or_ideogram (entry, i))
++	  break;
+       for (; i < entry->text_length; i++)
+-	{
+-	  if ((entry->use_wchar) ? (!gdk_iswalnum (text[i])) : (!isalnum (text[i])))
+-	    break;
+-	}
++	if (!alnum_or_ideogram (entry, i))
++	  break;
+ 
+       editable->current_pos = i;
+     }
+@@ -2078,7 +2079,6 @@
+ gtk_move_backward_word (GtkEntry *entry)
+ {
+   GtkEditable *editable;
+-  GdkWChar *text;
+   gint i;
+ 
+   editable = GTK_EDITABLE (entry);
+@@ -2092,26 +2092,19 @@
+ 
+   if (entry->text && editable->current_pos > 0)
+     {
+-      text = entry->text;
+-      i = editable->current_pos - 1;
+-      if ((entry->use_wchar) ? (!gdk_iswalnum (text[i])) : (!isalnum (text[i])))
+-	for (; i >= 0; i--)
++      for (i = editable->current_pos - 1; i >= 0; i--)
++	if (alnum_or_ideogram (entry, i))
++	  break;
++      for (; i >= 0; i--)
++	if (!alnum_or_ideogram (entry, i))
+ 	  {
+-	    if ((entry->use_wchar) ? gdk_iswalnum (text[i]) : isalnum (text[i]))
+-	      break;
++	    i++;
++	    break;
+ 	  }
+-      for (; i >= 0; i--)
+-	{
+-	  if ((entry->use_wchar) ? (!gdk_iswalnum (text[i])) : (!isalnum (text[i])))
+-	    {
+-	      i++;
+-	      break;
+-	    }
+-	}
+-	  
++
+       if (i < 0)
+ 	i = 0;
+-	  
++  
+       editable->current_pos = i;
+     }
+ }
+--- a/gtk/gtklabel.c
++++ b/gtk/gtklabel.c
+@@ -56,6 +56,7 @@
+   GtkLabelWord *next;
+   gint uline_y;
+   GtkLabelULine *uline;
++  gboolean paragraph_break;
+ };
+ 
+ struct _GtkLabelULine
+@@ -396,6 +397,7 @@
+   word->beginning = NULL;
+   word->next = NULL;
+   word->uline = NULL;
++  word->paragraph_break = FALSE;
+ 
+   return word;
+ }
+@@ -441,6 +443,7 @@
+       if (str == label->label_wc || str[-1] == '\n')
+ 	{
+ 	  /* Paragraph break */
++	  word->paragraph_break = TRUE;
+ 	  word->space = 0;
+ 	  
+ 	  max_line_width = MAX (line_width, max_line_width);
+@@ -488,6 +491,7 @@
+     {
+       word = gtk_label_word_alloc ();
+       
++      word->paragraph_break = TRUE;
+       word->space = 0;
+       word->beginning = str;
+       word->length = 0;
+@@ -500,6 +504,13 @@
+   return MAX (line_width, max_line_width);
+ }
+ 
++static gboolean
++is_ideogram (GdkWChar wc)
++{
++  return !(gdk_iswalnum (wc) || gdk_iswspace (wc) ||
++	   gdk_iswpunct (wc) || gdk_iswcntrl (wc));
++}
++
+ /* this needs to handle white space better. */
+ static gint
+ gtk_label_split_text_wrapped (GtkLabel *label)
+@@ -526,6 +537,7 @@
+       if (str == label->label_wc || str[-1] == '\n')
+ 	{
+ 	  /* Paragraph break */
++	  word->paragraph_break = TRUE;
+ 	  word->space = 0;
+ 	  
+ 	  max_line_width = MAX (line_width, max_line_width);
+@@ -546,24 +558,30 @@
+ 	  else
+ 	    word->space = space_width * nspaces;
+ 	}
+-      else
++      else if (gdk_iswspace (str[-1]))
+ 	{
+ 	  /* Regular inter-word space */
+ 	  word->space = space_width;
+ 	}
++      else
++	{
++	  word->space = 0;
++	}
+       
+       word->beginning = str;
+       word->length = 0;
+       p = word->beginning;
+       while (*p && !gdk_iswspace (*p))
+ 	{
++	  if (word->length > 0 && (is_ideogram (p[-1]) || is_ideogram (*p)))
++	    break;
+ 	  word->length++;
+ 	  p++;
+ 	}
+       word->width = gdk_text_width_wc (GTK_WIDGET (label)->style->font, str, word->length);
+       
+       str += word->length;
+-      if (*str)
++      if (*str && gdk_iswspace (*str))
+ 	str++;
+       
+       line_width += word->space + word->width;
+@@ -600,7 +618,7 @@
+   width = 0;
+   for (word = label->words; word; word = word->next)
+     {
+-      if (word->space == 0
++      if (word->paragraph_break
+ 	  || (line_width
+ 	      && (line_width >= min_width
+ 		  || line_width + word->width + word->space > max_width)))
+@@ -716,7 +734,8 @@
+   GtkLabelWord *word, *line, *next_line;
+   GtkWidget *widget;
+   gchar *ptrn;
+-  gint x, y, space, extra_width, add_space, baseline_skip;
++  gint x, y, space, num_words, extra_width, add_space, baseline_skip;
++  gboolean deliver_equivalently;
+   
+   g_return_if_fail (label->wrap);
+   
+@@ -724,20 +743,24 @@
+   y = 0;
+   baseline_skip = (GTK_WIDGET (label)->style->font->ascent +
+ 		   GTK_WIDGET (label)->style->font->descent + 1);
++  deliver_equivalently = FALSE;
+   
+   for (line = label->words; line != 0; line = next_line)
+     {
+-      space = 0;
++      space = num_words = 0;
+       extra_width = max_line_width - line->width;
+       
+       for (next_line = line->next; next_line; next_line = next_line->next)
+ 	{
+-	  if (next_line->space == 0)
++	  if (next_line->paragraph_break)
+ 	    break;		/* New paragraph */
+ 	  if (next_line->space + next_line->width > extra_width)
+ 	    break;
++	  if (next_line->space == 0)
++	    deliver_equivalently = TRUE; /* An ideogram is found. */
+ 	  extra_width -= next_line->space + next_line->width;
+ 	  space += next_line->space;
++	  num_words++;
+ 	}
+       
+       line->x = 0;
+@@ -747,14 +770,18 @@
+       
+       for (word = line->next; word != next_line; word = word->next)
+ 	{
+-	  if (next_line && next_line->space)
++	  if (next_line && !next_line->paragraph_break &&
++	      label->jtype == GTK_JUSTIFY_FILL &&
++	      (deliver_equivalently ? num_words : space) > 0)
+ 	    {
+-	      /* Not last line of paragraph --- fill line if needed */
+-	      if (label->jtype == GTK_JUSTIFY_FILL) {
++	      /* Not last line of paragraph --- fill line */
++	      if (deliver_equivalently)
++		add_space = (extra_width + num_words / 2) / num_words;
++	      else
+ 		add_space = (extra_width * word->space + space / 2) / space;
+-		extra_width -= add_space;
+-		space -= word->space;
+-	      }
++	      extra_width -= add_space;
++	      space -= word->space;
++	      num_words--;
+ 	    }
+ 	  
+ 	  word->x = x + word->space + add_space;
+@@ -925,7 +952,7 @@
+ 
+       for (word = label->words; word; word = word->next)
+ 	{
+-	  gchar save = word->beginning[word->length];
++	  GdkWChar save = word->beginning[word->length];
+ 	  word->beginning[word->length] = '\0';
+ 	  gtk_label_paint_word (label, x, y, word, &event->area);
+ 	  word->beginning[word->length] = save;
+--- a/gtk/gtktext.c
++++ b/gtk/gtktext.c
+@@ -101,6 +101,13 @@
+   ARG_WORD_WRAP
+ };
+ 
++typedef enum {
++  CHAR_CLASS_SPACE,
++  CHAR_CLASS_ALNUM,
++  CHAR_CLASS_IDEOGRAM,
++  CHAR_CLASS_OTHERS     /* punct, cntrl */
++} CharClass;
++
+ typedef struct _TextProperty          TextProperty;
+ typedef struct _TabStopMark           TabStopMark;
+ typedef struct _PrevTabCont           PrevTabCont;
+@@ -300,6 +307,8 @@
+ 				    const GtkPropertyMark *mark,
+ 				    const PrevTabCont *tab_cont,
+ 				    PrevTabCont *next_cont);
++static void find_word_wrap_position (GtkText* text, LineParams *lp);
++static CharClass char_class (GtkText* text, guint index);
+ static void recompute_geometry (GtkText* text);
+ static void insert_expose (GtkText* text, guint old_pixels, gint nchars, guint new_line_count);
+ static void delete_expose (GtkText* text,
+@@ -4111,27 +4120,21 @@
+   
+   undraw_cursor (text, FALSE);
+   
+-  if (text->use_wchar)
++  while (!LAST_INDEX (text, text->cursor_mark))
+     {
+-      while (!LAST_INDEX (text, text->cursor_mark) && 
+-	     !gdk_iswalnum (GTK_TEXT_INDEX(text, text->cursor_mark.index)))
+-	advance_mark (&text->cursor_mark);
+-      
+-      while (!LAST_INDEX (text, text->cursor_mark) && 
+-	     gdk_iswalnum (GTK_TEXT_INDEX(text, text->cursor_mark.index)))
+-	advance_mark (&text->cursor_mark);
++      CharClass cc = char_class (text, text->cursor_mark.index);
++      if (cc == CHAR_CLASS_ALNUM || cc == CHAR_CLASS_IDEOGRAM)
++	break;
++      advance_mark (&text->cursor_mark);
+     }
+-  else
++  while (!LAST_INDEX (text, text->cursor_mark))
+     {
+-      while (!LAST_INDEX (text, text->cursor_mark) && 
+-	     !isalnum (GTK_TEXT_INDEX(text, text->cursor_mark.index)))
+-	advance_mark (&text->cursor_mark);
+-      
+-      while (!LAST_INDEX (text, text->cursor_mark) && 
+-	     isalnum (GTK_TEXT_INDEX(text, text->cursor_mark.index)))
+-	advance_mark (&text->cursor_mark);
++      CharClass cc = char_class (text, text->cursor_mark.index);
++      if (cc != CHAR_CLASS_ALNUM && cc != CHAR_CLASS_IDEOGRAM)
++	break;
++      advance_mark (&text->cursor_mark);
+     }
+-  
++
+   find_cursor (text, TRUE);
+   draw_cursor (text, FALSE);
+ }
+@@ -4143,25 +4146,19 @@
+   
+   undraw_cursor (text, FALSE);
+   
+-  if (text->use_wchar)
++  while (text->cursor_mark.index > 0)
+     {
+-      while ((text->cursor_mark.index > 0) &&
+-	     !gdk_iswalnum (GTK_TEXT_INDEX(text, text->cursor_mark.index-1)))
+-	decrement_mark (&text->cursor_mark);
+-      
+-      while ((text->cursor_mark.index > 0) &&
+-	     gdk_iswalnum (GTK_TEXT_INDEX(text, text->cursor_mark.index-1)))
+-	decrement_mark (&text->cursor_mark);
++      CharClass cc = char_class (text, text->cursor_mark.index - 1);
++      if (cc == CHAR_CLASS_ALNUM || cc == CHAR_CLASS_IDEOGRAM)
++	break;
++      decrement_mark (&text->cursor_mark);
+     }
+-  else
++  while (text->cursor_mark.index > 0)
+     {
+-      while ((text->cursor_mark.index > 0) &&
+-	     !isalnum (GTK_TEXT_INDEX(text, text->cursor_mark.index-1)))
+-	decrement_mark (&text->cursor_mark);
+-      
+-      while ((text->cursor_mark.index > 0) &&
+-	     isalnum (GTK_TEXT_INDEX(text, text->cursor_mark.index-1)))
+-	decrement_mark (&text->cursor_mark);
++      CharClass cc = char_class (text, text->cursor_mark.index - 1);
++      if (cc != CHAR_CLASS_ALNUM && cc != CHAR_CLASS_IDEOGRAM)
++	break;
++      decrement_mark (&text->cursor_mark);
+     }
+   
+   find_cursor (text, TRUE);
+@@ -4782,27 +4779,8 @@
+ 		      GtkPropertyMark saved_mark = lp.end;
+ 		      guint saved_characters = lp.displayable_chars;
+ 		      
+-		      lp.displayable_chars += 1;
+-		      
+-		      if (text->use_wchar)
+-			{
+-			  while (!gdk_iswspace (GTK_TEXT_INDEX (text, lp.end.index)) &&
+-				 (lp.end.index > lp.start.index))
+-			    {
+-			      decrement_mark (&lp.end);
+-			      lp.displayable_chars -= 1;
+-			    }
+-			}
+-		      else
+-			{
+-			  while (!isspace(GTK_TEXT_INDEX (text, lp.end.index)) &&
+-				 (lp.end.index > lp.start.index))
+-			    {
+-			      decrement_mark (&lp.end);
+-			      lp.displayable_chars -= 1;
+-			    }
+-			}
+-		      
++		      find_word_wrap_position (text, &lp);
++
+ 		      /* If whole line is one word, revert to char wrapping */
+ 		      if (lp.end.index == lp.start.index)
+ 			{
+@@ -4850,6 +4828,54 @@
+   return lp;
+ }
+ 
++static CharClass
++char_class (GtkText* text, guint index)
++{
++  GdkWChar wc;
++  wc = GTK_TEXT_INDEX (text, index);
++  if (text->use_wchar)
++    {
++      if (gdk_iswspace (wc))
++	return CHAR_CLASS_SPACE;
++      else if (gdk_iswalnum (wc))
++	return CHAR_CLASS_ALNUM;
++      else if (gdk_iswpunct (wc) || gdk_iswcntrl (wc))
++	return CHAR_CLASS_OTHERS;
++      else
++	return CHAR_CLASS_IDEOGRAM;
++    }
++  else
++    {
++      if (isspace (wc))
++	return CHAR_CLASS_SPACE;
++      else if (isalnum (wc))
++	return CHAR_CLASS_ALNUM;
++      else if (ispunct (wc) || iscntrl (wc))
++	return CHAR_CLASS_OTHERS;
++      else
++	return CHAR_CLASS_IDEOGRAM;
++    }
++}
++
++static void
++find_word_wrap_position (GtkText* text, LineParams *lp)
++{
++  while (lp->end.index > lp->start.index &&
++	 char_class (text, lp->end.index) != CHAR_CLASS_SPACE &&
++	 char_class (text, lp->end.index) != CHAR_CLASS_IDEOGRAM &&
++	 char_class (text, lp->end.index - 1) != CHAR_CLASS_IDEOGRAM)
++    {
++      decrement_mark (&lp->end);
++      lp->displayable_chars -= 1;
++    }
++
++  /* lp->end.index points the position to be cut just now. If it's not a
++   * space, move it to the next display line. */
++  if (lp->end.index > lp->start.index &&
++      char_class (text, lp->end.index) != CHAR_CLASS_SPACE)
++    decrement_mark (&lp->end);
++}
++
+ static void
+ expand_scratch_buffer (GtkText* text, guint len)
+ {
