@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=One Day Miracle
+GenericName=Demo
+Comment=Demo by Fit, released in 2002
+Type=Application
+Exec=/usr/bin/onedaymiracle-by-fit
+Icon=onedaymiracle-by-fit
+Categories=AudioVideo;Game;
+Name[fr_FR]=One Day Miracle
