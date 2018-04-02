@@ -1,0 +1,4 @@
+debian/scripts/whatafailure-by-yeoldelaptopsposse usr/bin/
+debian/resources/whatafailure-by-yeoldelaptopsposse.desktop usr/share/applications/
+debian/resources/whatafailure-by-yeoldelaptopsposse.png usr/share/icons/hicolor/256x256/apps/
+./yo04_lnx usr/share/whatafailure-by-yeoldelaptopsposse/./ 

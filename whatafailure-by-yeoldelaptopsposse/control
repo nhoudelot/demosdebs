@@ -1,0 +1,20 @@
+Source: whatafailure-by-yeoldelaptopsposse
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=58392
+
+Package: whatafailure-by-yeoldelaptopsposse
+Architecture: amd64
+Depends:
+ libsdl1.2debian,
+ freeglut3,
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: 4k intro for Linux, released in 2012
+ 4k intro by Ye Olde Laptops Posse, released in 2012
