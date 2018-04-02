@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Kryoflux UI
+GenericName=Kryoflux
+Comment=GUI to control the kryoflux hardware
+Type=Application
+Exec=/usr/bin/kryofluxui
+Icon=kryofluxui
+Categories=Utility;Archiving

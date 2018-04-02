@@ -1,0 +1,45 @@
+#!/bin/bash -e
+
+function usage()
+{
+	if [ $(which gettext) ]; then
+		gettext="gettext --domain=$domain -s --"
+	else
+		gettext=echo
+	fi
+
+	$gettext "Start kryoflux ui"
+	echo
+	$gettext "Usage: $0 [option]"
+	$gettext "Options :"
+	$gettext "    --help				display this help and exit"
+}
+
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/share/kryoflux
+	java -jar kryoflux-ui.jar
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		usage
+		;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

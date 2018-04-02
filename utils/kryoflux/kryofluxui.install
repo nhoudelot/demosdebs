@@ -1,0 +1,4 @@
+debian/scripts/kryofluxui usr/bin/
+debian/resources/kryofluxui.desktop usr/share/applications/
+debian/resources/kryofluxui.png usr/share/icons/hicolor/128x128/apps/
+./dtc/kryoflux-ui.jar usr/share/kryoflux/

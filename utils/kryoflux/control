@@ -1,0 +1,39 @@
+Source: kryoflux
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0.0),
+ libcapsimage5-dev,
+ libusb-1.0-0-dev
+Standards-Version: 3.9.7
+Homepage: https://www.kryoflux.com/?page=download
+
+Package: dtc
+Architecture: amd64 i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: software to control the kryoflux hardware
+ software to use with kryoflux hardware, in order to extract
+ data from floppy disk.
+ include the command line tool : dtc
+ 
+Package: dtc-doc
+Architecture: all
+Section: doc
+Depends:
+ ${misc:Depends}
+Description: Documentations for dtc
+ dtc documentation, the software to use with kryoflux hardware
+
+Package: kryofluxui
+Architecture: all
+Depends:
+ dtc,
+ jarwrapper,
+ ${misc:Depends}
+Description: GUI to control the kryoflux hardware
+ software to use with kryoflux hardware, in order to extract
+ data from floppy disk.
+ include the java gui tool : kryofluxui
