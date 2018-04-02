@@ -1,0 +1,58 @@
+--- a/btts/make/Makefile
++++ b/btts/make/Makefile
+@@ -1,7 +1,7 @@
+ SUNDOG = ../../sundog_engine/
+ SUNVOX = ../../sunvox_engine/
+ 
+-APPNAME = btts
++APPNAME = backtothesources-by-nightradio
+ 
+ include $(SUNDOG)various/sundog_makefile.inc
+ include $(SUNVOX)sunvox_makefile.inc
+@@ -10,7 +10,7 @@
+ ## Main target options:                       ##
+ ## ------------------------------------------ ##
+ 
+-CFLAGS = -O3 -s
++CFLAGS = -O3 -fpermissive $(shell pkg-config gl --cflags)
+ #CFLAGS = -g
+ 
+ ifeq ($(MAKECMDGOALS),palm)
+@@ -25,7 +25,12 @@
+ ifeq ($(MAKECMDGOALS),linux)
+     #(remove -lrt on FreeBSD and Cygwin)
+     # X11 (OpenGL) libs:
+-    LIBS = -L/usr/X11R6/lib -lpthread -lrt -lstdc++ -lX11 -lGL -lXext -lasound
++GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
++ifeq "$(GCCVERSIONGTEQ5)" "1" 
++    CFLAGS += -std=gnu90
++    CXXFLAGS += -fabi-compat-version=2
++endif
++    LIBS = -L/usr/X11R6/lib -lpthread -lrt -lstdc++ $(shell pkg-config x11 --libs) $(shell pkg-config gl --libs) $(shell pkg-config xext --libs) -lasound -lm
+     # X11 libs:
+     #LIBS = -L/usr/X11R6/lib -lpthread -lrt -lstdc++ -lX11 -lasound
+     # SDL:
+--- a/sundog_engine/various/sundog_makefile.inc
++++ b/sundog_engine/various/sundog_makefile.inc
+@@ -21,6 +21,7 @@
+ 	-DARCH_X86 \
+ 	-DLINUX
+ endif
++RM_F := rm -f
+ ifeq ($(MAKECMDGOALS),win32)
+     CC = i686-pc-mingw32-gcc $(CFLAGS) -fno-exceptions -Wno-multichar -malign-double
+     CXX = i686-pc-mingw32-gcc $(CFLAGS) -fno-exceptions -Wno-multichar -malign-double
+@@ -240,4 +241,4 @@
+ ## ------------------------------------------ ##
+ 
+ clean:
+-	rm *.o *.grc *.bin armcode armdata
++	-$(RM_F) *.o *.grc *.bin
+--- a/sunvox_engine/sunvox_makefile.inc
++++ b/sunvox_engine/sunvox_makefile.inc
+@@ -65,3 +65,5 @@
+ 
+ psynths_vocal_filter.o: $(SUNVOX)psynth/psynths_vocal_filter.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+ 	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_vocal_filter.cpp
++
++clean:

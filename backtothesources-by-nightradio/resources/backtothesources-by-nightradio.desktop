@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Back to the sources
+GenericName=Demo
+Comment=Demo by NightRadio, released in 2009
+Type=Application
+Exec=/usr/bin/backtothesources-by-nightradio
+Icon=backtothesources-by-nightradio
+Categories=AudioVideo;Game;
+Name[fr_FR]=Back to the sources

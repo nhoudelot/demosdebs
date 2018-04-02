@@ -1,0 +1,3 @@
+debian/resources/backtothesources-by-nightradio.desktop usr/share/applications/
+debian/resources/backtothesources-by-nightradio.png usr/share/icons/hicolor/256x256/apps/
+btts/make/backtothesources-by-nightradio usr/bin
