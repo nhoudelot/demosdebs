@@ -1,0 +1,18 @@
+simlife-by-contraz for Debian
+----------------------------
+
+executable seems to be compiled for Ubuntu Oneiric (11.10)
+
+GCC: (Ubuntu/Linaro 4.6.1-9ubuntu3) 4.6.1
+
+Source files:
+------------- 
+/home/frode/contraz/demo/demosys/CTZMesh.cpp
+/home/frode/contraz/demo/demosys/CTZScene.cpp
+/home/frode/contraz/demo/demosys/Demo.cpp
+/home/frode/contraz/demo/demosys/Effect.cpp
+/home/frode/contraz/demo/demosys/ResourceDefinition.cpp
+/home/frode/contraz/demo/demosys/ShaderCache.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 17 Apr 2017 15:28:57 +0200
+

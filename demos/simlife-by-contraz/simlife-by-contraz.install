@@ -1,0 +1,4 @@
+debian/scripts/simlife-by-contraz usr/bin/
+debian/resources/simlife-by-contraz.desktop usr/share/applications/
+debian/resources/simlife-by-contraz.png usr/share/icons/hicolor/256x256/apps/
+./SimLife_final_Linuxi686 usr/lib/i386-linux-gnu/simlife-by-contraz/./ 

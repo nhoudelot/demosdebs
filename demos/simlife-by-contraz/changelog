@@ -1,0 +1,13 @@
+simlife-by-contraz (1.0-0ddebs2) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Jan 2018 17:17:10 +0100
+
+simlife-by-contraz (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 17 Apr 2017 15:28:57 +0200

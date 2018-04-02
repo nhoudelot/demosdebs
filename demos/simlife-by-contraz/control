@@ -1,0 +1,33 @@
+Source: simlife-by-contraz
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libfltk1.3-dev,
+ libdevil-dev,
+ libglew1.5,
+ libnoise-dev,
+ libglu1-mesa-dev,
+ libsdl1.2-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=57319
+
+Package: simlife-by-contraz
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ libfmodex
+Description: Demo for Linux, released in 2011
+ Demo by Contraz, released in 2011
+ 
+Package: simlife-by-contraz-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for simlife-by-contraz
+ simlife-by-contraz data files

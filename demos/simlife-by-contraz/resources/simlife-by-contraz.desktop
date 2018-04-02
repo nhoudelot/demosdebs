@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Sim Life
+GenericName=Demo
+Comment=Demo by Contraz, released in 2011
+Type=Application
+Exec=/usr/bin/simlife-by-contraz
+Icon=simlife-by-contraz
+Categories=AudioVideo;Game;
+Name[fr_FR]=Sim Life
