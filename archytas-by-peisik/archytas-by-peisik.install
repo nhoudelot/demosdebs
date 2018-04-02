@@ -1,0 +1,4 @@
+debian/scripts/archytas-by-peisik usr/bin/
+debian/resources/archytas-by-peisik.desktop usr/share/applications/
+debian/resources/archytas-by-peisik.png usr/share/icons/hicolor/256x256/apps/
+./archytas_720p_windowed usr/lib/i386-linux-gnu/archytas-by-peisik/./ 

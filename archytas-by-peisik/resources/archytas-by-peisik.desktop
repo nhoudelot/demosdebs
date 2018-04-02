@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Archytas
+GenericName=Demo
+Comment=Demo by Peisik, released in 2011
+Type=Application
+Exec=/usr/bin/archytas-by-peisik
+Icon=archytas-by-peisik
+Categories=AudioVideo;Game;
+Name[fr_FR]=Archytas

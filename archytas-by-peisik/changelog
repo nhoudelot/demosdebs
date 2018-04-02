@@ -1,0 +1,19 @@
+archytas-by-peisik (1.0-0ddebs3) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 24 Jan 2018 01:14:22 +0100
+
+archytas-by-peisik (1.0-0ddebs2) unstable; urgency=medium
+
+  * Added an icon
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 07 Jul 2017 11:27:53 +0200
+
+archytas-by-peisik (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 23 Jun 2017 01:43:18 +0200

@@ -1,0 +1,30 @@
+Source: archytas-by-peisik
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends: 
+ debhelper (>=9),
+ libsdl1.2-dev,
+ libsdl-mixer1.2-dev,
+ libsdl-image1.2-dev,
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=58031
+
+Package: archytas-by-peisik
+Architecture: i386
+Depends:
+ archytas-by-peisik-data,
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2011
+ Demo by Peisik, released in 2011
+ 
+Package: archytas-by-peisik-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for Archytas
+ Archytas by Peisik, data files for this Linux demo
