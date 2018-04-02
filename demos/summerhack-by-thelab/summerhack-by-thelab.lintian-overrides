@@ -1,0 +1,3 @@
+summerhack-by-thelab: unknown-section demos
+summerhack-by-thelab: dir-or-file-in-tmp symlink usr/share/summerhack-by-thelab/3dengfx.log point to /tmp/3dengfx.log
+summerhack-by-thelab: desktop-entry-lacks-keywords-entry usr/share/applications/summerhack-by-thelab.desktop

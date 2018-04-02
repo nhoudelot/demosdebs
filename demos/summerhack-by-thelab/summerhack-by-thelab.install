@@ -1,0 +1,4 @@
+debian/resources/summerhack-by-thelab.desktop usr/share/applications/
+debian/resources/summerhack-by-thelab.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/summerhack-by-thelab usr/bin/ 
+./sumhack-gnulinux-x86_64 usr/lib/x86_64-linux-gnu/summerhack-by-thelab/./ 

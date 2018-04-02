@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Summer Hack
+GenericName=Demo
+Comment=Demo by the Lab, released in 2005
+Type=Application
+Exec=/usr/bin/summerhack-by-thelab
+Icon=summerhack-by-thelab
+Categories=AudioVideo;Game;
+Name[fr_FR]=Summer Hack

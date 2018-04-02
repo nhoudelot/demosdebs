@@ -1,0 +1,32 @@
+Source: summerhack-by-thelab
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ libvorbis-dev,
+ libsdl1.2-dev,
+ libfreetype6-dev,
+ libpng12-dev,
+ libjpeg62-dev|libjpeg62-turbo-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=18823
+
+Package: summerhack-by-thelab
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ summerhack-by-thelab-data
+Description: the Lab Demo for Linux released in 2005
+ Demo by the Lab, released in 2005
+ 
+Package: summerhack-by-thelab-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for summerhack-by-thelab
+ summerhack-by-thelab data files
