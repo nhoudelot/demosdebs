@@ -1,0 +1,118 @@
+Source: littleutils
+Section: utils
+Priority: optional
+Maintainer: Brian Lindholm <brian_lindholm@users.sourceforge.net>
+Build-Depends:
+ debhelper (>= 8.0.0),
+ dh-autoreconf,
+ libpng-dev | libpng12-dev,
+ zlib1g-dev,
+ pngcrush,
+ libjpeg-progs,
+ gzip,
+ bzip2,
+ ghostscript,
+ file,
+ p7zip,
+ lzma-alone,
+ lzip,
+ xz-utils,
+ gifsicle,
+ lzop,
+ python-minimal
+Standards-Version: 3.9.3
+Homepage: http://sourceforge.net/projects/littleutils/
+
+Package: littleutils-base
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ perl
+Description: various little utilities for script-writers and developers
+ The basic littleutils include the following utilities:
+ filedate - print the modification times of the specified files
+ filehash - print MD5 and SHA1 digests and filesizes for the specified files
+ filemode - print the file access permissions of the specified files
+ filenode - print the inode number of the specified files
+ fileown - print the uid/gid/username/groupname of the specified files
+ filesize - print the file size of the specified files
+ tempname - creates a unique temporary file for use by shell scripts
+ notabs - convert all tab characters to spaces in text files
+ notrail - remove all trailing spaces characters from text files
+ lreplace - perform string substitutions on text files
+ lowercase - rename files to all-lowercase filenames
+ uppercase - rename files to all-uppercase filenames
+ frenum - rename/renumber files using a variety of renaming schemes
+ pren - rename files using Perl regular expressions
+ repeats - searches for duplicate files in the specified directories
+ wipe-free - overwrite all free space in a partition with zeros
+
+Package: littleutils-imageutils
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ zlib1g,
+ gifsicle,
+ ghostscript,
+ libjpeg-turbo-progs | libjpeg-progs,
+ pngcrush,
+ littleutils-base
+Description: littleutils dedicated to recompressing image files
+ These littleutils are dedicated to image processing and recompression:
+ imagsize - figure out the image size of various image formats
+ jpgcom - print any comments present in the specified JPEG image files
+ pngrecolor - rewrite a PNG file with a minimal palette
+ pngstrip - rewrite a PNG file with all extraneous information removed
+ opt-gif - losslessly optimize GIF image files
+ opt-jpg - losslessly optimize JPEG image files
+ opt-pdf - optimize PDF files using Ghostscript
+ opt-png - losslessly optimize PNG image files
+ recomp-jpg - recompress JPEG image files to a lower quality level
+
+Package: littleutils-recompressors
+Architecture: all
+Depends:
+ ${misc:Depends},
+ file,
+ bzip2,
+ lzip,
+ lzop,
+ p7zip-full,
+ lbzip2,
+ pigz,
+ plzip,
+ python-rarfile,
+ wget,
+ xz-utils,
+ littleutils-base,
+ python:any
+Description: littleutils dedicated to recompressing compressed files
+ These littleutils are dedicated to compressed file recompression:
+ rar2tarcat - converts .rar (or .RAR) to .tar via stdout
+ to-gzip - converts .Z (compress) and .lzo (lzop) to .gz (gzip)
+ to-bzip - converts .Z, .lzo, and .gz files to .bz2 (bzip2)
+ to-7zip - converts .Z, .gz, .lzo, and .bz2 files to .7z (p7zip)
+ to-lzip - converts .Z, .gz, .lzo, and .bz2 files to .lz (lzip)
+ to-xz - converts .Z, .gz, .lzo, and .bz2 files to .xz (xz)
+ zip2tarcat - converts .zip (or .ZIP) to .tar via stdout
+
+Package: littleutils-legacy
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, file, bzip2, lzop, lzma-alone, wget, littleutils-base
+Description: legacy littleutils that have been superseded by coreutils
+ These littleutils have been superseded by utilities in coreutils:
+ lrealpath - superseded by GNU realpath
+ randomize - superseded by GNU shuf and sort -R
+ And this littleutil has been deprecated:
+ to-lzma - converts .Z, .gz, .lzo, and .bz2 files to .lzma (lzma/lzma_alone)
+
+Package: littleutils-docs
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Description: documentation for littleutils
+ The littleutils are a collection of small and simple utilities that users (and
+ script-writers in particular) will find useful.  This package include README,
+ NEWS, and other generic documentation for the littleutils.

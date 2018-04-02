@@ -1,0 +1,42 @@
+--- a/imageutils/pngstrip.c
++++ b/imageutils/pngstrip.c
+@@ -147,7 +147,7 @@
+     }
+   if (setjmp (png_jmpbuf (read_png_ptr)))
+     {
+-      fprintf (stderr, "bizzare pngstrip error: unknown problem on read\n");
++      fprintf (stderr, "bizarre pngstrip error: unknown problem on read\n");
+       png_destroy_read_struct (&read_png_ptr, &read_info_ptr, &read_end_info);
+       (void) fclose (fp);
+       exit (3);
+@@ -267,7 +267,7 @@
+     }
+   if (setjmp (png_jmpbuf (write_png_ptr)))
+     {
+-      fprintf (stderr, "bizzare pngstrip error: unknown problem on write\n");
++      fprintf (stderr, "bizarre pngstrip error: unknown problem on write\n");
+       png_destroy_write_struct (&write_png_ptr, &write_info_ptr);
+       png_destroy_read_struct (&read_png_ptr, &read_info_ptr, &read_end_info);
+       (void) fclose (fp);
+--- a/scripts/opt-png.in
++++ b/scripts/opt-png.in
+@@ -104,7 +104,7 @@
+     pngcrush -brute -l 9 -s ${TMPPNG2A} ${TMPPNG2}
+     OUT3="$?"
+     if [ "$OUT3" -ne 0 ]; then
+-      echo "opt-png error: bizzare result on $1: pngcrush rc = ${OUT3}"
++      echo "opt-png error: bizarre result on $1: pngcrush rc = ${OUT3}"
+       rm -f ${TMPPNG0} ${TMPPNG1} ${TMPPNG2A} ${TMPPNG2}
+       shift; continue
+     fi
+--- a/littleutils/frenum.1
++++ b/littleutils/frenum.1
+@@ -69,7 +69,7 @@
+ \&  Julianne             Julianne0004        Juliann4
+ \&
+ .fi
+-Note that the name is truncated to acommodate the number.
++Note that the name is truncated to accommodate the number.
+ .TP
+ \fB\-t\fR, \fB--Trunc[ate]\fR \fInn\fR
+ Delete from nn or first non-alpha.  If you want to preserve all alphas, you

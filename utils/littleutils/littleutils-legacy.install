@@ -1,0 +1,6 @@
+littleutils/lrealpath usr/bin
+littleutils/randomize usr/bin
+scripts/to-lzma usr/bin
+littleutils/lrealpath.1 usr/share/man/man1
+littleutils/randomize.1 usr/share/man/man1
+scripts/to-lzma.1 usr/share/man/man1
