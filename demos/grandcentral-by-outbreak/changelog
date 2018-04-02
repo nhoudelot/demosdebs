@@ -1,0 +1,31 @@
+grandcentral-by-outbreak (1.0-0ddebs5) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 06 Feb 2018 03:53:20 +0100
+
+grandcentral-by-outbreak (1.0-0ddebs4) unstable; urgency=medium
+
+  * use libglew1.5 added in the repository instead of a link
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Apr 2017 03:26:51 +0200
+
+grandcentral-by-outbreak (1.0-0ddebs3) unstable; urgency=medium
+
+  * fix dependencies (using dh_shlibdeps)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 04 Apr 2017 22:12:58 +0200
+
+grandcentral-by-outbreak (1.0-0ddebs2) unstable; urgency=medium
+
+  * libGLEW dependencies varies with the distrib
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 15 Dec 2016 23:55:34 +0100
+
+grandcentral-by-outbreak (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 25 Sep 2016 22:23:55 +0200

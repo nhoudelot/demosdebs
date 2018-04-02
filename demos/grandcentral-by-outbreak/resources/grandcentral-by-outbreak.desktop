@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Grand Central
+GenericName=Demo
+Comment=Demo by Outbreak, released in 2008
+Type=Application
+Exec=/usr/bin/grandcentral-by-outbreak
+Icon=grandcentral-by-outbreak
+Categories=AudioVideo;Game;
+Name[fr_FR]=Grand Central

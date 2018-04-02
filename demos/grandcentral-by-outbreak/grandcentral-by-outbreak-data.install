@@ -1,0 +1,8 @@
+./data usr/share/grandcentral-by-outbreak/./ 
+./data/gc.dat usr/share/grandcentral-by-outbreak/./data/ 
+./data/gui usr/share/grandcentral-by-outbreak/./data/ 
+./data/gui/fonthelvete2.png usr/share/grandcentral-by-outbreak/./data/gui/ 
+./data/gui/layout.xml usr/share/grandcentral-by-outbreak/./data/gui/ 
+./data/gui/style.xml usr/share/grandcentral-by-outbreak/./data/gui/ 
+./GrandCentral.ogg usr/share/grandcentral-by-outbreak/./ 
+./setup.xml usr/share/grandcentral-by-outbreak/./ 

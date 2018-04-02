@@ -1,0 +1,84 @@
+grandcentral-by-outbreak for Debian
+-----------------------------------
+
+executable seems to be compiled for Ubuntu Hardy (8.04)
+
+4.2.3 (Ubuntu 4.2.3-2ubuntu7)
+ 
+Source files:
+------------- 
+abc.cpp                      o3d_trackblenderfloat.cpp
+am.cpp                       o3d_trackcolor4f.cpp
+am_archivedirectory.cpp      o3d_trackeulerf.cpp
+am_archivezip.cpp            o3d_trackfloat.cpp
+am_image.cpp                 o3d_trackquatf.cpp
+am_imagecodec_jpeg.cpp       o3d_trackvector3f.cpp
+am_imagecodec_png.cpp        o3d_typedef.cpp
+am_imagecodec_tga.cpp        overlay.cpp
+am_imagemanager.cpp          pan_button.cpp
+am_videofile.cpp             pan_callback.cpp
+am_videofile_imagedumper.cpp pan_checkbox.cpp
+border.cpp                   pan_context.cpp
+cl_readbuffer.cpp            pan_control.cpp
+cl_writebuffer.cpp           pan_control_factory.cpp
+cloud.cpp                    pan_dropdown.cpp
+credits.cpp                  pan_flow.cpp
+crtstuff.c                   pan_frame.cpp
+cubejox.cpp                  pan_image.cpp
+dis_bufferobject.cpp         pan_label.cpp
+dis_clock.cpp                pan_layout_stack.cpp
+dis_display.cpp              pan_menubar.cpp
+dis_display_glfw.cpp         pan_panel.cpp
+dis_fbo.cpp                  pan_radiobutton.cpp
+dis_font.cpp                 pan_render.cpp
+dis_glinclude.cpp            pan_scrollbars.cpp
+dis_ibo.cpp                  pan_slider.cpp
+dis_listener.cpp             pan_spline.cpp
+dis_material.cpp             pan_spline_org.cpp
+dis_resource.cpp             pan_stat.cpp
+dis_shader.cpp               pan_tabview.cpp
+dis_texture.cpp              pan_textinput.cpp
+dis_vbo.cpp                  pan_treeview.cpp
+dis_vertex.cpp               pan_typedef.cpp
+dis_vertexdef.cpp            pan_window.cpp
+dis_windowmode.cpp           pan_workspace.cpp
+enable.c                     panorama.cpp
+face.cpp                     photon.cpp
+fire_gui.cpp                 recursebitch.cpp
+fire_gui_effect.cpp          rund.cpp
+fire_gui_row.cpp             script_effect.cpp
+fire_main.cpp                script_loadxml.cpp
+fisheye.cpp                  script_script.cpp
+fullscreen.c                 script_spline.cpp
+glext.c                      script_trigger.cpp
+gml_mesh.cpp                 spark.cpp
+grand.cpp                    sparks_emitter.cpp
+greet.cpp                    sparks_emitter_instance.cpp
+grid.cpp                     sparks_engine.cpp
+hurry.cpp                    ssao.cpp
+init.c                       stdafx.cpp
+initfini.c                   sten.cpp
+input.c                      time.c
+ioapi.c                      tunnel.cpp
+kasper.cpp                   unzip.c
+kub.cpp                      vul.cpp
+main.cpp                     waxoff.cpp
+mb_matrix4x4col.cpp          waxon.cpp
+mb_quatf.cpp                 window.c
+o3d_armature.cpp             x11_enable.c
+o3d_bonegroup.cpp            x11_fullscreen.c
+o3d_camera.cpp               x11_glext.c
+o3d_dummy.cpp                x11_init.c
+o3d_image.cpp                x11_joystick.c
+o3d_light.cpp                x11_keysym2unicode.c
+o3d_manager.cpp              x11_time.c
+o3d_material.cpp             x11_window.c
+o3d_mesh.cpp                 xml_iterator.cpp
+o3d_meshinstance.cpp         xml_iteratorconst.cpp
+o3d_scene.cpp                xml_node.cpp
+o3d_scenenode.cpp            xml_parser.cpp
+o3d_submesh.cpp              xml_tag.cpp
+o3d_texture.cpp              xor.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Apr 2017 03:23:00 +0200
+
