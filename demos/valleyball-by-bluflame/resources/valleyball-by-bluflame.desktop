@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Valleyball
+GenericName=Demo
+Comment=Demo by BluFlame, released in 2009
+Type=Application
+Exec=/usr/bin/valleyball-by-bluflame
+Icon=valleyball-by-bluflame
+Categories=AudioVideo;Game;
+Name[fr_FR]=Valleyball

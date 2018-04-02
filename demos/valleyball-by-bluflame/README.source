@@ -1,0 +1,14 @@
+valleyball-by-bluflame for Debian
+--------------------------------
+
+executable seems to be compiled for i686 CPU and on Ubuntu Jaunty (9.04)
+
+(GNU) 3.4.6 (Ubuntu 3.4.6-8ubuntu2)
+
+instructions:
+-------------
+ cpuid: 0	 nop: 10	 call: 81	 count: 1001
+ i686:	 17
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 15:15:01 +0100
+

@@ -1,0 +1,4 @@
+debian/scripts/valleyball-by-bluflame usr/bin/
+debian/resources/valleyball-by-bluflame.desktop usr/share/applications/
+debian/resources/valleyball-by-bluflame.png usr/share/icons/hicolor/256x256/apps/
+./bin/linux/v640x480_windowed usr/lib/i386-linux-gnu/valleyball-by-bluflame/

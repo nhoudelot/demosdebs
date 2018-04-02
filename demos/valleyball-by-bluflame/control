@@ -1,0 +1,21 @@
+Source: valleyball-by-bluflame
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev,
+ libglew1.5
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=52946
+
+Package: valleyball-by-bluflame
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ libglew1.5
+Description: Demo for Linux, released in 2009
+ Demo by BluFlame, released in 2009
