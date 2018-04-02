@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Stick Animation Engine 4000
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2008
+Type=Application
+Exec=/usr/bin/stickanimationengine4000-by-faemiyah
+Icon=stickanimationengine4000-by-faemiyah
+Categories=AudioVideo;Game;
+Name[fr_FR]=Stick Animation Engine 4000
