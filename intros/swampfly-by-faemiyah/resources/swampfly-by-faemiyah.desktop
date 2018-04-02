@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Swamp Fly
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2009
+Type=Application
+Exec=/usr/bin/swampfly-by-faemiyah -w
+Icon=swampfly-by-faemiyah
+Categories=AudioVideo;Game;
+Name[fr_FR]=Swamp Fly
