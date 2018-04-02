@@ -1,0 +1,29 @@
+35inchesisenough-by-unrealvoodoo for Debian
+------------------------------------------
+
+Compiled with GCC 4.3.3 on Debian
+
+(Debian 4.3.3-10) 4.3.3
+
+source files :
+
+Audio.cpp            
+Font.cpp             
+crtstuff.c
+Demo.cpp             
+Main.cpp             
+init.c
+Engine.cpp           
+Mixer.cpp            
+monoxide.c
+FixedPointMath.cpp   
+ModPlayer.cpp        
+monoxide_blit.c
+FixedPointMatrix.cpp 
+SdlAudio.cpp
+FixedPointVector.cpp 
+SdlVideo.cpp
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 15:20:40 +0100
+

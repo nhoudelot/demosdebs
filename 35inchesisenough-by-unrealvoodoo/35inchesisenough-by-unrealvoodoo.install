@@ -1,0 +1,4 @@
+debian/scripts/35inchesisenough-by-unrealvoodoo usr/bin/
+debian/resources/35inchesisenough-by-unrealvoodoo.desktop usr/share/applications/
+debian/resources/35inchesisenough-by-unrealvoodoo.png usr/share/icons/hicolor/256x256/apps/
+./pc/three_and_a_half_inches_is_enough-linux-x86 usr/lib/i386-linux-gnu//35inchesisenough-by-unrealvoodoo/

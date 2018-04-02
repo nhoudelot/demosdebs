@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=35inchesisenough-by-unrealvoodoo
+
+APP_FULLNAME="3.5 inches is enough"
+APP_COPYRIGHT="Unreal Voodoo"
+APP_DESC="demo by Unreal Voodoo released in 2009"
+
+APP_EXE="three_and_a_half_inches_is_enough-linux-x86 -w"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/i386-linux-gnu/${domain}
+	./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
