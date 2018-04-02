@@ -1,0 +1,36 @@
+Source: stress-by-outbreakandchimeramusic
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libglu1-mesa-dev,
+ libpng12-dev,
+ libxrandr-dev,
+ libx11-dev,
+ libglu1-mesa-dev,
+ libjpeg62-dev|libjpeg62-turbo-dev,
+ libaudiere-dev,
+ libglew1.5
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=53577
+
+Package: stress-by-outbreakandchimeramusic
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ libaudiere-1.9.4,
+ stress-by-outbreakandchimeramusic-data
+Description: Demo for Linux, released in 2009
+ Demo by Outbreak and Chimera Music, released in 2009
+ 
+Package: stress-by-outbreakandchimeramusic-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for stress-by-outbreakandchimeramusic
+ stress-by-outbreakandchimeramusic data files

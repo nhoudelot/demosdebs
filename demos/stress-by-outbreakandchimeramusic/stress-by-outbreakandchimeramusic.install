@@ -1,0 +1,4 @@
+debian/scripts/stress-by-outbreakandchimeramusic usr/bin/
+debian/resources/stress-by-outbreakandchimeramusic.desktop usr/share/applications/
+debian/resources/stress-by-outbreakandchimeramusic.png usr/share/icons/hicolor/256x256/apps/
+./stress usr/lib/i386-linux-gnu/stress-by-outbreakandchimeramusic/./ 

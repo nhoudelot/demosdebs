@@ -1,0 +1,72 @@
+stress-by-outbreakandchimeramusic for Debian
+--------------------------------------------
+
+executable seems to be compiled for Ubuntu Jaunty (9.04)
+
+(Ubuntu 4.3.3-5ubuntu4) 4.3.3
+ 
+Source files:
+------------- 
+am.cpp                       o3d_scene.cpp
+am_archivedirectory.cpp      o3d_scenenode.cpp
+am_archivezip.cpp            o3d_submesh.cpp
+am_image.cpp                 o3d_texture.cpp
+am_imagecodec_jpeg.cpp       o3d_trackblenderfloat.cpp
+am_imagecodec_png.cpp        o3d_trackcolor4f.cpp
+am_imagecodec_tga.cpp        o3d_trackeulerf.cpp
+am_imagemanager.cpp          o3d_trackfloat.cpp
+am_videofile.cpp             o3d_trackquatf.cpp
+am_videofile_imagedumper.cpp o3d_trackvector3f.cpp
+ascii.cpp                    o3d_typedef.cpp
+bot.cpp                      otb_system.cpp
+build.cpp                    outbreak.cpp
+cl_readbuffer.cpp            pan_box.cpp
+cl_writebuffer.cpp           pan_button.cpp
+clear.cpp                    pan_callback.cpp
+clock.cpp                    pan_caption.cpp
+common.cpp                   pan_checkbox.cpp
+crtstuff.c                   pan_color_chooser.cpp
+dis_clock.cpp                pan_container.cpp
+dis_display.cpp              pan_context.cpp
+dis_display_glfw.cpp         pan_control.cpp
+dis_display_obsolete.cpp     pan_control_factory.cpp
+dis_fbo_gl.cpp               pan_dropdown.cpp
+dis_font.cpp                 pan_flow.cpp
+dis_glinclude.cpp            pan_frame.cpp
+dis_listener.cpp             pan_image.cpp
+dis_resource.cpp             pan_knob.cpp
+dis_texture_gl.cpp           pan_label.cpp
+dis_vboibo_gl.cpp            pan_layout_stack.cpp
+dis_vertexdef.cpp            pan_menu.cpp
+dis_windowmode.cpp           pan_menubar.cpp
+fire_effect.cpp              pan_panel.cpp
+fire_gui.cpp                 pan_radiobutton.cpp
+fire_main.cpp                pan_render.cpp
+fire_plugin_camera.cpp       pan_ruler.cpp
+fire_plugin_color.cpp        pan_scrollbars.cpp
+fire_plugin_spline.cpp       pan_slider.cpp
+fire_plugin_trigger.cpp      pan_spline.cpp
+flash.cpp                    pan_stat.cpp
+gml_mesh.cpp                 pan_tabview.cpp
+init.c                       pan_textinput.cpp
+initfini.c                   pan_treeview.cpp
+ioapi.c                      pan_typedef.cpp
+leafy.cpp                    pan_window.cpp
+main.cpp                     pan_workspace.cpp
+mb_matrix4x4col.cpp          panorama.cpp
+mb_quatf.cpp                 particly.cpp
+o3d_armature.cpp             plasma.cpp
+o3d_bonegroup.cpp            postprocess.cpp
+o3d_camera.cpp               scroller.cpp
+o3d_curveinstance.cpp        unzip.c
+o3d_dummy.cpp                volumetric.cpp
+o3d_image.cpp                way.cpp
+o3d_light.cpp                xml_iterator.cpp
+o3d_manager.cpp              xml_iteratorconst.cpp
+o3d_material.cpp             xml_node.cpp
+o3d_mesh.cpp                 xml_parser.cpp
+o3d_meshinstance.cpp         xml_tag.cpp
+o3d_meshutil.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 15:15:01 +0100
+

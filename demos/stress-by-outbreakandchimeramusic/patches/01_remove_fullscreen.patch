@@ -1,0 +1,11 @@
+--- a/setup.xml
++++ b/setup.xml
+@@ -2,7 +2,7 @@
+ 	<archive path="./data/"/>
+ 	<archive path="./gui"/>
+ 	<time start="0" loop="off" mode="variable"/>
+-	<display width="1280" height="720" fullscreen="on" title="ZVOKZ 2009"/>
++	<display width="1280" height="720" fullscreen="off" title="ZVOKZ 2009"/>
+ 	<music filename="stress.ogg" mute="off"/>
+ 	<osd show="off" location="bottom" delay="2.0"/>
+ 	<script filename="script.xml"/>

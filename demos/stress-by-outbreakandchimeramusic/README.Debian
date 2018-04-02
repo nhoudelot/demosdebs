@@ -1,0 +1,6 @@
+stress-by-outbreakandchimeramusic for Debian
+-------------------------------------------
+
+removed .svn directory in script/
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 30 Oct 2016 21:41:25 +0100

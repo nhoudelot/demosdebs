@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Stress
+GenericName=Demo
+Comment=Demo by Outbreak and Chimera Music, released in 2009
+Type=Application
+Exec=/usr/bin/stress-by-outbreakandchimeramusic
+Icon=stress-by-outbreakandchimeramusic
+Categories=AudioVideo;Game;
+Name[fr_FR]=Stress
