@@ -1,0 +1,6 @@
+debian/scripts/bashoholics-by-boozoholics usr/bin/
+debian/resources/bashoholics-by-boozoholics.desktop usr/share/applications/
+debian/resources/bashoholics-by-boozoholics.png usr/share/icons/hicolor/256x256/apps/
+./bashoholics.sh usr/share/bashoholics-by-boozoholics/./ 
+./precalc.mp3 usr/share/bashoholics-by-boozoholics/./ 
+./sunshine.mp3 usr/share/bashoholics-by-boozoholics/./ 

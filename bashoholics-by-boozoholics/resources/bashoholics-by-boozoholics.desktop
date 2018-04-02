@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Bashoholics
+GenericName=Demo
+Comment=Demo by boozoholics, released in 2006
+Type=Application
+Exec=/usr/bin/bashoholics-by-boozoholics
+Icon=bashoholics-by-boozoholics
+Categories=AudioVideo;Game;
+Name[fr_FR]=Bashoholics
