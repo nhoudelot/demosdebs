@@ -1,0 +1,35 @@
+--- a/base/main.cpp
++++ b/base/main.cpp
+@@ -67,7 +67,7 @@
+ 	xio.sound->setVol(128);
+ 
+ 	// Open window and draw loading.
+-	xio.texture->loadAll("../data/textures");
++	xio.texture->loadAll("/usr/share/xa003midssumer-by-xangle/data/textures");
+ 	xio.video->init();
+ 	xio.video->blitToScreen(xio.texture->get("loading"), 320, 240, 0, 0, -1, true);
+ 	xio.video->update();
+@@ -78,10 +78,10 @@
+ 		xio.timer->delay(1000);
+ 	
+ 	// Load textures
+-	xio.texture->loadAll("../data/textures/flowers");
+-	xio.texture->loadAll("../data/textures/dancers");
+-	xio.texture->loadAll("../data/textures/greets");
+-	xio.texture->loadAll("../data/textures/other");
++	xio.texture->loadAll("/usr/share/xa003midssumer-by-xangle/data/textures/flowers");
++	xio.texture->loadAll("/usr/share/xa003midssumer-by-xangle/data/textures/dancers");
++	xio.texture->loadAll("/usr/share/xa003midssumer-by-xangle/data/textures/greets");
++	xio.texture->loadAll("/usr/share/xa003midssumer-by-xangle/data/textures/other");
+ 
+ #ifdef DEBUG
+ 	cout << "DEBUG | Size of loaded textures in memory: " << (float)xio.texture->kbytes/1000 << " MB." << endl;
+@@ -103,7 +103,7 @@
+ 	xdm.add(&end);
+ 	
+ 	// Run demo
+-	xio.sound->play("../data/xa-003.xm");
++	xio.sound->play("/usr/share/xa003midssumer-by-xangle/data/xa-003.xm");
+ 	xdm.runall();
+ 	return 0;
+ }

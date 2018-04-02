@@ -1,0 +1,4 @@
+01_adapt_makefile.diff
+02_fix_warnings.diff
+03_change_data_path.diff
+04_fix_png16.diff

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=xa-003: Midssumer
+GenericName=Demo
+Comment=Demo by xAngle, released in 2004
+Type=Application
+Exec=/usr/bin/xa003midssumer-by-xangle
+Icon=xa003midssumer-by-xangle
+Categories=AudioVideo;Game;
+Name[fr_FR]=xa-003: Midssumer
