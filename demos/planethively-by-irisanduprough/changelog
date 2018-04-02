@@ -1,0 +1,12 @@
+planethively-by-irisanduprough (1.0-0ddebs2) unstable; urgency=medium
+
+  * added an icon
+  * kept C standard to gnu90
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Jul 2017 16:19:40 +0200
+
+planethively-by-irisanduprough (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 24 Sep 2016 20:25:55 +0200

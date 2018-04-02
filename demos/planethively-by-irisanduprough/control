@@ -1,0 +1,16 @@
+Source: planethively-by-irisanduprough
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=49931
+
+Package: planethively-by-irisanduprough
+Architecture: any
+Depends: ${shlibs:Depends},${misc:Depends},common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2008
+ Demo by IRIS and up rough, released in 2008

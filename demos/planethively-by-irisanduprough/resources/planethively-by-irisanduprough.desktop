@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Planet Hively
+GenericName=Demo
+Comment=Demo by IRIS and up rough, released in 2008
+Type=Application
+Exec=/usr/bin/planethively-by-irisanduprough
+Icon=planethively-by-irisanduprough
+Categories=AudioVideo;Game;
+Name[fr_FR]=Planet Hively
