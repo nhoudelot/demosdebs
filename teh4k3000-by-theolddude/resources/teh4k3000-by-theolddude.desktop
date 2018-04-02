@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Teh 4k 3000
+GenericName=Demo
+Comment=Demo by the old dude, released in 2011
+Type=Application
+Exec=/usr/bin/teh4k3000-by-theolddude
+Icon=teh4k3000-by-theolddude
+Categories=AudioVideo;Game;
+Name[fr_FR]=Teh 4k 3000

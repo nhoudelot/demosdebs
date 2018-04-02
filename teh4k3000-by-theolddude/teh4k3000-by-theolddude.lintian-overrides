@@ -1,0 +1,8 @@
+teh4k3000-by-theolddude binary: unknown-section demos
+teh4k3000-by-theolddude binary: spelling-error-in-binary usr/lib/i386-linux-gnu/teh4k3000-by-theolddude/teh4k Teh The
+teh4k3000-by-theolddude binary: spelling-error-in-manpage usr/share/man/man6/teh4k3000-by-theolddude.6.gz Teh The
+teh4k3000-by-theolddude binary: hardening-no-relro  usr/lib/i386-linux-gnu/teh4k3000-by-theolddude/teh4k
+teh4k3000-by-theolddude binary: hardening-no-bindnow  usr/lib/i386-linux-gnu/teh4k3000-by-theolddude/teh4k
+teh4k3000-by-theolddude binary: hardening-no-pie  usr/lib/i386-linux-gnu/teh4k3000-by-theolddude/teh4k
+teh4k3000-by-theolddude binary: desktop-entry-lacks-keywords-entry usr/share/applications/teh4k3000-by-theolddude.desktop
+

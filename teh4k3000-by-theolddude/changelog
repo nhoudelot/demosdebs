@@ -1,0 +1,13 @@
+teh4k3000-by-theolddude (1.0-0ddebs2) unstable; urgency=medium
+
+  * resized icon to 256x256
+  * added some lintian overrides
+  * moved arch dependent files to /usr/lib/i386-linux-gnu/
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Jan 2018 09:38:45 +0100
+
+teh4k3000-by-theolddude (1.0-0ddebs1.0) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 09 Apr 2017 01:46:13 +0200

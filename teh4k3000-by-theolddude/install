@@ -1,0 +1,5 @@
+debian/scripts/teh4k3000-by-theolddude usr/bin/
+debian/resources/teh4k3000-by-theolddude.desktop usr/share/applications/
+debian/resources/teh4k3000-by-theolddude.png usr/share/icons/hicolor/256x256/apps/
+./README.txt usr/share/teh4k3000-by-theolddude/./ 
+./teh4k usr/lib/i386-linux-gnu/teh4k3000-by-theolddude/./ 
