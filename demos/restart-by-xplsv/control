@@ -1,0 +1,23 @@
+Source: restart-by-xplsv
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ dh-python,
+ python|python-all|python-all-dev (>= 2.6.6-3~),
+ python-pkg-resources
+Build-Depends-Indep: python
+X-Python-Version: >= 2.0
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=55584
+
+Package: restart-by-xplsv
+Architecture: all
+Depends:
+ ${python:Depends},
+ ${misc:Depends},
+ luisita
+Description: Demo for Linux, released in 2010
+ Demo by xplsv, released in 2010
