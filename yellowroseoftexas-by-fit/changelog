@@ -1,0 +1,30 @@
+yellowroseoftexas-by-fit (1.0-0ddebs5) unstable; urgency=medium
+
+  * move resources into debian
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 31 Jul 2017 03:00:50 +0200
+
+yellowroseoftexas-by-fit (1.0-0ddebs4) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 31 Jul 2016 21:25:54 +0200
+
+yellowroseoftexas-by-fit (1.0-0ddebs3) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 23:46:54 +0200
+
+yellowroseoftexas-by-fit (1.0-0ddebs2) unstable; urgency=medium
+
+  * using debian recommended CFLAGS and habits
+  * better program name
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 09 Mar 2016 00:06:35 +0100
+
+yellowroseoftexas-by-fit (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 23 Feb 2016 02:19:22 +0100

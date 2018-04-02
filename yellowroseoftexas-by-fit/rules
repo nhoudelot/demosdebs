@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+
+%:
+	dh $@ 
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/yellowroseoftexas-by-fit.6.md -o debian/yellowroseoftexas-by-fit.6

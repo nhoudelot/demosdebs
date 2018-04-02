@@ -1,0 +1,14 @@
+--- a/tinymain.asm
++++ b/tinymain.asm
+@@ -29,9 +29,9 @@
+         xor     eax,eax
+         mov     al,32
+         push    eax
+-        mov     ax,480
++        mov     ax,600
+         push    eax
+-        mov     ax,640
++        mov     ax,800
+         push    eax
+         call    SDL_SetVideoMode
+         

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Yellow Rose of Texas
+GenericName=Demo
+Comment=Demo by Fit, released in 2003
+Type=Application
+Exec=/usr/bin/yellowroseoftexas-by-fit
+Icon=yellowroseoftexas-by-fit
+Categories=AudioVideo;Game;
+Name[fr_FR]=Yellow Rose of Texas
