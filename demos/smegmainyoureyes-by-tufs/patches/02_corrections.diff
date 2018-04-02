@@ -1,0 +1,21 @@
+--- a/src/Bitmapfont.cpp
++++ b/src/Bitmapfont.cpp
+@@ -61,7 +61,7 @@
+ 
+     // if c is lowercase, subtract 32 to make it uppercase
+     if ((int)c >= 97 && (int)c <= 122)
+-        (int)c -= 32;
++        c -= 32;
+     // special cases for æ, ø and å
+     else if (c == (int)'æ')
+         c = 'Æ';
+--- a/src/PNGImage.cpp
++++ b/src/PNGImage.cpp
+@@ -3,6 +3,7 @@
+ #include <GL/gl.h>
+ #include <png.h>
+ #include <assert.h>
++#include <stdlib.h>
+ #include "PNGImage.h"
+ 
+ using std::cerr;

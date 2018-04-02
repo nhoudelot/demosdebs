@@ -1,0 +1,81 @@
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -20,7 +20,7 @@
+     load->render(10);
+     Music* mu = new Music();
+     load->render(20);
+-    mu->loadMusic("data/Hapungo_-_Demodream4.ogg");
++    mu->loadMusic("/usr/share/smegmainyoureyes-by-tufs/Hapungo_-_Demodream4.ogg");
+     load->render(50);
+     Heightfield* height = new Heightfield(mainWin->screen);
+     load->render(60);
+--- a/src/CelScene.cpp
++++ b/src/CelScene.cpp
+@@ -15,7 +15,7 @@
+ {
+     surface = sdlsurf;
+ 
+-    ting = new Texture("data/lol.png");
++    ting = new Texture("/usr/share/smegmainyoureyes-by-tufs/lol.png");
+ 
+     //init();
+ 
+--- a/src/FunkyBackground.cpp
++++ b/src/FunkyBackground.cpp
+@@ -15,7 +15,7 @@
+ {
+     surface = sdlsurf;
+ 
+-    background = new Texture("data/background1.png");
++    background = new Texture("/usr/share/smegmainyoureyes-by-tufs/background1.png");
+ 
+     //init();
+ 
+--- a/src/Greetings.cpp
++++ b/src/Greetings.cpp
+@@ -15,7 +15,7 @@
+ {
+     surface = sdlsurf;
+ 
+-    greetings = new Texture("data/hils.png");
++    greetings = new Texture("/usr/share/smegmainyoureyes-by-tufs/hils.png");
+ 
+     //init();
+ 
+--- a/src/Heightfield.cpp
++++ b/src/Heightfield.cpp
+@@ -21,10 +21,10 @@
+ 
+     genmap();
+ 
+-    dude = new Texture("data/tufs_dude.png");
+-    ting = new Texture("data/lol2.png");
+-    smegma = new Texture("data/smegma.png");
+-    wemade = new Texture("data/skaptav.png");
++    dude = new Texture("/usr/share/smegmainyoureyes-by-tufs/tufs_dude.png");
++    ting = new Texture("/usr/share/smegmainyoureyes-by-tufs/lol2.png");
++    smegma = new Texture("/usr/share/smegmainyoureyes-by-tufs/smegma.png");
++    wemade = new Texture("/usr/share/smegmainyoureyes-by-tufs/skaptav.png");
+ 
+ 
+     mc = 0;
+--- a/src/Metaballs.cpp
++++ b/src/Metaballs.cpp
+@@ -306,7 +306,7 @@
+ {
+     surface = sdlsurf;
+ 
+-    ting = new Texture("data/lmao.png");
++    ting = new Texture("/usr/share/smegmainyoureyes-by-tufs/lmao.png");
+ 
+     //init();
+ 
+@@ -557,7 +557,7 @@
+ 
+     // load texture
+     {
+-        pngTexture = new PNGImage("data/meta_texture.png");
++        pngTexture = new PNGImage("/usr/share/smegmainyoureyes-by-tufs/meta_texture.png");
+ 
+         glGenTextures(1, &texid);
+         glBindTexture(GL_TEXTURE_2D, texid);

@@ -1,0 +1,53 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,16 +1,42 @@
+ ### Makefile for the Xenox 04 demo ###
+-
+-OBJS=src/main.o src/SDLWindow.o src/PNGImage.o src/Texture.o src/Music.o\
++SHELL := /bin/sh
++OBJS := src/main.o src/SDLWindow.o src/PNGImage.o src/Texture.o src/Music.o\
+ 	src/Vector3d.o src/Scene.o src/Bitmapfont.o src/FunkyBackground.o\
+ 	src/LoaderBar.o src/Greetings.o src/Heightfield.o src/Metaballs.o\
+ 	src/CelScene.o
+ 
+-CXX=g++ -g
+-CXXFLAGS=-O2 -Wall -ansi -pedantic `sdl-config --cflags` `pkg-config libpng --cflags`
+-LIBS=`sdl-config --libs` -lGL -lGLU -lSDL_mixer `pkg-config libpng --libs`
+-TARGET=xl04_dem0f0
++CXX := g++
++CXXFLAGS += -O3 -flto -Wall -ffast-math -std=c++98 $(shell pkgconf SDL_mixer sdl libpng glu --cflags)
++LDFLAGS += $(shell pkgconf SDL_mixer sdl libpng glu --libs)
++
++RM_F := rm -f
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_FILE    := $(INSTALL) -p    -o root -g root  -m  644
++
++TARGET          := smegmainyoureyes-by-tufs
++
++PREFIX          := /usr
++BINDIR          := $(PREFIX)/bin
++SHAREDIR        := $(PREFIX)/share
++TARGETSHAREDIR  := $(PREFIX)/share/smegmainyoureyes-by-tufs
++
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS := $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++export
+ 
+ all: $(OBJS) 
+-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LIBS)
++	$(CXX) -flto $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS)
+ clean:
+-	rm -f $(OBJS)
++	-@$(RM_F) $(OBJS) $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(BINDIR)
++	-@$(RM_F) $(DESTDIR)$(BINDIR)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(BINDIR)
++	$(INSTALL_DIR) $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) data/* $(DESTDIR)$(TARGETSHAREDIR)

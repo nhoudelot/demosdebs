@@ -1,0 +1,30 @@
+Source: smegmainyoureyes-by-tufs
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0.0),
+ libsdl1.2-dev,
+ mesa-common-dev,
+ libsdl-mixer1.2-dev,
+ pkgconf,
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=52142
+
+Package: smegmainyoureyes-by-tufs
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: demo ranked 1st at Xenox 2004
+ combined demo
+ 
+Package: smegmainyoureyes-by-tufs-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for smegmainyoureyes-by-tufs
+ smegmainyoureyes-by-tufs data files
+
