@@ -1,0 +1,17 @@
+kuantumakelerator2-by-hno3 (1.0-0ddebs3) unstable; urgency=medium
+
+  * better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 29 Mar 2017 00:03:01 +0200
+
+kuantumakelerator2-by-hno3 (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 31 Jul 2016 21:25:54 +0200
+
+kuantumakelerator2-by-hno3 (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 26 Mar 2016 13:21:51 +0100
