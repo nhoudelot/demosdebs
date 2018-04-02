@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Yet Another Christmas Demo
+GenericName=Demo
+Comment=Demo by Tufs, released in 2008
+Type=Application
+Exec=/usr/bin/yetanotherchristmasdemo-by-tufs
+Icon=yetanotherchristmasdemo-by-tufs
+Categories=AudioVideo;Game;
+Name[fr_FR]=Yet Another Christmas Demo

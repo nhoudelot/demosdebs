@@ -1,0 +1,4 @@
+debian/scripts/yetanotherchristmasdemo-by-tufs usr/bin/
+debian/resources/yetanotherchristmasdemo-by-tufs.desktop usr/share/applications/
+debian/resources/yetanotherchristmasdemo-by-tufs.png usr/share/icons/hicolor/256x256/apps/
+./demo_windowed.elf usr/lib/i386-linux-gnu//yetanotherchristmasdemo-by-tufs/./ 

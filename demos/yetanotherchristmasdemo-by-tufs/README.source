@@ -1,0 +1,19 @@
+yetanotherchristmasdemo-by-tufs for Debian
+-----------------------------------------
+
+executable seems to be compiled for CPU with sse minimum and on Ubuntu Intrepid (8.10)
+
+(Ubuntu 4.3.2-1ubuntu11) 4.3.2
+
+instructions:
+-------------
+ cpuid: 0	 nop: 26	 call: 644	 count: 5990
+ sse:	 19
+ 
+Source files:
+------------- 
+crtstuff.c initfini.c maths.c    png_load.c
+init.c     main.c     objects.c  xlib.c
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 23:45:01 +0100
+

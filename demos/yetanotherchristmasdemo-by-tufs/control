@@ -1,0 +1,32 @@
+Source: yetanotherchristmasdemo-by-tufs
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libpng12-dev,
+ libglu1-mesa-dev,
+ libx11-dev,
+ libxxf86vm-dev,
+ libvorbis-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=52218
+
+Package: yetanotherchristmasdemo-by-tufs
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ yetanotherchristmasdemo-by-tufs-data
+Description: Demo for Linux, released in 2008
+ Demo by Tufs, released in 2008
+ 
+Package: yetanotherchristmasdemo-by-tufs-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for yetanotherchristmasdemo-by-tufs
+ yetanotherchristmasdemo-by-tufs data files
