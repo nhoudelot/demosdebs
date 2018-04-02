@@ -1,0 +1,13 @@
+theworldinabubble-by-thebadsectors (1.0-0ddebs2) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 10 Feb 2018 17:18:39 +0100
+
+theworldinabubble-by-thebadsectors (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Apr 2017 01:51:07 +0200

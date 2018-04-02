@@ -1,0 +1,21 @@
+theworldinabubble-by-thebadsectors for Debian
+--------------------------------------------
+
+executable  was UPX compressed
+
+executable seems to be compiled for Debian
+
+GCC: (Debian 4.4.5-10) 4.4.5
+
+Source files:
+------------- 
+
+src/engine/stb_image.c
+src/engine/stb_vorbis.c
+src/tinyxml/tinystr.h
+src/tinyxml/tinyxml.h
+src/tinyxml/tinyxml.cpp
+src/tinyxml/tinyxmlparser.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Apr 2017 01:51:07 +0200
+
