@@ -1,0 +1,4 @@
+01_adapte_makefile.diff
+02_remove_fullscreen.diff
+03_debianize_path.diff
+04_fix_c_warnings.diff

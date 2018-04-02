@@ -1,0 +1,28 @@
+Source: drfungigoesafrica-by-fit
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0.0),
+ libsdl1.2-dev,
+ libjpeg-dev,
+ pandoc,
+ pkgconf
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=10043
+
+Package: drfungigoesafrica-by-fit
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ drfungigoesafrica-by-fit-data
+Description: Dr.Fungi goes Africa by Fit ranked 3rd at Stream 2003
+ combined demo ranked 3rd at Stream 2003
+ 
+Package: drfungigoesafrica-by-fit-data
+Architecture: all
+Depends:
+ ${misc:Depends}
+Description: Data for Dr.Fungi goes Africa by Fit ranked 3rd at Stream 2003
+ Data for this combined demo ranked 3rd at Stream 2003
