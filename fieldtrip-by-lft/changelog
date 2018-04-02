@@ -1,0 +1,17 @@
+fieldtrip-by-lft (1.0-0ddebs3) unstable; urgency=medium
+
+  * better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Mar 2017 22:56:50 +0200
+
+fieldtrip-by-lft (1.0-0ddebs2) unstable; urgency=medium
+
+  * in window mode by default
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 09 Sep 2016 19:58:49 +0200
+
+fieldtrip-by-lft (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 07 Sep 2016 22:59:30 +0200

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Field Trip
+GenericName=Demo
+Comment=Demo by lft, released in 2007
+Type=Application
+Exec=/usr/bin/fieldtrip-by-lft
+Icon=fieldtrip-by-lft
+Categories=AudioVideo;Game;
+Name[fr_FR]=Field Trip

@@ -1,0 +1,33 @@
+fieldtrip-by-lft for Debian
+---------------------------
+
+executable seems to be compiled for Gentoo
+
+(GNU) 4.1.1 (Gentoo 4.1.1)
+
+Source files:
+------------- 
+../sysdeps/i386/elf/start.S
+/var/tmp/portage/glibc-2.4-r3/work/build-x86-x86_64-pc-linux-gnu-nptl/csu/crti
+/var/tmp/portage/glibc-2.4-r3/work/build-x86-x86_64-pc-linux-gnu-nptl/csu/crtn
+abi-note.S
+bumpmap.c
+crtstuff.c
+effect.c
+endlogo.c
+eyes.c
+flowers.c
+images.c
+init.c
+initfini.c
+lftlogo.c
+main.c
+metahair.c
+metaperlin.c
+plasmaflower.c
+player.c
+projector.c
+woodshine.c
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 22:54:01 +0100
+

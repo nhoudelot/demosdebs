@@ -1,0 +1,4 @@
+debian/scripts/fieldtrip-by-lft usr/bin/
+debian/resources/fieldtrip-by-lft.desktop usr/share/applications/
+debian/resources/fieldtrip-by-lft.png usr/share/icons/hicolor/256x256/apps/
+./field_trip_by_lft usr/lib/i386-linux-gnu/fieldtrip-by-lft/./ 
