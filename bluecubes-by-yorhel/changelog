@@ -1,0 +1,19 @@
+bluecubes-by-yorhel (1.0-0ddebs3) unstable; urgency=medium
+
+  * added an icon
+  * use pkgconf
+  * launcher start windowed
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Jul 2017 23:24:01 +0200
+
+bluecubes-by-yorhel (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Jul 2016 20:41:32 +0200
+
+bluecubes-by-yorhel (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 May 2016 14:42:37 +0200
