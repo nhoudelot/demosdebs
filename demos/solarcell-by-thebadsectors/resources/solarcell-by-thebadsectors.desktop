@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Solar Cell
+GenericName=Demo
+Comment=Demo by The Bad Sectors, released in 2011
+Type=Application
+Exec=/usr/bin/solarcell-by-thebadsectors
+Icon=solarcell-by-thebadsectors
+Categories=AudioVideo;Game;
+Name[fr_FR]=Solar Cell

@@ -1,0 +1,28 @@
+Source: solarcell-by-thebadsectors
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=56828
+
+Package: solarcell-by-thebadsectors
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ solarcell-by-thebadsectors-data
+Description: Demo for Linux, released in 2011
+ Demo by The Bad Sectors, released in 2011
+ 
+Package: solarcell-by-thebadsectors-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for solarcell-by-thebadsectors
+ solarcell-by-thebadsectors data files

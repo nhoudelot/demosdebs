@@ -1,0 +1,4 @@
+debian/scripts/solarcell-by-thebadsectors usr/bin/
+debian/resources/solarcell-by-thebadsectors.desktop usr/share/applications/
+debian/resources/solarcell-by-thebadsectors.png usr/share/icons/hicolor/256x256/apps/
+./tbs-sc-linux-64bit.lnx usr/lib/x86_64-linux-gnu/solarcell-by-thebadsectors/./ 
