@@ -1,0 +1,25 @@
+anataus7 for Debian
+-------------------
+
+executable seems to be compiled on Debian 3.0  Woody
+
+(GNU) 2.95.2 20000313 (Debian GNU/Linux)
+
+Source files:
+------------- 
+XF86DGA.c    jdapimin.c   jdphuff.c    jquant2.c    sd_asmix.asm vec_matr.c
+XF86VMode.c  jdapistd.c   jdpostct.c   jutils.c     sd_dsp16.c   vec_mem.c
+ana7.c       jdatasrc.c   jdsample.c   kirjaimet.c  sd_dsp8.c    vec_mtrl.c
+blit32.c     jdcoefct.c   jerror.c     maf.c        sd_main.c    vec_poly.c
+blit32a.asm  jdcolor.c    jidctflt.c   mapperi.c    sd_mix.c     vec_spl.c
+cool_mzx.c   jddctmgr.c   jidctfst.c   panorama.c   sd_ns.c      vecdata.asm
+crtstuff.c   jdhuff.c     jidctint.c   paperi.c     suumi.c      vecsys.c
+data.asm     jdinput.c    jidctred.c   promote.c    vec_cam.c
+feidi.c      jdmainct.c   jmemmgr.c    pt.c         vec_file.c
+gfx_x.c      jdmarker.c   jmemnobs.c   radix.c      vec_kf.c
+iff8.c       jdmaster.c   jpegread.c   ranta.c      vec_lsrc.c
+jcomapi.c    jdmerge.c    jquant1.c    sand.c       vec_math.c
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 15:15:01 +0100
+

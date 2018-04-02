@@ -1,0 +1,39 @@
+anataus7 (1.0-0ddebs6) unstable; urgency=medium
+
+  * better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Mar 2017 23:54:30 +0200
+
+anataus7 (1.0-0ddebs5) unstable; urgency=medium
+
+  * add an icon
+  * remove oddpd dependencies, as it give some problems
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 16 Dec 2016 21:43:54 +0100
+
+anataus7 (1.0-0ddebs4) unstable; urgency=medium
+
+  * make it depend of osspd,osspd-pulseaudio,pulseaudio-esound-compat 
+    for oss emulation
+  * so now Multi-Arch: foreign
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 21 Oct 2016 00:21:26 +0200
+
+anataus7 (1.0-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 31 Jul 2016 21:25:54 +0200
+
+anataus7 (1.0-0ddebs2) unstable; urgency=medium
+
+  * as demo use oss, inform using osspd
+  * add menu, desktop and manual
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 21 Mar 2016 19:49:56 +0100
+
+anataus7 (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 20 Feb 2016 15:20:35 +0100

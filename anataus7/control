@@ -1,0 +1,13 @@
+Source: anataus7
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends: debhelper (>= 9.0.0),pandoc,libx11-dev,libxext-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=992
+
+Package: anataus7
+Architecture: i386
+Depends: ${misc:Depends},${shlibs:Depends}
+Description: Linux i386 demo released at Assembly 2000
+ Linux port of demo released at Assembly 2000

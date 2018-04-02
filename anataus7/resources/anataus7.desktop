@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=anataus7
+GenericName=Demo
+Comment=Linux port of a demo released at Assembly 2000
+Type=Application
+Exec=/usr/bin/ana7
+Icon=anataus7
+Categories=AudioVideo;Game;
+Name[fr_FR]=anataus7
