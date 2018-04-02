@@ -1,0 +1,11 @@
+--- a/sound.cpp
++++ b/sound.cpp
+@@ -4,7 +4,7 @@
+ #include <stdio.h>
+ #include "sound.hpp"
+ 
+-#include "fmod.h"
++#include <fmodex/fmod.h>
+ 
+ FMOD_SYSTEM *system;
+ FMOD_SOUND *fsound;

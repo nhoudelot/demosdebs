@@ -1,0 +1,24 @@
+ssri-by-traction (1.0-0ddebs4) unstable; urgency=medium
+
+  * added an icon
+  * use pkgconf instead of pkg-config
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 30 Jul 2017 21:10:51 +0200
+
+ssri-by-traction (1.0-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 01:15:50 +0200
+
+ssri-by-traction (1.0-0ddebs2) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 20:12:02 +0200
+
+ssri-by-traction (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Apr 2016 09:22:36 +0200
