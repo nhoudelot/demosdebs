@@ -1,0 +1,24 @@
+--- a/main.c
++++ b/main.c
+@@ -191,9 +191,9 @@
+     GLenum  tyyppo;
+     unsigned char   *data,tmp;
+     static unsigned char    ympara[256*256*4];
+-    char    *pix[]={"data/funkka.jpg","data/funker.jpg","data/70skugga.jpg",
+-                    "data/fungiite.jpg","data/tahti.jpg","data/tekstit.jpg",
+-                    "data/miehet.jpg"};
++    char    *pix[]={"/usr/share/drfungi-by-fit/data/funkka.jpg","/usr/share/drfungi-by-fit/data/funker.jpg","/usr/share/drfungi-by-fit/data/70skugga.jpg",
++                    "/usr/share/drfungi-by-fit/data/fungiite.jpg","/usr/share/drfungi-by-fit/data/tahti.jpg","/usr/share/drfungi-by-fit/data/tekstit.jpg",
++                    "/usr/share/drfungi-by-fit/data/miehet.jpg"};
+     FILE    *fp;
+ 
+     glGenTextures(TEXTURES,gl_names);
+@@ -255,7 +255,7 @@
+         glEnd();
+     }
+ 
+-    fp=fopen("data/funkyfit.mod","rb");
++    fp=fopen("/usr/share/drfungi-by-fit/data/funkyfit.mod","rb");
+     if(fp==NULL)
+         return(0);
+     fread(moruuli,1,300000,fp);

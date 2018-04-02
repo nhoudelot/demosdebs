@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Dr Fungi
+GenericName=Demo
+Comment=Demo by Fit, released in 2002
+Type=Application
+Exec=/usr/bin/drfungi-by-fit
+Icon=drfungi-by-fit
+Categories=AudioVideo;Game;
+Name[fr_FR]=Dr Fungi

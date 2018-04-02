@@ -1,0 +1,71 @@
+--- a/kukat.c
++++ b/kukat.c
+@@ -1,10 +1,5 @@
+-
+ #include <math.h>
+-#ifdef UGLY_GL_HEADERS
+-#include <GL.h>
+-#else
+ #include <GL/gl.h>
+-#endif
+ 
+ extern GLint gl_names[];
+ 
+@@ -117,4 +112,4 @@
+ 
+     glPopMatrix();
+     glDisable(GL_BLEND);
+-}
+\ No newline at end of file
++}
+--- a/main.c
++++ b/main.c
+@@ -1,14 +1,9 @@
+-
+ #include <math.h>
+ #include <stdio.h>
+ #include <string.h>
+ #include <SDL/SDL.h>
+ #include <SDL/SDL_main.h>
+-#ifdef UGLY_GL_HEADERS
+-#include <GL.h>
+-#else
+ #include <GL/gl.h>
+-#endif
+ 
+ #include "cool_mzx/cool_mzx.h"
+ #include "mcubes.h"
+--- a/mcubes.c
++++ b/mcubes.c
+@@ -1,8 +1,4 @@
+-#ifdef UGLY_GL_HEADERS
+-#include <GL.h>
+-#else
+ #include <GL/gl.h>
+-#endif
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <math.h>
+--- a/tolppa.c
++++ b/tolppa.c
+@@ -1,8 +1,4 @@
+-#ifdef UGLY_GL_HEADERS
+-#include <GL.h>
+-#else
+ #include <GL/gl.h>
+-#endif
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <math.h>
+--- a/halftone.c
++++ b/halftone.c
+@@ -1,9 +1,4 @@
+-
+-#ifdef UGLY_GL_HEADERS
+-#include <GL.h>
+-#else
+ #include <GL/gl.h>
+-#endif
+ #include <math.h>
+ 
+ #define MAARA 20

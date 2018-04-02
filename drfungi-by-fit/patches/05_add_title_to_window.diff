@@ -1,0 +1,10 @@
+--- a/main.c
++++ b/main.c
+@@ -40,6 +40,7 @@
+ 
+     SDL_Init(SDL_INIT_VIDEO);
+     SDL_SetVideoMode(XS,YS,32,flags);
++    SDL_WM_SetCaption("Dr Fungi by Fit",NULL);
+     SDL_ShowCursor(0);
+    
+     /* Skip the music dialog in init */

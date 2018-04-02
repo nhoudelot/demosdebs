@@ -1,0 +1,3 @@
+drfungi-by-fit usr/bin/
+debian/resources/drfungi-by-fit.desktop usr/share/applications/
+debian/resources/drfungi-by-fit.png usr/share/icons/hicolor/256x256/apps/

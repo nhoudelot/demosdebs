@@ -1,0 +1,51 @@
+drfungi-by-fit (1.0-0ddebs8) unstable; urgency=medium
+
+  * added an icon
+  * use pkconf instead of pkg-config
+  * C standard to gnuC90
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 27 Jul 2017 14:59:50 +0200
+
+drfungi-by-fit (1.0-0ddebs7) unstable; urgency=medium
+
+  * Build-Depends: libjpeg-dev only
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 06 Apr 2017 01:42:55 +0200
+
+drfungi-by-fit (1.0-0ddebs6) unstable; urgency=medium
+
+  * splited package in 2 packages, an executable, and a data pack
+  * removed installation via Makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 05 Oct 2016 21:48:08 +0200
+
+drfungi-by-fit (1.0-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Jul 2016 02:12:53 +0200
+
+drfungi-by-fit (1.0-0ddebs4) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 01:07:17 +0200
+
+drfungi-by-fit (1.0-0ddebs3) unstable; urgency=medium
+
+  * using debian recommended CFLAGS and habits
+  * better program name 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 07 Mar 2016 19:10:23 +0100
+
+drfungi-by-fit (1.0-0ddebs2) unstable; urgency=medium
+
+  * added manuel & menu
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 04 Mar 2016 01:02:04 +0100
+
+drfungi-by-fit (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Feb 2016 00:47:44 +0100

@@ -1,0 +1,87 @@
+--- a/Makefile
++++ b/Makefile
+@@ -2,35 +2,37 @@
+ # GNU make syntax
+ 
+ # Change this... ATM known are OSX or empty for generic Unix/Linux
+-TARGET = OSX
+ 
+ # General defaults
+-CC = gcc
+-COPT = -O2 -ffast-math
+-INC = 
+-LIB = `sdl-config --libs` -lGL -ljpeg -lm
+-MZX = cool_mzx/cool_mzx.a
+-OBJ = main.o jpeg.o kukat.o mcubes.o halftone.o tolppa.o
+-
+-ifeq ($(TARGET),OSX)
+-COPT += -DMSB -DUGLY_GL_HEADERS
+-INC = -I/usr/local/include -I/sw/include -FOpenGL \
+--I/System/Library/Frameworks/OpenGL.framework/Headers
+-LIB = `/usr/local/bin/sdl-config --static-libs` /sw/lib/libjpeg.a -lm
++SHELL := /bin/sh
++CC := gcc
++CFLAGS += -Wall -ffast-math $(shell pkgconf sdl gl libjpeg --cflags) -std=gnu90 -pipe
++LDFLAGS += $(shell pkgconf sdl gl libjpeg --libs) -lm -pipe
++MZX := cool_mzx/cool_mzx.a
++OBJ := main.o jpeg.o kukat.o mcubes.o halftone.o tolppa.o
++
++RM_F := rm -f
++
++TARGET=drfungi-by-fit
++
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS := $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
+ endif
+ 
+ export
+ 
+-dr_fungi: $(OBJ) $(MZX)
+-	$(CC) -o dr_fungi $(OBJ) $(MZX) $(LIB)
+-	strip dr_fungi
++all: $(TARGET)
++
++$(TARGET): $(OBJ) $(MZX)
++	$(CC) -o $(TARGET) $(OBJ) $(MZX) $(LDFLAGS)
+ 
+ $(MZX):
+-	cd cool_mzx && make
++	cd cool_mzx && $(MAKE)
+ 
+ %.o: %.c
+-	$(CC) $(COPT) $(INC) -c $<
++	$(CC) $(CFLAGS) $(INC) -c $<
+ 
+ clean:
+-	rm *.o dr_fungi
+-	cd cool_mzx && make clean
++	-@$(RM_F) *.o $(TARGET)
++	cd cool_mzx && $(MAKE) clean
+--- a/cool_mzx/Makefile
++++ b/cool_mzx/Makefile
+@@ -1,13 +1,19 @@
+ # A very pathetic makefile...
++SHELL := /bin/sh
++CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
++CFLAGS += -Wall -O3 -ffast-math -funsigned-char -std=gnu90 -pipe
++PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
++RM_F := rm -f
+ 
+-COPT += -funsigned-char
++AR := ar
++RANLIB := ranlib
+ 
+ lib: obj
+-	ar rc cool_mzx.a pt*.o cool*.o sd*.o
+-	ranlib cool_mzx.a
++	$(AR) rc $(PLUGIN) cool_mzx.a pt*.o cool*.o sd*.o
++	$(RANLIB) $(PLUGIN) cool_mzx.a
+ 
+ obj:
+-	$(CC) $(COPT) -c *.c
++	$(CC) $(CFLAGS) -c *.c
+ 
+ clean:
+-	rm *.o *.a
++	-@$(RM_F)  *.o *.a
