@@ -1,0 +1,5 @@
+debian/scripts/alieninvasion-by-nectarine usr/bin/
+debian/resources/alieninvasion-by-nectarine.desktop usr/share/applications/
+debian/resources/alieninvasion-by-nectarine.png usr/share/icons/hicolor/256x256/apps/
+./alien_invasion-linux64 usr/lib/x86_64-linux-gnu/alieninvasion-by-nectarine/./ 
+./alien_invasion-frame.sh usr/lib/x86_64-linux-gnu/alieninvasion-by-nectarine/./ 

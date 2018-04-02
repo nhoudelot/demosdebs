@@ -1,0 +1,14 @@
+alieninvasion-by-nectarine (1.0-0ddebs2) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 29 Jan 2018 00:50:19 +0100
+
+alieninvasion-by-nectarine (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Apr 2017 14:01:41 +0200

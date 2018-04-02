@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Alien Invasion
+GenericName=Demo
+Comment=Demo by Nectarine, released in 2010
+Type=Application
+Exec=/usr/bin/alieninvasion-by-nectarine
+Icon=alieninvasion-by-nectarine
+Categories=AudioVideo;Game;
+Name[fr_FR]=Alien Invasion
