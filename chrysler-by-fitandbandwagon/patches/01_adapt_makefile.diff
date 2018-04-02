@@ -1,0 +1,81 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,27 +1,33 @@
+ CC = gcc
+-CFLAGS = -O2 -ffast-math `sdl-config --cflags`
+-#LDFLAGS = `sdl-config --libs` -lm
+-LDFLAGS = `sdl-config --static-libs` -lm
++CFLAGS += $(shell sdl-config --cflags) -Wall -O3 -flto -ffast-math -std=gnu90 -pipe
++LDFLAGS += $(shell sdl-config --libs) -lm -pipe
+ OBJ = data.o kirjaimet2.o kokko.o maf.o main.o mosaic.o pallot.o plasma.o\
+ ratas.o stripes.o video.o cool_mzx/cool_mzx.a
+ 
+-# Sound buffer size (default=1024)
+-#CFLAGS += -DBUFSIZE=8192
+-# True 8 bit display?
+-#CFLAGS += -DTRUE8BIT
++RM_F = rm -f
++
++TARGET          = chrysler-by-fitandbandwagon
++
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+ export
+ 
+-chrysler: $(OBJ)
+-	$(CC) -o $@ $(OBJ) $(LDFLAGS)
+-	strip $@
++all: $(TARGET)
++
++$(TARGET): $(OBJ)
++	$(CC) -flto -o $@ $(OBJ) $(LDFLAGS)
+ 
+ %.o: %.c
+ 	$(CC) $(CFLAGS) -c $<
+ 
+ cool_mzx/cool_mzx.a:
+-	cd cool_mzx && make
++	cd cool_mzx && $(MAKE)
+ 
+ clean:
+-	-rm *.o *~ chrysler
+-	cd cool_mzx && make clean
++	-@$(RM_F) *.o
++	-@$(RM_F) *~
++	-@$(RM_F) $(TARGET)
++	cd cool_mzx && $(MAKE) clean
+--- a/cool_mzx/Makefile
++++ b/cool_mzx/Makefile
+@@ -1,13 +1,25 @@
+ # A very pathetic makefile...
+ 
+-CFLAGS += -funsigned-char
++CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
++CFLAGS += -funsigned-char -Wall -O3 -flto -ffast-math -std=gnu90 -pipe
++PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
++
++AR= ar
++RANLIB = ranlib
++
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS := $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++
+ 
+ lib: obj
+-	ar rc cool_mzx.a pt*.o cool*.o sd*.o
+-	ranlib cool_mzx.a
++	$(AR) rc $(PLUGIN) cool_mzx.a pt*.o cool*.o sd*.o
++	$(RANLIB) $(PLUGIN) cool_mzx.a
+ 
+ obj:
+ 	$(CC) $(CFLAGS) -c *.c
+ 
+ clean:
+-	rm *.o *.a
++	-@$(RM_F) *.o *.a

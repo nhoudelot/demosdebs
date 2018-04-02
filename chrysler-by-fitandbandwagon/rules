@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+
+
+%:
+	dh $@ --parallel
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/chrysler-by-fitandbandwagon.6.md -o debian/chrysler-by-fitandbandwagon.6

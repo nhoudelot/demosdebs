@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Chrysler
+GenericName=Demo
+Comment=Demo by Fit and BandWagon, released in 2004
+Type=Application
+Exec=/usr/bin/chrysler-by-fitandbandwagon
+Icon=chrysler-by-fitandbandwagon
+Categories=AudioVideo;Game;
+Name[fr_FR]=chrysler-by-fitandbandwagon

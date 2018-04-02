@@ -1,0 +1,32 @@
+--- a/data.c
++++ b/data.c
+@@ -30,18 +30,18 @@
+ {
+     int val=0;
+ 
+-    val+=readfile("data/tehas2.mod",&musakki);
+-    val+=readfile("data/dd.raw",&dd);
+-    val+=readfile("data/na_eka.raw",&na_eka);
+-    val+=readfile("data/na_toka.raw",&na_toka);
+-    val+=readfile("data/onnettomuus.raw",&onnettomuus);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/tehas2.mod",&musakki);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/dd.raw",&dd);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/na_eka.raw",&na_eka);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/na_toka.raw",&na_toka);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/onnettomuus.raw",&onnettomuus);
+ 
+-    val+=readfile("data/paa.raw",&paa);
+-    val+=readfile("data/siunaus.raw",&siunaus);
+-    val+=readfile("data/ukko.raw",&ukko);
+-    val+=readfile("data/ratas.raw",&ratas);
+-    val+=readfile("data/kooste.raw",&kooste);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/paa.raw",&paa);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/siunaus.raw",&siunaus);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/ukko.raw",&ukko);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/ratas.raw",&ratas);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/kooste.raw",&kooste);
+ 
+-    val+=readfile("data/chrysler.raw",&chrysler);
++    val+=readfile("/usr/share/chrysler-by-fitandbandwagon/data/chrysler.raw",&chrysler);
+     return(val);
+ }

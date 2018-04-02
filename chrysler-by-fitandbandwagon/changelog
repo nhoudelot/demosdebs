@@ -1,0 +1,45 @@
+chrysler-by-fitandbandwagon (1.0-0ddebs7) unstable; urgency=medium
+
+  * kept C standard in CFLAGS
+  * data path was wrong
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 27 Jul 2017 13:21:26 +0200
+
+chrysler-by-fitandbandwagon (1.0-0ddebs6) unstable; urgency=medium
+
+  * splited package in 2 packages, an executable, and a data pack
+  * removed installation via Makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 05 Oct 2016 20:40:48 +0200
+
+chrysler-by-fitandbandwagon (1.0-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+  * fix package creation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Jul 2016 20:48:01 +0200
+
+chrysler-by-fitandbandwagon (1.0-0ddebs4) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 00:43:45 +0200
+
+chrysler-by-fitandbandwagon (1.0-0ddebs3) unstable; urgency=medium
+
+  * added manuel & menu
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 04 Mar 2016 01:07:31 +0100
+
+chrysler-by-fitandbandwagon (1.0-0ddebs2) unstable; urgency=medium
+
+  * using debian recommended CFLAGS and habits
+  * better program name
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Mar 2016 02:39:50 +0100
+
+chrysler-by-fitandbandwagon (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Feb 2016 01:15:46 +0100
