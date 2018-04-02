@@ -1,0 +1,12 @@
+abouttime-by-approximate (1.0-0ddebs2) unstable; urgency=medium
+
+  * Added somes lintian overrides
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Jan 2018 10:34:00 +0100
+
+abouttime-by-approximate (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 23 Oct 2016 15:06:47 +0200

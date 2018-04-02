@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=About Time
+GenericName=Demo
+Comment=Demo by Approximate, released in 2008
+Type=Application
+Exec=/usr/bin/abouttime-by-approximate
+Icon=abouttime-by-approximate
+Categories=AudioVideo;Game;
+Name[fr_FR]=About Time

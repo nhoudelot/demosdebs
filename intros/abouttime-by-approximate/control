@@ -1,0 +1,18 @@
+Source: abouttime-by-approximate
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=51667
+
+Package: abouttime-by-approximate
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: 64k intro for Linux, released in 2008
+ Demo by Approximate, released in 2008

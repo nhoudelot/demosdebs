@@ -1,0 +1,4 @@
+debian/scripts/abouttime-by-approximate usr/bin/
+debian/resources/abouttime-by-approximate.desktop usr/share/applications/
+debian/resources/abouttime-by-approximate.png usr/share/icons/hicolor/256x256/apps/
+./approximate_about_time.elf usr/lib/i386-linux-gnu/abouttime-by-approximate/./ 
