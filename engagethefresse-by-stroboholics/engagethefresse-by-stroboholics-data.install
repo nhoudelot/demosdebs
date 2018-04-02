@@ -1,0 +1,16 @@
+./shader usr/share/engagethefresse-by-stroboholics/./ 
+./shader/plain.vsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/supershape.fsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/supershape.vsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/postproc.fsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/bloom.fsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/blur_v.fsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/combine.fsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/strobotext.vsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/postproc.vsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/blur_h.fsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./shader/blur_radial.fsh usr/share/engagethefresse-by-stroboholics/./shader/ 
+./tex usr/share/engagethefresse-by-stroboholics/./ 
+./tex/stroboholics2.png usr/share/engagethefresse-by-stroboholics/./tex/ 
+./tex/stroboholics1.png usr/share/engagethefresse-by-stroboholics/./tex/ 
+./Stroboholics_-_Engage_the_Noise.mp3 usr/share/engagethefresse-by-stroboholics/./ 

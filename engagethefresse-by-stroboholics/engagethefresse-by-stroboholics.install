@@ -1,0 +1,4 @@
+debian/scripts/engagethefresse-by-stroboholics usr/bin/
+debian/resources/engagethefresse-by-stroboholics.desktop usr/share/applications/
+debian/resources/engagethefresse-by-stroboholics.png usr/share/icons/hicolor/256x256/apps/
+./strobo-windowed-64bit usr/lib/x86_64-linux-gnu/engagethefresse-by-stroboholics/./ 

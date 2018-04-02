@@ -1,0 +1,3 @@
+engagethefresse-by-stroboholics: unknown-section demos
+engagethefresse-by-stroboholics: desktop-entry-lacks-keywords-entry usr/share/applications/engagethefresse-by-stroboholics.desktop
+engagethefresse-by-stroboholics: binary-or-shlib-defines-rpath usr/lib/x86_64-linux-gnu/engagethefresse-by-stroboholics/strobo-windowed-64bit .

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=ENGAGE THE FRESSE
+GenericName=Demo
+Comment=Demo by stroboholics, released in 2010
+Type=Application
+Exec=/usr/bin/engagethefresse-by-stroboholics
+Icon=engagethefresse-by-stroboholics
+Categories=AudioVideo;Game;
+Name[fr_FR]=ENGAGE THE FRESSE
