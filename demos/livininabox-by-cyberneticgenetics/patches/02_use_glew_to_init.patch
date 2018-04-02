@@ -1,0 +1,102 @@
+--- a/src/cg_x11.c
++++ b/src/cg_x11.c
+@@ -1,5 +1,6 @@
+ #define GL_GLEXT_PROTOTYPES
+ #define GLX_GLXEXT_PROTOTYPES
++#include <GL/glew.h>
+ #include "cg_x11.h"
+ #include "cg_constants.h"
+ #include <stdlib.h>
+@@ -13,7 +14,6 @@
+ int                     cg_screen_mode;
+ GLXContext              cg_context;
+ 
+-
+ void SetScreenSize(int width, int height, XVisualInfo *visual){
+    XRRScreenSize *sizes;
+    int snum, rnum, i;
+@@ -132,22 +132,25 @@
+    cg_window            = XCreateWindow(cg_display, RootWindow(cg_display, visual->screen),
+                                         0, 0, width, height, 0, visual->depth, InputOutput,
+                                         visual->visual, CWBorderPixel | CWColormap | CWEventMask, &swa);
+-   if(!cg_window){
+-      return(-1);
+-   }
+-   cg_context           = glXCreateContextAttribsARB(cg_display, fbc[0], NULL, True, gl4attr);
+ 
+-   if(mode == CG_FULLSCREEN){
+-      /* Set to fullscreen */
+-      fullscreen = XInternAtom(cg_display, "_NET_WM_STATE_FULLSCREEN", False);
+-      XChangeProperty(cg_display, cg_window, XInternAtom(cg_display, "_NET_WM_STATE", False), 
+-                      XA_ATOM, 32, PropModeReplace,
+-                      (unsigned char *)&fullscreen, 1);
+-      HideCursor();
+-      /* Get the current screen size and set the new one */
+-      SetScreenSize(width, height, visual);
+-   }
++      PFNGLXCREATECONTEXTATTRIBSARBPROC glXCreateContextAttribsARB = 0;
++      glXCreateContextAttribsARB = (PFNGLXCREATECONTEXTATTRIBSARBPROC) glXGetProcAddressARB( (const GLubyte *) "glXCreateContextAttribsARB" );
++
++      if(!cg_window){
++          return(-1);
++      }
++      cg_context           = glXCreateContextAttribsARB(cg_display, fbc[0], NULL, True, gl4attr);
+ 
++      if(mode == CG_FULLSCREEN){
++          /* Set to fullscreen */
++          fullscreen = XInternAtom(cg_display, "_NET_WM_STATE_FULLSCREEN", False);
++          XChangeProperty(cg_display, cg_window, XInternAtom(cg_display, "_NET_WM_STATE", False),
++      		    XA_ATOM, 32, PropModeReplace,
++      		    (unsigned char *)&fullscreen, 1);
++          HideCursor();
++          /* Get the current screen size and set the new one */
++          SetScreenSize(width, height, visual);
++      }
+    cg_screen_mode = mode;
+    XMapWindow(cg_display, cg_window);
+    glXMakeCurrent(cg_display, cg_window, cg_context);
+--- a/src/livin.c
++++ b/src/livin.c
+@@ -1,4 +1,5 @@
+ #define GL_GLEXT_PROTOTYPES
++#include <GL/glew.h>
+ #include <GL/gl.h>
+ #include <math.h>
+ #include <stdio.h>
+@@ -91,11 +92,19 @@
+    char greetingspath[21];
+ 
+    /* OpenGL related initialization */
++   glewExperimental = GL_TRUE;
++   GLenum err = glewInit();
++   if(GLEW_OK != err)
++   {
++       //Problem: glewInit failed, something is seriously wrong.
++       printf("Error: %s\n", glewGetErrorString(err));
++   }
++   printf( "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
++
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+-   
+    perspectiveMatrix(pmatrix, 35.0, (float)width/(float)height, 0.1, 1500.0);
+ 
+    /* Demo related initialization */
+--- a/src/explosion.c
++++ b/src/explosion.c
+@@ -1,4 +1,5 @@
+ #define GL_GLEXT_PROTOTYPES
++#include <GL/glew.h>
+ #include <GL/gl.h>
+ #include <stdlib.h>
+ #include "shader.h"
+--- a/src/squares.c
++++ b/src/squares.c
+@@ -1,4 +1,5 @@
+ #define GL_GLEXT_PROTOTYPES
++#include <GL/glew.h>
+ #include <GL/gl.h>
+ #include "squares.h"
+ 

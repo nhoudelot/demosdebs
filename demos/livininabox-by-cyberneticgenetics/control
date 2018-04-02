@@ -1,0 +1,37 @@
+Source: livininabox-by-cyberneticgenetics
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pkgconf,
+ libpng-dev,
+ mesa-common-dev,
+ libasound2-dev,
+ libx11-dev,
+ libxrandr-dev,
+ libglew-dev,
+ libgl1-mesa-dev,
+ libvorbis-dev,
+ libgtk-3-dev,
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=59386
+
+Package: livininabox-by-cyberneticgenetics
+Architecture: any
+Depends: 
+ ${shlibs:Depends},
+ ${misc:Depends},
+ livininabox-by-cyberneticgenetics-data
+Description: Demo for Linux, released in 2012
+ Demo by Cybernetic Genetics, released in 2012
+
+Package: livininabox-by-cyberneticgenetics-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: data files for livininabox-by-cyberneticgenetics, released in 2012
+ livininabox-by-cyberneticgenetics data files
+

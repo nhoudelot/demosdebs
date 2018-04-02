@@ -1,0 +1,62 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,12 +1,30 @@
+-CC = gcc
+-CFLAGS = -Wall -W -pedantic `pkg-config --cflags gtk+-3.0`
+-CLIBS = -L/usr/lib/nvidia-current-updates -lGL -lX11 -lXrandr -lm -lpng12 -lvorbisfile -lasound `pkg-config --libs gtk+-3.0`
+-
+-DEMO = livin
+-
+-$(DEMO): main.o texture.o mesh3d.o shader.o cg_music.o cg_x11.o cg_dialog.o matrix.o cg_time.o depthvideo.o face.o outline.o squares.o explosion.o tridlist.o bigcube.o $(DEMO).o
+-	$(CC) *.o $(CLIBS) -o $(DEMO)
+-	mv $(DEMO) ../
++#variables de compilation
++SHELL   := /bin/sh
++CC      := gcc
++CFLAGS  := -Wall -O3 -flto -ffast-math -pipe $(shell pkgconf --cflags glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0)
++LDFLAGS := $(shell pkgconf --libs glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
++TARGET  := livininabox-by-cyberneticgenetics
++#variable de nettoyage
++RM_F := rm -f
++#variables désinstallation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++#compilation en paralelle si disponible
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++export
++
++$(TARGET): main.o texture.o mesh3d.o shader.o cg_music.o cg_x11.o cg_dialog.o matrix.o cg_time.o depthvideo.o face.o outline.o squares.o explosion.o tridlist.o bigcube.o livin.o
++	$(CC) -flto *.o $(LDFLAGS) -o $(TARGET)
+ 
+ # Common demo stuff
+ main.o: main.c
+@@ -41,10 +59,16 @@
+ 	$(CC) $(CFLAGS) explosion.c -c
+ bigcube.o: bigcube.c bigcube.h
+ 	$(CC) $(CFLAGS) bigcube.c -c
+-$(DEMO).o: mesh3d.h texture.h $(DEMO).c $(DEMO).h
+-	$(CC) $(CFLAGS) $(DEMO).c -c
++livin.o: mesh3d.h texture.h livin.c livin.h
++	$(CC) $(CFLAGS) livin.c -c
+ 
+ clean:
+ 	@echo Cleaning up...
+-	@rm -f *.o *~ core* 
++	-@$(RM_F) *.o
++	-@$(RM_F) $(TARGET)
+ 	@echo Done.
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)

@@ -1,0 +1,23 @@
+--- a/src/livin.c
++++ b/src/livin.c
+@@ -5,6 +5,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <unistd.h>
+ 
+ #include "livin.h"
+ #include "cg_time.h"
+@@ -100,7 +101,11 @@
+        printf("Error: %s\n", glewGetErrorString(err));
+    }
+    printf( "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+-
++   char datapath[]="/usr/share/livininabox-by-cyberneticgenetics/";
++   if (chdir(datapath) == 0) {
++   }else{
++        printf("Error : Could not change directory to %s\n",datapath);
++   }
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);

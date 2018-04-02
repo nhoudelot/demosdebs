@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Livin' in a box
+GenericName=Demo
+Comment=Demo by Cybernetic Genetics, released in 2012
+Type=Application
+Exec=/usr/bin/livininabox-by-cyberneticgenetics
+Icon=livininabox-by-cyberneticgenetics
+Categories=AudioVideo;Game;
+Name[fr_FR]=Livin' in a box
