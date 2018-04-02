@@ -1,0 +1,18 @@
+purple-by-youthuprising (1.0-0ddebs3) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Jan 2018 16:39:38 +0100
+
+purple-by-youthuprising (1.0-0ddebs2) unstable; urgency=medium
+
+  * added libpng12-0 and libsdl12debian dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 16 Sep 2016 01:06:06 +0200
+
+purple-by-youthuprising (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 06 Sep 2016 00:29:54 +0200

@@ -1,0 +1,4 @@
+debian/scripts/purple-by-youthuprising usr/bin/
+debian/resources/purple-by-youthuprising.desktop usr/share/applications/
+debian/resources/purple-by-youthuprising.png usr/share/icons/hicolor/256x256/apps/
+./purple.linux usr/lib/i386-linux-gnu/purple-by-youthuprising/./ 

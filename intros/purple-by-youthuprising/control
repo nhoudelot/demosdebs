@@ -1,0 +1,20 @@
+Source: purple-by-youthuprising
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=29742
+
+Package: purple-by-youthuprising
+Architecture: i386
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ libpng12-0 (>= 1.2.13-4),
+ libsdl1.2debian,
+ common-install-function-ddebs(>=1.18)
+Description: Youth Uprising intro released in 2007
+ Intro by Youth Uprising, released in 2007
