@@ -1,0 +1,11 @@
+--- a/setup.xml
++++ b/setup.xml
+@@ -2,7 +2,7 @@
+ 	<archive path="./data/"/>
+ 	<archive path="./gui"/>
+ 	<time start="0" loop="off" mode="vsync"/>
+-	<display width="1280" height="720" fullscreen="on"
++	<display width="1280" height="720" fullscreen="off"
+ 	title="Compusphere 2009, 28-30 August, Gothenburg Sweden."/>
+ 	<music filename="electronic_sentience.ogg" mute="off"/>
+ 	<osd show="off" location="bottom" delay="2.0"/>

@@ -1,0 +1,62 @@
+compusphere2009-by-outbreakandchimeramusic for Debian
+-----------------------------------------------------
+
+executable seems to be compiled for Ubuntu Hardy (8.04)
+
+(GNU) 4.2.3 (Ubuntu 4.2.3-2ubuntu7)
+
+Source files:
+------------- 
+am.cpp                       pan_color_chooser.cpp
+am_archivedirectory.cpp      pan_container.cpp
+am_archivezip.cpp            pan_context.cpp
+am_image.cpp                 pan_control.cpp
+am_imagecodec_jpeg.cpp       pan_control_factory.cpp
+am_imagecodec_png.cpp        pan_dropdown.cpp
+am_imagecodec_tga.cpp        pan_flow.cpp
+am_imagemanager.cpp          pan_frame.cpp
+am_videofile.cpp             pan_image.cpp
+am_videofile_imagedumper.cpp pan_knob.cpp
+ascii.cpp                    pan_label.cpp
+clear.cpp                    pan_layout_stack.cpp
+common.cpp                   pan_menu.cpp
+crtstuff.c                   pan_menubar.cpp
+dis_clock.cpp                pan_panel.cpp
+dis_display.cpp              pan_radiobutton.cpp
+dis_display_glfw.cpp         pan_render.cpp
+dis_display_obsolete.cpp     pan_ruler.cpp
+dis_fbo_gl.cpp               pan_scrollbars.cpp
+dis_font.cpp                 pan_slider.cpp
+dis_glinclude.cpp            pan_spline.cpp
+dis_listener.cpp             pan_stat.cpp
+dis_resource.cpp             pan_tabview.cpp
+dis_texture_gl.cpp           pan_textinput.cpp
+dis_vboibo_gl.cpp            pan_treeview.cpp
+dis_windowmode.cpp           pan_typedef.cpp
+enable.c                     pan_window.cpp
+fire_effect.cpp              pan_workspace.cpp
+fire_gui.cpp                 panorama.cpp
+fire_main.cpp                plasma.cpp
+fire_plugin_color.cpp        postprocess.cpp
+fire_plugin_spline.cpp       stars.cpp
+fire_plugin_trigger.cpp      time.c
+flash.cpp                    unzip.c
+fullscreen.c                 volumetric.cpp
+glext.c                      window.c
+init.c                       x11_enable.c
+initfini.c                   x11_fullscreen.c
+input.c                      x11_glext.c
+ioapi.c                      x11_init.c
+joystick.c                   x11_joystick.c
+lightspeed.cpp               x11_keysym2unicode.c
+main.cpp                     x11_time.c
+mb_matrix4x4col.cpp          x11_window.c
+otb_system.cpp               xml_iterator.cpp
+pan_box.cpp                  xml_iteratorconst.cpp
+pan_button.cpp               xml_node.cpp
+pan_callback.cpp             xml_parser.cpp
+pan_caption.cpp              xml_tag.cpp
+pan_checkbox.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 22:10:01 +0100
+

@@ -1,0 +1,4 @@
+debian/scripts/compusphere2009-by-outbreakandchimeramusic usr/bin/
+debian/resources/compusphere2009-by-outbreakandchimeramusic.desktop usr/share/applications/
+debian/resources/compusphere2009-by-outbreakandchimeramusic.png usr/share/icons/hicolor/256x256/apps/
+./Compusphere_2009.elf usr/lib/i386-linux-gnu/compusphere2009-by-outbreakandchimeramusic/./ 

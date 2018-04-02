@@ -1,0 +1,31 @@
+compusphere2009-by-outbreakandchimeramusic (1.0-0ddebs5) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Jan 2018 00:01:10 +0100
+
+compusphere2009-by-outbreakandchimeramusic (1.0-0ddebs4) unstable; urgency=medium
+
+  * use libglew1.5 added in the repository instead of a link
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Apr 2017 01:51:56 +0200
+
+compusphere2009-by-outbreakandchimeramusic (1.0-0ddebs3) unstable; urgency=medium
+
+  * better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Mar 2017 03:21:45 +0200
+
+compusphere2009-by-outbreakandchimeramusic (1.0-0ddebs2) unstable; urgency=medium
+
+  * missing libx11-6 dependencie
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 22:16:20 +0100
+
+compusphere2009-by-outbreakandchimeramusic (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 25 Oct 2016 01:48:27 +0200

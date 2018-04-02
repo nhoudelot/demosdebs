@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Compusphere 2009
+GenericName=Demo
+Comment=Demo by Outbreak and Chimera Music, released in 2009
+Type=Application
+Exec=/usr/bin/compusphere2009-by-outbreakandchimeramusic
+Icon=compusphere2009-by-outbreakandchimeramusic
+Categories=AudioVideo;Game;
+Name[fr_FR]=Compusphere 2009
