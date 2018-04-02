@@ -1,0 +1,25 @@
+b14-by-vantagemfx (1.0-0ddebs4) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 24 Jan 2018 19:52:26 +0100
+
+b14-by-vantagemfx (1.0-0ddebs3) unstable; urgency=medium
+
+  * better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 27 Mar 2017 23:04:07 +0200
+
+b14-by-vantagemfx (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 31 Jul 2016 21:25:54 +0200
+
+b14-by-vantagemfx (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 26 Mar 2016 15:01:17 +0100

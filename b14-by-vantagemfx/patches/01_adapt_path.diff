@@ -1,0 +1,21 @@
+--- a/b14-by-vantagemfx
++++ b/b14-by-vantagemfx
+@@ -1,6 +1,6 @@
+ #!/bin/bash -e
+ 
+-source common-install-function
++source /usr/share/common-install-function-ddebs/common-install-function
+ 
+ domain=b14-by-vantagemfx
+ 
+@@ -11,7 +11,10 @@
+ 
+ function run()
+ {
++	backuppwd=$(pwd)
++	cd /usr/lib/i386-linux-gnu/${domain}
+ 	./${APP_EXE}
++	cd $backuppwd
+ }
+ 
+ 
