@@ -1,0 +1,4 @@
+debian/scripts/aestheticdistance-by-youthuprising usr/bin/
+debian/resources/aestheticdistance-by-youthuprising.desktop usr/share/applications/
+debian/resources/aestheticdistance-by-youthuprising.png usr/share/icons/hicolor/256x256/apps/
+./demo.linux32 usr/lib/i386-linux-gnu//aestheticdistance-by-youthuprising/./ 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Aesthetic Distance
+GenericName=Demo
+Comment=Demo by Youth Uprising, released in 2007
+Type=Application
+Exec=/usr/bin/aestheticdistance-by-youthuprising
+Icon=aestheticdistance-by-youthuprising
+Categories=AudioVideo;Game;
+Name[fr_FR]=Aesthetic Distance

@@ -1,0 +1,35 @@
+aestheticdistance-by-youthuprising for Debian
+---------------------------------------------
+
+Compiled with GCC 4.2.2
+
+(GNU) 4.2.2
+
+source files :
+-------------
+
+Vector.cpp    
+cells.cpp     
+file.cpp      
+main.cpp      
+player.cpp    
+timer.cpp
+aeolus.cpp    
+cells2.cpp    
+filters.cpp   
+mainscene.cpp 
+sound.cpp     
+worms.cpp
+borders.cpp   
+demo.cpp      
+floaters.cpp  
+objects.cpp   
+static.cpp
+camera.cpp    
+dla.cpp       
+font.cpp      
+particles.cpp 
+texman.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 15:33:40 +0100
+
