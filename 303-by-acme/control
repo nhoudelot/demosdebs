@@ -1,0 +1,19 @@
+Source: 303-by-acme
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ libsdl1.2-dev,
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=44
+
+Package: 303-by-acme
+Architecture: i386
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: Demo : 303 by Acme
+ demo ranked 1st at X 1997
+ with a linux wrapper

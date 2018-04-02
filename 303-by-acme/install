@@ -1,0 +1,12 @@
+VS.LZW usr/share/303-by-acme/
+PARANOID.LZW usr/share/303-by-acme/
+MUSTARD.PAK usr/share/303-by-acme/
+KETCHUP.PAK usr/share/303-by-acme/
+HARL.LZW usr/share/303-by-acme/
+GARLIC.PAK usr/share/303-by-acme/
+ALEX.LZW usr/share/303-by-acme/
+303.EXE usr/share/303-by-acme/
+vir303 usr/lib/i386-linux-gnu/303-by-acme/
+debian/scripts/303-by-acme usr/bin/
+debian/resources/303-by-acme.desktop usr/share/applications/
+debian/resources/303-by-acme.png usr/share/icons/hicolor/256x256/apps/

@@ -1,0 +1,46 @@
+303-by-acme (2.0-0ddebs1) unstable; urgency=medium
+
+  * added and using linux wrapper instead of dosbox
+  * removed DOS4GW
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2016 21:35:25 +0100
+
+303-by-acme (1.0-0ddebs6) unstable; urgency=medium
+
+  * relative path for X: could not work on some systems
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 15 Mar 2015 02:26:37 +0100
+
+303-by-acme (1.0-0ddebs5) unstable; urgency=medium
+
+  * Separate modifications that are from the upstream, and from the
+    package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 19 Nov 2014 22:45:30 +0100
+
+303-by-acme (1.0-0ddebs4) unstable; urgency=medium
+
+  * Added Common Install script
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 10 Nov 2014 15:20:07 +0100
+
+303-by-acme (1.0-0ddebs3) unstable; urgency=medium
+
+  * Converted launch script to bash
+  * Added option fullscreen
+  * Added option debug
+  * Moved debian/script where it should be 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 02 Nov 2014 15:25:08 +0100
+
+303-by-acme (1.0-0ddebs2) unstable; urgency=medium
+
+  * Changed to standards-Version: 3.9.5
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 30 Jul 2014 00:44:45 +0200
+
+303-by-acme (1.0-0ddebs1) precise; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 16 Dec 2013 00:23:22 +0100

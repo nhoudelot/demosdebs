@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=303-by-acme
+
+APP_FULLNAME="303"
+APP_COPYRIGHT="Acme"
+APP_DESC="demo by Acme released in 1997"
+APP_EXE="vir303"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/i386-linux-gnu/${domain}/
+	./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
