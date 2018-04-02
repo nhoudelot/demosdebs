@@ -1,0 +1,19 @@
+daydream-by-hedelmae (1.0-0ddebs3) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Jan 2018 11:18:24 +0100
+
+daydream-by-hedelmae (1.0-0ddebs2) unstable; urgency=medium
+
+  * better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Mar 2017 03:49:57 +0200
+
+daydream-by-hedelmae (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 13 Oct 2016 22:16:17 +0200

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Daydream
+GenericName=Demo
+Comment=Demo by Hedelmae, released in 2008
+Type=Application
+Exec=/usr/bin/daydream-by-hedelmae
+Icon=daydream-by-hedelmae
+Categories=AudioVideo;Game;
+Name[fr_FR]=Daydream

@@ -1,0 +1,4 @@
+debian/scripts/daydream-by-hedelmae usr/bin/
+debian/resources/daydream-by-hedelmae.desktop usr/share/applications/
+debian/resources/daydream-by-hedelmae.png usr/share/icons/hicolor/256x256/apps/
+./daydream usr/lib/i386-linux-gnu/daydream-by-hedelmae/./ 
