@@ -1,0 +1,19 @@
+business-by-jumalauta (1.0-0ddebs3) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 24 Jan 2018 23:06:56 +0100
+
+business-by-jumalauta (1.0-0ddebs2) unstable; urgency=medium
+
+  * Added an icon
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 07 Jul 2017 12:06:10 +0200
+
+business-by-jumalauta (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 07 Jul 2017 00:54:24 +0200

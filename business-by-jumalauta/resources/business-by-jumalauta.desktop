@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Business
+GenericName=Demo
+Comment=Demo by jumalauta, released in 2012
+Type=Application
+Exec=/usr/bin/business-by-jumalauta
+Icon=business-by-jumalauta
+Categories=AudioVideo;Game;
+Name[fr_FR]=Business

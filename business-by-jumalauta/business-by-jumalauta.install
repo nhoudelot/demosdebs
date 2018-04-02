@@ -1,0 +1,4 @@
+debian/scripts/business-by-jumalauta usr/bin/
+debian/resources/business-by-jumalauta.desktop usr/share/applications/
+debian/resources/business-by-jumalauta.png usr/share/icons/hicolor/256x256/apps/
+./demo.linux usr/lib/i386-linux-gnu/business-by-jumalauta/./ 

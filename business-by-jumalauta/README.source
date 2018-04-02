@@ -1,0 +1,25 @@
+business-by-jumalauta for Debian
+-------------------------------
+
+executable seems to be compiled for Ubuntu Hardy (8.04)
+
+(GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4)
+
+Source files:
+------------- 
+amiga.c           face.c            insertsort.c      scene_globals.c
+background.c      font.c            io.c              screenNoise.c
+blur.c            general.c         lines.c           shader.c
+clouds.c          gl.c              main.c            sound.c
+corrosion.c       glow.c            menu.c            spline.c
+crtstuff.c        graphics.c        money_david.c     splineEditor.c
+cubicSpline.c     greetings.c       money_globe.c     stock.c
+datatypes.c       hyperCube.c       player.c          sun.c
+debugOpenGl.c     image.c           playlist.c        timer.c
+debugPrint.c      init.c            postprocessText.c trinity.c
+end.c             initfini.c        rain.c            window.c
+expr.c            inputSdl.c        sales.c           windowSdl.c
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 07 Jul 2017 00:54:24 +0200
+
