@@ -1,0 +1,11 @@
+--- a/source/sound.c
++++ b/source/sound.c
+@@ -20,7 +20,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#define MOD_FILENAME	"retroattivo.mod"
++#define MOD_FILENAME	"/usr/share/ledblur-by-mindlapse/retroattivo.mod"
+ 
+ int play_music = 1;
+ 

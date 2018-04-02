@@ -1,0 +1,75 @@
+--- a/source/sound.c
++++ b/source/sound.c
+@@ -78,9 +78,9 @@
+ #include <unistd.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
+-#include <mikmod.h>
++#include <SDL/SDL.h>
++#include <SDL/SDL_mixer.h>
+ 
+-MODULE *mod;
+ pid_t plr_pid;
+ 
+ 
+@@ -102,17 +102,17 @@
+ void SoundInit(void) {
+ 	if(!play_music) return;
+ 
+-	MikMod_RegisterAllDrivers();
+-	MikMod_RegisterAllLoaders();
+-
+-	md_mode |= DMODE_SOFT_MUSIC;
+-	if(MikMod_Init("") != 0) {
+-		fprintf(stderr, "mikmod init failed: %s\n", MikMod_strerror(MikMod_errno));
++	// start SDL with audio support
++	if(SDL_Init(SDL_INIT_AUDIO)==-1) {
++		printf("SDL_Init: %s\n", SDL_GetError());
+ 		exit(1);
+ 	}
+ 
+-	if(!(mod = Player_Load(MOD_FILENAME, 64, 0))) {
+-		fprintf(stderr, "failed to load %s: %s\n", MOD_FILENAME, MikMod_strerror(MikMod_errno));
++	// open 44.1KHz, signed 16bit, system byte order,
++	//      stereo audio, using 1024 byte chunks
++	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
++	{
++		printf("%s", Mix_GetError());
+ 		exit(1);
+ 	}
+ }
+@@ -120,18 +120,14 @@
+ void PlaySong(void) {
+ 	if(!play_music) return;
+ 	
+-	Player_Start(mod);
+-	
+-	if(!(plr_pid = fork())) {
+-		atexit(Player_Stop);
+-
+-		while(Player_Active()) {
+-			usleep(10000);
+-			MikMod_Update();
+-		}
+-		exit(0);
++	Mix_Music *musique;
++	if(!(musique = Mix_LoadMUS(MOD_FILENAME))) {
++		fprintf(stderr, "failed to load %s:\n", MOD_FILENAME);
++		exit(1);
+ 	}
+ 	
++	Mix_PlayMusic(musique,1);
++
+ 	signal(SIGUSR1, sig_handler);
+ 	signal(SIGCHLD, sig_handler);
+ }
+@@ -142,7 +138,8 @@
+ 	if(plr_pid) {
+ 		kill(plr_pid, SIGUSR1);
+ 	}
+-	MikMod_Exit();
++	Mix_PauseMusic();
++	Mix_CloseAudio();
+ }
+ 
+ #endif

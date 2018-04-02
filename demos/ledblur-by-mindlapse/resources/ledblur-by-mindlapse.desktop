@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Led blur
+GenericName=Demo
+Comment=Demo by mindlapse, released in 2006
+Type=Application
+Exec=/usr/bin/ledblur-by-mindlapse
+Icon=ledblur-by-mindlapse
+Categories=AudioVideo;Game;
+Name[fr_FR]=Led blur

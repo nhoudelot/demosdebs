@@ -1,0 +1,63 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,16 +1,51 @@
++#variables de compilation
++SHELL := /bin/sh
++
+ include source/makefile.part
+-bin = opti_ledblur
++TARGET := ledblur-by-mindlapse
++
++warn := -O3 -Wall -Wno-unused-variable
++opt := -Wall -ffast-math
++
++CC := gcc
++CFLAGS += -std=gnu99 -pedantic $(warn) $(opt) -Isource $(shell pkgconf sdl SDL_mixer --cflags) -pipe
++LDFLAGS += $(shell pkgconf sdl SDL_mixer --libs) -lm
++
++#variable de nettoyage
++RM_F := rm -f
++#variables d'instalation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
+ 
+-warn = -Wall -Wno-unused-variable
+-opt = -O3 -ffast-math -fomit-frame-pointer
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++datarootdir     := $(prefix)/share
++datadir         := $(prefix)/share/ledblur-by-mindlapse
+ 
+-CC = gcc
+-CFLAGS = -std=gnu99 -pedantic $(warn) $(opt) -Isource `sdl-config --cflags` `libmikmod-config --cflags`
+-LDFLAGS = `sdl-config --libs` `libmikmod-config --libs`
++#parallel compilation if available
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS := $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+-$(bin):	$(obj)
++export
++
++all: $(TARGET)
++
++$(TARGET):	$(obj)
+ 	$(CC) -o $@ $(obj) $(LDFLAGS)
+ 
+-.PHONY: clean
+ clean:
+-	rm -f $(obj) $(bin)
++	-@$(RM_F) $(obj)
++	-@$(RM_F) $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	#data
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) retroattivo.mod $(DESTDIR)$(datadir)

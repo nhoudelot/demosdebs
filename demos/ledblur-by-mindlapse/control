@@ -1,0 +1,18 @@
+Source: ledblur-by-mindlapse
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ pkgconf,
+ libsdl1.2-dev,
+ libsdl-mixer1.2-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=25515
+
+Package: ledblur-by-mindlapse
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: mindlapse Demo/2006/Linux
+ Demo by mindlapse, released in 2006
