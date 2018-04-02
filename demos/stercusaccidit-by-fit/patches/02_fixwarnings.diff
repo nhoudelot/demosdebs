@@ -1,0 +1,105 @@
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -52,6 +52,8 @@
+ */
+ 
+ #include <math.h>
++#include <stdlib.h>
++#include <string.h>
+ #include "sd_main.h"
+ #include "sd_mix.h"
+ 
+@@ -300,35 +302,35 @@
+ 	s->target_bus = &mix_buses[0];
+ } /* sd_mix_initchannel */
+ 
+-void sd_mix_init (int rate, int blocksize)
+-{
+-	int	i,n,m;
+-
+-	sd_mix_rate = rate;
+-
+-	for (i=0; i<SD_MAXBUSES; i++)
+-	{
+-		mix_bus_init(&mix_buses[i], blocksize, 2);
+-	}
+-
+-
+-	for (i=0; i<SD_MAXCHANNELS; i++)
+-	{
+-		sd_mix_initchannel(&mix_channels[i]);
+-		sd_mix_initchannel(&mix_realchannels[i]);
+-	}
+-
+-	for (i=0; i<SD_MAXSAMPLES; i++)
+-	{
+-		sd_mix_initsample (&mix_samples[i]);
+-	}
+-
+-        for(i=0;i<SD_MAXSAMPLES;i++)
+-	    mix_samples[i].target_bus = &mix_buses[0];
+-
+-	mix_bus_add_input(&mix_buses[MASTER_BUS], &mix_buses[0], 0.5);
+-
+-} /* sd_mix_init */
++void sd_mix_init (int rate, int blocksize)
++{
++	int	i,n,m;
++
++	sd_mix_rate = rate;
++
++	for (i=0; i<SD_MAXBUSES; i++)
++	{
++		mix_bus_init(&mix_buses[i], blocksize, 2);
++	}
++
++
++	for (i=0; i<SD_MAXCHANNELS; i++)
++	{
++		sd_mix_initchannel(&mix_channels[i]);
++		sd_mix_initchannel(&mix_realchannels[i]);
++	}
++
++	for (i=0; i<SD_MAXSAMPLES; i++)
++	{
++		sd_mix_initsample (&mix_samples[i]);
++	}
++
++        for(i=0;i<SD_MAXSAMPLES;i++)
++	    mix_samples[i].target_bus = &mix_buses[0];
++
++	mix_bus_add_input(&mix_buses[MASTER_BUS], &mix_buses[0], 0.5);
++
++} /* sd_mix_init */
+ 
+ /* ---------------------- VARSINAINEN MIKSAUS -------------------- */
+ 
+@@ -425,7 +427,7 @@
+                         chan->deltahi = 0;
+                         chan->deltalo = 0;
+                         chan->volume = 0;
+-                        break;
++                        break;
+                 }
+ 
+                 left = (((float)(chan->sampledata[(chan->offsethi)+1])) / 128.0) 
+@@ -567,7 +569,8 @@
+ 			{
+ 				effect=bus->effects[i];
+ 				effect->process_replacing(effect, bus->buffer, bus->buffer, length, 2, time);
+-			}*/
++			}
++*/
+ 	}
+ 
+ 	src32 = mix_buses[MASTER_BUS].buffer;
+--- a/render.c
++++ b/render.c
+@@ -1,6 +1,7 @@
+ 
+ #include "render.h"
+ #include <string.h>
++#include <math.h>
+ 
+ #define XS 320
+ #define YS 200

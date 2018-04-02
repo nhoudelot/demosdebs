@@ -1,0 +1,12 @@
+stercusaccidit-by-fit (1.0-0ddebs2) unstable; urgency=medium
+
+  * Added an icone
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 09 Feb 2018 16:04:34 +0100
+
+stercusaccidit-by-fit (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Aug 2016 15:54:06 +0200

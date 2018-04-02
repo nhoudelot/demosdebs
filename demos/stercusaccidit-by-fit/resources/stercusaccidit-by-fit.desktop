@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name= Stercus Accidit
+GenericName=Demo
+Comment=Demo by Fit, released in 2006
+Type=Application
+Exec=/usr/bin/stercusaccidit-by-fit
+Icon=stercusaccidit-by-fit
+Categories=AudioVideo;Game;
+Name[fr_FR]= Stercus Accidit
