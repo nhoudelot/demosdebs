@@ -1,0 +1,4 @@
+debian/scripts/professionalmagickwrestler-by-gzrrplox usr/bin/
+debian/resources/professionalmagickwrestler-by-gzrrplox.desktop usr/share/applications/
+debian/resources/professionalmagickwrestler-by-gzrrplox.png usr/share/icons/hicolor/256x256/apps/
+./pmw-960x600-windowed usr/lib/x86_64-linux-gnu/professionalmagickwrestler-by-gzrrplox/./ 

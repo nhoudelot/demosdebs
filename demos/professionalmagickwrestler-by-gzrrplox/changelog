@@ -1,0 +1,14 @@
+professionalmagickwrestler-by-gzrrplox (1.0-0ddebs2) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 09 Feb 2018 01:00:55 +0100
+
+professionalmagickwrestler-by-gzrrplox (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 09 Apr 2017 21:43:34 +0200

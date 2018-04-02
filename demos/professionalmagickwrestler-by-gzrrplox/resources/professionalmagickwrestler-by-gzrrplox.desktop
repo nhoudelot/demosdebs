@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Professional Magick Wrestler
+GenericName=Demo
+Comment=Demo by Gzrrplox, released in 2011
+Type=Application
+Exec=/usr/bin/professionalmagickwrestler-by-gzrrplox
+Icon=professionalmagickwrestler-by-gzrrplox
+Categories=AudioVideo;Game;
+Name[fr_FR]=Professional Magick Wrestler
