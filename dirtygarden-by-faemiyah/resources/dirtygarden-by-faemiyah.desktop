@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Dirty Garden
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2011
+Type=Application
+Exec=/usr/bin/dirtygarden-by-faemiyah
+Icon=dirtygarden-by-faemiyah
+Categories=AudioVideo;Game;
+Name[fr_FR]=Dirty Garden

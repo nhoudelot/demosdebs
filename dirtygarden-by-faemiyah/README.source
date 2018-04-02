@@ -1,0 +1,8 @@
+dirtygarden-by-faemiyah for Debian
+----------------------------------
+
+as there is some 32 bit asm, it's impossible to compile it for another architecture
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>   fri, 19 Jan 2018 02:13:02 +0100
+ 
+

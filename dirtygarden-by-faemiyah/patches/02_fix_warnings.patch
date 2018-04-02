@@ -1,0 +1,21 @@
+--- a/src/main.c
++++ b/src/main.c
+@@ -1339,7 +1339,7 @@
+ void *__progname;
+ /** \brief Object file starting point.
+  */
+-void _start()
++void main()
+ {
+ #endif
+ #if defined(USE_LD)
+--- a/src/record.c
++++ b/src/record.c
+@@ -4,6 +4,7 @@
+ #include <string.h>
+ 
+ #include "png.h"
++#include "zlib.h"
+ #ifdef __APPLE__
+ #include "SDL/SDL_opengl.h"
+ #else

@@ -1,0 +1,11 @@
+dirtygarden-by-faemiyah (1.0-0ddebs2) unstable; urgency=medium
+
+  * Corrections to the package (better infos/manual) 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Jan 2018 09:31:55 +0100
+
+dirtygarden-by-faemiyah (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Apr 2017 22:32:22 +0200

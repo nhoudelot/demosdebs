@@ -1,0 +1,12 @@
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,6 +1,6 @@
+-dirty_garden_SOURCES = main.c
++dirtygarden_by_faemiyah_SOURCES = main.c
+ if HAVE_LIBPNG
+-dirty_garden_SOURCES += record.c
++dirtygarden_by_faemiyah_SOURCES += record.c
+ endif
+ 
+-noinst_PROGRAMS = dirty_garden
++bin_PROGRAMS = dirtygarden-by-faemiyah
