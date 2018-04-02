@@ -1,0 +1,26 @@
+newyear2-by-outbreak (1.0-0ddebs4) unstable; urgency=medium
+
+  * Moved launch script into debian/
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Jan 2018 16:21:50 +0100
+
+newyear2-by-outbreak (1.0-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 31 Jul 2016 21:25:54 +0200
+
+newyear2-by-outbreak (1.0-0ddebs2) unstable; urgency=medium
+
+  * as demo use oss, inform using osspd
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 21 Mar 2016 20:03:52 +0100
+
+newyear2-by-outbreak (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 19 Mar 2016 12:26:37 +0100

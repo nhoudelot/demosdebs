@@ -1,0 +1,33 @@
+Source: newyear2-by-outbreak
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ libsdl1.2-dev,
+ libstdc++5,
+ libpng12-dev,
+ libjpeg62-dev,
+ libfmod
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=15123
+
+Package: newyear2-by-outbreak
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libfmod,
+ newyear2-by-outbreak-data
+Description: Linux Demo by Outbreak 2004
+ Demo by Outbreak, released in 2004
+ 
+Package: newyear2-by-outbreak-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for newyear2-by-outbreak
+ newyear2-by-outbreak data files
+

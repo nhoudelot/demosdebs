@@ -1,0 +1,10 @@
+--- a/loadrunner.xml
++++ b/loadrunner.xml
+@@ -1,6 +1,6 @@
+ <demo>
+ 	<window type="opengl" caption="New Year 2" width="800" height="600"
+-mode="fullscreen"/>
++mode="window"/>
+ 	
+ 	<time start="0"/>
+ 

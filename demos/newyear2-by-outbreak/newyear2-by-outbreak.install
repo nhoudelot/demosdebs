@@ -1,0 +1,4 @@
+debian/resources/newyear2-by-outbreak.desktop usr/share/applications/
+debian/resources/newyear2-by-outbreak.png usr/share/icons/hicolor/256x256/apps/
+./newyear2-elf usr/lib/i386-linux-gnu/newyear2-by-outbreak/./ 
+debian/scripts/newyear2-by-outbreak /usr/bin/

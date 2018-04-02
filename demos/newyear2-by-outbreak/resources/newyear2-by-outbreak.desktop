@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Newyear2
+GenericName=Demo
+Comment=Demo by Outbreak, released in 2004
+Type=Application
+Exec=/usr/bin/newyear2-by-outbreak
+Icon=newyear2-by-outbreak
+Categories=AudioVideo;Game;
+Name[fr_FR]=Newyear2
