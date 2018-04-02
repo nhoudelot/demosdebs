@@ -1,0 +1,8 @@
+debian/resources/borntro-by-insolitdust.desktop usr/share/applications/
+debian/resources/borntro-by-insolitdust.png usr/share/icons/hicolor/256x256/apps/
+./back.pcx usr/share/borntro-by-insolitdust/
+./flub.pcx usr/share/borntro-by-insolitdust/
+./ID_Font_002_32x31.pcx usr/share/borntro-by-insolitdust/
+./Logo_ID.pcx usr/share/borntro-by-insolitdust/
+./music.mod usr/share/borntro-by-insolitdust/
+./title.pcx usr/share/borntro-by-insolitdust/

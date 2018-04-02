@@ -1,0 +1,33 @@
+% borntro-by-insolitdust(6) BoRnTrO User Manuals
+% Nicolas HOUDELOT (nicolas@demosdebs.org),Insolit Dust
+% 2018-02-05
+
+# NAME
+borntro-by-insolitdust - the command to run BoRnTrO.
+
+# SYNOPSIS
+borntro-by-insolitdust [*options*]
+
+# DESCRIPTION
+BoRnTrO is a demonstration released by Insolit Dust in 2012.
+
+Code by Calogiuri Enzo Antonio.
+
+Hello guys, this is the first production of Insolit Dust group called "BoRnTrO".
+Sorry for the lack of fancy name, but needed something that would make the idea.
+
+This small demo uses only 4 old school effects, to let know us and invite you to
+visit our website.
+
+Enjoy and visit insolitdust.sourceforge.net.
+
+# OPTIONS
+
+\-window
+:   run demo in windowed mode
+
+\-h
+:   Display help for the command
+
+# BUGS
+No known bugs.

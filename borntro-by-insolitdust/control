@@ -1,0 +1,18 @@
+Source: borntro-by-insolitdust
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ libsdl1.2-dev,
+ libsdl-mixer1.2-dev,
+ debhelper (>=9),
+ pandoc,
+ pkgconf
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=58704
+
+Package: borntro-by-insolitdust
+Architecture: any
+Depends: ${shlibs:Depends},${misc:Depends}
+Description: Demo for Linux, released in 2012
+ Demo by Insolit Dust, released in 2012

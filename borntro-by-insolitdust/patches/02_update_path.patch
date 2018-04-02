@@ -1,0 +1,62 @@
+--- a/flubber.h
++++ b/flubber.h
+@@ -161,7 +161,7 @@
+ 
+ void Init_Flubber(void)
+ {
+-	Flub = new Texture("flub.pcx");
++	Flub = new Texture("/usr/share/borntro-by-insolitdust/flub.pcx");
+ 	
+ 	if (Flub == NULL)
+ 		exit(-1);
+--- a/main.cc
++++ b/main.cc
+@@ -32,7 +32,7 @@
+   
+   SDL_WM_SetCaption("InsolitDust BoRnTrO 2012", "borntro");
+   
+-  Font = new IDScroller("ID_Font_002_32x31.pcx", Video, 32, 31);
++  Font = new IDScroller("/usr/share/borntro-by-insolitdust/ID_Font_002_32x31.pcx", Video, 32, 31);
+   
+   Font->YPosScroller = 208;
+   
+@@ -240,7 +240,7 @@
+   PcxPalette *tmppal;
+   int ind;
+   
+-  IDLogo = new Texture("Logo_ID.pcx");
++  IDLogo = new Texture("/usr/share/borntro-by-insolitdust/Logo_ID.pcx");
+   
+   if (IDLogo == NULL)
+     exit(-1);
+@@ -297,7 +297,7 @@
+   if (Mix_OpenAudio(22050, AUDIO_S16, 2, 512) < 0)
+     OkAudio = false;
+   else
+-	module = Mix_LoadMUS("music.mod");
++	module = Mix_LoadMUS("/usr/share/borntro-by-insolitdust/music.mod");
+   
+   SetUp_Video();
+   
+--- a/unwater.h
++++ b/unwater.h
+@@ -15,7 +15,7 @@
+ {
+ 	unsigned char ind;
+ 	
+-	Title = new Texture("title.pcx");
++	Title = new Texture("/usr/share/borntro-by-insolitdust/title.pcx");
+ 	
+ 	if (Title == NULL)
+ 		exit(-1);
+--- a/warp.h
++++ b/warp.h
+@@ -78,7 +78,7 @@
+ 	PcxPalette *pal;
+ 	short ind;
+ 	
+-	WarpImg = new Texture("back.pcx");
++	WarpImg = new Texture("/usr/share/borntro-by-insolitdust/back.pcx");
+ 	
+ 	if (WarpImg == NULL)
+ 		exit(-1);

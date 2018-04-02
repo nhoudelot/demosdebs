@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=BoRnTrO
+GenericName=Demo
+Comment=Demo by Insolit Dust, released in 2012
+Type=Application
+Exec=/usr/bin/borntro-by-insolitdust -window
+Icon=borntro-by-insolitdust
+Categories=AudioVideo;Game;
+Name[fr_FR]=BoRnTrO
