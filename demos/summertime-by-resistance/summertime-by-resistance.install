@@ -1,0 +1,4 @@
+debian/scripts/summertime-by-resistance usr/bin/
+debian/resources/summertime-by-resistance.desktop usr/share/applications/
+debian/resources/summertime-by-resistance.png usr/share/icons/hicolor/256x256/apps/
+./summertime_lin64 usr/lib/x86_64-linux-gnu/summertime-by-resistance/./ 

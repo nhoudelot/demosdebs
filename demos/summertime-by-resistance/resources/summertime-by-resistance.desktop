@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Summertime
+GenericName=Demo
+Comment=Demo by Resistance, released in 2010
+Type=Application
+Exec=/usr/bin/summertime-by-resistance
+Icon=summertime-by-resistance
+Categories=AudioVideo;Game;
+Name[fr_FR]=Summertime
