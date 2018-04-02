@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=fit-039: Boy
+GenericName=Demo
+Comment=Demo by Fit, released in 2008
+Type=Application
+Exec=/usr/bin/fit039boy-by-fit -w
+Icon=fit039boy-by-fit
+Categories=AudioVideo;
+Name[fr_FR]=fit-039: Boy

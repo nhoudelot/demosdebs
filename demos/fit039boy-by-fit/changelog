@@ -1,0 +1,19 @@
+fit039boy-by-fit (1.0-0ddebs3) unstable; urgency=medium
+
+  * start in windows mode from start menu
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 Apr 2018 22:12:53 +0200
+
+fit039boy-by-fit (1.0-0ddebs2) unstable; urgency=medium
+
+  * kept C standard to gnu90
+  * use pkgconf
+  * added an icon
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 27 Jul 2017 16:54:48 +0200
+
+fit039boy-by-fit (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 29 Sep 2016 19:03:47 +0200

@@ -1,0 +1,52 @@
+--- a/main.c
++++ b/main.c
+@@ -98,7 +98,7 @@
+         mp3_init();
+         if(pink)
+         {
+-            if(mp3_load("data/carrot_porn.mp3"))
++            if(mp3_load("/usr/share/fit039boy-by-fit/data/carrot_porn.mp3"))
+             {
+                 puts("Get http://ftp.kameli.net/pub/fit/boy/carrot_porn.mp3");
+                 puts("and place it in the data directory.");
+@@ -106,7 +106,7 @@
+             }
+         }
+         else
+-            if(mp3_load("data/boy_carrot_v4.mp3"))
++            if(mp3_load("/usr/share/fit039boy-by-fit/data/boy_carrot_v4.mp3"))
+                 return(EXIT_FAILURE);
+     }
+ 
+@@ -123,7 +123,7 @@
+     SDL_ShowCursor(0);
+ 
+     // Load and set up 3D objs
+-    set_path("data/");
++    set_path("/usr/share/fit039boy-by-fit/data/");
+     load_scene(&graf,"ganz_graf.obj");
+     load_scene(&clown,"clown.obj");
+     load_scene(&arrow,"arrow.obj");
+@@ -170,18 +170,18 @@
+     houses_init();
+ 
+     // Load and set up 2D cgms
+-    marq=cgm_load("data/marq.cgm");
++    marq=cgm_load("/usr/share/fit039boy-by-fit/data/marq.cgm");
+     glNewList(LIST_MARQ,GL_COMPILE);
+     cgm_render(marq);
+     glEndList();
+ 
+-    roz=cgm_load("data/roz.cgm");
++    roz=cgm_load("/usr/share/fit039boy-by-fit/data/roz.cgm");
+     glNewList(LIST_ROZ,GL_COMPILE);
+     cgm_render(roz);
+     glEndList();
+ 
+-    bond=cgm_load("data/bondi.cgm");
+-    barbie=cgm_load("data/barbie.cgm");
++    bond=cgm_load("/usr/share/fit039boy-by-fit/data/bondi.cgm");
++    barbie=cgm_load("/usr/share/fit039boy-by-fit/data/barbie.cgm");
+ 
+     if(sound)
+         mp3_play();

@@ -1,0 +1,27 @@
+Source: fit039boy-by-fit
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev,
+ pkgconf,
+ mesa-common-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=50696
+
+Package: fit039boy-by-fit
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ fit039boy-by-fit-data
+Description: Demo for Linux, released in 2008
+ Demo by Fit, released in 2008
+
+Package: fit039boy-by-fit-data
+Architecture: all
+Depends: ${misc:Depends}
+Description: Data file for fit039boy-by-fit 
+ Demo by Fit, released in 2008
