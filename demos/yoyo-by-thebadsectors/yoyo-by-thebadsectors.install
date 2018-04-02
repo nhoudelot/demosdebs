@@ -1,0 +1,4 @@
+debian/scripts/yoyo-by-thebadsectors usr/bin/
+debian/resources/yoyo-by-thebadsectors.desktop usr/share/applications/
+debian/resources/yoyo-by-thebadsectors.png usr/share/icons/hicolor/256x256/apps/
+./tbs-yoyo-linux-64bit.lnx  usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/./ 

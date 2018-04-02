@@ -1,0 +1,12 @@
+yoyo-by-thebadsectors (1.1-0ddebs1) unstable; urgency=medium
+
+  * binary where upx compressed
+  * uncompress it, and so now can use dh_shlibdeps for better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 03 Apr 2017 21:04:31 +0200
+
+yoyo-by-thebadsectors (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 01 Apr 2017 03:36:31 +0200
