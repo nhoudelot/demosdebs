@@ -1,0 +1,13 @@
+aeronautism-by-cyberneticgenetics (1.0-0ddebs2) unstable; urgency=medium
+
+  * removed fullscreen
+  * back to 4/3 mode
+  * Created a data package to save some space
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Feb 2018 02:06:17 +0100
+
+aeronautism-by-cyberneticgenetics (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 01 Apr 2017 15:41:57 +0200

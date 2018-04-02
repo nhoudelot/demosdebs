@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Aeronautism
+GenericName=Demo
+Comment=Demo by Cybernetic Genetics, released in 2010
+Type=Application
+Exec=/usr/bin/aeronautism-by-cyberneticgenetics
+Icon=aeronautism-by-cyberneticgenetics
+Categories=AudioVideo;Game;
+Name[fr_FR]=Aeronautism
