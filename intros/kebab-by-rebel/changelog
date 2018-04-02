@@ -1,0 +1,30 @@
+kebab-by-rebel (1.0-0ddebs5) unstable; urgency=medium
+
+  * added an icon
+  * moved resources to debian folder
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 31 Jan 2018 17:18:50 +0100
+
+kebab-by-rebel (1.0-0ddebs4) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Jul 2016 20:42:56 +0200
+
+kebab-by-rebel (1.0-0ddebs3) unstable; urgency=medium
+
+  * replaced fmod by fmodex, so now it compile in 64 bit :)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 03 May 2016 18:54:45 +0200
+
+kebab-by-rebel (1.0-0ddebs2) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 22:51:55 +0200
+
+kebab-by-rebel (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 26 Apr 2016 00:58:11 +0200

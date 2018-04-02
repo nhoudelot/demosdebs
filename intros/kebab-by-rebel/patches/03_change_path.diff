@@ -1,0 +1,22 @@
+--- a/kebab.c
++++ b/kebab.c
+@@ -465,8 +465,8 @@
+ 
+ FMOD_System_Create(&sys);
+ FMOD_System_Init(sys, 1, FMOD_INIT_NORMAL, NULL);
+-FMOD_System_CreateSound(sys, "kebab.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsoundkebab);
+-FMOD_System_CreateSound(sys, "knark.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsoundknark);
++FMOD_System_CreateSound(sys, "/usr/share/kebab-by-rebel/kebab.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsoundkebab);
++FMOD_System_CreateSound(sys, "/usr/share/kebab-by-rebel/knark.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsoundknark);
+ 
+ 
+ 
+@@ -491,7 +491,7 @@
+ for(x=0;x<67;x++)
+ {
+ bzero(letters[x],4999);
+-sprintf(snopp,"grafik/letters/%c",table[x]);
++sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/letters/%c",table[x]);
+ fd = open(snopp,O_RDONLY);
+ read(fd,letters[x],5000);
+ close(fd);

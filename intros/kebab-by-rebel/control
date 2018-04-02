@@ -1,0 +1,19 @@
+Source: kebab-by-rebel
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ libfmodex-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=52832
+
+Package: kebab-by-rebel
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libfmodex
+Description: rebel Demo/2006/Linux
+ Demo by rebel, released in 2006
