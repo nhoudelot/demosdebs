@@ -1,0 +1,3 @@
+fortnight-by-mfx usr/bin/
+debian/resources/fortnight-by-mfx.desktop usr/share/applications/
+debian/resources/fortnight-by-mfx.png usr/share/icons/hicolor/256x256/apps/

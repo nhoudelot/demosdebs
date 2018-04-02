@@ -1,0 +1,75 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,30 +1,50 @@
+-CFLAGS = -g -O1 -fforce-mem -fforce-addr -fomit-frame-pointer -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 -Wall -Wno-parentheses -ffast-math `sdl-config --cflags` `libmikmod-config --cflags`
++SHELL = /bin/sh
++CC = gcc
++NASM = nasm
++CFLAGS += -O3 -flto -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell sdl-config --cflags) $(shell libmikmod-config --cflags)
++LDFLAGS += $(shell sdl-config --libs) $(shell libmikmod-config --libs) -lm
++RM_F = rm -f
++
++TARGET=fortnight-by-mfx
++
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_FILE    = $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++
++PREFIX = /usr
++EXEC_PREFIX     = $(PREFIX)
++BINDIR          = $(EXEC_PREFIX)/bin
++
++#si code gcc4 compilé via gcc5 le standard par défaut était different
++GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
++ifeq "$(GCCVERSIONGTEQ5)" "1"
++    CFLAGS += -std=gnu90
++    CXXFLAGS += -fabi-compat-version=2
++endif
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
++export
+ 
+-
+-run: demo
+-	./demo
++all: $(TARGET)
+ 
+ clean: 
+-	rm *.o *.bak demo.bz2 demo intro || :;
+-
+-demo.bz2: demo
+-	bzip2 <demo >demo.bz2
+-
+-ldr.o: ldr.asm demo.bz2
+-	nasm -f elf -dfilus=\"demo.bz2\" ldr.asm
+-
+-intro: ldr.o 
+-	gcc ldr.o -o intro -nostdlib -lbz2
+-	objcopy -R .note -R .comment -R .note.ABI-tag -R .sbss -R .gnu_version -x -g -S --strip-unneeded intro
+-
+-
+-demo: main.o datat.o
+-	gcc main.o datat.o -o demo `sdl-config --libs` `libmikmod-config --libs`
+-	objcopy -R .note -R .comment -R .note.ABI-tag -R .sbss -R .gnu_version -x -g -S --strip-unneeded demo
++	-@$(RM_F) *.o *.bak fortnight.bz2 $(TARGET) intro || :;
+ 
+ datat.o: datat.asm
+-	nasm -f elf datat.asm
++	$(NASM) -f elf datat.asm
+ 
+ main.o: *.c Makefile
+-	gcc-3.0 -mcpu=k6 -frename-registers -fregmove -fmove-all-movables $(CFLAGS) -c main.c
++	$(CC) -frename-registers $(CFLAGS) -c main.c
++
++$(TARGET): main.o datat.o
++	$(CC) -flto main.o datat.o -o $(TARGET) $(LDFLAGS)
++	objcopy -R .note -R .comment -R .note.ABI-tag -R .sbss -R .gnu_version -x -g -S $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(BINDIR)
++	-@$(RM_F) $(DESTDIR)$(BINDIR)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(BINDIR)

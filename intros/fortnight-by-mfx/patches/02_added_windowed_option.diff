@@ -1,0 +1,22 @@
+--- a/main.c
++++ b/main.c
+@@ -299,7 +299,18 @@
+   atexit(SDL_Quit);
+   fprintf(stderr, "d0\n");
+   fprintf(stderr, "d1\n");
+-  screen=SDL_SetVideoMode(640, 480, 16, SDL_SWSURFACE|SDL_FULLSCREEN);
++  /*
++   if -w argument in command line, don't go fullscreen
++   */
++  int flags=SDL_HWSURFACE+SDL_FULLSCREEN;
++  if(argc==2) 
++  {
++    if(!strcmp(argv[1],"-w")){flags-=SDL_FULLSCREEN;}
++  }
++  if(argv[0][strlen(argv[0])-1]=='w') {flags-=SDL_FULLSCREEN;}
++  
++  screen=SDL_SetVideoMode(640, 480, 16, flags);
++  SDL_WM_SetCaption("fortnight by mfx",NULL);
+   fprintf(stderr, "d2\n");
+   SDL_ShowCursor(0);
+   fprintf(stderr, "d3\n");

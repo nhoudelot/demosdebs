@@ -1,0 +1,37 @@
+fortnight-by-mfx (1.0-0ddebs6) unstable; urgency=medium
+
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Jan 2018 12:36:37 +0100
+
+fortnight-by-mfx (1.0-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 31 Jul 2016 21:25:54 +0200
+
+fortnight-by-mfx (1.0-0ddebs4) unstable; urgency=medium
+
+  * replaced libmikmod by libsdl-mixer to get some sound
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 May 2016 21:48:18 +0200
+
+fortnight-by-mfx (1.0-0ddebs3) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 22:33:04 +0200
+
+fortnight-by-mfx (1.0-0ddebs2) unstable; urgency=medium
+
+  * added manuel & menu
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 04 Mar 2016 00:38:38 +0100
+
+fortnight-by-mfx (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+ 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Feb 2016 10:53:08 +0100

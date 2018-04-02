@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Fortnight
+GenericName=Demo
+Comment=Demo by mfx, released in 2001
+Type=Application
+Exec=/usr/bin/fortnight-by-mfx -w
+Icon=fortnight-by-mfx
+Categories=AudioVideo;Game;
+Name[fr_FR]=Fortnight

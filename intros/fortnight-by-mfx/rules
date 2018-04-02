@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ 
+
+#override_dh_auto_build:
+#	make fortnight
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/fortnight-by-mfx.6.md -o debian/fortnight-by-mfx.6

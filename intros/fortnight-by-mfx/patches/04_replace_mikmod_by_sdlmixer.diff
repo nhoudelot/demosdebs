@@ -1,0 +1,151 @@
+--- a/main.c
++++ b/main.c
+@@ -5,7 +5,7 @@
+ #include <string.h>
+ #include "signal.h"
+ #include <SDL/SDL.h>
+-#include <mikmod.h>
++#include <SDL/SDL_mixer.h>
+ #include <math.h>
+ 
+ 
+@@ -275,7 +275,6 @@
+   static int graffa[320*200];
+   int effu=argc>1?atoi(argv[1]):0;
+  
+-  MODULE *module;
+ 
+ /*  {
+     FILE *fp=fopen("pakked.dat", "r");
+@@ -308,7 +307,7 @@
+   }
+   if(argv[0][strlen(argv[0])-1]=='w') {flags-=SDL_FULLSCREEN;}
+   
+-  screen=SDL_SetVideoMode(640, 480, 16, flags);
++  screen=SDL_SetVideoMode(640, 480, 32, flags);
+   SDL_WM_SetCaption("fortnight by mfx",NULL);
+   fprintf(stderr, "d2\n");
+   SDL_ShowCursor(0);
+@@ -330,21 +329,26 @@
+ 
+   
+ 
+-  MikMod_RegisterAllDrivers();
+-  MikMod_RegisterAllLoaders();
+-  md_mode = DMODE_SOFT_MUSIC|DMODE_INTERP|DMODE_16BITS|DMODE_STEREO;
+-  if (MikMod_Init("")) {
+-    fprintf(stderr, "Could not initialize sound, reason: %s\n",  MikMod_strerror(MikMod_errno));
+-    return;
+-  }
++// start SDL with audio support
++if(SDL_Init(SDL_INIT_AUDIO)==-1) {
++    printf("SDL_Init: %s\n", SDL_GetError());
++     exit(1);
++ }
++
++// open 44.1KHz, signed 16bit, system byte order,
++//      stereo audio, using 1024 byte chunks
++if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
++{
++    printf("%s", Mix_GetError());
++     exit(1);
++ }
++   Mix_Music *musique;
+   {
+-    MREADER m={ fakeseek, faketell, fakeread, fakeget, fakeeof };
+-    module = Player_LoadGeneric(&m, 64, 0);
+-//    module = Player_Load("dxn-sl2.xm", 64, 0);
+-  }
+-  if (!module) {
+-    fprintf(stderr, "fgsfgsrstr, reason: %s\n", MikMod_strerror(MikMod_errno));
+-    return;
++   
++    if(!(musique = Mix_LoadMUS("dxn-sl2.xm"))) {
++        fprintf(stderr, "failed to load module\n");
++        exit(1);
++     }
+   }
+   fprintf(stderr, "d5\n");
+   {
+@@ -375,9 +379,7 @@
+   desing_precalc();
+   fprintf(stderr, "d5\n");
+   time0=SDL_GetTicks();
+-  Player_Start(module);
+-  md_reverb=12; 
+-  md_musicvolume=42;
++  Mix_PlayMusic(musique,1);
+   
+   while (!stopnow) {
+     float aikaero=.02;
+@@ -475,25 +477,13 @@
+ 
+     rectum.x=0; rectum.y=0; rectum.w=640; rectum.h=480;
+     SDL_DisplayYUVOverlay(ovl, &rectum);
+-    MikMod_Update();
+-//    usleep(100000);
+   }
+ 
+   //SDL_CloseAudio();
+ 
+-  Player_Stop();
+-  Player_Free(module);
+-  MikMod_Exit();
++    Mix_PauseMusic();
++    Mix_FreeMusic(musique);
++    Mix_CloseAudio();
+ 
+   return 0;
+-}
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
++}
+\ No newline at end of file
+--- a/Makefile
++++ b/Makefile
+@@ -1,27 +1,24 @@
+ SHELL = /bin/sh
+ CC = gcc
+ NASM = nasm
+-CFLAGS += -O3 -flto -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell sdl-config --cflags) $(shell libmikmod-config --cflags)
+-LDFLAGS += $(shell sdl-config --libs) $(shell libmikmod-config --libs) -lm
++CFLAGS += -O3 -flto -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell pkgconf sdl SDL_mixer --cflags) -std=gnu90
++LDFLAGS += $(shell pkgconf sdl SDL_mixer --libs) -lm
+ RM_F = rm -f
+ 
+ TARGET=fortnight-by-mfx
+ 
+ INSTALL = install
+-INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
+-INSTALL_FILE    = $(INSTALL) -p    -o root -g root  -m  644
+-INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_FILE    := $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
+ 
+ PREFIX = /usr
+-EXEC_PREFIX     = $(PREFIX)
+-BINDIR          = $(EXEC_PREFIX)/bin
++EXEC_PREFIX     := $(PREFIX)
++BINDIR          := $(EXEC_PREFIX)/bin
++datarootdir     := $(PREFIX)/share
++datadir         := $(PREFIX)/share/fortnight-by-mfx
+ 
+-#si code gcc4 compilé via gcc5 le standard par défaut était different
+-GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
+-ifeq "$(GCCVERSIONGTEQ5)" "1"
+-    CFLAGS += -std=gnu90
+-    CXXFLAGS += -fabi-compat-version=2
+-endif
+ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+  NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+  MAKEFLAGS += -j$(NUMJOBS)
