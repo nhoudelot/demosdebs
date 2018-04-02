@@ -1,0 +1,20 @@
+Source: itsfullofstars-by-traction
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ mesa-common-dev,
+ libglu1-mesa-dev,
+ libsdl1.2-dev,
+ libfmodex-dev,
+ pkgconf
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=24373
+
+Package: itsfullofstars-by-traction
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},libfmodex
+Description: Traction Demo/2006/Linux
+ Demo by Traction, released in 2006
