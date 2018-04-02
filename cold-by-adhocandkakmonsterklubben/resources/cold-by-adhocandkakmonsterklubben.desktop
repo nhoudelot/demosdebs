@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Cold
+GenericName=Demo
+Comment=Demo by adhoc and kakmonsterklubben, released in 2006
+Type=Application
+Exec=/usr/bin/cold-by-adhocandkakmonsterklubben
+Icon=cold-by-adhocandkakmonsterklubben
+Categories=AudioVideo;Game;
+Name[fr_FR]=Cold

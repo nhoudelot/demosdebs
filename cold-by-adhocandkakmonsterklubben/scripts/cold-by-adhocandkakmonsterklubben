@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=cold-by-adhocandkakmonsterklubben
+
+APP_FULLNAME="Cold"
+APP_COPYRIGHT="adhoc and kakmonsterklubben"
+APP_DESC="demo by adhoc and kakmonsterklubben released in 2006"
+APP_EXE="adhoc_kmk_cold"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/i386-linux-gnu/${domain}
+	./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

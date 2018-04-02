@@ -1,0 +1,34 @@
+Source: cold-by-adhocandkakmonsterklubben
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev,
+ libfreetype6-dev,
+ libstdc++5,
+ libpng12-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=27661
+
+Package: cold-by-adhocandkakmonsterklubben
+Architecture: i386
+Depends:
+ cold-by-adhocandkakmonsterklubben-data,
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ libfmod,
+ fonts-911porscha
+Description: Linux demo by adhoc and kakmonsterklubben
+ Demo by adhoc and kakmonsterklubben, released in 2006
+ 
+Package: cold-by-adhocandkakmonsterklubben-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for cold-by-adhocandkakmonsterklubben
+ cold-by-adhocandkakmonsterklubben data files
+

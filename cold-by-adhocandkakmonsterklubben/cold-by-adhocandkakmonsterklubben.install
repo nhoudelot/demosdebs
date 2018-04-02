@@ -1,0 +1,4 @@
+debian/scripts/cold-by-adhocandkakmonsterklubben usr/bin/
+debian/resources/cold-by-adhocandkakmonsterklubben.desktop usr/share/applications/
+debian/resources/cold-by-adhocandkakmonsterklubben.png usr/share/icons/hicolor/256x256/apps/
+./adhoc_kmk_cold usr/lib/i386-linux-gnu/cold-by-adhocandkakmonsterklubben/./ 

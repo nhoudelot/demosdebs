@@ -1,0 +1,38 @@
+cold-by-adhocandkakmonsterklubben (1.0-0ddebs6) unstable; urgency=medium
+
+  * added dependencie to fonts-911porscha instead of using embedded one
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 13 Feb 2018 15:21:37 +0100
+
+cold-by-adhocandkakmonsterklubben (1.0-0ddebs5) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 24 Jan 2018 23:24:34 +0100
+
+cold-by-adhocandkakmonsterklubben (1.0-0ddebs4) unstable; urgency=medium
+
+  * better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Mar 2017 00:49:46 +0200
+
+cold-by-adhocandkakmonsterklubben (1.0-0ddebs3) unstable; urgency=medium
+
+  * recompressed png with optipng
+  * executable was in upx
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 20:15:43 +0100
+
+cold-by-adhocandkakmonsterklubben (1.0-0ddebs2) unstable; urgency=medium
+
+  * use libpng12-0 for stretch
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Sep 2016 22:51:08 +0200
+
+cold-by-adhocandkakmonsterklubben (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Sep 2016 23:04:38 +0200
