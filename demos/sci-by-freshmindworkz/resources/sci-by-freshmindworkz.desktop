@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=SCI
+GenericName=Demo
+Comment=Demo by fresh\!mindworkz, released in 2007
+Type=Application
+Exec=/usr/bin/sci-by-freshmindworkz
+Icon=sci-by-freshmindworkz
+Categories=AudioVideo;Game;
+Name[fr_FR]=SCI

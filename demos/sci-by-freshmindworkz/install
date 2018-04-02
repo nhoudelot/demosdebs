@@ -1,0 +1,4 @@
+debian/scripts/sci-by-freshmindworkz usr/bin/
+debian/resources/sci-by-freshmindworkz.desktop usr/share/applications/
+debian/resources/sci-by-freshmindworkz.png usr/share/icons/hicolor/256x256/apps/
+./sci.lnx usr/lib/i386-linux-gnu/sci-by-freshmindworkz/./ 

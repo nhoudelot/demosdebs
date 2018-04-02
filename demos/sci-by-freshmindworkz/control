@@ -1,0 +1,22 @@
+Source: sci-by-freshmindworkz
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libfreetype6-dev,
+ libx11-dev,
+ libglu1-mesa-dev,
+ libxext-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=30231
+
+Package: sci-by-freshmindworkz
+Architecture: i386
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Linux demo by fresh!mindworkz, released in 2007
+ Demo by fresh!mindworkz, released in 2007
