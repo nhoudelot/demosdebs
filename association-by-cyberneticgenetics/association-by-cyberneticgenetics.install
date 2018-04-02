@@ -1,0 +1,3 @@
+association-by-cyberneticgenetics usr/bin/
+debian/resources/association-by-cyberneticgenetics.desktop usr/share/applications/
+debian/resources/association-by-cyberneticgenetics.png usr/share/icons/hicolor/256x256/apps/

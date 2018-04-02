@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Association
+GenericName=Demo
+Comment=Demo by Cybernetic Genetics, released in 2008
+Type=Application
+Exec=/usr/bin/association-by-cyberneticgenetics
+Icon=association-by-cyberneticgenetics
+Categories=AudioVideo;Game;
+Name[fr_FR]=Association

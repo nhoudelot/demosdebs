@@ -1,0 +1,12 @@
+association-by-cyberneticgenetics (1.0-0ddebs2) unstable; urgency=medium
+
+  * use pkgconf instead of pkg-config
+  * kept C standard to C90
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Jul 2017 22:47:17 +0200
+
+association-by-cyberneticgenetics (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 07 Oct 2016 20:46:27 +0200

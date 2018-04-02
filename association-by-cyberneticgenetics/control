@@ -1,0 +1,31 @@
+Source: association-by-cyberneticgenetics
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ mesa-common-dev,
+ libsdl1.2-dev,
+ libsdl-mixer1.2-dev,
+ pkgconf
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=50937
+
+Package: association-by-cyberneticgenetics
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ association-by-cyberneticgenetics-data
+Description: Demo for Linux, released in 2008
+ Demo by Cybernetic Genetics, released in 2008
+ 
+Package: association-by-cyberneticgenetics-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: data for a demo for Linux, released in 2008
+ Data for Association by Cybernetic Genetics, released in 2008
