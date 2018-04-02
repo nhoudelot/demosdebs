@@ -1,0 +1,26 @@
+Source: mleinandsharkywedtro-by-limpninja
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ graphicsmagick-libmagick-dev-compat,
+ libftgl-dev,
+ libfmodex-dev,
+ scons,
+ freeglut3-dev
+ ,mesa-common-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=31073
+
+Package: mleinandsharkywedtro-by-limpninja
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ common-install-function-ddebs(>=1.18),
+ libfmodex,
+ fonts-blomster
+Description: Linux demo by Limp Ninja, released in 2007
+ Demo by Limp Ninja, released in 2007
