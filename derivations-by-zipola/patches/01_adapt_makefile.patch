@@ -1,0 +1,74 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,28 +1,44 @@
+ # Derivations by zipola
+ # Compiles and links the executable.
+-CC = gcc
++SHELL := /bin/sh
++CC    := gcc
+ # Try -Os -O1 -O2 -O3
+-CFLAGS = -nostdlib -ffast-math -fomit-frame-pointer -fshort-double -fno-inline -fno-strict-aliasing -fpeephole2 -fexpensive-optimizations -Os
+-LINKER = ld
+-LDFLAGS = -dynamic-linker /lib/ld-linux.so.2
+-LDLIBS = /usr/lib/libSDL.so /usr/lib/libGL.so
+-TARGET = derivations
++CFLAGS += -O3 -flto -Wall -ffast-math -std=gnu90 -pipe $(shell pkgconf --cflags sdl gl )
++LDFLAGS += $(shell pkgconf --libs sdl gl ) -lm
++TARGET := derivations-by-zipola
++
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++#compilation en paralelle si disponible
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+-all: $(TARGET)
++export
+ 
+-derivations: derivations.o gfx.o snd.o seq.o letters.o
++all: $(TARGET)
+ 
+-	$(LINKER) $(LDFLAGS) $^ $(LDLIBS) -o $@
+-	./size.sh
+-	strip -s -R .comment -R .gnu.version $(TARGET)
+-	sstrip $(TARGET)
++$(TARGET): derivations.o gfx.o snd.o seq.o letters.o
++	$(CC) -flto -o $(TARGET)  *.o  $(LDFLAGS)
++	#$(LINKER) $(LDFLAGS) $^ $(LDLIBS) -o $@
++	#./size.sh
++	#strip -s -R .comment -R .gnu.version $(TARGET)
++	#sstrip $(TARGET)
+ 	#mv $(TARGET) $(TARGET)_big
+ 	#upx --best --crp-ms=999999 --all-methods --all-filters --ultra-brute -o $(TARGET) $(TARGET)_big
+-	7z a -tgzip -mx=9 $(TARGET).gz $(TARGET)
+-	cat unpack.header $(TARGET).gz > $(TARGET)
+-	chmod a+x $(TARGET)
+-	rm $(TARGET).gz $(TARGET).o
+-	./size.sh
++	#7z a -tgzip -mx=9 $(TARGET).gz $(TARGET)
++	#cat unpack.header $(TARGET).gz > $(TARGET)
++	#chmod a+x $(TARGET)
++	#rm $(TARGET).gz
++	#./size.sh
+ 
+ derivations.o: derivations.c
+ 	$(CC) $(CFLAGS) -c $<
+@@ -47,3 +63,9 @@
+ 
+ clean:
+ 	$(RM) *.o *~
++	$(RM) $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)

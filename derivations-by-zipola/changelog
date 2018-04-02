@@ -1,0 +1,19 @@
+derivations-by-zipola (1.0-0ddebs3) unstable; urgency=medium
+
+  * fixed C standard
+  * replaced pkg-config by pkgconf
+  * added -pipe
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 14 Jul 2017 02:41:32 +0200
+
+derivations-by-zipola (1.0-0ddebs2) unstable; urgency=medium
+
+  * added an icon
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 10 Apr 2017 23:56:54 +0200
+
+derivations-by-zipola (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 03 Apr 2017 22:54:30 +0200

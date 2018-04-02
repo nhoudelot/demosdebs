@@ -1,0 +1,41 @@
+--- a/derivations.c
++++ b/derivations.c
+@@ -14,7 +14,7 @@
+  * Initializes graphics, sound and sequencer.
+  * Runs the sequencer loop until and quits.
+  */
+-int _start()
++int main()
+ {
+ 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
+ 
+--- a/gfx.c
++++ b/gfx.c
+@@ -4,6 +4,7 @@
+  * Functions regarding the graphics.
+  */
+ 
++#include <math.h>
+ #include <SDL/SDL.h>
+ #include <SDL/SDL_opengl.h>
+ 
+@@ -236,7 +237,7 @@
+ 	SDL_ShowCursor(SDL_DISABLE);
+ 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+ 	SDL_WM_SetCaption("derivations", NULL);
+-	SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL | SDL_FULLSCREEN);
++	SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL );
+ 	//SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL);
+ 	
+ 	glEnable(GL_DEPTH_TEST);
+--- a/size.sh
++++ b/size.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+ # Checks the size of the, should be under 4096 kB
+ 
+-TARGET=derivations
++TARGET=derivations-by-zipola
+ 
+ echo 'executable:'
+ cat $TARGET | wc -c

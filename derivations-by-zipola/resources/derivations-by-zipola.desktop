@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Derivations
+GenericName=Demo
+Comment=Demo by zipola, released in 2010
+Type=Application
+Exec=/usr/bin/derivations-by-zipola
+Icon=derivations-by-zipola
+Categories=AudioVideo;Game;
+Name[fr_FR]=Derivations
