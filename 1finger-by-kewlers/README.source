@@ -1,0 +1,7 @@
+1finger-by-kewlers for Debian
+-----------------------------
+
+libbass.so was originaly a 32 bit lib, replaced by the 64 bit one
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Feb 2016 01:56:42 +0100
+

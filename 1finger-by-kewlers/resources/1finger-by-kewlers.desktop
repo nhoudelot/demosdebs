@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=1 finger
+GenericName=Demo
+Comment=Demo by Kewlers, released in 2013
+Type=Application
+Exec=/usr/bin/1finger-by-kewlers -w
+Icon=1finger-by-kewlers
+Categories=AudioVideo;Game;
+Name[fr_FR]=1 finger

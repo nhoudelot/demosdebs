@@ -1,0 +1,11 @@
+--- a/rubber1.0/Rubber.cpp
++++ b/rubber1.0/Rubber.cpp
+@@ -24,7 +24,7 @@
+ 
+ 	va_start(ap, fmt);
+ 	vsprintf(buf, fmt, ap);
+-	fprintf(stderr,buf);
++	fprintf(stderr,"%s",buf);
+ 
+ #ifndef DEBUG
+ 	exit(1);
