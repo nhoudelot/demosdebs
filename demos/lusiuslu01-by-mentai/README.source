@@ -1,0 +1,25 @@
+lusiuslu01-by-mentai for Debian
+-------------------------------
+
+executable seems to be compiled for Ubuntu Jaunty (9.04)
+
+(Ubuntu 4.3.3-5ubuntu4) 4.3.3
+ 
+Source files:
+------------- 
+init.c
+initfini.c
+crtstuff.c
+particle.c
+texturefont.c
+boxsplotion.c
+glm.c
+shader.c
+main.c
+funcs.c
+objmodel.c
+textures.c
+noise.c
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Apr 2017 02:22:00 +0200
+

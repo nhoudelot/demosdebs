@@ -1,0 +1,4 @@
+debian/scripts/lusiuslu01-by-mentai usr/bin/
+debian/resources/lusiuslu01-by-mentai.desktop usr/share/applications/
+debian/resources/lusiuslu01-by-mentai.png usr/share/icons/hicolor/256x256/apps/
+./lu-01-linux/lu-01 usr/lib/i386-linux-gnu/lusiuslu01-by-mentai/./ 

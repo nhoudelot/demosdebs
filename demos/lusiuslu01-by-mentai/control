@@ -1,0 +1,36 @@
+Source: lusiuslu01-by-mentai
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev,
+ libpng12-dev,
+ libftgl-dev,
+ freeglut3-dev,
+ libglew1.5
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=54127
+
+Package: lusiuslu01-by-mentai
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ libglew1.5,
+ libfmodex,
+ libgd3,
+ fonts-commodore64,
+ lusiuslu01-by-mentai-data
+Description: Demo for Linux, released in 2009
+ Demo by mentai-, released in 2009
+ 
+Package: lusiuslu01-by-mentai-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for lusiuslu01-by-mentai
+ lusiuslu01-by-mentai data files

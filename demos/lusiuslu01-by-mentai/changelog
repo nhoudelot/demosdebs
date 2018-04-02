@@ -1,0 +1,31 @@
+lusiuslu01-by-mentai (1.0-0ddebs5) unstable; urgency=medium
+
+  * added dependencie to fonts-commodore64 instead of using embedded one
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 13 Feb 2018 13:55:29 +0100
+
+lusiuslu01-by-mentai (1.0-0ddebs4) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Jan 2018 13:14:32 +0100
+
+lusiuslu01-by-mentai (1.0-0ddebs3) unstable; urgency=medium
+
+  * use libglew1.5 added in the repository instead of a link
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Apr 2017 02:09:17 +0200
+
+lusiuslu01-by-mentai (1.0-0ddebs2) unstable; urgency=medium
+
+  * better dependencies (use of dh_shlibdeps)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 29 Mar 2017 00:49:41 +0200
+
+lusiuslu01-by-mentai (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 23 Jan 2017 23:16:56 +0100

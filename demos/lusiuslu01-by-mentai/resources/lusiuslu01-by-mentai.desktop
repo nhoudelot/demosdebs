@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=lusius - lu-01
+GenericName=Demo
+Comment=Demo by mentai-, released in 2009
+Type=Application
+Exec=/usr/bin/lusiuslu01-by-mentai
+Icon=lusiuslu01-by-mentai
+Categories=AudioVideo;Game;
+Name[fr_FR]=lusius - lu-01
