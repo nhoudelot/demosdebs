@@ -1,0 +1,8 @@
+--- a/Flawed/data/settings.ini
++++ b/Flawed/data/settings.ini
+@@ -1,3 +1,3 @@
+-hres 800
+-vres 600
++hres 1024
++vres 768
+ seed 42

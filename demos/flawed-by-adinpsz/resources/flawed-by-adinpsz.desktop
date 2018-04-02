@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Flawed
+GenericName=Demo
+Comment=Demo by adinpsz, released in 2011
+Type=Application
+Exec=/usr/bin/flawed-by-adinpsz
+Icon=flawed-by-adinpsz
+Categories=AudioVideo;Game;
+Name[fr_FR]=Flawed

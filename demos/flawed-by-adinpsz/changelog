@@ -1,0 +1,12 @@
+flawed-by-adinpsz (1.0-0ddebs2) unstable; urgency=medium
+
+  * kept C standard to gnu90 and C++ standard to  gnu98++
+  * use pkgconf instead of pkg-config
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 27 Jul 2017 17:01:02 +0200
+
+flawed-by-adinpsz (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 10 Apr 2017 00:34:02 +0200

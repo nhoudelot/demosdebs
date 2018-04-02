@@ -1,0 +1,33 @@
+--- a/Flawed/Sources/main.cpp
++++ b/Flawed/Sources/main.cpp
+@@ -58,7 +58,7 @@
+ 
+     try
+     {
+-        Settings setting("data/settings.ini");
++        Settings setting("/usr/share/flawed-by-adinpsz/data/settings.ini");
+         srand(setting.getSetting("seed",42));
+         Engine e(EAPI_SDL | EAPI_OpenGL, setting.getSetting("hres",640),setting.getSetting("vres",480),"DemoD");
+ 
+@@ -70,7 +70,7 @@
+ 
+         Music m;
+         m.create();
+-        m.loadFile("data/music/flawed.mp3");
++        m.loadFile("/usr/share/flawed-by-adinpsz/data/music/flawed.mp3");
+ 
+         InputManager im;
+ 
+@@ -117,9 +117,9 @@
+ 
+         try
+         {
+-            pSimpleShader = new Shader("data/shaders/pulse.vs","data/shaders/pulse.ps");
+-            pHBlurShader = new Shader("data/shaders/hblur.vs","data/shaders/hblur.ps");
+-            pVBlurShader = new Shader("data/shaders/vblur.vs","data/shaders/vblur.ps");
++            pSimpleShader = new Shader("/usr/share/flawed-by-adinpsz/data/shaders/pulse.vs","/usr/share/flawed-by-adinpsz/data/shaders/pulse.ps");
++            pHBlurShader = new Shader("/usr/share/flawed-by-adinpsz/data/shaders/hblur.vs","/usr/share/flawed-by-adinpsz/data/shaders/hblur.ps");
++            pVBlurShader = new Shader("/usr/share/flawed-by-adinpsz/data/shaders/vblur.vs","/usr/share/flawed-by-adinpsz/data/shaders/vblur.ps");
+         }
+         catch (ShaderException se )
+         {

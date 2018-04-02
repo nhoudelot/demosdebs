@@ -1,0 +1,5 @@
+01_adapt_makefile.patch
+02_update_fmodexpath.patch
+03_remove_fullscreen.patch
+04_change_resolution.patch
+05_chage_data_path.patch

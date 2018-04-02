@@ -1,0 +1,120 @@
+--- a/Flawed/Makefile
++++ b/Flawed/Makefile
+@@ -1,18 +1,20 @@
++#variables de compilation
++SHELL := /bin/sh
+ # General variables
+ DEBUG=yes
+ 
+ # Compilator Definitions
+ 
+-export CXX = g++
+-export CC = gcc
+-export LD = g++
+-
+-export DEFINES += -O2
+-export DEFINES_DBG += -ggdb -D_DEBUG
+-
+-export CXXFLAGS += -Wall -Wextra -pedantic -ansi -I ./include/
+-export CFLAGS += -Wall -Wextra -pedantic -ansi -I ./include/
+-export LDFLAGS += -L./lib/ -lSDL -lGL -lGLU -lfmodex64
++CXX = g++
++CC = gcc
++LD = g++
++
++DEFINES += -O2
++DEFINES_DBG += -ggdb -D_DEBUG
++
++CXXFLAGS += -O3 -flto -Wall -Wextra -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew) -std=gnu++98 -fabi-version=2
++CFLAGS += -O3 -flto -Wall -Wextra -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew) -std=gnu90
++LDFLAGS += $(shell pkgconf --libs sdl glu glew) -lfmodex
+ 
+ ifeq ($(DEBUG),yes)
+ 	CXXFLAGS += $(DEFINES_DBG)
+@@ -21,14 +23,10 @@
+ 
+ # Folders settings
+ 
++TARGET=flawed-by-adinpsz
+ # Compilation Rules
+-ifeq ($(DEBUG),yes)
+-	EXEC = ./bin/Debug/VIP2011
+-else
+-	EXEC = ./bin/Release/VIP2011
+-endif
++
+ 3D = Sources/3D/FrameBuffer.o Sources/3D/RenderBuffer.o Sources/3D/Texture.o Sources/3D/Shader.o Sources/3D/ScreenQuad.o Sources/3D/LineRenderer.o Sources/3D/Camera/Camera.o Sources/3D/Camera/GLUCamera.o Sources/3D/Camera/StaticCamera.o Sources/3D/Camera/RotatingCamera.o Sources/3D/Camera/TopDownCamera.o Sources/3D/Camera/LinearCamera.o
+-GLEW = Sources/GLEW/glew.o
+ MUSIC = Sources/Music/Music.o Sources/Music/Impulsor.o
+ NENGINE = Sources/NEngine/Engine.o Sources/NEngine/Window.o Sources/NEngine/GLWindow.o Sources/NEngine/Controllers/InputManager.o Sources/NEngine/Controllers/SDL_Keyboard.o Sources/NEngine/Controllers/Mouse.o
+ SHAPES = Sources/Objects/Cube.o Sources/Objects/Font.o Sources/Objects/Scroller.o Sources/Objects/Grid.o Sources/Objects/Particules.o Sources/Objects/Particules2.o Sources/Objects/Particules3.o Sources/Objects/Particules4.o Sources/Objects/Particules5.o  Sources/Objects/Pyramide.o Sources/Objects/Sphere.o Sources/Objects/Star.o
+@@ -36,10 +34,27 @@
+ MATH =
+ TYPES = 
+ UTILS = Sources/Utils/GLUtils.o Sources/Utils/MathUtils.o Sources/Utils/Settings.o
+-OBJECTS = $(NENGINE) $(GLEW) $(3D) $(UTILS) $(TYPES) $(MATH) $(SCENES) $(SHAPES)  $(MUSIC) Sources/main.o
++OBJECTS = $(NENGINE) $(3D) $(UTILS) $(TYPES) $(MATH) $(SCENES) $(SHAPES)  $(MUSIC) Sources/main.o
++
++#variable de nettoyage
++RM_F := rm -fv
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++#compilation en paralelle si disponible
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+ 
+-all: $(EXEC)
++all: $(TARGET)
+ ifeq ($(DEBUG),yes)
+ 	@echo "\033[35m=== Compilation in debug mode\t\t\tDONE\033[0m"
+ else
+@@ -58,31 +73,26 @@
+ 	@echo "$(CC) $< -> $@\033[0m";\
+ 	$(CC) $(CFLAGS) -c $< -o $@
+ 
+-$(EXEC): $(OBJECTS)
+-	@echo "\033[32m$(LD) ($(OBJECTS)) -> $(EXEC)\033[0m";
+-ifeq ($(DEBUG),yes)
+-	mkdir -p bin/Debug
+-else
+-	mkdir -p bin/Release
+-endif
+-	$(LD) $(LDFLAGS) $(OBJECTS) -o $@
++$(TARGET): $(OBJECTS)
++	@echo "\033[32m$(LD) ($(OBJECTS)) -> $(TARGET)\033[0m";
++	$(LD) -flto $(OBJECTS) -o $@ $(LDFLAGS)
+ 
+ .PHONY: clean mrproper
+ 
+ clean:
+ 	@echo "\033[31m"
+-	rm -rfv $(OBJECTS)
++	-@$(RM_F) $(OBJECTS)
++	-@$(RM_F) $(TARGET)
+ 	@echo "\033[0m"
+ 
+ mrproper: clean
+ 	@echo "\033[31m"
+-	rm -rfv $(EXEC)
++	-@$(RM_F) $(TARGET)
+ 	@echo "\033[0m"
+ 
+ run:
+ ifeq ($(DEBUG),yes)
+-	LD_LIBRARY_PATH=./lib ./bin/Debug/VIP2011
++	LD_LIBRARY_PATH=./lib $(TARGET)
+ else
+-	LD_LIBRARY_PATH=./lib ./bin/Release/VIP2011
++	LD_LIBRARY_PATH=./lib $(TARGET)
+ endif
+-
