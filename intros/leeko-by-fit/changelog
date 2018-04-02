@@ -1,0 +1,39 @@
+leeko-by-fit (1.0-0ddebs6) unstable; urgency=medium
+
+  * replaced pkg-config by pkgconf
+  * fixed C standard
+  * added an icon
+  * desktop icon start in window mode by default
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 20 Jul 2017 12:19:46 +0200
+
+leeko-by-fit (1.0-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Jul 2016 21:42:27 +0200
+
+leeko-by-fit (1.0-0ddebs4) unstable; urgency=medium
+
+  * update makefile 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 01:46:26 +0200
+
+leeko-by-fit (1.0-0ddebs3) unstable; urgency=medium
+
+  * added manuel & menu
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 04 Mar 2016 00:26:07 +0100
+
+leeko-by-fit (1.0-0ddebs2) unstable; urgency=medium
+
+  * using debian recommended CFLAGS and habits
+  * better program name
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 02 Mar 2016 01:15:35 +0100
+
+leeko-by-fit (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 23 Feb 2016 23:21:43 +0100

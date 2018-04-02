@@ -1,0 +1,81 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,47 +1,54 @@
+ # The target platform: unix/osx/win
+-PLATFORM = unix
++SHELL:= /bin/sh
++PLATFORM := unix
+ 
+-CC = gcc
+-COPT = -Wall -O2 -ffast-math -fno-strict-aliasing
+-HEADERS = palikka.h volume.h gl_render.h dump.h wavefront.h dudes.h \
++CC := gcc
++CFLAGS += -O3 -flto -Wall -ffast-math  -fno-strict-aliasing -std=gnu90 $(shell pkgconf --cflags sdl)
++HEADERS := palikka.h volume.h gl_render.h dump.h wavefront.h dudes.h \
+           hakkyra.h tunneli.h spiral.h ball.h writer.h feidit.h naamat.h \
+           syna.h
+-OBJ = palikka.o volume.o main.o wavefront.o dump.o gl_render.o dudes.o \
++OBJ := palikka.o volume.o main.o wavefront.o dump.o gl_render.o dudes.o \
+       hakkyra.o tunneli.o spiral.o serfdata.o walkerdata.o ball.o fontdata.o \
+       writer.o feidit.o naamatdata.o naamat.o syna.o piisi.o
+-LIB = `sdl-config --libs` -lm
+-TARGET = leeko
+-SPECIAL =
++LDFLAGS += $(shell pkgconf --libs sdl) -lm
++TARGET := leeko-by-fit
++
++INSTALL := install
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++RM_F := rm -f
++
++PREFIX          := /usr
++BINDIR          := $(PREFIX)/bin
+ 
+ ifeq ($(PLATFORM),unix)
+-LIB += -lGL
++LDFLAGS += $(shell pkgconf gl --libs)
+ endif
+ 
+-ifeq ($(PLATFORM),osx)
+-COPT += -DMAC `sdl-config --cflags` \
+--I/System/Library/Frameworks/AGL.framework/Headers -DBLKSIZE=1024
+-SPECIAL = cp $(TARGET) Leeko.app/Contents/MacOS
+-LIB = `sdl-config --static-libs`
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS := $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
+ endif
+ 
+-ifeq ($(PLATFORM),win)
+-LIB = -lSDL -lopengl32 -lm
+-TARGET = leeko.exe
+-endif
++export
++
++all: $(TARGET)
+ 
+ $(TARGET): $(OBJ)
+-	$(CC) -o $@ $(OBJ) $(LIB)
++	$(CC) -flto -o $@ $(OBJ) $(LDFLAGS)
+ 	$(SPECIAL)
+ 
+-final: $(TARGET)
+-	strip -R .comment -R .note $(TARGET)
+-	upx $(TARGET)
+ 
+ %.o: %.c $(HEADERS)
+-	$(CC) $(COPT) -c $<
++	$(CC) $(CFLAGS) -c $<
+ 
+ data2c: data2c.c
+ 	$(CC) -o $@ $<
+ 
+ clean:
+-	-rm *.o $(TARGET) *~ *.bak data2c
++	-@$(RM_F) *.o $(TARGET) *~ *.bak data2c
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(BINDIR)
++	-@$(RM_F) $(DESTDIR)$(BINDIR)/$(TARGET)$(EXEEXT)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(BINDIR)

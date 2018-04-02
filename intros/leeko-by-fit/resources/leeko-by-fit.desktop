@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Leeko
+GenericName=Demo
+Comment=Demo by Fit, released in 2003
+Type=Application
+Exec=/usr/bin/leeko-by-fit -w
+Icon=leeko-by-fit
+Categories=AudioVideo;Game;
+Name[fr_FR]=Leeko
