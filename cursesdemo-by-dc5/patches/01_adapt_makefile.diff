@@ -1,0 +1,37 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,2 +1,31 @@
+-demo: demo.c
+-	cc -g demo.c -o demo -lcurses -ltermcap -lm
+\ No newline at end of file
++#variables de compilation
++SHELL = /bin/sh
++CC    = gcc
++CFLAGS   +=-Wall -ffast-math -std=gnu90 -pipe
++LDFLAGS  +=-lcurses -ltermcap -lm
++
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++RM_F := rm -f
++
++TARGET=cursesdemo-by-dc5
++
++prefix = /usr
++exec_prefix = $(prefix)
++bindir = $(exec_prefix)/bin
++
++export
++
++all: $(TARGET)
++
++clean:
++	-@$(RM_F) $(TARGET)
++
++$(TARGET): demo.c
++	$(CC) $(CFLAGS) demo.c -o $(TARGET) $(LDFLAGS)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)

@@ -1,0 +1,24 @@
+cursesdemo-by-dc5 (1.0-0ddebs4) unstable; urgency=medium
+
+  * fixed C standard
+  * updated default cflags
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 14 Jul 2017 02:31:42 +0200
+
+cursesdemo-by-dc5 (1.0-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Jul 2016 17:05:44 +0200
+
+cursesdemo-by-dc5 (1.0-0ddebs2) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 27 Apr 2016 22:24:57 +0200
+
+cursesdemo-by-dc5 (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 24 Feb 2016 00:36:03 +0100

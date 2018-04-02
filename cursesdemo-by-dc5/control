@@ -1,0 +1,13 @@
+Source: cursesdemo-by-dc5
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends: debhelper (>= 9.0.0),libncurses5-dev,pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=10644
+
+Package: cursesdemo-by-dc5
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: demo ranked 3rd at Pilgrimage 2003
+ little ncurse demo ranked 3rd

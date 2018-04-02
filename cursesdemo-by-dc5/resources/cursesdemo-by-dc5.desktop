@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Curses Demo
+GenericName=Demo
+Comment=Demo by dc5, released in 2003
+Type=Application
+Exec=/usr/bin/cursesdemo-by-dc5
+Icon=cursesdemo-by-dc5
+Categories=AudioVideo;Game;
+Name[fr_FR]=Curses Demo
