@@ -1,0 +1,47 @@
+neandertaler (1.0-0ddebs7) unstable; urgency=medium
+
+  * split first patch in 01_adapt_makefile.patch & 02_adapt_path.patch
+  * add pkgconf as dependecie
+  * split package in a binary & data package
+  * better way to change path
+  * move resources to debian folder
+  * added an icon
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 24 Jul 2017 01:54:47 +0200
+
+neandertaler (1.0-0ddebs6) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Jul 2016 22:05:23 +0200
+
+neandertaler (1.0-0ddebs5) unstable; urgency=medium
+
+  * replaced mikmod by sdl_mixer
+
+ -- NaSH <lenashou@gmail.com>  Sun, 01 May 2016 03:51:22 +0200
+
+neandertaler (1.0-0ddebs4) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 19:45:07 +0200
+
+neandertaler (1.0-0ddebs3) unstable; urgency=medium
+
+  * added manuel & menu
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 03 Mar 2016 23:38:35 +0100
+
+neandertaler (1.0-0ddebs2) unstable; urgency=medium
+
+  * using debian recommended CFLAGS and habits
+  * reworked makefile 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 02 Mar 2016 01:34:03 +0100
+
+neandertaler (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 26 Feb 2016 22:12:55 +0100

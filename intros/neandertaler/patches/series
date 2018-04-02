@@ -1,0 +1,4 @@
+01_adapt_makefile.patch
+02_adapt_path.patch
+03_fix_warnings.patch
+04_replace_mikmod_by_sdlmixer.patch

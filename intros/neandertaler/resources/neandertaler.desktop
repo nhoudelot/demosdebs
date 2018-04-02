@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Neandertaler
+GenericName=Demo
+Comment=Demo by Fit, released in 2000
+Type=Application
+Exec=/usr/bin/neandertaler
+Icon=neandertaler
+Categories=AudioVideo;Game;
+Name[fr_FR]=Neandertaler

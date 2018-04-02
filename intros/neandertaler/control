@@ -1,0 +1,33 @@
+Source: neandertaler
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0.0),
+ libglu1-mesa-dev,
+ freeglut3-dev,
+ libsdl1.2-dev,
+ libsdl-mixer1.2-dev,
+ libxi-dev,
+ libxmu-dev,
+ pkgconf,
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=1225
+
+Package: neandertaler
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ neandertaler-data
+Description: Intro ranked 2nd at The Party 2000
+ 64k intro ranked 2nd at The Party 2000
+   
+Package: neandertaler-data
+Architecture: all
+Depends:
+ ${misc:Depends}
+Description: data files for nean der taler ranked 2nd at The Party 2000
+ 64k intro ranked 2nd at The Party 2000
+ data files
