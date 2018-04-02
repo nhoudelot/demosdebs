@@ -1,0 +1,19 @@
+Source: jeregrette-by-fitandbandwagon
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ pkgconf,
+ libsdl1.2-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=13023
+
+Package: jeregrette-by-fitandbandwagon
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Fit and Bandwagon 4k Intro/2004/Linux
+ Demo by Fit and Bandwagon, released in 2004

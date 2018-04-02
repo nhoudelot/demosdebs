@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Je Regrette
+GenericName=Demo
+Comment=Demo by Fit and Bandwagon, released in 2004
+Type=Application
+Exec=/usr/bin/jeregrette-by-fitandbandwagon
+Icon=jeregrette-by-fitandbandwagon
+Categories=AudioVideo;Game;
+Name[fr_FR]=Je Regrette

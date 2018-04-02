@@ -1,0 +1,29 @@
+jeregrette-by-fitandbandwagon (1.0-0ddebs5) unstable; urgency=medium
+
+  * replaced pkg-config by pkgconf
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Jul 2017 00:58:13 +0200
+
+jeregrette-by-fitandbandwagon (1.0-0ddebs4) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Jul 2016 17:51:45 +0200
+
+jeregrette-by-fitandbandwagon (1.0-0ddebs3) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 27 Apr 2016 22:48:49 +0200
+
+jeregrette-by-fitandbandwagon (1.0-0ddebs2) unstable; urgency=medium
+
+  * using debian recommended FLAGS
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 10 Mar 2016 23:54:24 +0100
+
+jeregrette-by-fitandbandwagon (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Feb 2016 16:46:59 +0100

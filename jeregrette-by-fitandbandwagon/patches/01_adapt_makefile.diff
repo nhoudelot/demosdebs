@@ -1,0 +1,54 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,17 +1,41 @@
+-CC = gcc
+-COPT = -O2 -ffast-math `sdl-config --cflags`
+-LIB = `sdl-config --libs` -lm
++#variables de compilation
++SHELL = /bin/sh
++CC    = gcc
++CFLAGS   += -Wall -ffast-math -std=gnu90 $(shell pkgconf --cflags sdl gl)
++LDFLAGS  += $(shell pkgconf --libs sdl gl) -lm
++TARGET := jeregrette-by-fitandbandwagon
++#variable de nettoyage
++RM_F := rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++
++#parallel compilation if available
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+ OBJ = syna.o main.o osa.o biisi.o
+ 
+-NAME = je_regrette
++export
++
++all: $(TARGET)
+ 
+-$(NAME): $(OBJ)
+-	$(CC) -o $@ $(OBJ) $(LIB)
+-	strip $@
++$(TARGET): $(OBJ)
++	$(CC) -o $@ $(OBJ) $(LDFLAGS)
+ 
+ %.o: %.c letters2.h
+-	$(CC) $(COPT) -c $<
+-       
++	$(CC) $(CFLAGS) -c $<
++
+ clean:
+-	rm *.o $(NAME) core *~
++	-@$(RM_F) *.o $(NAME) core *~ $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
