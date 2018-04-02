@@ -1,0 +1,16 @@
+Source: 8bitwonderland-by-kakiarts
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends: debhelper (>=9),pandoc,libsdl1.2-dev,libpng12-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=31657
+
+Package: 8bitwonderland-by-kakiarts
+Architecture: i386
+Depends: ${shlibs:Depends},${misc:Depends},common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2007
+ Demo by Kakiarts, released in 2007
+ This version has been tested on systems with nVidia, ATI and even Intel
+ graphics chips. Something at GeForce 6 or Radeon X level or above is
+ recommended.

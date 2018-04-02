@@ -1,0 +1,58 @@
+8bitwonderland-by-kakiarts for Debian
+------------------------------------
+
+executable seems to be compiled for CPU with sse minium and on Ubuntu Gutsy (7.10)
+
+(GNU) 4.1.2 (Ubuntu 4.1.2-0ubuntu4)
+
+instructions:
+-------------
+ cpuid: 0	 nop: 64	 call: 2135	 count: 32175
+ i686:	 249
+ sse:	 21
+ 
+Source files:
+------------- 
+../sysdeps/i386/elf/start.S
+/build/buildd/glibc-2.5/build-tree/i386-libc/csu/crti.S
+/build/buildd/glibc-2.5/build-tree/i386-libc/csu/crtn.S
+abi-note.S
+camera.c
+core.c
+crtstuff.c
+dbgctls.c
+demo.c
+extfuncs.c
+glow.c
+glstate.c
+imageloader.c
+infile.c
+init.c
+initfini.c
+jidctflt.c
+loader.c
+main_sdl.c
+mesh.c
+minimp3.c
+music_mp3.c
+random.c
+scene_adcube.c
+scene_city.c
+scene_end.c
+scene_intro.c
+scene_kart.c
+scene_landscape.c
+scene_pong.c
+scene_snake.c
+scene_tetris.c
+spline.c
+star.c
+texgen.c
+tinyjpeg.c
+ve2util.c
+vertexbuf.c
+voxel.c
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 15:15:01 +0100
+

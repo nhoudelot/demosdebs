@@ -1,0 +1,18 @@
+8bitwonderland-by-kakiarts (1.0-0ddebs3) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 23 Jan 2018 03:31:29 +0100
+
+8bitwonderland-by-kakiarts (1.0-0ddebs2) unstable; urgency=medium
+
+  * Better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Mar 2017 16:51:00 +0200
+
+8bitwonderland-by-kakiarts (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 11 Sep 2016 15:41:38 +0200

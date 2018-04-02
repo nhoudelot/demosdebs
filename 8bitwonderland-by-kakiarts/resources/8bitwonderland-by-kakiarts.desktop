@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=8-Bit Wonderland
+GenericName=Demo
+Comment=Demo by Kakiarts, released in 2007
+Type=Application
+Exec=/usr/bin/8bitwonderland-by-kakiarts
+Icon=8bitwonderland-by-kakiarts
+Categories=AudioVideo;Game;
+Name[fr_FR]=8-Bit Wonderland
