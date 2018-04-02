@@ -1,0 +1,7 @@
+--- a/kaleido.c
++++ b/kaleido.c
+@@ -1,3 +1,4 @@
++#include <string.h>
+ 
+ void kaleido(unsigned char *s,int xs,int ys)
+ {

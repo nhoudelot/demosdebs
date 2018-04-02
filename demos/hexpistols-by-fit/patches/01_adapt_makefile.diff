@@ -1,0 +1,90 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,16 +1,43 @@
++#variables de compilation
++SHELL = /bin/sh
+ MAKE = make
+ CC = gcc
+ 
+ # Change BUFSIZE for crappy systems that need a large audio buffer
+-CFLAGS = -O2 -ffast-math `sdl-config --cflags` -DNOAMIKA -DBUFSIZE=2048
++CFLAGS += -O3 -flto -Wall -ffast-math $(shell sdl-config --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
++LDFLAGS += $(shell sdl-config --libs) -lm -pipe
++TARGET   = hexpistols-by-fit
++#variable de nettoyage
++RM_F = rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    = $(INSTALL) -p    -o root -g root  -m  644
++
+ INC = rings.h kaleido.h mosaic.h cgm.h cgm_soft.h staraz.h dots.h writeri.h\
+ 	drawing.h
+ OBJ = main.o rings.o mosaic.o kaleido.o cgm.o cgm_soft.o staraz.o dots.o\
+ 	writeri.o drawing.o
++
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++datarootdir     = $(prefix)/share
++datadir         = $(prefix)/share/hexpistols-by-fit
++
++#parallel compilation if available
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
+ export
+ 
+-hex_pistols: $(OBJ) cool_mzx/cool_mzx.a
+-	$(CC) -o $@ $(OBJ) cool_mzx/cool_mzx.a `sdl-config --libs` -lm
++all: $(TARGET)
++
++$(TARGET): $(OBJ) cool_mzx/cool_mzx.a
++	$(CC) -flto -o $@ $(OBJ) cool_mzx/cool_mzx.a $(LDFLAGS)
+ 
+ cool_mzx/cool_mzx.a:
+ 	cd cool_mzx && $(MAKE)
+@@ -19,5 +46,12 @@
+ 	$(CC) $(CFLAGS) -c $<
+ 	
+ clean:
+-	cd cool_mzx && make clean
+-	rm *.o hex_pistols *~
++	cd cool_mzx && $(MAKE) clean
++	-@$(RM_F) *.o $(TARGET) *~
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) data/* $(DESTDIR)$(datadir)
+--- a/cool_mzx/Makefile
++++ b/cool_mzx/Makefile
+@@ -1,13 +1,19 @@
+ # A very pathetic makefile...
++SHELL := /bin/sh
++CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
++CFLAGS += -O3 -Wall -ffast-math -funsigned-char -std=gnu90 -pipe
++PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
+ 
+-CFLAGS += -funsigned-char
++RM_F := rm -f
++AR := ar
++RANLIB := ranlib
+ 
+ lib: obj
+-	ar rc cool_mzx.a pt*.o cool*.o sd*.o
+-	ranlib cool_mzx.a
++	$(AR) rc  $(PLUGIN) cool_mzx.a pt*.o cool*.o sd*.o
++	$(RANLIB)  $(PLUGIN) cool_mzx.a
+ 
+ obj:
+ 	$(CC) $(CFLAGS) -c *.c
+ 
+ clean:
+-	rm *.o *.a
++	-@$(RM_F) *.o *.a

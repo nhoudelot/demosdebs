@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Hex Pistols
+GenericName=Demo
+Comment=Demo by Fit, released in 2005
+Type=Application
+Exec=/usr/bin/hexpistols-by-fit
+Icon=hexpistols-by-fit
+Categories=AudioVideo;Game;
+Name[fr_FR]=Hex Pistols

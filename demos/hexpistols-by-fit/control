@@ -1,0 +1,18 @@
+Source: hexpistols-by-fit
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ libsdl1.2-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=17311
+
+Package: hexpistols-by-fit
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Fit Demo/2005/Linux
+ Demo by Fit, released in 2005
