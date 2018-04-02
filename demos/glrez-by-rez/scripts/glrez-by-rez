@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=glrez-by-rez
+
+APP_FULLNAME="glRez"
+APP_COPYRIGHT="rez"
+APP_DESC="demo by rez released the 2005"
+APP_EXE="glrez"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/i386-linux-gnu/${domain}/
+	./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=glRez
+GenericName=Demo
+Comment=Demo by rez, released in 2005
+Type=Application
+Exec=/usr/bin/glrez-by-rez
+Icon=glrez-by-rez
+Categories=AudioVideo;Game;
+Name[fr_FR]=glRez

@@ -1,0 +1,25 @@
+glrez-by-rez for Debian
+-----------------------
+
+sources have been repackaged
+
+executable seems to be compiled for Ubuntu Breezy (5.10)
+
+(GNU) 4.0.2 20050808 (prerelease) (Ubuntu 4.0.1-4ubuntu9)
+
+Source files:
+------------- 
+
+../sysdeps/i386/elf/start.S
+/build/buildd/glibc-2.3.5/build-tree/i386-libc/csu/crti.S
+/build/buildd/glibc-2.3.5/build-tree/i386-libc/csu/crtn.S
+abi-note.S
+crtstuff.c
+glrez.cpp
+init.c
+initfini.c
+sound.cpp
+timer.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 23:00:02 +0100
+

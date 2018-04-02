@@ -1,0 +1,20 @@
+Source: glrez-by-rez
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ libglu1-mesa-dev,
+ libsdl1.2-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=16327
+
+Package: glrez-by-rez
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo by rez 2005
+ Demo by rez, released in 2005

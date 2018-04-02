@@ -1,0 +1,6 @@
+debian/resources/glrez-by-rez.desktop usr/share/applications/
+debian/resources/glrez-by-rez.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/glrez-by-rez usr/bin/ 
+./glrez  usr/lib/i386-linux-gnu/glrez-by-rez/./ 
+./kenzalol.xm usr/share/glrez-by-rez/./ 
+./libfmodex.so.4.00.37  usr/lib/i386-linux-gnu/glrez-by-rez/./ 
