@@ -1,0 +1,32 @@
+anrufausschweden-by-unik (1.0-0ddebs5) unstable; urgency=medium
+
+  * configured NSH_SHAREDIR to make it work
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 23 Jan 2018 23:52:25 +0100
+
+anrufausschweden-by-unik (1.0-0ddebs4) unstable; urgency=medium
+
+  * removed dependencies to osspd,osspd-pulseaudio,pulseaudio-esound-compat
+  * simplified it 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 27 Mar 2017 00:21:00 +0200
+
+anrufausschweden-by-unik (1.0-0ddebs3) unstable; urgency=medium
+
+  * make it depend of osspd,osspd-pulseaudio,pulseaudio-esound-compat 
+    for oss emulation
+  * so now Multi-Arch: foreign
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 21 Oct 2016 00:30:16 +0200
+
+anrufausschweden-by-unik (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 31 Jul 2016 21:25:54 +0200
+
+anrufausschweden-by-unik (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 20 Mar 2016 04:04:59 +0100

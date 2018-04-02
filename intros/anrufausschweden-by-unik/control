@@ -1,0 +1,21 @@
+Source: anrufausschweden-by-unik
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=13621
+
+Package: anrufausschweden-by-unik
+Architecture: i386
+Depends:
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ libsdl1.2debian,
+ libc6,
+ libgl1-mesa-glx | libgl1,
+ libglu1-mesa | libglu1
+Description: anruf aus schweden is a Demo released in 2004
+ Demo by unik, released in 2004

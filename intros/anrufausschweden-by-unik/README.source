@@ -1,0 +1,17 @@
+anrufausschweden-by-unik for Debian
+-----------------------------------
+
+
+Source files:
+------------- 
+BufferObject.cpp
+Import.cpp
+OGLRenderer.cpp
+Vector.cpp
+main.cpp
+
+music is a FastTracker v2.00 module
+output on oss /dev/dsp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 15:15:01 +0100
+
