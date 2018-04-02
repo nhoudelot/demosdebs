@@ -1,0 +1,25 @@
+antedominium-by-traction (1.0-0ddebs4) unstable; urgency=medium
+
+  * use pkgconf instead of pkg-config
+  * kept the C C++ standard
+  * activate parallel compilation if available
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Jul 2017 22:21:29 +0200
+
+antedominium-by-traction (1.0-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Jul 2016 20:27:55 +0200
+
+antedominium-by-traction (1.0-0ddebs2) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 00:32:59 +0200
+
+antedominium-by-traction (1.0-0ddebs1) trusty; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Apr 2016 16:53:26 +0200

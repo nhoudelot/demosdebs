@@ -1,0 +1,22 @@
+Source: antedominium-by-traction
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ mesa-common-dev,
+ libfmodex-dev,
+ libsdl1.2-dev,
+ pkgconf
+Standards-Version: 3.9.7
+Homepage:http://www.pouet.net/prod.php?which=24476
+
+Package: antedominium-by-traction
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libfmodex
+Description: Demonstration released by Traction
+ Demo by Traction, released in 2006

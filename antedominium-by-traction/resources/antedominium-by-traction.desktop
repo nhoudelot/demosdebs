@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Ante Dominium
+GenericName=Demo
+Comment=Demo by Traction, released in 2006
+Type=Application
+Exec=/usr/bin/antedominium-by-traction
+Icon=antedominium-by-traction
+Categories=AudioVideo;Game;
+Name[fr_FR]=Ante Dominium

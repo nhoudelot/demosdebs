@@ -1,0 +1,31 @@
+--- a/sound.cpp
++++ b/sound.cpp
+@@ -4,7 +4,7 @@
+ #include <stdio.h>
+ #include "sound.hpp"
+ 
+-#include "fmod.h"
++#include <fmodex/fmod.h>
+ 
+ FMOD_SYSTEM *system;
+ FMOD_SOUND *fsound;
+@@ -43,7 +43,7 @@
+ fsound = 0;
+ FMOD_System_Create(&system);
+ FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
+-FMOD_System_CreateSound(system, "music.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
++FMOD_System_CreateSound(system, "/usr/share/antedominium-by-traction/music.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
+ 
+ 	return true;
+ }
+--- a/main.cpp
++++ b/main.cpp
+@@ -137,6 +137,8 @@
+ 						case SDLK_ESCAPE:
+ 							done = true;
+ 							break;
++						default:
++							break;
+ 					}
+ 			}
+ 
