@@ -1,0 +1,21 @@
+Source: kartoonikum-by-exhouseandnecrostudios
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ pkgconf,
+ libsdl1.2-dev,
+ mesa-common-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=31526
+
+Package: kartoonikum-by-exhouseandnecrostudios
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Linux Demo by ExHouse and NecroStudios
+ Demo by ExHouse and NecroStudios, released in 2007
