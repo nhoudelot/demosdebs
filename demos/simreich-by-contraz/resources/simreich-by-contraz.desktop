@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Sim Reich
+GenericName=Demo
+Comment=Demo by Contraz, released in 2010
+Type=Application
+Exec=/usr/bin/simreich-by-contraz
+Icon=simreich-by-contraz
+Categories=AudioVideo;Game;
+Name[fr_FR]=Sim Reich

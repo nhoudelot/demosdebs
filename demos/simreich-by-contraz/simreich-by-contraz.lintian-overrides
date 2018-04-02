@@ -1,0 +1,9 @@
+simreich-by-contraz binary: unknown-section demos
+simreich-by-contraz binary: desktop-entry-lacks-keywords-entry usr/share/applications/simreich-by-contraz.desktop
+simreich-by-contraz binary: executable-not-elf-or-script usr/lib/i386-linux-gnu/simreich-by-contraz/resources.7z
+simreich-by-contraz binary: spelling-error-in-binary usr/lib/i386-linux-gnu/simreich-by-contraz/SimReich errror error
+simreich-by-contraz binary: spelling-error-in-binary usr/lib/i386-linux-gnu/simreich-by-contraz/SimReich Fragement Fragment
+simreich-by-contraz binary: spelling-error-in-binary usr/lib/i386-linux-gnu/simreich-by-contraz/SimReich unsinged unsigned
+simreich-by-contraz binary: spelling-error-in-binary usr/lib/i386-linux-gnu/simreich-by-contraz/SimReich dont don't
+simreich-by-contraz binary: binary-or-shlib-defines-rpath usr/lib/i386-linux-gnu/simreich-by-contraz/SimReich .
+

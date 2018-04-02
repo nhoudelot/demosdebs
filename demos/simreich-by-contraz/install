@@ -1,0 +1,6 @@
+debian/scripts/simreich-by-contraz usr/bin/
+debian/resources/simreich-by-contraz.desktop usr/share/applications/
+debian/resources/simreich-by-contraz.png usr/share/icons/hicolor/256x256/apps/
+./SimReich usr/lib/i386-linux-gnu/simreich-by-contraz/./ 
+./libfmodex.so usr/lib/i386-linux-gnu/simreich-by-contraz/./ 
+./resources.7z usr/lib/i386-linux-gnu/simreich-by-contraz/./ 

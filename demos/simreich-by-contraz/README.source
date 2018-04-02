@@ -1,0 +1,80 @@
+simreich-by-contraz for Debian
+-------------------------------
+
+executable seems to be compiled for Ubuntu Ludid (10.04)
+
+(Ubuntu 4.4.3-4ubuntu5) 4.4.3
+ 
+Source files:
+------------- 
+7zAlloc.cpp                   FormationEffect.cpp
+7zBuf.cpp                     FrameBufferObject.cpp
+7zCrc.cpp                     GLExtensions.cpp
+7zDecode.cpp                  GlowEffect.cpp
+7zExtract.cpp                 HUDEffect.cpp
+7zFile.cpp                    HUDVolumeMeter.cpp
+7zHeader.cpp                  HUDVolumeMeterCircle.cpp
+7zIn.cpp                      Image.cpp
+7zItem.cpp                    Keyframe.cpp
+7zStream.cpp                  LaplacianEffect.cpp
+Animation.cpp                 LensEffect.cpp
+AnimationCameraController.cpp LzmaDec.cpp
+AnimationObjectController.cpp MasterDroidEffect.cpp
+AnimationParser.cpp           OverlayEffect.cpp
+Arc.cpp                       Packman.cpp
+ArenaCrowdEffect.cpp          ParameterGroup.cpp
+ArenaEffect.cpp               Parameters.cpp
+Bcj2.cpp                      ParticleBombRobot.cpp
+Binary.cpp                    ParticleFormation.cpp
+BlendEffect.cpp               ParticleSystem.cpp
+Bra86.cpp                     ParticleSystemEffect.cpp
+CTZAnimTimer.cpp              PeriodicPerlinNoise.cpp
+CTZAnimation.cpp              PerlinNoise.cpp
+CTZCamera.cpp                 PixelateEffect.cpp
+CTZDemosys.cpp                ProgressBar.cpp
+CTZGui.cpp                    RadialBlurEffect.cpp
+CTZIO.cpp                     ResourceLoader.cpp
+CTZLight.cpp                  Robot.cpp
+CTZMaterial.cpp               RobotController.cpp
+CTZMesh.cpp                   RobotFormation.cpp
+CTZObject.cpp                 RobotTransshader.cpp
+CTZObjectGroup.cpp            Ruler.cpp
+CTZPolygon.cpp                ScaleVolumMeterShader.cpp
+CTZScene.cpp                  ScreenMetrics.cpp
+CTZSceneLoader.cpp            ScriptDefaults.cpp
+CTZTime.cpp                   Shader.cpp
+CTZVertex.cpp                 ShaderCache.cpp
+Camera.cpp                    ShaderColor.cpp
+CameraLensEffect.cpp          ShaderInstance.cpp
+CosInterpolate.cpp            ShaderTexture.cpp
+CrossfadeEffect.cpp           ShaderTextureColor.cpp
+Crosshair.cpp                 SimReichProgressBar.cpp
+CrowdVUEffect.cpp             SimReichShader.cpp
+Crowdshader.cpp               SimReichShaderCache.cpp
+Data.cpp                      SkyboxEffect.cpp
+DataAnimationPool.cpp         StringTokenizer.cpp
+DataBinaryPool.cpp            StringUtils.cpp
+DataEffectPool.cpp            Texture.cpp
+DataFBOPool.cpp               Textwriter.cpp
+DataObjectPool.cpp            TextwriterEffect.cpp
+DataPool.cpp                  Timer.cpp
+DataShaderPool.cpp            Track.cpp
+DataTexturePool.cpp           TrackGroup.cpp
+DatatypeConversion.cpp        TrackInterpolate.cpp
+Demo.cpp                      TrackKeyFrame.cpp
+DemoScriptParser.cpp          TrackKeyFrameInterpolate.cpp
+DisplayTexture.cpp            TrackStartStop.cpp
+DistortEffect.cpp             TrackStartStopKeyFrame.cpp
+Effect.cpp                    TrackSystem.cpp
+EffectDefinition.cpp          TrackSystemIO.cpp
+EffectDefinitionParser.cpp    VBO.cpp
+FMODTimer.cpp                 VBODynamic.cpp
+FadeEffect.cpp                VolMeterShader.cpp
+File.cpp                      VolumMetersEffect.cpp
+Flag.cpp                      ZeppelinEffect.cpp
+Flag2Effect.cpp               crtstuff.c
+FlagEffect.cpp                main.cpp
+FlagPrecalced.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Apr 2017 02:51:00 +0200
+
