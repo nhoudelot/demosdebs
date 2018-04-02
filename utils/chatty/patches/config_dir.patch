@@ -1,0 +1,20 @@
+# change config directory to $HOME/.config/chatty
+--- a/src/chatty/Chatty.java
++++ b/src/chatty/Chatty.java
+@@ -196,12 +196,11 @@
+      * @return
+      */
+     public static String getUserDataDirectory() {
+-        if (settingsDir != null) {
+-            return settingsDir + File.separator;
+-        }
+         String dir = System.getProperty("user.home")
+-                + File.separator 
+-                + ".chatty" 
++                + File.separator
++                + ".config"
++                + File.separator
++                + "chatty"
+                 + File.separator;
+         new File(dir).mkdirs();
+         return dir;
