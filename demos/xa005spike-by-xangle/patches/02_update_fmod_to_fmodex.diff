@@ -1,0 +1,142 @@
+--- a/ds/io/music.cpp
++++ b/ds/io/music.cpp
+@@ -21,25 +21,25 @@
+ 
+ namespace DS
+ {
+-	F_CALLBACKAPI void* cbopen(const char* pName)
++	F_CALLBACK void* cbopen(const char* pName)
+ 	{
+ 		return (void*)pName; // :D
+ 	}
+ 	
+-	void F_CALLBACKAPI cbclose(void* pHandle) {}
++	void F_CALLBACK cbclose(void* pHandle) {}
+ 	
+-	int F_CALLBACKAPI cbread(void* pBuffer, int size, void* pHandle)
++	int F_CALLBACK cbread(void* pBuffer, int size, void* pHandle)
+ 	{
+ 		return ((MemFile*)pHandle)->Read(pBuffer, size);
+ 	}
+ 	
+-	int F_CALLBACKAPI cbseek(void* pHandle, int pos, signed char mode)
++	int F_CALLBACK cbseek(void* pHandle, int pos, signed char mode)
+ 	{
+ 		((MemFile*)pHandle)->Seek(pos, mode);
+ 		return 0;
+ 	}
+ 	
+-	int F_CALLBACKAPI cbtell(void* pHandle)
++	int F_CALLBACK cbtell(void* pHandle)
+ 	{
+ 		return ((MemFile*)pHandle)->Tell();
+ 	}	
+@@ -63,15 +63,22 @@
+ 	Music::~Music()
+ 	{
+ 		if(m_pSong)
+-			FMUSIC_FreeSong(m_pSong);
++			FMOD_Sound_Release(m_pSong);
++			/* FMUSIC_FreeSong(m_pSong);
++			 */
+ 	}
+ 	
+ 	void Music::Init(int samplerate)
+ 	{
+ 		static char* fn = "[Music::Init]";
+-		if(!FSOUND_Init(samplerate, 32, 0))
+-			cout << fn << " Failed to init sound." << endl;
+-		else
++		FMOD_System_Create(&system);
++		FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
++		/*
++		 * if(!FSOUND_Init(samplerate, 32, 0))
++		 * 	cout << fn << " Failed to init sound." << endl;
++		 *
++		* else
++		 */
+ 			m_bHasInit = true;
+ 	}
+ 	
+@@ -84,12 +91,17 @@
+ //			m_pSong = FMUSIC_LoadSong(((string)"../data/" + pFile).c_str());
+ //			m_pSong = FMUSIC_LoadSong("ps.xm");
+ //			#else
+-			m_pSong = FMUSIC_LoadSong((char*)m_pDataReader->GetFile(pFile));
++			FMOD_System_CreateSound(system, (char*)m_pDataReader->GetFile(pFile), FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &m_pSong);
++			/* m_pSong = FMUSIC_LoadSong((char*)m_pDataReader->GetFile(pFile));
++			 */
+ //			#endif
+-			FSOUND_SetVolume(FSOUND_ALL, m_volume);
++			/*FSOUND_SetVolume(FSOUND_ALL, m_volume);
++			*/
+ 			if(!m_pSong)
+ 				cout << fn << " Failed to load music." << endl;
+-			FMUSIC_SetLooping(m_pSong, false);
++			FMOD_Sound_SetLoopCount(m_pSong, 1);
++			/*FMUSIC_SetLooping(m_pSong, false);
++			 */
+ 			m_bHasLoad = true;
+ 		}
+ 	}
+@@ -97,20 +109,31 @@
+ 	void Music::Play()
+ 	{
+ 		if(m_bHasLoad)
+-			if(!FMUSIC_PlaySong(m_pSong))
+-				cout << "[Music::Play] Failed to play music." << endl;
++			if (m_bisPaused)
++				FMOD_Channel_SetPaused(channel,0);
++			else
++				FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, m_pSong, 0, &channel);
++				FMOD_Sound_SetMusicChannelVolume(m_pSong, channel, &m_volume);
++				/*if(!FMUSIC_PlaySong(m_pSong))
++				*	cout << "[Music::Play] Failed to play music." << endl;
++				*/
+ 	}
+ 	
+ 	void Music::Stop()
+ 	{
+ 		if(m_bHasLoad)
+-			FSOUND_StopSound(FSOUND_ALL);
++			FMOD_Channel_SetPaused(channel,0);
++			/*FSOUND_StopSound(FSOUND_ALL);
++			 */
++		m_bisPaused = true;
+ 	}
+ 	
+ 	void Music::SetVolume(int volume)
+ 	{
+ 		m_volume = volume;
+-		FSOUND_SetVolume(FSOUND_ALL, m_volume);
++		FMOD_Sound_SetMusicChannelVolume(m_pSong, channel, &volume);
++		/* FSOUND_SetVolume(FSOUND_ALL, m_volume);
++		 */
+ 	}
+ 	
+ 	int Music::GetVolume()
+--- a/ds/io/music.h
++++ b/ds/io/music.h
+@@ -19,8 +19,8 @@
+ #define MUSIC_H
+ 
+ #include "../common.h"
+-#include <fmod.h>
+ #include "datareader.h"
++#include <fmodex/fmod.h>
+ 
+ namespace DS
+ {
+@@ -39,7 +39,11 @@
+ 		bool m_bHasLoad;
+ 		int m_volume;
+ 		DataReader* m_pDataReader;
+-		FMUSIC_MODULE* m_pSong;
++                FMOD_SYSTEM *system;
++                FMOD_SOUND *m_pSong;
++                FMOD_CHANNEL *channel;
++		/* FMUSIC_MODULE* m_pSong;
++                 */
+ 	};
+ }
+ 

@@ -1,0 +1,112 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,30 +1,32 @@
+-PROJECT = xa-005-spike
+-EXEC = $(PROJECT)
+-CPPC = g++
++SHELL = /bin/sh
++CXX = g++
+ CC = gcc
+ 
+ # GUI --------------------------------------------------------------------------
+ # GUI seems to freeze or crash on OSX :(, too close to release now, disabled.
+ # Comment these if you want to compile on OSX
+-GUIOPT = -DUSE_GUI `fltk-config --cxxflags`
+-GUILIB = `fltk-config --ldstaticflags`
++GUIOPT = -DUSE_GUI $(shell fltk-config --cxxflags)
++GUILIB = $(shell fltk-config --ldstaticflags)
+ 
+ # Compile flags ----------------------------------------------------------------
+-FLAGS = -O2 -s -Wall -DNOFILE
++CFLAGS += -flto -Wall -ffast-math -DNOFILE
+ #FLAGS = -Wall -g -DDEVEL -DFILE_USAGE_LOG
++TARGET   = xa005spike-by-xangle
++#variable de nettoyage
++RM_F = rm -f
+ 
+ # Use for OSX
+ #FLAGS = -Wall -O2 -DNOFILE
+ 
+ # Detect OS --------------------------------------------------------------------
+-ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "Linux")),)
+-	LIB = `sdl-config --libs` -lGL -lGLU -lfmod-3.74 $(GUILIB)
+-	INC = `sdl-config --cflags` -Iio/loaders/zlib -Iio/loaders/png $(GUIOPT)
++ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "linux")),)
++	LDFLAGS += $(shell sdl-config --libs) -lGL -lGLU -lfmod-3.75 $(GUILIB) -lz -lpng
++	CFLAGS += $(shell sdl-config --cflags) $(GUIOPT)
+ endif
+ 
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "Apple")),)
+-	LIB = -framework Cocoa -framework Carbon -framework OpenGL /usr/lib/libfmod.a -L/sw/lib -lSDL $(GUILIB)
+-	INC = -Iio/loaders/zlib -Iio/loaders/png -I/sw/include $(GUIOPT)
++	LDFLAGS += -framework Cocoa -framework Carbon -framework OpenGL /usr/lib/libfmod.a -L/sw/lib -lSDL $(GUILIB)
++	CFLAGS += -Iio/loaders/zlib -Iio/loaders/png -I/sw/include $(GUIOPT)
+ 	OSXMAIN = ds/io/macosx/macosx_sdl.m
+ endif
+ 
+@@ -39,24 +41,53 @@
+ LIBOBJECTS = $(patsubst ds/io/loaders/zlib/%.c,ds/io/loaders/zlib/%.o,$(wildcard ds/io/loaders/zlib/*.c)) \
+ 	$(patsubst ds/io/loaders/png/%.c,ds/io/loaders/png/%.o,$(wildcard ds/io/loaders/png/*.c))
+ 
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    = $(INSTALL) -p    -o root -g root  -m  644
++
++
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++datarootdir     = $(prefix)/share
++datadir         = $(prefix)/share/xa005spike-by-xangle
++
++#si code gcc4 compilé via gcc5 le standard par défaut était different
++GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
++ifeq "$(GCCVERSIONGTEQ5)" "1"
++    CFLAGS += -std=gnu90
++endif
++#parallel compilation if available
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++export
++
+ %.o: %.cpp
+-	@echo "CC	$?"
+-	@$(CPPC) $(FLAGS) $(INC) -c $? -o $@
++	$(CXX) $(CFLAGS) -c $? -o $@
+ 	
+ %.o: %.c
+-	@echo "CC	$?"
+-	@$(CC) $(INC) -O2 -s -c $? -o $@
++	$(CC) $(CFLAGS) -c $? -o $@
+ 	
+ all: $(OBJECTS) $(LIBOBJECTS)
+-	@echo "LD	$(EXEC)"
+-	@$(CPPC) $(FLAGS) $(OBJECTS) $(LIBOBJECTS) $(OSXMAIN) -o $(EXEC) $(LIB) $(INC)
+-	@rm -f $(EXEC)~
+-	@wc -c $(EXEC)
++	$(CXX) $(CFLAGS) $(OBJECTS) $(LIBOBJECTS) $(OSXMAIN) -o $(TARGET) $(LDFLAGS)
++	wc -c $(TARGET)
+ 		
+ clean:
+-	@echo "RM	$(OBJECTS) $(LIBOBJECTS)"
+-	@rm -f $(OBJECTS) $(LIBOBJECTS) &> /dev/null
++	-@$(RM_F) $(OBJECTS) $(LIBOBJECTS) &> /dev/null
++	-@$(RM_F) $(TARGET)~
+ 
+ pclean:
+-	@echo "RM	$(OBJECTS)"
+-	@rm -f $(OBJECTS) &> /dev/null
++	-@$(RM_F) $(OBJECTS) &> /dev/null
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	#data
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) demo.xpk $(DESTDIR)$(datadir)
