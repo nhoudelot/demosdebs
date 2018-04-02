@@ -1,0 +1,20 @@
+Source: helloworld-by-krekola
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev,
+ libmikmod2-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=28018
+
+Package: helloworld-by-krekola
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Linux demo from krekola
+ Demo by krekola, released in 2006

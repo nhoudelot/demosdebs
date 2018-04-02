@@ -1,0 +1,5 @@
+debian/scripts/helloworld-by-krekola usr/bin/
+debian/resources/helloworld-by-krekola.desktop usr/share/applications/
+debian/resources/helloworld-by-krekola.png usr/share/icons/hicolor/256x256/apps/
+./fsfreak-a_really_sad_day.xm usr/share/helloworld-by-krekola/./ 
+./fs_k-hello_world usr/lib/i386-linux-gnu/helloworld-by-krekola/./ 

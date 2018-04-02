@@ -1,0 +1,19 @@
+helloworld-by-krekola (1.0-0ddebs3) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Added some lintian overrides
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Jan 2018 01:16:32 +0100
+
+helloworld-by-krekola (1.0-0ddebs2) unstable; urgency=medium
+
+  * better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Mar 2017 23:52:00 +0200
+
+helloworld-by-krekola (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Sep 2016 22:12:29 +0200
