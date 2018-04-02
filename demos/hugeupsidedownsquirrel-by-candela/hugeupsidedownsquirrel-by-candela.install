@@ -1,0 +1,4 @@
+debian/scripts/hugeupsidedownsquirrel-by-candela usr/bin/
+debian/resources/hugeupsidedownsquirrel-by-candela.desktop usr/share/applications/
+debian/resources/hugeupsidedownsquirrel-by-candela.png usr/share/icons/hicolor/256x256/apps/
+./demo_64 usr/lib/x86_64-linux-gnu/hugeupsidedownsquirrel-by-candela/./

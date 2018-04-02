@@ -1,0 +1,16 @@
+hugeupsidedownsquirrel-by-candela for Debian
+-------------------------------------------
+
+executable seems to be compiled for Ubuntu Natty (11.04)
+
+(Ubuntu/Linaro 4.5.2-8ubuntu4) 4.5.2
+
+Source files:
+-------------
+
+bits.c     float.c    metadata.c qaz.cpp    system.c   words.c
+crtstuff.c main.cpp   pnglite.c  sys.cpp    unpack.c   wputils.c
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 17 Apr 2017 11:26:19 +0200
+

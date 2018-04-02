@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Huge Upside Down Squirrel
+GenericName=Demo
+Comment=Demo by Candela, released in 2011
+Type=Application
+Exec=/usr/bin/hugeupsidedownsquirrel-by-candela
+Icon=hugeupsidedownsquirrel-by-candela
+Categories=AudioVideo;Game;
+Name[fr_FR]=Huge Upside Down Squirrel
