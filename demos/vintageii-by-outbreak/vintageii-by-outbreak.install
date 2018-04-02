@@ -1,0 +1,4 @@
+debian/scripts/vintageii-by-outbreak usr/bin/
+debian/resources/vintageii-by-outbreak.desktop usr/share/applications/
+debian/resources/vintageii-by-outbreak.png usr/share/icons/hicolor/256x256/apps/
+./vintageII.elf usr/lib/i386-linux-gnu/vintageii-by-outbreak/./ 

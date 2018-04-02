@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Vintage II
+GenericName=Demo
+Comment=Demo by outbreak, released in 2008
+Type=Application
+Exec=/usr/bin/vintageii-by-outbreak
+Icon=vintageii-by-outbreak
+Categories=AudioVideo;Game;
+Name[fr_FR]=Vintage II

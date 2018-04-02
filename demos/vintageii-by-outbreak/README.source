@@ -1,0 +1,49 @@
+vintageii-by-outbreak for Debian
+--------------------------------
+
+unable to guess with what the executable seems to be compiled 
+ 
+Source files:
+------------- 
+/home/thec/dev/install/include/dis_shader.h
+/home/thec/dev/install/include/otb_system.h
+/home/thec/dev/install/include/mb_quat.h
+/home/thec/dev/install/include/mb_vector3.h
+../include/fire_music.h
+/home/thec/dev/install/include/mb_splinebase.h
+../include/mb_vector3.h
+bot.cpp
+buff.cpp
+hedgehog.cpp
+hus.cpp
+hyperkub.cpp
+logo.cpp
+plane.cpp
+rum.cpp
+waxon.cpp
+fire_main.cpp
+tIfire_gui.cpp
+pan_control.cpp
+pan_render.cpp
+pan_spline.cpp
+gml_mesh.cpp
+dis_bufferobject.cpp
+dis_display.cpp
+dis_display_glfw.cpp
+dis_fbo.cpp
+dis_ibo.cpp
+dis_material.cpp
+dis_shader.cpp
+dis_texture.cpp
+dis_vbo.cpp
+am.cpp
+o3d_manager.cpp
+o3d_material.cpp
+o3d_mesh.cpp
+o3d_submesh.cpp
+o3d_typedef.cpp
+cl_writebuffer.cpp
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Apr 2017 17:18:01 +0200
+
