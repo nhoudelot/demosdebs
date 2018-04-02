@@ -1,0 +1,4 @@
+debian/scripts/ephemera-by-approximate usr/bin/
+debian/resources/ephemera-by-approximate.desktop usr/share/applications/
+debian/resources/ephemera-by-approximate.png usr/share/icons/hicolor/256x256/apps/
+./ephemerafinal32bit usr/lib/i386-linux-gnu/ephemera-by-approximate/./ 

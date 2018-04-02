@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=ephemera
+GenericName=Demo
+Comment=Demo by Approximate, released in 2009
+Type=Application
+Exec=/usr/bin/ephemera-by-approximate
+Icon=ephemera-by-approximate
+Categories=AudioVideo;Game;
+Name[fr_FR]=ephemera

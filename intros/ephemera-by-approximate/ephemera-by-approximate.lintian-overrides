@@ -1,0 +1,3 @@
+ephemera-by-approximate binary: unknown-section demos
+ephemera-by-approximate binary: desktop-entry-lacks-keywords-entry usr/share/applications/ephemera-by-approximate.desktop
+ephemera-by-approximate binary: statically-linked-binary usr/lib/i386-linux-gnu/ephemera-by-approximate/ephemerafinal32bit

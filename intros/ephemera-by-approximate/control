@@ -1,0 +1,22 @@
+Source: ephemera-by-approximate
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=53833
+
+Package: ephemera-by-approximate
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ libglu1-mesa|libglu1,
+ libsdl1.2debian
+Description: Intro for Linux, released in 2009
+ Intro by Approximate, released in 2009
+ 32-bit elf using SDL (for audio, keyboard/mouse and window creation) and OpenGL
+ Since it's not tried and tested much, any feedback is much welcome.
