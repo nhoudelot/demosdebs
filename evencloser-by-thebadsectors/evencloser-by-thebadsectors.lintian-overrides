@@ -1,0 +1,3 @@
+evencloser-by-thebadsectors: unknown-section demos
+evencloser-by-thebadsectors: desktop-entry-lacks-keywords-entry usr/share/applications/evencloser-by-thebadsectors.desktop
+evencloser-by-thebadsectors: statically-linked-binary usr/lib/x86_64-linux-gnu/evencloser-by-thebadsectors/tbs-ec-linux-64bit.lnx

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Even Closer
+GenericName=Demo
+Comment=Demo by The Bad Sectors, released in 2009
+Type=Application
+Exec=/usr/bin/evencloser-by-thebadsectors
+Icon=evencloser-by-thebadsectors
+Categories=AudioVideo;Game;
+Name[fr_FR]=Even Closer

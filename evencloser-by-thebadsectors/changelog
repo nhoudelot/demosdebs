@@ -1,0 +1,13 @@
+evencloser-by-thebadsectors (1.0-0ddebs2) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 06 Feb 2018 02:13:47 +0100
+
+evencloser-by-thebadsectors (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 24 Dec 2016 19:06:14 +0100

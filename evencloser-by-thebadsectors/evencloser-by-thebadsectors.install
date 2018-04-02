@@ -1,0 +1,4 @@
+debian/scripts/evencloser-by-thebadsectors usr/bin/
+debian/resources/evencloser-by-thebadsectors.desktop usr/share/applications/
+debian/resources/evencloser-by-thebadsectors.png usr/share/icons/hicolor/256x256/apps/
+./tbs-ec-linux-64bit.lnx usr/lib/x86_64-linux-gnu/evencloser-by-thebadsectors/./ 
