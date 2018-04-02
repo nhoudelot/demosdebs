@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=outbreak10years-by-outbreak
+
+APP_FULLNAME="Outbreak 10 years!"
+APP_COPYRIGHT="Outbreak"
+APP_DESC="demo by Outbreak released the 2005"
+APP_EXE="tenyears"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/i386-linux-gnu/${domain}/i686
+	./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

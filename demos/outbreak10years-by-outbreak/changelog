@@ -1,0 +1,25 @@
+outbreak10years-by-outbreak (1.0-0ddebs4) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Jan 2018 14:28:53 +0100
+
+outbreak10years-by-outbreak (1.0-0ddebs3) unstable; urgency=medium
+
+  * link to libfmod-3.75.so instead of libfmod-3.73.so
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 25 Oct 2016 21:31:21 +0200
+
+outbreak10years-by-outbreak (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 31 Jul 2016 21:25:54 +0200
+
+outbreak10years-by-outbreak (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 31 Mar 2016 17:30:51 +0200

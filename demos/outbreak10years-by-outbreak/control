@@ -1,0 +1,32 @@
+Source: outbreak10years-by-outbreak
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=17704
+
+Package: outbreak10years-by-outbreak
+Architecture: i386
+Depends:
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ libstdc++5,
+ libjpeg62-turbo|libjpeg62,
+ libpng12-0 (>= 1.2.13-4),
+ libsdl1.2debian,
+ libfmod,
+ libc6,
+ outbreak10years-by-outbreak-data
+Description: Linux Demo by Outbreak, 2005
+ Demo by Outbreak, released in 2005
+ 
+Package: outbreak10years-by-outbreak-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for outbreak10years-by-outbreak
+ outbreak10years-by-outbreak data files

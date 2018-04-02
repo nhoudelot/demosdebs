@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Outbreak 10 years!
+GenericName=Demo
+Comment=Demo by Outbreak, released in 2005
+Type=Application
+Exec=/usr/bin/outbreak10years-by-outbreak
+Icon=outbreak10years-by-outbreak
+Categories=AudioVideo;Game;
+Name[fr_FR]=Outbreak 10 years!

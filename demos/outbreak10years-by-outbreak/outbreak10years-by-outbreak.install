@@ -1,0 +1,5 @@
+debian/resources/outbreak10years-by-outbreak.desktop usr/share/applications/
+debian/resources/outbreak10years-by-outbreak.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/outbreak10years-by-outbreak usr/bin/
+./i686 usr/lib/i386-linux-gnu/outbreak10years-by-outbreak/./ 
+./i686/tenyears usr/lib/i386-linux-gnu/outbreak10years-by-outbreak/./i686/ 
