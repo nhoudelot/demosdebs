@@ -1,0 +1,4 @@
+debian/scripts/aspaceodyssey-by-mental usr/bin/
+debian/resources/aspaceodyssey-by-mental.desktop usr/share/applications/
+debian/resources/aspaceodyssey-by-mental.png usr/share/icons/hicolor/256x256/apps/
+./mnt04 usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/./ 

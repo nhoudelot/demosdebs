@@ -1,0 +1,17 @@
+aspaceodyssey-by-mental (1.0-0ddebs3) unstable; urgency=medium
+
+  * added dependencie to fonts-commodore64 instead of using embedded one
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 13 Feb 2018 13:42:53 +0100
+
+aspaceodyssey-by-mental (1.0-0ddebs2) unstable; urgency=medium
+
+  * better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 27 Mar 2017 01:34:47 +0200
+
+aspaceodyssey-by-mental (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Jan 2017 16:06:09 +0100

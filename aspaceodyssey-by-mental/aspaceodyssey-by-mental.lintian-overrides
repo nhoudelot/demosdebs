@@ -1,0 +1,7 @@
+aspaceodyssey-by-mental: unknown-section demos
+aspaceodyssey-by-mental: desktop-entry-lacks-keywords-entry usr/share/applications/aspaceodyssey-by-mental.desktop
+aspaceodyssey-by-mental: embedded-library usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/mnt04: freetype
+aspaceodyssey-by-mental: embedded-library usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/mnt04: glew
+aspaceodyssey-by-mental: embedded-library usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/mnt04: libgd
+aspaceodyssey-by-mental: embedded-library usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/mnt04: libpng
+aspaceodyssey-by-mental: embedded-library usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/mnt04: zlib

@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=aspaceodyssey-by-mental
+
+APP_FULLNAME="A space odyssey"
+APP_COPYRIGHT="mental-"
+APP_DESC="demo by mental- released in 2010"
+
+APP_EXE="mnt04"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/i386-linux-gnu/${domain}
+	./${APP_EXE} -w 1280 -h 720
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

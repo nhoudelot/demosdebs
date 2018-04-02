@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=A space odyssey
+GenericName=Demo
+Comment=Demo by mental-, released in 2010
+Type=Application
+Exec=/usr/bin/aspaceodyssey-by-mental
+Icon=aspaceodyssey-by-mental
+Categories=AudioVideo;Game;
+Name[fr_FR]=A space odyssey

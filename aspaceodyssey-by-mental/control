@@ -1,0 +1,31 @@
+Source: aspaceodyssey-by-mental
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libx11-dev,
+ libglu1-mesa-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=55040
+
+Package: aspaceodyssey-by-mental
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ libfmodex,
+ fonts-commodore64,
+ aspaceodyssey-by-mental-data
+Description: Demo for Linux, released in 2010
+ Demo by mental-, released in 2010
+ 
+Package: aspaceodyssey-by-mental-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for aspaceodyssey-by-mental
+ aspaceodyssey-by-mental data files
