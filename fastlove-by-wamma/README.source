@@ -1,0 +1,18 @@
+fastlove-by-wamma for Debian
+----------------------------
+
+executable seems to be compiled for i486 minimum and on Ubuntu Hardy (8.04)
+
+(GNU) 3.3.6 (Ubuntu 1:3.3.6-15ubuntu2)
+
+instructions:
+-------------
+ cpuid: 0	 nop: 309	 call: 11798	 count: 227800
+ i486:	 65
+
+ 
+Source files:
+------------- 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 15:15:01 +0100
+

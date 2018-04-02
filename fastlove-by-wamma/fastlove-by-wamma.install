@@ -1,0 +1,4 @@
+debian/scripts/fastlove-by-wamma usr/bin/
+debian/resources/fastlove-by-wamma.desktop usr/share/applications/
+debian/resources/fastlove-by-wamma.png usr/share/icons/hicolor/256x256/apps/
+./wamma-fastlove  usr/lib/i386-linux-gnu/fastlove-by-wamma/./ 

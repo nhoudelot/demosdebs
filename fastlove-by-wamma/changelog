@@ -1,0 +1,25 @@
+fastlove-by-wamma (1.0-0ddebs4) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Jan 2018 14:40:22 +0100
+
+fastlove-by-wamma (1.0-0ddebs3) unstable; urgency=medium
+
+  * Better dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Mar 2017 19:13:59 +0200
+
+fastlove-by-wamma (1.0-0ddebs2) unstable; urgency=medium
+
+  * removed some useless dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 22:50:33 +0100
+
+fastlove-by-wamma (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 07 Oct 2016 09:00:45 +0200

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Fastlove
+GenericName=Demo
+Comment=Demo by wAMMA, released in 2008
+Type=Application
+Exec=/usr/bin/fastlove-by-wamma
+Icon=fastlove-by-wamma
+Categories=AudioVideo;Game;
+Name[fr_FR]=Fastlove
