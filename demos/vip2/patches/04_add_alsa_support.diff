@@ -1,0 +1,1093 @@
+--- /dev/null
++++ b/Sources/linux_alsa.cpp
+@@ -0,0 +1,174 @@
++/*
++ * ALSA audio driver, since OSS is pretty much dead at this stage.
++ */
++
++#include "linux_alsa.h"
++#include "mp3.h"
++
++#if DEMOLIB_USE_ALSA
++
++#include <stdio.h>
++#include <string.h>
++#include <unistd.h>
++#include <fcntl.h>
++#include <sys/types.h>
++#include <sys/ioctl.h>
++#include <errno.h>
++#include <sys/time.h>
++#include <alsa/pcm.h>
++#include <alsa/asoundlib.h>
++
++#include <algorithm>
++
++#define SAMPLE_RATE 44100
++#define NUM_CHANNELS 2
++#define BYTES_PER_FRAME (sizeof(short) * NUM_CHANNELS)
++
++ALSAAudioDriver::ALSAAudioDriver(MP3AudioProvider *prv) {
++    this->prov = prv;
++
++    snd_pcm_hw_params_t *hw_params;
++    snd_pcm_hw_params_alloca(&hw_params);
++
++    die_on_error("snd_pcm_open()", snd_pcm_open(&this->pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0));
++
++    /* Set format. */
++    die_on_error("snd_pcm_hw_params_any()", snd_pcm_hw_params_any(this->pcm_handle, hw_params));
++    die_on_error("snd_pcm_hw_params_set_access()", snd_pcm_hw_params_set_access(this->pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
++    die_on_error("snd_pcm_hw_params_set_format()", snd_pcm_hw_params_set_format(this->pcm_handle, hw_params, SND_PCM_FORMAT_S16));
++    die_on_error("snd_pcm_hw_params_set_rate()", snd_pcm_hw_params_set_rate(this->pcm_handle, hw_params, SAMPLE_RATE, 0));
++    die_on_error("snd_pcm_hw_params_set_channels", snd_pcm_hw_params_set_channels(this->pcm_handle, hw_params, NUM_CHANNELS));
++
++    /* Match the OSS driver: Fragment size of 4 kB = 1024 samples.
++     * Ask for 64 periods (a bit over a second).
++     */
++    unsigned int num_periods = 64;
++    int dir = 0;
++    die_on_error("snd_pcm_hw_params_set_periods_near", snd_pcm_hw_params_set_periods_near(this->pcm_handle, hw_params, &num_periods, &dir));
++    this->period_size = 65536 / num_periods;
++    dir = 0;
++    die_on_error("snd_pcm_hw_params_set_period_size_near", snd_pcm_hw_params_set_period_size_near(this->pcm_handle, hw_params, &this->period_size, &dir));
++    die_on_error("snd_pcm_hw_params", snd_pcm_hw_params(this->pcm_handle, hw_params));
++    //snd_pcm_hw_params_free(hw_params);
++    float jump = 0.0f;
++    this->bytes_written = (int) (jump * SAMPLE_RATE) * BYTES_PER_FRAME;
++    this->eof = false;
++    this->in_outbuf = 0;
++}
++
++ALSAAudioDriver::~ALSAAudioDriver() {
++    snd_pcm_close(this->pcm_handle);
++}
++
++bool ALSAAudioDriver::run() {
++    if (this->eof) {
++        struct timeval now;
++        gettimeofday(&now, NULL);
++
++        float secs =
++                (float) (now.tv_sec - eof_time.tv_sec) +
++                (float) (now.tv_usec - eof_time.tv_usec) * 0.000001f;
++        this->bytes_played += (int) (secs * SAMPLE_RATE * BYTES_PER_FRAME);
++        memcpy(&this->eof_time, &now, sizeof (struct timeval));
++        return true;
++    }
++
++    snd_pcm_sframes_t avail = 0, delay = 0;
++    int err = snd_pcm_avail_delay(this->pcm_handle, &avail, &delay);
++    if (err < 0) {
++        /* Don't die on this, as it is nearly always just an underrun. */
++        fprintf(stderr, "warning: snd_pcm_avail_delay() returned '%s'\n", snd_strerror(err));
++    } else {
++        this->bytes_played = this->bytes_written - delay * BYTES_PER_FRAME;
++    }
++
++    while (avail >= int(this->period_size)) {
++        /* whopee, we can output :-) */
++        if (in_outbuf < 65536) {
++            int ret = this->prov->fill_buf(this->outbuf + in_outbuf, 65536 - in_outbuf);
++            if (ret == 0) {
++                /* switch to software timer */
++                this->eof = true;
++                gettimeofday(&this->eof_time, NULL);
++                return true;
++            }
++            in_outbuf += ret;
++        }
++
++        /* write only whole periods */
++        int periods_to_write = std::min<int>(avail, in_outbuf / BYTES_PER_FRAME) / this->period_size;
++        if (periods_to_write > 0) {
++            int ret = snd_pcm_writei(this->pcm_handle, this->outbuf, periods_to_write * this->period_size);
++            if (ret < 0) {
++                /* Don't die on this, as it is nearly always just an underrun. */
++                fprintf(stderr, "warning: snd_pcm_writei() returned '%s'\n",
++                        snd_strerror(ret));
++            } else {
++                in_outbuf -= ret * BYTES_PER_FRAME;
++                this->bytes_written += ret * BYTES_PER_FRAME;
++
++                memmove(outbuf, outbuf + ret * BYTES_PER_FRAME, in_outbuf);
++            }
++        }
++
++        avail = snd_pcm_avail_update(this->pcm_handle);
++    }
++    return false;
++}
++
++float ALSAAudioDriver::get_time() {
++    return (float) (this->bytes_played) / SAMPLE_RATE / BYTES_PER_FRAME;
++}
++
++void ALSAAudioDriver::die_on_error(const char *func_name, int err) {
++    if (err < 0) {
++        fprintf(stderr, "warning: snd_pcm_open() returned '%s'\n",
++                snd_strerror(err));
++    }
++}
++
++std::vector<ALSAAudioDriver::ALSASoundCard> ALSAAudioDriver::enumerate_sound_cards() {
++    std::vector<ALSASoundCard> ret;
++
++    char **hints;
++    int err = snd_device_name_hint(-1, "pcm", (void ***) &hints);
++    if (err != 0) {
++        return ret;
++    }
++
++    for (char **n = hints; *n != NULL; ++n) {
++        ALSASoundCard sc;
++
++        char *name = snd_device_name_get_hint(*n, "NAME");
++        char *desc = snd_device_name_get_hint(*n, "DESC");
++
++        if (name != NULL && strcmp(name, "null") != 0 && strncmp(name, "dsnoop:", 7) != 0) {
++            char buf[256];
++            if (desc == NULL) {
++                snprintf(buf, sizeof (buf), "ALSA: %s", name);
++            } else {
++                /*
++                 * Remove everything after the first newline;
++                 * the descriptions tend to be a bit verbose.
++                 */
++                char *nl = strchr(desc, '\n');
++                if (nl != NULL) {
++                    *nl = '\0';
++                }
++
++                snprintf(buf, sizeof (buf), "ALSA: %s (%s)", desc, name);
++            }
++            sc.device = name;
++            sc.description = buf;
++            ret.push_back(sc);
++        }
++
++        free(name);
++        free(desc);
++    }
++
++    snd_device_name_free_hint((void **) hints);
++    return ret;
++}
++
++#endif  /* DEMOLIB_USE_ALSA */
+--- a/Sources/linux_oss.cpp
++++ b/Sources/linux_oss.cpp
+@@ -20,117 +20,112 @@
+ #include <sys/time.h>
+ #include <endian.h>
+ 
+-OSSAudioDriver::OSSAudioDriver(MP3AudioProvider *prv)
+-{
+-	this->prov = prv;
+-
+-	this->oss_fd = open("/dev/sound/dsp", O_WRONLY);
+-	if (this->oss_fd == -1) {
+-	        this->oss_fd = open("/dev/dsp", O_WRONLY);
+-	        if (this->oss_fd == -1) {
+-			perror("/dev/dsp");
+-			exit(-1);
+-		}
+-	}
+-
+-	this->set_ioctl(SNDCTL_DSP_RESET, 1);
+-	this->set_ioctl(SNDCTL_DSP_CHANNELS, 2);
+-        this->set_ioctl(SNDCTL_DSP_SAMPLESIZE, 16);
+-	this->set_ioctl(SNDCTL_DSP_SPEED, 44100);
++OSSAudioDriver::OSSAudioDriver(MP3AudioProvider *prv) {
++    this->prov = prv;
++
++    this->oss_fd = open("/dev/sound/dsp", O_WRONLY);
++    if (this->oss_fd == -1) {
++        this->oss_fd = open("/dev/dsp", O_WRONLY);
++        if (this->oss_fd == -1) {
++            perror("/dev/dsp");
++            exit(-1);
++        }
++    }
++
++    this->set_ioctl(SNDCTL_DSP_RESET, 1);
++    this->set_ioctl(SNDCTL_DSP_CHANNELS, 2);
++    this->set_ioctl(SNDCTL_DSP_SAMPLESIZE, 16);
++    this->set_ioctl(SNDCTL_DSP_SPEED, 44100);
+ #if __BYTE_ORDER == __LITTLE_ENDIAN
+-	this->set_ioctl(SNDCTL_DSP_SETFMT, AFMT_S16_LE);
++    this->set_ioctl(SNDCTL_DSP_SETFMT, AFMT_S16_LE);
+ #else
+-	this->set_ioctl(SNDCTL_DSP_SETFMT, AFMT_S16_BE);
++    this->set_ioctl(SNDCTL_DSP_SETFMT, AFMT_S16_BE);
+ #endif
+-	this->set_ioctl(SNDCTL_DSP_NONBLOCK, 1);
+-	this->set_ioctl(SNDCTL_DSP_SETFRAGMENT, 0x7fff000c);
+-	
+-	this->bytes_played = 0;
+-	this->eof = false;
+-	this->in_outbuf = 0;
+-
+-	{
+-		struct audio_buf_info abinfo;
+-		if (ioctl(this->oss_fd, SNDCTL_DSP_GETOSPACE, &abinfo) == -1) {
+-			perror("SNDCTL_DSP_GETOSPACE");
+-			exit(-1);
+-		}
+-		this->last_fill = abinfo.bytes;
+-	}
++    this->set_ioctl(SNDCTL_DSP_NONBLOCK, 1);
++    this->set_ioctl(SNDCTL_DSP_SETFRAGMENT, 0x7fff000c);
++
++    this->bytes_played = 0;
++    this->eof = false;
++    this->in_outbuf = 0;
++
++    {
++        struct audio_buf_info abinfo;
++        if (ioctl(this->oss_fd, SNDCTL_DSP_GETOSPACE, &abinfo) == -1) {
++            perror("SNDCTL_DSP_GETOSPACE");
++            exit(-1);
++        }
++        this->last_fill = abinfo.bytes;
++    }
+ }
+ 
+-OSSAudioDriver::~OSSAudioDriver()
+-{
++OSSAudioDriver::~OSSAudioDriver() {
+ }
+ 
+-inline void OSSAudioDriver::set_ioctl(int command, int value)
+-{
+-	if (ioctl(this->oss_fd, command, &value) == -1) {
+-		perror("ioctl() on sound card failed");
+-		exit(-1);
+-	}
++inline void OSSAudioDriver::set_ioctl(int command, int value) {
++    if (ioctl(this->oss_fd, command, &value) == -1) {
++        perror("ioctl() on sound card failed");
++        exit(-1);
++    }
+ }
+ 
+-bool OSSAudioDriver::run()
+-{
+-	/* find out how many fragments are free */
+-	struct audio_buf_info abinfo;
+-	if (ioctl(this->oss_fd, SNDCTL_DSP_GETOSPACE, &abinfo) == -1) {
+-		perror("SNDCTL_DSP_GETOSPACE");
+-		exit(-1);
+-	}
+-
+-	/* record how much was actually played */
+-	this->bytes_played += abinfo.bytes - last_fill;
+-	last_fill = abinfo.bytes;
+-
+-	if (this->eof) {
+-		struct timeval now;
+-		gettimeofday(&now, NULL);
+-
+-		float secs =
+-			(float)(now.tv_sec  - eof_time.tv_sec) +
+-			(float)(now.tv_usec - eof_time.tv_usec) * 0.000001f;
+-		this->bytes_played += (int)(secs * 44100.0f * 4.0f);
+-		memcpy(&this->eof_time, &now, sizeof(struct timeval));
+-		return true;
+-	}
+-
+-	while (abinfo.fragments > 0
+-	       && abinfo.fragments * abinfo.fragsize >= 8192) {
+-		/* whopee, we can output :-) */
+-		int ret = this->prov->fill_buf(this->outbuf + in_outbuf, 65536 - in_outbuf);
+-
+-		if (ret == 0) {
+-			/* switch to software timer */
+-			this->eof = true;
+-			gettimeofday(&this->eof_time, NULL);
+-			return true;
+-		}
+-		in_outbuf += ret;
+-
+-		/* write only whole fragments */
+-		if (in_outbuf >= abinfo.fragsize) {
+-			int to_write =
+-			    in_outbuf - (in_outbuf % abinfo.fragsize);
+-
+-			to_write = write(this->oss_fd, this->outbuf, to_write);
+-			in_outbuf -= to_write;
+-
+-			memmove(outbuf, outbuf + to_write, in_outbuf);
+-
+-			/* avoid another ioctl */
+-			abinfo.fragments -= to_write / abinfo.fragsize;
+-			abinfo.bytes -= to_write;
+-
+-			last_fill = abinfo.bytes;
+-		}
+-	}
+-	return false;
++bool OSSAudioDriver::run() {
++    /* find out how many fragments are free */
++    struct audio_buf_info abinfo;
++    if (ioctl(this->oss_fd, SNDCTL_DSP_GETOSPACE, &abinfo) == -1) {
++        perror("SNDCTL_DSP_GETOSPACE");
++        exit(-1);
++    }
++
++    /* record how much was actually played */
++    this->bytes_played += abinfo.bytes - last_fill;
++    last_fill = abinfo.bytes;
++
++    if (this->eof) {
++        struct timeval now;
++        gettimeofday(&now, NULL);
++
++        float secs =
++                (float) (now.tv_sec - eof_time.tv_sec) +
++                (float) (now.tv_usec - eof_time.tv_usec) * 0.000001f;
++        this->bytes_played += (int) (secs * 44100.0f * 4.0f);
++        memcpy(&this->eof_time, &now, sizeof (struct timeval));
++        return true;
++    }
++
++    while (abinfo.fragments > 0
++            && abinfo.fragments * abinfo.fragsize >= 8192) {
++        /* whopee, we can output :-) */
++        int ret = this->prov->fill_buf(this->outbuf + in_outbuf, 65536 - in_outbuf);
++
++        if (ret == 0) {
++            /* switch to software timer */
++            this->eof = true;
++            gettimeofday(&this->eof_time, NULL);
++            return true;
++        }
++        in_outbuf += ret;
++
++        /* write only whole fragments */
++        if (in_outbuf >= abinfo.fragsize) {
++            int to_write =
++                    in_outbuf - (in_outbuf % abinfo.fragsize);
++
++            to_write = write(this->oss_fd, this->outbuf, to_write);
++            in_outbuf -= to_write;
++
++            memmove(outbuf, outbuf + to_write, in_outbuf);
++
++            /* avoid another ioctl */
++            abinfo.fragments -= to_write / abinfo.fragsize;
++            abinfo.bytes -= to_write;
++
++            last_fill = abinfo.bytes;
++        }
++    }
++    return false;
+ }
+ 
+-float OSSAudioDriver::get_time()
+-{
+-        return (float)(this->bytes_played) / 44100.0f / 4.0f;
++float OSSAudioDriver::get_time() {
++    return (float) (this->bytes_played) / 44100.0f / 4.0f;
+ }
+ 
+--- a/Sources/main.cpp
++++ b/Sources/main.cpp
+@@ -1,7 +1,7 @@
+ #include <glwindow.h>
+ #include <stdafx.h>
+ 
+-#define MP3_PATH	"Datas/zic/vip2.mp3"
++#define MP3_PATH "Datas/zic/vip2.mp3"
+ // #define NOMP3 1	// remove the sound
+ 
+ //----------------------------------------------------------------------------------------------------------------------------------------
+@@ -9,295 +9,302 @@
+ // Variables globales
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ 
+-Udouble				LaunchTime = 0.0	;	// depuis VIP2Headers.h
+-USynchronisater*	AllSynchro = NULL	;	// depuis VIP2Headers.h
+-double				TimePreced = 0.0	;	// var pour calcul de Fps ( voar utils.h )
+-U32					TickNum = 0			;	// var pour calcul de Fps ( voar utils.h )
+-float				m_fps =0.0f			;	// var pour calcul de Fps ( voar utils.h )
++Udouble LaunchTime = 0.0; // depuis VIP2Headers.h
++USynchronisater* AllSynchro = NULL; // depuis VIP2Headers.h
++double TimePreced = 0.0; // var pour calcul de Fps ( voar utils.h )
++U32 TickNum = 0; // var pour calcul de Fps ( voar utils.h )
++float m_fps = 0.0f; // var pour calcul de Fps ( voar utils.h )
+ MP3AudioProvider *prov;
+-OSSAudioDriver *mp3;
++#if DEMOLIB_USE_ALSA
++    ALSAAudioDriver *mp3;
++#else
++    OSSAudioDriver *mp3;
++#endif
+ 
+-bool	m_Fullscreen = TRUE	;
+-U32	m_Resx = 640			;
+-U32	m_Resy = 480			;	// resolution choisie
+-bool	m_TrueColor = TRUE	;	// est-ce ke l'on veux du 32 bit
+-bool	m_Hiddenpart1	= FALSE	;	// est-ce ke ya la partie cachée 1 ?
+-bool	m_Active = FALSE		;
++bool m_Fullscreen = TRUE;
++U32 m_Resx = 640;
++U32 m_Resy = 480; // resolution choisie
++bool m_TrueColor = TRUE; // est-ce ke l'on veux du 32 bit
++bool m_Hiddenpart1 = FALSE; // est-ce ke ya la partie cachée 1 ?
++bool m_Active = FALSE;
+ 
+ GLWindow *glw;
+ 
+-int main(int argc, char **argv)
+-{
+-	fprintf(stderr,
+-		"VIP2 by Popsy Team <u2popsy@free.fr> - http://www.popsyteam.org/vip2\n"
+-		"Linux port (v1.2) by Sesse/Excess <sgunderson@bigfoot.com>\n"
+-		"http://www.sesse.net/vip2-linux/\n\n");
+-
+-	// very rudimentary, might be improved in a future release :-)
+-	int depth = 32, zbuffer = 16;
+-	for (int i = 1; i < argc; i++) {
+-		if (strcmp(argv[i], "-640x480") == 0) {
+-			m_Resx = 640;
+-			m_Resy = 480;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-800x600") == 0) {
+-			m_Resx = 800;
+-			m_Resy = 600;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-1024x768") == 0) {
+-			m_Resx = 1024;
+-			m_Resy = 768;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-1152x864") == 0) {
+-			m_Resx = 1152;
+-			m_Resy = 864;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-1280x960") == 0) {
+-			m_Resx = 1280;
+-			m_Resy = 960;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-1280x1024") == 0) {
+-			m_Resx = 1280;
+-			m_Resy = 1024;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-1400x1050") == 0) {
+-			m_Resx = 1400;
+-			m_Resy = 1050;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-1600x1200") == 0) {
+-			m_Resx = 1600;
+-			m_Resy = 1200;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-16") == 0) {
+-			depth = 16;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-32") == 0) {
+-			depth = 32;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-z16") == 0) {
+-			zbuffer = 16;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-z24") == 0) {
+-			zbuffer = 24;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-z32") == 0) {
+-			zbuffer = 32;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-fullscreen") == 0) {
+-			m_Fullscreen = true;
+-			continue;
+-		}
+-		if (strcmp(argv[i], "-windowed") == 0) {
+-			m_Fullscreen = false;
+-			continue;
+-		}
+-		/*
+-		 * about as well hidden as in the original one -- not too hard to find
+-		 * out when you have the sources anyhow ;-)
+-		 */
+-		if (strcmp(argv[i], "-hiddenpart") == 0) {
+-			m_Hiddenpart1 = TRUE;
+-			continue;
+-		}
+-		fprintf(stderr, "Allowed switches:\n\n"
+-				"-help - this screen\n"
+-				"-640x480, -800x600, -1024x768, -1152x864, -1280x960, -1280x1024, -1400x1050, -1600x1200 - set resolution\n"
+-				"-16, -32 - set bit depth\n"
+-				"-z16, -z24, -z32 - set Z-buffer depth\n"
+-				"-windowed, -fullscreen - set window mode\n");
+-		exit(0);
+-	}
+-	
+-	UScheduler	MainScheduler	;
+-	glw = new GLWindow("VIP2 on Linux", m_Resx, m_Resy, depth, m_Fullscreen, zbuffer, -1);
+-
+-	IniEnvironmentU3D3( m_Resx, m_Resy )							;
+-	if( !m_TrueColor ) TextureManager::SetForceFlag( LOW_TEXTURE )	;	// demande de ne loader ke des textures 16 bit
++int main(int argc, char **argv) {
++    fprintf(stderr,
++            "VIP2 by Popsy Team <u2popsy@free.fr> - http://www.popsyteam.org/vip2\n"
++            "Linux port (v1.2) by Sesse/Excess <sgunderson@bigfoot.com>\n"
++            "http://www.sesse.net/vip2-linux/\n\n");
++
++    // very rudimentary, might be improved in a future release :-)
++    int depth = 32, zbuffer = 16;
++    for (int i = 1; i < argc; i++) {
++        if (strcmp(argv[i], "-640x480") == 0) {
++            m_Resx = 640;
++            m_Resy = 480;
++            continue;
++        }
++        if (strcmp(argv[i], "-800x600") == 0) {
++            m_Resx = 800;
++            m_Resy = 600;
++            continue;
++        }
++        if (strcmp(argv[i], "-1024x768") == 0) {
++            m_Resx = 1024;
++            m_Resy = 768;
++            continue;
++        }
++        if (strcmp(argv[i], "-1152x864") == 0) {
++            m_Resx = 1152;
++            m_Resy = 864;
++            continue;
++        }
++        if (strcmp(argv[i], "-1280x960") == 0) {
++            m_Resx = 1280;
++            m_Resy = 960;
++            continue;
++        }
++        if (strcmp(argv[i], "-1280x1024") == 0) {
++            m_Resx = 1280;
++            m_Resy = 1024;
++            continue;
++        }
++        if (strcmp(argv[i], "-1400x1050") == 0) {
++            m_Resx = 1400;
++            m_Resy = 1050;
++            continue;
++        }
++        if (strcmp(argv[i], "-1600x1200") == 0) {
++            m_Resx = 1600;
++            m_Resy = 1200;
++            continue;
++        }
++        if (strcmp(argv[i], "-16") == 0) {
++            depth = 16;
++            continue;
++        }
++        if (strcmp(argv[i], "-32") == 0) {
++            depth = 32;
++            continue;
++        }
++        if (strcmp(argv[i], "-z16") == 0) {
++            zbuffer = 16;
++            continue;
++        }
++        if (strcmp(argv[i], "-z24") == 0) {
++            zbuffer = 24;
++            continue;
++        }
++        if (strcmp(argv[i], "-z32") == 0) {
++            zbuffer = 32;
++            continue;
++        }
++        if (strcmp(argv[i], "-fullscreen") == 0) {
++            m_Fullscreen = true;
++            continue;
++        }
++        if (strcmp(argv[i], "-windowed") == 0) {
++            m_Fullscreen = false;
++            continue;
++        }
++        /*
++         * about as well hidden as in the original one -- not too hard to find
++         * out when you have the sources anyhow ;-)
++         */
++        if (strcmp(argv[i], "-hiddenpart") == 0) {
++            m_Hiddenpart1 = TRUE;
++            continue;
++        }
++        fprintf(stderr, "Allowed switches:\n\n"
++                "-help - this screen\n"
++                "-640x480, -800x600, -1024x768, -1152x864, -1280x960, -1280x1024, -1400x1050, -1600x1200 - set resolution\n"
++                "-16, -32 - set bit depth\n"
++                "-z16, -z24, -z32 - set Z-buffer depth\n"
++                "-windowed, -fullscreen - set window mode\n");
++        exit(0);
++    }
++
++    UScheduler MainScheduler;
++    glw = new GLWindow("VIP2 on Linux", m_Resx, m_Resy, depth, m_Fullscreen, zbuffer, -1);
++
++    IniEnvironmentU3D3(m_Resx, m_Resy);
++    if (!m_TrueColor) TextureManager::SetForceFlag(LOW_TEXTURE); // demande de ne loader ke des textures 16 bit
+ 
+ 
+-	//-------------------------- Ini Timer
+-	ClockU3D::Initialise()	;
++    //-------------------------- Ini Timer
++    ClockU3D::Initialise();
+ 
+ 
+-	//-------------------------- Ini MP3 Manager
++    //-------------------------- Ini MP3 Manager
+ #ifndef NOMP3
+-	prov = new MP3AudioProvider(MP3_PATH);
+-	mp3 = new OSSAudioDriver(prov);
++    prov = new MP3AudioProvider(MP3_PATH);
++    #if DEMOLIB_USE_ALSA
++        mp3 =  new ALSAAudioDriver(prov);
++    #else
++        mp3 = new OSSAudioDriver(prov);
++    #endif
+ #endif
+ 
+ 
+-	//-------------------------- Ini le synchronisater
+-	AllSynchro = new USynchronisater	;
++    //-------------------------- Ini le synchronisater
++    AllSynchro = new USynchronisater;
+ 
+ 
+-	//-------------------------- fait les Pre-loading	
+-	FinalPart::PreLoad()	;
++    //-------------------------- fait les Pre-loading
++    FinalPart::PreLoad();
+ #if !defined( BFINAL_PART  )
+-	SmilePart::PreLoad()	;
++    SmilePart::PreLoad();
+ #if ! defined( BSMILE_PART )
+-	LettresPart::PreLoad()	;
+-	ColonnePart::PreLoad()	;
+-	EtoilePart::PreLoad()	;
++    LettresPart::PreLoad();
++    ColonnePart::PreLoad();
++    EtoilePart::PreLoad();
+ #if !defined( BMULTI_PART )
+-	CouplePart::PreLoad()	;
++    CouplePart::PreLoad();
+ #if !defined( BCOUPLE_PART )
+-	GhostPart::PreLoad()	;
+-	CilsPart::PreLoad()		;
+-	OeilPart::PreLoad()		;
++    GhostPart::PreLoad();
++    CilsPart::PreLoad();
++    OeilPart::PreLoad();
+ #if !defined( BOEIL_PART )
+-	PlansPart::PreLoad()	;
+-	NeuronePart::PreLoad()	;
++    PlansPart::PreLoad();
++    NeuronePart::PreLoad();
+ #endif
+ #endif
+ #endif
+ #endif
+ #endif
+-	BPeloche::Initialise()	;
+-	XGrezille::Initialise()	;
++    BPeloche::Initialise();
++    XGrezille::Initialise();
+ 
+ 
+-	if( m_Hiddenpart1 )
+-		PlansPart::ActiveHidenPart()	;
++    if (m_Hiddenpart1)
++        PlansPart::ActiveHidenPart();
+ 
+-	//-------------------------- Ini la 1ere part de la demo
++    //-------------------------- Ini la 1ere part de la demo
+ #ifdef  BFINAL_PART
+-	FinalPart::Initialise( &MainScheduler, 0 )		;	// commence a partir des scenes final
++    FinalPart::Initialise(&MainScheduler, 0); // commence a partir des scenes final
+ #elif defined( BSMILE_PART )
+-	SmilePart::Initialise( &MainScheduler, 0 )		;	// commence a partir des scenes du smile de gonzesse
++    SmilePart::Initialise(&MainScheduler, 0); // commence a partir des scenes du smile de gonzesse
+ #elif defined( BMULTI_PART )
+-	MultiPart::Initialise( &MainScheduler, 0 )		;	// commence a partir des scenes multiples
++    MultiPart::Initialise(&MainScheduler, 0); // commence a partir des scenes multiples
+ #elif defined( BCOUPLE_PART )
+-	CouplePart::Initialise( &MainScheduler, 0 )	;	// commence a partir du couple
++    CouplePart::Initialise(&MainScheduler, 0); // commence a partir du couple
+ #elif defined( BLETTRES_PART )
+-	LettresPart::Initialise( &MainScheduler, 0 )	;	// commence a partir des lettres
++    LettresPart::Initialise(&MainScheduler, 0); // commence a partir des lettres
+ #elif defined( BGHOST_PART )
+-	GhostPart::Initialise(  &MainScheduler, 0 )	;	// commence a partir de la colonne	
++    GhostPart::Initialise(&MainScheduler, 0); // commence a partir de la colonne
+ #elif defined( BCOLONNE_PART )
+-	ColonnePart::Initialise(  &MainScheduler, 0 )	;	// commence a partir de la colonne	
++    ColonnePart::Initialise(&MainScheduler, 0); // commence a partir de la colonne
+ #elif defined( BCILS_PART )
+-	CilsPart::Initialise( &MainScheduler, 0 )		;	// commence a partir des cils
++    CilsPart::Initialise(&MainScheduler, 0); // commence a partir des cils
+ #elif defined( BETOILE_PART )
+-	EtoilePart::Initialise( &MainScheduler, 0 )	;	// commence a partir de l'etoile
++    EtoilePart::Initialise(&MainScheduler, 0); // commence a partir de l'etoile
+ #elif defined( BOEIL_PART )
+-	OeilPart::Initialise( &MainScheduler, 0 )		;	// commence a partir de l'oeil
++    OeilPart::Initialise(&MainScheduler, 0); // commence a partir de l'oeil
+ #elif defined( BPLANS_PART )
+-	PlansPart::Initialise( &MainScheduler, 0 )		;	// commence a partir des plans
++    PlansPart::Initialise(&MainScheduler, 0); // commence a partir des plans
+ #elif defined( BNEURO_PART )
+-	NeuronePart::Initialise( &MainScheduler, 0 )	;	// commence a partir des neurones
++    NeuronePart::Initialise(&MainScheduler, 0); // commence a partir des neurones
+ #else
+-	NebuleusePart::Initialise( &MainScheduler, 0 )	;	// commence au debut 
++    NebuleusePart::Initialise(&MainScheduler, 0); // commence au debut
+ #endif
+ 
+ 
+ #ifdef NOMP3
+-	LaunchTime = ClockU3D::GetTime() 	;	// ini temps d'offset
++    LaunchTime = ClockU3D::GetTime(); // ini temps d'offset
+ #endif
+ 
+ #ifdef BSMILE_PART
+-	ClockU3D::IncTime( SMILE_TIME_BEGIN )		;
++    ClockU3D::IncTime(SMILE_TIME_BEGIN);
+ #elif defined( BMULTI_PART )
+-		ClockU3D::IncTime( MULTI_TIME_BEGIN )	;
++    ClockU3D::IncTime(MULTI_TIME_BEGIN);
+ #elif defined( BCOUPLE_PART )
+-		ClockU3D::IncTime( COUPLE_TIME_BEGIN )	;
++    ClockU3D::IncTime(COUPLE_TIME_BEGIN);
+ #elif defined( BGHOST_PART )
+-		ClockU3D::IncTime( GHOST_TIME_BEGIN )	;
++    ClockU3D::IncTime(GHOST_TIME_BEGIN);
+ #elif defined( BCILS_PART )
+-		ClockU3D::IncTime( CILS_TIME_BEGIN )	;
++    ClockU3D::IncTime(CILS_TIME_BEGIN);
+ #elif defined( BOEIL_PART )
+-		ClockU3D::IncTime( OEIL_TIME_BEGIN )	;
++    ClockU3D::IncTime(OEIL_TIME_BEGIN);
+ #elif defined( BPLANS_PART )
+-		ClockU3D::IncTime( PLANS_TIME_BEGIN )	;
++    ClockU3D::IncTime(PLANS_TIME_BEGIN);
+ #elif defined( BNEURO_PART )
+-		ClockU3D::IncTime( NEURO_TIME_BEGIN )	;
++    ClockU3D::IncTime(NEURO_TIME_BEGIN);
+ #endif
+ 
+-	//////////////////////////////////////////////////////////////
+-	//				M A I N		L O O P						    //
+-	//////////////////////////////////////////////////////////////
+-        glDepthMask(GL_TRUE)    ;       // permet d'ecrire dans le Zbuffer
+-        glDepthFunc(GL_LEQUAL)  ;       // met en place le test du Zbuffer
+-        glEnable(GL_DEPTH_TEST) ;       // test Zbuff OK
+-
+-	glMatrixMode(GL_PROJECTION)
+-				                                ;
+-        glLoadIdentity()
+-					                                    ;
+-
+-	glViewport(0, 0, m_Resx, m_Resy);
+-//	glOrtho(0, Xres-1, 0, Yres-1, 1.f/LointainZClipping, 1.f/ProcheZClipping )        ;       // enleve la projection
+-	glOrtho(0, m_Resx-1, 0, m_Resy-1, 1.f/ProcheZClipping, 1.f/LointainZClipping )  ;       // enleve la projection
+-	glMatrixMode(GL_MODELVIEW);
+-	
+-	glHint( GL_PERSPECTIVE_CORRECTION_HINT , GL_NICEST )    ;       // met la coretion de perspective
+-				//
+-	glLineWidth( 1.0f )                     ;       // épaisseur de 1 pour une ligne
+-	glEnable( GL_LINE_SMOOTH )      ;
+-				//
+-				//                                                                        //--------------------------- Ini le fog
+-	glFogi( GL_FOG_MODE, GL_LINEAR  )                               ;       // equation utilisée pour le fog
+-	glFogf(GL_FOG_DENSITY, 0.35f)                           ;       // Density du fog
+-	glHint(GL_FOG_HINT, GL_DONT_CARE )                              ;       // on veux du fog ki torche
+-	glFogf(GL_FOG_START, 1.0f)      ;       // debut du fog
+-	glFogf(GL_FOG_END, 0.7f)                                ;       // fin du fog*/
+-	glDisable(GL_FOG);                                                      ;       // pas de fog par defaut
+-				//                                                                                                                        
+-
+-		m_Active = TRUE;
+-		while( !glw->is_done() && ClockU3D::GetTime() < FINAL_TIME_END )
+-		{
++    //////////////////////////////////////////////////////////////
++    //				M A I N		L O O P						    //
++    //////////////////////////////////////////////////////////////
++    glDepthMask(GL_TRUE); // permet d'ecrire dans le Zbuffer
++    glDepthFunc(GL_LEQUAL); // met en place le test du Zbuffer
++    glEnable(GL_DEPTH_TEST); // test Zbuff OK
++
++    glMatrixMode(GL_PROJECTION)
++            ;
++    glLoadIdentity()
++            ;
++
++    glViewport(0, 0, m_Resx, m_Resy);
++    //	glOrtho(0, Xres-1, 0, Yres-1, 1.f/LointainZClipping, 1.f/ProcheZClipping )        ;       // enleve la projection
++    glOrtho(0, m_Resx - 1, 0, m_Resy - 1, 1.f / ProcheZClipping, 1.f / LointainZClipping); // enleve la projection
++    glMatrixMode(GL_MODELVIEW);
++
++    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // met la coretion de perspective
++    //
++    glLineWidth(1.0f); // épaisseur de 1 pour une ligne
++    glEnable(GL_LINE_SMOOTH);
++    //
++    //                                                                        //--------------------------- Ini le fog
++    glFogi(GL_FOG_MODE, GL_LINEAR); // equation utilisée pour le fog
++    glFogf(GL_FOG_DENSITY, 0.35f); // Density du fog
++    glHint(GL_FOG_HINT, GL_DONT_CARE); // on veux du fog ki torche
++    glFogf(GL_FOG_START, 1.0f); // debut du fog
++    glFogf(GL_FOG_END, 0.7f); // fin du fog*/
++    glDisable(GL_FOG);
++    ; // pas de fog par defaut
++    //
++
++    m_Active = TRUE;
++    while (!glw->is_done() && ClockU3D::GetTime() < FINAL_TIME_END) {
+ #ifndef NOMP3
+-			(void)mp3->run();
+-			ClockU3D::mp3_timer = mp3->get_time();
++        (void) mp3->run();
++        ClockU3D::mp3_timer = mp3->get_time();
+ #endif
+-			AllSynchro->Run()	;	// op gère les gnolies synchrosi
+-			MainScheduler.Run()	;	// lance les différentes taches
+-		}
++        AllSynchro->Run(); // op gère les gnolies synchrosi
++        MainScheduler.Run(); // lance les différentes taches
++    }
+ 
+-	//////////////////////////////////////////////////////////////
+-	//															//
+-	//////////////////////////////////////////////////////////////
++    //////////////////////////////////////////////////////////////
++    //															//
++    //////////////////////////////////////////////////////////////
+ 
+ 
+-	//------------------------ Stop MP3
++    //------------------------ Stop MP3
+ #ifndef NOMP3
+-	delete mp3;
++    delete mp3;
+ #endif
+ 
+ 
+-	//------------------------ Kill toutes les parts koi kil arrive
+-	XGrezille::Release()				;
+-	BPeloche::Release()					;
+-	NebuleusePart::Release( NULL, 0 )	;
+-	NeuronePart::Release( NULL, 0 )		;
+-	PlansPart::Release( NULL, 0 )		;
+-	OeilPart::Release( NULL, 0 )		;
+-	EtoilePart::Release( NULL, 0 )		;
+-	CilsPart::Release( NULL, 0 )		;
+-	ColonnePart::Release( NULL, 0 )		;
+-	GhostPart::Release( NULL, 0 )		;
+-	LettresPart::Release( NULL, 0 )		;
+-	CouplePart::Release( NULL, 0 )		;
+-	MultiPart::Release( NULL, 0 )		;
+-	SmilePart::Release( NULL, 0 )		;
+-	FinalPart::Release( NULL, 0 )		;
+-
+-
+-	//------------------------ Kill toutes les synchros
+-	DeleteBlinde( AllSynchro )	;
+-	delete glw;
+-	exit(0);
++    //------------------------ Kill toutes les parts koi kil arrive
++    XGrezille::Release();
++    BPeloche::Release();
++    NebuleusePart::Release(NULL, 0);
++    NeuronePart::Release(NULL, 0);
++    PlansPart::Release(NULL, 0);
++    OeilPart::Release(NULL, 0);
++    EtoilePart::Release(NULL, 0);
++    CilsPart::Release(NULL, 0);
++    ColonnePart::Release(NULL, 0);
++    GhostPart::Release(NULL, 0);
++    LettresPart::Release(NULL, 0);
++    CouplePart::Release(NULL, 0);
++    MultiPart::Release(NULL, 0);
++    SmilePart::Release(NULL, 0);
++    FinalPart::Release(NULL, 0);
++
++
++    //------------------------ Kill toutes les synchros
++    DeleteBlinde(AllSynchro);
++    delete glw;
++    exit(0);
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
+--- a/Include/Vip2Headers.h
++++ b/Include/Vip2Headers.h
+@@ -18,6 +18,7 @@
+ 
+ #include "mp3.h"
+ #include "linux_oss.h"
++#include "linux_alsa.h"
+ #include "Utils.h"
+ #include "Scheduler.h"
+ #include "Synchronisater.h"
+@@ -113,7 +114,12 @@
+ 
+ extern Udouble			LaunchTime	;	// le temps ou la demo a démarré
+ extern USynchronisater*	AllSynchro	;	// toute les synchros de la demo
+-extern OSSAudioDriver *mp3;
++#if DEMOLIB_USE_ALSA
++    extern ALSAAudioDriver *mp3;
++#else
++    extern OSSAudioDriver *mp3;
++#endif
++
+ 
+ //-------- Interface
+ #include <math.h>
+--- /dev/null
++++ b/Include/audio.h
+@@ -0,0 +1,38 @@
++/*
++ * Some general abstract base classes. The AudioDriver gets input from the
++ * AudioProvider and plays it.
++ */
++#ifndef _AUDIO_H
++#define _AUDIO_H 1
++
++class AudioProvider {
++public:
++
++    virtual ~AudioProvider() {
++    };
++
++    virtual int fill_buf(char *buf, int bytes) = 0;
++
++protected:
++
++    AudioProvider() {
++    };
++};
++
++class AudioDriver {
++public:
++
++    virtual ~AudioDriver() {
++    };
++
++    virtual bool run() = 0;
++    virtual float get_time() = 0;
++
++protected:
++
++    AudioDriver() {
++    };
++    AudioProvider *prov;
++};
++
++#endif /* !defined(_AUDIO_H) */
+--- /dev/null
++++ b/Include/linux_alsa.h
+@@ -0,0 +1,57 @@
++#ifndef _LINUX_ALSA_H
++#define _LINUX_ALSA_H 1
++
++#include "audio.h"
++
++#include "mp3.h"
++
++#include <time.h>
++#include <sys/time.h>
++#include <alsa/asoundlib.h>
++
++#include <string>
++#include <vector>
++
++/*
++ * We depend on snd_pcm_avail_delay() and others, 1.0.18 at the earliest
++ * (which came out around 2008!). In particular, OSS4's ALSA emulation is
++ * way too old.
++ */
++
++#define DEMOLIB_USE_ALSA (SND_LIB_VERSION > 0x10012)
++
++#if DEMOLIB_USE_ALSA
++
++class ALSAAudioDriver {
++public:
++    ALSAAudioDriver(MP3AudioProvider *prv);
++    ~ALSAAudioDriver();
++
++    bool run();
++    float get_time();
++
++    struct ALSASoundCard {
++        std::string device;
++        std::string description;
++    };
++    static std::vector<ALSASoundCard> enumerate_sound_cards();
++
++protected:
++    snd_pcm_t *pcm_handle;
++    struct timeval eof_time;
++
++    char outbuf[65536];
++    unsigned int in_outbuf;
++
++    snd_pcm_uframes_t period_size;
++    int bytes_written, bytes_played;
++    bool eof;
++
++private:
++    void die_on_error(const char *func_name, int err);
++    MP3AudioProvider *prov;
++};
++
++#endif /* DEMOLIB_USE_ALSA */
++
++#endif /* !defined(_LINUX_ALSA_H) */
+--- a/Makefile
++++ b/Makefile
+@@ -26,7 +26,7 @@
+ 	Sources/Synchronisater.o Sources/utils.o		  \
+ 	Sources/XGrezilles.o Sources/linuxcompat.o		  \
+ 	Sources/main.o Sources/glwindow.o Sources/mp3.o		  \
+-	Sources/linux_oss.o
++	Sources/linux_oss.o Sources/linux_alsa.o
+ U3DOBJS=LIBS/u3dLib/sources/2Dstuff.o LIBS/u3dLib/sources/Bitmap.o  \
+ 	LIBS/u3dLib/sources/Boundings.o LIBS/u3dLib/sources/Bsp.o   \
+ 	LIBS/u3dLib/sources/BSpline.o LIBS/u3dLib/sources/BTree.o   \
+@@ -63,9 +63,9 @@
+ CXX   = g++
+ AR    = ar
+ RANLIB = ranlib
+-CFLAGS   += -O3 -flto -Wall -ffast-math
+-CXXFLAGS += -O3 -flto -Wall -ffast-math
+-LDFLAGS  += $(shell pkg-config glu x11 xxf86vm --libs) -ljpeg
++CFLAGS   += -O3 -flto -Wall -ffast-math -std=gnu90 -pipe
++CXXFLAGS += -O3 -flto -Wall -ffast-math -std=gnu++98  	-fabi-version=2 -pipe
++LDFLAGS  += $(shell pkgconf glu x11 xxf86vm alsa libjpeg --libs)
+ RM_F = rm -f
+ INSTALL = install
+ INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
+@@ -82,12 +82,6 @@
+ 
+ PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
+ 
+-#si code gcc4 compilÃ© via gcc5 le standard par dÃ©faut Ã©tait different
+-GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
+-ifeq "$(GCCVERSIONGTEQ5)" "1"
+-    CFLAGS += -std=gnu90
+-    CXXFLAGS += -fabi-compat-version=2
+-endif
+ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+  NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+  MAKEFLAGS += -j$(NUMJOBS)

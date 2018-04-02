@@ -1,0 +1,56 @@
+vip2 (1.2-0ddebs8) unstable; urgency=medium
+
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 10 Feb 2018 18:57:50 +0100
+
+vip2 (1.2-0ddebs7) unstable; urgency=medium
+
+  * used pkgconf instead of pkg-config
+  * updated some flags
+  * kept C standard to gnu90 and C++ to gnu98++
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 30 Jul 2017 22:43:39 +0200
+
+vip2 (1.2-0ddebs6) unstable; urgency=medium
+
+  * Build-Depends: libjpeg-dev only
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 06 Apr 2017 01:52:11 +0200
+
+vip2 (1.2-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 01:32:38 +0200
+
+vip2 (1.2-0ddebs4) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 22:00:36 +0200
+
+vip2 (1.2-0ddebs3) unstable; urgency=medium
+
+  * using debian recommended CFLAGS and habits
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 08 Mar 2016 23:18:57 +0100
+
+vip2 (1.2-0ddebs2) unstable; urgency=medium
+
+  * added new resolutions
+  * window by default
+  * window resize
+  * aspect Ratio correction in fullscreen
+  * added icon, menu, manual
+  * added parallel compilation if available
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 14 Feb 2016 16:46:45 +0100
+
+vip2 (1.2-0~trusty0~ddebs1) trusty; urgency=low
+
+  * initial release
+  * added alsa support
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 13 Feb 2016 13:08:20 +0100

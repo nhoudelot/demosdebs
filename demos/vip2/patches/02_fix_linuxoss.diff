@@ -1,0 +1,14 @@
+--- a/Sources/linux_oss.cpp
++++ b/Sources/linux_oss.cpp
+@@ -34,8 +34,9 @@
+ 	}
+ 
+ 	this->set_ioctl(SNDCTL_DSP_RESET, 1);
+-	this->set_ioctl(SOUND_PCM_WRITE_CHANNELS, 2);
+-	this->set_ioctl(SOUND_PCM_WRITE_RATE, 44100);
++	this->set_ioctl(SNDCTL_DSP_CHANNELS, 2);
++        this->set_ioctl(SNDCTL_DSP_SAMPLESIZE, 16);
++	this->set_ioctl(SNDCTL_DSP_SPEED, 44100);
+ #if __BYTE_ORDER == __LITTLE_ENDIAN
+ 	this->set_ioctl(SNDCTL_DSP_SETFMT, AFMT_S16_LE);
+ #else

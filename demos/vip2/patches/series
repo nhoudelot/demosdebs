@@ -1,0 +1,6 @@
+01_adapt_makefile.diff
+02_fix_linuxoss.diff
+03_convert_to_utf8.diff
+04_add_alsa_support.diff
+05_debianize_path.diff
+06_resize_and_correct_ar.diff

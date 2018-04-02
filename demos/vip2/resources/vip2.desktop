@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=VIP 2
+GenericName=Demo
+Comment=VIP 2 - Demo ranked 1st at Takeover 2000
+Type=Application
+Exec=/usr/bin/vip2
+Icon=vip2
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=VIP 2

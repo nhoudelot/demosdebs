@@ -1,0 +1,30 @@
+Source: vip2
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0.0),
+ libglu1-mesa-dev,
+ libjpeg-dev,
+ libasound2-dev,
+ pandoc,
+ pkgconf
+Standards-Version: 3.9.7
+Homepage: https://www.sesse.net/vip2-linux/
+
+Package: vip2
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ vip2-data
+Description: demo by Pospy-Team, 
+ Demo ranked 1st at Takeover 2000
+ 
+Package: vip2-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for vip2
+ vip2 data files
