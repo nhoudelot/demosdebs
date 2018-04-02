@@ -1,0 +1,10 @@
+./content usr/share/primary-by-qaz/./ 
+./content/q usr/share/primary-by-qaz/./content/ 
+./content/q/shaders usr/share/primary-by-qaz/./content/q/ 
+./content/q/shaders/tst_shader.glsl usr/share/primary-by-qaz/./content/q/shaders/ 
+./content/shared usr/share/primary-by-qaz/./content/ 
+./content/shared/debug_font.png usr/share/primary-by-qaz/./content/shared/ 
+./content/shared/title.png usr/share/primary-by-qaz/./content/shared/ 
+./content/shared/music.wv usr/share/primary-by-qaz/./content/shared/ 
+./content/shared/greets.png usr/share/primary-by-qaz/./content/shared/ 
+./run-720p-window.sh usr/share/primary-by-qaz/./ 

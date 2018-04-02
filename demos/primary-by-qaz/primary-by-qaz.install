@@ -1,0 +1,4 @@
+debian/scripts/primary-by-qaz usr/bin/
+debian/resources/primary-by-qaz.desktop usr/share/applications/
+debian/resources/primary-by-qaz.png usr/share/icons/hicolor/256x256/apps/
+./qaz-primary-linux usr/lib/x86_64-linux-gnu/primary-by-qaz/./

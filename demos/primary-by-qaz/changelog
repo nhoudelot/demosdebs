@@ -1,0 +1,20 @@
+primary-by-qaz (1.0-0ddebs3) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 09 Feb 2018 01:13:30 +0100
+
+primary-by-qaz (1.0-0ddebs2) unstable; urgency=medium
+
+  * better dependencies (using dh_shlibdeps)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 04 Apr 2017 21:55:32 +0200
+
+primary-by-qaz (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Jan 2017 00:45:13 +0100
