@@ -1,0 +1,9 @@
+schtroumpf2-by-knights for Debian
+---------------------------------
+
+sources have been repackaged
+old generated autoconf removed
+minifmod removed too
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 13 Mar 2016 20:50:42 +0100
+

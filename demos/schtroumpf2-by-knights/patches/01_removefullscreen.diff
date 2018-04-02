@@ -1,0 +1,11 @@
+--- a/src/sc2.c
++++ b/src/sc2.c
+@@ -101,7 +101,7 @@
+ #endif	
+         OpenSystem();
+         //OpenVideo(512,384,0);
+-        OpenVideo(1024,768,1);
++        OpenVideo(1024,768,0);
+ 
+ 	
+ 	InitNoise();
