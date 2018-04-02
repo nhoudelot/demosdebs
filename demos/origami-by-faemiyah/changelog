@@ -1,0 +1,36 @@
+origami-by-faemiyah (1.0-0ddebs6) unstable; urgency=medium
+
+  * updated cflags
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Jul 2017 16:00:12 +0200
+
+origami-by-faemiyah (1.0-0ddebs5) unstable; urgency=medium
+
+  * use dh $@  --with autoreconf instead of dh $@ --with autotools-dev
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 31 Oct 2016 23:41:05 +0100
+
+origami-by-faemiyah (1.0-0ddebs4) unstable; urgency=medium
+
+  * use autogen.sh before configure
+  * some cleanup
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Oct 2016 00:54:40 +0200
+
+origami-by-faemiyah (1.0-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Jul 2016 10:28:52 +0200
+
+origami-by-faemiyah (1.0-0ddebs2) unstable; urgency=medium
+
+  * compile using lto
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 01 May 2016 13:10:03 +0200
+
+origami-by-faemiyah (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 Apr 2016 03:07:51 +0200

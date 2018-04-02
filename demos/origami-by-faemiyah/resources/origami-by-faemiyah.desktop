@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Origami
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2005
+Type=Application
+Exec=/usr/bin/origami-by-faemiyah
+Icon=origami-by-faemiyah
+Categories=AudioVideo;Game;
+Name[fr_FR]=Origami
