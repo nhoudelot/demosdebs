@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Covered in Bees
+GenericName=Demo
+Comment=Demo by Candela, released in 2012
+Type=Application
+Exec=/usr/bin/coveredinbees-by-candela
+Icon=coveredinbees-by-candela
+Categories=AudioVideo;Game;
+Name[fr_FR]=Covered in Bees

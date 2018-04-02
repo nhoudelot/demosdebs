@@ -1,0 +1,4 @@
+debian/scripts/coveredinbees-by-candela usr/bin/
+debian/resources/coveredinbees-by-candela.desktop usr/share/applications/
+debian/resources/coveredinbees-by-candela.png usr/share/icons/hicolor/256x256/apps/
+./demo_64 usr/lib/x86_64-linux-gnu/coveredinbees-by-candela/./ 

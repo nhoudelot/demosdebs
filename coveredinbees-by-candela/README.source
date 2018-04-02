@@ -1,0 +1,15 @@
+coveredinbees-by-candela for Debian
+----------------------------------
+
+executable seems to be compiled for Ubuntu Precise (12.04)
+
+GCC: (Ubuntu/Linaro 4.6.3-1ubuntu5)
+
+Source files:
+------------- 
+bits.c        main.cpp      objects.cpp   snd.cpp       unpack.c
+crtstuff.c    metadata.c    pnglite.c     sys.cpp       words.c
+float.c       moviedump.cpp qaz.cpp       system.c      wputils.c
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Jul 2017 11:08:47 +0200
+

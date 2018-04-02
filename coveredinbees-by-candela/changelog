@@ -1,0 +1,13 @@
+coveredinbees-by-candela (1.0-0ddebs2) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Feb 2018 16:53:56 +0100
+
+coveredinbees-by-candela (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Jul 2017 11:08:47 +0200
