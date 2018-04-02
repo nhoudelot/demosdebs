@@ -1,0 +1,3 @@
+halvdemo-by-kakmonsterklubben binary: unknown-section demos
+halvdemo-by-kakmonsterklubben binary: desktop-entry-lacks-keywords-entry usr/share/applications/halvdemo-by-kakmonsterklubben.desktop
+halvdemo-by-kakmonsterklubben binary: binary-or-shlib-defines-rpath usr/lib/i386-linux-gnu/halvdemo-by-kakmonsterklubben/kakmonsterdemo /usr/lib

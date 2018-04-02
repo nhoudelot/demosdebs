@@ -1,0 +1,26 @@
+halvdemo-by-kakmonsterklubben for Debian
+----------------------------------------
+
+removed SDL_mixer.h & libSDL_mixer.so
+
+executable seems to be compiled for Slackware Linux 10.1
+
+(GNU) 3.3.4
+/usr/lib/gcc-lib/i486-slackware-linux/3.3.3/include
+
+Source files:
+------------- 
+/temp/glibc-2.3.2/build-glibc-2.3.2/config.h
+/temp/glibc-2.3.2/build-glibc-2.3.2/csu/abi-tag.h
+/temp/glibc-2.3.2/build-glibc-2.3.2/csu/crti.S
+/temp/glibc-2.3.2/build-glibc-2.3.2/csu/crtn.S
+/temp/glibc-2.3.2/build-glibc-2.3.2/csu/defs.h
+abi-note.S
+crtstuff.c
+init.c
+initfini.c
+main.cpp
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 23:05:01 +0100
+
