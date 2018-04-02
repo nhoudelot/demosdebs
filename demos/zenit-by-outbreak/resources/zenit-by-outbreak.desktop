@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Zenit
+GenericName=Demo
+Comment=Demo by Outbreak, released in 2009
+Type=Application
+Exec=/usr/bin/zenit-by-outbreak
+Icon=zenit-by-outbreak
+Categories=AudioVideo;Game;
+Name[fr_FR]=Zenit

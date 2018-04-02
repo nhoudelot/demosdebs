@@ -1,0 +1,4 @@
+debian/scripts/zenit-by-outbreak usr/bin/
+debian/resources/zenit-by-outbreak.desktop usr/share/applications/
+debian/resources/zenit-by-outbreak.png usr/share/icons/hicolor/256x256/apps/
+./zenit.elf usr/lib/i386-linux-gnu/zenit-by-outbreak/./ 

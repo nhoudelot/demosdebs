@@ -1,0 +1,11 @@
+--- a/data/clouds/sprite.vert
++++ b/data/clouds/sprite.vert
+@@ -5,7 +5,7 @@
+ uniform vec4 buffycolly;
+ uniform mat4 mat_view2world;
+ 
+-uniform vec4 color;
++varying vec4 color;
+ 
+ uniform vec3 cameraRight, cameraUp;
+ 

@@ -1,0 +1,71 @@
+zenit-by-outbreak for Debian
+---------------------------
+
+executable seems to be compiled for Ubuntu Jaunty (9.04)
+
+(Ubuntu 4.3.3-5ubuntu4)
+
+Source files:
+------------- 
+am.cpp                       o3d_mesh.cpp
+am_archivedirectory.cpp      o3d_meshinstance.cpp
+am_archivezip.cpp            o3d_meshutil.cpp
+am_image.cpp                 o3d_scene.cpp
+am_imagecodec_jpeg.cpp       o3d_scenenode.cpp
+am_imagecodec_png.cpp        o3d_submesh.cpp
+am_imagecodec_tga.cpp        o3d_texture.cpp
+am_imagemanager.cpp          o3d_trackblenderfloat.cpp
+am_videofile.cpp             o3d_trackcolor4f.cpp
+am_videofile_imagedumper.cpp o3d_trackeulerf.cpp
+ascii.cpp                    o3d_trackfloat.cpp
+cl_readbuffer.cpp            o3d_trackquatf.cpp
+cl_writebuffer.cpp           o3d_trackvector3f.cpp
+clear.cpp                    o3d_typedef.cpp
+common.cpp                   otb_system.cpp
+cred.cpp                     pan_box.cpp
+crtstuff.c                   pan_button.cpp
+cubes.cpp                    pan_callback.cpp
+cubes_birds.cpp              pan_caption.cpp
+cubes_landscape.cpp          pan_checkbox.cpp
+cubes_sun.cpp                pan_color_chooser.cpp
+cubes_tower.cpp              pan_container.cpp
+dis_clock.cpp                pan_context.cpp
+dis_display.cpp              pan_control.cpp
+dis_display_glfw.cpp         pan_control_factory.cpp
+dis_display_obsolete.cpp     pan_dropdown.cpp
+dis_fbo_gl.cpp               pan_flow.cpp
+dis_font.cpp                 pan_frame.cpp
+dis_glinclude.cpp            pan_image.cpp
+dis_listener.cpp             pan_knob.cpp
+dis_resource.cpp             pan_label.cpp
+dis_texture_gl.cpp           pan_layout_stack.cpp
+dis_vboibo_gl.cpp            pan_menu.cpp
+dis_vertexdef.cpp            pan_menubar.cpp
+dis_windowmode.cpp           pan_panel.cpp
+end.cpp                      pan_radiobutton.cpp
+fire_effect.cpp              pan_render.cpp
+fire_gui.cpp                 pan_ruler.cpp
+fire_main.cpp                pan_scrollbars.cpp
+fire_plugin_camera.cpp       pan_slider.cpp
+fire_plugin_color.cpp        pan_spline.cpp
+fire_plugin_spline.cpp       pan_stat.cpp
+fire_plugin_trigger.cpp      pan_tabview.cpp
+gml_mesh.cpp                 pan_textinput.cpp
+init.c                       pan_treeview.cpp
+initfini.c                   pan_typedef.cpp
+ioapi.c                      pan_window.cpp
+main.cpp                     pan_workspace.cpp
+mb_matrix4x4col.cpp          panorama.cpp
+mb_quatf.cpp                 tunnel.cpp
+o3d_armature.cpp             tunnel_bacon.cpp
+o3d_bonegroup.cpp            tunnel_walls.cpp
+o3d_camera.cpp               unzip.c
+o3d_curveinstance.cpp        volumetric.cpp
+o3d_dummy.cpp                xml_iterator.cpp
+o3d_image.cpp                xml_iteratorconst.cpp
+o3d_light.cpp                xml_node.cpp
+o3d_manager.cpp              xml_parser.cpp
+o3d_material.cpp             xml_tag.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 02 Nov 2016 00:26:17 +0100
+
