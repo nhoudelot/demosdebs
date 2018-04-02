@@ -1,0 +1,41 @@
+electrify-by-outbreak for Debian
+--------------------------------
+
+unable to guess with what the executable seems to be compiled 
+ 
+Source files:
+------------- 
+/home/thec/dev/install/include/mb_splinebase.h
+/home/thec/dev/install/include/mb_quat.h
+/home/thec/dev/install/include/mb_vector3.h
+
+city.cpp
+terrain.cpp
+water.cpp
+fire_effect.cpp
+fire_main.cpp
+pan_control.cpp
+pan_render.cpp
+pan_spline.cpp
+gml_mesh.cpp
+dis_display_glfw.cpp
+dis_fbo_gl.cpp
+dis_font.cpp
+dis_resource.cpp
+dis_texture_gl.cpp
+dis_vboibo_gl.cpp
+dis_vertexdef.cpp
+am.cpp
+o3d_manager.cpp
+o3d_material.cpp
+o3d_mesh.cpp
+o3d_meshutil.cpp
+o3d_submesh.cpp
+o3d_typedef.cpp
+o3d_armature.cpp
+o3d_curveinstance.cpp
+cl_writebuffer.cpp
+otb_system.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Apr 2017 01:42:01 +0200
+

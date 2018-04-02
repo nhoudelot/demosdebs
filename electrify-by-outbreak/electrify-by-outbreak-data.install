@@ -1,0 +1,5 @@
+./setup.xml usr/share/electrify-by-outbreak/./ 
+./script usr/share/electrify-by-outbreak/./ 
+./gui usr/share/electrify-by-outbreak/./ 
+./electrify.ogg usr/share/electrify-by-outbreak/./ 
+./data usr/share/electrify-by-outbreak/./ 

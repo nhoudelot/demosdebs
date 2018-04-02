@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Electrify
+GenericName=Demo
+Comment=Demo by Outbreak, released in 2010
+Type=Application
+Exec=/usr/bin/electrify-by-outbreak
+Icon=electrify-by-outbreak
+Categories=AudioVideo;Game;
+Name[fr_FR]=Electrify

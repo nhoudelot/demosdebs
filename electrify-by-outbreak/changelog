@@ -1,0 +1,25 @@
+electrify-by-outbreak (1.0-0ddebs4) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Jan 2018 14:10:51 +0100
+
+electrify-by-outbreak (1.0-0ddebs3) unstable; urgency=medium
+
+  * use libglew1.5 added in the repository instead of a link
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Apr 2017 01:43:46 +0200
+
+electrify-by-outbreak (1.0-0ddebs2) unstable; urgency=medium
+
+  * added an icon
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Apr 2017 14:00:59 +0200
+
+electrify-by-outbreak (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 04 Apr 2017 09:11:16 +0200

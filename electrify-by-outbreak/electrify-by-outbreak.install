@@ -1,0 +1,4 @@
+debian/scripts/electrify-by-outbreak usr/bin/
+debian/resources/electrify-by-outbreak.desktop usr/share/applications/
+debian/resources/electrify-by-outbreak.png usr/share/icons/hicolor/256x256/apps/
+./electrify.elf usr/lib/i386-linux-gnu/electrify-by-outbreak/./ 

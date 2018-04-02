@@ -1,0 +1,11 @@
+--- a/setup.xml
++++ b/setup.xml
+@@ -2,7 +2,7 @@
+ 	<archive path="./data/"/>
+ 	<archive path="./gui/"/>
+ 	<time start="0.00" loop="off" mode="vsync" length="122.043"/>
+-	<display width="1280" height="720" fullscreen="on" title="Electrify" samples="0"/>
++	<display width="1280" height="720" fullscreen="off" title="Electrify" samples="0"/>
+ 	<music filename="electrify.ogg" mute="off"/>
+ 	<osd show="off" location="bottom" delay="2.00"/>
+ </demo>
