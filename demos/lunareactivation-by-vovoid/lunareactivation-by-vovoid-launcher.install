@@ -1,0 +1,7 @@
+debian/scripts/lunareactivation-by-vovoid usr/bin/
+debian/resources/lunareactivation-by-vovoid.desktop usr/share/applications/
+debian/resources/lunareactivation-by-vovoid.png usr/share/icons/hicolor/256x256/apps/
+./bonus usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/./ 
+./bonus/vovoid_luna_wallpaper_1080p.jpg usr/share/lunareactivation-by-vovoid/./bonus/ 
+./demo/launcher-gtk.py usr/share/lunareactivation-by-vovoid/./demo/ 
+./vovoid-luna:reactivation.sh usr/share/lunareactivation-by-vovoid/

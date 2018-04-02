@@ -1,0 +1,54 @@
+Source: lunareactivation-by-vovoid
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libglu1-mesa-dev,
+ libx11-dev,
+ libxrandr-dev,
+ libglfw-dev,
+ libfmodex-dev,
+ libfreetype6-dev,
+ libglew1.5,
+ dh-python,
+ python|python-all|python-all-dev (>= 2.6.6-3~)
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=57448
+
+Package: lunareactivation-by-vovoid-launcher
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${python:Depends},
+ python-gtk2,
+ common-install-function-ddebs(>=1.18)
+Description: Demo launcher for Linux, released in 2011
+ Launcher for vovoid, released in 2011
+
+Package: lunareactivation-by-vovoid
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libglfw2,
+ libfmodex,
+ lunareactivation-by-vovoid-launcher[any]
+Description: Demo for Linux, released in 2011
+ Welcome to Vovoid's latest demo - this time about Luna - an android girl
+ with a mission gone astray, wrongfully labeled as broken and dumped through a
+ burial portal at a cemetery for androids.
+ .
+ But the workers discover something amazing...
+ .
+ For screenshots, music download, mid-production documentation head over to
+ http://www.vovoid.org/luna-reactivation/
+ .
+ This demo has taken more than 3 years to make, so we hope you enjoy it!
+ A lot happens in threads, so a quad core machine is preferred.
+ Also 4GB of RAM is needed.
+ .
+ And please, please if possible view it in 1080p, it was designed for that.
+ 720p doesn't do it justice and you miss out on a lot of details. See the
+ screenshots if you like.

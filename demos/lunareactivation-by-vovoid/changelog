@@ -1,0 +1,13 @@
+lunareactivation-by-vovoid (1.0-0ddebs2) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * Override some lintian errors
+  * had to change the python script
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Jan 2018 22:48:00 +0100
+
+lunareactivation-by-vovoid (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 21 Apr 2017 01:43:43 +0200

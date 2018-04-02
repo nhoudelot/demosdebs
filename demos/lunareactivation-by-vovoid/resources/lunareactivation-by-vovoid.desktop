@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Luna : Reactivation
+GenericName=Demo
+Comment=Demo by vovoid, released in 2011
+Type=Application
+Exec=/usr/bin/lunareactivation-by-vovoid
+Icon=lunareactivation-by-vovoid
+Categories=AudioVideo;Game;
+Name[fr_FR]=Luna : Reactivation
