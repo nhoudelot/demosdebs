@@ -1,0 +1,27 @@
+Source: thegnusongkaraoke-by-s3k7lunch
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0.0),
+ libsdl1.2-dev,pandoc
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=7534
+
+Package: thegnusongkaraoke-by-s3k7lunch
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ mplayer,
+ thegnusongkaraoke-by-s3k7lunch-data
+Description: wild intro ranked 1st ad Mainframe 2002
+ slideshow illustrate RMS singing the freesoftware song
+ 
+Package: thegnusongkaraoke-by-s3k7lunch-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for thegnusongkaraoke-by-s3k7lunch
+ thegnusongkaraoke-by-s3k7lunch data files

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=The GNU Karaoke Song
+GenericName=Demo
+Comment=Demo by s3k7lunch, released in 2002
+Type=Application
+Exec=/usr/bin/thegnusongkaraoke-by-s3k7lunch
+Icon=thegnukaraoke-by-s3k7lunch
+Categories=AudioVideo;Game;
+Name[fr_FR]=thegnusongkaraoke-by-s3k7lunch.desktop.desktop

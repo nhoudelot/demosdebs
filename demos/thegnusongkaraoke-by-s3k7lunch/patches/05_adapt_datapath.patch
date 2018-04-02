@@ -1,0 +1,315 @@
+--- a/main.cc
++++ b/main.cc
+@@ -12,7 +12,7 @@
+ *******************************************************************************/
+ void musik() {
+   usleep(1500000); //ugly hack
+-  system("mplayer gnusong.mp3");
++  system("mplayer /usr/share/thegnusongkaraoke-by-s3k7lunch/gnusong.mp3");
+ }
+ 
+ int main(int argc,char *argv[]) {
+@@ -23,11 +23,11 @@
+     script myscript; //create a script object
+     gfx *pgfx = gfx::instance();
+     font *pfont = font::instance();
+-    pfont->loadfont((char *)"font.pcx");
++    pfont->loadfont((char *)"/usr/share/thegnusongkaraoke-by-s3k7lunch/font.pcx");
+     pgfx->init();
+     if(argc<2) {
+         cout << "No file specified. Using default script.txt\n";
+-        myscript.readscript("script.txt");
++        myscript.readscript("/usr/share/thegnusongkaraoke-by-s3k7lunch/script.txt");
+     }
+     else {
+         cout << "Opening file: " << argv[1] <<endl;
+--- a/script.txt
++++ b/script.txt
+@@ -1,7 +1,7 @@
+ ;vers 1
+ ;clearscreen(33,112,196)
+ ;
+-setimg(rms.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/rms.pcx)
+ usleep(001500000)
+ text(%Join% us now and)
+ usleep(000300819)
+@@ -13,7 +13,7 @@
+ usleep(000420000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(rms.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/rms.pcx)
+ text(%share% the software)
+ usleep(000367957)
+ text(share %the% software)
+@@ -22,7 +22,7 @@
+ usleep(000954885)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(rms-gnu.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/rms-gnu.pcx)
+ text(%Youll% be free hackers)
+ usleep(000676649)
+ text(Youll %be% free hackers)
+@@ -33,7 +33,7 @@
+ usleep(000940353)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(gnu1.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/gnu1.pcx)
+ text(%Youll% be free)
+ usleep(000824869)
+ text(Youll %be% free)
+@@ -42,7 +42,7 @@
+ usleep(001600000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(rms-gnu.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/rms-gnu.pcx)
+ text(%Join% us now and)
+ usleep(000300000)
+ text(Join %us% now and)
+@@ -53,7 +53,7 @@
+ usleep(000450000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(rms-gnu.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/rms-gnu.pcx)
+ text(%share% the software)
+ usleep(000350000)
+ text(share %the% software)
+@@ -62,7 +62,7 @@
+ usleep(001100000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(linus.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/linus.pcx)
+ text(%Youll% be free hackers)
+ usleep(000600000)
+ text(Youll %be% free hackers)
+@@ -73,7 +73,7 @@
+ usleep(000940000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(linus.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/linus.pcx)
+ text(%Youll% be free)
+ usleep(000874869)
+ text(Youll %be% free)
+@@ -83,7 +83,7 @@
+ ;vers 2
+ ;clearscreen(33,112,196)
+ ;
+-setimg(bill.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/bill.pcx)
+ text(%Hoarders% can get)
+ usleep(000660000)
+ text(Hoarders %can% get)
+@@ -92,7 +92,7 @@
+ usleep(000490000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(bill.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/bill.pcx)
+ text(%piles% of money)
+ usleep(000370000)
+ text(piles %of% money)
+@@ -101,7 +101,7 @@
+ usleep(000940000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(tux.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/tux.pcx)
+ text(%That% is true hackers)
+ usleep(000650000)
+ text(That %is% true hackers)
+@@ -112,7 +112,7 @@
+ usleep(000960000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(tux.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/tux.pcx)
+ text(%That% is true)
+ usleep(000840000)
+ text(That %is% true)
+@@ -121,7 +121,7 @@
+ usleep(001600000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(tux.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/tux.pcx)
+ text(%But% they cannot)
+ usleep(000330000)
+ text(But %they% cannot)
+@@ -130,7 +130,7 @@
+ usleep(000410000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(gnu1.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/gnu1.pcx)
+ text(%help% their neighbors)
+ usleep(000367957)
+ text(help %their% neighbors)
+@@ -139,7 +139,7 @@
+ usleep(001063885)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(rms.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/rms.pcx)
+ text(%Thats% not good hackers)
+ usleep(000650000)
+ text(Thats %not% good hackers)
+@@ -150,7 +150,7 @@
+ usleep(000890353)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(rms.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/rms.pcx)
+ text(%Thats% not good)
+ usleep(000874869)
+ text(Thats %not% good)
+@@ -158,21 +158,21 @@
+ text(Thats not %good%)
+ usleep(002537913)
+ ;vers 3
+-setimg(gnugrass.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/gnugrass.pcx)
+ text(%When% we have)
+ usleep(000660000)
+ text(When %we% have)
+ usleep(000306977)
+ text(When we %have%)
+ usleep(000554918)
+-setimg(gnugrass.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/gnugrass.pcx)
+ text(%enough% free software)
+ usleep(000437957)
+ text(enough %free% software)
+ usleep(000355044)
+ text(enough free %software%)
+ usleep(001004885)
+-setimg(majsbrod.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/majsbrod.pcx)
+ text(%At% our call hackers)
+ usleep(000726649)
+ text(At %our% call hackers)
+@@ -188,7 +188,7 @@
+ usleep(000844634)
+ text(At our %call%)
+ usleep(001537913)
+-setimg(gnu.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/gnu.pcx)
+ text(%We ll% kick out those)
+ usleep(000360819)
+ text(We ll %kick% out those)
+@@ -197,19 +197,19 @@
+ usleep(000554918)
+ text(We ll kick out %those%)
+ usleep(000506734)
+-setimg(gnu.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/gnu.pcx)
+ text(%dirty% licenses)
+ usleep(000700000)
+ text(dirty %licenses%)
+ usleep(000904885)
+-setimg(gnu.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/gnu.pcx)
+ text(%Ever% more hackers)
+ usleep(001588690)
+ text(Ever %more% hackers)
+ usleep(001058690)
+ text(Ever more %hackers%)
+ usleep(000990353)
+-setimg(gnu.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/gnu.pcx)
+ text(%Ever% more)
+ usleep(001700000)
+ text(Ever %more%)
+@@ -218,7 +218,7 @@
+ ;vers 1
+ ;clearscreen(33,112,196)
+ ;
+-setimg(kid-penguin.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/kid-penguin.pcx)
+ text(%Join% us now and)
+ usleep(000300819)
+ text(Join %us% now and)
+@@ -229,7 +229,7 @@
+ usleep(000400000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(kid-penguin.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/kid-penguin.pcx)
+ text(%share% the software)
+ usleep(000367957)
+ text(share %the% software)
+@@ -238,7 +238,7 @@
+ usleep(000954885)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(rms.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/rms.pcx)
+ text(%Youll% be free hackers)
+ usleep(000676649)
+ text(Youll %be% free hackers)
+@@ -249,7 +249,7 @@
+ usleep(000940353)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(rms.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/rms.pcx)
+ text(%Youll% be free)
+ usleep(000824869)
+ text(Youll %be% free)
+@@ -258,7 +258,7 @@
+ usleep(001600000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(lotspenguin.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/lotspenguin.pcx)
+ text(%Join% us now and)
+ usleep(000300000)
+ text(Join %us% now and)
+@@ -269,7 +269,7 @@
+ usleep(000450000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(lotspenguin.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/lotspenguin.pcx)
+ text(%share% the software)
+ usleep(000350000)
+ text(share %the% software)
+@@ -278,7 +278,7 @@
+ usleep(001100000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(linus.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/linus.pcx)
+ text(%Youll% be free hackers)
+ usleep(000600000)
+ text(Youll %be% free hackers)
+@@ -289,19 +289,19 @@
+ usleep(000940000)
+ ;clearscreen(33,112,196)
+ ;
+-setimg(linus.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/linus.pcx)
+ text(%Youll% be free)
+ usleep(000874869)
+ text(Youll %be% free)
+ usleep(000844634)
+ text(Youll be %free%)
+ usleep(003300000)
+-setimg(sekt.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/sekt.pcx)
+ text(applause)
+ usleep(005000000)
+-setimg(greet.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/greet.pcx)
+ usleep(005000000)
+-setimg(os.pcx)
++setimg(/usr/share/thegnusongkaraoke-by-s3k7lunch/os.pcx)
+ usleep(003000000)
+ 
+ 

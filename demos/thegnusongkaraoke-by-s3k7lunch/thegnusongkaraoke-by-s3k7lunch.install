@@ -1,0 +1,3 @@
+debian/resources/thegnusongkaraoke-by-s3k7lunch.desktop usr/share/applications/
+debian/resources/thegnusongkaraoke-by-s3k7lunch.png usr/share/icons/hicolor/256x256/apps/
+thegnusongkaraoke-by-s3k7lunch usr/bin/

@@ -1,0 +1,121 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,24 +1,42 @@
+ #makefile for kareoke by mrtm@linux.nu
+-
+-APPNAME = kareoke
+-TARGET = $(APPNAME)
++SHELL = /bin/sh
++TARGET = thegnusongkaraoke-by-s3k7lunch
+ OBJECTS = scriptread.o main.o gfx.o sdl.o font.o
+ CC = g++
+-LDFLAGS = -s
+-LIBS = -L/usr/lib -L/usr/local/lib -lSDL -lpthread
++CFLAGS += $(shell sdl-config --cflags) -Wall -pipe -ffast-math -pipe -std=gnu90
++CXXFLAGS += -Wall
++LIBS = -L/usr/lib $(shell sdl-config --libs) -lpthread
++
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_FILE    = $(INSTALL) -p    -o root -g root  -m  644
++
++RM_F = rm -f
++
++PREFIX          = /usr
++BINDIR          = $(PREFIX)/bin
++SHAREDIR        = $(PREFIX)/share
++TARGETSHAREDIR  = $(PREFIX)/share/thegnusongkaraoke-by-s3k7lunch
++
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++all: $(TARGET)
+ 
+ $(TARGET): $(OBJECTS)
+ 	$(CC) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(LIBS)
+ 
+ clean:	
+-	rm *.o
+-	rm $(TARGET)
++	-@$(RM_F) *.o $(TARGET)
+ %.o:	%.cc
+-	$(CC) -Wall -I/usr/include -I/usr/local/include -c $<
++	$(CC) $(CXXFLAGS) -I/usr/include -c $<
+ 
+ #this makes tinyptc
+ %.o:	%.c
+-	gcc -Os -Wall -I/usr/include -I/usr/local/include -c $<
++	gcc $(CFLAGS) -I/usr/include -c $<
+ 
+ scriptread.o:	scriptread.cc scriptread.hh
+ main.o:		main.cc
+@@ -26,5 +44,30 @@
+ font.o:		font.cc font.hh
+ 
+ #tintyptc
++sdl.o:	sdl.c tinyptc.h
++
+ 
+-sdl.o:	sdl.c tinyptc.h
+\ No newline at end of file
++install: $(TARGET)$(EXEEXT)
++	$(INSTALL_DIR) $(DESTDIR)$(BINDIR)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)$(EXEEXT)
++	$(INSTALL_PROGRAM) $(TARGET)$(EXEEXT) $(DESTDIR)$(BINDIR)
++	$(INSTALL_DIR) $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) bill.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) font.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) gnu.jpg $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) gnu.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) gnu1.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) gnu2.jpg $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) gnugrass.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) gnusong.mp3 $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) greet.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) kid-penguin.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) linus.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) lotspenguin.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) majsbrod.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) one.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) os.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) rms.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) script.txt $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) sekt.pcx $(DESTDIR)$(TARGETSHAREDIR)
++	$(INSTALL_FILE) tux.pcx $(DESTDIR)$(TARGETSHAREDIR)
+--- a/scriptread.cc
++++ b/scriptread.cc
+@@ -1,5 +1,5 @@
+-#include <iostream.h>
+-#include <fstream.h>
++#include <iostream>
++#include <fstream>
+ #include <string.h>
+ #include <unistd.h>
+ #include <stdlib.h>
+@@ -7,6 +7,7 @@
+ #include "gfx.hh"
+ #include "font.hh"
+ #define BUFLEN 100
++using namespace std;
+ /*******************************************************************************
+ **readscript(const char *file)
+ *******************************************************************************/
+--- a/main.cc
++++ b/main.cc
+@@ -1,10 +1,11 @@
+-#include <iostream.h>
+-#include <fstream.h>
++#include <iostream>
++#include <fstream>
+ #include <unistd.h>
+ #include <string.h>
+ #include "scriptread.hh"
+ #include "gfx.hh"
+ #include "font.hh"
++using namespace std;
+ /*******************************************************************************
+ * main(int argc, char *argc)
+ * takes script filename as an argument and defaults to script.txt

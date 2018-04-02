@@ -1,0 +1,5 @@
+01_adapt_makefile.patch
+02_replace_mpg123.patch
+03_remove_fullscreen.patch
+04_fix_cpp.patch
+05_adapt_datapath.patch

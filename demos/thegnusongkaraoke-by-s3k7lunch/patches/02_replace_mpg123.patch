@@ -1,0 +1,11 @@
+--- a/main.cc
++++ b/main.cc
+@@ -12,7 +12,7 @@
+ *******************************************************************************/
+ void musik() {
+   usleep(1500000); //ugly hack
+-  system("mpg123 gnusong.mp3");
++  system("mplayer gnusong.mp3");
+ }
+ 
+ int main(int argc,char *argv[]) {

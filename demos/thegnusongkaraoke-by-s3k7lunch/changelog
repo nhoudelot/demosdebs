@@ -1,0 +1,45 @@
+thegnusongkaraoke-by-s3k7lunch (1.0-0ddebs7) unstable; urgency=medium
+
+  * Created a data package to save some space
+  * Added some lintian overrides
+  * Corrected path to script.txt
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 10 Feb 2018 15:24:46 +0100
+
+thegnusongkaraoke-by-s3k7lunch (1.0-0ddebs6) unstable; urgency=medium
+
+  * updated cflags
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 30 Jul 2017 21:54:33 +0200
+
+thegnusongkaraoke-by-s3k7lunch (1.0-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 09:51:27 +0200
+
+thegnusongkaraoke-by-s3k7lunch (1.0-0ddebs4) unstable; urgency=medium
+
+  * update makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2016 21:52:24 +0200
+
+thegnusongkaraoke-by-s3k7lunch (1.0-0ddebs3) unstable; urgency=medium
+
+  * added manuel & menu
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 03 Mar 2016 20:50:46 +0100
+
+thegnusongkaraoke-by-s3k7lunch (1.0-0ddebs2) unstable; urgency=medium
+
+  * using debian recommended CFLAGS and habits
+  * better program name
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 03 Mar 2016 01:31:18 +0100
+
+thegnusongkaraoke-by-s3k7lunch (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Feb 2016 16:58:33 +0100
