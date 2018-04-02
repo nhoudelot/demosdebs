@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Close to the destination
+GenericName=Demo
+Comment=Demo by The Bad Sectors, released in 2009
+Type=Application
+Exec=/usr/bin/closetothedestination-by-thebadsectors
+Icon=closetothedestination-by-thebadsectors
+Categories=AudioVideo;Game;
+Name[fr_FR]=Close to the destination

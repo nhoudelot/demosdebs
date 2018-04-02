@@ -1,0 +1,4 @@
+debian/scripts/closetothedestination-by-thebadsectors usr/bin/
+debian/resources/closetothedestination-by-thebadsectors.desktop usr/share/applications/
+debian/resources/closetothedestination-by-thebadsectors.png usr/share/icons/hicolor/256x256/apps/
+./tbs-close-linux-64bit.lnx usr/lib/x86_64-linux-gnu/closetothedestination-by-thebadsectors/./ 

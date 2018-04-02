@@ -1,0 +1,20 @@
+closetothedestination-by-thebadsectors (1.1-0ddebs2) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/
+  * Created a data package to save some space
+  * Added some lintian overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Feb 2018 14:19:50 +0100
+
+closetothedestination-by-thebadsectors (1.1-0ddebs1) unstable; urgency=medium
+
+  * fix dependencies (using dh_shlibdeps)
+  * un-UPX  executable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 04 Apr 2017 22:54:48 +0200
+
+closetothedestination-by-thebadsectors (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 30 Oct 2016 13:20:23 +0100

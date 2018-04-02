@@ -1,0 +1,4 @@
+closetothedestination-by-thebadsectors: unknown-section demos
+closetothedestination-by-thebadsectors: desktop-entry-lacks-keywords-entry usr/share/applications/closetothedestination-by-thebadsectors.desktop
+closetothedestination-by-thebadsectors: embedded-library usr/lib/x86_64-linux-gnu/closetothedestination-by-thebadsectors/tbs-close-linux-64bit.lnx: glew
+closetothedestination-by-thebadsectors: embedded-library usr/lib/x86_64-linux-gnu/closetothedestination-by-thebadsectors/tbs-close-linux-64bit.lnx: tinyxml
