@@ -1,0 +1,5 @@
+01_adapt_makefile.patch
+02_remove_fullscreen.patch
+03_adapt_path.patch
+04_set_window_title.patch
+05_update_png16.patch

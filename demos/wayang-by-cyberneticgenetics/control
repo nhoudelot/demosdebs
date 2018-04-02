@@ -1,0 +1,26 @@
+Source: wayang-by-cyberneticgenetics
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ pkgconf,
+ libsdl1.2-dev,
+ libsdl-mixer1.2-dev,
+ mesa-common-dev
+Standards-Version: 3.9.7
+Homepage: http://www.pouet.net/prod.php?which=53381
+
+Package: wayang-by-cyberneticgenetics
+Architecture: any
+Depends: ${shlibs:Depends},${misc:Depends},wayang-by-cyberneticgenetics-data
+Description: Demo for Linux, released in 2009
+ Demo by Cybernetic Genetics, released in 2009
+ 
+Package: wayang-by-cyberneticgenetics-data
+Architecture: all
+Depends: ${misc:Depends}
+Description: Data package for wayang-by-cyberneticgenetics
+ Demo by Cybernetic Genetics, released in 2009
+ This pack contain the data of the demo

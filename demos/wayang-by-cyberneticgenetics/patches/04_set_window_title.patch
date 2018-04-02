@@ -1,0 +1,10 @@
+--- a/main.c
++++ b/main.c
+@@ -17,6 +17,7 @@
+                                 SDL_GL_DOUBLEBUFFER |
+                                 SDL_HWPALETTE |
+                                 SDL_RESIZABLE);
++SDL_WM_SetCaption("Wayang by Cybernetic Genetics",NULL);
+ SDL_ShowCursor(SDL_DISABLE);
+ /* OpenGL related settings */
+ glClearColor(0.0,0.0,0.0,0.0);

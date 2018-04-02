@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Wayang
+GenericName=Demo
+Comment=Demo by Cybernetic Genetics, released in 2009
+Type=Application
+Exec=/usr/bin/wayang-by-cyberneticgenetics
+Icon=wayang-by-cyberneticgenetics
+Categories=AudioVideo;Game;
+Name[fr_FR]=Wayang

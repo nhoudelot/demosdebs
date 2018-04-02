@@ -1,0 +1,12 @@
+wayang-by-cyberneticgenetics (1.0-0ddebs2) unstable; urgency=medium
+
+  * used pkgconf instead of pkg-config
+  * C standard to gnu90
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 30 Jul 2017 23:02:37 +0200
+
+wayang-by-cyberneticgenetics (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Oct 2016 22:43:08 +0200

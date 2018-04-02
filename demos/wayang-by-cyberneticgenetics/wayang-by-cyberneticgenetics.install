@@ -1,0 +1,3 @@
+debian/resources/wayang-by-cyberneticgenetics.desktop usr/share/applications/
+debian/resources/wayang-by-cyberneticgenetics.png usr/share/icons/hicolor/256x256/apps/
+wayang-by-cyberneticgenetics usr/bin/
