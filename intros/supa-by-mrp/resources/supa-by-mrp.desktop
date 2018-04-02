@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=supa
+GenericName=Demo
+Comment=Demo by mrp, released in 2008
+Type=Application
+Exec=/usr/bin/supa-by-mrp
+Icon=supa-by-mrp
+Categories=AudioVideo;Game;
+Name[fr_FR]=supa

@@ -1,0 +1,19 @@
+supa-by-mrp (1.1-0ddebs2) unstable; urgency=medium
+
+  * Moved arch dependent file to /usr/lib/i386-linux-gnu/
+  * supa need a rw directory to work
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Jan 2018 01:19:21 +0100
+
+supa-by-mrp (1.1-0ddebs1) unstable; urgency=medium
+
+  * better dependencies
+  * un-upx executable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Apr 2017 03:04:32 +0200
+
+supa-by-mrp (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 15 Jan 2017 16:00:12 +0100

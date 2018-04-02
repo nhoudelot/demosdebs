@@ -1,0 +1,4 @@
+debian/scripts/supa-by-mrp usr/bin/
+debian/resources/supa-by-mrp.desktop usr/share/applications/
+debian/resources/supa-by-mrp.png usr/share/icons/hicolor/256x256/apps/
+./supa usr/lib/i386-linux-gnu/supa-by-mrp/./ 
