@@ -1,2 +1,6 @@
 usr/lib/i386-linux-gnu/libglfw.so.2 usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libglfw.so
 usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libfmodex.so/libfmodex-4.30.03.so usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libfmodex.so
+usr/share/lunareactivation-by-vovoid/demo/plugin-config/render.glsl usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/plugin-config/render.glsl
+usr/share/lunareactivation-by-vovoid/demo/gfx usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/gfx
+usr/share/lunareactivation-by-vovoid/demo/luna.vsx usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/luna.vsx
+usr/share/lunareactivation-by-vovoid/bonus/vovoid_luna_wallpaper_1080p.jpg  usr/lib/i386-linux-gnu/bonus/vovoid_luna_wallpaper_1080p.jpg

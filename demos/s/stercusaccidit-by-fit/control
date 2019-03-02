@@ -6,11 +6,13 @@ Build-Depends:
  debhelper (>=9),
  libsdl1.2-dev,
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=26083
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=26083
 
 Package: stercusaccidit-by-fit
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
 Description: Demo 2006 for Linux
  Demo by Fit, released in 2006

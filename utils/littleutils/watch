@@ -1,3 +1,4 @@
 version=4
-http://sf.net/littleutils/littleutils-(\d+)\.(\d+)\.(\d+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))
+opts="compression=xz,repack"
+http://sf.net/littleutils/littleutils-@ANY_VERSION@@ARCHIVE_EXT@ \
 debian uupdate

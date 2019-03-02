@@ -1,2 +1,4 @@
 debian/resources/eduke32.desktop usr/share/applications/
 debian/resources/eduke32.png usr/share/icons/hicolor/256x256/apps/
+eduke32 usr/games/
+mapster32 usr/games/

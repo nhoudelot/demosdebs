@@ -11,8 +11,8 @@ Build-Depends:
  libnoise-dev,
  libglu1-mesa-dev,
  libsdl1.2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=57319
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=57319
 
 Package: simlife-by-contraz
 Architecture: i386
@@ -20,10 +20,11 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
- libfmodex
+ libfmodex4,
+ simlife-by-contraz-data
 Description: Demo for Linux, released in 2011
  Demo by Contraz, released in 2011
- 
+
 Package: simlife-by-contraz-data
 Architecture: all
 Multi-Arch: foreign

@@ -5,9 +5,9 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 9.0),
  autotools-dev
-Standards-Version: 3.9.7
-Homepage: http://zakalwe.fi/~shd/opensource.html
-Vcs-Git: git://zakalwe.fi/amigadepacker.git
+Standards-Version: 4.1.4
+Homepage: https://zakalwe.fi/~shd/opensource.html
+Vcs-Git: https://zakalwe.fi/amigadepacker.git
 
 Package: amigadepacker
 Architecture: any

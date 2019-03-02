@@ -1,0 +1,2 @@
+api/inc/*.h* usr/include/fmodex
+debian/fmodex.pc usr/lib/@DEB_HOST_MULTIARCH@/pkgconfig

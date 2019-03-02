@@ -6,8 +6,8 @@ Build-Depends:
  debhelper (>=9),
  pandoc,
  libsdl1.2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=49931
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=49931
 
 Package: planethively-by-irisanduprough
 Architecture: any

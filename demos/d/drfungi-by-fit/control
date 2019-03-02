@@ -9,8 +9,8 @@ Build-Depends:
  libjpeg-dev,
  pandoc,
  pkgconf
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=8966
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=8966
 
 Package: drfungi-by-fit
 Architecture: any
@@ -20,7 +20,7 @@ Depends:
  drfungi-by-fit-data
 Description: mac demo ranked 1st at iQuest 2002
  mac demo, that can also be compiled for Llinux
- 
+
 Package: drfungi-by-fit-data
 Architecture: all
 Multi-Arch: foreign

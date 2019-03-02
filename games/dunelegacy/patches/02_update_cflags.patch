@@ -11,7 +11,7 @@
  dnl Additional flags: -Wconversion -Wno-sign-conversion -Wlogical-op
  
  dnl Some flags for clang
-@@ -44,7 +44,7 @@
+@@ -44,12 +44,12 @@
  dnl PKG_CHECK_MODULES(SDL, sdl2 SDL2_mixer)
  CFLAGS="$CFLAGS $SDL_CFLAGS"
  CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
@@ -19,4 +19,21 @@
 +LIBS="$LIBS -flto $SDL_LIBS"
  
  dnl Check for SDL_mixer library.
- AC_CHECK_LIB(SDL2_mixer, 
+-AC_CHECK_LIB(SDL2_mixer, 
+-       Mix_OpenAudio, 
+-       LIBS="$LIBS -lSDL2_mixer", 
++AC_CHECK_LIB(SDL2_mixer,
++       Mix_OpenAudio,
++       LIBS="$LIBS -lSDL2_mixer",
+        AC_MSG_ERROR([*** SDL2_mixer library not found!])
+ )
+ 
+@@ -63,7 +63,7 @@
+ 
+ AC_CHECK_MEMBER(struct msghdr.msg_flags, [AC_DEFINE(HAS_MSGHDR_FLAGS)], , [#include <sys/socket.h>])
+ 
+-AC_CHECK_TYPE(socklen_t, [AC_DEFINE(HAS_SOCKLEN_T)], , 
++AC_CHECK_TYPE(socklen_t, [AC_DEFINE(HAS_SOCKLEN_T)], ,
+               #include <sys/types.h>
+               #include <sys/socket.h>
+ )

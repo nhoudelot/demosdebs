@@ -7,8 +7,8 @@ Build-Depends:
  libsdl1.2-dev,
  libglu1-mesa-dev,
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=57763
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=57763
 
 Package: theworldinabubble-by-thebadsectors
 Architecture: amd64
@@ -19,7 +19,7 @@ Depends:
  theworldinabubble-by-thebadsectors-data
 Description: Demo for Linux, released in 2011
  Demo by The Bad Sectors, released in 2011
- 
+
 Package: theworldinabubble-by-thebadsectors-data
 Architecture: all
 Multi-Arch: foreign

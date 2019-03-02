@@ -12,8 +12,8 @@ Build-Depends:
  libxmu-dev,
  pkgconf,
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=1225
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=1225
 
 Package: neandertaler
 Architecture: any
@@ -23,7 +23,7 @@ Depends:
  neandertaler-data
 Description: Intro ranked 2nd at The Party 2000
  64k intro ranked 2nd at The Party 2000
-   
+
 Package: neandertaler-data
 Architecture: all
 Depends:

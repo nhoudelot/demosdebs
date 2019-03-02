@@ -9,10 +9,10 @@ Build-Depends:
  libftgl-dev,
  libfmodex-dev,
  scons,
- freeglut3-dev
- ,mesa-common-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=31073
+ freeglut3-dev,
+ mesa-common-dev
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=31073
 
 Package: mleinandsharkywedtro-by-limpninja
 Architecture: any
@@ -20,7 +20,7 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends},
  common-install-function-ddebs(>=1.18),
- libfmodex,
+ libfmodex4,
  fonts-blomster
 Description: Linux demo by Limp Ninja, released in 2007
  Demo by Limp Ninja, released in 2007

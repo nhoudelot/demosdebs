@@ -7,9 +7,10 @@ Build-Depends:
  pandoc,dh-python,
  python:any | python-all:any | python-dev:any | python-all-dev:any,
  pyqt4-dev-tools
-Standards-Version: 3.9.7
+Standards-Version: 4.1.4
 Homepage: https://github.com/poliva/pyqtggpo
 Vcs-Git: https://github.com/poliva/pyqtggpo.git
+Vcs-Browser: https://github.com/poliva/pyqtggpo
 
 Package: fightcade
 Architecture: any

@@ -7,8 +7,8 @@ Build-Depends:
  pandoc,
  dh-autoreconf,
  libsdl1.2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=53669
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=53669
 
 Package: swampfly-by-faemiyah
 Architecture: any

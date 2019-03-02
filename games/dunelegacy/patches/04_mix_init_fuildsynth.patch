@@ -1,0 +1,36 @@
+--- a/src/FileClasses/music/DirectoryPlayer.cpp
++++ b/src/FileClasses/music/DirectoryPlayer.cpp
+@@ -61,7 +61,13 @@
+ 
+     music = nullptr;
+ 
++#ifdef MIX_INIT_FLUIDSYNTH
+     Mix_Init(MIX_INIT_FLUIDSYNTH | MIX_INIT_FLAC | MIX_INIT_MP3 | MIX_INIT_OGG);
++#endif
++#ifdef MIX_INIT_MID
++    Mix_Init(MIX_INIT_MID | MIX_INIT_FLAC | MIX_INIT_MP3 | MIX_INIT_OGG);
++#endif
++
+ }
+ 
+ DirectoryPlayer::~DirectoryPlayer() {
+--- a/src/FileClasses/music/XMIPlayer.cpp
++++ b/src/FileClasses/music/XMIPlayer.cpp
+@@ -32,9 +32,17 @@
+ XMIPlayer::XMIPlayer() : MusicPlayer(settings.audio.playMusic, settings.audio.musicVolume) {
+     music = nullptr;
+ 
++#ifdef MIX_INIT_FLUIDSYNTH
+     if((Mix_Init(MIX_INIT_FLUIDSYNTH) & MIX_INIT_FLUIDSYNTH) == 0) {
+         SDL_Log("XMIPlayer: Failed to init required midi support: %s", SDL_GetError());
+     }
++#endif
++#ifdef MIX_INIT_MID
++    if((Mix_Init(MIX_INIT_MID) & MIX_INIT_MID) == 0) {
++        SDL_Log("XMIPlayer: Failed to init required midi support: %s", SDL_GetError());
++    }
++#endif
++
+ }
+ 
+ XMIPlayer::~XMIPlayer() {

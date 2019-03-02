@@ -6,7 +6,7 @@ Build-Depends:
  debhelper (>=9),
  pandoc,
  fp-compiler
-Standards-Version: 3.9.7
+Standards-Version: 4.1.4
 Homepage: https://dolbybcsoftwaredecode.sourceforge.io/
 
 Package: dolbybi

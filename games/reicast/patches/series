@@ -1,2 +1,3 @@
-01_fix_typo.patch
 02_destination_games.patch
+03_adapt_makefile
+04_remove_emebdded_dependencies.patch

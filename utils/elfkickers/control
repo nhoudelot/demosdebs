@@ -2,15 +2,18 @@ Source: elfkickers
 Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: debhelper (>= 9.0.0)
-Standards-Version: 3.9.7
+Build-Depends:
+ debhelper (>= 9.0.0)
+Standards-Version: 4.1.4
 Homepage: http://www.muppetlabs.com/~breadbox/software/elfkickers.html
 Vcs-Git: https://github.com/BR903/ELFkickers.git
 Vcs-Browser: https://github.com/BR903/ELFkickers
 
 Package: elfkickers
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
 Description: collection of programs that deal with the ELF file format.
  the main purpose of these programs is to be illustrative and
  educational -- to help fellow programmers understand the ELF file

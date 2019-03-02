@@ -7,9 +7,9 @@ Build-Depends:
  pandoc,
  libsdl1.2-dev,
  libglu1-mesa-dev
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=57122
 
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=57122
 Package: hugeupsidedownsquirrel-by-candela
 Architecture: amd64
 Depends:
@@ -20,7 +20,7 @@ Depends:
 Description: Demo for Linux, released in 2011
  Demo by Candela, released in 2011
  1st combined demo at Birdie 2011
- 
+
 Package: hugeupsidedownsquirrel-by-candela-data
 Architecture: all
 Multi-Arch: foreign

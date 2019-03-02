@@ -8,8 +8,8 @@ Build-Depends:
  mesa-common-dev,
  pkgconf,
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=10576
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=10576
 
 Package: leeko-by-fit
 Architecture: any

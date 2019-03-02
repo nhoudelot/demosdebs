@@ -1,3 +1,15 @@
+mame (0.204+dfsg.1-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 11 Dec 2018 00:17:32 +0100
+
+mame (0.197+dfsg.1-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 Apr 2018 11:02:26 +0200
+
 mame (0.195+dfsg.1-0ddebs1) unstable; urgency=medium
 
   * New upstream release

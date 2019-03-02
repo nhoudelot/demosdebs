@@ -1,3 +1,15 @@
+hexpistols-by-fit (1.0-0ddebs5) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 24 Sep 2018 00:35:16 +0200
+
+hexpistols-by-fit (1.0-0ddebs4) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 12:23:23 +0200
+
 hexpistols-by-fit (1.0-0ddebs3) unstable; urgency=medium
 
   * added an icon

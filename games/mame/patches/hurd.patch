@@ -4,7 +4,7 @@ Forwarded: no
 
 --- a/makefile
 +++ b/makefile
-@@ -194,6 +194,9 @@
+@@ -204,6 +204,9 @@
  OS := openbsd
  GENIEOS := freebsd
  endif
@@ -14,7 +14,7 @@ Forwarded: no
  ifeq ($(firstword $(filter Darwin,$(UNAME))),Darwin)
  OS := macosx
  GENIEOS := darwin
-@@ -1257,6 +1260,16 @@
+@@ -1290,6 +1293,16 @@
  	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/$(MAKETYPE)-linux config=$(CONFIG) precompile
  	$(SILENT) $(MAKE) $(MAKEPARAMS) -C $(PROJECTDIR)/$(MAKETYPE)-linux config=$(CONFIG)
  

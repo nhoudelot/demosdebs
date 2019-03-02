@@ -1,3 +1,15 @@
+unlzx (1.1-0ddebs7) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 30 Aug 2018 19:30:57 +0200
+
+unlzx (1.1-0ddebs6) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 16:00:53 +0200
+
 unlzx (1.1-0ddebs5) unstable; urgency=medium
 
   * modernize packaging

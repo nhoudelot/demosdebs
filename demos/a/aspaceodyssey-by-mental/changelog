@@ -1,3 +1,21 @@
+aspaceodyssey-by-mental (1.0-0ddebs6) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Sep 2018 20:40:01 +0200
+
+aspaceodyssey-by-mental (1.0-0ddebs5) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 16:02:02 +0200
+
+aspaceodyssey-by-mental (1.0-0ddebs4) unstable; urgency=medium
+
+  * changed libfmodex dependencie
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Apr 2018 03:57:24 +0200
+
 aspaceodyssey-by-mental (1.0-0ddebs3) unstable; urgency=medium
 
   * added dependencie to fonts-commodore64 instead of using embedded one

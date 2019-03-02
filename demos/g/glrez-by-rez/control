@@ -7,8 +7,8 @@ Build-Depends:
  pandoc,
  libglu1-mesa-dev,
  libsdl1.2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=16327
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=16327
 
 Package: glrez-by-rez
 Architecture: i386

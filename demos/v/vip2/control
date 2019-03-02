@@ -9,7 +9,7 @@ Build-Depends:
  libasound2-dev,
  pandoc,
  pkgconf
-Standards-Version: 3.9.7
+Standards-Version: 4.1.4
 Homepage: https://www.sesse.net/vip2-linux/
 
 Package: vip2
@@ -18,9 +18,9 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  vip2-data
-Description: demo by Pospy-Team, 
+Description: demo by Pospy-Team,
  Demo ranked 1st at Takeover 2000
- 
+
 Package: vip2-data
 Architecture: all
 Multi-Arch: foreign

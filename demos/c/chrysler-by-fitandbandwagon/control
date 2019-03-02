@@ -6,8 +6,8 @@ Build-Depends:
  debhelper (>= 9.0.0),
  libsdl1.2-dev,
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=12391
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=12391
 
 Package: chrysler-by-fitandbandwagon
 Architecture: any
@@ -17,7 +17,7 @@ Depends:
  chrysler-by-fitandbandwagon-data
 Description: demo ranked 1st at Motorola Inside 2004
  demos by fit and bandwagon
- 
+
 Package: chrysler-by-fitandbandwagon-data
 Architecture: all
 Multi-Arch: foreign

@@ -1,7 +1,7 @@
 --- a/GNUmakefile
 +++ b/GNUmakefile
-@@ -782,6 +782,16 @@
-     EDITOR \
+@@ -814,6 +814,16 @@
+     editor \
  
  
 +#variables d'instalation
@@ -17,23 +17,11 @@
  ifeq ($(PRETTY_OUTPUT),1)
  .SILENT:
  endif
-@@ -983,13 +993,18 @@
+@@ -1023,7 +1033,6 @@
  
- clean: cleanduke3d cleantools
- 	-rm -rf $(obj)/
--	-rm -f $(EBACKTRACEDLL)
-+	-rm -f $(EBACKTRACEDLL) *.log
+ rev: $(engine_obj)/rev.$o
  
- printtools:
- 	echo "$(addsuffix $(EXESUFFIX),$(TOOLS_TARGETS))"
- 
- rev: $(ENGINE_OBJ)/rev.$o
- 
-+install: $(TARGET)
-+	$(INSTALL_DIR) $(DESTDIR)$(bindir)
-+	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
-+	$(INSTALL_PROGRAM) $(DUKE3D_GAME)$(EXESUFFIX) $(DESTDIR)$(bindir)
-+	$(INSTALL_PROGRAM) $(DUKE3D_EDITOR)$(EXESUFFIX) $(DESTDIR)$(bindir)
- 
+-
  ### Compatibility
  
+ test: kenbuild

@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Brian Lindholm <brian_lindholm@users.sourceforge.net>
 Build-Depends:
  debhelper (>= 8.0.0),
- dh-autoreconf,
  libpng-dev | libpng12-dev,
  zlib1g-dev,
  pngcrush,
@@ -20,7 +19,7 @@ Build-Depends:
  gifsicle,
  lzop,
  python-minimal
-Standards-Version: 3.9.3
+Standards-Version: 4.1.4
 Homepage: http://sourceforge.net/projects/littleutils/
 
 Package: littleutils-base

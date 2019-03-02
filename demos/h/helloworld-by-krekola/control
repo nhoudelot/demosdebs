@@ -7,8 +7,8 @@ Build-Depends:
  pandoc,
  libsdl1.2-dev,
  libmikmod2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=28018
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=28018
 
 Package: helloworld-by-krekola
 Architecture: i386

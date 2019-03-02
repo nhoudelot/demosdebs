@@ -7,8 +7,8 @@ Build-Depends:
  pandoc,
  libsdl1.2-dev,
  pkgconf
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=25866
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=25866
 
 Package: bluecubes-by-yorhel
 Architecture: any

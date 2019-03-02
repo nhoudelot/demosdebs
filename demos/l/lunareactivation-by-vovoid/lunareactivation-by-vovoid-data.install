@@ -1,0 +1,17 @@
+./demo/plugin-config/render.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/
+./demo/plugin-config/render.glsl/texture_filters usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/
+./demo/plugin-config/render.glsl/texture_filters/blur_shader.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/texture_filters/
+./demo/plugin-config/render.glsl/materials usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/
+./demo/plugin-config/render.glsl/materials/chromatic_dispersion.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/materials/
+./demo/plugin-config/render.glsl/blend_modes usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/
+./demo/plugin-config/render.glsl/blend_modes/shader_blend_satadd.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/blend_modes/
+./demo/plugin-config/render.glsl/blend_modes/shader_blend_color_dodge.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/blend_modes/
+./demo/plugin-config/render.glsl/blend_modes/shader_blend_overlay.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/blend_modes/
+./demo/plugin-config/render.glsl/blend_modes/shader_blend_screen.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/blend_modes/
+./demo/plugin-config/render.glsl/lighting_models usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/
+./demo/plugin-config/render.glsl/lighting_models/shader_2l_diffmap_specmap.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/lighting_models/
+./demo/plugin-config/render.glsl/lighting_models/shader_smooth_lighting_tex.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/lighting_models/
+./demo/plugin-config/render.glsl/lighting_models/shader_2l_diffmap_specmap_bump.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/lighting_models/
+./demo/plugin-config/render.glsl/lighting_models/normal_map.glsl usr/share/lunareactivation-by-vovoid/./demo/plugin-config/render.glsl/lighting_models/
+./demo/gfx/vsxu_logo.jpg usr/share/lunareactivation-by-vovoid/./demo/gfx/
+./demo/luna.vsx usr/share/lunareactivation-by-vovoid/./demo/

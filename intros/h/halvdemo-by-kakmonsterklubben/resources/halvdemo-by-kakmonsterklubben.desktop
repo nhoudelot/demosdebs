@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Halvdemo
+GenericName=Demo
+Comment=Demo by kakmonsterklubben, released in 2004
+Type=Application
+Exec=/usr/bin/halvdemo-by-kakmonsterklubben
+Icon=halvdemo-by-kakmonsterklubben
+Categories=AudioVideo;Game;
+Name[fr_FR]=Halvdemo

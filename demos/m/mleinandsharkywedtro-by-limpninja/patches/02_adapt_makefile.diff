@@ -1,6 +1,8 @@
 --- a/Makefile
 +++ b/Makefile
 @@ -1,9 +1,44 @@
+-all:	
+-	scons
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
@@ -27,8 +29,7 @@
 + NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 +endif
 +
- all:	
--	scons
++all:
 +	scons  --jobs $(NUMJOBS)
  
  clean:

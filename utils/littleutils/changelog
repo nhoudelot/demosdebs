@@ -1,3 +1,9 @@
+littleutils (1.0.39-0ddebs1) unstable; urgency=medium
+
+  * New upstream release 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 28 Nov 2018 21:48:16 +0100
+
 littleutils (1.0.37-0ddebs2) unstable; urgency=medium
 
   * Fixed spelling errors

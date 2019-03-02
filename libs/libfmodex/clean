@@ -1,0 +1,5 @@
+debian/libfmodex4.install
+debian/libfmodex4.links
+debian/libfmodex4.pc
+debian/libfmodex-dev.install
+debian/libfmodex-dev.links

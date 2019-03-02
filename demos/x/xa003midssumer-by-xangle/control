@@ -10,8 +10,8 @@ Build-Depends:
  pkgconf,
  libsdl-mixer1.2-dev,
  libsdl-image1.2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=17115
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=17115
 
 Package: xa003midssumer-by-xangle
 Architecture: any
@@ -20,7 +20,7 @@ Depends:
  ${misc:Depends}
 Description: xAngle Demo/2004/Linux
  Demo by xAngle, released in 2004
- 
+
 Package: xa003midssumer-by-xangle-data
 Architecture: all
 Multi-Arch: foreign

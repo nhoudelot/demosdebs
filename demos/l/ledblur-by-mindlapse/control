@@ -8,8 +8,8 @@ Build-Depends:
  pkgconf,
  libsdl1.2-dev,
  libsdl-mixer1.2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=25515
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=25515
 
 Package: ledblur-by-mindlapse
 Architecture: any

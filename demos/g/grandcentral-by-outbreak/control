@@ -12,7 +12,7 @@ Build-Depends:
  libxrandr-dev,
  libglu1-mesa-dev,
  libglew1.5
-Standards-Version: 3.9.7
+Standards-Version: 4.1.4
 Homepage: http://www.pouet.net/prod.php?which=50691
 
 Package: grandcentral-by-outbreak
@@ -22,6 +22,7 @@ Depends:
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
  libglew1.5,
+ libaudiere,
  grandcentral-by-outbreak-data
 Description: Demo for Linux, released in 2008
  Demo by Outbreak, released in 2008

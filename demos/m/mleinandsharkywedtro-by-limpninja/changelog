@@ -1,3 +1,21 @@
+mleinandsharkywedtro-by-limpninja (1.0-0ddebs7) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Sep 2018 00:56:48 +0200
+
+mleinandsharkywedtro-by-limpninja (1.0-0ddebs6) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 13:18:37 +0200
+
+mleinandsharkywedtro-by-limpninja (1.0-0ddebs5) unstable; urgency=medium
+
+  * change libfmodex dependencie
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Apr 2018 02:27:43 +0200
+
 mleinandsharkywedtro-by-limpninja (1.0-0ddebs4) unstable; urgency=medium
 
   * use fonts-blomster instead of embeded font

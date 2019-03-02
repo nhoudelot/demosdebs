@@ -1,9 +1,12 @@
 [Desktop Entry]
 Version=1.0
 Name=Chatty
+GenericName=Chat Client
+Comment=Chat client for Twitch
+Comment[fr_FR]=Client chat pour Twitch
+Type=Application
+Terminal=false
 Exec=/usr/bin/chatty
 Icon=chatty
-Terminal=false
-Type=Application
-Categories=Application;Network;
+Categories=Network;
 Keywords=twitch;chat;

@@ -1,0 +1,21 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Sun, 16 Mar 2014 22:21:26 +0000
+Subject: Increase MAXFRAMESIZE to 3456 bytes, which is much closer to reality
+
+Author: Daniel Kobras
+Origin: vendor, Debian (mpg123/0.59r-14)
+---
+ mpglib/mpg123.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/mpglib/mpg123.h
++++ b/mpglib/mpg123.h
+@@ -58,7 +58,7 @@
+ #define         MPG_MD_DUAL_CHANNEL     2
+ #define         MPG_MD_MONO             3
+ 
+-#define MAXFRAMESIZE 1792
++#define MAXFRAMESIZE 3456
+ 
+ 
+ /* Pre Shift fo 16 to 8 bit converter table */

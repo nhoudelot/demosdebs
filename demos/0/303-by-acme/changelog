@@ -1,3 +1,15 @@
+303-by-acme (2.0-0ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Sep 2018 18:00:57 +0200
+
+303-by-acme (2.0-0ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 16:24:58 +0200
+
 303-by-acme (2.0-0ddebs1) unstable; urgency=medium
 
   * added and using linux wrapper instead of dosbox
@@ -29,7 +41,7 @@
   * Converted launch script to bash
   * Added option fullscreen
   * Added option debug
-  * Moved debian/script where it should be 
+  * Moved debian/script where it should be
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 02 Nov 2014 15:25:08 +0100
 
@@ -39,7 +51,7 @@
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 30 Jul 2014 00:44:45 +0200
 
-303-by-acme (1.0-0ddebs1) precise; urgency=low
+303-by-acme (1.0-0ddebs1) unstable; urgency=low
 
   * Initial release
 

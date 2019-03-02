@@ -8,8 +8,8 @@ Build-Depends:
  debhelper (>=9),
  pandoc,
  pkgconf
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=58704
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=58704
 
 Package: borntro-by-insolitdust
 Architecture: any

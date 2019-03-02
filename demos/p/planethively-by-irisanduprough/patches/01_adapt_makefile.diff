@@ -14,11 +14,12 @@
  
  ####### DEFAULT SETTINGS HERE #######
  
+-CFLAGS = -Wall -O2
+-LFLAGS = 
 +#variables de compilation
 +
- CFLAGS = -Wall -O2
--LFLAGS = 
-+LDFLAGS =
++CFLAGS += -Wall -O2
++LDFLAGS +=
  
  CC = gcc
  DEBUGLIB =

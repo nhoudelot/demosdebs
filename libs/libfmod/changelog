@@ -1,3 +1,15 @@
+libfmod (3.75-0ddebs5) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 11:31:29 +0200
+
+libfmod (3.75-0ddebs4) unstable; urgency=medium
+
+  * changed the way the package is done
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Apr 2018 17:24:55 +0200
+
 libfmod (3.75-0ddebs3) unstable; urgency=medium
 
   * added libfmod.so as symlink to libfmod-3.75.so

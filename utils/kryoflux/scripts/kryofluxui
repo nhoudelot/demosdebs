@@ -1,45 +1,11 @@
-#!/bin/bash -e
+#! /bin/sh
+set -e
 
-function usage()
-{
-	if [ $(which gettext) ]; then
-		gettext="gettext --domain=$domain -s --"
-	else
-		gettext=echo
-	fi
+# Include the wrappers utility script
+. /usr/lib/java-wrappers/java-wrappers.sh
 
-	$gettext "Start kryoflux ui"
-	echo
-	$gettext "Usage: $0 [option]"
-	$gettext "Options :"
-	$gettext "    --help				display this help and exit"
-}
+# Chatty requires at least Java8 to run
+find_java_runtime java8
 
-
-function run()
-{
-	backuppwd=$(pwd)
-	cd /usr/share/kryoflux
-	java -jar kryoflux-ui.jar
-	cd $backuppwd
-}
-
-
-if [ "$#" -gt "1" ]; then
-	 usage
-	exit 1
-elif [ "$#" -lt "1" ]; then
-	run
-else
-	case "$1" in
-	--help)
-		usage
-		;;
-	*)
-		usage
-		exit 1
-		;;
-	esac
-fi
-
-exit 0
+cd /usr/share/kryoflux/
+run_java -jar kryoflux-ui.jar "$@"

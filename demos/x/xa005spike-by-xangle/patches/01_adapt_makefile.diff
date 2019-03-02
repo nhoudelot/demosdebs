@@ -18,7 +18,7 @@
  
  # Compile flags ----------------------------------------------------------------
 -FLAGS = -O2 -s -Wall -DNOFILE
-+CFLAGS += -flto -Wall -ffast-math -DNOFILE
++CFLAGS += -flto -Wall -ffast-math -DNOFILE -std=gnu++98 -fabi-version=2
  #FLAGS = -Wall -g -DDEVEL -DFILE_USAGE_LOG
 +TARGET   = xa005spike-by-xangle
 +#variable de nettoyage
@@ -44,7 +44,12 @@
  	OSXMAIN = ds/io/macosx/macosx_sdl.m
  endif
  
-@@ -39,24 +41,53 @@
+@@ -35,28 +37,52 @@
+ 	$(patsubst ds/%.cpp,ds/%.o,$(wildcard ds/*.cpp)) \
+ 	$(patsubst ds/utils/%.cpp,ds/utils/%.o,$(wildcard ds/utils/*.cpp)) \
+ 	$(patsubst ds/io/%.cpp,ds/io/%.o,$(wildcard ds/io/*.cpp)) \
+-	$(patsubst ds/io/loaders/%.cpp,ds/io/loaders/%.o,$(wildcard ds/io/loaders/*.cpp)) 
++	$(patsubst ds/io/loaders/%.cpp,ds/io/loaders/%.o,$(wildcard ds/io/loaders/*.cpp))
  LIBOBJECTS = $(patsubst ds/io/loaders/zlib/%.c,ds/io/loaders/zlib/%.o,$(wildcard ds/io/loaders/zlib/*.c)) \
  	$(patsubst ds/io/loaders/png/%.c,ds/io/loaders/png/%.o,$(wildcard ds/io/loaders/png/*.c))
  
@@ -61,11 +66,6 @@
 +datarootdir     = $(prefix)/share
 +datadir         = $(prefix)/share/xa005spike-by-xangle
 +
-+#si code gcc4 compilé via gcc5 le standard par défaut était different
-+GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
-+ifeq "$(GCCVERSIONGTEQ5)" "1"
-+    CFLAGS += -std=gnu90
-+endif
 +#parallel compilation if available
 +ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -77,21 +77,24 @@
  %.o: %.cpp
 -	@echo "CC	$?"
 -	@$(CPPC) $(FLAGS) $(INC) -c $? -o $@
+-	
 +	$(CXX) $(CFLAGS) -c $? -o $@
- 	
++
  %.o: %.c
 -	@echo "CC	$?"
 -	@$(CC) $(INC) -O2 -s -c $? -o $@
+-	
 +	$(CC) $(CFLAGS) -c $? -o $@
- 	
++
  all: $(OBJECTS) $(LIBOBJECTS)
 -	@echo "LD	$(EXEC)"
 -	@$(CPPC) $(FLAGS) $(OBJECTS) $(LIBOBJECTS) $(OSXMAIN) -o $(EXEC) $(LIB) $(INC)
 -	@rm -f $(EXEC)~
 -	@wc -c $(EXEC)
+-		
 +	$(CXX) $(CFLAGS) $(OBJECTS) $(LIBOBJECTS) $(OSXMAIN) -o $(TARGET) $(LDFLAGS)
 +	wc -c $(TARGET)
- 		
++
  clean:
 -	@echo "RM	$(OBJECTS) $(LIBOBJECTS)"
 -	@rm -f $(OBJECTS) $(LIBOBJECTS) &> /dev/null

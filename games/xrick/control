@@ -6,7 +6,7 @@ Build-Depends:
  debhelper (>= 9.0),
  libsdl1.2-dev
 Standards-Version: 3.9.7
-Homepage: http://www.bigorno.net/xrick/
+Homepage: https://www.bigorno.net/xrick/
 
 Package: xrick
 Architecture: any
@@ -18,7 +18,7 @@ Description: clone of Rick Dangerous
  xrick is a clone of the platform game Rick Dangerous.
  Walk through the maps, avoid traps, kill the Bad Guys... and
  try to stay alive long enough to accomplish your mission!
- 
+
 Package: xrick-data
 Architecture: all
 Multi-Arch: foreign

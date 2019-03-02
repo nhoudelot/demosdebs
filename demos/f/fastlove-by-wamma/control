@@ -7,8 +7,8 @@ Build-Depends:
  pandoc,
  libx11-dev,
  libglu1-mesa-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=50701
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=50701
 
 Package: fastlove-by-wamma
 Architecture: i386
@@ -19,7 +19,7 @@ Depends:
  common-install-function-ddebs(>=1.18)
 Description: Demo for Linux, released in 2008
  Demo by wAMMA, released in 2008
- 
+
 Package: fastlove-by-wamma-data
 Architecture: all
 Multi-Arch: foreign

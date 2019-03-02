@@ -116,8 +116,8 @@
 +
 +#linux Makefile setup
 +ifeq ($(PLATFORM), LINUX)
-+LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf glu sdl --libs) -lfmodex -std=gnu90
-+CFLAGS += $(shell pkgconf glu sdl --cflags) -fpermissive
++LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf glu sdl fmodex --libs) -std=gnu90
++CFLAGS += $(shell pkgconf glu sdl fmodex --cflags) -fpermissive
 +endif
 +
 +.PHONY: all all-before all-after clean clean-custom

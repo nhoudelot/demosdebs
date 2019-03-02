@@ -1,3 +1,21 @@
+eduke32 (1.0+20181118-7241-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 01 Dec 2018 00:37:34 +0100
+
+eduke32 (1.0+20170720-6372-0ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 12 Sep 2018 22:14:59 +0200
+
+eduke32 (1.0+20170720-6372-0ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 18:23:03 +0200
+
 eduke32 (1.0+20170720-6372-0ddebs1) unstable; urgency=medium
 
   * new upstream release

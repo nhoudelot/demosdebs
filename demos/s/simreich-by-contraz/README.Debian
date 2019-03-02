@@ -1,0 +1,11 @@
+simreich-by-contraz for Debian
+-------------------------------
+
+- the provided libfmodex with this demo is needed (it wont start with the last
+ one.
+- libdirectfb-1.2.9 is not needed when starting under x.org
+- libfusion-1.2 is not needed
+- demo is not working on wayland
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Feb 2019 12:48:00 +0100
+

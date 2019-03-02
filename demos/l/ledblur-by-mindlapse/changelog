@@ -1,3 +1,15 @@
+ledblur-by-mindlapse (1.0-0ddebs7) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Sep 2018 00:17:58 +0200
+
+ledblur-by-mindlapse (1.0-0ddebs6) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 12:52:52 +0200
+
 ledblur-by-mindlapse (1.0-0ddebs5) unstable; urgency=medium
 
   * added an icon

@@ -9,15 +9,15 @@ Build-Depends:
  libsdl1.2-dev,
  libsdl-mixer1.2-dev,
  mesa-common-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=53381
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=53381
 
 Package: wayang-by-cyberneticgenetics
 Architecture: any
 Depends: ${shlibs:Depends},${misc:Depends},wayang-by-cyberneticgenetics-data
 Description: Demo for Linux, released in 2009
  Demo by Cybernetic Genetics, released in 2009
- 
+
 Package: wayang-by-cyberneticgenetics-data
 Architecture: all
 Depends: ${misc:Depends}

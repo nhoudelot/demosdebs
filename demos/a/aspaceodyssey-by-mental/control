@@ -7,8 +7,8 @@ Build-Depends:
  pandoc,
  libx11-dev,
  libglu1-mesa-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=55040
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=55040
 
 Package: aspaceodyssey-by-mental
 Architecture: i386
@@ -16,12 +16,12 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
- libfmodex,
+ libfmodex4,
  fonts-commodore64,
  aspaceodyssey-by-mental-data
 Description: Demo for Linux, released in 2010
  Demo by mental-, released in 2010
- 
+
 Package: aspaceodyssey-by-mental-data
 Architecture: all
 Multi-Arch: foreign

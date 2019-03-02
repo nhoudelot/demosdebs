@@ -1,3 +1,15 @@
+cannonball (0.3+git20171201-0ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 12 Sep 2018 21:40:35 +0200
+
+cannonball (0.3+git20171201-0ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 16:51:03 +0200
+
 cannonball (0.3+git20171201-0ddebs1) unstable; urgency=medium
 
   * update from upstream

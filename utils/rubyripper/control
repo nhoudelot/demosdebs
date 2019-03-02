@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 9~),
                gem2deb,
                rake,
                ruby-rspec
-Standards-Version: 3.9.7
+Standards-Version: 4.1.4
 Vcs-Git: https://github.com/bleskodev/rubyripper.git
 Vcs-Browser: https://github.com/bleskodev/rubyripper
 Homepage: https://github.com/bleskodev/rubyripper
@@ -25,7 +25,7 @@ Depends: ruby | ruby-interpreter,
          vorbis-tools,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Digital audio extraction algorithm 
- It uses cdparanoia in a sophisticated way to make sure that a CD rip is done 
- successfully and accurately. It is very similar to and inspired by EAC. 
+Description: Digital audio extraction algorithm
+ It uses cdparanoia in a sophisticated way to make sure that a CD rip is done
+ successfully and accurately. It is very similar to and inspired by EAC.
  Rubyripper is written in the ruby programming language.

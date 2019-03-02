@@ -1,3 +1,8 @@
 01_adapt_makefile.patch
 02_fix_warnings.patch
 03_change_datapath.patch
+0011-CVE-2004-0805-layer2.c-fix-buffer-overflow-in-layer2.patch
+0012-CVE-2006-1655-fix-heap-overflow-in-layer3.c-III_anti.patch
+0013-CVE-2004-0991-fix-insufficient-validation-of-MPEG-he.patch
+0014-CVE-2004-0991-copy-frame-size-checking-from-mpg123-0.patch
+0016-Increase-MAXFRAMESIZE-to-3456-bytes-which-is-much-cl.patch

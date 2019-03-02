@@ -2,20 +2,24 @@ Source: deark
 Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: debhelper (>= 9.0)
-Standards-Version: 3.9.7
-Homepage: http://entropymine.com/deark/
+Build-Depends:
+ debhelper (>= 9.0)
+Standards-Version: 4.1.4
+Homepage: https://entropymine.com/deark/
 Vcs-Git: https://github.com/jsummers/deark.git
+Vcs-Browser: https://github.com/jsummers/deark
 
 Package: deark
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
 Description: Command line utility that can convert old image files
  Portable command-line utility that can decode certain
  types of files, and either convert them to a more-modern
  or more-readable format, or extract embedded files from
- them. 
- . 
+ them.
+ .
  Among the formats supported (in one way or another) are:
  .
  Acorn Sprite
@@ -47,4 +51,4 @@ Description: Command line utility that can convert old image files
  T64
  TGA
  TI-83/89/92/etc. calculator pictures
- TIFF / Exif 
+ TIFF / Exif

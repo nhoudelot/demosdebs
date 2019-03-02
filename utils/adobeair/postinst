@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -93,7 +93,7 @@ MergeCertificates()
                 cp -rf /etc/opt/Adobe/certificates/crypt/*.[0-9]* /etc/opt/Adobe/certificates/AIR/crypt/ &>/dev/null
             fi
 
-            if [ -n "${inputFile}" ] ; then 
+            if [ -n "${inputFile}" ] ; then
                 "$ResourceDir/aucm" -m -S "${inputFile}" -D "/etc/opt/Adobe/certificates/AIR/crypt/config.xml"
                 return $?
             fi
@@ -232,19 +232,21 @@ export adobeairlibdirectory
 fi
 
 
-if [ -f /usr/lib/libgnome-keyring.so.0 ] 
-then 
+if [ -f /usr/lib/libgnome-keyring.so.0 ]
+then
 echo ""
-else  
+else
 ln -s $adobeairlibdirectory/libgnome-keyring.so.0 /usr/lib/libgnome-keyring.so.0
 fi
 
-if [ -f /usr/lib/libgnome-keyring.so.0.2.0 ] 
-then 
+if [ -f /usr/lib/libgnome-keyring.so.0.2.0 ]
+then
 echo ""
-else  
+else
 ln -s $adobeairlibdirectory/libgnome-keyring.so.0.2.0 /usr/lib/libgnome-keyring.so.0.2.0
 fi
+
+#DEBHELPER#
 
 exit 0
 

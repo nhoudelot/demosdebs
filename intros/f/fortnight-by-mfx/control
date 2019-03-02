@@ -9,8 +9,8 @@ Build-Depends:
  libsdl1.2-dev,
  pandoc,
  pkgconf
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=4788
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=4788
 
 Package: fortnight-by-mfx
 Architecture: i386
@@ -24,7 +24,7 @@ Description: 64k intro ranked 6th at The Party 2001
  'fortnight'
  a 'crap in two weeks' intro
  6th place at The party 2001
- 
+
 Package: fortnight-by-mfx-data
 Architecture: all
 Multi-Arch: foreign

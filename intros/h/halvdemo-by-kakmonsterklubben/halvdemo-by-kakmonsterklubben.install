@@ -1,5 +1,5 @@
-resources/halvdemo-by-kakmonsterklubben.desktop usr/share/applications/
-resources/halvdemo-by-kakmonsterklubben.png usr/share/icons/hicolor/256x256/apps/
+debian/resources/halvdemo-by-kakmonsterklubben.desktop usr/share/applications/
+debian/resources/halvdemo-by-kakmonsterklubben.png usr/share/icons/hicolor/256x256/apps/
 ./halvdemo-by-kakmonsterklubben usr/bin/
-./demo.xm usr/share/halvdemo-by-kakmonsterklubben/./ 
-./kakmonsterdemo usr/lib/i386-linux-gnu/halvdemo-by-kakmonsterklubben/./ 
+./demo.xm usr/share/halvdemo-by-kakmonsterklubben/./
+./kakmonsterdemo usr/lib/i386-linux-gnu/halvdemo-by-kakmonsterklubben/./

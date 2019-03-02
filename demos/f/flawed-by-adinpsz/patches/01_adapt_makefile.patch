@@ -25,13 +25,13 @@
 +DEFINES += -O2
 +DEFINES_DBG += -ggdb -D_DEBUG
 +
-+CXXFLAGS += -O3 -flto -Wall -Wextra -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew) -std=gnu++98 -fabi-version=2
-+CFLAGS += -O3 -flto -Wall -Wextra -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew) -std=gnu90
-+LDFLAGS += $(shell pkgconf --libs sdl glu glew) -lfmodex
++CXXFLAGS += -O3 -flto -Wall -Wextra -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu++98 -fabi-version=2
++CFLAGS += -O3 -flto -Wall -Wextra -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu90
++LDFLAGS += $(shell pkgconf --libs sdl glu glew fmodex)
  
  ifeq ($(DEBUG),yes)
  	CXXFLAGS += $(DEFINES_DBG)
-@@ -21,14 +23,10 @@
+@@ -21,25 +23,38 @@
  
  # Folders settings
  
@@ -48,9 +48,10 @@
  MUSIC = Sources/Music/Music.o Sources/Music/Impulsor.o
  NENGINE = Sources/NEngine/Engine.o Sources/NEngine/Window.o Sources/NEngine/GLWindow.o Sources/NEngine/Controllers/InputManager.o Sources/NEngine/Controllers/SDL_Keyboard.o Sources/NEngine/Controllers/Mouse.o
  SHAPES = Sources/Objects/Cube.o Sources/Objects/Font.o Sources/Objects/Scroller.o Sources/Objects/Grid.o Sources/Objects/Particules.o Sources/Objects/Particules2.o Sources/Objects/Particules3.o Sources/Objects/Particules4.o Sources/Objects/Particules5.o  Sources/Objects/Pyramide.o Sources/Objects/Sphere.o Sources/Objects/Star.o
-@@ -36,10 +34,27 @@
+ SCENES = Sources/Scenes/SceneManager.o Sources/Scenes/Scene.o Sources/Scenes/SceneSad.o Sources/Scenes/SceneSadSpectrum.o Sources/Scenes/SceneSadSpectrumGreet.o Sources/Scenes/SceneSpectrumPart.o Sources/Scenes/SceneSpectrumImpulsePart.o Sources/Scenes/ScenePartWorld.o
  MATH =
- TYPES = 
+-TYPES = 
++TYPES =
  UTILS = Sources/Utils/GLUtils.o Sources/Utils/MathUtils.o Sources/Utils/Settings.o
 -OBJECTS = $(NENGINE) $(GLEW) $(3D) $(UTILS) $(TYPES) $(MATH) $(SCENES) $(SHAPES)  $(MUSIC) Sources/main.o
 +OBJECTS = $(NENGINE) $(3D) $(UTILS) $(TYPES) $(MATH) $(SCENES) $(SHAPES)  $(MUSIC) Sources/main.o

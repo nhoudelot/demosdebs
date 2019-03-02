@@ -1,3 +1,21 @@
+kuantumakelerator2-by-hno3 (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * moved resources to debian folder
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 24 Nov 2018 16:47:43 +0100
+
+kuantumakelerator2-by-hno3 (1.0-0ddebs5) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 24 Sep 2018 08:58:49 +0200
+
+kuantumakelerator2-by-hno3 (1.0-0ddebs4) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 15:04:54 +0200
+
 kuantumakelerator2-by-hno3 (1.0-0ddebs3) unstable; urgency=medium
 
   * better dependencies

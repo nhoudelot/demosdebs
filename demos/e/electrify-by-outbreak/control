@@ -5,8 +5,8 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>=9),
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=56349
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=56349
 
 Package: electrify-by-outbreak
 Architecture: i386
@@ -18,13 +18,13 @@ Depends:
  libc6,
  libglew1.5,
  libglfw2,
- libaudiere-1.9.4,
+ libaudiere,
  libpng12-0 (>= 1.2.13-4),
  libjpeg62-turbo|libjpeg62,
  libglu1-mesa|libglu1
 Description: Demo for Linux, released in 2010
  Demo by Outbreak, released in 2010
- 
+
 Package: electrify-by-outbreak-data
 Architecture: all
 Multi-Arch: foreign

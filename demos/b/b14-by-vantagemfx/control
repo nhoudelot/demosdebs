@@ -11,8 +11,8 @@ Build-Depends:
  libxext-dev,
  libpng12-dev,
  libstdc++5
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=16014
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=16014
 
 Package: b14-by-vantagemfx
 Architecture: i386
@@ -24,8 +24,8 @@ Depends:
  libfmod
 Description: Demo by Vantage & mfx, released in 2005
  unofficial invitation to Buenzli 14, made in quite a hurry to have
- a release at Iradium 2005. 
- 
+ a release at Iradium 2005.
+
 Package: b14-by-vantagemfx-data
 Architecture: all
 Multi-Arch: foreign

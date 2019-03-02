@@ -8,9 +8,9 @@ Build-Depends:
  libsdl1.2-dev,
  libfreetype6-dev,
  libstdc++5,
- libpng12-dev
+ libpng12-0
 Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=27661
+Homepage: https://www.pouet.net/prod.php?which=27661
 
 Package: cold-by-adhocandkakmonsterklubben
 Architecture: i386
@@ -23,7 +23,7 @@ Depends:
  fonts-911porscha
 Description: Linux demo by adhoc and kakmonsterklubben
  Demo by adhoc and kakmonsterklubben, released in 2006
- 
+
 Package: cold-by-adhocandkakmonsterklubben-data
 Architecture: all
 Multi-Arch: foreign

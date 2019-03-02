@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1,5 +1,8 @@
+@@ -1,10 +1,13 @@
 +AC_PREREQ([2.69])
  AC_INIT([swamp_fly], [1.0.0], [devel@faemiyah.fi])
  
@@ -9,7 +9,13 @@
  AC_CANONICAL_BUILD
  AC_CANONICAL_HOST
  AC_CANONICAL_TARGET
-@@ -17,13 +20,36 @@
+ 
+-AM_INIT_AUTOMAKE([dist-bzip2])
++AM_INIT_AUTOMAKE([foreign])
+ 
+ AC_CHECK_C99
+ 
+@@ -17,19 +20,42 @@
  
  AC_C_BIGENDIAN([], [], [AC_MSG_ERROR([could not determine endianness])])
  
@@ -48,3 +54,10 @@
  AC_CONFIG_FILES([Makefile src/Makefile])
  AC_OUTPUT
  
+ echo "
+ Configuration for $PACKAGE_TARNAME $PACKAGE_VERSION:
+-	Enable debug:             $MODE_DEBUG
++	Enable debug:             $debug
+ 	Enable optimizations:     $optimizations
+ 	Compiler flags:           $CFLAGS
+ 	Linker flags:             $LDFLAGS

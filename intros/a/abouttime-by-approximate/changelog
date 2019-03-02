@@ -1,3 +1,15 @@
+abouttime-by-approximate (1.0-0ddebs4) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 09 Sep 2018 12:01:51 +0200
+
+abouttime-by-approximate (1.0-0ddebs3) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 01:23:55 +0200
+
 abouttime-by-approximate (1.0-0ddebs2) unstable; urgency=medium
 
   * Added somes lintian overrides

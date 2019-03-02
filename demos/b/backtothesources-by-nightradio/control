@@ -9,8 +9,8 @@ Build-Depends:
  mesa-common-dev,
  libglu1-mesa-dev,
  libasound2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=52834
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=52834
 
 Package: backtothesources-by-nightradio
 Architecture: any
@@ -21,7 +21,7 @@ Depends:
  libasound2-plugins
 Description: MusicDisc for Linux, released in 2009
  MusicDisc by NightRadio, released in 2009
- 
+
 Package: backtothesources-by-nightradio-data
 Architecture: all
 Multi-Arch: foreign

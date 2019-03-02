@@ -1,3 +1,15 @@
+helloworld-by-krekola (1.0-0ddebs5) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 23 Sep 2018 11:40:48 +0200
+
+helloworld-by-krekola (1.0-0ddebs4) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 15:21:19 +0200
+
 helloworld-by-krekola (1.0-0ddebs3) unstable; urgency=medium
 
   * Moved arch dependent file to /usr/lib/i386-linux-gnu/

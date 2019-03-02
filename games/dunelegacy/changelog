@@ -1,3 +1,16 @@
+dunelegacy (0.96.4-0ddebs5) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+  * patch for compiling with SDL2_Mixer < 2.0.1 and > 2.0.2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 13 Sep 2018 19:14:00 +0200
+
+dunelegacy (0.96.4-0ddebs4) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 17:19:55 +0200
+
 dunelegacy (0.96.4-0ddebs3) unstable; urgency=medium
 
   * fixed some lintian errors

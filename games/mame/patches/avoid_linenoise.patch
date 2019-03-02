@@ -4,7 +4,7 @@ Description: avoid compiling linenoise, that includes the non-free file
 
 --- a/makefile
 +++ b/makefile
-@@ -788,6 +788,10 @@
+@@ -821,6 +821,10 @@
  ifdef SANITIZE
  PARAMS += --SANITIZE='$(SANITIZE)'
  endif
@@ -31,7 +31,7 @@ Description: avoid compiling linenoise, that includes the non-free file
  }
 --- a/scripts/src/3rdparty.lua
 +++ b/scripts/src/3rdparty.lua
-@@ -572,7 +572,7 @@
+@@ -911,7 +911,7 @@
  	includedirs {
  		MAME_DIR .. "3rdparty",
  	}
@@ -40,7 +40,7 @@ Description: avoid compiling linenoise, that includes the non-free file
  	includedirs {
  		MAME_DIR .. "3rdparty/linenoise",
  	}
-@@ -595,7 +595,7 @@
+@@ -934,7 +934,7 @@
  		MAME_DIR .. "3rdparty/lua-zlib/lua_zlib.c",
  		MAME_DIR .. "3rdparty/luafilesystem/src/lfs.c",
  	}
@@ -49,7 +49,7 @@ Description: avoid compiling linenoise, that includes the non-free file
  	files {
  		MAME_DIR .. "3rdparty/lua-linenoise/linenoise_none.c",
  	}
-@@ -1696,7 +1696,7 @@
+@@ -2035,7 +2035,7 @@
  --------------------------------------------------
  -- linenoise library
  --------------------------------------------------
@@ -60,7 +60,7 @@ Description: avoid compiling linenoise, that includes the non-free file
  	kind (LIBTYPE)
 --- a/scripts/src/main.lua
 +++ b/scripts/src/main.lua
-@@ -262,7 +262,7 @@
+@@ -264,7 +264,7 @@
  		ext_lib("lua"),
  		"lualibs",
  	}

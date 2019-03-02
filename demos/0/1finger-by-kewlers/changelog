@@ -1,3 +1,15 @@
+1finger-by-kewlers (1.0-0ddebs9) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 13 Sep 2018 23:54:11 +0200
+
+1finger-by-kewlers (1.0-0ddebs8) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 11:10:21 +0200
+
 1finger-by-kewlers (1.0-0ddebs7) unstable; urgency=medium
 
   * use pkgconf instead of pkg-config

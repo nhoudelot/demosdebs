@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=xa-005: Spike
+GenericName=Demo
+Comment=Demo by xAngle, released in 2005
+Type=Application
+Exec=/usr/bin/xa005spike-by-xangle
+Icon=xa005spike-by-xangle
+Categories=AudioVideo;Game;
+Name[fr_FR]=xa-005: Spike

@@ -1,6 +1,6 @@
 --- a/shell/linux/Makefile
 +++ b/shell/linux/Makefile
-@@ -229,7 +229,7 @@
+@@ -251,7 +251,7 @@
  LIBS  += -lpthread
  
  PREFIX ?= /usr/local
@@ -9,22 +9,18 @@
  MENUENTRY_DIR ?= ${PREFIX}/share/applications
  ICON_DIR ?= ${PREFIX}/share/pixmaps
  
-@@ -352,35 +352,37 @@
+@@ -389,37 +389,41 @@
  	$(AS) $(ASFLAGS) $(INCS) $< -o $@
  
  install: $(EXECUTABLE)
--	mkdir -p $(DESTDIR)$(PREFIX)/bin 2>/dev/null || /bin/true
--	mkdir -p $(DESTDIR)$(PREFIX)/share/reicast/mappings 2>/dev/null || /bin/true
--	mkdir -p $(DESTDIR)$(MAN_DIR) 2>/dev/null || /bin/true
--	mkdir -p $(DESTDIR)$(MENUENTRY_DIR) 2>/dev/null || /bin/true
--	mkdir -p $(DESTDIR)$(ICON_DIR) 2>/dev/null || /bin/true
+-	mkdir -p $(DESTDIR)$(PREFIX)/bin 2>/dev/null || true
++	mkdir -p $(DESTDIR)$(PREFIX)/games 2>/dev/null || true
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/reicast/mappings 2>/dev/null || true
+ 	mkdir -p $(DESTDIR)$(MAN_DIR) 2>/dev/null || true
+ 	mkdir -p $(DESTDIR)$(MENUENTRY_DIR) 2>/dev/null || true
+ 	mkdir -p $(DESTDIR)$(ICON_DIR) 2>/dev/null || true
 -	install -m755 $(EXECUTABLE) $(DESTDIR)$(PREFIX)/bin/$(EXECUTABLE_NAME)
 -	install -m755 tools/reicast-joyconfig.py $(DESTDIR)$(PREFIX)/bin/reicast-joyconfig
-+	mkdir -p $(DESTDIR)$(PREFIX)/games 2>/dev/null || /bin/true
-+	mkdir -p $(DESTDIR)$(PREFIX)/share/reicast/mappings 2>/dev/null || /games/true
-+	mkdir -p $(DESTDIR)$(MAN_DIR) 2>/dev/null || /games/true
-+	mkdir -p $(DESTDIR)$(MENUENTRY_DIR) 2>/dev/null || /games/true
-+	mkdir -p $(DESTDIR)$(ICON_DIR) 2>/dev/null || /games/true
 +	install -m755 $(EXECUTABLE) $(DESTDIR)$(PREFIX)/games/$(EXECUTABLE_NAME)
 +	install -m755 tools/reicast-joyconfig.py $(DESTDIR)$(PREFIX)/games/reicast-joyconfig
  	install -m644 mappings/controller_gcwz.cfg $(DESTDIR)$(PREFIX)/share/reicast/mappings
@@ -36,8 +32,8 @@
 -	install -m644 man/reicast.1 $(DESTDIR)$(MAN_DIR)
 -	install -m644 man/reicast-joyconfig.1 $(DESTDIR)$(MAN_DIR)
 +	cp man/reicast.1 man/reicast.6
-+	cp man/reicast-joyconfig.1 man/reicast-joyconfig.6
 +	install -m644 man/reicast.6 $(DESTDIR)$(MAN_DIR)
++	cp man/reicast-joyconfig.1 man/reicast-joyconfig.6
 +	install -m644 man/reicast-joyconfig.6 $(DESTDIR)$(MAN_DIR)
  	install -m644 reicast.desktop $(DESTDIR)$(MENUENTRY_DIR)
  	install -m644 reicast.png $(DESTDIR)$(ICON_DIR)
@@ -60,6 +56,10 @@
  	rm -f $(DESTDIR)$(MENUENTRY_DIR)/reicast.desktop
  	rm -f $(DESTDIR)$(ICON_DIR)/reicast.png
  
+ clean:
+ 	rm -f $(OBJECTS) $(EXECUTABLE) $(EXECUTABLE_STRIPPED) .map
++	rm -f man/reicast.6
++	rm -f man/reicast-joyconfig.6
 --- a/shell/linux/man/reicast-joyconfig.1
 +++ b/shell/linux/man/reicast-joyconfig.1
 @@ -1,6 +1,6 @@

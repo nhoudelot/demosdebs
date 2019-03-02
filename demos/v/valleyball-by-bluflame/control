@@ -7,8 +7,8 @@ Build-Depends:
  pandoc,
  libsdl1.2-dev,
  libglew1.5
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=52946
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=52946
 
 Package: valleyball-by-bluflame
 Architecture: i386

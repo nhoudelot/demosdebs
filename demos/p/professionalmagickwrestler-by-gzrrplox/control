@@ -7,8 +7,8 @@ Build-Depends:
  pandoc,
  libsdl-mixer1.2-dev,
  libsdl1.2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=57011
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=57011
 
 Package: professionalmagickwrestler-by-gzrrplox
 Architecture: amd64
@@ -19,7 +19,7 @@ Depends:
  professionalmagickwrestler-by-gzrrplox-data
 Description: Demo for Linux, released in 2011
  Demo by Gzrrplox, released in 2011
- 
+
 Package: professionalmagickwrestler-by-gzrrplox-data
 Architecture: all
 Multi-Arch: foreign

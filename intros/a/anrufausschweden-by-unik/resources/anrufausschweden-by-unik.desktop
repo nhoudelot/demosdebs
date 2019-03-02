@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=anruf aus schweden
+GenericName=Demo
+Comment=Demo by unik, released in 2004
+Type=Application
+Exec=/usr/bin/anrufausschweden-by-unik
+Icon=anrufausschweden-by-unik
+Categories=AudioVideo;Game;
+Name[fr_FR]=anruf aus schweden

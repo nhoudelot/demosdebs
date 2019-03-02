@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Schtroumpf2
+GenericName=Demo
+Comment=Demo by Knights, released in 2004
+Type=Application
+Exec=/usr/bin/schtroumpf2-by-knights
+Icon=schtroumpf2-by-knights
+Categories=AudioVideo;Game;
+Name[fr_FR]=Schtroumpf2

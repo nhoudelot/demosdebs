@@ -1,0 +1,127 @@
+--- a/ds/io/loaders/load_png.cpp
++++ b/ds/io/loaders/load_png.cpp
+@@ -12,9 +12,9 @@
+  *
+  *  You should have received a copy of the GNU General Public License
+  *  along with this program; if not, write to the Free Software
+- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 
+- */ 
+- 
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
++ */
++
+ #include "load_png.h"
+ 
+ using namespace std;
+@@ -24,23 +24,23 @@
+ 	// Callback for reading png data from ZZIP_FILE handles
+ 	#define NEAR_BUF_SIZE 1024
+ 	#define MIN(a,b) (a <= b ? a : b)
+-	
++
+ 	static void cbLoadData(png_structp png_ptr, png_bytep data, png_size_t length)
+ 	{
+-		((MemFile*)png_ptr->io_ptr)->Read(data, length);
++		((MemFile*)png_get_io_ptr(png_ptr))->Read(data, length);
+ 	}
+-	
++
+ 	Image::Image()
+ 	{
+ 		pData = 0;
+ 	}
+-	
++
+ 	Image::~Image()
+ 	{
+ 		if(pData)
+ 			free(pData);
+ 	}
+-	
++
+ 	void Image::Load(const char* pFile, MemFile* pMemFile)
+ 	{
+ 		static char* fn = "[Image::Load]";
+@@ -56,16 +56,16 @@
+ 		pMemFile->Read(header, 8);
+ 		if(!png_check_sig(header, 8))
+ 			throw Exception(fn, (string)"Image is not png: " + pFile + ".");
+-	
++
+ 		png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+ 		info = png_create_info_struct(png);
+ 		endinfo = png_create_info_struct(png);
+-	
+-		if(setjmp(png->jmpbuf)) {
++
++		if (setjmp(png_jmpbuf(png))) {
+ 			png_destroy_read_struct(&png, &info, &endinfo);
+ 			throw Exception(fn, (string)"Undefined error, setjmp: " + pFile + ".");
+ 		}
+-		
++
+ 		png_set_read_fn(png, (png_voidp)pMemFile, cbLoadData);
+ 		png_set_sig_bytes(png, 8);
+ 		png_read_info(png, info);
+@@ -73,22 +73,22 @@
+ 
+ 		if(color == PNG_COLOR_TYPE_GRAY || color == PNG_COLOR_TYPE_GRAY_ALPHA)
+ 			png_set_gray_to_rgb(png);
+-		
++
+ 		if(color == PNG_COLOR_TYPE_PALETTE)
+ 			png_set_expand(png);
+-			
++
+ 		png_read_update_info(png, info);
+-	
++
+ 		pData = (png_bytep) malloc(png_get_rowbytes(png, info)*height);
+ 		row_p = (png_bytep *) malloc(sizeof(png_bytep)*height);
+-	
++
+ 		for(png_uint_32 i = 0; i < height; i++) {
+ 			row_p[height - 1 - i] = &pData[png_get_rowbytes(png, info)*i];
+ 		}
+-	
++
+ 		png_read_image(png, row_p);
+ 		free(row_p);
+-	
++
+ 		// RGB or RGBA?
+ 		if(color == PNG_COLOR_TYPE_RGB || color == PNG_COLOR_TYPE_GRAY
+ 			|| color == PNG_COLOR_TYPE_PALETTE)
+@@ -105,11 +105,11 @@
+ 		}
+ 		else
+ 			throw Exception(fn, "Format flag missing?!");
+-		
++
+ 		png_read_end(png, endinfo);
+ 		png_destroy_read_struct(&png, &info, &endinfo);
+ 	}
+-	
++
+ 	GLuint Image::MakeGL()
+ 	{
+ 		GLuint id;
+@@ -120,7 +120,7 @@
+ 		if(!m_mipmap)
+ 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+ 		else
+-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);	
++			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+ 
+ 		if(!m_mipmap)
+ 			glTexImage2D(GL_TEXTURE_2D, 0, m_components, width,
+@@ -128,7 +128,7 @@
+ 		else
+ 			gluBuild2DMipmaps(GL_TEXTURE_2D, m_components, width,
+ 				height, m_colorflag, GL_UNSIGNED_BYTE, pData);
+-		
+-		return id;		
++
++		return id;
+ 	}
+ }

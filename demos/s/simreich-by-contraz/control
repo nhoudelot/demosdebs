@@ -9,8 +9,8 @@ Build-Depends:
  libdevil-dev,
  libfltk1.1-dev,
  libglew1.5
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=55394
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=55394
 
 Package: simreich-by-contraz
 Architecture: i386
@@ -19,7 +19,7 @@ Depends:
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
  libglew1.5,
- libdirectfb-1.2-9
+ simreich-by-contraz-data
 Description: Demo for Linux, released in 2010
  Demo by Contraz, released in 2010
  Contraz
@@ -28,9 +28,17 @@ Description: Demo for Linux, released in 2010
  Released at Solskogen 2010
  Code: ................... Dran, Enex and Phlaton
  Graphics: ................................. Dran
- 3D modelling: ................. Dran and Phlaton 
+ 3D modelling: ................. Dran and Phlaton
  Music: .................................... Binf
  Requirements:
   Windows XP/Vista/7 or Mac OS X 10.5/10.6 or Linux (like Ubuntu).
   ATI/Nvidia GPU with at least shader 3 support.
   A soundcard.
+
+Package: simreich-by-contraz-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for simreich-by-contraz
+ simreich-by-contraz data files

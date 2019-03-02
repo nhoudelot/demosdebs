@@ -5,13 +5,13 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>=9),
  pandoc,
- libpng12-dev,
+ libpng12-0,
  libglu1-mesa-dev,
  libx11-dev,
  libxxf86vm-dev,
  libvorbis-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=52218
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=52218
 
 Package: yetanotherchristmasdemo-by-tufs
 Architecture: i386
@@ -22,7 +22,7 @@ Depends:
  yetanotherchristmasdemo-by-tufs-data
 Description: Demo for Linux, released in 2008
  Demo by Tufs, released in 2008
- 
+
 Package: yetanotherchristmasdemo-by-tufs-data
 Architecture: all
 Multi-Arch: foreign

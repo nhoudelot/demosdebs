@@ -9,8 +9,8 @@ Build-Depends:
  libsdl-mixer1.2-dev,
  pkgconf,
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=52142
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=52142
 
 Package: smegmainyoureyes-by-tufs
 Architecture: any
@@ -19,7 +19,7 @@ Depends:
  ${misc:Depends}
 Description: demo ranked 1st at Xenox 2004
  combined demo
- 
+
 Package: smegmainyoureyes-by-tufs-data
 Architecture: all
 Multi-Arch: foreign

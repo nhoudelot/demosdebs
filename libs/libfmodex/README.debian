@@ -1,0 +1,9 @@
+fmodex for Debian
+--------------------
+
+libraries don't have SONAME
+had to remove the 64 suffit of the 64 bit version of the lib
+had to add the .so link in runtime package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 30 Mar 2016 12:27:23 +0200
+

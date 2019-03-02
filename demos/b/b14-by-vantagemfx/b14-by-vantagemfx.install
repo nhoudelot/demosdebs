@@ -1,4 +1,4 @@
-resources/b14-by-vantagemfx.desktop usr/share/applications/
-resources/b14-by-vantagemfx.png usr/share/icons/hicolor/256x256/apps/
-./b14-by-vantagemfx usr/bin/ 
-./vtg_b14 usr/lib/i386-linux-gnu/b14-by-vantagemfx/./ 
+debian/resources/b14-by-vantagemfx.desktop usr/share/applications/
+debian/resources/b14-by-vantagemfx.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/b14-by-vantagemfx usr/bin/
+./vtg_b14 usr/lib/i386-linux-gnu/b14-by-vantagemfx/./

@@ -1,3 +1,21 @@
+compusphere2009-by-outbreakandchimeramusic (1.0-0ddebs7) unstable; urgency=medium
+
+  * audiere dependencie have been changed, to better match the last revision available
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 21 Feb 2019 23:49:33 +0100
+
+compusphere2009-by-outbreakandchimeramusic (1.0-0ddebs6.1) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 20 Sep 2018 09:06:21 +0200
+
+compusphere2009-by-outbreakandchimeramusic (1.0-0ddebs6) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 15:45:16 +0200
+
 compusphere2009-by-outbreakandchimeramusic (1.0-0ddebs5) unstable; urgency=medium
 
   * Moved arch dependent file to /usr/lib/i386-linux-gnu/

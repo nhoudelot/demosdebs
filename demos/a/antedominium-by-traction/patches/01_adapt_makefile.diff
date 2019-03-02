@@ -115,8 +115,8 @@
 +endif
 +
 +ifeq ($(PLATFORM), LINUX)
-+	LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf --libs glu sdl) -lfmodex
-+	CFLAGS += $(shell pkgconf --cflags glu sdl)
++	LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf --libs glu sdl fmodex)
++	CFLAGS += $(shell pkgconf --cflags glu sdl fmodex)
 +endif
 +
 +#variables d'instalation

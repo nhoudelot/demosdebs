@@ -4,5 +4,27 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
+    EXT=64
+endif
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
+    EXT=
+endif
+
 %:
-	dh $@ 
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure
+	(cd debian; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed 's/@EXT@/$(EXT)/g;s/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+		done )
+
+override_dh_install:
+	dh_install
+	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodex64)-([0-9,.]*).so/libfmodex.so.$$2/g' * {} \;)
+	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodexL64)-([0-9,.]*).so/libfmodexL.so.$$2/g' * {} \;)
+	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodex)-([0-9,.]*).so/$$1.so.$$2/g' * {} \;)
+	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodexL)-([0-9,.]*).so/$$1.so.$$2/g' * {} \;)

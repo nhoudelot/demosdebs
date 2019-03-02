@@ -12,8 +12,8 @@ Build-Depends:
  libglu1-mesa-dev,
  libpng12-dev,
  libglew1.5
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=53791
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=53791
 
 Package: zenit-by-outbreak
 Architecture: i386
@@ -22,10 +22,11 @@ Depends:
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
  libglew1.5,
+ libaudiere,
  zenit-by-outbreak-data
 Description: Demo for Linux, released in 2009
  Demo by Outbreak, released in 2009
- 
+
 Package: zenit-by-outbreak-data
 Architecture: all
 Multi-Arch: foreign

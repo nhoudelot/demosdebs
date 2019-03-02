@@ -1,4 +1,4 @@
-resources/kuantumakelerator2-by-hno3.desktop usr/share/applications/
-resources/kuantumakelerator2-by-hno3.png usr/share/icons/hicolor/256x256/apps/
+debian/resources/kuantumakelerator2-by-hno3.desktop usr/share/applications/
+debian/resources/kuantumakelerator2-by-hno3.png usr/share/icons/hicolor/256x256/apps/
 ./kuantumakelerator2-by-hno3 usr/bin/
 ./kuantum2-linux usr/lib/i386-linux-gnu/kuantumakelerator2-by-hno3/./ 

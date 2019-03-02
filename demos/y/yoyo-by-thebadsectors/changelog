@@ -1,3 +1,15 @@
+yoyo-by-thebadsectors (1.1-0ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 02 Oct 2018 00:52:27 +0200
+
+yoyo-by-thebadsectors (1.1-0ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 14:15:27 +0200
+
 yoyo-by-thebadsectors (1.1-0ddebs1) unstable; urgency=medium
 
   * binary where upx compressed

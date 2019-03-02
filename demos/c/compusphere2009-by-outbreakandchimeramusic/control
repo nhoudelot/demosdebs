@@ -7,12 +7,13 @@ Build-Depends:
  pandoc,
  libglu1-mesa-dev,
  libxrandr-dev,
- libpng12-dev,
+ libpng12-0,
  libjpeg62-dev|libjpeg62-turbo-dev,
  libx11-dev,
- libaudiere-dev,libglew1.5
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=53195
+ libaudiere,
+ libglew1.5
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=53195
 
 Package: compusphere2009-by-outbreakandchimeramusic
 Architecture: i386
@@ -21,11 +22,11 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
- libaudiere-1.9.4,
+ libaudiere,
  libglew1.5
 Description: Demo for Linux, released in 2009
  Demo by Outbreak and Chimera Music, released in 2009
- 
+
 Package: compusphere2009-by-outbreakandchimeramusic-data
 Architecture: all
 Multi-Arch: foreign

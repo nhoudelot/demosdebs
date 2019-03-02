@@ -1,49 +1,46 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,6 +1,23 @@
-+SHELL = /bin/sh
-+CC    = gcc
-+CFLAGS += -O3 -flto -Wall -Wextra -Wmissing-prototypes -Wformat-security -Wno-unused-parameter -Isrc
-+LDFLAGS +=-Wall
-+RM_F = rm -f
-+INSTALL = install
-+INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
+@@ -1,7 +1,7 @@
+ SHELL = /bin/sh
+ CC    = gcc
+ CFLAGS += -O3 -flto -Wall -Wextra -Wmissing-prototypes -Wformat-security -Wno-unused-parameter -Isrc
+-LDFLAGS +=-Wall
++LDFLAGS +=-Wall -flto
+ RM_F = rm -f
+ INSTALL = install
+ INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
+@@ -11,6 +11,8 @@
+ exec_prefix = $(prefix)
+ bindir = $(exec_prefix)/bin
+ 
++PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
 +
-+prefix = /usr
-+exec_prefix = $(prefix)
-+bindir = $(exec_prefix)/bin
-+
-+#parallel compilation if available
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
-+endif
+ #parallel compilation if available
+ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+  NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+@@ -75,13 +77,13 @@
  
--CFLAGS:=-g -O2 -Wall -Wextra -Wmissing-prototypes -Wformat-security -Wno-unused-parameter -Isrc
--LDFLAGS:=-Wall
-+export
+ DEARK1_A:=$(OBJDIR)/src/deark1.a
+ $(DEARK1_A): $(OFILES_DEARK1)
+-	ar rcs $@ $^
++	ar rcs $(PLUGIN) $@ $^
  
- ifeq ($(OS),Windows_NT)
- EXE_EXT:=.exe
-@@ -48,13 +65,18 @@
- OFILES_ALL:=$(OBJDIR)/src/deark-cmd.o $(OFILES_LIB) $(OFILES_MODS)
+ DEARK2_A:=$(OBJDIR)/src/deark2.a
+ $(DEARK2_A): $(OFILES_DEARK2)
+-	ar rcs $@ $^
++	ar rcs $(PLUGIN) $@ $^
  
- $(DEARK_EXE): $(OFILES_ALL)
--	$(CC) $(LDFLAGS) -o $@ $(OFILES_ALL)
-+	$(CC) -flto $(LDFLAGS) -o $@ $(OFILES_ALL)
+-ARFLAGS:=urcs
++ARFLAGS:=urcs $(PLUGIN)
+ MODS_AB_A:=$(OBJDIR)/modules/mods-ab.a
+ MODS_CH_A:=$(OBJDIR)/modules/mods-ch.a
+ MODS_IO_A:=$(OBJDIR)/modules/mods-io.a
+@@ -115,7 +117,7 @@
+ 	$(INSTALL_PROGRAM) $(DEARK_EXE) $(DESTDIR)$(bindir)
  
- $(OBJDIR)/%.o: %.c
- 	$(CC) $(CFLAGS) -c -o $@ $<
- 
-+install: $(DEARK_EXE)
-+	$(INSTALL_DIR) $(DESTDIR)$(bindir)
-+	-@$(RM_F) $(DESTDIR)$(bindir)/$(DEARK_EXE)
-+	$(INSTALL_PROGRAM) $(DEARK_EXE) $(DESTDIR)$(bindir)
-+
  clean:
--	rm -f $(OBJDIR)/src/*.[od] $(OBJDIR)/modules/*.[od] $(DEARK_EXE)
-+	-@$(RM_F) -f $(OBJDIR)/src/*.[od] $(OBJDIR)/modules/*.[od] $(DEARK_EXE)
+-	rm -f $(OBJDIR)/src/*.[oad] $(OBJDIR)/modules/*.[oad] $(DEARK_EXE)
++	-@$(RM_F) -f $(OBJDIR)/src/*.[oad] $(OBJDIR)/modules/*.[oad] $(DEARK_EXE)
  
  ifeq ($(MAKECMDGOALS),dep)
  

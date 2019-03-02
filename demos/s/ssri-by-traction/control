@@ -10,11 +10,14 @@ Build-Depends:
  libsdl1.2-dev,
  pkgconf,
  libfmodex-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=19434
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=19434
 
 Package: ssri-by-traction
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends},libfmodex
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libfmodex4
 Description: Traction Demo/2005/Linux
  Demo by Traction, released in 2005

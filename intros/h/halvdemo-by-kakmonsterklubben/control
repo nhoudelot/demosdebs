@@ -8,8 +8,8 @@ Build-Depends:
  libsdl1.2-dev,
  libsdl-mixer1.2-dev,
  libstdc++5
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=14700
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=14700
 
 Package: halvdemo-by-kakmonsterklubben
 Architecture: i386

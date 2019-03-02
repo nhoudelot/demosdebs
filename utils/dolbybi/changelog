@@ -1,3 +1,21 @@
+dolbybi (1:0.0+20160728-0ddebs1) unstable; urgency=medium
+
+  * new version with epoch change that give a better upstream version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 26 Nov 2018 23:36:14 +0100
+
+dolbybi (1.0-0ddebs4) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Aug 2018 15:27:34 +0200
+
+dolbybi (1.0-0ddebs3) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 14:46:17 +0200
+
 dolbybi (1.0-0ddebs2) unstable; urgency=medium
 
   * fixed spelling errors

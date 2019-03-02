@@ -9,14 +9,14 @@ Build-Depends:
  libfmodex-dev,
  libsdl1.2-dev,
  pkgconf
-Standards-Version: 3.9.7
-Homepage:http://www.pouet.net/prod.php?which=24476
+Standards-Version: 4.1.4
+Homepage:https://www.pouet.net/prod.php?which=24476
 
 Package: antedominium-by-traction
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libfmodex
+ libfmodex4
 Description: Demonstration released by Traction
  Demo by Traction, released in 2006

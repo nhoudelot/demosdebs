@@ -9,8 +9,8 @@ Build-Depends:
  libsdl1.2-dev,
  freeglut3-dev,
  mesa-common-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=51137
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=51137
 
 Package: stickanimationengine4000-by-faemiyah
 Architecture: any

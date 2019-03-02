@@ -14,8 +14,8 @@ Build-Depends:
  libglew1.5,
  dh-python,
  python|python-all|python-all-dev (>= 2.6.6-3~)
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=57448
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=57448
 
 Package: lunareactivation-by-vovoid-launcher
 Architecture: all
@@ -33,8 +33,9 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  libglfw2,
- libfmodex,
- lunareactivation-by-vovoid-launcher[any]
+ libfmodex4,
+ lunareactivation-by-vovoid-launcher,
+ lunareactivation-by-vovoid-data
 Description: Demo for Linux, released in 2011
  Welcome to Vovoid's latest demo - this time about Luna - an android girl
  with a mission gone astray, wrongfully labeled as broken and dumped through a
@@ -45,10 +46,18 @@ Description: Demo for Linux, released in 2011
  For screenshots, music download, mid-production documentation head over to
  http://www.vovoid.org/luna-reactivation/
  .
- This demo has taken more than 3 years to make, so we hope you enjoy it!
+ This demo has taken more than 3 years to make, so they hope you enjoy it!
  A lot happens in threads, so a quad core machine is preferred.
  Also 4GB of RAM is needed.
  .
  And please, please if possible view it in 1080p, it was designed for that.
  720p doesn't do it justice and you miss out on a lot of details. See the
  screenshots if you like.
+
+Package: lunareactivation-by-vovoid-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for lunareactivation-by-vovoid
+ lunareactivation-by-vovoid data files

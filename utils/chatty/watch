@@ -1,3 +1,4 @@
-version=3
-https://github.com/chatty/chatty/releases \
-    (?:.*/)?archive/v([\d\.]+)\.tar\.gz
+version=4
+opts="compression=xz,repack" \
+  https://github.com/chatty/chatty/tags .*/v?@ANY_VERSION@@ARCHIVE_EXT@ \
+debian uupdate

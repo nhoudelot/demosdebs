@@ -1,27 +1,7 @@
 #!/usr/bin/make -f
-# See debhelper(7) (uncomment to enable)
-# output every command that modifies files on the build system.
-#export DH_VERBOSE = 1
-
-
-# see FEATURE AREAS in dpkg-buildflags(1)
-#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-
-# see ENVIRONMENT in dpkg-buildflags(1)
-# package maintainers to append CFLAGS
-#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
-# package maintainers to append LDFLAGS
-#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
-
 
 %:
-	dh $@ 
-
-
-# dh_make generated override targets
-# This is example for Cmake (See https://bugs.debian.org/641051 )
-#override_dh_auto_configure:
-#	dh_auto_configure -- #	-DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH)
+	dh $@
 
 override_dh_auto_build:
 
@@ -30,3 +10,14 @@ override_dh_strip:
 override_dh_install:
 	dh_install
 	pandoc -s -t man -f markdown debian/electrify-by-outbreak.6.md -o debian/electrify-by-outbreak.6
+
+override_dh_fixperms:
+	dh_fixperms
+	find debian -name 'shader.frag' -exec chmod 0644 {} +
+	find debian -name 'terrain.o3d' -exec chmod 0644 {} +
+	find debian -name 'sphereish.o3d' -exec chmod 0644 {} +
+	find debian -name 'shader.vert' -exec chmod 0644 {} +
+	find debian -name 'shader.vert' -exec chmod 0644 {} +
+	find debian -name 'shader.frag' -exec chmod 0644 {} +
+	find debian -name 'objects.o3d' -exec chmod 0644 {} +
+

@@ -6,8 +6,8 @@ Build-Depends:
  debhelper (>= 9.0.0),
  libsdl1.2-dev,
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=7196
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=7196
 
 Package: onedaymiracle-by-fit
 Architecture: any

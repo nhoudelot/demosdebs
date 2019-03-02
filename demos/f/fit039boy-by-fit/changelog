@@ -1,3 +1,27 @@
+fit039boy-by-fit (1.0-0ddebs6) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Sep 2018 11:45:44 +0200
+
+fit039boy-by-fit (1.0-0ddebs5) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 13:32:06 +0200
+
+fit039boy-by-fit (1.0-0ddebs4) unstable; urgency=medium
+
+  * added patches for mpglib
+
+    0011-CVE-2004-0805-layer2.c-fix-buffer-overflow-in-layer2.patch
+    0012-CVE-2006-1655-fix-heap-overflow-in-layer3.c-III_anti.patch
+    0013-CVE-2004-0991-fix-insufficient-validation-of-MPEG-he.patch
+    0014-CVE-2004-0991-copy-frame-size-checking-from-mpg123-0.patch
+    0016-Increase-MAXFRAMESIZE-to-3456-bytes-which-is-much-cl.patch
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Apr 2018 03:38:20 +0200
+
 fit039boy-by-fit (1.0-0ddebs3) unstable; urgency=medium
 
   * start in windows mode from start menu

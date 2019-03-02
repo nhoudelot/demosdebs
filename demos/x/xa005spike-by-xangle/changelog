@@ -1,3 +1,23 @@
+xa005spike-by-xangle (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * moved resources to debian folder
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 24 Nov 2018 18:19:56 +0100
+
+xa005spike-by-xangle (1.0-0ddebs5) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+  * upatch to compile with libpng1.6
+  * added libxcursor-dev build dependencie
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 03 Oct 2018 00:50:01 +0200
+
+xa005spike-by-xangle (1.0-0ddebs4) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 15:16:15 +0200
+
 xa005spike-by-xangle (1.0-0ddebs3) unstable; urgency=medium
 
   * updated to standards-version 3.9.7

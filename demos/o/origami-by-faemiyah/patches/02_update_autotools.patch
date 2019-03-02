@@ -1,0 +1,117 @@
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -54,7 +54,7 @@
+   # Configure additions
+   AC_ARG_ENABLE(
+     strip,
+-    AC_HELP_STRING(
++    AS_HELP_STRING(
+       [--disable-strip],
+       [Don't strip binaries of debugging information]),
+     STRIP_BINARIES=[no],
+@@ -86,7 +86,7 @@
+   # Configure additions
+   AC_ARG_ENABLE(
+     debug,
+-    AC_HELP_STRING(
++    AS_HELP_STRING(
+       [--enable-debug],
+       [Compile with additional debugging information and functions (default: no)]),
+     debugmode=[yes],
+@@ -107,21 +107,21 @@
+ # Configure additions
+   AC_ARG_WITH(
+     [nasm-dir],
+-    AC_HELP_STRING(
++    AS_HELP_STRING(
+       [--with-nasm-dir],
+       [nasm binary literal location (optional)]),
+     [nasm_dir=$withval],
+     [nasm_dir=""])
+   AC_ARG_WITH(
+     [nasm-prefix],
+-    AC_HELP_STRING(
++    AS_HELP_STRING(
+       [--with-nasm-prefix],
+       [nasm installation prefix (optional)]),
+     [nasm_prefix=$withval],
+     [nasm_prefix=""])
+   AC_ARG_WITH(
+     [nasm-output],
+-    AC_HELP_STRING(
++    AS_HELP_STRING(
+       [--with-nasm-output],
+       [nasm object format (recommended if using nasm)]),
+     [nasm_output=$withval],
+@@ -162,7 +162,7 @@
+   AC_MSG_CHECKING([do we want nasm])
+   AC_ARG_ENABLE(
+     [nasm],
+-    AC_HELP_STRING(
++    AS_HELP_STRING(
+       [--enable-nasm],
+       [Use the netwide assembler (req. ia32)]),
+     [],
+@@ -190,7 +190,7 @@
+ [
+   AC_ARG_ENABLE(
+     [sdlimagetest],
+-    AC_HELP_STRING(
++    AS_HELP_STRING(
+       [--disable-sdlimagetest],
+       [Do not try to compile and run a test SDL_image program]),
+     no_sdlimagetest=[yes],
+@@ -252,7 +252,7 @@
+     # Jos SDL:‰‰ ei haluta
+     AC_ARG_ENABLE(
+       [sdl],
+-      AC_HELP_STRING(
++      AS_HELP_STRING(
+         [--disable-sdl],
+ 	[Do not include support for SDL]),
+       sdl=[no],
+@@ -285,7 +285,7 @@
+     # Jos SDL_IMAGE:a ei haluta
+     AC_ARG_ENABLE(
+       [sdlimage],
+-      AC_HELP_STRING(
++      AS_HELP_STRING(
+         [--disable-sdlimage],
+ 	[Do not include support for SDL_image]),
+       sdl_image=[no],
+@@ -326,7 +326,7 @@
+     # Jos GTK:ta ei haluta
+     AC_ARG_ENABLE(
+       [gtk],
+-      AC_HELP_STRING(
++      AS_HELP_STRING(
+         [--disable-gtk],
+ 	[Do not include support for GTK]),
+       gtk=[no],
+@@ -389,7 +389,7 @@
+   if test x$2 == xno ; then
+     AC_ARG_ENABLE(
+       [libmadtest],
+-      AC_HELP_STRING(
++      AS_HELP_STRING(
+         [--disable-libmad],
+ 	[Do not include support for libmad]),
+       libmad=[no],
+@@ -422,7 +422,7 @@
+   if test x$1 == xno ; then
+     AC_ARG_ENABLE(
+       [gl],
+-      AC_HELP_STRING(
++      AS_HELP_STRING(
+         [--disable-gl],
+ 	[Do not include support for OpenGL]),
+       gl=[no],
+@@ -431,7 +431,7 @@
+   # Testataanko vai otetaanko kylm‰n‰?
+   AC_ARG_ENABLE(
+       [gltest],
+-      AC_HELP_STRING(
++      AS_HELP_STRING(
+         [--disable-gltest],
+ 	[Do not search for OpenGL libraries (assume defaults work)]),
+       gltest=[no],

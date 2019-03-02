@@ -1,3 +1,15 @@
+glrez-by-rez (1.0-0ddebs7) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Sep 2018 12:32:25 +0200
+
+glrez-by-rez (1.0-0ddebs6) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 15:10:25 +0200
+
 glrez-by-rez (1.0-0ddebs5) unstable; urgency=medium
 
   * moved resources and script in debian/folder

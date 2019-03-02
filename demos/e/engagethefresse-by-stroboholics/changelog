@@ -1,3 +1,9 @@
+engagethefresse-by-stroboholics (1.0-0ddebs3) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 14:06:04 +0200
+
 engagethefresse-by-stroboholics (1.0-0ddebs2) unstable; urgency=medium
 
   * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/

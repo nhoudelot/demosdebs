@@ -1,8 +1,16 @@
 Source: gtk+
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: debhelper (>=9),autotools-dev, gettext,libx11-dev, libxext-dev, libxi-dev, libxmu-dev, x11proto-core-dev, libglib1.2-dev (>= 1.2.9),
-Standards-Version: 3.9.7
+Build-Depends: debhelper (>=9),
+ autotools-dev,
+ gettext,
+ libx11-dev,
+ libxext-dev,
+ libxi-dev,
+ libxmu-dev,
+ x11proto-core-dev,
+ libglib1.2-dev (>= 1.2.9),
+Standards-Version: 4.1.4
 Section: libs
 Homepage: http://www.gtk.org/
 
@@ -15,7 +23,7 @@ Conflicts: libgtk-dev (<< 1:1.0.2)
 Replaces: libgtk1.1.5, libgtk1.1.6, libgtk1.1.9, libgtk1.1.11, libgtk1.1.12, libgtk1.1.13, libgtk1.1.14, libgtk1.1.15, libgtk1.1.16
 Description: GIMP Toolkit set of widgets for X
  GIMP Toolkit is a freely available set of widgets for X.
- GTK is easy to use, and has been implemented in such projects as
+ gtk is easy to use, and has been implemented in such projects as
  The GNU Image Manipulation Program (The GIMP), GNOME, a GNU
  desktop set of utilities for X, and gzilla, a GNU web-browser.
 
@@ -30,7 +38,7 @@ Provides: libgtk-dev, libgtk1.1-dev
 Replaces: libgtk-dev, libgtk1.1-dev, libgtk1.1.5-dev, libgtk1.1.6-dev, libgtk1.1.9-dev, libgtk1.1.11-dev, libgtk1.1.12-dev, libgtk1.1.13-dev, libgtk1.1.14-dev, libgtk1.1.16-dev, libgtk1.2 (<< 1.2.10-4)
 Description: Development files for the GIMP Toolkit
  Package contains the header files and static libraries for the
- GIMP Toolkit set of widgets for X. 
+ GIMP Toolkit set of widgets for X.
  .
  Install this package if you wish to develop your own X programs using
  the GIMP Toolkit 1.2, or if you wish to compile your own plug-ins for
@@ -47,8 +55,8 @@ Suggests: devhelp-book-gtk
 Description: Documentation for the GIMP Toolkit
  Package contains lots of info-files, HTML docs, FAQs, and
  other handy documentation about the GIMP Toolkit set of widgets
- for X. 
- . 
+ for X.
+ .
  Install this package if you want to have lots of info about the
  GIMP toolkit when you're programming.
 
@@ -57,9 +65,9 @@ Architecture: all
 Section: libs
 Depends: ${misc:Depends}
 Replaces: libgtk1.2 (<< 1.2.10-4)
-Description: Common files for the GTK+ library
+Description: Common files for the gtk+ library
  GIMP Toolkit is a freely available set of widgets for X.
- GTK is easy to use, and has been implemented in such projects as
+ gtk is easy to use, and has been implemented in such projects as
  The GNU Image Manipulation Program (The GIMP), GNOME, a GNU
  desktop set of utilities for X, and gzilla, a GNU web-browser.
  .

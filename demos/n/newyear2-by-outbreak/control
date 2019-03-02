@@ -7,11 +7,11 @@ Build-Depends:
  pandoc,
  libsdl1.2-dev,
  libstdc++5,
- libpng12-dev,
- libjpeg62-dev,
+ libpng12-0,
+ libjpeg62-turbo-dev|libjpeg62-dev,
  libfmod
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=15123
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=15123
 
 Package: newyear2-by-outbreak
 Architecture: i386
@@ -22,7 +22,7 @@ Depends:
  newyear2-by-outbreak-data
 Description: Linux Demo by Outbreak 2004
  Demo by Outbreak, released in 2004
- 
+
 Package: newyear2-by-outbreak-data
 Architecture: all
 Multi-Arch: foreign

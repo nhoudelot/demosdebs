@@ -1,6 +1,6 @@
 --- a/source/build/src/polymost.cpp
 +++ b/source/build/src/polymost.cpp
-@@ -5875,7 +5875,7 @@
+@@ -7803,7 +7803,7 @@
      if (parm->numparms != 1)
      {
          OSD_Printf("Current texturing mode is %s\n", glfiltermodes[gltexfiltermode].name);
@@ -9,7 +9,7 @@
          for (m = 0; m < NUMGLFILTERMODES; m++)
              OSD_Printf("     %d - %s\n", m, glfiltermodes[m].name);
  
-@@ -6034,20 +6034,20 @@
+@@ -7966,20 +7966,20 @@
          { "r_pr_gpusmoothing", "toggles model animation interpolation", (void *)&pr_gpusmoothing, CVAR_INT, 0, 1 },
          { "r_pr_overrideparallax", "overrides parallax mapping scale and bias values with values from the pr_parallaxscale and pr_parallaxbias cvars; use it to fine-tune DEF tokens",
            (void *) &pr_overrideparallax, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
@@ -52,7 +52,7 @@
      "decoder error, couldn't decode frame",
 --- a/source/duke3d/src/astub.cpp
 +++ b/source/duke3d/src/astub.cpp
-@@ -7708,7 +7708,7 @@
+@@ -7789,7 +7789,7 @@
              }
              else
              {
@@ -63,7 +63,7 @@
          else if (wallsprite==0)
 --- a/source/build/src/config.cpp
 +++ b/source/build/src/config.cpp
-@@ -475,7 +475,7 @@
+@@ -468,7 +468,7 @@
               "; Reverse meaning of Q and W keys in side view mode\n"
               "sideview_reversehorizrot = %d\n"
               "\n"

@@ -1,3 +1,15 @@
+xa003midssumer-by-xangle (1.0-0ddebs8) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 02 Oct 2018 00:52:40 +0200
+
+xa003midssumer-by-xangle (1.0-0ddebs7) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 12:07:03 +0200
+
 xa003midssumer-by-xangle (1.0-0ddebs6) unstable; urgency=medium
 
   * Created a data package to save some space

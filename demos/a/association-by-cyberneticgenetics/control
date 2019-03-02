@@ -9,8 +9,8 @@ Build-Depends:
  libsdl1.2-dev,
  libsdl-mixer1.2-dev,
  pkgconf
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=50937
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=50937
 
 Package: association-by-cyberneticgenetics
 Architecture: any
@@ -20,7 +20,7 @@ Depends:
  association-by-cyberneticgenetics-data
 Description: Demo for Linux, released in 2008
  Demo by Cybernetic Genetics, released in 2008
- 
+
 Package: association-by-cyberneticgenetics-data
 Architecture: all
 Multi-Arch: foreign

@@ -6,14 +6,14 @@ Build-Depends:
  debhelper (>= 9.0),
  pandoc,
  libfmodex-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=52832
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=52832
 
 Package: kebab-by-rebel
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libfmodex
-Description: rebel Demo/2006/Linux
- Demo by rebel, released in 2006
+ libfmodex4
+Description: rebel Intro/2006/Linux
+ Intro by rebel, released in 2006

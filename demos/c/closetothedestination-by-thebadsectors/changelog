@@ -1,3 +1,15 @@
+closetothedestination-by-thebadsectors (1.1-0ddebs4) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 17 Sep 2018 21:59:30 +0200
+
+closetothedestination-by-thebadsectors (1.1-0ddebs3) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 14:18:37 +0200
+
 closetothedestination-by-thebadsectors (1.1-0ddebs2) unstable; urgency=medium
 
   * Moved arch dependent file to /usr/lib/x86_64-linux-gnu/

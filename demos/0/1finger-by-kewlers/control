@@ -10,8 +10,8 @@ Build-Depends:
  debhelper (>= 9.0.0),
  pandoc,
  pkgconf
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=61227
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=61227
 
 Package: 1finger-by-kewlers
 Architecture: any
@@ -22,7 +22,7 @@ Depends:
  1finger-by-kewlers-data
 Description: demos by kewlers ranked 5th at Revision 2013
  Linux port of this demo
- 
+
 Package: 1finger-by-kewlers-data
 Architecture: all
 Multi-Arch: foreign

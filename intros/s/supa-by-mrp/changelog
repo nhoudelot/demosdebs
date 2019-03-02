@@ -1,3 +1,16 @@
+supa-by-mrp (1.2-0ddebs1) unstable; urgency=medium
+
+  * patched binary to remove fullscreen
+  * Update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Sep 2018 11:28:53 +0200
+
+supa-by-mrp (1.1-0ddebs3) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 10:42:09 +0200
+
 supa-by-mrp (1.1-0ddebs2) unstable; urgency=medium
 
   * Moved arch dependent file to /usr/lib/i386-linux-gnu/

@@ -1,3 +1,15 @@
+neandertaler (1.0-0ddebs9) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 12 Sep 2018 01:13:29 +0200
+
+neandertaler (1.0-0ddebs8) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 03:21:20 +0200
+
 neandertaler (1.0-0ddebs7) unstable; urgency=medium
 
   * split first patch in 01_adapt_makefile.patch & 02_adapt_path.patch

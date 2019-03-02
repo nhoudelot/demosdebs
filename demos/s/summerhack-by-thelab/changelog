@@ -1,3 +1,15 @@
+summerhack-by-thelab (1.0-0ddebs7) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Sep 2018 18:08:44 +0200
+
+summerhack-by-thelab (1.0-0ddebs6) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 12:29:47 +0200
+
 summerhack-by-thelab (1.0-0ddebs5) unstable; urgency=medium
 
   * better dependencies (using dh_shlibdeps)
