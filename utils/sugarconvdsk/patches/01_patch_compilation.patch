@@ -1,0 +1,55 @@
+--- a/SugarConvDsk/CMakeLists.txt
++++ b/SugarConvDsk/CMakeLists.txt
+@@ -63,8 +63,10 @@
+         CMAKE_C_FLAGS_RELEASE
+         )
+ 
++
++
+ if(CMAKE_COMPILER_IS_GNUCC)
+-	set ( CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} --std=c++1z )
++	set_property(TARGET SugarConvDsk PROPERTY CXX_STANDARD 14)
+ endif()
+ 
+ set ( CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG} )
+--- a/SugarConvDsk/main.cpp
++++ b/SugarConvDsk/main.cpp
+@@ -26,7 +26,7 @@
+ #define PROGRAM_NAME      "SugarConvDsk"
+ #define PROGRAM_VERSION   "1.0"
+ #define PROGRAM_DATE      "20/05/2018"
+-#define PROGRAM_COPYRIGHT "© 2016-2018 Thomas Guillemin, MorphOS port by Philippe Rimauro"
++#define PROGRAM_COPYRIGHT "ï¿½ 2016-2018 Thomas Guillemin, MorphOS port by Philippe Rimauro"
+ 
+ // Regular AmigaDOS CLI arguments template for ReadArgs()
+ #define PROG_ARG_TEMPLATE "FROM/A,A=SIDEA/S,B=SIDEB/S,TO,CAPS=IPF/S,SUPERCARDPRO=SCP/S,HXC=HFE/S,EXTENDEDDSK=EDSK/S,QUIET/S"
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,9 +7,6 @@
+ set (CMAKE_INSTALL_PREFIX ${SugarConvDsk_BINARY_DIR}/Install)
+ set (SKIP_INSTALL_ALL ON)
+ 
+-add_subdirectory(zlib)
+ add_subdirectory(SugarConvDsk)
+-add_subdirectory(googletest/googletest)
+-add_subdirectory(Tests)
+ 
+ 
+--- a/Tests/test.cpp
++++ b/Tests/test.cpp
+@@ -7,14 +7,12 @@
+ 
+ #include <iostream>
+ #include <sstream>
+-#include <filesystem>
++#include <experimental/filesystem>
+ #include <fstream>
+ #include <iterator>
+ #include <string>
+ #include <algorithm>
+ 
+-#include "gtest/gtest.h"
+-
+ #include "DiskBuilder.h"
+ #include "IDisk.h"
+ #include "FileAccess.h"
