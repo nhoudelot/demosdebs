@@ -1,0 +1,8 @@
+--- a/run.sh
++++ b/run.sh
+@@ -1,4 +1,4 @@
+ #!/bin/sh
+ 
+ export LD_LIBRARY_PATH=`pwd`/libs
+-exec bin/nox2 --fullscreen
++exec bin/nox2

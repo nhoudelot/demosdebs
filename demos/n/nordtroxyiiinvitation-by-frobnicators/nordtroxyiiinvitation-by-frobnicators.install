@@ -1,0 +1,7 @@
+debian/scripts/nordtroxyiiinvitation-by-frobnicators usr/bin/
+debian/resources/nordtroxyiiinvitation-by-frobnicators.desktop usr/share/applications/
+debian/resources/nordtroxyiiinvitation-by-frobnicators.png usr/share/icons/hicolor/256x256/apps/
+./bin/nox2 usr/lib/i386-linux-gnu/nordtroxyiiinvitation-by-frobnicators/./bin/ 
+./libs/libGLEW.so.1.6 usr/lib/i386-linux-gnu/nordtroxyiiinvitation-by-frobnicators/./libs/ 
+./libs/libassimp.so.2 usr/lib/i386-linux-gnu/nordtroxyiiinvitation-by-frobnicators/./libs/ 
+./run.sh usr/lib/i386-linux-gnu/nordtroxyiiinvitation-by-frobnicators/./ 

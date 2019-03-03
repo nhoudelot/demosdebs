@@ -1,0 +1,33 @@
+Source: nordtroxyiiinvitation-by-frobnicators
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ libsdl1.2-dev,
+ libsdl-image1.2-dev,
+ libvorbis-dev,
+ ocl-icd-opencl-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=59458
+
+Package: nordtroxyiiinvitation-by-frobnicators
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libportaudio2,
+ nordtroxyiiinvitation-by-frobnicators-data,
+ common-install-function-ddebs(>=1.18)
+Description: Demo Invitation for Linux, released in 2012
+ Invitation by Frobnicators, released in 2012
+
+Package: nordtroxyiiinvitation-by-frobnicators-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for nordtroxyiiinvitation-by-frobnicators
+ nordtroxyiiinvitation-by-frobnicators data files
+

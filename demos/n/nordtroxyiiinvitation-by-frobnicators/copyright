@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: nordtroxyiiinvitation-by-frobnicators
+Source: https://www.pouet.net/prod.php?which=59458
+
+Files: *
+Copyright: 2012 Frobnicators
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3
+

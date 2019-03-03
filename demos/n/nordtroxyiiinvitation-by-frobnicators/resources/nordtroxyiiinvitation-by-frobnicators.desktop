@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=NordtroXy II Invitation
+GenericName=Demo
+Comment=Demo by Frobnicators, released in 2012
+Type=Application
+Exec=/usr/bin/nordtroxyiiinvitation-by-frobnicators
+Icon=nordtroxyiiinvitation-by-frobnicators
+Categories=AudioVideo;
+Name[fr_FR]=NordtroXy II Invitation
