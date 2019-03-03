@@ -1,0 +1,80 @@
+--- a/Makefile
++++ b/Makefile
+@@ -6,14 +6,30 @@
+ SDLPREFIX = 
+ 
+ CC = gcc
+-CFLAGS = -O2 -fomit-frame-pointer -Wall -ffast-math -std=c99 \
++CFLAGS += -flto -O2 -fomit-frame-pointer -Wall -ffast-math -std=c99 \
+  -fno-strict-aliasing `$(SDLPREFIX)sdl-config --cflags` -DBLKSIZE=4096 \
+- -DDOUBLEPIX
+-LDFLAGS = `$(SDLPREFIX)sdl-config --libs` -lpng -lz -lm
++ -DDOUBLEPIX -DDATADIR=\"/usr/share/onceuponatimeintheeast-by-fit/data/\" $(shell pkg-config libpng --cflags)
++LDFLAGS += `$(SDLPREFIX)sdl-config --libs` $(shell pkg-config libpng --libs) -lz -lm
+ RANLIB = ranlib
+ AR = ar
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_LIBS    := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_DATAR   := cp -r
++INSTALL_SCRIPT  := $(INSTALL) -p    -o root -g root  -m  755
++RM_F := rm -f
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++datarootdir     := $(prefix)/share
++datadir         := $(prefix)/share/onceuponatimeintheeast-by-fit
+ 
+-TARGET = once_upon
++
++TARGET = onceuponatimeintheeast-by-fit
+ OBJ = main.o halftone.o render.o noise.o png_wrap.o partikle.o putpix.o \
+       heart.o overlay.o feissi.o rects.o cool_mzx/cool_mzx.a
+ 
+@@ -81,7 +97,7 @@
+ export
+ 
+ $(TARGET): $(OBJ)
+-	$(CC) $(OBJ) -o $@ $(LDFLAGS)
++	$(CC) -flto $(OBJ) -o $@ $(LDFLAGS)
+ 
+ $(TARGET).gpe: $(TARGET)
+ 	$(STRIP) $<
+@@ -91,5 +107,13 @@
+ 	cd cool_mzx && make
+ 
+ clean:
+-	-rm $(TARGET) *.o *~ *.gpe
++	-@$(RM_F) $(TARGET) *.o *~ *.gpe
+ 	cd cool_mzx && make clean
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	#data
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATAR) data/* $(DESTDIR)$(datadir)
+--- a/cool_mzx/Makefile
++++ b/cool_mzx/Makefile
+@@ -1,12 +1,13 @@
+ OBJ = cool_mzx.o pt.o sd_dsp16.o sd_main.o sd_mix.o sd_ns.o
+ HEADERS = cool_mzx.h pt.h sd_dsp16.h sd_main.h sd_mix.h sd_ns.h
++PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
+ 
+ cool_mzx.a: $(OBJ)
+-	$(AR) rc $@ $(OBJ)
+-	$(RANLIB) $@
++	$(AR) rc $(PLUGIN) $@ $(OBJ)
++	$(RANLIB) $(PLUGIN) $@
+ 
+ %.o: %.c $(HEADERS)
+ 	$(CC) $(CFLAGS) -c $<
+ 
+ clean:
+-	-rm *.o *.a *~ *.bak
++	-@$(RM_F) *.o *.a *~ *.bak

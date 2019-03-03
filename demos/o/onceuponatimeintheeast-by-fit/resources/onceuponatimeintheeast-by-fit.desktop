@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name= Once upon a Time in the East
+GenericName=Demo
+Comment=Demo by Fit, released in 2012
+Type=Application
+Exec=/usr/bin/onceuponatimeintheeast-by-fit -w
+Icon=onceuponatimeintheeast-by-fit
+Categories=AudioVideo;
+Name[fr_FR]= Once upon a Time in the East
