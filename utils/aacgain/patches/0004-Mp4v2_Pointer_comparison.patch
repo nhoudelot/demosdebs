@@ -1,0 +1,16 @@
+Description: Fix pointer comparison (FTBFS on GCC 7)
+Author: Philip Chung <philipchung1995@yahoo.com>
+Bug-Debian: https://bugs.debian.org/853560
+Last-Update: 2017-09-04
+
+--- a/mp4v2/src/rtphint.cpp
++++ b/mp4v2/src/rtphint.cpp
+@@ -345,7 +345,7 @@
+                 pSlash = strchr(pSlash, '/');
+                 if (pSlash != NULL) {
+                     pSlash++;
+-                    if (pSlash != '\0') {
++                    if (*pSlash != '\0') {
+                         length = strlen(pRtpMap) - (pSlash - pRtpMap);
+                         *ppEncodingParams = (char *)MP4Calloc(length + 1);
+                         strncpy(*ppEncodingParams, pSlash, length);

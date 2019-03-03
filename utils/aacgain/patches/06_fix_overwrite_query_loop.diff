@@ -1,0 +1,34 @@
+From: Stefan Fritsch <sf@debian.org>
+Date: Sun, 17 Jun 2007 17:02:34 +0200
+Subject: fix overwrite query loop
+
+Assume "n" if we don't have stdin.
+
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=428301
+---
+ mp3gain/mp3gain.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/mp3gain/mp3gain.c b/mp3gain/mp3gain.c
+index 2573440..eeaebe9 100644
+--- a/mp3gain/mp3gain.c
++++ b/mp3gain/mp3gain.c
+@@ -1213,7 +1213,7 @@ void changeGainAndTag(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftga
+ static 
+ int queryUserForClipping(char * argv_mainloop,int intGainChange)
+ {
+-	char ch;
++	int ch;
+ 
+ 	fprintf(stderr,"\nWARNING: %s may clip with mp3 gain change %d\n",argv_mainloop,intGainChange);
+ 	ch = 0;
+@@ -1223,6 +1223,9 @@ int queryUserForClipping(char * argv_mainloop,int intGainChange)
+ 		fprintf(stderr,"Make change? [y/n]:");
+ 		fflush(stderr);
+ 		ch = getchar();
++		if (ch == EOF) {
++			ch='N';
++		}
+ 		ch = toupper(ch);
+ 	}
+ 	if (ch == 'N')

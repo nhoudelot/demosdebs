@@ -1,0 +1,57 @@
+From: Stefan Fritsch <sf@sfritsch.de>
+Date: Sat, 28 Aug 2010 20:20:19 +0200
+Subject: Fix out of bounds / NULL ptr accesses found by cppcheck
+
+Last-Update: 2011-07-11
+Forwarded: no
+---
+ mp3gain/mpglibDBL/interface.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/mp3gain/mpglibDBL/interface.c b/mp3gain/mpglibDBL/interface.c
+index 26623c3..890fb78 100644
+--- a/mp3gain/mpglibDBL/interface.c
++++ b/mp3gain/mpglibDBL/interface.c
+@@ -336,7 +336,8 @@ int check_vbr_header(PMPSTR mp,int bytes)
+ {
+   int i,pos;
+   struct buf *ibuf=mp->tail;
+-  unsigned char xing[48];
++  /* GetVbrTag may read more than 48 bytes */
++  unsigned char xing[156] = {0};
+   VBRTAGDATA pTagData;
+ 
+   pos = ibuf->pos;
+@@ -344,8 +345,8 @@ int check_vbr_header(PMPSTR mp,int bytes)
+   for (i=0; i<bytes; ++i) {
+     while(pos >= ibuf->size) {
+       ibuf  = ibuf->next;
+-      pos = ibuf->pos;
+       if(!ibuf) 	return -1; /* fatal error */
++      pos = ibuf->pos;
+     }
+     ++pos;
+   }
+@@ -353,8 +354,8 @@ int check_vbr_header(PMPSTR mp,int bytes)
+   for (i=0; i<48; ++i) {
+     while(pos >= ibuf->size) {
+       ibuf  = ibuf->next;
+-      pos = ibuf->pos;
+       if(!ibuf) 	return -1; /* fatal error */
++      pos = ibuf->pos;
+     }
+     xing[i] = ibuf->pnt[pos];
+     ++pos;
+@@ -396,11 +397,11 @@ int sync_buffer(PMPSTR mp,int free_match)
+     b[0]=b[1]; b[1]=b[2]; b[2]=b[3];
+     while(pos >= buff->size) {
+       buff  = buff->next;
+-      pos = buff->pos;
+       if(!buff) {
+ 	return -1;
+ 	/* not enough data to read 4 bytes */
+       }
++      pos = buff->pos;
+     }
+     b[3] = buff->pnt[pos];
+     ++pos;

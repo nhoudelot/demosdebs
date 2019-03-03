@@ -1,0 +1,26 @@
+Index: aacgain-1.9/mp4v2/src/mp4property.cpp
+===================================================================
+--- aacgain-1.9.orig/mp4v2/src/mp4property.cpp	2012-06-20 16:44:40.325563630 +0200
++++ aacgain-1.9/mp4v2/src/mp4property.cpp	2012-06-20 16:44:41.153594192 +0200
+@@ -619,7 +619,7 @@
+ 
+         oss << "  |" << text.str() << "|\n";
+ 
+-        fprintf( pFile, oss.str().c_str() );
++        fprintf( pFile, "%s", oss.str().c_str() );
+         fflush( pFile );
+         return;
+     }
+Index: aacgain-1.9/mp4v2/src/mp4file.cpp
+===================================================================
+--- aacgain-1.9.orig/mp4v2/src/mp4file.cpp	2012-06-20 16:44:40.325563630 +0200
++++ aacgain-1.9/mp4v2/src/mp4file.cpp	2012-06-20 16:46:51.842417212 +0200
+@@ -2580,7 +2580,7 @@
+     GetChapters(&chapters, &chapterCount, sourceType);
+     if (0 == chapterCount)
+     {
+-        VERBOSE_READ(GetVerbosity(), printf(errMsg));
++        VERBOSE_READ(GetVerbosity(), printf("%s", errMsg));
+         return MP4ChapterTypeNone;
+     }
+ 

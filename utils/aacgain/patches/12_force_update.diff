@@ -1,0 +1,43 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Mon, 28 Jun 2010 22:14:25 +0100
+Subject: add option to force tag update
+
+Bug: https://sourceforge.net/tracker/?func=detail&aid=3022529&group_id=49979&atid=458161
+Bug: http://sourceforge.net/p/mp3gain/feature-requests/39/
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=587466
+---
+ mp3gain/mp3gain.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/mp3gain/mp3gain.c b/mp3gain/mp3gain.c
+index f0dad9f..caa30a3 100644
+--- a/mp3gain/mp3gain.c
++++ b/mp3gain/mp3gain.c
+@@ -143,6 +143,7 @@ int undoChanges = 0;
+ int skipTag = 0;
+ int deleteTag = 0;
+ int forceRecalculateTag = 0;
++int forceUpdateTag = 0;
+ int checkTagOnly = 0;
+ static int useId3 = 0;
+ 
+@@ -1672,6 +1673,10 @@ int main(int argc, char **argv) {
+                         case 'S':
+                             skipTag = !0;
+                             break;
++			case 'u':
++			case 'U':
++			    forceUpdateTag = !0;
++			    break;
+                         case 'r':
+                         case 'R':
+                             forceRecalculateTag = !0;
+@@ -1761,7 +1766,7 @@ int main(int argc, char **argv) {
+       fileTags[mainloop].apeTag = NULL;
+ 	  fileTags[mainloop].lyrics3tag = NULL;
+ 	  fileTags[mainloop].id31tag = NULL;
+-	  tagInfo[mainloop].dirty = 0;
++	  tagInfo[mainloop].dirty = forceUpdateTag;
+ 	  tagInfo[mainloop].haveAlbumGain = 0;
+ 	  tagInfo[mainloop].haveAlbumPeak = 0;
+ 	  tagInfo[mainloop].haveTrackGain = 0;

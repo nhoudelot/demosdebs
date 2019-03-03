@@ -1,0 +1,19 @@
+Source: aacgain
+Section: utils
+Priority: optional
+Maintainer: Christian Marillat <marillat@deb-multimedia.org>
+Homepage: http://altosdesign.com/aacgain/
+Standards-Version: 4.1.4
+Build-Depends: debhelper (>= 9), libmp3lame-dev,ccache, dh-autoreconf
+
+Package: aacgain
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Lossless mp4 normalizer with statistical analysis
+ AACGain normalizes the volume of digital music files using the Replay Gain
+ algorithm. It works by modifying the global_gain fields in the mp4 samples.
+ Free-form metadata tags are added to the file to save undo information,
+ making the normalization process reversable. It supports AAC
+ (mp4/m4a/QuickTime) audio files in addition to mp3 files.
+ .
+ AACGain uses the same command-line user interface as mp3gain

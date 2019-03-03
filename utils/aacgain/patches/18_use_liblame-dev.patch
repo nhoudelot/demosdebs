@@ -1,0 +1,22 @@
+--- a/mp3gain/mpglibDBL/VbrTag.h
++++ b/mp3gain/mpglibDBL/VbrTag.h
+@@ -21,7 +21,7 @@
+ 
+ #ifndef LAME_VRBTAG_H
+ #define LAME_VRBTAG_H
+-#include "lame.h"
++#include "lame/lame.h"
+ #include "config.h"
+ 
+ #if HAVE_INTTYPES_H
+--- a/mp3gain/mpglibDBL/encoder.h
++++ b/mp3gain/mpglibDBL/encoder.h
+@@ -124,7 +124,7 @@
+ 
+ 
+ #include "machine.h"
+-#include "lame.h"
++#include "lame/lame.h"
+ 
+ int  lame_encode_mp3_frame (
+         lame_global_flags*  const gfp,

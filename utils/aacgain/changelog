@@ -1,0 +1,79 @@
+aacgain (1.9-dmo3ddebs3) unstable; urgency=medium
+
+  * update standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 Aug 2018 17:52:41 +0200
+
+aacgain (1.9-dmo3ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 12:16:17 +0200
+
+aacgain (1.9-dmo3ddebs1) unstable; urgency=medium
+
+  * backported all possible patches from mp3gain
+  * backported all possible patches from mp4v2
+  * use of libmp3lame-dev as include
+  * update in debian/
+  ** use autoreconf
+  ** quilt not needed as dependencies
+  ** back to debhelper 9 to compile on xenial & stretch
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Apr 2018 17:43:53 +0200
+
+aacgain (1.9-dmo3~bionic1.0) bionic; urgency=medium
+
+  * Rebuild with PIE
+
+ -- Christian Marillat <marillat@deb-multimedia.org>  Mon, 06 Mar 2017 01:10:03 +0100
+
+aacgain (1.9-dmo2) unstable; urgency=medium
+
+  * Build with GCC 5.
+
+ -- Christian Marillat <marillat@deb-multimedia.org>  Sun, 02 Aug 2015 15:33:47 +0200
+
+aacgain (1.9-dmo1) unstable; urgency=low
+
+  * Build with hardened flags.
+
+ -- Christian Marillat <marillat@deb-multimedia.org>  Wed, 20 Jun 2012 16:34:03 +0200
+
+aacgain (1.9-0.2) unstable; urgency=low
+
+  * Fix build with -j make option.
+
+ -- Christian Marillat <marillat@debian.org>  Tue, 10 Jan 2012 17:01:43 +0100
+
+aacgain (1.9-0.1) unstable; urgency=low
+
+  * Build mp4v2 with --disable-optimize for armhf.
+
+ -- Christian Marillat <marillat@debian.org>  Tue, 10 Jan 2012 14:20:17 +0100
+
+aacgain (1.9-0.0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 05 Aug 2010 11:33:31 +0200
+
+aacgain (1.8-0.1) unstable; urgency=low
+
+  * Fix build by removing wrong strcasestr() declaration.
+  * Added support for ccache.
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 24 Feb 2010 11:48:54 +0100
+
+aacgain (1.8-0.0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 22 Jun 2009 12:00:29 +0200
+
+aacgain (1.7-0.0) unstable; urgency=low
+
+  * Initial release.
+
+ -- Christian Marillat <marillat@debian.org>  Tue, 06 Nov 2007 16:01:15 +0100
+

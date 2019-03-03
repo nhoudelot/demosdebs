@@ -1,0 +1,18 @@
+From: "Matteo F. Vescovi" <mfv@debian.org>
+Date: Thu, 5 Nov 2015 15:26:00 +0100
+Subject: Fix_mp4tags_corruption
+
+---
+ mp4v2/util/mp4tags.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/mp4v2/util/mp4tags.cpp
++++ b/mp4v2/util/mp4tags.cpp
+@@ -480,6 +480,7 @@
+                         else {
+                             fprintf( stderr, "Art file %s not found\n", tags[i] );
+                         }
++                        break;
+                     }
+                 }
+             }
