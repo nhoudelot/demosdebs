@@ -1,0 +1,70 @@
+--- a/linux/Makefile
++++ b/linux/Makefile
+@@ -1,29 +1,54 @@
+ # makefile to build all entries of the first ever #demoscene
+ # 4k source compo.
++#variables de compilation
++SHELL = /bin/sh
++CC    = gcc
++CFLAGS   += -Wall -ffast-math -pipe -std=c9x $(shell pkgconf --cflags sdl glu)
++LDFLAGS  += $(shell pkgconf --libs sdl glu) -lglut -lm
++TARGETS = dwitvs hogwagen 3d randomname
++
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    = $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_SCRIPT  = $(INSTALL) -p    -o root -g root  -m  755
++prefix = /usr
++exec_prefix = $(prefix)
++bindir = $(exec_prefix)/bin
++
++#parallel compilation if available
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+-          CFLAGS = -std=c9x -pedantic
+-       SDL_FLAGS = `sdl-config --cflags`
+-        SDL_LIBS = `sdl-config --libs`
+-          LDLIBS = -lm
+-          GLLIBS = -lGL -lGLU
+-        GLUTLIBS = -lglut
+-
+-         TARGETS = dwitvs hogwagen 3d randomname
+-
++export
+ 
+ all: $(TARGETS)
+ 
+ dwitvs: ../dwitvs/dwitvs.c
+-	$(CC) $(CPPFLAGS) $(CFLAGS) $(SDL_FLAGS) $< $(LOADLIBES) $(LDLIBS) $(SDL_LIBS) -o $@
++	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
+ 
+ hogwagen: ../hogwagen/hogwagen.c
+-	$(CC) $(CPPFLAGS) $(CFLAGS) $(SDL_FLAGS) $< $(LOADLIBES) $(LDLIBS) $(SDL_LIBS) -o $@
++	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
+ 
+ 3d: ../jylam/main.c
+-	$(CC) $(CPPFLAGS) $(CFLAGS) $(SDL_FLAGS) $< $(LOADLIBES) $(LDLIBS) $(SDL_LIBS) -o $@
++	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
+ 
+ randomname: ../randomname/main.c
+-	$(CC) $(CPPFLAGS) $(CFLAGS) $< $(LOADLIBES) $(LDLIBS) $(GLLIBS) $(GLUTLIBS) -o $@
++	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
+ 
+ clean:
+ 	$(RM) $(TARGETS)
++
++install:
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM) $(DESTDIR)$(bindir)/dwitvs
++	-@$(RM) $(DESTDIR)$(bindir)/hogwagen
++	-@$(RM) $(DESTDIR)$(bindir)/3d
++	-@$(RM) $(DESTDIR)$(bindir)/randomname
++	$(INSTALL_PROGRAM) dwitvs $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) hogwagen $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) 3d $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) randomname $(DESTDIR)$(bindir)
