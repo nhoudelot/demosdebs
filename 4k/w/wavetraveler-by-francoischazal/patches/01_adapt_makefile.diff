@@ -1,0 +1,59 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,22 +1,32 @@
+-CC = gcc
+-CFLAGS = -Wall `sdl-config --cflags` -ggdb
+-LIBS = -lm `sdl-config --libs`
+-NAME = wave4k
+-SRC = wave4k.c
+-OBJ = $(SRC:.c=.o)
+-RM = rm -f
++#variables de compilation
++SHELL := /bin/sh
++CC    := gcc
++CFLAGS   += -Wall -ffast-math -std=gnu90 $(shell pkgconf --cflags sdl)
++LDFLAGS  += $(shell pkgconf --libs sdl) -lm
++TARGET   := wavetraveler-by-francoischazal
++#variable de nettoyage
++RM_F = rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
+ 
+-all: $(NAME)
++SOURCE          = wave4k.c
+ 
+-$(NAME): $(OBJ)
+-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
++export
+ 
+-.c.o:
+-	@$(CC) -c $(CFLAGS) $<
++all: $(TARGET)
+ 
+-clean:
+-	@$(RM) *~ \#* *\#
+-	@$(RM) *.o
++$(TARGET):
++	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
+ 
+-distclean: clean
+-	@$(RM) $(NAME)
++clean:
++	-$(RM_F) $(TARGET)
+--- /dev/null
++++ b/s.h
+@@ -0,0 +1,4 @@
++#include "SDL.h"
++#include <math.h>
++#include <stdlib.h>
++
