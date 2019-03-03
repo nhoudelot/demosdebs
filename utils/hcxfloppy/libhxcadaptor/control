@@ -6,7 +6,7 @@ Build-Depends:
  pandoc,
  libhxcfe-dev,
  libusbhxcfe-dev
-Standards-Version: 3.9.7
+Standards-Version: 4.1.4
 Section: libs
 Homepage: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/libhxcadaptor/
 
@@ -17,4 +17,4 @@ Depends:
  ${misc:Depends}
 Multi-Arch: same
 Description: librarie to communicate with hxcadaptor
- librarie to communicate with hxcadaptor
+ Development files
