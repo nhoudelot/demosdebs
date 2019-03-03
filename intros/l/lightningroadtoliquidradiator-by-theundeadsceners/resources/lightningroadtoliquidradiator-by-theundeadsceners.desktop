@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Lightning Road To Liquid Radiator
+GenericName=Demo
+Comment=Demo by The Undead Sceners, released in 2013
+Type=Application
+Exec=/usr/bin/lightningroadtoliquidradiator-by-theundeadsceners
+Icon=lightningroadtoliquidradiator-by-theundeadsceners
+Categories=AudioVideo;
+Name[fr_FR]=Lightning Road To Liquid Radiator

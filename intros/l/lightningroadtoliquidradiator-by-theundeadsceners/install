@@ -1,0 +1,4 @@
+debian/scripts/lightningroadtoliquidradiator-by-theundeadsceners usr/bin/
+debian/resources/lightningroadtoliquidradiator-by-theundeadsceners.desktop usr/share/applications/
+debian/resources/lightningroadtoliquidradiator-by-theundeadsceners.png usr/share/icons/hicolor/256x256/apps/
+./lr2lr usr/lib/x86_64-linux-gnu/lightningroadtoliquidradiator-by-theundeadsceners/./

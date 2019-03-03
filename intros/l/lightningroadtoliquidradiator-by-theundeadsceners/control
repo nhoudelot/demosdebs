@@ -1,0 +1,23 @@
+Source: lightningroadtoliquidradiator-by-theundeadsceners
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc
+Standards-Version: 4.1.4
+Homepage: http://www.pouet.net/prod.php?which=61355
+
+Package: lightningroadtoliquidradiator-by-theundeadsceners
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libasound2,
+ libstdc++6,
+ libx11-6,
+ libxext6,
+ xz-utils,
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2013
+ Demo by The Undead Sceners, released in 2013
