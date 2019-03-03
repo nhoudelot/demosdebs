@@ -1,0 +1,36 @@
+--- a/libdisk/stream/caps.c
++++ b/libdisk/stream/caps.c
+@@ -9,7 +9,12 @@
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <unistd.h>
+-#include <caps/capsimage.h>
++#include <CommonTypes.h>
++#include <CapsAPI.h>
++#include <stdint.h>
++typedef uint8_t  CapsUByte;
++typedef int32_t  CapsLong;
++typedef uint32_t CapsULong;
+ #include <dlfcn.h>
+ 
+ #ifdef __APPLE__
+@@ -188,7 +193,7 @@
+     memfree(cpss);
+     put_capslib();
+     filename_extension(name, suffix, sizeof(suffix));
+-        
++
+     return NULL;
+ }
+ 
+--- a/libdisk/Makefile
++++ b/libdisk/Makefile
+@@ -34,7 +34,7 @@
+ 
+ LIBS :=
+ LIBS-$(caps) := -ldl
+-LIBS += $(LIBS-y)
++LIBS += -ldl $(LIBS-y)
+ 
+ all:
+ ifneq ($(SHARED_LIB),n)

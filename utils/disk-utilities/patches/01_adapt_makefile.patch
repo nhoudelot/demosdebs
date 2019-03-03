@@ -1,0 +1,135 @@
+--- a/Rules.mk
++++ b/Rules.mk
+@@ -15,10 +15,10 @@
+ PLATFORM = linux
+ endif
+ 
+-PREFIX ?= /usr/local
++PREFIX = $(DESTDIR)/usr
+ BINDIR = $(PREFIX)/bin
+ INCLUDEDIR = $(PREFIX)/include
+-LIBDIR = $(PREFIX)/lib
++LIBDIR = $(PREFIX)/lib/$(DEB_HOST_MULTIARCH)
+ 
+ $(ARCH) := y
+ CFLAGS-$(x86_32) += -m32 -march=i686
+@@ -29,13 +29,15 @@
+ INSTALL_DATA = $(INSTALL) -m0644 -p
+ INSTALL_PROG = $(INSTALL) -m0755 -p
+ 
++PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
+ AR := ar
+ CC := gcc
+ LD := ld
+ OBJCOPY := objcopy
+ RM := rm -f
+ 
+-CFLAGS = -O2
++CFLAGS += -O2
++CFLAGS +=  -flto $(shell dpkg-buildflags --get CFLAGS)
+ #CFLAGS = -O0 -g
+ CFLAGS += -fno-strict-aliasing -std=gnu99 -Wall
+ ifneq ($(PLATFORM),win32)
+--- a/libdisk/Makefile
++++ b/libdisk/Makefile
+@@ -22,7 +22,7 @@
+ SOLIB   := $(SOLIB_PFX).so
+ SONAME  := $(SOLIB_PFX).so.$(MAJOR_VERSION)
+ SOVERS  := $(SOLIB_PFX).so.$(MAJOR_VERSION).$(MINOR_VERSION)
+-LDFLAGS ?= -Wl,-h,$(SONAME) -shared
++LDFLAGS += -Wl,-h,$(SONAME) -shared
+ endif
+ 
+ ifeq ($(PLATFORM),win32)
+@@ -50,11 +50,11 @@
+ endif
+ 
+ libdisk.a: $(OBJS) stream/streams.o container/containers.o format/formats.o
+-	$(AR) rcs $@ $^
++	$(AR) rcs $(PLUGIN) $@ $^
+ 
+ $(SOVERS): $(PICOBJS) stream/streams.apic container/containers.apic \
+ 		format/formats.apic
+-	$(CC) $(LDFLAGS) -o $(SOVERS) $^ $(LIBS)
++	$(CC) -flto $(LDFLAGS) -o $(SOVERS) $^ $(LIBS)
+ #	strip -x $(SOVERS)
+ 	ln -sf $(SOVERS) $(SONAME)
+ 	ln -sf $(SONAME) $(SOLIB)
+--- a/libdisk/format/Makefile
++++ b/libdisk/format/Makefile
+@@ -15,10 +15,10 @@
+ 	$(LD) -r -o $@ $^
+ 
+ formats.a: $(OBJS)
+-	$(AR) rcs $@ $^
++	$(AR) rcs $(PLUGIN) $@ $^
+ 
+ formats.apic: $(PICOBJS)
+-	$(AR) rcs $@ $^
++	$(AR) rcs $(PLUGIN) $@ $^
+ 
+ clean::
+ 	$(MAKE) -C amiga clean
+--- a/m68k/amiga/Makefile
++++ b/m68k/amiga/Makefile
+@@ -9,4 +9,4 @@
+ all: libamiga.a
+ 
+ libamiga.a: $(OBJS)
+-	$(AR) rcs $@ $^
++	$(AR) rcs $(PLUGIN) $@ $^
+--- a/m68k/Makefile
++++ b/m68k/Makefile
+@@ -10,10 +10,10 @@
+ all: disassemble copylock
+ 
+ copylock: m68k/m68k.a amiga/amiga.a copylock.o
+-	$(CC) $(LDFLAGS) $@.o -lamiga -lm68k -ldisk -o $@
++	$(CC) -flto $(LDFLAGS) $@.o -lamiga -lm68k -ldisk -o $@
+ 
+ disassemble: m68k/m68k.a amiga/amiga.a disassemble.o
+-	$(CC) $(LDFLAGS) $@.o -lamiga -lm68k -o $@
++	$(CC) -flto $(LDFLAGS) $@.o -lamiga -lm68k -o $@
+ 
+ m68k/m68k.a:
+ 	$(MAKE) -C m68k all
+--- a/m68k/m68k/Makefile
++++ b/m68k/m68k/Makefile
+@@ -4,4 +4,4 @@
+ all: libm68k.a
+ 
+ libm68k.a: m68k_emulate.o
+-	$(AR) rcs $@ $^
++	$(AR) rcs $(PLUGIN) $@ $^
+--- a/Makefile
++++ b/Makefile
+@@ -5,7 +5,7 @@
+ 
+ all:
+ 	@set -e; for subdir in $(SUBDIRS); do \
+-		$(MAKE) -C $$subdir all; \
++		caps=y $(MAKE) -C $$subdir all; \
+ 	done
+ 
+ install:
+--- a/libdisk/stream/Makefile
++++ b/libdisk/stream/Makefile
+@@ -1,6 +1,8 @@
+ ROOT := ../..
+ include $(ROOT)/Rules.mk
+ 
++CFLAGS +=  -flto $(shell dpkg-buildflags --get CFLAGS)
++
+ OBJS := stream.o kryoflux_stream.o diskread.o disk_image.o soft.o
+ OBJS += discferret_dfe2.o supercard_scp.o
+ ifeq ($(caps),y)
+@@ -20,7 +22,7 @@
+ 	$(LD) -r -o $@ $^
+ 
+ streams.a: $(OBJS)
+-	$(AR) rcs $@ $^
++	$(AR) rcs $(PLUGIN) $@ $^
+ 
+ streams.apic: $(PICOBJS)
+-	$(AR) rcs $@ $^
++	$(AR) rcs $(PLUGIN) $@ $^
