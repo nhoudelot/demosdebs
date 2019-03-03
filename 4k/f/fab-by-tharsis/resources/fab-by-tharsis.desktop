@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Fab
+GenericName=Demo
+Comment=Demo by tharsis, released in 2004
+Type=Application
+Exec=/usr/bin/fab-by-tharsis
+Icon=fab-by-tharsis
+Categories=AudioVideo;Game;
+Name[fr_FR]=Fab

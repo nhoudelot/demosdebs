@@ -1,0 +1,43 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,11 +1,32 @@
+-SRCS = main.c
++#variables de compilation
++SHELL = /bin/sh
++CC    = gcc
++CFLAGS   += -std=c99 -Wall -ffast-math $(shell pkgconf --cflags sdl glu)
++LDFLAGS  += $(shell pkgconf --libs sdl glu) -lm
++TARGET   := fab-by-tharsis
++#variable de nettoyage
++RM_F := rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
+ 
+-CFLAGS=$(shell sdl-config --cflags) -g -O3
+-LDFLAGS=$(shell sdl-config --libs) -lGLU -lGL -g -O3
++SOURCE          = main.c
+ 
+-main: $(SRCS:.c=.o)
+-	$(CC) -o $@ $< $(LDFLAGS)
+-	cat $(SRCS) | tr -d " \n\t" | wc -c
++export
+ 
+-syn: syn.o
+-	$(CC) -o $@ $< $(LDFLAGS)
++all: $(TARGET)
++
++$(TARGET):
++	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++
++clean:
++	-$(RM_F) $(TARGET)
