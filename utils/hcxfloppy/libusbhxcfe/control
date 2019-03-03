@@ -1,0 +1,31 @@
+Source: libusbhxcfe
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libhxcfe-dev,
+ libhxcadaptor-dev,
+ rename
+Standards-Version: 3.9.7
+Section: libs
+Homepage: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/libusbhxcfe/
+
+Package: libusbhxcfe-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libusbhxcfe2 (= ${binary:Version}),
+ ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcfe on USB
+ librarie to communicate with hxcfe on USB
+
+Package: libusbhxcfe2
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+  ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcfe on USB
+ librarie to communicate with hxcfe on USB

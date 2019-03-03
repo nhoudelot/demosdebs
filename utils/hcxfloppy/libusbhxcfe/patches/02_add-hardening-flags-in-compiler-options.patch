@@ -1,0 +1,32 @@
+--- a/build/Makefile
++++ b/build/Makefile
+@@ -13,8 +13,8 @@
+ 	CFLAGS=-O0 $(INCLUDES) -Wall -g -DDEBUG -fsanitize=address -fno-omit-frame-pointer
+ 	LDFLAGS= -shared -lc -lm -ldl -lasan
+ else
+-	CFLAGS=-O3 $(INCLUDES) -Wall
+-	LDFLAGS= -shared -lc -lm -ldl -s
++	CFLAGS=-O3 $(INCLUDES) -Wall $(shell dpkg-buildflags --get CFLAGS)
++	LDFLAGS= -shared  $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed -lc -lm -ldl
+ endif
+ 
+ EXEC=libusbhxcfe.so
+@@ -36,15 +36,15 @@
+ all: $(EXEC)
+ 
+ libusbhxcfe.dll: usb_hxcfloppyemulator.o variablebitrate.o ftdi.o
+-	$(AR) r $@    $^ 
++	$(AR) r $@    $^
+ 	cp $@ ../../../build
+ 
+ libusbhxcfe.dylib: usb_hxcfloppyemulator.o variablebitrate.o ftdi.o
+-	$(AR) r $@    $^ 
++	$(AR) r $@    $^
+ 	cp $@ ../../../build
+ 
+ libusbhxcfe.a: usb_hxcfloppyemulator.o variablebitrate.o ftdi.o
+-	$(AR) r $@    $^ 
++	$(AR) r $@    $^
+ 	cp $@ ../../../build
+ 
+ libusbhxcfe.so: usb_hxcfloppyemulator.o variablebitrate.o ftdi.o

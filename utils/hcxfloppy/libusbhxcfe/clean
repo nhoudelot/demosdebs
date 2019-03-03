@@ -1,0 +1,5 @@
+build/libusbhxcfe.so
+debian/libusbhxcfe-dev.install
+debian/libusbhxcfe2.install
+debian/libusbhxcfe2.links
+debian/libusbhxcfe-dev.links

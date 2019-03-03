@@ -1,0 +1,4 @@
+sources/usb_hxcfloppyemulator.h usr/include/
+sources/variablebitrate.h usr/include/
+sources/cpld_opcodes.h usr/include/
+sources/ftdi_api.h usr/include/
