@@ -1,0 +1,11 @@
+--- a/src/cg_x11.c
++++ b/src/cg_x11.c
+@@ -93,6 +93,8 @@
+    if(!cg_window){
+       return(-1);
+    }
++   PFNGLXCREATECONTEXTATTRIBSARBPROC glXCreateContextAttribsARB = 0;
++   glXCreateContextAttribsARB = (PFNGLXCREATECONTEXTATTRIBSARBPROC) glXGetProcAddressARB( (const GLubyte *) "glXCreateContextAttribsARB" );
+    cg_context           = glXCreateContextAttribsARB(cg_display, fbc[0], NULL, True, gl4attr);
+ 
+    if(mode == CG_FULLSCREEN){

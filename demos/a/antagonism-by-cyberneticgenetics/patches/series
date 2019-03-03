@@ -1,0 +1,4 @@
+01_adapt_makefile.patch
+02_fix_glXCreateContextAttribsARB.patch
+03_update_png16.patch
+04_change_data_path.patch

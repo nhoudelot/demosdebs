@@ -1,0 +1,58 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,12 +1,26 @@
+-CC = gcc
+-CFLAGS = -Wall -W -pedantic `pkg-config --cflags gtk+-3.0` -ggdb
+-CLIBS = -lGL -lX11 -lXrandr -lm -lpng -lvorbisfile -lasound `pkg-config --libs gtk+-3.0` -L/usr/lib/nvidia-current-updates/
+-
+-DEMO = antagonism
+-
+-$(DEMO): main.o texture.o mesh3d.o shader.o cg_music.o cg_x11.o cg_dialog.o cg_time.o matrix.o renderer.o bigcube.o pointcloud.o hardscene.o $(DEMO).o
+-	$(CC) *.o $(CLIBS) -o $(DEMO)
+-	mv $(DEMO) ../
++#variables de compilation
++SHELL := /bin/sh
++CC    := gcc
++CFLAGS += -O3 -flto -Wall -W -pedantic $(shell pkg-config --cflags gtk+-3.0) -ffast-math -pipe
++LDFLAGS += $(shell pkg-config --libs gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
++
++TARGET = antagonism-by-cyberneticgenetics
++#variable de nettoyage
++RM_F := rm -f
++
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++#compilation en paralelle si disponible
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++$(TARGET): main.o texture.o mesh3d.o shader.o cg_music.o cg_x11.o cg_dialog.o cg_time.o matrix.o renderer.o bigcube.o pointcloud.o hardscene.o antagonism.o
++	$(CC)  -flto *.o $(LDFLAGS) -o $(TARGET)
+ 
+ # Common demo stuff
+ main.o: main.c
+@@ -35,10 +49,16 @@
+ 	$(CC) $(CFLAGS) pointcloud.c -c
+ hardscene.o: hardscene.c hardscene.h
+ 	$(CC) $(CFLAGS) hardscene.c -c
+-$(DEMO).o: mesh3d.h texture.h $(DEMO).c $(DEMO).h
+-	$(CC) $(CFLAGS) $(DEMO).c -c
++antagonism.o: mesh3d.h texture.h antagonism.c antagonism.h
++	$(CC) $(CFLAGS) antagonism.c -c
+ 
+ clean:
+ 	@echo Cleaning up...
+-	@rm -f *.o *~ core* 
++	-@$(RM_F) *.o *~ core*
++	-@$(RM_F) ../TARGET
+ 	@echo Done.
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)

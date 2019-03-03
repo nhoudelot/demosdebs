@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Antagonism
+GenericName=Demo
+Comment=Demo by Cybernetic Genetics, released in 2012
+Type=Application
+Exec=/usr/bin/antagonism-by-cyberneticgenetics
+Icon=antagonism-by-cyberneticgenetics
+Categories=AudioVideo;
+Name[fr_FR]=Antagonism

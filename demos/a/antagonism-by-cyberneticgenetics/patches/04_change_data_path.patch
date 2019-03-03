@@ -1,0 +1,79 @@
+--- a/src/main.c
++++ b/src/main.c
+@@ -14,7 +14,7 @@
+    setlocale(LC_ALL, "C");
+    CreateScene(width, height, fullscreen);
+    initAntagonism(width, height);
+-   InitMusic("data/katemix.ogg");
++   InitMusic("/usr/share/antagonism-by-cyberneticgenetics/data/katemix.ogg");
+ 
+    BEGIN_EVENT
+       playAntagonism();
+--- a/src/antagonism.c
++++ b/src/antagonism.c
+@@ -78,34 +78,34 @@
+    renderer = createRenderer(COLORBUFFER, SCREENSHADERNUM, width, height, ASPECT);
+ 
+    /* These shaders for gbuffer output */
+-   bigc_shaders[0] = loadShader(GL_VERTEX_SHADER,   "shaders/bigc.vs");
+-   bigc_shaders[1] = loadShader(GL_FRAGMENT_SHADER, "shaders/bigc.fs");
++   bigc_shaders[0] = loadShader(GL_VERTEX_SHADER,   "/usr/share/antagonism-by-cyberneticgenetics/shaders/bigc.vs");
++   bigc_shaders[1] = loadShader(GL_FRAGMENT_SHADER, "/usr/share/antagonism-by-cyberneticgenetics/shaders/bigc.fs");
+    bigc_prg        = createProgram(2, bigc_shaders);
+ 
+-   pc_shaders[0]   = loadShader(GL_VERTEX_SHADER,   "shaders/pc.vs");
+-   pc_shaders[1]   = loadShader(GL_FRAGMENT_SHADER, "shaders/pc.fs");
++   pc_shaders[0]   = loadShader(GL_VERTEX_SHADER,   "/usr/share/antagonism-by-cyberneticgenetics/shaders/pc.vs");
++   pc_shaders[1]   = loadShader(GL_FRAGMENT_SHADER, "/usr/share/antagonism-by-cyberneticgenetics/shaders/pc.fs");
+    pc_prg          = createProgram(2, pc_shaders);
+ 
+-   def_shaders[0]  = loadShader(GL_VERTEX_SHADER,   "shaders/g.vs");
+-   def_shaders[1]  = loadShader(GL_FRAGMENT_SHADER, "shaders/g.fs");
++   def_shaders[0]  = loadShader(GL_VERTEX_SHADER,   "/usr/share/antagonism-by-cyberneticgenetics/shaders/g.vs");
++   def_shaders[1]  = loadShader(GL_FRAGMENT_SHADER, "/usr/share/antagonism-by-cyberneticgenetics/shaders/g.fs");
+    def_prg         = createProgram(2, def_shaders);
+ 
+    /* Post processing shaders */
+-   renderer.screen_shaders[0]  = loadShader(GL_VERTEX_SHADER,   "shaders/post.vs");
+-   renderer.screen_shaders[1]  = loadShader(GL_FRAGMENT_SHADER, "shaders/post.fs");
++   renderer.screen_shaders[0]  = loadShader(GL_VERTEX_SHADER,   "/usr/share/antagonism-by-cyberneticgenetics/shaders/post.vs");
++   renderer.screen_shaders[1]  = loadShader(GL_FRAGMENT_SHADER, "/usr/share/antagonism-by-cyberneticgenetics/shaders/post.fs");
+    renderer.screen_prg         = createProgram(SCREENSHADERNUM, renderer.screen_shaders);
+ 
+    /* Just for testing I can see the scene */
+-   sky = loadOBJ("data/sky.obj");
++   sky = loadOBJ("/usr/share/antagonism-by-cyberneticgenetics/data/sky.obj");
+ 
+    loadHardSceneData();
+-   logo     = loadPNGTexture("data/logo.png");
+-   cloud    = loadPNGTexture("data/cloud.png");
+-   lava     = loadPNGTexture("data/plasma.png");
+-   grass    = loadPNGTexture("data/grass.png");
+-   travis   = loadPNGTexture("data/travis.png");
+-   shamen   = loadPNGTexture("data/shamen.png");
+-   endtitle = loadPNGTexture("data/endpic.png");
++   logo     = loadPNGTexture("/usr/share/antagonism-by-cyberneticgenetics/data/logo.png");
++   cloud    = loadPNGTexture("/usr/share/antagonism-by-cyberneticgenetics/data/cloud.png");
++   lava     = loadPNGTexture("/usr/share/antagonism-by-cyberneticgenetics/data/plasma.png");
++   grass    = loadPNGTexture("/usr/share/antagonism-by-cyberneticgenetics/data/grass.png");
++   travis   = loadPNGTexture("/usr/share/antagonism-by-cyberneticgenetics/data/travis.png");
++   shamen   = loadPNGTexture("/usr/share/antagonism-by-cyberneticgenetics/data/shamen.png");
++   endtitle = loadPNGTexture("/usr/share/antagonism-by-cyberneticgenetics/data/endpic.png");
+ 
+    pointcloud = createPC(PC_NUM, 0.0);
+ 
+--- a/src/hardscene.c
++++ b/src/hardscene.c
+@@ -16,9 +16,9 @@
+ }
+ 
+ void loadHardSceneData(){
+-   openRAW(code,  "data/travis.raw");
+-   openRAW(music, "data/shamen.raw");
+-   openRAW(grfx,  "data/grass.raw");
++   openRAW(code,  "/usr/share/antagonism-by-cyberneticgenetics/data/travis.raw");
++   openRAW(music, "/usr/share/antagonism-by-cyberneticgenetics/data/shamen.raw");
++   openRAW(grfx,  "/usr/share/antagonism-by-cyberneticgenetics/data/grass.raw");
+ }
+ 
+ void hairycube(double time, unsigned char *surface, float *eye){
