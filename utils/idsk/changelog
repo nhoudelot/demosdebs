@@ -1,0 +1,17 @@
+idsk (0.16+git20170409-0ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Aug 2018 21:47:06 +0200
+
+idsk (0.16+git20170409-0ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 15:26:10 +0200
+
+idsk (0.16+git20170409-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 20 May 2018 13:32:11 +0200
