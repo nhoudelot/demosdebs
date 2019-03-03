@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: stochasticlenssimulator-by-gzrrplox
+Source: https://www.pouet.net/prod.php?which=56990
+
+Files: *
+Copyright: 2011 Gzrrplox
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2017-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu"
+    export DEB_CXXFLAGS_MAINT_APPEND  = -march=core2
+endif
+
+%:
+	dh $@ --sourcedirectory=src
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/stochasticlenssimulator-by-gzrrplox.6.md -o debian/stochasticlenssimulator-by-gzrrplox.6

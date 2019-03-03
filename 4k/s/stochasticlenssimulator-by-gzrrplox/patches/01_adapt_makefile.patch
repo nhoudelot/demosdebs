@@ -1,0 +1,74 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,29 +1,55 @@
+-CXXFLAGS=`sdl-config --cflags` -O1 -Wall -Wextra -Wshadow -ffast-math
+-LDFLAGS=`sdl-config --libs` -lGL
++#variables de compilation
++SHELL := /bin/sh
++CXX   := g++
++CXXFLAGS += $(shell pkgconf --cflags sdl gl) -O1 -Wall -Wextra -Wshadow -ffast-math -std=gnu++98 -fabi-version=2 -pipe
++LDFLAGS  += $(shell pkgconf --libs sdl gl)
+ 
+-TARGET=slsim
++TARGET=stochasticlenssimulator-by-gzrrplox
+ 
+ #CXXFLAGS+= -DDEBUG=1
+-#LD=g++
++LD=g++
+ 	
+-LD=bold -c -a 
++#LD=bold -c -a
++
++#variable de nettoyage
++RM_F := rm -f
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_LIBS    := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_DATAR   := cp -r
++INSTALL_SCRIPT  := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
+ 
+ all: $(TARGET)
+-	@wc -c $(TARGET).payload
+-	gzip -c $(TARGET).payload > $(TARGET).gz
+-	@wc -c $(TARGET).gz
+-	cat unpack.header $(TARGET).gz > $(TARGET)
+-	rm $(TARGET).gz
+-	chmod +x $(TARGET)
+-	@wc -c $(TARGET)
++	#@wc -c $(TARGET).payload
++	#gzip -c $(TARGET).payload > $(TARGET).gz
++	#@wc -c $(TARGET).gz
++	#cat unpack.header $(TARGET).gz > $(TARGET)
++	#rm $(TARGET).gz
++	#chmod +x $(TARGET)
++	#@wc -c $(TARGET)
++	cp $(TARGET).payload $(TARGET)
+ 
+ # (window_w window_h framebuffer_w framebuffer_h)
+-$(TARGET): settings $(TARGET).cpp
++$(TARGET): settings slsim.cpp
+ 	echo 960 600 960 600 | ./settings > settings.h
+-	g++ $(CXXFLAGS) -c $(TARGET).cpp
+-	$(LD) $(LDFLAGS) $(TARGET).o -o $(TARGET).payload
++	$(CXX) $(CXXFLAGS) -c slsim.cpp
++	$(LD) slsim.o -o $(TARGET).payload $(LDFLAGS)
+ 
+ settings:
+ 
+ clean: 
+-	rm -f $(TARGET) *.o settings
++	-$(RM_F) *.o settings $(TARGET).payload
++	-$(RM_F) $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)

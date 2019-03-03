@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Stochastic Lens Simulator
+GenericName=Demo
+Comment=Demo by Gzrrplox, released in 2011
+Type=Application
+Exec=/usr/bin/stochasticlenssimulator-by-gzrrplox
+Icon=stochasticlenssimulator-by-gzrrplox
+Categories=AudioVideo;Game;
+Name[fr_FR]=Stochastic Lens Simulator
