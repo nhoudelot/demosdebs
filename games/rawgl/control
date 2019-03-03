@@ -1,0 +1,30 @@
+Source: rawgl
+Section: games
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ libsdl2-dev,
+ libsdl2-mixer-dev,
+ pkgconf,
+ debhelper (>= 9.0)
+Standards-Version: 4.1.4
+Homepage: https://github.com/cyxx/rawgl
+Vcs-Git: https://github.com/cyxx/rawgl.git
+Vcs-Browser: https://github.com/cyxx/rawgl
+
+Package: rawgl
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Another World engine reimplementation
+ rawgl is a re-implementation of the engine used in the
+ game Another World.
+ You will need the original files.
+ .
+ To start the game, you can either :
+ .
+ put the game's datafiles in the same directory as the
+ executable
+ use the --datapath command line option to specify the
+ datafiles directory

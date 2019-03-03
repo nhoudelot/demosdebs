@@ -1,0 +1,17 @@
+--- a/mixer.cpp
++++ b/mixer.cpp
+@@ -53,8 +53,13 @@
+ 	void init() {
+ 		memset(_sounds, 0, sizeof(_sounds));
+ 		_music = 0;
++#ifdef MIX_INIT_FLUIDSYNTH
++			Mix_Init(MIX_INIT_OGG | MIX_INIT_FLUIDSYNTH);
++#endif
++#ifdef MIX_INIT_MID
++			Mix_Init(MIX_INIT_OGG | MIX_INIT_MID);
++#endif
+ 
+-		Mix_Init(MIX_INIT_OGG | MIX_INIT_FLUIDSYNTH);
+ 		if (Mix_OpenAudio(kMixFreq, AUDIO_S16SYS, 2, kMixBufSize) < 0) {
+ 			warning("Mix_OpenAudio failed: %s", Mix_GetError());
+ 		}
