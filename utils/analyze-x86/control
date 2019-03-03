@@ -1,0 +1,20 @@
+Source: analyze-x86
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://github.com/alexxy/analyze-x86
+Vcs-Git: https://github.com/staticfloat/analyze-x86.git
+Vcs-Browser: https://github.com/alexxy/analyze-x86
+
+Package: analyze-x86
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ binutils
+Description: tool to guess for minimum instruction set of a binary
+ tool to guess for which minimum instruction set, a binary has been compiled

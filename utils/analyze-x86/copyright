@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: analyze-x86
+Source: https://github.com/alexxy/analyze-x86
+
+Files: *
+Copyright: 2012 Alexey Shvetsov
+License: GPL-3.0+
+
+Files: debian/*
+Copyright: 2016-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

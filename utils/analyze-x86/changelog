@@ -1,0 +1,36 @@
+analyze-x86 (1.0-0ddebs6) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 Aug 2018 22:45:12 +0200
+
+analyze-x86 (1.0-0ddebs5) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 12:41:49 +0200
+
+analyze-x86 (1.0-0ddebs4) unstable; urgency=medium
+
+  * update makefile to use Debian Using Hardening Option
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 15 Feb 2018 02:36:08 +0100
+
+analyze-x86 (1.0-0ddebs3) unstable; urgency=medium
+
+  * using staticfloat fork
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Jul 2017 17:13:11 +0200
+
+analyze-x86 (1.0-0ddebs2) unstable; urgency=medium
+
+  * fixed C standard
+  * remove unused variable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Jul 2017 11:55:10 +0200
+
+analyze-x86 (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Nov 2016 14:45:35 +0100
