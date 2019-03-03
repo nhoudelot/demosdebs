@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=cube
+GenericName=Demo
+Comment=Demo by MooZ, released in 2004
+Type=Application
+Exec=/usr/bin/cube-by-mooz
+Icon=cube-by-mooz
+Categories=AudioVideo;Game;
+Name[fr_FR]=cube

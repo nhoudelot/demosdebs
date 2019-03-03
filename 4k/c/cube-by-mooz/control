@@ -1,0 +1,19 @@
+Source: cube-by-mooz
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ pkgconf,
+ libsdl1.2-dev
+Standards-Version: 4.1.4
+Homepage: https://320x200.org/2004/4k/
+
+Package: cube-by-mooz
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: MooZ 4k Intro/2004/Linux
+ Demo by MooZ, released in 2004
