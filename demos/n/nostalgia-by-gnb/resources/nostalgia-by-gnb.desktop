@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Nostalgia
+GenericName=Demo
+Comment=Demo by G'n'B, released in 2012
+Type=Application
+Exec=/usr/bin/nostalgia-by-gnb
+Icon=nostalgia-by-gnb
+Categories=AudioVideo;
+Name[fr_FR]=Nostalgia

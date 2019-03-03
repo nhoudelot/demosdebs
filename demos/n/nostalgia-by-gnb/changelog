@@ -1,0 +1,17 @@
+nostalgia-by-gnb (1.0-0ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Sep 2018 11:13:04 +0200
+
+nostalgia-by-gnb (1.0-0ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 16:40:39 +0200
+
+nostalgia-by-gnb (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 Apr 2018 01:39:02 +0200

@@ -1,0 +1,9 @@
+nostalgia-by-gnb for Debian
+--------------------------
+
+executable seems to be compiled for Debian 7 wheezy
+
+GCC: (Debian 4.7.1-2) 4.7.1
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 Apr 2018 01:39:02 +0200
+

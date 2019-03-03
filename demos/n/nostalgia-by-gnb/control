@@ -1,0 +1,33 @@
+Source: nostalgia-by-gnb
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ libsdl1.2-dev,
+ libsdl-image1.2-dev,
+ libsdl-mixer1.2-dev,
+ libsdl-ttf2.0-dev,
+ libglu1-mesa-dev,
+ lib3ds-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=59471
+
+Package: nostalgia-by-gnb
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ nostalgia-by-gnb-data,
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2012
+ Demo by G'n'B, released in 2012
+
+Package: nostalgia-by-gnb-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for nostalgia-by-gnb
+ nostalgia-by-gnb data files

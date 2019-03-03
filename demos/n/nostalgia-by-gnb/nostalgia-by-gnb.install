@@ -1,0 +1,4 @@
+debian/scripts/nostalgia-by-gnb usr/bin/
+debian/resources/nostalgia-by-gnb.desktop usr/share/applications/
+debian/resources/nostalgia-by-gnb.png usr/share/icons/hicolor/256x256/apps/
+./Nostalgia.release usr/lib/x86_64-linux-gnu/nostalgia-by-gnb/./ 
