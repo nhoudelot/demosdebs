@@ -1,3 +1,10 @@
+hxcfloppyemulator (2.1.11.1-0ddebs2) unstable; urgency=medium
+
+  * Updated to standard version 4.1.4
+  * hardening compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 Mar 2019 17:31:04 +0100
+
 hxcfloppyemulator (2.1.11.1-0ddebs1) unstable; urgency=medium
 
   * Updated upstream version

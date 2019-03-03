@@ -1,0 +1,12 @@
+--- a/build/Makefile
++++ b/build/Makefile
+@@ -40,6 +40,9 @@
+ LDFLAGS += -lX11 -lXext -lXfixes
+ endif
+ 
++CFLAGS+=$(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
++LDFLAGS+=$(shell dpkg-buildflags --get LDFLAGS)
++
+ EXEC=hxcfloppyemulator
+ 
+ FTDIFLOPPYEMU=usb_hxcfloppyemulator.o variablebitrate.o
