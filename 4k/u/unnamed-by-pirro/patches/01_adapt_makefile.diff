@@ -1,0 +1,63 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,23 +1,32 @@
+-CFLAGS = -std=c99 -pedantic
+-SDL_FLAGS = `sdl-config --cflags`
+-SDL_LIBS = `sdl-config --libs`
+-LDLIBS = -lm
+-
+-TARGETS = Unnamed
+-
+-all: $(TARGETS) 
+-
+-Unnamed: Unnamed.o
+-	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) $(SDL_LIBS) -o $@
+-
+-Unnamed.o: Unnamed.c
+-	@cat ./s.h
+-	@echo "`cat $< | perl -pe 's/\s//g' | wc -c` <= 4096"
+-	@echo "`ls -l $< | awk '{print $$5}'` <= 8192"
+-	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(SDL_FLAGS) -o $@ $<
+-
+-distclean: clean
+-	$(RM) $(TARGETS)
++#variables de compilation
++SHELL = /bin/sh
++CC    = gcc
++CFLAGS   += -std=c99 -Wall -ffast-math $(shell pkgconf --cflags sdl)
++LDFLAGS  += $(shell pkgconf --libs sdl) -lm
++TARGET   = unnamed-by-pirro
++#variable de nettoyage
++RM_F = rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++
++SOURCE          = Unnamed.c
++
++export
++
++all: $(TARGET)
++
++$(TARGET):
++	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
+ 
+ clean:
+-	$(RM) *.o *~ $(TARGETS)
++	-$(RM_F) $(TARGET)
+--- /dev/null
++++ b/s.h
+@@ -0,0 +1,4 @@
++#include "SDL.h"
++#include <math.h>
++#include <stdlib.h>
++

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Unnamed
+GenericName=Demo
+Comment=Demo by piRro, released in 2004
+Type=Application
+Exec=/usr/bin/unnamed-by-pirro
+Icon=unnamed-by-pirro
+Categories=AudioVideo;Game;
+Name[fr_FR]=Unnamed
