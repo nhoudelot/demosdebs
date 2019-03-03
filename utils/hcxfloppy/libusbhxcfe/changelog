@@ -1,3 +1,10 @@
+libusbhxcfe (2.0.1.0-0ddebs2) unstable; urgency=medium
+
+  * update to standard version 4.1.4
+  * hardening to avoid no-bindnow in lintian
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 Mar 2019 14:44:19 +0100
+
 libusbhxcfe (2.0.1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release

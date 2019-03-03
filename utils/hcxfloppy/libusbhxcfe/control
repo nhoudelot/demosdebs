@@ -7,7 +7,7 @@ Build-Depends:
  libhxcfe-dev,
  libhxcadaptor-dev,
  rename
-Standards-Version: 3.9.7
+Standards-Version: 4.1.4
 Section: libs
 Homepage: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/libusbhxcfe/
 
@@ -19,7 +19,7 @@ Depends:
  ${misc:Depends}
 Multi-Arch: same
 Description: librarie to communicate with hxcfe on USB
- librarie to communicate with hxcfe on USB
+ development files
 
 Package: libusbhxcfe2
 Architecture: any
@@ -28,4 +28,4 @@ Depends:
   ${misc:Depends}
 Multi-Arch: same
 Description: librarie to communicate with hxcfe on USB
- librarie to communicate with hxcfe on USB
+ shared binary

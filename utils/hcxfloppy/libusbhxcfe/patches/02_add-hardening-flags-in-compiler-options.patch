@@ -11,7 +11,7 @@
  endif
  
  EXEC=libusbhxcfe.so
-@@ -36,15 +36,15 @@
+@@ -36,19 +36,19 @@
  all: $(EXEC)
  
  libusbhxcfe.dll: usb_hxcfloppyemulator.o variablebitrate.o ftdi.o
@@ -30,3 +30,8 @@
  	cp $@ ../../../build
  
  libusbhxcfe.so: usb_hxcfloppyemulator.o variablebitrate.o ftdi.o
+-	$(CC) -o $@    $^ $(LDFLAGS) -Wl,-soname,libusbhxcfe.so.2
++	$(CC) -o $@ $^ $(LDFLAGS) -Wl,-soname,libusbhxcfe.so.2
+ 	cp $@ ../../../build
+ 
+ usb_hxcfloppyemulator.o: $(BASEDIR)/usb_hxcfloppyemulator.c
