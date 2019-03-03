@@ -1,0 +1,47 @@
+circular dependencies are annoying
+
+start building libhxcfe
+
+1 -
+in debian/rules
+#		(find debian/libhxcfe2.8 -type f -execdir rename 's/libhxcfe.so/libhxcfe.so.2.8.13.1/g' * {} \;)
+
+override_dh_auto_build:
+2 -
+in debian/control
+remove :
+ libhxcadaptor-dev,
+3-
+rename libhxcfe.install.in ->  libhxcfe.install.ine
+rename libhxcfe.link.in ->  libhxcfe.link.ine
+
+pbuild the modified package on your new distribution
+you will now have a minium libhxcfe-dev
+
+building libhxcadaptor
+
+1 -
+in debian/rules
+override_dh_auto_build:
+2 -
+in debian/control
+remove :
+ libhxcfe-dev,
+ libusbhxcfe-dev
+3-
+copy libhxcadaptor-dev.install.in ->  libhxcadaptor-dev.install (copie).ine
+remove build/libhxcadaptor.a /usr/lib/@DEB_HOST_MULTIARCH@/ from libhxcadaptor-dev.install.in
+
+pbuild the modified package on your new distribution
+you will now have a minium libhxcfe-dev
+
+building libusbhxcfe
+
+send it to your repository
+update your pbuilder image
+
+then in order
+- build the package libhxcadaptor
+- update your pbuilder image
+- lbuild the package ibusbhxcfe
+- update your pbuilder image

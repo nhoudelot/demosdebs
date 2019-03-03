@@ -1,0 +1,204 @@
+--- a/sources/loaders/amigadosfs_loader/amigadosfs_loader.c
++++ b/sources/loaders/amigadosfs_loader/amigadosfs_loader.c
+@@ -233,7 +233,7 @@
+ 										byte_written=adfWriteFile(adffile, size, tempbuffer);
+ 										if((byte_written!=size) || (adfCountFreeBlocks(adfvolume)<2) )
+ 										{
+-											floppycontext->hxc_printf(MSG_ERROR,"Error while writting the file %s. No more free block ?",FindFileData.filename);
++											floppycontext->hxc_printf(MSG_ERROR,"Error while writing the file %s. No more free block ?",FindFileData.filename);
+ 											adfCloseFile(adffile);
+ 											hxc_fclose(ftemp);
+ 											free(fullpath);
+--- a/sources/loaders/d88_loader/d88_loader.c
++++ b/sources/loaders/d88_loader/d88_loader.c
+@@ -224,7 +224,7 @@
+ 
+ 		default:
+ 			side=2;
+-			imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"unknow disk: %.2X !",fileheader.media_flag);
++			imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"unknown disk: %.2X !",fileheader.media_flag);
+ 			hxc_fclose(f);
+ 			return HXCFE_BADFILE;
+ 			break;
+@@ -421,7 +421,7 @@
+ 
+ 			if(!floppydisk->tracks[i>>1])
+ 			{
+-				floppydisk->tracks[i>>1]=allocCylinderEntry(rpm,floppydisk->floppyNumberOfSide);	
++				floppydisk->tracks[i>>1]=allocCylinderEntry(rpm,floppydisk->floppyNumberOfSide);
+ 			}
+ 			currentcylinder=floppydisk->tracks[i>>1];
+ 
+--- a/sources/loaders/smc_loader/snes_smc_loader.c
++++ b/sources/loaders/smc_loader/snes_smc_loader.c
+@@ -140,7 +140,7 @@
+ 						{
+ 							if( ! hxc_checkfileext(imgfile,"smc") )
+ 							{
+-								imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"snes_smc_libIsValidDiskFile : unknow file type !");
++								imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"snes_smc_libIsValidDiskFile : unknown file type !");
+ 								fileok=0;
+ 							}
+ 							else
+--- a/sources/loaders/oricdsk_loader/oricdsk_loader.c
++++ b/sources/loaders/oricdsk_loader/oricdsk_loader.c
+@@ -276,7 +276,7 @@
+ 			mfmformat=1;
+ 			geometrie=fileheader->number_of_sectors_geometrie;
+ 			floppydisk->floppySectorPerTrack=-1;
+-			imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"OricDSK_libLoad_DiskFile MFM_DISK %d tracks %d sides geometrie %d",floppydisk->floppyNumberOfTrack,floppydisk->floppyNumberOfSide,geometrie);
++			imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"OricDSK_libLoad_DiskFile MFM_DISK %d tracks %d sides geometry %d",floppydisk->floppyNumberOfTrack,floppydisk->floppyNumberOfSide,geometrie);
+ 		}
+ 		else
+ 		{
+@@ -342,7 +342,7 @@
+ 			switch(geometrie)
+ 			{
+ 			case 1:
+-				imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 1:  11111..000000!");
++				imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 1:  11111..000000!");
+ 				tracksize=(((filesize-256)/fileheader->number_of_side)/fileheader->number_of_tracks);
+ 				for(i=0;i<floppydisk->floppyNumberOfSide;i++)
+ 				{
+@@ -372,9 +372,9 @@
+ 				break;
+ 
+ 			case 0:
+-				imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 0 ?: using Geometrie 2");
++				imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 0 ?: using Geometry 2");
+ 			case 2:
+-				imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 2:  01010101010...!");
++				imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 2:  01010101010...!");
+ 
+ 				tracksize=(((filesize-256)/fileheader->number_of_side)/fileheader->number_of_tracks);
+ 
+--- a/sources/internal_floppy.h
++++ b/sources/internal_floppy.h
+@@ -31,14 +31,14 @@
+ 
+ typedef struct _HXCFE_SIDE
+ {
+-    int32_t         number_of_sector;        // Number of sectors per track (if know) -> -1 if unknow.
++    int32_t         number_of_sector;        // Number of sectors per track (if know) -> -1 if unknown.
+     uint8_t       * databuffer;              // data buffer.
+     int32_t         bitrate;                 // if equal to VARIABLEBITRATE timingbuffer must be used.
+     uint32_t      * timingbuffer;            // bitrate buffer.
+     uint8_t       * flakybitsbuffer;         // if equal to zero no flakey/weak bits information.
+     uint8_t       * indexbuffer;             // index state buffer signal 1->asserted 0->non asserted.
+     uint8_t       * track_encoding_buffer;   // track encoding indication buffer.
+-    
++
+     int32_t         track_encoding;
+ 
+     int32_t         tracklen;                // databuffer/timingbuffer/flakybitsbuffer/indexbuffer length
+--- a/sources/thirdpartylibs/adflib/AUTHORS.txt
++++ b/sources/thirdpartylibs/adflib/AUTHORS.txt
+@@ -1,13 +1,13 @@
+ 
+-The main developper is 
++The main developer is
+  Laurent Clévy (laurent.clevy@club-internet.fr)
+ 
+ Contributors are:
+- Bjarne Viksoe 
++ Bjarne Viksoe
+    (C++ wrapper, lot of bug fixes)
+- Gary Harris 
++ Gary Harris
+    (bug fixes and W32 support)
+- Dan Sutherland 
++ Dan Sutherland
+    (bug fixes and W32 support)
+ 
+ See CHANGES.txt for detailed contributions.
+--- a/sources/loaders/apridisk_loader/apridisk_loader.c
++++ b/sources/loaders/apridisk_loader/apridisk_loader.c
+@@ -231,7 +231,7 @@
+ 							break;
+ 
+ 						default:
+-							imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknow compression id (%.4x) !",data_record->compression);
++							imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknown compression id (%.4x) !",data_record->compression);
+ 							sectorconfig[number_of_sector].input_data=0;
+ 							break;
+ 						}
+--- a/sources/loaders/ede_loader/ede_loader.c
++++ b/sources/loaders/ede_loader/ede_loader.c
+@@ -113,7 +113,7 @@
+ 					imgldr_ctx->hxcfe->hxc_printf(MSG_INFO_0,"EDE_libIsValidDiskFile : TS-10/12 DD format");
+ 				break;
+ 				default:
+-					imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"EDE_libIsValidDiskFile : Unknow format : %x !",header_buffer[0x1FF]);
++					imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"EDE_libIsValidDiskFile : Unknown format : %x !",header_buffer[0x1FF]);
+ 					return HXCFE_BADFILE;
+ 				break;
+ 			}
+@@ -287,7 +287,7 @@
+ 				break;
+ 
+ 			default:
+-				imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknow format : %x !",header_buffer[0x1FF]);
++				imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknown format : %x !",header_buffer[0x1FF]);
+ 				hxc_fclose(f);
+ 				return HXCFE_BADFILE;
+ 			break;
+--- a/sources/loaders/hfe_loader/hfe_loader.c
++++ b/sources/loaders/hfe_loader/hfe_loader.c
+@@ -162,7 +162,7 @@
+ 			floppydisk->floppyNumberOfSide,
+ 			floppydisk->floppyBitRate,
+ 			floppydisk->floppySectorPerTrack,
+-			floppydisk->floppyiftype<0xC?interfacemodecode[floppydisk->floppyiftype]:"Unknow!",
++			floppydisk->floppyiftype<0xC?interfacemodecode[floppydisk->floppyiftype]:"Unknown!",
+ 			(header.track_encoding&(~3))?trackencodingcode[4]:trackencodingcode[header.track_encoding&0x3]);
+ 
+         trackoffsetlist=(pictrack*)malloc(sizeof(pictrack)* header.number_of_track);
+--- a/sources/loaders/hfe_loader/hfev3_loader.c
++++ b/sources/loaders/hfe_loader/hfev3_loader.c
+@@ -187,7 +187,7 @@
+ 			floppydisk->floppyNumberOfSide,
+ 			floppydisk->floppyBitRate,
+ 			floppydisk->floppySectorPerTrack,
+-			floppydisk->floppyiftype<0xC?interfacemodecode[floppydisk->floppyiftype]:"Unknow!",
++			floppydisk->floppyiftype<0xC?interfacemodecode[floppydisk->floppyiftype]:"Unknown!",
+ 			(header.track_encoding&(~3))?trackencodingcode[4]:trackencodingcode[header.track_encoding&0x3]);
+ 
+         trackoffsetlist=(pictrack*)malloc(sizeof(pictrack)* header.number_of_track);
+--- a/sources/loaders/sap_loader/sap_loader.c
++++ b/sources/loaders/sap_loader/sap_loader.c
+@@ -140,7 +140,7 @@
+ 		trackformat=ISOFORMAT_SD;
+ 		break;
+ 	default:
+-		imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknow floppy format: %d !",floppyformat);
++		imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknown floppy format: %d !",floppyformat);
+ 		sap_CloseArchive(sapid);
+ 		return -1;
+ 		break;
+@@ -232,4 +232,3 @@
+ 			);
+ }
+ 
+-
+--- a/sources/loaders/stx_loader/stx_loader.c
++++ b/sources/loaders/stx_loader/stx_loader.c
+@@ -713,7 +713,7 @@
+ 						{
+ 							hxc_fread( &temp_val, sizeof(unsigned short), f );
+ #ifdef PASTI_DBG
+-							imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Unknow value %x",temp_val);
++							imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Unknown value %x",temp_val);
+ #endif
+ 						}
+ 
+--- a/sources/tracks/display_track.c
++++ b/sources/tracks/display_track.c
+@@ -490,7 +490,7 @@
+ 								{
+ 									if(sc->startdataindex == sc->startsectorindex)
+ 									{
+-										// Unknow size (no header) : blue
++										// Unknown size (no header) : blue
+ 										for(j=50;j<(td->ysize-10);j++)
+ 										{
+ 											col=(s_col *)&td->framebuffer[(td->xsize*j) + i];

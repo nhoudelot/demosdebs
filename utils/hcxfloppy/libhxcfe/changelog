@@ -1,3 +1,11 @@
+libhxcfe (2.8.13.1-0ddebs2) unstable; urgency=medium
+
+  * update to standard version 4.1.4
+  * hardening to avoid no-bindnow in lintian
+  * corrected some spelling errors
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 Mar 2019 16:13:58 +0100
+
 libhxcfe (2.8.13.1-0ddebs1) unstable; urgency=medium
 
   * Initial release

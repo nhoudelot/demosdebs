@@ -3,3 +3,4 @@
 03_ADFLib_64-bit-fixes.patch
 04_add-hardening-flags-in-compiler-options.patch
 05_add_soname.patch
+06_spellingerrors.patch
