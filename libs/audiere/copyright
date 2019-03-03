@@ -1,0 +1,27 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: audiere
+Source: https://github.com/expertmm/Audiere
+
+Files: *
+Copyright: 2001-2006 Chad Austin
+		   2002 Jacky Chong
+		   2004 Matt Campbell
+		   2004 Richard Schaaf
+License: GPL-2+
+
+Files: src/speexfile/*
+Copyright: 2002-2003 Janne Hyvärinen
+                     Jean Marc-Valin
+License: GPL-2+
+
+Files: src/mpaudec/*
+Copyright: 2001, 2002, Fabrice Bellard
+License: GPL-2+
+
+Files: debian/*
+Copyright: 2006 Lukas Fittl <lfittl@fsfe.org>
+		   2016-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

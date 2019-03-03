@@ -1,0 +1,41 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH AUDIERE-CONFIG "1" "May 2007"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+audiere-config \- Return metainformation about audiere libraries
+.SH SYNOPSIS
+.B audiere-config
+.RI [OPTIONS]
+.SH OPTIONS
+.TP
+.B \-\-prefix
+Set the value of "prefix"
+.TP
+.B \-\-version
+Show version of program.
+.TP
+.B \-\-cxxflags
+This prints pre-processor and compile flags required to compile packages
+using audiere on the command line, including flags for all their dependencies.
+.TP
+.B \-\-libs
+This option is identical to "--cflags", but only it prints  the  link  flags.
+.SH AUTHOR
+audiere-config was written by Chad Austin.
+.PP
+This manual page was written by Arthur Loiret <arthur.loiret@gmail.com>,
+for the Debian project (but may be used by others).

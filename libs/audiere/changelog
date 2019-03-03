@@ -1,0 +1,127 @@
+audiere (1.10.1-0ddebs4) unstable; urgency=medium
+
+  * Created a meta-package to not depend of future revisions
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 18 Feb 2019 18:54:37 +0100
+
+audiere (1.10.1-0ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 17 Sep 2018 23:03:54 +0200
+
+audiere (1.10.1-0ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 02:04:01 +0200
+
+audiere (1.10.1-0ddebs1) unstable; urgency=medium
+
+  * upstream update
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 20 Feb 2018 01:08:09 +0100
+
+audiere (1.9.4-4ddebs4) unstable; urgency=medium
+
+  * now compiled with speex (but no FLAC support. works in i386 but not in 
+  amd64)
+  * recommend to install libasound2_plugins if you want to avoid distortions
+  while using pulseaudio
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 15 Dec 2016 22:33:18 +0100
+
+audiere (1.9.4-4ddebs3) unstable; urgency=medium
+
+  * Updated to r704, so has ALSA support
+  * added dependencie to libasound2-plugins
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 15 Dec 2016 02:22:53 +0100
+
+audiere (1.9.4-4ddebs2) unstable; urgency=medium
+
+  * Multi-Arch=same to have both amd64 and i386 installed if needed
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Oct 2016 14:23:07 +0200
+
+audiere (1.9.4-4ddebs1) unstable; urgency=medium
+
+  * Updated to standard-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 25 Sep 2016 18:07:20 +0200
+
+audiere (1.9.4-4) unstable; urgency=low
+
+  * QA upload.
+    - Set Maintainer to Debian QA group.
+  * Switch to format 3.0 (quilt).
+  * debian/control:
+    - Remove DM-Upload-Allowed field.
+    - Move home page link to Homepage field.
+    - Remove duplicate section fields.
+    - Move -dbg package to Section debug, and Priority extra.
+    - Add ${misc:Depends} where needed.
+    - Bump Standards-Version to 3.9.0.
+  * debian/copyright:
+    - Point to versioned common-license file.
+
+ -- Luca Falavigna <dktrkranz@debian.org>  Mon, 19 Jul 2010 20:32:14 +0200
+
+audiere (1.9.4-3.1) unstable; urgency=low
+
+  * Non-maintainer upload
+  * Fix FTBFS with GCC 4.4 (Closes: #505122)
+    Thanks to Martin Michlmayr 
+
+ -- Steffen Joeris <white@debian.org>  Sat, 30 Jan 2010 18:57:35 +0100
+
+audiere (1.9.4-3) unstable; urgency=low
+
+  [ Arthur Loiret ]
+  * debian/patches/gcc-4.3.diff: Add, fix build with gcc-4.3 (Closes: #455165)
+    - Thanks to Martin Michlmayr <tbm@cyrius.com>.
+  * Set Standards-Version to 3.7.3.
+
+  [ Pierre Habouzit ]
+  * DM-Upload-Allowed: yes.
+
+ -- Arthur Loiret <arthur.loiret@gmail.com>  Fri, 14 Dec 2007 13:35:18 +0000
+
+audiere (1.9.4-2) unstable; urgency=low
+
+  * Update Maintainer's address
+
+ -- Arthur Loiret <arthur.loiret@gmail.com>  Sat, 18 Aug 2007 00:45:11 +0200
+
+audiere (1.9.4-1) unstable; urgency=low
+
+  * First upload to Debian (Closes: #334218)
+  * Update debian/watch (fix 404)
+  * Update maintainer
+  * Add manpage for audiere-config
+  * debian/control:
+    + Ident "Homepage" with two spaces,
+    + Fix Long descriptions contains short description.
+
+ -- Arthur Loiret <freacky22527@free.fr>  Thu, 31 May 2007 13:47:18 +0200
+
+audiere (1.9.4-0ubuntu3) feisty; urgency=low
+
+  * Rebuild for ldbl128 change (powerpc, sparc).
+  * Set Ubuntu maintainer address.
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu,  1 Mar 2007 22:30:43 +0000
+
+audiere (1.9.4-0ubuntu2) edgy; urgency=low
+
+  * debian/control, debian/copyright: Update my email address
+  * debian/control: Update to standards version 3.7.2, no changes needed
+
+ -- Lukas Fittl <lfittl@fsfe.org>  Wed, 30 Aug 2006 00:08:21 +0200
+
+audiere (1.9.4-0ubuntu1) dapper; urgency=low
+
+  * Initial release.
+
+ -- Lukas Fittl <lfittl@ixios-software.com>  Tue, 21 Feb 2006 19:00:34 +0100
+
