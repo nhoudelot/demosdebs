@@ -1,0 +1,63 @@
+--- a/build/Makefile
++++ b/build/Makefile
+@@ -12,8 +12,8 @@
+ 	CFLAGS=-O0 $(INCLUDEPATH) -Wall -g -DDEBUG -fsanitize=address -fno-omit-frame-pointer
+ 	LDFLAGS= -lc -lm -ldl -lpthread -lasan
+ else
+-	CFLAGS=-O3 $(INCLUDEPATH) -Wall
+-	LDFLAGS= -lc -lm -ldl -lpthread -s
++	CFLAGS+=-O3 $(INCLUDEPATH) -Wall
++	LDFLAGS+= -g $(shell fltk-config --ldflags) -lhxcfe -lusbhxcfe -lpthread
+ endif
+ 
+ ifdef IPF_LIB_SUPPORT
+@@ -26,10 +26,6 @@
+ LIBHXCFE = libhxcfe.so
+ LIBUSBHXCFE = libusbhxcfe.so
+ 
+-ifeq ($(UNAME), Linux)
+-LDFLAGS += -Wl,-rpath=.  -Wl,-Map,foo.map
+-endif
+-
+ ifeq ($(findstring CYGWIN,$(shell uname)),CYGWIN)
+ LIBHXCFE = libhxcfe.dll
+ LIBUSBHXCFE = libusbhxcfe.dll
+@@ -55,7 +51,7 @@
+ 
+ all: $(EXEC)
+ 
+-hxcfloppyemulator: main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(FLTKLIB) $(LIBHXCFE) $(LIBUSBHXCFE) ../../../build/libhxcadaptor.a
++hxcfloppyemulator: main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o /usr/lib/$(DEB_HOST_MULTIARCH)/libhxcadaptor.a
+ 	$(CPP) -o $@    $^ $(LDFLAGS)
+ 	cp $@ ../../../build
+ 
+@@ -65,16 +61,16 @@
+ $(LIBUSBHXCFE): ../../../build/$(LIBUSBHXCFE)
+ 	ln ../../../build/$(LIBUSBHXCFE)  $(LIBUSBHXCFE)
+ 
+-main.o: ../sources/main.cxx 
++main.o: ../sources/main.cxx
+ 	$(CPP) -o $@ -c $< $(CFLAGS)
+ 
+-utils.o: ../sources/utils.cxx 
++utils.o: ../sources/utils.cxx
+ 	$(CPP) -o $@ -c $< $(CFLAGS)
+ 
+-loader.o: ../sources/loader.cxx 
++loader.o: ../sources/loader.cxx
+ 	$(CPP) -o $@ -c $< $(CFLAGS)
+ 
+-soft_cfg_file.o: ../sources/soft_cfg_file.cxx 
++soft_cfg_file.o: ../sources/soft_cfg_file.cxx
+ 	$(CPP) -o $@ -c $< $(CFLAGS)
+ 
+ about_gui.o : ../sources/gui/about_gui.cxx
+@@ -151,7 +147,7 @@
+ 
+ hxcmod.o : ../sources/gui/microintro/hxcmod.c
+ 	$(CC) -o $@ -c $< $(CFLAGS)
+-	
++
+ lzw.o : ../sources/gui/microintro/packer/lzw.c
+ 	$(CC) -o $@ -c $< $(CFLAGS)
+ 

@@ -1,0 +1,24 @@
+Source: hxcfloppyemulator
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libhxcadaptor-dev,
+ libusbhxcfe-dev,
+ libhxcfe-dev,
+ libfltk1.3-dev,
+ libxext-dev,
+ libxfixes-dev
+Standards-Version: 3.9.7
+Homepage: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/HxCFloppyEmulator_software/trunk/
+
+Package: hxcfloppyemulator
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: This software act as the floppy server with the USB HxC Floppy Emulator
+ This program also allows you to convert floppy image files for the SDCard
+ based HxC Floppy Emulator.

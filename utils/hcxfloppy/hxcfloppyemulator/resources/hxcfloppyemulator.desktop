@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=HxCFloppyEmulator
+GenericName=utilities
+Comment=This software act as the floppy server with the USB HxC Floppy Emulator
+Type=Application
+Exec=/usr/bin/hxcfloppyemulator
+Icon=hxcfloppyemulator
+Categories=Development
+Name[fr_FR]=HxCFloppyEmulator

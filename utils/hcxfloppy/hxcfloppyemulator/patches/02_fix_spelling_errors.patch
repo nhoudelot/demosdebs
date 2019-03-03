@@ -1,0 +1,118 @@
+--- a/sources/gui/cb_floppy_infos_window.cxx
++++ b/sources/gui/cb_floppy_infos_window.cxx
+@@ -805,7 +805,7 @@
+ 							sprintf(str,"AED 6200P Sector");
+ 						break;
+ 						default:
+-							sprintf(str,"Unknow Sector");
++							sprintf(str,"Unknown Sector");
+ 						break;
+ 					}
+ 					fiw->buf->append((char*)str);
+@@ -948,4 +948,4 @@
+ 
+ 	}
+ 
+-}
+\ No newline at end of file
++}
+--- a/sources/gui/cb_usbhxcfecfg_window.cxx
++++ b/sources/gui/cb_usbhxcfecfg_window.cxx
+@@ -70,7 +70,7 @@
+ 	USBStats stats;
+ 	int status;
+ 	usbhxcfecfg_window *window;
+-	
++
+ 	window=(usbhxcfecfg_window *)v;
+ 
+ #ifndef STANDALONEFSBROWSER
+@@ -139,7 +139,7 @@
+ 		break;
+ 
+ 		default:
+-			window->strout_usbhfestatus->value((const char*)"Unknow status !");
++			window->strout_usbhfestatus->value((const char*)"Unknown status !");
+ 		break;
+ 
+ 	}
+@@ -232,4 +232,4 @@
+ #ifndef STANDALONEFSBROWSER
+ 	libusbhxcfe_getStats(guicontext->hxcfe,guicontext->usbhxcfe,&stats,1);
+ #endif
+-}
+\ No newline at end of file
++}
+--- a/hxcfloppyemulator_soft_release_notes.txt
++++ b/hxcfloppyemulator_soft_release_notes.txt
+@@ -961,7 +961,7 @@
+ 
+ /*********************************************************
+ 18/09/2007: HxCFloppyEmulator 0.9.0.5
+-- Amiga Track lenght corrected (amiga bitrate > 250kbits)
++- Amiga Track length corrected (amiga bitrate > 250kbits)
+ *********************************************************/
+ 
+ 
+@@ -1078,5 +1078,3 @@
+ - premiers morceaux de code pour encoder les tracks d'une image ST puis ADF.
+ *********************************************************/
+ 
+-
+-
+--- a/sources/gui/fluid/rawfile_loader_window.fl
++++ b/sources/gui/fluid/rawfile_loader_window.fl
+@@ -36,7 +36,7 @@
+         xywh {130 212 85 25} down_box DOWN_BOX labelsize 12
+       }
+       Fl_Value_Input numin_pregap {
+-        label {PRE-GAP lenght}
++        label {PRE-GAP length}
+         user_data this
+         callback raw_loader_window_datachanged
+         xywh {230 216 95 20} labelsize 12 align 5 textsize 12
+@@ -147,7 +147,7 @@
+         xywh {10 20 105 20} down_box BORDER_BOX labelsize 12 align 5 when 1 textsize 11
+       } {}
+       Fl_Value_Input numin_gap3 {
+-        label {GAP3 lenght}
++        label {GAP3 length}
+         user_data this
+         callback raw_loader_window_datachanged
+         xywh {10 215 105 20} labelsize 12 align 5 textsize 12
+--- a/sources/gui/rawfile_loader_window.cxx
++++ b/sources/gui/rawfile_loader_window.cxx
+@@ -34,7 +34,7 @@
+       chk_autogap3->labelsize(12);
+       chk_autogap3->callback((Fl_Callback*)raw_loader_window_datachanged, (void*)(this));
+     } // Fl_Check_Button* chk_autogap3
+-    { numin_pregap = new Fl_Value_Input(230, 216, 95, 20, "PRE-GAP lenght");
++    { numin_pregap = new Fl_Value_Input(230, 216, 95, 20, "PRE-GAP length");
+       numin_pregap->labelsize(12);
+       numin_pregap->textsize(12);
+       numin_pregap->callback((Fl_Callback*)raw_loader_window_datachanged, (void*)(this));
+@@ -142,7 +142,7 @@
+       choice_tracktype->align(Fl_Align(FL_ALIGN_TOP_LEFT));
+       choice_tracktype->when(FL_WHEN_CHANGED);
+     } // Fl_Choice* choice_tracktype
+-    { numin_gap3 = new Fl_Value_Input(10, 215, 105, 20, "GAP3 lenght");
++    { numin_gap3 = new Fl_Value_Input(10, 215, 105, 20, "GAP3 length");
+       numin_gap3->labelsize(12);
+       numin_gap3->textsize(12);
+       numin_gap3->callback((Fl_Callback*)raw_loader_window_datachanged, (void*)(this));
+--- a/sources/gui/log.cxx
++++ b/sources/gui/log.cxx
+@@ -130,7 +130,7 @@
+ 				_snprintf(lineheader,sizeof(lineheader),"DEBUG  : ");
+ 			break;
+ 			default:
+-				_snprintf(lineheader,sizeof(lineheader),"UNKNOW MESSAGE TYPE: ");
++				_snprintf(lineheader,sizeof(lineheader),"UNKNOWN MESSAGE TYPE: ");
+ 			break;
+ 		}
+ 
+@@ -297,4 +297,3 @@
+ 
+ }
+ 
+-

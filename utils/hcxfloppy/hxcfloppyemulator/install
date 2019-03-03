@@ -1,0 +1,2 @@
+debian/resources/hxcfloppyemulator.desktop usr/share/applications/
+build/hxcfloppyemulator usr/bin/

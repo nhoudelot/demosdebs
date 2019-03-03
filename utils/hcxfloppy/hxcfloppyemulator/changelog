@@ -1,0 +1,20 @@
+hxcfloppyemulator (2.1.11.1-0ddebs1) unstable; urgency=medium
+
+  * Updated upstream version
+      27 May 2018: HxCFloppyEmulator 2.1.11.1
+      Hard-sectored H8D Heathkit raw file Loader & Writer added !
+
+      24 May 2018: HxCFloppyEmulator 2.1.10.1
+      Kryoflux Stream Loader (*XX.X.raw) & Stream analyzer : Hard-sectored
+       images support and various fixes !
+      Kryoflux Stream Loader (*XX.X.raw) : bmpexport.txt config file to generate
+       the full stream track graph.
+      NSI Northstar raw file Loader & Writer added !
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 06 Jun 2018 00:06:30 +0200
+
+hxcfloppyemulator (2.1.9.3-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 Jun 2018 22:40:38 +0200
