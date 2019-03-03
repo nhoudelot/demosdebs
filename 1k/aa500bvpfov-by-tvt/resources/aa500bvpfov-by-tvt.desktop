@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=aa500bvpfov
+GenericName=Demo
+Comment=Demo by tvt, released in 2008
+Type=Application
+Exec=bash -c '/usr/bin/aa500bvpfov-by-tvt'
+Terminal=true
+Icon=aa500bvpfov-by-tvt
+Categories=AudioVideo;Game;
+Name[fr_FR]=aa500bvpfov-by-tvt.desktop

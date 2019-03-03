@@ -1,0 +1,18 @@
+--- a/unpack.header2
++++ b/unpack.header2
+@@ -1 +1 @@
+-tail -n+2 $0|zcat>x.c;cc -O3 -lSDL -lGLU x.c -o y;./y>/dev/dsp
++tail -n+2 $0|zcat>/tmp/x.c;cc /tmp/x.c -lGL -lGLU -lSDL -lm -o /tmp/y;/tmp/y>/dev/dsp
+--- a/stream2.make
++++ b/stream2.make
+@@ -1,7 +1,7 @@
+ #7z a -tGZip -mx=9 stream2.c.gz stream2.c
+ cp stream2.c perkele.c
+ gzip -9 --no-name perkele.c
+-cat unpack.header2 perkele.c.gz > stream2
+-chmod a+x stream2
++cat unpack.header2 perkele.c.gz > aa500bvpfov-by-tvt
++chmod a+x aa500bvpfov-by-tvt
+ rm perkele.c.gz
+-wc -c stream2
++wc -c aa500bvpfov-by-tvt

@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	./stream2.make
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/aa500bvpfov-by-tvt.6.md -o debian/aa500bvpfov-by-tvt.6

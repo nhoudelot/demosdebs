@@ -1,0 +1,3 @@
+debian/resources/aa500bvpfov-by-tvt.desktop usr/share/applications/
+debian/resources/aa500bvpfov-by-tvt.png usr/share/icons/hicolor/256x256/apps/
+aa500bvpfov-by-tvt usr/bin/
