@@ -1,0 +1,3 @@
+debian/resources/euclid-by-mastensgbobbyspice.desktop usr/share/applications/
+debian/resources/euclid-by-mastensgbobbyspice.png usr/share/icons/hicolor/256x256/apps/
+euclid-by-mastensgbobbyspice usr/bin/

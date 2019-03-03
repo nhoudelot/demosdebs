@@ -1,0 +1,11 @@
+--- a/main.c
++++ b/main.c
+@@ -1023,7 +1023,7 @@
+     glutInitWindowSize(sw, sh);
+     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+     glutCreateWindow(argv[0]);
+-    glutFullScreen();
++    /*glutFullScreen();*/
+ 
+     glDepthMask(0);
+     glDisable(GL_DEPTH_TEST);

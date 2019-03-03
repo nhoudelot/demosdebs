@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=euclid
+GenericName=Demo
+Comment=Demo by mastensg+Bobby Spice, released in 2013
+Type=Application
+Exec=/usr/bin/euclid-by-mastensgbobbyspice 800 600
+Icon=euclid-by-mastensgbobbyspice
+Categories=AudioVideo;
+Name[fr_FR]=euclid
