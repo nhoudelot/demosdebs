@@ -1,0 +1,8 @@
+debian/resources/anthemforanewrobotdawn-by-gasman.desktop usr/share/applications/
+debian/resources/anthemforanewrobotdawn-by-gasman.png usr/share/icons/hicolor/256x256/apps/
+data usr/share/anthemforanewrobotdawn-by-gasman/
+scenes usr/share/anthemforanewrobotdawn-by-gasman/
+shaders usr/share/anthemforanewrobotdawn-by-gasman/
+shortcrust usr/share/anthemforanewrobotdawn-by-gasman/
+robot.py usr/share/anthemforanewrobotdawn-by-gasman/
+debian/scripts/anthemforanewrobotdawn-by-gasman usr/bin/

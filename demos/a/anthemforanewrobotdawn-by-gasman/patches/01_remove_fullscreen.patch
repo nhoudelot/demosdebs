@@ -1,0 +1,11 @@
+--- a/robot.py
++++ b/robot.py
+@@ -28,7 +28,7 @@
+ 
+ class RobotDemo(BaseGLApp):
+ 	depthbuffer = True
+-	fullscreen = True
++	fullscreen = False
+ 	title = "Anthem For A New Robot Dawn"
+ 
+ 	def setup(self):

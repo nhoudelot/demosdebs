@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Anthem for a New Robot Dawn
+GenericName=Demo
+Comment=Demo by Gasman, released in 2012
+Type=Application
+Exec=/usr/bin/anthemforanewrobotdawn-by-gasman
+Icon=anthemforanewrobotdawn-by-gasman
+Categories=AudioVideo;
+Name[fr_FR]=Anthem for a New Robot Dawn

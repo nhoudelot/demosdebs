@@ -1,0 +1,17 @@
+anthemforanewrobotdawn-by-gasman (1.0-0ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 16 Sep 2018 15:23:06 +0200
+
+anthemforanewrobotdawn-by-gasman (1.0-0ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Jul 2018 16:34:50 +0200
+
+anthemforanewrobotdawn-by-gasman (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 Apr 2018 14:42:07 +0200
