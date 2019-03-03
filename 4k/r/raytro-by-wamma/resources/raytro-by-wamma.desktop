@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Raytro
+GenericName=Demo
+Comment=Demo by wamma, released in 2008
+Type=Application
+Exec=/usr/bin/raytro-by-wamma
+Icon=raytro-by-wamma
+Categories=AudioVideo;Game;
+Name[fr_FR]=Raytro

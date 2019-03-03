@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/raytro-by-wamma.6.md -o debian/raytro-by-wamma.6

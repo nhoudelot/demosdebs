@@ -1,0 +1,50 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,12 +1,37 @@
+-all: main
+-main:
+-	gcc -Os -ffast-math -fshort-double -fpeephole2 -fomit-frame-pointer -c main.c
+-	ld -dynamic-linker /lib/ld-linux.so.2 main.o /usr/lib/libSDL.so -o main
+-	strip -s -R .comment -R .gnu.version main
+-	~/documents/bin/sstrip main
+-	7z a -tGZip -mx=9 main.gz main
+-	cat unpack.header main.gz > main
+-	chmod a+x main
++#variables de compilation
++SHELL := /bin/sh
++CC    := gcc
++TARGET   := raytro-by-wamma
++#variable de nettoyage
++RM_F := rm -f
++#variables d'instalation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++CFLAGS   += -Os -ffast-math -fomit-frame-pointer -Wall -std=gnu90
++LDFLAGS  := -lSDL -lm -lc
++
++all: $(TARGET)
++$(TARGET):
++	$(CC) $(CFLAGS) -c main.c
++	ld -dynamic-linker  /lib/ld-linux.so.2 main.o $(LDFLAGS) -o $(TARGET)
++	strip -s -R .comment -R .gnu.version $(TARGET)
++	sstrip $(TARGET)
++	7z a -tGZip -mx=9 main.gz $(TARGET)
++	cat unpack.header main.gz > $(TARGET)
++	chmod a+x $(TARGET)
+ 	rm main.gz main.o
+-	wc -c main
++	wc -c $(TARGET)
++
++clean:
++	-@$(RM_F) $(TARGET)
+ 
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)

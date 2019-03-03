@@ -1,0 +1,11 @@
+--- a/main.c
++++ b/main.c
+@@ -23,7 +23,7 @@
+ 	int frameno = 0;
+ 	Uint32 start;
+ 
+-	screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_DOUBLEBUF | SDL_HWSURFACE | SDL_FULLSCREEN);
++	screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_DOUBLEBUF | SDL_HWSURFACE);
+ 	pixbuf = (Uint32*)screen->pixels;
+ 
+ 	SDL_ShowCursor(0);
