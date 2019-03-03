@@ -1,0 +1,61 @@
+--- a/GNUmakefile
++++ /dev/null
+@@ -1,23 +0,0 @@
+-
+-SOURCE := $(shell ls *.cpp | head --lines=1)
+-CFLAGS = -ansi -pedantic -W -Wall
+-SDL_FLAGS = `sdl-config --cflags`
+-SDL_LIBS = `sdl-config --libs`
+-LDLIBS = -lm
+-GLLIBS = -lGL -lGLU
+-
+-TARGETS = entry 
+-
+-all: $(TARGETS)
+-
+-entry: entry.o
+-	$(CXX) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) $(GLLIBS) $(SDL_LIBS) -o $@
+-
+-entry.o: $(SOURCE)
+-	$(CXX) -c $(CPPFLAGS) $(CFLAGS) $(SDL_FLAGS) -o $@ $<
+-
+-distclean: clean
+-	$(RM) $(TARGETS)
+-
+-clean:
+-	$(RM) *.o *~
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,32 @@
++#variables de compilation
++SHELL = /bin/sh
++CXX   = g++
++CXXFLAGS += -std=gnu++98 -fabi-version=2 -Wall -ffast-math $(shell pkgconf --cflags sdl glu)
++LDFLAGS  += $(shell pkg-config --libs sdl glu) -lm
++TARGET   := bugymetaballs-by-lordcow
++#variable de nettoyage
++RM_F := rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++
++export
++
++SOURCE          = buggy_metaballs.cpp
++
++all: $(TARGET)
++
++$(TARGET):
++	 $(CXX) -o $(TARGET) $(SOURCE) $(CXXFLAGS) $(LDFLAGS)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++
++clean:
++	-$(RM_F) $(TARGET)
