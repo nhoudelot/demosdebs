@@ -1,0 +1,30 @@
+stochasticlenssimulatormkii-by-gzrrplox (1.0-0ddebs5) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 06 Sep 2018 00:58:34 +0200
+
+stochasticlenssimulatormkii-by-gzrrplox (1.0-0ddebs4) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 20 Jul 2018 08:55:12 +0200
+
+stochasticlenssimulatormkii-by-gzrrplox (1.0-0ddebs3) unstable; urgency=medium
+
+  * replaced pkg-config by pkgconf
+  * fixed C++ standard
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 15 Jul 2017 02:16:27 +0200
+
+stochasticlenssimulatormkii-by-gzrrplox (1.0-0ddebs2) unstable; urgency=medium
+
+  * added an icon
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 11 Apr 2017 00:06:52 +0200
+
+stochasticlenssimulatormkii-by-gzrrplox (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 09 Apr 2017 11:01:03 +0200

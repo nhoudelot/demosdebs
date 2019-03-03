@@ -1,0 +1,77 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,28 +1,47 @@
+-CXXFLAGS=`sdl-config --cflags` -Os -Wall -Wextra -Wshadow -ffast-math
+-LDFLAGS=`sdl-config --libs` -lGL
++#variables de compilation
++SHELL := /bin/sh
++CXX   := g++
++CXXFLAGS +=$(shell pkgconf --cflags sdl gl) -Os -Wall -Wextra -Wshadow -ffast-math -std=gnu++98 -fabi-version=2 -pipe
++LDFLAGS +=$(shell pkgconf --libs sdl gl)
+ 
+-TARGET=main
++TARGET=stochasticlenssimulatormkii-by-gzrrplox
+ 
+ #CXXFLAGS+= -DDEBUG=1
+-#LD=g++
++LD=g++
+ 	
+-LD=bold -c -a 
++#LD=bold -c -a
++
++#variable de nettoyage
++RM_F := rm -f
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_LIBS    := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_DATAR   := cp -r
++INSTALL_SCRIPT  := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
+ 
+ all: $(TARGET)
+-	@wc -c $(TARGET).payload
+-	lzma -c $(TARGET).payload > $(TARGET).lzma
+-	@wc -c $(TARGET).lzma
+-	cat unpack.header $(TARGET).lzma > $(TARGET)
+-	rm $(TARGET).lzma
+-	chmod +x $(TARGET)
+-	@wc -c $(TARGET)
++	#@wc -c $(TARGET).payload
++	#lzma -c $(TARGET).payload > $(TARGET).lzma
++	#@wc -c $(TARGET).lzma
++	#cat unpack.header $(TARGET).lzma > $(TARGET)
++	#rm $(TARGET).lzma
++	#chmod +x $(TARGET)
++	#@wc -c $(TARGET)
++	cp $(TARGET).payload $(TARGET)
+ 
+ # (window_w window_h framebuffer_w framebuffer_h)
+-$(TARGET): settings letters formatter $(TARGET).cpp
++$(TARGET): settings letters formatter main.cpp
+ 	echo 1920 1200 960 600 | ./settings > settings.h
+ 	./formatter > shaders.h
+-	g++ $(CXXFLAGS) -c $(TARGET).cpp
+-	$(LD) $(LDFLAGS) $(TARGET).o -o $(TARGET).payload
++	g++ $(CXXFLAGS) -c main.cpp
++	$(LD) main.o -o $(TARGET).payload $(LDFLAGS)
+ 
+ settings:
+ 
+@@ -32,4 +51,10 @@
+ letters:
+ 
+ clean: 
+-	rm -f $(TARGET) *.o settings
++	-$(RM_F) *.o
++	-$(RM_F) $(TARGET) formatter settings letters letters $(TARGET).payload
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
