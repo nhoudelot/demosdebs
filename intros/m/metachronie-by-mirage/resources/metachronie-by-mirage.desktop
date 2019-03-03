@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Metachronie
+GenericName=Demo
+Comment=Demo by Mirage, released in 2012
+Type=Application
+Exec=/usr/bin/metachronie-by-mirage
+Icon=metachronie-by-mirage
+Categories=AudioVideo;
+Name[fr_FR]=Metachronie

@@ -1,0 +1,15 @@
+metachronie-by-mirage for Debian
+-------------------------------
+
+executable seems to be compiled for Debian 7 wheezy
+
+GCC: (Debian 4.7.2-5) 4.7.2
+GCC: (Debian 4.4.7-3) 4.4.7
+
+Source files:
+-------------
+
+crtstuff.c dingux-demotest.c
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 09 Apr 2018 17:06:51 +0200
+

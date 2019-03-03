@@ -1,0 +1,4 @@
+debian/scripts/metachronie-by-mirage usr/bin/
+debian/resources/metachronie-by-mirage.desktop usr/share/applications/
+debian/resources/metachronie-by-mirage.png usr/share/icons/hicolor/256x256/apps/
+./metachronie-linux_x86-64 usr/share/metachronie-by-mirage/./ 
