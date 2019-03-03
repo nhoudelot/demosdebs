@@ -1,0 +1,20 @@
+Source: libhxcadaptor
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libhxcfe-dev,
+ libusbhxcfe-dev
+Standards-Version: 3.9.7
+Section: libs
+Homepage: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/libhxcadaptor/
+
+Package: libhxcadaptor-dev
+Section: libdevel
+Architecture: any
+Depends:
+ ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcadaptor
+ librarie to communicate with hxcadaptor

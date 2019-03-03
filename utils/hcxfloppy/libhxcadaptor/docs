@@ -1,0 +1,13 @@
+./build
+./build/Makefile
+./build/libhxcadaptor.dsp
+./build/libhxcadaptor.dsw
+./sources
+./sources/libhxcadaptor.h
+./sources/libhxcadaptor.c
+./sources/fs.c
+./sources/win32
+./sources/win32/stdint.h
+./sources/fs.h
+./COPYING
+./COPYING_FULL
