@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Canyon Flight
+GenericName=Demo
+Comment=Demo by cypou,released in 2004
+Type=Application
+Exec=/usr/bin/canyonflight-by-cypou
+Icon=canyonflight-by-cypou
+Categories=AudioVideo;Game;
+Name[fr_FR]=Canyon Flight

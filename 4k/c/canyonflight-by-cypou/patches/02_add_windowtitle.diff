@@ -1,0 +1,10 @@
+--- a/canyonflight.c
++++ b/canyonflight.c
+@@ -93,6 +93,7 @@
+ 
+ 	SDL_Init(32);
+ 	SDL_SetVideoMode(640, 480, 32, 2);
++        SDL_WM_SetCaption("Canyon Flight by Cypou",NULL);
+ 	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
+ 
+ 	glCullFace( GL_BACK );
