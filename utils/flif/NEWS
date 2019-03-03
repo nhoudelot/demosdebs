@@ -1,0 +1,16 @@
+flif (0.3-6) experimental; urgency=medium
+
+  This version is released to experimental because of the several unfixed
+  upstream bugs that affect the package. Some of these bugs are security
+  issues, in particular:
+
+    CVE-2018-10971 (Debian bug #898406)
+    CVE-2018-10972 (Debian bug #898407)
+    CVE-2018-11507 (Debian bug #902188)
+    CVE-2018-12109 (Debian bug #902196).
+
+  These are considered grave, Release Critical bugs. For this reason this
+  package will be pulled from the other Debian branches. Please do not set
+  dependencies on this package until the situation is resolved.
+
+ -- Paride Legovini <pl@ninthfloor.org>  Mon, 09 Jul 2018 18:58:56 +0000

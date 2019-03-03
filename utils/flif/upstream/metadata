@@ -1,0 +1,15 @@
+Name: FLIF
+Contact: Jon Sneyers <jonsneyers@gmail.com>
+Repository: https://github.com/FLIF-hub/FLIF.git
+Repository-Browse: https://github.com/FLIF-hub/FLIF/
+Bug-Database: https://github.com/FLIF-hub/FLIF/issues
+Bug-Submit: https://github.com/FLIF-hub/FLIF/issues
+Gallery: http://flif.info/example.html
+Reference:
+  Author: Jon Sneyers and Pieter Wuille
+  Title: "FLIF: Free Lossless Image Format based on MANIAC compression"
+  Journal: IEEE International Conference on Image Processing (ICIP'16)
+  Year: 2016
+  URL: http://ieeexplore.ieee.org/document/7532320/
+  eprint: http://flif.info/papers/FLIF_ICIP16.pdf
+Other-References: http://flif.info/publications.html

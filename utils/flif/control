@@ -1,0 +1,66 @@
+Source: flif
+Section: graphics
+Priority: optional
+Maintainer: Debian PhotoTools Maintainers <pkg-phototools-devel@lists.alioth.debian.org>
+Uploaders: Paride Legovini <pl@ninthfloor.org>
+Build-Depends: debhelper (>=11~), dh-exec (>=0.3), bash-completion,
+ libpng-dev, libsdl2-dev, libimage-exiftool-perl, imagemagick
+Build-Conflicts: graphicsmagick-imagemagick-compat
+Standards-Version: 4.1.5
+Vcs-Git: https://salsa.debian.org/debian-phototools-team/flif.git
+Vcs-Browser: https://salsa.debian.org/debian-phototools-team/flif
+Homepage: http://flif.info/
+
+Package: libflif0
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Free Lossless Image Format (FLIF) decoder library
+ FLIF is a novel lossless image format which outperforms PNG, lossless
+ WebP, lossless BPG, lossless JPEG2000, and lossless JPEG XR in terms
+ of compression ratio.
+ .
+ This package contains the reference implementation of the FLIF decoder,
+ as a shared library.
+
+Package: libflif-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends}, libflif0 (= ${binary:Version})
+Description: Free Lossless Image Format (FLIF) decoder library (development files)
+ FLIF is a novel lossless image format which outperforms PNG, lossless
+ WebP, lossless BPG, lossless JPEG2000, and lossless JPEG XR in terms
+ of compression ratio.
+ .
+ This package contains the header files required to develop programs
+ based on the FLIF library.
+
+Package: flif-tools
+Architecture: any
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: imagemagick, apngdis
+Description: Free Lossless Image Format (FLIF) tools
+ FLIF is a novel lossless image format which outperforms PNG, lossless
+ WebP, lossless BPG, lossless JPEG2000, and lossless JPEG XR in terms
+ of compression ratio.
+ .
+ The programs contained in this package can encode and decode images in
+ the Free Lossless Image Format (FLIF). Input and output formats can be
+ either PNG, PAM, PNM (PPM, PGM, PBM) or FLIF.
+
+Package: viewflif
+Architecture: any
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: flif-tools
+Description: Free Lossless Image Format (FLIF) viewer
+ FLIF is a novel lossless image format which outperforms PNG, lossless
+ WebP, lossless BPG, lossless JPEG2000, and lossless JPEG XR in terms
+ of compression ratio.
+ .
+ This package provides ‘viewflif’, a tool that displays a FLIF image
+ or animation using SDL2. This is not intended to be a convenient image
+ viewer; it is mostly just a simple demo application.

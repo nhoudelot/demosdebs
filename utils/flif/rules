@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+# https://wiki.debian.org/HardeningWalkthrough
+export DEB_BUILD_MAINT_OPTIONS  = hardening=+all
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+TMP = $(CURDIR)/debian/tmp
+
+%:
+	dh $@ --sourcedirectory=src
+
+override_dh_auto_build:
+	dh_auto_build -- all viewflif
+
+override_dh_auto_install:
+	make -C src DESTDIR=$(TMP) install install-viewflif install-dev
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf tmp-test

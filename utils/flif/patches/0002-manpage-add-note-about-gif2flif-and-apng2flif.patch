@@ -1,0 +1,22 @@
+From: Paride Legovini <pl@ninthfloor.org>
+Date: Wed, 18 Apr 2018 17:15:50 +0200
+Subject: manpage: add note about gif2flif and apng2flif
+
+---
+ doc/flif.1 | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/doc/flif.1 b/doc/flif.1
+index 4f4fc45..7b79da4 100644
+--- a/doc/flif.1
++++ b/doc/flif.1
+@@ -28,6 +28,9 @@ In this case, the action has to be specified explicitly, and the only supported
+ are FLIF and PAM/PNM.
+ For example, \fBflif \-e \- \-\fR encodes a PPM file from standard input to a FLIF file written to standard output;
+ \fBflif \-e input.ppm \- | flif \-d \- output.png\fR is a very slow way to convert a PPM file to a PNG file.
++.PP
++\fBgif2flif\fR is a convenient wrapper around \fBflif\fR and ImageMagick's \fBconvert\fR, while \fBapng2flif\fR
++wraps around \fBflif\fR and \fBapngdis\fR.
+ 
+ .SH OPTIONS
+ The general options are:

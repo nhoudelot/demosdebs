@@ -1,0 +1,228 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: FLIF
+Upstream-Contact: Jon Sneyers <jon.sneyers@gmail.com>
+Source: https://github.com/FLIF-hub/FLIF
+Comment:
+ This software mixes different licenses; the main license (and our
+ “wildcard license”) is the LGPLv3+, but the decoding library is
+ Apache licensed, and differently licensed files coexist in the same
+ directories. For this reason, when importing a new upstream version,
+ is it important to check that new files fall in the correct Files
+ paragraph. Upstream normally includes a licensing header in each file,
+ so a quick consistency check can be done with ‘debmake -k’.
+
+Files: *
+Copyright:
+ 2010-2018, Jon Sneyers <jon.sneyers@gmail.com>
+ 2010-2017, Pieter Wuille
+ 2003-2004, Michael Niedermayer <michaelni@gmx.at>
+License: LGPL-3+
+Comment:
+ Pieter Wuille's email address is public, but never mentioned within this
+ package. For this reason I'm not reporting it here and in the following
+ copyright entries.
+
+Files: build/MSVC/getopt/*
+Copyright:
+ 2011-2015 Ludvik Jerabek
+License: LGPL-any
+ Released under the GNU Lesser General Public License (LGPL).
+ .
+ On Debian systems, the full text of the latest of the GNU LGPL version 3
+ can be found in the file "/usr/share/common-licenses/LGPL-3".
+Comment:
+ Windows stuff, not actually used in Debian.
+ .
+ The code is released as "LGPL", which is assumed to mean "any LGPL".
+
+Files: extern/lodepng.*
+Copyright:
+ 2005-2016 Lode Vandevenne
+License: Zlib 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ .
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ .
+ 1. The origin of this software must not be misrepresented; you must not
+ claim that you wrote the original software. If you use this software
+ in a product, an acknowledgment in the product documentation would be
+ appreciated but is not required.
+ .
+ 2. Altered source versions must be plainly marked as such, and must not
+ be misrepresented as being the original software.
+ .
+ 3. This notice may not be removed or altered from any source distribution.
+Comment:
+ https://opensource.org/licenses/Zlib
+
+Files:
+ extern/stb_image.h
+ extern/stb_image_write.h
+Copyright: Sean T. Barrett <sean@nothings.org>
+License: nothings-lib-public-domain or Expat
+Comment:
+ Windows stuff, not actually used in Debian.
+ .
+ Licensing information available at https://github.com/nothings/stb.
+
+Files: raw-tools/sony_arw/*
+Copyright: 
+ 2010-2018, goblin
+License: GPL-3+
+ Released under the GNU General Public License version 3 or later.
+ .
+ On Debian systems, the full text of the GNU General Public License
+ version 3 can be found in the file "/usr/share/common-licenses/GPL-3".
+Comment:
+ The upstream author has been asked for his preferred copyright
+ acknowledgement notice, but as of March 2018 no answer came.
+ .
+ https://github.com/goblin/arw_compressor/issues/3
+
+Files: raw-tools/sony_arw/dcraw.c
+Copyright: 
+ 1997-2015 Dave Coffin, dcoffin a cybercom o net
+License: dcraw
+ No license is required to download and use dcraw.c.  However,
+ to lawfully redistribute dcraw, you must either (a) offer, at
+ no extra charge, full source code* for all executable files
+ containing RESTRICTED functions, (b) distribute this code under
+ the GPL Version 2 or later, (c) remove all RESTRICTED functions,
+ re-implement them, or copy them from an earlier, unrestricted
+ Revision of dcraw.c, or (d) purchase a license from the author.
+ .
+ The functions that process Foveon images have been RESTRICTED
+ since Revision 1.237.  All other code remains free for all uses.
+ .
+ *If you have not modified dcraw.c in any way, a link to my
+ homepage qualifies as "full source code".
+ .
+ On Debian systems, the full text of the GNU General Public License
+ version 2 can be found in the file "/usr/share/common-licenses/GPL-2".
+Comment:
+ Upstream homepage: http://www.cybercom.net/~dcoffin/dcraw/dcraw.
+ Also included in the ‘dcraw’ Debian package with the same licensing
+ information. For an in-depth scrutiny see Debian bug #431883.
+
+Files:
+ src/common.cpp
+ src/common.hpp
+ src/fileio.hpp
+ src/flif-dec.cpp
+ src/image/image.hpp
+ src/io.cpp
+ src/io.hpp
+ src/library/flif-interface-private_common.hpp
+ src/library/flif-interface-private_dec.hpp
+ src/library/flif-interface_common.cpp
+ src/library/flif-interface_dec.cpp
+ src/library/flif_common.h
+ src/library/flif_dec.h
+ src/maniac/chance.cpp
+ src/maniac/chance.hpp
+ src/maniac/compound.hpp
+ src/maniac/rac.hpp
+ src/maniac/symbol.hpp
+ src/maniac/util.hpp
+ src/transform/bounds.hpp
+ src/transform/colorbuckets.hpp
+ src/transform/framecombine.hpp
+ src/transform/framedup.hpp
+ src/transform/frameshape.hpp
+ src/transform/palette.hpp
+ src/transform/palette_A.hpp
+ src/transform/palette_C.hpp
+ src/transform/permute.hpp
+ src/transform/transform.hpp
+ src/transform/yc1c2.hpp
+ src/transform/ycocg.hpp
+Copyright:
+ 2010-2016, Jon Sneyers <jon.sneyers@gmail.com>
+ 2010-2016, Pieter Wuille
+License: Apache-2.0
+
+Files: src/viewflif.c
+Copyright: 2015, Jon Sneyers <jon.sneyers@gmail.com>
+License: CC0-1.0
+ Released as Creative Commons CC0 1.0 Universal (Public Domain)
+ .
+ On Debian systems, the full text of the Creative Commons CC0 1.0
+ Universal can be found in the file "/usr/share/common-licenses/CC0-1.0".
+
+Files: src/image/crc32k.*
+Copyright:
+ 2011-2015, Stephan Brumme
+ 2011-2015, Bulat Ziganshin
+License: brumme-modified-zlib
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the author be held liable for any damages
+ arising from the use of this software.  Permission is granted to anyone
+ to use this software for any purpose, including commercial applications,
+ and to alter it and redistribute it freely, subject to the following
+ restrictions:
+ .
+ The origin of this software must not be misrepresented; you must not
+ claim that you wrote the original software.
+ .
+ If you use this software in a product, an acknowledgment in the product
+ documentation would be appreciated but is not required.
+ .
+ Altered source versions must be plainly marked as such, and must not be
+ misrepresented as being the original software.
+Comment:
+ The source code includes a misleading "all right reserved line" but the
+ Author's web site is clear on the licensing terms:
+ .
+ http://create.stephan-brumme.com/disclaimer.html
+
+Files:
+ debian/*
+Copyright: 2018, Paride Legovini <pl@ninthfloor.org>
+License: Apache-2.0
+Comment:
+ Upstream is a mix of LGPL-3+ and Apache-2.0. The Debian packaging
+ files are released under the most lax and permissive of the two.
+
+License: LGPL-3+
+ Released under the GNU Lesser General Public License version 3 or later.
+ .
+ On Debian systems, the full text of the GNU Lesser General Public License
+ version 3 can be found in the file "/usr/share/common-licenses/LGPL-2".
+
+License: Apache-2.0
+ Released under the Apache License Version 2.0.
+ .
+ On Debian systems, the full text of the Apache License Version 2.0
+ can be found in the file "/usr/share/common-licenses/Apache-2.0".
+
+License: nothings-lib-public-domain
+ These libraries are in the public domain. You can do anything you want
+ with them. You have no legal obligation to do anything else, although
+ I appreciate attribution.
+ .
+ They are also licensed under the MIT open source license, if you have
+ lawyers who are unhappy with public domain. Every source file includes
+ an explicit dual-license for you to choose from.
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.

@@ -1,0 +1,61 @@
+flif (0.3-7ddebs1) unstable; urgency=medium
+
+  * Version for my repository.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 09 Dec 2018 01:46:13 +0100
+
+flif (0.3-7) experimental; urgency=medium
+
+  * Build-Conflict on graphicsmagick-imagemagick-compat (#897621)
+  * d/gbp.conf: upstream-branch = upstream/latest (DEP14)
+  * d/gbp.conf: pristine-tar(-commit) = True
+
+ -- Paride Legovini <pl@ninthfloor.org>  Wed, 11 Jul 2018 12:00:13 +0000
+
+flif (0.3-6) experimental; urgency=medium
+
+  * Release to experimental, as the package will be pulled from unstable.
+    This is due to open CVEs. Further details are given in the NEWS file.
+  * Build-Conflict on graphicsmagick-imagemagick-compat (#897621).
+  * Bump Standards-Version to 4.1.5 (no changes needed).
+
+ -- Paride Legovini <pl@ninthfloor.org>  Tue, 10 Jul 2018 11:50:56 +0000
+
+flif (0.3-5) unstable; urgency=medium
+
+  * Symbols file removed: d/libflif0.symbols.
+    Thanks to Matteo F. Vescovi
+
+ -- Paride Legovini <pl@ninthfloor.org>  Tue, 08 May 2018 15:51:12 +0000
+
+flif (0.3-4) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Matteo F. Vescovi ]
+  * Revert "debian/libflif0.symbols: symbols updated for new architectures"
+  * debian/libflif0.symbols: symbols filtered
+
+ -- Matteo F. Vescovi <mfv@debian.org>  Mon, 07 May 2018 22:36:45 +0200
+
+flif (0.3-3) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Matteo F. Vescovi ]
+  * debian/libflif0.symbols: symbols updated for new architectures
+
+ -- Matteo F. Vescovi <mfv@debian.org>  Sun, 06 May 2018 22:50:15 +0200
+
+flif (0.3-2) unstable; urgency=medium
+
+  [ Matteo F. Vescovi ]
+  * debian/libflif0.symbols: symbols updated
+
+ -- Paride Legovini <pl@ninthfloor.org>  Wed, 02 May 2018 23:19:55 +0200
+
+flif (0.3-1) unstable; urgency=medium
+
+  * Initial release. (Closes: #812761)
+
+ -- Paride Legovini <pl@ninthfloor.org>  Wed, 18 Apr 2018 22:59:49 +0200
