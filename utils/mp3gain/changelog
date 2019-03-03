@@ -1,0 +1,226 @@
+mp3gain (1.6.2-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 29 Nov 2018 16:25:22 +0100
+
+mp3gain (1.5.2-r2-6ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Aug 2018 18:03:33 +0200
+
+mp3gain (1.5.2-r2-6ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 15:46:59 +0200
+
+mp3gain (1.5.2-r2-6ddebs1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Updated to debhelper 9
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Apr 2018 23:37:58 +0200
+
+mp3gain (1.5.2-r2-6) unstable; urgency=high
+
+  * Add various patches from Daniel Kobras' mpg123 packaging to fix
+    buffer overflows in the embedded copy/fork of mpglib
+    - CVE-2003-0577 (originally #201698 in mpg123)
+    - CVE-2004-0805 (originally #270542 in mpg123)
+    - CVE-2004-0991
+    - CVE-2006-1655 (originally #361863 in mpg123)
+    (Closes: #740268, hopefully)
+  * debian/patches/*.diff: adjust so gbp-pq can import all of them
+  * debian/patches/*.diff: update Sourceforge bug URLs to new layout
+    (but keep the old versions for posterity)
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 19 Mar 2014 09:24:09 +0000
+
+mp3gain (1.5.2-r2-5) unstable; urgency=high
+
+  * Only build with -fsanitize=address on Linux with amd64, i386, armel,
+    armhf, powerpc CPUs: it isn't functional everywhere
+
+ -- Simon McVittie <smcv@debian.org>  Tue, 11 Mar 2014 22:17:39 +0000
+
+mp3gain (1.5.2-r2-4) unstable; urgency=high
+
+  * Build with -fsanitize=address to catch stack buffer overflows
+    (mitigates: #740268)
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 10 Mar 2014 09:42:23 +0000
+
+mp3gain (1.5.2-r2-3) unstable; urgency=medium
+
+  * Update debian/watch to a version by Bart Martens to deal with the upstream
+    file-naming convention
+  * Use dpkg-recommended build flags
+  * 13_constant_expr.diff: use constant expressions to size arrays
+  * Standards-Version: 3.9.5 (no changes needed)
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 25 Jan 2014 13:03:44 +0000
+
+mp3gain (1.5.2-r2-2) unstable; urgency=low
+
+  [ Simon McVittie ]
+  * Specifically enable pristine-tar when using git-buildpackage for this
+    package
+
+  [ Fabrizio Regalli ]
+  * Fixed Vcs-Browser field in d/control.
+  * Refreshed all previous patches.
+  * Added 12_force_update.diff patch. (Closes: #587466)
+  * Update d/copyright to latest DEP5 revision.
+
+ -- Fabrizio Regalli <fabreg@fabreg.it>  Thu, 10 Nov 2011 16:10:48 +0100
+
+mp3gain (1.5.2-r2-1) unstable; urgency=low
+
+  [ Fabrizio Regalli ]
+  * New upstream version.
+  * Switch to quilt 3.0 format.
+  * New maintainer. (Closes: #619847)
+  * Switch d/compat to 8.
+  * Update debhelper (>= 8).
+  * Removed dpatch from dependecies.
+  * Bump to Standards-Version: 3.9.2.
+  * Added Vcs-*
+  * Removed dpatch.make from d/rules.
+  * Switch to DEP5 license format.
+  * Added txxx patch for extra ID3v2 replaygain tags. (Closes: #587465)
+
+  [ Simon McVittie ]
+  * Correctly credit myself, not Stefan, for my TXXX patch :-)
+  * Change machine-readable license from LGPL-1 to LGPL-2+ to match the text
+    of the license grant (Fabrizio gave permission for this in an email)
+  * Add myself to Uploaders
+  * Reinstate most of Stefan's patches, adjusted to apply to mp3gain.c
+    despite DOS line endings
+  * Override installation path when running make, not by patching Makefile
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 11 Jul 2011 21:45:45 +0100
+
+mp3gain (1.5.1-4) unstable; urgency=low
+
+  * Fix various potential segfaults found by cppcheck.
+  * Backport a format string error fix from 1.5.2.
+  * Bump standards version (no changes).
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 28 Aug 2010 20:20:19 +0200
+
+mp3gain (1.5.1-3) unstable; urgency=low
+
+  * Remove trailing spaces when converting ID3v1 tags to ID3v2.4. Thanks to
+    Alexander Zangerl for the patch. Closes: #564308
+  * Bump standards version (no changes).
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 10 Jan 2010 08:28:37 +0100
+
+mp3gain (1.5.1-2) unstable; urgency=low
+
+  * Add new options in 1.5.x and some clarifications to the man page. Thanks
+    to Joris van Rantwijk for the patch. Closes: #540622
+  * Also mention the possiblity to use ID3v2 tags in the package description.
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 09 Aug 2009 11:51:47 +0200
+
+mp3gain (1.5.1-1) unstable; urgency=low
+
+  * New upstream version.
+  * Bump standards version (no changes).
+
+ -- Stefan Fritsch <sf@debian.org>  Fri, 24 Jul 2009 13:17:40 +0200
+
+mp3gain (1.4.6-8) unstable; urgency=medium
+
+  * Rebuild with non-buggy gcc. This fixes mp3gain giving wrong results on
+    i386 (closes: #519949).
+  * Fix lintian warnings: 
+    - Bump standards version:
+      + Add homepage to debian/control.
+      + Add README.source.
+    - Use UTF8 for debian/copyright. 
+    - Switch to debhelper compatibility level 7.
+
+ -- Stefan Fritsch <sf@debian.org>  Mon, 23 Mar 2009 11:51:58 +0100
+
+mp3gain (1.4.6-7) unstable; urgency=low
+
+  * Fix another segfault with not-writable files (Closes: #444373)
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 29 Sep 2007 11:18:21 +0200
+
+mp3gain (1.4.6-6) unstable; urgency=low
+
+  * fix exit code on error in some more cases (hopefully all, closes: #433757)
+  * fix handling of DEB_BUILD_OPTIONS
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 28 Jul 2007 22:33:23 +0200
+
+mp3gain (1.4.6-5) unstable; urgency=low
+
+  * Change build system to dpatch.
+  * Assume 'n' on queries if we don't have stdin (Closes: #428301)
+  * Fix typo in man page (Closes: #428703)
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 17 Jun 2007 17:05:22 +0200
+
+mp3gain (1.4.6-4) unstable; urgency=low
+
+  * Modify description to mention replaygain (Closes: #411321)
+  * Change maintainer email address
+
+ -- Stefan Fritsch <sf@debian.org>  Thu, 15 Mar 2007 00:01:26 +0100
+
+mp3gain (1.4.6-3) unstable; urgency=low
+
+  * fix path to README.method in manpage (closes: #368679)
+  * bump standards version to 3.7.2 (no changes)
+
+ -- Stefan Fritsch <sf@sfritsch.de>  Sat,  9 Sep 2006 17:05:33 +0200
+
+mp3gain (1.4.6-2) unstable; urgency=low
+
+  * Fix segfault if unable to write files (thanks to Michael Thaler for
+    the report).
+  * Clarify man page (thanks to Jameson C. Burt).
+  * Add shiny new watch file using QA's sourceforge redirector.
+  * Bump up standards version (no changes needed).
+
+ -- Stefan Fritsch <sf@sfritsch.de>  Sat,  1 Oct 2005 00:04:01 +0200
+
+mp3gain (1.4.6-1) unstable; urgency=low
+
+  * New upstream release
+  * Closes: #284802: Segfaults on 48khz mp3 files
+  * Remove broken watch file
+
+ -- Stefan Fritsch <sf@sfritsch.de>  Wed, 12 Jan 2005 12:03:18 +0100
+
+mp3gain (1.4.5-1) unstable; urgency=low
+
+  * New upstream release
+  * Add note about method. Closes: #269759
+
+ -- Stefan Fritsch <sf@sfritsch.de>  Fri,  5 Nov 2004 19:37:22 +0100
+
+mp3gain (1.4.3-2) unstable; urgency=low
+
+  * Add watch file.
+  * Make -t the default since it is faster on ReiserFS.
+  * Closes: #264596: mp3gain does exit(1) upon success
+    (thanks to Roderick Schertler)
+  * Change maintainer email
+
+ -- Stefan Fritsch <sf@sfritsch.de>  Tue, 10 Aug 2004 11:24:43 +0200
+
+mp3gain (1.4.3-1) unstable; urgency=low
+
+  * Fixed copyright information.
+  * Initial Upload sponsored by Joachim Breitner; Closes: #241748: ITP
+
+ -- Stefan Fritsch <sfritsch@ph.tum.de>  Thu, 15 Apr 2004 23:12:05 +0200
+
+

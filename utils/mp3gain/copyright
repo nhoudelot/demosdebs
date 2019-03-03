@@ -1,0 +1,27 @@
+Format: https://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=174
+Upstream-Name: mp3gain
+Upstream-Contact: Glen Sawyer <mp3gain@hotmail.com>
+Source: http://mp3gain.sourceforge.net/download.php
+
+Files: *
+Copyright: 2001-2004 Glen Sawyer
+           2002 John Zitterkopf
+           2001 David Robinson
+           2000 Mark Taylor
+           2000 Don Melton
+           1999 Takehiro TOMINAGA
+           1999, 2000 Albert L. Faber
+           1995,1996,1997 by Michael Hipp
+	   Stefan Partheymüller
+	   Artur Polaczynski
+	   Frank Klemm
+	   Mark Armbrust
+License: LGPL-2+
+
+Files: debian/*
+Copyright: 2004, Stefan Fritsch <sfritsch@ph.tum.de>
+	   2011, Fabrizio Regalli <fabreg@fabreg.it>
+License: LGPL-2+
+
+License: LGPL-2+
+ /usr/share/common-licenses/LGPL-2
