@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=4ks demo
+GenericName=Demo
+Comment=Demo by MadMartigan, released in 2004
+Type=Application
+Exec=/usr/bin/4ksdemo-by-madmartigan
+Icon=4ksdemo-by-madmartigan
+Categories=AudioVideo;Game;
+Name[fr_FR]=4ks demo
