@@ -1,0 +1,531 @@
+Patch to make it work on 64 bit. See news from 11 April 2011 on
+http://lclevy.free.fr/adflib/.
+
+Source:
+
+http://bugs.debian.org/cgi-bin/bugreport.cgi?msg=15;filename=adflib_stdint_diff.txt;att=1;bug=458129
+http://grimnorth.se/~noname/tmp/adflib_stdint_diff.txt
+
+Slightly modified (and removed the .depend files from the patches)
+
+--- a/sources/thirdpartylibs/adflib/Lib/Makefile
++++ b/sources/thirdpartylibs/adflib/Lib/Makefile
+@@ -15,7 +15,7 @@
+ 
+ DEFINES= 
+ 
+-CFLAGS=$(DEFINES) -I${NATIV_DIR} -I.. -I. -Wall -O2 -pedantic
++CFLAGS=$(DEFINES) -I${NATIV_DIR} -I.. -I. -Wall -ggdb -std=gnu99
+ 
+ CC=gcc 
+ DEPEND=makedepend
+--- a/sources/thirdpartylibs/adflib/Lib/adf_blk.h
++++ b/sources/thirdpartylibs/adflib/Lib/adf_blk.h
+@@ -25,6 +25,7 @@
+  *
+  */
+ 
++#include <stdint.h>
+ 
+ #ifndef ADF_BLK_H
+ #define ADF_BLK_H 1
+--- a/sources/thirdpartylibs/adflib/Lib/adf_cache.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_cache.c
+@@ -27,6 +27,7 @@
+ 
+ #include<stdlib.h>
+ #include<string.h>
++#include<stdint.h>
+ 
+ #include"adf_defs.h"
+ #include"adf_str.h"
+@@ -261,9 +262,9 @@
+     else
+         newEntry->size = 0L;
+     newEntry->protect = entry->access;
+-    newEntry->days = (short)entry->days;
+-    newEntry->mins = (short)entry->mins;
+-    newEntry->ticks  = (short)entry->ticks;
++    newEntry->days = (int16_t)entry->days;
++    newEntry->mins = (int16_t)entry->mins;
++    newEntry->ticks  = (int16_t)entry->ticks;
+     newEntry->type = (signed char)entry->secType;
+     newEntry->nLen = entry->nameLen;
+     memcpy(newEntry->name, entry->name, newEntry->nLen);
+@@ -369,7 +370,7 @@
+     int entryLen;
+ 
+     entryLen = adfEntry2CacheEntry(entry, &newEntry);
+-/*printf("adfAddInCache--%4ld %2d %6ld %8lx %4d %2d:%02d:%02d %30s %22s\n",
++/*printf("adfAddInCache--%4ld %2d %6d %8lx %4d %2d:%02d:%02d %30s %22s\n",
+     newEntry.header, newEntry.type, newEntry.size, newEntry.protect,
+     newEntry.days, newEntry.mins/60, newEntry.mins%60, 
+ 	newEntry.ticks/50,
+@@ -383,7 +384,7 @@
+ /*printf("parent=%4ld\n",dirc.parent);*/
+         while(n < dirc.recordsNb) {
+             adfGetCacheEntry(&dirc, &offset, &caEntry);
+-/*printf("*%4ld %2d %6ld %8lx %4d %2d:%02d:%02d %30s %22s\n",
++/*printf("*%4ld %2d %6d %8lx %4d %2d:%02d:%02d %30s %22s\n",
+     caEntry.header, caEntry.type, caEntry.size, caEntry.protect,
+     caEntry.days, caEntry.mins/60, caEntry.mins%60, 
+ 	caEntry.ticks/50,
+@@ -432,7 +433,7 @@
+ 			return RC_ERROR;
+         dirc.nextDirC = nCache;
+     }
+-/*printf("dirc.headerKey=%ld\n",dirc.headerKey);*/
++/*printf("dirc.headerKey=%d\n",dirc.headerKey);*/
+     if (adfWriteDirCBlock(vol, dirc.headerKey, &dirc)!=RC_OK)
+ 		return RC_ERROR;
+ /*if (strcmp(entry->name,"file_5u")==0)
+@@ -462,7 +463,7 @@
+     nSect = parent->extension;
+     found = FALSE;
+     do {
+-/*printf("dirc=%ld\n",nSect);*/
++/*printf("dirc=%d\n",nSect);*/
+         if (adfReadDirCBlock(vol, nSect, &dirc)!=RC_OK)
+ 			return RC_ERROR;
+         offset = 0; n = 0;
+@@ -553,7 +554,7 @@
+         dirc.parent = parent->headerKey;
+     else {
+         (*adfEnv.wFct)("adfCreateEmptyCache : unknown secType");
+-/*printf("secType=%ld\n",parent->secType);*/
++/*printf("secType=%d\n",parent->secType);*/
+     }
+         
+     dirc.recordsNb = 0;
+--- a/sources/thirdpartylibs/adflib/Lib/adf_defs.h
++++ b/sources/thirdpartylibs/adflib/Lib/adf_defs.h
+@@ -24,6 +24,7 @@
+  *
+  */
+ 
++#include <stdint.h>
+ 
+ #ifndef _ADF_DEFS_H
+ #define _ADF_DEFS_H 1
+--- a/sources/thirdpartylibs/adflib/Lib/adf_dir.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_dir.c
+@@ -140,7 +140,7 @@
+                 }
+             }
+             nSect2 = previous.nextSameHash;
+-/*printf("sect=%ld\n",nSect2);*/
++/*printf("sect=%d\n",nSect2);*/
+         }while(nSect2!=0);
+         
+         previous.nextSameHash = nSect;
+@@ -202,7 +202,7 @@
+         (*adfEnv.wFct)(buf);
+         return RC_ERROR;
+     }
+-/*    printf("name=%s  nSect2=%ld\n",name, nSect2);*/
++/*    printf("name=%s  nSect2=%d\n",name, nSect2);*/
+ 
+     /* in parent hashTable */
+     if (nSect2==0) {
+@@ -548,7 +548,7 @@
+ 
+     if (entry->name==NULL)
+         return RC_MALLOC;
+-/*printf("len=%d name=%s parent=%ld\n",entryBlk->nameLen, entry->name,entry->parent );*/
++/*printf("len=%d name=%s parent=%d\n",entryBlk->nameLen, entry->name,entry->parent );*/
+     adfDays2Date( entryBlk->days, &(entry->year), &(entry->month), &(entry->days));
+ 	entry->hour = entryBlk->mins/60;
+     entry->mins = entryBlk->mins%60;
+--- a/sources/thirdpartylibs/adflib/Lib/adf_disk.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_disk.c
+@@ -173,7 +173,7 @@
+ 	vol->dev = dev;
+     vol->mounted = TRUE;
+ 
+-/*printf("first=%ld last=%ld root=%ld\n",vol->firstBlock,
++/*printf("first=%d last=%d root=%d\n",vol->firstBlock,
+  vol->lastBlock, vol->rootBlock);
+ */
+     if (adfReadBootBlock(vol, &boot)!=RC_OK) {
+@@ -258,7 +258,7 @@
+     vol->firstBlock = (dev->heads * dev->sectors)*start;
+     vol->lastBlock = (vol->firstBlock + (dev->heads * dev->sectors)*len)-1;
+     vol->rootBlock = (vol->lastBlock - vol->firstBlock+1)/2;
+-/*printf("first=%ld last=%ld root=%ld\n",vol->firstBlock,
++/*printf("first=%d last=%d root=%d\n",vol->firstBlock,
+  vol->lastBlock, vol->rootBlock);
+ */
+     vol->curDirPtr = vol->rootBlock;
+@@ -356,7 +356,7 @@
+ 
+     if (adfEnv.useProgressBar)
+         (*adfEnv.progressBar)(100);
+-/*printf("free blocks %ld\n",adfCountFreeBlocks(vol));*/
++/*printf("free blocks %d\n",adfCountFreeBlocks(vol));*/
+ 
+     /* will be managed by adfMount() later */
+     adfFreeBitmap(vol);
+@@ -436,7 +436,7 @@
+     }
+ 
+     pSect = nSect+vol->firstBlock;
+-/*printf("write nsect=%ld psect=%ld\n",nSect,pSect);*/
++/*printf("write nsect=%d psect=%d\n",nSect,pSect);*/
+ 
+     if (adfEnv.useRWAccess)
+         (*adfEnv.rwhAccess)(pSect,nSect,TRUE);
+--- a/sources/thirdpartylibs/adflib/Lib/adf_dump.h
++++ b/sources/thirdpartylibs/adflib/Lib/adf_dump.h
+@@ -25,6 +25,7 @@
+  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  *
+  */
++#include <stdint.h>
+ 
+ PREFIX     struct Device*
+ adfCreateDumpDevice(char* filename, int32_t cyl, int32_t heads, int32_t sec);
+--- a/sources/thirdpartylibs/adflib/Lib/adf_file.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_file.c
+@@ -74,13 +74,13 @@
+     }
+     if (file->writeMode) {
+         file->fileHdr->byteSize = file->pos;
+-/*printf("pos=%ld\n",file->pos);*/
++/*printf("pos=%d\n",file->pos);*/
+         adfTime2AmigaTime(adfGiveCurrentTime(),
+             &(file->fileHdr->days),&(file->fileHdr->mins),&(file->fileHdr->ticks) );
+         adfWriteFileHdrBlock(file->volume, file->fileHdr->headerKey, file->fileHdr);
+ 
+ 	    if (isDIRCACHE(file->volume->dosType)) {
+-/*printf("parent=%ld\n",file->fileHdr->parent);*/
++/*printf("parent=%d\n",file->fileHdr->parent);*/
+             adfReadEntryBlock(file->volume, file->fileHdr->parent, &parent);
+             adfUpdateCache(file->volume, &parent, (struct bEntryBlock*)file->fileHdr,FALSE);
+         }
+@@ -543,7 +543,7 @@
+     if (file->nDataBlock<MAX_DATABLK) {
+         nSect = adfGet1FreeBlock(file->volume);
+         if (nSect==-1) return -1;
+-/*printf("adfCreateNextFileBlock fhdr %ld\n",nSect);*/
++/*printf("adfCreateNextFileBlock fhdr %d\n",nSect);*/
+         if (file->nDataBlock==0)
+             file->fileHdr->firstData = nSect;
+         file->fileHdr->dataBlocks[MAX_DATABLK-1-file->nDataBlock] = nSect;
+@@ -553,7 +553,7 @@
+         /* one more sector is needed for one file extension block */
+         if ((file->nDataBlock%MAX_DATABLK)==0) {
+             extSect = adfGet1FreeBlock(file->volume);
+-/*printf("extSect=%ld\n",extSect);*/
++/*printf("extSect=%d\n",extSect);*/
+             if (extSect==-1) return -1;
+ 
+             /* the future block is the first file extension block */
+@@ -673,7 +673,7 @@
+         swapEndian(data, SWBL_DATA);
+ #endif
+         dBlock = (struct bOFSDataBlock*)data;
+-/*printf("adfReadDataBlock %ld\n",nSect);*/
++/*printf("adfReadDataBlock %d\n",nSect);*/
+ 
+         if (dBlock->checkSum!=adfNormalSum(buf,20,sizeof(struct bOFSDataBlock)))
+             (*adfEnv.wFct)("adfReadDataBlock : invalid checksum");
+--- a/sources/thirdpartylibs/adflib/Lib/adf_hd.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_hd.c
+@@ -180,9 +180,9 @@
+     vol->firstBlock = 0;
+ 
+     size = dev->size + 512-(dev->size%512);
+-/*printf("size=%ld\n",size);*/
++/*printf("size=%d\n",size);*/
+     vol->rootBlock = (size/512)/2;
+-/*printf("root=%ld\n",vol->rootBlock);*/
++/*printf("root=%d\n",vol->rootBlock);*/
+     do {
+         adfReadDumpSector(dev, vol->rootBlock, 512, buf);
+         found = swapLong(buf)==T_HEADER && swapLong(buf+508)==ST_ROOT;
+@@ -638,7 +638,7 @@
+     dev->nVol = n;
+ /*
+ vol=dev->volList[0];
+-printf("0first=%ld last=%ld root=%ld\n",vol->firstBlock,
++printf("0first=%d last=%d root=%d\n",vol->firstBlock,
+  vol->lastBlock, vol->rootBlock);
+ */
+ 
+--- a/sources/thirdpartylibs/adflib/Lib/adf_link.h
++++ b/sources/thirdpartylibs/adflib/Lib/adf_link.h
+@@ -7,7 +7,7 @@
+  *  adf_link.h
+  *
+  *  $Id$
+- *  
++ *
+  *  This file is part of ADFLib.
+  *
+  *  ADFLib is free software; you can redistribute it and/or modify
+@@ -27,8 +27,9 @@
+  */
+ 
+ #include"prefix.h"
++#include <stdint.h>
+ 
+-PREFIX RETCODE adfBlockPtr2EntryName(struct Volume *vol, SECTNUM nSect, SECTNUM lPar, 
++PREFIX RETCODE adfBlockPtr2EntryName(struct Volume *vol, SECTNUM nSect, SECTNUM lPar,
+ 	char **name, int32_t *size);
+ 
+ 
+--- a/sources/thirdpartylibs/adflib/Lib/adf_util.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_util.c
+@@ -49,7 +49,7 @@
+ 	buf[3]= (unsigned char)(val & 0x000000ff);
+ }
+ 
+-void swShort(unsigned char* buf, unsigned short val)
++void swShort(unsigned char* buf, uint16_t val)
+ {
+ 	buf[0]= (val & 0xff00) >>8UL;
+ 	buf[1]= (val & 0x00ff) ;
+--- a/sources/thirdpartylibs/adflib/Lib/adf_util.h
++++ b/sources/thirdpartylibs/adflib/Lib/adf_util.h
+@@ -32,7 +32,7 @@
+ 
+ 
+ void swLong(unsigned char* buf, uint32_t val);
+-void swShort(unsigned char* buf, unsigned short val);
++void swShort(unsigned char* buf, uint16_t val);
+ 
+ PREFIX struct List* newCell(struct List* list, void* content);
+ PREFIX void freeList(struct List* list);
+--- a/sources/thirdpartylibs/adflib/Lib/hd_blk.h
++++ b/sources/thirdpartylibs/adflib/Lib/hd_blk.h
+@@ -145,8 +145,8 @@
+ /*014*/ 	int32_t 	flags;
+ /*018*/ 	int32_t 	r1[2];
+ /*020*/ 	char 	dosType[4];
+-/*024*/ 	short 	majVersion;
+-/*026*/ 	short 	minVersion;
++/*024*/ 	int16_t 	majVersion;
++/*026*/ 	int16_t 	minVersion;
+ /*028*/ 	int32_t 	patchFlags;
+ 
+ /*02c*/ 	int32_t 	type;
+--- a/sources/thirdpartylibs/adflib/Lib/myconf
++++ b/sources/thirdpartylibs/adflib/Lib/myconf
+@@ -3,9 +3,10 @@
+ cat >myctest.c <<END
+ 
+ #include<stdio.h>
++#include<stdint.h>
+ 
+ union u{
+-    long l;
++    int32_t l;
+     char c[4];
+     };
+ 
+@@ -13,10 +14,10 @@
+ {
+     union u val;
+ 
+-    printf("%d ",sizeof(long));
+-    printf("%d ",sizeof(short));
++    printf("%d ",sizeof(int32_t));
++    printf("%d ",sizeof(int16_t));
+     printf("%d ",sizeof(int));
+-    
++
+     val.l=1L;
+     if (val.c[3]==1)
+         puts("BIG");
+@@ -26,7 +27,7 @@
+ 
+ END
+ 
+-gcc myctest.c -o myctest
++gcc -std=gnu99 myctest.c -o myctest
+ rm myctest.c
+ 
+ if [ `./myctest |cut -d' ' -f 1` != 4 ]
+@@ -40,15 +41,21 @@
+ fi
+ 
+ if [ `./myctest |cut -d' ' -f 4` = LITTLE ]
+-    then 
++    then
+     echo "#ifndef LITT_ENDIAN" >defendian.h
+-    echo "#define LITT_ENDIAN 1" >>defendian.h 
++    echo "#define LITT_ENDIAN 1" >>defendian.h
+     echo "#endif /* LITT_ENDIAN */" >>defendian.h
+-    echo Little Endian machine detected 
++    echo Little Endian machine detected
+ else
+     echo "#ifndef LITT_ENDIAN" >defendian.h
+     echo "#endif /* LITT_ENDIAN */" >>defendian.h
+     echo Big Endian machine detected
+ fi
+ 
+-rm myctest.exe myctest
++if [ -f myctest.exe ]; then
++	rm myctest.exe
++fi
++
++if [ -f myctest ]; then
++	rm myctest
++fi
+--- a/sources/thirdpartylibs/adflib/Lib/myconf.sh
++++ b/sources/thirdpartylibs/adflib/Lib/myconf.sh
+@@ -3,9 +3,10 @@
+ cat >myctest.c <<END
+ 
+ #include<stdio.h>
++#include<stdint.h>
+ 
+ union u{
+-    long l;
++    int32_t l;
+     char c[4];
+     };
+ 
+@@ -13,10 +14,10 @@
+ {
+     union u val;
+ 
+-    printf("%d ",sizeof(long));
+-    printf("%d ",sizeof(short));
++    printf("%d ",sizeof(int32_t));
++    printf("%d ",sizeof(int16_t));
+     printf("%d ",sizeof(int));
+-    
++
+     val.l=1L;
+     if (val.c[3]==1)
+         puts("BIG");
+@@ -26,7 +27,7 @@
+ 
+ END
+ 
+-gcc myctest.c -o myctest
++gcc -std=gnu99 myctest.c -o myctest
+ rm myctest.c
+ 
+ if [ `./myctest |cut -d' ' -f 1` != 4 ]
+@@ -40,15 +41,21 @@
+ fi
+ 
+ if [ `./myctest |cut -d' ' -f 4` = LITTLE ]
+-    then 
++    then
+     echo "#ifndef LITT_ENDIAN" >defendian.h
+-    echo "#define LITT_ENDIAN 1" >>defendian.h 
++    echo "#define LITT_ENDIAN 1" >>defendian.h
+     echo "#endif /* LITT_ENDIAN */" >>defendian.h
+-    echo Little Endian machine detected 
++    echo Little Endian machine detected
+ else
+     echo "#ifndef LITT_ENDIAN" >defendian.h
+     echo "#endif /* LITT_ENDIAN */" >>defendian.h
+     echo Big Endian machine detected
+ fi
+ 
+-rm myctest.exe myctest
++if [ -f myctest.exe ]; then
++	rm myctest.exe
++fi
++
++if [ -f myctest ]; then
++	rm myctest
++fi
+--- a/sources/thirdpartylibs/adflib/Makefile
++++ b/sources/thirdpartylibs/adflib/Makefile
+@@ -13,7 +13,7 @@
+ RELEASE=1
+ INSTDIR=/usr/local/unadf
+ 
+-all: demo tests lib
++all: demo lib #tests
+ 
+ lib: $(LIBDIR)/$(LIBNAME)
+ 	cp $(LIBDIR)/$(LIBNAME) ./Bin/Linux/
+@@ -23,14 +23,14 @@
+ 
+ clean:
+ 	cd $(LIBDIR) && ($(MAKE) clean || true)
+-	cd $(TESTDIR) && ($(MAKE) clean || true)
++	#cd $(TESTDIR) && ($(MAKE) clean || true)
+ 	cd $(DEMODIR) && ($(MAKE) clean || true)
+ 	rm -rf PKG *~ unadf*.rpm
+ 	rm -f unadf-${VERSION}.spec
+ 
+ dep Lib/defendian.h:
+ 	cd $(LIBDIR) && ($(MAKE) dep || true)
+-	cd $(TESTDIR) && ($(MAKE) dep || true)
++	#cd $(TESTDIR) && ($(MAKE) dep || true)
+ 	cd $(DEMODIR) && ($(MAKE) dep || true)
+ 
+ zip:
+@@ -54,9 +54,9 @@
+ unadf-${VERSION}.spec: gen_spec.sh
+ 	./gen_spec.sh ${VERSION} ${RELEASE} unadf FilesToInstall >unadf-${VERSION}.spec
+ 
+-zipdump:
+-	(rm adfdump.zip) || true
+-	zip -9r dumps.zip Dumps Test
++#zipdump:
++#	(rm adfdump.zip) || true
++#	zip -9r dumps.zip Dumps Test
+ 
+ binw32:
+ 	(rm binw32.zip) || true
+@@ -80,3 +80,4 @@
+ 	cd $(TESTDIR) && ./bigdev.sh
+ 
+ 
++# DO NOT DELETE
+--- a/sources/thirdpartylibs/adflib/Lib/adf_env.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_env.c
+@@ -95,10 +95,10 @@
+ 
+     /* internal checking */
+ 
+-    if (sizeof(short)!=2) 
+-        { fprintf(stderr,"Compilation error : sizeof(short)!=2\n"); exit(1); }
+-    if (sizeof(int32_t)!=4) 
+-        { fprintf(stderr,"Compilation error : sizeof(short)!=2\n"); exit(1); }
++    if (sizeof(int16_t)!=2)
++        { fprintf(stderr,"Compilation error : sizeof(int16_t)!=2\n"); exit(1); }
++    if (sizeof(int32_t)!=4)
++        { fprintf(stderr,"Compilation error : sizeof(int16_t)!=2\n"); exit(1); }
+     if (sizeof(struct bEntryBlock)!=512)
+         { fprintf(stderr,"Internal error : sizeof(struct bEntryBlock)!=512\n"); exit(1); }
+     if (sizeof(struct bRootBlock)!=512)
+@@ -136,7 +136,7 @@
+     adfEnv.notifyFct = Changed;
+     adfEnv.rwhAccess = rwHeadAccess;
+     adfEnv.progressBar = progressBar;
+-	
++
+     adfEnv.useDirCache = FALSE;
+     adfEnv.useRWAccess = FALSE;
+     adfEnv.useNotify = FALSE;
+@@ -195,18 +195,18 @@
+         break;
+     case PR_USE_NOTFCT:
+         newBool = (BOOL*)new;
+-		adfEnv.useNotify = *newBool;        
++		adfEnv.useNotify = *newBool;
+         break;
+     case PR_PROGBAR:
+         adfEnv.progressBar = (void(*)(int))new;
+         break;
+     case PR_USE_PROGBAR:
+         newBool = (BOOL*)new;
+-		adfEnv.useProgressBar = *newBool;        
++		adfEnv.useProgressBar = *newBool;
+         break;
+     case PR_USE_RWACCESS:
+         newBool = (BOOL*)new;
+-		adfEnv.useRWAccess = *newBool;        
++		adfEnv.useRWAccess = *newBool;
+         break;
+     case PR_RWACCESS:
+         adfEnv.rwhAccess = (void(*)(SECTNUM,SECTNUM,BOOL))new;

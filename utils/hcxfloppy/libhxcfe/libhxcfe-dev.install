@@ -1,0 +1,9 @@
+sources/fdc_ctrl.h usr/include/
+sources/floppy_builder.h usr/include/
+sources/floppy_loader.h usr/include/
+sources/floppy_utils.h usr/include/
+sources/internal_floppy.h usr/include/
+sources/internal_libhxcfe.h usr/include/
+sources/libhxcfe.h usr/include/
+sources/plugins_id.h usr/include/
+sources/sector_search.h usr/include/

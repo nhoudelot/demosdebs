@@ -1,0 +1,89 @@
+Description: fix header files
+Last-Update: 2012-05-31
+
+--- a/sources/thirdpartylibs/adflib/Lib/adf_file.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_file.c
+@@ -31,7 +31,7 @@
+ #include"adf_util.h"
+ #include"adf_file.h"
+ #include"adf_str.h"
+-#include"defendian.h"
++#include"Win32/defendian.h"
+ #include"adf_raw.h"
+ #include"adf_disk.h"
+ #include"adf_dir.h"
+--- a/sources/thirdpartylibs/adflib/Lib/adf_dir.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_dir.c
+@@ -32,7 +32,7 @@
+ #include"adf_dir.h"
+ #include"adf_str.h"
+ #include"adf_util.h"
+-#include"defendian.h"
++#include"Win32/defendian.h"
+ #include"adf_blk.h"
+ #include"adf_raw.h"
+ #include"adf_disk.h"
+--- a/sources/thirdpartylibs/adflib/Lib/adf_raw.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_raw.c
+@@ -35,7 +35,7 @@
+ #include "adf_disk.h"
+ #include "adf_util.h"
+ #include "adf_err.h"
+-#include "defendian.h"
++#include "Win32/defendian.h"
+ 
+ extern struct Env adfEnv;
+ 
+--- a/sources/thirdpartylibs/adflib/Lib/adf_bitm.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_bitm.c
+@@ -33,7 +33,7 @@
+ #include"adf_err.h"
+ #include"adf_disk.h"
+ #include"adf_util.h"
+-#include"defendian.h"
++#include"Win32/defendian.h"
+ 
+ extern uint32_t bitMask[32];
+ 
+--- a/sources/thirdpartylibs/adflib/Lib/adf_cache.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_cache.c
+@@ -31,7 +31,7 @@
+ #include"adf_defs.h"
+ #include"adf_str.h"
+ #include"adf_err.h"
+-#include"defendian.h"
++#include"Win32/defendian.h"
+ #include"adf_cache.h"
+ #include"adf_raw.h"
+ #include"adf_disk.h"
+--- a/sources/thirdpartylibs/adflib/Lib/adf_hd.c
++++ b/sources/thirdpartylibs/adflib/Lib/adf_hd.c
+@@ -41,7 +41,7 @@
+ #include"adf_dump.h"
+ #include"adf_err.h"
+ 
+-#include"defendian.h"
++#include"Win32/defendian.h"
+ 
+ extern struct Env adfEnv;
+ 
+--- a/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.c
++++ b/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.c
+@@ -20,7 +20,6 @@
+  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  *
+  */
+- */
+ 
+ #include<stdio.h>
+ #include<stdlib.h>
+--- a/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.h
++++ b/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.h
+@@ -20,7 +20,6 @@
+  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  *
+  */
+- */
+ 
+ #ifndef ADF_NATIV_H
+ #define ADF_NATIV_H

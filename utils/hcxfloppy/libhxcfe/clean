@@ -1,0 +1,7 @@
+sources/thirdpartylibs/zlib/contrib/dotzlib/DotZLib.build
+sources/thirdpartylibs/adflib/Lib/.depend.bak
+sources/thirdpartylibs/adflib/Demo/.depend.bak
+build/libhxcfe.so
+debian/libhxcfe2.8.install
+debian/libhxcfe2.8.links
+debian/libhxcfe-dev.links

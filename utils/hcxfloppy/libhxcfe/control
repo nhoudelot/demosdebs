@@ -1,0 +1,32 @@
+Source: libhxcfe
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libhxcadaptor-dev,
+ zlib1g-dev,
+ libexpat1-dev,
+ rename
+Standards-Version: 3.9.7
+Section: libs
+Homepage: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/libhxcfe/
+
+Package: libhxcfe-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libhxcfe2.8 (= ${binary:Version}),
+ ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcfe
+ librarie to communicate with hxcfe
+
+Package: libhxcfe2.8
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcfe
+ librarie to communicate with hxcfe

@@ -1,0 +1,11 @@
+--- a/build/Makefile
++++ b/build/Makefile
+@@ -88,7 +88,7 @@
+ 	cp $@ ../../../build
+ 
+ libhxcfe.so: floppy_loader.o floppy_utils.o floppy_ifmode.o emuii_track.o crc.o std_crc32.o arburg_track.o track_generator.o trackutils.o trackeditor.o gcr_track.o apple2.o sector_extractor.o display_track.o fluxStreamAnalyzer.o fs_manager.o fs_amigados.o fs_fat12.o fs_cpm.o libcpmfs.o $(ADFLIBOBJ) $(DISKLOADERPLUGINS) $(DISKWRITERPLUGINS) $(DISKLOADERPLUGINS_IPF) $(XDMSLIBOBJ) $(MINIZIPOBJ) $(XML_DISK) $(FATIOLIB) /usr/lib/$(DEB_HOST_MULTIARCH)/libhxcadaptor.a
+-	$(CC) -o $@    $^ $(LDFLAGS)
++	$(CC) -o $@    $^ $(LDFLAGS) -Wl,-soname,libhxcfe.so.2
+ 	cp $@ ../../../build
+ 
+ floppy_loader.o: $(BASEDIR)/floppy_loader.c
