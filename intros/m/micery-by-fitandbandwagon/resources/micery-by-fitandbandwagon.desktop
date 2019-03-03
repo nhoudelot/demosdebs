@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Micery
+GenericName=Demo
+Comment=Demo by Fit and Bandwagon, released in 2004
+Type=Application
+Exec=/usr/bin/micery-by-fitandbandwagon -w
+Icon=micery-by-fitandbandwagon
+Categories=AudioVideo;Game;
+Name[fr_FR]=Micery
