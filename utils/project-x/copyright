@@ -1,0 +1,62 @@
+This package was debianized by Mario Limonciello <superm1@ubuntu.com> on
+Tue, 21 Jan 2008 16:41:23 -0500
+
+This original source for this package was obtained via the website
+http://sourceforge.net/projects/project-x
+
+It is distributed in a .zip archive, so it had to be repackaged.
+
+Additionally, due to DFSG, the lib/ directory has been removed from 
+the .orig.tar.gz due to questionable licensing on multiple binaries 
+shipped within it, as well as several unnecessary binaries under 
+the Apache License.
+
+Copyright:
+
+ ProjectX:
+ dvb.matt
+
+ Portions copyright Eric Albert
+ * This code is Copyright 1999-2001 by Eric Albert (ejalbert@cs.stanford.edu) and may be
+ * redistributed or modified in any form without restrictions as long as the portion of this
+ * comment from this paragraph through the end of the comment is not removed.  The author
+ * requests that he be notified of any application, applet, or other binary that makes use of
+ * this code, but that's more out of curiosity than anything and is not required.  This software
+ * includes no warranty.  The author is not repsonsible for any loss of data or functionality
+ * or any adverse or unexpected effects of using this software.
+
+ Other Contributors: 
+ TheHorse - keyboardcontrol of preview
+ java.lang - conditional patch of H-resolution
+ R-One - DTS support
+ ghost - dreambox file segment completion
+ roehrist - CVS, X-input
+ pstorch - i18n support
+ chrisg - Topfield disk access (AddOn)
+ jazzydane - danish translation
+ Kano / RoEn - Unix buils script
+ catapult,Bonni - Topfield 5x00 export
+ MartinR - Gui-BaseOutputFileName
+
+
+License:
+
+ This Package is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+On Debian & Ubuntu systems, a complete copy of the GPL can be found under
+/usr/share/common-licenses/GPL
+
+The Debian packaging is © 2008, Mario Limonciello <superm1@ubuntu.com> and is
+also licensed under the GPL.

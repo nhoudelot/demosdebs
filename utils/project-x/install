@@ -1,0 +1,3 @@
+projectx.jar usr/share/java
+projectx.desktop usr/share/applications
+debian/bin/projectx usr/bin

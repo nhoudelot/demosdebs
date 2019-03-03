@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+#Starts ProjectX
+# Include the wrappers utility script
+. /usr/lib/java-wrappers/java-wrappers.sh
+
+# Chatty requires at least Java2 to run
+find_java_runtime java2
+
+run_java -jar /usr/share/java/projectx.jar "$@"

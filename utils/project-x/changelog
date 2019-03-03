@@ -1,0 +1,62 @@
+project-x (0.91.10-0ddebs4) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+  * package is built using java-helper noew
+  * use system libcommons-net-java and liboro-java
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 29 Aug 2018 01:00:59 +0200
+
+project-x (0.91.10-0ddebs3) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 15:52:59 +0200
+
+project-x (0.91.10-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 17:14:26 +0200
+
+project-x (0.91.10-0ddebs1) unstable; urgency=medium
+
+  * update from upstream
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2016 21:39:37 +0100
+
+project-x (0.91.8-0~trusty0~ddebs1) trusty; urgency=low
+
+  * update from upstream
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 19 May 2014 02:42:31 +0200
+
+project-x (0.90.4dfsg-0ubuntu5) intrepid; urgency=low
+
+  * remove java specific dependencies and icedtea-java7-jre NBS (LP: #203636)
+
+ -- Didier Roche <didrocks@ubuntu-fr.org>  Wed, 20 Aug 2008 22:46:41 +0200
+
+project-x (0.90.4dfsg-0ubuntu4) hardy; urgency=low
+
+  * Build depend on openjdk-6-jdk instead of icedtea-java7-jdk.
+  * Make other VMs possible to solve depends.
+
+ -- Mario Limonciello <superm1@ubuntu.com>  Tue, 18 Mar 2008 20:34:55 -0500
+
+project-x (0.90.4dfsg-0ubuntu3) hardy; urgency=low
+
+  * Let project-x start script accept arguments (LP: #195152)
+
+ -- Mario Limonciello <superm1@ubuntu.com>  Sun, 02 Mar 2008 12:49:14 -0600
+
+project-x (0.90.4dfsg-0ubuntu2) hardy; urgency=low
+
+  * Add libcommons-net-java to depends.  (LP: #195053)
+
+ -- Mario Limonciello <superm1@ubuntu.com>  Sun, 24 Feb 2008 10:48:58 -0600
+
+project-x (0.90.4dfsg-0ubuntu1) hardy; urgency=low
+
+  * Initial Release. (LP: #105896)
+
+ -- Mario Limonciello <superm1@ubuntu.com>  Thu, 03 Jan 2008 15:22:42 -0600

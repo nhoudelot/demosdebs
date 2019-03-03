@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+
+JAVA_HOME=/usr/lib/jvm/default-java
+export CLASSPATH=/usr/share/java/commons-net.jar:/usr/share/java/oro.jar:/usr/share/java/java-atk-wrapper.jar:/usr/share/java/ant-bootstrap.jar
+
+%:
+	dh $@ --with javahelper
