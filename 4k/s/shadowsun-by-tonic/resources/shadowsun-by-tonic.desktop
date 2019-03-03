@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Shadow Sun
+GenericName=Demo
+Comment=Demo by tonic, released in 2004
+Type=Application
+Exec=/usr/bin/shadowsun-by-tonic
+Icon=shadowsun-by-tonic
+Categories=AudioVideo;Game;
+Name[fr_FR]=Shadow Sun
