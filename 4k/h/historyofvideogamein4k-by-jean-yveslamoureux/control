@@ -1,0 +1,19 @@
+Source: historyofvideogamein4k-by-jean-yveslamoureux
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ pkgconf,
+ libsdl1.2-dev
+Standards-Version: 4.1.4
+Homepage: https://320x200.org/2004/4k/
+
+Package: historyofvideogamein4k-by-jean-yveslamoureux
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Jean-Yves Lamoureux 4k Intro/2004/Linux
+ Intro 4k by Jean-Yves Lamoureux, released in 2004

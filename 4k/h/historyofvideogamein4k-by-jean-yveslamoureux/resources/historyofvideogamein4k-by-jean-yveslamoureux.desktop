@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=History of video game in 4k
+GenericName=Demo
+Comment=Demo by Jean-Yves Lamoureux, released in 2004
+Type=Application
+Exec=/usr/bin/historyofvideogamein4k-by-jean-yveslamoureux
+Icon=historyofvideogamein4k-by-jean-yveslamoureux
+Categories=AudioVideo;Game;
+Name[fr_FR]=History of video game in 4k

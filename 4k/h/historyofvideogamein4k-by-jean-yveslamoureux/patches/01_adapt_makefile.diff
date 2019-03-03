@@ -1,0 +1,54 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,14 +1,30 @@
+-all:
+-	@echo "Trying to compile ..."
+-	@cat  this_is_the_end_of_this_four_kilo_bytes_source_compo___hope_you_enjoyed_it_as_much_as_i_enjoyed_to_write_it___bye_folks.c | wc -c
+-	@cat this_is_the_end_of_this_four_kilo_bytes_source_compo___hope_you_enjoyed_it_as_much_as_i_enjoyed_to_write_it___bye_folks.c  | perl -pe 's/\s//g' | wc -c
+-	gcc this_is_the_end_of_this_four_kilo_bytes_source_compo___hope_you_enjoyed_it_as_much_as_i_enjoyed_to_write_it___bye_folks.c -o source -I/usr/include/SDL -lSDL -Wall -g -ggdb -ansi
++#variables de compilation
++SHELL := /bin/sh
++CC    := gcc
++CFLAGS   += -std=c99 -Wall -ffast-math $(shell pkgconf --cflags sdl)
++LDFLAGS  += $(shell pkgconf --libs sdl) -lm
++TARGET   := historyofvideogamein4k-by-jean-yveslamoureux
++#variable de nettoyage
++RM_F = rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++
++SOURCE          = this_is_the_end_of_this_four_kilo_bytes_source_compo___hope_you_enjoyed_it_as_much_as_i_enjoyed_to_write_it___bye_folks.c
++
++all: $(TARGET)
++
++$(TARGET):
++	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
+ 
+-
+-
+-
+-
+-
+-
+-
+-	@echo "Ok ;)"
+\ No newline at end of file
++clean:
++	-$(RM_F) $(TARGET)
+--- /dev/null
++++ b/s.h
+@@ -0,0 +1,4 @@
++#include "SDL.h"
++#include <math.h>
++#include <stdlib.h>
++
