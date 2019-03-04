@@ -1,6 +1,6 @@
 --- a/sources/loaders/amigadosfs_loader/amigadosfs_loader.c
 +++ b/sources/loaders/amigadosfs_loader/amigadosfs_loader.c
-@@ -233,7 +233,7 @@
+@@ -225,7 +225,7 @@
  										byte_written=adfWriteFile(adffile, size, tempbuffer);
  										if((byte_written!=size) || (adfCountFreeBlocks(adfvolume)<2) )
  										{
@@ -20,29 +20,20 @@
  			hxc_fclose(f);
  			return HXCFE_BADFILE;
  			break;
-@@ -421,7 +421,7 @@
- 
- 			if(!floppydisk->tracks[i>>1])
- 			{
--				floppydisk->tracks[i>>1]=allocCylinderEntry(rpm,floppydisk->floppyNumberOfSide);	
-+				floppydisk->tracks[i>>1]=allocCylinderEntry(rpm,floppydisk->floppyNumberOfSide);
- 			}
- 			currentcylinder=floppydisk->tracks[i>>1];
- 
 --- a/sources/loaders/smc_loader/snes_smc_loader.c
 +++ b/sources/loaders/smc_loader/snes_smc_loader.c
-@@ -140,7 +140,7 @@
- 						{
- 							if( ! hxc_checkfileext(imgfile,"smc") )
- 							{
--								imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"snes_smc_libIsValidDiskFile : unknow file type !");
-+								imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"snes_smc_libIsValidDiskFile : unknown file type !");
- 								fileok=0;
- 							}
- 							else
+@@ -128,7 +128,7 @@
+ 			{
+ 				if( ! hxc_checkfileext(imgfile->path,"smc") )
+ 				{
+-					imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"snes_smc_libIsValidDiskFile : unknow file type !");
++					imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"snes_smc_libIsValidDiskFile : unknown file type !");
+ 					fileok=0;
+ 				}
+ 				else
 --- a/sources/loaders/oricdsk_loader/oricdsk_loader.c
 +++ b/sources/loaders/oricdsk_loader/oricdsk_loader.c
-@@ -276,7 +276,7 @@
+@@ -262,7 +262,7 @@
  			mfmformat=1;
  			geometrie=fileheader->number_of_sectors_geometrie;
  			floppydisk->floppySectorPerTrack=-1;
@@ -51,7 +42,7 @@
  		}
  		else
  		{
-@@ -342,7 +342,7 @@
+@@ -328,7 +328,7 @@
  			switch(geometrie)
  			{
  			case 1:
@@ -60,7 +51,7 @@
  				tracksize=(((filesize-256)/fileheader->number_of_side)/fileheader->number_of_tracks);
  				for(i=0;i<floppydisk->floppyNumberOfSide;i++)
  				{
-@@ -372,9 +372,9 @@
+@@ -358,9 +358,9 @@
  				break;
  
  			case 0:
@@ -74,7 +65,7 @@
  
 --- a/sources/internal_floppy.h
 +++ b/sources/internal_floppy.h
-@@ -31,14 +31,14 @@
+@@ -34,14 +34,14 @@
  
  typedef struct _HXCFE_SIDE
  {
@@ -113,7 +104,7 @@
  See CHANGES.txt for detailed contributions.
 --- a/sources/loaders/apridisk_loader/apridisk_loader.c
 +++ b/sources/loaders/apridisk_loader/apridisk_loader.c
-@@ -231,7 +231,7 @@
+@@ -215,7 +215,7 @@
  							break;
  
  						default:
@@ -124,16 +115,16 @@
  						}
 --- a/sources/loaders/ede_loader/ede_loader.c
 +++ b/sources/loaders/ede_loader/ede_loader.c
-@@ -113,7 +113,7 @@
+@@ -100,7 +100,7 @@
  					imgldr_ctx->hxcfe->hxc_printf(MSG_INFO_0,"EDE_libIsValidDiskFile : TS-10/12 DD format");
  				break;
  				default:
--					imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"EDE_libIsValidDiskFile : Unknow format : %x !",header_buffer[0x1FF]);
-+					imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"EDE_libIsValidDiskFile : Unknown format : %x !",header_buffer[0x1FF]);
+-					imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"EDE_libIsValidDiskFile : Unknow format : %x !",imgfile->file_header[0x1FF]);
++					imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"EDE_libIsValidDiskFile : Unknown format : %x !",imgfile->file_header[0x1FF]);
  					return HXCFE_BADFILE;
  				break;
  			}
-@@ -287,7 +287,7 @@
+@@ -274,7 +274,7 @@
  				break;
  
  			default:
@@ -144,7 +135,7 @@
  			break;
 --- a/sources/loaders/hfe_loader/hfe_loader.c
 +++ b/sources/loaders/hfe_loader/hfe_loader.c
-@@ -162,7 +162,7 @@
+@@ -155,7 +155,7 @@
  			floppydisk->floppyNumberOfSide,
  			floppydisk->floppyBitRate,
  			floppydisk->floppySectorPerTrack,
@@ -155,7 +146,7 @@
          trackoffsetlist=(pictrack*)malloc(sizeof(pictrack)* header.number_of_track);
 --- a/sources/loaders/hfe_loader/hfev3_loader.c
 +++ b/sources/loaders/hfe_loader/hfev3_loader.c
-@@ -187,7 +187,7 @@
+@@ -215,7 +215,7 @@
  			floppydisk->floppyNumberOfSide,
  			floppydisk->floppyBitRate,
  			floppydisk->floppySectorPerTrack,
@@ -166,7 +157,7 @@
          trackoffsetlist=(pictrack*)malloc(sizeof(pictrack)* header.number_of_track);
 --- a/sources/loaders/sap_loader/sap_loader.c
 +++ b/sources/loaders/sap_loader/sap_loader.c
-@@ -140,7 +140,7 @@
+@@ -139,7 +139,7 @@
  		trackformat=ISOFORMAT_SD;
  		break;
  	default:
@@ -175,14 +166,14 @@
  		sap_CloseArchive(sapid);
  		return -1;
  		break;
-@@ -232,4 +232,3 @@
+@@ -227,4 +227,3 @@
  			);
  }
  
 -
 --- a/sources/loaders/stx_loader/stx_loader.c
 +++ b/sources/loaders/stx_loader/stx_loader.c
-@@ -713,7 +713,7 @@
+@@ -703,7 +703,7 @@
  						{
  							hxc_fread( &temp_val, sizeof(unsigned short), f );
  #ifdef PASTI_DBG
@@ -193,7 +184,7 @@
  
 --- a/sources/tracks/display_track.c
 +++ b/sources/tracks/display_track.c
-@@ -490,7 +490,7 @@
+@@ -493,7 +493,7 @@
  								{
  									if(sc->startdataindex == sc->startsectorindex)
  									{

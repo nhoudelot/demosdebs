@@ -16,13 +16,13 @@ Package: libhxcfe-dev
 Section: libdevel
 Architecture: any
 Depends:
- libhxcfe2.8 (= ${binary:Version}),
+ libhxcfe2.9 (= ${binary:Version}),
  ${misc:Depends}
 Multi-Arch: same
 Description: librarie to communicate with hxcfe
  binary files
 
-Package: libhxcfe2.8
+Package: libhxcfe2.9
 Architecture: any
 Depends:
  ${shlibs:Depends},

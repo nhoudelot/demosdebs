@@ -1,3 +1,9 @@
+libhxcfe (2.9.2.6-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 04 Mar 2019 02:27:09 +0100
+
 libhxcfe (2.8.13.1-0ddebs2) unstable; urgency=medium
 
   * update to standard version 4.1.4
