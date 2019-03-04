@@ -1,0 +1,3 @@
+debian/scripts/nightdrive-by-contraz usr/bin/
+debian/resources/nightdrive-by-contraz.desktop usr/share/applications/
+./NightDrive usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/./

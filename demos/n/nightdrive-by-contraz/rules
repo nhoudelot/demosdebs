@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure
+	cp debian/libfmodex64.so.4 ./libfmodex64.so
+	cp debian/libGLEW.so.1.8 .
+	cp debian/libvpx.so.1 .
+	cp debian/libglfw.so.2 .
+
+override_dh_shlibdeps:
+	dh_shlibdeps -- -l. --ignore-missing-info
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/nightdrive-by-contraz.6.md -o debian/nightdrive-by-contraz.6
+	mkdir -p "debian/nightdrive-by-contraz/usr/share/icons/hicolor/128x128/apps/"
+	cp "NightDrive.png" "debian/nightdrive-by-contraz/usr/share/icons/hicolor/128x128/apps/nightdrive-by-contraz.png"

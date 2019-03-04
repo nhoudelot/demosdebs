@@ -1,0 +1,4 @@
+debian/libfmodex64.so.4
+debian/libGLEW.so.1.8
+debian/libvpx.so.1
+debian/libglfw.so.2

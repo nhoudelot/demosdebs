@@ -1,0 +1,5 @@
+usr/lib/x86_64-linux-gnu/libfmodex.so usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/libfmodex64.so
+usr/lib/x86_64-linux-gnu/libGLEW.so.NSHGLEWVERSION usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/libGLEW.so.1.8
+usr/lib/x86_64-linux-gnu/libvpx.so.NSHVPXVERSION usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/libvpx.so.1
+usr/lib/x86_64-linux-gnu/libglfw.so.3 usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/libglfw.so.2
+usr/share/nightdrive-by-contraz/resources.7z usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/resources.7z

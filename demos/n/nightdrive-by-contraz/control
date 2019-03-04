@@ -1,0 +1,37 @@
+Source: nightdrive-by-contraz
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libdevil-dev,
+ libnoise-dev,
+ libfmodex-dev,
+ libgl1-mesa-dev,
+ libfltk1.1-dev,
+ libglfw-dev|libglfw3-dev
+Standards-Version: 4.1.4
+Homepage: http://www.pouet.net/prod.php?which=61570
+
+Package: nightdrive-by-contraz
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libfmodex4,
+ libvpxNSHVPXVERSION,
+ libglfw2,
+ libglewNSHGLEWVERSION,
+ nightdrive-by-contraz-data,
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2013
+ Demo by Contraz, released in 2013
+
+Package: nightdrive-by-contraz-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for nightdrive-by-contraz
+ nightdrive-by-contraz data files
