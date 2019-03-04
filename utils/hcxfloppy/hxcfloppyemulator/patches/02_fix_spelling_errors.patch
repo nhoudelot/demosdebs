@@ -1,7 +1,7 @@
 --- a/sources/gui/cb_floppy_infos_window.cxx
 +++ b/sources/gui/cb_floppy_infos_window.cxx
-@@ -805,7 +805,7 @@
- 							sprintf(str,"AED 6200P Sector");
+@@ -813,7 +813,7 @@
+ 							sprintf(str,"Heathkit Sector");
  						break;
  						default:
 -							sprintf(str,"Unknow Sector");
@@ -9,7 +9,7 @@
  						break;
  					}
  					fiw->buf->append((char*)str);
-@@ -948,4 +948,4 @@
+@@ -956,4 +956,4 @@
  
  	}
  
@@ -45,7 +45,7 @@
 +}
 --- a/hxcfloppyemulator_soft_release_notes.txt
 +++ b/hxcfloppyemulator_soft_release_notes.txt
-@@ -961,7 +961,7 @@
+@@ -1040,7 +1040,7 @@
  
  /*********************************************************
  18/09/2007: HxCFloppyEmulator 0.9.0.5
@@ -54,7 +54,7 @@
  *********************************************************/
  
  
-@@ -1078,5 +1078,3 @@
+@@ -1157,5 +1157,3 @@
  - premiers morceaux de code pour encoder les tracks d'une image ST puis ADF.
  *********************************************************/
  
