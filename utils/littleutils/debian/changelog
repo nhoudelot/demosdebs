@@ -1,3 +1,15 @@
+littleutils (1.0.42-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Jul 2019 17:35:18 +0200
+
+littleutils (1.0.41-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 02 May 2019 18:59:15 +0200
+
 littleutils (1.0.39-0ddebs1) unstable; urgency=medium
 
   * New upstream release 

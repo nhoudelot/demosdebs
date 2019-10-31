@@ -1,6 +1,6 @@
 --- a/imageutils/pngstrip.c
 +++ b/imageutils/pngstrip.c
-@@ -147,7 +147,7 @@
+@@ -151,7 +151,7 @@
      }
    if (setjmp (png_jmpbuf (read_png_ptr)))
      {
@@ -9,7 +9,7 @@
        png_destroy_read_struct (&read_png_ptr, &read_info_ptr, &read_end_info);
        (void) fclose (fp);
        exit (3);
-@@ -267,7 +267,7 @@
+@@ -280,7 +280,7 @@
      }
    if (setjmp (png_jmpbuf (write_png_ptr)))
      {
@@ -20,8 +20,8 @@
        (void) fclose (fp);
 --- a/scripts/opt-png.in
 +++ b/scripts/opt-png.in
-@@ -104,7 +104,7 @@
-     pngcrush -brute -l 9 -s ${TMPPNG2A} ${TMPPNG2}
+@@ -128,7 +128,7 @@
+     fi
      OUT3="$?"
      if [ "$OUT3" -ne 0 ]; then
 -      echo "opt-png error: bizzare result on $1: pngcrush rc = ${OUT3}"
