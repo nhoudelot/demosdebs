@@ -8,8 +8,8 @@ Build-Depends:
  pkgconf,
  libsdl1.2-dev,
  mesa-common-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=31526
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=31526
 
 Package: kartoonikum-by-exhouseandnecrostudios
 Architecture: any
