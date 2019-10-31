@@ -1,4 +1,0 @@
-debian/scripts/8bitwonderland-by-kakiarts usr/bin/
-debian/resources/8bitwonderland-by-kakiarts.desktop usr/share/applications/
-debian/resources/8bitwonderland-by-kakiarts.png usr/share/icons/hicolor/256x256/apps/
-./8bit-linux-x86 usr/lib/i386-linux-gnu//8bitwonderland-by-kakiarts/./ 
