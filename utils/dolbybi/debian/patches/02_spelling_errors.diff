@@ -1,6 +1,6 @@
 --- a/LibI64/Param.Lib
 +++ b/LibI64/Param.Lib
-@@ -1584,7 +1584,7 @@
+@@ -1585,7 +1585,7 @@
      End;
    If ParamThGFlg Then
      Begin;

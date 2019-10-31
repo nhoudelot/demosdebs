@@ -1,3 +1,9 @@
+dolbybi (1:0.0+20180403-0ddebs1) unstable; urgency=medium
+
+  * update from sourceforge
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Jul 2019 18:48:00 +0200
+
 dolbybi (1:0.0+20160728-0ddebs1) unstable; urgency=medium
 
   * new version with epoch change that give a better upstream version
