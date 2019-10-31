@@ -1,0 +1,50 @@
+Source: glfw
+Section: devel
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Mahyuddin Susanto <udienz@ubuntu.com>,
+           James Cowgill <james410@cowgill.org.uk>
+Build-Depends: debhelper (>= 9), dh-exec,
+               libgl1-mesa-dev | libgl-dev,
+               libglu1-mesa-dev | libglu-dev,
+               libxrandr-dev
+Standards-Version: 4.1.4
+Vcs-Git: https://anonscm.debian.org/pkg-games/glfw.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-games/glfw.git
+Homepage: https://www.glfw.org/
+
+Package: libglfw2
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: portable library for OpenGL, window and input (libraries)
+ GLFW is a free, Open Source, framework for OpenGL application
+ development. In short, it is a single library providing a powerful, portable
+ API for otherwise operating system specific tasks such as opening an OpenGL
+ window, and reading keyboard, time, mouse and joystick input.
+ .
+ It also provides functions accessing OpenGL extensions, creating and
+ synchronizing threads and reading textures from files.
+ .
+ This package provides the shared libraries.
+
+Package: libglfw-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libglfw2 (= ${binary:Version}),
+         libglu1-mesa-dev | libglu-dev,
+         mesa-common-dev,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: portable library for OpenGL, window and input (development files)
+ GLFW is a free, Open Source, framework for OpenGL application
+ development. In short, it is a single library providing a powerful, portable
+ API for otherwise operating system specific tasks such as opening an OpenGL
+ window, and reading keyboard, time, mouse and joystick input.
+ .
+ It also provides functions accessing OpenGL extensions, creating and
+ synchronizing threads and reading textures from files.
+ .
+ This package provides the header files and static libraries.

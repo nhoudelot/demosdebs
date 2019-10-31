@@ -1,0 +1,17 @@
+Description: Fix symlink
+Author: Gonéri Le Bouder goneri@rulezlan.org
+Bug-Debian: http://bugs.debian.org/516988
+
+Index: glfw-2.7.2/compile.sh
+===================================================================
+--- glfw-2.7.2.orig/compile.sh	2011-09-09 04:35:06.592500628 +0700
++++ glfw-2.7.2/compile.sh	2011-09-09 04:35:04.972498252 +0700
+@@ -88,7 +88,7 @@
+ case "x`uname 2> /dev/null`" in
+ xLinux)
+   GLFW_LIB_CFLAGS="$GLFW_LIB_CFLAGS -D_GLFW_USE_LINUX_JOYSTICKS"
+-  SOFLAGS="-shared -Wl,-soname,libglfw.so"
++  SOFLAGS="-shared -Wl,-soname,libglfw.so.2"
+   echo "Linux" 1>&6
+   ;;
+ xDarwin)

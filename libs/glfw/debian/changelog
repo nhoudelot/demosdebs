@@ -1,0 +1,111 @@
+glfw (2.7.9-1ddebs3) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Sep 2018 01:15:45 +0200
+
+glfw (2.7.9-1ddebs2) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 02:12:33 +0200
+
+glfw (2.7.9-1ddebs1) unstable; urgency=medium
+
+  * rebuild for stretch
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 05 Apr 2017 01:37:28 +0200
+
+glfw (2.7.9-1) unstable; urgency=medium
+
+  * New upstream version.
+    - This is the last version of GLFW 2.
+  * Enable multiarch (Closes: #732436, LP: #941319).
+
+  * debian/control:
+    - Add myself to the list of uploaders.
+    - Bump debhelper compat level to 9.
+    - Bump standards version - no changes.
+    - Use cgit Vcs-Browser URL.
+    - Update package short descriptions (copied from glfw3).
+    - Add dependency on dh-exec needed by the multiarch build procedure.
+  * debian/copyright:
+    - Use correct DEP5 'Format' URL.
+  * debian/rules:
+    - Handle build flags correctly to fix hardening warnings.
+    - Use the correct upstream makefile targets to simplify the build
+      procedure.
+    - Remove libglfw.so.2.6 (has the wrong filename and is not required).
+    - Move the readme.html file to libglfw-dev and install it via
+      libglfw-dev.docs instead of the rules file.
+  * debian/*.symbols:
+    - Add a symbols file for libglfw.so.2
+  * debian/watch:
+    - Download upstream tarballs from the github repo.
+
+ -- James Cowgill <james410@cowgill.org.uk>  Sat, 11 Jul 2015 00:18:47 +0100
+
+glfw (2.7.2-1) unstable; urgency=low
+
+  * New upstream release (Closes: #640791).
+  * debian/control:
+    - Bump Standars-Version to 3.9.2
+    - Add myself as Uplpaders.
+    - Delete quilt as B-D, not needed anymore.
+    - Raise B-D of debhelper to 7.0.50~ to use simple d/rules.
+    - Change homepage to http://www.glfw.org/.
+    - Change Vcs-* field into git repository.
+    - Add libglfw-dev dependency to mesa-common-dev and libglu1-mesa-dev
+      (Closes: #594956).
+  * debian/rules: Rewitting to use simple rules.
+  * Refreshing patches:
+    - debian/patches/fix_compilation_on_non_linux.patch.
+    - debian/patches/fix-soname.patch.
+  * debian/copyright: Rewritting as per dep5 format.
+  * debian/README.source: Deleted, not need anymore
+
+ -- Mahyuddin Susanto <udienz@ubuntu.com>  Tue, 11 Oct 2011 19:25:58 +0700
+
+glfw (2.6-5) unstable; urgency=low
+
+  * Team upload.
+  * Broaden Hurd patch to also fix building on GNU/kFreeBSD
+
+ -- Christoph Egger <christoph@debian.org>  Sat, 02 Jul 2011 22:58:59 +0200
+
+glfw (2.6-4) unstable; urgency=low
+
+  * Team upload.
+  * Really fix #558904, as only the first quilt patch was applied but not that
+    one from the previous upload. (Closes: #558904)
+
+ -- Bruno "Fuddl" Kleinert <fuddl@debian.org>  Fri, 01 Jul 2011 15:43:16 +0200
+
+glfw (2.6-3) unstable; urgency=low
+
+  * Team upload.
+  * Add fix_compilation_on_hurd.diff that hopefully fixes a FTBFS on GNU/Hurd.
+    It adds different linker flags in compile.sh. Thanks to Pino Toscano for the
+    patch! (Closes: #558904)
+
+ -- Bruno "Fuddl" Kleinert <fuddl@debian.org>  Thu, 30 Jun 2011 17:03:03 +0200
+
+glfw (2.6-2) unstable; urgency=low
+
+  * Fix /usr/lib/libglfw.so symlink (Closes: #516988)
+  * Fix the pkg-config file (Closes: #516989)
+  * Calls dh_makeshlibs before dh_shlibdeps
+  * Standard Version bumped to 3.8.0
+   - add a README.source
+  * clean the .pc directory
+  * use dh_clean to delete the build stamps
+  * Debhelper compat 7
+
+ -- Gonéri Le Bouder <goneri@rulezlan.org>  Sat, 28 Feb 2009 23:30:16 +0100
+
+glfw (2.6-1) unstable; urgency=low
+
+  * Initial Release. Closes: #476391
+
+ -- Gonéri Le Bouder <goneri@rulezlan.org>  Wed, 16 Apr 2008 12:33:15 +0200
+

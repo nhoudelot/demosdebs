@@ -1,0 +1,2 @@
+#!/usr/bin/dh-exec
+usr/lib/${DEB_HOST_MULTIARCH}/libglfw.so.2 usr/lib/${DEB_HOST_MULTIARCH}/libglfw.so

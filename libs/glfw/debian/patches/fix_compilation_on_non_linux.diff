@@ -1,0 +1,21 @@
+Description: Fix FTBFS in GNU kFreeBSD
+Author: Pino Toscano <pino@kde.org>, Gonéri Le Bouder goneri@rulezlan.org
+Bug-Debian: http://bugs.debian.org/558904
+Last-Update: 2011-10-11
+
+Index: glfw/compile.sh
+===================================================================
+--- glfw.orig/compile.sh	2011-10-11 18:47:14.348492865 +0700
++++ glfw/compile.sh	2011-10-11 18:48:33.088883321 +0700
+@@ -95,6 +95,11 @@
+   SOFLAGS="-flat_namespace -undefined suppress"
+   echo "Mac OS X" 1>&6
+   ;;
++xGNU|xGNU/kFreeBSD)
++  CFLAGS="$CFLAGS"
++  SOFLAGS="-shared -Wl,-soname,libglfw.so.2"
++  echo " GNU" 1>&6
++  ;;
+ *)
+   SOFLAGS="-shared -soname libglfw.so"
+   echo "Generic Unix" 1>&6

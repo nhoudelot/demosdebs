@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+# The build system does not understand CPPFLAGS or LDFLAGS
+export CFLAGS=$(shell dpkg-buildflags --get CPPFLAGS) $(shell dpkg-buildflags --get CFLAGS)
+export LFLAGS=$(shell dpkg-buildflags --get LDFLAGS)
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	$(MAKE) x11
+	$(MAKE) -C lib/x11 -f Makefile.x11 PREFIX=/usr libglfw.pc
+	sed -i 's,/lib,/lib/$(DEB_HOST_MULTIARCH),' lib/x11/libglfw.pc
+
+override_dh_auto_install:
+	$(MAKE) PREFIX=$(CURDIR)/debian/tmp/usr x11-dist-install
+
+override_dh_auto_clean:
+	[ ! -f config.log ] || $(MAKE) x11-dist-clean

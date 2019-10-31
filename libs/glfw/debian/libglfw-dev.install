@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec
+usr/include/*
+usr/lib/libglfw.a            usr/lib/${DEB_HOST_MULTIARCH}
+usr/lib/pkgconfig/libglfw.pc usr/lib/${DEB_HOST_MULTIARCH}/pkgconfig
