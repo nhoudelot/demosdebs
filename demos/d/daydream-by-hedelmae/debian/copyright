@@ -4,7 +4,8 @@ Source: https://www.pouet.net/prod.php?which=51131
 
 Files: *
 Copyright: 2008 Hedelmae
-License: GPL-3.0+
+License: public-domain
+ (probably freeware)
 
 Files: debian/*
 Copyright: 2016-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
