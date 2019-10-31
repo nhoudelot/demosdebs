@@ -1,3 +1,9 @@
+cursesdemo-by-dc5 (1.0-0ddebs5) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 02 Sep 2018 22:41:48 +0200
+
 cursesdemo-by-dc5 (1.0-0ddebs4) unstable; urgency=medium
 
   * fixed C standard
