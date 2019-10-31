@@ -1,0 +1,10 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,6 +1,7 @@
+ # Process this file with autoconf to produce a configure script.
+ AC_INIT([midas], [1.1.2])
+ AC_CONFIG_SRCDIR([README])
++LT_INIT
+ 
+ MAJOR_VERSION=1
+ MINOR_VERSION=1

@@ -1,0 +1,31 @@
+Source: libmidas
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ libsdl1.2-dev(>=1.0.6),
+ debhelper (>= 9.0.0),
+ dh-autoreconf
+Standards-Version: 3.9.7
+Section: libs
+Homepage: https://www.libsdl.org/projects/midas/
+
+Package: libmidas-dev
+Section: libdevel
+Architecture: any
+Depends: libmidas-1.1-2 (= ${binary:Version})
+Description: quick port of the MIDAS Digital Audio System to SDL
+ MIDAS Digital Audio System is a multichannel digital sound and music
+ system, designed mainly for use in games, demos, and other realtime
+ multimedia applications. MIDAS is free for non-commercial usage, but
+ licenses for commercial use are also available. 
+
+Package: libmidas-1.1-2
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Description: quick port of the MIDAS Digital Audio System to SDL
+ MIDAS Digital Audio System is a multichannel digital sound and music
+ system, designed mainly for use in games, demos, and other realtime
+ multimedia applications. MIDAS is free for non-commercial usage, but
+ licenses for commercial use are also available. 
