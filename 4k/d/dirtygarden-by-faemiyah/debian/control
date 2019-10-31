@@ -9,8 +9,8 @@ Build-Depends:
  libsdl1.2-dev,
  libglu1-mesa-dev,
  libpng-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=57451
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=57451
 
 Package: dirtygarden-by-faemiyah
 Architecture: any
