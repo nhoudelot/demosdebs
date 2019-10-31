@@ -1,0 +1,17 @@
+funzyto770 (1.5-0ddebs3) unstable; urgency=medium
+
+  * update due to name change of distrib (xenial to bionic & stretch to buster)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 01 Nov 2019 00:45:39 +0100
+
+funzyto770 (1.5-0ddebs2) unstable; urgency=medium
+
+  * added manuals
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 31 Jan 2018 03:02:26 +0100
+
+funzyto770 (1.5-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 09 Oct 2016 21:34:19 +0200

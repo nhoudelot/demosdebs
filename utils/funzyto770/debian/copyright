@@ -1,0 +1,19 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: funzyto770
+Source: https://www.sylvain-huet.com/hacks/
+
+Files: *
+Copyright: 1996 Sylvain Huet
+License: funzyto770-licence
+
+Files: debian/*
+Copyright: 2016 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3
+
+License: funzyto770-licence
+ FunzyTo7 est totalement libre : il est fourni avec le source,
+ que vous pouvez réutiliser comme bon vous semble, à la seule condition
+ d'en mentionner l'origine sur votre produit (mention à reproduire :
+ "Ce logiciel s'appuie partiellement sur les sources de l'émulateur
+ FunzyTo7, développé par Sylvain Huet").

@@ -1,0 +1,18 @@
+--- a/tools/getmemo7.c
++++ b/tools/getmemo7.c
+@@ -1,5 +1,6 @@
+ #include<stdio.h>
+ #include<string.h>
++#include<stdlib.h>
+ 
+ int tab[4]={0xff,0x01,0x03c,0x01};
+ 
+--- a/tools/getrom.c
++++ b/tools/getrom.c
+@@ -1,5 +1,6 @@
+ #include<stdio.h>
+ #include<string.h>
++#include<stdlib.h>
+ 
+ int tab[4]={0xff,0x01,0x03c,0x01};
+ 

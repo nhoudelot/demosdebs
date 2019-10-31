@@ -1,0 +1,19 @@
+Source: funzyto770
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ libx11-dev,
+ pkg-config,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.sylvain-huet.com/hacks/
+
+Package: funzyto770
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: TO7 and TO7-70 emulator
+ TO7 and TO7-70 are French computers

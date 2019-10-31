@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --sourcedirectory=src70
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/funzy_getmemo7.1.md -o debian/funzy_getmemo7.1
+	pandoc -s -t man -f markdown debian/funzy_getrom.1.md -o debian/funzy_getrom.1
+	pandoc -s -t man -f markdown debian/funzy_wav2k7.1.md -o debian/funzy_wav2k7.1

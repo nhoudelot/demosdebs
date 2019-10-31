@@ -1,0 +1,105 @@
+--- a/src70/makefile
++++ b/src70/makefile
+@@ -1,35 +1,89 @@
++#variables de compilation
++SHELL := /bin/sh
++CC    := gcc
++CFLAGS   += -O3 -flto -Wall -ffast-math $(shell pkg-config x11 --cflags)
++LDFLAGS += $(shell pkg-config x11 --libs)
++TARGET   := funzyto770
++TARGET_ENTK   := funzy_enterkey
++TARGET_wav2k7:= funzy_wav2k7
++TARGET_getrom :=  funzy_getrom
++TARGET_getmemo7 := funzy_getmemo7
++#variable de nettoyage
++RM_F := rm -f
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++#si code gcc4 compilé via gcc5 le standard par défaut était different
++GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
++ifeq "$(GCCVERSIONGTEQ5)" "1"
++    CFLAGS += -std=gnu90
++    CXXFLAGS += -fabi-compat-version=2
++endif
++#compilation en paralelle si disponible
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++export
++
+ obj=monitor.o d6809.o emuto7.o video.o emup1.o emup2.o emup3.o copyto7.o repert.o
+ 
+-inc=-I/usr/local/X11/include/
++all: $(TARGET) $(TARGET_ENTK) tools
+ 
+-lib=-L/usr/local/X11/lib
++$(TARGET):$(obj)
++	$(CC) $(CFLAGS) -o $(TARGET) -O $(obj) $(LDFLAGS)
+ 
+-to770:$(obj)
+-	gcc -o to770 -O $(obj) $(lib) -lX11
++$(TARGET_ENTK):
++	$(CC) $(CFLAGS) -o $(TARGET_ENTK) enterkey.c $(LDFLAGS)
++
++tools:
++	$(CC) $(CFLAGS) -o $(TARGET_wav2k7) ../tools/wav2k7.c
++	$(CC) $(CFLAGS) -o $(TARGET_getrom) ../tools/getrom.c
++	$(CC) $(CFLAGS) -o $(TARGET_getmemo7) ../tools/getmemo7.c
+ 
+ monitor.o: monitor.c monitor.h repert.h
+-	gcc -c -O monitor.c
++	$(CC) $(CFLAGS) -c -O monitor.c
+ 
+ d6809.o: d6809.c monitor.h
+-	gcc -c -O d6809.c
++	$(CC) $(CFLAGS) -c -O d6809.c
+ 
+ emuto7.o: emuto7.c monitor.h emuto7.h video.h
+-	gcc -c -O emuto7.c
++	$(CC) $(CFLAGS) -c -O emuto7.c
+ 
+ video.o: video.c monitor.h emuto7.h video.h
+-	gcc -c -O video.c $(inc)
++	$(CC) $(CFLAGS) -c -O video.c $(LDFLAGS)
+ 
+ emup1.o: emup1.c monitor.h emuto7.h video.h
+-	gcc -c -O emup1.c
++	$(CC) $(CFLAGS) -c -O emup1.c
+ 
+ emup2.o: emup2.c monitor.h emuto7.h
+-	gcc -c -O emup2.c
++	$(CC) $(CFLAGS) -c -O emup2.c
+ 
+ emup3.o: emup3.c monitor.h emuto7.h
+-	gcc -c -O emup3.c
++	$(CC) $(CFLAGS) -c -O emup3.c
+ 
+ copyto7.o: copyto7.c monitor.h
+-	gcc -c -O copyto7.c
++	$(CC) $(CFLAGS) -c -O copyto7.c
+ 
+ repert.o: repert.c config.h
+-	gcc -c -O repert.c
++	$(CC) $(CFLAGS) -c -O repert.c
++
++clean:
++	-@$(RM_F) $(TARGET) $(TARGET_ENTK)  *.o
++	-@$(RM_F) $(TARGET_wav2k7) $(TARGET_getrom) $(TARGET_getmemo7)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) $(TARGET_ENTK) $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) $(TARGET_wav2k7) $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) $(TARGET_getrom) $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) $(TARGET_getmemo7) $(DESTDIR)$(bindir)
