@@ -5,12 +5,13 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>=9),
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=58392
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=58392
 
 Package: whatafailure-by-yeoldelaptopsposse
 Architecture: amd64
 Depends:
+ libc6,
  libsdl1.2debian,
  freeglut3,
  ${shlibs:Depends},

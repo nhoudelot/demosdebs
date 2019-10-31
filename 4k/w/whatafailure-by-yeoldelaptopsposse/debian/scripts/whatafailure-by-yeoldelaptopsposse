@@ -13,7 +13,7 @@ APP_EXE="yo04_lnx"
 function run()
 {
 	backuppwd=$(pwd)
-	cd /usr/share/${domain}
+	cd /usr/lib/x86_64-linux-gnu/${domain}
 	./${APP_EXE}
 	cd $backuppwd
 }
