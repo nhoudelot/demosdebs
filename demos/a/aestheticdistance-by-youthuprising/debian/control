@@ -2,16 +2,25 @@ Source: aestheticdistance-by-youthuprising
 Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: debhelper (>=9),pandoc,libsdl1.2-dev,libpng12-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=34513
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev,
+ libpng12-0
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=34513
 
 Package: aestheticdistance-by-youthuprising
 Architecture: i386
-Depends: ${shlibs:Depends},${misc:Depends},common-install-function-ddebs(>=1.18),libfmodex
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ aestheticdistance-by-youthuprising-data,
+ libfmodex4
 Description: Demo for Linux, released in 2007
  Demo by Youth Uprising, released in 2007
- 
+
 Package: aestheticdistance-by-youthuprising-data
 Architecture: all
 Multi-Arch: foreign
