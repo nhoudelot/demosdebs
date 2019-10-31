@@ -1,4 +1,4 @@
 version=4
- opts="mode=git,filenamemangle=s/@PACKAGE@@ANY_VERSION@@ARCHIVE_EXT@/@PACKAGE@-$1@ARCHIVE_EXT@/" \
- https://github.com/cpcsdk/idsk.git .*/@ANY_VERSION@  \
-HEAD debian uupdate
+opts="compression=xz,repack" \
+  https://github.com/cpcsdk/idsk/tags .*/v?@ANY_VERSION@@ARCHIVE_EXT@ \
+debian uupdate

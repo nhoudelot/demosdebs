@@ -25,7 +25,7 @@
  
  
  //
--// Crée une en-tête AMSDOS par défaut
+-// CrÔøΩe une en-tÔøΩte AMSDOS par dÔøΩfaut
 +// Cr√©e une en-t√™te AMSDOS par d√©faut
  //
  StAmsdos * CreeEnteteAmsdos( char * NomFic, unsigned short Longueur ) {
@@ -59,7 +59,7 @@
 -	
 +
      memcpy( Entete.FileName, Nom, 11 );
--    Entete.Length = 0; 	//Non renseignÈ par AMSDos !!
+-    Entete.Length = 0; 	//Non renseignÔøΩ par AMSDos !!
 +    Entete.Length = 0; 	//Non renseign√© par AMSDos !!
      Entete.RealLength = Entete.LogicalLength = Longueur;
      Entete.FileType = 2; //Fichier binaire
@@ -95,7 +95,7 @@
  
  
  //
--// Recherche une entrée de répertoire libre
+-// Recherche une entrÔøΩe de rÔøΩpertoire libre
 +// Recherche une entr√©e de r√©pertoire libre
  //
  int DSK::RechercheDirLibre( void ) {
@@ -104,7 +104,7 @@
  
  
  //
--// Retourne les données "brutes" de l'image disquette
+-// Retourne les donnÔøΩes "brutes" de l'image disquette
 +// Retourne les donn√©es "brutes" de l'image disquette
  //
  unsigned char * DSK::GetRawData( int Pos ) {
@@ -113,7 +113,7 @@
  
  
  //
--// Ecriture de données "brutes" dans l'image disquette
+-// Ecriture de donnÔøΩes "brutes" dans l'image disquette
 +// Ecriture de donn√©es "brutes" dans l'image disquette
  //
  void DSK::WriteRawData( int Pos, unsigned char * Data, int Longueur ) {
@@ -142,7 +142,7 @@
 -	
 +
      //
--    // Ajuste le nombre de pistes si dépassement capacité
+-    // Ajuste le nombre de pistes si dÔøΩpassement capacitÔøΩ
 +    // Ajuste le nombre de pistes si d√©passement capacit√©
      //
      CPCEMUEnt * Entete = ( CPCEMUEnt * )ImgDsk;
@@ -186,8 +186,8 @@
  }
  
  //
--// Remplit un "bitmap" pour savoir où il y a des fichiers sur la disquette
--// Retourne également le nombre de Ko utilisés sur la disquette
+-// Remplit un "bitmap" pour savoir oÔøΩ il y a des fichiers sur la disquette
+-// Retourne ÔøΩgalement le nombre de Ko utilisÔøΩs sur la disquette
 +// Remplit un "bitmap" pour savoir o√π il y a des fichiers sur la disquette
 +// Retourne √©galement le nombre de Ko utilis√©s sur la disquette
  //
@@ -202,7 +202,7 @@
  
  
  //
--// Positionne une entrée dans le répertoire
+-// Positionne une entrÔøΩe dans le rÔøΩpertoire
 +// Positionne une entr√©e dans le r√©pertoire
  //
  void DSK::SetInfoDirEntry( int NumDir, StDirEntry * Dir ) {
@@ -222,7 +222,7 @@
  
  
  //
--// Vérifie l'existente d'un fichier, retourne l'indice du fichier si existe,
+-// VÔøΩrifie l'existente d'un fichier, retourne l'indice du fichier si existe,
 +// V√©rifie l'existente d'un fichier, retourne l'indice du fichier si existe,
  // -1 sinon
  //
@@ -234,7 +234,7 @@
  		for(int q=0;q<12;q++)
  		    Dir->Nom[q]=Dir->Nom[q]&127; // Avoid missing hidden files
 -		if (  Dir->User != USER_DELETED 
--			  && ! strncmp( Nom, ( char * )Dir->Nom, 11 ) // 11 = 8+3 car le point est enlevÈ
+-			  && ! strncmp( Nom, ( char * )Dir->Nom, 11 ) // 11 = 8+3 car le point est enlevÔøΩ
 +		if (  Dir->User != USER_DELETED
 +			  && ! strncmp( Nom, ( char * )Dir->Nom, 11 ) // 11 = 8+3 car le point est enlev√©
  			  )
@@ -258,21 +258,22 @@
      for ( i = 0; i < 11; i++ )
          DirLoc.Nom[ i ] = ( unsigned char )toupper( DirLoc.Nom[ i ] );
  
-@@ -481,18 +481,18 @@
+@@ -481,19 +481,19 @@
  int DSK::CopieFichier( unsigned char * BufFile, char * NomFic, int TailleFic, int MaxBloc, int UserNumber, bool System_file, bool Read_only ) {
      int j, l, Bloc, PosFile, NbPages = 0, PosDir, TaillePage;
      FillBitmap();
--    StDirEntry * DirLoc = GetNomDir( NomFic ); 	//Construit l'entrÈe pour mettre dans le catalogue
+-    StDirEntry * DirLoc = GetNomDir( NomFic ); 	//Construit l'entrÔøΩe pour mettre dans le catalogue
 +    StDirEntry * DirLoc = GetNomDir( NomFic ); 	//Construit l'entr√©e pour mettre dans le catalogue
      for ( PosFile = 0; PosFile < TailleFic; ) { //Pour chaque bloc du fichier
--        PosDir = RechercheDirLibre(); 		//Trouve une entrÈe libre dans le CAT
+-        PosDir = RechercheDirLibre(); 		//Trouve une entrÔøΩe libre dans le CAT
 +        PosDir = RechercheDirLibre(); 		//Trouve une entr√©e libre dans le CAT
          if ( PosDir != -1 ) {
--            DirLoc->User = UserNumber;			//Remplit l'entrÈe : User 0
+-            DirLoc->User = UserNumber;			//Remplit l'entrÔøΩe : User 0
 +            DirLoc->User = UserNumber;			//Remplit l'entr√©e : User 0
-     	    if(System_file) DirLoc->Nom[9]|=0x80;
-             if(Read_only) DirLoc->Nom[8]|=0x80;
--            DirLoc->NumPage = ( unsigned char )NbPages++;	// NumÈro de l'entrÈe dans le fichier
+             // http://www.cpm8680.com/cpmtools/cpm.htm
+             if(System_file) DirLoc->Ext[1]|=0x80;
+             if(Read_only) DirLoc->Ext[0]|=0x80;
+-            DirLoc->NumPage = ( unsigned char )NbPages++;	// NumÔøΩro de l'entrÔøΩe dans le fichier
 +            DirLoc->NumPage = ( unsigned char )NbPages++;	// Num√©ro de l'entr√©e dans le fichier
              TaillePage = (TailleFic - PosFile + 127) >> 7 ;	// Taille de la page (on arrondit par le haut)
              if ( TaillePage > 128 )				// Si y'a plus de 16k il faut plusieurs pages
@@ -282,7 +283,7 @@
              DirLoc->NbPages = ( unsigned char )TaillePage;
              l = ( DirLoc->NbPages + 7 ) >> 3; //Nombre de blocs=TaillePage/8 arrondi par le haut
              memset( DirLoc->Blocks, 0, 16 );
-@@ -505,7 +505,7 @@
+@@ -506,7 +506,7 @@
  		}
                  else
                      return( ERR_NO_BLOCK );
@@ -291,16 +292,16 @@
  	    }
              SetInfoDirEntry( PosDir, DirLoc );
  	}
-@@ -517,7 +517,7 @@
+@@ -518,7 +518,7 @@
  
  
  //
--// Retourne une entrée du répertoire
+-// Retourne une entrÔøΩe du rÔøΩpertoire
 +// Retourne une entr√©e du r√©pertoire
  //
  StDirEntry * DSK::GetInfoDirEntry( int NumDir ) {
      static StDirEntry Dir;
-@@ -526,7 +526,7 @@
+@@ -527,7 +527,7 @@
      int t = ( MinSect == 0x41 ? 2 : 0 );
      if ( MinSect == 1 )
          t = 1;
@@ -309,16 +310,16 @@
      memcpy( &Dir
  			, &ImgDsk[ ( ( NumDir & 15 ) << 5 ) + GetPosData( t, s, true ) ]
  			, sizeof( StDirEntry )
-@@ -536,7 +536,7 @@
+@@ -537,7 +537,7 @@
  
  
  //
--// Vérifier si DSK est "standard" (DATA ou VENDOR)
+-// VÔøΩrifier si DSK est "standard" (DATA ou VENDOR)
 +// V√©rifier si DSK est "standard" (DATA ou VENDOR)
  //
  bool DSK::CheckDsk( void ) {
      CPCEMUEnt * Infos = ( CPCEMUEnt * )ImgDsk;
-@@ -547,16 +547,16 @@
+@@ -548,16 +548,16 @@
  			cout << "DSK has wrong sector number!" << endl;
              return( false );
  		}
@@ -339,7 +340,7 @@
              int MinSect = 0xFF, MaxSect = 0;
              if ( tr->NbSect != 9 )
  			{
-@@ -566,7 +566,7 @@
+@@ -567,7 +567,7 @@
              for ( int s = 0; s < (int)tr->NbSect; s++ ) {
                  if ( MinSect > tr->Sect[ s ].R )
                      MinSect = tr->Sect[ s ].R;
@@ -348,7 +349,7 @@
                  if ( MaxSect < tr->Sect[ s ].R )
                      MaxSect = tr->Sect[ s ].R;
  			}
-@@ -596,7 +596,7 @@
+@@ -597,7 +597,7 @@
      CPCEMUEnt * Infos;
  	if(sizeof(CPCEMUEnt) != 0x100) cout << "INVALID DSK BUILD" << endl;
      FILE* fp ;
@@ -357,7 +358,7 @@
      if ( (fp=fopen(NomFic.c_str(),"rb"))!=NULL ) {
  		fread(ImgDsk,sizeof(ImgDsk),1,fp);
  		Infos = ( CPCEMUEnt * )ImgDsk;
-@@ -616,15 +616,15 @@
+@@ -617,15 +617,15 @@
  //
  void DSK::FormatDsk( int NbSect, int NbTrack ) {
      CPCEMUEnt * Infos = ( CPCEMUEnt * )ImgDsk;
@@ -376,7 +377,7 @@
      FillBitmap();
  }
  
-@@ -636,13 +636,13 @@
+@@ -637,13 +637,13 @@
  void DSK::FixEndianDsk( bool littleToBig) {
      CPCEMUEnt * Infos = ( CPCEMUEnt * )ImgDsk;
  	//std::cerr<< "FixEndianDsk() Infos->DataSize : " << Infos->DataSize <<std::endl;
@@ -395,7 +396,7 @@
  	FillBitmap();
  }
  
-@@ -658,7 +658,7 @@
+@@ -659,7 +659,7 @@
  		tr = ( CPCEMUTrack * )&ImgDsk[ sizeof( CPCEMUEnt ) + t * ExtendedDataSize ];
  	}
  	int ss = 0;
@@ -404,7 +405,7 @@
      //
      // Gestion "entrelacement" des secteurs
      //
-@@ -683,18 +683,18 @@
+@@ -684,19 +684,19 @@
      CPCEMUEnt * Infos = ( CPCEMUEnt * )ImgDsk;
      FILE* fp;
      int Taille,Copie;
@@ -418,7 +419,8 @@
          if ( isBigEndian() ) FixEndianDsk( true ) ; // Fix endianness for Big endian machines (PPC)
 -		
 +
- 		if ( (Copie=(fwrite(ImgDsk,1,Taille,fp))) !=Taille ) ;
+ 		if ( (Copie=(fwrite(ImgDsk,1,Taille,fp))) !=Taille )
+ 			cerr << Copie << "!=" << Taille;
  		fclose(fp);
  		// in case of the same DSK image stay in memory
          if ( isBigEndian() ) FixEndianDsk( false ) ; // unFix endianness for Big endian machines (PPC)
@@ -427,7 +429,7 @@
          return( true );
  	}
      return( false );
-@@ -732,9 +732,9 @@
+@@ -734,9 +734,9 @@
  	for ( int i=0;i < (int)tr->NbSect ; i++) {
  		tr->Sect[i] = CPCEMUSectEndian( tr->Sect[i] );
  	}
@@ -439,7 +441,7 @@
  }
  
  
-@@ -751,16 +751,16 @@
+@@ -753,16 +753,16 @@
          switch( Ams->FileType ) {
              case 0 :    // BASIC
  				return( "BASIC"); //GetTexteLoc( 22, Langue ) );
@@ -460,7 +462,7 @@
              default :
  				return( "INCONNU"); // GetTexteLoc( 26, Langue ) );
              }
-@@ -771,15 +771,15 @@
+@@ -773,15 +773,15 @@
  char * DSK::GetEntryNameInCatalogue ( int num , char* Nom ) {
  	int PosItem[ 64 ];
  	StDirEntry TabDir[ 64 ];
@@ -480,7 +482,7 @@
  		if ( TabDir[ i ].User != USER_DELETED && ! TabDir[ i ].NumPage && num == i) {
  			memcpy( Nom, TabDir[ i ].Nom, 8 );
  			memcpy( &Nom[ 9 ], TabDir[ i ].Ext, 3 );
-@@ -788,7 +788,7 @@
+@@ -790,7 +790,7 @@
  			for ( int j = 0; j < 12; j++ )
  				Nom[ j ] &= 0x7F;
  			for ( int j = 0; j < 12; j++ )
@@ -489,7 +491,7 @@
  					Nom[ j ] = '?' ;
  			return Nom;
  		}
-@@ -799,21 +799,21 @@
+@@ -801,21 +801,21 @@
  char * DSK::GetEntrySizeInCatalogue ( int num , char* Size ) {
  	int PosItem[ 64 ];
  	StDirEntry TabDir[ 64 ];
@@ -517,7 +519,7 @@
  				}
  				p++;
  			}
-@@ -834,14 +834,14 @@
+@@ -836,14 +836,14 @@
  	int cumul=0;
  	FILE* f;
  	StDirEntry TabDir[ 64 ];
@@ -536,7 +538,7 @@
  	memset( NomIndice, 0 , sizeof( NomIndice ) );
  	strncpy( NomIndice, GetNomAmsdos( TabDir[ i ].Nom ), 16);
  	strncat( NomIndice, GetNomAmsdos( TabDir[ i ].Ext), 3);
-@@ -857,17 +857,17 @@
+@@ -859,17 +859,17 @@
  			if ( NbOctets > 0 ) {
  				fwrite(p,1,NbOctets,f);
  				cumul+=NbOctets;
@@ -557,22 +559,27 @@
  	fclose (f);
  	return true;
  }
-@@ -881,7 +881,7 @@
+@@ -883,8 +883,8 @@
  	FILE* Hfile;
  	if ( NULL==(cFileName = (char*)malloc(16*sizeof(char))) )
  		return false;
 -	
+-	
 +
++
+ 
  	cFileName = GetNomAmsdos((char *)Masque.c_str());
  	if ((  Hfile = fopen(Masque.c_str(),"rb")) == NULL ) return false;
-         Lg=fread(Buff,1, 0x20000 ,Hfile);
-@@ -893,15 +893,15 @@
+@@ -897,7 +897,7 @@
  		free(cFileName);
  		return false;
  	}
 -		
 +
-         //
+ 	if (TypeModeImport == MODE_ASCII) {
+ 		for (int i=0 ; i < 0x20000 ; i++) {
+ 			// last ascii char
+@@ -910,10 +910,10 @@
          // Regarde si le fichier contient une en-tete ou non
          //
          bool IsAmsdos = CheckAmsdos( Buff );
@@ -580,21 +587,21 @@
 +
        	if ( ! IsAmsdos ) {
  		// Creer une en-tete amsdos par defaut
--		cout << "CrÈation automatique d'une en-tÍte pour le fichier ...\n";
-+		cout << "Cr√©ation automatique d'une en-t√™te pour le fichier ...\n";
+-		cout << "CrÔøΩation automatique d'une en-tÔøΩte pour le fichier ...\n";
++		cout << "CrÔøΩation automatique d'une en-t√™te pour le fichier ...\n";
  		e = CreeEnteteAmsdos( cFileName, ( unsigned short )Lg );
  		if ( loadAdress != 0)
  		{
-@@ -919,7 +919,7 @@
+@@ -931,7 +931,7 @@
          if ( isBigEndian() ) e = StAmsdosEndian(e);
  	}
  	else
--		cout << "Le fichier a dÈj‡ une en-tÍte\n";
-+		cout << "Le fichier a d√©jŒ± une en-t√™te\n";
+-		cout << "Le fichier a dÔøΩjÔøΩ une en-tÔøΩte\n";
++		cout << "Le fichier a d√©j√†une en-t√™te\n";
          //
          // En fonction du mode d'importation...
          //
-@@ -934,38 +934,38 @@
+@@ -946,38 +946,38 @@
  				Lg -= sizeof( StAmsdos );
  			}
  		break;
@@ -629,7 +636,7 @@
                 	Lg += sizeof( StAmsdos );
  	}
  
--	//if (MODE_BINAIRE) ClearAmsdos(Buff); //Remplace les octets inutilisÈs par des 0 dans l'en-tÍte
+-	//if (MODE_BINAIRE) ClearAmsdos(Buff); //Remplace les octets inutilisÔøΩs par des 0 dans l'en-tÔøΩte
 +	//if (MODE_BINAIRE) ClearAmsdos(Buff); //Remplace les octets inutilis√©s par des 0 dans l'en-t√™te
  
          if ( CopieFichier( Buff,cFileName,Lg,256, UserNumber, System_file, Read_only) != ERR_NO_ERR )
@@ -641,7 +648,7 @@
  
  	return ret;
  }
-@@ -980,19 +980,19 @@
+@@ -992,19 +992,19 @@
  	int i = nItem;
  	bool FirstBlock = true;
  	StDirEntry TabDir[ 64 ];
@@ -666,7 +673,7 @@
  	do
  	{
          // Longueur du fichier
-@@ -1007,12 +1007,12 @@
+@@ -1019,12 +1019,12 @@
  					memcpy( p  , &p[ 0x80 ]  , TailleBloc  );
  				}
  				FirstBlock = false;
@@ -681,7 +688,7 @@
  			}
  			lMax -= 1024;
  		}
-@@ -1022,7 +1022,7 @@
+@@ -1034,7 +1034,7 @@
  		strncat(current, GetNomAmsdos( TabDir[ i ].Ext ), 3);
  		if ( i > 64 ) return false;
  	}while( ! strncmp( NomFic, current, max( strlen( current ), strlen( NomFic ) ) ) );
@@ -690,7 +697,7 @@
  	if ( TailleFic == 0 )
  		TailleFic = LongFic;
  	return true;
-@@ -1034,23 +1034,23 @@
+@@ -1046,23 +1046,23 @@
  	int TailleCourante=0;
  	char OffSet[ 7 ];
  	const char * CodeHexa = "0123456789ABCDEF";
@@ -719,7 +726,7 @@
  				Ascii[ i ] = '.';
  			char Val[ 4 ];
  			// manage the hexadeciaml display
-@@ -1064,9 +1064,9 @@
+@@ -1076,9 +1076,9 @@
  		strcat( Listing, Hex );
  		strcat( Listing, "| ");
  		strcat( Listing, Ascii );
@@ -731,7 +738,7 @@
  	return true;
  }
  
-@@ -1075,20 +1075,20 @@
+@@ -1087,20 +1087,20 @@
  	char NomFic[ 16 ];
  	int i = item;
  	StDirEntry TabDir[ 64 ];
@@ -757,7 +764,7 @@
  	return ;
  }
  
-@@ -1101,30 +1101,30 @@
+@@ -1113,30 +1113,30 @@
  	int c = item;
  	for ( int j = 0; j < 64; j++ )
  		memcpy( &TabDir[ j ], GetInfoDirEntry( j ), sizeof( StDirEntry ));
@@ -794,16 +801,7 @@
  }
  
  
-@@ -1140,7 +1140,7 @@
- 	// Trier les fichiers
- 	for ( int i = 0; i < 64; i++ ) {
- 		//
--		// Afficher les fichiers non effacÈs
-+		// Afficher les fichiers non effac√©s
- 		//
- 		if ( TabDir[ i ].User != USER_DELETED && ! TabDir[ i ].NumPage ) {
- 			char Nom[ 13 ];
-@@ -1155,12 +1155,12 @@
+@@ -1167,12 +1167,12 @@
  			{
  				Nom[ j ] &= 0x7F;
  
