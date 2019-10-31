@@ -7,8 +7,8 @@ Build-Depends:
  nasm,
  libsdl1.2-dev,
  pandoc
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=10562
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=10562
 
 Package: yellowroseoftexas-by-fit
 Architecture: i386
