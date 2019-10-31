@@ -1,3 +1,23 @@
+chatty (0.10-0ddebs1) unstable; urgency=medium
+
+  * New upstream release 
+  * kept new client_id
+  * now update check is disabled by default. no need to patch anymore
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 15 Oct 2019 14:24:57 +0200
+
+chatty (0.9.7-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 23 Jul 2019 15:29:22 +0200
+
+chatty (0.9.6-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 17 Apr 2019 13:11:10 +0200
+
 chatty (0.9.5-0ddebs1) unstable; urgency=medium
 
   * New upstream release
