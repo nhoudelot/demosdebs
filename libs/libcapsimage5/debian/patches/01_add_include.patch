@@ -1,0 +1,43 @@
+--- a/CAPSImg/Makefile.in
++++ b/CAPSImg/Makefile.in
+@@ -2,10 +2,14 @@
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+ libdir = @libdir@
++includedir = @includedir@
+ 
+ CC		= @CC@
+ CXX		= @CXX@
+ INSTALL		= @INSTALL@
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_LIBS    := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
+ TAR		= @TAR@
+ 
+ CFLAGS		= @CFLAGS@ @LIB_CFLAGS@ -I@top_srcdir@/../LibIPF -I@top_srcdir@/../Codec -I@top_srcdir@/../Core -I@top_srcdir@/../Device -I@srcdir@
+@@ -17,7 +21,6 @@
+ LIBRARY		= @LIBRARY@
+ OBJECTS		= @EXTRA_OBJECTS@ ../Codec/CTRawCodec.o ../Codec/CTRawCodecDecompressor.o ../Codec/DiskEncoding.o ../Core/BaseFile.o ../Core/BitBuffer.o ../Core/CRC.o ../Core/DiskFile.o ../Core/MemoryFile.o CapsAPI.o CapsFDCEmulator.o CapsFile.o CapsFormatMFM.o CapsImage.o CapsImageStd.o CapsLoader.o DiskImage.o DiskImageFactory.o stdafx.o StreamCueImage.o StreamImage.o
+ 
+-
+ .PHONY: all clean distclean dist
+ 
+ all: $(LIBRARY)
+@@ -48,5 +51,15 @@
+ 	$(TAR) czf $(distdir).tar.gz $(distdir)
+ 
+ install:
+-	install -d $(DESTDIR)$(libdir)
+-	install $(LIBRARY) $(DESTDIR)$(libdir)/$(LIBRARY)
++	$(INSTALL_DIR) $(DESTDIR)$(libdir)
++	$(INSTALL_LIBS) $(LIBRARY) $(DESTDIR)$(libdir)/$(LIBRARY)
++	$(INSTALL_DIR) $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) CapsImage.h $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) ../Core/CommonTypes.h $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) ../LibIPF/CapsAPI.h $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) ../LibIPF/CapsFDC.h $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) ../LibIPF/CapsForm.h $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) ../LibIPF/CapsLib.h $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) ../LibIPF/CapsLibAll.h $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) ../LibIPF/CapsLibVersion.h $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) ../LibIPF/ComLib.h $(DESTDIR)$(includedir)

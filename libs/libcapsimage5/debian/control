@@ -1,0 +1,27 @@
+Source: libcapsimage5
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.20160114),
+ autotools-dev
+Standards-Version: 4.1.4
+Section: libs
+Homepage: http://www.softpres.org/?id=download
+
+Package: libcapsimage5-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libcapsimage5 (= ${binary:Version}),
+ ${misc:Depends}
+Description: Provides IPF support, primarily for UAE E-UAE
+ Provides support for reading IPF files, an Amiga disk image format developed by
+ the Amiga Preservation Society, as part of the C.A.P.S. project.
+
+Package: libcapsimage5
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Development files for libcapsimage
+ Development files (includes) for libcapsimage
