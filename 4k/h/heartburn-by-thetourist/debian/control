@@ -1,0 +1,21 @@
+Source: heartburn-by-thetourist
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ nasm,
+ libgl1-mesa-dev,
+ libsdl1.2-dev,
+ pkgconf,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: http://www.pouet.net/prod.php?which=61809
+
+Package: heartburn-by-thetourist
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: 4k intro for Linux, released in 2013
+ 4k intro by The Tourist, released in 2013

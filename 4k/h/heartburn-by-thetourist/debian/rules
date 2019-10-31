@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+bindnow
+
+%:
+	dh $@ --sourcedirectory=source
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/heartburn-by-thetourist.6.md -o debian/heartburn-by-thetourist.6
