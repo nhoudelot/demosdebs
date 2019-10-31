@@ -8,9 +8,9 @@
 +SHELL = /bin/sh
 +CXX   = g++
  
- DEFINES = -DBYPASS_PROTECTION
+ DEFINES = -DBYPASS_PROTECTION -DUSE_GL
  
--CXXFLAGS := -g -O -MMD -Wall $(SDL_CFLAGS) $(DEFINES)
+-CXXFLAGS := -g -O -MMD -Wall -Wpedantic $(SDL_CFLAGS) $(DEFINES)
 +CXXFLAGS += -O3 -flto -Wall -ffast-math -MMD -Wuninitialized -Wundef -Wreorder $(shell  pkgconf sdl2 SDL2_mixer gl zlib --cflags) $(DEFINES)
 +LDFLAGS  += $(shell pkgconf sdl2 SDL2_mixer gl zlib --libs)
 +TARGET   = rawgl

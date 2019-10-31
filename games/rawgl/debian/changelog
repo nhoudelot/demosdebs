@@ -1,3 +1,9 @@
+rawgl (0.2.1+git20190705-0ddebs1) unstable; urgency=medium
+
+  * Upstream update
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Jul 2019 22:33:08 +0200
+
 rawgl (0.2.1+git20180201-0ddebs3) unstable; urgency=medium
 
   * update to standard version to 4.1.4
