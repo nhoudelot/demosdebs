@@ -9,33 +9,51 @@
  RM_F = rm -f
  INSTALL = install
  INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
-@@ -11,6 +11,8 @@
- exec_prefix = $(prefix)
- bindir = $(exec_prefix)/bin
+@@ -29,6 +29,8 @@
+ 
+ INCLUDES:=-Isrc
  
 +PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
 +
  #parallel compilation if available
  ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
   NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-@@ -75,13 +77,13 @@
+@@ -101,11 +103,11 @@
  
  DEARK1_A:=$(OBJDIR)/src/deark1.a
  $(DEARK1_A): $(OFILES_DEARK1)
--	ar rcs $@ $^
-+	ar rcs $(PLUGIN) $@ $^
+-	$(AR) rcs $@ $^
++	$(AR) rcs $(PLUGIN) $@ $^
  
  DEARK2_A:=$(OBJDIR)/src/deark2.a
  $(DEARK2_A): $(OFILES_DEARK2)
--	ar rcs $@ $^
-+	ar rcs $(PLUGIN) $@ $^
+-	$(AR) rcs $@ $^
++	$(AR) rcs $(PLUGIN) $@ $^
  
--ARFLAGS:=urcs
-+ARFLAGS:=urcs $(PLUGIN)
  MODS_AB_A:=$(OBJDIR)/modules/mods-ab.a
  MODS_CH_A:=$(OBJDIR)/modules/mods-ch.a
- MODS_IO_A:=$(OBJDIR)/modules/mods-io.a
-@@ -115,7 +117,7 @@
+@@ -113,15 +115,15 @@
+ MODS_PQ_A:=$(OBJDIR)/modules/mods-pq.a
+ MODS_RZ_A:=$(OBJDIR)/modules/mods-rz.a
+ $(MODS_AB_A): $(OFILES_MODS_AB)
+-	$(AR) $(ARFLAGS) $@ $^
++	$(AR) $(ARFLAGS) $(PLUGIN) $@ $^
+ $(MODS_CH_A): $(OFILES_MODS_CH)
+-	$(AR) $(ARFLAGS) $@ $^
++	$(AR) $(ARFLAGS) $(PLUGIN) $@ $^
+ $(MODS_IO_A): $(OFILES_MODS_IO)
+-	$(AR) $(ARFLAGS) $@ $^
++	$(AR) $(ARFLAGS) $(PLUGIN) $@ $^
+ $(MODS_PQ_A): $(OFILES_MODS_PQ)
+-	$(AR) $(ARFLAGS) $@ $^
++	$(AR) $(ARFLAGS) $(PLUGIN) $@ $^
+ $(MODS_RZ_A): $(OFILES_MODS_RZ)
+-	$(AR) $(ARFLAGS) $@ $^
++	$(AR) $(ARFLAGS) $(PLUGIN) $@ $^
+ 
+ # I'm sorry if your linker doesn't like this library order, but the link
+ # command was getting so long that I've decided to start using helper
+@@ -147,7 +149,7 @@
  	$(INSTALL_PROGRAM) $(DEARK_EXE) $(DESTDIR)$(bindir)
  
  clean:

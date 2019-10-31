@@ -1,3 +1,15 @@
+deark (1.5.2-0ddebs2) unstable; urgency=medium
+
+  * Added manpage (created from github readme)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 06 Oct 2019 00:04:01 +0200
+
+deark (1.5.2-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 05 Oct 2019 16:26:54 +0200
+
 deark (1.4.7-0ddebs1) unstable; urgency=medium
 
   * New upstream release
