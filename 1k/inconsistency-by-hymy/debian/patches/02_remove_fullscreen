@@ -1,0 +1,11 @@
+--- a/src/inconsistency.asm
++++ b/src/inconsistency.asm
+@@ -252,7 +252,7 @@
+ 
+ 
+ 
+-	push dword ( 80000000h )		; SDL_DOUBLEBUF
++	push dword ( 00000000h )		; SDL_DOUBLEBUF
+ 	push dword 32				; bpp
+ 	push dword height			; Y
+ 	push dword width			; X

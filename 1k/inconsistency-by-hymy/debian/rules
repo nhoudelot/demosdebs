@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --sourcedirectory=src
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/inconsistency-by-hymy.6.md -o debian/inconsistency-by-hymy.6

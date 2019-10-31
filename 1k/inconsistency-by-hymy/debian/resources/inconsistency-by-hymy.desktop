@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Inconsistency
+GenericName=Demo
+Comment=Demo by Hymy, released in 2013
+Type=Application
+Exec=/usr/bin/inconsistency-by-hymy
+Icon=inconsistency-by-hymy
+Categories=AudioVideo;
+Name[fr_FR]=Inconsistency
