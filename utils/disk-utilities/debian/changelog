@@ -1,3 +1,15 @@
+disk-utilities (1:0.0+git20190712-0ddebs2) unstable; urgency=medium
+
+  * Removed some unused compilation flags
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 06 Aug 2019 09:22:52 +0200
+
+disk-utilities (1:0.0+git20190712-0ddebs1) unstable; urgency=medium
+
+  * Update from upstream Git
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Jul 2019 17:17:40 +0200
+
 disk-utilities (1:0.0+git20180721-0ddebs1) unstable; urgency=medium
 
   * new version with epoch change that give a better upstream version

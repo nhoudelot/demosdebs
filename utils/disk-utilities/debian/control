@@ -14,20 +14,21 @@ Architecture: any
 Depends:
  libdisk0 (= ${binary:Version}),
  ${misc:Depends}
-Description: Developement files of library for converting and manipulating disk images.
- It can create disk images in a range of formats from Kryoflux STREAM and
- SPS/IPF images (among others), and then allow these to be accessed and modified.
+Description: Development files of library for converting and manipulating disk
+ images. It can create disk images in a range of formats from Kryoflux STREAM
+ and SPS/IPF images (among others), and then allow these to be accessed and
+ modified.
 
 Package: libdisk0
 Section: libs
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libdisk0
+ ${misc:Depends}
 Description: Library for converting and manipulating disk images.
  It can create disk images in a range of formats from Kryoflux STREAM and
- SPS/IPF images (among others), and then allow these to be accessed and modified.
+ SPS/IPF images (among others), and then allow these to be accessed and
+ modified.
 
 Package: disk-utilities
 Architecture: any
@@ -37,8 +38,8 @@ Depends:
 Description: Utilities for ripping, dumping, analysing, and modifying disk images.
  disk-analyse/ Disk image conversion tool.
  adfbb/ Read/modify/write ADF boot blocks.
- adfread/ Read file contents of an ADF and optionally dump into local host filesystem
- adfwrite/ Stuff data into selected sectors of an ADF image
+ adfread/ Read file contents of an ADF and optionally dump into local host
+ filesystem adfwrite/ Stuff data into selected sectors of an ADF image
  amiga-native/diskread Dumps a disk to a (large, 20MB!) file.
  m68k/ m68k/ M68k disassembler/emulator library.
  ipfinfo/ Dump information about an SPS/IPF image file.

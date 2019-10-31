@@ -26,7 +26,7 @@
  
 -CFLAGS = -O2
 +CFLAGS += -O2
-+CFLAGS +=  -flto $(shell dpkg-buildflags --get CFLAGS)
++CFLAGS += -flto
  #CFLAGS = -O0 -g
  CFLAGS += -fno-strict-aliasing -std=gnu99 -Wall
  ifneq ($(PLATFORM),win32)
@@ -81,7 +81,7 @@
 --- a/m68k/Makefile
 +++ b/m68k/Makefile
 @@ -10,10 +10,10 @@
- all: disassemble copylock
+ all: disassemble copylock m68k_emulate
  
  copylock: m68k/m68k.a amiga/amiga.a copylock.o
 -	$(CC) $(LDFLAGS) $@.o -lamiga -lm68k -ldisk -o $@
@@ -91,8 +91,8 @@
 -	$(CC) $(LDFLAGS) $@.o -lamiga -lm68k -o $@
 +	$(CC) -flto $(LDFLAGS) $@.o -lamiga -lm68k -o $@
  
- m68k/m68k.a:
- 	$(MAKE) -C m68k all
+ m68k_emulate: m68k/m68k.a m68k_emulate.o
+ 	$(CC) $(LDFLAGS) $@.o -lm68k -o $@
 --- a/m68k/m68k/Makefile
 +++ b/m68k/m68k/Makefile
 @@ -4,4 +4,4 @@
@@ -114,16 +114,7 @@
  install:
 --- a/libdisk/stream/Makefile
 +++ b/libdisk/stream/Makefile
-@@ -1,6 +1,8 @@
- ROOT := ../..
- include $(ROOT)/Rules.mk
- 
-+CFLAGS +=  -flto $(shell dpkg-buildflags --get CFLAGS)
-+
- OBJS := stream.o kryoflux_stream.o diskread.o disk_image.o soft.o
- OBJS += discferret_dfe2.o supercard_scp.o
- ifeq ($(caps),y)
-@@ -20,7 +22,7 @@
+@@ -20,7 +20,7 @@
  	$(LD) -r -o $@ $^
  
  streams.a: $(OBJS)
@@ -133,3 +124,16 @@
  streams.apic: $(PICOBJS)
 -	$(AR) rcs $@ $^
 +	$(AR) rcs $(PLUGIN) $@ $^
+--- a/scp/Makefile
++++ b/scp/Makefile
+@@ -14,8 +14,10 @@
+ all: $(TARGETS)
+ 
+ scp_dump: scp.o scp_dump.o
++	$(CC) -flto $(LDFLAGS) scp.o scp_dump.o -o scp_dump
+ 
+ scp_write: scp.o scp_write.o
++	$(CC) -flto $(LDFLAGS) scp.o scp_write.o -o scp_write
+ 
+ install: all
+ ifneq ($(TARGETS),)
