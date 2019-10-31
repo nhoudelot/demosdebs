@@ -7,8 +7,8 @@ Build-Depends:
  pandoc,
  pkgconf,
  libsdl1.2-dev
-Standards-Version: 3.9.7
-Homepage: http://www.pouet.net/prod.php?which=13023
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=13023
 
 Package: jeregrette-by-fitandbandwagon
 Architecture: any
@@ -16,4 +16,4 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Fit and Bandwagon 4k Intro/2004/Linux
- Demo by Fit and Bandwagon, released in 2004
+ Intro 4k by Fit and Bandwagon, released in 2004
