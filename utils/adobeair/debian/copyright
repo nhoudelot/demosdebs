@@ -10,9 +10,6 @@ License: <special license>
  .
  <Including paragraphs>
 
-# If you want to use GPL v2 or later for the /debian/* files use
-# the following clauses, or change it to suit. Delete these two lines
-
 Files: debian/*
 Copyright: 2015 andy <andykimpe@gmail.com>
 		   2015 Nicolas HOUDELOT <nicolas@demosdebs.org>

@@ -1,3 +1,9 @@
+adobeair (1:2.6.0.20002-0ddebs4) unstable; urgency=medium
+
+  * cleanup some files in debian/*
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 01 Nov 2019 17:43:22 +0100
+
 adobeair (1:2.6.0.20002-0ddebs3) unstable; urgency=medium
 
   * update to standard version to 4.1.4
