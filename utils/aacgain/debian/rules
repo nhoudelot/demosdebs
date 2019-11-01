@@ -16,20 +16,17 @@ else
 	endif
 endif
 
-CC:=ccache $(CC)
-CXX:=ccache $(CXX)
-
 %:
 	dh $@ --with autoreconf
 
 override_dh_auto_configure:
-	cd mp4v2 && ./configure $(CROSS) CFLAGS="$(CFLAGS)" CC="$(CC)" CXX="$(CXX)" $(OPTIONS) --disable-gch
-	cd faad2 && ./configure $(CROSS) CFLAGS="$(CFLAGS)" CC="$(CC)" CXX="$(CXX)" --without-xmms --without-mpeg4ip
+	cd mp4v2 && ./configure $(CROSS) CFLAGS="$(CFLAGS)" $(OPTIONS)
+	cd faad2 && ./configure $(CROSS) CFLAGS="$(CFLAGS)" --without-xmms --without-mpeg4ip
 
 	dh_auto_configure
 
 override_dh_auto_build:
-	$(MAKE) -C mp4v2 -j $(NCPUS)
+	$(MAKE) -C mp4v2 -j $(NCPUS) libmp4v2.la
 	$(MAKE) -C faad2 -j $(NCPUS)
 
 	$(MAKE) -j $(NCPUS)

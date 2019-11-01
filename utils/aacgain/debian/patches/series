@@ -18,3 +18,6 @@
 18_use_liblame-dev.patch
 0001-Mp4v2_Fix_mp4tags_corruption.patch
 0004-Mp4v2_Pointer_comparison.patch
+faad2_0009-syntax.c-check-for-syntax-element-inconsistencies.patch
+faad2_0010-sbr_hfadj-sanitize-frequency-band-borders.patch
+faad2_0004-Fix-a-couple-buffer-overflows.patch

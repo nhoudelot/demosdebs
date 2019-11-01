@@ -1,3 +1,14 @@
+aacgain (1.9+1-0ddebs1) unstable; urgency=medium
+
+  * faad2: updated faad source to 2.8.8
+  * to compile on buster
+  ** debian/rules: removed ccache option
+  ** debian/rules: MP4v2 should compile only libmp4v2.la
+  * debian/copyright: updated
+  * debian/docs: added aacgain README
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 01 Nov 2019 12:36:08 +0100
+
 aacgain (1.9-dmo3ddebs3) unstable; urgency=medium
 
   * update standard version to 4.1.4
