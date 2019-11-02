@@ -6,7 +6,7 @@ Build-Depends:
  autotools-dev
 Standards-Version: 4.1.4
 Section: libs
-Homepage: http://www.softpres.org/?id=download
+Homepage: https://www.softpres.org/?id=download
 
 Package: libcapsimage5-dev
 Section: libdevel
