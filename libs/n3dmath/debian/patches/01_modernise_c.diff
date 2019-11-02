@@ -1,0 +1,23 @@
+--- a/src/n3dmath2.cpp
++++ b/src/n3dmath2.cpp
+@@ -17,7 +17,8 @@
+ along with the n3dmath2 library; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+-
++using namespace std;
++#include <cstdlib>
+ #include "n3dmath2.hpp"
+ 
+ const scalar_t e = 2.7182818;
+--- a/src/n3dmath2_mat.inl
++++ b/src/n3dmath2_mat.inl
+@@ -17,6 +17,8 @@
+ along with the n3dmath2 library; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
++using namespace std;
++#include <cstring>
+ 
+ inline scalar_t *Matrix3x3::operator [](int index) {
+ 	return m[index];

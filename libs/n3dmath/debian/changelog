@@ -1,0 +1,11 @@
+n3dmath (2.1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standard version 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 Nov 2019 18:39:06 +0100
+
+n3dmath (2.1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 26 Feb 2016 01:15:44 +0100
