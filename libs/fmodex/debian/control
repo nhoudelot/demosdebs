@@ -63,7 +63,7 @@ Description: Development package for the FMOD Ex library.
  needed to do development with FMOD Ex.
 
 Package: libfmodex
-Section: oldlibs
+Section: libs
 Architecture: all
 Depends:
  libfmodex4,
