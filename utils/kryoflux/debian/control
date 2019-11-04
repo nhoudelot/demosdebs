@@ -21,7 +21,7 @@ Description: software to control the kryoflux hardware
 
 Package: dtc-doc
 Architecture: all
-Section: doc
+Section: utils
 Depends:
  ${misc:Depends}
 Description: Documentations for dtc
