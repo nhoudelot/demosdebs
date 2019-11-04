@@ -1,0 +1,39 @@
+Source: luisita
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsoil-dev,
+ libbass-dev,
+ liblua5.1-0-dev,
+ libsdl1.2-dev,
+ libglew-dev,
+ pkg-config
+Standards-Version: 4.1.4
+Homepage: https://github.com/sole/luisita
+Vcs-Git: https://github.com/sole/luisita.git
+Vcs-Browser: https://github.com/sole/luisita
+
+Package: luisita
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libbass
+Description: scriptable graphics environment for real-time applications (demos)
+ Luisita is an scriptable graphics environment à la Processing, only it's based
+ on Lua & C++.
+ It enables you to program graphic real-time applications (demos) without
+ digging too deep into OpenGL or fighting with C++'s memory management. Its
+ basic premise is to provide an easy to understand environment for newbies so
+ they can begin with some scripting and maybe jump to c/c++ later, but it can be
+ used by experts alike. The only limit is your imagination :-)
+ .
+ Demos written with Luisita consist in a demo script which uses the provided set
+ of simple functions for handling graphics and music. This set is intentionally
+ reduced and minimalist.
+ .
+ It uses Lua for scripting, Bass for playing sound, OpenGL for displaying
+ graphics and Simple OpenGL Image Library for loading images.
