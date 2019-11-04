@@ -108,7 +108,7 @@ Description: legacy littleutils that have been superseded by coreutils
  to-lzma - converts .Z, .gz, .lzo, and .bz2 files to .lzma (lzma/lzma_alone)
 
 Package: littleutils-docs
-Section: doc
+Section: utils
 Architecture: all
 Depends: ${misc:Depends}
 Description: documentation for littleutils
