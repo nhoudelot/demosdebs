@@ -1,0 +1,7 @@
+multimon-ng for Debian
+----------------------
+
+The upstream sources have been DFSG-cleaned by removing BCHCode.c.
+
+ -- Göran Weinholt <weinholt@debian.org>, Wed, 17 Oct 2018 19:52:33 +0200
+

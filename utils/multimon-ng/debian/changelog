@@ -1,0 +1,18 @@
+multimon-ng (1.1.7+dfsg-1ddebs1) unstable; urgency=medium
+
+  * Created backport version for my repo
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 06 Aug 2019 16:39:25 +0200
+
+multimon-ng (1.1.7+dfsg-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/multimon-ng.1: Add the new -C option
+
+ -- Göran Weinholt <weinholt@debian.org>  Tue, 22 Jan 2019 18:51:09 +0100
+
+multimon-ng (1.1.6+dfsg-1) unstable; urgency=medium
+
+  * Initial release (Closes: #894814)
+
+ -- Göran Weinholt <weinholt@debian.org>  Wed, 17 Oct 2018 21:52:48 +0200

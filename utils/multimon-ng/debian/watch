@@ -1,0 +1,3 @@
+version=3
+opts="mode=git" https://github.com/EliasOenal/multimon-ng.git \
+  refs/tags/([\d\.]+) dversionmangle=s/\+dfsg\d*$// debian uupdate
