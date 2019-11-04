@@ -1,5 +1,5 @@
 Source: flif
-Section: graphics
+Section: utils
 Priority: optional
 Maintainer: Debian PhotoTools Maintainers <pkg-phototools-devel@lists.alioth.debian.org>
 Uploaders: Paride Legovini <pl@ninthfloor.org>
