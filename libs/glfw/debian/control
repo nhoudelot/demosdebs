@@ -1,5 +1,5 @@
 Source: glfw
-Section: devel
+Section: libs
 Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Uploaders: Mahyuddin Susanto <udienz@ubuntu.com>,
