@@ -1,5 +1,5 @@
 Source: rubyripper
-Section: sound
+Section: utils
 Priority: optional
 Maintainer: Joao Pinto <joao.pinto@getdeb.net>
 Uploaders: Nicolas HOUDELOT <nicolas@demosdebs.org>
