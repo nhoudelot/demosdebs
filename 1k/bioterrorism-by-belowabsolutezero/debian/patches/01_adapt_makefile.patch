@@ -1,0 +1,58 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,22 +1,37 @@
+ AOBJ=load.o synth.o
+ COBJ=
+ OBJ=$(AOBJ) $(COBJ)
++
++SHELL := /bin/sh
++CXX   := g++
++
+ #OBJ=$(AOBJ)
+ #CFLAGS=-Wall -m32 -Os -fomit-frame-pointer -flto -ffast-math
+-CFLAGS=-Wall -m32 -O1 -fomit-frame-pointer -ffast-math
++CFLAGS +=-Wall -m32 -O1 -fomit-frame-pointer -ffast-math
+ WIDTH=1280
+ HEIGHT=720
+ FULLSCREEN=0
+ #FULLSCREEN=0x80000000
+ 
+-all: packed
++TARGET   := bioterrorism-by-belowabsolutezero
++#variable de nettoyage
++RM_F := rm -f
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++all: $(TARGET)
+ 
+ intro: intro.asm t.frag.small
+ 	nasm -f bin $< -o $@ -dWIDTH=$(WIDTH) -dHEIGHT=$(HEIGHT) -dFULLSCREEN=$(FULLSCREEN)
+ 	chmod +x $@
+ 	du -b $@
+ 
+-packed: intro unpack.header
++$(TARGET): intro unpack.header
+ 	cp $< t
+ #	gzip -n --best -f -c $< > $<.gz
+ 	7z a -tGZip -mx=9 $<.gz t
+@@ -30,7 +45,12 @@
+ 	./cshader WIDTH $(WIDTH) HEIGHT $(HEIGHT) < $< > $@
+ 
+ cshader: %: %.cpp
+-	g++ $< -o $@ -Wall -O2
++	$(CXX) $< -o $@ -Wall -O2
+ 
+ clean:
+-	rm -f packed t.frag.small cshader
++	-@$(RM_F) packed t.frag.small cshader
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	 $(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
