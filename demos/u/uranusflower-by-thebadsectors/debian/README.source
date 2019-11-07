@@ -1,0 +1,11 @@
+uranusflower-by-thebadsectors for Debian
+---------------------------------------
+
+had to unupx the 64 bit binary, to get the dependencies
+
+executable seems to be compiled for Debian 7 wheezy
+
+GCC: (Debian 4.7.2-5) 4.7.2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 Mar 2019 18:24:50 +0100
+

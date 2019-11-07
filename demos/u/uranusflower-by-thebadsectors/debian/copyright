@@ -1,0 +1,17 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: uranusflower-by-thebadsectors
+Source: http://www.pouet.net/prod.php?which=62831
+
+Files: *
+Copyright: 2014 The Bad Sectors
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2019 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+
+License: GPL-3.0+
+ On Debian systems, the complete text of the GNU General
+ Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
+

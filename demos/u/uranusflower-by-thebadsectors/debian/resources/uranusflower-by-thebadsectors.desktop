@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Uranus Flower
+GenericName=Demo
+Comment=Demo by The Bad Sectors, released in 2014
+Type=Application
+Exec=/usr/bin/uranusflower-by-thebadsectors
+Icon=uranusflower-by-thebadsectors
+Categories=AudioVideo;
+Name[fr_FR]=Uranus Flower

@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=uranusflower-by-thebadsectors
+
+APP_FULLNAME="Uranus Flower"
+APP_COPYRIGHT="The Bad Sectors"
+APP_DESC="demo by The Bad Sectors released in 2014"
+
+APP_EXE="tbs-uranus-linux-64bit.lnx"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain}
+	./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
