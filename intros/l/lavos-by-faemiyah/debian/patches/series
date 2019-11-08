@@ -1,0 +1,3 @@
+01_adapt_makefile.patch
+02_use_system_opengl.patch
+03_add_windows_title.patch

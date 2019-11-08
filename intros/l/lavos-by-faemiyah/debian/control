@@ -1,0 +1,33 @@
+Source: lavos-by-faemiyah
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ dh-autoreconf,
+ debhelper (>=9),
+ libsdl1.2-dev,
+ libboost-program-options-dev,
+ libglew-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://github.com/faemiyah/faemiyah-demoscene_2014-03_16k-intro_lavos
+
+Package: lavos-by-faemiyah
+Architecture: any
+Depends: ${shlibs:Depends},${misc:Depends}
+Description: Intro for Linux, released in 2014
+ Matti Henttonen (collateralburger): Synth & music
+ Vantte Kilappa (Warma):             'Lavos' shape code
+ Tatu Kilappa (Trilkk):              All other code
+ .
+ FreeBSD-ia32 16k intro for Tokyo Demo Fest 2014 combined intro compo. However,
+ entered as wild since the TDF intro compo is Windows-only. Windows and Linux
+ ports exist at the time of writing this README, but they do not quite fit into
+ 16k. Or any other size limit for that matter.
+ .
+ The premise for this production was for collateralburger to try out programming
+ a software synthesizer for the first time. Rest of the intro has been made to
+ accommodate. 4k synth would have been quite unreasonable for a first entry into
+ introcoding, so the 16k limit serves as a more lax restriction.
+ .
+ Greets in the intro for once.

@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+export DEB_CFLAGS_MAINT_APPEND  = -std=gnu90
+export DEB_CXXFLAGS_MAINT_APPEND  = -std=gnu++98
+
+
+%:
+	dh $@ --parallel --with autoreconf
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/lavos-by-faemiyah.6.md -o debian/lavos-by-faemiyah.6

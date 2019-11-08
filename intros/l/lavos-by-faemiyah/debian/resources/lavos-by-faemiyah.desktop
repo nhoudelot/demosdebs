@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Lavos
+GenericName=Demo
+Comment=16k intro by Faemiyah, released in 2014
+Type=Application
+Exec=/usr/bin/lavos-by-faemiyah -w
+Icon=lavos-by-faemiyah
+Categories=AudioVideo;
+Name[fr_FR]=Lavos

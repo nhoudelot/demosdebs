@@ -1,0 +1,21 @@
+Description: adapt makefile for packaging
+ declare an installable binary
+ rename binary
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-08
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,4 +1,4 @@
+-lavos_SOURCES = bsd_rand.c \
++lavos_by_faemiyah_SOURCES = bsd_rand.c \
+   		main.cpp \
+ 		image_png.cpp \
+ 		intro.cpp \
+@@ -11,4 +11,4 @@
+ 		synth.cpp \
+ 		voice.cpp
+ 
+-noinst_PROGRAMS = lavos
++bin_PROGRAMS = lavos-by-faemiyah
