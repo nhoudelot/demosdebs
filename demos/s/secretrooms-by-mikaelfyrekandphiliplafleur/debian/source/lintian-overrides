@@ -1,0 +1,7 @@
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-contains-prebuilt-windows-binary secret-rooms-32bit.exe
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-contains-prebuilt-windows-binary secret-rooms-64bit.exe
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing secret-rooms-linux32
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing secret-rooms-linux64
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing libs/linux32/libSDL2-2.0.so.0
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing libs/linux64/libSDL2-2.0.so.0
+
