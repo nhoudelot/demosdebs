@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Rocket
+GenericName=utilities
+Comment=Tool for synchronizing music and visuals in demoscene productions
+Type=Application
+Exec=/usr/bin/rocket
+Icon=rocket-sync-tracker
+Categories=Development
+Name[fr_FR]=Rocket

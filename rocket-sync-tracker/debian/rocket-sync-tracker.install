@@ -1,0 +1,3 @@
+debian/resources/rocket-sync-tracker.desktop usr/share/applications/
+editor/rocket usr/bin/
+contrib/rocket-sync-tracker.svg usr/share/icons/hicolor/scalable/apps/

@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+export QT_SELECT := qt5
+
+%:
+	dh $@ --parallel
+
+override_dh_install:
+	cp editor/editor editor/rocket
+	cp contrib/logo.svg contrib/rocket-sync-tracker.svg
+	find . -name ".gitignore" -delete
+	find . -name ".npmignore" -delete
+	find . -name "*.vcproj" -delete
+	find . -name "*.vcxproj" -delete
+	dh_install
+	pandoc -s -t man -f markdown debian/rocket.1.md -o debian/rocket.1
+
