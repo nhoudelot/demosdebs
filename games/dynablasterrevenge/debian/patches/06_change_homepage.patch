@@ -1,0 +1,24 @@
+Description: old homepage is down, using the github one
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/client/src/game/gamesettings.cpp
++++ b/client/src/game/gamesettings.cpp
+@@ -408,14 +408,14 @@
+    setPagePouet(
+       value(
+          "development/page_pouet",
+-         "http://www.pouet.net/prod.php?which=62926"
++         "https://www.pouet.net/prod.php?which=62926"
+       ).toString()
+    );
+ 
+    setPageHome(
+       value(
+          "development/page_home",
+-         "https://dynablaster.titandemo.de/"
++         "https://github.com/varnholt/dynablaster_revenge"
+       ).toString()
+    );
+ }

@@ -1,0 +1,45 @@
+Description: updated qInstallMsgHandler() to Qt5
+ qInstallMsgHandler() wasn't working, so I changed it with
+ qInstallMessageHandler()
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/server/server.pro
++++ b/server/server.pro
+@@ -9,6 +9,7 @@
+ QT += core
+ QT += gui
+ QT += network
++QT += widgets
+
+ LIBS += -lQtCore
+ LIBS += -lQtGui
+--- a/server/src/servermain.cpp
++++ b/server/src/servermain.cpp
+@@ -31,8 +31,9 @@
+
+ ServerGui* gui = 0;
+
+-void debugHandler(QtMsgType type, const char *msg)
++void debugHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg)
+ {
++   QByteArray localMsg(msg.toLocal8Bit());
+    if (gui)
+    {
+       gui->addDebugMessage(msg, type);
+@@ -75,7 +76,7 @@
+             .arg(SERVER_VERSION)
+             .arg(SERVER_REVISION)
+       );
+-      qInstallMsgHandler(debugHandler);
++      qInstallMessageHandler(debugHandler);
+    }
+
+    Server *server = new Server();
+@@ -111,5 +112,3 @@
+    return qApp->exec();
+ }
+
+-
+-

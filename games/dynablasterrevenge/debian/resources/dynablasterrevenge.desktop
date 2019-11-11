@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Dynablaster Revenge
+GenericName=Game
+Comment=Game by Matthias Varnholt, released in 2014
+Type=Application
+Exec=/usr/games/dynablasterrevenge-client
+Icon=dynablaster_revenge-256
+Categories=Game;
+Name[fr_FR]=Dynablaster Revenge

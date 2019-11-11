@@ -1,0 +1,6 @@
+01_use_system_lib.patch
+02_fix_server_compilation.patch
+03_new_binary_filename.patch
+04_move_configfile_to_home.patch
+05_change_data_path.patch
+06_change_homepage.patch

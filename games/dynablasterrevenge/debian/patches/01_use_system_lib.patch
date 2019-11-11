@@ -1,0 +1,20 @@
+Description: using sdl2 system lib, instead of the bundled one
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/client/client.pro
++++ b/client/client.pro
+@@ -34,12 +34,6 @@
+ #QMAKE_CXXFLAGS_RELEASE += -Zi
+ #QMAKE_LFLAGS_RELEASE += /DEBUG /OPT:REF
+ 
+-contains(QMAKE_TARGET.arch, x86_64) {
+-   LIBS += -L$${PWD}/lib64
+-} else {
+-   LIBS += -L$${PWD}/lib
+-}
+-
+ LIBS += -lSDL2
+ 
+ DEPENDPATH += \

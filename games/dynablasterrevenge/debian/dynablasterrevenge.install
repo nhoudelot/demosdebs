@@ -1,0 +1,3 @@
+./client/dynablasterrevenge-client usr/games/
+debian/resources/dynablasterrevenge.desktop usr/share/applications/
+./client/data/icons/dynablaster_revenge-256.png usr/share/icons/hicolor/256x256/apps/

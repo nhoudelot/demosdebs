@@ -1,0 +1,23 @@
+Description: changed filename to make a difference with the server
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/client/client.pro
++++ b/client/client.pro
+@@ -1,5 +1,5 @@
+ TEMPLATE = app
+-TARGET = dynablaster
++TARGET = dynablasterrevenge-client
+ 
+ QT += core
+ QT += gui
+--- a/server/server.pro
++++ b/server/server.pro
+@@ -1,5 +1,5 @@
+ TEMPLATE = app
+-TARGET = server
++TARGET = dynablasterrevenge-server
+ 
+ OBJECTS_DIR=.obj
+ MOC_DIR=.moc

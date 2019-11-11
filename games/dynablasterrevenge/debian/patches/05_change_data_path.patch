@@ -1,0 +1,30 @@
+Description: change current dir
+ tried to patch all the paths, but didn't work.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/client/src/dynamain.cpp
++++ b/client/src/dynamain.cpp
+@@ -13,6 +13,8 @@
+    #include <windows.h>
+ #endif
+
++#include <unistd.h>
++
+
+ int main( int argc, char ** argv )
+ {
+@@ -36,6 +38,12 @@
+
+    QApplication a( argc, argv );
+
++   char datapath[]="/usr/share/games/dynablasterrevenge/client";
++   if (chdir(datapath) == 0) {
++   } else {
++        printf("Error : Could not change directory to %s\n",datapath);
++   }
++
+    BombermanClientGui gui(&a /*, 60.0f */ );
+    gui.initialize();
+

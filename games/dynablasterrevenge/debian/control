@@ -1,0 +1,52 @@
+Source: dynablasterrevenge
+Section: games
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ qtbase5-dev,
+ qtbase5-dev-tools,
+ qt5-qmake,
+ libqt5opengl5-dev,
+ libsdl2-dev,
+ libqt4-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://github.com/varnholt/dynablaster_revenge
+
+Package: dynablasterrevenge
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ dynablasterrevenge-data,
+ common-install-function-ddebs(>=1.18)
+Description: Game by Matthias Varnholt, released in 2014
+ Dynablaster Revenge is a remake of the game Dynablaster, released by Hudson
+ Soft in 1991. The goal of this remake is to keep the original game-play as
+ untouched as possible while adding some new features such as networked
+ multiplayer and real-time 3D rendering. In case you're not yet familiar with
+ the original game goal, it's quite simple: Bomb all other players from the
+ screen. Either by collecting flame extras to increase the bomb radius or by
+ picking up bomb extras in order to have more bombs to drop you're able to
+ surround your enemies with your bombs, or blow them away with clever bomb
+ chain reactions.
+
+Package: dynablasterrevenge-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ dynablasterrevenge
+Description: Data files for Dynablaster-revenge
+ package data files for Dynablaster Revenge. a remake of the game Dynablaster,
+ released by Hudson Soft in 1991.
+
+Package: dynablasterrevenge-server
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Server for Dynablaster-revenge
+ Server for Dynablaster Revenge. a remake of the game Dynablaster,
+ released by Hudson Soft in 1991.
