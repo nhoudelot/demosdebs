@@ -1,3 +1,9 @@
+rocket-sync-tracker (0.11.0-0ddebs2) unstable; urgency=medium
+
+  * debian/watch is now working
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 11 Nov 2019 23:34:20 +0100
+
 rocket-sync-tracker (0.11.0-0ddebs1) unstable; urgency=medium
 
   * Initial release
