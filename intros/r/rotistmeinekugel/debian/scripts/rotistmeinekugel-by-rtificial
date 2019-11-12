@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=rotistmeinekugel-by-rtificial
+
+APP_FULLNAME="rot! ist meine kugel"
+APP_COPYRIGHT="Rtificial"
+APP_DESC="intro by Rtificial released in 2014"
+
+APP_EXE="rtificial-rmk-linux_1920_1080"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/i386-linux-gnu/${domain}
+	LD_LIBRARY_PATH=. ./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

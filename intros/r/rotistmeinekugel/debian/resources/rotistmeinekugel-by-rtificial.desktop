@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=rot! ist meine kugel
+GenericName=Demo
+Comment=Demo by Rtificial, released in 2014
+Type=Application
+Exec=/usr/bin/rotistmeinekugel-by-rtificial
+Icon=rotistmeinekugel-by-rtificial
+Categories=AudioVideo;
+Name[fr_FR]=rot! ist meine kugel

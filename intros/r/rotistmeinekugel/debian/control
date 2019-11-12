@@ -1,0 +1,32 @@
+Source: rotistmeinekugel-by-rtificial
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ libsdl1.2-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=62936
+
+Package: rotistmeinekugel-by-rtificial
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libglew1.5,
+ common-install-function-ddebs(>=1.18)
+Description: 40k Intro for Linux, released in 2014
+ Intro by Rtificial, released in 2014
+ first Linux demo
+ about  one year ago Rtificial watched the revision live stream  and decided
+ to make a demo themselves
+ .
+ their goal was to release it at revision  2014. so they sat around and did
+ nothing for three months.
+ then they started working on tools but almost freaked out three weeks before
+ revision as they had no content. they got ourselves together and
+ hacked something together, proudly finishing it the night before.
+ .
+ this is the first demo they ever wrote so they asking to adjust your
+ expectatotions.
