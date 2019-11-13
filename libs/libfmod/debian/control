@@ -9,21 +9,18 @@ Section: libs
 Homepage: https://www.fmod.org/
 
 Package: libfmod
-Section: libs
 Architecture: i386
 Depends:
- ${shlibs:Depends},
- ${misc:Depends}
-Description: Headers files of this library for audio playback
- Programming library and toolkit for the creation and playback
- of interactive audio.
- Header files
+ ${misc:Depends},
+ libfmod3 (= ${binary:Version})
+Description: Transitional package
+ Transitional package to libfmod3. It can be safely removed.
 
-Package: libfmod-dev
-Section: libdevel
-Architecture: any
+Package: libfmod3
+Architecture: i386
+Replaces: libfmod (<< 3.75-ddebs5~)
 Depends:
- libfmod,
+ ${shlibs:Depends},
  ${misc:Depends}
 Description: Programming library for audio playback
  FMOD is a fast, powerful, and easy to use sound system. It runs on
@@ -32,3 +29,14 @@ Description: Programming library for audio playback
  recording, obstruction/occlusion, cd playback (analog or digital), cd ripping,
  mmx, internet streaming, dsp effects, spectrum analysis, user created samples
  and streams, synchronization support, ASIO, EAX 2&3, C/C++/VB/Delphi and more.
+
+Package: libfmod-dev
+Section: libdevel
+Architecture: i386
+Depends:
+ libfmod3 (= ${binary:Version}),
+ ${misc:Depends}
+Description: Headers files of this library for audio playback
+ Programming library and toolkit for the creation and playback
+ of interactive audio.
+ Header files
