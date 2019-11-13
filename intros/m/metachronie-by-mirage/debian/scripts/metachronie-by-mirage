@@ -13,8 +13,8 @@ APP_EXE="metachronie-linux_x86-64"
 function run()
 {
 	backuppwd=$(pwd)
-	cd /usr/share/${domain}
-	./${APP_EXE}
+	cd /usr/lib/x86_64-linux-gnu/${domain}
+	LD_LIBRARY_PATH=. ./${APP_EXE}
 	cd $backuppwd
 }
 
