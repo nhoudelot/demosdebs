@@ -17,9 +17,9 @@ Depends:
  libjpeg62-turbo|libjpeg62,
  libpng12-0 (>= 1.2.13-4),
  libsdl1.2debian,
- libfmod,
+ libfmod3,
  libc6,
- outbreak10years-by-outbreak-data
+ outbreak10years-by-outbreak-data (= ${source:Version})
 Description: Linux Demo by Outbreak, 2005
  Demo by Outbreak, released in 2005
 

@@ -1,3 +1,10 @@
+outbreak10years-by-outbreak (1.0-0ddebs7) unstable; urgency=medium
+
+  * debian/control :  libfmod -> libfmod3
+  * debian/script : now start with LD_LIBRARY_PATH
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 13 Nov 2019 19:35:24 +0100
+
 outbreak10years-by-outbreak (1.0-0ddebs6) unstable; urgency=medium
 
   * update to standard version to 4.1.4

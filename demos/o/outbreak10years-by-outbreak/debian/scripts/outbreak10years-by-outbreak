@@ -13,7 +13,7 @@ function run()
 {
 	backuppwd=$(pwd)
 	cd /usr/lib/i386-linux-gnu/${domain}/i686
-	./${APP_EXE}
+	LD_LIBRARY_PATH=. ./${APP_EXE}
 	cd $backuppwd
 }
 
