@@ -1,3 +1,9 @@
+xa005spike-by-xangle (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * debian/control : better package description
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 13 Nov 2019 18:45:59 +0100
+
 xa005spike-by-xangle (1.0+1-0ddebs1) unstable; urgency=medium
 
   * moved resources to debian folder

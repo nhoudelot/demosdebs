@@ -20,5 +20,9 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Demo/2005/Linux
+Description: Demo for Linux, released in 2005
  Demo by xAngle, released in 2005
+ Party release at "Backslash underground" 2005-07-09
+ .
+ This is a demo created by trejs and danter of xAngle. Music was composed
+ yet again by algar of tjc^titan.
