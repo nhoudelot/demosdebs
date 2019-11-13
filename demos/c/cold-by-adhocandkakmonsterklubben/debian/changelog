@@ -1,3 +1,11 @@
+cold-by-adhocandkakmonsterklubben (1.0-0ddebs9) unstable; urgency=medium
+
+  * debian/control : depend of libmod3
+  * changed libfmod.so link
+  * start executable with LD_LIBRARY_PATH=
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 13 Nov 2019 23:46:01 +0100
+
 cold-by-adhocandkakmonsterklubben (1.0-0ddebs8) unstable; urgency=medium
 
   * update to standard version to 4.1.4

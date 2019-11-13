@@ -8,19 +8,20 @@ Build-Depends:
  libsdl1.2-dev,
  libfreetype6-dev,
  libstdc++5,
- libpng12-0
-Standards-Version: 3.9.7
+ libpng12-0,
+ libfmod-dev
+Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=27661
 
 Package: cold-by-adhocandkakmonsterklubben
 Architecture: i386
 Depends:
- cold-by-adhocandkakmonsterklubben-data,
+ cold-by-adhocandkakmonsterklubben-data (= ${source:Version}),
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
- libfmod,
- fonts-911porscha
+ fonts-911porscha,
+ libfmod3
 Description: Linux demo by adhoc and kakmonsterklubben
  Demo by adhoc and kakmonsterklubben, released in 2006
 
