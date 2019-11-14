@@ -10,6 +10,7 @@ Homepage: http://www.un4seen.com/
 
 Package: libbass
 Architecture: i386 amd64
+Multi-Arch: same
 Depends:
  ${misc:Depends},
  libbass2
@@ -34,6 +35,7 @@ Description: Audio library
 Package: libbass-dev
 Section: libdevel
 Architecture: any
+Multi-Arch: same
 Depends:
  libbass(= ${binary:Version}),
  ${misc:Depends}
