@@ -20,8 +20,7 @@ Package: luisita
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libbass
+ ${misc:Depends}
 Description: scriptable graphics environment for real-time applications (demos)
  Luisita is an scriptable graphics environment à la Processing, only it's based
  on Lua & C++.

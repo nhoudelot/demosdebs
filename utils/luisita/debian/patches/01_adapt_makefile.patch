@@ -1,41 +1,16 @@
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -1,28 +1,48 @@
+@@ -1,28 +1,37 @@
 +#variables de compilation
 +SHELL	:= /bin/sh
 +CC		:= gcc
 +CXX		:= g++
 +
  OBJECTS = main.o luisita.o
-  
+- 
++
  TARGET = luisita
-+#variable de nettoyage
-+RM_F := rm -f
-+
-+#variables d’installation
-+INSTALL := install
-+INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
-+
-+prefix          := /usr
-+exec_prefix     := $(prefix)
-+bindir          := $(prefix)/bin
-+
-+# packages necessaire
-+# libsoil-dev libbass-dev liblua5.1-0-dev libsdl1.2-dev libglew-dev
-+
-+#si code gcc4 compilé via gcc5 le standard par défaut était different
-+GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
-+ifeq "$(GCCVERSIONGTEQ5)" "1"
-+    CFLAGS += -std=gnu90
-+    CXXFLAGS += -fabi-compat-version=2
-+endif
-+#compilation en paralelle si disponible
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
-+endif
-  
+- 
 -linux: $(OBJECTS)
 -	cp ./bass/libbass.so ../libbass.so
 -	g++ -O3 -o ../$(TARGET) $(OBJECTS) ./lua/src/liblua.a -L./bass -lbass -pthread `sdl-config --cflags --libs` -lGL -lGLU -lGLEW -Wl,-R.
@@ -57,6 +32,22 @@
 -	cp ./bass/libbass_x86_64.so ./bass/libbass.so
 -	g++ -O0 -g -o ../$(TARGET) $(OBJECTS) -m64 ./lua/src/liblua.a  ./SOIL/libSOIL-linux_x86_64.a -L./bass -lbass -pthread `sdl-config --cflags --libs` -lGL -lGLU -lGLEW -Wl,-R.
 -	rm ./bass/libbass.so
++#variable de nettoyage
++RM_F := rm -f
++
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++# packages necessaire
++# libsoil-dev libbass-dev liblua5.1-0-dev libsdl1.2-dev libglew-dev
++
++
 +$(TARGET): $(OBJECTS)
 +	#cp ./bass/libbass.so ../libbass.so
 +	$(CXX) -O3 -o $(TARGET) $(OBJECTS) /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/liblua5.1.a -L/usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/bass -lbass -pthread  -lSOIL $(shell pkg-config --libs --cflags sdl glew) -ldl

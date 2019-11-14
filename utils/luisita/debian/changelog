@@ -1,3 +1,9 @@
+luisita (1.0-0ddebs5) unstable; urgency=medium
+
+  * use libbass-dev
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Nov 2019 15:08:01 +0100
+
 luisita (1.0-0ddebs4) unstable; urgency=medium
 
   * update to standard version to 4.1.4
