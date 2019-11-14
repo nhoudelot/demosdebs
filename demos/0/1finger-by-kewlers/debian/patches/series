@@ -1,3 +1,4 @@
-01_change_dirs_location.diff
-02_adapte_makefile.diff
-03_fix_cpp.diff
+01_change_data_location.patch
+02_adapt_makefile.patch
+03_fix_cpp_errors.patch
+04_use_system_bass.patch

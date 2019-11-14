@@ -1,3 +1,12 @@
+1finger-by-kewlers (1.0+2-0ddebs1) unstable; urgency=medium
+
+  * compile with libbass-dev
+  * removed resources/
+  * debian/control : removed manual libbass dependencie as it's now done via
+   dh_shlibdeps
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Nov 2019 11:32:55 +0100
+
 1finger-by-kewlers (1.0-0ddebs9) unstable; urgency=medium
 
   * update to standard version to 4.1.4
@@ -45,7 +54,7 @@
 1finger-by-kewlers (1.0-0ddebs2) unstable; urgency=medium
 
   * using debian recommended CFLAGS and habits
-  * better program name 
+  * better program name
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 02 Mar 2016 00:11:42 +0100
 

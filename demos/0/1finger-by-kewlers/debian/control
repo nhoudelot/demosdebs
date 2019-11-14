@@ -18,8 +18,7 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libbass,
- 1finger-by-kewlers-data
+ 1finger-by-kewlers-data (= ${source:Version})
 Description: demos by kewlers ranked 5th at Revision 2013
  Linux port of this demo
 

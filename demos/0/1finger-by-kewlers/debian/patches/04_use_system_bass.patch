@@ -1,0 +1,15 @@
+Description: use libbass-dev instead of the embedded one
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/rubber1.0/BassRocket.cpp
++++ b/rubber1.0/BassRocket.cpp
+@@ -1,6 +1,6 @@
+ #include "Rubber.h"
+ #include "BassRocket.h"
+-#include "../bass/bass.h"
++#include <bass.h>
+ #include "../rocket/sync/base.h"
+
+ using namespace RubberSpace;
