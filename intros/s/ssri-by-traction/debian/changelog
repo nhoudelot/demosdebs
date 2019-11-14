@@ -1,3 +1,13 @@
+ssri-by-traction (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * removed resources in root package
+  * update patche names
+  * change short description
+  * removed -flto and added -std=gnu++98 on compilation
+  * hardening=+all,-pie
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 15 Nov 2019 00:25:17 +0100
+
 ssri-by-traction (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4

@@ -1,2 +1,2 @@
-01_adapt_makefile.diff
-02_adapth_path.diff
+01_adapt_makefile.patch
+02_use_systemlib.patch

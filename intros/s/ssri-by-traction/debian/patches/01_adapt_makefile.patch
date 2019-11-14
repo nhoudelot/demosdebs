@@ -108,7 +108,7 @@
 +
 +TARGET = ssri-by-traction
 +LDFLAGS += -lm
-+CFLAGS += -O3 -flto -Wall -ffast-math -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT)
++CFLAGS += -O3 -Wall -ffast-math -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT)
 +
 +ifeq ($(FULLSCREEN),TRUE)
 +CFLAGS += -DFULLSCREEN
@@ -116,8 +116,8 @@
 +
 +#linux Makefile setup
 +ifeq ($(PLATFORM), LINUX)
-+LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf glu sdl fmodex --libs) -std=gnu90
-+CFLAGS += $(shell pkgconf glu sdl fmodex --cflags) -fpermissive
++LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf glu sdl fmodex --libs)
++CFLAGS += $(shell pkgconf glu sdl fmodex --cflags) -fpermissive -std=gnu++98
 +endif
 +
 +.PHONY: all all-before all-after clean clean-custom
@@ -161,7 +161,7 @@
 +	$(CXX) $(CFLAGS) -c $<
 +
 +$(TARGET): $(OBJ)
-+	$(CXX) -flto -o $@ $(OBJ) $(LDFLAGS)
++	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
