@@ -1,0 +1,8 @@
+glrez-by-rez for Debian
+-----------------------
+
+libfmodex.so.4.00.37 is NEEDED
+new version of this library don't work with it except libfmodex-4.30.03.so
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 14 Nov 2019 23:00:02 +0100
+

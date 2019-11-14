@@ -1,3 +1,12 @@
+glrez-by-rez (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * removed glrez-by-rez.6
+  * better description
+  * updated libfmodex.so.4.00.37 to libfmodex-4.30.03.so
+  * added README.Debian to explain why libfmodex-4.30.03.so is embedded
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Nov 2019 19:10:37 +0100
+
 glrez-by-rez (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4
