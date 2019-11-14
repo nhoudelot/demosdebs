@@ -8,6 +8,8 @@ DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 %:
 	dh $@
 
+override_dh_strip:
+
 override_dh_auto_configure:
 	dh_auto_configure
 	(cd debian; \
@@ -18,4 +20,4 @@ override_dh_auto_configure:
 
 override_dh_install:
 		dh_install
-		(find debian/libbass -type f -execdir rename 's/libbass.so/libbass.so.2.4/g' * {} \;)
+		(find debian/libbass2 -type f -execdir rename 's/libbass.so/libbass.so.2.4.14/g' * {} \;)

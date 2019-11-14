@@ -8,22 +8,15 @@ Standards-Version: 4.1.4
 Section: libs
 Homepage: http://www.un4seen.com/
 
-Package: libbass-dev
-Section: libdevel
-Architecture: any
-Depends:
- libbass(= ${binary:Version}),
- ${misc:Depends}
-Description: Development file for this audio library
- This audio library is for use in software on several platforms. Its purpose is
- to provide developers with powerful and efficient sample, stream (MP3, MP2,
- MP1, OGG, WAV, AIFF, custom generated, and more via OS codecs and add-ons),
- MOD music (XM, IT, S3M, MOD, MTM, UMX), MO3 music (MP3/OGG compressed MODs),
- and recording functions. All in a compact DLL that won't bloat your
- distribution.
-
 Package: libbass
-Section: libs
+Architecture: i386 amd64
+Depends:
+ ${misc:Depends},
+ libbass2
+Description: Transitional package
+ Transitional package to libbass2. It can be safely removed.
+
+Package: libbass2
 Architecture: i386 amd64
 Multi-Arch: same
 Depends:
@@ -33,6 +26,20 @@ Depends:
 Description: Audio library
  Audio library for use in software on several platforms. Its purpose is to
  provide developers with powerful and efficient sample, stream (MP3, MP2,
+ MP1, OGG, WAV, AIFF, custom generated, and more via OS codecs and add-ons),
+ MOD music (XM, IT, S3M, MOD, MTM, UMX), MO3 music (MP3/OGG compressed MODs),
+ and recording functions. All in a compact DLL that won't bloat your
+ distribution.
+
+Package: libbass-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libbass(= ${binary:Version}),
+ ${misc:Depends}
+Description: Development file for this audio library
+ This audio library is for use in software on several platforms. Its purpose is
+ to provide developers with powerful and efficient sample, stream (MP3, MP2,
  MP1, OGG, WAV, AIFF, custom generated, and more via OS codecs and add-ons),
  MOD music (XM, IT, S3M, MOD, MTM, UMX), MO3 music (MP3/OGG compressed MODs),
  and recording functions. All in a compact DLL that won't bloat your

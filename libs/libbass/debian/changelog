@@ -1,3 +1,10 @@
+libbass (2.4.14-0ddebs1) unstable; urgency=medium
+
+  * upstream update
+  * added libbass2.symbols
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Nov 2019 02:55:00 +0100
+
 libbass (2.4-0ddebs6) unstable; urgency=medium
 
   * update to standard version to 4.1.4
