@@ -119,7 +119,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_3D_DistanceScale@Base 3.4
  FSOUND_3D_DopplerScale@Base 3.4
  FSOUND_3D_GetAttributes@Base 3.4
- FSOUND_3D_GetMinMaxDistance@Base 3.74
+ FSOUND_3D_GetMinMaxDistance@Base 3.73
  FSOUND_3D_Listener_GetAttributes@Base 3.4
  FSOUND_3D_Listener_SetAttributes@Base 3.4
  FSOUND_3D_Listener_SetCurrent@Base 3.61
@@ -128,7 +128,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_3D_SetAttributes@Base 3.4
  FSOUND_3D_SetDistanceFactor@Base 3.61
  FSOUND_3D_SetDopplerFactor@Base 3.61
- FSOUND_3D_SetMinMaxDistance@Base 3.74
+ FSOUND_3D_SetMinMaxDistance@Base 3.73
  FSOUND_3D_SetRolloffFactor@Base 3.61
  FSOUND_AIFF_Close@Base 3.61
  FSOUND_AIFF_Load@Base 3.61
@@ -148,7 +148,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_CD_GetVolume@Base 3.4
  FSOUND_CD_Init@Base 3.61
  FSOUND_CD_Open@Base 3.4
- FSOUND_CD_OpenTray@Base 3.74
+ FSOUND_CD_OpenTray@Base 3.73
  FSOUND_CD_Play@Base 3.4
  FSOUND_CD_SetPaused@Base 3.4
  FSOUND_CD_SetPlayMode@Base 3.4
@@ -185,7 +185,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_DSP_SetPriorityInternal@Base 3.4
  FSOUND_DSP_VerifyUnit@Base 3.61
  FSOUND_Device@Base 3.61
- FSOUND_Device_Reset@Base 3.74
+ FSOUND_Device_Reset@Base 3.73
  FSOUND_EnumerateDrivers@Base 3.4
  FSOUND_ErrorNo@Base 3.4
  FSOUND_FFT_Amp@Base 3.61
@@ -195,7 +195,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_FFT_Reorder@Base 3.61
  FSOUND_FFT_Reverse@Base 3.61
  FSOUND_FSB_Close@Base 3.71
- FSOUND_FSB_Load@Base 3.74
+ FSOUND_FSB_Load@Base 3.73
  FSOUND_FSB_Open@Base 3.71
  FSOUND_FX_Disable@Base 3.61
  FSOUND_FX_Enable@Base 3.61
@@ -236,11 +236,11 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_File_TellCallback@Base 3.4
  FSOUND_File_Thread@Base 3.61
  FSOUND_File_ThreadRunning@Base 3.61
- FSOUND_File_UsingFileCallbacks@Base 3.74
+ FSOUND_File_UsingFileCallbacks@Base 3.73
  FSOUND_File_WaitForQueueToDrain@Base 3.71
  FSOUND_FloatTable@Base 3.4
  FSOUND_FloatTableMem@Base 3.4
- FSOUND_GetAmplitude@Base 3.74
+ FSOUND_GetAmplitude@Base 3.73
  FSOUND_GetCPUUsage@Base 3.4
  FSOUND_GetChannelsPlaying@Base 3.4
  FSOUND_GetCurrentLevels@Base 3.61
@@ -258,7 +258,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_GetMixer@Base 3.4
  FSOUND_GetMute@Base 3.4
  FSOUND_GetNumDrivers@Base 3.4
- FSOUND_GetNumHWChannels@Base 3.74
+ FSOUND_GetNumHWChannels@Base 3.73
  FSOUND_GetNumHardwareChannels@Base 3.4
  FSOUND_GetNumSubChannels@Base 3.71
  FSOUND_GetOutput@Base 3.4
@@ -286,21 +286,21 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Listener_Right@Base 3.4
  FSOUND_Listener_Top@Base 3.4
  FSOUND_Listener_Vel@Base 3.61
- FSOUND_Memory_Alloc@Base 3.74
- FSOUND_Memory_Calloc@Base 3.74
+ FSOUND_Memory_Alloc@Base 3.73
+ FSOUND_Memory_Calloc@Base 3.73
  FSOUND_Memory_ClosePool@Base 3.61
  FSOUND_Memory_FindFreeBlocks@Base 3.61
- FSOUND_Memory_Free@Base 3.74
- FSOUND_Memory_GetFree@Base 3.74
+ FSOUND_Memory_Free@Base 3.73
+ FSOUND_Memory_GetFree@Base 3.73
  FSOUND_Memory_InitCustomPool@Base 3.61
  FSOUND_Memory_InitPool@Base 3.61
- FSOUND_Memory_Pool_Alloc@Base 3.74
- FSOUND_Memory_Pool_Calloc@Base 3.74
- FSOUND_Memory_Pool_Free@Base 3.74
- FSOUND_Memory_Pool_GetAvailable@Base 3.74
- FSOUND_Memory_Pool_ReAlloc@Base 3.74
+ FSOUND_Memory_Pool_Alloc@Base 3.73
+ FSOUND_Memory_Pool_Calloc@Base 3.73
+ FSOUND_Memory_Pool_Free@Base 3.73
+ FSOUND_Memory_Pool_GetAvailable@Base 3.73
+ FSOUND_Memory_Pool_ReAlloc@Base 3.73
  FSOUND_Memory_Pool_Set@Base 3.75
- FSOUND_Memory_ReAlloc@Base 3.74
+ FSOUND_Memory_ReAlloc@Base 3.73
  FSOUND_MixerRampSteps@Base 3.61
  FSOUND_MixerTable@Base 3.61
  FSOUND_Mixer_Clear_Int16C@Base 3.61
@@ -435,9 +435,9 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Output_NoSound_Channel_IsPlaying@Base 3.61
  FSOUND_Output_NoSound_Channel_PlaySound@Base 3.61
  FSOUND_Output_NoSound_Channel_Reverb_SetProperties@Base 3.61
- FSOUND_Output_NoSound_Channel_Set3DAttributes@Base 3.74
- FSOUND_Output_NoSound_Channel_SetADSR@Base 3.74
- FSOUND_Output_NoSound_Channel_SetADSRKeyoff@Base 3.74
+ FSOUND_Output_NoSound_Channel_Set3DAttributes@Base 3.73
+ FSOUND_Output_NoSound_Channel_SetADSR@Base 3.73
+ FSOUND_Output_NoSound_Channel_SetADSRKeyoff@Base 3.73
  FSOUND_Output_NoSound_Channel_SetCurrentPosition@Base 3.61
  FSOUND_Output_NoSound_Channel_SetFrequency@Base 3.61
  FSOUND_Output_NoSound_Channel_SetFrequencyEx@Base 3.61
@@ -499,7 +499,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Output_OSS_SetChannelFunctions@Base 3.4
  FSOUND_Output_OSS_SetDeviceParams@Base 3.71
  FSOUND_Output_OSS_SetSampleFunctions@Base 3.4
- FSOUND_Output_OSS_Wait@Base 3.74
+ FSOUND_Output_OSS_Wait@Base 3.73
  FSOUND_PlaySound@Base 3.4
  FSOUND_PlaySoundEx@Base 3.61
  FSOUND_PlaySoundInternal@Base 3.71
@@ -520,21 +520,21 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Sample_Alloc@Base 3.4
  FSOUND_Sample_AllocEx@Base 3.71
  FSOUND_Sample_AllocHeader@Base 3.4
- FSOUND_Sample_Convert@Base 3.74
+ FSOUND_Sample_Convert@Base 3.73
  FSOUND_Sample_Free@Base 3.4
  FSOUND_Sample_Get@Base 3.4
  FSOUND_Sample_GetDefaults@Base 3.4
- FSOUND_Sample_GetDefaultsEx@Base 3.74
+ FSOUND_Sample_GetDefaultsEx@Base 3.73
  FSOUND_Sample_GetLength@Base 3.4
  FSOUND_Sample_GetLoopPoints@Base 3.4
- FSOUND_Sample_GetMinMaxDistance@Base 3.74
+ FSOUND_Sample_GetMinMaxDistance@Base 3.73
  FSOUND_Sample_GetMode@Base 3.4
  FSOUND_Sample_GetName@Base 3.4
  FSOUND_Sample_Load@Base 3.4
- FSOUND_Sample_LoadEx@Base 3.74
+ FSOUND_Sample_LoadEx@Base 3.73
  FSOUND_Sample_Lock@Base 3.4
  FSOUND_Sample_SetDefaults@Base 3.4
- FSOUND_Sample_SetDefaultsEx@Base 3.74
+ FSOUND_Sample_SetDefaultsEx@Base 3.73
  FSOUND_Sample_SetLoopPoints@Base 3.4
  FSOUND_Sample_SetMaxPlaybacks@Base 3.61
  FSOUND_Sample_SetMinMaxDistance@Base 3.4
@@ -546,8 +546,8 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Semaphore_Free@Base 3.61
  FSOUND_Semaphore_Signal@Base 3.61
  FSOUND_Semaphore_Wait@Base 3.61
- FSOUND_SetADSR@Base 3.74
- FSOUND_SetADSRKeyoff@Base 3.74
+ FSOUND_SetADSR@Base 3.73
+ FSOUND_SetADSRKeyoff@Base 3.73
  FSOUND_SetBufferSize@Base 3.4
  FSOUND_SetCurrentPosition@Base 3.61
  FSOUND_SetDriver@Base 3.4
@@ -603,7 +603,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Software_Channel_Init@Base 3.61
  FSOUND_Software_Channel_IsPlaying@Base 3.61
  FSOUND_Software_Channel_PlaySound@Base 3.61
- FSOUND_Software_Channel_Set3DAttributes@Base 3.74
+ FSOUND_Software_Channel_Set3DAttributes@Base 3.73
  FSOUND_Software_Channel_SetCurrentPosition@Base 3.61
  FSOUND_Software_Channel_SetFrequency@Base 3.61
  FSOUND_Software_Channel_SetFrequencyEx@Base 3.61
@@ -638,7 +638,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_StopSound@Base 3.4
  FSOUND_StreamDSP@Base 3.4
  FSOUND_Stream_AddSyncPoint@Base 3.71
- FSOUND_Stream_BytesToSamples@Base 3.74
+ FSOUND_Stream_BytesToSamples@Base 3.73
  FSOUND_Stream_Close@Base 3.4
  FSOUND_Stream_Create@Base 3.4
  FSOUND_Stream_CreateDSP@Base 3.4
@@ -661,7 +661,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Stream_GetSyncPointInfo@Base 3.71
  FSOUND_Stream_GetTagField@Base 3.71
  FSOUND_Stream_GetTime@Base 3.4
- FSOUND_Stream_GetTimeEx@Base 3.74
+ FSOUND_Stream_GetTimeEx@Base 3.73
  FSOUND_Stream_HalfBufferSize@Base 3.75
  FSOUND_Stream_Init@Base 3.4
  FSOUND_Stream_Net_Cancel@Base 3.71
@@ -700,7 +700,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Stream_ReadOggVorbis@Base 3.61
  FSOUND_Stream_ReadOggVorbis_Net@Base 3.71
  FSOUND_Stream_ReadWav@Base 3.61
- FSOUND_Stream_SamplesToBytes@Base 3.74
+ FSOUND_Stream_SamplesToBytes@Base 3.73
  FSOUND_Stream_Seek@Base 3.4
  FSOUND_Stream_SetBufferSize@Base 3.61
  FSOUND_Stream_SetEndCallback@Base 3.4
@@ -720,11 +720,11 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Stream_StopEx@Base 3.71
  FSOUND_Stream_Update@Base 3.61
  FSOUND_Stream_UpdateBusy@Base 3.74
- FSOUND_Stream_UpdatePCMOffset@Base 3.74
+ FSOUND_Stream_UpdatePCMOffset@Base 3.73
  FSOUND_Stream_UpdateThread@Base 3.61
  FSOUND_SyncPoint_Add@Base 3.71
  FSOUND_SyncPoint_Get@Base 3.71
- FSOUND_SyncPoint_Seek@Base 3.74
+ FSOUND_SyncPoint_Seek@Base 3.73
  FSOUND_SyncPoints_Close@Base 3.71
  FSOUND_SyncPoints_Init@Base 3.71
  FSOUND_Tag_Add@Base 3.71
@@ -738,7 +738,7 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Tag_ReadVorbisComments@Base 3.71
  FSOUND_Tag_Skip@Base 3.71
  FSOUND_Thread_Create@Base 3.4
- FSOUND_Thread_CreateWithStack@Base 3.74
+ FSOUND_Thread_CreateWithStack@Base 3.73
  FSOUND_Thread_Destroy@Base 3.4
  FSOUND_Thread_GetCurrentID@Base 3.4
  FSOUND_Time_Get@Base 3.4
@@ -754,11 +754,11 @@ libfmod.so.3 libfmod3 #MINVER#
  FSOUND_Wav_ParseRIFF@Base 3.4
  F_Free@Base 3.71
  F_Malloc@Base 3.71
- F_ReAlloc@Base 3.74
+ F_ReAlloc@Base 3.73
  F_memcmp@Base 3.71
  F_memmove@Base 3.71
  F_strcat@Base 3.71
- F_strchr@Base 3.74
+ F_strchr@Base 3.73
  F_strcmp@Base 3.71
  F_strcpy@Base 3.71
  F_stricmp@Base 3.71
@@ -982,7 +982,7 @@ libfmod.so.3 libfmod3 #MINVER#
  so_snd_pcm_hw_params_get_buffer_time_max@Base 3.71
  so_snd_pcm_hw_params_get_buffer_time_min@Base 3.71
  so_snd_pcm_hw_params_get_period_size@Base 3.71
- so_snd_pcm_hw_params_get_period_time@Base 3.74
+ so_snd_pcm_hw_params_get_period_time@Base 3.73
  so_snd_pcm_hw_params_get_rate_max@Base 3.74
  so_snd_pcm_hw_params_set_access@Base 3.61
  so_snd_pcm_hw_params_set_buffer_size@Base 3.61

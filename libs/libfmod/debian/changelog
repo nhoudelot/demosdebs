@@ -1,3 +1,9 @@
+libfmod (3.75-0ddebs7) unstable; urgency=medium
+
+  * debian/libfmod3.symbols : updated list cause found a libfmod-3.73
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Nov 2019 01:01:05 +0100
+
 libfmod (3.75-0ddebs6) unstable; urgency=medium
 
   * added debian/libfmod3.symbols
