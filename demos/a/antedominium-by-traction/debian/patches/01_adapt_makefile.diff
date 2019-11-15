@@ -104,7 +104,7 @@
 +TARGET = antedominium-by-traction
 +LDFLAGS += -lm
 +CFLAGS += -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -Wall -O3 -flto -ffast-math -std=gnu90 -pipe
-+CXXFLAGS += -Wall -O3 -flto -ffast-math -fno-exceptions -fno-rtti -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu++98 -fabi-version=2 -pipe
++CXXFLAGS += -Wall -O3 -ffast-math -fno-exceptions -fno-rtti -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu++98 -fabi-version=2 -pipe
 +CCFLAGS =
 +RELEASES =
 +#variable de nettoyage
@@ -161,7 +161,7 @@
 +	$(CXX) $(EXTRACFLAGS) $(CXXFLAGS) -c $<
 +
 +$(TARGET): $(OBJ)
-+	$(CXX) -flto -o $@ $(OBJ) $(LDFLAGS)
++	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

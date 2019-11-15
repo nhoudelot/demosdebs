@@ -1,3 +1,10 @@
+antedominium-by-traction (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * removed resources on root package
+  * debian/control removed manual libfmodex4 dependenciee
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 15 Nov 2019 00:38:51 +0100
+
 antedominium-by-traction (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4

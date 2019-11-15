@@ -16,7 +16,6 @@ Package: antedominium-by-traction
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libfmodex4
+ ${misc:Depends}
 Description: Demonstration released by Traction
  Demo by Traction, released in 2006
