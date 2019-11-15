@@ -6,6 +6,7 @@ Build-Depends:
  debhelper (>=9),
  pandoc,
  libsdl1.2-dev,
+ libfmodex-dev,
  libpng12-0
 Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=34513
@@ -15,11 +16,14 @@ Architecture: i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ libfmodex4 (>=4.10.03),
  common-install-function-ddebs(>=1.18),
- aestheticdistance-by-youthuprising-data,
- libfmodex4
+ aestheticdistance-by-youthuprising-data
 Description: Demo for Linux, released in 2007
  Demo by Youth Uprising, released in 2007
+ .: Aesthetic Distance - A demo by Youth Uprising.
+ Produced November through December 2007.
+ Released at the Ultimate Meeting '07.
 
 Package: aestheticdistance-by-youthuprising-data
 Architecture: all

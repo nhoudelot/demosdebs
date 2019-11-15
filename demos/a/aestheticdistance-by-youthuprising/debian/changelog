@@ -1,3 +1,11 @@
+aestheticdistance-by-youthuprising (1.0-0ddebs8) unstable; urgency=medium
+
+  * depends of libfmodex4 (>=4.10.03)
+  * link libfmodex.so.4.10.03 to libfmodex.so.4
+  * better description
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 15 Nov 2019 01:59:11 +0100
+
 aestheticdistance-by-youthuprising (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4
