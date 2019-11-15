@@ -13,7 +13,6 @@ Package: kebab-by-rebel
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libfmodex4
+ ${misc:Depends}
 Description: rebel Intro/2006/Linux
  Intro by rebel, released in 2006

@@ -3,9 +3,9 @@
 @@ -2,7 +2,7 @@
  SHELL = /bin/sh
  CC    = gcc
- CFLAGS   += -flto -Wall -ffast-math
--LDFLAGS  += -lpthread -lfmodex-3.75 -lm
-+LDFLAGS  += -lpthread -lfmodex -lm
+ CFLAGS   += -Wall -std=gnu90
+-LDFLAGS  += -pthread -lfmodex-3.75 -lm
++LDFLAGS  += -pthread -lfmodex -lm
  TARGET   = kebab-by-rebel
  #variable de nettoyage
  RM_F = rm -f

@@ -1,11 +1,11 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,2 +1,47 @@
+@@ -1,2 +1,42 @@
 +#variables de compilation
 +SHELL = /bin/sh
 +CC    = gcc
-+CFLAGS   += -flto -Wall -ffast-math
-+LDFLAGS  += -lpthread -lfmodex-3.75 -lm
++CFLAGS   += -Wall -std=gnu90
++LDFLAGS  += -pthread -lfmodex-3.75 -lm
 +TARGET   = kebab-by-rebel
 +#variable de nettoyage
 +RM_F = rm -f
@@ -22,11 +22,6 @@
 +datarootdir     = $(prefix)/share
 +datadir         = $(prefix)/share/kebab-by-rebel
 +
-+#si code gcc4 compilé via gcc5 le standard par défaut était different
-+GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
-+ifeq "$(GCCVERSIONGTEQ5)" "1"
-+    CFLAGS += -std=gnu90
-+endif
 +#parallel compilation if available
 +ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
