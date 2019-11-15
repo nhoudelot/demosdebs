@@ -106,8 +106,8 @@
 +
 +TARGET = itsfullofstars-by-traction
 +LDFLAGS += -lm
-+CFLAGS += -O3 -flto -Wall -ffast-math -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu90 -pipe
-+CXXFLAGS += -O3 -flto -Wall -ffast-math -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu++98 -fabi-version=2  -pipe -fpermissive
++CFLAGS += -O3 -Wall -ffast-math -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu90 -pipe
++CXXFLAGS += -O3 -Wall -ffast-math -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu++98 -fabi-version=2  -pipe -fpermissive
 +
 +ifeq ($(FULLSCREEN),TRUE)
 +	CFLAGS += -DFULLSCREEN
@@ -161,7 +161,7 @@
 +	$(CXX) $(CXXFLAGS) -c $<
 +
 +$(TARGET): $(OBJ)
-+	$(CXX) -flto -o $@ $(OBJ) $(LDFLAGS)
++	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

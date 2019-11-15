@@ -17,7 +17,6 @@ Package: itsfullofstars-by-traction
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libfmodex4
+ ${misc:Depends}
 Description: Traction Demo/2006/Linux
  Demo by Traction, released in 2006

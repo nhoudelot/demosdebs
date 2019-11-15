@@ -1,3 +1,11 @@
+itsfullofstars-by-traction (1.0-0ddebs7) unstable; urgency=medium
+
+  * removed manual libfmodex4 dependencie
+  * removed -flto on compilation
+  * disable pie,during hardening, or it crash
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 15 Nov 2019 19:33:35 +0100
+
 itsfullofstars-by-traction (1.0-0ddebs6) unstable; urgency=medium
 
   * update to standard version to 4.1.4
