@@ -18,8 +18,7 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- flawed-by-adinpsz-data,
- libfmodex4
+ flawed-by-adinpsz-data
 Description: Demo for Linux, released in 2011
  Demo by adinpsz, released in 2011
 
