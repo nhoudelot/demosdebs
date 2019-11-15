@@ -1,3 +1,10 @@
+mleinandsharkywedtro-by-limpninja (1.0-0ddebs8) unstable; urgency=medium
+
+  * removed manual libfmodex4 dependencie
+  * added -gnu++11 CFLAG
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 15 Nov 2019 01:34:44 +0100
+
 mleinandsharkywedtro-by-limpninja (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4

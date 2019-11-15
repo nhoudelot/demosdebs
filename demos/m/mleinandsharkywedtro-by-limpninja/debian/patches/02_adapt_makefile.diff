@@ -55,7 +55,7 @@
      libs += ["Magick++","Magick", 'GLU','GL' ]
  
 -env = Environment( ENV = os.environ, CXXFLAGS=["-O3","-g3"], LINKFLAGS=["-O3","-g3"], CPPPATH=["CGLA/"]+incpath )
-+env = Environment( ENV = os.environ, CXXFLAGS=["-O3","-g3","-flto","-pipe","-std=gnu++98","-fabi-version=2"], LINKFLAGS=["-O3","-g3","-flto"], CPPPATH=["CGLA/"]+incpath )
++env = Environment( ENV = os.environ, CXXFLAGS=["-O3","-g3","-flto","-pipe","-std=gnu++11","-fabi-version=8"], LINKFLAGS=["-O3","-g3","-flto"], CPPPATH=["CGLA/"]+incpath )
  if crosscompile:
      env['CXX'] = 'i586-mingw32msvc-g++'
  

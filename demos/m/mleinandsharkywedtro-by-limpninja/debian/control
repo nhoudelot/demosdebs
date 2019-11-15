@@ -20,7 +20,6 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends},
  common-install-function-ddebs(>=1.18),
- libfmodex4,
  fonts-blomster
 Description: Linux demo by Limp Ninja, released in 2007
  Demo by Limp Ninja, released in 2007
