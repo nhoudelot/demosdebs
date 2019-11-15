@@ -10,6 +10,7 @@ Build-Depends:
  libglew1.5,
  libnoise-dev,
  libglu1-mesa-dev,
+ libfmodex-dev,
  libsdl1.2-dev
 Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=57319
@@ -24,6 +25,8 @@ Depends:
  simlife-by-contraz-data
 Description: Demo for Linux, released in 2011
  Demo by Contraz, released in 2011
+ This is the final version. Nothing is very different from the
+ earlier one. They just ironed out some rough edges here and there.
 
 Package: simlife-by-contraz-data
 Architecture: all

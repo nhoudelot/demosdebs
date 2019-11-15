@@ -1,3 +1,9 @@
+simlife-by-contraz (1.0-0ddebs6) unstable; urgency=medium
+
+  * changed link to libfmodex-4.38.01.so by libfmodex.so.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 15 Nov 2019 15:08:25 +0100
+
 simlife-by-contraz (1.0-0ddebs5) unstable; urgency=medium
 
   * update to standard version to 4.1.4
