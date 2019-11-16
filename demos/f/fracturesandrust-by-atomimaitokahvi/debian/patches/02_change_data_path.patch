@@ -1,0 +1,143 @@
+--- a/main.c
++++ b/main.c
+@@ -47,7 +47,7 @@
+   char name[50], *script_path;
+   FILE *f;
+   int i;
+-  
++
+   /* parse command line arguments */
+   flags=SDL_HWSURFACE|SDL_HWPALETTE;
+   renderonly=0;
+@@ -58,7 +58,13 @@
+       else if (!strcmp("-render",argv[i])) renderonly=1;
+       else script_path = argv[i];
+     }
+-  
++
++   char datapath[]="/usr/share/fracturesandrust-by-atomimaitokahvi/";
++   if (chdir(datapath) == 0) {
++   }else{
++        printf("Error : Could not change directory to %s\n",datapath);
++   }
++
+   /* load pictures */
+   for (pics_n=0; pics_n<PICS; pics_n++)
+     {
+@@ -160,7 +166,7 @@
+           metaframes+=2;
+           script_advance(2);
+         }
+-      
++
+       /* draw the next frame (TODO: limit framerate) */
+       SDL_LockSurface(surface);
+       render(surface);
+@@ -195,7 +201,7 @@
+   int i, *p;
+   FILE *f;
+   char path[50];
+-  
++
+   p = final->data;
+   for (i=0;i<SCREEN_WIDTH*SCREEN_HEIGHT;i++)
+     {
+@@ -217,7 +223,7 @@
+ {
+   char *p;
+   int n,len,section,total;
+-  
++
+   total = ov_pcm_total(vf,-1)*2*2;
+   *buf = p = malloc(total);
+   len = 0;
+@@ -243,13 +249,13 @@
+ audio_callback(void *userdata, Uint8 *buf, int len)
+ {
+   (void)userdata;
+-  
++
+   if (audiooff+len > audiolen)
+     {
+       while (len--) *buf++ = 0;
+       return;
+     }
+-  
++
+   while (len--)
+     *buf++ = audiobuf[audiooff++];
+ }
+@@ -428,7 +434,7 @@
+ nothing(im_t *buf)
+ {
+   int i;
+-  
++
+   for (i=0;i<buf->w*buf->h;i++)
+     buf->data[i]=0;
+ }
+@@ -438,22 +444,22 @@
+ {
+   double a,b;
+   int x,y,i;
+-  
++
+   for (i=0;i<buf->w*buf->h; i++)
+     buf->data[i]=0;
+-  
++
+   a = (double)metaframes/200.0*M_PI;
+   b = (double)metaframes/80.0*M_PI;
+   x = 50*cos(sin(a)*M_PI*2)+160;
+   y = 60*sin(a)*sin(a)*(cos(a)+1.0)+120;
+   im_rotozoom(pics[6],buf, a,50.0+20*sin(b),15.0, x,y, 1.0);
+ //  buffer_add(buf,nsbuf,1.0);
+-  
++
+   x = 40*cos(a*1.0)+x;
+   y = 40*sin(a*1.0)+y;
+   im_rotozoom(pics[rand()%9],buf, -a+M_PI/2,25.0+15*sin(a),125.0, x,y, 1.0);
+ //  buffer_add(buf,nsbuf,1.0);
+-  
++
+   buffer_mul(buf,0.00285);
+   histogram_equalize(buf,buf);
+   buffer_invert(buf);
+@@ -466,10 +472,10 @@
+ {
+   double a,b,c,d,e,f;
+   int i,x,y;
+-  
++
+   for (i=0;i<buf->w*buf->h;i++)
+     buf->data[i]=0;
+-  
++
+   a = (double)metaframes/200.0*M_PI;
+ 
+   x = 0;
+@@ -498,13 +504,13 @@
+ {
+   double a[3],b[3],c[4],*p,*q;
+   int i,k,x,y,z,*r,*t,u,v;
+- 
++
+     {
+       a[0] = 0;
+       a[1] = 0;
+       a[2] = 0;
+       p=a,q=b;
+-  
++
+ //      c[0] = 0.2+0.0005*input_cur(0);
+       c[0] = 0.2+0.0005*tuherrus[0][metaframes];
+ //      c[1] = 1.9+0.1*sin(input_cur(0)/640.0*2*M_PI);
+@@ -513,7 +519,7 @@
+       c[2] = 0.73+0.1*sin(tuherrus[1][metaframes]/480.0*2*M_PI);
+ //      c[3] = 0.51+0.0005*input_cur(1);
+       c[3] = 0.51+0.0005*tuherrus[1][metaframes];
+-  
++
+ //      if (input_cur(3)>0)
+       if (tuherrus[3][metaframes]>0)
+         {

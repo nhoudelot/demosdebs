@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=fractures and rust
+GenericName=Demo
+Comment=Demo by atomimaitokahvi, released in 2008
+Type=Application
+Exec=/usr/bin/fracturesandrust-by-atomimaitokahvi
+Icon=fracturesandrust-by-atomimaitokahvi
+Categories=AudioVideo;Game;
+Name[fr_FR]=fractures and rust

@@ -1,0 +1,32 @@
+Source: fracturesandrust-by-atomimaitokahvi
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev,
+ libvorbis-dev
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=51968
+
+Package: fracturesandrust-by-atomimaitokahvi
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ fracturesandrust-by-atomimaitokahvi-data
+Description: Demo for Linux, released in 2008
+ Demo by atomimaitokahvi, released in 2008
+ fractures and rust  by  atomimaitokahvi
+ released  at  alternative party 2008
+ .
+ music               - shroomi
+ visuals, code, etc. - ccfg
+
+Package: fracturesandrust-by-atomimaitokahvi-data
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: data file for this demos by atomimaitokahvi
+ data file for this linux port

@@ -1,0 +1,3 @@
+debian/resources/fracturesandrust-by-atomimaitokahvi.desktop usr/share/applications/
+debian/resources/fracturesandrust-by-atomimaitokahvi.png usr/share/icons/hicolor/256x256/apps/
+fracturesandrust-by-atomimaitokahvi usr/bin/
