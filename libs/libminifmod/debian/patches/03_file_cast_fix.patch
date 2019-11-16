@@ -1,0 +1,36 @@
+--- a/main.cpp
++++ b/main.cpp
+@@ -6,6 +6,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <cassert>
+ #ifdef __WIN32__
+ #include <conio.h>
+ #include <windows.h>
+@@ -16,7 +17,7 @@
+ //#define USEMEMLOAD
+ //#define USEMEMLOADRESOURCE
+ //#define USESAMPLELOADCALLBACK
+-#define USEFMOD 
++#define USEFMOD
+ 
+ // this is if you want to replace the samples with your own (in case you have compressed them)
+ #ifdef USESAMPLELOADCALLBACK
+@@ -34,7 +35,15 @@
+ 
+ unsigned int fileopen(char *name)
+ {
+-  return((unsigned int)fopen(name, "rb"));
++  FILE ** pfp;
++  assert(pfp != NULL);
++  *pfp = fopen(name, "rb");
++  if (*pfp == NULL)
++    {
++      return 0; /* By convention -1 indicates failure. */
++    }
++
++  return 1;
+ }
+ 
+ void fileclose(unsigned int handle)

@@ -110,7 +110,7 @@
 +
 +# = CORE DEFINITIONS =========================================================
 +
-+CFLAGS   += -c -I$(INCPATH) -D__LINUX__ -Wall
++CFLAGS   += -c -I$(INCPATH) -D__LINUX__ -Wall -std=gnu++98
 +LFLAGS   += -L$(LIBPATH) -lminifmod -lpthread -lm
 +TARGET   = test
 +
@@ -139,7 +139,7 @@
 +
 +
 +$(TARGET): $(LIB) main.o
-+	$(CC) main.o $(LFLAGS) -o test
++	$(CC) main.o -o test $(LFLAGS)
 +
 +main.o : main.cpp
 +	$(CC) $(CFLAGS) $<

@@ -1,3 +1,11 @@
+libminifmod (1.60-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 4.1.4
+  * fixed some warning
+  * removed some asm
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 16 Nov 2019 18:05:29 +0100
+
 libminifmod (1.60-0ddebs4) unstable; urgency=medium
 
   * updated to standards-version 3.9.7

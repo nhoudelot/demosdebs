@@ -1,0 +1,35 @@
+--- a/src/mixer_clipcopy.c
++++ b/src/mixer_clipcopy.c
+@@ -34,30 +34,8 @@
+     int val = *((float *)src)++;
+     *((short *)dest)++ = (val < -32768 ? -32768 : val > 32767 ? 32767 : val);
+   }
+-#else
+-#ifdef __GNUC__
+-  asm(
+-    ".DoLoop:                 \n"
+-    "flds (%1)                \n"
+-    "fistpl %3                \n"
+-    "addl $4, %1              \n"
+-    "movl %3, %%eax           \n"
+-    "cmpl $32767, %%eax       \n"
+-    "jle .MaxOk               \n"
+-    "movl $32727, %%eax       \n"
+-    ".MaxOk:                  \n"
+-    "cmpl $-32768, %%eax      \n"
+-    "jge .MinOk               \n"
+-    "movl $-32728, %%eax      \n"
+-    ".MinOk:                  \n"
+-    "movw %%ax, (%2)          \n"
+-    "addl $2, %2              \n"
+-    "decl %0                  \n"
+-    "jnz .DoLoop              \n"
+-    :
+-    :"c" (len<<1), "S"(src), "D"(dest), "m"(temp)
+-    :"eax");
+-#endif
++#
++
+ #ifdef _MSC_VER
+   for (temp = 0; temp < (len<<1); temp++)
+   {
