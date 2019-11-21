@@ -1,0 +1,197 @@
+Description: several simple warning fix
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-11-15
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -45,6 +45,7 @@
+ #endif
+ 
+ #include <math.h>
++#include <string.h>
+ #ifdef MIX_ASM
+ #include "sd_amix.h"
+ #endif
+@@ -224,7 +225,7 @@
+ 
+ void sd_mix_init (int rate)
+ {
+-	int i,n,m;
++	int i;
+ 
+ 	sd_mix_rate = rate;
+ 	for (i=0; i<SD_MAXCHANNELS; i++)
+@@ -659,7 +660,6 @@
+ {
+ 	signed int *dst32;
+ 	signed int i, c, lvol, rvol;
+-	signed int left, right;
+ 	signed short *dst;
+ 	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+@@ -681,6 +681,7 @@
+ 		lvol = (chan->volume*(255-chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		rvol = (chan->volume*(chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		if ((chan->samplesize>0) && (chan->volume>0))
++		{
+ #ifdef MIX_ASM
+ 			if (sd_mix_interpolation)
+ 				sd_asm_imixstereo(chan, dst32, length, lvol, rvol);
+@@ -692,7 +693,7 @@
+ 			else
+ 				sd_c_mixstereo(chan, dst32, length, lvol, rvol);
+ #endif
+-
++		}
+ 	} /* for channel */
+ 
+ 	dst32 = mix_buffer32;
+@@ -718,8 +719,7 @@
+ void sd_mix_mono (unsigned char *dest, int length, int to16bit)
+ {
+ 	signed int *dst32;
+-	signed int i, c, lvol, rvol;
+-	signed int left, right;
++	signed int i, c, lvol;
+ 	unsigned char *dst;
+ 	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+@@ -740,6 +740,7 @@
+ 
+ 		lvol = (chan->volume*255*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		if ((chan->samplesize>0) && (chan->volume>0))
++		{
+ #ifdef MIX_ASM
+ 			if (sd_mix_interpolation)
+ 				sd_asm_imixmono(chan, dst32, length, lvol);
+@@ -751,7 +752,7 @@
+ 			else
+ 				sd_c_mixmono(chan, dst32, length, lvol);
+ #endif
+-
++		}
+ 	} /* for channel */
+ 
+ 
+@@ -772,4 +773,3 @@
+ 
+ } /* sd_mix_mono */
+ 
+-
+--- a/gl_render.c
++++ b/gl_render.c
+@@ -45,8 +45,7 @@
+ 	PART *p;
+ 	FACE *f;
+ 	static int n,lighti=0;
+-	GLfloat tx=0,ty=0,tz=0,param[4];
+-	GLint light;
++	GLfloat tx=0,ty=0,tz=0;
+ 
+ 	if(o->type==TYPE_PIVOT)
+ 		return;
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -78,9 +78,7 @@
+ 
+ volatile unsigned int ticksfromstart = 0;
+ 
+-static int laite=0,piippu[2],jacaja,screenHz;
+-
+-static unsigned char audio[40000];
++static int laite=0,jacaja,screenHz;
+ 
+ void mix_newhand(void *udata, Uint8 *stream, int len);
+ 
+@@ -135,8 +133,6 @@
+ 
+ Uint32 timeri(Uint32 interval)
+ {
+-	static int i, sanbale;
+-
+ 	if(!laite)
+ 	{
+ 		pt_play();
+@@ -194,8 +190,6 @@
+ /*      Aloittaa soiton ja käynnistää timerin taajuudella freq  */
+ void mzx_start(int freq)
+ {
+-	int tavut,n,pois=0;
+-
+ 	tix = SDL_GetTicks();
+ 	//vbiInit(&vbiproc0, &vbiproc1, &vbiproc2);
+ 
+@@ -216,7 +210,7 @@
+ /*	SIGCHLD-handleri	*/
+ void mix_newhand(void *udata, Uint8 *stream, int len)
+ {
+-	static int ny=0,luku=0,off;
++	static int luku=0,off;
+ 
+ 	short   *oso=stream;
+ 	aanibuf=stream;
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -43,6 +43,7 @@
+  */
+ 
+ #include "sd_main.h"
++#include <stdlib.h>
+ 
+ #define pt_maxchannels 32
+ #define pt_periodmin 27
+@@ -344,7 +345,7 @@
+ // alustetaan ne muuttujat
+ {
+ 
+-	int c, i, j;
++	int c, i;
+ 
+ 	for (c=0; c<32; c++)
+ 	{
+@@ -533,8 +534,7 @@
+ 
+ void pt_play (void)
+ {
+-	int c, i, oldvbtempo, cmdprm;
+-	long l;
++	int c, i, cmdprm;
+ 	unsigned char *row; // osoitin riville
+ 	unsigned char sm, nt, cmd, prm;
+ 
+--- a/dump.c
++++ b/dump.c
+@@ -126,10 +126,9 @@
+ {
+ 	int n,i,num,pts,quit=0;
+ 	unsigned char c;
+-	char key[1000];
+ 	float ker;
+ 	MTL *m;
+-	OBJ *o=NULL,*o2;
++	OBJ *o=NULL;
+ 	PART *p;
+ 	FACE *f;
+ 
+--- a/main.c
++++ b/main.c
+@@ -6,6 +6,7 @@
+ #include <SDL_opengl.h>
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <unistd.h>
+ #include <string.h>
+ 
+ #include "cool_mzx.h"
+--- a/cool_mzx/pt.h
++++ b/cool_mzx/pt.h
+@@ -15,7 +15,7 @@
+ extern unsigned char  *pt_errorstr; // tässä sitten lukee jotain tai ei lue...
+ 
+ void pt_init ();
+-int  pt_takemod (char *src);
++int  pt_takemod (unsigned char *src);
+ void pt_play ();
+ 
+ extern int pt_bpmtempo;

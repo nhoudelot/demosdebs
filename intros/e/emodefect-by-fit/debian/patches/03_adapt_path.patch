@@ -1,0 +1,20 @@
+Description: put data path in /usr/share/
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-11-15
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -39,6 +39,12 @@
+ 
+ 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_AUDIO);
+ 
++	char datapath[]="/usr/share/emodefect-by-fit/";
++	if (chdir(datapath) == 0) {
++	} else {
++		printf("Error : Could not change directory to %s\n",datapath);
++	}
++
+ 	f=fopen("misty_luv2.mod","rb");
+ 	fread(motti,1,100000,f);
+ 	fclose(f);

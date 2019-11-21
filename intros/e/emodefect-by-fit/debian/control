@@ -1,0 +1,32 @@
+Source: emodefect-by-fit
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ libsdl1.2-dev
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=25794
+
+Package: emodefect-by-fit
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ emodefect-by-fit-data
+Description: 64k intro for Linux, released in 2006
+ 64k intro by Fit, released in 2006
+ The Fiture Crew presents: Emo Defect
+ Quick 64k VJ thingy for Ass'06
+ The source version. Use as you wish.
+ .
+ Codegfx: Marq
+ Muzax: Roz
+
+Package: emodefect-by-fit-data
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: data for Fit released in 2006
+ Data for a demo by Fit, released in 2006

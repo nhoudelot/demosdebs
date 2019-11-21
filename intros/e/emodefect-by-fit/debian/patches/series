@@ -1,0 +1,4 @@
+01_adapt_makefile.patch
+02_fix_warning.patch
+03_adapt_path.patch
+04_gl_redefined_fix.patch

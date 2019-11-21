@@ -1,0 +1,93 @@
+Description: big makefile adaptation
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-11-15
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -1,19 +1,45 @@
+-CC = gcc
+-CFLAGS = -O2 -ffast-math `sdl-config --cflags`
+-LDFLAGS = `sdl-config --libs` -lGL -lm
+-
+-# My setup for a Mac
+-#CFLAGS = -O2 -ffast-math `sdl-config --cflags` -I/sw/include
+-#LDFLAGS = `sdl-config --static-libs` -lm
++#variables de compilation
++SHELL := /bin/sh
++CC := gcc
++CFLAGS += -Wall -pipe $(shell sdl-config --cflags) $(shell pkg-config gl --cflags) -std=gnu90
++LDFLAGS += $(shell sdl-config --libs) $(shell pkg-config gl --libs) -lm
++MAKE := make
++AR := ar
++RANLIB := ranlib
+ 
+-all: main
+-	mv main emo_defect
++TARGET   := emodefect-by-fit
++#variable de nettoyage
++RM_F := rm -f
+ 
+-main: main.o gl_render.o cool_mzx/cool_mzx.a dump.o
++OBJ := main.o gl_render.o dump.o
++
++#get DEB_BUILD_OPTIONS working
++ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
++    CFLAGS += -O0
++else
++    CFLAGS += -O2
++endif
++ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
++    INSTALL_PROGRAM += -s
++endif
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++export
++
++all: $(TARGET)
++
++$(TARGET): $(OBJ) cool_mzx/cool_mzx.a
++	$(CC) -o $@ $(OBJ) cool_mzx/cool_mzx.a $(LDFLAGS)
+ 
+ cool_mzx/cool_mzx.a:
+-	cd cool_mzx && make
++	cd cool_mzx && $(MAKE)
++
++%.o: %.c
++	$(CC) $(CFLAGS) -c $<
+ 
+ clean:
+-	rm -f *.o main emo_defect *~
+-	cd cool_mzx && make clean
++	-@$(RM_F) *.o main emo_defect *~ $(TARGET)
++	cd cool_mzx && $(MAKE) clean
+--- a/cool_mzx/Makefile
++++ b/cool_mzx/Makefile
+@@ -1,13 +1,16 @@
+-# A very pathetic makefile...
++SHELL := /bin/sh
++CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
++CFLAGS += -Wall -pipe -std=gnu90
+ 
+-CFLAGS += -funsigned-char -O2 -ffast-math -I/usr/local/include
++OBJ = cool_mzx.o pt.o sd_dsp16.o sd_main.o sd_mix.o sd_ns.o
++HEADERS = cool_mzx.h pt.h sd_dsp16.h sd_main.h sd_mix.h sd_ns.h
+ 
+-lib: obj
+-	ar rc cool_mzx.a pt*.o cool*.o sd*.o
+-	ranlib cool_mzx.a
++cool_mzx.a: $(OBJ)
++	$(AR) rc $@ $(OBJ)
++	$(RANLIB)  $@
+ 
+-obj:
+-	$(CC) $(CFLAGS) -c *.c
++%.o: %.c $(HEADERS)
++	$(CC) $(CFLAGS) -c $<
+ 
+ clean:
+-	rm *.o *.a
++	-@$(RM_F) *.o *.a *~ *.bak
