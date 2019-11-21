@@ -18,7 +18,7 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- 1finger-by-kewlers-data (= ${source:Version})
+ 1finger-by-kewlers-data
 Description: demos by kewlers ranked 5th at Revision 2013
  Linux port of this demo
 
