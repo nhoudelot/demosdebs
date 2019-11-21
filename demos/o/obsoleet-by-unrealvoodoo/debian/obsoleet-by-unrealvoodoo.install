@@ -1,0 +1,6 @@
+debian/scripts/obsoleet-by-unrealvoodoo  usr/bin/
+./obsoleet  usr/lib/i386-linux-gnu/obsoleet-by-unrealvoodoo/
+debian/resources/obsoleet-by-unrealvoodoo.desktop usr/share/applications/
+debian/resources/obsoleet-by-unrealvoodoo.png usr/share/icons/hicolor/256x256/apps/
+./modules usr/lib/i386-linux-gnu/obsoleet-by-unrealvoodoo/./
+./bin usr/lib/i386-linux-gnu/obsoleet-by-unrealvoodoo/./

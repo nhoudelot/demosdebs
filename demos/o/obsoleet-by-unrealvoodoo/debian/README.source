@@ -1,0 +1,26 @@
+obsoleet-by-unrealvoodoo for Debian
+-----------------------------------
+
+executable seems to be compiled for Debian Sarge (3.1)
+
+GCC: (GNU) 3.3.3 (Debian 20040401)
+
+
+Source files:
+-------------
+Engine.cpp
+Graph.cpp
+Interface.cpp
+Main.cpp
+Module.cpp
+ModuleLibrary.cpp
+abi-note.S
+crtstuff.c
+init.c
+initfini.c
+tinyxml.cpp
+tinyxmlerror.cpp
+tinyxmlparser.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 20 Nov 2019 11:30:51 +0100
+

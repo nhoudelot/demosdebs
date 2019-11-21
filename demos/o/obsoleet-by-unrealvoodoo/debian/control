@@ -1,0 +1,45 @@
+Source: obsoleet-by-unrealvoodoo
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ libsdl1.2-dev,
+ libsdl-image1.2-dev,
+ libstdc++5,
+ libxmu-dev,
+ libvorbis-dev
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=13033
+
+Package: obsoleet-by-unrealvoodoo
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ obsoleet-by-unrealvoodoo-data (= ${source:Version})
+Description: Linux Demo by Unreal Voodoo 2004
+ demo ranked 1st at Assembly 2004
+ :by:.
+ Unreal Voodoo
+ http://kempele.fi/~skyostil/uv
+ .
+ :code:.
+ hiteck
+ .
+ :graphics:.
+ :modeling:.
+ ninza
+ hybrid
+ .
+ :music:.
+ cairbre
+
+Package: obsoleet-by-unrealvoodoo-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for obsoleet-by-unrealvoodoo
+ obsoleet-by-unrealvoodoo data files

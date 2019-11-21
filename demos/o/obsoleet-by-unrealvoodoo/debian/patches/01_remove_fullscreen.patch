@@ -1,0 +1,11 @@
+--- a/obsoleet.d3m0
++++ b/obsoleet.d3m0
+@@ -2,7 +2,7 @@
+ <Graph version="1.0" xmlns="http://kempele.fi/~skyostil/xml/d3m0" xmlns:editor="http://kempele.fi/~skyostil/xml/d3m0/3d170r">
+     <Module active="1" class="module" library="graphics" libraryName="Screen" name="Screen">
+         <Input name="resizable" resizable="0"/>
+-        <Input fullScreen="1" name="fullScreen"/>
++        <Input fullScreen="0" name="fullScreen"/>
+         <Input name="opengl" opengl="1"/>
+         <Input name="title" title="obsoleet"/>
+         <Input name="xres" xres="640"/>

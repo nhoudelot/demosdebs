@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_shlibdeps:
+	dh_shlibdeps -- -lmodules/
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/obsoleet-by-unrealvoodoo.6.md -o debian/obsoleet-by-unrealvoodoo.6

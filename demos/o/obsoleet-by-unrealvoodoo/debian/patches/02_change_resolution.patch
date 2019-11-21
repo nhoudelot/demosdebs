@@ -1,0 +1,13 @@
+--- a/obsoleet.d3m0
++++ b/obsoleet.d3m0
+@@ -5,8 +5,8 @@
+         <Input fullScreen="0" name="fullScreen"/>
+         <Input name="opengl" opengl="1"/>
+         <Input name="title" title="obsoleet"/>
+-        <Input name="xres" xres="640"/>
+-        <Input name="yres" yres="480"/>
++        <Input name="xres" xres="1024"/>
++        <Input name="yres" yres="768"/>
+         <Input depth="32" name="depth"/>
+     </Module>
+     <Module active="0" class="module" library="graphics" libraryName="Image" name="Image: Loading">
