@@ -1,10 +1,10 @@
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,40 @@
 +#variables de compilation
 +SHELL = /bin/sh
 +CXX   = g++
-+CXXFLAGS += -Wall -ansi -pedantic -ffast-math -std=gnu++98 -fabi-version=2 $(shell pkgconf --cflags sdl glu)
++CXXFLAGS += -Wall -pipe -ansi -pedantic -std=gnu++98 -fabi-version=2 $(shell pkgconf --cflags sdl glu)
 +LDFLAGS  += $(shell pkgconf --libs sdl glu) -lm
 +TARGET   := 4ksdemo-by-madmartigan
 +#variable de nettoyage
@@ -19,12 +19,20 @@
 +
 +SOURCE          = main.cpp
 +
++#get DEB_BUILD_MAINT_OPTIONS working
++ifneq (,$(filter noopt,$(DEB_BUILD_MAINT_OPTIONS)))
++    CFLAGS += -O0
++endif
++ifeq (,$(filter nostrip,$(DEB_BUILD_MAINT_OPTIONS)))
++    INSTALL_PROGRAM += -s
++endif
++
 +export
 +
 +all: $(TARGET)
 +
 +$(TARGET):
-+	 $(CXX) -o $(TARGET) $(SOURCE) $(CXXFLAGS) $(LDFLAGS)
++	 $(CXX) $(SOURCE) $(CXXFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

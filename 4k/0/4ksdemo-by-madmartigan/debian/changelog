@@ -1,3 +1,10 @@
+4ksdemo-by-madmartigan (1.0-0ddebs9) unstable; urgency=medium
+
+  * cleanup makefile
+  * fix warnings
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 14:45:09 +0100
+
 4ksdemo-by-madmartigan (1.0-0ddebs8) unstable; urgency=medium
 
   * update to standard version to 4.1.4
