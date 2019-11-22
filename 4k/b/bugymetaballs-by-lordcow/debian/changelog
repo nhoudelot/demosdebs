@@ -1,3 +1,9 @@
+bugymetaballs-by-lordcow (1.0-0ddebs8) unstable; urgency=medium
+
+  * makefile cleanup
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 19:24:10 +0100
+
 bugymetaballs-by-lordcow (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4

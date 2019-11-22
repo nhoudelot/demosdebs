@@ -30,7 +30,7 @@
 +#variables de compilation
 +SHELL = /bin/sh
 +CXX   = g++
-+CXXFLAGS += -std=gnu++98 -fabi-version=2 -Wall -ffast-math $(shell pkgconf --cflags sdl glu)
++CXXFLAGS += -std=gnu++98 -fabi-version=2 -Wall -pipe $(shell pkgconf --cflags sdl glu)
 +LDFLAGS  += $(shell pkg-config --libs sdl glu) -lm
 +TARGET   := bugymetaballs-by-lordcow
 +#variable de nettoyage
@@ -50,7 +50,7 @@
 +all: $(TARGET)
 +
 +$(TARGET):
-+	 $(CXX) -o $(TARGET) $(SOURCE) $(CXXFLAGS) $(LDFLAGS)
++	 $(CXX) $(SOURCE) $(CXXFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

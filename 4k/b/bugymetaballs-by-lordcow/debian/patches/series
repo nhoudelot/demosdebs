@@ -1,2 +1,3 @@
-01_adapt_makefile.diff
-02_remove_fullscreen.diff
+01_adapt_makefile.patch
+02_remove_fullscreen.patch
+03_fix_warnings.patch
