@@ -1,3 +1,10 @@
+analeptique-by-acetate (1.0-0ddebs8) unstable; urgency=medium
+
+  * cleanup makefile & debian/rules
+  * removed resources at root
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 17:26:54 +0100
+
 analeptique-by-acetate (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4

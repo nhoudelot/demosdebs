@@ -6,7 +6,7 @@
 +#variables de compilation
 +SHELL = /bin/sh
 +CC    = gcc
-+CFLAGS   +=  -std=c99 -Wall -ffast-math -pipe -fstrict-aliasing $(shell pkgconf --cflags sdl glu)
++CFLAGS   +=  -std=c99 -Wall -pipe -fstrict-aliasing $(shell pkgconf --cflags sdl glu)
 +LDFLAGS  += $(shell pkgconf --libs sdl glu) -lm
 +TARGET   = analeptique-by-acetate
 +#variables d'instalation
@@ -43,7 +43,7 @@
 --- /dev/null
 +++ b/s.h
 @@ -0,0 +1,4 @@
-+#include "SDL.h"
++#include <SDL/SDL.h>
 +#include <math.h>
 +#include <stdlib.h>
 +
