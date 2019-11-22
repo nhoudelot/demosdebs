@@ -26,7 +26,7 @@
 -	SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL | SDL_FULLSCREEN);
 +	SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL );
  	//SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL);
- 	
+ 
  	glEnable(GL_DEPTH_TEST);
 --- a/size.sh
 +++ b/size.sh

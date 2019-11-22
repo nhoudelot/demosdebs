@@ -1,3 +1,10 @@
+derivations-by-zipola (1.0-0ddebs6) unstable; urgency=medium
+
+  * cleanup makefile
+  * remove flto
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 23:34:01 +0100
+
 derivations-by-zipola (1.0-0ddebs5) unstable; urgency=medium
 
   * update to standard version to 4.1.4

@@ -12,7 +12,7 @@
 -LDFLAGS = -dynamic-linker /lib/ld-linux.so.2
 -LDLIBS = /usr/lib/libSDL.so /usr/lib/libGL.so
 -TARGET = derivations
-+CFLAGS += -O3 -flto -Wall -ffast-math -std=gnu90 -pipe $(shell pkgconf --cflags sdl gl )
++CFLAGS += -Wall -std=gnu90 -pipe $(shell pkgconf --cflags sdl gl )
 +LDFLAGS += $(shell pkgconf --libs sdl gl ) -lm
 +TARGET := derivations-by-zipola
 +
@@ -42,7 +42,7 @@
 -	strip -s -R .comment -R .gnu.version $(TARGET)
 -	sstrip $(TARGET)
 +$(TARGET): derivations.o gfx.o snd.o seq.o letters.o
-+	$(CC) -flto -o $(TARGET)  *.o  $(LDFLAGS)
++	$(CC) *.o -o $(TARGET) $(LDFLAGS)
 +	#$(LINKER) $(LDFLAGS) $^ $(LDLIBS) -o $@
 +	#./size.sh
 +	#strip -s -R .comment -R .gnu.version $(TARGET)
