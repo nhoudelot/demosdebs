@@ -1,3 +1,11 @@
+cube-by-mooz (1.0-0ddebs7) unstable; urgency=medium
+
+  * cleanup makefile
+  * remove resources on root
+  * fix warnings
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 20:56:16 +0100
+
 cube-by-mooz (1.0-0ddebs6) unstable; urgency=medium
 
   * update to standard version to 4.1.4

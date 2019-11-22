@@ -17,3 +17,9 @@ Depends:
  ${misc:Depends}
 Description: MooZ 4k Intro/2004/Linux
  Demo by MooZ, released in 2004
+ make for building
+ cube-by-mooz for running
+ any key for quiting
+ openGL for showing
+ silence for dancing
+ MooZ for the making

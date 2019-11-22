@@ -11,7 +11,7 @@
 +#variables de compilation
 +SHELL = /bin/sh
 +CC    = gcc
-+CFLAGS   += -std=c99 -ansi -Wall -ffast-math -pipe $(shell pkgconf --cflags sdl glu)
++CFLAGS   += -std=c99 -ansi -Wall -pipe $(shell pkgconf --cflags sdl glu)
 +LDFLAGS  += $(shell pkgconf --libs sdl glu) -lm
 +TARGET   := cube-by-mooz
 +#variable de nettoyage
@@ -31,7 +31,7 @@
 +all: $(TARGET)
 +
 +$(TARGET):
-+	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
++	 $(CC) $(SOURCE) $(CFLAGS) $(LDFLAGS) -o $(TARGET)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
@@ -43,8 +43,8 @@
 --- /dev/null
 +++ b/g.h
 @@ -0,0 +1,5 @@
-+#include "SDL.h"
-+#include "SDL_opengl.h"
++#include <SDL/SDL.h>
++#include <SDL/SDL_opengl.h>
 +#include <math.h>
 +#include <stdlib.h>
 +
