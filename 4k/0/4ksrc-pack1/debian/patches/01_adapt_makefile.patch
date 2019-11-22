@@ -6,7 +6,7 @@
 +#variables de compilation
 +SHELL = /bin/sh
 +CC    = gcc
-+CFLAGS   += -Wall -ffast-math -pipe -std=c9x $(shell pkgconf --cflags sdl glu)
++CFLAGS   += -Wall -pipe -std=c9x $(shell pkgconf --cflags sdl glu)
 +LDFLAGS  += $(shell pkgconf --libs sdl glu) -lglut -lm
 +TARGETS = dwitvs hogwagen 3d randomname
 +
@@ -21,8 +21,8 @@
 +bindir = $(exec_prefix)/bin
 +
 +#parallel compilation if available
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ifneq (,$(filter parallel=%,$(DEB_BUILD_MAINT_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_MAINT_OPTIONS)))
 + MAKEFLAGS += -j$(NUMJOBS)
 +endif
  

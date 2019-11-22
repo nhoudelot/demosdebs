@@ -1,3 +1,9 @@
+4ksrc-pack1 (1.0-0ddebs8) unstable; urgency=medium
+
+  * cleanup makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 18:21:48 +0100
+
 4ksrc-pack1 (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4
