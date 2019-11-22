@@ -1,11 +1,10 @@
 #!/usr/bin/make -f
 
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all nostrip
+
 %:
 	dh $@ --sourcedirectory=src
 
 override_dh_install:
 	dh_install
 	pandoc -s -t man -f markdown debian/bioterrorism-by-belowabsolutezero.6.md -o debian/bioterrorism-by-belowabsolutezero.6
-
-override_dh_strip:
-	dh_strip -Xbioterrorism-by-belowabsolutezero

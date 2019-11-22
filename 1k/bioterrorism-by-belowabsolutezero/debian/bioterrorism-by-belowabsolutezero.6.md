@@ -14,8 +14,5 @@ Bioterrorism is a demonstration released by Below Absolute Zero in 2013.
 # OPTIONS
 there is no options to this program
 
-\--help
-:   Display help for the command
-
 # BUGS
 No known bugs.

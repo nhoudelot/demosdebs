@@ -1,6 +1,6 @@
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -1,22 +1,37 @@
+@@ -1,22 +1,48 @@
  AOBJ=load.o synth.o
  COBJ=
  OBJ=$(AOBJ) $(COBJ)
@@ -9,11 +9,14 @@
 +CXX   := g++
 +
  #OBJ=$(AOBJ)
- #CFLAGS=-Wall -m32 -Os -fomit-frame-pointer -flto -ffast-math
+-#CFLAGS=-Wall -m32 -Os -fomit-frame-pointer -flto -ffast-math
 -CFLAGS=-Wall -m32 -O1 -fomit-frame-pointer -ffast-math
-+CFLAGS +=-Wall -m32 -O1 -fomit-frame-pointer -ffast-math
- WIDTH=1280
- HEIGHT=720
+-WIDTH=1280
+-HEIGHT=720
++#CXXFLAGS=-Wall -m32 -Os -fomit-frame-pointer -flto -ffast-math
++CXXFLAGS +=-Wall -m32 -pipe
++WIDTH=800
++HEIGHT=600
  FULLSCREEN=0
  #FULLSCREEN=0x80000000
  
@@ -29,6 +32,17 @@
 +exec_prefix     := $(prefix)
 +bindir          := $(prefix)/bin
 +
++#get DEB_BUILD_MAINT_OPTIONS working
++ifneq (,$(filter noopt,$(DEB_BUILD_MAINT_OPTIONS)))
++    CFLAGS += -O0
++endif
++
++ifeq (,$(filter nostrip,$(DEB_BUILD_MAINT_OPTIONS)))
++    INSTALL_PROGRAM += -s
++endif
++
++export
++
 +all: $(TARGET)
  
  intro: intro.asm t.frag.small
@@ -41,12 +55,12 @@
  	cp $< t
  #	gzip -n --best -f -c $< > $<.gz
  	7z a -tGZip -mx=9 $<.gz t
-@@ -30,7 +45,12 @@
+@@ -30,7 +56,12 @@
  	./cshader WIDTH $(WIDTH) HEIGHT $(HEIGHT) < $< > $@
  
  cshader: %: %.cpp
 -	g++ $< -o $@ -Wall -O2
-+	$(CXX) $< -o $@ -Wall -O2
++	$(CXX) $< -o $@ $(CXXFLAGS)
  
  clean:
 -	rm -f packed t.frag.small cshader
