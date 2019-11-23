@@ -1,3 +1,10 @@
+fortnight-by-mfx (1.0-0ddebs9) unstable; urgency=medium
+
+  * cleanup makefile
+  * uncrustify source
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 00:38:51 +0100
+
 fortnight-by-mfx (1.0-0ddebs8) unstable; urgency=medium
 
   * update to standard version to 4.1.4
