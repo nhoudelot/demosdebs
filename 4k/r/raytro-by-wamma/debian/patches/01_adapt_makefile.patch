@@ -25,7 +25,7 @@
 +exec_prefix     := $(prefix)
 +bindir          := $(prefix)/bin
 +
-+CFLAGS   += -Os -ffast-math -fomit-frame-pointer -Wall -std=gnu90
++CFLAGS   += -Wall -pipe -std=gnu90
 +LDFLAGS  := -lSDL -lm -lc
 +
 +all: $(TARGET)
