@@ -1,3 +1,10 @@
+historyofvideogamein4k-by-jean-yveslamoureux (1.0-0ddebs8) unstable; urgency=medium
+
+  * cleanup makefile
+  * remove resources on root
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Nov 2019 02:13:25 +0100
+
 historyofvideogamein4k-by-jean-yveslamoureux (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4

@@ -9,7 +9,7 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS   += -std=c99 -Wall -ffast-math $(shell pkgconf --cflags sdl)
++CFLAGS   += -std=c99 -Wall -pipe $(shell pkgconf --cflags sdl)
 +LDFLAGS  += $(shell pkgconf --libs sdl) -lm
 +TARGET   := historyofvideogamein4k-by-jean-yveslamoureux
 +#variable de nettoyage
@@ -27,7 +27,7 @@
 +all: $(TARGET)
 +
 +$(TARGET):
-+	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
++	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
@@ -48,7 +48,7 @@
 --- /dev/null
 +++ b/s.h
 @@ -0,0 +1,4 @@
-+#include "SDL.h"
++#include <SDL/SDL.h>
 +#include <math.h>
 +#include <stdlib.h>
 +
