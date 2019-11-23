@@ -20,8 +20,8 @@
 +CFLAGS += -m32 -O0 -g
  else
 -CFLAGS = -m32 -O1 -ffast-math -fomit-frame-pointer -mpush-args -mfpmath=387
-+CFLAGS += -m32 -O1 -ffast-math -fomit-frame-pointer -mpush-args -mfpmath=387 -std=gnu90
-+LDFLAGS += $(shell sdl-config --libs) $(shell pkgconf --libs gl)
++CFLAGS += -Wall -pipe -mpush-args -std=gnu90
++LDFLAGS += $(shell pkgconf --libs sdl gl)
  endif
  
  

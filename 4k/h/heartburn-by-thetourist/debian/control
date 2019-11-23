@@ -19,3 +19,14 @@ Depends:
  ${misc:Depends}
 Description: 4k intro for Linux, released in 2013
  4k intro by The Tourist, released in 2013
+ Heartburn by TheT(ourist) - A PC 4k intro for Demodays 2013
+ .
+ "Almost as good as a bad WinAmp plugin!"
+ .
+ .
+ OpenGL4.0, Windows / Linux
+ .
+ .
+ Tools:
+ - Clinkster (soft synth)
+ - Crinkler (for the Windows version)
