@@ -1,0 +1,22 @@
+Source: pinp-by-faemiyah
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ nasm,
+ dh-autoreconf,
+ libgl1-mesa-dev,
+ libsdl1.2-dev,
+ freeglut3-dev
+Standards-Version: 4.1.4
+Homepage: https://github.com/faemiyah/faemiyah-demoscene_2004-08_4k-intro_pinp
+
+Package: pinp-by-faemiyah
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Linux 4k intro released in 2004
+ 4k intro by Faemiyah, released in 2004

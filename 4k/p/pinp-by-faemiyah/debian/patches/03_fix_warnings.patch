@@ -1,0 +1,11 @@
+--- a/src/ftoi.cpp
++++ b/src/ftoi.cpp
+@@ -21,7 +21,7 @@
+ 
+ 	*ptri = atoi(args[1]);
+ 	*ptrd = atof(args[1]);
+-	*ptrf = *ptrd;
++	*ptrf = (float) *ptrd;
+ 	ptru = reinterpret_cast<uint32_t*>(ptrf);
+ 	std::cout << "The floating point number " << *ptrf << " translated into hex.\n32bit: " << std::hex << *ptru << "\n";
+ 	ptru = reinterpret_cast<uint32_t*>(ptrd);

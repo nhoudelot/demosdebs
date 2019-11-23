@@ -1,0 +1,9 @@
+--- a/src/ftoi.cpp
++++ b/src/ftoi.cpp
+@@ -1,5 +1,6 @@
+ #include <iostream>
+ #include <stdio.h>
++#include <stdlib.h>
+ #include <inttypes.h>
+ 
+ int main(int argc, char **args)

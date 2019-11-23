@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=piNp
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2004
+Type=Application
+Exec=/usr/bin/pinp-by-faemiyah
+Icon=pinp-by-faemiyah
+Categories=AudioVideo;Game;
+Name[fr_FR]=piNp

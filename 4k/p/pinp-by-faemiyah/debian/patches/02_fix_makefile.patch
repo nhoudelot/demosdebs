@@ -1,0 +1,12 @@
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -3,7 +3,7 @@
+ 	nasm -f elf -D AUTOMAKE -o $@ $<
+ 
+ ftoi_SOURCES = ftoi.cpp
+-pinp_SOURCES = pinp.nsm \
++pinp_by_faemiyah_SOURCES = pinp.nsm \
+ 	       dummy.c
+ 
+-noinst_PROGRAMS = ftoi pinp
++bin_PROGRAMS = ftoi pinp-by-faemiyah

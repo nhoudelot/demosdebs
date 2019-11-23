@@ -1,0 +1,11 @@
+--- a/src/pinp.nsm
++++ b/src/pinp.nsm
+@@ -1581,7 +1581,7 @@
+ 	;call	SDL_SetTimer
+ 
+ ; Näyttö
+-	push	dword SDL_HWSURFACE + SDL_OPENGL + SDL_FULLSCREEN
++	push	dword SDL_HWSURFACE + SDL_OPENGL
+ 	push	dword SCREEN_B
+ 	push	dword SCREEN_H
+ 	push	dword SCREEN_W
