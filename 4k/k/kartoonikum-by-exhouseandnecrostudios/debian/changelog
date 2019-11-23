@@ -1,3 +1,9 @@
+kartoonikum-by-exhouseandnecrostudios (1.0-0ddebs5) unstable; urgency=medium
+
+  * cleanup makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Nov 2019 12:54:33 +0100
+
 kartoonikum-by-exhouseandnecrostudios (1.0-0ddebs4) unstable; urgency=medium
 
   * update to standard version to 4.1.4

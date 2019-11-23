@@ -17,19 +17,27 @@
  endif
  
  #debuggie thingie
-@@ -25,8 +25,8 @@
+@@ -25,103 +25,113 @@
  OBJ = main.o
  # play.o synth.o
  
 -TARGET = main
 -LDFLAGS = -L./ -LC:\Dev-Cpp\lib
 +TARGET = kartoonikum-by-exhouseandnecrostudios
-+LDFLAGS =
++LDFLAGS +=
  INCLUDES = -Iinclude
- CFLAGS=
+-CFLAGS=
++CFLAGS +=
  
-@@ -38,22 +38,22 @@
- RELEASES = 
+ #-fno-strict-aliasing
+-CXXFLAGS =
+-CCFLAGS =
++CXXFLAGS +=
++CCFLAGS +=
+ #-msse -ftree-vectorize your friends
+ #CFLAGS = -Os -fno-exceptions -fno-rtti $(INCLUDES)
+-RELEASES = 
++RELEASES =
  
  ifeq ($(DEBUG),TRUE)
 -CFLAGS += -D__DEBUG -ggdb -Wall
@@ -51,24 +59,28 @@
 -	-fno-builtin -D__X11__ -DSDL -I/usr/include/GL/ $(shell sdl-config --cflags) -DX86_ASM -std=c99 -march=i386 $(INCLUDES)
 -CFLAGS += $(ADDFLAGS)
 -LDFLAGS += -nostdlib -nostartfiles -ldl -L/usr/lib/ -L/usr/X11R6/lib/
+-endif
+-INCLUDES += -Iinclude/GL -Iinclude/SDL
+-
+-
+-
 +	CFLAGS += -DSDL
 +	ifeq ($(DEBUG),TRUE)
-+		CFLAGS += -ggdb -DDEBUG -fno-strict-aliasing -DX86_ASM -std=c99 -ffast-math -flto $(shell pkgconf --cflags sdl) $(INCLUDES)
++		CFLAGS += -ggdb -DDEBUG -fno-strict-aliasing -DX86_ASM -std=c99 $(shell pkgconf --cflags sdl) $(INCLUDES)
 +		LDFLAGS += $(shell pkgconf --libs sdl gl glu x11) -lm
 +	else
-+		CFLAGS += -Os -fmodulo-sched -fno-toplevel-reorder -fno-inline -fno-defer-pop -fno-keep-static-consts -fmerge-all-constants -fstrength-reduce -ffast-math -fomit-frame-pointer \
-+			-fno-builtin -D__X11__ -DSDL $(shell pkg-config gl --libs) $(shell pkg-config glu --libs)  $(shell sdl-config --cflags) -DX86_ASM -std=c99 -flto $(INCLUDES)
++		CFLAGS += -Wall -pipe -fmodulo-sched -fno-toplevel-reorder -fno-inline -fno-defer-pop -fno-keep-static-consts -fmerge-all-constants -fstrength-reduce  \
++			-fno-builtin -D__X11__ -DSDL $(shell pkg-config gl glu sdl --libs) -DX86_ASM -std=c99 $(INCLUDES)
 +		CFLAGS += $(ADDFLAGS)
 +		LDFLAGS += -nostdlib -nostartfiles -ldl -L/usr/lib/ $(shell pkg-config x11 --libs)
++	endif
  endif
- INCLUDES += -Iinclude/GL -Iinclude/SDL
- 
-@@ -63,65 +63,79 @@
  
  #Mac OS X Makefile setup
  ifeq ($(PLATFORM), OS_X)
 -CFLAGS += -Os -fno-strict-aliasing -DX86_ASM -std=c99 -march=i686 $(INCLUDES)
--
++	CFLAGS += -Os -fno-strict-aliasing -DX86_ASM -std=c99  $(INCLUDES)
+ 
 -ifeq ($(DEBUG),TRUE)
 -CFLAGS += `sdl-config --cflags`
 -LDFLAGS += `sdl-config --libs` -lpng -lz -lSDL_mixer
@@ -77,8 +89,7 @@
 -CFLAGS += -isysroot /Developer/SDKs/MacOSX10.4u.sdk -arch ppc -arch i386
 -LDFLAGS += -Wl,-syslibroot,/Developer/SDKs/MacOSX10.4u.sdk -arch ppc -arch i386 -framework SDL -framework Cocoa -framework OpenGL
 -endif
-+	CFLAGS += -Os -fno-strict-aliasing -DX86_ASM -std=c99  $(INCLUDES)
- 
+-
 -CFLAGS += -DOS_X -DSDL -I/System/Library/Frameworks/AGL.framework/Headers
 -#for PowerPC - Intel crosscompilation use -arch switch
 -#lipo tool can merge the binaries easily
@@ -184,12 +195,10 @@
  
  %.o: %.m $(HEADERS)
  	$(CC) $(CFLAGS) $(CCFLAGS) -c $<
-@@ -130,4 +144,9 @@
- 	$(CC) $(CFLAGS) $(CCFLAGS) -c $<
+@@ -131,3 +141,8 @@
  
  $(TARGET): $(OBJ)
--	$(CC) -o $@ $(OBJ) $(LDFLAGS)
-+	$(CC) -o $@ $(OBJ) -flto $(LDFLAGS)
+ 	$(CC) -o $@ $(OBJ) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
