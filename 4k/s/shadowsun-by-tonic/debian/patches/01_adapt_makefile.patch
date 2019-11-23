@@ -4,7 +4,7 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS   += -std=c99 -Wall -ffast-math $(shell pkgconf --cflags sdl glu)
++CFLAGS   += -std=c99 -Wall -pipe $(shell pkgconf --cflags sdl glu)
 +LDFLAGS  += $(shell pkgconf --libs sdl glu) -lm
 +TARGET   := shadowsun-by-tonic
 +#variable de nettoyage
@@ -24,7 +24,7 @@
 +all: $(TARGET)
 +
 +$(TARGET):
-+	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
++	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
@@ -36,8 +36,8 @@
 --- /dev/null
 +++ b/g.h
 @@ -0,0 +1,5 @@
-+#include "SDL.h"
-+#include "SDL_opengl.h"
++#include <SDL/SDL.h>
++#include <SDL/SDL_opengl.h>
 +#include <math.h>
 +#include <stdlib.h>
 +
