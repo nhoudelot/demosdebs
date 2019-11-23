@@ -1,2 +1,2 @@
-resources/jeregrette-by-fitandbandwagon.desktop usr/share/applications/
-resources/jeregrette-by-fitandbandwagon.png usr/share/icons/hicolor/256x256/apps/
+debian/resources/jeregrette-by-fitandbandwagon.desktop usr/share/applications/
+debian/resources/jeregrette-by-fitandbandwagon.png usr/share/icons/hicolor/256x256/apps/

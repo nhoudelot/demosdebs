@@ -7,7 +7,7 @@
 +#variables de compilation
 +SHELL = /bin/sh
 +CC    = gcc
-+CFLAGS   += -Wall -ffast-math -std=gnu90 $(shell pkgconf --cflags sdl gl)
++CFLAGS   += -Wall -pipe -std=gnu90 $(shell pkgconf --cflags sdl gl)
 +LDFLAGS  += $(shell pkgconf --libs sdl gl) -lm
 +TARGET := jeregrette-by-fitandbandwagon
 +#variable de nettoyage

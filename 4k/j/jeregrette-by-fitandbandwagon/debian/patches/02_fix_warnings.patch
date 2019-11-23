@@ -1,0 +1,11 @@
+--- a/osa.c
++++ b/osa.c
+@@ -1,6 +1,6 @@
+ 
+-#include <SDL.h>
+-#include <SDL_opengl.h>
++#include <SDL/SDL.h>
++#include <SDL/SDL_opengl.h>
+ #include <math.h>
+ 
+ #include "letters2.h"
