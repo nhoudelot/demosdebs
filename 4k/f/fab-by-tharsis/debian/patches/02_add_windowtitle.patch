@@ -1,0 +1,10 @@
+--- a/main.c
++++ b/main.c
+@@ -327,6 +327,7 @@
+ 
+ 	SDL_Init(32);
+ 	SDL_SetVideoMode(w,h, 32, 2);
++	SDL_WM_SetCaption("fab by Tharsis",NULL);
+ 	SDL_OpenAudio (&as,0);
+ 	gluPerspective (45,w/h,5,100);
+ 	T (0,0,-5);

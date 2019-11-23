@@ -1,0 +1,12 @@
+--- a/main.c
++++ b/main.c
+@@ -1,7 +1,7 @@
+ #include <math.h>
+ #include <stdlib.h>
+-#include <SDL.h>
+-#include <SDL_opengl.h>
++#include <SDL/SDL.h>
++#include <SDL/SDL_opengl.h>
+ 
+ #define I int
+ #define D double
