@@ -11,7 +11,7 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS   += -Wall -ffast-math -std=gnu90 $(shell pkgconf --cflags sdl)
++CFLAGS   += -Wall -pipe -std=gnu90 $(shell pkgconf --cflags sdl)
 +LDFLAGS  += $(shell pkgconf --libs sdl) -lm
 +TARGET   := wavetraveler-by-francoischazal
 +#variable de nettoyage
@@ -39,7 +39,7 @@
 -	@$(RM) *~ \#* *\#
 -	@$(RM) *.o
 +$(TARGET):
-+	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
++	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
@@ -53,7 +53,7 @@
 --- /dev/null
 +++ b/s.h
 @@ -0,0 +1,4 @@
-+#include "SDL.h"
++#include <SDL/SDL.h>
 +#include <math.h>
 +#include <stdlib.h>
 +
