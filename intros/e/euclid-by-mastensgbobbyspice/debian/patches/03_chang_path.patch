@@ -1,11 +1,11 @@
 --- a/main.c
 +++ b/main.c
-@@ -1042,7 +1042,7 @@
-     make_fire();
+@@ -1041,7 +1041,7 @@
+ 	make_fire();
  
-     alsa_init();
--    alsa_play("euclid.ogg");
-+    alsa_play("/usr/share/euclid-by-mastensgbobbyspice/euclid.ogg");
+ 	alsa_init();
+-	alsa_play("euclid.ogg");
++	alsa_play("/usr/share/euclid-by-mastensgbobbyspice/euclid.ogg");
  
-     glutMainLoop();
+ 	glutMainLoop();
  
