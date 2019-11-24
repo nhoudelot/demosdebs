@@ -4,7 +4,7 @@
 +#variables de compilation
 +SHELL = /bin/sh
 +CC    = gcc
-+CFLAGS   += -Wall -std=gnu90
++CFLAGS   += -Wall -pipe -std=gnu90
 +LDFLAGS  += -pthread -lfmodex-3.75 -lm
 +TARGET   = kebab-by-rebel
 +#variable de nettoyage
@@ -32,7 +32,7 @@
 +
  all:
 -	gcc -m32 kebab.c -o kebab -lpthread -lm -ggdb -lfmod
-+	$(CC) kebab.c -o $(TARGET) $(CFLAGS) $(LDFLAGS)
++	$(CC) kebab.c $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +clean:
 +	-@$(RM_F) *.o $(TARGET)

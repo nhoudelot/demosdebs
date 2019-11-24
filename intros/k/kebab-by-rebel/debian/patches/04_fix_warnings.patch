@@ -1,0 +1,130 @@
+--- a/kebab.c
++++ b/kebab.c
+@@ -8,6 +8,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdlib.h>
++#include <unistd.h>
+ #include <termios.h>
+ #include <pthread.h>
+ #include <sys/types.h>
+@@ -313,7 +314,7 @@
+ 
+ void update_screen(void)
+ {
+-	int x,y,a,p,z,xx,yy;
++	int x,y,p,xx,yy;
+ 	struct framebuffer_point (*scr)[LINES];
+ 	struct framebuffer_point db[COLUMNS][LINES];
+ 
+@@ -417,9 +418,8 @@
+ 
+ void fillscreen(void)
+ {
+-	float b,c,d;
+-	int x,y,a,p;
+-	char debug[500];
++	float b,d;
++	int x,y,a;
+ 
+ 	for(d=0; d<29; d+=1)
+ 	{
+@@ -460,7 +460,6 @@
+ int main(void)
+ {
+ 	int x,y;
+-	int xdir,ydir; //0 for down/right, 1 for up/left
+ 	pthread_t thread[1000];
+ 	char snopp[50];
+ 	char ahh[5000];
+@@ -935,7 +934,6 @@
+ {
+ 	char snopp[50];
+ 	int x;
+-	char ahh[20][5000];
+ 
+ 	for(x=1; x<14; x++)
+ 	{
+@@ -1141,7 +1139,7 @@
+ 	int x,a,p,z,o,k,y,newlines,u,times;
+ 	char ahem[20][5000];
+ 	char ahem_backwards[20][5000];
+-	char temp[5000], sup[5000];
++	char sup[5000];
+ 	char *foo;
+ 	int eek;
+ 
+@@ -1382,7 +1380,7 @@
+ 
+ void slide(void)
+ {
+-	int x,y,i,c,k,h;
++	int x,y,i;
+ 	char a;
+ 	float b;
+ 	char sup[5000];
+@@ -1414,11 +1412,10 @@
+ void fireworks(void)
+ {
+ 	int plane[COLUMNS][LINES];
+-	int x,y,z,i,k,c,p,height;
++	int x,y,i,k,c,p,height;
+ 	int explode = 0;
+ 	float b, size = 2, t;
+ 	int origx, origy;
+-	char skitskalle[50];
+ 	float tails[20];
+ 	int tailcount=0;
+ 	int col1, col2, col3, col4, col5;
+@@ -1651,10 +1648,9 @@
+ 
+ void plasma_attack(void)
+ {
+-	int x,y,i,c;
++	int x,y,i;
+ 	char a;
+ 	float b, k = 0;
+-	char sup[5000];
+ 
+ 	srand(time(NULL));
+ 
+@@ -1683,8 +1679,8 @@
+ void scrolla(char *s)
+ {
+ 	int plane[COLUMNS+4000][LINES];
+-	int x,y,z,i,a,e;
+-	float c,v;
++	int x,y,i,e;
++	float c;
+ 	int start, chars;
+ 
+ 
+@@ -1747,15 +1743,14 @@
+ 
+ void worm(void)
+ {
+-	int a,b,c,d,x,y,o,l,v,r = 9;
+-	float f1,f2,i,ffirst,flast;
++	int c,d,x,y,l,v;
++	float f1,i;
+ 	int plane[COLUMNS][LINES];
+-	int col, muttafittakuk, my_id;
++	int col, my_id;
+ 	struct framebuffer_point (*scr)[LINES];
+ 
+ 
+ 	float my_wormx, my_wormy;
+-	struct timespec ts;
+ 
+ 
+ 	my_wormx = wormx;
+@@ -1903,9 +1898,6 @@
+ 
+ void timer_fill(int interval,int pause)
+ {
+-	int x;
+-
+-
+ 
+ }
+ 

@@ -14,5 +14,5 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: rebel Intro/2006/Linux
+Description: Linux intro by rebel
  Intro by rebel, released in 2006

@@ -1,3 +1,11 @@
+kebab-by-rebel (1.0+2-0ddebs1) unstable; urgency=medium
+
+  * sources in utf8
+  * fix warnings
+  * cleanup makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 01:42:37 +0100
+
 kebab-by-rebel (1.0+1-0ddebs1) unstable; urgency=medium
 
   * removed resources on root package
