@@ -1,3 +1,10 @@
+lavos-by-faemiyah (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * remove march=native
+  * uncrustify sources
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Nov 2019 03:18:02 +0100
+
 lavos-by-faemiyah (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release

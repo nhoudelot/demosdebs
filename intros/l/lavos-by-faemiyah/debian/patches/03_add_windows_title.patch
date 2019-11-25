@@ -7,9 +7,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +++ b/src/dnload.h
 @@ -186,6 +186,7 @@
  #if defined(USE_LD)
-   SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-   SDL_SetVideoMode(screen_w, screen_h, 0, SDL_OPENGL | (flag_fullscreen ? SDL_FULLSCREEN : 0));
-+  SDL_WM_SetCaption("Lavos by Faemiyah",NULL);
+ 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+ 	SDL_SetVideoMode(screen_w, screen_h, 0, SDL_OPENGL | (flag_fullscreen ? SDL_FULLSCREEN : 0));
++	SDL_WM_SetCaption("Lavos by Faemiyah",NULL);
  
-   {
-     GLenum err = glewInit();
+ 	{
+ 		GLenum err = glewInit();

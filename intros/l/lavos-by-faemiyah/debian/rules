@@ -5,12 +5,16 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 # see ENVIRONMENT in dpkg-buildflags(1)
 # package maintainers to append CFLAGS
-export DEB_CFLAGS_MAINT_APPEND  = -std=gnu90
+export DEB_CFLAGS_MAINT_APPEND  = -std=gnu90 -flto
 export DEB_CXXFLAGS_MAINT_APPEND  = -std=gnu++98
-
+export CONFIGURE_EXTRA_FLAGS += --without-auto-arch
 
 %:
 	dh $@ --parallel --with autoreconf
+
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(CONFIGURE_EXTRA_FLAGS)
 
 override_dh_install:
 	dh_install
