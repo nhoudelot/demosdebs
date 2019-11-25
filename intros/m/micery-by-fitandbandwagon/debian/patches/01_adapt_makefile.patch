@@ -34,7 +34,7 @@
 -COPT = -ffast-math -O2 -Wall -DBLKSIZE=$(BLKSIZE) -DNO_STRSEP
 -TARGET = micery.exe
 +LDFLAGS += $(shell pkgconf --libs sdl glu ) -lm
-+CFLAGS += -O3 -flto -Wall -ffast-math $(shell pkgconf --cflags sdl glu ) -std=gnu90 -pipe -DBLKSIZE=$(BLKSIZE)
++CFLAGS += -Wall -pipe $(shell pkgconf --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
  endif
  
  # All the objects

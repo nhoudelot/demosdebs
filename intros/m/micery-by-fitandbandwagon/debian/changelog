@@ -1,3 +1,11 @@
+micery-by-fitandbandwagon (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * uncrustify sources
+  * cleanup makefile
+  * add flto to debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Nov 2019 16:01:34 +0100
+
 micery-by-fitandbandwagon (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4
