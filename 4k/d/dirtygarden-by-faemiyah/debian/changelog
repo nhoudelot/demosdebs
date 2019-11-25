@@ -1,9 +1,10 @@
-dirtygarden-by-faemiyah (1.0-0ddebs6) unstable; urgency=medium
+dirtygarden-by-faemiyah (1.0+1-0ddebs1) unstable; urgency=medium
 
   * update debian/rules
   * fix more warnings
+  * uncrustify source
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Nov 2019 00:26:41 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 14:25:31 +0100
 
 dirtygarden-by-faemiyah (1.0-0ddebs5) unstable; urgency=medium
 

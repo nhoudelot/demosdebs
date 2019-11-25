@@ -1,8 +1,9 @@
-stochasticlenssimulatormkii-by-gzrrplox (1.0-0ddebs6) unstable; urgency=medium
+stochasticlenssimulatormkii-by-gzrrplox (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile
+  * uncrustify sources
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Nov 2019 16:47:57 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 23:01:36 +0100
 
 stochasticlenssimulatormkii-by-gzrrplox (1.0-0ddebs5) unstable; urgency=medium
 

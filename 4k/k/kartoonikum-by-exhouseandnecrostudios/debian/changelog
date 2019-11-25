@@ -1,8 +1,9 @@
-kartoonikum-by-exhouseandnecrostudios (1.0-0ddebs5) unstable; urgency=medium
+kartoonikum-by-exhouseandnecrostudios (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile
+  * uncrustify source
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Nov 2019 12:54:33 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 16:56:13 +0100
 
 kartoonikum-by-exhouseandnecrostudios (1.0-0ddebs4) unstable; urgency=medium
 

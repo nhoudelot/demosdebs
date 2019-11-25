@@ -1,9 +1,9 @@
-bioterrorism-by-belowabsolutezero (1.0-0ddebs2) unstable; urgency=medium
+bioterrorism-by-belowabsolutezero (1.0+1-0ddebs1) unstable; urgency=medium
 
   * 800x600 seems a better resolution
   * updated makefile
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 11:09:19 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 01:55:14 +0100
 
 bioterrorism-by-belowabsolutezero (1.0-0ddebs1) unstable; urgency=medium
 

@@ -1,9 +1,10 @@
-shadowsun-by-tonic (1.0-0ddebs8) unstable; urgency=medium
+shadowsun-by-tonic (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup Makefile
   * remove resources on root
+  * uncrustify sources
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Nov 2019 14:02:24 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 17:10:00 +0100
 
 shadowsun-by-tonic (1.0-0ddebs7) unstable; urgency=medium
 

@@ -1,8 +1,9 @@
-4ksrc-pack1 (1.0-0ddebs8) unstable; urgency=medium
+4ksrc-pack1 (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile
+  * uncrustify some sources
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 18:21:48 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 02:05:58 +0100
 
 4ksrc-pack1 (1.0-0ddebs7) unstable; urgency=medium
 

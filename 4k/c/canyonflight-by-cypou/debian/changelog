@@ -1,10 +1,10 @@
-canyonflight-by-cypou (1.0-0ddebs8) unstable; urgency=medium
+canyonflight-by-cypou (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile
   * removed resources on root
   * fix warnings
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 20:36:48 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 11:46:39 +0100
 
 canyonflight-by-cypou (1.0-0ddebs7) unstable; urgency=medium
 

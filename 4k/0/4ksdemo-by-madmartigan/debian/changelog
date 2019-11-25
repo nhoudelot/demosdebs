@@ -1,9 +1,10 @@
-4ksdemo-by-madmartigan (1.0-0ddebs9) unstable; urgency=medium
+4ksdemo-by-madmartigan (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile
   * fix warnings
+  * remove resources on root
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 22 Nov 2019 14:45:09 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 02:05:16 +0100
 
 4ksdemo-by-madmartigan (1.0-0ddebs8) unstable; urgency=medium
 

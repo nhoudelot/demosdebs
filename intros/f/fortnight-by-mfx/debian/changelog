@@ -1,9 +1,9 @@
-fortnight-by-mfx (1.0-0ddebs9) unstable; urgency=medium
+fortnight-by-mfx (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile
   * uncrustify source
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Nov 2019 00:38:51 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Nov 2019 02:03:40 +0100
 
 fortnight-by-mfx (1.0-0ddebs8) unstable; urgency=medium
 

@@ -1,8 +1,9 @@
-raytro-by-wamma (1.0-0ddebs6) unstable; urgency=medium
+raytro-by-wamma (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile
+  * uncrustify source
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Nov 2019 13:43:05 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Nov 2019 00:06:30 +0100
 
 raytro-by-wamma (1.0-0ddebs5) unstable; urgency=medium
 
