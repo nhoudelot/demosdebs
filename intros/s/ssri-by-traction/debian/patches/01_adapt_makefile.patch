@@ -1,41 +1,43 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,79 +1,89 @@
--#find missing windows stuff yourself :p
--#SSRI by Traction
--#WIN32, LINUX, OS_X
--PLATFORM = $(shell uname)
--ifeq ($(PLATFORM),Linux)
--PLATFORM = LINUX
--endif
--ifeq ($(PLATFORM),Darwin)
--PLATFORM = OS_X
--endif
--ifeq ($(PLATFORM),)
--PLATFORM = WIN32
--endif
--
+@@ -1,6 +1,7 @@
+ #find missing windows stuff yourself :p
+ #SSRI by Traction
+ #WIN32, LINUX, OS_X
++SHELL = /bin/sh
+ PLATFORM = $(shell uname)
+ ifeq ($(PLATFORM),Linux)
+ PLATFORM = LINUX
+@@ -12,9 +13,9 @@
+ PLATFORM = WIN32
+ endif
+ 
 -FULLSCREEN = TRUE
 -WINDOW_WIDTH = 1024
 -WINDOW_HEIGHT = 768
--
--#compiler we're using
--CC = gcc
--CXX = g++
--
--#sourcefiles in use
--OBJ = changer.o filter.o font.o hermitecurve.o line.o lista.o main.o matikka.o matrix.o molekyylidata.o object3d.o path.o primitives.o sound.o stuff.o sync.o tausta.o texture.o timer.o vector.o win32.o alku.o aukko.o kasvu.o kaupunki.o kellu.o molekyyli.o neuronit.o perhonen.o pyorre.o rakenne.o rata.o runko.o ruutu.o viivatus.o virta.o
--
++FULLSCREEN = FALSE
++WINDOW_WIDTH = 1280
++WINDOW_HEIGHT = 720
+ 
+ #compiler we're using
+ CC = gcc
+@@ -23,9 +24,9 @@
+ #sourcefiles in use
+ OBJ = changer.o filter.o font.o hermitecurve.o line.o lista.o main.o matikka.o matrix.o molekyylidata.o object3d.o path.o primitives.o sound.o stuff.o sync.o tausta.o texture.o timer.o vector.o win32.o alku.o aukko.o kasvu.o kaupunki.o kellu.o molekyyli.o neuronit.o perhonen.o pyorre.o rakenne.o rata.o runko.o ruutu.o viivatus.o virta.o
+ 
 -TARGET = ssri
 -LDFLAGS = -lm
 -CFLAGS = -O2 -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT)
--
--ifeq ($(FULLSCREEN),TRUE)
--CFLAGS += -DFULLSCREEN
--endif
--
--#linux Makefile setup
--ifeq ($(PLATFORM), LINUX)
++TARGET = ssri-by-traction
++LDFLAGS += -lm
++CFLAGS += -Wall -pipe -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT)
+ 
+ ifeq ($(FULLSCREEN),TRUE)
+ CFLAGS += -DFULLSCREEN
+@@ -33,27 +34,8 @@
+ 
+ #linux Makefile setup
+ ifeq ($(PLATFORM), LINUX)
 -LDFLAGS += -I/usr/X11R6/include/GL/ -L/usr/lib/ -L/usr/X11R6/lib/ -L../lib/linux/ -I./ -lGL -lGLU `sdl-config --libs` ./libfmodex.so.4.00.37
 -CFLAGS += `sdl-config --cflags`
 -endif
@@ -57,76 +59,15 @@
 -LDFLAGS += `sdl-config --static-libs` ./libfmodex.dylib
 -CXX = g++-3.3
 -CC = gcc-3.3
--endif
--
--.PHONY: all all-before all-after clean clean-custom
--all: all-before $(TARGET) all-after
--#define some system utilities
--RM = rm -f
--CP = cp -R
--MKDIR = mkdir
--
--clean:
--	 $(RM) $(OBJ) $(TARGET)
--
--%.o: %.c $(HEADERS)
--	$(CC) $(CFLAGS) -c $<
--
--%.o: %.cpp $(HEADERS)
--	$(CXX) $(CFLAGS) -c $<
--
--%.o: ./Effects/%.cpp $(HEADERS)
--	$(CXX) $(CFLAGS) -c $<
--
--$(TARGET): $(OBJ)
--	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
-+#find missing windows stuff yourself :p
-+#SSRI by Traction
-+#WIN32, LINUX, OS_X
-+SHELL = /bin/sh
-+PLATFORM = $(shell uname)
-+ifeq ($(PLATFORM),Linux)
-+PLATFORM = LINUX
-+endif
-+ifeq ($(PLATFORM),Darwin)
-+PLATFORM = OS_X
-+endif
-+ifeq ($(PLATFORM),)
-+PLATFORM = WIN32
-+endif
-+
-+FULLSCREEN = FALSE
-+WINDOW_WIDTH = 1280
-+WINDOW_HEIGHT = 720
-+
-+#compiler we're using
-+CC = gcc
-+CXX = g++
-+
-+#sourcefiles in use
-+OBJ = changer.o filter.o font.o hermitecurve.o line.o lista.o main.o matikka.o matrix.o molekyylidata.o object3d.o path.o primitives.o sound.o stuff.o sync.o tausta.o texture.o timer.o vector.o win32.o alku.o aukko.o kasvu.o kaupunki.o kellu.o molekyyli.o neuronit.o perhonen.o pyorre.o rakenne.o rata.o runko.o ruutu.o viivatus.o virta.o
-+
-+TARGET = ssri-by-traction
-+LDFLAGS += -lm
-+CFLAGS += -O3 -Wall -ffast-math -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT)
-+
-+ifeq ($(FULLSCREEN),TRUE)
-+CFLAGS += -DFULLSCREEN
-+endif
-+
-+#linux Makefile setup
-+ifeq ($(PLATFORM), LINUX)
 +LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf glu sdl fmodex --libs)
 +CFLAGS += $(shell pkgconf glu sdl fmodex --cflags) -fpermissive -std=gnu++98
-+endif
-+
-+.PHONY: all all-before all-after clean clean-custom
-+all: all-before $(TARGET) all-after
-+#define some system utilities
-+RM = rm -f
-+CP = cp -R
-+MKDIR = mkdir
-+
+ endif
+ 
+ .PHONY: all all-before all-after clean clean-custom
+@@ -63,6 +45,27 @@
+ CP = cp -R
+ MKDIR = mkdir
+ 
 +#variables d'instalation
 +INSTALL = install
 +INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
@@ -148,20 +89,13 @@
 +
 +all: $(TARGET)
 +
-+clean:
-+	 $(RM) $(OBJ) $(TARGET)
-+
-+%.o: %.c $(HEADERS)
-+	$(CC) $(CFLAGS) -c $<
-+
-+%.o: %.cpp $(HEADERS)
-+	$(CXX) $(CFLAGS) -c $<
-+
-+%.o: ./Effects/%.cpp $(HEADERS)
-+	$(CXX) $(CFLAGS) -c $<
-+
-+$(TARGET): $(OBJ)
-+	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
+ clean:
+ 	 $(RM) $(OBJ) $(TARGET)
+ 
+@@ -77,3 +80,10 @@
+ 
+ $(TARGET): $(OBJ)
+ 	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

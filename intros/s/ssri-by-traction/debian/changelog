@@ -1,3 +1,11 @@
+ssri-by-traction (1.0+2-0ddebs1) unstable; urgency=medium
+
+  * source to utf8
+  * uncrustify sources
+  * cleanup makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Nov 2019 17:45:20 +0100
+
 ssri-by-traction (1.0+1-0ddebs1) unstable; urgency=medium
 
   * removed resources in root package
