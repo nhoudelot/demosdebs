@@ -1,3 +1,11 @@
+leeko-by-fit (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * uncrustify sources
+  * cleanup makefile
+  * added -flto in debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Nov 2019 13:12:06 +0100
+
 leeko-by-fit (1.0-0ddebs8) unstable; urgency=medium
 
   * update to standard version to 4.1.4

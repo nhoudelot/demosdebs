@@ -10,7 +10,7 @@
 -COPT = -Wall -O2 -ffast-math -fno-strict-aliasing
 -HEADERS = palikka.h volume.h gl_render.h dump.h wavefront.h dudes.h \
 +CC := gcc
-+CFLAGS += -O3 -flto -Wall -ffast-math  -fno-strict-aliasing -std=gnu90 $(shell pkgconf --cflags sdl)
++CFLAGS += -Wall -pipe -fno-strict-aliasing -std=gnu90 $(shell pkgconf --cflags sdl)
 +HEADERS := palikka.h volume.h gl_render.h dump.h wavefront.h dudes.h \
            hakkyra.h tunneli.h spiral.h ball.h writer.h feidit.h naamat.h \
            syna.h
@@ -57,7 +57,7 @@
  
  $(TARGET): $(OBJ)
 -	$(CC) -o $@ $(OBJ) $(LIB)
-+	$(CC) -flto -o $@ $(OBJ) $(LDFLAGS)
++	$(CC) -o $@ $(OBJ) $(LDFLAGS)
  	$(SPECIAL)
  
 -final: $(TARGET)
