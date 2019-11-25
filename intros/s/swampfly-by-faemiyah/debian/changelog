@@ -1,3 +1,11 @@
+swampfly-by-faemiyah (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * uncrustify sources
+  * move ftlo to debian/rules
+  * fix sdl warnings
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Nov 2019 22:50:16 +0100
+
 swampfly-by-faemiyah (1.0-0ddebs5) unstable; urgency=medium
 
   * update to standard version to 4.1.4

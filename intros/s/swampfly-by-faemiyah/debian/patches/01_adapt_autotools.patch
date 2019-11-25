@@ -15,7 +15,7 @@
  
  AC_CHECK_C99
  
-@@ -17,19 +20,42 @@
+@@ -17,19 +20,40 @@
  
  AC_C_BIGENDIAN([], [], [AC_MSG_ERROR([could not determine endianness])])
  
@@ -24,8 +24,6 @@
 +# Checks for header files.
 +AC_CHECK_HEADERS([inttypes.h limits.h stddef.h stdint.h stdlib.h string.h wchar.h])
 +
-+AC_ADD_CCFLAG([-flto])
-+AC_ADD_LDFLAG([-flto])
 +AC_ADD_LIB([-lm])
  
  AC_INCORPORATE_LIBPNG([1.2.0], [HAVE_LIBPNG], [no])
