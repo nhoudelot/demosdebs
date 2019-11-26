@@ -1,13 +1,13 @@
 --- a/src/texture.c
 +++ b/src/texture.c
 @@ -64,8 +64,8 @@
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
--  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture_info->width,
--               texture_info->height, 0, png_format, GL_UNSIGNED_BYTE,
-+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, png_get_image_width(texture_ptr, texture_info),
-+               png_get_image_height(texture_ptr, texture_info), 0, png_format, GL_UNSIGNED_BYTE,
-                image);
+ 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+ 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+ 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture_info->width,
+-	             texture_info->height, 0, png_format, GL_UNSIGNED_BYTE,
++	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, png_get_image_width(texture_ptr, texture_info),
++                 png_get_image_height(texture_ptr, texture_info), 0, png_format, GL_UNSIGNED_BYTE,
+ 	             image);
  
-   /* The data is in the state machine we do not need this datas any more */
+ 	/* The data is in the state machine we do not need this datas any more */

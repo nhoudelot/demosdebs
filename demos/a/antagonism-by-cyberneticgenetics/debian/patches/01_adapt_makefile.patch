@@ -13,7 +13,7 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS += -O3 -flto -Wall -W -pedantic $(shell pkg-config --cflags gtk+-3.0) -ffast-math -pipe
++CFLAGS += -Wall -pipe -pedantic $(shell pkg-config --cflags gtk+-3.0)
 +LDFLAGS += $(shell pkg-config --libs gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
 +
 +TARGET = antagonism-by-cyberneticgenetics

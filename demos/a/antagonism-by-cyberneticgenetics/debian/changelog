@@ -1,3 +1,11 @@
+antagonism-by-cyberneticgenetics (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * uncrustify sources
+  * cleanup makefile
+  * added flto in debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 26 Nov 2019 23:56:27 +0100
+
 antagonism-by-cyberneticgenetics (1.0-0ddebs3) unstable; urgency=medium
 
   * update to standard version to 4.1.4
