@@ -1,3 +1,10 @@
+cannonball (0.3+git20171201-0ddebs4) unstable; urgency=medium
+
+  * update debian/rules
+  * added flto in debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 26 Nov 2019 00:00:36 +0100
+
 cannonball (0.3+git20171201-0ddebs3) unstable; urgency=medium
 
   * update to standard version to 4.1.4
