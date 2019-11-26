@@ -6,29 +6,39 @@
  dnl Some flags for gcc
 -CXXFLAGS="-std=c++11 -pthread -fPIC -O3 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -Wno-shift-negative-value -DNDEBUG"
 -CFLAGS="-std=c99 -pthread -fPIC -O3 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -Wno-shift-negative-value -DNDEBUG"
-+CXXFLAGS="-std=c++11 -flto -pthread -fPIC -O3 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -Wno-shift-negative-value -DNDEBUG"
-+CFLAGS="-std=c99 -flto -pthread -fPIC -O3 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -Wno-shift-negative-value -DNDEBUG"
++CXXFLAGS+=" -std=c++11 -pthread -fPIC -pipe -pedantic -Wall -Wno-shift-negative-value -DNDEBUG"
++CFLAGS+=" -std=c99 -pthread -fPIC -pipe -pedantic -Wall -Wno-shift-negative-value -DNDEBUG"
  dnl Additional flags: -Wconversion -Wno-sign-conversion -Wlogical-op
  
  dnl Some flags for clang
-@@ -44,12 +44,12 @@
- dnl PKG_CHECK_MODULES(SDL, sdl2 SDL2_mixer)
- CFLAGS="$CFLAGS $SDL_CFLAGS"
- CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
+@@ -39,19 +39,15 @@
+ 
+ dnl Check for SDL library
+ dnl Check for SDL_mixer library.
+-SDL_VERSION=2.0.0
+-AM_PATH_SDL2($SDL_VERSION, : , AC_MSG_ERROR([*** SDL2 version $SDL_VERSION not found!]))
+-dnl PKG_CHECK_MODULES(SDL, sdl2 SDL2_mixer)
+-CFLAGS="$CFLAGS $SDL_CFLAGS"
+-CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
 -LIBS="$LIBS $SDL_LIBS"
-+LIBS="$LIBS -flto $SDL_LIBS"
++PKG_CHECK_MODULES(SDL2, sdl2,
++	CFLAGS="$CFLAGS $SDL_CFLAGS"
++	CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
++	LIBS="$LIBS -lSDL2 ",
++	AC_MSG_ERROR([*** SDL2_mixer library not found!])
++)
  
  dnl Check for SDL_mixer library.
 -AC_CHECK_LIB(SDL2_mixer, 
 -       Mix_OpenAudio, 
 -       LIBS="$LIBS -lSDL2_mixer", 
-+AC_CHECK_LIB(SDL2_mixer,
-+       Mix_OpenAudio,
-+       LIBS="$LIBS -lSDL2_mixer",
-        AC_MSG_ERROR([*** SDL2_mixer library not found!])
- )
+-       AC_MSG_ERROR([*** SDL2_mixer library not found!])
+-)
++PKG_CHECK_MODULES(SDL2MIXER, SDL2_mixer,LIBS="$LIBS -lSDL2_mixer",AC_MSG_ERROR([*** SDL2_mixer library not found!]))
  
-@@ -63,7 +63,7 @@
+ dnl enet defines
+ AC_CHECK_FUNC(gethostbyaddr_r, [AC_DEFINE(HAS_GETHOSTBYADDR_R)])
+@@ -63,7 +59,7 @@
  
  AC_CHECK_MEMBER(struct msghdr.msg_flags, [AC_DEFINE(HAS_MSGHDR_FLAGS)], , [#include <sys/socket.h>])
  

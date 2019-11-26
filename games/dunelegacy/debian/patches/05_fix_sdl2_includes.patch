@@ -1,0 +1,1447 @@
+--- a/include/DataTypes.h
++++ b/include/DataTypes.h
+@@ -21,7 +21,7 @@
+ #include <Definitions.h>
+ 
+ // Libraries
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ 
+ 
+--- a/include/Game.h
++++ b/include/Game.h
+@@ -34,7 +34,7 @@
+ 
+ #include <DataTypes.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdarg.h>
+ #include <string>
+ #include <map>
+--- a/include/misc/InputStream.h
++++ b/include/misc/InputStream.h
+@@ -20,7 +20,7 @@
+ 
+ #include <fixmath/FixPoint.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ #include <list>
+ #include <vector>
+--- a/include/Colors.h
++++ b/include/Colors.h
+@@ -18,7 +18,7 @@
+ #ifndef COLORS_H
+ #define COLORS_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #if SDL_BYTEORDER == SDL_BIG_ENDIAN
+     #define RMASK 0xFF000000U
+--- a/include/misc/OutputStream.h
++++ b/include/misc/OutputStream.h
+@@ -20,7 +20,7 @@
+ 
+ #include <fixmath/FixPoint.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ #include <list>
+ #include <vector>
+--- a/include/misc/Random.h
++++ b/include/misc/Random.h
+@@ -20,7 +20,7 @@
+ 
+ #include <fixmath/FixPoint.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /// A class for generating random numbers (there are better algorithms but this one is quite fast)
+ class Random {
+--- a/include/Command.h
++++ b/include/Command.h
+@@ -22,7 +22,7 @@
+ #include <misc/OutputStream.h>
+ 
+ #include <vector>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ typedef enum {
+     CMD_NONE,
+--- a/include/Explosion.h
++++ b/include/Explosion.h
+@@ -22,7 +22,7 @@
+ #include <misc/InputStream.h>
+ #include <misc/OutputStream.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ class Explosion
+ {
+--- a/include/FileClasses/Palette.h
++++ b/include/FileClasses/Palette.h
+@@ -20,7 +20,7 @@
+ 
+ #include <misc/exceptions.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string.h>
+ 
+ class Palette
+--- a/include/ObjectManager.h
++++ b/include/ObjectManager.h
+@@ -22,7 +22,7 @@
+ #include <misc/OutputStream.h>
+ 
+ #include <map>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ // forward declarations
+ class ObjectBase;
+--- a/include/RadarView.h
++++ b/include/RadarView.h
+@@ -22,7 +22,7 @@
+ 
+ #include <DataTypes.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ 
+ /// This class manages the mini map at the top right corner of the screen
+--- a/include/main.h
++++ b/include/main.h
+@@ -19,7 +19,7 @@
+ #define MAIN_H
+ 
+ #include <string>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ 
+ /**
+--- a/include/sand.h
++++ b/include/sand.h
+@@ -18,7 +18,7 @@
+ #ifndef SAND_H
+ #define SAND_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <fixmath/FixPoint.h>
+ #include <DataTypes.h>
+--- a/include/MapSeed.h
++++ b/include/MapSeed.h
+@@ -18,7 +18,7 @@
+ #ifndef MAPSEED_H
+ #define MAPSEED_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <MapEditor/MapData.h>
+ 
+--- a/include/ObjectBase.h
++++ b/include/ObjectBase.h
+@@ -29,7 +29,7 @@
+ 
+ #include <algorithm>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ // forward declarations
+ class House;
+--- a/include/globals.h
++++ b/include/globals.h
+@@ -26,7 +26,7 @@
+ #include <misc/RobustList.h>
+ #include <misc/DrawingRectHelper.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #define _(msgid) pTextManager->getLocalized(msgid)
+ 
+--- a/include/Network/ChangeEventList.h
++++ b/include/Network/ChangeEventList.h
+@@ -21,7 +21,7 @@
+ #include <misc/InputStream.h>
+ #include <misc/OutputStream.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <list>
+ 
+ class ChangeEventList {
+--- a/include/Network/CommandList.h
++++ b/include/Network/CommandList.h
+@@ -23,7 +23,7 @@
+ 
+ #include <Command.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <vector>
+ 
+ class CommandList {
+--- a/include/Network/GameServerInfo.h
++++ b/include/Network/GameServerInfo.h
+@@ -19,7 +19,7 @@
+ #define GAMESERVERINFO_H
+ 
+ #include <enet/enet.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ 
+ class GameServerInfo {
+--- a/include/Network/LANGameFinderAndAnnouncer.h
++++ b/include/Network/LANGameFinderAndAnnouncer.h
+@@ -22,7 +22,7 @@
+ 
+ 
+ #include <enet/enet.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ #include <list>
+ #include <functional>
+--- a/include/Network/MetaServerClient.h
++++ b/include/Network/MetaServerClient.h
+@@ -27,7 +27,7 @@
+ #include <enet/enet.h>
+ #include <string>
+ #include <list>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #define SERVERLIST_UPDATE_INTERVAL  (8*1000)
+ #define GAMESERVER_UPDATE_INTERVAL  (10*1000)
+--- a/include/Network/MetaServerCommands.h
++++ b/include/Network/MetaServerCommands.h
+@@ -18,7 +18,7 @@
+ #ifndef METASERVERCOMMANDS_H
+ #define METASERVERCOMMANDS_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ 
+ 
+--- a/include/Trigger/Trigger.h
++++ b/include/Trigger/Trigger.h
+@@ -21,7 +21,7 @@
+ #include <misc/InputStream.h>
+ #include <misc/OutputStream.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /**
+     This class is the base class for all triggers.
+--- a/include/Menu/MapChoice.h
++++ b/include/Menu/MapChoice.h
+@@ -25,7 +25,7 @@
+ #include <misc/BlendBlitter.h>
+ #include <mmath.h>
+ #include <vector>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #define MAPCHOICESTATE_FADEINPLANET 0
+ #define MAPCHOICESTATE_SHOWPLANET   1
+--- a/include/Menu/MentatMenu.h
++++ b/include/Menu/MentatMenu.h
+@@ -28,7 +28,7 @@
+ 
+ #include <stdio.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ 
+ class MentatMenu : public MenuBase {
+--- a/include/Menu/MenuBase.h
++++ b/include/Menu/MenuBase.h
+@@ -19,7 +19,7 @@
+ #define MENUBASE_H
+ 
+ #include <GUI/Window.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #define MENU_QUIT_DEFAULT   (-1)
+ 
+--- a/include/Menu/OptionsMenu.h
++++ b/include/Menu/OptionsMenu.h
+@@ -28,7 +28,7 @@
+ #include <GUI/DropDownBox.h>
+ #include <DataTypes.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <vector>
+ 
+ 
+--- a/include/Network/NetworkManager.h
++++ b/include/Network/NetworkManager.h
+@@ -29,7 +29,7 @@
+ #include <misc/string_util.h>
+ 
+ #include <enet/enet.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ #include <list>
+ #include <functional>
+--- a/include/misc/BlendBlitter.h
++++ b/include/misc/BlendBlitter.h
+@@ -1,7 +1,7 @@
+ #ifndef BLENDBLITTER_H
+ #define BLENDBLITTER_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <misc/draw_util.h>
+ #include <misc/exceptions.h>
+ #include <mmath.h>
+--- a/include/misc/draw_util.h
++++ b/include/misc/draw_util.h
+@@ -19,7 +19,7 @@
+ #define DRAW_UTIL_H
+ 
+ #include <Colors.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /**
+     Return the pixel value at (x, y) in surface
+--- a/include/misc/DrawingRectHelper.h
++++ b/include/misc/DrawingRectHelper.h
+@@ -18,7 +18,7 @@
+ #ifndef DRAWINGRECTHELPER_H
+ #define DRAWINGRECTHELPER_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ extern SDL_Renderer* renderer;
+ 
+--- a/include/misc/Scaler.h
++++ b/include/misc/Scaler.h
+@@ -18,7 +18,7 @@
+ #ifndef SCALER_H
+ #define SCALER_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <string>
+ 
+--- a/include/RadarViewBase.h
++++ b/include/RadarViewBase.h
+@@ -22,7 +22,7 @@
+ 
+ #include <DataTypes.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <functional>
+ 
+ 
+--- a/include/players/HumanPlayer.h
++++ b/include/players/HumanPlayer.h
+@@ -22,7 +22,7 @@
+ 
+ #include <Definitions.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ // forward declarations
+ class UnitBase;
+--- a/include/MapEditor/ChoamWindow.h
++++ b/include/MapEditor/ChoamWindow.h
+@@ -30,7 +30,7 @@
+ #include <GUI/Checkbox.h>
+ #include <GUI/dune/DigitsTextBox.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ // forward declaration
+ class MapEditor;
+--- a/include/MapEditor/LoadMapWindow.h
++++ b/include/MapEditor/LoadMapWindow.h
+@@ -28,7 +28,7 @@
+ #include <GUI/ListBox.h>
+ #include <GUI/PictureLabel.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ class  LoadMapWindow : public Window
+ {
+--- a/include/MapEditor/MapEditor.h
++++ b/include/MapEditor/MapEditor.h
+@@ -35,7 +35,7 @@
+ 
+ #include <DataTypes.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ #include <vector>
+ #include <stack>
+--- a/include/MapEditor/MapEditorRadarView.h
++++ b/include/MapEditor/MapEditorRadarView.h
+@@ -22,7 +22,7 @@
+ 
+ #include <DataTypes.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ class MapEditor;
+ class MapData;
+--- a/include/MapEditor/NewMapWindow.h
++++ b/include/MapEditor/NewMapWindow.h
+@@ -30,7 +30,7 @@
+ #include <GUI/PictureLabel.h>
+ #include <GUI/dune/DigitsTextBox.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ class  NewMapWindow : public Window
+ {
+--- a/include/MapEditor/PlayerSettingsWindow.h
++++ b/include/MapEditor/PlayerSettingsWindow.h
+@@ -31,7 +31,7 @@
+ #include <GUI/Spacer.h>
+ #include <GUI/dune/DigitsTextBox.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ // forward declaration
+ class MapEditor;
+--- a/include/MapEditor/ReinforcementsWindow.h
++++ b/include/MapEditor/ReinforcementsWindow.h
+@@ -32,7 +32,7 @@
+ #include <GUI/Checkbox.h>
+ #include <GUI/dune/DigitsTextBox.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ // forward declaration
+ class MapEditor;
+--- a/include/MapEditor/TeamsWindow.h
++++ b/include/MapEditor/TeamsWindow.h
+@@ -31,7 +31,7 @@
+ #include <GUI/ListBox.h>
+ #include <GUI/dune/DigitsTextBox.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ // forward declaration
+ class MapEditor;
+--- a/include/FileClasses/Animation.h
++++ b/include/FileClasses/Animation.h
+@@ -20,7 +20,7 @@
+ 
+ #include <FileClasses/Palette.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <vector>
+ 
+ #define INVALID_FRAME ((unsigned int) -1)
+--- a/include/FileClasses/Cpsfile.h
++++ b/include/FileClasses/Cpsfile.h
+@@ -18,8 +18,8 @@
+ #ifndef CPSFILE_H
+ #define CPSFILE_H
+ 
+-#include <SDL.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
+ 
+ /**
+     This function reads a cps-File from a SDL_RWop and returns it as a SDL_Surface. The SDL_RWops can be readonly but must support
+--- a/include/FileClasses/FileManager.h
++++ b/include/FileClasses/FileManager.h
+@@ -20,8 +20,8 @@
+ 
+ #include "Pakfile.h"
+ 
+-#include <SDL_rwops.h>
+-#include <SDL.h>
++#include <SDL2/SDL_rwops.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ #include <vector>
+ 
+--- a/include/FileClasses/Font.h
++++ b/include/FileClasses/Font.h
+@@ -18,7 +18,7 @@
+ #ifndef FONT_H
+ #define FONT_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <string>
+ 
+--- a/include/FileClasses/FontManager.h
++++ b/include/FileClasses/FontManager.h
+@@ -18,7 +18,7 @@
+ #ifndef FONTMANAGER_H
+ #define FONTMANAGER_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include "Font.h"
+ 
+ #include <memory>
+--- a/include/FileClasses/GFXManager.h
++++ b/include/FileClasses/GFXManager.h
+@@ -18,7 +18,7 @@
+ #ifndef GFXMANAGER_H
+ #define GFXMANAGER_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include "Animation.h"
+ #include "Shpfile.h"
+ #include "Wsafile.h"
+--- a/include/FileClasses/INIFile.h
++++ b/include/FileClasses/INIFile.h
+@@ -21,8 +21,8 @@
+ #include <string>
+ #include <list>
+ #include <algorithm>
+-#include <SDL_rwops.h>
+-#include <SDL.h>
++#include <SDL2/SDL_rwops.h>
++#include <SDL2/SDL.h>
+ 
+ #define INVALID_LINE (-1)
+ 
+--- a/include/FileClasses/Icnfile.h
++++ b/include/FileClasses/Icnfile.h
+@@ -18,8 +18,8 @@
+ #ifndef ICNFILE_H
+ #define ICNFILE_H
+ 
+-#include <SDL.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
+ #include <stdarg.h>
+ #include <vector>
+ 
+--- a/include/FileClasses/IndexedTextFile.h
++++ b/include/FileClasses/IndexedTextFile.h
+@@ -22,8 +22,8 @@
+ 
+ #include <string>
+ #include <vector>
+-#include <SDL.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
+ 
+ 
+ /// A class for loading a indexed textfile (e.g. INTRO.ENG).
+--- a/include/FileClasses/LoadSavePNG.h
++++ b/include/FileClasses/LoadSavePNG.h
+@@ -18,7 +18,7 @@
+ #ifndef LOADSAVEPNG_H
+ #define LOADSAVEPNG_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #define LoadPNG(file) SDL_LoadPNG_RW(SDL_RWFromFile(file, "rb"), 1)
+ #define SavePNG(surface, file) SavePNG_RW(surface, SDL_RWFromFile(file, "wb"), 1)
+--- a/include/FileClasses/MentatTextFile.h
++++ b/include/FileClasses/MentatTextFile.h
+@@ -22,8 +22,8 @@
+ 
+ #include <string>
+ #include <vector>
+-#include <SDL.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
+ 
+ 
+ /// A class for loading a mentat textfile (e.g. MENTATA.ENG).
+--- a/include/FileClasses/POFile.h
++++ b/include/FileClasses/POFile.h
+@@ -18,7 +18,7 @@
+ #ifndef POFILE_H
+ #define POFILE_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <map>
+ #include <string>
+ 
+--- a/include/FileClasses/Palfile.h
++++ b/include/FileClasses/Palfile.h
+@@ -19,8 +19,8 @@
+ #define PALFILE_H
+ 
+ #include <FileClasses/Palette.h>
+-#include <SDL.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
+ 
+ /// A class for reading palettes out of PAL-Files.
+ /**
+--- a/include/FileClasses/PictureFactory.h
++++ b/include/FileClasses/PictureFactory.h
+@@ -21,7 +21,7 @@
+ #include <FileClasses/Animation.h>
+ #include <FileClasses/Palette.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <memory>
+ 
+--- a/include/FileClasses/PictureFont.h
++++ b/include/FileClasses/PictureFont.h
+@@ -21,7 +21,7 @@
+ #include "Font.h"
+ 
+ #include <vector>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /// A class for loading a font from a surface.
+ /**
+--- a/include/FileClasses/Shpfile.h
++++ b/include/FileClasses/Shpfile.h
+@@ -18,8 +18,8 @@
+ #ifndef SHPFILE_H
+ #define SHPFILE_H
+ 
+-#include <SDL.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
+ #include <stdarg.h>
+ #include <vector>
+ 
+--- a/include/FileClasses/Vocfile.h
++++ b/include/FileClasses/Vocfile.h
+@@ -18,9 +18,9 @@
+ #ifndef VOCFILE_H
+ #define VOCFILE_H
+ 
+-#include <SDL.h>
+-#include <SDL_rwops.h>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ /**
+  Try to load a VOC from the RWop. Returns a pointer to Mix_Chunk.
+--- a/include/FileClasses/adl/sound_adlib.h
++++ b/include/FileClasses/adl/sound_adlib.h
+@@ -42,11 +42,11 @@
+ #ifndef SOUND_ADLIB_H
+ #define SOUND_ADLIB_H
+ 
+-#include <SDL_rwops.h>
++#include <SDL2/SDL_rwops.h>
+ #include <inttypes.h>
+ #include <vector>
+-#include <SDL.h>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ class AdlibDriver;
+ 
+--- a/include/FileClasses/xmidi/databuf.h
++++ b/include/FileClasses/xmidi/databuf.h
+@@ -24,8 +24,8 @@
+ #include <misc/exceptions.h>
+ 
+ #include <stdio.h>
+-#include <SDL.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
+ 
+ typedef char * charptr;
+ 
+--- a/include/MapEditor/MapSettingsWindow.h
++++ b/include/MapEditor/MapSettingsWindow.h
+@@ -30,7 +30,7 @@
+ #include <GUI/Checkbox.h>
+ #include <GUI/dune/DigitsTextBox.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ // forward declaration
+ class MapEditor;
+--- a/include/FileClasses/Wsafile.h
++++ b/include/FileClasses/Wsafile.h
+@@ -19,8 +19,8 @@
+ #define WSAFILE_H
+ 
+ #include "Animation.h"
+-#include <SDL.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
+ #include <stdarg.h>
+ 
+ /// A class for loading a *.WSA-File.
+--- a/include/CutScenes/CrossBlendVideoEvent.h
++++ b/include/CutScenes/CrossBlendVideoEvent.h
+@@ -20,7 +20,7 @@
+ 
+ #include <CutScenes/VideoEvent.h>
+ #include <misc/BlendBlitter.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /**
+     This VideoEvent blends between two pictures. The blending is done in 30 steps revealing more and more pixels
+--- a/include/CutScenes/CutScene.h
++++ b/include/CutScenes/CutScene.h
+@@ -21,7 +21,7 @@
+ #include <CutScenes/Scene.h>
+ #include <FileClasses/Palette.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <queue>
+ 
+ /// A base class for running Dune 2 Cutscenes.
+--- a/include/CutScenes/FadeInVideoEvent.h
++++ b/include/CutScenes/FadeInVideoEvent.h
+@@ -20,7 +20,7 @@
+ 
+ #include <CutScenes/VideoEvent.h>
+ #include <FileClasses/Palette.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /**
+     This VideoEvent is used for fading in a picture
+--- a/include/CutScenes/FadeOutVideoEvent.h
++++ b/include/CutScenes/FadeOutVideoEvent.h
+@@ -19,7 +19,7 @@
+ #define FADEOUTVIDEOEVENT_H
+ 
+ #include <CutScenes/VideoEvent.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /**
+     This VideoEvent is used for fading out a picture
+--- a/include/CutScenes/HoldPictureVideoEvent.h
++++ b/include/CutScenes/HoldPictureVideoEvent.h
+@@ -19,7 +19,7 @@
+ #define HOLDPICTUREVIDEOEVENT_H
+ 
+ #include <CutScenes/VideoEvent.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /**
+     This VideoEvent statical shows a picture for a number of frames.
+--- a/include/CutScenes/TextEvent.h
++++ b/include/CutScenes/TextEvent.h
+@@ -18,7 +18,7 @@
+ #ifndef TEXTEVENT_H
+ #define TEXTEVENT_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ 
+ #include <Definitions.h>
+--- a/include/CutScenes/VideoEvent.h
++++ b/include/CutScenes/VideoEvent.h
+@@ -18,7 +18,7 @@
+ #ifndef VIDEOEVENT_H
+ #define VIDEOEVENT_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /**
+     This class is the base class for all video events/effects.
+--- a/include/GUI/Button.h
++++ b/include/GUI/Button.h
+@@ -21,7 +21,7 @@
+ #include "Widget.h"
+ #include "GUIStyle.h"
+ #include "misc/draw_util.h"
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <string>
+ #include <functional>
+--- a/include/GUI/GUIStyle.h
++++ b/include/GUI/GUIStyle.h
+@@ -26,7 +26,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ 
+ #include "Widget.h"
+--- a/include/GUI/Label.h
++++ b/include/GUI/Label.h
+@@ -22,7 +22,7 @@
+ #include "GUIStyle.h"
+ #include <misc/draw_util.h>
+ #include <misc/string_util.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <string>
+ #include <list>
+ #include <algorithm>
+--- a/include/GUI/ListBox.h
++++ b/include/GUI/ListBox.h
+@@ -21,7 +21,7 @@
+ #include "Widget.h"
+ #include "ScrollBar.h"
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <vector>
+ #include <string>
+ #include <functional>
+--- a/include/GUI/MsgBox.h
++++ b/include/GUI/MsgBox.h
+@@ -27,7 +27,7 @@
+ #include "VBox.h"
+ #include "HBox.h"
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <iostream>
+ #include <algorithm>
+--- a/include/GUI/PictureButton.h
++++ b/include/GUI/PictureButton.h
+@@ -20,7 +20,7 @@
+ 
+ #include "Button.h"
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /// A class for a picture button
+ class PictureButton : public Button {
+--- a/include/GUI/PictureLabel.h
++++ b/include/GUI/PictureLabel.h
+@@ -21,7 +21,7 @@
+ #include "Widget.h"
+ #include <misc/draw_util.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /// A class for showning a static picture
+ class PictureLabel : public Widget {
+--- a/include/GUI/ProgressBar.h
++++ b/include/GUI/ProgressBar.h
+@@ -22,7 +22,7 @@
+ #include <misc/draw_util.h>
+ 
+ #include <string>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <cmath>
+ 
+--- a/include/GUI/QstBox.h
++++ b/include/GUI/QstBox.h
+@@ -27,7 +27,7 @@
+ #include "VBox.h"
+ #include "HBox.h"
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <iostream>
+ 
+--- a/include/GUI/SymbolButton.h
++++ b/include/GUI/SymbolButton.h
+@@ -20,7 +20,7 @@
+ 
+ #include "Button.h"
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /// A class for a symbol button
+ class SymbolButton : public Button {
+--- a/include/GUI/TextView.h
++++ b/include/GUI/TextView.h
+@@ -21,7 +21,7 @@
+ #include "Widget.h"
+ #include "ScrollBar.h"
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <vector>
+ #include <string>
+ 
+--- a/include/GUI/Widget.h
++++ b/include/GUI/Widget.h
+@@ -20,7 +20,7 @@
+ 
+ #include <misc/DrawingRectHelper.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <functional>
+ #include <iostream>
+--- a/include/GUI/dune/BuilderList.h
++++ b/include/GUI/dune/BuilderList.h
+@@ -22,7 +22,7 @@
+ #include <GUI/PictureButton.h>
+ #include <GUI/TextButton.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #define ARROWBTN_WIDTH 48
+ #define ARROWBTN_HEIGHT 16
+--- a/include/GUI/dune/ChatManager.h
++++ b/include/GUI/dune/ChatManager.h
+@@ -20,7 +20,7 @@
+ 
+ #include <GUI/Widget.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <memory>
+ #include <string>
+--- a/include/GUI/dune/MessageTicker.h
++++ b/include/GUI/dune/MessageTicker.h
+@@ -24,7 +24,7 @@
+ #include <memory>
+ #include <queue>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ class MessageTicker : public Widget {
+ public:
+--- a/include/GUI/dune/NewsTicker.h
++++ b/include/GUI/dune/NewsTicker.h
+@@ -23,7 +23,7 @@
+ #include <string>
+ #include <queue>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ class NewsTicker : public Widget {
+ public:
+--- a/include/INIMap/INIMap.h
++++ b/include/INIMap/INIMap.h
+@@ -27,7 +27,7 @@
+ 
+ #include <misc/string_util.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <string>
+ #include <memory>
+--- a/include/INIMap/INIMapEditorLoader.h
++++ b/include/INIMap/INIMapEditorLoader.h
+@@ -22,7 +22,7 @@
+ 
+ #include <INIMap/INIMap.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <string>
+ #include <map>
+--- a/include/INIMap/INIMapLoader.h
++++ b/include/INIMap/INIMapLoader.h
+@@ -23,7 +23,7 @@
+ 
+ #include <INIMap/INIMap.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <string>
+ #include <map>
+--- a/include/INIMap/INIMapPreviewCreator.h
++++ b/include/INIMap/INIMapPreviewCreator.h
+@@ -23,7 +23,7 @@
+ 
+ #include <INIMap/INIMap.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <string>
+ #include <map>
+--- a/include/GUI/DropDownBox.h
++++ b/include/GUI/DropDownBox.h
+@@ -23,7 +23,7 @@
+ #include "ListBox.h"
+ 
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <vector>
+ #include <string>
+ #include <functional>
+@@ -433,7 +433,7 @@
+         bShowListBox = !bShowListBox;
+     }
+ 
+-    bool bShowListBox;
++    bool bShowListBox;
+     bool bListBoxAbove;
+     bool bAutocloseListBoxOnSelectionChange;        ///< This is a small hack to allow the list box to be open while selection with up/down keys
+     bool bOnClickEnabled;                           ///< Is the onClick event enabled for this widget?
+--- a/include/GUI/TextBox.h
++++ b/include/GUI/TextBox.h
+@@ -22,7 +22,7 @@
+ #include <misc/draw_util.h>
+ #include <misc/string_util.h>
+ #include <string>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <stdio.h>
+ 
+--- a/include/GUI/Window.h
++++ b/include/GUI/Window.h
+@@ -24,7 +24,7 @@
+ #include <iostream>
+ #include <queue>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ /// A class representing a window
+ class Window : public Widget {
+--- a/include/FileClasses/Pakfile.h
++++ b/include/FileClasses/Pakfile.h
+@@ -19,7 +19,7 @@
+ #define PAKFILE_H
+ 
+ #include <stdio.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL_rwops.h>
+ #include <string>
+ #include <vector>
+ #include <inttypes.h>
+--- a/include/FileClasses/SFXManager.h
++++ b/include/FileClasses/SFXManager.h
+@@ -18,7 +18,7 @@
+ #ifndef SFXMANAGER_H
+ #define SFXMANAGER_H
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ #include <DataTypes.h>
+ 
+ #include <string>
+--- a/include/FileClasses/music/ADLPlayer.h
++++ b/include/FileClasses/music/ADLPlayer.h
+@@ -22,7 +22,7 @@
+ #include <FileClasses/music/MusicPlayer.h>
+ 
+ #include <vector>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ // Forward declarations
+ class SoundAdlibPC;
+--- a/include/FileClasses/music/DirectoryPlayer.h
++++ b/include/FileClasses/music/DirectoryPlayer.h
+@@ -23,7 +23,7 @@
+ 
+ #include <vector>
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ class DirectoryPlayer : public MusicPlayer {
+ public:
+--- a/include/FileClasses/music/MusicPlayer.h
++++ b/include/FileClasses/music/MusicPlayer.h
+@@ -21,7 +21,7 @@
+ 
+ #include <Definitions.h>
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ //! \enum MUSICTYPE
+ /*! Types of music available in the game*/
+--- a/include/FileClasses/music/XMIPlayer.h
++++ b/include/FileClasses/music/XMIPlayer.h
+@@ -25,7 +25,7 @@
+ 
+ #include <vector>
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ // Forward declarations
+ class CadlPlayer;
+--- a/include/SoundPlayer.h
++++ b/include/SoundPlayer.h
+@@ -20,7 +20,7 @@
+ 
+ #include <FileClasses/SFXManager.h>
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ // forward declaration
+ class Coord;
+--- a/include/misc/sound_util.h
++++ b/include/misc/sound_util.h
+@@ -19,7 +19,7 @@
+ #define SOUND_UTIL_H
+ 
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ Mix_Chunk* concat2Chunks(Mix_Chunk* sound1, Mix_Chunk* sound2);
+ Mix_Chunk* concat3Chunks(Mix_Chunk* sound1, Mix_Chunk* sound2, Mix_Chunk* sound3);
+--- a/include/CutScenes/CutSceneSoundTrigger.h
++++ b/include/CutScenes/CutSceneSoundTrigger.h
+@@ -18,7 +18,7 @@
+ #ifndef CUTSCENESOUNDTRIGGER_H
+ #define CUTSCENESOUNDTRIGGER_H
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ #include <SoundPlayer.h>
+ 
+--- a/include/CutScenes/Finale.h
++++ b/include/CutScenes/Finale.h
+@@ -18,7 +18,7 @@
+ #ifndef FINALE_H
+ #define FINALE_H
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ #include <CutScenes/CutScene.h>
+ #include <FileClasses/Wsafile.h>
+--- a/include/CutScenes/Intro.h
++++ b/include/CutScenes/Intro.h
+@@ -19,7 +19,7 @@
+ #define INTRO_H
+ 
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ #include <CutScenes/CutScene.h>
+ #include <FileClasses/Wsafile.h>
+--- a/src/CutScenes/CutScene.cpp
++++ b/src/CutScenes/CutScene.cpp
+@@ -24,7 +24,7 @@
+ #include <globals.h>
+ #include <sand.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ CutScene::CutScene()
+ {
+--- a/src/CutScenes/Scene.cpp
++++ b/src/CutScenes/Scene.cpp
+@@ -19,7 +19,7 @@
+ 
+ #include <globals.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ Scene::Scene()
+ {
+--- a/src/FileClasses/Cpsfile.cpp
++++ b/src/FileClasses/Cpsfile.cpp
+@@ -21,8 +21,8 @@
+ 
+ #include <misc/exceptions.h>
+ 
+-#include <SDL.h>
+-#include <SDL_endian.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+--- a/src/FileClasses/Decode.cpp
++++ b/src/FileClasses/Decode.cpp
+@@ -19,12 +19,12 @@
+ 
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ 
+ void memcpy_overlap(unsigned char *dst, unsigned char *src, unsigned cnt)
+--- a/src/FileClasses/Pakfile.cpp
++++ b/src/FileClasses/Pakfile.cpp
+@@ -20,8 +20,8 @@
+ 
+ #include <stdlib.h>
+ #include <string>
+-#include <SDL_endian.h>
+-#include <SDL.h>
++#include <SDL2/SDL_endian.h>
++#include <SDL2/SDL.h>
+ 
+ 
+ /// Constructor for Pakfile
+--- a/src/Game.cpp
++++ b/src/Game.cpp
+@@ -67,7 +67,7 @@
+ #include <algorithm>
+ #include <sstream>
+ #include <iomanip>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ Game::Game() {
+     currentZoomlevel = settings.video.preferredZoomLevel;
+--- a/src/GameInterface.cpp
++++ b/src/GameInterface.cpp
+@@ -29,7 +29,7 @@
+ 
+ #include <misc/draw_util.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ GameInterface::GameInterface() : Window(0,0,0,0) {
+     pObjectContainer = nullptr;
+--- a/src/MapEditor/MapEditorInterface.cpp
++++ b/src/MapEditor/MapEditorInterface.cpp
+@@ -46,7 +46,7 @@
+ 
+ #include <misc/draw_util.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ 
+ MapEditorInterface::MapEditorInterface(MapEditor* pMapEditor)
+--- a/src/MapSeed.cpp
++++ b/src/MapSeed.cpp
+@@ -19,7 +19,7 @@
+ 
+ #include <string.h>
+ #include <stdlib.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include "MapSeed.h"
+ 
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -50,8 +50,8 @@
+ 
+ #include <CutScenes/Intro.h>
+ 
+-#include <SDL.h>
+-#include <SDL_rwops.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
+ #include <iostream>
+ #include <typeinfo>
+ #include <future>
+--- a/src/FileClasses/IndexedTextFile.cpp
++++ b/src/FileClasses/IndexedTextFile.cpp
+@@ -20,7 +20,7 @@
+ #include <misc/string_util.h>
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdio.h>
+ #include <string>
+ #include <algorithm>
+--- a/src/FileClasses/Shpfile.cpp
++++ b/src/FileClasses/Shpfile.cpp
+@@ -20,7 +20,7 @@
+ #include <FileClasses/Palette.h>
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+--- a/src/FileClasses/Wsafile.cpp
++++ b/src/FileClasses/Wsafile.cpp
+@@ -19,7 +19,7 @@
+ #include <FileClasses/Decode.h>
+ #include <FileClasses/Palette.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+--- a/src/misc/FileSystem.cpp
++++ b/src/misc/FileSystem.cpp
+@@ -23,9 +23,9 @@
+ #include <algorithm>
+ #include <ctype.h>
+ 
+-#include <SDL.h>
+-#include <SDL_rwops.h>
+-#include <SDL_filesystem.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_rwops.h>
++#include <SDL2/SDL_filesystem.h>
+ 
+ #ifdef _WIN32
+ #include <io.h>
+--- a/src/misc/IFileStream.cpp
++++ b/src/misc/IFileStream.cpp
+@@ -21,7 +21,7 @@
+ 
+ #include <string.h>
+ #include <stdio.h>
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ 
+ #ifdef _WIN32
+     #include <windows.h>
+--- a/src/misc/OFileStream.cpp
++++ b/src/misc/OFileStream.cpp
+@@ -21,7 +21,7 @@
+ 
+ #include <string.h>
+ #include <stdio.h>
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ 
+ #ifdef _WIN32
+     #include <windows.h>
+--- a/src/misc/md5.cpp
++++ b/src/misc/md5.cpp
+@@ -31,9 +31,9 @@
+ #include <misc/md5.h>
+ 
+ #include <string.h>
+-#include <stdio.h>
+-
+-#include <SDL_rwops.h>
++#include <stdio.h>
++
++#include <SDL2/SDL_rwops.h>
+ 
+ /*
+  * 32-bit integer manipulation macros (little endian)
+--- a/src/misc/sound_util.cpp
++++ b/src/misc/sound_util.cpp
+@@ -6,7 +6,7 @@
+ 
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ #include <stdlib.h>
+ #include <memory.h>
+ 
+--- a/src/FileClasses/Icnfile.cpp
++++ b/src/FileClasses/Icnfile.cpp
+@@ -20,7 +20,7 @@
+ 
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+--- a/src/FileClasses/MentatTextFile.cpp
++++ b/src/FileClasses/MentatTextFile.cpp
+@@ -20,7 +20,7 @@
+ #include <misc/string_util.h>
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdio.h>
+ #include <string>
+ #include <algorithm>
+--- a/src/FileClasses/Vocfile.cpp
++++ b/src/FileClasses/Vocfile.cpp
+@@ -23,7 +23,7 @@
+ #include <FileClasses/Vocfile.h>
+ 
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ #include <stdlib.h>
+ #include <memory.h>
+ #include <stdio.h>
+--- a/src/FileClasses/adl/sound_adlib.cpp
++++ b/src/FileClasses/adl/sound_adlib.cpp
+@@ -52,8 +52,8 @@
+ #include <string.h>
+ #include <math.h>
+ 
+-#include <SDL_mixer.h>
+-#include <SDL_endian.h>
++#include <SDL2/SDL_mixer.h>
++#include <SDL2/SDL_endian.h>
+ 
+ 
+ #include <FileClasses/adl/wemuopl.h>

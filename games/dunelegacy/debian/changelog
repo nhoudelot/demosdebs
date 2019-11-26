@@ -1,3 +1,11 @@
+dunelegacy (0.96.4-0ddebs6) unstable; urgency=medium
+
+  * debian/rules : use flto
+  * configure.ac : change CFLAGS, update SDL2 and SDL_mixer detectio and link
+  * big patch to get correct include path for SDL2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 26 Nov 2019 02:56:39 +0100
+
 dunelegacy (0.96.4-0ddebs5) unstable; urgency=medium
 
   * update to standard version to 4.1.4
