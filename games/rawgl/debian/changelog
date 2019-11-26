@@ -1,3 +1,10 @@
+rawgl (0.2.1+git20190705-0ddebs2) unstable; urgency=medium
+
+  * cleanup makefile
+  * debian/rules :  add flto in flags
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 26 Nov 2019 15:31:22 +0100
+
 rawgl (0.2.1+git20190705-0ddebs1) unstable; urgency=medium
 
   * Upstream update
