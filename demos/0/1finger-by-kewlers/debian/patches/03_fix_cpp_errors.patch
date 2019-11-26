@@ -5,7 +5,7 @@ Last-Update: 2019-11-14
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/rubber1.0/Rubber.cpp
 +++ b/rubber1.0/Rubber.cpp
-@@ -24,7 +24,7 @@
+@@ -25,7 +25,7 @@
  
  	va_start(ap, fmt);
  	vsprintf(buf, fmt, ap);

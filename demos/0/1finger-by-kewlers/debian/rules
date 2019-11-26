@@ -2,13 +2,14 @@
 # -*- makefile -*-
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -flto
+export DEB_CXXFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
-ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu"
-    export DEB_CXXFLAGS_MAINT_APPEND  = -march=core2
-endif
 
 %:
 	dh $@ --parallel
+
 override_dh_install:
 	dh_install
 	pandoc -s -t man -f markdown debian/1finger-by-kewlers.6.md -o debian/1finger-by-kewlers.6

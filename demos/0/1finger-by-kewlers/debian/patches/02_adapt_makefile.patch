@@ -13,8 +13,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -CFLAGS = -O2 -ffast-math -fomit-frame-pointer -Irubber1.0
 -CXXFLAGS = -O2 -ffast-math -fomit-frame-pointer -Irubber1.0 -std=c++0x
 -LIBS = /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut -lGLU -lGL -lm
-+CFLAGS += -O3 -ffast-math -flto -pipe -Irubber1.0 $(shell pkgconf --cflags glu)
-+CXXFLAGS += -O3 -ffast-math -flto -pipe -Irubber1.0 -std=c++11 $(shell pkgconf --cflags glu)
++CFLAGS += -Wall -pipe -Irubber1.0 $(shell pkgconf --cflags glu)
++CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell pkgconf --cflags glu)
 +LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell pkgconf --libs glu) -lm
  
  OBJ = test3d.o Kewlmation.o \
@@ -40,7 +40,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): $(OBJ)
-+	$(CXX) -flto -o $@ $(OBJ) $(LDFLAGS)
++	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
  
  clean:
 -	-rm $(OBJ) onefinger

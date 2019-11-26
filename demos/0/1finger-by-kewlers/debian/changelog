@@ -1,8 +1,17 @@
+1finger-by-kewlers (1.0+3-0ddebs1) unstable; urgency=medium
+
+  * to utf8 some file
+  * uncrustify some sources
+  * cleanup makefile
+  * debian/rules : added flto flags
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 26 Nov 2019 16:22:10 +0100
+
 1finger-by-kewlers (1.0+2-0ddebs1) unstable; urgency=medium
 
   * compile with libbass-dev
   * removed resources/
-  * debian/control : removed manual libbass dependencie as it's now done via
+  * debian/control : removed manual libbass dependency as it's now done via
    dh_shlibdeps
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Nov 2019 11:32:55 +0100
