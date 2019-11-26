@@ -1,5 +1,4 @@
 01_adapt_makefile.patch
-02_widescreenratio.patch
 03_adapthdatapath.patch
 04_adapt_to_png16.patch
 05_remove_fullscreen.patch

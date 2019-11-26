@@ -1,3 +1,11 @@
+aeronautism-by-cyberneticgenetics (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * cleanup makefile
+  * uncrustify sources
+  * debian/rules : add flto
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 26 Nov 2019 22:58:49 +0100
+
 aeronautism-by-cyberneticgenetics (1.0-0ddebs4) unstable; urgency=medium
 
   * update to standard version to 4.1.4
