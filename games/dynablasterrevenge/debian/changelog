@@ -1,3 +1,9 @@
+dynablasterrevenge (1.0.2-0ddebs2) unstable; urgency=medium
+
+  * debian/rules : add lto flags
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 26 Nov 2019 11:00:52 +0100
+
 dynablasterrevenge (1.0.2-0ddebs1) unstable; urgency=medium
 
   * Initial release
