@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -14,11 +14,12 @@
+@@ -14,19 +14,20 @@
  #
  # Vars
  #
@@ -18,6 +18,18 @@
  #
  # Config
  #
+ 
+-ifeq ($(strip $(SDLVERSION)),) 
+-$(error SDL is missing) 
+-else 
+-$(warning Detected SDL version $(SDLVERSION)) 
++ifeq ($(strip $(SDLVERSION)),)
++$(error SDL is missing)
++else
++$(warning Detected SDL version $(SDLVERSION))
+ endif
+ 
+ ifeq ($(strip $(SDLVERSION)),)
 @@ -56,34 +57,54 @@
  $(error SDL version $(SDL_MAJ_REQ).$(SDL_MIN_REQ).$(SDL_MIC_REQ) is required)
  endif
@@ -54,7 +66,7 @@
  	@echo "XOBJ=$(XOBJ)" >> Makefile.global
 -	@echo "CFLAGS=-g -ansi -pedantic -Wall -W -O2 -I $(ROOTDIR)/include $(shell sdl-config --cflags)" >> Makefile.global
 -	@echo "LDFLAGS=-lz $(shell sdl-config --libs)" >> Makefile.global
-+	@echo "CFLAGS+= -O3 -flto -Wall -ffast-math -std=gnu90 -pedantic -W -I $(ROOTDIR)/include $(shell sdl-config --cflags)" >> Makefile.global
++	@echo "CFLAGS+= -Wall -pipe -std=gnu90 -pedantic -W -I $(ROOTDIR)/include $(shell sdl-config --cflags)" >> Makefile.global
 +	@echo "LDFLAGS+=-lz $(shell sdl-config --libs)" >> Makefile.global
  	@echo "CC=gcc" >> Makefile.global
 -	@echo "CPP=gcc -E" >> Makefile.global
