@@ -11,7 +11,7 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC := gcc
-+CFLAGS += -flto -Wall -W -pedantic $(shell pkgconf gl sdl SDL_mixer --cflags) -O3 -std=gnu90 -ffast-math
++CFLAGS += -Wall -pipe -pedantic $(shell pkgconf gl sdl SDL_mixer --cflags) -std=gnu90
 +LDFLAGS += -L/usr/X11R6/lib $(shell pkgconf gl sdl SDL_mixer --libs) -lm
 +
 +TARGET   := association-by-cyberneticgenetics
