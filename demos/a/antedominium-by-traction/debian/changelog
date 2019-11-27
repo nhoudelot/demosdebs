@@ -1,3 +1,11 @@
+antedominium-by-traction (1.0+2-0ddebs1) unstable; urgency=medium
+
+  * sources to utf8
+  * uncrustify sources
+  * cleanup makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 27 Nov 2019 02:09:17 +0100
+
 antedominium-by-traction (1.0+1-0ddebs1) unstable; urgency=medium
 
   * removed resources on root package

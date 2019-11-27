@@ -1,2 +1,2 @@
-01_adapt_makefile.diff
-02_adapt_source.diff
+01_adapt_makefile.patch
+02_adapt_path.patch
