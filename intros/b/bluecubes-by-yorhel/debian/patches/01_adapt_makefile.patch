@@ -4,7 +4,7 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS   += -O3 -flto -Wall -ffast-math -std=c99 -pipe -pedantic $(shell pkgconf glu sdl sdl --cflags)
++CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell pkgconf glu sdl sdl --cflags)
 +LDFLAGS  += $(shell pkgconf glu sdl sdl --libs) -lm -pipe
 +#variable de nettoyage
 +RM_F := rm -f
