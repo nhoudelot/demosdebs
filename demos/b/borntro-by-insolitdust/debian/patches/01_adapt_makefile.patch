@@ -1,15 +1,15 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,5 +1,42 @@
+@@ -1,5 +1,41 @@
 -borntro: main.cc xmodelib.cc texturelib.cpp idscroller.cc timerlib.cpp    
 -	@echo Compiling Insolit Dust BoRnTrO...
 -	g++ -o borntro -w -g -s -O3 -march=native main.cc xmodelib.cc texturelib.cpp idscroller.cc timerlib.cpp `sdl-config --static-libs --cflags` -lSDL_mixer
+-				
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
 +CXX   := g++
-+CFLAGS   += -O3 -flto -Wall -w -pipe -std=gnu90 -ffast-math
-+CXXFLAGS += -O3 -flto -Wall -w -pipe -std=gnu++98 -fabi-version=2 -ffast-math
++CXXFLAGS += -Wall -w -pipe -std=gnu++98 -fabi-version=2
 +TARGET   := borntro-by-insolitdust
 +
 +#variable de nettoyage
@@ -36,7 +36,7 @@
 + $(TARGET): main.cc xmodelib.cc texturelib.cpp idscroller.cc timerlib.cpp
 +	@echo Compiling Insolit Dust BoRnTrO
 +	g++ -o  $(TARGET) $(CXXFLAGS) main.cc xmodelib.cc texturelib.cpp idscroller.cc timerlib.cpp $(shell pkgconf sdl SDL_mixer --libs)
- 				
++
  	@echo Build finished. Run ./borntro
 +
 +clean:

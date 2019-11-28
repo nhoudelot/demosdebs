@@ -1,3 +1,11 @@
+borntro-by-insolitdust (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * uncrustify source
+  * cleanup makefile
+  * added flto flags to debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 27 Nov 2019 13:14:23 +0100
+
 borntro-by-insolitdust (1.0-0ddebs6) unstable; urgency=medium
 
   * update to standard version to 4.1.4
