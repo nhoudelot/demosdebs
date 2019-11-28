@@ -1,3 +1,12 @@
+chrysler-by-fitandbandwagon (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * removed resources/
+  * sources to UTF-8
+  * uncrustify sources
+  * cleanup makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Nov 2019 21:36:25 +0100
+
 chrysler-by-fitandbandwagon (1.0-0ddebs9) unstable; urgency=medium
 
   * update to standard version to 4.1.4

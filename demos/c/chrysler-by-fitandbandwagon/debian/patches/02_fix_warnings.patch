@@ -1,0 +1,293 @@
+--- a/pallot.c
++++ b/pallot.c
+@@ -1,6 +1,7 @@
+ #include <math.h>
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <string.h>
+ 
+ #ifndef M_PI
+ #define M_PI 3.1415927
+--- a/stripes.c
++++ b/stripes.c
+@@ -2,6 +2,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <math.h>
++#include <string.h>
+ 
+ #define LEV     6       // 2^...
+ #define KOR     47
+@@ -30,7 +31,7 @@
+ void stripes_osa(unsigned char *pbuf, int n)
+ {
+ 	static int p=0, r1=1,r2=1;
+-	static tmp=0;
++	static int tmp=0;
+ 
+ 	p++;
+ 	if(p == 48)
+@@ -43,7 +44,7 @@
+ 
+ 	tmp=n;
+ 
+-	stripes_install(pbuf, kooste, tmp, 140+30*sin(2*3.1415*n/400), r1, r2, p);
++	stripes_install(pbuf, (unsigned char *)kooste, tmp, 140+30*sin(2*3.1415*n/400), r1, r2, p);
+ }
+ 
+ void stripes_install(unsigned char *buf, unsigned char *stripe, int xoff, int yoff, int r1, int r2, int p)
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -50,6 +50,7 @@
+ #endif
+ #include "sd_main.h"
+ #include "sd_mix.h"
++#include <string.h>
+ 
+ typedef struct SAMPLEINFOBLOCK {
+ 	signed char *data;
+@@ -99,7 +100,7 @@
+ /* "Ottaa" samplen. Muistia ei varata tässä, joten olis ihan kiva,
+    että se tila pysyisi varattuna. */
+ {
+-	mix_samples[snum].data = src;
++	mix_samples[snum].data = (signed char*)src;
+ 	mix_samples[snum].size = len;
+ 	mix_samples[snum].loopstart = loopstart;
+ 	mix_samples[snum].loopend = loopend;
+@@ -207,7 +208,7 @@
+ 	c->loopend = 0;
+ 	c->looptype = LOOP_OFF;
+ 	c->panning = PAN_MIDDLE;
+-	c->sampledata = (char *)0; /* NULL */
++	c->sampledata = (signed char *)0; /* NULL */
+ 	c->sample = 0;
+ 	c->sample16bit = 0;
+ 	c->newoffset = 1;
+@@ -219,7 +220,7 @@
+ 	s->loopstart = 0;
+ 	s->loopend = 0;
+ 	s->looptype = LOOP_OFF;
+-	s->data = (char *)0; /* NULL */
++	s->data = (signed char *)0; /* NULL */
+ } /* sd_mix_initchannel */
+ 
+ void sd_mix_init (int rate)
+@@ -681,6 +682,7 @@
+ 		lvol = (chan->volume*(255-chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		rvol = (chan->volume*(chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		if ((chan->samplesize>0) && (chan->volume>0))
++                {
+ #ifdef MIX_ASM
+ 			if (sd_mix_interpolation)
+ 				sd_asm_imixstereo(chan, dst32, length, lvol, rvol);
+@@ -691,6 +693,7 @@
+ 				sd_c_imixstereo(chan, dst32, length, lvol, rvol);
+ 			else
+ 				sd_c_mixstereo(chan, dst32, length, lvol, rvol);
++				}
+ #endif
+ 
+ 	} /* for channel */
+@@ -740,6 +743,7 @@
+ 
+ 		lvol = (chan->volume*255*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		if ((chan->samplesize>0) && (chan->volume>0))
++                {
+ #ifdef MIX_ASM
+ 			if (sd_mix_interpolation)
+ 				sd_asm_imixmono(chan, dst32, length, lvol);
+@@ -751,7 +755,7 @@
+ 			else
+ 				sd_c_mixmono(chan, dst32, length, lvol);
+ #endif
+-
++                }
+ 	} /* for channel */
+ 
+ 
+@@ -765,11 +769,10 @@
+ 		sd_asm_mono32tom8u(dst32, (unsigned char *)dst, length);
+ #else
+ 	if (to16bit)
+-		sd_c_mono32tom16i(dst32, dst, length);
++		sd_c_mono32tom16i(dst32, (signed short *)dst, length);
+ 	else
+ 		sd_c_mono32tom8u(dst32, (unsigned char *)dst, length);
+ #endif
+ 
+ } /* sd_mix_mono */
+ 
+-
+--- a/video.c
++++ b/video.c
+@@ -112,7 +112,7 @@
+ 	}
+ 
+ 	src=frame[no]*40*200;
+-	dst =buffer;
++	dst =(int*)buffer;
+ 
+ 	for (y=0; y<AH; y++)
+ 		for (x=0; x<(AW/8); x++) {
+@@ -129,7 +129,7 @@
+ 	unsigned char * bitti_muunnos;
+ 	int y;
+ 
+-	bitti_muunnos=(char *)malloc(256*8);
++	bitti_muunnos=(unsigned char *)malloc(256*8);
+ 	memset(bitti_muunnos,0,256*8);
+ 	for (y=0; y<256; y++) {
+ 		if ((y & 1)!=0)
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -183,7 +183,7 @@
+ int mzx_get(void *data)
+ {
+ 	pt_songpos=pt_rowcount=0;
+-	if (!pt_takemod((unsigned char *)data))
++	if (!pt_takemod((char *)data))
+ 	{ /* maailmanloppu */
+ 		return 0;
+ 	}
+@@ -215,7 +215,7 @@
+ {
+ 	static int ny=0,luku=0,off;
+ 
+-	short   *oso=stream;
++	short	*oso=(short *) stream;
+ 
+ 	if(laite==1)
+ 	{
+--- a/kokko.c
++++ b/kokko.c
+@@ -66,11 +66,11 @@
+ 	}
+ 
+ 	if (mode==0) {
+-		k=kerto_taulu1;
++		k=(char*)kerto_taulu1;
+ 	} else if (mode==1) {
+-		k=kerto_taulu2;
++		k=(char*)kerto_taulu2;
+ 	} else {
+-		k=kerto_taulu3;
++		k=(char*)kerto_taulu3;
+ 	}
+ 
+ 
+@@ -84,7 +84,7 @@
+ 			src++;
+ 		}
+ 
+-	zoom(old_screen,buffer,AW,AH,distance,distance,angle);
++	zoom((char*)old_screen,(char*)buffer,AW,AH,distance,distance,angle);
+ 
+ 	/*
+ 	   for (y=0; y<AH; y++)
+@@ -121,7 +121,7 @@
+ 	sx1=(160 << 8)-160*dx2;
+ 	sx1-=120*dx1;
+ 
+-	dst=dest;
++	dst=(unsigned char*)dest;
+ 
+ 	for (y=0; y<h; y++) {
+ 		sx2=sx1;
+--- a/main.c
++++ b/main.c
+@@ -223,7 +223,7 @@
+ 			if (modpos<700) {
+ 				displaybuf=buf;
+ 			} else {
+-				mosaic(buf,buf2);
++				mosaic((char *)buf,(char *)buf2);
+ 				displaybuf=buf2;
+ 			}
+ 		} else if (modpos<1200) {
+@@ -298,12 +298,12 @@
+ 
+ 			if(modpos%100/32%2==0)
+ 			{
+-				ratas_osa(buf,vbl-alkutikki,vbl-tikki);
++				ratas_osa((char*)buf,vbl-alkutikki,vbl-tikki);
+ 				tikki2=vbl*2-tikki;
+ 			}
+ 			else
+ 			{
+-				ratas_osa(buf,vbl-alkutikki,tikki2-vbl);
++				ratas_osa((char*)buf,vbl-alkutikki,tikki2-vbl);
+ 				tikki=vbl-(tikki2-vbl);
+ 			}
+ 
+@@ -323,7 +323,7 @@
+ 			filter_kokko(buf,vbl,244,0,0);
+ 
+ 			if (modpos>=2200) {
+-				mosaic(buf,buf2);
++				mosaic((char*)buf,(char*)buf2);
+ 				displaybuf=buf2;
+ 			} else {
+ 				displaybuf=buf;
+--- a/ratas.c
++++ b/ratas.c
+@@ -19,7 +19,7 @@
+ 
+ 	vuoro=cos(phase/20.0)*300/(1.0+phase/2.0);
+ 
+-	dratas(buf,160,96+vuoro,rot/50.0);
++	dratas((unsigned char*)buf,160,96+vuoro,rot/50.0);
+ 	for(n=0; n<5; n++)
+ 	{
+ 		if(phase<(n+1)*25)
+@@ -28,7 +28,7 @@
+ 
+ 		d=n*M_PI*2.0/5;
+ 		d2=-d;
+-		dratas(buf,160+cos(d)*60,96+sin(d)*60+vuoro,
++		dratas((unsigned char*)buf,160+cos(d)*60,96+sin(d)*60+vuoro,
+ 		       -d2-rot/50.0+2.0*M_PI/40);
+ 	}
+ 
+@@ -40,7 +40,7 @@
+ 
+ 		d=n*M_PI*2.0/5;
+ 		d2=-d;
+-		dratas(buf,160+cos(d)*120,96+sin(d)*120+vuoro,
++		dratas((unsigned char*)buf,160+cos(d)*120,96+sin(d)*120+vuoro,
+ 		       d2+rot/50.0+2.0*M_PI/40);
+ 	}
+ }
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -325,11 +325,11 @@
+ // levyltä, ei muistialuetta saa vapauttaa ja käyttää uudestaan,
+ // jos tässä on nolla!!!
+ 
+-unsigned char  *pt_errorstr;    // tässä sitten lukee jotain tai ei lue...
++char  *pt_errorstr; // tässä sitten lukee jotain tai ei lue...
+ 
+ unsigned char pt_modid[5];
+ 
+-unsigned char  *pt_modid_table[] =
++char  *pt_modid_table[] =
+ {"2CHN", "4CHN", "M.K.", "M!K!", "FLT4", "FLT8", "OCTA", "6CHN", "8CHN",
+  "10CH", "12CH", "14CH", "16CH", "18CH", "20CH", "22CH",
+  "24CH", "26CH", "28CH", "30CH", "32CH", "STOP" };
+@@ -501,14 +501,14 @@
+ 
+ 			if (pt_loope[i] > 2)
+ 			{
+-				sd_getsample(i, &rb_src[rb_ofs], pt_slen[i],
++				sd_getsample(i, (char*)&rb_src[rb_ofs], pt_slen[i],
+ 				             pt_loops[i],
+ 				             pt_loops[i] + pt_loope[i],
+ 				             LOOP_NORMAL);
+ 			}
+ 			else
+ 			{
+-				sd_getsample(i, &rb_src[rb_ofs], pt_slen[i],
++				sd_getsample(i, (char*)&rb_src[rb_ofs], pt_slen[i],
+ 				             pt_loops[i],
+ 				             pt_loops[i] + pt_loope[i],
+ 				             LOOP_OFF);
