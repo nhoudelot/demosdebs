@@ -21,8 +21,8 @@
 -LIB = `/usr/local/bin/sdl-config --static-libs` /sw/lib/libjpeg.a -lm
 +SHELL := /bin/sh
 +CC := gcc
-+CFLAGS += -Wall -ffast-math $(shell pkgconf sdl gl libjpeg --cflags) -std=gnu90 -pipe
-+LDFLAGS += $(shell pkgconf sdl gl libjpeg --libs) -lm -pipe
++CFLAGS += -Wall $(shell pkgconf sdl gl libjpeg --cflags) -std=gnu90 -pipe
++LDFLAGS += $(shell pkgconf sdl gl libjpeg --libs) -lm
 +MZX := cool_mzx/cool_mzx.a
 +OBJ := main.o jpeg.o kukat.o mcubes.o halftone.o tolppa.o
 +

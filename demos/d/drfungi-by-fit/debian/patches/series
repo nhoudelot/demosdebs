@@ -1,5 +1,5 @@
-01_adapt_makefile.diff
+01_adapt_makefile.patch
 02_remove_uglyifdef.diff
-03_change_path_data.diff
-04_fix_warning.diff
+03_adapt_path.patch
+04_fix_warnings.patch
 05_add_title_to_window.diff

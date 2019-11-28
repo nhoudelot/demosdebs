@@ -1,0 +1,161 @@
+--- a/jpeg.c
++++ b/jpeg.c
+@@ -4,6 +4,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <jpeglib.h>
++#include <string.h>
+ 
+ unsigned char *loadJPG(char *path,int *width,int *height)
+ {
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -45,6 +45,7 @@
+ #endif
+ 
+ #include <math.h>
++#include <string.h>
+ #ifdef MIX_ASM
+ #include "sd_amix.h"
+ #endif
+@@ -224,7 +225,7 @@
+ 
+ void sd_mix_init (int rate)
+ {
+-	int i,n,m;
++	int i;
+ 
+ 	sd_mix_rate = rate;
+ 	for (i=0; i<SD_MAXCHANNELS; i++)
+@@ -659,7 +660,6 @@
+ {
+ 	signed int *dst32;
+ 	signed int i, c, lvol, rvol;
+-	signed int left, right;
+ 	signed short *dst;
+ 	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+@@ -681,6 +681,7 @@
+ 		lvol = (chan->volume*(255-chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		rvol = (chan->volume*(chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		if ((chan->samplesize>0) && (chan->volume>0))
++		{
+ #ifdef MIX_ASM
+ 			if (sd_mix_interpolation)
+ 				sd_asm_imixstereo(chan, dst32, length, lvol, rvol);
+@@ -692,7 +693,7 @@
+ 			else
+ 				sd_c_mixstereo(chan, dst32, length, lvol, rvol);
+ #endif
+-
++		}
+ 	} /* for channel */
+ 
+ 	dst32 = mix_buffer32;
+@@ -718,8 +719,7 @@
+ void sd_mix_mono (unsigned char *dest, int length, int to16bit)
+ {
+ 	signed int *dst32;
+-	signed int i, c, lvol, rvol;
+-	signed int left, right;
++	signed int i, c, lvol;
+ 	unsigned char *dst;
+ 	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+--- a/main.c
++++ b/main.c
+@@ -31,7 +31,7 @@
+ 
+ int main(int argc,char *argv[])
+ {
+-	int quit=0,n,flags=SDL_OPENGL|SDL_HWSURFACE|SDL_FULLSCREEN;
++	int quit=0,flags=SDL_OPENGL|SDL_HWSURFACE|SDL_FULLSCREEN;
+ 	SDL_Event e;
+ 	double mp=0,oldtimer=0.0,oldtimer2=0.0,oldtimer3=0.0,d;
+ 
+@@ -187,7 +187,7 @@
+ init()
+ {
+ 	double dx,dy;
+-	int x,y,n,i;
++	int x,y,n;
+ 	GLenum tyyppo;
+ 	unsigned char   *data,tmp;
+ 	static unsigned char ympara[256*256*4];
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -11,6 +11,8 @@
+ 
+ #include "cool_mzx.h"
+ #include "sd_main.h"
++#include "sd_mix.h"
++#include "sd_ns.h"
+ #include "pt.h"
+ #include <SDL/SDL.h>
+ 
+@@ -135,8 +137,6 @@
+ 
+ Uint32 timeri(Uint32 interval)
+ {
+-	static int i, sanbale;
+-
+ 	if(!laite)
+ 	{
+ 		pt_play();
+@@ -197,8 +197,6 @@
+ /*      Aloittaa soiton ja käynnistää timerin taajuudella freq  */
+ void mzx_start(int freq)
+ {
+-	int tavut,n,pois=0;
+-
+ 	tix = SDL_GetTicks();
+ 	//vbiInit(&vbiproc0, &vbiproc1, &vbiproc2);
+ 
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -43,6 +43,9 @@
+  */
+ 
+ #include "sd_main.h"
++#include <stdlib.h>
++#include <string.h>
++
+ 
+ #define pt_maxchannels 32
+ #define pt_periodmin 27
+@@ -344,7 +347,7 @@
+ // alustetaan ne muuttujat
+ {
+ 
+-	int c, i, j;
++	int c, i;
+ 
+ 	for (c=0; c<32; c++)
+ 	{
+@@ -534,7 +537,6 @@
+ void pt_play (void)
+ {
+ 	int c, i, oldvbtempo, cmdprm;
+-	long l;
+ 	unsigned char *row; // osoitin riville
+ 	unsigned char sm, nt, cmd, prm;
+ 
+@@ -763,7 +765,7 @@
+ 				i = pt_curvol[c] +
+ 				    pt_tremolotable[pt_trmc[c]]*pt_trmd[c] / 127;
+ 				pt_trmc[c] = (pt_trmc[c]+pt_trms[c]) & 63;
+-				if (i<0) i=0; if (i>64) i=64;
++				if (i<0) {i=0;} if (i>64) {i=64;}
+ 				sd_setvolume(i);
+ 				break;
+ 			case 0xA00: dovolslideandbehappy:
+--- a/cool_mzx/sd_ns.h
++++ b/cool_mzx/sd_ns.h
+@@ -8,6 +8,7 @@
+          0.01 - everything is new
+ 
+  */
++int sd_ns_init ();
+ 
+ #ifndef SD_NS_H
+ #define SD_NS_H

@@ -1,10 +1,7 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-
-ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu"
-    export DEB_CFLAGS_MAINT_APPEND  = -march=core2
-endif
+#flto dont work in this package
 
 %:
 	dh $@

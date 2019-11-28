@@ -11,13 +11,6 @@
  
  extern GLint gl_names[];
  
-@@ -117,4 +112,4 @@
- 
-     glPopMatrix();
-     glDisable(GL_BLEND);
--}
-\ No newline at end of file
-+}
 --- a/main.c
 +++ b/main.c
 @@ -1,14 +1,9 @@
