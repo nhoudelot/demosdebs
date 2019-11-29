@@ -9,18 +9,12 @@
  
  FMOD_SYSTEM *system;
  FMOD_SOUND *fsound;
-@@ -43,7 +43,7 @@
- fsound = 0;
- FMOD_System_Create(&system);
- FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
--FMOD_System_CreateSound(system, "music.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
-+FMOD_System_CreateSound(system, "/usr/share/itsfullofstars-by-traction/music.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
+@@ -44,7 +44,7 @@
+ 	fsound = 0;
+ 	FMOD_System_Create(&system);
+ 	FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
+-	FMOD_System_CreateSound(system, "music.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
++	FMOD_System_CreateSound(system, "/usr/share/itsfullofstars-by-traction/music.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
  
  	return true;
  }
-@@ -63,4 +63,4 @@
- FMOD_System_Close(system);
- FMOD_System_Release(system);
- }
-- 
-+ 

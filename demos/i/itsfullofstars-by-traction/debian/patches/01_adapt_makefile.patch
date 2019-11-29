@@ -106,8 +106,8 @@
 +
 +TARGET = itsfullofstars-by-traction
 +LDFLAGS += -lm
-+CFLAGS += -O3 -Wall -ffast-math -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu90 -pipe
-+CXXFLAGS += -O3 -Wall -ffast-math -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu++98 -fabi-version=2  -pipe -fpermissive
++CFLAGS += -Wall -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu90 -pipe
++CXXFLAGS += -Wall -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu++98 -fabi-version=2  -pipe -fpermissive
 +
 +ifeq ($(FULLSCREEN),TRUE)
 +	CFLAGS += -DFULLSCREEN
