@@ -1,3 +1,3 @@
-01_adapt_makefile.diff
+01_adapt_makefile.patch
 02_replace_mikmod_by_sdlmixer.diff
-03_change_data_path.diff
+03_adapt_path.patch

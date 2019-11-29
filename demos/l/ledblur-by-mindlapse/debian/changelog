@@ -1,3 +1,11 @@
+ledblur-by-mindlapse (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * remove resource from root
+  * uncrustify sources
+  * added flto to debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Nov 2019 00:33:42 +0100
+
 ledblur-by-mindlapse (1.0-0ddebs7) unstable; urgency=medium
 
   * update to standard version to 4.1.4

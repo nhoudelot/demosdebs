@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,16 +1,51 @@
+@@ -1,16 +1,50 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +
@@ -8,11 +8,10 @@
 -bin = opti_ledblur
 +TARGET := ledblur-by-mindlapse
 +
-+warn := -O3 -Wall -Wno-unused-variable
-+opt := -Wall -ffast-math
++warn := -Wall
 +
 +CC := gcc
-+CFLAGS += -std=gnu99 -pedantic $(warn) $(opt) -Isource $(shell pkgconf sdl SDL_mixer --cflags) -pipe
++CFLAGS += -std=gnu99 -pedantic $(warn) -Isource $(shell pkgconf sdl SDL_mixer --cflags) -pipe
 +LDFLAGS += $(shell pkgconf sdl SDL_mixer --libs) -lm
 +
 +#variable de nettoyage
@@ -41,12 +40,13 @@
 +endif
  
 -$(bin):	$(obj)
+-	$(CC) -o $@ $(obj) $(LDFLAGS)
 +export
 +
 +all: $(TARGET)
 +
 +$(TARGET):	$(obj)
- 	$(CC) -o $@ $(obj) $(LDFLAGS)
++	$(CC) $(CFLAGS) -o $@ $(obj) $(LDFLAGS)
  
 -.PHONY: clean
  clean:

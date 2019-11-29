@@ -41,9 +41,9 @@
 @@ -120,18 +120,14 @@
  void PlaySong(void) {
  	if(!play_music) return;
- 	
+ 
 -	Player_Start(mod);
--	
+-
 -	if(!(plr_pid = fork())) {
 -		atexit(Player_Stop);
 -
@@ -57,7 +57,7 @@
 +		fprintf(stderr, "failed to load %s:\n", MOD_FILENAME);
 +		exit(1);
  	}
- 	
+ 
 +	Mix_PlayMusic(musique,1);
 +
  	signal(SIGUSR1, sig_handler);
