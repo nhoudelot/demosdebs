@@ -1,3 +1,11 @@
+fracturesandrust-by-atomimaitokahvi (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * cleanup makefile
+  * uncrustify sources
+  * move flto flags in debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 29 Nov 2019 13:34:20 +0100
+
 fracturesandrust-by-atomimaitokahvi (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release

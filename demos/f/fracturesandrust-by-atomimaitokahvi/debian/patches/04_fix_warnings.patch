@@ -1,0 +1,22 @@
+--- a/main.c
++++ b/main.c
+@@ -1,7 +1,8 @@
+ /* main.c */
+ 
+-#include <SDL.h>
++#include <SDL/SDL.h>
+ #include <vorbis/vorbisfile.h>
++#include <unistd.h>
+ #include <math.h>
+ #include "main.h"
+ #include "script.h"
+--- a/input.c
++++ b/input.c
+@@ -1,6 +1,6 @@
+ /* input.c - human input for syncing etc */
+ 
+-#include <SDL.h>
++#include <SDL/SDL.h>
+ #include "input.h"
+ #include "interpolate.h"
+ 
