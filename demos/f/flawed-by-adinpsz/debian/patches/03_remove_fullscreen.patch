@@ -1,11 +1,11 @@
 --- a/Flawed/Sources/NEngine/Engine.cpp
 +++ b/Flawed/Sources/NEngine/Engine.cpp
 @@ -26,7 +26,7 @@
-         }
-     }
+ 		}
+ 	}
  
--    pWindow = new GLWindow(width, height, windowName, SDL_FULLSCREEN);
-+    pWindow = new GLWindow(width, height, windowName, false);
-     if ( pWindow == NULL )
-     {
-         std::cerr << "Fail to allocate Window memory";
+-	pWindow = new GLWindow(width, height, windowName, SDL_FULLSCREEN);
++	pWindow = new GLWindow(width, height, windowName, false);
+ 	if ( pWindow == NULL )
+ 	{
+ 		std::cerr << "Fail to allocate Window memory";

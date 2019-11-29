@@ -25,8 +25,8 @@
 +DEFINES += -O2
 +DEFINES_DBG += -ggdb -D_DEBUG
 +
-+CXXFLAGS += -O3 -flto -Wall -Wextra -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu++98 -fabi-version=2
-+CFLAGS += -O3 -flto -Wall -Wextra -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu90
++CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu++98 -fabi-version=2
++CFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu90
 +LDFLAGS += $(shell pkgconf --libs sdl glu glew fmodex)
  
  ifeq ($(DEBUG),yes)
@@ -93,7 +93,7 @@
 -	$(LD) $(LDFLAGS) $(OBJECTS) -o $@
 +$(TARGET): $(OBJECTS)
 +	@echo "\033[32m$(LD) ($(OBJECTS)) -> $(TARGET)\033[0m";
-+	$(LD) -flto $(OBJECTS) -o $@ $(LDFLAGS)
++	$(LD) $(OBJECTS) -o $@ $(LDFLAGS)
  
  .PHONY: clean mrproper
  
