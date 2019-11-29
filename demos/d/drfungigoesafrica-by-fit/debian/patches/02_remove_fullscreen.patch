@@ -1,0 +1,11 @@
+--- a/main.c
++++ b/main.c
+@@ -83,7 +83,7 @@
+ 	FILE    *fp;
+ 
+ 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
+-	SDL_SetVideoMode(640,480,32,SDL_OPENGL|SDL_FULLSCREEN|SDL_DOUBLEBUF);
++	SDL_SetVideoMode(800,600,32,SDL_OPENGL|SDL_DOUBLEBUF);
+ 	//SDL_SetVideoMode(640,480,32,SDL_OPENGL);
+ 	SDL_ShowCursor(0);
+ 	SDL_WM_SetCaption("Dr.Fungi goes Africa",0);

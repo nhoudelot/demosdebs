@@ -1,0 +1,99 @@
+--- a/Makefile
++++ b/Makefile
+@@ -3,8 +3,8 @@
+ SHELL := /bin/sh
+ CC := gcc
+ CFLAGS += -Wall -std=gnu90 -pipe
+-INC := $(shell pkgconf sdl libjpeg gl --cflags)
+-LDFLAGS += $(shell pkgconf sdl libjpeg gl --libs) -lm
++INC := $(shell pkgconf sdl2 libjpeg gl --cflags)
++LDFLAGS += $(shell pkgconf sdl2 libjpeg gl --libs) -lm
+ OBJ := main.o piraali.o piraali2.o jpeg.o tausta.o font.o stara.o rays.o \
+       pallot.o juttu.o cool_mzx/cool_mzx.a
+ HEADERS := include.h font.h tausta.h juttu.h pallot.h
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -11,7 +11,7 @@
+ ****************************************************************/
+ 
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include "cool_mzx.h"
+ #include "sd_main.h"
+ #include "pt.h"
+@@ -200,7 +200,7 @@
+ 	if(!laite)
+ 	{
+ 		SDL_Init(SDL_INIT_TIMER);
+-		SDL_SetTimer(jacaja, timeri);
++		SDL_AddTimer(jacaja, timeri,NULL);
+ 		return;
+ 	}
+ 	SDL_PauseAudio(0);
+@@ -251,7 +251,7 @@
+ {
+ 	if(!laite)
+ 	{
+-		SDL_SetTimer(0,NULL);
++		SDL_AddTimer(0,NULL,NULL);
+ 		return;
+ 	}
+ 
+--- a/main.c
++++ b/main.c
+@@ -1,7 +1,8 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_video.h>
+ #include "include.h"
+ #include "tausta.h"
+ #include "pallot.h"
+@@ -83,10 +84,13 @@
+ 	FILE    *fp;
+ 
+ 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
+-	SDL_SetVideoMode(800,600,32,SDL_OPENGL|SDL_DOUBLEBUF);
+-	//SDL_SetVideoMode(640,480,32,SDL_OPENGL);
++	SDL_Window *sdlWindow = SDL_CreateWindow("Dr.Fungi goes Africa",
++				SDL_WINDOWPOS_UNDEFINED,
++				SDL_WINDOWPOS_UNDEFINED,
++				800, 600,
++				SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
++	SDL_GLContext glcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_ShowCursor(0);
+-	SDL_WM_SetCaption("Dr.Fungi goes Africa",0);
+ 
+ #ifndef BLKSIZE
+ 	if(!mzx_init(44100, 4096))
+@@ -485,7 +489,7 @@
+ 		musasynk(HIT,tid);
+ 		musasynk(KICKBASS,tid);
+ 
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(sdlWindow);
+ 		while(SDL_PollEvent(&e)>0)
+ 		{
+ 			if(e.type==SDL_MOUSEBUTTONDOWN || e.type==SDL_QUIT ||
+@@ -495,6 +499,7 @@
+ 	}
+ 
+ 	mzx_close();
++	SDL_GL_DeleteContext(glcontext);
+ 	SDL_Quit();
+ 	return(EXIT_SUCCESS);
+ }
+--- a/cool_mzx/sd_dsp16.c
++++ b/cool_mzx/sd_dsp16.c
+@@ -9,7 +9,7 @@
+          2.9.2002: Some minor cleaning for SDL
+  */
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ 

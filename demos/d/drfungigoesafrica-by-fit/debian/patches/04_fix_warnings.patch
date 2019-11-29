@@ -1,0 +1,86 @@
+--- a/jpeg.c
++++ b/jpeg.c
+@@ -4,6 +4,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <jpeglib.h>
++#include <string.h>
+ 
+ unsigned char *loadJPG(char *path,int *width,int *height)
+ {
+--- a/tausta.c
++++ b/tausta.c
+@@ -1,7 +1,7 @@
+ 
+ #include "include.h"
+ #include "tausta.h"
+-
++#include <stdlib.h>
+ 
+ #define MAX_X 16
+ #define MAX_Y 16
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -52,6 +52,8 @@
+  */
+ 
+ #include <math.h>
++#include <stdlib.h>
++#include <string.h>
+ #include "sd_main.h"
+ #include "sd_mix.h"
+ #include "sdfx_delay.h"
+@@ -517,7 +519,7 @@
+ 	static int i;
+ 
+ #define BITS 16
+-#define RAND_MAX 0x7fff
++//#define RAND_MAX 0x7fff
+ 
+ /* dithering code by Paul Kellet / from musicdsp.org archives */
+ 
+@@ -649,4 +651,3 @@
+ 
+ } /* sd_mix_stereo */
+ 
+-
+--- a/cool_mzx/sdfx_lphp_filter.c
++++ b/cool_mzx/sdfx_lphp_filter.c
+@@ -1,6 +1,7 @@
+ 
+ #include <math.h>
+ #include <assert.h>
++#include <stdlib.h>
+ #include "sdfx_lphp_filter.h"
+ 
+ 
+--- a/cool_mzx/sdfx_formant_filter.c
++++ b/cool_mzx/sdfx_formant_filter.c
+@@ -1,6 +1,7 @@
+ 
+ #include <math.h>
+ #include <assert.h>
++#include <stdlib.h>
+ #include "sdfx_formant_filter.h"
+ 
+ 
+--- a/cool_mzx/sdfx_delay2.c
++++ b/cool_mzx/sdfx_delay2.c
+@@ -13,6 +13,7 @@
+ 
+ #include <math.h>
+ #include <assert.h>
++#include <stdlib.h>
+ #include "sdfx_delay2.h"
+ 
+ /* Sets delaytime and read pointer. The write pointer is not moved. */
+--- a/cool_mzx/sdfx_delay.c
++++ b/cool_mzx/sdfx_delay.c
+@@ -1,6 +1,7 @@
+ 
+ #include <math.h>
+ #include <assert.h>
++#include <stdlib.h>
+ #include "sdfx_delay.h"
+ 
+ 

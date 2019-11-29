@@ -12,7 +12,7 @@
 -OBJ = main.o piraali.o piraali2.o jpeg.o tausta.o font.o stara.o rays.o \
 +SHELL := /bin/sh
 +CC := gcc
-+CFLAGS += -O3 -flto -Wall -ffast-math -std=gnu90 -pipe
++CFLAGS += -Wall -std=gnu90 -pipe
 +INC := $(shell pkgconf sdl libjpeg gl --cflags)
 +LDFLAGS += $(shell pkgconf sdl libjpeg gl --libs) -lm
 +OBJ := main.o piraali.o piraali2.o jpeg.o tausta.o font.o stara.o rays.o \
@@ -47,7 +47,7 @@
 +all: $(TARGET)
 +
 +$(TARGET): $(OBJ)
-+	$(CC) -flto -o $@ $(OBJ) $(LDFLAGS)
++	$(CC) -o $@ $(OBJ) $(LDFLAGS)
  
  %.o: %.c $(HEADERS)
 -	$(CC) $(COPT) $(INC) -c $<
@@ -67,7 +67,7 @@
 @@ -1,21 +1,28 @@
 +SHELL := /bin/sh
 +CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
-+CFLAGS += -Wall -O3 -flto -ffast-math -funsigned-char -std=gnu90 -pipe
++CFLAGS += -Wall -funsigned-char -std=gnu90 -pipe
 +PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
 +
  OBJ = cool_mzx.o pt.o sd_dsp16.o sd_main.o sd_mix.o sd_ns.o sdfx_delay.o \

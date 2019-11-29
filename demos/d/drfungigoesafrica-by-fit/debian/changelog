@@ -1,3 +1,12 @@
+drfungigoesafrica-by-fit (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * sources to utf-8
+  * uncrustify sources
+  * cleanup makefile
+  * convert du SDL2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 29 Nov 2019 01:49:49 +0100
+
 drfungigoesafrica-by-fit (1.0-0ddebs10) unstable; urgency=medium
 
   * update to standard version to 4.1.4

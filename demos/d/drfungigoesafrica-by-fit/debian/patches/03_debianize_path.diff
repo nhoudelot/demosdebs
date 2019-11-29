@@ -1,25 +1,25 @@
 --- a/main.c
 +++ b/main.c
 @@ -100,7 +100,7 @@
-     }
+ 	}
  
-     /* Not a very elegant way of reading the file but there's no time... */
--    if((fp=fopen("data/afro.mod","rb"))==NULL)
-+    if((fp=fopen("/usr/share/drfungigoesafrica-by-fit/data/afro.mod","rb"))==NULL)
-     {
-         SDL_Quit();
-         fprintf(stderr,"Mod not found\n");
+ 	/* Not a very elegant way of reading the file but there's no time... */
+-	if((fp=fopen("data/afro.mod","rb"))==NULL)
++	if((fp=fopen("/usr/share/drfungigoesafrica-by-fit/data/afro.mod","rb"))==NULL)
+ 	{
+ 		SDL_Quit();
+ 		fprintf(stderr,"Mod not found\n");
 --- a/font.c
 +++ b/font.c
 @@ -18,7 +18,7 @@
-     glGenTextures(1,&font);
+ 	glGenTextures(1,&font);
  
-     glBindTexture(GL_TEXTURE_2D,font);
--    data=loadJPG("data/fontsor2smuut.jpg",&x,&y);
-+    data=loadJPG("/usr/share/drfungigoesafrica-by-fit/data/fontsor2smuut.jpg",&x,&y);
-     dada=malloc(x*y*4);
+ 	glBindTexture(GL_TEXTURE_2D,font);
+-	data=loadJPG("data/fontsor2smuut.jpg",&x,&y);
++	data=loadJPG("/usr/share/drfungigoesafrica-by-fit/data/fontsor2smuut.jpg",&x,&y);
+ 	dada=malloc(x*y*4);
  
-     for(n=0;n<x*y;n++)
+ 	for(n=0; n<x*y; n++)
 --- a/tausta.c
 +++ b/tausta.c
 @@ -14,18 +14,18 @@

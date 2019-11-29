@@ -1,4 +1,5 @@
-01_adapte_makefile.diff
-02_remove_fullscreen.diff
+01_adapt_makefile.patch
+02_remove_fullscreen.patch
 03_debianize_path.diff
-04_fix_c_warnings.diff
+04_fix_warnings.patch
+05_convert_to_SDL2.patch
