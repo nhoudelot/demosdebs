@@ -1,0 +1,57 @@
+--- a/main.c
++++ b/main.c
+@@ -112,21 +112,21 @@
+ 	int o_intro=-1,o_ring1=-1,o_stara=-1,o_kale=-1,o_tytsi=-1,o_greet=-1,
+ 	    o_cred1=-1,o_cred2=-1,o_travolta=-1,o_mosa=-1,o_bottle=-1;
+ 
+-	james=drawing_load("data/jamesbrown.txt");
+-	afro=drawing_load("data/afrogirl.txt");
++	james=drawing_load("/usr/share/hexpistols-by-fit/jamesbrown.txt");
++	afro=drawing_load("/usr/share/hexpistols-by-fit/afrogirl.txt");
+ 
+-	browni=cgm_load("data/browni.cgm");
+-	bootsy=cgm_load("data/bootsy.cgm");
+-	angels=cgm_load("data/ankels.cgm");
+-	fish1=cgm_load("data/fiske1.cgm");
+-	fish2=cgm_load("data/fiske2.cgm");
+-	trav=cgm_load("data/travolta.cgm");
+-	travb=cgm_load("data/travoltablk.cgm");
+-	bottle=cgm_load("data/bottles.cgm");
++	browni=cgm_load("/usr/share/hexpistols-by-fit/browni.cgm");
++	bootsy=cgm_load("/usr/share/hexpistols-by-fit/bootsy.cgm");
++	angels=cgm_load("/usr/share/hexpistols-by-fit/ankels.cgm");
++	fish1=cgm_load("/usr/share/hexpistols-by-fit/fiske1.cgm");
++	fish2=cgm_load("/usr/share/hexpistols-by-fit/fiske2.cgm");
++	trav=cgm_load("/usr/share/hexpistols-by-fit/travolta.cgm");
++	travb=cgm_load("/usr/share/hexpistols-by-fit/travoltablk.cgm");
++	bottle=cgm_load("/usr/share/hexpistols-by-fit/bottles.cgm");
+ 
+ 	pal=staraz_init();
+ 	dots_init();
+-	writeri_init("data/fontti.raw");
++	writeri_init("/usr/share/hexpistols-by-fit/fontti.raw");
+ 	rings_init();
+ 	mosaic_init(32);
+ 
+@@ -148,7 +148,7 @@
+ 	mzx_init();
+ 
+ 	musa=malloc(1000000);
+-	f=fopen("data/da_pope.mod","rb");
++	f=fopen("/usr/share/hexpistols-by-fit/da_pope.mod","rb");
+ 	fread(musa,1,1000000,f);
+ 	fclose(f);
+ 	mzx_get(musa);
+--- a/staraz.c
++++ b/staraz.c
+@@ -31,8 +31,8 @@
+ 
+ long *staraz_init(void)
+ {
+-	c1=cgm_load("data/stara.cgm");
+-	c2=cgm_load("data/stara2.cgm");
++	c1=cgm_load("/usr/share/hexpistols-by-fit/stara.cgm");
++	c2=cgm_load("/usr/share/hexpistols-by-fit/stara2.cgm");
+ 	return(c1->pal);
+ }
+ 

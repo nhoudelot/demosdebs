@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,16 +1,43 @@
+@@ -1,23 +1,57 @@
 +#variables de compilation
 +SHELL = /bin/sh
  MAKE = make
@@ -8,8 +8,8 @@
  
  # Change BUFSIZE for crappy systems that need a large audio buffer
 -CFLAGS = -O2 -ffast-math `sdl-config --cflags` -DNOAMIKA -DBUFSIZE=2048
-+CFLAGS += -O3 -flto -Wall -ffast-math $(shell sdl-config --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
-+LDFLAGS += $(shell sdl-config --libs) -lm -pipe
++CFLAGS += -Wall $(shell sdl-config --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
++LDFLAGS += $(shell sdl-config --libs) -lm
 +TARGET   = hexpistols-by-fit
 +#variable de nettoyage
 +RM_F = rm -f
@@ -43,13 +43,15 @@
 +all: $(TARGET)
 +
 +$(TARGET): $(OBJ) cool_mzx/cool_mzx.a
-+	$(CC) -flto -o $@ $(OBJ) cool_mzx/cool_mzx.a $(LDFLAGS)
++	$(CC) -o $@ $(OBJ) cool_mzx/cool_mzx.a $(LDFLAGS)
  
  cool_mzx/cool_mzx.a:
  	cd cool_mzx && $(MAKE)
-@@ -19,5 +46,12 @@
+ 
+ %.o: %.c $(INC)
  	$(CC) $(CFLAGS) -c $<
- 	
+-	
++
  clean:
 -	cd cool_mzx && make clean
 -	rm *.o hex_pistols *~
