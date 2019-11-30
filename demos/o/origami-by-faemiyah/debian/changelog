@@ -1,3 +1,10 @@
+origami-by-faemiyah (1.0-0ddebs10) unstable; urgency=medium
+
+  * cleanup configure.ac
+  * added flto flags to debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Nov 2019 12:38:42 +0100
+
 origami-by-faemiyah (1.0-0ddebs9) unstable; urgency=medium
 
   * update to standard version to 4.1.4

@@ -1,2 +1,3 @@
 01_change_or_add_resolutions.diff
 02_update_autotools.patch
+03_update_flags.patch

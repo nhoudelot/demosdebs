@@ -1,0 +1,14 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -35,11 +35,7 @@
+ AC_CHECK_GTK([2.4.10], [no])
+ AC_CHECK_SDL([1.2.4])
+ AC_CHECK_SDL_IMAGE([no])
+-AC_ADD_CCFLAG([-flto])
+-AC_ADD_CCFLAG([-O3])
+-AC_ADD_CCFLAG([-ffast-math])
+ AC_ADD_CCFLAG([-std=gnu90])
+-AC_ADD_LDFLAG([-flto])
+ AC_ADD_LIB([-lm])
+ 
+ # Vapaavalintaiset jutut
