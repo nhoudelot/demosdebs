@@ -1,3 +1,9 @@
+stickanimationengine4000-by-faemiyah (1.0-0ddebs6) unstable; urgency=medium
+
+  * moved flto to debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Nov 2019 16:27:02 +0100
+
 stickanimationengine4000-by-faemiyah (1.0-0ddebs5) unstable; urgency=medium
 
   * update to standard version to 4.1.4

@@ -40,7 +40,7 @@
  AC_CHECK_HEADER([inttypes.h],
  								[AC_DEFINE([SAE4_HAVE_INTTYPES_H],
  													 [],
-@@ -42,10 +49,21 @@
+@@ -42,10 +49,19 @@
  								[])
  
  
@@ -49,8 +49,6 @@
 +AC_TYPE_INT8_T
 +AC_TYPE_UINT32_T
 +AC_TYPE_UINT8_T
-+AC_ADD_CCFLAG([-flto])
-+AC_ADD_LDFLAG([-flto])
 +AC_ADD_LIB([-lm])
 +
  AC_INCORPORATE_OPENGL([SAE4_OPENGL], [yes])
