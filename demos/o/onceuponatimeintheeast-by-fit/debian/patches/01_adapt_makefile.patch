@@ -1,11 +1,15 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -6,14 +6,30 @@
- SDLPREFIX = 
+@@ -3,17 +3,33 @@
+ ARCH =
+ 
+ # If SDL is installed with some exceptional path or prefix
+-SDLPREFIX = 
++SDLPREFIX =
  
  CC = gcc
 -CFLAGS = -O2 -fomit-frame-pointer -Wall -ffast-math -std=c99 \
-+CFLAGS += -flto -O2 -fomit-frame-pointer -Wall -ffast-math -std=c99 \
++CFLAGS += -Wall -pipe -std=c99 \
   -fno-strict-aliasing `$(SDLPREFIX)sdl-config --cflags` -DBLKSIZE=4096 \
 - -DDOUBLEPIX
 -LDFLAGS = `$(SDLPREFIX)sdl-config --libs` -lpng -lz -lm
@@ -35,15 +39,6 @@
  OBJ = main.o halftone.o render.o noise.o png_wrap.o partikle.o putpix.o \
        heart.o overlay.o feissi.o rects.o cool_mzx/cool_mzx.a
  
-@@ -81,7 +97,7 @@
- export
- 
- $(TARGET): $(OBJ)
--	$(CC) $(OBJ) -o $@ $(LDFLAGS)
-+	$(CC) -flto $(OBJ) -o $@ $(LDFLAGS)
- 
- $(TARGET).gpe: $(TARGET)
- 	$(STRIP) $<
 @@ -91,5 +107,13 @@
  	cd cool_mzx && make
  
