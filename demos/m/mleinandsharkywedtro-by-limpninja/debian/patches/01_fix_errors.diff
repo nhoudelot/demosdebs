@@ -45,22 +45,14 @@
  {
 --- a/texture.h
 +++ b/texture.h
-@@ -17,7 +17,6 @@
-       width=0;
-       height=0;
-       max=0;
--
-       loadmagich( fn );
-     }
+@@ -28,6 +28,7 @@
  
-@@ -28,6 +27,7 @@
- 
-   void loadmagich( std::string fn )
-     {
-+      Magick::InitializeMagick(NULL);
-       Magick::Image mimage( fn );
-       width = mimage.size().width();
-       height = mimage.size().height();
+ void loadmagich( std::string fn )
+ {
++	Magick::InitializeMagick(NULL);
+ 	Magick::Image mimage( fn );
+ 	width = mimage.size().width();
+ 	height = mimage.size().height();
 --- a/view.cpp
 +++ b/view.cpp
 @@ -21,6 +21,7 @@
@@ -71,14 +63,6 @@
  
  using namespace CGLA;
  
-@@ -406,6 +407,7 @@
-       capturefake = 1;
-       printf("enabling capture support!\n");
-     }
-+
-   ssystem.load("DISCODEL.XM");
-   smoothCamera = Vec2d(0.0,-2.0);
-   glutInit( &argc, argv );
 --- a/SConstruct
 +++ b/SConstruct
 @@ -15,10 +15,9 @@

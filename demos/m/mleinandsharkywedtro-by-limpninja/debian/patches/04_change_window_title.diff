@@ -1,11 +1,11 @@
 --- a/view.cpp
 +++ b/view.cpp
-@@ -413,7 +413,7 @@
-   glutInit( &argc, argv );
-   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
-   glutInitWindowSize( 720, 576 );
--  glutCreateWindow("view");
-+  glutCreateWindow("mlein and sharky- wedtro");
-   capture = new Capture( 720, 576 );
+@@ -412,7 +412,7 @@
+ 	glutInit( &argc, argv );
+ 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
+ 	glutInitWindowSize( 720, 576 );
+-	glutCreateWindow("view");
++	glutCreateWindow("mlein and sharky- wedtro");
+ 	capture = new Capture( 720, 576 );
  
-   frend = new FontRenderer( "/usr/share/fonts/truetype/blomster/blomster.ttf" );
+ 	frend = new FontRenderer( "/usr/share/fonts/truetype/blomster/blomster.ttf" );
