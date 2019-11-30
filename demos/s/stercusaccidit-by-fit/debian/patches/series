@@ -1,2 +1,2 @@
-01_adapt_makefile.diff
-02_fixwarnings.diff
+01_adapt_makefile.patch
+02_fix_warnings.patch

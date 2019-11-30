@@ -1,0 +1,21 @@
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -52,6 +52,8 @@
+  */
+ 
+ #include <math.h>
++#include <stdlib.h>
++#include <string.h>
+ #include "sd_main.h"
+ #include "sd_mix.h"
+ 
+--- a/render.c
++++ b/render.c
+@@ -1,6 +1,7 @@
+ 
+ #include "render.h"
+ #include <string.h>
++#include <math.h>
+ 
+ #define XS 320
+ #define YS 200
