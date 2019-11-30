@@ -1,6 +1,6 @@
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -1,12 +1,30 @@
+@@ -1,16 +1,34 @@
 -CC = gcc
 -CFLAGS = -Wall -W -pedantic `pkg-config --cflags gtk+-3.0`
 -CLIBS = -L/usr/lib/nvidia-current-updates -lGL -lX11 -lXrandr -lm -lpng12 -lvorbisfile -lasound `pkg-config --libs gtk+-3.0`
@@ -13,8 +13,8 @@
 +#variables de compilation
 +SHELL   := /bin/sh
 +CC      := gcc
-+CFLAGS  := -Wall -O3 -flto -ffast-math -pipe $(shell pkgconf --cflags glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0)
-+LDFLAGS := $(shell pkgconf --libs glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
++CFLAGS  += -Wall -pipe $(shell pkgconf --cflags glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0)
++LDFLAGS += $(shell pkgconf --libs glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
 +TARGET  := livininabox-by-cyberneticgenetics
 +#variable de nettoyage
 +RM_F := rm -f
@@ -36,10 +36,15 @@
 +export
 +
 +$(TARGET): main.o texture.o mesh3d.o shader.o cg_music.o cg_x11.o cg_dialog.o matrix.o cg_time.o depthvideo.o face.o outline.o squares.o explosion.o tridlist.o bigcube.o livin.o
-+	$(CC) -flto *.o $(LDFLAGS) -o $(TARGET)
++	$(CC) *.o $(LDFLAGS) -o $(TARGET)
  
  # Common demo stuff
  main.o: main.c
+-	$(CC) main.c -c
++	$(CC) $(CFLAGS) main.c -c
+ texture.o: texture.c texture.h
+ 	$(CC) $(CFLAGS) texture.c -c
+ mesh3d.o: mesh3d.c mesh3d.h
 @@ -41,10 +59,16 @@
  	$(CC) $(CFLAGS) explosion.c -c
  bigcube.o: bigcube.c bigcube.h
