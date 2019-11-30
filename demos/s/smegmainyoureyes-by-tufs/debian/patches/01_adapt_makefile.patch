@@ -15,7 +15,7 @@
 -LIBS=`sdl-config --libs` -lGL -lGLU -lSDL_mixer `pkg-config libpng --libs`
 -TARGET=xl04_dem0f0
 +CXX := g++
-+CXXFLAGS += -O3 -flto -Wall -ffast-math -std=c++98 $(shell pkgconf SDL_mixer sdl libpng glu --cflags)
++CXXFLAGS += -Wall -std=c++98 $(shell pkgconf SDL_mixer sdl libpng glu --cflags)
 +LDFLAGS += $(shell pkgconf SDL_mixer sdl libpng glu --libs)
 +
 +RM_F := rm -f
@@ -30,17 +30,18 @@
 +BINDIR          := $(PREFIX)/bin
 +SHAREDIR        := $(PREFIX)/share
 +TARGETSHAREDIR  := $(PREFIX)/share/smegmainyoureyes-by-tufs
-+
+ 
+-all: $(OBJS) 
+-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LIBS)
 +ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + NUMJOBS := $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + MAKEFLAGS += -j$(NUMJOBS)
 +endif
 +
 +export
- 
- all: $(OBJS) 
--	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LIBS)
-+	$(CXX) -flto $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS)
++
++all: $(OBJS)
++	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS)
  clean:
 -	rm -f $(OBJS)
 +	-@$(RM_F) $(OBJS) $(TARGET)

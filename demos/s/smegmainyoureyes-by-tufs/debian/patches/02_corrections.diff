@@ -2,13 +2,13 @@
 +++ b/src/Bitmapfont.cpp
 @@ -61,7 +61,7 @@
  
-     // if c is lowercase, subtract 32 to make it uppercase
-     if ((int)c >= 97 && (int)c <= 122)
--        (int)c -= 32;
-+        c -= 32;
-     // special cases for æ, ø and å
-     else if (c == (int)'æ')
-         c = 'Æ';
+ 	// if c is lowercase, subtract 32 to make it uppercase
+ 	if ((int)c >= 97 && (int)c <= 122)
+-		(int)c -= 32;
++		c -= 32;
+ 	// special cases for Ã¦, Ã¸ and Ã¥
+ 	else if (c == (int)'Ã¦')
+ 		c = 'Ã†';
 --- a/src/PNGImage.cpp
 +++ b/src/PNGImage.cpp
 @@ -3,6 +3,7 @@

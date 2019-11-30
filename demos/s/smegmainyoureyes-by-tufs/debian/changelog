@@ -1,3 +1,12 @@
+smegmainyoureyes-by-tufs (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * sources to utf-8
+  * uncrustify sources
+  * flto flags to debian/rules
+  * cleanup makefile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Nov 2019 14:05:51 +0100
+
 smegmainyoureyes-by-tufs (1.0-0ddebs10) unstable; urgency=medium
 
   * update to standard version to 4.1.4

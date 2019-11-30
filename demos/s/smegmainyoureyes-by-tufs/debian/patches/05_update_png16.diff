@@ -1,11 +1,11 @@
 --- a/src/PNGImage.cpp
 +++ b/src/PNGImage.cpp
 @@ -53,7 +53,7 @@
-     }
+ 	}
  
-     // use libpngs default error handling
--    if (setjmp(png_ptr->jmpbuf))
-+    if (setjmp(png_jmpbuf(png_ptr)))
-         cerr << "PNG: setjmp() failed\n";
+ 	// use libpngs default error handling
+-	if (setjmp(png_ptr->jmpbuf))
++	if (setjmp(png_jmpbuf(png_ptr)))
+ 		cerr << "PNG: setjmp() failed\n";
  
-     png_init_io(png_ptr, fp);
+ 	png_init_io(png_ptr, fp);

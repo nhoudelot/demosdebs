@@ -1,4 +1,4 @@
-01_adapt_makefile.diff
+01_adapt_makefile.patch
 02_corrections.diff
 03_adapt_path.diff
 04_remove_fullscreen.diff
