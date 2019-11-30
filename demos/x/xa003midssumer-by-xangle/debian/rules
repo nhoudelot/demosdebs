@@ -1,10 +1,8 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-
-ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu"
-    export DEB_CXXFLAGS_MAINT_APPEND  = -march=core2
-endif
+export DEB_CXXFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 %:
 	dh $@ --parallel

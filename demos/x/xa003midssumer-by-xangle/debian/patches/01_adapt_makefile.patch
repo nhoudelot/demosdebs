@@ -3,17 +3,18 @@
 @@ -1,11 +1,12 @@
 -PROJECT = xa-003
 -EXEC = $(PROJECT)
+-CPPC = g++ 
 +SHELL = /bin/sh
 +PROJECT = xa003midssumer-by-xangle
 +EXE = $(PROJECT)
- CPPC = g++ 
++CPPC = g++
  
  # Compile flags ----------------------------------------------------------------
 -#FLAGS = -g -Wall
 -FLAGS = -O3 -s -Wall
 -#FLAGS = -Os -s
 +#CXXFLAGS = -g -Wall
-+CXXFLAGS += -O3 -flto -Wall -ffast-math -pipe -std=gnu++98 -fabi-version=2
++CXXFLAGS += -Wall -pipe -std=gnu++98 -fabi-version=2
 +#CXXFLAGS = -Os -s
  
  # DEBUG ------------------------------------------------------------------------

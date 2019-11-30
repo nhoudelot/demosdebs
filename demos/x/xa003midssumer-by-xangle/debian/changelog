@@ -1,3 +1,11 @@
+xa003midssumer-by-xangle (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * cleanup makefile
+  * uncrustify source
+  * move flto flag to debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Nov 2019 23:38:35 +0100
+
 xa003midssumer-by-xangle (1.0-0ddebs8) unstable; urgency=medium
 
   * update to standard version to 4.1.4

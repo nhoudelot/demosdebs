@@ -11,7 +11,7 @@
  	xio.video->update();
 @@ -78,10 +78,10 @@
  		xio.timer->delay(1000);
- 	
+ 
  	// Load textures
 -	xio.texture->loadAll("../data/textures/flowers");
 -	xio.texture->loadAll("../data/textures/dancers");
@@ -26,7 +26,7 @@
  	cout << "DEBUG | Size of loaded textures in memory: " << (float)xio.texture->kbytes/1000 << " MB." << endl;
 @@ -103,7 +103,7 @@
  	xdm.add(&end);
- 	
+ 
  	// Run demo
 -	xio.sound->play("../data/xa-003.xm");
 +	xio.sound->play("/usr/share/xa003midssumer-by-xangle/data/xa-003.xm");
