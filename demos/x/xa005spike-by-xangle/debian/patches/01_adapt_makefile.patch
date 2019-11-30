@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,30 +1,32 @@
+@@ -1,30 +1,33 @@
 -PROJECT = xa-005-spike
 -EXEC = $(PROJECT)
 -CPPC = g++
@@ -18,7 +18,8 @@
  
  # Compile flags ----------------------------------------------------------------
 -FLAGS = -O2 -s -Wall -DNOFILE
-+CFLAGS += -flto -Wall -ffast-math -DNOFILE -std=gnu++98 -fabi-version=2
++CFLAGS += -Wall -pipe -DNOFILE -std=gnu90
++CXXFLAGS += -Wall -pipe -DNOFILE -std=gnu++98 -fabi-version=2
  #FLAGS = -Wall -g -DDEVEL -DFILE_USAGE_LOG
 +TARGET   = xa005spike-by-xangle
 +#variable de nettoyage
@@ -44,7 +45,7 @@
  	OSXMAIN = ds/io/macosx/macosx_sdl.m
  endif
  
-@@ -35,28 +37,52 @@
+@@ -35,28 +38,52 @@
  	$(patsubst ds/%.cpp,ds/%.o,$(wildcard ds/*.cpp)) \
  	$(patsubst ds/utils/%.cpp,ds/utils/%.o,$(wildcard ds/utils/*.cpp)) \
  	$(patsubst ds/io/%.cpp,ds/io/%.o,$(wildcard ds/io/*.cpp)) \
@@ -78,7 +79,7 @@
 -	@echo "CC	$?"
 -	@$(CPPC) $(FLAGS) $(INC) -c $? -o $@
 -	
-+	$(CXX) $(CFLAGS) -c $? -o $@
++	$(CXX) $(CXXFLAGS) -c $? -o $@
 +
  %.o: %.c
 -	@echo "CC	$?"
@@ -92,7 +93,7 @@
 -	@rm -f $(EXEC)~
 -	@wc -c $(EXEC)
 -		
-+	$(CXX) $(CFLAGS) $(OBJECTS) $(LIBOBJECTS) $(OSXMAIN) -o $(TARGET) $(LDFLAGS)
++	$(CXX) $(CXXFLAGS) $(OBJECTS) $(LIBOBJECTS) $(OSXMAIN) -o $(TARGET) $(LDFLAGS)
 +	wc -c $(TARGET)
 +
  clean:

@@ -2,7 +2,7 @@
 +++ b/main.cpp
 @@ -31,7 +31,7 @@
  	DemoSystem* pDemoSystem;
- 	try {		
+ 	try {
  #ifdef NOFILE
 -		pDemoSystem = DemoSystem::Instance(argc, argv, "../demo.xpk", "demo.xml");
 +		pDemoSystem = DemoSystem::Instance(argc, argv, "/usr/share/xa005spike-by-xangle/demo.xpk", "demo.xml");
