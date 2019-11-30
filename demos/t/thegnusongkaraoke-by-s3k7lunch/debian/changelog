@@ -1,3 +1,12 @@
+thegnusongkaraoke-by-s3k7lunch (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * cleanup makefile
+  * sources to utf-8
+  * uncrustify source
+  * move flto to debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Nov 2019 16:56:03 +0100
+
 thegnusongkaraoke-by-s3k7lunch (1.0-0ddebs9) unstable; urgency=medium
 
   * update to standard version to 4.1.4

@@ -1,12 +1,12 @@
 --- a/sdl.c
 +++ b/sdl.c
 @@ -45,9 +45,6 @@
- 	0,
+ 	                                    0,
  #endif /* __PTC_ENABLE_CONVERSIONS__ */
- 	SDL_HWSURFACE | SDL_DOUBLEBUF
+ 	                                    SDL_HWSURFACE | SDL_DOUBLEBUF
 -#ifndef __PTC_WINDOWED__
--	| SDL_FULLSCREEN
+-	                                    | SDL_FULLSCREEN
 -#endif /* !__PTC_WINDOWED__ */
- 	);
+ 	                                    );
  	if (ptc_video_surface == NULL) {
  		return 0;

@@ -3,9 +3,17 @@
 @@ -12,7 +12,7 @@
  *******************************************************************************/
  void musik() {
-   usleep(1500000); //ugly hack
--  system("mpg123 gnusong.mp3");
-+  system("mplayer gnusong.mp3");
+ 	usleep(1500000); //ugly hack
+-	system("mpg123 gnusong.mp3");
++	system("mplayer gnusong.mp3");
  }
  
  int main(int argc,char *argv[]) {
+@@ -38,7 +38,3 @@
+ 	}
+ }
+ 
+-
+-
+-
+-

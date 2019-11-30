@@ -1,49 +1,40 @@
 --- a/main.cc
 +++ b/main.cc
 @@ -23,7 +23,7 @@
-     script myscript; //create a script object
-     gfx *pgfx = gfx::instance();
-     font *pfont = font::instance();
--    pfont->loadfont("font.pcx");
-+    pfont->loadfont((char *)"font.pcx");
-     pgfx->init();
-     if(argc<2) {
-         cout << "No file specified. Using default script.txt\n";
+ 		script myscript; //create a script object
+ 		gfx *pgfx = gfx::instance();
+ 		font *pfont = font::instance();
+-		pfont->loadfont("font.pcx");
++		pfont->loadfont((char *)"font.pcx");
+ 		pgfx->init();
+ 		if(argc<2) {
+ 			cout << "No file specified. Using default script.txt\n";
 --- a/gfx.cc
 +++ b/gfx.cc
-@@ -23,12 +23,13 @@
+@@ -23,7 +23,7 @@
  
  
  int gfx::init() {
--    if(! ptc_open("kareoke",WIDTH,HEIGHT) ) {
-+    if(! ptc_open((char *)"kareoke",WIDTH,HEIGHT) ) {
-         return 1;
-     }
-     else {
-         return 0;
--    }}
-+    }
+-	if(!ptc_open("kareoke",WIDTH,HEIGHT) ) {
++	if(! ptc_open((char *)"kareoke",WIDTH,HEIGHT) ) {
+ 		return 1;
+ 	}
+ 	else {
+@@ -116,4 +116,4 @@
+ 		memcpy(&screen[curry+xpos],sprite->data+datay,sprite->width*sizeof(int));
+ 	}
+ 	return 0;
+-}
+\ No newline at end of file
 +}
- 
- int gfx::putpixel(int x,int y,int r,int g,int b) {
-     screen[x+WIDTH*y]=(r<<16)|(g<<8)|(b);
-@@ -99,7 +100,7 @@
-                 image->data[i] = (palette[buf*3]<<16) | (palette[buf*3+1]<<8) | (palette[buf*3+2]);
-                 i++;
-             }
--        }
-+        }
-         fclose(file);
-         return 0;
-     }
 --- a/sdl.c
 +++ b/sdl.c
 @@ -107,7 +107,7 @@
  	if (SDL_PollEvent (&ptc_sdl_event)) {
  		switch (ptc_sdl_event.type) {
- 			case SDL_KEYDOWN: {
--				ptc_keypressed=SDL_GetKeyState(NULL);
-+				ptc_keypressed=(char *)SDL_GetKeyState(NULL);
- 				if (ptc_keypressed[SDLK_ESCAPE]==SDL_PRESSED) {
- 					ptc_close();
- 					exit(0);
+ 		case SDL_KEYDOWN: {
+-			ptc_keypressed=SDL_GetKeyState(NULL);
++			ptc_keypressed=(char *)SDL_GetKeyState(NULL);
+ 			if (ptc_keypressed[SDLK_ESCAPE]==SDL_PRESSED) {
+ 				ptc_close();
+ 				exit(0);

@@ -11,8 +11,8 @@
  CC = g++
 -LDFLAGS = -s
 -LIBS = -L/usr/lib -L/usr/local/lib -lSDL -lpthread
-+CFLAGS += $(shell sdl-config --cflags) -Wall -pipe -ffast-math -pipe -std=gnu90
-+CXXFLAGS += -Wall
++CFLAGS += $(shell sdl-config --cflags) -Wall -pipe -std=gnu90
++CXXFLAGS += -Wall -pipe
 +LIBS = -L/usr/lib $(shell sdl-config --libs) -lpthread
 +
 +INSTALL = install
@@ -37,9 +37,10 @@
  $(TARGET): $(OBJECTS)
  	$(CC) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(LIBS)
  
- clean:	
+-clean:	
 -	rm *.o
 -	rm $(TARGET)
++clean:
 +	-@$(RM_F) *.o $(TARGET)
  %.o:	%.cc
 -	$(CC) -Wall -I/usr/include -I/usr/local/include -c $<

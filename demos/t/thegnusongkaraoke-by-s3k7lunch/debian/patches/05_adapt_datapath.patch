@@ -3,26 +3,26 @@
 @@ -12,7 +12,7 @@
  *******************************************************************************/
  void musik() {
-   usleep(1500000); //ugly hack
--  system("mplayer gnusong.mp3");
-+  system("mplayer /usr/share/thegnusongkaraoke-by-s3k7lunch/gnusong.mp3");
+ 	usleep(1500000); //ugly hack
+-	system("mplayer gnusong.mp3");
++	system("mplayer /usr/share/thegnusongkaraoke-by-s3k7lunch/gnusong.mp3");
  }
  
  int main(int argc,char *argv[]) {
 @@ -23,11 +23,11 @@
-     script myscript; //create a script object
-     gfx *pgfx = gfx::instance();
-     font *pfont = font::instance();
--    pfont->loadfont((char *)"font.pcx");
-+    pfont->loadfont((char *)"/usr/share/thegnusongkaraoke-by-s3k7lunch/font.pcx");
-     pgfx->init();
-     if(argc<2) {
-         cout << "No file specified. Using default script.txt\n";
--        myscript.readscript("script.txt");
-+        myscript.readscript("/usr/share/thegnusongkaraoke-by-s3k7lunch/script.txt");
-     }
-     else {
-         cout << "Opening file: " << argv[1] <<endl;
+ 		script myscript; //create a script object
+ 		gfx *pgfx = gfx::instance();
+ 		font *pfont = font::instance();
+-		pfont->loadfont((char *)"font.pcx");
++		pfont->loadfont((char *)"/usr/share/thegnusongkaraoke-by-s3k7lunch/font.pcx");
+ 		pgfx->init();
+ 		if(argc<2) {
+ 			cout << "No file specified. Using default script.txt\n";
+-			myscript.readscript("script.txt");
++			myscript.readscript("/usr/share/thegnusongkaraoke-by-s3k7lunch/script.txt");
+ 		}
+ 		else {
+ 			cout << "Opening file: " << argv[1] <<endl;
 --- a/script.txt
 +++ b/script.txt
 @@ -1,7 +1,7 @@
