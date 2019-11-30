@@ -1,3 +1,11 @@
+onedaymiracle-by-fit (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * cleanup makefile
+  * sources to utf-8
+  * uncrsutify sources
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Nov 2019 12:20:35 +0100
+
 onedaymiracle-by-fit (1.0-0ddebs9) unstable; urgency=medium
 
   * update to standard version to 4.1.4
