@@ -18,7 +18,7 @@
 -LFLAGS = 
 +#variables de compilation
 +
-+CFLAGS += -Wall -O2
++CFLAGS += -Wall -pipe
 +LDFLAGS +=
  
  CC = gcc
@@ -417,8 +417,7 @@
 +LDFLAGS += -lSDL -lm
  endif
  
--# SGI IRIX
-+#\A0SGI\A0IRIX
+ #Â SGIÂ IRIX
  ifeq ($(PLATFORM),irix_marq)
  CFLAGS += `sdl-config --cflags` -D__SURFACE32__ -ffast-math
 -LFLAGS += `sdl-config --libs` -lm
@@ -428,7 +427,7 @@
  # I386 Linux
  ifeq ($(PLATFORM),linux)
 -LFLAGS += -lSDL -lm
-+CFLAGS += $(shell sdl-config --cflags) -D__EMBED_TUNES__ -D__SURFACE32__ -std=gnu90  -ffast-math -pipe
++CFLAGS += $(shell sdl-config --cflags) -D__EMBED_TUNES__ -D__SURFACE32__ -std=gnu90
 +LDFLAGS += $(shell sdl-config --libs) -lm
  endif
  

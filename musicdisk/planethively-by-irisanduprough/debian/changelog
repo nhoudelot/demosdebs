@@ -1,3 +1,11 @@
+planethively-by-irisanduprough (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * sources to utf-8
+  * uncrustify sources
+  * put flto flags in debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Nov 2019 13:01:09 +0100
+
 planethively-by-irisanduprough (1.0-0ddebs4) unstable; urgency=medium
 
   * update to standard version to 4.1.4
