@@ -7,7 +7,7 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS += -O3 -flto -Wall -W -pedantic $(shell pkgconf gl sdl libpng SDL_mixer --cflags) -std=gnu90 -ffast-math -pipe
++CFLAGS += -Wall -pedantic $(shell pkgconf gl sdl libpng SDL_mixer --cflags) -std=gnu90 -pipe
 +LDFLAGS +=  -L/usr/X11R6/lib $(shell pkgconf gl sdl libpng SDL_mixer --libs) -lm
 +TARGET   := wayang-by-cyberneticgenetics
 +#variable de nettoyage
@@ -27,7 +27,7 @@
 +all: $(TARGET)
 +
 +$(TARGET): main.o texture.o mesh3d.o wayang.o movements.o
-+	$(CC) -flto *.o $(LDFLAGS) -o $(TARGET)
++	$(CC) *.o $(LDFLAGS) -o $(TARGET)
  main.o: main.c mesh3d.h texture.h wayang.h
  	$(CC) $(CFLAGS) main.c -c
  texture.o: texture.c texture.h
