@@ -1,0 +1,41 @@
+--- a/bluecubes.c
++++ b/bluecubes.c
+@@ -38,7 +38,7 @@
+ 	SDL_Event event;
+ 	Uint32 tlast = 0,
+ 	       tcurrent, st, argn = 0;
+-	Uint32 flags = SDL_WINDOW_FULLSCREEN;
++	Uint32 flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN;
+ 	char fr = 0;
+ 
+ 	while(++argn < argc) {
+@@ -89,9 +89,27 @@
+ 
+ 	st = SDL_GetTicks();
+ 	playsound();
++	Uint32 windowID = SDL_GetWindowID(screen);
+ 	while(!quit) {
+-		/* exit on input */
+-		while(SDL_PollEvent(&event) > 0) {
++		while(SDL_PollEvent(&event)) {
++			/* The window is resized */
++			if(event.type == SDL_WINDOWEVENT)
++			{
++				if (event.window.windowID == windowID)  {
++					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						w = event.window.data1;
++						h = event.window.data2;
++						ar = (float) w / (float) h;
++
++						glViewport(0, 0, w, h);
++						glMatrixMode(GL_PROJECTION);
++						glLoadIdentity();
++						gluPerspective(45.0f, ar, 0.1f, 100.0f);
++						glMatrixMode(GL_MODELVIEW);
++					}
++				}
++			}
++			/* exit on input */
+ 			if(event.type == SDL_QUIT || (event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q))) {
+ 				quit = 1;
+ 				continue;

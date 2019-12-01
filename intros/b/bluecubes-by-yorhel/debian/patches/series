@@ -1,1 +1,4 @@
 01_adapt_makefile.patch
+02_fix_warnings.patch
+03_convert_to_SDL2.patch
+04_resizable_window.patch

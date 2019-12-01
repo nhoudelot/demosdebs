@@ -1,3 +1,10 @@
+bluecubes-by-yorhel (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * convert to SDL2
+  * make window resizable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 01 Dec 2019 03:25:43 +0100
+
 bluecubes-by-yorhel (1.0+1-0ddebs1) unstable; urgency=medium
 
   * uncrustify sources

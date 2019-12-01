@@ -1,0 +1,25 @@
+--- a/bluecubes.c
++++ b/bluecubes.c
+@@ -3,9 +3,9 @@
+ 
+ #include <stdlib.h>
+ #include <math.h>
+-#include "SDL.h"
+-#include "SDL_opengl.h"
+-#include "SDL_audio.h"
++#include <SDL/SDL.h>
++#include <SDL/SDL_opengl.h>
++#include <SDL/SDL_audio.h>
+ 
+ #include "data.c"
+ 
+@@ -35,8 +35,7 @@
+ 
+ int main(int argc, char **argv) {
+ 	SDL_Event event;
+-	Uint32 frames = 0,
+-	       tlast = 0,
++	Uint32 tlast = 0,
+ 	       tcurrent, st, argn = 0;
+ 	Uint32 flags = SDL_OPENGL | SDL_HWPALETTE | SDL_FULLSCREEN;
+ 	char fr = 0;
