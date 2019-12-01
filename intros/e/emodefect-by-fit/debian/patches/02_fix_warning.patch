@@ -174,6 +174,40 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	PART *p;
  	FACE *f;
  
+@@ -174,7 +173,7 @@
+ 			m=malloc(sizeof(MTL));
+ 			m->next=s->materials;
+ 			s->materials=m;
+-			strcpy(m->name,data);
++			strncpy(m->name,(char *)data,sizeof(m->name));
+ 			while(*data++);
+ 
+ 			m->ambient[3]=m->diffuse[3]=m->specular[3];
+@@ -202,7 +201,7 @@
+ 			o->rot=0;
+ 			o->pivot=NULL;
+ 
+-			strcpy(o->name,data);
++			strncpy(o->name,(char *) data,sizeof(o->name));
+ 			while(*data++);
+ 
+ 			o->type=TYPE_OBJECT;
+@@ -223,13 +222,13 @@
+ 			p->faces=NULL;
+ 			p->next=o->parts;
+ 			o->parts=p;
+-			strcpy(p->name,data);
++			strncpy(p->name,(char *)data,sizeof(p->name));
+ 			while(*data++);
+ 
+ 			m=s->materials; /* Find material */
+ 			while(m!=NULL)
+ 			{
+-				if(!strcmp(m->name,data))
++				if(!strcmp(m->name,(char * )data))
+ 					p->material=m;
+ 				m=m->next;
+ 			}
 --- a/main.c
 +++ b/main.c
 @@ -6,6 +6,7 @@
@@ -184,6 +218,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <string.h>
  
  #include "cool_mzx.h"
+@@ -20,7 +21,7 @@
+ {
+ 	SDL_Event e;
+ 	int n,quit=0,xs=640,ys=480,x,y,modpos,monta,iso,last=-1,oldie=-1;
+-	GLint tname;
++	GLuint tname;
+ 	static char motti[100000];
+ 	FILE *f;
+ 	SCENE s[4];
 --- a/cool_mzx/pt.h
 +++ b/cool_mzx/pt.h
 @@ -15,7 +15,7 @@

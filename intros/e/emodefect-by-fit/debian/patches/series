@@ -1,4 +1,5 @@
 01_adapt_makefile.patch
 02_fix_warning.patch
 03_adapt_path.patch
-04_gl_redefined_fix.patch
+04_migrate_to_SDL2.patch
+05_better_quit.patch

@@ -1,3 +1,10 @@
+emodefect-by-fit (1.0-0ddebs5) unstable; urgency=medium
+
+  * migrate to SDL2
+  * fix more warnings
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 01 Dec 2019 13:09:13 +0100
+
 emodefect-by-fit (1.0-0ddebs4) unstable; urgency=medium
 
   * updated to standards-version to 4.1.4
