@@ -1,3 +1,11 @@
+micery-by-fitandbandwagon (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+  * fullscreen with f key
+  * resizable window keeping aspect ratio
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 Dec 2019 15:33:54 +0100
+
 micery-by-fitandbandwagon (1.0+1-0ddebs1) unstable; urgency=medium
 
   * uncrustify sources

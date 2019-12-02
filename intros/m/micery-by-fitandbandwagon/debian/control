@@ -6,7 +6,7 @@ Build-Depends:
  debhelper (>= 9.0),
  pandoc,
  pkgconf,
- libsdl1.2-dev
+ libsdl2-dev
 Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=11369
 

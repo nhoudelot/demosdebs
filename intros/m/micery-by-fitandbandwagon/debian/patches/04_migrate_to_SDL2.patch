@@ -1,0 +1,104 @@
+Description: Migrate to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-12-02
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -17,8 +17,8 @@
+ USE_RCS = 0
+ 
+ ifeq ($(PLATFORM),unix)
+-LDFLAGS += $(shell pkgconf --libs sdl glu ) -lm
+-CFLAGS += -Wall -pipe $(shell pkgconf --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
++LDFLAGS += $(shell pkgconf --libs sdl2 glu ) -lm
++CFLAGS += -Wall -pipe $(shell pkgconf --cflags sdl2 glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
+ endif
+ 
+ # All the objects
+--- a/main.c
++++ b/main.c
+@@ -8,7 +8,7 @@
+ #include <time.h>
+ #include <unistd.h>
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #ifdef MAC
+ #include <gl.h>
+@@ -493,7 +493,7 @@
+ 	int start_tick;
+ 	int cmode=0;
+ 	int tick;
+-	int flags=SDL_OPENGL+SDL_FULLSCREEN,width=WIDTH,height=HEIGHT;
++	int flags=SDL_WINDOW_OPENGL+SDL_WINDOW_FULLSCREEN,width=WIDTH,height=HEIGHT;
+ 	SDL_Event e;
+ 	int old_frame=-1,new_frame;
+ 
+@@ -508,7 +508,7 @@
+ 	   || argv[0][strlen(argv[0])-1]=='w' /* micery_window */
+ #endif
+ 	   )
+-		flags-=SDL_FULLSCREEN;
++		flags-=SDL_WINDOW_FULLSCREEN;
+ 
+ #ifndef MAC /* This hasn't historically worked on Mac SDL "too well" */
+ 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
+@@ -525,13 +525,10 @@
+ 		height=atoi(argv[3]);
+ 	}
+ 
+-	if (SDL_SetVideoMode(width,height,32,flags)<0) {
+-		fprintf( stderr, "SDL Video mode set failed: %s\n",
+-		         SDL_GetError());
+-		return 0;
+-	}
++	SDL_Window *sdlWindow;
++	sdlWindow = SDL_CreateWindow("Micery by Fit and Bandwagon",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,flags);
++	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 
+-	SDL_WM_SetCaption("Micery",0);
+ 	SDL_ShowCursor(0);
+ 
+ 	init_steer();
+@@ -552,7 +549,7 @@
+ 		if (new_frame!=old_frame) {
+ 			render_steer(tick-start_tick,cmode);
+ 			old_frame=new_frame;
+-			SDL_GL_SwapBuffers();
++			SDL_GL_SwapWindow(sdlWindow);
+ 		}
+ 		frame++;
+ 
+@@ -594,6 +591,8 @@
+ 		}
+ 	}
+ 
++	SDL_GL_DeleteContext(sdlGlcontext);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 
+ 	return 0;
+--- a/musa.c
++++ b/musa.c
+@@ -3,7 +3,7 @@
+ #include <memory.h>
+ #include <math.h>
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ 
+ #include "syna.h"
+--- a/writer.c
++++ b/writer.c
+@@ -3,7 +3,7 @@
+ #include "wavefront.h"
+ #include "dump.h"
+ #include "gl_render.h"
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #ifdef MAC
+ #include <gl.h>

@@ -1,0 +1,76 @@
+--- a/main.c
++++ b/main.c
+@@ -34,6 +34,8 @@
+ #include "misc.h"
+ 
+ MAAILMA maa1;
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
+ 
+ 
+ int seed;
+@@ -65,6 +67,25 @@
+ 	return 0;
+ }
+ 
++void resize(int x, int y, int w, int h)
++{
++    /* Prevent division by zero */
++    if (h == 0) {
++        h = 1;
++    }
++
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        x += (w - new_w) / 2;
++        w = new_w;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        y += (h - new_h) / 2;
++        h = new_h;
++    }
++    glViewport(x, y, w, h);
++}
+ 
+ void checker_board() {
+ #define C 0.2
+@@ -500,7 +521,7 @@
+ 	int start_tick;
+ 	int cmode=0;
+ 	int tick;
+-	int flags=SDL_WINDOW_OPENGL+SDL_WINDOW_FULLSCREEN,width=WIDTH,height=HEIGHT;
++	int flags=SDL_WINDOW_RESIZABLE+SDL_WINDOW_OPENGL+SDL_WINDOW_FULLSCREEN,width=WIDTH,height=HEIGHT;
+ 	SDL_Event e;
+ 	int old_frame=-1,new_frame;
+ 
+@@ -540,6 +561,8 @@
+ 
+ 	init_steer();
+ 
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
++
+ 	start_tick=SDL_GetTicks();
+ 	while (quit!=1) {
+ 
+@@ -560,7 +583,19 @@
+ 		}
+ 		frame++;
+ 
+-		while(SDL_PollEvent(&e)>0) {
++		while(SDL_PollEvent(&e)) {
++
++			/* The window is resized */
++			if(e.type == SDL_WINDOWEVENT)
++			{
++			    if (e.window.windowID == windowID)  {
++				if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
++				    int new_w = e.window.data1;
++				    int new_h = e.window.data2;
++				    resize(0,0, new_w,new_h);
++				}
++			    }
++			}
+ 
+ 			if (e.type==SDL_QUIT)
+ 				quit=1;

@@ -1,3 +1,6 @@
 01_adapt_makefile.patch
 02_change_data_path.patch
 03_fix_warnings.patch
+04_migrate_to_SDL2.patch
+05_fullscreen_f_key.patch
+06_resizable.patch
