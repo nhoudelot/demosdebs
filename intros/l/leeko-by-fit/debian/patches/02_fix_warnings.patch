@@ -2,7 +2,7 @@
 +++ b/hakkyra.c
 @@ -45,7 +45,7 @@
  				}
-
+ 
  		glNewList(lists+n,GL_COMPILE);
 -		draw_volume(1,8,blk[n],size,ysize,size);
 +		draw_volume(1,8,(char *)blk[n],size,ysize,size);
@@ -18,16 +18,16 @@
 -			strcpy(m->name,data);
 +			strncpy(m->name,(const char*)data,sizeof(m->name));
  			while(*data++);
-
+ 
  			m->ambient[3]=m->diffuse[3]=m->specular[3];
 @@ -212,7 +212,7 @@
  			o->rot=0;
  			o->pivot=NULL;
-
+ 
 -			strcpy(o->name,data);
 +			strncpy(o->name,(const char*)data,sizeof(o->name));
  			while(*data++);
-
+ 
  			o->type=TYPE_OBJECT;
 @@ -232,13 +232,13 @@
  			p->faces=NULL;
@@ -36,7 +36,7 @@
 -			strcpy(p->name,data);
 +			strncpy(p->name,(const char*)data,sizeof(p->name));
  			while(*data++);
-
+ 
  			m=s->materials; /* Find material */
  			while(m!=NULL)
  			{
@@ -45,3 +45,23 @@
  					p->material=m;
  				m=m->next;
  			}
+@@ -278,7 +278,7 @@
+ 				if(o2->type!=TYPE_PIVOT && o2->pivot==NULL)
+ 				{
+ 					key[0]='_';
+-					strcpy(&key[1],o2->name);
++					strncpy(&key[1],o2->name,sizeof(key[1]));
+ 					if(strstr(o->name,key)!=NULL)
+ 						o2->pivot=o;
+ 				}
+--- a/wavefront.c
++++ b/wavefront.c
+@@ -222,7 +222,7 @@
+ 				if(o2->type!=TYPE_PIVOT && o2->pivot==NULL)
+ 				{
+ 					key[0]='_';
+-					strcpy(&key[1],o2->name);
++					strncpy(&key[1],o2->name,sizeof(key[1]));
+ 					if(strstr(o->name,key)!=NULL)
+ 						o2->pivot=o;
+ 				}
