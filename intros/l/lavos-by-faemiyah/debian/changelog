@@ -1,3 +1,9 @@
+lavos-by-faemiyah (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 Dec 2019 10:54:33 +0100
+
 lavos-by-faemiyah (1.0+1-0ddebs1) unstable; urgency=medium
 
   * remove march=native

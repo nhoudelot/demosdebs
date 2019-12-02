@@ -5,7 +5,8 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  dh-autoreconf,
  debhelper (>=9),
- libsdl1.2-dev,
+ libsdl2-dev,
+ libpng-dev,
  libboost-program-options-dev,
  libglew-dev,
  pandoc

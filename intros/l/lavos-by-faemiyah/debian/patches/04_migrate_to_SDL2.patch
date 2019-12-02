@@ -1,0 +1,159 @@
+Description: migrate to SDL2
+ fullscreen seems to still problematic
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-12-02
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -722,14 +722,14 @@
+   AC_LANG_POP([C])
+ ])
+ 
+-dnl Incorporate SDL.
+-dnl AC_INCORPORATE_SDL([version], [define on found], [obligatory])
+-AC_DEFUN([AC_INCORPORATE_SDL],
++dnl Incorporate SD2L.
++dnl AC_INCORPORATE_SDL2([version], [define on found], [obligatory])
++AC_DEFUN([AC_INCORPORATE_SDL2],
+ [
+-  AM_PATH_SDL([$1],
+-    sdl=[yes],
+-    sdl=[no])
+-  AC_INCORPORATE([SDL], [$sdl], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
++  AM_PATH_SDL2([$1],
++    sdl2=[yes],
++    sdl2=[no])
++  AC_INCORPORATE([SDL2], [$sdl2], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
+ ])
+ 
+ dnl Incorporate Vorbisfile.
+--- a/configure.ac
++++ b/configure.ac
+@@ -26,7 +26,7 @@
+ AC_INCORPORATE_GLEW([ENABLE_GLEW], [yes])
+ AC_INCORPORATE_LIBPNG([1.5.0], [ENABLE_LIBPNG], [yes])
+ AC_INCORPORATE_OPENGL([ENABLE_OPENGL], [yes])
+-AC_INCORPORATE_SDL([1.2.7], [ENABLE_SDL], [yes])
++AC_INCORPORATE_SDL2([2.0.0], [ENABLE_SDL], [yes])
+ 
+ AC_CONFIG_FILES([Makefile src/Makefile])
+ AC_OUTPUT
+--- a/src/dnload.h
++++ b/src/dnload.h
+@@ -34,7 +34,7 @@
+ #else
+ #include "GL/glew.h"
+ #include "GL/glu.h"
+-#include "SDL.h"
++#include <SDL2/SDL.h>
+ #endif
+ #include "bsd_rand.h"
+ #else
+@@ -89,7 +89,7 @@
+ 	void (DNLOADAPIENTRY *glShaderSource)(GLuint, GLsizei, const GLchar*const*, const GLint*);
+ 	GLint (DNLOADAPIENTRY *glGetUniformLocation)(GLuint, const GLchar*);
+ 	void (DNLOADAPIENTRY *glRects)(GLshort, GLshort, GLshort, GLshort);
+-	SDL_Surface* (*SDL_SetVideoMode)(int, int, int, Uint32);
++	SDL_Window* (*SDL_CreateWindow)(const char*, int, int, int, int, Uint32);
+ 	void (DNLOADAPIENTRY *glBindFramebuffer)(GLenum, GLuint);
+ 	void (DNLOADAPIENTRY *glDrawArrays)(GLenum, GLint, GLsizei);
+ 	void (DNLOADAPIENTRY *glClearColor)(GLclampf, GLclampf, GLclampf, GLclampf);
+@@ -109,7 +109,7 @@
+ 	void (DNLOADAPIENTRY *glUniformMatrix3fv)(GLint, GLsizei, GLboolean, const GLfloat*);
+ 	void (DNLOADAPIENTRY *glViewport)(GLint, GLint, GLsizei, GLsizei);
+ 	void (DNLOADAPIENTRY *glTexImage2DMultisample)(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLboolean);
+-	void (*SDL_GL_SwapBuffers)(void);
++	void (*SDL_GL_SwapWindow)(SDL_Window*);
+ 	void (DNLOADAPIENTRY *glGenFramebuffers)(GLsizei, GLuint*);
+ 	int (*SDL_Init)(Uint32);
+ 	void (DNLOADAPIENTRY *glTexParameteri)(GLenum, GLenum, GLint);
+@@ -140,7 +140,7 @@
+ 	(void (DNLOADAPIENTRY *)(GLuint, GLsizei, const GLchar*const*, const GLint*)) 0xc609c385,
+ 	(GLint (DNLOADAPIENTRY *)(GLuint, const GLchar*)) 0x25c12218,
+ 	(void (DNLOADAPIENTRY *)(GLshort, GLshort, GLshort, GLshort)) 0xd419e20a,
+-	(SDL_Surface* (*)(int, int, int, Uint32)) 0x39b85060,
++	(SDL_Window* (*)(const char*, int, int, int, int, Uint32)) 0x39b85060,
+ 	(void (DNLOADAPIENTRY *)(GLenum, GLuint)) 0xa0fdff6b,
+ 	(void (DNLOADAPIENTRY *)(GLenum, GLint, GLsizei)) 0xcb871c63,
+ 	(void (DNLOADAPIENTRY *)(GLclampf, GLclampf, GLclampf, GLclampf)) 0x8c118fbb,
+@@ -160,7 +160,7 @@
+ 	(void (DNLOADAPIENTRY *)(GLint, GLsizei, GLboolean, const GLfloat*)) 0x50a8d153,
+ 	(void (DNLOADAPIENTRY *)(GLint, GLint, GLsizei, GLsizei)) 0xecca892b,
+ 	(void (DNLOADAPIENTRY *)(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLboolean)) 0x732f22f8,
+-	(void (*)(void)) 0xda43e6ea,
++	(void (*)(SDL_Window*)) 0xda43e6ea,
+ 	(void (DNLOADAPIENTRY *)(GLsizei, GLuint*)) 0xb1503371,
+ 	(int (*)(Uint32)) 0x70d6574,
+ 	(void (DNLOADAPIENTRY *)(GLenum, GLenum, GLint)) 0xdefef0c2,
+@@ -175,6 +175,8 @@
+ 	NULL
+ };
+ 
++SDL_Window *window;
++
+ /** \brief Perform init.
+  *
+  * \param screen_w Screen width definition.
+@@ -185,9 +187,8 @@
+ {
+ #if defined(USE_LD)
+ 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-	SDL_SetVideoMode(screen_w, screen_h, 0, SDL_OPENGL | (flag_fullscreen ? SDL_FULLSCREEN : 0));
+-	SDL_WM_SetCaption("Lavos by Faemiyah",NULL);
+-
++	window = SDL_CreateWindow("Lavos by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,screen_w,screen_h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL| (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++	SDL_GLContext glcontext = SDL_GL_CreateContext(window);
+ 	{
+ 		GLenum err = glewInit();
+ 
+@@ -212,7 +213,7 @@
+ 	g_sym.glShaderSource = glShaderSource;
+ 	g_sym.glGetUniformLocation = glGetUniformLocation;
+ 	g_sym.glRects = glRects;
+-	g_sym.SDL_SetVideoMode = SDL_SetVideoMode;
++	g_sym.SDL_CreateWindow = SDL_CreateWindow;
+ 	g_sym.glBindFramebuffer = glBindFramebuffer;
+ 	g_sym.glDrawArrays = glDrawArrays;
+ 	g_sym.glClearColor = glClearColor;
+@@ -232,7 +233,7 @@
+ 	g_sym.glUniformMatrix3fv = glUniformMatrix3fv;
+ 	g_sym.glViewport = glViewport;
+ 	g_sym.glTexImage2DMultisample = glTexImage2DMultisample;
+-	g_sym.SDL_GL_SwapBuffers = SDL_GL_SwapBuffers;
++	g_sym.SDL_GL_SwapWindow = SDL_GL_SwapWindow;
+ 	g_sym.glGenFramebuffers = glGenFramebuffers;
+ 	g_sym.SDL_Init = SDL_Init;
+ 	g_sym.glTexParameteri = glTexParameteri;
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -3595,7 +3595,7 @@
+ 
+ 			draw(ticks);
+ 			write_frame_callback(static_cast<unsigned>(g_screen_w), static_cast<unsigned>(g_screen_h), frame_idx);
+-			SDL_GL_SwapBuffers();
++			SDL_GL_SwapWindow(window);
+ 			++frame_idx;
+ 		}
+ 
+@@ -4048,7 +4048,7 @@
+ #endif
+ 
+ 		draw(currtick);
+-		g_sym.SDL_GL_SwapBuffers();
++		g_sym.SDL_GL_SwapWindow(window);
+ 	}
+ 
+ 	g_sym.SDL_Quit();
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -12,8 +12,7 @@
+ #ifdef __APPLE__
+ #include "SDL/SDL_opengl.h"
+ #else
+-#define __gl_glext_h_
+-#include "SDL_opengl.h"
++#include <SDL2/SDL_opengl.h>
+ #endif
+ 
+ #if defined(__APPLE__)
