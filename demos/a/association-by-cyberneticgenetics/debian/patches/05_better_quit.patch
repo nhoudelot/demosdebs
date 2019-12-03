@@ -1,0 +1,14 @@
+--- a/main.c
++++ b/main.c
+@@ -37,9 +37,11 @@
+ 	while(Mix_PlayingMusic()) {
+ 		/* Event handling */
+ 		while( SDL_PollEvent( &event) ) {
++			if (event.type == SDL_QUIT)  Mix_HaltMusic();
+ 			switch(event.type) {
+ 			case SDL_KEYDOWN:
+ 				if (event.key.keysym.sym == SDLK_ESCAPE) Mix_HaltMusic();
++				if (event.key.keysym.sym == SDLK_q) Mix_HaltMusic();
+ 				if (event.key.keysym.sym == SDLK_SPACE) printf("%d\n", (int)now); /*FIXME This is very important to set the syncrone :-)*/
+ 				break;
+ 			}

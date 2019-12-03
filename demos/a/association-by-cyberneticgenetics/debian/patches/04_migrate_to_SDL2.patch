@@ -1,0 +1,60 @@
+--- a/main.c
++++ b/main.c
+@@ -1,12 +1,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <SDL.h>
+-#include <SDL/SDL_mixer.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_mixer.h>
+ #include <GL/gl.h>
+ #include <unistd.h>
+ #include <math.h>
+ #include "model.h"
+ 
++SDL_Window *sdlWindow;
++SDL_GLContext sdlGlcontext;
++
+ int main(){
+ 	SDL_Event event;
+ 	T3D_Movie *movie;
+@@ -15,7 +18,8 @@
+ 
+ /* Initialization */
+ 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-	SDL_SetVideoMode( 1024, 768, 16, SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_HWPALETTE | SDL_RESIZABLE | SDL_HWSURFACE);
++	sdlWindow = SDL_CreateWindow("Blue Cubes by YorHel",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_ShowCursor(SDL_DISABLE);
+ 	glClearColor(0.0,0.0,0.0,0.0);
+ 	glMatrixMode(GL_PROJECTION);
+@@ -221,13 +225,15 @@
+ 		/* SceneCon */
+ 		if( (now > 191974))                         { draw_model(movie, 20, 100, 100);}
+ 
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(sdlWindow);
+ 	}
+ 
+ /* Quit */
+ 	SDL_ShowCursor(SDL_ENABLE);
+ 	Mix_FreeMusic(music);
+ 	Mix_CloseAudio();
++	SDL_GL_DeleteContext(sdlGlcontext);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 	free(movie);
+ 	return(0);
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,8 @@
+ #variables de compilation
+ SHELL := /bin/sh
+ CC := gcc
+-CFLAGS += -Wall -pipe -pedantic $(shell pkgconf gl sdl SDL_mixer --cflags) -std=gnu90
+-LDFLAGS += -L/usr/X11R6/lib $(shell pkgconf gl sdl SDL_mixer --libs) -lm
++CFLAGS += -Wall -pipe -pedantic $(shell pkgconf gl sdl2 SDL2_mixer --cflags) -std=gnu90
++LDFLAGS += -L/usr/X11R6/lib $(shell pkgconf gl sdl2 SDL2_mixer --libs) -lm
+ 
+ TARGET   := association-by-cyberneticgenetics
+ #variable de nettoyage

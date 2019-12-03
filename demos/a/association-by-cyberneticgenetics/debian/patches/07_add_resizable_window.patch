@@ -1,0 +1,69 @@
+--- a/main.c
++++ b/main.c
+@@ -7,8 +7,13 @@
+ #include <math.h>
+ #include "model.h"
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
++
+ SDL_Window *sdlWindow;
+ SDL_GLContext sdlGlcontext;
++Uint32 windowID;
+ 
+ void ToggleFullscreen(SDL_Window* Window) {
+ 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
+@@ -17,6 +22,27 @@
+ 	SDL_ShowCursor(IsFullscreen);
+ }
+ 
++void resize(int x, int y, int w, int h)
++{
++	float aspect;
++	/* Prevent division by zero */
++	if (h == 0) {
++		h = 1;
++	}
++
++	aspect = (float)w / (float)h;
++	if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++		int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++		x += (w - new_w) / 2;
++		w = new_w;
++	} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++		int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++		y += (h - new_h) / 2;
++		h = new_h;
++	}
++	glViewport(x, y, w, h);
++}
++
+ int main(){
+ 	SDL_Event event;
+ 	T3D_Movie *movie;
+@@ -41,6 +67,7 @@
+ 
+ 	start = SDL_GetTicks();
+ 
++	windowID = SDL_GetWindowID(sdlWindow);
+ 	while(Mix_PlayingMusic()) {
+ 		/* Event handling */
+ 		while( SDL_PollEvent( &event) ) {
+@@ -53,6 +80,16 @@
+ 				if (event.key.keysym.sym == SDLK_SPACE) printf("%d\n", (int)now); /*FIXME This is very important to set the syncrone :-)*/
+ 				break;
+ 			}
++			if(event.type == SDL_WINDOWEVENT)
++			{
++				if (event.window.windowID == windowID)  {
++					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						int new_w = event.window.data1;
++						int new_h = event.window.data2;
++						resize(0,0, new_w,new_h);
++					}
++				}
++			}
+ 		}
+ 
+ 		/* Drawing */

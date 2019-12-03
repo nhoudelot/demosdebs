@@ -1,0 +1,24 @@
+--- a/main.c
++++ b/main.c
+@@ -10,6 +10,13 @@
+ SDL_Window *sdlWindow;
+ SDL_GLContext sdlGlcontext;
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++	int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++	SDL_ShowCursor(IsFullscreen);
++}
++
+ int main(){
+ 	SDL_Event event;
+ 	T3D_Movie *movie;
+@@ -42,6 +49,7 @@
+ 			case SDL_KEYDOWN:
+ 				if (event.key.keysym.sym == SDLK_ESCAPE) Mix_HaltMusic();
+ 				if (event.key.keysym.sym == SDLK_q) Mix_HaltMusic();
++				if (event.key.keysym.sym == SDLK_f) ToggleFullscreen(sdlWindow);;
+ 				if (event.key.keysym.sym == SDLK_SPACE) printf("%d\n", (int)now); /*FIXME This is very important to set the syncrone :-)*/
+ 				break;
+ 			}

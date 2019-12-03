@@ -6,8 +6,8 @@ Build-Depends:
  debhelper (>=9),
  pandoc,
  mesa-common-dev,
- libsdl1.2-dev,
- libsdl-mixer1.2-dev,
+ libsdl2-dev,
+ libsdl2-mixer-dev,
  pkgconf
 Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=50937
