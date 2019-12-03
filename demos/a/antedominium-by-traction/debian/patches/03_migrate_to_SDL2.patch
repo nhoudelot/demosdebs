@@ -1,0 +1,101 @@
+--- a/Makefile
++++ b/Makefile
+@@ -35,8 +35,8 @@
+ endif
+ 
+ ifeq ($(PLATFORM), LINUX)
+-	LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf --libs glu sdl fmodex)
+-	CFLAGS += $(shell pkgconf --cflags glu sdl fmodex)
++	LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf --libs glu sdl2 fmodex)
++	CFLAGS += $(shell pkgconf --cflags glu sdl2 fmodex)
+ endif
+ 
+ #variables d'instalation
+--- a/main.cpp
++++ b/main.cpp
+@@ -3,7 +3,7 @@
+ #ifndef OS_X
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #else
+ #include <gl.h>
+ #include <glu.h>
+@@ -83,7 +83,7 @@
+ //		font_write(0.0f, 0.0f, "please wait...");
+ 		glColor4f(1,1,1,1);
+ 
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(win.sdlWindow);
+ 
+ 		alku_init();
+ 		fibotree_init();
+@@ -286,7 +286,7 @@
+ 				}
+ 
+ 
+-				SDL_GL_SwapBuffers();
++				SDL_GL_SwapWindow(win.sdlWindow);
+ 
+ 				if (aika >= introloppu)
+ 					done = true;
+@@ -316,6 +316,8 @@
+ 		if (musicflag==true)
+ 			sound.release();
+ 
++		SDL_GL_DeleteContext(win.sdlGlcontext);
++		SDL_DestroyWindow(win.sdlWindow);
+ 		SDL_Quit();
+ 		return 0;
+ 	}
+--- a/stuff.hpp
++++ b/stuff.hpp
+@@ -4,7 +4,7 @@
+ #ifndef OS_X
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #else
+ #include <gl.h>
+ #include <glu.h>
+--- a/win32.cpp
++++ b/win32.cpp
+@@ -1,4 +1,4 @@
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include "win32.hpp"
+ 
+ extern int OPENGL_XRES;
+@@ -17,15 +17,15 @@
+ {
+ 	SDL_Init(SDL_INIT_VIDEO);
+ 
+-	int SDL_flags = SDL_OPENGL;
++	int SDL_flags = SDL_WINDOW_OPENGL;
+ 	SDL_ShowCursor(0);
+ 
+ #ifdef FULLSCREEN
+-	SDL_flags += SDL_FULLSCREEN;
++	SDL_flags += SDL_WINDOW_FULLSCREEN;
+ #endif
+ 
+-	SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_flags);
+-	SDL_WM_SetCaption("Ante Dominum",0);
++	sdlWindow = SDL_CreateWindow("Ante Dominum by traction",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WINDOW_WIDTH,WINDOW_HEIGHT,SDL_flags);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 
+ 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+ 
+--- a/win32.hpp
++++ b/win32.hpp
+@@ -8,6 +8,8 @@
+ Window();
+ ~Window();
+ 
++SDL_Window *sdlWindow;
++SDL_GLContext sdlGlcontext;
+ bool create(bool bflag);
+ void shut();
+ //		HDC getDC();

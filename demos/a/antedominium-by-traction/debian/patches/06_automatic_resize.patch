@@ -1,0 +1,36 @@
+--- a/main.cpp
++++ b/main.cpp
+@@ -123,6 +123,7 @@
+                         }
+                         else*/
+ 		SDL_Event event;
++		Uint32 windowID = SDL_GetWindowID(win.sdlWindow);
+ 		while(!done)
+ 		{
+ 			SDL_PollEvent(&event);
+@@ -140,6 +141,14 @@
+ 				default:
+ 					break;
+ 				}
++			case SDL_WINDOWEVENT:
++				if (event.window.windowID == windowID)  {
++					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						OPENGL_XRES = event.window.data1;
++						OPENGL_YRES = event.window.data2;
++					}
++				}
++				break;
+ 			}
+ 
+ 			{
+--- a/win32.cpp
++++ b/win32.cpp
+@@ -24,7 +24,7 @@
+ {
+ 	SDL_Init(SDL_INIT_VIDEO);
+ 
+-	int SDL_flags = SDL_WINDOW_OPENGL;
++	int SDL_flags = SDL_WINDOW_OPENGL+SDL_WINDOW_RESIZABLE;;
+ 	SDL_ShowCursor(0);
+ 
+ #ifdef FULLSCREEN

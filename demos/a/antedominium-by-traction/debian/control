@@ -7,7 +7,7 @@ Build-Depends:
  pandoc,
  mesa-common-dev,
  libfmodex-dev,
- libsdl1.2-dev,
+ libsdl2-dev,
  pkgconf
 Standards-Version: 4.1.4
 Homepage:https://www.pouet.net/prod.php?which=24476

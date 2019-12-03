@@ -1,3 +1,12 @@
+antedominium-by-traction (1.0+2-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+  * add q key to quit
+  * add f key to fullscreen
+  * add resizable window while keeping aspect ratio
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 03 Dec 2019 18:01:32 +0100
+
 antedominium-by-traction (1.0+2-0ddebs1) unstable; urgency=medium
 
   * sources to utf8
