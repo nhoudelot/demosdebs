@@ -52,24 +52,20 @@
  #include "include.h"
  #include "tausta.h"
  #include "pallot.h"
-@@ -83,10 +84,13 @@
+@@ -83,10 +84,9 @@
  	FILE    *fp;
  
  	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 -	SDL_SetVideoMode(800,600,32,SDL_OPENGL|SDL_DOUBLEBUF);
 -	//SDL_SetVideoMode(640,480,32,SDL_OPENGL);
-+	SDL_Window *sdlWindow = SDL_CreateWindow("Dr.Fungi goes Africa",
-+				SDL_WINDOWPOS_UNDEFINED,
-+				SDL_WINDOWPOS_UNDEFINED,
-+				800, 600,
-+				SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
++	SDL_Window *sdlWindow = SDL_CreateWindow("Dr.Fungi goes Africa by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,800, 600,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
 +	SDL_GLContext glcontext = SDL_GL_CreateContext(sdlWindow);
  	SDL_ShowCursor(0);
 -	SDL_WM_SetCaption("Dr.Fungi goes Africa",0);
  
  #ifndef BLKSIZE
  	if(!mzx_init(44100, 4096))
-@@ -485,7 +489,7 @@
+@@ -485,7 +485,7 @@
  		musasynk(HIT,tid);
  		musasynk(KICKBASS,tid);
  
@@ -78,11 +74,12 @@
  		while(SDL_PollEvent(&e)>0)
  		{
  			if(e.type==SDL_MOUSEBUTTONDOWN || e.type==SDL_QUIT ||
-@@ -495,6 +499,7 @@
+@@ -495,6 +495,8 @@
  	}
  
  	mzx_close();
 +	SDL_GL_DeleteContext(glcontext);
++	SDL_DestroyWindow(sdlWindow);
  	SDL_Quit();
  	return(EXIT_SUCCESS);
  }

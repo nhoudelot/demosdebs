@@ -1,3 +1,12 @@
+drfungigoesafrica-by-fit (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * add q key to quit
+  * add ESC key to quit
+  * add f key to fullscreen
+  * window is now resizable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 04 Dec 2019 00:23:59 +0100
+
 drfungigoesafrica-by-fit (1.0+1-0ddebs1) unstable; urgency=medium
 
   * sources to utf-8

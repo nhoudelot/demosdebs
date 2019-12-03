@@ -1,0 +1,32 @@
+--- a/main.c
++++ b/main.c
+@@ -33,6 +33,7 @@
+ float musasynk(int,float);
+ 
+ void resize_window(int x, int y, int w, int h);
++void ToggleFullscreen(SDL_Window* Window);
+ 
+ extern unsigned int pt_songpos;
+ 
+@@ -501,6 +502,7 @@
+ 				switch (e.key.keysym.sym) {
+ 					case SDLK_ESCAPE: quit=1; break;
+ 					case SDLK_q: quit=1; break;
++					case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 				}
+ 			}
+ 			if(e.type == SDL_WINDOWEVENT)
+@@ -543,6 +545,13 @@
+ 	glViewport(x, y, w, h);
+ }
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++	int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++	SDL_ShowCursor(IsFullscreen);
++}
++
+ void rinkula(float ker)
+ {
+ 	float r;
