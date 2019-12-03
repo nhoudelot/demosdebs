@@ -1,0 +1,14 @@
+--- a/main.cpp
++++ b/main.cpp
+@@ -126,9 +126,8 @@
+ 			case SDL_KEYDOWN:
+ 				switch (event.key.keysym.sym)
+ 				{
+-				case SDLK_ESCAPE:
+-					done = true;
+-					break;
++				case SDLK_ESCAPE:done = true;break;
++				case SDLK_q: done = true; break;
+ 				}
+ 			}
+ 

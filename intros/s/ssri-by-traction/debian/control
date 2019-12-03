@@ -7,7 +7,7 @@ Build-Depends:
  pandoc,
  mesa-common-dev,
  libglu1-mesa-dev,
- libsdl1.2-dev,
+ libsdl2-dev,
  pkgconf,
  libfmodex-dev
 Standards-Version: 4.1.4

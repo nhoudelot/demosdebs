@@ -1,0 +1,44 @@
+--- a/main.cpp
++++ b/main.cpp
+@@ -112,6 +112,7 @@
+ 		kello.start();
+ 
+ 		SDL_Event event;
++		Uint32 windowID = SDL_GetWindowID(win.sdlWindow);
+ 		while(!done)
+ 		{
+ #if defined(OS_X) && defined(FULLSCREEN)
+@@ -130,6 +131,15 @@
+ 				case SDLK_q: done = true; break;
+ 				case SDLK_f: win.ToggleFullscreen(); break;
+ 				}
++			case SDL_WINDOWEVENT:
++
++				if (event.window.windowID == windowID)  {
++					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						OPENGL_XRES = event.window.data1;
++						OPENGL_YRES = event.window.data2;
++					}
++				}
++				break;
+ 			}
+ 
+ 			glEnable(GL_POINT_SMOOTH);
+--- a/win32.cpp
++++ b/win32.cpp
+@@ -30,13 +30,13 @@
+ {
+ 	SDL_Init(SDL_INIT_VIDEO);
+ 
+-	int SDL_flags = SDL_WINDOW_OPENGL;
++	int SDL_flags = SDL_WINDOW_OPENGL+SDL_WINDOW_RESIZABLE;
+ #ifdef FULLSCREEN
+ 	SDL_flags += SDL_WINDOW_FULLSCREEN;
+ #endif
+ 	SDL_ShowCursor(0);
+ 
+-	
++
+ 	sdlWindow = SDL_CreateWindow("Traction::SSRI",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WINDOW_WIDTH,WINDOW_HEIGHT,SDL_flags);
+ 	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 

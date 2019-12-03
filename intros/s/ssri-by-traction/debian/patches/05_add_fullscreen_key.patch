@@ -1,0 +1,36 @@
+--- a/main.cpp
++++ b/main.cpp
+@@ -128,6 +128,7 @@
+ 				{
+ 				case SDLK_ESCAPE:done = true;break;
+ 				case SDLK_q: done = true; break;
++				case SDLK_f: win.ToggleFullscreen(); break;
+ 				}
+ 			}
+ 
+--- a/win32.cpp
++++ b/win32.cpp
+@@ -19,6 +19,13 @@
+ {
+ }
+ 
++void Window::ToggleFullscreen() {
++	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++	int IsFullscreen = SDL_GetWindowFlags(sdlWindow) & FullscreenFlag;
++	SDL_SetWindowFullscreen(sdlWindow, IsFullscreen ? 0 : FullscreenFlag);
++	SDL_ShowCursor(IsFullscreen);
++}
++
+ bool Window::create(bool bflag)
+ {
+ 	SDL_Init(SDL_INIT_VIDEO);
+--- a/win32.hpp
++++ b/win32.hpp
+@@ -11,6 +11,7 @@
+ SDL_Window *sdlWindow;
+ bool create(bool bflag);
+ void shut();
++void ToggleFullscreen();
+ 
+ //		HDC getDC();
+ 

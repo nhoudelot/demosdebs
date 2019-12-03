@@ -1,3 +1,12 @@
+ssri-by-traction (1.0+2-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+  * fullscreen key with f
+  * quit with q
+  * automatic resize
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 03 Dec 2019 01:07:56 +0100
+
 ssri-by-traction (1.0+2-0ddebs1) unstable; urgency=medium
 
   * source to utf8
