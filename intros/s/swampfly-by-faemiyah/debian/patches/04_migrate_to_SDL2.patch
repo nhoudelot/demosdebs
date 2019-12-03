@@ -1,0 +1,162 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -27,7 +27,7 @@
+ 
+ AC_INCORPORATE_LIBPNG([1.2.0], [HAVE_LIBPNG], [no])
+ AC_INCORPORATE_OPENGL([HAVE_OPENGL], [yes])
+-AC_INCORPORATE_SDL([1.2.7], [HAVE_SDL], [yes])
++AC_INCORPORATE_SDL2([2.0.0], [HAVE_SDL], [yes])
+ 
+ # Checks for typedefs, structures, and compiler characteristics.
+ AC_TYPE_INT16_T
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -618,14 +618,14 @@
+   AC_LANG_POP([C])
+ ])
+ 
+-# Incorporate SDL.
+-# AC_INCORPORATE_SDL([version], [define on found], [obligatory])
+-AC_DEFUN([AC_INCORPORATE_SDL],
++# Incorporate SD2L.
++# AC_INCORPORATE_SDL2([version], [define on found], [obligatory])
++AC_DEFUN([AC_INCORPORATE_SDL2],
+ [
+-  AM_PATH_SDL([$1],
+-    sdl=[yes],
+-    sdl=[no])
+-  AC_INCORPORATE([SDL], [$sdl], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
++  AM_PATH_SDL2([$1],
++    sdl2=[yes],
++    sdl2=[no])
++  AC_INCORPORATE([SDL2], [$sdl2], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
+ ])
+ 
+ # Incorporate LIBMIKMOD.
+--- a/src/swamp_fly.c
++++ b/src/swamp_fly.c
+@@ -101,9 +101,10 @@
+ #include <SDL/SDL_opengl.h>
+ #else
+ #define GL_GLEXT_PROTOTYPES
+-#include <SDL/SDL.h>
+-#include <SDL/SDL_opengl.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_opengl.h>
+ #include <GL/glext.h>
++#include <GL/glu.h>
+ #endif
+ 
+ //######################################
+@@ -142,13 +143,16 @@
+ 	"gluPerspective\0\0"
+ 	"libSDL.so\0"
+ 	"SDL_GetTicks\0"
+-	"SDL_GL_SwapBuffers\0"
++	"SDL_GL_SwapWindow\0"
+ 	"SDL_Init\0"
+ 	"SDL_OpenAudio\0"
+ 	"SDL_PauseAudio\0"
+ 	"SDL_PollEvent\0"
+ 	"SDL_Quit\0"
+-	"SDL_SetVideoMode\0"
++	"SDL_CreateWindow\0"
++	"SDL_GL_CreateContext\0"
++	"SDL_GL_DeleteContext\0"
++	"SDL_DestroyWindow\0"
+ 	"SDL_ShowCursor\0\0";
+ 
+ #define dsinf sinf
+@@ -178,12 +182,15 @@
+ #define dluPerspective gluPerspective
+ 
+ #define DDL_GetTicks SDL_GetTicks
+-#define DDL_GL_SwapBuffers SDL_GL_SwapBuffers
++#define DDL_GL_SwapWindow SDL_GL_SwapWindow
+ #define DDL_Init SDL_Init
+ #define DDL_OpenAudio SDL_OpenAudio
+ #define DDL_PauseAudio SDL_PauseAudio
+ #define DDL_PollEvent SDL_PollEvent
+-#define DDL_SetVideoMode SDL_SetVideoMode
++#define DDL_CreateWindow SDL_CreateWindow
++#define DDL_GL_CreateContext SDL_GL_CreateContext
++#define DDL_GL_DeleteContext SDL_GL_DeleteContext
++#define DDL_DestroyWindow SDL_DestroyWindow
+ #define DDL_ShowCursor SDL_ShowCursor
+ #define DDL_Quit SDL_Quit
+ 
+@@ -1161,12 +1168,14 @@
+ 
+ 	// Graphics init.
+ 	DDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
++	SDL_Window *sdlWindow;
++	SDL_GLContext *sdlGlcontext;
+ 	{
+ #if defined(USE_LD)
+ #if defined(SCREEN_F)
+-		uint32_t sdl_flags = SDL_OPENGL | SDL_FULLSCREEN;
++		uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
+ #else
+-		uint32_t sdl_flags = SDL_OPENGL;
++		uint32_t sdl_flags = SDL_WINDOW_OPENGL;
+ #endif
+ 		for(ii = 1; (ii < argc); ++ii)
+ 		{
+@@ -1174,11 +1183,11 @@
+ 
+ 			if((strcmp("-f", cmp) == 0) || (strcmp("--fullscreen", cmp) == 0))
+ 			{
+-				sdl_flags |= SDL_FULLSCREEN;
++				sdl_flags |= SDL_WINDOW_FULLSCREEN;
+ 			}
+ 			else if((strcmp("-w", cmp) == 0) || (strcmp("--windowed", cmp) == 0))
+ 			{
+-				sdl_flags &= ~SDL_FULLSCREEN;
++				sdl_flags &= ~SDL_WINDOW_FULLSCREEN;
+ 			}
+ #if defined(HAVE_LIBPNG)
+ 			else if((strcmp("-r", cmp) == 0) || (strcmp("--record", cmp) == 0))
+@@ -1202,12 +1211,13 @@
+ 		}
+ #else
+ #if defined(SCREEN_F)
+-#define sdl_flags (SDL_OPENGL | SDL_FULLSCREEN)
++#define sdl_flags (SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN)
+ #else
+-#define sdl_flags SDL_OPENGL;
++#define sdl_flags SDL_WINDOW_OPENGL;
+ #endif
+ #endif
+-		DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, sdl_flags);
++		sdlWindow = DDL_CreateWindow("Swampfly by faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_W,SCREEN_H,sdl_flags);
++		sdlGlcontext = DDL_GL_CreateContext(sdlWindow);
+ 	}
+ 	DDL_ShowCursor(0);
+ #if defined(WIN32)
+@@ -1290,7 +1300,7 @@
+ 			draw(ms);
+ 			sprintf(filename, "swamp_fly_%04u.png", frame_idx);
+ 			write_opengl_viewport(filename);
+-			DDL_GL_SwapBuffers();
++			DDL_GL_SwapWindow(sdlWindow);
+ 			++frame_idx;
+ 		}
+ 		DDL_Quit();
+@@ -1338,7 +1348,7 @@
+ 			break;
+ 		}
+ 		draw(currtick);
+-		DDL_GL_SwapBuffers();
++		DDL_GL_SwapWindow(sdlWindow);
+ 
+ #if defined(USE_LD) && !defined(MANUAL_ADVANCE)
+ 		tick_cumulative += FRAME_TICKS;
+@@ -1379,6 +1389,8 @@
+ 		}
+ 	}
+ 
++	DDL_GL_DeleteContext(sdlGlcontext);
++	DDL_DestroyWindow(sdlWindow);
+ 	DDL_Quit();
+ #if !defined(USE_LD)
+ 	asm ("movl $1,%eax\nxor %ebx,%ebx\nint $128\n");

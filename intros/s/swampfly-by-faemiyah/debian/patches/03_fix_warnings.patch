@@ -48,3 +48,21 @@
  #endif
  
  //######################################
+@@ -1323,7 +1323,7 @@
+ 		else if((currtick > FRAME_TICKS) &&
+ 		        (tick_cumulative < currtick - FRAME_TICKS))
+ 		{
+-			printf("\rframeskip: %u     ", currtick - tick_cumulative);
++			printf("\rframeskip: %i     ", currtick - tick_cumulative);
+ 			fflush(stdout);
+ 			while(tick_cumulative < currtick - FRAME_TICKS)
+ 			{
+@@ -1365,7 +1365,7 @@
+ 				break;
+ #endif
+ 			case SDLK_SPACE:
+-				printf("Ticks: %u\n", currtick);
++				printf("Ticks: %i\n", currtick);
+ 			default:
+ 				break;
+ 			}

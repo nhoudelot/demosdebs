@@ -1,3 +1,13 @@
+swampfly-by-faemiyah (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+  * added resizable window
+  * added f key for fullscreen
+  * added q key for quit
+  * added window close button for quit
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 03 Dec 2019 03:38:02 +0100
+
 swampfly-by-faemiyah (1.0+1-0ddebs1) unstable; urgency=medium
 
   * uncrustify sources
