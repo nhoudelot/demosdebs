@@ -1,3 +1,12 @@
+drfungi-by-fit (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+  * add q and ESC key to quit
+  * add f key to fullscreen
+  * window is now resizable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 03 Dec 2019 23:44:52 +0100
+
 drfungi-by-fit (1.0+1-0ddebs1) unstable; urgency=medium
 
   * sources to utf-8

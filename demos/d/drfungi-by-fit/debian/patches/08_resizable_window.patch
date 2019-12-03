@@ -1,0 +1,80 @@
+--- a/main.c
++++ b/main.c
+@@ -12,11 +12,16 @@
+ #define YS 768
+ #define TEXTURES 8
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
++
+ void kukat1(double,GLint);
+ void kukat2(double,GLint);
+ void kukat3(double,GLint);
+ void halftone(double,double,GLint);
+ void piraali(double);
++void resize_window(int x, int y, int w, int h);
+ 
+ unsigned char *loadJPG(char *path,int *width,int *height);
+ 
+@@ -30,7 +35,7 @@
+ 
+ int main(int argc,char *argv[])
+ {
+-	int quit=0,flags=SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
++	int quit=0,flags=SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
+ 	SDL_Event e;
+ 	double mp=0,oldtimer=0.0,oldtimer2=0.0,oldtimer3=0.0,d;
+ 
+@@ -56,6 +61,7 @@
+ 	while(mzx_position()<0 || mzx_position()>100) // Skip bug...
+ 		;
+ 	get_time(); /* Start the timer */
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ 	while(!quit)
+ 	{
+ 		mp=mzx_position();
+@@ -187,6 +193,16 @@
+ 					case SDLK_q: quit++; break;
+ 				}
+ 			}
++			if(e.type == SDL_WINDOWEVENT)
++			{
++				if (e.window.windowID == windowID)  {
++					if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						int new_w = e.window.data1;
++						int new_h = e.window.data2;
++						resize_window(0,0, new_w,new_h);
++					}
++				}
++			}
+ 		}
+ 	}
+ 
+@@ -196,6 +212,26 @@
+ 	return(0);
+ }
+ 
++void resize_window(int x, int y, int w, int h)
++{
++	/* Prevent division by zero */
++	if (h == 0) {
++		h = 1;
++	}
++
++	float aspect = (float)w / (float)h;
++	if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++		int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++		x += (w - new_w) / 2;
++		w = new_w;
++	} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++		int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++		y += (h - new_h) / 2;
++		h = new_h;
++	}
++	glViewport(x, y, w, h);
++}
++
+ init()
+ {
+ 	double dx,dy;

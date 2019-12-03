@@ -1,0 +1,32 @@
+--- a/main.c
++++ b/main.c
+@@ -22,6 +22,7 @@
+ void halftone(double,double,GLint);
+ void piraali(double);
+ void resize_window(int x, int y, int w, int h);
++void ToggleFullscreen(SDL_Window* Window) ;
+ 
+ unsigned char *loadJPG(char *path,int *width,int *height);
+ 
+@@ -191,6 +192,7 @@
+ 				switch (e.key.keysym.sym) {
+ 					case SDLK_ESCAPE: quit++; break;
+ 					case SDLK_q: quit++; break;
++					case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 				}
+ 			}
+ 			if(e.type == SDL_WINDOWEVENT)
+@@ -232,6 +234,13 @@
+ 	glViewport(x, y, w, h);
+ }
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++	int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++	SDL_ShowCursor(IsFullscreen);
++}
++
+ init()
+ {
+ 	double dx,dy;

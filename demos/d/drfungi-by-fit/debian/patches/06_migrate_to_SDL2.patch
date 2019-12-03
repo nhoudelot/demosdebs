@@ -1,0 +1,103 @@
+--- a/Makefile
++++ b/Makefile
+@@ -6,8 +6,8 @@
+ # General defaults
+ SHELL := /bin/sh
+ CC := gcc
+-CFLAGS += -Wall $(shell pkgconf sdl gl libjpeg --cflags) -std=gnu90 -pipe
+-LDFLAGS += $(shell pkgconf sdl gl libjpeg --libs) -lm
++CFLAGS += -Wall $(shell pkgconf sdl2 gl libjpeg --cflags) -std=gnu90 -pipe
++LDFLAGS += $(shell pkgconf sdl2 gl libjpeg --libs) -lm
+ MZX := cool_mzx/cool_mzx.a
+ OBJ := main.o jpeg.o kukat.o mcubes.o halftone.o tolppa.o
+ 
+--- a/main.c
++++ b/main.c
+@@ -1,8 +1,7 @@
+ #include <math.h>
+ #include <stdio.h>
+ #include <string.h>
+-#include <SDL/SDL.h>
+-#include <SDL/SDL_main.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ 
+ #include "cool_mzx/cool_mzx.h"
+@@ -31,16 +30,17 @@
+ 
+ int main(int argc,char *argv[])
+ {
+-	int quit=0,flags=SDL_OPENGL|SDL_HWSURFACE|SDL_FULLSCREEN;
++	int quit=0,flags=SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
+ 	SDL_Event e;
+ 	double mp=0,oldtimer=0.0,oldtimer2=0.0,oldtimer3=0.0,d;
+ 
+ 	if(argc==2 && !strcmp(argv[1],"-w"))
+-		flags-=SDL_FULLSCREEN;
++		flags-=SDL_WINDOW_FULLSCREEN;
+ 
+ 	SDL_Init(SDL_INIT_VIDEO);
+-	SDL_SetVideoMode(XS,YS,32,flags);
+-	SDL_WM_SetCaption("Dr Fungi by Fit",NULL);
++	SDL_Window *sdlWindow;
++	sdlWindow = SDL_CreateWindow("Dr Fungi by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XS,YS,flags);
++	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_ShowCursor(0);
+ 
+ 	/* Skip the music dialog in init */
+@@ -175,12 +175,14 @@
+ 		if(mzx_position()>1920)
+ 			quit++;
+ 
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(sdlWindow);
+ 		while(SDL_PollEvent(&e)>0)
+ 			if(e.type==SDL_MOUSEBUTTONDOWN || e.type==SDL_QUIT)
+ 				quit++;
+ 	}
+ 
++	SDL_GL_DeleteContext(sdlGlcontext);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 	return(0);
+ }
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -14,7 +14,7 @@
+ #include "sd_mix.h"
+ #include "sd_ns.h"
+ #include "pt.h"
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ extern int pt_curperiod[32],           // kanavan nykyinen periodi
+            pt_curnote[32],             // kanavan nykyinen sävel
+@@ -205,7 +205,7 @@
+ 	if(!laite)
+ 	{
+ 		SDL_Init(SDL_INIT_TIMER);
+-		SDL_SetTimer(jacaja, timeri);
++		SDL_AddTimer(jacaja, timeri,NULL);
+ 		return;
+ 	}
+ 	SDL_PauseAudio(0);
+@@ -282,7 +282,7 @@
+ {
+ 	if(!laite)
+ 	{
+-		SDL_SetTimer(0,NULL);
++		SDL_AddTimer(0,NULL,NULL);
+ 		return;
+ 	}
+ 
+--- a/cool_mzx/sd_dsp16.c
++++ b/cool_mzx/sd_dsp16.c
+@@ -9,7 +9,7 @@
+          2.9.2002: Some minor cleaning for SDL
+  */
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
