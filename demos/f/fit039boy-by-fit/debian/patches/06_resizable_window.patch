@@ -1,0 +1,75 @@
+--- a/main.c
++++ b/main.c
+@@ -39,8 +39,13 @@
+ #define LIST_ROZ 6
+ #define LIST_CHAIN 10
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
++
+ void gridi(double phase);
+ void rendertext(int xs,int ys);
++void resize_window(int x, int y, int w, int h);
+ 
+ int bg_beat[]=    {0,      48,     96,       128, -1};
+ float bg_rgb[][3]={{1,1,1},{0,0,0},{0.8,0,0},{1,1,1}};
+@@ -119,7 +124,7 @@
+ 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,4);
+ 	}
+ 	SDL_Window *sdlWindow;
+-	sdlWindow = SDL_CreateWindow("fit-039: Boy",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,xs,ys,SDL_WINDOW_OPENGL+fs);
++	sdlWindow = SDL_CreateWindow("fit-039: Boy",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,xs,ys,SDL_WINDOW_RESIZABLE+SDL_WINDOW_OPENGL+fs);
+ 	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_ShowCursor(0);
+ 
+@@ -188,6 +193,7 @@
+ 		mp3_play();
+ 
+ 	start=SDL_GetTicks();
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ 	while(!quit)
+ 	{
+ 		tid=SDL_GetTicks()-start;
+@@ -831,6 +837,13 @@
+ 				mx=(e.motion.x-XS/2)/70.0;
+ 				my=-(e.motion.y-YS/2)/70.0;
+ 			}
++			if (e.window.windowID == windowID)  {
++				if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
++					int new_w = e.window.data1;
++					int new_h = e.window.data2;
++					resize_window(0,0, new_w,new_h);
++				}
++			}
+ 		}
+ 		if(beat>=510)
+ 			quit=1;
+@@ -850,6 +863,27 @@
+ 	return(EXIT_SUCCESS);
+ }
+ 
++void resize_window(int x, int y, int w, int h)
++{
++	/* Prevent division by zero */
++	if (h == 0) {
++		h = 1;
++	}
++
++	float aspect = (float)w / (float)h;
++	if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++		int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++		x += (w - new_w) / 2;
++		w = new_w;
++	} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++		int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++		y += (h - new_h) / 2;
++		h = new_h;
++	}
++	glViewport(x, y, w, h);
++}
++
++
+ #define GRIDS 15
+ #define GRIDSZ 1.0
+ #define GRIDDIV 5

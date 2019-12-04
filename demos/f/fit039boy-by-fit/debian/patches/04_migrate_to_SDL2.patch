@@ -1,0 +1,138 @@
+--- a/Makefile
++++ b/Makefile
+@@ -10,8 +10,8 @@
+ MAKE = make
+ TARGET = fit039boy-by-fit
+ 
+-CFLAGS += -Wall $(shell pkgconf sdl gl --cflags) -pipe -std=gnu90
+-LDFLAGS += $(shell pkgconf sdl gl --libs) -lm
++CFLAGS += -Wall $(shell pkgconf sdl2 gl --cflags) -pipe -std=gnu90
++LDFLAGS += $(shell pkgconf sdl2 gl --libs) -lm
+ OBJ = main.o gl_render.o wavefront.o tga.o cgm.o cgm_gl.o writer.o \
+ catmull-rom.o stripe.o stiks.o houses.o vecmat.o
+ 
+--- a/cgm_gl.c
++++ b/cgm_gl.c
+@@ -1,7 +1,7 @@
+ 
+ #include <stdlib.h>
+ #include "cgm_gl.h"
+-#include <SDL_opengl.h>
++#include <SDL2/SDL_opengl.h>
+ 
+ #define RGB(x) (x>>16)/255.0,((x>>8)&0xff)/255.0,(x&0xff)/255.0
+ 
+--- a/houses.c
++++ b/houses.c
+@@ -1,7 +1,7 @@
+ 
+ #include <stdlib.h>
+ #include <math.h>
+-#include <SDL_opengl.h>
++#include <SDL2/SDL_opengl.h>
+ #include "gl_render.h"
+ #include "houses.h"
+ #include "mp3.h"
+--- a/main.c
++++ b/main.c
+@@ -7,8 +7,8 @@
+ #include <string.h>
+ #include <stdio.h>
+ 
+-#include <SDL.h>
+-#include <SDL_opengl.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_opengl.h>
+ 
+ #include "wavefront.h"
+ #include "gl_render.h"
+@@ -54,7 +54,7 @@
+ 	double d,d2,th,x,y,mx=0,my=0;
+ 	char charz[100];
+ 	SDL_Event e;
+-	int xs=XS,ys=YS,fs=SDL_FULLSCREEN,fsaa=1,sound=1,
++	int xs=XS,ys=YS,fs=SDL_WINDOW_FULLSCREEN,fsaa=1,sound=1,
+ 	    text=0,pink=0; // All sorts of demo parameters
+ 	float br=1,bg=1,bb=1;
+ 
+@@ -112,14 +112,15 @@
+ 
+ 	SDL_Init(SDL_INIT_VIDEO+SDL_INIT_TIMER);
+ 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
+-	SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL,1);
++	SDL_GL_SetSwapInterval(1);
+ 	if(fsaa)
+ 	{
+ 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,1);
+ 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,4);
+ 	}
+-	SDL_SetVideoMode(xs,ys,32,SDL_OPENGL+fs);
+-	SDL_WM_SetCaption("fit-039: Boy",0);
++	SDL_Window *sdlWindow;
++	sdlWindow = SDL_CreateWindow("fit-039: Boy",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,xs,ys,SDL_WINDOW_OPENGL+fs);
++	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_ShowCursor(0);
+ 
+ 	// Load and set up 3D objs
+@@ -810,7 +811,7 @@
+ 			glEnd();
+ 		}
+ 
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(sdlWindow);
+ 		if(text)
+ 			rendertext(xs,ys);
+ 
+@@ -834,6 +835,8 @@
+ 
+ 	if(sound)
+ 		mp3_stop();
++	SDL_GL_DeleteContext(sdlGlcontext);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 	if(text) // Clean text screen
+ 	{
+--- a/mp3.c
++++ b/mp3.c
+@@ -8,7 +8,7 @@
+ #include "mpglib/mpglib.h"
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <math.h>
+ 
+ static int pos,retval,allocated,bufdata,finished,filelen;
+--- a/stiks.c
++++ b/stiks.c
+@@ -1,7 +1,7 @@
+ 
+ #include "stiks.h"
+ #include <math.h>
+-#include <SDL_opengl.h>
++#include <SDL2/SDL_opengl.h>
+ #include <stdlib.h>
+ 
+ #define MAXLEVEL 5
+--- a/stripe.c
++++ b/stripe.c
+@@ -4,7 +4,7 @@
+ #include "wavefront.h"
+ #include "vecmat.h"
+ #include <stdlib.h>
+-#include <SDL_opengl.h>
++#include <SDL2/SDL_opengl.h>
+ #include <math.h>
+ 
+ #define PTS 50
+--- a/writer.c
++++ b/writer.c
+@@ -3,7 +3,7 @@
+ #include "wavefront.h"
+ #include "gl_render.h"
+ #include "writer.h"
+-#include <SDL_opengl.h>
++#include <SDL2/SDL_opengl.h>
+ 
+ SCENE fnt;
+ 

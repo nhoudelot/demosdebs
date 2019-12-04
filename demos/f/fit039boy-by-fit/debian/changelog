@@ -1,3 +1,12 @@
+fit039boy-by-fit (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+  * add q key to quit
+  * add f key to go fullscreen and back
+  * window is now resizable, while keeping aspect ration
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 04 Dec 2019 01:51:19 +0100
+
 fit039boy-by-fit (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile

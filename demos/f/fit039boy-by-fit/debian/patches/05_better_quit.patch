@@ -1,0 +1,26 @@
+--- a/main.c
++++ b/main.c
+@@ -815,14 +815,17 @@
+ 		if(text)
+ 			rendertext(xs,ys);
+ 
+-		while(SDL_PollEvent(&e)>0)
++		while(SDL_PollEvent(&e))
+ 		{
+-			if(e.type==SDL_QUIT)
++			if (e.type == SDL_QUIT) {
+ 				quit=1;
+-			if(e.type==SDL_KEYDOWN)
+-				if(e.key.keysym.sym==SDLK_ESCAPE)
+-					quit=1;
+-
++			}
++			if (e.type == SDL_KEYDOWN) {
++				switch (e.key.keysym.sym) {
++					case SDLK_ESCAPE: quit=1; break;
++					case SDLK_q: quit=1; break;
++				}
++			}
+ 			if(e.type==SDL_MOUSEMOTION)
+ 			{
+ 				mx=(e.motion.x-XS/2)/70.0;

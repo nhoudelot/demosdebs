@@ -6,3 +6,7 @@
 0013-CVE-2004-0991-fix-insufficient-validation-of-MPEG-he.patch
 0014-CVE-2004-0991-copy-frame-size-checking-from-mpg123-0.patch
 0016-Increase-MAXFRAMESIZE-to-3456-bytes-which-is-much-cl.patch
+04_migrate_to_SDL2.patch
+05_better_quit.patch
+06_resizable_window.patch
+07_add_fullscreen_key.patch

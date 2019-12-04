@@ -5,7 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>=9),
  pandoc,
- libsdl1.2-dev,
+ libsdl2-dev,
  pkgconf,
  mesa-common-dev
 Standards-Version: 4.1.4

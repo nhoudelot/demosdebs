@@ -1,0 +1,33 @@
+--- a/main.c
++++ b/main.c
+@@ -46,6 +46,7 @@
+ void gridi(double phase);
+ void rendertext(int xs,int ys);
+ void resize_window(int x, int y, int w, int h);
++void ToggleFullscreen(SDL_Window* Window);
+ 
+ int bg_beat[]=    {0,      48,     96,       128, -1};
+ float bg_rgb[][3]={{1,1,1},{0,0,0},{0.8,0,0},{1,1,1}};
+@@ -830,6 +831,7 @@
+ 				switch (e.key.keysym.sym) {
+ 					case SDLK_ESCAPE: quit=1; break;
+ 					case SDLK_q: quit=1; break;
++					case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 				}
+ 			}
+ 			if(e.type==SDL_MOUSEMOTION)
+@@ -863,6 +865,14 @@
+ 	return(EXIT_SUCCESS);
+ }
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++	int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++	SDL_ShowCursor(IsFullscreen);
++}
++
++
+ void resize_window(int x, int y, int w, int h)
+ {
+ 	/* Prevent division by zero */
