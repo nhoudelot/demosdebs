@@ -1,0 +1,149 @@
+--- a/Makefile
++++ b/Makefile
+@@ -7,9 +7,9 @@
+ 
+ CC = gcc
+ CFLAGS += -Wall -pipe -std=c99 \
+- -fno-strict-aliasing `$(SDLPREFIX)sdl-config --cflags` -DBLKSIZE=4096 \
++ -fno-strict-aliasing `$(SDLPREFIX)sdl2-config --cflags` -DBLKSIZE=4096 \
+  -DDOUBLEPIX -DDATADIR=\"/usr/share/onceuponatimeintheeast-by-fit/data/\" $(shell pkg-config libpng --cflags)
+-LDFLAGS += `$(SDLPREFIX)sdl-config --libs` $(shell pkg-config libpng --libs) -lz -lm
++LDFLAGS += `$(SDLPREFIX)sdl2-config --libs` $(shell pkg-config libpng --libs) -lz -lm
+ RANLIB = ranlib
+ AR = ar
+ #variables d’installation
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -11,7 +11,7 @@
+ ****************************************************************/
+ 
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include "cool_mzx.h"
+ #include "sd_main.h"
+ #include "sd_mix.h"
+@@ -295,7 +295,7 @@
+ 	if(!laite)
+ 	{
+ 		SDL_Init(SDL_INIT_TIMER);
+-		SDL_SetTimer(jacaja, timeri);
++		SDL_AddTimer(jacaja,timeri,NULL);
+ 		return;
+ 	}
+ 	SDL_PauseAudio(0);
+@@ -311,6 +311,7 @@
+ #endif
+ 
+ 	short   *oso=(short*)stream;
++	SDL_memset(oso, 0, len);
+ 	int pala;
+ 
+ 	static volatile int starting_ticks;
+@@ -381,7 +382,7 @@
+ {
+ 	if(!laite)
+ 	{
+-		SDL_SetTimer(0,NULL);
++		SDL_AddTimer(0,NULL,NULL);
+ 		return;
+ 	}
+ 
+--- a/cool_mzx/sd_dsp16.c
++++ b/cool_mzx/sd_dsp16.c
+@@ -9,7 +9,7 @@
+          2.9.2002: Some minor cleaning for SDL
+  */
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+--- a/main.c
++++ b/main.c
+@@ -4,7 +4,7 @@
+  */
+ 
+ #include <math.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+@@ -129,7 +129,7 @@
+ 	int fast_forward=0; // pikakelaus
+ 	int fast_forward_prevticks=0; // nopeuden rajoitusta varten
+ 
+-	int quit=0,n,m,i,x,y,fullscreen=SDL_FULLSCREEN,
++	int quit=0,n,m,i,x,y,fullscreen=SDL_WINDOW_FULLSCREEN,
+ 	    feistart=-1,feidistart=-1;
+ 	unsigned tid=0;
+ 	int now_ticks=0;
+@@ -284,7 +284,19 @@
+ #endif
+ 
+ #ifdef DOUBLEPIX
+-	s=SDL_SetVideoMode(XRES*2,YRES*2,32,SDL_SWSURFACE+fullscreen);
++	SDL_Window *sdlWindow;
++	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_SWSURFACE+fullscreen);
++	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	s = SDL_CreateRGBSurface(0, XRES*2, YRES*2, 32,
++                                        0x00FF0000,
++                                        0x0000FF00,
++                                        0x000000FF,
++                                        0xFF000000);
++
++	SDL_Texture *sdlTexture = SDL_CreateTexture(sdlRenderer,
++				SDL_PIXELFORMAT_ARGB8888,
++				SDL_TEXTUREACCESS_STREAMING,
++				XRES*2, YRES*2);
+ #else
+ 
+   #ifdef HICOLOR
+@@ -316,7 +328,6 @@
+ #endif
+ 
+ 	SDL_ShowCursor(0);
+-	SDL_WM_SetCaption("Once upon a Time in the East",NULL);
+ 
+ #ifdef GP2X
+ 	SDL_JoystickOpen(0);
+@@ -366,7 +377,6 @@
+ 		SDL_LockSurface(gpscreen);
+ 		scr=gpscreen->pixels;
+ #else
+-		SDL_LockSurface(s);
+   #ifdef DOUBLEPIX
+ 		scr=buf3;
+   #else
+@@ -818,11 +828,16 @@
+   #endif
+ 
+ #else
+-		SDL_UnlockSurface(s);
+-		SDL_Flip(s);
++		SDL_UpdateTexture(sdlTexture, NULL, s->pixels, s->pitch);
++		SDL_RenderClear(sdlRenderer);
++		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++		SDL_RenderPresent(sdlRenderer);
+ #endif
+ 	}
+ 
++	SDL_DestroyTexture(sdlTexture);
++	SDL_DestroyRenderer(sdlRenderer);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 
+ #ifdef GP2X
+--- a/overlay.c
++++ b/overlay.c
+@@ -1,7 +1,7 @@
+ // Overlay functions
+ 
+ #include <stdlib.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include "overlay.h"
+ #include "cool_mzx/cool_mzx.h"

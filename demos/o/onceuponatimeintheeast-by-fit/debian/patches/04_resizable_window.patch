@@ -1,0 +1,65 @@
+--- a/main.c
++++ b/main.c
+@@ -48,6 +48,9 @@
+ 
+ #endif
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ // From png's RGBA to SDL's ARGB
+ void fixrgba(PNG *s,char to16)
+ {
+@@ -285,8 +288,9 @@
+ 
+ #ifdef DOUBLEPIX
+ 	SDL_Window *sdlWindow;
+-	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_SWSURFACE+fullscreen);
++	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_WINDOW_RESIZABLE+fullscreen);
+ 	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
+ 	s = SDL_CreateRGBSurface(0, XRES*2, YRES*2, 32,
+                                         0x00FF0000,
+                                         0x0000FF00,
+@@ -297,6 +301,7 @@
+ 				SDL_PIXELFORMAT_ARGB8888,
+ 				SDL_TEXTUREACCESS_STREAMING,
+ 				XRES*2, YRES*2);
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ #else
+ 
+   #ifdef HICOLOR
+@@ -723,6 +728,33 @@
+ 					case SDLK_SPACE: fast_forward = 0; break;
+ 				}
+ 			}
++			if(e.type == SDL_WINDOWEVENT)
++			{
++				if (e.window.windowID == windowID)  {
++					if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						SDL_Rect newWindowSize;
++						int w = e.window.data1;
++						int h = e.window.data2;
++						newWindowSize.x=0;
++						newWindowSize.y=0;
++
++						if (w != newWindowSize.w) {
++						    newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++						    newWindowSize.x += (w - newWindowSize.w) / 2;
++						    newWindowSize.h = h;
++						} else if (h != newWindowSize.h) {
++						    newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++						    newWindowSize.y += (h - newWindowSize.h) / 2;
++						    newWindowSize.w = w;
++						}
++						SDL_DestroyTexture(sdlTexture);
++						sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_GetWindowPixelFormat(sdlWindow), SDL_TEXTUREACCESS_TARGET,XRES*2, YRES*2);
++						SDL_Rect viewPort;
++						SDL_RenderGetViewport(sdlRenderer, &viewPort);
++						SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++					}
++				}
++			}
+ 
+ #ifdef GP2X
+ 			if(e.type==SDL_JOYBUTTONDOWN)

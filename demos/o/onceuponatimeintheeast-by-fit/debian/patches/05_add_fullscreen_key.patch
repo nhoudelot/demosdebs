@@ -1,0 +1,25 @@
+--- a/main.c
++++ b/main.c
+@@ -51,6 +51,14 @@
+ #define DEMO_XASPECT 4.0f
+ #define DEMO_YASPECT 3.0f
+ 
++
++void ToggleFullscreen(SDL_Window* Window) {
++	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++	int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++	SDL_ShowCursor(IsFullscreen);
++}
++
+ // From png's RGBA to SDL's ARGB
+ void fixrgba(PNG *s,char to16)
+ {
+@@ -721,6 +729,7 @@
+ 					case SDLK_SPACE: fast_forward = 1; break;
+ 					case SDLK_ESCAPE: quit=1; break;
+ 					case SDLK_q: quit=1; break;
++					case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 				}
+ 			}
+ 			if (e.type == SDL_KEYUP) {

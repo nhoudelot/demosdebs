@@ -1,3 +1,12 @@
+onceuponatimeintheeast-by-fit (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate_to_SDL2
+  * add q key to quit
+  * add f key to go fullscreen
+  * window is now resizable and keep ratiocan now resize and keep ratio
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 Dec 2019 17:53:42 +0100
+
 onceuponatimeintheeast-by-fit (1.0+1-0ddebs1) unstable; urgency=medium
 
   * uncrustify sources
