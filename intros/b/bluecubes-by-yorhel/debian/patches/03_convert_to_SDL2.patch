@@ -28,7 +28,7 @@
  	Uint32 tlast = 0,
  	       tcurrent, st, argn = 0;
 -	Uint32 flags = SDL_OPENGL | SDL_HWPALETTE | SDL_FULLSCREEN;
-+	Uint32 flags = SDL_WINDOW_FULLSCREEN;
++	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
  	char fr = 0;
  
  	while(++argn < argc) {
@@ -56,7 +56,7 @@
  		printf("Error opening screen: %s\n", SDL_GetError());
  		return 1;
  	}
-+	SDL_Renderer *renderer = SDL_CreateRenderer(screen, -1, 0);
++	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(screen);
  	ar = (float) w / (float) h;
 -	SDL_WM_SetCaption("Blue Cubes by YorHel", "Blue Cubes by YorHel");
  	SDL_ShowCursor(0);
@@ -71,7 +71,7 @@
  		tlast = tcurrent;
  	}
  	closesound();
-+	SDL_DestroyRenderer(renderer);
++	SDL_GL_DeleteContext(sdlGlcontext);
 +	SDL_DestroyWindow(screen);
  	SDL_Quit();
  	return 0;

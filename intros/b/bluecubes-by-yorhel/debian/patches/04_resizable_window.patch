@@ -4,8 +4,8 @@
  	SDL_Event event;
  	Uint32 tlast = 0,
  	       tcurrent, st, argn = 0;
--	Uint32 flags = SDL_WINDOW_FULLSCREEN;
-+	Uint32 flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN;
+-	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
++	Uint32 flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
  	char fr = 0;
  
  	while(++argn < argc) {
