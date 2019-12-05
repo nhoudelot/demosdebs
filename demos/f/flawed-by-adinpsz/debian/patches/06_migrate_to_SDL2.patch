@@ -1,0 +1,377 @@
+--- a/Flawed/Makefile
++++ b/Flawed/Makefile
+@@ -12,9 +12,9 @@
+ DEFINES += -O2
+ DEFINES_DBG += -ggdb -D_DEBUG
+ 
+-CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu++98 -fabi-version=2
+-CFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu90
+-LDFLAGS += $(shell pkgconf --libs sdl glu glew fmodex)
++CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl2 glu glew fmodex) -std=gnu++98 -fabi-version=2
++CFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl2 glu glew fmodex) -std=gnu90
++LDFLAGS += $(shell pkgconf --libs sdl2 glu glew fmodex)
+ 
+ ifeq ($(DEBUG),yes)
+ 	CXXFLAGS += $(DEFINES_DBG)
+--- a/Flawed/Sources/NEngine/Engine.cpp
++++ b/Flawed/Sources/NEngine/Engine.cpp
+@@ -3,7 +3,7 @@
+ #include <iostream>
+ 
+ #include <GL/glew.h>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include "Window.hpp"
+ #include "GLWindow.hpp"
+--- a/Flawed/Sources/NEngine/GLWindow.cpp
++++ b/Flawed/Sources/NEngine/GLWindow.cpp
+@@ -1,20 +1,16 @@
+ #include "GLWindow.hpp"
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/glew.h>
++#include <string>
++
+ 
+ GLWindow :: GLWindow(unsigned int width, unsigned int height, const std::string& windowName, bool isFullscreen)
+-	: Window(width,height,windowName, isFullscreen ? SDL_OPENGL | SDL_SWSURFACE | SDL_FULLSCREEN : SDL_OPENGL | SDL_SWSURFACE)
++	: Window(width,height,windowName, isFullscreen ? (SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN) : (SDL_WINDOW_OPENGL))
+ {
+-	SDL_WM_SetCaption((windowName + std::string("- (OpenGL)")).c_str(),NULL);
+ }
+ 
+ void GLWindow :: clear()
+ {
+-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+-}
+-
+-void GLWindow :: refresh()
+-{
+-	SDL_GL_SwapBuffers();
+-}
++	//
++}
+\ No newline at end of file
+--- a/Flawed/Sources/NEngine/GLWindow.hpp
++++ b/Flawed/Sources/NEngine/GLWindow.hpp
+@@ -1,16 +1,22 @@
+ #ifndef __GLWINDOW_HPP__
+ #define __GLWINDOW_HPP__
+ 
++#include <string>
++#include <SDL2/SDL.h>
+ #include "Window.hpp"
+ 
+ class GLWindow : public Window
+ {
+ public:
+ 
+-GLWindow(unsigned int width, unsigned int height, const std::string& windowName, bool isFullscreen);
++    GLWindow(unsigned int width, unsigned int height, const std::string& windowName, bool isFullscreen);
+ 
+-void clear();
+-void refresh();
++    void clear();
++    void refresh();
++
++private:
++    
++    SDL_Window *sdlWindow;
+ };
+ 
+ #endif
+--- a/Flawed/Sources/NEngine/Window.cpp
++++ b/Flawed/Sources/NEngine/Window.cpp
+@@ -1,50 +1,58 @@
+ #include "Window.hpp"
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
++#include <GL/glew.h>
+ 
+ Window :: Window(unsigned int width, unsigned int height, const std::string& windowName, unsigned int sdlFlags)
+ {
+-	if ( (sdlFlags & SDL_FULLSCREEN) != SDL_FULLSCREEN )
++	if ( (sdlFlags & SDL_WINDOW_FULLSCREEN) != SDL_WINDOW_FULLSCREEN )
+ 	{
+-		sdlFlags |= SDL_RESIZABLE;
++		sdlFlags |= SDL_WINDOW_RESIZABLE;
+ 	}
+ 
+-	pWindow = SDL_SetVideoMode(width,height,32,sdlFlags);
+-	if ( pWindow == NULL )
++	sdlWindow = SDL_CreateWindow(windowName.c_str(),SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,sdlFlags);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	if ( sdlWindow == NULL )
+ 	{
+ 		throw WindowCreationException("Fail to create the window");
+ 	}
+-
+-	SDL_WM_SetCaption(windowName.c_str(),NULL);
+-}
+-
+-Window :: ~Window()
+-{
+-	// Not ... since SDL does everything
+ }
+ 
+ unsigned int Window :: getWidth() const {
+-	return pWindow->w;
++	int w;
++	int h;
++	SDL_GetWindowSize(sdlWindow,&w,&h);
++	return(w);
+ }
+ unsigned int Window :: getHeight() const {
+-	return pWindow->h;
++	int w;
++	int h;
++	SDL_GetWindowSize(sdlWindow,&w,&h);
++	return(h);
+ }
+ 
+ void Window :: clear()
+ {
+-	SDL_FillRect(pWindow,NULL,SDL_MapRGB(pWindow->format,0,0,0));
++	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+ }
+ 
+-void Window :: resize(unsigned int width, unsigned int height)
++Window :: ~Window()
+ {
+-	pWindow = SDL_SetVideoMode(width,height,32,pWindow->flags);
+-	if ( pWindow == NULL )
+-	{
+-		throw WindowCreationException("Fail to resize");
+-	}
++	// Not ... since SDL does everything
+ }
+ 
+ void Window :: refresh()
+ {
+-	SDL_UpdateRect(pWindow,0,0,0,0);
++	SDL_GL_SwapWindow(sdlWindow);
++}
++
++
++void Window :: resize(unsigned int width, unsigned int height)
++{
++	
++//	pWindow = SDL_CreateWindow("",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,pWindow->flags);
++	if ( sdlWindow == NULL )
++	{
++		throw WindowCreationException("Fail to resize");
++	}
+ }
+--- a/Flawed/Sources/NEngine/Window.hpp
++++ b/Flawed/Sources/NEngine/Window.hpp
+@@ -3,6 +3,7 @@
+ 
+ #include <exception>
+ #include <string>
++#include <SDL2/SDL.h>
+ 
+ struct SDL_Surface;
+ 
+@@ -27,7 +28,8 @@
+ {
+ private:
+ 
+-SDL_Surface* pWindow;
++SDL_Window* sdlWindow;
++SDL_GLContext sdlGlcontext;
+ 
+ public:
+ 
+@@ -36,10 +38,10 @@
+ 
+ unsigned int getWidth() const;
+ unsigned int getHeight() const;
++void clear();
++void refresh();
+ 
+-virtual void clear();
+ virtual void resize(unsigned int width, unsigned int height);
+-virtual void refresh();
+ };
+ 
+ #endif
+--- a/Flawed/Sources/main.cpp
++++ b/Flawed/Sources/main.cpp
+@@ -1,7 +1,7 @@
+ #include <iostream>
+ 
+ #include <GL/glew.h>
+-// #include <SDL/SDL.h>
++// #include <SDL2/SDL.h>
+ 
+ #include "NEngine/Engine.hpp"
+ #include "NEngine/Window.hpp"
+@@ -58,7 +58,7 @@
+ 
+ 	try
+ 	{
+-		Settings setting("/usr/share/flawed-by-adinpsz/data/settings.ini");
++		Settings setting("data/settings.ini");
+ 		srand(setting.getSetting("seed",42));
+ 		Engine e(EAPI_SDL | EAPI_OpenGL, setting.getSetting("hres",640),setting.getSetting("vres",480),"DemoD");
+ 
+@@ -161,10 +161,10 @@
+             g.updateSpectrum(spectrum,512);
+  */
+ 
+-			if ( ( buttons & InputManager::INPUT_A ) == InputManager::INPUT_A )
+-			{
+-				// g.makeImpulsion(10,10,1,5);
+-			}
++//			if ( ( buttons & InputManager::INPUT_A ) == InputManager::INPUT_A )
++//			{
++//				// g.makeImpulsion(10,10,1,5);
++//			}
+ 
+ 			frameBuffer.attach(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureBucket.getID());
+ 			frameBuffer.bind(GL_FRAMEBUFFER);
+--- a/Flawed/Sources/NEngine/Controllers/SDL_Keyboard.cpp
++++ b/Flawed/Sources/NEngine/Controllers/SDL_Keyboard.cpp
+@@ -24,7 +24,7 @@
+ 
+ #include "SDL_Keyboard.hpp"
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <cassert>
+ 
+@@ -43,13 +43,13 @@
+ {
+ 	// Silly way to check it ... ( ToDo: Improve if possible )
+ 	// Some cases are hidden, like DOWN and UP ... but I don't mind if the user is a bit silly ... :p
+-	if ( m_pKeys[SDLK_UP] )
++	if ( m_pKeys[SDL_SCANCODE_UP] )
+ 	{
+-		if ( m_pKeys[SDLK_RIGHT] )
++		if ( m_pKeys[SDL_SCANCODE_RIGHT] )
+ 		{
+ 			return InputManager::AD_UPRIGHT;
+ 		}
+-		else if ( m_pKeys[SDLK_LEFT] )
++		else if ( m_pKeys[SDL_SCANCODE_LEFT] )
+ 		{
+ 			return InputManager::AD_LEFTUP;
+ 		}
+@@ -57,13 +57,13 @@
+ 		return InputManager::AD_UP;
+ 	}
+ 
+-	if ( m_pKeys[SDLK_DOWN] )
++	if ( m_pKeys[SDL_SCANCODE_DOWN] )
+ 	{
+-		if ( m_pKeys[SDLK_RIGHT] )
++		if ( m_pKeys[SDL_SCANCODE_RIGHT] )
+ 		{
+ 			return InputManager::AD_RIGHTDOWN;
+ 		}
+-		else if ( m_pKeys[SDLK_LEFT] )
++		else if ( m_pKeys[SDL_SCANCODE_LEFT] )
+ 		{
+ 			return InputManager::AD_DOWNLEFT;
+ 		}
+@@ -71,11 +71,11 @@
+ 		return InputManager::AD_DOWN;
+ 	}
+ 
+-	if ( m_pKeys[SDLK_LEFT] )
++	if ( m_pKeys[SDL_SCANCODE_LEFT] )
+ 	{
+ 		return InputManager::AD_LEFT;
+ 	}
+-	else if ( m_pKeys[SDLK_RIGHT] )
++	else if ( m_pKeys[SDL_SCANCODE_RIGHT] )
+ 	{
+ 		return InputManager::AD_RIGHT;
+ 	}
+@@ -87,35 +87,35 @@
+ {
+ 	InputManager::Buttons buttonPressed = 0;
+ 
+-	if ( m_pKeys[SDLK_q] )
++	if ( m_pKeys[SDL_SCANCODE_Q] )
+ 	{
+ 		buttonPressed |= InputManager::INPUT_A;
+ 	}
+-	if ( m_pKeys[SDLK_w] )
++	if ( m_pKeys[SDL_SCANCODE_W] )
+ 	{
+ 		buttonPressed |= InputManager::INPUT_B;
+ 	}
+-	if ( m_pKeys[SDLK_a] )
++	if ( m_pKeys[SDL_SCANCODE_A] )
+ 	{
+ 		buttonPressed |= InputManager::INPUT_X;
+ 	}
+-	if ( m_pKeys[SDLK_s] )
++	if ( m_pKeys[SDL_SCANCODE_S] )
+ 	{
+ 		buttonPressed |= InputManager::INPUT_Y;
+ 	}
+-	if ( m_pKeys[SDLK_z] )
++	if ( m_pKeys[SDL_SCANCODE_Z] )
+ 	{
+ 		buttonPressed |= InputManager::INPUT_START;
+ 	}
+-	if ( m_pKeys[SDLK_x] )
++	if ( m_pKeys[SDL_SCANCODE_X] )
+ 	{
+ 		buttonPressed |= InputManager::INPUT_SELECT;
+ 	}
+-	if ( m_pKeys[SDLK_KP_MINUS] )
++	if ( m_pKeys[SDL_SCANCODE_KP_MINUS] )
+ 	{
+ 		buttonPressed |= InputManager::INPUT_VOLUMEDOWN;
+ 	}
+-	if ( m_pKeys[SDLK_KP_PLUS] )
++	if ( m_pKeys[SDL_SCANCODE_KP_PLUS] )
+ 	{
+ 		buttonPressed |= InputManager::INPUT_VOLUMEUP;
+ 	}
+@@ -132,7 +132,7 @@
+ 
+ bool SDL_Keyboard :: needEscape(void)
+ {
+-	return isKey(SDLK_ESCAPE) == 1;
++	return isKey(SDL_SCANCODE_ESCAPE) == 1;
+ }
+ 
+ void SDL_Keyboard :: update(void)
+@@ -144,7 +144,7 @@
+ #endif
+ 
+ 	SDL_PumpEvents();
+-	m_pKeys = SDL_GetKeyState(&nbKeys);
++	m_pKeys = SDL_GetKeyboardState(&nbKeys);
+ 
+ 	this->m_nbKeys = nbKeys;
+ }
+--- a/Flawed/Sources/NEngine/Controllers/SDL_Keyboard.hpp
++++ b/Flawed/Sources/NEngine/Controllers/SDL_Keyboard.hpp
+@@ -32,7 +32,7 @@
+ {
+ private:
+ int m_nbKeys;                             /*!< The number of keys repertoried in the array */
+-unsigned char* m_pKeys;                    /*!< Array of keys state */
++const unsigned char* m_pKeys;                    /*!< Array of keys state */
+ 
+ unsigned char isKey(unsigned int key);
+ 
+--- a/Flawed/Sources/Music/Impulsor.cpp
++++ b/Flawed/Sources/Music/Impulsor.cpp
+@@ -1,6 +1,6 @@
+ #include "Impulsor.hpp"
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ Impulsor :: Impulsor(unsigned int impulsionRate) : lastUpdate(SDL_GetTicks()),impulsionRate(impulsionRate),impulsion(false)
+ {
