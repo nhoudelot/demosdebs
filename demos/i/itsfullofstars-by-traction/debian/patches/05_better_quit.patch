@@ -1,0 +1,21 @@
+--- a/main.cpp
++++ b/main.cpp
+@@ -114,15 +114,12 @@
+ 			SDL_PollEvent(&event);
+ 			switch(event.type)
+ 			{
+-			case SDL_QUIT:
+-				done = true;
+-				break;
++			case SDL_QUIT:done = true;break;
+ 			case SDL_KEYDOWN:
+ 				switch (event.key.keysym.sym)
+ 				{
+-				case SDLK_ESCAPE:
+-					done = true;
+-					break;
++				case SDLK_ESCAPE: done = true;break;
++				case SDLK_q: done = true; break;
+ 				default:
+ 					break;
+ 				}

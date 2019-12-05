@@ -1,3 +1,12 @@
+itsfullofstars-by-traction (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+  * add q key to quit
+  * add f key to fullscreen
+  * window is now resizable with ratio
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 Dec 2019 12:37:28 +0100
+
 itsfullofstars-by-traction (1.0+1-0ddebs1) unstable; urgency=medium
 
   * sources to utf-8

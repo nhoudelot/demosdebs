@@ -1,3 +1,7 @@
 01_adapt_makefile.patch
 02_adapt_path.patch
 03_window_title.patch
+04_migrate_to_SDL2.patch
+05_better_quit.patch
+06_resizable_window.patch
+07_add_fullscreen_key.patch
