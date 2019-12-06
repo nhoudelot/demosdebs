@@ -15,7 +15,7 @@
  // From png's RGBA to SDL's ARGB
  void fixrgba(PNG *s,char to16)
  {
-@@ -721,6 +729,7 @@
+@@ -722,6 +730,7 @@
  					case SDLK_SPACE: fast_forward = 1; break;
  					case SDLK_ESCAPE: quit=1; break;
  					case SDLK_q: quit=1; break;

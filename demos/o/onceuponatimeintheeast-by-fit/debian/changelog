@@ -1,3 +1,10 @@
+onceuponatimeintheeast-by-fit (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * bugfix in resize
+  * better init
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 Dec 2019 10:49:38 +0100
+
 onceuponatimeintheeast-by-fit (1.0+1-0ddebs2) unstable; urgency=medium
 
   * migrate_to_SDL2

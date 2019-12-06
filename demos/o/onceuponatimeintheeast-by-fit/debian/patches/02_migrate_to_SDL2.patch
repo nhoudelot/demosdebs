@@ -80,28 +80,31 @@
  	    feistart=-1,feidistart=-1;
  	unsigned tid=0;
  	int now_ticks=0;
-@@ -284,7 +284,19 @@
+@@ -284,7 +284,22 @@
  #endif
  
  #ifdef DOUBLEPIX
 -	s=SDL_SetVideoMode(XRES*2,YRES*2,32,SDL_SWSURFACE+fullscreen);
++/*
++	Initalize Color Masks.
++	this demo use big endian in ARGB
++*/
++	Uint32 redMask, greenMask, blueMask, alphaMask;
++	alphaMask = 0xff000000;
++	redMask   = 0x00ff0000;
++	greenMask = 0x0000ff00;
++	blueMask  = 0x000000ff;
++
 +	SDL_Window *sdlWindow;
 +	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_SWSURFACE+fullscreen);
 +	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
-+	s = SDL_CreateRGBSurface(0, XRES*2, YRES*2, 32,
-+                                        0x00FF0000,
-+                                        0x0000FF00,
-+                                        0x000000FF,
-+                                        0xFF000000);
++	s = SDL_CreateRGBSurface(0, XRES*2, YRES*2, 32,redMask, greenMask, blueMask, alphaMask); //buffer video
++	SDL_Texture *sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,s); // texture from video buffer
 +
-+	SDL_Texture *sdlTexture = SDL_CreateTexture(sdlRenderer,
-+				SDL_PIXELFORMAT_ARGB8888,
-+				SDL_TEXTUREACCESS_STREAMING,
-+				XRES*2, YRES*2);
  #else
  
    #ifdef HICOLOR
-@@ -316,7 +328,6 @@
+@@ -316,7 +331,6 @@
  #endif
  
  	SDL_ShowCursor(0);
@@ -109,7 +112,7 @@
  
  #ifdef GP2X
  	SDL_JoystickOpen(0);
-@@ -366,7 +377,6 @@
+@@ -366,7 +380,6 @@
  		SDL_LockSurface(gpscreen);
  		scr=gpscreen->pixels;
  #else
@@ -117,7 +120,7 @@
    #ifdef DOUBLEPIX
  		scr=buf3;
    #else
-@@ -818,11 +828,16 @@
+@@ -818,11 +831,16 @@
    #endif
  
  #else

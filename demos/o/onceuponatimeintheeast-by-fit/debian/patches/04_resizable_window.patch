@@ -10,26 +10,21 @@
  // From png's RGBA to SDL's ARGB
  void fixrgba(PNG *s,char to16)
  {
-@@ -285,8 +288,9 @@
+@@ -295,11 +298,11 @@
+ 	blueMask  = 0x000000ff;
  
- #ifdef DOUBLEPIX
  	SDL_Window *sdlWindow;
 -	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_SWSURFACE+fullscreen);
 +	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_WINDOW_RESIZABLE+fullscreen);
  	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
-+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
- 	s = SDL_CreateRGBSurface(0, XRES*2, YRES*2, 32,
-                                         0x00FF0000,
-                                         0x0000FF00,
-@@ -297,6 +301,7 @@
- 				SDL_PIXELFORMAT_ARGB8888,
- 				SDL_TEXTUREACCESS_STREAMING,
- 				XRES*2, YRES*2);
+ 	s = SDL_CreateRGBSurface(0, XRES*2, YRES*2, 32,redMask, greenMask, blueMask, alphaMask); //buffer video
+ 	SDL_Texture *sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,s); // texture from video buffer
+-
 +	Uint32 windowID = SDL_GetWindowID(sdlWindow);
  #else
  
    #ifdef HICOLOR
-@@ -723,6 +728,33 @@
+@@ -726,6 +729,42 @@
  					case SDLK_SPACE: fast_forward = 0; break;
  				}
  			}
@@ -43,7 +38,16 @@
 +						newWindowSize.x=0;
 +						newWindowSize.y=0;
 +
-+						if (w != newWindowSize.w) {
++						float aspect = (float)w / (float)h;
++						if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++						    newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++						    newWindowSize.x += (w - newWindowSize.w) / 2;
++						    newWindowSize.h = h;
++						} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++						    newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++						    newWindowSize.y += (h - newWindowSize.h) / 2;
++						    newWindowSize.w = w;
++						} else if (w != newWindowSize.w) {
 +						    newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
 +						    newWindowSize.x += (w - newWindowSize.w) / 2;
 +						    newWindowSize.h = h;
