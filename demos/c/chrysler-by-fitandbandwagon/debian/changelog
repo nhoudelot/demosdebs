@@ -1,3 +1,9 @@
+chrysler-by-fitandbandwagon (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * more compatible way to define surface pixelformat
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 07 Dec 2019 00:42:15 +0100
+
 chrysler-by-fitandbandwagon (1.0+1-0ddebs3) unstable; urgency=medium
 
   * resize bigfux

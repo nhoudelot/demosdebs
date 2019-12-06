@@ -20,7 +20,7 @@
  
  	if(argc==2)
  		if(!strcmp(argv[1],"-w"))
-@@ -156,6 +160,8 @@
+@@ -142,6 +146,8 @@
  	origtick=SDL_GetTicks();
  	vbl2=0;
  
@@ -29,7 +29,7 @@
  	/* The main loop */
  	while(!quit)
  	{
-@@ -173,6 +179,41 @@
+@@ -159,6 +165,41 @@
  					case SDLK_q: quit=1;; break;
  				}
  			}

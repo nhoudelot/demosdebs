@@ -15,7 +15,7 @@
  int main(int argc,char **argv)
  {
  	int modpos,pt_songpos,pt_patternpos,quit=0,frame=0,n,i;
-@@ -177,6 +185,7 @@
+@@ -163,6 +171,7 @@
  				switch (e.key.keysym.sym) {
  					case SDLK_ESCAPE: quit=1;; break;
  					case SDLK_q: quit=1;; break;

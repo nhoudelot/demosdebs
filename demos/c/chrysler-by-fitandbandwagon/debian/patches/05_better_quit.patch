@@ -1,6 +1,6 @@
 --- a/main.c
 +++ b/main.c
-@@ -159,13 +159,20 @@
+@@ -145,13 +145,20 @@
  	/* The main loop */
  	while(!quit)
  	{
