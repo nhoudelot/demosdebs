@@ -29,7 +29,7 @@
  	/* The main loop */
  	while(!quit)
  	{
-@@ -173,6 +179,32 @@
+@@ -173,6 +179,41 @@
  					case SDLK_q: quit=1;; break;
  				}
  			}
@@ -41,14 +41,23 @@
 +					newWindowSize.x=0;
 +					newWindowSize.y=0;
 +
-+					if (w != newWindowSize.w) {
-+						newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+						newWindowSize.x += (w - newWindowSize.w) / 2;
-+						newWindowSize.h = h;
++					float aspect = (float)w / (float)h;
++					if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++					    newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++					    newWindowSize.x += (w - newWindowSize.w) / 2;
++					    newWindowSize.h = h;
++					} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++					    newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++					    newWindowSize.y += (h - newWindowSize.h) / 2;
++					    newWindowSize.w = w;
++					} else if (w != newWindowSize.w) {
++					    newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++					    newWindowSize.x += (w - newWindowSize.w) / 2;
++					    newWindowSize.h = h;
 +					} else if (h != newWindowSize.h) {
-+						newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+						newWindowSize.y += (h - newWindowSize.h) / 2;
-+						newWindowSize.w = w;
++					    newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++					    newWindowSize.y += (h - newWindowSize.h) / 2;
++					    newWindowSize.w = w;
 +					}
 +
 +					SDL_DestroyTexture(sdlTexture);

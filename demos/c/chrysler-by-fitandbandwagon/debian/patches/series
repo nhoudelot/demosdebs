@@ -4,4 +4,4 @@
 04_migrate_to_SDL2.patch
 05_better_quit.patch
 06_resizable_window.patch
-add_fullscreen_key.patch
+07_add_fullscreen_key.patch

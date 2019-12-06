@@ -1,3 +1,9 @@
+chrysler-by-fitandbandwagon (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * resize bigfux
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 Dec 2019 10:23:06 +0100
+
 chrysler-by-fitandbandwagon (1.0+1-0ddebs2) unstable; urgency=medium
 
   * migrate to SDL2
@@ -5,7 +11,7 @@ chrysler-by-fitandbandwagon (1.0+1-0ddebs2) unstable; urgency=medium
   * add f key for fullscreen
   * window is now resizable with ratio
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 Dec 2019 01:11:09 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 Dec 2019 10:21:47 +0100
 
 chrysler-by-fitandbandwagon (1.0+1-0ddebs1) unstable; urgency=medium
 
