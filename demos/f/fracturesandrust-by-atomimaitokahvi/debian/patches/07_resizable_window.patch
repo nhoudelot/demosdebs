@@ -1,0 +1,71 @@
+--- a/main.c
++++ b/main.c
+@@ -36,6 +36,9 @@
+ int audiolen,audiooff;
+ int renderonly;
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ 
+ int
+ main(int argc, char *argv[])
+@@ -50,7 +53,7 @@
+ 	int i;
+ 
+ 	/* parse command line arguments */
+-	flags=0;
++	flags=SDL_WINDOW_RESIZABLE;
+ 	renderonly=0;
+ 
+ 	for (i=1; i<argc; i++)
+@@ -165,6 +168,8 @@
+ 
+ 	script_advance(metaframes);
+ 
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
++
+ 	while (1)
+ 	{
+ 		/* update metaframe counter (100hz) */
+@@ -211,6 +216,40 @@
+ 					case SDLK_q: goto terminate; break;
+ 				}
+ 			}
++			if (event.window.windowID == windowID)  {
++				if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++					SDL_Rect newWindowSize;
++
++					int w = event.window.data1;
++					int h = event.window.data2;
++					newWindowSize.x=0;
++					newWindowSize.y=0;
++
++					float aspect = (float)w / (float)h;
++					if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++						newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++						newWindowSize.x += (w - newWindowSize.w) / 2;
++						newWindowSize.h = h;
++					} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++						newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++						newWindowSize.y += (h - newWindowSize.h) / 2;
++						newWindowSize.w = w;
++					} else if (w != newWindowSize.w) {
++						newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++						newWindowSize.x += (w - newWindowSize.w) / 2;
++						newWindowSize.h = h;
++					} else if (h != newWindowSize.h) {
++						newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++						newWindowSize.y += (h - newWindowSize.h) / 2;
++						newWindowSize.w = w;
++					}
++					SDL_DestroyTexture(sdlTexture);
++					sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_GetWindowPixelFormat(sdlWindow), SDL_TEXTUREACCESS_TARGET,640, 480);
++					SDL_Rect viewPort;
++					SDL_RenderGetViewport(sdlRenderer, &viewPort);
++					SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++				}
++			}
+ 		}
+ 
+ 		if (!renderonly)

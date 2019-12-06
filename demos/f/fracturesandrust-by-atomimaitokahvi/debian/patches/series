@@ -2,3 +2,7 @@
 02_change_data_path.patch
 03_set_window_title.patch
 04_fix_warnings.patch
+05_migrate_to_SDL2.patch
+06_better_quit.patch
+07_resizable_window.patch
+08_add_fullscreen_key.patch

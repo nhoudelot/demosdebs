@@ -1,0 +1,26 @@
+--- a/main.c
++++ b/main.c
+@@ -200,12 +200,18 @@
+ 		}
+ 
+ 		/* check for program termination */
+-		while (SDL_PollEvent(&event))
+-			switch (event.type)
+-			{
+-			case SDL_KEYDOWN: if (event.key.keysym.sym == SDLK_ESCAPE) goto terminate; break;
+-			case SDL_QUIT: goto terminate;
++		while(SDL_PollEvent(&event))
++		{
++			if (event.type == SDL_QUIT) {
++				goto terminate;
+ 			}
++			if (event.type == SDL_KEYDOWN) {
++				switch (event.key.keysym.sym) {
++					case SDLK_ESCAPE:goto terminate; break;
++					case SDLK_q: goto terminate; break;
++				}
++			}
++		}
+ 
+ 		if (!renderonly)
+ 			fprintf(stderr, "%d %d %d %f\n", (SDL_GetTicks()-startticks)/1000/60, ((SDL_GetTicks()-startticks)/1000)%60, script_advance(0), input_cur(0));

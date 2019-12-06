@@ -1,0 +1,131 @@
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ SHELL := /bin/sh
+ CC	:= gcc
+ 
+-CFLAGS	+= -Wall -pipe -I/usr/include $(shell sdl-config --cflags)
++CFLAGS	+= -Wall -pipe -I/usr/include $(shell sdl2-config --cflags)
+ CFLAGS2	+= -fpeephole2 -fexpensive-optimizations
+ LDFLAGS +=
+ 
+@@ -26,10 +26,10 @@
+ 	-@$(RM_F) $(TARGET)
+ 
+ main: attract.o convolve.o filter.o input.o interpolate.o im.o list.o main.o pnm.o script.o util.o xmalloc.o tuherrus.o suodatin.o
+-	$(CC) -o $(TARGET) $^ $(LDFLAGS) $(shell sdl-config --libs) -lvorbisfile -lm
++	$(CC) -o $(TARGET) $^ $(LDFLAGS) $(shell sdl2-config --libs) -lvorbisfile -lm
+ 
+ editor: convolve.o editor.o filter.o input.o interpolate.o im.o list.o pnm.o script.o util.o xmalloc.o
+-	$(CC) -o $@ $^ $(LDFLAGS) $(shell sdl-config --libs)
++	$(CC) -o $@ $^ $(LDFLAGS) $(shell sdl2-config --libs)
+ 
+ script-buildbg: script-buildbg.c
+ 	$(CC) $(CFLAGS) -o $@ $^ -lm
+--- a/editor.c
++++ b/editor.c
+@@ -1,6 +1,6 @@
+ /* editor.c */
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <math.h>
+ #include "main.h"
+ #include "script.h"
+--- a/input.c
++++ b/input.c
+@@ -1,6 +1,6 @@
+ /* input.c - human input for syncing etc */
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include "input.h"
+ #include "interpolate.h"
+ 
+--- a/main.c
++++ b/main.c
+@@ -1,6 +1,6 @@
+ /* main.c */
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <vorbis/vorbisfile.h>
+ #include <unistd.h>
+ #include <math.h>
+@@ -50,12 +50,12 @@
+ 	int i;
+ 
+ 	/* parse command line arguments */
+-	flags=SDL_HWSURFACE|SDL_HWPALETTE;
++	flags=0;
+ 	renderonly=0;
+ 
+ 	for (i=1; i<argc; i++)
+ 	{
+-		if (!strcmp("-fullscreen",argv[i])) flags|=SDL_FULLSCREEN;
++		if (!strcmp("-fullscreen",argv[i])) flags|=SDL_WINDOW_FULLSCREEN;
+ 		else if (!strcmp("-render",argv[i])) renderonly=1;
+ 		else script_path = argv[i];
+ 	}
+@@ -118,13 +118,29 @@
+ 		return 1;
+ 	}
+ 
+-	if ((surface=SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 24, flags)) == NULL)
+-	{
+-		SDL_Quit();
+-		return 1;
+-	}
+-
+-	SDL_WM_SetCaption("Fractures and Rust by atomimaitokahvi",NULL);
++	// Initalize Color Masks.
++	Uint32 redMask, greenMask, blueMask, alphaMask;
++	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
++	    redMask   = 0xff000000;
++	    greenMask = 0x00ff0000;
++	    blueMask  = 0x0000ff00;
++	    alphaMask = 0x000000ff;
++	#else
++	    redMask   = 0x000000ff;
++	    greenMask = 0x0000ff00;
++	    blueMask  = 0x00ff0000;
++	    alphaMask = 0xff000000;
++	#endif
++
++	SDL_Window *sdlWindow;
++	SDL_Renderer *sdlRenderer;
++	SDL_Texture *sdlTexture;
++	SDL_Surface* sdlSurface;
++	sdlWindow = SDL_CreateWindow("Fractures and Rust by atomimaitokahvi",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_WIDTH,SCREEN_HEIGHT,flags);
++	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	sdlSurface = SDL_CreateRGBSurface(0, 640, 480, 32,redMask, greenMask, blueMask, alphaMask);
++	surface = SDL_CreateRGBSurface(0, 640, 480, 24,redMask, greenMask, blueMask, 0); //buffer video
++	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,surface); // on crée une texture a partir du buffer video
+ 
+ 	spec.freq = 44100;
+ 	spec.format = AUDIO_S16LSB;
+@@ -175,7 +191,13 @@
+ 		render(surface);
+ 		if (renderonly) write_pnm(surface->pixels);
+ 		SDL_UnlockSurface(surface);
+-		if (!renderonly) SDL_Flip(surface);
++		if (!renderonly) {
++			sdlSurface = SDL_ConvertSurface(surface,sdlSurface->format,0);
++			SDL_UpdateTexture(sdlTexture, NULL, sdlSurface->pixels, sdlSurface->pitch);
++			SDL_RenderClear(sdlRenderer);
++			SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++			SDL_RenderPresent(sdlRenderer);
++		}
+ 
+ 		/* check for program termination */
+ 		while (SDL_PollEvent(&event))
+@@ -190,6 +212,9 @@
+ 	}
+ 
+ terminate:
++	SDL_DestroyTexture(sdlTexture);
++	SDL_DestroyRenderer(sdlRenderer);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 	input_save(stdout, "brightness");
+ 	fprintf(stderr, "%d\n",script_advance(0));
