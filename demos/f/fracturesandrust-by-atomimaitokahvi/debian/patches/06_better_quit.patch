@@ -1,6 +1,6 @@
 --- a/main.c
 +++ b/main.c
-@@ -200,12 +200,18 @@
+@@ -186,12 +186,18 @@
  		}
  
  		/* check for program termination */

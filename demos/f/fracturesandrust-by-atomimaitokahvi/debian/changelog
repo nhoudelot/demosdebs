@@ -1,3 +1,9 @@
+fracturesandrust-by-atomimaitokahvi (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * more compatible way to define surface pixelformat
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 07 Dec 2019 00:04:10 +0100
+
 fracturesandrust-by-atomimaitokahvi (1.0+1-0ddebs2) unstable; urgency=medium
 
   * migrate to SDL

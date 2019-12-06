@@ -14,7 +14,7 @@
  
  int
  main(int argc, char *argv[])
-@@ -214,6 +221,7 @@
+@@ -201,6 +208,7 @@
  				switch (event.key.keysym.sym) {
  					case SDLK_ESCAPE:goto terminate; break;
  					case SDLK_q: goto terminate; break;
@@ -22,7 +22,7 @@
  				}
  			}
  			if (event.window.windowID == windowID)  {
-@@ -267,6 +275,7 @@
+@@ -254,6 +262,7 @@
  	return 0;
  }
  
