@@ -71,41 +71,25 @@
  #endif
  
  	int o_intro=-1,o_ring1=-1,o_stara=-1,o_kale=-1,o_tytsi=-1,o_greet=-1,
-@@ -138,9 +138,31 @@
+@@ -138,9 +138,15 @@
  		fullscreen=0;
  
  	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);
 -	scr=SDL_SetVideoMode(640,480,32,SDL_SWSURFACE|SDL_DOUBLEBUF|fullscreen);
-+
-+	// Initalize Color Masks.
-+	Uint32 redMask, greenMask, blueMask, alphaMask;
-+	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-+	    redMask   = 0xff000000;
-+	    greenMask = 0x00ff0000;
-+	    blueMask  = 0x0000ff00;
-+	    alphaMask = 0x000000ff;
-+	#else
-+	    redMask   = 0x000000ff;
-+	    greenMask = 0x0000ff00;
-+	    blueMask  = 0x00ff0000;
-+	    alphaMask = 0xff000000;
-+	#endif
-+
 +	SDL_Window *sdlWindow;
 +	SDL_Renderer *sdlRenderer;
 +	SDL_Texture *sdlTexture;
 +	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
 +	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
-+	scr = SDL_CreateRGBSurface(0, 640, 480, 32,redMask, greenMask, blueMask, alphaMask); //buffer video
++	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_ABGR32); //buffer video
 +	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
 +
-+	//scr=SDL_SetVideoMode(640,480,32,SDL_SWSURFACE|SDL_DOUBLEBUF|fullscreen);
  	memset(scr->pixels,0,640*480*4);
 -	SDL_WM_SetCaption("Hex Pistols",NULL);
  	SDL_ShowCursor(0);
  
  	ungetc('\n',stdin);
-@@ -460,13 +482,19 @@
+@@ -460,13 +466,19 @@
  			}
  		}
  		SDL_UnlockSurface(scr);

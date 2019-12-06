@@ -14,7 +14,7 @@
  int main(int argc,char *argv[])
  {
  	int quit=0,n,i,*pal,last=0,pos=0,tmp,r,g,b,*pix,origtime=-1;
-@@ -206,6 +213,7 @@
+@@ -191,6 +198,7 @@
  				switch (e.key.keysym.sym) {
  					case SDLK_ESCAPE: quit=1; break;
  					case SDLK_q: quit=1; break;

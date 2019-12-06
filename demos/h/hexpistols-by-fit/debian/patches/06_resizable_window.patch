@@ -10,21 +10,21 @@
  #ifdef NOAMIKA
  SDL_Surface *scr;
  #else
-@@ -156,11 +159,11 @@
+@@ -141,11 +144,12 @@
  	SDL_Window *sdlWindow;
  	SDL_Renderer *sdlRenderer;
  	SDL_Texture *sdlTexture;
 -	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
 +	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_RESIZABLE | fullscreen);
  	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
- 	scr = SDL_CreateRGBSurface(0, 640, 480, 32,redMask, greenMask, blueMask, alphaMask); //buffer video
+ 	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_ABGR32); //buffer video
  	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
--
+ 
 +	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
- 	//scr=SDL_SetVideoMode(640,480,32,SDL_SWSURFACE|SDL_DOUBLEBUF|fullscreen);
  	memset(scr->pixels,0,640*480*4);
  	SDL_ShowCursor(0);
-@@ -187,6 +190,7 @@
+ 
+@@ -171,6 +175,7 @@
  #endif
  
  	memset(buf,127,320*200);
@@ -32,7 +32,7 @@
  	while(!quit)
  	{
  #ifdef NOAMIKA
-@@ -204,6 +208,39 @@
+@@ -188,6 +193,39 @@
  					case SDLK_q: quit=1; break;
  				}
  			 }

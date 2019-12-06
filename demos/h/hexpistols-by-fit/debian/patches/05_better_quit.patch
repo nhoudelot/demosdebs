@@ -1,6 +1,6 @@
 --- a/main.c
 +++ b/main.c
-@@ -190,10 +190,20 @@
+@@ -174,10 +174,20 @@
  	while(!quit)
  	{
  #ifdef NOAMIKA
