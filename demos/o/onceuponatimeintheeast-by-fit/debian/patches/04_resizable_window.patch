@@ -10,21 +10,21 @@
  // From png's RGBA to SDL's ARGB
  void fixrgba(PNG *s,char to16)
  {
-@@ -295,11 +298,11 @@
- 	blueMask  = 0x000000ff;
- 
+@@ -287,11 +290,11 @@
  	SDL_Window *sdlWindow;
+ 	SDL_Renderer *sdlRenderer;
+ 	SDL_Texture *sdlTexture;
 -	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_SWSURFACE+fullscreen);
 +	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_WINDOW_RESIZABLE+fullscreen);
- 	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
- 	s = SDL_CreateRGBSurface(0, XRES*2, YRES*2, 32,redMask, greenMask, blueMask, alphaMask); //buffer video
- 	SDL_Texture *sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,s); // texture from video buffer
+ 	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
+ 	s = SDL_CreateRGBSurfaceWithFormat(0, XRES*2, YRES*2, 32,SDL_PIXELFORMAT_BGRA32); //buffer video
+ 	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,s); // texture from video buffer
 -
 +	Uint32 windowID = SDL_GetWindowID(sdlWindow);
  #else
  
    #ifdef HICOLOR
-@@ -726,6 +729,42 @@
+@@ -718,6 +721,42 @@
  					case SDLK_SPACE: fast_forward = 0; break;
  				}
  			}

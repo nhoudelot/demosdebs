@@ -1,6 +1,6 @@
 --- a/main.c
 +++ b/main.c
-@@ -711,18 +711,21 @@
+@@ -703,18 +703,21 @@
  
  		while(SDL_PollEvent(&e))
  		{

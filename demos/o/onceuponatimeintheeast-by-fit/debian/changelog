@@ -1,3 +1,9 @@
+onceuponatimeintheeast-by-fit (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * more compatible way to define surface pixelformat
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 Dec 2019 22:47:38 +0100
+
 onceuponatimeintheeast-by-fit (1.0+1-0ddebs3) unstable; urgency=medium
 
   * bugfix in resize
