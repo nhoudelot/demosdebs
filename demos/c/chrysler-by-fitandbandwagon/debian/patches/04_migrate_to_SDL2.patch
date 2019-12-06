@@ -1,0 +1,137 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ CC = gcc
+-CFLAGS += $(shell sdl-config --cflags) -Wall -std=gnu90 -pipe
+-LDFLAGS += $(shell sdl-config --libs) -lm
++CFLAGS += $(shell sdl2-config --cflags) -Wall -std=gnu90 -pipe
++LDFLAGS += $(shell sdl2-config --libs) -lm
+ OBJ = data.o kirjaimet2.o kokko.o maf.o main.o mosaic.o pallot.o plasma.o\
+ ratas.o stripes.o video.o cool_mzx/cool_mzx.a
+ 
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -12,7 +12,7 @@
+ #include "cool_mzx.h"
+ #include "sd_main.h"
+ #include "pt.h"
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ extern int pt_curperiod[32],           // kanavan nykyinen periodi
+            pt_curnote[32],             // kanavan nykyinen sävel
+@@ -204,7 +204,7 @@
+ 	if(!laite)
+ 	{
+ 		SDL_Init(SDL_INIT_TIMER);
+-		SDL_SetTimer(jacaja, timeri);
++		SDL_AddTimer(jacaja, timeri,NULL);
+ 		return;
+ 	}
+ 	SDL_PauseAudio(0);
+@@ -281,7 +281,7 @@
+ {
+ 	if(!laite)
+ 	{
+-		SDL_SetTimer(0,NULL);
++		SDL_AddTimer(0, NULL,NULL);
+ 		return;
+ 	}
+ 
+--- a/cool_mzx/sd_dsp16.c
++++ b/cool_mzx/sd_dsp16.c
+@@ -9,7 +9,7 @@
+          2.9.2002: Some minor cleaning for SDL
+  */
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+--- a/main.c
++++ b/main.c
+@@ -8,7 +8,7 @@
+ #include "ratas.h"
+ #include "cool_mzx/cool_mzx.h"
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include <stdio.h>
+ #include <string.h>
+@@ -85,13 +85,13 @@
+ #else
+ 	unsigned *screen;
+ #endif
+-	int flags=SDL_HWSURFACE+SDL_DOUBLEBUF+SDL_FULLSCREEN;
++	int flags=SDL_WINDOW_FULLSCREEN;
+ 
+ 	if(argc==2)
+ 		if(!strcmp(argv[1],"-w"))
+-			flags-=SDL_FULLSCREEN;
++			flags-=SDL_WINDOW_FULLSCREEN;
+ 	if(argv[0][strlen(argv[0])-1]=='w')
+-		flags-=SDL_FULLSCREEN;
++		flags-=SDL_WINDOW_FULLSCREEN;
+ 
+ 	if(readall()!=0)
+ 	{
+@@ -113,12 +113,33 @@
+ 	mzx_init();
+ 	mzx_get(musakki);
+ 
++	// Initalize Color Masks.
++	Uint32 redMask, greenMask, blueMask, alphaMask;
++	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
++	    redMask   = 0xff000000;
++	    greenMask = 0x00ff0000;
++	    blueMask  = 0x0000ff00;
++	    alphaMask = 0x000000ff;
++	#else
++	    redMask   = 0x000000ff;
++	    greenMask = 0x0000ff00;
++	    blueMask  = 0x00ff0000;
++	    alphaMask = 0xff000000;
++	#endif
++
++	SDL_Window *sdlWindow;
++	SDL_Renderer *sdlRenderer;
++	SDL_Texture *sdlTexture;
++	sdlWindow = SDL_CreateWindow("Chrysler by Fit & Bandwagon",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,flags);
++	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++
++	sdlTexture = SDL_CreateTexture(sdlRenderer,SDL_PIXELFORMAT_ARGB8888,SDL_TEXTUREACCESS_STREAMING,640, 480);
++
+ #ifdef TRUE8BIT
+-	s=SDL_SetVideoMode(640,480,8,flags);
++	s = SDL_CreateRGBSurface(0, 640, 480, 8,0, 0, 0, 0);
+ #else
+-	s=SDL_SetVideoMode(640,480,32,flags);
++	s = SDL_CreateRGBSurface(0, 640, 480, 32,redMask, greenMask, blueMask, alphaMask);
+ #endif
+-	SDL_WM_SetCaption("Chrysler by Fit & Bandwagon",NULL);
+ 	SDL_ShowCursor(0);
+ 	screen=s->pixels;
+ #ifdef TRUE8BIT
+@@ -360,12 +381,19 @@
+ 
+ 		// For plain buffer:
+ 		//memcpy(&screen[24*320],displaybuf,320*192);
+-		SDL_Flip(s);
++		//SDL_Flip(s);
++		SDL_UpdateTexture(sdlTexture, NULL, s->pixels, s->pitch);
++		SDL_RenderClear(sdlRenderer);
++		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++		SDL_RenderPresent(sdlRenderer);
+ 
+ 		//if(frame%20==0 && vbl)
+ 		//    printf("fps: %f\n",frame*50.0/vbl);
+ 	}
+ 
++	SDL_DestroyTexture(sdlTexture);
++	SDL_DestroyRenderer(sdlRenderer);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 	return(0);
+ }

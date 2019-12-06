@@ -1,0 +1,64 @@
+--- a/main.c
++++ b/main.c
+@@ -28,6 +28,10 @@
+ #define TRIG_BONGG 80
+ #define TRIG_BD 15
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
++
+ static int trig_bongg, trig_bd, trig_sd, trig_kilaus, trig_rautaputki,
+            trig_isopamaus, trig_sound1, trig_sound2, trig_isku,
+            trig_loppuisku, trig_loppu, trig_melu, trig_puhe, trig_tehostus,
+@@ -85,7 +89,7 @@
+ #else
+ 	unsigned *screen;
+ #endif
+-	int flags=SDL_WINDOW_FULLSCREEN;
++	int flags=SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN;
+ 
+ 	if(argc==2)
+ 		if(!strcmp(argv[1],"-w"))
+@@ -156,6 +160,8 @@
+ 	origtick=SDL_GetTicks();
+ 	vbl2=0;
+ 
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
++
+ 	/* The main loop */
+ 	while(!quit)
+ 	{
+@@ -173,6 +179,32 @@
+ 					case SDLK_q: quit=1;; break;
+ 				}
+ 			}
++			if (e.window.windowID == windowID)  {
++				if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
++					SDL_Rect newWindowSize;
++					int w = e.window.data1;
++					int h = e.window.data2;
++					newWindowSize.x=0;
++					newWindowSize.y=0;
++
++					if (w != newWindowSize.w) {
++						newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++						newWindowSize.x += (w - newWindowSize.w) / 2;
++						newWindowSize.h = h;
++					} else if (h != newWindowSize.h) {
++						newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++						newWindowSize.y += (h - newWindowSize.h) / 2;
++						newWindowSize.w = w;
++					}
++
++					SDL_DestroyTexture(sdlTexture);
++					sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_GetWindowPixelFormat(sdlWindow), SDL_TEXTUREACCESS_TARGET,640,480);
++					SDL_Rect viewPort;
++					SDL_RenderGetViewport(sdlRenderer, &viewPort);
++					SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++				}
++			}
++
+ 		}
+ 
+ 		vbl=(SDL_GetTicks()-origtick)/20;
