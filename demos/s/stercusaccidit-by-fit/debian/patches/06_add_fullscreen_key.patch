@@ -1,0 +1,24 @@
+--- a/main.c
++++ b/main.c
+@@ -94,6 +94,13 @@
+ 	}
+ }
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++	int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++	SDL_ShowCursor(IsFullscreen);
++}
++
+ #ifdef NOAMIKA
+ unsigned plookup[256]={0};
+ unsigned plookup2[256]={0};
+@@ -340,6 +347,7 @@
+ 			switch (e.key.keysym.sym) {
+ 			    case SDLK_ESCAPE: quit++; break;
+ 			    case SDLK_q: quit++; break;
++			    case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 			}
+ 		    }
+ 		    if (e.window.windowID == windowID)  {

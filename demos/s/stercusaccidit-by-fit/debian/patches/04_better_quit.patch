@@ -1,0 +1,24 @@
+--- a/main.c
++++ b/main.c
+@@ -325,11 +325,17 @@
+ 	while(!quit)
+ 	{
+ #ifdef NOAMIKA
+-		while(SDL_PollEvent(&e)>0)
++		while(SDL_PollEvent(&e))
+ 		{
+-			if(e.type==SDL_KEYDOWN)
+-				if(e.key.keysym.sym==SDLK_ESCAPE)
+-					quit++;
++		    if (e.type == SDL_QUIT) {
++			quit++;
++		    }
++		    if (e.type == SDL_KEYDOWN) {
++			switch (e.key.keysym.sym) {
++			    case SDLK_ESCAPE: quit++; break;
++			    case SDLK_q: quit++; break;
++			}
++		    }
+ 		}
+ #else
+ 		if(!(*((char *)0xbfe001)&64))

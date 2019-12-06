@@ -1,0 +1,148 @@
+--- a/Makefile
++++ b/Makefile
+@@ -2,10 +2,10 @@
+ SHELL = /bin/sh
+ MAKE = make
+ CC = gcc
+-CFLAGS += -Wall $(shell sdl-config --cflags) -DNOAMIKA -DBLKSIZE=4096 -std=gnu90 -pipe
++CFLAGS += -Wall $(shell sdl2-config --cflags) -DNOAMIKA -DBLKSIZE=4096 -std=gnu90 -pipe
+ #-DLSB
+ # Do define LSB on little endian systems
+-LDFLAGS += $(shell sdl-config --libs) -lm
++LDFLAGS += $(shell sdl2-config --libs) -lm
+ 
+ TARGET   := stercusaccidit-by-fit
+ #variable de nettoyage
+@@ -33,7 +33,7 @@
+ OBJ=main.o data/data.a noise.o halftone.o cgm.o cgm_soft.o wurms.o maf.o render.o writer.o sade.o
+ 
+ $(TARGET): $(OBJ) cool_mzx/cool_mzx.a
+-	$(CC) -flto -o $@ $(OBJ) data/data.a cool_mzx/cool_mzx.a $(LDFLAGS)
++	$(CC) -o $@ $(OBJ) data/data.a cool_mzx/cool_mzx.a $(LDFLAGS)
+ 
+ cool_mzx/cool_mzx.a:
+ 	cd cool_mzx && $(MAKE)
+--- a/cool_mzx/Makefile
++++ b/cool_mzx/Makefile
+@@ -3,7 +3,7 @@
+ OBJ = cool_mzx.o pt.o sd_dsp16.o sd_main.o sd_mix.o sd_ns.o
+ HEADERS = cool_mzx.h pt.h sd_dsp16.h sd_main.h sd_mix.h sd_ns.h
+ CC = gcc
+-CFLAGS = -Wall $(shell sdl-config --cflags) -std=gnu90 -pipe
++CFLAGS +=
+ PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
+ TARGET = osx
+ 
+--- a/cool_mzx/main.c
++++ b/cool_mzx/main.c
+@@ -1,5 +1,5 @@
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdio.h>
+ #include "cool_mzx.h"
+ 
+--- a/cool_mzx/sd_dsp16.c
++++ b/cool_mzx/sd_dsp16.c
+@@ -9,7 +9,7 @@
+          2.9.2002: Some minor cleaning for SDL
+  */
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+--- a/main.c
++++ b/main.c
+@@ -4,7 +4,7 @@
+  */
+ 
+ #ifdef NOAMIKA
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include "cool_mzx/cool_mzx.h"
+ #else
+ #include "screen.h"
+@@ -258,7 +258,7 @@
+ 
+ #ifdef NOAMIKA
+ 	SDL_Event e;
+-	int fullscreen=SDL_FULLSCREEN,origtime,*pix;
++	int fullscreen=SDL_WINDOW_FULLSCREEN,origtime,*pix;
+ #endif
+ 
+ #ifdef NOAMIKA
+@@ -269,11 +269,18 @@
+ 		fullscreen=0;
+ 
+ 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);
+-	scr=SDL_SetVideoMode(640,480,32,SDL_SWSURFACE|SDL_DOUBLEBUF|fullscreen);
++
++	SDL_Window *sdlWindow;
++	SDL_Renderer *sdlRenderer;
++	SDL_Texture *sdlTexture;
++	sdlWindow = SDL_CreateWindow("Stercus Accidit by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
++	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_BGRA32); //buffer video
++	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
++
+ 	SDL_LockSurface(scr);
+ 	memset(scr->pixels,0,640*480*4);
+ 	SDL_UnlockSurface(scr);
+-	SDL_WM_SetCaption("Stercus Accidit",NULL);
+ 	SDL_ShowCursor(0);
+ 
+ 	ungetc('\n',stdin);
+@@ -750,7 +757,10 @@
+ 			}
+ 		}
+ 		SDL_UnlockSurface(scr);
+-		SDL_Flip(scr);
++		SDL_UpdateTexture(sdlTexture, NULL, scr->pixels, scr->pitch);
++		SDL_RenderClear(sdlRenderer);
++		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++		SDL_RenderPresent(sdlRenderer);
+ #else
+ 		gfx_blit(dest, 0,28, 320,200);
+ #endif
+@@ -760,6 +770,10 @@
+ 	}
+ 
+ #ifdef NOAMIKA
++	SDL_FreeSurface(scr);
++	SDL_DestroyTexture(sdlTexture);
++	SDL_DestroyRenderer(sdlRenderer);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ #else
+ 	theplayer_end();
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -11,7 +11,7 @@
+ ****************************************************************/
+ 
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include "cool_mzx.h"
+ #include "sd_main.h"
+ #include "pt.h"
+@@ -200,7 +200,7 @@
+ 	if(!laite)
+ 	{
+ 		SDL_Init(SDL_INIT_TIMER);
+-		SDL_SetTimer(jacaja, timeri);
++		SDL_AddTimer(jacaja, timeri,NULL);
+ 		return;
+ 	}
+ 	SDL_PauseAudio(0);
+@@ -251,7 +251,7 @@
+ {
+ 	if(!laite)
+ 	{
+-		SDL_SetTimer(0,NULL);
++		SDL_AddTimer(0,NULL,NULL);
+ 		return;
+ 	}
+ 

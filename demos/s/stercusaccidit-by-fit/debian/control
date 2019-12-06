@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>=9),
- libsdl1.2-dev,
+ libsdl2-dev,
  pandoc
 Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=26083

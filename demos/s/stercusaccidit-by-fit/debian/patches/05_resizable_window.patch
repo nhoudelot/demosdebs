@@ -1,0 +1,68 @@
+--- a/main.c
++++ b/main.c
+@@ -24,6 +24,9 @@
+ #include "render.h"
+ #include "writer.h"
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ extern unsigned char gargoyle[],kirkko[],skulle[],kirkko2[],
+                      gargoyle2[],skulle2[],
+                      nothing[],dracula[],greets[],kiehkura[],
+@@ -273,11 +276,14 @@
+ 	SDL_Window *sdlWindow;
+ 	SDL_Renderer *sdlRenderer;
+ 	SDL_Texture *sdlTexture;
+-	sdlWindow = SDL_CreateWindow("Stercus Accidit by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
++	sdlWindow = SDL_CreateWindow("Stercus Accidit by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_RESIZABLE|fullscreen);
+ 	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
+ 	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_BGRA32); //buffer video
+ 	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
+ 
++	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
++
+ 	SDL_LockSurface(scr);
+ 	memset(scr->pixels,0,640*480*4);
+ 	SDL_UnlockSurface(scr);
+@@ -336,6 +342,39 @@
+ 			    case SDLK_q: quit++; break;
+ 			}
+ 		    }
++		    if (e.window.windowID == windowID)  {
++			if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
++			    SDL_Rect newWindowSize;
++			    int w = e.window.data1;
++			    int h = e.window.data2;
++			    newWindowSize.x=0;
++			    newWindowSize.y=0;
++			    float aspect = (float)w / (float)h;
++			    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++				newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++				newWindowSize.x += (w - newWindowSize.w) / 2;
++				newWindowSize.h = h;
++			    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++				newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++				newWindowSize.y += (h - newWindowSize.h) / 2;
++				newWindowSize.w = w;
++			    } else if (w != newWindowSize.w) {
++				newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++				newWindowSize.x += (w - newWindowSize.w) / 2;
++				newWindowSize.h = h;
++			    } else if (h != newWindowSize.h) {
++				newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++				newWindowSize.y += (h - newWindowSize.h) / 2;
++				newWindowSize.w = w;
++			    }
++
++			    SDL_DestroyTexture(sdlTexture);
++			    sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_GetWindowPixelFormat(sdlWindow), SDL_TEXTUREACCESS_TARGET,640,480);
++			    SDL_Rect viewPort;
++			    SDL_RenderGetViewport(sdlRenderer, &viewPort);
++			    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++			}
++		    }
+ 		}
+ #else
+ 		if(!(*((char *)0xbfe001)&64))
