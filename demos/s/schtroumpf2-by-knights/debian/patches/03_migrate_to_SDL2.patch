@@ -1,0 +1,105 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -55,12 +55,12 @@
+ AC_SUBST(MUSICDIR)
+ AC_SUBST(MUSICLIB)
+ 
+-AC_INCORPORATE_SDL([1.2.7], [USE_SDL], [yes])
++AC_INCORPORATE_SDL2([2.0.0], [USE_SDL], [yes])
+ AC_INCORPORATE_OPENGL([ENABLE_OPENGL], [yes])
+ 
+ 
+ AC_ADD_CCFLAG([-I\$(srcdir)/src/mikmod])
+-AC_ADD_CCFLAG([-O3])
++AC_ADD_CCFLAG([-g])
+ AC_ADD_CCFLAG([-ffast-math])
+ AC_ADD_CCFLAG([-std=gnu90])
+ #AC_ADD_LIB([$(srcdir)/mikmod/libmikmod.a])
+--- a/src/introsystem.c
++++ b/src/introsystem.c
+@@ -147,6 +147,9 @@
+ }
+ #endif
+ 
++SDL_Window *sdlWindow;
++SDL_GLContext sdlGlcontext;
++
+ void OpenVideo(int width, int height, int fullscreen)
+ {
+ 	int value;
+@@ -162,7 +165,8 @@
+ 	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
+ 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+ 	
+-	if ( SDL_SetVideoMode( ScreenWidth, ScreenHeight, 0, SDL_OPENGL |  (Fullscreen ? SDL_FULLSCREEN : 0) ) == NULL ) {
++	sdlWindow = SDL_CreateWindow("Blue Cubes by YorHel",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,ScreenWidth,ScreenHeight, SDL_WINDOW_OPENGL |  (Fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++	if ( sdlWindow == NULL ) {
+ 		fputs("Couldn't set GL mode:\n",stderr);
+ 			fputs(SDL_GetError(),stderr);
+ 			fputs("\n",stderr);
+@@ -173,7 +177,7 @@
+ 	/* le truc a NE PAS oublier sinon psc80 frappe!  */
+ 	SDL_ShowCursor( SDL_FALSE );
+ 	
+-	printf("Screen BPP: %d\n", SDL_GetVideoSurface()->format->BitsPerPixel);
++	printf("Screen BPP: %d\n", SDL_GetWindowSurface(sdlWindow)->format->BitsPerPixel);
+ 	printf("\n");
+ 	printf( "Vendor     : %s\n", glGetString( GL_VENDOR ) );
+ 	printf( "Renderer   : %s\n", glGetString( GL_RENDERER ) );
+@@ -265,7 +269,7 @@
+ void Flip()
+ {
+ #ifdef USE_SDL
+-	SDL_GL_SwapBuffers();
++	SDL_GL_SwapWindow(sdlWindow);
+ #else
+ 	SwapBuffers(hDC);
+ #endif
+--- a/src/introsystem.h
++++ b/src/introsystem.h
+@@ -23,8 +23,8 @@
+ #include <stdlib.h>
+ #include <math.h>
+ 
+-#include <SDL/SDL.h>
+-#include <SDL/SDL_opengl.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_opengl.h>
+ #include <GL/glu.h>
+ 
+ #include "bitmap.h"
+--- a/src/mikmod/mikmod.h
++++ b/src/mikmod/mikmod.h
+@@ -523,7 +523,7 @@
+ 
+ /* SDL_RWops compatability */
+ #ifdef USE_RWOPS
+-#include <SDL/SDL_rwops.h>
++#include <SDL2/SDL_rwops.h>
+ MIKMODAPI extern MODULE* Player_LoadRW(SDL_RWops*,int,BOOL);
+ #endif /* USE_RWOPS */
+ /* End SDL_RWops compatability */
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -723,14 +723,14 @@
+   AC_LANG_POP([C])
+ ])
+ 
+-dnl Incorporate SDL.
+-dnl AC_INCORPORATE_SDL([version], [define on found], [obligatory])
+-AC_DEFUN([AC_INCORPORATE_SDL],
++# Incorporate SDL2.
++# AC_INCORPORATE_SDL2([version], [define on found], [obligatory])
++AC_DEFUN([AC_INCORPORATE_SDL2],
+ [
+-  AM_PATH_SDL([$1],
+-    sdl=[yes],
+-    sdl=[no])
+-  AC_INCORPORATE([SDL], [$sdl], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
++  AM_PATH_SDL2([$1],
++    sdl2=[yes],
++    sdl2=[no])
++  AC_INCORPORATE([SDL2], [$sdl2], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
+ ])
+ 
+ dnl Incorporate LIBMIKMOD.
