@@ -1,3 +1,13 @@
+hexpistols-by-fit (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+  * add q key to quit
+  * add escape key to quit
+  * add f to go fullscreen
+  * window is now resizable with ratio
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 Dec 2019 12:06:53 +0100
+
 hexpistols-by-fit (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile

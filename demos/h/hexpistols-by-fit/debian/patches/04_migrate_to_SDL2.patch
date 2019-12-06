@@ -1,0 +1,128 @@
+--- a/Makefile
++++ b/Makefile
+@@ -4,8 +4,8 @@
+ CC = gcc
+ 
+ # Change BUFSIZE for crappy systems that need a large audio buffer
+-CFLAGS += -Wall $(shell sdl-config --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
+-LDFLAGS += $(shell sdl-config --libs) -lm
++CFLAGS += -Wall $(shell sdl2-config --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
++LDFLAGS += $(shell sdl2-config --libs) -lm
+ TARGET   = hexpistols-by-fit
+ #variable de nettoyage
+ RM_F = rm -f
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -12,7 +12,7 @@
+ #include "cool_mzx.h"
+ #include "sd_main.h"
+ #include "pt.h"
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ extern int pt_curperiod[32],           // kanavan nykyinen periodi
+            pt_curnote[32],             // kanavan nykyinen sävel
+@@ -204,7 +204,7 @@
+ 	if(!laite)
+ 	{
+ 		SDL_Init(SDL_INIT_TIMER);
+-		SDL_SetTimer(jacaja, timeri);
++		SDL_AddTimer(jacaja, timeri,NULL);
+ 		return;
+ 	}
+ 	SDL_PauseAudio(0);
+@@ -281,7 +281,7 @@
+ {
+ 	if(!laite)
+ 	{
+-		SDL_SetTimer(0,NULL);
++		SDL_AddTimer(0,NULL,NULL);
+ 		return;
+ 	}
+ 
+--- a/cool_mzx/sd_dsp16.c
++++ b/cool_mzx/sd_dsp16.c
+@@ -9,7 +9,7 @@
+          2.9.2002: Some minor cleaning for SDL
+  */
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+--- a/main.c
++++ b/main.c
+@@ -13,7 +13,7 @@
+ #include <string.h>
+ 
+ #ifdef NOAMIKA
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include "cool_mzx/cool_mzx.h"
+ #else
+ #include "screen.h"
+@@ -106,7 +106,7 @@
+ 	DRAWING *james,*afro;
+ #ifdef NOAMIKA
+ 	SDL_Event e;
+-	int fullscreen=SDL_FULLSCREEN;
++	int fullscreen=SDL_WINDOW_FULLSCREEN;
+ #endif
+ 
+ 	int o_intro=-1,o_ring1=-1,o_stara=-1,o_kale=-1,o_tytsi=-1,o_greet=-1,
+@@ -138,9 +138,31 @@
+ 		fullscreen=0;
+ 
+ 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);
+-	scr=SDL_SetVideoMode(640,480,32,SDL_SWSURFACE|SDL_DOUBLEBUF|fullscreen);
++
++	// Initalize Color Masks.
++	Uint32 redMask, greenMask, blueMask, alphaMask;
++	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
++	    redMask   = 0xff000000;
++	    greenMask = 0x00ff0000;
++	    blueMask  = 0x0000ff00;
++	    alphaMask = 0x000000ff;
++	#else
++	    redMask   = 0x000000ff;
++	    greenMask = 0x0000ff00;
++	    blueMask  = 0x00ff0000;
++	    alphaMask = 0xff000000;
++	#endif
++
++	SDL_Window *sdlWindow;
++	SDL_Renderer *sdlRenderer;
++	SDL_Texture *sdlTexture;
++	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
++	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	scr = SDL_CreateRGBSurface(0, 640, 480, 32,redMask, greenMask, blueMask, alphaMask); //buffer video
++	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
++
++	//scr=SDL_SetVideoMode(640,480,32,SDL_SWSURFACE|SDL_DOUBLEBUF|fullscreen);
+ 	memset(scr->pixels,0,640*480*4);
+-	SDL_WM_SetCaption("Hex Pistols",NULL);
+ 	SDL_ShowCursor(0);
+ 
+ 	ungetc('\n',stdin);
+@@ -460,13 +482,19 @@
+ 			}
+ 		}
+ 		SDL_UnlockSurface(scr);
+-		SDL_Flip(scr);
++		SDL_UpdateTexture(sdlTexture, NULL, scr->pixels,scr->pitch);
++		SDL_RenderClear(sdlRenderer);
++		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++		SDL_RenderPresent(sdlRenderer);
+ #else
+ 		gfx_blit(dest, 0,28, 320,200);
+ #endif
+ 	}
+ 
+ #ifdef NOAMIKA
++	SDL_DestroyTexture(sdlTexture);
++	SDL_DestroyRenderer(sdlRenderer);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ #else
+ 	theplayer_end();
