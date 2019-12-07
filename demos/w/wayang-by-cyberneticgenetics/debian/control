@@ -6,8 +6,9 @@ Build-Depends:
  debhelper (>=9),
  pandoc,
  pkgconf,
- libsdl1.2-dev,
- libsdl-mixer1.2-dev,
+ libpng-dev,
+ libsdl2-dev,
+ libsdl2-mixer-dev,
  mesa-common-dev
 Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=53381
@@ -16,10 +17,27 @@ Package: wayang-by-cyberneticgenetics
 Architecture: any
 Depends: ${shlibs:Depends},${misc:Depends},wayang-by-cyberneticgenetics-data
 Description: Demo for Linux, released in 2009
- Demo by Cybernetic Genetics, released in 2009
+ Demo by Cybernetic Genetics, released at SceneCon 2009
+ Code:   Travis
+ Visual: Grass
+ Music:  Cardinal
+ .
+ Background:
+ .
+ Wayang is a traditional Indonesian shadow
+ theater. The stories are usually came from
+ epic poems like Ramayana.
+ .
+ This demo tells the story of Jatajus, the
+ vulture. Jatajus try to save Sita from the
+ evil king Ravana.
+ .
+ We try to make a demo which visual performace
+ close to the original wayang feeling.
 
 Package: wayang-by-cyberneticgenetics-data
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends}
 Description: Data package for wayang-by-cyberneticgenetics
  Demo by Cybernetic Genetics, released in 2009

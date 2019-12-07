@@ -1,0 +1,82 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,8 @@
+ #variables de compilation
+ SHELL := /bin/sh
+ CC    := gcc
+-CFLAGS += -Wall -pedantic $(shell pkgconf gl sdl libpng SDL_mixer --cflags) -std=gnu90 -pipe
+-LDFLAGS +=  -L/usr/X11R6/lib $(shell pkgconf gl sdl libpng SDL_mixer --libs) -lm
++CFLAGS += -Wall -pedantic $(shell pkgconf gl sdl2 libpng SDL2_mixer --cflags) -std=gnu90 -pipe
++LDFLAGS +=  -L/usr/X11R6/lib $(shell pkgconf gl sdl2 libpng SDL2_mixer --libs) -lm
+ TARGET   := wayang-by-cyberneticgenetics
+ #variable de nettoyage
+ RM_F := rm -f
+--- a/main.c
++++ b/main.c
+@@ -1,11 +1,14 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <SDL.h>
+-#include <SDL/SDL_mixer.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_mixer.h>
+ #include <unistd.h>
+ 
+ #include "wayang.h"
+ 
++SDL_Window *sdlWindow;
++SDL_GLContext sdlGlcontext;
++
+ int main(){
+ 	SDL_Event event;
+ 	Uint32 start, time;
+@@ -13,11 +16,8 @@
+ 
+ /* Initializations */
+ 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-	SDL_SetVideoMode( 1024, 768, 32, SDL_OPENGL |
+-	                  SDL_GL_DOUBLEBUFFER |
+-	                  SDL_HWPALETTE |
+-	                  SDL_RESIZABLE);
+-	SDL_WM_SetCaption("Wayang by Cybernetic Genetics",NULL);
++	sdlWindow = SDL_CreateWindow("Wayang by Cybernetic Genetics",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_ShowCursor(SDL_DISABLE);
+ /* OpenGL related settings */
+ 	glClearColor(0.0,0.0,0.0,0.0);
+@@ -51,7 +51,7 @@
+ 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+ 		time = SDL_GetTicks();
+ 		show_wayang(time - start);
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(sdlWindow);
+ 	}
+ 
+ /* Exit from demo */
+@@ -59,6 +59,8 @@
+ 	free_wayang();
+ 	Mix_FreeMusic(music);
+ 	Mix_CloseAudio();
++	SDL_GL_DeleteContext(sdlGlcontext);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 	return(0);
+ }
+--- a/wayang.c
++++ b/wayang.c
+@@ -1,4 +1,4 @@
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <math.h>
+ #include "movements.h"
+ #include "wayang.h"
+--- a/texture.c
++++ b/texture.c
+@@ -1,6 +1,6 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <unistd.h>
+ #include <math.h>

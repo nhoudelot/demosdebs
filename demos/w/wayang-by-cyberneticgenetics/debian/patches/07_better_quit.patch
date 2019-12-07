@@ -1,0 +1,20 @@
+--- a/main.c
++++ b/main.c
+@@ -42,9 +42,14 @@
+ /* Event handling */
+ 	while(Mix_PlayingMusic()) {
+ 		while( SDL_PollEvent( &event) ) {
+-			switch(event.type) {
+-			case SDL_KEYDOWN:
+-				if (event.key.keysym.sym == SDLK_ESCAPE) Mix_HaltMusic();
++			if (event.type == SDL_QUIT) {
++				Mix_HaltMusic();
++			}
++			if (event.type == SDL_KEYDOWN) {
++				switch (event.key.keysym.sym) {
++					case SDLK_ESCAPE: Mix_HaltMusic(); break;
++					case SDLK_q: Mix_HaltMusic(); break;
++				}
+ 			}
+ 		}
+ 		/* Drawing */

@@ -1,0 +1,24 @@
+--- a/main.c
++++ b/main.c
+@@ -14,6 +14,13 @@
+ Uint32 windowID;
+ float aspect;
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++	int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++	SDL_ShowCursor(IsFullscreen);
++}
++
+ void resize_window(int x, int y, int w, int h)
+ {
+ 	/* Prevent division by zero */
+@@ -75,6 +82,7 @@
+ 				switch (event.key.keysym.sym) {
+ 					case SDLK_ESCAPE: Mix_HaltMusic(); break;
+ 					case SDLK_q: Mix_HaltMusic(); break;
++					case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 				}
+ 			}
+ 			/* The window is resized */

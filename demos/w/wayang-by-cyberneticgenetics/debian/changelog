@@ -1,3 +1,14 @@
+wayang-by-cyberneticgenetics (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+  * add q key to quit
+  * window close button now quit
+  * add f key to fullscreen
+  * window can resize and keep ratio
+  * debian/control : wayang-by-cyberneticgenetics-data Multi-Arch: foreign
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 07 Dec 2019 13:02:00 +0100
+
 wayang-by-cyberneticgenetics (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile

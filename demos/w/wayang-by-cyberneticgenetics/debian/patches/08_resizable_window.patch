@@ -1,0 +1,65 @@
+--- a/main.c
++++ b/main.c
+@@ -6,8 +6,33 @@
+ 
+ #include "wayang.h"
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ SDL_Window *sdlWindow;
+ SDL_GLContext sdlGlcontext;
++Uint32 windowID;
++float aspect;
++
++void resize_window(int x, int y, int w, int h)
++{
++	/* Prevent division by zero */
++	if (h == 0) {
++	    h = 1;
++	}
++
++	aspect = (float)w / (float)h;
++	if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++	    int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++	    x += (w - new_w) / 2;
++	    w = new_w;
++	} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++	    int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++	    y += (h - new_h) / 2;
++	    h = new_h;
++	}
++	glViewport(x, y, w, h);
++}
+ 
+ int main(){
+ 	SDL_Event event;
+@@ -16,8 +41,9 @@
+ 
+ /* Initializations */
+ 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-	sdlWindow = SDL_CreateWindow("Wayang by Cybernetic Genetics",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL);
++	sdlWindow = SDL_CreateWindow("Wayang by Cybernetic Genetics",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	windowID = SDL_GetWindowID(sdlWindow);
+ 	SDL_ShowCursor(SDL_DISABLE);
+ /* OpenGL related settings */
+ 	glClearColor(0.0,0.0,0.0,0.0);
+@@ -51,6 +77,17 @@
+ 					case SDLK_q: Mix_HaltMusic(); break;
+ 				}
+ 			}
++			/* The window is resized */
++			if(event.type == SDL_WINDOWEVENT)
++			{
++				if (event.window.windowID == windowID)  {
++					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						int new_w = event.window.data1;
++						int new_h = event.window.data2;
++						resize_window(0,0, new_w,new_h);
++					}
++				}
++			}
+ 		}
+ 		/* Drawing */
+ 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

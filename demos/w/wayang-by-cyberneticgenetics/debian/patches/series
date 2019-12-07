@@ -3,3 +3,7 @@
 03_adapt_path.patch
 04_set_window_title.patch
 05_update_png16.patch
+06_migrate_to_SDL2.patch
+07_better_quit.patch
+08_resizable_window.patch
+09_add_fullscreen_key.patch
