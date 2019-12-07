@@ -1,3 +1,9 @@
+micery-by-fitandbandwagon (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * debian/control : micery-by-fitandbandwagon-data Multi-Arch: foreign
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 07 Dec 2019 15:24:03 +0100
+
 micery-by-fitandbandwagon (1.0+1-0ddebs2) unstable; urgency=medium
 
   * migrate to SDL2

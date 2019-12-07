@@ -16,11 +16,21 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  micery-by-fitandbandwagon-data
-Description: Fit and Bandwagon Demo/2004/Linux
+Description: Fit and Bandwagon Linux intro 2004
  intro by Fit and Bandwagon, released in 2004
+ Fit and Bandwagon present at Altparty'04 : Micery
+ .
+ NF/Bandwagon : 3D code, steering algorithms, music
+ Marq/Fit     : wavefront loader, soft synth, models
+ .
+ Created on Linux & Mac OS X using free tools such as GCC, gmake, FTE,
+ RCS and Wings 3D. Thanks to the authors of these wonderful programs.
+ SDL take care of the platform-specific details such as screen and
+ sound handling.
 
 Package: micery-by-fitandbandwagon-data
 Architecture: all
+Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Description: data files for Fit and Bandwagon Demo/2004/Linux
