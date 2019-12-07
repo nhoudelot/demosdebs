@@ -1,1 +1,5 @@
 01_adapt_autotools.patch
+02_migrate_to_SDL2.patch
+03_better_quit.patch
+04_resizable_window.patch
+05_add_fullscreen_key.patch

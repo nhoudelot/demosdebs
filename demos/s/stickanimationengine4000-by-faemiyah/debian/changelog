@@ -1,3 +1,13 @@
+stickanimationengine4000-by-faemiyah (1.0-0ddebs7) unstable; urgency=medium
+
+  * migrate to SDL2
+  * add q key to quit
+  * close button now quit
+  * add f key to fullscreen
+  * window can resize and keep ratio
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 07 Dec 2019 01:33:13 +0100
+
 stickanimationengine4000-by-faemiyah (1.0-0ddebs6) unstable; urgency=medium
 
   * moved flto to debian/rules

@@ -1,0 +1,41 @@
+--- a/src/sae4.c
++++ b/src/sae4.c
+@@ -1103,8 +1103,12 @@
+ 
+ 		// Abort on any keypress.
+ 		SDL_Event event;
+-		if(DDL_PollEvent(&event) && (event.type == SDL_KEYDOWN))
++		while(DDL_PollEvent(&event))
+ 		{
++		    if (event.type == SDL_QUIT) {
++			cont=0;
++		    }
++		    if (event.type == SDL_KEYDOWN) {
+ #if defined(SAE4_GNU_LD)
+ 			switch(event.key.keysym.sym)
+ 			{
+@@ -1278,12 +1282,13 @@
+ 					currtick -= 20 * currtickmul;
+ 					break;
+ #endif
+-				case SDLK_ESCAPE:
+-					cont = 0;
+-					break;
++				case SDLK_ESCAPE: cont=0; break;
++				case SDLK_q: cont=0; break;
+ 				default:
+ 					break;
+ 			}
++		    }
++		
+ #else
+ 			break;
+ #endif
+@@ -1333,7 +1338,6 @@
+ 			}
+ 		}
+ #endif
+-
+ 	}
+ 
+ 	DDL_GL_DeleteContext(sdlGlcontext);

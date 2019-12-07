@@ -1,0 +1,425 @@
+--- a/src/sae4.c
++++ b/src/sae4.c
+@@ -997,6 +997,30 @@
+ }
+ #endif
+ 
++#define DEMO_XASPECT 16.0f
++#define DEMO_YASPECT 9.0f
++
++
++void resize_window(int x, int y, int w, int h)
++{
++	/* Prevent division by zero */
++	if (h == 0) {
++	    h = 1;
++	}
++
++	float aspect = (float)w / (float)h;
++	if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++	    int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++	    x += (w - new_w) / 2;
++	    w = new_w;
++	} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++	    int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++	    y += (h - new_h) / 2;
++	    h = new_h;
++	}
++	glViewport(x, y, w, h);
++}
++
+ //######################################
+ // Main ################################
+ //######################################
+@@ -1039,8 +1063,9 @@
+ 	SDL_Window *sdlWindow;
+ 	SDL_GLContext sdlGlcontext;
+ 	// Do not take the screen with you since it is not needed.
+-	sdlWindow = DDL_CreateWindow("Stick Animation Engine 4000 by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_W,SCREEN_H,SDL_WINDOW_OPENGL | SCREEN_F);
++	sdlWindow = DDL_CreateWindow("Stick Animation Engine 4000 by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_W,SCREEN_H,SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SCREEN_F);
+ 	sdlGlcontext = DDL_GL_CreateContext(sdlWindow);
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ 	DDL_ShowCursor(0);
+ 
+ 	dlEnable(GL_DEPTH_TEST);
+@@ -1105,189 +1130,199 @@
+ 		SDL_Event event;
+ 		while(DDL_PollEvent(&event))
+ 		{
+-		    if (event.type == SDL_QUIT) {
+-			cont=0;
+-		    }
+-		    if (event.type == SDL_KEYDOWN) {
+-#if defined(SAE4_GNU_LD)
+-			switch(event.key.keysym.sym)
++			if (event.type == SDL_QUIT) {
++			    cont=0;
++			}
++			if (event.type == SDL_KEYDOWN) {
++    #if defined(SAE4_GNU_LD)
++			    switch(event.key.keysym.sym)
++			    {
++    #if defined(USE_ANIM_FRAME_CREATOR)
++				    case SDLK_1:
++					    inc_lower(anim_human_test + 0);
++					    break;
++				    case SDLK_q:
++					    dec_lower(anim_human_test + 0);
++					    break;
++				    case SDLK_2:
++					    inc_upper(anim_human_test + 0);
++					    break;
++				    case SDLK_w:
++					    dec_upper(anim_human_test + 0);
++					    break;
++				    case SDLK_3:
++					    inc_lower(anim_human_test + 1);
++					    break;
++				    case SDLK_e:
++					    dec_lower(anim_human_test + 1);
++					    break;
++				    case SDLK_4:
++					    inc_upper(anim_human_test + 1);
++					    break;
++				    case SDLK_r:
++					    dec_upper(anim_human_test + 1);
++					    break;
++				    case SDLK_5:
++					    inc_lower(anim_human_test + 2);
++					    break;
++				    case SDLK_t:
++					    dec_lower(anim_human_test + 2);
++					    break;
++				    case SDLK_6:
++					    inc_upper(anim_human_test + 2);
++					    break;
++				    case SDLK_y:
++					    dec_upper(anim_human_test + 2);
++					    break;
++				    case SDLK_7:
++					    inc_lower(anim_human_test + 3);
++					    break;
++				    case SDLK_u:
++					    dec_lower(anim_human_test + 3);
++					    break;
++				    case SDLK_8:
++					    inc_upper(anim_human_test + 3);
++					    break;
++				    case SDLK_i:
++					    dec_upper(anim_human_test + 3);
++					    break;
++				    case SDLK_9:
++					    inc_lower(anim_human_test + 4);
++					    break;
++				    case SDLK_o:
++					    dec_lower(anim_human_test + 4);
++					    break;
++				    case SDLK_0:
++					    inc_upper(anim_human_test + 4);
++					    break;
++				    case SDLK_p:
++					    dec_upper(anim_human_test + 4);
++					    break;
++				    case SDLK_a:
++					    inc_lower(anim_human_test + 5);
++					    break;
++				    case SDLK_z:
++					    dec_lower(anim_human_test + 5);
++					    break;
++				    case SDLK_s:
++					    inc_upper(anim_human_test + 5);
++					    break;
++				    case SDLK_x:
++					    dec_upper(anim_human_test + 5);
++					    break;
++				    case SDLK_d:
++					    inc_lower(anim_human_test + 6);
++					    break;
++				    case SDLK_c:
++					    dec_lower(anim_human_test + 6);
++					    break;
++				    case SDLK_f:
++					    inc_upper(anim_human_test + 6);
++					    break;
++				    case SDLK_v:
++					    dec_upper(anim_human_test + 6);
++					    break;
++				    case SDLK_g:
++					    inc_lower(anim_human_test + 7);
++					    break;
++				    case SDLK_b:
++					    dec_lower(anim_human_test + 7);
++					    break;
++				    case SDLK_h:
++					    inc_upper(anim_human_test + 7);
++					    break;
++				    case SDLK_n:
++					    dec_upper(anim_human_test + 7);
++					    break;
++				    case SDLK_INSERT:
++					    inc_lower(anim_human_test + 8);
++					    break;
++				    case SDLK_DELETE:
++					    dec_lower(anim_human_test + 8);
++					    break;
++				    case SDLK_PAGEUP:
++					    inc_upper(anim_human_test + 8);
++					    break;
++				    case SDLK_PAGEDOWN:
++					    dec_upper(anim_human_test + 8);
++					    break;
++				    case SDLK_LEFT:
++					    inc_lower(anim_human_test + 9);
++					    break;
++				    case SDLK_RIGHT:
++					    dec_lower(anim_human_test + 9);
++					    break;
++				    case SDLK_UP:
++					    inc_upper(anim_human_test + 9);
++					    break;
++				    case SDLK_DOWN:
++					    dec_upper(anim_human_test + 9);
++					    break;
++				    case SDLK_KP7:
++					    inc_lower(anim_human_test + 10);
++					    break;
++				    case SDLK_KP4:
++					    dec_lower(anim_human_test + 10);
++					    break;
++				    case SDLK_KP8:
++					    inc_upper(anim_human_test + 10);
++					    break;
++				    case SDLK_KP5:
++					    dec_upper(anim_human_test + 10);
++					    break;
++				    case SDLK_KP1:
++					    glLoadIdentity();
++					    dluLookAt(45.0f, 20.0f, -50.0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
++					    break;
++				    case SDLK_KP3:
++					    glLoadIdentity();
++					    dluLookAt(-45.0f, 20.0f, -50.0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
++					    break;
++				    case SDLK_SPACE:
++					    printf("{ %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i }\n",
++							    anim_human_test[0],
++							    anim_human_test[1],
++							    anim_human_test[2],
++							    anim_human_test[3],
++							    anim_human_test[4],
++							    anim_human_test[5],
++							    anim_human_test[6],
++							    anim_human_test[7],
++							    anim_human_test[8],
++							    anim_human_test[9],
++							    anim_human_test[10]);
++					    break;
++    #endif
++    #if defined(MANUAL_ADVANCE)
++				    case SDLK_RSHIFT:
++					    currtickmul = 100;
++					    break;
++				    case SDLK_LSHIFT:
++					    currtickmul = 1;
++					    break;
++				    case SDLK_PERIOD:
++					    currtick += 20 * currtickmul;
++					    break;
++				    case SDLK_COMMA:
++					    currtick -= 20 * currtickmul;
++					    break;
++    #endif
++				    case SDLK_ESCAPE: cont=0; break;
++				    case SDLK_q: cont=0; break;
++				    default:
++					    break;
++			    }
++			}
++			if(event.type == SDL_WINDOWEVENT)
+ 			{
+-#if defined(USE_ANIM_FRAME_CREATOR)
+-				case SDLK_1:
+-					inc_lower(anim_human_test + 0);
+-					break;
+-				case SDLK_q:
+-					dec_lower(anim_human_test + 0);
+-					break;
+-				case SDLK_2:
+-					inc_upper(anim_human_test + 0);
+-					break;
+-				case SDLK_w:
+-					dec_upper(anim_human_test + 0);
+-					break;
+-				case SDLK_3:
+-					inc_lower(anim_human_test + 1);
+-					break;
+-				case SDLK_e:
+-					dec_lower(anim_human_test + 1);
+-					break;
+-				case SDLK_4:
+-					inc_upper(anim_human_test + 1);
+-					break;
+-				case SDLK_r:
+-					dec_upper(anim_human_test + 1);
+-					break;
+-				case SDLK_5:
+-					inc_lower(anim_human_test + 2);
+-					break;
+-				case SDLK_t:
+-					dec_lower(anim_human_test + 2);
+-					break;
+-				case SDLK_6:
+-					inc_upper(anim_human_test + 2);
+-					break;
+-				case SDLK_y:
+-					dec_upper(anim_human_test + 2);
+-					break;
+-				case SDLK_7:
+-					inc_lower(anim_human_test + 3);
+-					break;
+-				case SDLK_u:
+-					dec_lower(anim_human_test + 3);
+-					break;
+-				case SDLK_8:
+-					inc_upper(anim_human_test + 3);
+-					break;
+-				case SDLK_i:
+-					dec_upper(anim_human_test + 3);
+-					break;
+-				case SDLK_9:
+-					inc_lower(anim_human_test + 4);
+-					break;
+-				case SDLK_o:
+-					dec_lower(anim_human_test + 4);
+-					break;
+-				case SDLK_0:
+-					inc_upper(anim_human_test + 4);
+-					break;
+-				case SDLK_p:
+-					dec_upper(anim_human_test + 4);
+-					break;
+-				case SDLK_a:
+-					inc_lower(anim_human_test + 5);
+-					break;
+-				case SDLK_z:
+-					dec_lower(anim_human_test + 5);
+-					break;
+-				case SDLK_s:
+-					inc_upper(anim_human_test + 5);
+-					break;
+-				case SDLK_x:
+-					dec_upper(anim_human_test + 5);
+-					break;
+-				case SDLK_d:
+-					inc_lower(anim_human_test + 6);
+-					break;
+-				case SDLK_c:
+-					dec_lower(anim_human_test + 6);
+-					break;
+-				case SDLK_f:
+-					inc_upper(anim_human_test + 6);
+-					break;
+-				case SDLK_v:
+-					dec_upper(anim_human_test + 6);
+-					break;
+-				case SDLK_g:
+-					inc_lower(anim_human_test + 7);
+-					break;
+-				case SDLK_b:
+-					dec_lower(anim_human_test + 7);
+-					break;
+-				case SDLK_h:
+-					inc_upper(anim_human_test + 7);
+-					break;
+-				case SDLK_n:
+-					dec_upper(anim_human_test + 7);
+-					break;
+-				case SDLK_INSERT:
+-					inc_lower(anim_human_test + 8);
+-					break;
+-				case SDLK_DELETE:
+-					dec_lower(anim_human_test + 8);
+-					break;
+-				case SDLK_PAGEUP:
+-					inc_upper(anim_human_test + 8);
+-					break;
+-				case SDLK_PAGEDOWN:
+-					dec_upper(anim_human_test + 8);
+-					break;
+-				case SDLK_LEFT:
+-					inc_lower(anim_human_test + 9);
+-					break;
+-				case SDLK_RIGHT:
+-					dec_lower(anim_human_test + 9);
+-					break;
+-				case SDLK_UP:
+-					inc_upper(anim_human_test + 9);
+-					break;
+-				case SDLK_DOWN:
+-					dec_upper(anim_human_test + 9);
+-					break;
+-				case SDLK_KP7:
+-					inc_lower(anim_human_test + 10);
+-					break;
+-				case SDLK_KP4:
+-					dec_lower(anim_human_test + 10);
+-					break;
+-				case SDLK_KP8:
+-					inc_upper(anim_human_test + 10);
+-					break;
+-				case SDLK_KP5:
+-					dec_upper(anim_human_test + 10);
+-					break;
+-				case SDLK_KP1:
+-					glLoadIdentity();
+-					dluLookAt(45.0f, 20.0f, -50.0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+-					break;
+-				case SDLK_KP3:
+-					glLoadIdentity();
+-					dluLookAt(-45.0f, 20.0f, -50.0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+-					break;
+-				case SDLK_SPACE:
+-					printf("{ %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i }\n",
+-							anim_human_test[0],
+-							anim_human_test[1],
+-							anim_human_test[2],
+-							anim_human_test[3],
+-							anim_human_test[4],
+-							anim_human_test[5],
+-							anim_human_test[6],
+-							anim_human_test[7],
+-							anim_human_test[8],
+-							anim_human_test[9],
+-							anim_human_test[10]);
+-					break;
+-#endif
+-#if defined(MANUAL_ADVANCE)
+-				case SDLK_RSHIFT:
+-					currtickmul = 100;
+-					break;
+-				case SDLK_LSHIFT:
+-					currtickmul = 1;
+-					break;
+-				case SDLK_PERIOD:
+-					currtick += 20 * currtickmul;
+-					break;
+-				case SDLK_COMMA:
+-					currtick -= 20 * currtickmul;
+-					break;
+-#endif
+-				case SDLK_ESCAPE: cont=0; break;
+-				case SDLK_q: cont=0; break;
+-				default:
+-					break;
++			    if (event.window.windowID == windowID)  {
++				if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++				    int new_w = event.window.data1;
++				    int new_h = event.window.data2;
++				    resize_window(0,0, new_w,new_h);
++				}
++			    }
+ 			}
+-		    }
+ 		
+ #else
+ 			break;

@@ -1,0 +1,93 @@
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -618,14 +618,14 @@
+   AC_LANG_POP([C])
+ ])
+ 
+-# Incorporate SDL.
+-# AC_INCORPORATE_SDL([version], [define on found], [obligatory])
+-AC_DEFUN([AC_INCORPORATE_SDL],
++# Incorporate SDL2.
++# AC_INCORPORATE_SDL2([version], [define on found], [obligatory])
++AC_DEFUN([AC_INCORPORATE_SDL2],
+ [
+-  AM_PATH_SDL([$1],
+-    sdl=[yes],
+-    sdl=[no])
+-  AC_INCORPORATE([SDL], [$sdl], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
++  AM_PATH_SDL2([$1],
++    sdl2=[yes],
++    sdl2=[no])
++  AC_INCORPORATE([SDL2], [$sdl2], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
+ ])
+ 
+ # Incorporate LIBMIKMOD.
+--- a/configure.ac
++++ b/configure.ac
+@@ -58,7 +58,7 @@
+ 
+ AC_INCORPORATE_OPENGL([SAE4_OPENGL], [yes])
+ AC_INCORPORATE_GLUT([SAE4_FREEGLUT], [yes])
+-AC_INCORPORATE_SDL([1.2.7], [SAE4_SDL], [yes])
++AC_INCORPORATE_SDL2([2.0.0], [SAE4_SDL], [yes])
+ 
+ # Checks for library functions.
+ AC_CHECK_FUNCS([select])
+--- a/src/sae4.c
++++ b/src/sae4.c
+@@ -47,8 +47,8 @@
+ #include "sys/types.h"
+ 
+ // SDL brings all the enum stuff and everything we need for operation.
+-#include "SDL.h"
+-#include "SDL_opengl.h"
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_opengl.h>
+ 
+ // glut definitions are not included in SDL definitions.
+ #if defined(WIN32) 
+@@ -230,7 +230,12 @@
+ #define DDL_PauseAudio SDL_PauseAudio
+ #define DDL_PollEvent SDL_PollEvent
+ #define DDL_SetVideoMode SDL_SetVideoMode
++#define DDL_CreateWindow SDL_CreateWindow
++#define DDL_GL_CreateContext SDL_GL_CreateContext
++#define DDL_GL_SwapWindow SDL_GL_SwapWindow
+ #define DDL_ShowCursor SDL_ShowCursor
++#define DDL_GL_DeleteContext SDL_GL_DeleteContext
++#define DDL_DestroyWindow SDL_DestroyWindow
+ #define DDL_Quit SDL_Quit
+ 
+ #endif
+@@ -1031,8 +1036,11 @@
+ #endif
+ 	DDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
+ 
++	SDL_Window *sdlWindow;
++	SDL_GLContext sdlGlcontext;
+ 	// Do not take the screen with you since it is not needed.
+-	DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, SDL_OPENGL | SCREEN_F);
++	sdlWindow = DDL_CreateWindow("Stick Animation Engine 4000 by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_W,SCREEN_H,SDL_WINDOW_OPENGL | SCREEN_F);
++	sdlGlcontext = DDL_GL_CreateContext(sdlWindow);
+ 	DDL_ShowCursor(0);
+ 
+ 	dlEnable(GL_DEPTH_TEST);
+@@ -1087,7 +1095,8 @@
+ 		}
+ 		draw(DDL_GetTicks());
+ #endif
+-		DDL_GL_SwapBuffers();
++		//DDL_GL_SwapBuffers();
++		DDL_GL_SwapWindow(sdlWindow);
+ 
+ 		// Small delay. Will probably sleep more in reality.
+ 		DDL_Delay(FRAME_TICKS / 2);
+@@ -1327,6 +1336,8 @@
+ 
+ 	}
+ 
++	DDL_GL_DeleteContext(sdlGlcontext);
++	DDL_DestroyWindow(sdlWindow);
+ 	DDL_Quit();
+ 
+ #if !defined(SAE4_GNU_LD)
