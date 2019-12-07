@@ -54,7 +54,7 @@ rawgl (0.2.1-0ddebs1) unstable; urgency=medium
   * New upstream release
   * corrected debian/watch file
 
- -- NaSH <lenashou@gmail.com>  Thu, 17 Mar 2016 20:48:41 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 17 Mar 2016 20:48:41 +0100
 
 rawgl (0.1.1-0ddebs3) unstable; urgency=medium
 

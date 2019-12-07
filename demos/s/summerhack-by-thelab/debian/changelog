@@ -14,7 +14,7 @@ summerhack-by-thelab (1.0-0ddebs5) unstable; urgency=medium
 
   * better dependencies (using dh_shlibdeps)
 
- -- NaSH <lenashou@gmail.com>  Thu, 30 Mar 2017 01:54:26 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 30 Mar 2017 01:54:26 +0200
 
 summerhack-by-thelab (1.0-0ddebs4) unstable; urgency=medium
 

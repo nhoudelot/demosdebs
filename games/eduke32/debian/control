@@ -1,7 +1,7 @@
 Source: eduke32
 Section: games
 Priority: optional
-Maintainer: Nicolas HOUDELOT <lenashou@gmail.com>
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 9.0),
  pandoc,

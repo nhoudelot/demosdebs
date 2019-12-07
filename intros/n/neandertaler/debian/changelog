@@ -47,7 +47,7 @@ neandertaler (1.0-0ddebs5) unstable; urgency=medium
 
   * replaced mikmod by sdl_mixer
 
- -- NaSH <lenashou@gmail.com>  Sun, 01 May 2016 03:51:22 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 01 May 2016 03:51:22 +0200
 
 neandertaler (1.0-0ddebs4) unstable; urgency=medium
 
@@ -64,7 +64,7 @@ neandertaler (1.0-0ddebs3) unstable; urgency=medium
 neandertaler (1.0-0ddebs2) unstable; urgency=medium
 
   * using debian recommended CFLAGS and habits
-  * reworked makefile 
+  * reworked makefile
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 02 Mar 2016 01:34:03 +0100
 
