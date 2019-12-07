@@ -5,8 +5,8 @@
  
  #ifdef SOUND
 -#include <mikmod.h>
-+#include <SDL/SDL.h>
-+#include <SDL/SDL_mixer.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_mixer.h>
  #endif
  
  #include <signal.h>
@@ -68,3 +68,15 @@
      //  Here we go! GLUT eventloop
      glutMainLoop();
  }
+--- a/Makefile
++++ b/Makefile
+@@ -47,7 +47,8 @@
+ # If sound enabled
+ ifeq ($(SOUND),YES)
+ DEF += -DSOUND
+-LDFLAGS += -lmikmod
++LDFLAGS += $(shell pkgconf SDL2_mixer --libs)
++CXXFLAGS += $(shell pkgconf SDL2_mixer --cflags)
+ endif
+ 
+ # If old GLUT version

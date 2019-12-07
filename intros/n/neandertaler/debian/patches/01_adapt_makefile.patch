@@ -8,7 +8,7 @@
  PLATFORM = LINUX
  # YES for sound, NO or whatever for no sound
  SOUND = YES
-@@ -12,27 +13,42 @@
+@@ -12,27 +13,41 @@
  
  # General defines
  CC = g++
@@ -59,12 +59,11 @@
  ifeq ($(SOUND),YES)
  DEF += -DSOUND
 -LIBS += -lmikmod
-+LDFLAGS += $(shell pkgconf SDL_mixer --libs)
-+CXXFLAGS += $(shell pkgconf SDL_mixer --cflags)
++LDFLAGS += -lmikmod
  endif
  
  # If old GLUT version
-@@ -40,13 +56,23 @@
+@@ -40,13 +55,23 @@
  DEF += -DOLDGLUT
  endif
  

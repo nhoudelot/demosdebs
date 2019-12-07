@@ -6,8 +6,7 @@ Build-Depends:
  debhelper (>= 9.0.0),
  libglu1-mesa-dev,
  freeglut3-dev,
- libsdl1.2-dev,
- libsdl-mixer1.2-dev,
+ libsdl2-mixer-dev,
  libxi-dev,
  libxmu-dev,
  pkgconf,
@@ -26,6 +25,7 @@ Description: Intro ranked 2nd at The Party 2000
 
 Package: neandertaler-data
 Architecture: all
+Multi-Arch: foreign
 Depends:
  ${misc:Depends}
 Description: data files for nean der taler ranked 2nd at The Party 2000

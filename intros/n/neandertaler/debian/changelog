@@ -1,3 +1,11 @@
+neandertaler (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2_Mixer
+  * cleanup patches
+  * debian/control : neandertaler-data Multi-Arch: foreign
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 07 Dec 2019 15:10:38 +0100
+
 neandertaler (1.0+1-0ddebs1) unstable; urgency=medium
 
   * uncrustify source
