@@ -1,3 +1,10 @@
+kebab-by-rebel (1.0+2-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2_mixer
+  * missing graphics corrected (all path were not changed)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 08 Dec 2019 18:10:17 +0100
+
 kebab-by-rebel (1.0+2-0ddebs1) unstable; urgency=medium
 
   * sources in utf8

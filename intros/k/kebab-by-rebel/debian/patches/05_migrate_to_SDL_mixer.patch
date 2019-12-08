@@ -1,0 +1,148 @@
+--- a/kebab.c
++++ b/kebab.c
+@@ -15,7 +15,8 @@
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <math.h>
+-#include <fmod.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ #define RESET           0
+ #define BRIGHT          1
+@@ -452,6 +453,8 @@
+ 
+ }
+ 
++Mix_Music *fsoundkebab;
++Mix_Music *fsoundknark;
+ 
+ int main(void)
+ {
+@@ -459,33 +462,11 @@
+ 	pthread_t thread[1000];
+ 	char snopp[50];
+ 	char ahh[5000];
+-	FMUSIC_MODULE *mod = NULL;
+-	FMUSIC_MODULE *knark = NULL;
+ 
+-	if (FSOUND_GetVersion() < FMOD_VERSION)
+-	{
+-		printf("ARGH! fel version av fmod\n");
+-		exit(1);
+-	}
+-
+-	if (!FSOUND_Init(32000, 64, 0))
+-	{
+-		printf("INIT SOUND error\n");
+-		exit(1);
+-	}
+-
+-	mod = FMUSIC_LoadSong("/usr/share/kebab-by-rebel/kebab.xm");
+-	if (!mod)
+-	{
+-		printf("Loadsong error\n");
+-		exit(1);
+-	}
+-	knark = FMUSIC_LoadSong("/usr/share/kebab-by-rebel/knark.xm");
+-	if (!knark)
+-	{
+-		printf("Loadsong error\n");
+-		exit(1);
+-	}
++	SDL_Init(SDL_INIT_AUDIO); //mixer init
++    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);  //system byte order,stereo audio,1024 byte chunks
++	fsoundkebab = Mix_LoadMUS("/usr/share/kebab-by-rebel/kebab.xm");
++	fsoundknark = Mix_LoadMUS("/usr/share/kebab-by-rebel/knark.xm");
+ 
+ 
+ 	setvbuf(stdout, NULL, _IONBF, 0);
+@@ -622,38 +603,40 @@
+ 	fill(BRIGHT,WHITE,BLUE,' ');
+ 	usleep(500000);
+ 	mutta(9,3,BRIGHT,WHITE,WHITE,buf2);
+-	FMUSIC_PlaySong(knark);
++	Mix_PlayMusic(fsoundknark,-1);
+ 	usleep(500000);
+-	FMUSIC_StopSong(knark);
++	Mix_PauseMusic();
+ 
+ 
+ 
+ 
+ 	fill(BRIGHT,WHITE,BLUE,' ');
+ 	mutta(9,3,BRIGHT,WHITE,WHITE,buf3);
+-	FMUSIC_PlaySong(knark);
++	Mix_ResumeMusic();
+ 	usleep(500000);
+-	FMUSIC_StopSong(knark);
++	Mix_PauseMusic();
+ 	fill(BRIGHT,WHITE,BLUE,' ');
+ 	mutta(9,3,BRIGHT,WHITE,WHITE,buf4);
+-	FMUSIC_PlaySong(knark);
++	Mix_ResumeMusic();
+ 	usleep(500000);
+-	FMUSIC_StopSong(knark);
++	Mix_PauseMusic();
+ 	fill(BRIGHT,WHITE,BLUE,' ');
+ 	mutta(9,3,BRIGHT,WHITE,WHITE,buf5);
+-	FMUSIC_PlaySong(knark);
++	Mix_ResumeMusic();
+ 	usleep(500000);
+-	FMUSIC_StopSong(knark);
++	Mix_PauseMusic();
+ 	fill(BRIGHT,WHITE,BLUE,' ');
+ 	mutta(9,3,BRIGHT,WHITE,WHITE,buf6);
+-	FMUSIC_PlaySong(knark);
++	Mix_ResumeMusic();
+ 	usleep(500000);
+-	FMUSIC_StopSong(knark);
++	Mix_PauseMusic();
++	Mix_FreeMusic(fsoundknark);
+ //fill(BRIGHT,WHITE,BLUE,' ');
+ 	mutta(4,3,BRIGHT,WHITE,WHITE,buf7);
+ 	usleep(2500000);
+ 
+-	FMUSIC_PlaySong(mod);
++	Mix_ResumeMusic();
++	Mix_PlayMusic(fsoundkebab,-1);
+ 
+ 
+ 	for(x=1; x<120; x++)
+@@ -790,22 +773,9 @@
+ 	fill(BRIGHT,WHITE,BLUE,' ');
+ 	mutta(20,5,BRIGHT,WHITE,WHITE,ahh);
+ 
+-	x = FMUSIC_GetMasterVolume(mod);
+-
+-
+-	while(x >= 0)
+-	{
+-		FMUSIC_SetMasterVolume(mod, x-=10);
+-		usleep(100000);
+-	}
+-
+-
+-
+-	FMUSIC_FreeSong(mod);
+-	FSOUND_Close();
+-
+-
+-
++	Mix_FreeMusic(fsoundknark);
++	Mix_CloseAudio();
++	Mix_Quit();
+ 	exit(0);
+ 
+ }
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ SHELL = /bin/sh
+ CC    = gcc
+ CFLAGS   += -Wall -pipe -std=gnu90
+-LDFLAGS  += -pthread -lfmodex-3.75 -lm
++LDFLAGS  += -pthread $(shell pkgconf SDL2_mixer --libs) -lm
+ TARGET   = kebab-by-rebel
+ #variable de nettoyage
+ RM_F = rm -f

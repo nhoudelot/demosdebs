@@ -5,7 +5,8 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 9.0),
  pandoc,
- libfmodex-dev
+ pkgconf,
+ libsdl2-mixer-dev
 Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=52832
 

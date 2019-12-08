@@ -29,7 +29,7 @@
  
  	for(d=0; d<29; d+=1)
  	{
-@@ -460,7 +460,6 @@
+@@ -456,7 +456,6 @@
  int main(void)
  {
  	int x,y;
@@ -37,7 +37,7 @@
  	pthread_t thread[1000];
  	char snopp[50];
  	char ahh[5000];
-@@ -935,7 +934,6 @@
+@@ -965,7 +964,6 @@
  {
  	char snopp[50];
  	int x;
@@ -45,7 +45,7 @@
  
  	for(x=1; x<14; x++)
  	{
-@@ -1141,7 +1139,7 @@
+@@ -1171,7 +1169,7 @@
  	int x,a,p,z,o,k,y,newlines,u,times;
  	char ahem[20][5000];
  	char ahem_backwards[20][5000];
@@ -54,7 +54,7 @@
  	char *foo;
  	int eek;
  
-@@ -1382,7 +1380,7 @@
+@@ -1412,7 +1410,7 @@
  
  void slide(void)
  {
@@ -63,7 +63,7 @@
  	char a;
  	float b;
  	char sup[5000];
-@@ -1414,11 +1412,10 @@
+@@ -1444,11 +1442,10 @@
  void fireworks(void)
  {
  	int plane[COLUMNS][LINES];
@@ -76,7 +76,7 @@
  	float tails[20];
  	int tailcount=0;
  	int col1, col2, col3, col4, col5;
-@@ -1651,10 +1648,9 @@
+@@ -1681,10 +1678,9 @@
  
  void plasma_attack(void)
  {
@@ -88,7 +88,7 @@
  
  	srand(time(NULL));
  
-@@ -1683,8 +1679,8 @@
+@@ -1713,8 +1709,8 @@
  void scrolla(char *s)
  {
  	int plane[COLUMNS+4000][LINES];
@@ -99,7 +99,7 @@
  	int start, chars;
  
  
-@@ -1747,15 +1743,14 @@
+@@ -1777,15 +1773,14 @@
  
  void worm(void)
  {
@@ -118,7 +118,7 @@
  
  
  	my_wormx = wormx;
-@@ -1903,9 +1898,6 @@
+@@ -1933,9 +1928,6 @@
  
  void timer_fill(int interval,int pause)
  {

@@ -1,4 +1,4 @@
 01_adapt_makefile.patch
-02_replace_fmod_by_fmodex.patch
 03_adapt_path.patch
 04_fix_warnings.patch
+05_migrate_to_SDL_mixer.patch

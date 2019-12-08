@@ -1,17 +1,22 @@
 --- a/kebab.c
 +++ b/kebab.c
-@@ -467,8 +467,8 @@
+@@ -475,13 +475,13 @@
+ 		exit(1);
+ 	}
  
- 	FMOD_System_Create(&sys);
- 	FMOD_System_Init(sys, 1, FMOD_INIT_NORMAL, NULL);
--	FMOD_System_CreateSound(sys, "kebab.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsoundkebab);
--	FMOD_System_CreateSound(sys, "knark.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsoundknark);
-+	FMOD_System_CreateSound(sys, "/usr/share/kebab-by-rebel/kebab.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsoundkebab);
-+	FMOD_System_CreateSound(sys, "/usr/share/kebab-by-rebel/knark.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsoundknark);
- 
- 	setvbuf(stdout, NULL, _IONBF, 0);
- 
-@@ -491,7 +491,7 @@
+-	mod = FMUSIC_LoadSong("kebab.xm");
++	mod = FMUSIC_LoadSong("/usr/share/kebab-by-rebel/kebab.xm");
+ 	if (!mod)
+ 	{
+ 		printf("Loadsong error\n");
+ 		exit(1);
+ 	}
+-	knark = FMUSIC_LoadSong("knark.xm");
++	knark = FMUSIC_LoadSong("/usr/share/kebab-by-rebel/knark.xm");
+ 	if (!knark)
+ 	{
+ 		printf("Loadsong error\n");
+@@ -510,7 +510,7 @@
  	for(x=0; x<67; x++)
  	{
  		bzero(letters[x],4999);
@@ -20,3 +25,195 @@
  		fd = open(snopp,O_RDONLY);
  		read(fd,letters[x],5000);
  		close(fd);
+@@ -581,34 +581,34 @@
+ 	fill(BRIGHT,WHITE,BLUE,' ');
+ 
+ 
+-	fd = open("grafik/intro1",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/intro1",O_RDONLY);
+ 	read(fd,&buf1,4999);
+ 	close(fd);
+ 
+-	fd = open("grafik/intro2",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/intro2",O_RDONLY);
+ 	read(fd,&buf2,4999);
+ 	close(fd);
+ 
+ 
+ 
+ 
+-	fd = open("grafik/intro3",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/intro3",O_RDONLY);
+ 	read(fd,&buf3,4999);
+ 	close(fd);
+ 
+-	fd = open("grafik/intro4",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/intro4",O_RDONLY);
+ 	read(fd,&buf4,4999);
+ 	close(fd);
+ 
+-	fd = open("grafik/intro5",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/intro5",O_RDONLY);
+ 	read(fd,&buf5,4999);
+ 	close(fd);
+ 
+-	fd = open("grafik/intro6",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/intro6",O_RDONLY);
+ 	read(fd,&buf6,4999);
+ 	close(fd);
+ 
+-	fd = open("grafik/intro7",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/intro7",O_RDONLY);
+ 	read(fd,&buf7,4999);
+ 	close(fd);
+ 
+@@ -783,7 +783,7 @@
+ 	plasma_attack_intro();
+ 	plasma_attack();
+ 
+-	x = open("grafik/end",O_RDONLY);
++	x = open("/usr/share/kebab-by-rebel/grafik/end",O_RDONLY);
+ 	bzero(ahh,4999);
+ 	read(x,ahh,4999);
+ 	close(x);
+@@ -880,7 +880,7 @@
+ 
+ 	for(x=1; x<3; x++)
+ 	{
+-		sprintf(snopp,"grafik/ching_intro%d",x);
++		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/ching_intro%d",x);
+ 		fd = open(snopp,O_RDONLY);
+ 		read(fd,ahem[x],5000);
+ 		close(fd);
+@@ -907,7 +907,7 @@
+ 	for(x=1; x<4; x++)
+ 	{
+ 		bzero(ahem[x],4999);
+-		sprintf(snopp,"grafik/fireworks%d",x);
++		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/fireworks%d",x);
+ 		fd = open(snopp,O_RDONLY);
+ 		read(fd,ahem[x],5000);
+ 		close(fd);
+@@ -931,15 +931,15 @@
+ {
+ 	int x;
+ 
+-	fd = open("grafik/ching1",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/ching1",O_RDONLY);
+ 	read(fd,&buf3,4999);
+ 	close(fd);
+ 
+-	fd = open("grafik/ching2",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/ching2",O_RDONLY);
+ 	read(fd,&buf4,4999);
+ 	close(fd);
+ 
+-	fd = open("grafik/ching3",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/ching3",O_RDONLY);
+ 	read(fd,&buf5,4999);
+ 	close(fd);
+ 
+@@ -970,7 +970,7 @@
+ 	for(x=1; x<14; x++)
+ 	{
+ 		bzero(kuka[x],4999);
+-		sprintf(snopp,"grafik/signal%d",x);
++		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/signal%d",x);
+ 		fd = open(snopp,O_RDONLY);
+ 		read(fd,kuka[x],5000);
+ 		close(fd);
+@@ -1047,7 +1047,7 @@
+ 	for(x=1; x<6; x++)
+ 	{
+ 		bzero(ahem[x],4999);
+-		sprintf(snopp,"grafik/vortex%d",x);
++		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/vortex%d",x);
+ 		fd = open(snopp,O_RDONLY);
+ 		read(fd,ahem[x],5000);
+ 		close(fd);
+@@ -1069,7 +1069,7 @@
+ void we_get_signal(void)
+ {
+ 	int a;
+-	a = open("grafik/omg",O_RDONLY);
++	a = open("/usr/share/kebab-by-rebel/grafik/omg",O_RDONLY);
+ 	read(fd,kuka[19],4999);
+ 	close(a);
+ 	sleep(6);
+@@ -1127,7 +1127,7 @@
+ 		usleep(100000);
+ 	}
+ 
+-	c = open("grafik/lol",O_RDONLY);
++	c = open("/usr/share/kebab-by-rebel/grafik/lol",O_RDONLY);
+ 	read(c,sup,4999);
+ 	close(c);
+ 	mutta(29,9,BRIGHT,GREEN,GREEN,sup);
+@@ -1145,7 +1145,7 @@
+ 	for(x=1; x<2; x++)
+ 	{
+ 		bzero(ahem[x],4999);
+-		sprintf(snopp,"grafik/man_intro%d",x);
++		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/man_intro%d",x);
+ 		fd = open(snopp,O_RDONLY);
+ 		read(fd,ahem[x],5000);
+ 		close(fd);
+@@ -1178,7 +1178,7 @@
+ 	for(x=1; x<13; x++)
+ 	{
+ 		bzero(ahem[x],4999);
+-		sprintf(snopp,"grafik/man%d",x);
++		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/man%d",x);
+ 		fd = open(snopp,O_RDONLY);
+ 		read(fd,ahem[x],5000);
+ 		close(fd);
+@@ -1256,7 +1256,7 @@
+ 
+ 		if(times!=1)
+ 		{
+-			a = open("grafik/wow",O_RDONLY);
++			a = open("/usr/share/kebab-by-rebel/grafik/wow",O_RDONLY);
+ 			read(a,sup,4999);
+ 			close(a);
+ 
+@@ -1279,7 +1279,7 @@
+ 
+ 	}
+ 
+-	a = open("grafik/fantastic",O_RDONLY);
++	a = open("/usr/share/kebab-by-rebel/grafik/fantastic",O_RDONLY);
+ 	bzero(sup,4999);
+ 	read(a,sup,4999);
+ 	close(a);
+@@ -1309,7 +1309,7 @@
+ 	for(x=1; x<4; x++)
+ 	{
+ 		bzero(ahh[x],4999);
+-		sprintf(snopp,"grafik/fire%d",x);
++		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/fire%d",x);
+ 		fd = open(snopp,O_RDONLY);
+ 		read(fd,ahh[x],5000);
+ 		close(fd);
+@@ -1659,7 +1659,7 @@
+ 	for(x=1; x<2; x++)
+ 	{
+ 		bzero(ahem[x],4999);
+-		sprintf(snopp,"grafik/plasma%d",x);
++		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/plasma%d",x);
+ 		fd = open(snopp,O_RDONLY);
+ 		read(fd,ahem[x],5000);
+ 		close(fd);
+@@ -2087,7 +2087,7 @@
+ 
+ 	bzero(smile,500);
+ 
+-	fd = open("grafik/smile",O_RDONLY);
++	fd = open("/usr/share/kebab-by-rebel/grafik/smile",O_RDONLY);
+ 	read(fd,&smile,500);
+ 	close(fd);
+ 
+@@ -2128,4 +2128,3 @@
+ 	usleep(800000);
+ }
+ 
+-
