@@ -1,0 +1,474 @@
+--- a/base/main.cpp
++++ b/base/main.cpp
+@@ -22,7 +22,7 @@
+ #ifdef WIN32
+ 	#include <SDL/SDL.h>
+ #else
+-	#include <SDL.h>
++	#include <SDL2/SDL.h>
+ #endif
+ 
+ #include "xdl.h"
+@@ -84,7 +84,7 @@
+ 	xio.texture->loadAll("/usr/share/xa003midssumer-by-xangle/data/textures/other");
+ 
+ #ifdef DEBUG
+-	cout << "DEBUG | Size of loaded textures in memory: " << (float)xio.texture->kbytes/1000 << " MB." << endl;
++	std::cout << "DEBUG | Size of loaded textures in memory: " << (float)xio.texture->kbytes/1000 << " MB." << endl;
+ #endif
+ 
+ 	// Init the demo manager
+--- a/base/xdm.cpp
++++ b/base/xdm.cpp
+@@ -47,8 +47,8 @@
+ 	frames = 0;
+ 	fpsupdate = frametime = scenestart = demotime = xio->timer->getTime();
+ #ifdef DEBUG
+-	cout << "DEBUG | Scene 0 running: ";
+-	cout.flush();
++	std::cout << "DEBUG | Scene 0 running: ";
++	std::cout.flush();
+ #endif
+ 	for(;;)
+ 	{
+@@ -71,22 +71,22 @@
+ 		{
+ 
+ #ifdef DEBUG
+-			cout << "Average fps: " << (float)(((float)(total_fps))/((float)(fpscount))) << endl;
++			std::cout << "Average fps: " << (float)(((float)(total_fps))/((float)(fpscount))) << endl;
+ 			total_fps = 0;
+ 			fpscount = 0;
+ #endif
+ 			if((unsigned)++current_scene+1 > scene.size()) {
+ 				#ifdef DEBUG
+-				cout << "DEBUG | Oh no! we ran out of scenes to play :(" << endl;
+-				cout << "DEBUG | Total demo running time: " << (int)((xio->timer->getTime()-demotime)/1000) << " seconds." << endl;
++				std::cout << "DEBUG | Oh no! we ran out of scenes to play :(" << endl;
++				std::cout << "DEBUG | Total demo running time: " << (int)((xio->timer->getTime()-demotime)/1000) << " seconds." << endl;
+ 				#endif
+ 				xs::shutdown.run(0);
+ 			}
+ 			else {
+ 				scenestart = xio->timer->getTime();
+ #ifdef DEBUG
+-				cout << "DEBUG | Scene " << current_scene << " running: ";
+-				cout.flush();
++				std::cout << "DEBUG | Scene " << current_scene << " running: ";
++				std::cout.flush();
+ #endif
+ 			}
+ 		}
+@@ -117,8 +117,8 @@
+ 	if((xio->timer->getTime() - fpsupdate) >= 1000) {
+ 		total_fps += frames;
+ 		++fpscount;
+-		cout << frames << " ";
+-		cout.flush();
++		std::cout << frames << " ";
++		std::cout.flush();
+ 		frames = 0;
+ 		fpsupdate = xio->timer->getTime();
+ 	}
+@@ -128,13 +128,13 @@
+ 	xio->video->update();
+ 	xio->event->update();
+ #ifdef DEBUG
+-	SDLKey key = xio->event->keyboard();
+-	if(key == SDLK_SPACE) {
+-		cout << "DEBUG | Current scene time: " << xio->timer->getTime() - scenestart << endl;
+-	}
++//	SDLKey key = xio->event->keyboard();
++//	if(key == SDLK_SPACE) {
++//		std::cout << "DEBUG | Current scene time: " << xio->timer->getTime() - scenestart << endl;
++//	}
+ #ifdef DEBUG
+-	else if(key == SDLK_TAB)
+-		skipscene = true;
++//	else if(key == SDLK_TAB)
++//		skipscene = true;
+ #endif
+ #endif
+ 
+--- a/base/xio.cpp
++++ b/base/xio.cpp
+@@ -30,7 +30,7 @@
+ 	#include <dirent.h>
+ 	#include <sys/time.h>
+ 	#include <sys/types.h>
+-	#include "SDL_image.h"
++	#include <SDL2/SDL_image.h>
+ #endif
+ 
+ #include <png.h>
+@@ -39,7 +39,7 @@
+ {
+ #ifdef DEBUG
+ void sdlq() {
+-	SDL_Quit(); cout << "DEBUG | SDL_Quit has been run" << endl;
++	SDL_Quit(); std::cout << "DEBUG | SDL_Quit has been run" << endl;
+ }
+ #endif
+ 
+@@ -58,6 +58,7 @@
+ Video::Video(int w, int h, int bpp, bool fs, bool opengl, const char *window_title)
+ {
+ 	width = w; height = h; b = bpp; fullscreen = fs; ogl = opengl; wtitle = window_title;
++	sdl_screen= createSurface(width, height);
+ 	sdl_back = createSurface(width, height);
+ 
+ 	if (sdl_back == NULL) {
+@@ -83,82 +84,55 @@
+ #endif
+ 
+ 	// Fetch the video info
+-	const SDL_VideoInfo *video_info;
+-	if(!(video_info = SDL_GetVideoInfo())) {
+-		string temp = "Video query failed: ";
+-		temp += SDL_GetError();
+-		xs::error.add(temp.c_str());
+-	}
++//	const SDL_VideoInfo *video_info;
++//	if(!(video_info = SDL_GetVideoInfo())) {
++//		string temp = "Video query failed: ";
++//		temp += SDL_GetError();
++//		xs::error.add(temp.c_str());
++//	}
+ 
+-#ifdef DEBUG
+-	cout << "DEBUG | Activating HWPALETTE" << endl;
+-#endif
+-	int flags = SDL_HWPALETTE;
++	int flags = 0;
+ 
+ 	if(ogl)
+ 	{
+ #ifdef DEBUG
+-		cout << "DEBUG | Activating OPENGL" << endl;
++		std::cout << "DEBUG | Activating OPENGL" << endl;
+ #endif
+-		flags |= SDL_OPENGL;
+-		flags |= SDL_GL_DOUBLEBUFFER;
+-	}
+-	else
+-	{
+-#ifdef DEBUG
+-		cout << "DEBUG | Activating DOUBLEBUF" << endl;
+-#endif
+-		flags |= SDL_DOUBLEBUF;
++		flags |= SDL_WINDOW_OPENGL;
+ 	}
+ 
+ 	int hw_accel = 0;
+-	if(video_info->hw_available)
+-	{
+-#ifdef DEBUG
+-		cout << "DEBUG | Activating HWSURFACE" << endl;
+-#endif
+-		hw_accel |= SDL_HWSURFACE;
+-		flags |= SDL_HWSURFACE;
+-	}
+-	else
+-	{
+-#ifdef DEBUG
+-		cout << "DEBUG | Activating SWSURFACE" << endl;
+-#endif
+-		hw_accel |= SDL_SWSURFACE;
+-		flags |= SDL_SWSURFACE;
+-	}
+-
+-	// Check if hardware blits can be done
+-	if(video_info->blit_hw)
+-	{
+-#ifdef DEBUG
+-		cout << "DEBUG | Activating HWACCEL" << endl;
+-#endif
+-		flags |= SDL_HWACCEL;
+-	}
+ 
+ 	if(fullscreen) {
+-		flags |= SDL_FULLSCREEN;
++		flags |= SDL_WINDOW_FULLSCREEN;
+ 		SDL_ShowCursor(0);
+ 	}
+ 
+ 	// Create the screen
+-	if(!(sdl_screen = SDL_SetVideoMode(width, height, b, flags))) {
+-		string temp = "Video mode set failed: ";
+-		temp += SDL_GetError();
+-		xs::error.add(temp.c_str());
+-	}
+-	SDL_WM_SetCaption(wtitle.c_str(), NULL);
++		if(!(sdlWindow = SDL_CreateWindow(wtitle.c_str(),SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,flags))) {
++			string temp = "Video mode set failed: ";
++			temp += SDL_GetError();
++			xs::error.add(temp.c_str());
++		};
++		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++		sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,sdl_screen);
++		sdlSurface = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_BGRA32);
++	
+ #ifdef DEBUG
+-	cout << "DEBUG | BitsPerPixel: " << (int)(sdl_screen->format->BitsPerPixel) << endl;
++	std::cout << "DEBUG | BitsPerPixel: " << (int)(sdl_screen->format->BitsPerPixel) << endl;
+ #endif
+-}
++	}
+ 
+ void Video::update()
+ {
+-	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
+-	SDL_Flip(sdl_screen);
++	sdlSurface = SDL_ConvertSurface(sdl_screen,sdl_screen->format,0);
++	SDL_UpdateTexture(sdlTexture, NULL, sdlSurface->pixels, sdlSurface->pitch);
++	SDL_RenderClear(sdlRenderer);
++	SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++	SDL_RenderPresent(sdlRenderer);
++	
++//	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
++//	SDL_Flip(sdl_screen);
+ }
+ 
+ void Video::getPixel(xio::surface *surface, rgb *pixel, int x, int y)
+@@ -175,7 +149,8 @@
+ 
+ xio::surface *Video::createSurface(int w, int h)
+ {
+-	return SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, b, 0, 0, 0, 0);
++	return SDL_CreateRGBSurfaceWithFormat(0, w, h, b,SDL_PIXELFORMAT_BGRA32);
++	//return SDL_CreateRGBSurface(0, w, h, b,0,0,0,0);
+ }
+ 
+ void Video::freeSurface(xio::surface *surface)
+@@ -465,11 +440,9 @@
+ 	if(event.type == SDL_KEYDOWN)
+ 		if(event.key.keysym.sym == SDLK_ESCAPE)
+ 			xs::shutdown.run(0);
+-		else
+-			keyboard_input = event.key.keysym.sym;
+ #ifdef DEBUG
+ 	else if(event.type == SDL_MOUSEBUTTONDOWN) {
+-		cout << "DEBUG | Mouse pressed at " << event.motion.x << ", "
++		std::cout << "DEBUG | Mouse pressed at " << event.motion.x << ", "
+ 		     << event.motion.y << "." << endl;
+ 	}
+ #endif
+@@ -482,7 +455,7 @@
+ {
+ 	use_sound = use;
+ #ifdef DEBUG
+-	cout << "DEBUG | Samplerate: " << samplerate << endl;
++	std::cout << "DEBUG | Samplerate: " << samplerate << endl;
+ #endif
+ 
+ 	if(use_sound)
+@@ -669,8 +642,8 @@
+ 	kbytes += (width * height * 4)/1000;
+ #endif
+ 	// Get surface
+-	SDL_Surface *ts = SDL_CreateRGBSurface(SDL_SWSURFACE, width,
+-	                                       height, 32, 0, 0, 0, 0);
++	SDL_Surface *ts = SDL_CreateRGBSurfaceWithFormat(0, width,
++	                                       height, 32, SDL_PIXELFORMAT_ARGB32);
+ 
+ 	// Copy the color info into the texture
+ 	for (y=0; y<height; y++) {
+@@ -711,11 +684,11 @@
+ 		string tmp = na;
+ #ifdef DEBUG
+ 		if(using_loadall) {
+-			cout << na;
+-			cout.flush();
++			std::cout << na;
++			std::cout.flush();
+ 		}
+ 		else
+-			cout << "DEBUG | Loading: " << na << " ("
++			std::cout << "DEBUG | Loading: " << na << " ("
+ 			     << file << ")" << endl;
+ #endif
+ 	}
+@@ -747,8 +720,8 @@
+ 
+ 
+ #ifdef DEBUG
+-	cout << "DEBUG | Loading from " << dir << ": ";
+-	cout.flush();
++	std::cout << "DEBUG | Loading from " << dir << ": ";
++	std::cout.flush();
+ #endif
+ 	// Open the given directory.
+ 	HANDLE directory = FindFirstFile((str_dir+(string)"/*").c_str(), &fileData);
+@@ -772,7 +745,7 @@
+ 				string fullname = (string) str_dir + "/" + str;
+ 				loadOne(fullname.c_str());
+ #ifdef DEBUG
+-				cout << " ";
++				std::cout << " ";
+ #endif
+ 			}
+ 		}
+@@ -781,7 +754,7 @@
+ 			if (GetLastError() == ERROR_NO_MORE_FILES)
+ 			{
+ #ifdef DEBUG
+-				cout << " (Successfully loaded files)" << endl;
++				std::cout << " (Successfully loaded files)" << endl;
+ #endif
+ 				fFinished = TRUE;
+ 			}
+@@ -814,8 +787,8 @@
+ 	dirent *dnt;
+ 
+ #ifdef DEBUG
+-	cout << "DEBUG | Loading from " << dir << ":";
+-	cout.flush();
++	std::cout << "DEBUG | Loading from " << dir << ":";
++	std::cout.flush();
+ #endif
+ 	while((dnt = readdir(directory)))
+ 	{
+@@ -827,14 +800,14 @@
+ 			{
+ 				string fullname = (string) dir + "/" + str;
+ #ifdef DEBUG
+-				cout << " ";
++				std::cout << " ";
+ #endif
+ 				loadOne(fullname.c_str());
+ 			}
+ 		}
+ 	}
+ #ifdef DEBUG
+-	cout << "." << endl;
++	std::cout << "." << endl;
+ 	using_loadall = false;
+ #endif
+ 	closedir(directory);
+@@ -845,7 +818,7 @@
+ {
+ 	list[name] = src;
+ #ifdef DEBUG
+-	cout << "DEBUG | Adding texture \"" << name << "\" to list." << endl;
++	std::cout << "DEBUG | Adding texture \"" << name << "\" to list." << endl;
+ #endif
+ }
+ }
+--- a/base/xio.h
++++ b/base/xio.h
+@@ -25,8 +25,8 @@
+ 	#include <SDL/SDL.h>
+ 	#include <SDL/SDL_mixer.h>
+ #else
+-	#include <SDL.h>
+-	#include <SDL_mixer.h>
++	#include <SDL2/SDL.h>
++	#include <SDL2/SDL_mixer.h>
+ #endif
+ 
+ // PI
+@@ -74,6 +74,12 @@
+ 	if(SDL_MUSTLOCK(sdl_screen)) SDL_UnlockSurface(sdl_screen);
+ };
+ 
++
++SDL_Window *sdlWindow;
++SDL_Renderer *sdlRenderer;
++SDL_Texture *sdlTexture;
++SDL_Surface* sdlSurface;
++
+ // Update buffer to screen
+ void update();
+ 
+@@ -85,6 +91,7 @@
+ 	return sdl_screen->h;
+ };
+ 
++
+ // Direct screen access
+ surface *getScreen() {
+ 	return (surface*)sdl_back;
+@@ -177,14 +184,14 @@
+ class Event {
+ public:
+ Event() {
+-	keyboard_input = SDLK_UNKNOWN;
++//	keyboard_input = SDLK_UNKNOWN;
+ };
+ void update();
+-SDLKey keyboard() {
+-	SDLKey t = keyboard_input; keyboard_input = SDLK_UNKNOWN; return t;
+-};
++//SDLKey keyboard() {
++//	SDLKey t = keyboard_input; keyboard_input = SDLK_UNKNOWN; return t;
++//};
+ private:
+-SDLKey keyboard_input;
++//SDLKey keyboard_input;
+ };
+ 
+ class Manager {
+--- a/base/xs.cpp
++++ b/base/xs.cpp
+@@ -18,6 +18,7 @@
+ #include "xs.h"
+ #include <iostream>
+ #include <map>
++#include <cstdlib>
+ 
+ using namespace std;
+ 
+@@ -36,20 +37,20 @@
+ void ShutdownManager::run(int excode)
+ {
+ #ifdef DEBUG
+-	cout << "DEBUG | ShutdownManager::run(" << excode << ")"<< endl;
++	std::cout << "DEBUG | ShutdownManager::run(" << excode << ")"<< endl;
+ #endif
+ 
+ 	for(int i = qlist; i > -1; i--) {
+ 		shutdown_list[i]();
+ 	}
+-	//exit(excode);
++	exit(excode);
+ }
+ 
+ // Messages ________________________________________________________________
+ void MessageManager::add(const char *msg)
+ {
+ 	if(use_console)
+-		cout << ptext << msg << endl;
++		std::cout << ptext << msg << endl;
+ 
+ 	message_list[++mc] = msg;
+ }
+@@ -66,7 +67,7 @@
+ // Errors __________________________________________________________________
+ void ErrorManager::add(const char *msg)
+ {
+-	cout << "Error: " << msg <<  endl;
++	std::cout << "Error: " << msg <<  endl;
+ 	shutdown.run(1);
+ }
+ }
+--- a/gfx/gfx_font.cpp
++++ b/gfx/gfx_font.cpp
+@@ -65,15 +65,15 @@
+ {
+ 	string stext = text;
+ #ifdef DEBUG
+-	cout << "DEBUG | Predrawing text: \"" << stext.substr(0, 5) << "...\" ";
+-	cout.flush();
++	std::cout << "DEBUG | Predrawing text: \"" << stext.substr(0, 5) << "...\" ";
++	std::cout.flush();
+ #endif
+ 	xio::surface *outsurface = xio->video->createSurface(stext.length()*19, 32);
+ 	xio->video->fillSurface(outsurface, 0xff00ff, 0, 0, stext.length()*19, 32);
+ 
+ 	draw(outsurface, text, 0, 0, 0, 0, -1, false);
+ #ifdef DEBUG
+-	cout << "done." << endl;
++	std::cout << "done." << endl;
+ #endif
+ 	return outsurface;
+ }

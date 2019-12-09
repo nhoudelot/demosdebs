@@ -1,3 +1,10 @@
+xa003midssumer-by-xangle (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * fix warning
+  * added W.I.P. migration to SDL2 patch (non active)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 09 Dec 2019 12:53:16 +0100
+
 xa003midssumer-by-xangle (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile
