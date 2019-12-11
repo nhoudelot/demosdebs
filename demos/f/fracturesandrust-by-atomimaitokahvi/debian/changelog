@@ -1,3 +1,10 @@
+fracturesandrust-by-atomimaitokahvi (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * bugfix in resize
+  * better quit
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 11 Dec 2019 15:43:27 +0100
+
 fracturesandrust-by-atomimaitokahvi (1.0+1-0ddebs3) unstable; urgency=medium
 
   * more compatible way to define surface pixelformat

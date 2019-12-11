@@ -84,8 +84,8 @@
 +	SDL_Surface* sdlSurface;
 +	sdlWindow = SDL_CreateWindow("Fractures and Rust by atomimaitokahvi",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_WIDTH,SCREEN_HEIGHT,flags);
 +	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
-+	sdlSurface = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_RGBA32);
-+	surface = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 24,SDL_PIXELFORMAT_RGB24); //buffer video
++	sdlSurface = SDL_CreateRGBSurfaceWithFormat(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_PIXELFORMAT_RGBA32);
++	surface = SDL_CreateRGBSurfaceWithFormat(0, SCREEN_WIDTH, SCREEN_HEIGHT, 24,SDL_PIXELFORMAT_RGB24); //buffer video
 +	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,surface); // on crée une texture a partir du buffer video
  
  	spec.freq = 44100;
@@ -105,10 +105,12 @@
  
  		/* check for program termination */
  		while (SDL_PollEvent(&event))
-@@ -190,6 +198,9 @@
+@@ -190,6 +198,11 @@
  	}
  
  terminate:
++	SDL_FreeSurface(surface);
++	SDL_FreeSurface(sdlSurface);
 +	SDL_DestroyTexture(sdlTexture);
 +	SDL_DestroyRenderer(sdlRenderer);
 +	SDL_DestroyWindow(sdlWindow);

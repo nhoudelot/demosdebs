@@ -20,8 +20,8 @@
  
  	for (i=1; i<argc; i++)
 @@ -127,6 +130,7 @@
- 	sdlSurface = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_RGBA32);
- 	surface = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 24,SDL_PIXELFORMAT_RGB24); //buffer video
+ 	sdlSurface = SDL_CreateRGBSurfaceWithFormat(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_PIXELFORMAT_RGBA32);
+ 	surface = SDL_CreateRGBSurfaceWithFormat(0, SCREEN_WIDTH, SCREEN_HEIGHT, 24,SDL_PIXELFORMAT_RGB24); //buffer video
  	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,surface); // on crée une texture a partir du buffer video
 +	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
  
@@ -36,7 +36,7 @@
  	while (1)
  	{
  		/* update metaframe counter (100hz) */
-@@ -197,6 +203,40 @@
+@@ -197,6 +203,38 @@
  					case SDLK_q: goto terminate; break;
  				}
  			}
@@ -67,8 +67,6 @@
 +						newWindowSize.y += (h - newWindowSize.h) / 2;
 +						newWindowSize.w = w;
 +					}
-+					SDL_DestroyTexture(sdlTexture);
-+					sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_GetWindowPixelFormat(sdlWindow), SDL_TEXTUREACCESS_TARGET,640, 480);
 +					SDL_Rect viewPort;
 +					SDL_RenderGetViewport(sdlRenderer, &viewPort);
 +					SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
