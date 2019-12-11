@@ -1,3 +1,10 @@
+stercusaccidit-by-fit (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * wrong pixelformat
+  * bugfix resize
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 11 Dec 2019 18:21:52 +0100
+
 stercusaccidit-by-fit (1.0+1-0ddebs2) unstable; urgency=medium
 
   * Migrate to SDL2

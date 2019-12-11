@@ -84,7 +84,7 @@
 +	SDL_Texture *sdlTexture;
 +	sdlWindow = SDL_CreateWindow("Stercus Accidit by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
 +	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
-+	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_BGRA32); //buffer video
++	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_RGB888); //buffer video
 +	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
 +
  	SDL_LockSurface(scr);

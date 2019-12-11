@@ -15,18 +15,18 @@
  	SDL_Renderer *sdlRenderer;
  	SDL_Texture *sdlTexture;
 -	sdlWindow = SDL_CreateWindow("Stercus Accidit by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
++	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 +	sdlWindow = SDL_CreateWindow("Stercus Accidit by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_RESIZABLE|fullscreen);
  	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
- 	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_BGRA32); //buffer video
+ 	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_RGB888); //buffer video
  	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
  
-+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 +	Uint32 windowID = SDL_GetWindowID(sdlWindow);
 +
  	SDL_LockSurface(scr);
  	memset(scr->pixels,0,640*480*4);
  	SDL_UnlockSurface(scr);
-@@ -336,6 +342,39 @@
+@@ -336,6 +342,36 @@
  			    case SDLK_q: quit++; break;
  			}
  		    }
@@ -55,9 +55,6 @@
 +				newWindowSize.y += (h - newWindowSize.h) / 2;
 +				newWindowSize.w = w;
 +			    }
-+
-+			    SDL_DestroyTexture(sdlTexture);
-+			    sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_GetWindowPixelFormat(sdlWindow), SDL_TEXTUREACCESS_TARGET,640,480);
 +			    SDL_Rect viewPort;
 +			    SDL_RenderGetViewport(sdlRenderer, &viewPort);
 +			    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
