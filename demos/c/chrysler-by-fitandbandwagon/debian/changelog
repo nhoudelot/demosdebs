@@ -1,3 +1,10 @@
+chrysler-by-fitandbandwagon (1.0+1-0ddebs5) unstable; urgency=medium
+
+  * bugfix for resize
+  * pixelformat was wrong (lucky it worked before)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 11 Dec 2019 13:27:55 +0100
+
 chrysler-by-fitandbandwagon (1.0+1-0ddebs4) unstable; urgency=medium
 
   * more compatible way to define surface pixelformat
