@@ -118,7 +118,7 @@
  	sdl_back = createSurface(width, height);
  
  	if (sdl_back == NULL) {
-@@ -83,82 +84,55 @@
+@@ -83,82 +84,49 @@
  #endif
  
  	// Fetch the video info
@@ -156,10 +156,9 @@
 -		cout << "DEBUG | Activating DOUBLEBUF" << endl;
 -#endif
 -		flags |= SDL_DOUBLEBUF;
-+		flags |= SDL_WINDOW_OPENGL;
- 	}
- 
- 	int hw_accel = 0;
+-	}
+-
+-	int hw_accel = 0;
 -	if(video_info->hw_available)
 -	{
 -#ifdef DEBUG
@@ -184,7 +183,8 @@
 -		cout << "DEBUG | Activating HWACCEL" << endl;
 -#endif
 -		flags |= SDL_HWACCEL;
--	}
++		flags |= SDL_WINDOW_OPENGL;
+ 	}
  
  	if(fullscreen) {
 -		flags |= SDL_FULLSCREEN;
@@ -206,7 +206,6 @@
 +		};
 +		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
 +		sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,sdl_screen);
-+		sdlSurface = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_BGRA32);
 +	
  #ifdef DEBUG
 -	cout << "DEBUG | BitsPerPixel: " << (int)(sdl_screen->format->BitsPerPixel) << endl;
@@ -217,35 +216,34 @@
  
  void Video::update()
  {
--	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
+ 	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
 -	SDL_Flip(sdl_screen);
-+	sdlSurface = SDL_ConvertSurface(sdl_screen,sdl_screen->format,0);
-+	SDL_UpdateTexture(sdlTexture, NULL, sdlSurface->pixels, sdlSurface->pitch);
++	SDL_UpdateTexture(sdlTexture, NULL, sdl_screen->pixels, sdl_screen->pitch);
 +	SDL_RenderClear(sdlRenderer);
 +	SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
 +	SDL_RenderPresent(sdlRenderer);
-+	
-+//	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
-+//	SDL_Flip(sdl_screen);
  }
  
  void Video::getPixel(xio::surface *surface, rgb *pixel, int x, int y)
-@@ -175,7 +149,8 @@
+@@ -175,7 +143,7 @@
  
  xio::surface *Video::createSurface(int w, int h)
  {
 -	return SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, b, 0, 0, 0, 0);
-+	return SDL_CreateRGBSurfaceWithFormat(0, w, h, b,SDL_PIXELFORMAT_BGRA32);
-+	//return SDL_CreateRGBSurface(0, w, h, b,0,0,0,0);
++	return SDL_CreateRGBSurfaceWithFormat(0, w, h, b,SDL_PIXELFORMAT_RGB888);
  }
  
  void Video::freeSurface(xio::surface *surface)
-@@ -465,11 +440,9 @@
+@@ -463,13 +431,13 @@
+ 	SDL_Event event;
+ 	SDL_PollEvent(&event);
  	if(event.type == SDL_KEYDOWN)
++	{
  		if(event.key.keysym.sym == SDLK_ESCAPE)
  			xs::shutdown.run(0);
 -		else
 -			keyboard_input = event.key.keysym.sym;
++	}
  #ifdef DEBUG
  	else if(event.type == SDL_MOUSEBUTTONDOWN) {
 -		cout << "DEBUG | Mouse pressed at " << event.motion.x << ", "
@@ -253,7 +251,7 @@
  		     << event.motion.y << "." << endl;
  	}
  #endif
-@@ -482,7 +455,7 @@
+@@ -482,7 +450,7 @@
  {
  	use_sound = use;
  #ifdef DEBUG
@@ -262,7 +260,7 @@
  #endif
  
  	if(use_sound)
-@@ -669,8 +642,8 @@
+@@ -669,8 +637,8 @@
  	kbytes += (width * height * 4)/1000;
  #endif
  	// Get surface
@@ -273,7 +271,7 @@
  
  	// Copy the color info into the texture
  	for (y=0; y<height; y++) {
-@@ -711,11 +684,11 @@
+@@ -711,11 +679,11 @@
  		string tmp = na;
  #ifdef DEBUG
  		if(using_loadall) {
@@ -288,7 +286,7 @@
  			     << file << ")" << endl;
  #endif
  	}
-@@ -747,8 +720,8 @@
+@@ -747,8 +715,8 @@
  
  
  #ifdef DEBUG
@@ -299,7 +297,7 @@
  #endif
  	// Open the given directory.
  	HANDLE directory = FindFirstFile((str_dir+(string)"/*").c_str(), &fileData);
-@@ -772,7 +745,7 @@
+@@ -772,7 +740,7 @@
  				string fullname = (string) str_dir + "/" + str;
  				loadOne(fullname.c_str());
  #ifdef DEBUG
@@ -308,7 +306,7 @@
  #endif
  			}
  		}
-@@ -781,7 +754,7 @@
+@@ -781,7 +749,7 @@
  			if (GetLastError() == ERROR_NO_MORE_FILES)
  			{
  #ifdef DEBUG
@@ -317,7 +315,7 @@
  #endif
  				fFinished = TRUE;
  			}
-@@ -814,8 +787,8 @@
+@@ -814,8 +782,8 @@
  	dirent *dnt;
  
  #ifdef DEBUG
@@ -328,7 +326,7 @@
  #endif
  	while((dnt = readdir(directory)))
  	{
-@@ -827,14 +800,14 @@
+@@ -827,14 +795,14 @@
  			{
  				string fullname = (string) dir + "/" + str;
  #ifdef DEBUG
@@ -345,7 +343,7 @@
  	using_loadall = false;
  #endif
  	closedir(directory);
-@@ -845,7 +818,7 @@
+@@ -845,7 +813,7 @@
  {
  	list[name] = src;
  #ifdef DEBUG
@@ -408,49 +406,6 @@
  };
  
  class Manager {
---- a/base/xs.cpp
-+++ b/base/xs.cpp
-@@ -18,6 +18,7 @@
- #include "xs.h"
- #include <iostream>
- #include <map>
-+#include <cstdlib>
- 
- using namespace std;
- 
-@@ -36,20 +37,20 @@
- void ShutdownManager::run(int excode)
- {
- #ifdef DEBUG
--	cout << "DEBUG | ShutdownManager::run(" << excode << ")"<< endl;
-+	std::cout << "DEBUG | ShutdownManager::run(" << excode << ")"<< endl;
- #endif
- 
- 	for(int i = qlist; i > -1; i--) {
- 		shutdown_list[i]();
- 	}
--	//exit(excode);
-+	exit(excode);
- }
- 
- // Messages ________________________________________________________________
- void MessageManager::add(const char *msg)
- {
- 	if(use_console)
--		cout << ptext << msg << endl;
-+		std::cout << ptext << msg << endl;
- 
- 	message_list[++mc] = msg;
- }
-@@ -66,7 +67,7 @@
- // Errors __________________________________________________________________
- void ErrorManager::add(const char *msg)
- {
--	cout << "Error: " << msg <<  endl;
-+	std::cout << "Error: " << msg <<  endl;
- 	shutdown.run(1);
- }
- }
 --- a/gfx/gfx_font.cpp
 +++ b/gfx/gfx_font.cpp
 @@ -65,15 +65,15 @@
@@ -472,3 +427,60 @@
  #endif
  	return outsurface;
  }
+--- a/Makefile
++++ b/Makefile
+@@ -20,8 +20,8 @@
+ GUILIB = $(shell pkgconf --libs gtk+-2.0)
+ 
+ # Library and include flags ----------------------------------------------------
+-LDFLAGS += $(shell pkgconf sdl libpng SDL_mixer --libs) $(GUILIB)
+-INC = $(shell sdl-config --cflags) $(GUIOPT) $(DEBUG) $(FPSLOCK) $(NO_STEX)
++LDFLAGS += $(shell pkgconf sdl2 libpng SDL2_mixer --libs) $(GUILIB)
++INC = $(shell sdl2-config --cflags) $(GUIOPT) $(DEBUG) $(FPSLOCK) $(NO_STEX)
+ 
+ # Targets ----------------------------------------------------------------------
+ OBASE = base/main.o $(GUICODE) base/xdm.o base/xio.o base/xs.o
+--- a/scene/scene_end.cpp
++++ b/scene/scene_end.cpp
+@@ -23,7 +23,7 @@
+ #ifdef WIN32
+ #include "SDL/SDL.h"
+ #else
+-#include "SDL.h"
++#include <SDL2/SDL.h>
+ #endif
+ 
+ using namespace std;
+--- a/scene/scene_greets.cpp
++++ b/scene/scene_greets.cpp
+@@ -23,7 +23,7 @@
+ #ifdef WIN32
+ #include "SDL/SDL.h"
+ #else
+-#include "SDL.h"
++#include <SDL2/SDL.h>
+ #endif
+ 
+ using namespace std;
+--- a/scene/scene_intro.cpp
++++ b/scene/scene_intro.cpp
+@@ -23,7 +23,7 @@
+ #ifdef WIN32
+ #include "SDL/SDL.h"
+ #else
+-#include "SDL.h"
++#include <SDL2/SDL.h>
+ #endif
+ 
+ using namespace std;
+--- a/scene/scene_rollingcube.cpp
++++ b/scene/scene_rollingcube.cpp
+@@ -23,7 +23,7 @@
+ #ifdef WIN32
+ #include "SDL/SDL.h"
+ #else
+-#include "SDL.h"
++#include <SDL2/SDL.h>
+ #endif
+ 
+ using namespace std;

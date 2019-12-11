@@ -2,3 +2,6 @@
 02_fix_warnings.patch
 03_change_data_path.diff
 04_fix_png16.diff
+05_migrate_to_SDL2.patch
+06_better_quit.patch
+07_add_fullscreen_key.patch

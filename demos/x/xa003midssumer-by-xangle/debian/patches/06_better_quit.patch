@@ -1,0 +1,121 @@
+--- a/base/xio.cpp
++++ b/base/xio.cpp
+@@ -58,6 +58,7 @@
+ Video::Video(int w, int h, int bpp, bool fs, bool opengl, const char *window_title)
+ {
+ 	width = w; height = h; b = bpp; fullscreen = fs; ogl = opengl; wtitle = window_title;
++	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+ 	sdl_screen= createSurface(width, height);
+ 	sdl_back = createSurface(width, height);
+ 
+@@ -91,7 +92,7 @@
+ //		xs::error.add(temp.c_str());
+ //	}
+ 
+-	int flags = 0;
++	int flags = SDL_WINDOW_RESIZABLE;
+ 
+ 	if(ogl)
+ 	{
+@@ -112,6 +113,7 @@
+ 			temp += SDL_GetError();
+ 			xs::error.add(temp.c_str());
+ 		};
++		windowID = SDL_GetWindowID(sdlWindow);
+ 		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
+ 		sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,sdl_screen);
+ 	
+@@ -127,6 +129,49 @@
+ 	SDL_RenderClear(sdlRenderer);
+ 	SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
+ 	SDL_RenderPresent(sdlRenderer);
++	
++	SDL_Event event;
++	while(SDL_PollEvent(&event)) {
++		if (event.type == SDL_QUIT) {
++			xs::shutdown.run(0);
++		    }
++		    if (event.type == SDL_KEYDOWN) {
++			switch (event.key.keysym.sym) {
++			    case SDLK_ESCAPE: xs::shutdown.run(0); break;
++			    case SDLK_q: xs::shutdown.run(0); break;
++			}
++		    }
++		 if (event.window.windowID == windowID)  {
++			if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++			    SDL_Rect newWindowSize;
++			    int w = event.window.data1;
++			    int h = event.window.data2;
++			    newWindowSize.x=0;
++			    newWindowSize.y=0;
++			    float aspect = (float)w / (float)h;
++			    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++				newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++				newWindowSize.x += (w - newWindowSize.w) / 2;
++				newWindowSize.h = h;
++			    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++				newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++				newWindowSize.y += (h - newWindowSize.h) / 2;
++				newWindowSize.w = w;
++			    } else if (w != newWindowSize.w) {
++				newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++				newWindowSize.x += (w - newWindowSize.w) / 2;
++				newWindowSize.h = h;
++			    } else if (h != newWindowSize.h) {
++				newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++				newWindowSize.y += (h - newWindowSize.h) / 2;
++				newWindowSize.w = w;
++			    }
++			    SDL_Rect viewPort;
++			    SDL_RenderGetViewport(sdlRenderer, &viewPort);
++			    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++			}
++		}
++	}
+ }
+ 
+ void Video::getPixel(xio::surface *surface, rgb *pixel, int x, int y)
+@@ -428,21 +473,13 @@
+ // Keyboard ________________________________________________________________
+ void Event::update()
+ {
+-	SDL_Event event;
+-	SDL_PollEvent(&event);
+-	if(event.type == SDL_KEYDOWN)
+-	{
+-		if(event.key.keysym.sym == SDLK_ESCAPE)
+-			xs::shutdown.run(0);
+-	}
++
+ #ifdef DEBUG
+ 	else if(event.type == SDL_MOUSEBUTTONDOWN) {
+ 		std::cout << "DEBUG | Mouse pressed at " << event.motion.x << ", "
+ 		     << event.motion.y << "." << endl;
+ 	}
+ #endif
+-	else if(event.type == SDL_QUIT)
+-		xs::shutdown.run(0);
+ }
+ 
+ // Sound ___________________________________________________________________
+--- a/base/xio.h
++++ b/base/xio.h
+@@ -20,6 +20,10 @@
+ 
+ #include "xs.h"
+ 
++
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ // SDL and SDL_Mixer
+ #ifdef WIN32
+ 	#include <SDL/SDL.h>
+@@ -79,6 +83,7 @@
+ SDL_Renderer *sdlRenderer;
+ SDL_Texture *sdlTexture;
+ SDL_Surface* sdlSurface;
++Uint32 windowID;
+ 
+ // Update buffer to screen
+ void update();
