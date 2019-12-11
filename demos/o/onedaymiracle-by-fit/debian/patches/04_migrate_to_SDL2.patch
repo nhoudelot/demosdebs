@@ -1,0 +1,174 @@
+--- a/Makefile
++++ b/Makefile
+@@ -9,12 +9,12 @@
+ 
+ ifeq ($(PLATFORM),linux)
+ INC = -I./vecsys -I/usr/include/SDL
+-SDL = $(shell sdl-config --libs)
++SDL = $(shell sdl2-config --libs)
+ CC = gcc
+ endif
+ 
+ LDFLAGS += -lm
+-CFLAGS += -Wall -D$(ENDIAN) $(shell sdl-config --cflags) -std=gnu90 -pipe
++CFLAGS += -Wall -D$(ENDIAN) $(shell sdl2-config --cflags) -std=gnu90 -pipe -g
+ COOL = cool_mzx/cool_mzx.a cool_gfx/cool_gfx.a
+ OBJ = main.o venkula.o data.o maf.o feidi.o panorama.o suumi.o halftone.o \
+       flarex.o ranta.o
+--- a/main.c
++++ b/main.c
+@@ -13,7 +13,7 @@
+ #include "cool_gfx/gfx_x.h"
+ #include "cool_mzx/cool_mzx.h"
+ #include "feidi.h"
+-#include "SDL_main.h"
++#include <SDL2/SDL_main.h>
+ 
+ #define LEV 320
+ #define KOR 240
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -12,7 +12,7 @@
+ #include "cool_mzx.h"
+ #include "sd_main.h"
+ #include "pt.h"
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ extern int        pt_curperiod[32],    // kanavan nykyinen periodi
+                   pt_curnote[32],      // kanavan nykyinen sävel
+@@ -207,7 +207,7 @@
+ 	if(!laite)
+ 	{
+ 		SDL_Init(SDL_INIT_TIMER);
+-		SDL_SetTimer(jacaja, timeri);
++		SDL_AddTimer(jacaja, timeri,NULL);
+ 		return;
+ 	}
+ 	SDL_PauseAudio(0);
+@@ -284,7 +284,7 @@
+ {
+ 	if(!laite)
+ 	{
+-		SDL_SetTimer(0,NULL);
++		SDL_AddTimer(0,NULL,NULL);
+ 		return;
+ 	}
+ 
+--- a/cool_mzx/sd_dsp16.c
++++ b/cool_mzx/sd_dsp16.c
+@@ -9,7 +9,7 @@
+          2.9.2002: Some minor cleaning for SDL
+ */
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+--- a/cool_gfx/gfx_sdl.c
++++ b/cool_gfx/gfx_sdl.c
+@@ -12,12 +12,16 @@
+ #include <stdio.h>
+ #include <string.h>
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ static SDL_Surface *screen;
+ 
+ static int  doubled,x_size,y_size;
+ 
++static SDL_Window *sdlWindow;
++static SDL_Renderer *sdlRenderer;
++static SDL_Texture *sdlTexture;
++
+ int gfx_init(int mode,int special)
+ {
+     switch(mode)
+@@ -54,33 +58,38 @@
+     x_size=x;
+     y_size=y;
+ 
++
+     switch(mode)
+     {
+-        case 1: screen = SDL_SetVideoMode(x,y,32,SDL_HWSURFACE|SDL_DOUBLEBUF);
+-                if(!screen)
++        case 1: sdlWindow = SDL_CreateWindow("One Day Miracle by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,x,y,SDL_WINDOW_OPENGL);
++                if(!sdlWindow)
+                     return(GFX_ERR_MODE);
++	        screen = SDL_CreateRGBSurfaceWithFormat(0, x, y, 32,SDL_PIXELFORMAT_RGB888); //buffer video
+                 break;
+-        case 2: screen = SDL_SetVideoMode(x*2,y*2,32,SDL_HWSURFACE
+-                                          |SDL_DOUBLEBUF);
+-                if(!screen)
++        case 2: sdlWindow = SDL_CreateWindow("One Day Miracle by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,x*2,y*2,SDL_WINDOW_OPENGL);
++                if(!sdlWindow)
+                     return(GFX_ERR_MODE);
++	        screen = SDL_CreateRGBSurfaceWithFormat(0, x*2, y*2, 32,SDL_PIXELFORMAT_RGB888); //buffer video
+                 doubled=1;
+                 break;
+-        case 3: screen = SDL_SetVideoMode(x,y,32,SDL_HWSURFACE
+-                                          |SDL_FULLSCREEN|SDL_DOUBLEBUF);
+-                if(!screen)
++        case 3: sdlWindow = SDL_CreateWindow("One Day Miracle by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,x,y,SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
++                if(!sdlWindow)
+                     return(GFX_ERR_MODE);
++	        screen = SDL_CreateRGBSurfaceWithFormat(0, x, y, 32,SDL_PIXELFORMAT_RGB888); //buffer video
+                 break;
+-        case 4: screen = SDL_SetVideoMode(x*2,y*2,32,SDL_HWSURFACE
+-                                          |SDL_FULLSCREEN|SDL_DOUBLEBUF);
+-                if(!screen)
++        case 4: sdlWindow = SDL_CreateWindow("One Day Miracle by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,x*2,y*2,SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
++                if(!sdlWindow)
+                     return(GFX_ERR_MODE);
++	        screen = SDL_CreateRGBSurfaceWithFormat(0, x*2, y*2, 32,SDL_PIXELFORMAT_RGB888); //buffer video
+                 doubled=1;
+                 break;
+         default: return(GFX_ERR_MODE);
+     }
++
++    sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++    sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,screen); // texture with format from video buffer
++
+     SDL_ShowCursor(SDL_DISABLE);
+-    SDL_WM_SetCaption("One Day Miracle by Fit",0);
+     return(GFX_OK);
+ }
+ 
+@@ -108,7 +117,10 @@
+     }
+ 
+     SDL_UnlockSurface(screen);
+-    SDL_Flip(screen);
++    SDL_UpdateTexture(sdlTexture, NULL, screen->pixels, screen->pitch); //update texture content with the surface
++    SDL_RenderClear(sdlRenderer);
++    SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++    SDL_RenderPresent(sdlRenderer);
+ 
+     return(GFX_OK);
+ }
+@@ -123,9 +135,11 @@
+     if(SDL_QuitRequested())
+         return(1);
+ 
++/*
+     keys=SDL_GetKeyState(&tmp);
+     if(keys[SDLK_ESCAPE])
+         return(1);
++*/
+ 
+     if(SDL_GetMouseState(NULL,NULL)&SDL_BUTTON(1))
+         return(1);
+@@ -135,6 +149,10 @@
+ 
+ void gfx_close(void)
+ {
++    SDL_FreeSurface(screen);
++    SDL_DestroyTexture(sdlTexture);
++    SDL_DestroyRenderer(sdlRenderer);
++    SDL_DestroyWindow(sdlWindow);
+     SDL_Quit();
+ }
+ 

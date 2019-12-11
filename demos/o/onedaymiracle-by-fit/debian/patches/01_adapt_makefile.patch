@@ -111,7 +111,7 @@
  # Usual parameters for x86-GCC
  ASM=nasm
 -COPT=-O2 -ffast-math
-+CFLAGS+= -std=gnu90 -pipe
++CFLAGS+= -Wall -std=gnu90 -pipe
  AR=ar
  OWNOBJ=blit32a.o
 +RM_F=rm -f
@@ -221,12 +221,11 @@
 +	-@$(RM_F) *.o *.a
 --- a/cool_mzx/Makefile
 +++ b/cool_mzx/Makefile
-@@ -1,14 +1,19 @@
+@@ -1,14 +1,18 @@
  # A very pathetic makefile...
  
 -COPT += -funsigned-char -O2 -ffast-math
 +PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
-+CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
 +CFLAGS += -funsigned-char -Wall -std=gnu90 -pipe
 +
  INC = -I/usr/local/include
@@ -251,7 +250,7 @@
 @@ -1,17 +1,20 @@
  INCLUDE =
 -CFLAGS = -O2 -ffast-math -funsigned-char
-+CFLAGS = -Wall -pipe -std=gnu90 -funsigned-char
++CFLAGS += -Wall -pipe -std=gnu90 -funsigned-char
  OBJ = radix.o vec_cam.o vec_file.o vec_lsrc.o vec_math.o vec_matr.o \
 -      vec_mem.o vec_pal.o vec_poly.o vecsys.o 
 +      vec_mem.o vec_pal.o vec_poly.o vecsys.o

@@ -1,0 +1,24 @@
+--- a/cool_gfx/gfx_sdl.c
++++ b/cool_gfx/gfx_sdl.c
+@@ -93,6 +93,13 @@
+     return(GFX_OK);
+ }
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++    int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(IsFullscreen);
++}
++
+ int gfx_exitevent(void)
+ {
+ 	SDL_Event e;
+@@ -105,6 +112,7 @@
+ 		    switch (e.key.keysym.sym) {
+ 			case SDLK_ESCAPE: return(1); break;
+ 			case SDLK_q: return(1); break;
++			case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 		    }
+ 		}
+ 		if (e.window.windowID == windowID)  {
