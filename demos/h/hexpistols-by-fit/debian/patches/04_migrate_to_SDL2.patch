@@ -81,7 +81,7 @@
 +	SDL_Texture *sdlTexture;
 +	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
 +	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
-+	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_ABGR32); //buffer video
++	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_RGB888); //buffer video
 +	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
 +
  	memset(scr->pixels,0,640*480*4);
@@ -89,7 +89,7 @@
  	SDL_ShowCursor(0);
  
  	ungetc('\n',stdin);
-@@ -460,13 +466,19 @@
+@@ -460,13 +466,20 @@
  			}
  		}
  		SDL_UnlockSurface(scr);
@@ -104,6 +104,7 @@
  	}
  
  #ifdef NOAMIKA
++	SDL_FreeSurface(scr);
 +	SDL_DestroyTexture(sdlTexture);
 +	SDL_DestroyRenderer(sdlRenderer);
 +	SDL_DestroyWindow(sdlWindow);
