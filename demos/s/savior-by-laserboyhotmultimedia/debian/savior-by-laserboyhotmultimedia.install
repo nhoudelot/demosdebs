@@ -1,0 +1,4 @@
+debian/scripts/savior-by-laserboyhotmultimedia usr/bin/
+debian/resources/savior-by-laserboyhotmultimedia.desktop usr/share/applications/
+debian/resources/savior-by-laserboyhotmultimedia.png usr/share/icons/hicolor/256x256/apps/
+./build-linugs/demobase3 usr/lib/x86_64-linux-gnu/savior-by-laserboyhotmultimedia/build-linugs/

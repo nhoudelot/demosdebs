@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Savior
+GenericName=Demo
+Comment=Demo by Laserboy + Hot Multimedia, released in 2014
+Type=Application
+Exec=/usr/bin/savior-by-laserboyhotmultimedia
+Icon=savior-by-laserboyhotmultimedia
+Categories=AudioVideo;
+Name[fr_FR]=Savior

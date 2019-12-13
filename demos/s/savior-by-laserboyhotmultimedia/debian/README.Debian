@@ -1,0 +1,12 @@
+savior-by-laserboyhotmultimedia for Debian
+-----------------------------------------
+
+Debian package for Savior, a demo by Laserboy + Hot Multimedia
+
+released in 2014
+
+This demo has no sources, so packaging can only be done with binary.
+
+more info : https://www.pouet.net/prod.php?which=63359
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 09 Dec 2019 23:16:51 +0100

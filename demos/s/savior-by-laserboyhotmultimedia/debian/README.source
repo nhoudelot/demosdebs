@@ -1,0 +1,46 @@
+savior-by-laserboyhotmultimedia for Debian
+-----------------------------------------
+
+executable seems to be compiled for Ubuntu Xenial (16.04) with update
+
+GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.10) 5.4.0 20160609
+
+Source files:
+-------------
+                        eff_heavenback.cpp      eh_alloc.o
+ass.cpp                 eff_infinitebobs.cpp    eh_globals.o
+basic_file.o            eff_jeesus.cpp          eh_personality.o
+c++locale.o             eff_jyrki.cpp           eh_ptr.o
+condition_variable.o    eff_katainen.cpp        eh_throw.o
+cow-locale_init.o       eff_landscape.cpp       fbo.cpp
+cow-shim_facets.o       eff_landscape2.cpp      future.o
+cow-string-inst.o       eff_lhblogo.cpp         glew.c
+cow-wstring-inst.o      eff_lisko.cpp           helpers.cpp
+cp-demangle.o           eff_liskoback.cpp       ios.o
+crtstuff.c              eff_maapallo.cpp        locale-inst.o
+cxx11-ios_failure.o     eff_mouth.cpp           locale.o
+cxx11-locale-inst.o     eff_oneruler.cpp        locale_init.o
+cxx11-shim_facets.o     eff_overlay.cpp         lt1-codecvt.o
+cxx11-wlocale-inst.o    eff_paavo.cpp           main.cpp
+demo1.cpp               eff_particles.cpp       messages_members.o
+eff_ash.cpp             eff_particles2.cpp      messages_members_cow.o
+eff_auto.cpp            eff_pentastencil.cpp    new_handler.o
+eff_base.cpp            eff_puukotus.cpp        polymesh.cpp
+eff_blood.cpp           eff_pyramid.cpp         resman.cpp
+eff_boids.cpp           eff_risti.cpp           shader.cpp
+eff_brussels.cpp        eff_rotatescreen.cpp    sprite_renderer.cpp
+eff_dirt.cpp            eff_satanics.cpp        sstream-inst.o
+eff_dropperist.cpp      eff_screenshot.cpp      sync.cpp
+eff_eu.cpp              eff_sellpointscreen.cpp system_error.o
+eff_euflag.cpp          eff_sexgods.cpp         texture.cpp
+eff_extendfade.cpp      eff_shaderrotate.cpp    tiny_obj_loader.cpp
+eff_firstscreen.cpp     eff_skull.cpp           tree.o
+eff_garage.cpp          eff_sky.cpp             unwind-dw2-fde-dip.o
+eff_glau.cpp            eff_skyscroll.cpp       unwind-dw2.o
+eff_greets.cpp          eff_suomi.cpp           vterminate.o
+eff_guns.cpp            eff_theend.cpp          wake.cpp
+eff_hand.cpp            eff_votelhb.cpp         wlocale-inst.o
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 09 Dec 2019 23:16:51 +0100
+
