@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Pixel Flakes
+GenericName=Demo
+Comment=Demo by Youth Uprising, released in 2014
+Type=Application
+Exec=/usr/bin/pixelflakes-by-youthuprising
+Icon=pixelflakes-by-youthuprising
+Categories=AudioVideo;
+Name[fr_FR]=Pixel Flakes

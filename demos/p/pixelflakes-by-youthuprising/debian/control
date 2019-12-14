@@ -1,0 +1,34 @@
+Source: pixelflakes-by-youthuprising
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ libsdl2-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=63594
+
+Package: pixelflakes-by-youthuprising
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ libglewNSHGLEWVERSION,
+ libbass2,
+ ${misc:Depends},
+ pixelflakes-by-youthuprising-data,
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2014
+ Demo by Youth Uprising, released in 2014
+ @Party 2014
+ .
+ Code: impakt
+ Music: spektre
+
+Package: pixelflakes-by-youthuprising-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for pixelflakes-by-youthuprising
+ pixelflakes-by-youthuprising data files

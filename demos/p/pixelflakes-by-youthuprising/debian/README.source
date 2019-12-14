@@ -1,0 +1,37 @@
+pixelflakes-by-youthuprising for Debian
+--------------------------------------
+
+executable seems to be compiled for Arch ?
+
+GCC: (GNU) 4.9.0 20140604 (prerelease)
+
+Source files:
+-------------
+
+home/greg/dev/cpp/beast/src/Engine/BASS/BASSAudioDevice.cpp
+/home/greg/dev/cpp/beast/src/Engine/Engine.cpp
+/home/greg/dev/cpp/beast/src/Engine/GL/OGLFrameBuffer.cpp
+/home/greg/dev/cpp/beast/src/Engine/GL/OGLShader.cpp
+/home/greg/dev/cpp/beast/src/Engine/GL/OGLTexture.cpp
+/home/greg/dev/cpp/beast/src/Engine/Rocket/RocketSyncDevice.cpp
+/home/greg/dev/cpp/beast/src/Engine/SDLWindow.cpp
+/home/greg/dev/cpp/beast/src/Engine/Utility/ConfigReader.cpp
+/home/greg/dev/cpp/beast/src/Engine/Utility/File.cpp
+/home/greg/dev/cpp/beast/src/Engine/Utility/stb_image.cpp
+/home/greg/dev/cpp/beast/src/FX/PostProc.cpp
+/home/greg/dev/cpp/beast/src/Main.cpp
+/home/greg/dev/cpp/beast/src/Scene/Scene.cpp
+/home/greg/dev/cpp/beast/src/Scene/SceneObjects/FlakeObject.cpp
+/home/greg/dev/cpp/beast/src/Scene/SceneObjects/GridObject.cpp
+/home/greg/dev/cpp/beast/src/Scene/SceneObjects/NeedleObject.cpp
+/home/greg/dev/cpp/beast/src/Scene/SceneObjects/RingObject.cpp
+/home/greg/dev/cpp/beast/src/Scene/SceneObjects/WireframeCubeObject.cpp
+crtstuff.c
+data.c
+device.c
+init.c
+track.c
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 10 Dec 2019 01:24:07 +0100
+

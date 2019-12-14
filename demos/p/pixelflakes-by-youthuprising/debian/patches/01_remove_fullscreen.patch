@@ -1,0 +1,10 @@
+--- a/linux/Config.txt
++++ b/linux/Config.txt
+@@ -1,4 +1,4 @@
+-ViewportWidth = 1920;
+-ViewportHeight = 1080;
++ViewportWidth = 1280;
++ViewportHeight = 720;
+ MSAA = 4;
+-Fullscreen = True;
++Fullscreen = False;

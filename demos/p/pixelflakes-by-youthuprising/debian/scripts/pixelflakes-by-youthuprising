@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=pixelflakes-by-youthuprising
+
+APP_FULLNAME="Pixel Flakes"
+APP_COPYRIGHT="Youth Uprising"
+APP_DESC="demo by Youth Uprising released in 2014"
+
+APP_EXE="PixelFlakes_YUP_Linux"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain}
+	LD_LIBRARY_PATH=. ./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

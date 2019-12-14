@@ -1,0 +1,12 @@
+pixelflakes-by-youthuprising for Debian
+--------------------------------------
+
+Debian package for Pixel Flakes, a demo by Youth Uprising
+
+released in 2014
+
+This demo has no sources, so packaging can only be done with binary.
+
+more info : https://www.pouet.net/prod.php?which=63594
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 10 Dec 2019 01:24:07 +0100

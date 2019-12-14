@@ -1,0 +1,4 @@
+debian/scripts/pixelflakes-by-youthuprising usr/bin/
+debian/resources/pixelflakes-by-youthuprising.desktop usr/share/applications/
+debian/resources/pixelflakes-by-youthuprising.png usr/share/icons/hicolor/256x256/apps/
+./linux/PixelFlakes_YUP_Linux usr/lib/x86_64-linux-gnu/pixelflakes-by-youthuprising/
