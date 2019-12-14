@@ -1,0 +1,4 @@
+version=4
+opts="compression=xz,repack" \
+https://sf.net/recoil/recoil-(\d+)\.(\d+)\.(\d+)@ARCHIVE_EXT@ \
+debian uupdate

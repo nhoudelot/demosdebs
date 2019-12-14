@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
+
+%:
+	dh $@
+
+# skip "make clean" to avoid dependency on cito
+override_dh_auto_clean:
+
+override_dh_auto_install:
+	$(MAKE) PREFIX=$$(pwd)/debian/tmp/usr XNVIEW=$$(pwd)/debian/tmp/opt/XnView BUILDING_PACKAGE=1 install-thumbnailer install-xnview

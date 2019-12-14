@@ -1,0 +1,81 @@
+recoil (5.0.0-1.1ddebs1) unstable; urgency=low
+
+  [ Piotr Fusik ]
+  * New release.
+
+  [ Nicolas HOUDELOT ]
+  * use of pkgconf to get CFLAGS & LDFLAGS
+  * removing lintian warnings
+     activate hardening
+     activate flto
+     updated to 4.1.4 standard version
+     updated debian/copyright
+     added debian/watch
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 10 Dec 2019 11:49:14 +0100
+
+recoil (4.3.2-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Sat, 6 Jul 2019 09:58:32 +0200
+
+recoil (4.3.1-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Wed, 5 Dec 2018 21:08:30 +0100
+
+recoil (4.3.0-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Sun, 10 Jun 2018 11:17:46 +0200
+
+recoil (4.2.0-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Tue, 20 Feb 2018 16:06:42 +0100
+
+recoil (4.1.0-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Wed, 18 Oct 2017 18:45:04 +0100
+
+recoil (4.0.0-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Wed, 17 May 2017 13:21:57 +0200
+
+recoil (3.5.0-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Thu, 1 Dec 2016 18:15:54 +0100
+
+recoil (3.4.0-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Tue, 2 Feb 2016 09:27:52 +0100
+
+recoil (3.3.0-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Fri, 7 Aug 2015 17:56:32 +0200
+
+recoil (3.2.0-1) UNRELEASED; urgency=low
+
+  * New release.
+
+ -- Piotr Fusik <fox@scene.pl>  Wed, 28 Jan 2015 10:42:15 +0100
+
+recoil (3.1.0-1) UNRELEASED; urgency=low
+
+  * First deb packaging.
+
+ -- Piotr Fusik <fox@scene.pl>  Wed, 25 Jun 2014 09:58:19 +0200

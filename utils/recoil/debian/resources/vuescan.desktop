@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=VueScan
+GenericName=Scanning program
+GenericName[fr_FR]=Application pour Scanner
+GenericName[it]=Applicazione per Scanner
+Comment=Powerful, easy to use scanner utility
+Comment[it]=Applicazione per scanner potente e facile da usare
+Type=Application
+Exec=/usr/bin/vuescan
+Icon=vuescan
+Categories=Graphics;2DGraphics;Scanning;RasterGraphics;GTK;
+Name[fr_FR]=VueScan
