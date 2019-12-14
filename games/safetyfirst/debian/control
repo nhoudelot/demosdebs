@@ -1,0 +1,36 @@
+Source: safetyfirst
+Section: games
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ libgl1-mesa-dev,
+ libxrandr-dev,
+ libgtk2.0-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: http://www.jco.de/
+
+Package: safetyfirst
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ safetyfirst-data,
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Game by JCO, released in 2015
+ Safety First!
+ An innovative physics puzzler with focus on sound and game design.
+ First presented at Revision 2015, Game Competition
+ .
+ About the game:
+ Safety First! is a physics puzzler in which you have to fix broken electric
+ wires using your magical yellow repair liquid (myrl).
+
+Package: safetyfirst-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for safetyfirst
+ safetyfirst data files

@@ -1,0 +1,6 @@
+debian/scripts/safetyfirst usr/games/
+debian/resources/safetyfirst.desktop usr/share/applications/
+debian/resources/safetyfirst.png usr/share/icons/hicolor/256x256/apps/
+./SafetyFirst_Data/Mono/x86_64/libmono.so usr/lib/x86_64-linux-gnu/safetyfirst/SafetyFirst_Data/Mono/x86_64/
+./SafetyFirst_Data/Plugins/x86_64/ScreenSelector.so usr/lib/x86_64-linux-gnu/safetyfirst/./SafetyFirst_Data/Plugins/x86_64/
+./SafetyFirst.x86_64 usr/lib/x86_64-linux-gnu/safetyfirst/./

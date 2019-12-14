@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Safety First!
+GenericName=Game
+Comment=Game by JCO, released in 2015
+Type=Application
+Exec=/usr/games/safetyfirst
+Icon=safetyfirst
+Categories=Game;
+Name[fr_FR]=Safety First!
