@@ -1,0 +1,30 @@
+Source: elfling
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ libc6-dev,
+ nasm,
+ libsdl1.2-dev,
+ libgl1-mesa-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://github.com/google/elfling
+
+Package: elfling
+Architecture: i386
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Crinkler-like for the Linux Scene
+ This is an attempt at writing something Crinkler-like for the Linux Scene. It
+ provides a context-modeling compressing linker that will transform a .o file
+ into a "valid" ELF binary. This is not quite finished yet, the following
+ caveats should be taken into account when using:
+ - It can only link a single .o file for now.
+ - It assumes that you want to link SDL 1.2 and OpenGL, the flags for specifying
+   libraries are currently ignored.
+ - It may crash if your object file contains some construct it does not expect.
+   tested quite a few relocation and data declaration possibilities
+   absolutely certain to have missed a few :-)
+ - 32-bit only. While the resulting binaries will run on 64-bit Linux, users
+   will need to install the required 32-bit libraries for running your stuff.

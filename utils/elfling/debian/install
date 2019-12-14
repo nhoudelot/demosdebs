@@ -1,0 +1,4 @@
+bin/bin2h usr/bin/
+bin/elfling usr/bin/
+bin/prt usr/bin/
+bin/packer usr/bin/
