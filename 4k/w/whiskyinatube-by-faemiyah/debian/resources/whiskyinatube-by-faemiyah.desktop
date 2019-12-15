@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Whisky in a Tube
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2014
+Type=Application
+Exec=/usr/bin/whiskyinatube-by-faemiyah
+Icon=whiskyinatube-by-faemiyah -w
+Categories=AudioVideo;
+Name[fr_FR]=Whisky in a Tube

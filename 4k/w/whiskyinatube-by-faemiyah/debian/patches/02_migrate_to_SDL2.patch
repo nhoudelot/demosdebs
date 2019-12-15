@@ -1,0 +1,165 @@
+--- a/src/SDLMain.m
++++ b/src/SDLMain.m
+@@ -5,7 +5,7 @@
+     Feel free to customize this file to suit your needs
+ */
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include "SDLMain.h"
+ #include <sys/param.h> /* for MAXPATHLEN */
+ #include <unistd.h>
+--- a/src/dnload.h
++++ b/src/dnload.h
+@@ -25,9 +25,9 @@
+ #include "GL/glu.h"
+ #include "SDL/SDL.h"
+ #else
+-#include "GL/glew.h"
+-#include "GL/glu.h"
+-#include "SDL.h"
++#include <GL/glew.h>
++#include <GL/glu.h>
++#include <SDL2/SDL.h>
+ #endif
+ #include "bsd_rand.h"
+ #else
+@@ -116,6 +116,11 @@
+ #define dnload_glBindTexture glBindTexture
+ #define dnload_glRects glRects
+ #define dnload_SDL_SetVideoMode SDL_SetVideoMode
++#define dnload_SDL_CreateWindow SDL_CreateWindow
++#define dnload_SDL_GL_CreateContext SDL_GL_CreateContext
++#define dnload_SDL_GL_SwapWindow SDL_GL_SwapWindow
++#define dnload_SDL_GL_DeleteContext SDL_GL_DeleteContext
++#define dnload_SDL_DestroyWindow SDL_DestroyWindow
+ #define dnload_glCreateShader glCreateShader
+ #define dnload_SDL_ShowCursor SDL_ShowCursor
+ #define dnload_SDL_GL_SwapBuffers SDL_GL_SwapBuffers
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -150,6 +150,9 @@
+ /** Mover movement strength. */
+ float g_mover_strength;
+ 
++static SDL_Window *sdlWindow;
++static SDL_GLContext sdlGlcontext;
++
+ #if defined(USE_LD)
+ 
+ /** \cond */
+@@ -884,8 +887,8 @@
+ #endif
+   dnload();
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-  dnload_SDL_SetVideoMode(static_cast<int>(screen_w), static_cast<int>(screen_h), 0,
+-      SDL_OPENGL | (flag_fullscreen ? SDL_FULLSCREEN : 0));
++  sdlWindow =  dnload_SDL_CreateWindow("Whisky in a Tube by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,static_cast<int>(screen_w),static_cast<int>(screen_h),SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++  sdlGlcontext = dnload_SDL_GL_CreateContext(sdlWindow);
+   dnload_SDL_ShowCursor(flag_developer);
+ #if defined(USE_LD)
+   {
+@@ -989,7 +992,7 @@
+         cumulative += TICKS_PER_FRAME;
+         calc(cumulative);
+         draw();
+-        SDL_GL_SwapBuffers();
++	SDL_GL_SwapWindow(sdlWindow);
+         write_frame_callback(screen_w, screen_h, frame_idx);
+         ++frame_idx;
+       }
+@@ -1142,43 +1145,43 @@
+             insert = true;
+             break;
+ 
+-          case SDLK_KP0:
++          case SDLK_KP_0:
+             strength = 0.1f;
+             break;
+ 
+-          case SDLK_KP1:
++          case SDLK_KP_1:
+             strength = 0.2f;
+             break;
+ 
+-          case SDLK_KP2:
++          case SDLK_KP_2:
+             strength = 0.3f;
+             break;
+ 
+-          case SDLK_KP3:
++          case SDLK_KP_3:
+             strength = 0.4f;
+             break;
+ 
+-          case SDLK_KP4:
++          case SDLK_KP_4:
+             strength = 0.5f;
+             break;
+ 
+-          case SDLK_KP5:
++          case SDLK_KP_5:
+             strength = 0.6f;
+             break;
+ 
+-          case SDLK_KP6:
++          case SDLK_KP_6:
+             strength = 0.7f;
+             break;
+ 
+-          case SDLK_KP7:
++          case SDLK_KP_7:
+             strength = 0.8f;
+             break;
+ 
+-          case SDLK_KP8:
++          case SDLK_KP_8:
+             strength = 0.9f;
+             break;
+ 
+-          case SDLK_KP9:
++          case SDLK_KP_9:
+             strength = 1.0f;
+             break;
+ 
+@@ -1522,10 +1525,12 @@
+ #endif
+ 
+       draw();
+-      dnload_SDL_GL_SwapBuffers();
++      dnload_SDL_GL_SwapWindow(sdlWindow);
+     }
+   }
+ 
++  dnload_SDL_GL_DeleteContext(sdlGlcontext);
++  dnload_SDL_DestroyWindow(sdlWindow);
+   dnload_SDL_Quit();
+ #if defined(USE_LD)
+   return 0;
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -16,7 +16,7 @@
+ find_glew(TRUE)
+ find_opengl(TRUE)
+ find_png(TRUE)
+-find_sdl(TRUE)
++find_package(SDL2 REQUIRED)
+ 
+ add_definitions(-DUSE_LD)
+ 
+@@ -45,13 +45,13 @@
+   target_link_libraries(whisky_in_a_tube ${OPENGL_gl_LIBRARY})
+   target_link_libraries(whisky_in_a_tube debug ${GLEW_LIBRARY_DEBUG})
+   target_link_libraries(whisky_in_a_tube debug ${PNG_LIBRARY_DEBUG})
+-  target_link_libraries(whisky_in_a_tube debug ${SDL_LIBRARY_DEBUG})
++  target_link_libraries(whisky_in_a_tube debug ${SDL2_LIBRARIES_DEBUG})
+ else()
+   target_link_libraries(whisky_in_a_tube ${BOOST_PROGRAM_OPTIONS_LIBRARY})
+ endif()
+ target_link_libraries(whisky_in_a_tube general ${GLEW_LIBRARY})
+ target_link_libraries(whisky_in_a_tube general ${PNG_LIBRARY})
+-target_link_libraries(whisky_in_a_tube general ${SDL_LIBRARY})
++target_link_libraries(whisky_in_a_tube general ${SDL2_LIBRARIES})
+ 
+ # remove the CMake generated '-Wl,-rpath'
+ set_target_properties(whisky_in_a_tube PROPERTIES SKIP_BUILD_RPATH 1)

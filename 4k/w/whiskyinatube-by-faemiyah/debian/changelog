@@ -1,0 +1,6 @@
+whiskyinatube-by-faemiyah (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+  * migrate to SDL2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Dec 2019 19:57:11 +0100

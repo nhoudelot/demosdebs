@@ -1,0 +1,9 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -52,3 +52,6 @@
+ target_link_libraries(whisky_in_a_tube general ${GLEW_LIBRARY})
+ target_link_libraries(whisky_in_a_tube general ${PNG_LIBRARY})
+ target_link_libraries(whisky_in_a_tube general ${SDL_LIBRARY})
++
++# remove the CMake generated '-Wl,-rpath'
++set_target_properties(whisky_in_a_tube PROPERTIES SKIP_BUILD_RPATH 1)
