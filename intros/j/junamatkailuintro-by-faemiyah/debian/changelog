@@ -1,0 +1,11 @@
+junamatkailuintro-by-faemiyah (1.0-0ddebs2) unstable; urgency=medium
+
+  * Migrate to SDL2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Dec 2019 18:18:51 +0100
+
+junamatkailuintro-by-faemiyah (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 12 Dec 2019 23:07:54 +0100

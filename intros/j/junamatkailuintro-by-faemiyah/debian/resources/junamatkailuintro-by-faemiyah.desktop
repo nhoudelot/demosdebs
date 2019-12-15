@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=junamatkailuintro
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2015
+Type=Application
+Exec=/usr/bin/junamatkailuintro-by-faemiyah
+Icon=junamatkailuintro-by-faemiyah -w
+Categories=AudioVideo;
+Name[fr_FR]=junamatkailuintro

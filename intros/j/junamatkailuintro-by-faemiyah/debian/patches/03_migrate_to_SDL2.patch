@@ -1,0 +1,143 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,7 +14,7 @@
+ 
+ find_boost_program_options(TRUE)
+ find_png(TRUE)
+-find_sdl(TRUE)
++find_package(SDL2 REQUIRED)
+ 
+ check_raspberry_pi()
+ if(RASPBERRY_PI_FOUND)
+@@ -109,12 +109,12 @@
+   target_link_libraries(junamatkailuintro ${OPENGL_gl_LIBRARY})
+   target_link_libraries(junamatkailuintro debug ${GLEW_LIBRARY_DEBUG})
+   target_link_libraries(junamatkailuintro debug ${PNG_LIBRARY_DEBUG})
+-  target_link_libraries(junamatkailuintro debug ${SDL_LIBRARY_DEBUG})
++  target_link_libraries(junamatkailuintro debug ${SDL2_LIBRARIES_DEBUG})
+ else()
+   target_link_libraries(junamatkailuintro ${BOOST_PROGRAM_OPTIONS_LIBRARY})
+ endif()
++target_link_libraries(junamatkailuintro general ${SDL2_LIBRARIES})
+ target_link_libraries(junamatkailuintro general ${PNG_LIBRARY})
+-target_link_libraries(junamatkailuintro general ${SDL_LIBRARY})
+ 
+ # remove the CMake generated '-Wl,-rpath'
+ set_target_properties(junamatkailuintro PROPERTIES SKIP_BUILD_RPATH 1)
+--- a/src/SDLMain.mm
++++ b/src/SDLMain.mm
+@@ -5,7 +5,7 @@
+     Feel free to customize this file to suit your needs
+ */
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include "SDLMain.h"
+ #include <sys/param.h> /* for MAXPATHLEN */
+ #include <unistd.h>
+--- a/src/dnload.h
++++ b/src/dnload.h
+@@ -41,7 +41,7 @@
+ #include "GL/glew.h"
+ #include "GL/glu.h"
+ #endif
+-#include "SDL.h"
++#include <SDL2/SDL.h>
+ #endif
+ #include "bsd_rand.h"
+ #else
+@@ -196,6 +196,11 @@
+ #define dnload_glCreateProgram glCreateProgram
+ #define dnload_glGenRenderbuffers glGenRenderbuffers
+ #define dnload_SDL_Quit SDL_Quit
++#define dnload_SDL_CreateWindow SDL_CreateWindow
++#define dnload_SDL_GL_CreateContext SDL_GL_CreateContext
++#define dnload_SDL_GL_SwapWindow SDL_GL_SwapWindow
++#define dnload_SDL_GL_DeleteContext SDL_GL_DeleteContext
++#define dnload_SDL_DestroyWindow SDL_DestroyWindow
+ #define dnload_SDL_CreateThread SDL_CreateThread
+ #define dnload_SDL_CreateCond SDL_CreateCond
+ #define dnload_powf powf
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -302,6 +302,10 @@
+ /** Print position debug flag. */
+ static bool g_print_position = false;
+ 
++static SDL_Window *sdlWindow;
++static SDL_GLContext sdlGlcontext;
++
++
+ #endif
+ 
+ //######################################
+@@ -4062,7 +4066,7 @@
+ #if defined(DNLOAD_GLESV2)
+   dnload_eglSwapBuffers(g_egl_display, g_egl_surface);
+ #else
+-  dnload_SDL_GL_SwapBuffers();
++  dnload_SDL_GL_SwapWindow(sdlWindow);
+ #endif
+ }
+ 
+@@ -4112,6 +4116,7 @@
+ // Main ################################
+ //######################################
+ 
++
+ #if defined(USE_LD)
+ int intro(unsigned screen_w, unsigned screen_h, bool flag_fullscreen, bool flag_record)
+ {
+@@ -4144,8 +4149,8 @@
+ #endif
+ #else
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-  dnload_SDL_SetVideoMode(static_cast<int>(screen_w), static_cast<int>(screen_h), 0,
+-      SDL_OPENGL | (flag_fullscreen ? SDL_FULLSCREEN : 0));
++  sdlWindow = dnload_SDL_CreateWindow("junamatkailuintro by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,static_cast<int>(screen_w),static_cast<int>(screen_h),SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++  sdlGlcontext = dnload_SDL_GL_CreateContext(sdlWindow);
+   dnload_SDL_ShowCursor(g_flag_developer);
+ #if defined(USE_LD)
+   {
+@@ -4512,6 +4517,8 @@
+ #if defined(DNLOAD_GLESV2)
+   egl_quit(g_egl_display);
+ #endif
++  dnload_SDL_GL_DeleteContext(sdlGlcontext);
++  dnload_SDL_DestroyWindow(sdlWindow);
+   dnload_SDL_Quit();
+ 
+ #if defined(USE_LD)
+--- a/src/intro.hpp
++++ b/src/intro.hpp
+@@ -11,6 +11,8 @@
+ 
+ #if defined(USE_LD)
+ 
++#include <SDL2/SDL.h>
++
+ /** \brief Get default resolution.
+  *
+  * \return Default vertical resolution.
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -12,7 +12,7 @@
+ #ifdef __APPLE__
+ #include "SDL/SDL_opengl.h"
+ #else
+-#include "SDL_opengl.h"
++#include <SDL2/SDL_opengl.h>
+ #endif
+ 
+ #if defined(__APPLE__)
+--- a/src/verbatim_threading.hpp
++++ b/src/verbatim_threading.hpp
+@@ -144,7 +144,7 @@
+      * \param data Data to pass to the thread.
+      */
+     Thread(int (*func)(void*), void *data)
+-      : m_thread(dnload_SDL_CreateThread(func, data)) { }
++      : m_thread(dnload_SDL_CreateThread(func, NULL, data)) { }
+ 
+     /** \brief Destructor.
+      *

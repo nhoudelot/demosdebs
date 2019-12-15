@@ -1,0 +1,17 @@
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -135,10 +135,12 @@
+ //######################################
+ 
+ /** Declare random number function. */
+-#define bsd_rand bsd_rand_actual
++//#define bsd_rand bsd_rand_actual
++#define bsd_rand rand
+ 
+ /** Declare random number function. */
+-#define bsd_srand bsd_srand_actual
++//#define bsd_srand bsd_srand_actual
++#define bsd_srand srand
+ 
+ /** Declare which color space to use. */
+ #define COLOR_SPACE_THEFLASH 0

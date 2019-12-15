@@ -1,0 +1,22 @@
+Source: junamatkailuintro-by-faemiyah
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ cmake,
+ libboost-all-dev,
+ libglew-dev,
+ libpng-dev,
+ libsdl2-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://github.com/faemiyah/faemiyah-demoscene_2015-04_64k-intro_junamatkailuintro
+
+Package: junamatkailuintro-by-faemiyah
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Demo for Linux, released in 2015
+ Demo by Faemiyah, released in 2015

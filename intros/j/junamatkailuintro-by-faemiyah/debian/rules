@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --parallel --buildsystem=cmake --builddirectory=build
+
+override_dh_install:
+	mv build/junamatkailuintro build/junamatkailuintro-by-faemiyah
+	dh_install
+	pandoc -s -t man -f markdown debian/junamatkailuintro-by-faemiyah.6.md -o debian/junamatkailuintro-by-faemiyah.6
