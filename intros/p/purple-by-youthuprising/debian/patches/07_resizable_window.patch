@@ -1,0 +1,59 @@
+--- a/main.cpp
++++ b/main.cpp
+@@ -15,7 +15,8 @@
+ HWND hWnd = NULL;
+ HINSTANCE hInstance;
+ 
+-
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
+ 
+ bool keys[256];
+ bool active = true;
+@@ -370,11 +371,33 @@
+ }
+ #else
+ 
++void resize_window(int x, int y, int w, int h)
++{
++    /* Prevent division by zero */
++    if (h == 0) {
++        h = 1;
++    }
++
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        x += (w - new_w) / 2;
++        w = new_w;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        y += (h - new_h) / 2;
++        h = new_h;
++    }
++    glViewport(x, y, w, h);
++}
++
++
+ int main(int argc, char **argv)
+ {
+ 	SDL_GLContext sdlGlcontext;
+-	sdlWindow = SDL_CreateWindow("Purple by Youth Uprising",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL);
++	sdlWindow = SDL_CreateWindow("Purple by Youth Uprising",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ 	SDL_ShowCursor(0);
+ 
+ 	initdemo();
+@@ -393,6 +416,11 @@
+ 		if ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_q )) {
+ 			break;
+ 		}
++		if ((event.type == SDL_WINDOWEVENT) && (event.window.windowID == windowID ) && (event.window.event == SDL_WINDOWEVENT_RESIZED)) {
++			int new_w = event.window.data1;
++			int new_h = event.window.data2;
++			resize_window(0,0, new_w,new_h);
++		}
+ #ifdef DEBUG
+ 		if (event.key.keysym.sym == SDLK_SPACE)
+ 		{

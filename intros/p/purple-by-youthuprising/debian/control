@@ -4,17 +4,24 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>=9),
+ pkgconf,
+ libgl1-mesa-dev,
+ libglu1-mesa-dev,
+ libsdl2-dev,
+ libfmodex-dev,
+ libx11-dev,
  pandoc
 Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=29742
 
 Package: purple-by-youthuprising
-Architecture: i386
+Architecture: amd64 i386
 Depends:
- ${misc:Depends},
  ${shlibs:Depends},
- libpng12-0 (>= 1.2.13-4),
- libsdl1.2debian,
- common-install-function-ddebs(>=1.18)
-Description: Youth Uprising intro released in 2007
- Intro by Youth Uprising, released in 2007
+ ${misc:Depends}
+Description: Demo for Linux, released in 2007
+ Youth Uprising presents to you an intro in 40k!
+ (Sucks to partycode)
+ This intro is called:
+  - Purple -
+ Released at Icons'07.

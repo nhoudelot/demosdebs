@@ -1,0 +1,11 @@
+--- a/font.cpp
++++ b/font.cpp
+@@ -72,7 +72,7 @@
+ 	dpy = XOpenDisplay( NULL );
+ 
+ 	/* Get the font information */
+-	fontInfo = XLoadQueryFont( dpy, "-adobe-helvetica-medium-r-normal--32-*-*-*-p-*-iso8859-1" );
++	fontInfo = XLoadQueryFont( dpy, "-bitstream-bitstream charter-medium-r-normal--32-*-*-*-p-*-adobe-standard" );
+ 
+ 	/* If the above font didn't exist try one that should */
+ 	if ( fontInfo == NULL )

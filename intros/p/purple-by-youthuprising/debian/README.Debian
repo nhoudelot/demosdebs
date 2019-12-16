@@ -1,0 +1,15 @@
+purple-by-youthuprising for Debian
+---------------------------------
+
+Demo could use minifmod and fmodex
+i preferred to use fmodex, that is still in development
+
+originally the demo was only in i386/OSS
+compiling it from source can make it work on 64 bit/ALSA
+
+as always, uncrustify was used on sources to get them more readable
+
+migrate to SDL2, add quit with q, and close button.
+added also resizable window, with f to go fullscreen
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Dec 2019 11:12:08 +0100

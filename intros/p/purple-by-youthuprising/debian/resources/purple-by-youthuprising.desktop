@@ -6,5 +6,5 @@ Comment=Demo by Youth Uprising, released in 2007
 Type=Application
 Exec=/usr/bin/purple-by-youthuprising
 Icon=purple-by-youthuprising
-Categories=AudioVideo;Game;
+Categories=AudioVideo;
 Name[fr_FR]=Purple

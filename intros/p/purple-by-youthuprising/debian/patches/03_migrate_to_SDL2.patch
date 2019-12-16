@@ -1,0 +1,91 @@
+--- a/Makefile
++++ b/Makefile
+@@ -7,7 +7,7 @@
+ RES  =
+ OBJ = main.o general.o Audio/sound.o Effects/iterator.o Effects/filler.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/start.o  Effects/tunnel.o Effects/cred.o $(RES)
+ LINKOBJ  = main.o general.o Audio/sound.o Effects/iterator.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/filler.o Effects/start.o Effects/tunnel.o Effects/cred.o $(RES)
+-LDFLAGS += $(shell pkgconf --libs sdl gl glu x11) -LAudio -lfmodex
++LDFLAGS += $(shell pkgconf --libs sdl2 gl glu x11) -LAudio -lfmodex
+ 
+ CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD
+ CFLAGS = $(INCS)
+--- a/general.h
++++ b/general.h
+@@ -12,12 +12,11 @@
+ #define WIN32_LEANER_AND_MEANER
+ #else
+ #include <GL/glx.h>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ typedef int HGLRC;
+ typedef int HDC;
+ typedef int HWND;
+ typedef int HINSTANCE;
+-#define SwapBuffers(x) SDL_GL_SwapBuffers()
+ #endif
+ 
+ #include <stdlib.h>
+--- a/main.cpp
++++ b/main.cpp
+@@ -15,6 +15,8 @@
+ HWND hWnd = NULL;
+ HINSTANCE hInstance;
+ 
++
++
+ bool keys[256];
+ bool active = true;
+ 
+@@ -370,14 +372,15 @@
+ 
+ int main(int argc, char **argv)
+ {
+-	SDL_SetVideoMode(1024, 768, 0, SDL_OPENGL|SDL_FULLSCREEN);
++	SDL_GLContext sdlGlcontext;
++	sdlWindow = SDL_CreateWindow("Purple by Youth Uprising",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_ShowCursor(0);
+-	//SDL_SetVideoMode(640, 480, 0, SDL_OPENGL);
+ 
+ 	initdemo();
+ 
+ 	while(dodemo()) {
+-		SwapBuffers(hDC);
++		SDL_GL_SwapWindow(sdlWindow);
+ 		SDL_Delay(10);
+ 		SDL_Event event;
+ 		SDL_PollEvent(&event);
+@@ -405,6 +408,8 @@
+ 
+ 	if(getsoundon()) sound_close();
+ 	playerClose();
++	SDL_GL_DeleteContext(sdlGlcontext);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 	return EXIT_SUCCESS;
+ }
+--- a/player.cpp
++++ b/player.cpp
+@@ -104,7 +104,8 @@
+ 
+ 		perspective2DEnd();
+ 
+-		SwapBuffers(hDC);
++
++		SDL_GL_SwapWindow(sdlWindow);
+ 
+ 		if (scenes[i].init)
+ 		{
+--- a/player.h
++++ b/player.h
+@@ -1,6 +1,10 @@
+ #ifndef PLAYER_H
+ #define PLAYER_H
+ 
++#include <SDL2/SDL.h>
++
++static SDL_Window *sdlWindow;
++
+ void playerAddScene(const char *name,
+                     float start, float duration,
+                     void (*init)(void), void (*run)(float), void (*deinit)(void)

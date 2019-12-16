@@ -1,0 +1,37 @@
+--- a/Makefile
++++ b/Makefile
+@@ -7,9 +7,9 @@
+ RES  =
+ OBJ = main.o general.o Audio/sound.o Effects/iterator.o Effects/filler.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/start.o  Effects/tunnel.o Effects/cred.o $(RES)
+ LINKOBJ  = main.o general.o Audio/sound.o Effects/iterator.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/filler.o Effects/start.o Effects/tunnel.o Effects/cred.o $(RES)
+-LIBS = -s -lSDL -lGL -lGLU -LAudio -lminifmod.linux
++LIBS = -s $(shell pkgconf --libs sdl gl glu x11) -LAudio -lfmodex
+ BIN  = demo02
+-CXXFLAGS = -Os -fno-exceptions -fno-rtti $(CXXINCS)
++CXXFLAGS = -Os -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD
+ CFLAGS = $(INCS)
+ RM = rm -f
+ 
+--- a/Audio/sound.cpp
++++ b/Audio/sound.cpp
+@@ -1,8 +1,7 @@
+ #include <stdio.h>
+-#include <stdlib.h>
+ #include <string.h>
+ #include "sound.h"
+-#include "minifmod.h"
++//#include "minifmod.h"
+ static int sync = -1;
+ #ifdef FMOD
+ static FMOD_SYSTEM *system;
+--- a/Audio/sound.h
++++ b/Audio/sound.h
+@@ -2,7 +2,7 @@
+ #define _SOUNDA_H_
+ 
+ #ifdef FMOD
+-#include "fmod.h"
++#include <fmodex/fmod.h>
+ #else
+ #include "minifmod.h"
+ #endif

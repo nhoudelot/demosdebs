@@ -1,0 +1,18 @@
+--- a/main.cpp
++++ b/main.cpp
+@@ -384,8 +384,13 @@
+ 		SDL_Delay(10);
+ 		SDL_Event event;
+ 		SDL_PollEvent(&event);
+-		if (event.key.keysym.sym == SDLK_ESCAPE)
+-		{
++		if (event.type == SDL_QUIT) {
++			break;
++		}
++		if ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE )) {
++			break;
++		}
++		if ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_q )) {
+ 			break;
+ 		}
+ #ifdef DEBUG

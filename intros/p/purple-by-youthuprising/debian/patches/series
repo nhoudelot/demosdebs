@@ -1,0 +1,8 @@
+01_fix_includes_and_use_fmodex.patch
+02_adapt_makefile.patch
+03_migrate_to_SDL2.patch
+04_fix_audio.patch
+05_fix_font.patch
+06_better_quit.patch
+07_resizable_window.patch
+08_add_fullscreen_key.patch

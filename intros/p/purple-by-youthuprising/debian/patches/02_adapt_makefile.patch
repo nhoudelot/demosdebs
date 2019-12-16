@@ -1,0 +1,64 @@
+--- a/Makefile
++++ b/Makefile
+@@ -7,22 +7,42 @@
+ RES  =
+ OBJ = main.o general.o Audio/sound.o Effects/iterator.o Effects/filler.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/start.o  Effects/tunnel.o Effects/cred.o $(RES)
+ LINKOBJ  = main.o general.o Audio/sound.o Effects/iterator.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/filler.o Effects/start.o Effects/tunnel.o Effects/cred.o $(RES)
+-LIBS = -s $(shell pkgconf --libs sdl gl glu x11) -LAudio -lfmodex
+-BIN  = demo02
+-CXXFLAGS = -Os -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD
++LDFLAGS += $(shell pkgconf --libs sdl gl glu x11) -LAudio -lfmodex
++
++CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD
+ CFLAGS = $(INCS)
+ RM = rm -f
++TARGET   := purple-by-youthuprising
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
+ 
+ .PHONY: all all-before all-after clean clean-custom
+ 
+-all: all-before $(BIN) all-after
++#get DEB_BUILD_MAINT_OPTIONS working
++ifneq (,$(filter noopt,$(DEB_BUILD_MAINT_OPTIONS)))
++    CFLAGS += -O0
++endif
++ifeq (,$(filter nostrip,$(DEB_BUILD_MAINT_OPTIONS)))
++    INSTALL_PROGRAM += -s
++endif
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++all: all-before $(TARGET) all-after
+ 
+ 
+ clean: clean-custom
+-	${RM} $(OBJ) $(BIN)
++	${RM} $(OBJ) $(TARGET)
+ 
+-$(BIN): $(OBJ)
+-	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
++$(TARGET): $(OBJ)
++	$(CPP) $(LINKOBJ) -o $(TARGET) $(LDFLAGS)
+ 
+ main.o: main.cpp
+ 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+@@ -66,5 +86,11 @@
+ Effects/filler.o: Effects/filler.cpp
+ 	$(CPP) -c Effects/filler.cpp -o Effects/filler.o $(CXXFLAGS)
+ 
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++
+ #demo02_private.res: demo02_private.rc audio.rc
+ #	$(WINDRES) -i demo02_private.rc --input-format=rc -o demo02_private.res -O coff
