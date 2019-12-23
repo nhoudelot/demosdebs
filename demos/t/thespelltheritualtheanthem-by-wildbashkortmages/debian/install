@@ -1,0 +1,5 @@
+debian/scripts/thespelltheritualtheanthem-by-wildbashkortmages usr/bin/
+debian/resources/thespelltheritualtheanthem-by-wildbashkortmages.desktop usr/share/applications/
+debian/resources/thespelltheritualtheanthem-by-wildbashkortmages.png usr/share/icons/hicolor/256x256/apps/
+./bashkortostan usr/lib/x86_64-linux-gnu/thespelltheritualtheanthem-by-wildbashkortmages/./
+./data.bin usr/lib/x86_64-linux-gnu/thespelltheritualtheanthem-by-wildbashkortmages/./

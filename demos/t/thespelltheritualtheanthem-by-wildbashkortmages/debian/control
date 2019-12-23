@@ -1,0 +1,23 @@
+Source: thespelltheritualtheanthem-by-wildbashkortmages
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ libsdl2-dev,
+ liblua5.2-dev,
+ libsdl2-image-dev,
+ libfmodex-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=66412
+
+Package: thespelltheritualtheanthem-by-wildbashkortmages
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ libfmodex4,
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2015
+ Demo by WILD BASHKORT MAGES, released in 2015
