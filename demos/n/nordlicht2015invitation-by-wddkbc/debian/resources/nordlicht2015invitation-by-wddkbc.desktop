@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Nordlicht 2015 invitation
+GenericName=Demo
+Comment=Demo by WDDKBC, released in 2015
+Type=Application
+Exec=/usr/bin/nordlicht2015invitation-by-wddkbc
+Icon=nordlicht2015invitation-by-wddkbc
+Categories=AudioVideo;
+Name[fr_FR]=Nordlicht 2015 invitation

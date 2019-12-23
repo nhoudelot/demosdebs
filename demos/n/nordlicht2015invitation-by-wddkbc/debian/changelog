@@ -1,0 +1,9 @@
+nordlicht2015invitation-by-wddkbc (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+  ** Fixed compilation
+  ** Adapt Makefile
+  ** change data path
+  ** removed fullscreen
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 22 Dec 2019 22:59:20 +0100

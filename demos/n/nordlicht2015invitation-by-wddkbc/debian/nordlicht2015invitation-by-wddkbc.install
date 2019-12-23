@@ -1,0 +1,3 @@
+debian/resources/nordlicht2015invitation-by-wddkbc.desktop usr/share/applications/
+debian/resources/nordlicht2015invitation-by-wddkbc.png usr/share/icons/hicolor/256x256/apps/
+usr/bin/nordlicht2015invitation-by-wddkbc

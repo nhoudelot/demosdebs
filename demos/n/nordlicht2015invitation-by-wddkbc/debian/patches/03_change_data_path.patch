@@ -1,0 +1,28 @@
+Description: changed data path
+ data path are now in /usr/share, so i had to change it in the code
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-12-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cpp
++++ b/main.cpp
+@@ -3,6 +3,7 @@
+ #include <GLFW/glfw3.h>
+ 
+ #include <iomanip>
++#include <unistd.h>
+ #include <sstream>
+ 
+ void handleGLFWerror(int error, const char *text)
+@@ -189,6 +190,11 @@
+ 
+ 	gFullScreenFbo = new Fbo(demo.sizex, demo.sizey, GL_RGBA8);
+ 
++	char datapath[]="/usr/share/nordlicht2015invitation-by-wddkbc";
++	if (chdir(datapath) != 0) {
++	    printf("Error : Could not change directory to %s\n",datapath);
++	}
++
+ 	loadShader = new GlslShader("data/glsl/flat.glsl");
+ 	loadSplashShader = new GlslShader("data/glsl/flat+t.glsl");
+ 	loadSplash = new Texture("data/splash.png");

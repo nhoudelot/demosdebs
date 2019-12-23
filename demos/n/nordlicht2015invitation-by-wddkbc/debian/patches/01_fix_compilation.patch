@@ -1,0 +1,45 @@
+Description: fixed compilation before updating makefile
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-12-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -1,11 +1,11 @@
+-CXXFLAGS=-std=c++11 -O2 -Ibass -Iglew/glew-1.12.0/include
+-LDFLAGS=libbass.so -lglfw -lSOIL -lGL
++CXXFLAGS=-std=c++11 -O2 -Ibass $(shell pkgconf --cflags glew)
++LDFLAGS=-lbass -lglfw  	$(shell pkgconf --libs glew) -lSOIL -lGL
+ STATICS=glew/glew-1.12.0/build/lib/libGLEW.a glew/glew-1.12.0/build/lib/libGLEWmx.a
+ OUTFILE=invi
+
+ $(OUTFILE): k.i.t.t.o scn-cubewall.o scn-end.o scn-forever.o scn-ink.o scn-lazor.o scn-outstorm.o scn-park.o scn-pictures.o scn-rocket.o main.o
+-	cp bass/x64/libbass.so libbass.so
+-	$(CXX) -o $@ $(LDFLAGS) $^ $(LDFLAGS) $(STATICS)
++	#cp bass/x64/libbass.so libbass.so
++	$(CXX) -o $@ $(LDFLAGS) $^ $(LDFLAGS) #$(STATICS)
+
+ %.o: %.cpp
+ 	$(CXX) -c $(CXXFLAGS) $< -o $@
+--- a/data/glsl/lazor.glsl
++++ b/data/glsl/lazor.glsl
+@@ -28,7 +28,7 @@
+
+ void main()
+ {
+-	float r = texture2D(noise, vec2((xTexCoord.x+time)*2000., (xTexCoord.y+time)*3000.));
++	float r = float(texture2D(noise, vec2((xTexCoord.x+time)*2000., (xTexCoord.y+time)*3000.)));
+ 	vec4 col = texture2D(tex, xTexCoord);
+ 	col.rgb = pow(col.rgb*(0.75*intensity.y*sqrt(xTexCoord.y)+0.5*r), vec3(intensity.x));
+ 	outputColor = col*color;
+--- a/data/glsl/lazor_burn.glsl
++++ b/data/glsl/lazor_burn.glsl
+@@ -27,7 +27,7 @@
+
+ void main()
+ {
+-	float r = texture2D(noise, gl_FragCoord.xy / 128.0);
++	float r = float(texture2D(noise, gl_FragCoord.xy / 128.0));
+ 	vec4 col = texture2D(tex, xTexCoord);
+ 	col.rgb = pow(col.rgb*(0.75*intensity.y*sqrt(xTexCoord.y)+0.5*r), vec3(intensity.x));
+ 	outputColor = col*color;

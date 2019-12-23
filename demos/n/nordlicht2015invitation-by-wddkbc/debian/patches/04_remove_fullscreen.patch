@@ -1,0 +1,26 @@
+Description: removed fullscreen
+ 1280 720
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-12-22
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cpp
++++ b/main.cpp
+@@ -163,6 +163,9 @@
+ 	demo = Demo(1280, 768, wantAspect);
+ 	GLFWwindow *win = glfwCreateWindow(demo.sizex, demo.sizey, "Imvitation", NULL, NULL);
+ #else
++	demo = Demo(1280, 720, wantAspect);
++	GLFWwindow *win = glfwCreateWindow(demo.sizex, demo.sizey, "Imvitation", NULL, NULL);
++/*
+ 	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+ 	const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+ 	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+@@ -171,6 +174,7 @@
+ 	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+ 	GLFWwindow* win = glfwCreateWindow(mode->width, mode->height, "Imvitation", monitor, NULL);
+ 	demo = Demo(mode->width, mode->height, wantAspect);
++	*/
+ #endif
+ 	if (!win)
+ 		return 1;

@@ -1,0 +1,7 @@
+nordlicht2015invitation-by-wddkbc for Debian
+-------------------------------------------
+
+didn't use the GLEW 1.12 includes
+changed data path
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 16 Dec 2019 23:56:12 +0100

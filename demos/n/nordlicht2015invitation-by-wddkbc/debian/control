@@ -1,0 +1,45 @@
+Source: nordlicht2015invitation-by-wddkbc
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pkgconf,
+ libglew-dev,
+ libglm-dev,
+ libglfw3-dev,
+ libbass-dev,
+ libsoil-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=65385
+Vcs-Browser: https://github.com/dop3j0e/imvitation
+Vcs-Git: https://github.com/dop3j0e/imvitation.git
+
+Package: nordlicht2015invitation-by-wddkbc
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ nordlicht2015invitation-by-wddkbc-data,
+ ${misc:Depends}
+Description: Demo invit for Linux, released in 2015
+ Demo invit by WDDKBC, released in 2015
+ I.M.V.I.T.A.T.I.O.N
+ =====================
+ Brought to you by
+ WURSTHUPE,
+ DIGITAL DEMOLITION KREW and
+ BRAIN CONTROL
+ .
+ Code - dojoe, T$
+ Graphics - OhLi, WiDDY
+ Soundtrack - Skyrunner
+
+Package: nordlicht2015invitation-by-wddkbc-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for nordlicht2015invitation-by-wddkbc
+ nordlicht2015invitation-by-wddkbc data files
+

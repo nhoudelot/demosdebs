@@ -1,0 +1,4 @@
+01_fix_compilation.patch
+02_adapt_Makefile.patch
+03_change_data_path.patch
+04_remove_fullscreen.patch
