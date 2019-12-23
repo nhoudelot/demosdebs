@@ -1,0 +1,38 @@
+Source: jellyfishthejam-by-capsadminandjimbo
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=65870
+
+Package: jellyfishthejam-by-capsadminandjimbo
+Architecture: all
+Depends:
+ ${shlibs:Depends},
+ luajit,
+ libbass2,
+ libglfw3,
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2015
+ Demo by CapsAdmin and Jimbo, released in 2015
+ Code: Jimbo
+ Music: CapsAdmin
+ .
+ This demo was written entirely in lua using the ffi to call into OpenGL.
+ The demo itself is source, and contains Win32 and Linux executables and
+ libraries for running it.
+ Thanks to:
+ .
+ CapsAdmin, world Gmod champion. Your music rocks!
+ Roberto Ierusalimschy for Lua
+ Mike Pall for Luajit
+ kusma emoon for Rocket
+ Khronos for OpenGL
+ metoikos and Dr. Claw for the event
+ iq
+ BeautyPi
+ all @party attendees

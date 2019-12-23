@@ -1,0 +1,31 @@
+Description: updated link to libs
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-12-23
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/standalone/glfw.lua
++++ b/standalone/glfw.lua
+@@ -7,7 +7,7 @@
+ if (ffi.os == "Windows") then
+ 	glfw_lib = ffi.load("glfw3")
+ else
+-	glfw_lib = ffi.load("libglfw.so.3.1")
++	glfw_lib = ffi.load("libglfw.so.3")
+ end
+ 
+ glfw = {
+--- a/standalone/bass.lua
++++ b/standalone/bass.lua
+@@ -2,10 +2,10 @@
+ local libs = ffi_Bass_libs or {
+    OSX     = { x86 = "",       x64 = "" },
+    Windows = { x86 = "Bass.dll", x64 = "" },
+-   Linux   = { x86 = "libbass.so",    x64 = "libbass.so", arm = ""  },
++   Linux   = { x86 = "libbass.so.2",    x64 = "libbass.so.2", arm = ""  },
+    BSD     = { },
+    POSIX   = { },
+-   Other   = { }, 
++   Other   = { },
+ }
+ local lib  = ffi_Bass_lib or libs[ ffi.os ][ ffi.arch ] or "Bass"
+ local bass = ffi.load( lib )

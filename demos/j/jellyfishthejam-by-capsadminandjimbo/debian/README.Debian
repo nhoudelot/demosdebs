@@ -1,0 +1,9 @@
+jellyfishthejam-by-capsadminandjimbo for Debian
+----------------------------------------------
+
+discarding win32 and compiled libraries and lua
+
+keeping only the sources
+patching the way it find libs, in a more generic way
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 17 Dec 2019 16:05:59 +0100

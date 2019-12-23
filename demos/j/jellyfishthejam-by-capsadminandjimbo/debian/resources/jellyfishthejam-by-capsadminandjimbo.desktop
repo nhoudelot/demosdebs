@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name= Jellyfish: The Jam
+GenericName=Demo
+Comment=Demo by CapsAdmin and Jimbo, released in 2015
+Type=Application
+Exec=/usr/bin/jellyfishthejam-by-capsadminandjimbo
+Icon=jellyfishthejam-by-capsadminandjimbo
+Categories=AudioVideo;
+Name[fr_FR]= Jellyfish: The Jam
