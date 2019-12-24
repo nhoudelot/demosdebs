@@ -1,0 +1,11 @@
+strata-by-luminaire for Debian
+-----------------------------
+
+only the binary was distribute
+
+had to uncompress it.
+
+as it's an SDL1 binary, had to patch it to remove fullscreen
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 20 Dec 2019 14:53:15 +0100
+

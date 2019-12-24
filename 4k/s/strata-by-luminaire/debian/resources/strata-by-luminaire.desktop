@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Strata
+GenericName=Demo
+Comment=Demo by Luminaire, released in 2015
+Type=Application
+Exec=/usr/bin/strata-by-luminaire
+Icon=strata-by-luminaire
+Categories=AudioVideo;
+Name[fr_FR]=Strata
