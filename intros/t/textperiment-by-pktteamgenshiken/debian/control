@@ -1,0 +1,27 @@
+Source: textperiment-by-pktteamgenshiken
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ dh-python,
+ python:any | python-all:any | python-dev:any | python-all-dev:any,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=66015
+
+Package: textperiment-by-pktteamgenshiken
+Architecture: all
+Depends:
+ ${python:Depends},
+ beep,
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Linux, released in 2015
+ Demo by PKTteam & Genshiken, released in 2015
+ 64k ASCII demo written in Python. Features a simple canvas-like engine and a
+ 16 colour palette.
+ 2nd place in the Euskal Encounter 23 Open Intro Compo
+ .
+ Code: Yuri Numerov (Achifaifa) -  achi <a> hush <.> ai
+ Music: Stage7 - stage7 <a> stg7 <.> net

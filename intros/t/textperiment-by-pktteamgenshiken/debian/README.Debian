@@ -1,0 +1,8 @@
+textperiment-by-pktteamgenshiken for Debian
+------------------------------------------
+
+had to patch python : #!/usr/bin/env python2
+
+source seems to be the same than demo
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 18 Dec 2019 12:42:33 +0100

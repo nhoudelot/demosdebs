@@ -1,0 +1,167 @@
+--- a/demo/effects.py
++++ b/demo/effects.py
+@@ -1,3 +1,4 @@
++#!/usr/bin/env python2
+ import font
+ import math, random
+ 
+@@ -107,7 +108,7 @@
+     context.text((81-step/2)+8*idxi,y+2*math.sin((81-step/3)+(idxi+1)),char,i)
+ 
+ def euskallogo(context,logo,step):
+-  
++
+   for ni,i in enumerate(logo[step:step+40]):
+     for nj,j in enumerate(i):
+       try: context.grid[ni][nj]=j
+@@ -181,7 +182,7 @@
+     newcell="#" if basecell.count(" ")==2 or basecell.count("#")==2 else " "
+     colour=["\033[30m","\033[31m","\033[32m","\033[33m"][basecell.count("#")]
+     newcell=colour+newcell+"\033[0m"
+-    newbase.append(newcell)  
++    newbase.append(newcell)
+   autodb.append(newbase)
+   for idx,i in enumerate(autodb[-40:]):
+     for jdx,j in enumerate(i):
+--- a/demo/engine.py
++++ b/demo/engine.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ import font
+ import math, os
+@@ -28,10 +28,10 @@
+       except IndexError:pass
+ 
+   def line(self,x0,y0,x1,y1,char):
+-    
++
+     deltax=x1-x0;deltay=y1-y0
+     if deltax==0:
+-      for i in range(abs(deltay)): self.putpixel(x0, y0+i*sign(deltay), char) 
++      for i in range(abs(deltay)): self.putpixel(x0, y0+i*sign(deltay), char)
+     elif abs(deltax)>abs(deltay):
+       if x0>x1: x0,y0,x1,y1=x1,y1,x0,y0
+       for i in range(abs(deltax)): self.putpixel(x0+i, y0+deltay*i/deltax, char)
+@@ -103,7 +103,7 @@
+     for i in range(7): #Height of the font
+       line="".join([eval("font."+letter+"[i]") for letter in string.lower().replace(" ","_").replace("2","B").replace("3","C").replace("4","D").replace("6","F").replace("7","G")])
+       for j in range(79-x): #total space left
+-        try: 
++        try:
+           if line[j]=="#" and x+j>0: self.putpixel(x+j,y+i,char)
+         except IndexError: pass
+ 
+--- a/demo/font.py
++++ b/demo/font.py
+@@ -1,3 +1,4 @@
++#!/usr/bin/env python2
+ _=[" "*8]*8
+ aa=["   ##   "];bf=[" #   ## "]*2;fw=["##      "];jf=["    ##  "]
+ fm=["##   ## "];wp=["## # ## "];ac=["  ####  "];yy=["  ###   "];yi=["      # "]
+--- a/demo/main.py
++++ b/demo/main.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ import math, os, subprocess, sys, time, traceback
+ import effects as ef, engine
+@@ -30,12 +30,12 @@
+   if not test:
+     if beat<46:
+       ef.euskallogo(c,vscroll,adjust(step/3))
+-      if beat<18: 
++      if beat<18:
+         ef.scroll(c,"EUSKAL ENCOUNTER 23",5,"#",step)
+-      elif beat<30: 
++      elif beat<30:
+         if beat==18: auxstep1=step
+         ef.scroll(c,"STAGE7",5,"`",step-auxstep1)
+-      else: 
++      else:
+         if beat==30: auxstep2=step
+         ef.scroll(c,"ACHIFAIFA",5,"`",step-auxstep2)
+     elif beat<77:
+@@ -44,7 +44,7 @@
+       if beat>54:
+         c.text(3,13,"#","TEXT")
+         c.text(13,23,"#","PERIMENT")
+-      if beat>60: 
++      if beat>60:
+         if beat==61: auxstep1=step
+         ef.scroll(c,"A REALTIME ASCII INTRO",32,"#",(step-auxstep1)*2)
+     elif beat<107:
+@@ -71,7 +71,7 @@
+     elif beat<212:
+       ef.plasma(c,step)
+       c.text(2,4,"#","after")
+-      c.text(46,4,"#","much")    
++      c.text(46,4,"#","much")
+       c.text(2,12,"#","time")
+     elif beat<227:
+       ef.automaton(c,step)
+@@ -86,7 +86,7 @@
+     elif beat<272:
+       if beat==256:auxstep1=step
+       ef.laugh(c,testframe[(step/5)%4])
+-      if not beat%4 and step%2: 
++      if not beat%4 and step%2:
+         ef.laugh(c,rayframe[0])
+       if beat%4==1 and step%2:
+         ef.laugh(c,rayframe[1])
+@@ -104,7 +104,7 @@
+             if beat<308:
+               try: c.grid[i][j]=genshikenlogo[i][j]
+               except IndexError: pass
+-            else: 
++            else:
+               try: c.grid[i][j]=pktteamlogo[i][j]
+               except IndexError: pass
+     elif beat<377:
+@@ -117,16 +117,16 @@
+       if 374>beat>345:ef.sinescroll(c,"collapse",20,"#",step-auxstep1-400)
+       if 487>beat>356:ef.sinescroll(c,"sfl",30,"#",step-auxstep1-540)
+       if beat>360: ef.sinescroll(c,"purples",20,"#",step-auxstep1-600)
+-    elif beat<405: 
++    elif beat<405:
+       ef.euskallogo(c,vscroll,55)
+     else: 1/0
+ 
+-    
++
+ def decode(string):
+   counter="";out=""
+   for i in string:
+     if i.isdigit():counter+=i
+-    else: 
++    else:
+       if counter:out+=(int(counter)*i)
+       else:out+=i
+       counter=""
+@@ -159,7 +159,7 @@
+   genshikenlogo=logdat[:36]
+   pktteamlogo=logdat[36:]
+   try: main()
+-  except: 
++  except:
+     subprocess.call(["rm","music.sh"])
+     subprocess.call(["killall","bash"])
+     os.system('clear')
+--- a/demo/midi.py
++++ b/demo/midi.py
+@@ -1,3 +1,5 @@
++#!/usr/bin/env python2
++
+ """
+ Placed into the public domain in December 2001 by Will Ware
+ """
+--- a/demo/midi2beep.py
++++ b/demo/midi2beep.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python2
+ import midi,math,sys,os,getopt
+ 
+ mult=3.0

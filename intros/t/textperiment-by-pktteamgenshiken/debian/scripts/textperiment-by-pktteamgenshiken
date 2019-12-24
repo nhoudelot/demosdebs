@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=textperiment-by-pktteamgenshiken
+
+APP_FULLNAME="Textperiment"
+APP_COPYRIGHT="PKTteam & Genshiken"
+APP_DESC="demo by PKTteam & Genshiken released in 2015"
+
+APP_EXE="python main.py"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/share/${domain}
+	${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Textperiment
+GenericName=Demo
+Comment=Demo by PKTteam & Genshiken, released in 2015
+Type=Application
+Exec=/usr/bin/textperiment-by-pktteamgenshiken
+Icon=textperiment-by-pktteamgenshiken
+Categories=AudioVideo;
+Name[fr_FR]=Textperiment

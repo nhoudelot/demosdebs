@@ -1,0 +1,14 @@
+debian/scripts/textperiment-by-pktteamgenshiken usr/bin/
+debian/resources/textperiment-by-pktteamgenshiken.desktop usr/share/applications/
+debian/resources/textperiment-by-pktteamgenshiken.png usr/share/icons/hicolor/256x256/apps/
+./demo/effects.py usr/share/textperiment-by-pktteamgenshiken/
+./demo/engine.py usr/share/textperiment-by-pktteamgenshiken/
+./demo/font.py usr/share/textperiment-by-pktteamgenshiken/
+./demo/main.py usr/share/textperiment-by-pktteamgenshiken/
+./demo/midi.py usr/share/textperiment-by-pktteamgenshiken/
+./demo/midi2beep.py usr/share/textperiment-by-pktteamgenshiken/
+./demo/music.mid usr/share/textperiment-by-pktteamgenshiken/
+./demo/rlefloppy usr/share/textperiment-by-pktteamgenshiken/
+./demo/rlegandalf usr/share/textperiment-by-pktteamgenshiken/
+./demo/rlelogos usr/share/textperiment-by-pktteamgenshiken/
+./demo/rlescroll usr/share/textperiment-by-pktteamgenshiken/

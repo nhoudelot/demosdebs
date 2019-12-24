@@ -1,0 +1,23 @@
+--- a/demo/main.py
++++ b/demo/main.py
+@@ -140,8 +140,9 @@
+ def main():
+   global cycle, beat
+   os.system('clear')
+-  os.system("./midi2beep.py -o music.sh music.mid")
+-  subprocess.Popen(["bash","music.sh",])
++  os.system("./midi2beep.py -o /tmp/music.sh music.mid")
++  os.system("chmod +x /tmp/music.sh")
++  subprocess.Popen(["bash","/tmp/music.sh",])
+   while 1:
+     c.clear()
+     beat=adjust((time.time()*1000-startdate)/326)
+@@ -160,7 +161,7 @@
+   pktteamlogo=logdat[36:]
+   try: main()
+   except:
+-    subprocess.call(["rm","music.sh"])
++    subprocess.call(["rm","/tmp/music.sh"])
+     subprocess.call(["killall","bash"])
+     os.system('clear')
+     traceback.print_exc()
