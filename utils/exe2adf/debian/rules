@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
+    BIN=exe2adf-linux64bit
+endif
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
+    BIN=exe2adf-linux32bit
+endif
+
+%:
+	dh $@
+
+override_dh_install:
+	cp $(BIN) exe2adf
+	upx -d exe2adf
+	dh_install
+	pandoc -s -t man -f markdown debian/exe2adf.1.md -o debian/exe2adf.1

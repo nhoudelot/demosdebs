@@ -1,0 +1,18 @@
+Source: exe2adf
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ upx,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: http://www.exe2adf.com/
+
+Package: exe2adf
+Architecture: amd64 i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Tool for Linux, released in 2015
+ Tool by Reality, released in 2015

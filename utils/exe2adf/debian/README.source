@@ -1,0 +1,11 @@
+exe2adf for Debian
+------------------
+
+sources have been repackaged, avoiding windows and osx binary
+
+executable seems to be compiled for Red Hat 6.2.1
+
+GCC: (GNU) 6.2.1 20160916 (Red Hat 6.2.1-2)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Dec 2019 11:18:03 +0100
+

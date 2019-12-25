@@ -1,0 +1,7 @@
+exe2adf for Debian
+----------------
+
+exe2adf is statically linked.
+source is upx uncompressed while package building
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Dec 2019 11:18:03 +0100
