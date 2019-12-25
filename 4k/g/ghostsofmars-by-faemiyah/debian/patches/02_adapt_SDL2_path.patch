@@ -1,0 +1,22 @@
+--- a/src/dnload.h
++++ b/src/dnload.h
+@@ -71,7 +71,7 @@
+ #include "bsd_rand.h"
+ #endif
+ 
+-#include "SDL.h"
++#include <SDL2/SDL.h>
+ 
+ #if defined(SDL_INIT_EVERYTHING) && defined(__APPLE__) 
+ #define DNLOAD_MAIN SDL_main
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -12,7 +12,7 @@
+ #ifdef __APPLE__
+ #include "SDL/SDL_opengl.h"
+ #else
+-#include "SDL_opengl.h"
++#include <SDL2/SDL_opengl.h>
+ #endif
+ 
+ #if defined(__APPLE__)

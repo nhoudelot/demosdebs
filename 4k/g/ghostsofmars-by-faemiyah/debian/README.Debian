@@ -1,0 +1,10 @@
+ghostsofmars-by-faemiyah for Debian
+----------------------------------
+
+This is the regular version of this intro
+not the minimified version of 4k
+
+had to patch SDL2 include path
+updated CMAkefiles.list to 3.5 at least
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 19 Dec 2019 00:21:30 +0100

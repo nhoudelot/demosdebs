@@ -1,0 +1,8 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -54,3 +54,5 @@
+   target_link_libraries(ghosts_of_mars "${SDL2_LIBRARIES}")
+ endif()
+ target_link_libraries(ghosts_of_mars "${THREADS_LIBRARIES}")
++# remove the CMake generated '-Wl,-rpath'
++set_target_properties(ghosts_of_mars PROPERTIES SKIP_BUILD_RPATH 1)

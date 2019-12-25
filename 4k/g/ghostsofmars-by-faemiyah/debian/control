@@ -1,0 +1,27 @@
+Source: ghostsofmars-by-faemiyah
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ cmake,
+ libboost-all-dev,
+ libpng-dev,
+ libsdl2-dev,
+ libglew-dev,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=66046
+
+Package: ghostsofmars-by-faemiyah
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: 4k intro for Linux, released in 2015
+ 4k intro by Faemiyah, released in 2015
+ Ghosts of Mars
+ .
+ Synth & music:              Juippi
+ Everything else:            Trilkk
+ Additional everything else: Warma

@@ -1,0 +1,4 @@
+01_adapt_cmake.patch
+02_adapt_SDL2_path.patch
+03_remove_rpath.patch
+04_change_glsl_path.patch

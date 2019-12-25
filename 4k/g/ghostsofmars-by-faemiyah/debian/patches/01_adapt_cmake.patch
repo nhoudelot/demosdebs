@@ -1,0 +1,41 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,5 +1,6 @@
+-cmake_minimum_required(VERSION 2.8)
++cmake_minimum_required(VERSION 3.5)
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
++set(THREADS_PREFER_PTHREAD_FLAG ON)
+ project(ghosts_of_mars)
+ 
+ enable_language(C)
+@@ -8,11 +9,11 @@
+ include("defaults.cmake")
+ 
+ find_boost("filesystem" "program_options" "system" "thread" "wave")
+-find_glew()
+-find_opengl()
+-find_png()
+-find_sdl2()
+-find_threads()
++find_package(GLEW REQUIRED)
++find_package(OpenGL REQUIRED)
++find_package(PNG REQUIRED)
++find_package(SDL2 REQUIRED)
++find_package(Threads REQUIRED)
+ 
+ output_flags("DEBUG" on)
+ 
+@@ -47,8 +48,9 @@
+   target_link_libraries(ghosts_of_mars "${BOOST_SYSTEM_LIBRARY}")
+   target_link_libraries(ghosts_of_mars "${BOOST_THREAD_LIBRARY}")
+   target_link_libraries(ghosts_of_mars "${BOOST_WAVE_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars "${GLEW_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars "${PNG_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars "${SDL2_LIBRARY}")
++  target_link_libraries(ghosts_of_mars "${OPENGL_LIBRARIES}")
++  target_link_libraries(ghosts_of_mars "${GLEW_LIBRARIES}")
++  target_link_libraries(ghosts_of_mars "${PNG_LIBRARIES}")
++  target_link_libraries(ghosts_of_mars "${SDL2_LIBRARIES}")
+ endif()
+-target_link_libraries(ghosts_of_mars "${THREADS_LIBRARY}")
++target_link_libraries(ghosts_of_mars "${THREADS_LIBRARIES}")

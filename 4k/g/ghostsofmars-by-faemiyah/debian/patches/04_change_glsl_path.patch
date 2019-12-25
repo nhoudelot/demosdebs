@@ -1,0 +1,10 @@
+--- a/src/quad.frag.glsl.hpp
++++ b/src/quad.frag.glsl.hpp
+@@ -1,6 +1,6 @@
+ static const char *g_shader_fragment_quad = ""
+ #if defined(USE_LD)
+-"quad.frag.glsl"
++"/usr/share/ghostsofmars-by-faemiyah/quad.frag.glsl"
+ #else
+ "#version 430\n"
+ "layout(location=0)uniform sampler2D s;"

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Ghosts of Mars
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2015
+Type=Application
+Exec=/usr/bin/ghostsofmars-by-faemiyah
+Icon=ghostsofmars-by-faemiyah
+Categories=AudioVideo;
+Name[fr_FR]=Ghosts of Mars

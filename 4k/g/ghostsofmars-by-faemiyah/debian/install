@@ -1,0 +1,4 @@
+debian/resources/ghostsofmars-by-faemiyah.desktop usr/share/applications/
+debian/resources/ghostsofmars-by-faemiyah.png usr/share/icons/hicolor/256x256/apps/
+build/ghostsofmars-by-faemiyah usr/bin/
+src/quad.frag.glsl usr/share/ghostsofmars-by-faemiyah/
