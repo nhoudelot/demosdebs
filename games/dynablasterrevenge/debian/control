@@ -13,6 +13,8 @@ Build-Depends:
  pandoc
 Standards-Version: 4.1.4
 Homepage: https://github.com/varnholt/dynablaster_revenge
+Vcs-Browser: https://github.com/varnholt/dynablaster_revenge
+Vcs-Git: https://github.com/varnholt/dynablaster_revenge.git
 
 Package: dynablasterrevenge
 Architecture: any

@@ -1,3 +1,10 @@
+dynablasterrevenge (1.0.2+git20190721-0ddebs1) unstable; urgency=medium
+
+  * sync version to last commit on github (for the moment)
+  * debian/control added Vcs-Browser and Vcs-Git field
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 26 Dec 2019 13:22:27 +0100
+
 dynablasterrevenge (1.0.2-0ddebs2) unstable; urgency=medium
 
   * debian/rules : add lto flags
