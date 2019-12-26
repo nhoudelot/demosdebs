@@ -1,3 +1,11 @@
+textperiment-by-pktteamgenshiken (1.0+git20150726-0ddebs1) bionic; urgency=medium
+
+  * sync version to last commit on github
+  * debian/control added Vcs-Browser and Vcs-Git field
+  * added debian/watch file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 26 Dec 2019 01:40:16 +0100
+
 textperiment-by-pktteamgenshiken (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release
