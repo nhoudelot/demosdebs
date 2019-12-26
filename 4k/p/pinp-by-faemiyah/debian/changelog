@@ -1,3 +1,12 @@
+pinp-by-faemiyah (1.0+git20170414-0ddebs1) unstable; urgency=medium
+
+  * sync version to last commit on github
+  * debian/control added Vcs-Browser and Vcs-Git field
+  * added debian/watch file
+  * added an icon
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 26 Dec 2019 12:47:25 +0100
+
 pinp-by-faemiyah (1.0-0ddebs1) unstable; urgency=low
 
   * Initial release

@@ -1,11 +1,642 @@
 --- a/src/pinp.nsm
 +++ b/src/pinp.nsm
+@@ -104,7 +104,7 @@
+ %else
+ GLOBAL _start
+ %endif
+-	
++
+ ; C:n puolelta
+ ;EXTERN lyapunov, sum, X
+ 
+@@ -186,18 +186,18 @@
+  	stosb
+ 
+ 	loop .loop
+-	
+-	
++
++
+ 	popad
+ 	pop ebp
+ 	ret
+-	
++
+ ;;; tiukka passo!
+ ;;; ecx = kesto sampleinta, ebx = byte 2, edi kohde
+-	
+-basso1:	
++
++basso1:
+  	push edx
+-	
++
+  	mov edx, 550*40		; alkutaajuus
+  	xor eax, eax
+  	mov ax, [ebx*2 + notetable - 2]
+@@ -215,18 +215,18 @@
+ 	mov eax, ebx
+ 	sar eax, 5
+ 	sar ax, 2
+-	
++
+ 	stosw
+ 	loop .bdloop
+ 
+ 	pop edx
+ 	ret
+ ;; 	push edx
+-	
++
+ ;; 	xor edx, edx
+ ;; 	mov dx, [ebx*2 + notetable - 2]
+ ;; 	shr edx, 4
+-	
++
+ ;; 	.bassloop:
+ 
+ ;; 	add ebp, edx
+@@ -272,22 +272,22 @@
+ 
+ ;; 	pop edx
+ ;; 	pop ecx
+-	
++
+ ;; 	ret
+-	
++
+ ;;; tsih
+ 
+ hihat:
+ 	push ecx
+ 	push edi
+-	
++
+ 	mov ecx, 1000
+ 	%ifdef AUTOMAKE
+ 	mov ebx, main
+ 	%else
+ 	mov ebx, _start
+ 	%endif
+-	
++
+ 	.hihatloop
+ 	mov eax, [ebx]
+ 	inc ebx
+@@ -304,7 +304,7 @@
+ 	ret
+ 
+ ;;; per‰ti sinibasari, nyt ollaan porvareita
+-	
++
+ basari:
+ 	push ecx
+ 	push edi
+@@ -334,7 +334,7 @@
+ 	add edi, ecx
+ 
+ 	ret
+-	
++
+ 
+ ;;; snare
+ 
+@@ -375,12 +375,12 @@
+ 
+ padchord:
+ 	pusha
+-.padloop:	
++.padloop:
+ 	push ecx
+ 
+ 	xor eax, eax
+ 	xor ebp, ebp
+-	
++
+ 	mov ecx, 12*5
+ .phatloop:
+ 	;; nouda edx:‰‰n addi tablesta
+@@ -392,29 +392,29 @@
+ 	shr edx, 6			; ja oktaavi sopivaksi
+ 	sub edx, 160000
+ 
+-	bt [ebx*2+padchords], ebp	
++	bt [ebx*2+padchords], ebp
+ 	jc .notee
+ 	xor edx, edx
+ 	sub cl, 3
+-.notee:	
+-	
++.notee:
++
+ 	inc ebp
+-.eiseur:	
+-	;; 
++.eiseur:
++	;;
+ 	add [ecx*4+pad_note_buf], edx
+ 	mov esi, [ecx*4+pad_note_buf]
+ 	sar esi, 21		; ei saa klipata
+ 
+ 	add eax,esi 		; miksaa sekaan
+-	
++
+ 	add edx, 80000	; detunee
+ 
+ 	loop .phatloop
+ 
+-	
++
+ 	stosw
+ 	pop ecx
+-	loop .padloop	
++	loop .padloop
+ 
+ 	popa
+ 	add edi, ecx
+@@ -422,29 +422,29 @@
+ 	ret
+ 
+ ;;;
+-	
+-	
++
++
+ ;;; add channels to mix
+-mix:	
++mix:
+  	mov ecx, 44100*200
+-	pxor mm2, mm2	
+-	.mmx_mix_loop:	
++	pxor mm2, mm2
++	.mmx_mix_loop:
+ 	movq mm0, [ecx+left]
+ 	movq [ecx+left], mm2
+-	
++
+ 	paddsw mm0, [ecx+finalmix] ; add with saturation (word)
+ 	movq [ecx+finalmix], mm0 ; sinne vaan
+ 
+ 	sub ecx, 8
+ 	jnz .mmx_mix_loop
+ 	emms
+-	ret	
++	ret
++
+ 
+-	
+ ;;; edi target, ecx len, ebx num
+ 
+ ;;; t‰‰ on kyl ihan persehest‰
+-	
++
+ vowel:
+ 	;; ensin sarja
+ 	test bl, 0x80
+@@ -462,9 +462,9 @@
+ 	%else
+ 	mov esi, _start		; t‰‰lt‰ noiset
+ 	%endif
+-	
++
+ 	shr ecx, 2
+-	
++
+ 	.noiseloop
+ 
+ 	cmp edx, 0
+@@ -472,7 +472,7 @@
+ 
+ 	dec edx
+ 	jmp short .neenee
+-	
++
+ 	.edx_0:
+ 
+ 	mov edx, ebx
+@@ -499,14 +499,14 @@
+ 
+ 	pop edx
+ 	pop esi
+-	
++
+ 	ret
+ 
+ 	.long:
+ 	pusha
+ 	;; pitk‰‰ vokaalii
+ 	mov ecx, 50
+-	
++
+ 	.seriesloop:
+ 	mov [fputemp], ecx
+ 	fild dword [fputemp]
+@@ -519,7 +519,7 @@
+ ;; 	fstp dword [series + 4*4]
+ 
+ ;; 	jmp .eires
+-	
++
+ 	;; siihen taulukosta resot
+ 	lea esi, [ebx + vtable - 1]
+ 	xor eax, eax
+@@ -527,7 +527,7 @@
+ 	add esi, eax
+ 	je .vloop
+ 	;; todo: find right pos in table
+-	
++
+ 	.vloop:
+ 	xor eax, eax
+ 	mov al, [esi]
+@@ -543,7 +543,7 @@
+ 
+ 	fidiv dword [const_10]
+ 	fstp qword [eax]
+-	
++
+ 	inc esi
+ 
+ 	cmp [esi], byte 0
+@@ -551,7 +551,7 @@
+ 
+ 	.eires:
+ 
+-	popa	
++	popa
+ 
+ 	;; sit syntetisoidaan
+ 
+@@ -561,7 +561,7 @@
+ 	push edi
+ 
+ 	mov [fputemp], dword 0
+-	
++
+ 	;; addaa bufferiin, siniaaltoo
+ 	.vowelinner
+ 
+@@ -595,18 +595,18 @@
+ 
+ 	add edi, ecx
+ 	add edi, ecx
+-	
++
+ 	.vowelohi
+ 	ret
+ 
+ ;;; -----------------------------------------------------------------------------
+ ;;; duunaa yhden ‰‰nen annetuilla parametreilla
+ ;;; esi = ‰‰nen alku, edx = kutsuttava nuottifunkkari
+-	
+-do_voice:	
++
++do_voice:
++
+ 
+ 
+-	
+ 	.voiceloop:
+ 
+ 	mov al, [esi]
+@@ -628,9 +628,9 @@
+ 	mov bl, [esi]
+ 	sub esi, ebx
+ 	loop .voiceloop
+-	
++
+ 	.einewloop:
+-	;; 
++	;;
+ 	dec byte [esi + 5000]
+ 	jz .loopohi
+ 
+@@ -642,9 +642,9 @@
+ 	.loopohi:
+ 	inc esi
+ 	loop .voiceloop
+-	
++
+ 	.eilooppi:
+-	
++
+ 	xor ecx, ecx
+ 	mov cl, al
+ 	imul ecx, TEMPO
+@@ -655,7 +655,7 @@
+ 	cmp bl, 0
+ 
+ 	je .silence
+-	
++
+ 	;; funkkari j‰tt‰‰ edi:n p‰ivitetyksi
+ 	call edx
+ 	loop .voiceloop
+@@ -770,7 +770,7 @@
+ 	fstp	qword	[esp + 0]
+ 	call	glutSolidSphere
+ 	add	esp, 4 * 4
+-	ret	
++	ret
+ 
+ ; Satunnainen rotaatio
+ 
+@@ -1049,7 +1049,7 @@
+ 	fsincos
+ 	faddp	st1, st0
+ 	fmul	dword [num_magneetti_mul]
+-	ret	
++	ret
+ 
+ %define MAGNEETTI_KAYRAT	1
+ 
+@@ -1122,7 +1122,7 @@
+ 	jnz	.bikloop
+ 
+ .loppu:
+-	ret	
++	ret
+ 
+ num_magneetti_mul		dd	0.01
+ num_magneetti_clamp		dd	0.044248
+@@ -1202,10 +1202,10 @@
+ 	jl	.kupla
+ 	call	dword [esi + 3 + 4]
+ 	jmp	short .loop_loppu
+-	
++
+ .kupla:
+ 	call	dword [esi + 3 + 0]
+-	
++
+ .loop_loppu:
+ 	pop	ecx
+ 	loop	.looppi
+@@ -1325,7 +1325,7 @@
+ 
+ ; st2 = X, st1 = sum, st0 = R
+ ; sum = sum * abs(R-2*R*X)
+-	fld	st0	
++	fld	st0
+ 	fmul	st3
+ 	fsub	st1, st0
+ 	fsubp	st1, st0
+@@ -1338,7 +1338,7 @@
+ .iterations_over:
+ ; st1 = X, st0 = sum
+ ; sum = log(sum) / iterations
+-	fldln2		
++	fldln2
+ 	fld	st1
+ 	fyl2x
+ 	fidiv	word [num_lyapunov_iter]
+@@ -1388,7 +1388,7 @@
+ .loppu:
+ 	call	glEnd
+ 	pop	eax
+-	ret	
++	ret
+ 
+ num_lyapunov_seed	dd	0.499999
+ num_lyapunov_xsub	dw	LYAPUNOV_WIDTH / 2 + 1
+@@ -1508,7 +1508,7 @@
+ 	call	func_glRotate3f
+ 	add	edi, 12
+ 	call	func_interpolate_translate
+-	
++
+ .matrixmode:
+ 	push	dword GL_MODELVIEW
+ 	call	glMatrixMode
+@@ -1558,7 +1558,7 @@
+ ;	fidiv	dword [num_fade_div]
+ ;	fstp	dword [esp + 0]
+ ;	loop	.clearloop
+-	
++
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ; Main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @@ -1581,7 +1581,7 @@
  	;call	SDL_SetTimer
  
- ; N√§ytt√∂
+ ; N‰yttˆ
 -	push	dword SDL_HWSURFACE + SDL_OPENGL + SDL_FULLSCREEN
 +	push	dword SDL_HWSURFACE + SDL_OPENGL
  	push	dword SCREEN_B
  	push	dword SCREEN_H
  	push	dword SCREEN_W
+@@ -1599,16 +1599,16 @@
+ 
+ ;;; generoi hunpa ja play
+ 
+-pedopee:	
+-	
++pedopee:
++
+ TEMPO equ 1780
+ 
+-	
+-	
++
++
+ ;;; synthetize muzzach
+ 
+ 	;; runpuja
+-	
++
+  	mov esi, hhsong
+  	mov edx, hihat
+  	mov edi, left + 20000
+@@ -1632,7 +1632,7 @@
+ 	mov edi, left + 20000
+ 	call do_voice
+ 	call mix
+-	
++
+ 	mov edx, padchord
+ 	mov esi, padsong
+ 	mov edi, left + 20000
+@@ -1643,7 +1643,7 @@
+  	mov esi, puhe
+   	mov edi, left + 20000
+  	call do_voice
+-  	call mix		
++  	call mix
+ 
+ 	.eipedo
+ 
+@@ -1656,7 +1656,7 @@
+ 	xor eax, eax
+ 	push eax
+ 	call SDL_PauseAudio
+-	
++
+ ; Viewport 0, 0, w, h
+ 	;push	dword SCREEN_H
+ 	;push	dword SCREEN_W
+@@ -1682,7 +1682,7 @@
+ 	;push	dword GL_NICEST
+ 	;push	dword GL_PERSPECTIVE_CORRECTION_HINT
+ 	;call	glHint
+-	
++
+ ; Vertex ja color array p‰‰lle
+ 	;push	dword GL_VERTEX_ARRAY
+ 	;call	glEnableClientState
+@@ -1705,7 +1705,7 @@
+ 	call	glEnable
+ 	push	dword GL_BLEND
+ 	call	glEnable
+-	
++
+ ; Ei cullauksia
+ 	;push	dword GL_CULL_FACE
+ 	;call	glDisable
+@@ -1751,7 +1751,7 @@
+ 	je	.efu4
+ ;; 	jmp	short .quit ; MEH M÷H MEE
+ 	jmp .quit
+-	
++
+ .efu1:
+ 	push	dword num_linear.sakura
+ 	call	efu_linear
+@@ -1860,7 +1860,7 @@
+ .lyapunov1:
+ 	db 01010101b
+ 	dw 22000
+-	dd 3.835, 3.835 
++	dd 3.835, 3.835
+ .rot2:
+ 	dw 10, -210, -32
+ 	dw 0, 15, 30
+@@ -1963,7 +1963,7 @@
+ 	db	-2,126,49,126,49,78,1,78,1,126
+ 
+ 
+-	
++
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 	;; RUNKUTI RUNKUN
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@@ -1985,7 +1985,7 @@
+  	db 29, 120
+ 
+ 	db 0
+-	
++
+ 	;; N
+ 	db 2, 10
+ 	db 3, 20
+@@ -1995,7 +1995,7 @@
+ 
+ 	db 0
+ 
+-	
++
+ 	;; U
+ 
+ 	db 3, 15
+@@ -2017,7 +2017,7 @@
+ 	db 25, 20
+ 	db 0
+ 
+-	
++
+ 
+ bdconst:
+ 	dd 0.00002
+@@ -2026,7 +2026,7 @@
+ 
+ const_1000:
+ 	dd 2000
+-	
++
+ sineconst:
+ 	dd 0.0177
+ 
+@@ -2062,7 +2062,7 @@
+ 	dw 0000010010000100b	; e
+ 
+ 
+-bdsong:	
++bdsong:
+ 
+ 	db 12, 0x01
+ 	db 12, 0x01
+@@ -2082,19 +2082,19 @@
+ 	db 2, 0x01
+ 
+ 	db 0x80 + 31, 31
+-	
++
+ 	db 0x00
+ 
+ hhsong:
+ 	db 0x02, 0x01
+ 	db 0x02, 0x00
+ 	db 128 + 62, 5
+-	
++
+ 	db 0x02, 0x01
+ 	db 0x02, 0x01
+ 
+ 	db 0x87, 11
+-	
++
+ 	db 0x00
+ 
+ snaresong:
+@@ -2114,10 +2114,10 @@
+ 	db 4, 0x01
+ 
+ 	db 0x80 + 15, 27
+-	
++
+ 	db 0x00
+ 
+-	
++
+ ;;; ‰‰net
+ 
+ padsong:
+@@ -2291,7 +2291,7 @@
+ 	db 0x02, 0x00
+ 	db 0x07, 0xc8
+ 	db 0x03, 0x03
+-	
++
+ 	db 0x02, 0x00
+ 
+ 	;; kudasai
+@@ -2303,7 +2303,7 @@
+ 	db 0x03, 0x04
+ 	db 0x03, 0x01
+ 
+-	db 00	
++	db 00
+ 
+ 	;; StRuctah sdl-audiolle nee
+ audiospec:
+@@ -2345,17 +2345,17 @@
+ 
+ pad_note_buf:
+ 	resd 16*16
+-	
++
+ fputemp:
+ 	resd 100
+ 
+ series:
+ 	resq 50
+-	
++
+ left:
+ 	resw 44100 * 240
+ 
+-	
++
+ finalmix:
+ 	resd 44100 * 240
+ 

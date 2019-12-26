@@ -11,7 +11,9 @@ Build-Depends:
  libsdl1.2-dev,
  freeglut3-dev
 Standards-Version: 4.1.4
-Homepage: https://github.com/faemiyah/faemiyah-demoscene_2004-08_4k-intro_pinp
+Homepage: https://www.pouet.net/prod.php?which=13065
+Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2004-08_4k-intro_pinp
+Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2004-08_4k-intro_pinp.git
 
 Package: pinp-by-faemiyah
 Architecture: i386
