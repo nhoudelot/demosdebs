@@ -11,31 +11,41 @@
  #include <unistd.h>
 --- a/src/dnload.h
 +++ b/src/dnload.h
-@@ -25,9 +25,9 @@
- #include "GL/glu.h"
- #include "SDL/SDL.h"
+@@ -38,10 +38,10 @@
+ #include "GLES2/gl2.h"
+ #include "GLES2/gl2ext.h"
  #else
 -#include "GL/glew.h"
 -#include "GL/glu.h"
--#include "SDL.h"
 +#include <GL/glew.h>
 +#include <GL/glu.h>
+ #endif
+-#include "SDL.h"
 +#include <SDL2/SDL.h>
  #endif
  #include "bsd_rand.h"
  #else
-@@ -116,6 +116,11 @@
- #define dnload_glBindTexture glBindTexture
- #define dnload_glRects glRects
+@@ -147,6 +147,11 @@
+ #define dnload_SDL_PauseAudio SDL_PauseAudio
+ #define dnload_glAttachShader glAttachShader
  #define dnload_SDL_SetVideoMode SDL_SetVideoMode
 +#define dnload_SDL_CreateWindow SDL_CreateWindow
 +#define dnload_SDL_GL_CreateContext SDL_GL_CreateContext
 +#define dnload_SDL_GL_SwapWindow SDL_GL_SwapWindow
 +#define dnload_SDL_GL_DeleteContext SDL_GL_DeleteContext
 +#define dnload_SDL_DestroyWindow SDL_DestroyWindow
- #define dnload_glCreateShader glCreateShader
- #define dnload_SDL_ShowCursor SDL_ShowCursor
- #define dnload_SDL_GL_SwapBuffers SDL_GL_SwapBuffers
+ #define dnload_SDL_OpenAudio SDL_OpenAudio
+ #define dnload_glUniform1i glUniform1i
+ #define dnload_SDL_PollEvent SDL_PollEvent
+@@ -467,7 +472,7 @@
+               const uint32_t* hashval = chain_zero + bkt;
+               do {
+                 ++dynsymcount;
+-              } while(0 == (*hashval++ & 1u));              
++              } while(0 == (*hashval++ & 1u));
+             }
+           }
+         }
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
 @@ -150,6 +150,9 @@
