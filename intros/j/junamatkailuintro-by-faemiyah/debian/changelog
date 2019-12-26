@@ -1,3 +1,11 @@
+junamatkailuintro-by-faemiyah (1.0+git20170414-0ddebs1) unstable; urgency=medium
+
+  * sync version to last commit on github
+  * debian/control added Vcs-Browser and Vcs-Git field
+  * added debian/watch file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 26 Dec 2019 02:23:23 +0100
+
 junamatkailuintro-by-faemiyah (1.0-0ddebs2) unstable; urgency=medium
 
   * Migrate to SDL2

@@ -1,9 +1,9 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -115,3 +115,6 @@
+@@ -115,4 +115,6 @@
+   target_link_libraries(junamatkailuintro ${BOOST_PROGRAM_OPTIONS_LIBRARY})
+   target_link_libraries(junamatkailuintro ${PNG_LIBRARY})
+   target_link_libraries(junamatkailuintro ${SDL_LIBRARY})
++  # remove the CMake generated '-Wl,-rpath'
++  set_target_properties(junamatkailuintro PROPERTIES SKIP_BUILD_RPATH 1)
  endif()
- target_link_libraries(junamatkailuintro general ${PNG_LIBRARY})
- target_link_libraries(junamatkailuintro general ${SDL_LIBRARY})
-+
-+# remove the CMake generated '-Wl,-rpath'
-+set_target_properties(junamatkailuintro PROPERTIES SKIP_BUILD_RPATH 1)

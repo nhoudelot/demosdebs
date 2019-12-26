@@ -11,7 +11,9 @@ Build-Depends:
  libsdl2-dev,
  pandoc
 Standards-Version: 4.1.4
-Homepage: https://github.com/faemiyah/faemiyah-demoscene_2015-04_64k-intro_junamatkailuintro
+Homepage: https://www.pouet.net/prod.php?which=65374
+Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2015-04_64k-intro_junamatkailuintro
+Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2015-04_64k-intro_junamatkailuintro.git
 
 Package: junamatkailuintro-by-faemiyah
 Architecture: any
