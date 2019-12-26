@@ -1,3 +1,11 @@
+lavos-by-faemiyah (1.0+git20170414-0ddebs1) unstable; urgency=medium
+
+  * sync version to last commit on github
+  * debian/control added Vcs-Browser and Vcs-Git field
+  * debian/watch changed to use last commit for the moment
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 26 Dec 2019 23:20:37 +0100
+
 lavos-by-faemiyah (1.0+1-0ddebs2) unstable; urgency=medium
 
   * migrate to SDL2

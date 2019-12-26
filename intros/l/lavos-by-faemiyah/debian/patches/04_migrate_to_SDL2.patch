@@ -51,43 +51,43 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include "bsd_rand.h"
  #else
 @@ -89,7 +89,7 @@
- 	void (DNLOADAPIENTRY *glShaderSource)(GLuint, GLsizei, const GLchar*const*, const GLint*);
- 	GLint (DNLOADAPIENTRY *glGetUniformLocation)(GLuint, const GLchar*);
- 	void (DNLOADAPIENTRY *glRects)(GLshort, GLshort, GLshort, GLshort);
--	SDL_Surface* (*SDL_SetVideoMode)(int, int, int, Uint32);
-+	SDL_Window* (*SDL_CreateWindow)(const char*, int, int, int, int, Uint32);
- 	void (DNLOADAPIENTRY *glBindFramebuffer)(GLenum, GLuint);
- 	void (DNLOADAPIENTRY *glDrawArrays)(GLenum, GLint, GLsizei);
- 	void (DNLOADAPIENTRY *glClearColor)(GLclampf, GLclampf, GLclampf, GLclampf);
+   void (DNLOADAPIENTRY *glShaderSource)(GLuint, GLsizei, const GLchar*const*, const GLint*);
+   GLint (DNLOADAPIENTRY *glGetUniformLocation)(GLuint, const GLchar*);
+   void (DNLOADAPIENTRY *glRects)(GLshort, GLshort, GLshort, GLshort);
+-  SDL_Surface* (*SDL_SetVideoMode)(int, int, int, Uint32);
++  SDL_Window* (*SDL_CreateWindow)(const char*, int, int, int, int, Uint32);
+   void (DNLOADAPIENTRY *glBindFramebuffer)(GLenum, GLuint);
+   void (DNLOADAPIENTRY *glDrawArrays)(GLenum, GLint, GLsizei);
+   void (DNLOADAPIENTRY *glClearColor)(GLclampf, GLclampf, GLclampf, GLclampf);
 @@ -109,7 +109,7 @@
- 	void (DNLOADAPIENTRY *glUniformMatrix3fv)(GLint, GLsizei, GLboolean, const GLfloat*);
- 	void (DNLOADAPIENTRY *glViewport)(GLint, GLint, GLsizei, GLsizei);
- 	void (DNLOADAPIENTRY *glTexImage2DMultisample)(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLboolean);
--	void (*SDL_GL_SwapBuffers)(void);
-+	void (*SDL_GL_SwapWindow)(SDL_Window*);
- 	void (DNLOADAPIENTRY *glGenFramebuffers)(GLsizei, GLuint*);
- 	int (*SDL_Init)(Uint32);
- 	void (DNLOADAPIENTRY *glTexParameteri)(GLenum, GLenum, GLint);
+   void (DNLOADAPIENTRY *glUniformMatrix3fv)(GLint, GLsizei, GLboolean, const GLfloat*);
+   void (DNLOADAPIENTRY *glViewport)(GLint, GLint, GLsizei, GLsizei);
+   void (DNLOADAPIENTRY *glTexImage2DMultisample)(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLboolean);
+-  void (*SDL_GL_SwapBuffers)(void);
++  void (*SDL_GL_SwapWindow)(SDL_Window*);
+   void (DNLOADAPIENTRY *glGenFramebuffers)(GLsizei, GLuint*);
+   int (*SDL_Init)(Uint32);
+   void (DNLOADAPIENTRY *glTexParameteri)(GLenum, GLenum, GLint);
 @@ -140,7 +140,7 @@
- 	(void (DNLOADAPIENTRY *)(GLuint, GLsizei, const GLchar*const*, const GLint*)) 0xc609c385,
- 	(GLint (DNLOADAPIENTRY *)(GLuint, const GLchar*)) 0x25c12218,
- 	(void (DNLOADAPIENTRY *)(GLshort, GLshort, GLshort, GLshort)) 0xd419e20a,
--	(SDL_Surface* (*)(int, int, int, Uint32)) 0x39b85060,
-+	(SDL_Window* (*)(const char*, int, int, int, int, Uint32)) 0x39b85060,
- 	(void (DNLOADAPIENTRY *)(GLenum, GLuint)) 0xa0fdff6b,
- 	(void (DNLOADAPIENTRY *)(GLenum, GLint, GLsizei)) 0xcb871c63,
- 	(void (DNLOADAPIENTRY *)(GLclampf, GLclampf, GLclampf, GLclampf)) 0x8c118fbb,
+   (void (DNLOADAPIENTRY *)(GLuint, GLsizei, const GLchar*const*, const GLint*))0xc609c385,
+   (GLint (DNLOADAPIENTRY *)(GLuint, const GLchar*))0x25c12218,
+   (void (DNLOADAPIENTRY *)(GLshort, GLshort, GLshort, GLshort))0xd419e20a,
+-  (SDL_Surface* (*)(int, int, int, Uint32))0x39b85060,
++  (SDL_Window* (*)(const char*, int, int, int, int, Uint32)) 0x39b85060,
+   (void (DNLOADAPIENTRY *)(GLenum, GLuint))0xa0fdff6b,
+   (void (DNLOADAPIENTRY *)(GLenum, GLint, GLsizei))0xcb871c63,
+   (void (DNLOADAPIENTRY *)(GLclampf, GLclampf, GLclampf, GLclampf))0x8c118fbb,
 @@ -160,7 +160,7 @@
- 	(void (DNLOADAPIENTRY *)(GLint, GLsizei, GLboolean, const GLfloat*)) 0x50a8d153,
- 	(void (DNLOADAPIENTRY *)(GLint, GLint, GLsizei, GLsizei)) 0xecca892b,
- 	(void (DNLOADAPIENTRY *)(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLboolean)) 0x732f22f8,
--	(void (*)(void)) 0xda43e6ea,
-+	(void (*)(SDL_Window*)) 0xda43e6ea,
- 	(void (DNLOADAPIENTRY *)(GLsizei, GLuint*)) 0xb1503371,
- 	(int (*)(Uint32)) 0x70d6574,
- 	(void (DNLOADAPIENTRY *)(GLenum, GLenum, GLint)) 0xdefef0c2,
+   (void (DNLOADAPIENTRY *)(GLint, GLsizei, GLboolean, const GLfloat*))0x50a8d153,
+   (void (DNLOADAPIENTRY *)(GLint, GLint, GLsizei, GLsizei))0xecca892b,
+   (void (DNLOADAPIENTRY *)(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLboolean))0x732f22f8,
+-  (void (*)(void))0xda43e6ea,
++  (void (*)(SDL_Window*)) 0xda43e6ea,
+   (void (DNLOADAPIENTRY *)(GLsizei, GLuint*))0xb1503371,
+   (int (*)(Uint32))0x70d6574,
+   (void (DNLOADAPIENTRY *)(GLenum, GLenum, GLint))0xdefef0c2,
 @@ -175,6 +175,8 @@
- 	NULL
+   NULL
  };
  
 +SDL_Window *window;
@@ -95,56 +95,211 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  /** \brief Perform init.
   *
   * \param screen_w Screen width definition.
-@@ -185,9 +187,8 @@
+@@ -185,8 +187,8 @@
  {
  #if defined(USE_LD)
- 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
--	SDL_SetVideoMode(screen_w, screen_h, 0, SDL_OPENGL | (flag_fullscreen ? SDL_FULLSCREEN : 0));
--	SDL_WM_SetCaption("Lavos by Faemiyah",NULL);
--
-+	window = SDL_CreateWindow("Lavos by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,screen_w,screen_h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL| (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
-+	SDL_GLContext glcontext = SDL_GL_CreateContext(window);
- 	{
- 		GLenum err = glewInit();
+   SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-  SDL_SetVideoMode(screen_w, screen_h, 0, SDL_OPENGL | (flag_fullscreen ? SDL_FULLSCREEN : 0));
+-  SDL_WM_SetCaption("Lavos by Faemiyah",NULL);
++ window = SDL_CreateWindow("Lavos by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,screen_w,screen_h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL| (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++  SDL_GLContext glcontext = SDL_GL_CreateContext(window);
  
-@@ -212,7 +213,7 @@
- 	g_sym.glShaderSource = glShaderSource;
- 	g_sym.glGetUniformLocation = glGetUniformLocation;
- 	g_sym.glRects = glRects;
--	g_sym.SDL_SetVideoMode = SDL_SetVideoMode;
-+	g_sym.SDL_CreateWindow = SDL_CreateWindow;
- 	g_sym.glBindFramebuffer = glBindFramebuffer;
- 	g_sym.glDrawArrays = glDrawArrays;
- 	g_sym.glClearColor = glClearColor;
-@@ -232,7 +233,7 @@
- 	g_sym.glUniformMatrix3fv = glUniformMatrix3fv;
- 	g_sym.glViewport = glViewport;
- 	g_sym.glTexImage2DMultisample = glTexImage2DMultisample;
--	g_sym.SDL_GL_SwapBuffers = SDL_GL_SwapBuffers;
-+	g_sym.SDL_GL_SwapWindow = SDL_GL_SwapWindow;
- 	g_sym.glGenFramebuffers = glGenFramebuffers;
- 	g_sym.SDL_Init = SDL_Init;
- 	g_sym.glTexParameteri = glTexParameteri;
+   {
+     GLenum err = glewInit();
+@@ -212,7 +214,7 @@
+   g_sym.glShaderSource = glShaderSource;
+   g_sym.glGetUniformLocation = glGetUniformLocation;
+   g_sym.glRects = glRects;
+-  g_sym.SDL_SetVideoMode = SDL_SetVideoMode;
++  g_sym.SDL_CreateWindow = SDL_CreateWindow;
+   g_sym.glBindFramebuffer = glBindFramebuffer;
+   g_sym.glDrawArrays = glDrawArrays;
+   g_sym.glClearColor = glClearColor;
+@@ -232,7 +234,7 @@
+   g_sym.glUniformMatrix3fv = glUniformMatrix3fv;
+   g_sym.glViewport = glViewport;
+   g_sym.glTexImage2DMultisample = glTexImage2DMultisample;
+-  g_sym.SDL_GL_SwapBuffers = SDL_GL_SwapBuffers;
++  g_sym.SDL_GL_SwapWindow = SDL_GL_SwapWindow;
+   g_sym.glGenFramebuffers = glGenFramebuffers;
+   g_sym.SDL_Init = SDL_Init;
+   g_sym.glTexParameteri = glTexParameteri;
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
+@@ -464,7 +464,7 @@
+   {
+     std::string info_log = get_info_log(ret);
+     GLint compile_status;
+-      
++
+     if(0 < info_log.length())
+     {
+       std::cout << *this << std::endl << info_log;
+@@ -579,7 +579,7 @@
+ 
+     /** \brief Use this program.
+      *
+-     * @param 
++     * @param
+      */
+     void use();
+ 
+@@ -861,7 +861,7 @@
+ "const vec4 Q=vec4(.0025,.1,1.5,.01);";
+ 
+ /** \brief Force function for moelli.
+- * 
++ *
+  * l2 (now "d") is a bit complicated, as what we are trying to do is to have
+  * the map affect stuff directly downward (-z). For this purpose, we find that
+  * h is the height level of the ball surface above the pixel and then the
+@@ -1180,7 +1180,7 @@
+ "break;"
+ "}"
+ "c=n;"
+-"D=mix(Q.x,Q.y,clamp(N,.0,Q.z));" 
++"D=mix(Q.x,Q.y,clamp(N,.0,Q.z));"
+ "}"
+ "o=vec4(s(p+d,n,N,i),1);"
+ "}";
+@@ -2007,7 +2007,7 @@
+ 
+ void Character::feed(Program &prg, const float *params) const
+ {
+-  prg.uniform4fv('R', m_limits); 
++  prg.uniform4fv('R', m_limits);
+   prg.uniform4fv('S', params);
+   prg.vertexAttribPointer2f('a', m_points);
+   g_sym.glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_num_points));
+@@ -2028,7 +2028,7 @@
+   {
+     static const float ARC_MUL = static_cast<float>(M_PI) / static_cast<float>(CHARACTER_FIDELITY);
+     unsigned ii;
+-    
++
+     for(ii = 0; (ii < CHARACTER_FIDELITY); ++ii)
+     {
+       float angle1 = static_cast<float>(ii + 0) * ARC_MUL;
+@@ -3159,7 +3159,7 @@
+         }
+       }
+     }
+- 
++
+     current_fbo_width = common::clrintf(static_cast<float>(g_screen_w) * fbo_multiplier);
+     current_fbo_height = common::clrintf(static_cast<float>(g_screen_h) * fbo_multiplier);
+ 
+@@ -3315,13 +3315,13 @@
+     157-15, 20,  -5,
+     157-10, 30,  -5,
+     157+0,  40,  -5,
+-    157+0,  -15, 0, 
++    157+0,  -15, 0,
+     157+0,  15,  0,
+-    157-3,  -7,  0, 
++    157-3,  -7,  0,
+     157-3,  7,   0,
+-    157+4,  0,   0, 
++    157+4,  0,   0,
+     157-4,  0,   0,
+-    157+3,  -7,  0, 
++    157+3,  -7,  0,
+     157+3,  7,   0
+   };
+ 
+@@ -3366,7 +3366,7 @@
+         float z1;
+         float z2;
+         float alpha;
+-        
++
+         x1 = sinf(temp1) * cosf(temp2);
+         x2 = sinf(g_moelli_spike_ll[kk * 3 + 0]) * cosf(g_moelli_spike_ll[kk * 3 + 1]);
+         y1 = sinf(temp1) * sinf(temp2);
 @@ -3595,7 +3595,7 @@
  
- 			draw(ticks);
- 			write_frame_callback(static_cast<unsigned>(g_screen_w), static_cast<unsigned>(g_screen_h), frame_idx);
--			SDL_GL_SwapBuffers();
-+			SDL_GL_SwapWindow(window);
- 			++frame_idx;
- 		}
+       draw(ticks);
+       write_frame_callback(static_cast<unsigned>(g_screen_w), static_cast<unsigned>(g_screen_h), frame_idx);
+-      SDL_GL_SwapBuffers();
++      SDL_GL_SwapWindow(window);
+       ++frame_idx;
+     }
  
+@@ -3611,9 +3611,9 @@
+     g_sym.SDL_OpenAudio(&audio_spec, NULL);
+     g_sym.SDL_PauseAudio(0);
+   }
+-  
++
+ #if defined(USE_LD)
+-  starttick = SDL_GetTicks();	
++  starttick = SDL_GetTicks();
+ #endif
+ 
+   for(;;)
+@@ -3754,7 +3754,7 @@
+             case SDLK_COMMA:
+               noise_params[7] = 1;
+               break;
+-              
++
+             case SDLK_PERIOD:
+               noise_params[8] = 1;
+               break;
+@@ -3763,7 +3763,7 @@
+             case SDLK_RSHIFT:
+               move_speed = 0.02;
+               noise_param_mul = -1.0;
+-              break;            
++              break;
+ 
+             case SDLK_LALT:
+               time = -static_cast<float>(AUDIO_BYTERATE / DESIRED_FRAMERATE);
+@@ -3841,7 +3841,7 @@
+             case SDLK_COMMA:
+               noise_params[7] = 0;
+               break;
+-              
++
+             case SDLK_PERIOD:
+               noise_params[8] = 0;
+               break;
+@@ -3850,7 +3850,7 @@
+             case SDLK_RSHIFT:
+               move_speed = 0.002;
+               noise_param_mul = 1.0;
+-              break;            
++              break;
+ 
+             case SDLK_MODE:
+             case SDLK_LALT:
+@@ -3917,7 +3917,7 @@
+         g_up_x = rt_y * g_fw_z - rt_z * g_fw_y;
+         g_up_y = rt_z * g_fw_x - rt_x * g_fw_z;
+         g_up_z = rt_x * g_fw_y - rt_y * g_fw_x;
+-        
++
+         uplen = sqrt(g_up_x * g_up_x + g_up_y * g_up_y + g_up_z * g_up_z);
+         g_up_x /= uplen;
+         g_up_y /= uplen;
+@@ -3949,7 +3949,7 @@
+           double new_fw_x2 = ca * g_fw_x + sa * g_up_x;
+           double new_fw_y2 = ca * g_fw_y + sa * g_up_y;
+           double new_fw_z2 = ca * g_fw_z + sa * g_up_z;
+-          
++
+           g_up_x = ca * g_up_x - sa * g_fw_x;
+           g_up_y = ca * g_up_y - sa * g_fw_y;
+           g_up_z = ca * g_up_z - sa * g_fw_z;
 @@ -4048,7 +4048,7 @@
  #endif
  
- 		draw(currtick);
--		g_sym.SDL_GL_SwapBuffers();
-+		g_sym.SDL_GL_SwapWindow(window);
- 	}
+     draw(currtick);
+-    g_sym.SDL_GL_SwapBuffers();
++    g_sym.SDL_GL_SwapWindow(window);
+   }
  
- 	g_sym.SDL_Quit();
+   g_sym.SDL_Quit();
 --- a/src/main.cpp
 +++ b/src/main.cpp
 @@ -12,8 +12,7 @@
