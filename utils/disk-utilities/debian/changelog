@@ -1,3 +1,12 @@
+disk-utilities (1:0.0+git20191218-0ddebs1) unstable; urgency=medium
+
+  * New sync with git
+  * debian/control added Vcs-Browser and Vcs-Git field
+  * updated to standard version 4.1.4
+  * debian/watch changed to use last commit
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 Dec 2019 20:40:16 +0100
+
 disk-utilities (1:0.0+git20190712-0ddebs2) unstable; urgency=medium
 
   * Removed some unused compilation flags

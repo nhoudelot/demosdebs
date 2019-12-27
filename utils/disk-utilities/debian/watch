@@ -1,4 +1,8 @@
 version=4
- opts="mode=git,compression=xz,repack,filenamemangle=s/@PACKAGE@@ANY_VERSION@@ARCHIVE_EXT@/@PACKAGE@-$1@ARCHIVE_EXT@/" \
- https://github.com/keirf/Disk-Utilities.git \
-HEAD debian uupdate
+opts="uversionmangle=s/.*date=(\d{4})-(\d\d)-(\d\d)T.*/0.0+git$1$2$3/, \
+    filenamemangle=s/.*date=(\d{4})-(\d\d)-(\d\d)T.*/0.0+git$1$2$3.tar.gz/, \
+    repack,compression=xz" \
+    https://qa.debian.org/cgi-bin/fakeupstream.cgi?upstream=github_commits_package_json/keirf/Disk-Utilities \
+    .*/archive/(.*@ARCHIVE_EXT@?.*) \
+    debian uupdate
+

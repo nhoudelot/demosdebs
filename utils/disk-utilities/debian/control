@@ -5,8 +5,10 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 9),
  libcapsimage5-dev
-Standards-Version: 4.1.2
+Standards-Version: 4.1.4
 Homepage: https://github.com/keirf/Disk-Utilities
+Vcs-Browser: https://github.com/keirf/Disk-Utilities
+Vcs-Git: https://github.com/keirf/Disk-Utilities.git
 
 Package: libdisk-dev
 Section: libdevel

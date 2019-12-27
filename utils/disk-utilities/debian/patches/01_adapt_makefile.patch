@@ -130,10 +130,28 @@
  all: $(TARGETS)
  
  scp_dump: scp.o scp_dump.o
-+	$(CC) -flto $(LDFLAGS) scp.o scp_dump.o -o scp_dump
++	$(CC) $(CFLAGS) -flto $(LDFLAGS) scp.o scp_dump.o -o scp_dump
  
  scp_write: scp.o scp_write.o
-+	$(CC) -flto $(LDFLAGS) scp.o scp_write.o -o scp_write
++	$(CC) $(CFLAGS) -flto $(LDFLAGS) scp.o scp_write.o -o scp_write
  
  install: all
  ifneq ($(TARGETS),)
+--- a/disk-analyse/Makefile
++++ b/disk-analyse/Makefile
+@@ -3,13 +3,13 @@
+ 
+ TARGET := disk-analyse
+ 
+-LIBS := -L../libdisk -ldisk
++LDFLAGS += -L../libdisk -ldisk
+ 
+ all:
+ 	$(MAKE) $(TARGET)
+ 
+ disk-analyse: disk-analyse.o config.o
+-	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
++	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+ 
+ install: all
+ 	$(INSTALL_DIR) $(BINDIR)
