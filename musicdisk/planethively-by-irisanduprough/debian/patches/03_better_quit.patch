@@ -1,0 +1,33 @@
+--- a/main.c
++++ b/main.c
+@@ -805,15 +805,13 @@
+           switch( event.key.keysym.sym )
+           {
+ #ifndef __FULLSCREEN_ONLY__
+-            case 'f':
+-            case 'F':
++            case SDLK_f:
+             case SDLK_RETURN:	// was going to use alt-return, but since return isn't doing anything else..
+               SDL_SetWindowFullscreen( sdlWindow,1 );
+               break;
+ #endif
+ 
+-            case 'p':
+-            case 'P':
++            case SDLK_p:
+               paused ^= 1;
+               SDL_PauseAudio( paused );
+               break;
+@@ -834,7 +832,11 @@
+ //              else
+               done = 1;
+               break;
+-            
++
++	    case SDLK_q:
++              done = 1;
++              break;
++
+             default:
+               break;
+           }

@@ -1,3 +1,14 @@
+planethively-by-irisanduprough (1.0+git20170506-0ddebs1) unstable; urgency=medium
+
+  * sync with git
+  * debian/watch changed to use last commit
+  * debian/control added Vcs-Browser and Vcs-Git field
+  * Migrate to SDL2
+  * q key to quit
+  * better fullscreen behave
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Dec 2019 14:46:32 +0100
+
 planethively-by-irisanduprough (1.0+1-0ddebs1) unstable; urgency=medium
 
   * sources to utf-8

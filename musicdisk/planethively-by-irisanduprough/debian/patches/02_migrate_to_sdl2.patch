@@ -1,0 +1,171 @@
+--- a/fonts.c
++++ b/fonts.c
+@@ -1,4 +1,4 @@
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ Uint8 fontbig[] =
+ {
+--- a/main.c
++++ b/main.c
+@@ -3,7 +3,7 @@
+ #include <stdio.h>
+ #include <time.h>
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #ifdef __XBOX__
+ #include <hal/xbox.h>
+@@ -56,7 +56,11 @@
+ extern int tbon, tbclos, tbpressed;
+ #endif
+ 
++SDL_Window *sdlWindow;
++SDL_Renderer *sdlRenderer;
+ SDL_Surface *screen;
++SDL_Surface* sdlSurface;
++SDL_Texture *sdlTexture;
+ int ctune = 0;
+ int dragger=0, enddragger, dragx, dragy;
+ int wdragger=0;
+@@ -483,12 +487,12 @@
+ #endif
+   
+ #ifdef __SW_SURFACE__
+-  flags = SDL_SWSURFACE|SDL_FULLSCREEN;
++  flags = SDL_WINDOW_FULLSCREEN;
+ #else
+   #ifdef __HW_ONLY_WINDOWED__
+-    flags = SDL_SWSURFACE|SDL_FULLSCREEN;
++    flags = SDL_WINDOW_FULLSCREEN;
+   #else
+-    flags = SDL_HWSURFACE|SDL_FULLSCREEN|SDL_DOUBLEBUF;
++    flags = SDL_WINDOW_FULLSCREEN;
+   #endif
+ #endif
+ 
+@@ -501,7 +505,7 @@
+       {
+ #ifndef __FULLSCREEN_ONLY__
+         case 'w':
+-          flags &= ~SDL_FULLSCREEN;
++          flags &= ~SDL_WINDOW_FULLSCREEN;
+ #ifdef __HW_ONLY_WINDOWED__
+           flags &= ~SDL_SWSURFACE;
+           flags |= SDL_HWSURFACE;
+@@ -537,7 +541,11 @@
+   }
+ #endif
+ 
+-  screen = SDL_SetVideoMode( sw, sh, BITSPERPIXEL, flags );
++  sdlWindow = SDL_CreateWindow("Planet Hively",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,sw,sh,flags);
++  sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++  sdlSurface = SDL_CreateRGBSurfaceWithFormat(0, sw, sh, 32,SDL_PIXELFORMAT_BGRA32);
++  screen = SDL_CreateRGBSurfaceWithFormat(0, sw, sh, BITSPERPIXEL,SDL_PIXELFORMAT_RGB565); //video buffer
++  sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,screen);// texture from video buffer
+   if( !screen )
+   {
+ #ifdef __XBOX__
+@@ -549,7 +557,6 @@
+     return 0;
+   }
+   
+-  SDL_WM_SetCaption( "Planet Hively", 0 );
+   SDL_ShowCursor( SDL_DISABLE );
+   
+   if( !render_init() ) return 0;
+@@ -576,7 +583,7 @@
+   }
+   
+ #ifndef __BROKEN_SDL_TIMER__
+-  timer = SDL_AddTimer(FPSTIME, (SDL_NewTimerCallback)timing, 0 );
++  timer = SDL_AddTimer(FPSTIME, (SDL_TimerCallback)timing, 0 );
+ #endif
+ 
+   hvl_InitReplayer();
+@@ -801,7 +808,7 @@
+             case 'f':
+             case 'F':
+             case SDLK_RETURN:	// was going to use alt-return, but since return isn't doing anything else..
+-              SDL_WM_ToggleFullScreen( screen );
++              SDL_SetWindowFullscreen( sdlWindow,1 );
+               break;
+ #endif
+ 
+--- a/makefile
++++ b/makefile
+@@ -437,7 +437,7 @@
+ # I386 Linux
+ ifeq ($(PLATFORM),linux)
+ CFLAGS += -D__EMBED_TUNES__
+-LDFLAGS += -lSDL -lm
++LDFLAGS += -lSDL2 -lm
+ endif
+ 
+ # QNX 6.x
+--- a/render.c
++++ b/render.c
+@@ -3,7 +3,7 @@
+ #include <math.h>
+ #include <string.h>
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include "types.h"
+ #include "shapes.h"
+@@ -13,6 +13,9 @@
+ #include "hvl_replay.h"
+ 
+ extern SDL_Surface *screen;
++extern SDL_Renderer *sdlRenderer;
++extern SDL_Surface* sdlSurface;
++extern SDL_Texture *sdlTexture;
+ extern int clicked, clickx, clicky;
+ extern struct hvl_tune *tune;
+ extern int ctune, paused;
+@@ -2127,8 +2130,11 @@
+   if( SDL_MUSTLOCK( screen ) )
+     SDL_UnlockSurface( screen );
+   
+-  SDL_Flip( screen );
+-  
++  sdlSurface = SDL_ConvertSurface(screen,sdlSurface->format,0);
++  SDL_UpdateTexture(sdlTexture, NULL, sdlSurface->pixels, sdlSurface->pitch);
++  SDL_RenderClear(sdlRenderer);
++  SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++  SDL_RenderPresent(sdlRenderer);
+   return finished;
+ }
+ 
+--- a/scrollbox.c
++++ b/scrollbox.c
+@@ -1,4 +1,4 @@
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ Uint8 sboxtop[] =
+ {
+--- a/shapes.c
++++ b/shapes.c
+@@ -4,7 +4,7 @@
+ #include <math.h>
+ #include <string.h>
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include "types.h"
+ #include "shapes.h"
+--- a/text.c
++++ b/text.c
+@@ -4,7 +4,7 @@
+ #include <math.h>
+ #include <string.h>
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include "types.h"
+ #include "shapes.h"

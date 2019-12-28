@@ -10,7 +10,7 @@
  # PLATFORM = aros
  # PLATFORM = aros64
  # PLATFORM = ppc-aros
-@@ -79,484 +80,505 @@
+@@ -80,491 +81,513 @@
  
  ####### DEFAULT SETTINGS HERE #######
  
@@ -43,6 +43,7 @@
 + NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + MAKEFLAGS += -j$(NUMJOBS)
 +endif
++
 +
  ####### PLATFORM SPECIFIC STUFF HERE #######
  
@@ -427,8 +428,8 @@
  # I386 Linux
  ifeq ($(PLATFORM),linux)
 -LFLAGS += -lSDL -lm
-+CFLAGS += $(shell sdl-config --cflags) -D__EMBED_TUNES__ -D__SURFACE32__ -std=gnu90
-+LDFLAGS += $(shell sdl-config --libs) -lm
++CFLAGS += -D__EMBED_TUNES__
++LDFLAGS += -lSDL -lm
  endif
  
  # QNX 6.x
@@ -593,12 +594,20 @@
  CC=arm-linux-gcc
  endif
  
+ # Pandora with ptitSeb's Code::Blocks
+ ifeq ($(PLATFORM),pandora)
+ CFLAGS = -Ofast -pipe -mcpu=cortex-a8 -mfpu=neon -ftree-vectorize -mfloat-abi=softfp -fsingle-precision-constant -fuse-ld=gold -fuse-linker-plugin -fdiagnostics-color=auto -fsigned-char -mneon-for-64bits -mvectorize-with-neon-double -D__EMBED_TUNES__
+-LFLAGS = -lSDL -lm
++LDFLAGS = -lSDL -lm
+ CC = /mnt/utmp/codeblocks/usr/bin/gcc
+ endif
+ 
 +export
 +
  ####### SHOULDN'T HAVE TO CHANGE THIS STUFF #######
  
  all: $(TARGET)
-@@ -576,28 +598,33 @@
+@@ -584,28 +607,33 @@
  	cxbe -OUT:planethively.xbe -DUMPINFO:hively.txt -TITLE:PlanetHively planethively.exe
  
  $(TARGET): main.o hvl_replay.o shapes.o render.o fonts.o text.o scrollbox.o
