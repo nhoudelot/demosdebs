@@ -1,3 +1,9 @@
+heartburn-by-thetourist (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * migrate to SDL2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Dec 2019 19:42:11 +0100
+
 heartburn-by-thetourist (1.0+1-0ddebs1) unstable; urgency=medium
 
   * cleanup makefile
