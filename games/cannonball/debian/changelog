@@ -1,3 +1,10 @@
+cannonball (0.3+git20191023-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/watch changed to use last commit
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 Dec 2019 23:02:36 +0100
+
 cannonball (0.3+git20171201-0ddebs4) unstable; urgency=medium
 
   * update debian/rules

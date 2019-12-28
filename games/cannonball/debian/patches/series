@@ -1,3 +1,3 @@
-01_adapt_to_debian.diff
-02_move_rom_directory.diff
-03_spelling_errors.diff
+01_adapt_to_debian.patch
+02_move_rom_directory.patch
+03_spelling_errors.patch
