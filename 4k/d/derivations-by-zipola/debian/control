@@ -6,7 +6,7 @@ Build-Depends:
  debhelper (>=9),
  pandoc,
  pkgconf,
- libsdl1.2-dev
+ libsdl2-dev
 Standards-Version: 4.1.4
 Homepage: https://www.pouet.net/prod.php?which=56200
 
@@ -15,5 +15,16 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Demo for Linux, released in 2010
- Demo by zipola, released in 2010
+Description: 4k intro for Linux, released in 2010
+ 4k intro by zipola, released in 2010
+ Derivations
+ ***********
+ .
+ by zipola (Tuomo Sipola)
+ .
+ * Linux
+ * C code compiled with gcc
+ * uses SDL and SDL_opengl
+ * 4k
+ .
+ Made for Instanssi I/2010
