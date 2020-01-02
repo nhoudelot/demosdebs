@@ -1,6 +1,6 @@
 --- a/GNUmakefile
 +++ b/GNUmakefile
-@@ -814,6 +814,16 @@
+@@ -894,6 +894,16 @@
      editor \
  
  
@@ -17,11 +17,11 @@
  ifeq ($(PRETTY_OUTPUT),1)
  .SILENT:
  endif
-@@ -1023,7 +1033,6 @@
+@@ -1116,7 +1126,6 @@
  
  rev: $(engine_obj)/rev.$o
  
 -
  ### Compatibility
  
- test: kenbuild
+ cleantest: cleankenbuild

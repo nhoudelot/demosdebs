@@ -1,6 +1,6 @@
 --- a/source/build/src/polymost.cpp
 +++ b/source/build/src/polymost.cpp
-@@ -9160,7 +9160,7 @@
+@@ -9577,7 +9577,7 @@
      if (parm->numparms != 1)
      {
          OSD_Printf("Current texturing mode is %s\n", glfiltermodes[gltexfiltermode].name);
@@ -22,7 +22,7 @@
      "decoder error, couldn't decode frame",
 --- a/source/duke3d/src/astub.cpp
 +++ b/source/duke3d/src/astub.cpp
-@@ -7764,7 +7764,7 @@
+@@ -7697,7 +7697,7 @@
              }
              else
              {
@@ -33,7 +33,7 @@
          else if (wallsprite==0)
 --- a/source/build/src/config.cpp
 +++ b/source/build/src/config.cpp
-@@ -472,7 +472,7 @@
+@@ -473,7 +473,7 @@
               "; Reverse meaning of Q and W keys in side view mode\n"
               "sideview_reversehorizrot = %d\n"
               "\n"
