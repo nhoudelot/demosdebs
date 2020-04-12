@@ -2,9 +2,9 @@ Source: libbass
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0.0),
+ debhelper (>= 10),
  rename
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Section: libs
 Homepage: http://www.un4seen.com/
 

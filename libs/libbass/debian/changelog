@@ -1,3 +1,9 @@
+libbass (2.4.14-0ddebs2) unstable; urgency=medium
+
+  * update to standard version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 Apr 2020 02:29:16 +0200
+
 libbass (2.4.14-0ddebs1) unstable; urgency=medium
 
   * upstream update
