@@ -1,3 +1,9 @@
+glfw (2.7.9-1ddebs4) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 Apr 2020 20:36:12 +0200
+
 glfw (2.7.9-1ddebs3) unstable; urgency=medium
 
   * update to standard version to 4.1.4
