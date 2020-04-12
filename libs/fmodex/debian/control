@@ -11,6 +11,7 @@ Homepage: https://www.fmod.org/download/
 Package: libfmodex-dev
 Section: libdevel
 Architecture: any
+Multi-Arch: same
 Depends:
  libfmodex4 (= ${binary:Version}),
  ${misc:Depends}
@@ -32,17 +33,15 @@ Description: FMOD is a cross platform audio library and toolset
  continuous development.
 
 Package: libfmodex4
-Section: libs
 Architecture: i386 amd64
 Multi-Arch: same
 Replaces: libfmodex (<<4.44.64-0ddebs3~)
-Breaks: libfmodex (<<4.44.64-0ddebs3~)
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  libc6,
  libstdc++6
-Description: Development package for the FMOD Ex library.
+Description: Package development for the FMOD Ex library.
  FMOD is a cross platform audio library and toolset to let you easily
  implement the latest audio technologies into your title.
  .
@@ -63,8 +62,8 @@ Description: Development package for the FMOD Ex library.
  needed to do development with FMOD Ex.
 
 Package: libfmodex
-Section: libs
-Architecture: all
+Architecture: i386 amd64
+Multi-Arch: same
 Depends:
  libfmodex4,
  ${misc:Depends}

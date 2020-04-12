@@ -1,3 +1,13 @@
+fmodex (4.44.64+1-0ddebs1) unstable; urgency=medium
+
+  * added SONAME to libfmodex
+  * added libfmodex4.symbols
+  * debian/control transitional package is amd64 and i386
+  * debian/control removed multiple sections
+  * moved link libfmodex.so to -dev package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Nov 2019 17:45:29 +0100
+
 fmodex (4.44.64-0ddebs5) unstable; urgency=medium
 
   * update to standard version to 4.1.4
