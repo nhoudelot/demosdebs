@@ -3,9 +3,9 @@ Section: libs
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0.0),
+ debhelper (>= 10),
  rename
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.fmod.org/download/
 
 Package: libfmodex-dev
