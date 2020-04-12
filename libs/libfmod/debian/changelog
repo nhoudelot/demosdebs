@@ -1,3 +1,9 @@
+libfmod (3.75-0ddebs8) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 Apr 2020 16:34:16 +0200
+
 libfmod (3.75-0ddebs7) unstable; urgency=medium
 
   * debian/libfmod3.symbols : updated list cause found a libfmod-3.73
