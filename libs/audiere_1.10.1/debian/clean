@@ -1,0 +1,17 @@
+config/
+aclocal.m4
+configure
+Makefile.in
+doc/Makefile.in
+examples/Makefile.in
+examples/simple/Makefile.in
+examples/wxPlayer/Makefile.in
+src/Makefile.in
+src/mpaudec/Makefile.in
+test/Makefile.in
+test/buffer/Makefile.in
+test/callback/Makefile.in
+test/device/Makefile.in
+test/formats/Makefile.in
+test/interactive/Makefile.in
+test/performance/Makefile.in
