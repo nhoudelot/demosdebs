@@ -2,9 +2,8 @@ Source: n3dmath
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0.0),
- dh-autoreconf
-Standards-Version: 4.1.4
+ debhelper (>= 10)
+Standards-Version: 4.5.0
 Section: libdevel
 Homepage: https://thelab.demoscene.gr/nuclear/
 
