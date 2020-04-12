@@ -1,0 +1,38 @@
+--- a/png.h
++++ b/png.h
+@@ -1673,15 +1673,17 @@
+    png_ptr_ptr, png_infopp info_ptr_ptr, png_infopp end_info_ptr_ptr));
+ 
+ /* Free all memory used by the read (old method - NOT DLL EXPORTED) */
+-extern void png_read_destroy PNGARG((png_structp png_ptr, png_infop info_ptr,
+-   png_infop end_info_ptr)) PNG_DEPRECATED;
++/* Debian note: exporting as it is required by legacy applications */
++extern PNG_EXPORT(void,png_read_destroy) PNGARG((png_structp png_ptr, png_infop info_ptr,
++   png_infop end_info_ptr));
+ 
+ /* Free any memory associated with the png_struct and the png_info_structs */
+ extern PNG_EXPORT(void,png_destroy_write_struct)
+    PNGARG((png_structpp png_ptr_ptr, png_infopp info_ptr_ptr));
+ 
+ /* Free any memory used in png_ptr struct (old method - NOT DLL EXPORTED) */
+-extern void png_write_destroy PNGARG((png_structp png_ptr)) PNG_DEPRECATED;
++/* Debian note: exporting as it is required by legacy applications */
++extern PNG_EXPORT(void,png_write_destroy) PNGARG((png_structp png_ptr));
+ 
+ /* Set the libpng method of handling chunk CRC errors */
+ extern PNG_EXPORT(void,png_set_crc_action) PNGARG((png_structp png_ptr,
+--- a/png.5
++++ b/png.5
+@@ -18,7 +18,11 @@
+ platforms.
+ 
+ .SH "SEE ALSO"
+-.IR libpng(3) ", " zlib(3) ", " deflate(5) ", and " zlib(5)
++.IR libpng (3),
++.IR zlib (3),
++.IR deflate (5),
++and
++.IR zlib (5)
+ .LP
+ PNG specification (second edition), November 2003:
+ .IP

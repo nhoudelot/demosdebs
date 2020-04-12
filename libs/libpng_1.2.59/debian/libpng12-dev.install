@@ -1,0 +1,5 @@
+usr/bin/libpng12-config
+usr/include
+usr/lib/*/pkgconfig
+usr/lib/*/libpng12.a
+usr/lib/*/libpng12.so
