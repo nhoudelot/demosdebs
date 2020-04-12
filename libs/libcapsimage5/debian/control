@@ -2,9 +2,8 @@ Source: libcapsimage5
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.20160114),
- autotools-dev
-Standards-Version: 4.1.4
+ debhelper (>= 10)
+Standards-Version: 4.5.0
 Section: libs
 Homepage: https://www.softpres.org/?id=download
 
@@ -24,4 +23,5 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Development files for libcapsimage
- Development files (includes) for libcapsimage
+ Development files (includes) for libcapsimage, Provides IPF support, 
+ primarily for UAE E-UAE
