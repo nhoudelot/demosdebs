@@ -1,0 +1,18 @@
+--- a/configure.in
++++ b/configure.in
+@@ -117,6 +117,15 @@
+ 	libmikmod_threads=no
+ fi])
+ 
++AC_ARG_ENABLE(esd,
++[  --enable-esd        include esound driver [guessed]],
++[if test "$enableval" = "yes"
++then
++	libmikmod_driver_esd=yes
++else
++	libmikmod_driver_esd=no
++fi])
++
+ # ===================
+ # Check for programs.
+ # ===================
