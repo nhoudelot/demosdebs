@@ -2,16 +2,16 @@ Source: libminifmod
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0.0),
+ debhelper (>= 10),
  nasm
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Section: libs
 Homepage: http://www.fmod.org/files/minifmod160_gcc.zip
 
 Package: libminifmod-dev
 Section: libdevel
 Architecture: i386
-Depends:
+Depends: ${misc:Depends}
 Description: Small XM replay system development files
  The FMOD sound system is a revolutionary new audio engine for
  game developers, multimedia developers, sound designers, musicians
