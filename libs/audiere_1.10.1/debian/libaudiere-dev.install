@@ -1,4 +1,0 @@
-usr/include/*
-usr/lib/*/libaudiere.so
-usr/lib/*/libaudiere.a
-usr/bin/audiere-config

@@ -1,3 +1,9 @@
+audiere (1.10.1-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 Apr 2020 20:16:44 +0200
+
 audiere (1.10.1-0ddebs4) unstable; urgency=medium
 
   * Created a meta-package to not depend of future revisions

@@ -10,7 +10,7 @@ endif
 CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 
 %:
-	dh $@  --with autoreconf --parallel
+	dh $@
 
 override_dh_autoreconf:
 	AUTOMAKE="automake --foreign" autoreconf -is
