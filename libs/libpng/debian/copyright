@@ -10,10 +10,10 @@ Files: contrib/pngminus/*
 Copyright: Willem van Schaik, 1999
 License: expat
 
-Files: pngwutil.c pngstruct.h pngwrite.c pnginfo.h pngrio.c png.h
+Files: pngwutil.c pngwrite.c pngrio.c png.h
 	pngread.c pngwio.c pngrutil.c pngmem.c pngget.c pngtest.c
-	pngrtran.c pngpriv.h pngset.c pngpread.c
-	pngdebug.h pngerror.c pngwtran.c png.c pngtrans.c example.c
+	pngrtran.c pngset.c pngpread.c
+	pngerror.c pngwtran.c png.c pngtrans.c example.c
 Copyright: 1996, 1997 Andreas Dilger
 	1995, 1996 Guy Eric Schalnat, Group 42, Inc.
 	1998-2013 Glenn Randers-Pehrson

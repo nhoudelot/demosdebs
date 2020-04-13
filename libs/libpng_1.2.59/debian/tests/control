@@ -1,2 +1,0 @@
-Tests: build
-Depends: build-essential, libpng12-dev
