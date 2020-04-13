@@ -5,4 +5,4 @@ export DEB_CFLAGS_MAINT_APPEND  = $(CPPFLAGS) -flto
 export DEB_CXXFLAGS_MAINT_APPEND  = $(CPPFLAGS) -flto
 
 %:
-	dh $@  --parallel --buildsystem=cmake  --builddirectory=build --sourcedirectory=cmake -- -CMAKE_SKIP_RPATH
+	dh $@ --buildsystem=cmake  --builddirectory=build --sourcedirectory=cmake -- -CMAKE_SKIP_RPATH

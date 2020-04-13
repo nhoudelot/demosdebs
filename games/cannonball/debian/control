@@ -6,8 +6,8 @@ Build-Depends:
  cmake(>=2.6.2),
  libsdl2-dev,
  libboost-dev (>=1.54),
- debhelper (>= 9.0.0)
-Standards-Version: 4.1.4
+ debhelper (>= 10)
+Standards-Version: 4.5.0
 Homepage: https://reassembler.blogspot.de/
 Vcs-Browser: https://github.com/djyt/cannonball.git
 
