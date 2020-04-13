@@ -1,13 +1,12 @@
 Source: glib-1.2
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: debhelper (>=9),autotools-dev
-Standards-Version: 4.1.4
+Build-Depends: debhelper (>=10)
+Standards-Version: 4.5.0
 Section: libs
 Homepage: http://www.gtk.org/
 
 Package: libglib1.2ldbl
-Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: libglib1.2

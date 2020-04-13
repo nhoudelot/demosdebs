@@ -1,3 +1,10 @@
+glib-1.2 (10-58ddebs1) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+  * some patches updated from Fedora32
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 13 Apr 2020 11:33:49 +0200
+
 glib-1.2 (10-47ddebs4) unstable; urgency=medium
 
   * update to standard version to 4.1.4

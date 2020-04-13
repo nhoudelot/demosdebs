@@ -7,3 +7,5 @@
 07_autotools.patch
 08_format.patch
 09_gcc5.patch
+10_gcc9.patch
+11_c99.patch
