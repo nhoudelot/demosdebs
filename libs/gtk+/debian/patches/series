@@ -27,3 +27,4 @@
 27_unused-deps.patch
 28_autotools.patch
 29_format.patch
+30_c99.patch

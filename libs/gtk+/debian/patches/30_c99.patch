@@ -1,0 +1,64 @@
+--- a/configure
++++ b/configure
+@@ -1151,7 +1151,7 @@
+ #line 1152 "configure"
+ #include "confdefs.h"
+ 
+-main(){return(0);}
++int main(){return(0);}
+ EOF
+ if { (eval echo configure:1157: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   ac_cv_prog_cc_works=yes
+@@ -1866,7 +1866,7 @@
+ #line 1871 "configure"
+ #include "confdefs.h"
+ 
+-main(){return(0);}
++int main(){return(0);}
+ EOF
+ if { (eval echo configure:1876: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   ac_cv_prog_cc_works=yes
+@@ -2456,6 +2456,7 @@
+ #line 2461 "configure"
+ #include "confdefs.h"
+ #include <ctype.h>
++#include <stdlib.h>
+ #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
+ #define TOUPPER(c) (ISLOWER(c) ? 'A' + ((c) - 'a') : (c))
+ #define XOR(e, f) (((e) && !(f)) || (!(e) && (f)))
+@@ -2574,7 +2575,7 @@
+ #include "confdefs.h"
+ 
+ int main() {
+-} $ac_kw foo() {
++} $ac_kw int foo() {
+ ; return 0; }
+ EOF
+ if { (eval echo configure:2585: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+@@ -4675,6 +4676,8 @@
+ #line 4680 "configure"
+ #include "confdefs.h"
+ 
++extern int ${x_direct_test_function}();
++
+ int main() {
+ ${x_direct_test_function}()
+ ; return 0; }
+@@ -5994,6 +5997,7 @@
+ #line 5999 "configure"
+ #include "confdefs.h"
+ #include <ctype.h>
++#include <stdlib.h>
+ #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
+ #define TOUPPER(c) (ISLOWER(c) ? 'A' + ((c) - 'a') : (c))
+ #define XOR(e, f) (((e) && !(f)) || (!(e) && (f)))
+--- a/gdk/gdkinput.c
++++ b/gdk/gdkinput.c
+@@ -27,6 +27,7 @@
+ #include <stdlib.h>
+ #include <X11/Xlib.h>
+ #include <X11/Xutil.h>
++#include <string.h>
+ #include "config.h"
+ #include "gdk.h"
+ #include "gdkx.h"

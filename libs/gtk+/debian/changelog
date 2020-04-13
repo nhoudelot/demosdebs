@@ -1,3 +1,10 @@
+gtk+ (1.2.10-93ddebs1) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+  * added c99 patch
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 13 Apr 2020 12:34:35 +0200
+
 gtk+ (1.2.10-82ddebs4) unstable; urgency=medium
 
   * update to standard version to 4.1.4
