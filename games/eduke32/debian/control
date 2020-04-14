@@ -3,7 +3,7 @@ Section: games
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
+ debhelper (>= 10),
  pandoc,
  nasm,
  libgl1-mesa-dev,
@@ -19,7 +19,7 @@ Build-Depends:
  libvpx-dev,
  libgtk2.0-dev,
  freepats
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.eduke32.com/
 
 Package: eduke32
