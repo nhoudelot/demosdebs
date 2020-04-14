@@ -1,3 +1,9 @@
+rawgl (0.2.1+git20190705-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 14 Apr 2020 03:20:53 +0200
+
 rawgl (0.2.1+git20190705-0ddebs2) unstable; urgency=medium
 
   * cleanup makefile

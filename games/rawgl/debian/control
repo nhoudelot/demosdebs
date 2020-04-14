@@ -6,8 +6,8 @@ Build-Depends:
  libsdl2-dev,
  libsdl2-mixer-dev,
  pkgconf,
- debhelper (>= 9.0)
-Standards-Version: 4.1.4
+ debhelper (>= 10.0)
+Standards-Version: 4.5.0
 Homepage: https://github.com/cyxx/rawgl
 Vcs-Git: https://github.com/cyxx/rawgl.git
 Vcs-Browser: https://github.com/cyxx/rawgl

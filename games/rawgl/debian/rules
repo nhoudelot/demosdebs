@@ -6,4 +6,4 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@  --parallel
+	dh $@
