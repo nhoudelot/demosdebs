@@ -3,9 +3,11 @@ Section: games
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
+ debhelper (>= 10),
+ p7zip-full,
+ libminizip-dev,
  libsdl1.2-dev
-Standards-Version: 3.9.7
+Standards-Version: 4.5.0
 Homepage: https://www.bigorno.net/xrick/
 
 Package: xrick

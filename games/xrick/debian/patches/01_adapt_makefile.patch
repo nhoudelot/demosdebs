@@ -54,7 +54,7 @@
 +exec_prefix     := $(prefix)
 +bindir          := $(prefix)/games
 +datarootdir     := $(prefix)/share
-+datadir         := $(prefix)/share/xrick
++datadir         := $(prefix)/share/games/xrick
 +
  #
 -# Rules

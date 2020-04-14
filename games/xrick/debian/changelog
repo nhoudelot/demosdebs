@@ -1,3 +1,12 @@
+xrick (021212+1-0ddebs1) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+  * use of minizip instead of embeded unzip.h
+  * data.zip is now created at package building
+  * data are now in /usr/share/games/xrick/
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 14 Apr 2020 14:36:06 +0200
+
 xrick (021212-0ddebs6) unstable; urgency=medium
 
   * cleanup makefile

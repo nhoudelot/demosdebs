@@ -8,3 +8,7 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 %:
 	dh $@
+
+override_dh_auto_install:
+	7za a -mmt -mx=9 data.zip -w ./sounds
+	dh_auto_install

@@ -1,0 +1,50 @@
+--- a/src/data.c
++++ b/src/data.c
+@@ -17,7 +17,7 @@
+ #include "system.h"
+ #include "data.h"
+ 
+-#include "unzip.h"
++#include <minizip/unzip.h>
+ 
+ /*
+  * Private typedefs
+@@ -97,9 +97,13 @@
+ 	zipped_t *z;
+ 
+ 	if (path.zip) {
+-	    z = malloc(sizeof(zipped_t));
+-	    z->name = strdup(name);
+-	    z->zip = unzDup(path.zip);
++	    zipped_t *z;
++        unzFile zip;
++
++        z = (zipped_t*)malloc(sizeof(zipped_t));
++        z->name = str_dup(name);
++        zip = unzOpen(path.name);
++        z->zip = zip;
+ 	    if (unzLocateFile(z->zip, name, 0) != UNZ_OK ||
+ 	    	unzOpenCurrentFile(z->zip) != UNZ_OK) {
+ 			unzClose(z->zip);
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -40,7 +40,7 @@
+ #
+ #
+ TARGET = xrick
+-OBJECTS = unzip.o data.o scr_xrick.o scr_pause.o scr_imain.o scr_imap.o scr_gameover.o scr_getname.o dat_picsPC.o dat_picsST.o dat_screens.o dat_tilesPC.o dat_tilesST.o dat_maps.o dat_ents.o dat_spritesST.o dat_spritesPC.o ents.o e_bullet.o e_bomb.o e_rick.o e_sbonus.o e_them.o e_bonus.o e_box.o rects.o util.o game.o xrick.o draw.o maps.o sysvid.o syskbd.o control.o system.o scroller.o sysevt.o sysarg.o syssnd.o sysjoy.o dat_snd.o
++OBJECTS = data.o scr_xrick.o scr_pause.o scr_imain.o scr_imap.o scr_gameover.o scr_getname.o dat_picsPC.o dat_picsST.o dat_screens.o dat_tilesPC.o dat_tilesST.o dat_maps.o dat_ents.o dat_spritesST.o dat_spritesPC.o ents.o e_bullet.o e_bomb.o e_rick.o e_sbonus.o e_them.o e_bonus.o e_box.o rects.o util.o game.o xrick.o draw.o maps.o sysvid.o syskbd.o control.o system.o scroller.o sysevt.o sysarg.o syssnd.o sysjoy.o dat_snd.o
+ 
+ #
+ # Rules
+--- a/Makefile
++++ b/Makefile
+@@ -85,7 +85,7 @@
+ 	@echo "ROOTDIR=$(ROOTDIR)" > Makefile.global
+ 	@echo "XOBJ=$(XOBJ)" >> Makefile.global
+ 	@echo "CFLAGS+= -Wall -pipe -std=gnu90 -pedantic -W -I $(ROOTDIR)/include $(shell sdl-config --cflags)" >> Makefile.global
+-	@echo "LDFLAGS+=-lz $(shell sdl-config --libs)" >> Makefile.global
++	@echo "LDFLAGS+=-lminizip $(shell sdl-config --libs)" >> Makefile.global
+ 	@echo "CC=gcc" >> Makefile.global
+ 	@echo "CPP=g++" >> Makefile.global
+ 	$(MAKE) -C src all
