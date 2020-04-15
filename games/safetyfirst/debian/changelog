@@ -1,3 +1,9 @@
+safetyfirst (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 15 Apr 2020 02:12:07 +0200
+
 safetyfirst (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release
