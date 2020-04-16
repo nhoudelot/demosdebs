@@ -1,3 +1,13 @@
+fightcade (0.42.1+multiserver-0ddebs4) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+  * migrated to Qt5
+  * debian/watch now works
+  * better python dependencies
+  * resource ggpo.rc is now generated dynamicaly
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 16 Apr 2020 12:59:28 +0200
+
 fightcade (0.42.1+multiserver-0ddebs3) unstable; urgency=medium
 
   * update to standard version to 4.1.4

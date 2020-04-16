@@ -3,3 +3,4 @@
 03_override_settings.patch
 04_adapt_configfiles.patch
 05_modernize_configfile
+06_adapt_qt5.patch
