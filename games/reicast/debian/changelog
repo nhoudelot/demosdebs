@@ -1,3 +1,9 @@
+reicast (8.1-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 16 Apr 2020 13:11:30 +0200
+
 reicast (8.1-0ddebs1) unstable; urgency=medium
 
   * New upstream release

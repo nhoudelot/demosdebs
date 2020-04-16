@@ -18,4 +18,4 @@ ifeq ($(ARCH),armhf)
 endif
 
 %:
-	dh $@ --parallel --sourcedirectory=shell/linux
+	dh $@ --sourcedirectory=shell/linux
