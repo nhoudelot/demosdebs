@@ -8,7 +8,7 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 export QT_SELECT := qt5
 
 %:
-	dh $@ --parallel
+	dh $@
 
 override_dh_auto_configure-arch:
 	dh_auto_configure -Sqmake -Dclient

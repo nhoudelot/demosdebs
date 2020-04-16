@@ -1,3 +1,10 @@
+dynablasterrevenge (1.0.2+git20200226-0ddebs1) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+  * upstream update
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 16 Apr 2020 17:53:49 +0200
+
 dynablasterrevenge (1.0.2+git20190721-0ddebs1) unstable; urgency=medium
 
   * sync version to last commit on github (for the moment)

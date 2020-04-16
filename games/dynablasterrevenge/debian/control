@@ -3,15 +3,14 @@ Section: games
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>=10),
  qtbase5-dev,
  qtbase5-dev-tools,
  qt5-qmake,
  libqt5opengl5-dev,
  libsdl2-dev,
- libqt4-dev,
  pandoc
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://github.com/varnholt/dynablaster_revenge
 Vcs-Browser: https://github.com/varnholt/dynablaster_revenge
 Vcs-Git: https://github.com/varnholt/dynablaster_revenge.git
@@ -38,8 +37,7 @@ Package: dynablasterrevenge-data
 Architecture: all
 Multi-Arch: foreign
 Depends:
- ${misc:Depends},
- dynablasterrevenge
+ ${misc:Depends}
 Description: Data files for Dynablaster-revenge
  package data files for Dynablaster Revenge. a remake of the game Dynablaster,
  released by Hudson Soft in 1991.
