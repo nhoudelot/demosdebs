@@ -1,3 +1,9 @@
+analyze-x86 (1.0-0ddebs7) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Apr 2020 17:20:34 +0200
+
 analyze-x86 (1.0-0ddebs6) unstable; urgency=medium
 
   * update to standard version to 4.1.4

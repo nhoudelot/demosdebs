@@ -1,3 +1,8 @@
+Description: several simple warning fix
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/analyze-x86.c
 +++ b/analyze-x86.c
 @@ -32,7 +32,6 @@

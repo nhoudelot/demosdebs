@@ -1,5 +1,9 @@
 #!/usr/bin/make -f
 
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = $(CPPFLAGS) -flto
+export DEB_CXXFLAGS_MAINT_APPEND  = $(CPPFLAGS) -flto
+
 %:
 	dh $@
 
