@@ -1,3 +1,9 @@
+aacgain (1.9+1-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Apr 2020 12:15:49 +0200
+
 aacgain (1.9+1-0ddebs1) unstable; urgency=medium
 
   * faad2: updated faad source to 2.8.8

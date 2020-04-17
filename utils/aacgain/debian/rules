@@ -17,7 +17,7 @@ else
 endif
 
 %:
-	dh $@ --with autoreconf
+	dh $@
 
 override_dh_auto_configure:
 	cd mp4v2 && ./configure $(CROSS) CFLAGS="$(CFLAGS)" $(OPTIONS)
