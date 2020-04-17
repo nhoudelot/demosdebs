@@ -1,6 +1,6 @@
 --- a/source/build/src/polymost.cpp
 +++ b/source/build/src/polymost.cpp
-@@ -9577,7 +9577,7 @@
+@@ -9557,7 +9557,7 @@
      if (parm->numparms != 1)
      {
          OSD_Printf("Current texturing mode is %s\n", glfiltermodes[gltexfiltermode].name);

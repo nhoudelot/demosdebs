@@ -1,6 +1,6 @@
 --- a/GNUmakefile
 +++ b/GNUmakefile
-@@ -894,6 +894,16 @@
+@@ -901,6 +901,16 @@
      editor \
  
  
@@ -17,7 +17,7 @@
  ifeq ($(PRETTY_OUTPUT),1)
  .SILENT:
  endif
-@@ -1116,7 +1126,6 @@
+@@ -1123,7 +1133,6 @@
  
  rev: $(engine_obj)/rev.$o
  
