@@ -1,3 +1,9 @@
+amigadepacker (0.04-0ddebs9) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Apr 2020 16:46:41 +0200
+
 amigadepacker (0.04-0ddebs8) unstable; urgency=medium
 
   * watch file is now working

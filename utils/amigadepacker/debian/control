@@ -3,9 +3,8 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- autotools-dev
-Standards-Version: 4.1.4
+ debhelper (>= 10)
+Standards-Version: 4.5.0
 Homepage: https://zakalwe.fi/~shd/opensource.html
 Vcs-Git: https://zakalwe.fi/amigadepacker.git
 

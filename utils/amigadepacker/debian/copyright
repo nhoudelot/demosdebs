@@ -16,11 +16,11 @@ Copyright: 2006 Jouni Mr.Spiv Korhonen
 License: public-domain
 
 Files: debian/*
-Copyright: 2016 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  /usr/share/common-licenses/GPL-2
 
- License: public-domain
+License: public-domain
  This is free and unencumbered software released into the public domain.
  .
  Anyone is free to copy, modify, publish, use, compile, sell, or
