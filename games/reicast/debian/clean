@@ -1,4 +1,7 @@
-debian/reicast-by-reicastteam.6
 shell/linux/nosym-reicast.elf
 shell/linux/reicast.elf.map
 shell/linux/.map
+libswirl/version.h
+reicast/linux/man/reicast.6
+reicast/linux/man/reicast-joyconfig.6
+reicast/linux/tools/reicast-joyconfig

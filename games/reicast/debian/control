@@ -11,7 +11,9 @@ Build-Depends:
  libevdev-dev,
  libgl1-mesa-dev [!armhf],
  libgles2-mesa-dev [armhf],
- libpulse-dev
+ libpulse-dev,
+ cmake,
+ yasm
 Standards-Version: 4.5.0
 Homepage: https://github.com/reicast/reicast-emulator
 
@@ -26,7 +28,12 @@ Description: Dreamcast emulator
 
 Package: reicast-joyconfig
 Architecture: any
-Depends: python, python-evdev, reicast, ${misc:Depends}
+Depends: 
+	python, 
+	python-evdev (>=0.4), 
+	python-contextlib2 (>=0.5),
+	reicast, 
+	${misc:Depends}
 Description: Dreamcast emulator - reicast-joyconfig script
  Reicast is a Dreamcast emulator, created by the same team of nullDC.
  .

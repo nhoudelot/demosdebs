@@ -10,10 +10,6 @@ Copyright: 2013-2018 reicast team
 License: GPL-2
  /usr/share/common-licenses/GPL-2
 
-Files: core/arm_emitter/arm_emitter.h
-Copyright: 2011 David Miller
-License: ???
-
 Files: debian/*
 Copyright: 2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
 		   2015 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>

@@ -18,4 +18,10 @@ ifeq ($(ARCH),armhf)
 endif
 
 %:
-	dh $@ --sourcedirectory=shell/linux
+	dh $@ --buildsystem=cmake --builddirectory=build
+
+override_dh_install:
+	cp reicast/linux/tools/reicast-joyconfig.py reicast/linux/tools/reicast-joyconfig
+	dh_install
+	cp reicast/linux/man/reicast.1 reicast/linux/man/reicast.6
+	cp reicast/linux/man/reicast-joyconfig.1 reicast/linux/man/reicast-joyconfig.6

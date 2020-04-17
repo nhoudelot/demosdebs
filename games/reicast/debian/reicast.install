@@ -1,5 +1,4 @@
-usr/games/reicast
-usr/share/applications/reicast.desktop
-usr/share/man/man6/reicast.6
-usr/share/pixmaps/reicast.png
-usr/share/reicast/mappings/*.cfg
+build/reicast usr/games/
+reicast/linux/reicast.desktop usr/share/applications/
+reicast/linux/reicast.png usr/share/pixmaps/
+reicast/linux/mappings usr/share/reicast/

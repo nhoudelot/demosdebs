@@ -1,3 +1,2 @@
-02_destination_games.patch
-03_adapt_makefile
-04_remove_emebdded_dependencies.patch
+01_manforgame.patch
+02_remove_embeded_dependencies.patch

@@ -1,0 +1,23 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -156,9 +156,9 @@
+   file(GLOB dirent_SRCS  ${d_deps}/dirent/*.c)
+ endif()
+ file(GLOB lzma_SRCS  ${d_deps}/lzma/*.c)
+-file(GLOB lz_SRCS    ${d_deps}/zlib/*.c)
++#file(GLOB lz_SRCS    ${d_deps}/zlib/*.c)
+ file(GLOB lzip_SRCS  ${d_deps}/libzip/*.c)
+-file(GLOB lpng_SRCS  ${d_deps}/libpng/*.c)
++#file(GLOB lpng_SRCS  ${d_deps}/libpng/*.c)
+ file(GLOB lelf_SRCS  ${d_deps}/libelf/el*.cpp)
+ file(GLOB crypt_SRCS ${d_deps}/crypto/*.cpp)
+ file(GLOB imgui_SRCS ${d_deps}/imgui/*.cpp)
+@@ -269,6 +269,8 @@
+ if(${HOST_OS} EQUAL ${OS_LINUX})
+   # needed for opentty
+   target_link_libraries(${TNAME} -lutil)
++  target_link_libraries(${TNAME} -lpng)
++  target_link_libraries(${TNAME} -lz)
+ 
+   find_package(ALSA)
+   if(ALSA_FOUND)

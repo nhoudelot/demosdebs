@@ -1,0 +1,34 @@
+--- a/reicast/linux/man/reicast-joyconfig.1
++++ b/reicast/linux/man/reicast-joyconfig.1
+@@ -1,6 +1,6 @@
+-.\" reicast.1:
++.\" reicast.6:
+ 
+-.TH  "REICAST-JOYCONFIG" "1" "August 27, 2015" "REICAST-JOYCONFIG" "reicast-joyconfig"
++.TH  "REICAST-JOYCONFIG" "6" "August 27, 2015" "REICAST-JOYCONFIG" "reicast-joyconfig"
+ 
+ .SH NAME
+ 
+@@ -71,4 +71,4 @@
+ This is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License (Version 2).
+ 
+ .SH "SEE ALSO"
+-\fBreicast\fR(1)
++\fBreicast\fR(6)
+--- a/reicast/linux/man/reicast.1
++++ b/reicast/linux/man/reicast.1
+@@ -1,6 +1,6 @@
+-.\" reicast.1:
++.\" reicast.6:
+ 
+-.TH  "REICAST" "1" "August 22, 2015" "REICAST" "System Manager's Manual: reicast"
++.TH  "REICAST" "6" "August 22, 2015" "REICAST" "System Manager's Manual: reicast"
+ 
+ .SH NAME
+ 
+@@ -127,4 +127,4 @@
+ This is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License (Version 2).
+ 
+ .SH "SEE ALSO"
+-\fBreicast-joyconfig\fR(1)
++\fBreicast-joyconfig\fR(6)
