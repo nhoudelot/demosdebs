@@ -1,3 +1,9 @@
+dump1090-fa (3.7.2-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 18 Apr 2020 17:29:24 +0200
+
 dump1090-fa (3.7.2-0ddebs1) unstable; urgency=medium
 
   * New upstream release
