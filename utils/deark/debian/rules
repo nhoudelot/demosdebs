@@ -6,7 +6,7 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --parallel
+	dh $@
 
 override_dh_install:
 	dh_install
