@@ -1,0 +1,25 @@
+Source: blackchocobo
+Section: utils
+Priority: optional
+Maintainer: Chris Rizzitello <sithlord48@gmail.com>
+Build-Depends:
+ cmake,
+ debhelper (>= 10),
+ qtbase5-dev,
+ qtbase5-dev-tools,
+ qttools5-dev,
+ qttools5-dev-tools,
+ qtdeclarative5-dev
+Standards-Version: 4.5.0
+Homepage: https://www.blackchocobo.com
+Vcs-Git: https://github.com/sithlord48/blackchocobo.git
+Vcs-Browser: https://github.com/sithlord48/blackchocobo
+
+Package: blackchocobo
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: FF7 Savegame Editor
+ Do lots of stuff w/ final fantasy vii savegame for pc,psx,emulators,psp, or psn
+ versions

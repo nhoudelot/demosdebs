@@ -1,0 +1,10 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -144,7 +144,6 @@
+ 	
+ 	install( FILES ${PROJECT_SOURCE_DIR}/icon/Black_Chocobo.png DESTINATION share/pixmaps/ PERMISSIONS OWNER_WRITE OWNER_READ)
+ 	install( FILES ${PROJECT_SOURCE_DIR}/Black_Chocobo.desktop DESTINATION share/applications/ PERMISSIONS OWNER_WRITE OWNER_READ)
+-	install( FILES ${PROJECT_SOURCE_DIR}/debian/menu DESTINATION share/menu/ RENAME blackchocobo PERMISSIONS OWNER_WRITE OWNER_READ)
+ 	install( FILES ${PROJECT_SOURCE_DIR}/debian/blackchocobo.sharedmimeinfo DESTINATION share/mime/packages/ RENAME blackchocobo.xml PERMISSIONS OWNER_WRITE OWNER_READ)
+ 	
+ 	SET(CPACK_SOURCE_GENERATOR "TGZ;TZ")

@@ -1,0 +1,11 @@
+--- a/Black_Chocobo.desktop
++++ b/Black_Chocobo.desktop
+@@ -1,7 +1,6 @@
+ [Desktop Entry]
+ Categories=Application;Game;
+-Encoding=UTF-8
+-Exec=/usr/bin/blackchocobo
++Exec=/usr/bin/blackchocobo %f
+ GenericName=FF7 Save Game Editor
+ GenericName[en]=FF7 Save Game Editor
+ GenericName[es]=Editor de partidas guardadas para FF7
