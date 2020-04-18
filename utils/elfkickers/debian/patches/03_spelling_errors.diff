@@ -1,6 +1,6 @@
 --- a/elftoc/elftoc.c
 +++ b/elftoc/elftoc.c
-@@ -118,7 +118,7 @@
+@@ -121,7 +121,7 @@
      if (optind == argc)
  	fail("no input file.\n%s", helpsuffix);
      if (optind + 1 < argc)
