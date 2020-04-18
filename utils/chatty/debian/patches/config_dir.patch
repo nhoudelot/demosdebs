@@ -1,7 +1,7 @@
 # change config directory to $HOME/.config/chatty
 --- a/src/chatty/Chatty.java
 +++ b/src/chatty/Chatty.java
-@@ -201,12 +201,11 @@
+@@ -208,12 +208,11 @@
       * @return
       */
      public static String getUserDataDirectory() {

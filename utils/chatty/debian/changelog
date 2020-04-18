@@ -1,3 +1,15 @@
+chatty (0.11-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 18 Apr 2020 12:25:47 +0200
+
+chatty (0.11-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 15 Jan 2020 23:30:08 +0100
+
 chatty (0.10-0ddebs1) unstable; urgency=medium
 
   * New upstream release 
