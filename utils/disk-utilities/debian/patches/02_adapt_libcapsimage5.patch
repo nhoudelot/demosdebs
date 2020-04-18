@@ -1,3 +1,8 @@
+Description: make use of system libcapsimage includes
+Author: Nicolas HOUDELOT (nicolas@demosdebs.or
+Last-Update: 2020-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/libdisk/stream/caps.c
 +++ b/libdisk/stream/caps.c
 @@ -9,7 +9,12 @@

@@ -3,9 +3,9 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9),
+ debhelper (>= 10),
  libcapsimage5-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://github.com/keirf/Disk-Utilities
 Vcs-Browser: https://github.com/keirf/Disk-Utilities
 Vcs-Git: https://github.com/keirf/Disk-Utilities.git
