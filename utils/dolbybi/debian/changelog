@@ -1,3 +1,9 @@
+dolbybi (1:0.0+20180403-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 18 Apr 2020 16:02:41 +0200
+
 dolbybi (1:0.0+20180403-0ddebs1) unstable; urgency=medium
 
   * update from sourceforge
