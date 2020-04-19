@@ -3,14 +3,14 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9),
+ debhelper (>= 10),
  default-jdk,
  javahelper (>= 0.25),
  ant,
  ant-optional,
  liboro-java,
  libcommons-net-java
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://sourceforge.net/projects/project-x
 
 Package: project-x

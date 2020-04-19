@@ -1,3 +1,9 @@
+project-x (0.91.10-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 19:43:49 +0200
+
 project-x (0.91.10-0ddebs4) unstable; urgency=medium
 
   * update to standard version to 4.1.4
