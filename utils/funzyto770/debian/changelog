@@ -1,3 +1,9 @@
+funzyto770 (1.5-0ddebs4) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 22:57:18 +0200
+
 funzyto770 (1.5-0ddebs3) unstable; urgency=medium
 
   * update due to name change of distrib (xenial to bionic & stretch to buster)
