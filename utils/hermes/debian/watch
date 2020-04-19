@@ -1,0 +1,4 @@
+version=4
+opts=compression=xz,repack,filenamemangle=s/.+\/Hermes-v?(\d\S+)\.tar\.gz/Hermes-$1\.tar\.gz/ \
+  https://github.com/Deuchnord/Hermes/tags .*/v?(\d\S+)\.tar\.gz \
+debian uupdate

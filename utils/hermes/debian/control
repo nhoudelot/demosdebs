@@ -1,0 +1,23 @@
+Source: hermes
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ pandoc,
+ qt5-qmake,
+ qtbase5-dev
+Standards-Version: 4.5.0
+Homepage: https://www.deuchnord.fr/projets/hermes
+Vcs-Git: https://github.com/Deuchnord/Hermes.git
+Vcs-Browser: https://github.com/Deuchnord/Hermes
+
+Package: hermes
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ sane-utils
+Description: Free and open-source software to manage your products' guarantees.
+ Only in French for the moment. The project will be adapted to be translated in
+ a few versions.

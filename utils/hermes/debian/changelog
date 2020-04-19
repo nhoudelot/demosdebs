@@ -1,0 +1,36 @@
+hermes (0.7-0ddebs6) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 15:06:30 +0200
+
+hermes (0.7-0ddebs5) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Aug 2018 15:56:12 +0200
+
+hermes (0.7-0ddebs4) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 15:19:05 +0200
+
+hermes (0.7-0ddebs3) unstable; urgency=medium
+
+  * added sane-utils dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Feb 2018 16:28:57 +0100
+
+hermes (0.7-0ddebs2) unstable; urgency=medium
+
+  * removed source code that was inside the doc of package
+  * Makefile is generated, don't need to patch it in fact
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Feb 2018 15:27:01 +0100
+
+hermes (0.7-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Feb 2018 01:03:13 +0100

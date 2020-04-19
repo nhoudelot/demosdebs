@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Deuchnord Hermes
+GenericName=Deuchnord Hermes
+Comment=Free and open-source software to manage your products' guarantees
+Comment[fr_FR]=Logiciel gratuit et open-source pour gérer vos garanties
+Type=Application
+Exec=/usr/bin/deuchnord-hermes
+Icon=hermes
+Categories=Utility
+Name[fr_FR]=Deuchnord Hermès
