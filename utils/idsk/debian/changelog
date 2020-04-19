@@ -1,3 +1,9 @@
+idsk (0.19-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 16:04:54 +0200
+
 idsk (0.19-0ddebs1) unstable; urgency=medium
 
   * New Upstream release

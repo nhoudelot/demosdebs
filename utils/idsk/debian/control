@@ -3,11 +3,11 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>= 10),
  pandoc,
  quilt,
  cmake
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://github.com/cpcsdk/idsk
 Vcs-Git: https://github.com/cpcsdk/idsk.git
 Vcs-Browser: https://github.com/cpcsdk/idsk
