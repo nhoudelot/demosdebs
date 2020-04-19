@@ -1,3 +1,9 @@
+Description: updating makefile
+ updated makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- /dev/null
 +++ b/Makefile
 @@ -0,0 +1,34 @@
