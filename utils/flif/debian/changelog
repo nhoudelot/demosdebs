@@ -1,3 +1,9 @@
+flif (0.3-7ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 11:59:43 +0200
+
 flif (0.3-7ddebs1) unstable; urgency=medium
 
   * Version for my repository.
