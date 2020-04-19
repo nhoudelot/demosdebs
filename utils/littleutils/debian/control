@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Brian Lindholm <brian_lindholm@users.sourceforge.net>
 Build-Depends:
- debhelper (>= 8.0.0),
+ debhelper (>= 10),
  libpng-dev | libpng12-dev,
  zlib1g-dev,
  pngcrush,
@@ -18,8 +18,8 @@ Build-Depends:
  xz-utils,
  gifsicle,
  lzop,
- python-minimal
-Standards-Version: 4.1.4
+ python3-minimal
+Standards-Version: 4.5.0
 Homepage: http://sourceforge.net/projects/littleutils/
 
 Package: littleutils-base

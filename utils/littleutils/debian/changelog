@@ -1,3 +1,10 @@
+littleutils (1.2.0-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 16:35:48 +0200
+
 littleutils (1.0.43-0ddebs1) unstable; urgency=medium
 
   * New upstream release

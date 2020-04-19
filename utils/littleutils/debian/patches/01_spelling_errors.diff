@@ -1,6 +1,6 @@
 --- a/imageutils/pngstrip.c
 +++ b/imageutils/pngstrip.c
-@@ -151,7 +151,7 @@
+@@ -153,7 +153,7 @@
      }
    if (setjmp (png_jmpbuf (read_png_ptr)))
      {
@@ -9,7 +9,7 @@
        png_destroy_read_struct (&read_png_ptr, &read_info_ptr, &read_end_info);
        (void) fclose (fp);
        exit (3);
-@@ -280,7 +280,7 @@
+@@ -282,7 +282,7 @@
      }
    if (setjmp (png_jmpbuf (write_png_ptr)))
      {
