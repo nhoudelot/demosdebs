@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --parallel --sourcedirectory=src
+	dh $@ --sourcedirectory=src
 
 override_dh_install:
 	dh_install
