@@ -1,3 +1,9 @@
+recoil (5.0.0-1.1ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 19:55:55 +0200
+
 recoil (5.0.0-1.1ddebs1) unstable; urgency=low
 
   [ Piotr Fusik ]
