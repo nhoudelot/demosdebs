@@ -1,3 +1,9 @@
+kryoflux (3.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 16:25:57 +0200
+
 kryoflux (3.0-0ddebs1) unstable; urgency=medium
 
   * update ui with a 3.0 beta version, to support OpenJDK 10
