@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+
+%:
+	dh $@
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/thom.1.md -o debian/thom.1

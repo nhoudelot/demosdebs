@@ -1,0 +1,19 @@
+--- a/src/hardware.c
++++ b/src/hardware.c
+@@ -564,14 +564,14 @@
+             break;
+ 
+         case TO7_CD90_640:
+-            strcpy(mem.mon.filename_low[0], "cd90-640.rom");
++            strcpy(mem.mon.filename_low[0], "/usr/share/thom/cd90-640.rom");
+             break;
+ 
+         default:
+             return ErrorMessage(TO7_UNSUPPORTED_DEVICE, NULL);
+     }
+ 
+-    strcpy(mem.mon.filename_high[0], "to770.rom");
++    strcpy(mem.mon.filename_high[0], "/usr/share/thom/to770.rom");
+ 
+     /* définition de la carte mémoire logique */
+     mempager.cart.update   = update_cart;

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Association
+GenericName=Thom
+Comment=TO7/70 Emulator
+Type=Application
+Exec=/usr/bin/thom
+Icon=thom
+Categories=AudioVideo;Game;
+Name[fr_FR]=Thom Émulateur TO7/70
+Keywords=TO7

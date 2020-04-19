@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: thom
+Source: https://sourceforge.net/projects/thom/
+
+Files: *
+Copyright: 1996 Sylvain Huet
+           1999-2003 Eric Botcazou
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2
+
+Files: debian/*
+Copyright: 2016 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

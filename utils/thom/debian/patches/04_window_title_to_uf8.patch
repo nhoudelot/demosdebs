@@ -1,0 +1,11 @@
+--- a/src/linux/udisplay.c
++++ b/src/linux/udisplay.c
+@@ -262,7 +262,7 @@
+     class_hints->res_name=PROG_NAME;
+     class_hints->res_class=PROG_CLASS;
+ 
+-    XSetWMProperties(display, main_win, &windowName, NULL, argv, argc,
++    Xutf8SetWMProperties(display, main_win, (const char *)window_name, NULL, argv, argc,
+        size_hints, wm_hints, class_hints);
+        
+     XMapWindow(display,screen_win);

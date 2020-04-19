@@ -1,0 +1,3849 @@
+--- a/src/linux/udisk.c
++++ b/src/linux/udisk.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/disk.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou 29/07/2000
+- *  Modifié par: Eric Botcazou 05/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou 29/07/2000
++ *  ModifiÃ© par: Eric Botcazou 05/11/2003
+  *
+  *  Lecture directe des disquettes Thomson.
+  */
+@@ -63,7 +63,7 @@
+ 
+ 
+ /* ResetFloppyDrive:
+- *  Réinitialise le lecteur de disquettes.
++ *  RÃ©initialise le lecteur de disquettes.
+  */
+ static void ResetFloppyDrive(int drive)
+ {
+@@ -119,14 +119,14 @@
+ 
+ 
+ /* ExecCommand:
+- *  Exécute la commande spécifiée via l'appel ioctl() FDRAWCMD.
++ *  ExÃ©cute la commande spÃ©cifiÃ©e via l'appel ioctl() FDRAWCMD.
+  */
+ static int ExecCommand(int drive, struct floppy_raw_cmd *fd_cmd)
+ {
+     int i, ret;
+ 
+     if (fd[drive]<0 && !OpenFloppyDrive(drive))
+-        return 0x10;  /* lecteur non prêt */
++        return 0x10;  /* lecteur non prÃªt */
+ 
+     for (i=0; i<DISK_RETRY; i++)
+     {
+@@ -139,7 +139,7 @@
+     }
+ 
+     if (ret<0)
+-        return 0x10;  /* lecteur non prêt */
++        return 0x10;  /* lecteur non prÃªt */
+ 
+ #ifdef DEBUG
+     printf("fd_cmd reply: ");
+@@ -154,14 +154,14 @@
+             return 0x04;   /* erreur sur l'adresse */
+ 
+         case 0x02:  /* Write Protected */
+-            return 0x01;   /* disk protégé en écriture */
++            return 0x01;   /* disk protÃ©gÃ© en Ã©criture */
+ 
+         case 0x04:  /* No Data - unreadable */
+-            return 0x08;   /* erreur sur les données */
++            return 0x08;   /* erreur sur les donnÃ©es */
+ 
+         case 0x20:  /* CRC error in data or addr */
+             if (fd_cmd->reply[2]==0x20)
+-                return 0x08;   /* erreur sur les données */
++                return 0x08;   /* erreur sur les donnÃ©es */
+             else
+                 return 0x04;   /* erreur sur l'adresse */
+ 
+@@ -173,14 +173,14 @@
+ 
+ 
+ /* ReadSector:
+- *  Lit le secteur spécifié sur la disquette.
++ *  Lit le secteur spÃ©cifiÃ© sur la disquette.
+  */
+ static int ReadSector(int drive, int track, int sector, int nsects, unsigned char data[])
+ {
+     struct floppy_raw_cmd fd_cmd;
+     int pc_drive = drive/2;
+ 
+-    /* paramètres de commande */
++    /* paramÃ¨tres de commande */
+     fd_cmd.flags  = FD_RAW_READ | FD_RAW_INTR | FD_RAW_NEED_SEEK;
+     fd_cmd.data   = data;
+     fd_cmd.length = 256*nsects; /* SECTOR_SIZE */
+@@ -204,14 +204,14 @@
+ 
+ 
+ /* WriteSector:
+- *  Ecrit le secteur spécifié sur la disquette.
++ *  Ecrit le secteur spÃ©cifiÃ© sur la disquette.
+  */
+ static int WriteSector(int drive, int track, int sector, int nsects, const unsigned char data[])
+ {
+     struct floppy_raw_cmd fd_cmd;
+     int pc_drive = drive/2;
+ 
+-    /* paramètres de commande */
++    /* paramÃ¨tres de commande */
+     fd_cmd.flags  = FD_RAW_WRITE | FD_RAW_INTR | FD_RAW_NEED_SEEK;
+     fd_cmd.data   = (unsigned char *)data;
+     fd_cmd.length = 256*nsects; /* SECTOR_SIZE */
+@@ -235,14 +235,14 @@
+ 
+ 
+ /* FormatTrack:
+- *  Formate la piste en utilisant la table des headers spécifiée.
++ *  Formate la piste en utilisant la table des headers spÃ©cifiÃ©e.
+  */
+ static int FormatTrack(int drive, int track, const unsigned char header_table[])
+ {
+     struct floppy_raw_cmd fd_cmd;
+     int pc_drive = drive/2;
+ 
+-    /* paramètres de commande */
++    /* paramÃ¨tres de commande */
+     fd_cmd.flags  = FD_RAW_WRITE | FD_RAW_INTR | FD_RAW_NEED_SEEK;
+     fd_cmd.data   = (unsigned char *)header_table;
+     fd_cmd.length = 64;
+--- a/src/linux/udisplay.c
++++ b/src/linux/udisplay.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/display.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+  *  Module d'interface avec le serveur X.
+  */
+@@ -190,19 +190,19 @@
+     for (i=0; i<KB_SIZE; i++)
+         x11_to_alleg[XKeysymToKeycode(display,keyconv[i].keysym)]=keyconv[i].keycode;
+ 
+-    /* Test de présence de l'extension MIT-SHM */
++    /* Test de prÃ©sence de l'extension MIT-SHM */
+     mit_shm_enabled=XQueryExtension(display, "MIT-SHM", &ret1, &ret2, &ret3);
+ }
+ 
+ 
+ 
+ /* InitWindow:
+- *  Met en place les propriétés et crée la fenêtre principale,
+- *  calcule la position et crée la fenêtre de l'écran.
++ *  Met en place les propriÃ©tÃ©s et crÃ©e la fenÃªtre principale,
++ *  calcule la position et crÃ©e la fenÃªtre de l'Ã©cran.
+  */
+ void InitWindow(int argc, char *argv[], int x, int y, int user_flags)
+ {
+-    char *window_name="Thom - l'émulateur TO7-70";
++    char *window_name="Thom - l'Ã©mulateur TO7-70";
+     XSizeHints *size_hints;
+     XWMHints *wm_hints;
+     XClassHint *class_hints;
+@@ -211,28 +211,28 @@
+     Pixmap null_bitmap;
+     XColor color;
+         
+-    printf("Création de la fenêtre principale...");
++    printf("CrÃ©ation de la fenÃªtre principale...");
+ 
+     if ( !(size_hints=XAllocSizeHints()) || !(wm_hints = XAllocWMHints()) ||
+ 	                                  !(class_hints = XAllocClassHint()) )
+     {
+-        fprintf(stderr,"erreur d'allocation mémoire X\n");
++        fprintf(stderr,"erreur d'allocation mÃ©moire X\n");
+         exit(EXIT_FAILURE);
+     }
+     
+-    /* Création de la fenêtre principale */
++    /* CrÃ©ation de la fenÃªtre principale */
+     main_win=XCreateSimpleWindow(display, RootWindow(display,screen), 
+        x, y, WINDOW_WIDTH, WINDOW_HEIGHT, 4, WhitePixel(display, screen),
+               BlackPixel(display,screen));
+ 
+     XSelectInput(display,main_win,FocusChangeMask|KeyPressMask|KeyReleaseMask);
+ 
+-    /* Création du curseur invisible */
++    /* CrÃ©ation du curseur invisible */
+     null_bitmap = XCreateBitmapFromData(display, main_win, "", 1, 1);
+     null_cursor = XCreatePixmapCursor(display, null_bitmap, null_bitmap, &color, &color, 0, 0);
+     XFreePixmap(display, null_bitmap);
+     
+-    /* Création de la fenêtre de l'écran */
++    /* CrÃ©ation de la fenÃªtre de l'Ã©cran */
+     screen_win=XCreateSimpleWindow(display, main_win, BORDER_SIZE, BORDER_SIZE,
+      SCREEN_WIDTH, SCREEN_HEIGHT, 0, BlackPixel(display, screen), BlackPixel(display,screen));
+ 
+@@ -240,14 +240,14 @@
+     win_attrb.win_gravity=CenterGravity;    
+     XChangeWindowAttributes(display, screen_win, CWWinGravity|CWEventMask, &win_attrb);
+ 
+-    /* Dimensionnement de la fenêtre */
++    /* Dimensionnement de la fenÃªtre */
+     size_hints->min_width=WINDOW_WIDTH;
+     size_hints->min_height=WINDOW_HEIGHT;
+     size_hints->max_width=1280;
+     size_hints->max_height=800;
+     size_hints->flags=PPosition | PSize | PMinSize | PMaxSize | user_flags;
+     
+-    /* Formatage du nom de la fenêtre */ 
++    /* Formatage du nom de la fenÃªtre */ 
+     if (!XStringListToTextProperty(&window_name, 1, &windowName))
+     {
+         fprintf(stderr,"erreur d'allocation de structure X\n");
+@@ -274,7 +274,7 @@
+ 
+ 
+ /* HandleEvents:
+- *  Lit et traite les évènements envoyés par le serveur X.
++ *  Lit et traite les Ã©vÃ¨nements envoyÃ©s par le serveur X.
+  */
+ void HandleEvents(void) 
+ {
+@@ -308,7 +308,7 @@
+ 		    if (ev.xkey.state&ControlMask)
+ 			value |= TO7_CTRL_FLAG;
+ 
+-                    /* la led Caps Lock n'est pas supportée */		    
++                    /* la led Caps Lock n'est pas supportÃ©e */		    
+ 
+ 		    to7_InputReset(TO7_SHIFT_FLAG | TO7_CTRL_FLAG, value); 
+ 		    need_modifiers_reset=False;
+--- a/src/linux/ufilentry.c
++++ b/src/linux/ufilentry.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/filentry.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+  *  Classe FileEntry d'extension du toolkit GTK+ 1.2.x .
+  */
+@@ -55,7 +55,7 @@
+ 
+ 
+ 
+-/* partie privée de la classe FileEntry:
++/* partie privÃ©e de la classe FileEntry:
+  */
+ enum {
+     FILE_SELECTED_SIGNAL,
+@@ -97,9 +97,9 @@
+ 
+ static void file_entry_popup_filesel(GtkWidget *button, FileEntry *filent)
+ {
+-    filent->filesel=gtk_file_selection_new("Sélection d'un fichier");
++    filent->filesel=gtk_file_selection_new("SÃ©lection d'un fichier");
+ 
+-    /* On passe le nom du fichier au sélecteur de fichier */
++    /* On passe le nom du fichier au sÃ©lecteur de fichier */
+     gtk_file_selection_set_filename( GTK_FILE_SELECTION(filent->filesel), filent->filename);
+ 
+     /* Connect the ok_button to filesel_ok function */
+--- a/src/linux/ugraphic.c
++++ b/src/linux/ugraphic.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/graphic.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+  *  Gestion de l'affichage du TO7-70.
+  */
+@@ -93,7 +93,7 @@
+ 
+ 
+ /* RefreshBorder:
+- *  Met à jour la couleur du pourtour de l'écran.
++ *  Met Ã  jour la couleur du pourtour de l'Ã©cran.
+  */
+ void RefreshBorder(void)
+ {
+@@ -105,7 +105,7 @@
+ 
+ 
+ /* SetBorderColor:
+- *  Fixe la couleur du pourtour de l'écran.
++ *  Fixe la couleur du pourtour de l'Ã©cran.
+  */
+ void SetBorderColor(int color)
+ {
+@@ -143,7 +143,7 @@
+ 
+ 
+ /* SetDiskLed:
+- *  Allume/éteint la led du lecteur de disquettes.
++ *  Allume/Ã©teint la led du lecteur de disquettes.
+  */
+ static void SetDiskLed(int led_on)
+ {
+@@ -161,7 +161,7 @@
+     }
+     else
+     {
+-        /* RetraceScreen() laisse parfois la led allumée... */
++        /* RetraceScreen() laisse parfois la led allumÃ©e... */
+         need_border_refresh = 1;
+     }
+ }
+@@ -169,14 +169,14 @@
+ 
+ 
+ /* InitGraphic:
+- *  Sélectionne le visual, met en place la palette de couleurs et
+- *  initialise le mécanisme de bufferisation (dirty rectangles).
++ *  SÃ©lectionne le visual, met en place la palette de couleurs et
++ *  initialise le mÃ©canisme de bufferisation (dirty rectangles).
+  */
+ void InitGraphic(void)
+ {
+     register int i,j;
+ 
+-    /* Recherche et sélection du visual */ 
++    /* Recherche et sÃ©lection du visual */ 
+     if (!XMatchVisualInfo(display, screen, 16, TrueColor, &visualinfo))
+ 	if (!XMatchVisualInfo(display, screen, 24, TrueColor, &visualinfo))
+ 	    if (!XMatchVisualInfo(display, screen, 32, TrueColor, &visualinfo))
+@@ -190,7 +190,7 @@
+     colormap=DefaultColormap(display, screen);
+     gc=DefaultGC(display, screen);
+ 
+-    /* récupération de la palette du TO7-70 */
++    /* rÃ©cupÃ©ration de la palette du TO7-70 */
+     for (i=0; i<TO7_NCOLORS; i++)
+     {
+         int red, green, blue;
+@@ -239,12 +239,12 @@
+ 	}
+     }
+ 	
+-    /* Création du buffer d'affichage */
++    /* CrÃ©ation du buffer d'affichage */
+     if (mit_shm_enabled)
+     {
+ 	XShmSegmentInfo *shminfo = malloc(sizeof(XShmSegmentInfo));
+ 
+-        printf("Extension MIT-SHM utilisée.\n");
++        printf("Extension MIT-SHM utilisÃ©e.\n");
+         buffer=XShmCreateImage(display, visualinfo.visual, visualinfo.depth, ZPixmap, 0, shminfo, SCREEN_WIDTH, SCREEN_HEIGHT);
+ 
+ 	shminfo->shmid=shmget(IPC_PRIVATE, SCREEN_HEIGHT*buffer->bytes_per_line, IPC_CREAT | 0777);
+@@ -294,7 +294,7 @@
+ 
+ 
+ /* RetraceScreen:
+- *  Retrace une portion de l'écran.
++ *  Retrace une portion de l'Ã©cran.
+  */
+ void RetraceScreen(int x, int y, int w, int h)
+ {
+@@ -312,7 +312,7 @@
+ 
+ 
+ /* RefreshScreen:
+- *  Rafraîchit l'écran du TO7-70.
++ *  RafraÃ®chit l'Ã©cran du TO7-70.
+  */
+ void RefreshScreen(void)
+ {
+--- a/src/linux/ugui.c
++++ b/src/linux/ugui.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,10 +34,10 @@
+ /*
+  *  Module     : linux/gui.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+- *  Interface utilisateur de l'émulateur basée sur GTK+ 1.2.x .
++ *  Interface utilisateur de l'Ã©mulateur basÃ©e sur GTK+ 1.2.x .
+  */
+ 
+ 
+@@ -73,7 +73,7 @@
+     GtkWidget *f[4],*b[4];
+ };
+ 
+-/* fenêtre de l'interface utilisateur */
++/* fenÃªtre de l'interface utilisateur */
+ static GtkWidget *window;
+ 
+ /* compteur de cassettes */
+@@ -98,7 +98,7 @@
+ 
+ 
+ /* retrace_callback:
+- *  Callback de retraçage de la fenêtre principale.
++ *  Callback de retraÃ§age de la fenÃªtre principale.
+  */
+ static GdkFilterReturn retrace_callback(GdkXEvent *xevent, GdkEvent *event, gpointer unused)
+ {
+@@ -130,7 +130,7 @@
+ 
+ static void question_exit(GtkWidget *button, gpointer unused)
+ {
+-    GtkWidget *quest=question_new("Voulez-vous vraiment quitter l'émulateur ?");
++    GtkWidget *quest=question_new("Voulez-vous vraiment quitter l'Ã©mulateur ?");
+     gtk_signal_connect( GTK_OBJECT(quest), "clicked_yes", GTK_SIGNAL_FUNC(do_exit), (gpointer) QUIT);
+     gtk_quit_add_destroy(1, GTK_OBJECT(quest));
+     gtk_widget_show(quest);
+@@ -187,7 +187,7 @@
+ 
+         if ((ret==TO7_READ_ONLY) && !button->active)
+         {
+-            GtkWidget *mesg=message_new("Attention: écriture impossible.");
++            GtkWidget *mesg=message_new("Attention: Ã©criture impossible.");
+             gtk_quit_add_destroy(1, GTK_OBJECT(mesg));
+             gtk_widget_show(mesg);
+             gtk_toggle_button_set_active(button, TRUE);
+@@ -250,7 +250,7 @@
+ 
+         if ((ret==TO7_READ_ONLY) && !(GTK_TOGGLE_BUTTON(button->b)->active) )
+         {
+-            GtkWidget *mesg=message_new("Attention: écriture impossible.");
++            GtkWidget *mesg=message_new("Attention: Ã©criture impossible.");
+             gtk_quit_add_destroy(1, GTK_OBJECT(mesg));
+             gtk_widget_show(mesg);
+             gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(button->b), TRUE);
+@@ -283,7 +283,7 @@
+     {
+         if (filentry_octo->f[i])
+         {
+-            file_entry_set_entry( FILE_ENTRY(filentry_octo->f[i]), "accès direct");
++            file_entry_set_entry( FILE_ENTRY(filentry_octo->f[i]), "accÃ¨s direct");
+ 
+             if (to7_DirectSetDrive(i) == TO7_READ_ONLY)
+                 gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(filentry_octo->b[i]), TRUE);
+@@ -327,15 +327,15 @@
+ 
+     printf("Initialisation de l'interface...");
+ 
+-    /* fenêtre d'affichage */
++    /* fenÃªtre d'affichage */
+     window=gtk_window_new(GTK_WINDOW_DIALOG);
+-    gtk_window_set_title(GTK_WINDOW(window), "Thom - Panneau de contrôle");
++    gtk_window_set_title(GTK_WINDOW(window), "Thom - Panneau de contrÃ´le");
+     gtk_window_set_policy(GTK_WINDOW(window), False, False, False);
+     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+     gtk_signal_connect(GTK_OBJECT(window), "destroy", GTK_SIGNAL_FUNC(do_exit), (gpointer) QUIT);
+-    gtk_widget_realize(window); /* nécessaire pour charger le pixmap */
++    gtk_widget_realize(window); /* nÃ©cessaire pour charger le pixmap */
+ 
+-    /* boite verticale associée à la fenêtre */
++    /* boite verticale associÃ©e Ã  la fenÃªtre */
+     vbox_window=gtk_vbox_new(FALSE,5);
+     gtk_container_set_border_width( GTK_CONTAINER(vbox_window), 5);
+     gtk_container_add( GTK_CONTAINER(window), vbox_window);
+@@ -346,45 +346,45 @@
+     gtk_box_pack_start( GTK_BOX(vbox_window), hbox_title, TRUE, FALSE, 5);
+     gtk_widget_show(hbox_title);
+ 
+-    /* création du pixmap */
++    /* crÃ©ation du pixmap */
+     style=gtk_widget_get_style(window);
+     pixmap=gdk_pixmap_create_from_xpm_d(window->window, &mask, &style->bg[GTK_STATE_NORMAL], thomson_xpm);
+ 
+-    /* première instance du pixmap */
++    /* premiÃ¨re instance du pixmap */
+     pixmapwid1=gtk_pixmap_new(pixmap,mask);
+     gtk_box_pack_start( GTK_BOX(hbox_title), pixmapwid1, TRUE, FALSE, 0);
+     gtk_widget_show(pixmapwid1);
+ 
+     /* label du titre */
+-    strcat(strcpy(string_title,version_name),"\nCopyright © 1996 Sylvain Huet,\n1999-2003 Eric Botcazou.");
++    strcat(strcpy(string_title,version_name),"\nCopyright Â© 1996 Sylvain Huet,\n1999-2003 Eric Botcazou.");
+     label_title=gtk_label_new(string_title);
+     gtk_box_pack_start( GTK_BOX(hbox_title), label_title, TRUE, FALSE, 0);
+     gtk_widget_show(label_title);
+ 
+-    /* deuxième instance du pixmap */
++    /* deuxiÃ¨me instance du pixmap */
+     pixmapwid2=gtk_pixmap_new(pixmap,mask);
+     gtk_box_pack_start( GTK_BOX(hbox_title), pixmapwid2, TRUE, FALSE, 0);
+     gtk_widget_show(pixmapwid2);
+ 
+-    /* frame des commandes et réglages */
+-    frame_command=gtk_frame_new("Commandes et Réglages");
++    /* frame des commandes et rÃ©glages */
++    frame_command=gtk_frame_new("Commandes et RÃ©glages");
+     gtk_box_pack_start( GTK_BOX(vbox_window), frame_command, TRUE, FALSE, 0);
+     gtk_widget_show(frame_command);
+ 
+-    /* boite verticale associée à la frame des commandes et réglages */
++    /* boite verticale associÃ©e Ã  la frame des commandes et rÃ©glages */
+     vbox_command=gtk_vbox_new(FALSE,5);
+     gtk_container_set_border_width( GTK_CONTAINER(vbox_command), 5);
+     gtk_container_add( GTK_CONTAINER(frame_command), vbox_command);
+     gtk_widget_show(vbox_command);
+ 
+-    /* bouton de réinitialisation */
+-    button_reset=gtk_button_new_with_label("Réinitialiser le TO7-70");
++    /* bouton de rÃ©initialisation */
++    button_reset=gtk_button_new_with_label("RÃ©initialiser le TO7-70");
+     gtk_signal_connect( GTK_OBJECT(button_reset), "clicked", GTK_SIGNAL_FUNC(do_exit), (gpointer) RESET);
+     gtk_box_pack_start( GTK_BOX(vbox_command), button_reset, TRUE, FALSE, 0);
+     gtk_widget_show(button_reset);
+ 
+-    /* bouton de redémarrage à froid */
+-    button_coldreset=gtk_button_new_with_label("Redémarrer à froid le TO7-70");
++    /* bouton de redÃ©marrage Ã  froid */
++    button_coldreset=gtk_button_new_with_label("RedÃ©marrer Ã  froid le TO7-70");
+     gtk_signal_connect( GTK_OBJECT(button_coldreset), "clicked", GTK_SIGNAL_FUNC(do_exit), (gpointer) COLD_RESET);
+     gtk_box_pack_start( GTK_BOX(vbox_command), button_coldreset, TRUE, FALSE, 0);
+     gtk_widget_show(button_coldreset);
+@@ -395,7 +395,7 @@
+     gtk_widget_show(hbox_speed);
+ 
+     /* label de la vitesse */
+-    label_speed=gtk_label_new("Vitesse de l'émulation:");
++    label_speed=gtk_label_new("Vitesse de l'Ã©mulation:");
+     gtk_box_pack_start( GTK_BOX(hbox_speed), label_speed, TRUE, TRUE, 0);
+     gtk_widget_show(label_speed);
+ 
+@@ -412,7 +412,7 @@
+     gtk_box_pack_end( GTK_BOX(hbox_speed), button_true, TRUE, TRUE, 0);
+     gtk_widget_show(button_true);
+ 
+-    /* notebook des périphériques */
++    /* notebook des pÃ©riphÃ©riques */
+     notebook=gtk_notebook_new();
+     gtk_box_pack_start( GTK_BOX(vbox_window), notebook, TRUE, FALSE, 0);
+     gtk_widget_show(notebook);
+@@ -426,13 +426,13 @@
+     gtk_widget_show(frame_memo);
+     gtk_widget_show(label_memo);
+ 
+-    /* boite verticale associée à la frame de la cartouche */
++    /* boite verticale associÃ©e Ã  la frame de la cartouche */
+     vbox_memo=gtk_vbox_new(FALSE,0);
+     gtk_container_set_border_width( GTK_CONTAINER(vbox_memo), 5);
+     gtk_container_add( GTK_CONTAINER(frame_memo), vbox_memo);
+     gtk_widget_show(vbox_memo);
+ 
+-    /* entrée fichier de la cartouche */
++    /* entrÃ©e fichier de la cartouche */
+     filent_memo=file_entry_new("m7");
+     gtk_signal_connect( GTK_OBJECT(filent_memo), "file_selected", GTK_SIGNAL_FUNC(read_filent_memo), NULL);
+ 
+@@ -458,13 +458,13 @@
+     gtk_widget_show(frame_cass);
+     gtk_widget_show(label1_cass);
+ 
+-    /* boite verticale associée à la frame de la cassette */
++    /* boite verticale associÃ©e Ã  la frame de la cassette */
+     vbox_cass=gtk_vbox_new(FALSE, 5);
+     gtk_container_set_border_width( GTK_CONTAINER(vbox_cass), 5);
+     gtk_container_add( GTK_CONTAINER(frame_cass), vbox_cass);
+     gtk_widget_show(vbox_cass);
+ 
+-    /* première boite horizontale de la cassette */
++    /* premiÃ¨re boite horizontale de la cassette */
+     hbox1_cass=gtk_hbox_new(FALSE, 10);
+     gtk_box_pack_start( GTK_BOX(vbox_cass), hbox1_cass, FALSE, FALSE, 0);
+     gtk_widget_show(hbox1_cass);
+@@ -480,7 +480,7 @@
+     gtk_box_pack_end( GTK_BOX(hbox1_cass), check_button_cass, FALSE, TRUE, 0);
+     gtk_widget_show(check_button_cass);
+ 
+-    /* entrée fichier de la cassette */
++    /* entrÃ©e fichier de la cassette */
+     filent_cass=file_entry_new("k7");
+     gtk_signal_connect( GTK_OBJECT(filent_cass), "file_selected", GTK_SIGNAL_FUNC(read_filent_cass), (gpointer) check_button_cass);
+ 
+@@ -525,13 +525,13 @@
+         gtk_widget_show(frame_disk);
+         gtk_widget_show(label_disk);
+ 
+-        /* boite verticale associée à la frame des disquettes */
++        /* boite verticale associÃ©e Ã  la frame des disquettes */
+         vbox_disk=gtk_vbox_new(FALSE, 5);
+         gtk_container_set_border_width( GTK_CONTAINER(vbox_disk), 5);
+         gtk_container_add( GTK_CONTAINER(frame_disk), vbox_disk);
+         gtk_widget_show(vbox_disk);
+ 
+-        /* boîtes horizontales des disquettes */
++        /* boÃ®tes horizontales des disquettes */
+         for (i=0; i<NDISKS; i++)
+         {
+             char num[3];
+@@ -548,7 +548,7 @@
+             gtk_box_pack_end( GTK_BOX(hbox_disk[i]), check_button_disk[i]->b, FALSE, TRUE,0);
+             gtk_widget_show(check_button_disk[i]->b);
+ 
+-            /* entrée fichier des disquettes */
++            /* entrÃ©e fichier des disquettes */
+             sprintf(num, "%d:", i);
+             filent_disk[i]=file_entry_new(num);
+             gtk_signal_connect( GTK_OBJECT(filent_disk[i]), "file_selected", GTK_SIGNAL_FUNC(read_filent_disk), (gpointer) check_button_disk[i]);
+@@ -581,18 +581,18 @@
+                 }
+             }
+ 
+-            button_direct=gtk_button_new_with_label("Accès direct");
++            button_direct=gtk_button_new_with_label("AccÃ¨s direct");
+             gtk_signal_connect( GTK_OBJECT(button_direct), "clicked", GTK_SIGNAL_FUNC(set_direct_disk), (gpointer) filentry_octo);
+             gtk_box_pack_start( GTK_BOX(vbox_disk), button_direct, TRUE, TRUE, 0);
+             gtk_widget_show(button_direct);
+         }
+ 
+-        /* on affiche la page des disquettes au démarrage */
++        /* on affiche la page des disquettes au dÃ©marrage */
+         gtk_notebook_set_page( GTK_NOTEBOOK(notebook), 2);
+     }
+     else
+     {
+-        /* on affiche la page des cassettes au démarrage */
++        /* on affiche la page des cassettes au dÃ©marrage */
+         gtk_notebook_set_page( GTK_NOTEBOOK(notebook), 1);
+     }
+ 
+@@ -614,8 +614,8 @@
+     gtk_container_add( GTK_CONTAINER(hbox_end), button_quit);
+     gtk_widget_show(button_quit);
+ 
+-    /* mise en place d'un hook pour assurer le retraçage de la fenêtre
+-       principale de l'émulateur */
++    /* mise en place d'un hook pour assurer le retraÃ§age de la fenÃªtre
++       principale de l'Ã©mulateur */
+     gdk_window_add_filter(gdk_window_foreign_new(screen_win), retrace_callback, NULL);
+ 
+     printf("ok\n");
+@@ -624,16 +624,16 @@
+ 
+ 
+ /* ControlPanel:
+- *  Affiche le panneau de contrôle.
++ *  Affiche le panneau de contrÃ´le.
+  */
+ void ControlPanel(void)
+ {
+-    /* Mise à jour du compteur de cassettes */
++    /* Mise Ã  jour du compteur de cassettes */
+     gtk_spin_button_set_value( GTK_SPIN_BUTTON(spinner_cass), to7_GetK7Counter());
+ 
+-    /* affichage de la fenêtre principale et de ses éléments */
++    /* affichage de la fenÃªtre principale et de ses Ã©lÃ©ments */
+     gtk_widget_show(window);
+ 
+-    /* boucle de gestion des événements */
++    /* boucle de gestion des Ã©vÃ©nements */
+     gtk_main();
+ }
+--- a/src/linux/umain.c
++++ b/src/linux/umain.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,10 +34,10 @@
+ /*
+  *  Module     : linux/main.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+- *  Boucle principale de l'émulateur.
++ *  Boucle principale de l'Ã©mulateur.
+  */
+ 
+ 
+@@ -70,7 +70,7 @@
+     NONE
+ };
+ 
+-static int frame;           /* compteur de frame vidéo */
++static int frame;           /* compteur de frame vidÃ©o */
+ static volatile int tick;   /* compteur du timer */
+ 
+ #define OP_TABLE_SIZE 10
+@@ -92,13 +92,13 @@
+ {
+     tick++;
+     signal(SIGALRM,Timer);
+-    (void) sigtype; /* pour éviter un warning du compilateur */
++    (void) sigtype; /* pour Ã©viter un warning du compilateur */
+ }
+ 
+ 
+ 
+ /* RunTO7:
+- *  Boucle principale de l'émulateur.
++ *  Boucle principale de l'Ã©mulateur.
+  */
+ static void RunTO7(void)
+ {
+@@ -114,12 +114,12 @@
+     frame=1;
+     to7_ColdReset();
+ 
+-    do   /* boucle principale de l'émulateur */
++    do   /* boucle principale de l'Ã©mulateur */
+     {
+         thom.command=NONE;
+         tick=frame;
+ 
+-        do  /* boucle d'émulation */
++        do  /* boucle d'Ã©mulation */
+         {
+             to7_DoFrame();
+ 
+@@ -129,7 +129,7 @@
+             RefreshScreen();
+             HandleEvents();
+ 
+-            if (thom.exact_speed)  /* synchronisation sur fréquence réelle */
++            if (thom.exact_speed)  /* synchronisation sur frÃ©quence rÃ©elle */
+             {
+                 if (thom.sound_enabled) 
+                     PlaySoundBuffer();
+@@ -139,7 +139,7 @@
+ 
+             frame++;
+         }
+-        while (thom.command==NONE);  /* fin de la boucle d'émulation */
++        while (thom.command==NONE);  /* fin de la boucle d'Ã©mulation */
+           
+         if (thom.command==CONTROL_PANEL)
+             ControlPanel();
+@@ -157,12 +157,12 @@
+ 
+ 
+ /* GetUserInput:
+- *  Lit toutes les options spécifiées par l'utilisateur dans
+- *  l'ordre de priorité décroissante suivant:
++ *  Lit toutes les options spÃ©cifiÃ©es par l'utilisateur dans
++ *  l'ordre de prioritÃ© dÃ©croissante suivant:
+  *    - ligne de commande,
+- *    - ressource de l'écran mise en place par xrdb,
+- *    - fichier .Xdefaults dans le répertoire utilisateur,
+- *  et les fusionne dans la base de données user_db.
++ *    - ressource de l'Ã©cran mise en place par xrdb,
++ *    - fichier .Xdefaults dans le rÃ©pertoire utilisateur,
++ *  et les fusionne dans la base de donnÃ©es user_db.
+  */
+ static XrmDatabase GetUserInput(int *argc, char *argv[])
+ {
+@@ -178,26 +178,26 @@
+     {
+         printf("Usage:\n");
+         printf("           %s [options ...]\n",argv[0]);
+-        printf("où les options sont prises parmi les suivantes:\n");
++        printf("oÃ¹ les options sont prises parmi les suivantes:\n");
+         printf("    -help                   affiche cette aide\n");
+         printf("    -m file.m7              place la cartouche file.m7 dans le lecteur\n");
+-        printf("    -nodisk                 désactive le contrôleur de disquettes\n");
+-        printf("    -fast                   active la pleine vitesse de l'émulateur\n");
+-        printf("    -nosound                supprime le son de l'émulateur\n");
+-        printf("    -geometry wxh+x+y       spécifie la géométrie de la fenêtre\n");
++        printf("    -nodisk                 dÃ©sactive le contrÃ´leur de disquettes\n");
++        printf("    -fast                   active la pleine vitesse de l'Ã©mulateur\n");
++        printf("    -nosound                supprime le son de l'Ã©mulateur\n");
++        printf("    -geometry wxh+x+y       spÃ©cifie la gÃ©omÃ©trie de la fenÃªtre\n");
+         printf("                            (deux tailles possibles: 640x400 ou 320x200)\n");
+-        printf("    -noshm                  désactive l'utilisation de l'extension MIT-SHM\n");
+-        printf("    -display displayname    spécifie le serveur X à utiliser\n");
++        printf("    -noshm                  dÃ©sactive l'utilisation de l'extension MIT-SHM\n");
++        printf("    -display displayname    spÃ©cifie le serveur X Ã  utiliser\n");
+         exit(EXIT_SUCCESS);
+     }     
+     
+-    /* On a besoin de display pour accéder à la configuration utilisateur */
++    /* On a besoin de display pour accÃ©der Ã  la configuration utilisateur */
+     if (XrmGetResource(commandline_db,PROG_NAME".display",PROG_CLASS".Display", str_type, &value))
+         strncpy(display_name, value.addr, value.size);
+     else
+         display_name[0]='\0';
+     
+-    /* On a besoin de display pour accéder à la configuration utilisateur */
++    /* On a besoin de display pour accÃ©der Ã  la configuration utilisateur */
+     InitDisplay();
+ 
+     if (XScreenResourceString(DefaultScreenOfDisplay(display)) != NULL)
+@@ -218,8 +218,8 @@
+ 
+ 
+ /* SetParameters:
+- *  Fixe les paramètres de l'émulation, à partir des options de
+- *  l'utilisateur ou par défaut.
++ *  Fixe les paramÃ¨tres de l'Ã©mulation, Ã  partir des options de
++ *  l'utilisateur ou par dÃ©faut.
+  */
+ static void SetParameters(char memo_name[], int *disk_ctrl, int *direct, int *x, int *y, int *user_flags, XrmDatabase user_db)
+ {
+@@ -227,59 +227,59 @@
+     int flags;
+     XrmValue value;
+     
+-    /* Fichier qui décrit la cartouche placée dans le lecteur */
++    /* Fichier qui dÃ©crit la cartouche placÃ©e dans le lecteur */
+     if (XrmGetResource(user_db,PROG_NAME".memo7",PROG_CLASS".Memo7",str_type, &value))
+         strncpy(memo_name, value.addr, value.size); 
+ 
+-    /* Activation du contrôleur de disquettes */
++    /* Activation du contrÃ´leur de disquettes */
+     if (XrmGetResource(user_db,PROG_NAME".disk",PROG_CLASS".Disk", str_type, &value))
+     {
+         if (!strncmp(value.addr,"off",value.size))
+             *disk_ctrl=TO7_NO_DISK_CTRL;
+         else if (strncmp(value.addr,"on",value.size))
+         {
+-            fprintf(stderr,"%s: spécification du contrôleur de disquettes invalide\n",PROG_NAME);
++            fprintf(stderr,"%s: spÃ©cification du contrÃ´leur de disquettes invalide\n",PROG_NAME);
+             exit(EXIT_FAILURE);
+         }
+     }
+ 
+-    /* Activation de l'accès direct */
++    /* Activation de l'accÃ¨s direct */
+     if (XrmGetResource(user_db,PROG_NAME".direct",PROG_CLASS".Direct", str_type, &value))
+     {
+         if (!strncmp(value.addr,"off",value.size))
+             *direct=TRUE;
+         else if (strncmp(value.addr,"on",value.size))
+         {
+-            fprintf(stderr,"%s: spécification du contrôleur de disquettes invalide\n",PROG_NAME);
++            fprintf(stderr,"%s: spÃ©cification du contrÃ´leur de disquettes invalide\n",PROG_NAME);
+             exit(EXIT_FAILURE);
+         }
+     }
+ 
+-    /* Vitesse de l'émulation: réelle (celle du TO7) ou rapide (celle du PC) */
++    /* Vitesse de l'Ã©mulation: rÃ©elle (celle du TO7) ou rapide (celle du PC) */
+     if (XrmGetResource(user_db,PROG_NAME".speed",PROG_CLASS".Speed", str_type, &value))
+     {
+         if (!strncmp(value.addr,"fast",value.size))
+             thom.exact_speed=False;
+         else if (strncmp(value.addr,"true",value.size))
+         {
+-            fprintf(stderr,"%s: spécification de vitesse invalide\n",PROG_NAME);
++            fprintf(stderr,"%s: spÃ©cification de vitesse invalide\n",PROG_NAME);
+             exit(EXIT_FAILURE);
+         }
+     }
+ 
+-    /* Activation de l'émulation sonore */
++    /* Activation de l'Ã©mulation sonore */
+     if (XrmGetResource(user_db,PROG_NAME".sound",PROG_CLASS".Sound", str_type, &value))
+     {
+         if (!strncmp(value.addr,"off",value.size))
+             thom.sound_enabled=False;
+         else if (strncmp(value.addr,"on",value.size))
+         {
+-            fprintf(stderr,"%s: spécification de l'émulation sonore invalide\n",PROG_NAME);
++            fprintf(stderr,"%s: spÃ©cification de l'Ã©mulation sonore invalide\n",PROG_NAME);
+             exit(EXIT_FAILURE);
+         }
+     }
+ 
+-    /* Géométrie de la fenêtre */
++    /* GÃ©omÃ©trie de la fenÃªtre */
+     screen_size=2;
+     if (XrmGetResource(user_db,PROG_NAME".geometry",PROG_CLASS".Geometry",str_type, &value))
+     {
+@@ -297,7 +297,7 @@
+ 		screen_size=1;
+ 	    else
+ 	    {
+-		fprintf(stderr,"%s: spécification de géométrie invalide (voir %s -help)\n", PROG_NAME, PROG_NAME);
++		fprintf(stderr,"%s: spÃ©cification de gÃ©omÃ©trie invalide (voir %s -help)\n", PROG_NAME, PROG_NAME);
+ 		exit(EXIT_FAILURE);
+ 	    }
+ 	}      
+@@ -332,7 +332,7 @@
+             mit_shm_enabled=False;
+         else if (strncmp(value.addr,"on",value.size))
+         {
+-            fprintf(stderr,"%s: spécification de l'extension MIT-SHM invalide\n",PROG_NAME);
++            fprintf(stderr,"%s: spÃ©cification de l'extension MIT-SHM invalide\n",PROG_NAME);
+             exit(EXIT_FAILURE);
+         }
+     }
+@@ -353,7 +353,7 @@
+ #define IS_5_INCHES(drive) ((drive_type[drive]>0) && (drive_type[drive]<3))
+ 
+ /* main:
+- *  Point d'entrée du programme appelé par Linux.
++ *  Point d'entrÃ©e du programme appelÃ© par Linux.
+  */
+ int main(int argc,char *argv[])
+ {
+@@ -372,26 +372,26 @@
+     /* Initialisation du module de gestion des ressources */
+     XrmInitialize();
+     
+-    /* Mise en commun dans user_db toutes les commandes et options spécifiées
++    /* Mise en commun dans user_db toutes les commandes et options spÃ©cifiÃ©es
+        par l'utilisateur */
+     user_db = GetUserInput(&argc, argv);   
+     
+-    /* Mise en place des paramètres de l'émulation */
++    /* Mise en place des paramÃ¨tres de l'Ã©mulation */
+     SetParameters(memo_name, &disk_ctrl, &direct_write_support, &x, &y, &user_flags, user_db);   
+     XrmDestroyDatabase(user_db);    
+ 
+     /* Affichage du message de bienvenue du programme */
+-    printf("Voici %s l'émulateur Thomson TO7-70.\n",version_name);
++    printf("Voici %s l'Ã©mulateur Thomson TO7-70.\n",version_name);
+     printf("Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.\n\n");
+-    printf("Touches: [ESC] Panneau de contrôle\n\n");
++    printf("Touches: [ESC] Panneau de contrÃ´le\n\n");
+ 
+-    /* Initialisation de l'émulateur */
+-    printf("Initialisation de l'émulateur...");
++    /* Initialisation de l'Ã©mulateur */
++    printf("Initialisation de l'Ã©mulateur...");
+     fflush(stdout);
+ 
+     if (to7_Init(disk_ctrl) == TO7_ERROR)
+     {
+-        /* la ROM contrôleur disk est peut-être manquante? */
++        /* la ROM contrÃ´leur disk est peut-Ãªtre manquante? */
+         disk_ctrl = TO7_NO_DISK_CTRL;
+ 
+         if (to7_Init(disk_ctrl) == TO7_ERROR)
+@@ -399,7 +399,7 @@
+         else
+         {
+             printf("%s\n", to7_error_msg);
+-            printf("Initialisation de l'émulateur sans support des disquettes... ");
++            printf("Initialisation de l'Ã©mulateur sans support des disquettes... ");
+         }
+     }
+ 
+@@ -420,12 +420,12 @@
+             to7_LoadMemo7("./memo7/basic.m7");
+     }
+ 
+-    /* Initialisation de l'interface d'accès direct */
++    /* Initialisation de l'interface d'accÃ¨s direct */
+     if (disk_ctrl != TO7_NO_DISK_CTRL)
+     {
+         InitDirectDisk(drive_type, direct_write_support);
+ 
+-        /* Détection des lecteurs supportés par le CD90-640 (5"25 seulement) */
++        /* DÃ©tection des lecteurs supportÃ©s par le CD90-640 (5"25 seulement) */
+         for (i=0; i<4; i++)
+         {
+             if (IS_5_INCHES(i))
+@@ -433,7 +433,7 @@
+         }
+     }
+     
+-    /* Création de la fenêtre principale de l'émulateur */
++    /* CrÃ©ation de la fenÃªtre principale de l'Ã©mulateur */
+     InitWindow(argc, argv, x, y, user_flags);
+ 
+      /* Initialisation de l'interface utilisateur */
+@@ -444,13 +444,13 @@
+     InitSound();  
+     
+     /* Et c'est parti !!! */
+-    printf("Lancement de l'émulation...\n");
++    printf("Lancement de l'Ã©mulation...\n");
+     RunTO7();
+     
+-    /* Mise au repos de l'interface d'accès direct */
++    /* Mise au repos de l'interface d'accÃ¨s direct */
+     ExitDirectDisk();
+ 
+-    /* Sortie de l'émulateur */
+-    printf("\nA bientôt !\n");
++    /* Sortie de l'Ã©mulateur */
++    printf("\nA bientÃ´t !\n");
+     exit(EXIT_SUCCESS);
+ }
+--- a/src/linux/umessage.c
++++ b/src/linux/umessage.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/message.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+  *  Classe Message d'extension du toolkit GTK+ 1.2.x .
+  */
+@@ -53,7 +53,7 @@
+ 
+ 
+ 
+-/* partie privée de la classe Message:
++/* partie privÃ©e de la classe Message:
+  */
+ static void message_class_init(MessageClass *class)
+ {
+--- a/src/linux/uquestion.c
++++ b/src/linux/uquestion.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/question.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+  *  Classe Question d'extension du toolkit GTK+ 1.2.x .
+  */
+@@ -53,7 +53,7 @@
+ 
+ 
+ 
+-/* partie privée de la classe Question:
++/* partie privÃ©e de la classe Question:
+  */
+ enum {
+     CLICKED_YES_SIGNAL,
+--- a/src/linux/usound.c
++++ b/src/linux/usound.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,13 +34,13 @@
+ /*
+  *  Module     : linux/sound.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou août 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
+- * Modifié par : Thomas Missonier 05/07/2016
++ *  CrÃ©Ã© par   : Eric Botcazou aoÃ»t 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
++ * ModifiÃ© par : Thomas Missonier 05/07/2016
+  * 
+- * Modification 05/07/2016  : Remplacement de /dev/dsp par l'implémentation de Pulse Audio
++ * Modification 05/07/2016  : Remplacement de /dev/dsp par l'implÃ©mentation de Pulse Audio
+  *
+- *  Gestion de l'émulation sonore du TO7-70.
++ *  Gestion de l'Ã©mulation sonore du TO7-70.
+  */
+ 
+ 
+@@ -92,8 +92,8 @@
+     register int i;
+     int index=(clock%TO7_CYCLES_PER_FRAME)*SOUND_FREQ/TO7_CPU_FREQ;
+ 
+-    /* Dans le cas où le nombre de cycles éxécutés pendant une frame dépasse la valeur
+-       théorique, on bloque l'index à sa valeur maximale */
++    /* Dans le cas oÃ¹ le nombre de cycles Ã©xÃ©cutÃ©s pendant une frame dÃ©passe la valeur
++       thÃ©orique, on bloque l'index Ã  sa valeur maximale */
+     if (index < last_index)
+ 	index=SOUND_BUFFER_SIZE;
+ 
+@@ -136,13 +136,13 @@
+ 
+ 
+ /* PlaySoundBuffer:
+- *  Envoie le tampon de streaming audio à la carte son.
++ *  Envoie le tampon de streaming audio Ã  la carte son.
+  */
+ void PlaySoundBuffer(void)
+ {
+     register int i;
+ 
+-     /* on remplit la fin du buffer avec le dernier byte déposé */
++     /* on remplit la fin du buffer avec le dernier byte dÃ©posÃ© */
+     for (i=last_index; i<SOUND_BUFFER_SIZE; i++)
+         sound_buffer[i]=last_data;
+ 
+--- a/include/linux/disk.h
++++ b/include/linux/disk.h
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/disk.h
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou 29/07/2000
+- *  Modifié par: Eric Botcazou 26/09/2001
++ *  CrÃ©Ã© par   : Eric Botcazou 29/07/2000
++ *  ModifiÃ© par: Eric Botcazou 26/09/2001
+  *
+  *  Lecture directe des disquettes Thomson.
+  */
+--- a/include/linux/display.h
++++ b/include/linux/display.h
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/display.h
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+  *  Module d'interface avec le serveur X.
+  */
+--- a/include/linux/filentry.h
++++ b/include/linux/filentry.h
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/filentry.h
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 29/07/2000
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 29/07/2000
+  *
+  *  Classe FileEntry d'extension du toolkit GTK+.
+  */
+--- a/include/linux/graphic.h
++++ b/include/linux/graphic.h
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/graphic.h
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par: Eric Botcazou 27/08/2000
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par: Eric Botcazou 27/08/2000
+  *
+  *  Gestion de l'affichage du TO7-70.
+  */
+--- a/include/linux/gui.h
++++ b/include/linux/gui.h
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,10 +34,10 @@
+ /*
+  *  Module     : linux/gui.h
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par:
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par:
+  *
+- *  Interface utilisateur de l'émulateur basée sur GTK+.
++ *  Interface utilisateur de l'Ã©mulateur basÃ©e sur GTK+.
+  */
+ 
+ 
+--- a/include/linux/main.h
++++ b/include/linux/main.h
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,10 +34,10 @@
+ /*
+  *  Module     : linux/main.h
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juin 1999
+- *  Modifié par:
++ *  CrÃ©Ã© par   : Eric Botcazou juin 1999
++ *  ModifiÃ© par:
+  *
+- *  Boucle principale de l'émulateur.
++ *  Boucle principale de l'Ã©mulateur.
+  */
+ 
+ 
+--- a/include/linux/message.h
++++ b/include/linux/message.h
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/message.h
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par:
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par:
+  *
+  *  Classe Message d'extension du toolkit GTK+.
+  */
+--- a/include/linux/question.h
++++ b/include/linux/question.h
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : linux/question.h
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou juillet 1999
+- *  Modifié par:
++ *  CrÃ©Ã© par   : Eric Botcazou juillet 1999
++ *  ModifiÃ© par:
+  *
+  *  Classe Question d'extension du toolkit GTK+.
+  */
+--- a/include/linux/sound.h
++++ b/include/linux/sound.h
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,10 +34,10 @@
+ /*
+  *  Module     : linux/sound.h
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou août 1999
+- *  Modifié par: Eric Botcazou 27/08/2000
++ *  CrÃ©Ã© par   : Eric Botcazou aoÃ»t 1999
++ *  ModifiÃ© par: Eric Botcazou 27/08/2000
+  *
+- *  Gestion de l'émulation sonore du TO7-70.
++ *  Gestion de l'Ã©mulation sonore du TO7-70.
+  */
+ 
+ 
+--- a/include/mc68xx/dasm6809.h
++++ b/include/mc68xx/dasm6809.h
+@@ -1,5 +1,5 @@
+ /*
+- *  Module d'émulation des micro-circuits Motorola MC68xx:
++ *  Module d'Ã©mulation des micro-circuits Motorola MC68xx:
+  *    - microprocesseur MC6809E
+  *    - PIA MC6846
+  *    - PIA MC6821
+@@ -24,18 +24,18 @@
+ /*
+  *  Module     : dasm6809.h
+  *  Version    : 1.4
+- *  Créé par   : Sylvain Huet 1996
+- *  Modifié par: Eric Botcazou 23/11/2000
++ *  CrÃ©Ã© par   : Sylvain Huet 1996
++ *  ModifiÃ© par: Eric Botcazou 23/11/2000
+  *
+- *  Désassembleur du Motorola MC6809E
++ *  DÃ©sassembleur du Motorola MC6809E
+  *
+- *  version 1.0: désassembleur fonctionnel
++ *  version 1.0: dÃ©sassembleur fonctionnel
+  *  version 1.1: bugfixes, interface
+- *  version 1.2: correction d'un bug d'écriture de 0x10 et 0x11
+- *  version 1.3: correction d'un bug des offsets 5-bit négatifs
+- *               inclusion des déclarations des tables externes
++ *  version 1.2: correction d'un bug d'Ã©criture de 0x10 et 0x11
++ *  version 1.3: correction d'un bug des offsets 5-bit nÃ©gatifs
++ *               inclusion des dÃ©clarations des tables externes
+  *               nouvel identifiant du module: dasm
+- *  version 1.4: le buffer d'entrée est en unsigned char
++ *  version 1.4: le buffer d'entrÃ©e est en unsigned char
+  *               correction d'un bug de TFR et EXG
+  *               corrections mineures (MacOS port)
+  */
+--- a/include/mc68xx/mc6809.h
++++ b/include/mc68xx/mc6809.h
+@@ -1,5 +1,5 @@
+ /*
+- *  Module d'émulation des micro-circuits Motorola MC68xx:
++ *  Module d'Ã©mulation des micro-circuits Motorola MC68xx:
+  *    - microprocesseur MC6809E
+  *    - PIA MC6846
+  *    - PIA MC6821
+@@ -24,23 +24,23 @@
+ /*
+  *  Module     : mc6809.h
+  *  Version    : 2.7
+- *  Créé par   : Sylvain Huet 1996
+- *  Modifié par: Eric Botcazou 30/11/2000
++ *  CrÃ©Ã© par   : Sylvain Huet 1996
++ *  ModifiÃ© par: Eric Botcazou 30/11/2000
+  *
+  *  Emulateur du microprocesseur Motorola MC6809E.
+  *
+- *  version 1.0: émulation fonctionnelle
++ *  version 1.0: Ã©mulation fonctionnelle
+  *  version 2.0: horloge interne, interface
+  *  version 2.1: interruption du timer
+- *  version 2.2: nouvelles valeurs de retour des fonctions d'éxécution
+- *  version 2.3: encapsulation complète du module
+- *  version 2.4: ajout d'un masque d'écriture des registres
++ *  version 2.2: nouvelles valeurs de retour des fonctions d'Ã©xÃ©cution
++ *  version 2.3: encapsulation complÃ¨te du module
++ *  version 2.4: ajout d'un masque d'Ã©criture des registres
+  *  version 2.5: ajout d'une fonction trace (mode DEBUG)
+  *  version 2.6: nouvelles commandes externes (RESET, NMI, FIRQ)
+- *               correction mineure du mode indexé 5-bit
++ *               correction mineure du mode indexÃ© 5-bit
+  *               Fetch devient FetchInstr et utilise des unsigned char
+  *               suppression d'un inline inutile
+- *  version 2.7: nouvelle interface de manipulation de l'état du MC6809E
++ *  version 2.7: nouvelle interface de manipulation de l'Ã©tat du MC6809E
+  */
+ 
+ 
+--- a/include/mc68xx/mc6821.h
++++ b/include/mc68xx/mc6821.h
+@@ -1,5 +1,5 @@
+ /*
+- *  Module d'émulation des micro-circuits Motorola MC68xx:
++ *  Module d'Ã©mulation des micro-circuits Motorola MC68xx:
+  *    - microprocesseur MC6809E
+  *    - PIA MC6846
+  *    - PIA MC6821
+@@ -24,8 +24,8 @@
+ /*
+  *  Module     : mc6821.h
+  *  Version    : 4.0
+- *  Créé par   : Eric Botcazou
+- *  Modifié par: Eric Botcazou 23/02/2001
++ *  CrÃ©Ã© par   : Eric Botcazou
++ *  ModifiÃ© par: Eric Botcazou 23/02/2001
+  *
+  *  Emulation du PIA Motorola MC6821.
+  */
+@@ -36,9 +36,9 @@
+ 
+ struct MC6821_PORT {
+     int cr;         /* registre de commande                  */
+-    int ddr;        /* registre de direction de données      */
+-    int odr;        /* registre de données en sortie         */
+-    int idr;        /* registre de données en entrée         */
++    int ddr;        /* registre de direction de donnÃ©es      */
++    int odr;        /* registre de donnÃ©es en sortie         */
++    int idr;        /* registre de donnÃ©es en entrÃ©e         */
+ };
+ 
+ struct MC6821_PIA {
+--- a/include/mc68xx/mc6846.h
++++ b/include/mc68xx/mc6846.h
+@@ -1,5 +1,5 @@
+ /*
+- *  Module d'émulation des micro-circuits Motorola MC68xx:
++ *  Module d'Ã©mulation des micro-circuits Motorola MC68xx:
+  *    - microprocesseur MC6809E
+  *    - PIA MC6846
+  *    - PIA MC6821
+@@ -24,8 +24,8 @@
+ /*
+  *  Module     : mc6846.h
+  *  Version    : 2.3
+- *  Créé par   : Eric Botcazou juin 1999
+- *  Modifié par: Eric Botcazou 9/12/2000
++ *  CrÃ©Ã© par   : Eric Botcazou juin 1999
++ *  ModifiÃ© par: Eric Botcazou 9/12/2000
+  *
+  *  Emulation du PIA Motorola MC6846.
+  */
+--- a/src/mc68xx/dasm6809.c
++++ b/src/mc68xx/dasm6809.c
+@@ -1,5 +1,5 @@
+ /*
+- *  Module d'émulation des micro-circuits Motorola MC68xx:
++ *  Module d'Ã©mulation des micro-circuits Motorola MC68xx:
+  *    - microprocesseur MC6809E
+  *    - PIA MC6846
+  *    - PIA MC6821
+@@ -24,18 +24,18 @@
+ /*
+  *  Module     : mc68xx/dasm6809.c
+  *  Version    : 1.4
+- *  Créé par   : Sylvain Huet 1996
+- *  Modifié par: Eric Botcazou 23/11/2000
++ *  CrÃ©Ã© par   : Sylvain Huet 1996
++ *  ModifiÃ© par: Eric Botcazou 23/11/2000
+  *
+- *  Désassembleur du Motorola MC6809E
++ *  DÃ©sassembleur du Motorola MC6809E
+  *
+- *  version 1.0: désassembleur fonctionnel
++ *  version 1.0: dÃ©sassembleur fonctionnel
+  *  version 1.1: bugfixes, interface
+- *  version 1.2: correction d'un bug d'écriture de 0x10 et 0x11
+- *  version 1.3: correction d'un bug des offsets 5-bit négatifs
+- *               inclusion des déclarations des tables externes
++ *  version 1.2: correction d'un bug d'Ã©criture de 0x10 et 0x11
++ *  version 1.3: correction d'un bug des offsets 5-bit nÃ©gatifs
++ *               inclusion des dÃ©clarations des tables externes
+  *               nouvel identifiant du module: dasm
+- *  version 1.4: le buffer d'entrée est en unsigned char
++ *  version 1.4: le buffer d'entrÃ©e est en unsigned char
+  *               correction d'un bug de TFR et EXG
+  *               corrections mineures (MacOS port)
+  */
+@@ -114,11 +114,11 @@
+ 
+ 
+ /* MC6809_Dasm:
+- *  Désassemble une instruction 6809 et retourne sa taille.
+- *   out_str: chaîne de caractères de sortie
++ *  DÃ©sassemble une instruction 6809 et retourne sa taille.
++ *   out_str: chaÃ®ne de caractÃ¨res de sortie
+  *   int_str: pointeur sur le buffer d'instructions
+- *   addr   : l'adresse 6809 virtuelle où est stocké le code machine
+- *   mode   : mode de désassemblage
++ *   addr   : l'adresse 6809 virtuelle oÃ¹ est stockÃ© le code machine
++ *   mode   : mode de dÃ©sassemblage
+  */
+ int MC6809_Dasm(char *out_str, const unsigned char *in_str, int addr, int mode)
+ {
+@@ -132,7 +132,7 @@
+     else if (opcode==0x11)
+         opcode=512+(in_str++[1]);
+ 
+-    /* affichage du mnémonique */
++    /* affichage du mnÃ©monique */
+     strncpy(p_buffer, mne+opcode*4, 4);
+     p_buffer+=4;
+     p_buffer+=sprintf(p_buffer, " ");
+@@ -145,7 +145,7 @@
+             p_buffer+=sprintf(p_buffer,".%02X", in_str[1]);
+             break;
+ 
+-        case 1:  /* inhérent */
++        case 1:  /* inhÃ©rent */
+             if ((opcode==0x1E) || (opcode==0x1F)) /* TFR et EXG */
+                 p_buffer+=sprintf(p_buffer,"%s,%s",reg[(in_str[1]>>4)&0xF],reg[in_str[1]&0xF]);
+             break;
+@@ -155,13 +155,13 @@
+                        (size==2 ? (signed char) in_str[1] : (signed char) in_str[1]*256+in_str[2] ));
+             break;
+ 
+-	case 3: /* immédiat */
++	case 3: /* immÃ©diat */
+             if ((opcode&0xFC)==0x34)  /* piles S et U */
+             {
+                 int first=1;
+ 
+                 if (opcode&1)
+-                {        /* on dépile */
++                {        /* on dÃ©pile */
+                     for (i=7; i>=0; i--)
+                         if ((0x80>>i)&in_str[1])
+                         {
+@@ -193,7 +193,7 @@
+                 p_buffer+=sprintf(p_buffer,"#%04X", in_str[1]*256+in_str[2]);
+             break;
+ 
+-	case 4: /* indexé */
++	case 4: /* indexÃ© */
+             if (in_str[1]&0x80)
+             {
+                 if (in_str[1]&0x10)
+@@ -301,7 +301,7 @@
+             }
+             break;
+ 
+-	case 5: /* étendu */
++	case 5: /* Ã©tendu */
+             p_buffer+=sprintf(p_buffer,">%04X", in_str[1]*256+in_str[2]);
+             break;
+ 
+--- a/src/mc68xx/mc6809.c
++++ b/src/mc68xx/mc6809.c
+@@ -1,5 +1,5 @@
+ /*
+- *  Module d'émulation des micro-circuits Motorola MC68xx:
++ *  Module d'Ã©mulation des micro-circuits Motorola MC68xx:
+  *    - microprocesseur MC6809E
+  *    - PIA MC6846
+  *    - PIA MC6821
+@@ -24,23 +24,23 @@
+ /*
+  *  Module     : mc68xx/mc6809.c
+  *  Version    : 2.7
+- *  Créé par   : Sylvain Huet 1996
+- *  Modifié par: Eric Botcazou 30/11/2000
++ *  CrÃ©Ã© par   : Sylvain Huet 1996
++ *  ModifiÃ© par: Eric Botcazou 30/11/2000
+  *
+  *  Emulateur du microprocesseur Motorola MC6809E.
+  *
+- *  version 1.0: émulation fonctionnelle
++ *  version 1.0: Ã©mulation fonctionnelle
+  *  version 2.0: horloge interne, interface
+  *  version 2.1: interruption du timer
+- *  version 2.2: nouvelles valeurs de retour des fonctions d'éxécution
+- *  version 2.3: encapsulation complète du module
+- *  version 2.4: ajout d'un masque d'écriture des registres
++ *  version 2.2: nouvelles valeurs de retour des fonctions d'Ã©xÃ©cution
++ *  version 2.3: encapsulation complÃ¨te du module
++ *  version 2.4: ajout d'un masque d'Ã©criture des registres
+  *  version 2.5: ajout d'une fonction trace (mode DEBUG)
+  *  version 2.6: nouvelles commandes externes (RESET, NMI, FIRQ)
+- *               correction mineure du mode indexé 5-bit
++ *               correction mineure du mode indexÃ© 5-bit
+  *               Fetch devient FetchInstr et utilise des unsigned char
+  *               suppression d'un inline inutile
+- *  version 2.7: nouvelle interface de manipulation de l'état du MC6809E
++ *  version 2.7: nouvelle interface de manipulation de l'Ã©tat du MC6809E
+  */
+ 
+ 
+@@ -224,14 +224,14 @@
+ 
+ static unsigned char fetch_buffer[MC6809_FETCH_BUFFER_SIZE];
+ 
+-/* le caractère 8-bit du MC6809 impose l'utilisation de char
+-   pour la manipulation des opcodes qui sont des octets signés */
++/* le caractÃ¨re 8-bit du MC6809 impose l'utilisation de char
++   pour la manipulation des opcodes qui sont des octets signÃ©s */
+ static char *op;
+ static int ad;
+ static int *regist[4], *exreg[16];
+ static int illegal_instruction_flag;
+ 
+-/* variables d'état du MC6809 */
++/* variables d'Ã©tat du MC6809 */
+ static mc6809_clock_t cpu_clock, cpu_timer;
+ static int pc,xr,yr,ur,sr,ar,br,dp;
+ static int res,m1,m2,sign,ovfl,h1,h2,ccrest;
+@@ -239,7 +239,7 @@
+ 
+ 
+ /*************************************************/
+-/*** gestion du registre d'état (CC) du MC6809 ***/
++/*** gestion du registre d'Ã©tat (CC) du MC6809 ***/
+ /*************************************************/
+ 
+ static int getcc(void)
+@@ -411,7 +411,7 @@
+ 
+         if ((*op)&0x10)
+         {
+-            cpu_clock+=3;  /* pénalité de 3 cycles pour le mode indirect */
++            cpu_clock+=3;  /* pÃ©nalitÃ© de 3 cycles pour le mode indirect */
+             return LoadWord(k);
+         }
+         else
+@@ -587,7 +587,7 @@
+ 
+ static void synm(void)
+ 	{
+-        /* non supporté */
++        /* non supportÃ© */
+         }
+ 
+ static void lbra(void)
+@@ -991,7 +991,7 @@
+ 
+ static void cwai(void)
+ 	{
+-        /* non supporté */
++        /* non supportÃ© */
+         }
+ 
+ static void mulm(void)             /* ZxCx */ 
+@@ -1801,7 +1801,7 @@
+ 
+ static inline void do_nmi(void)
+ {
+-    ccrest|=0x80;  /* E à 1 */
++    ccrest|=0x80;  /* E Ã  1 */
+     pshsr(0xff);
+     ccrest|=0x50;
+     cpu_clock+=7;  /* 2 + 5 pour pshsr */
+@@ -1811,9 +1811,9 @@
+ 
+ static inline void do_irq(void)
+ {
+-    if (!(ccrest&0x10)) /* si I à 0 */
++    if (!(ccrest&0x10)) /* si I Ã  0 */
+     {
+-        ccrest|=0x80;  /* E à 1 */
++        ccrest|=0x80;  /* E Ã  1 */
+         pshsr(0xff);
+         ccrest|=0x10;
+         cpu_clock+=7;  /* 2 + 5 pour pshsr */
+@@ -1824,9 +1824,9 @@
+ 
+ static inline void do_firq(void)
+ {
+-    if (!(ccrest&0x40)) /* si F à 0 */
++    if (!(ccrest&0x40)) /* si F Ã  0 */
+     {
+-        ccrest&=0x7F;  /* E à 0 */
++        ccrest&=0x7F;  /* E Ã  0 */
+         pshsr(0x81);
+         ccrest|=0x50;
+         cpu_clock+=7;  /* 2 + 5 pour pshsr */
+@@ -1837,7 +1837,7 @@
+ 
+ 
+ /************************************************/
+-/*** Interface publique de l'émulateur MC6809 ***/
++/*** Interface publique de l'Ã©mulateur MC6809 ***/
+ /************************************************/
+ 
+ /* broche de demande d'interruption ordinaire */
+@@ -1921,7 +1921,7 @@
+ 
+ 
+ /* SetTimer:
+- *  Installe un callback appelé par le CPU à expiration de la période spécifiée.
++ *  Installe un callback appelÃ© par le CPU Ã  expiration de la pÃ©riode spÃ©cifiÃ©e.
+  */
+ void mc6809_SetTimer(mc6809_clock_t time, void (*func)(void *), void *data)
+ {
+@@ -1933,7 +1933,7 @@
+ 
+ 
+ /* Reset:
+- *  Remet à zéro le CPU (envoie un signal sur la broche RESET du MC6809).
++ *  Remet Ã  zÃ©ro le CPU (envoie un signal sur la broche RESET du MC6809).
+  */
+ void mc6809_Reset(void)
+ {
+@@ -1946,7 +1946,7 @@
+ 
+ 
+ /* Init:
+- *  Initialise l'émulation du MC6809.
++ *  Initialise l'Ã©mulation du MC6809.
+  */
+ void mc6809_Init(const struct MC6809_INTERFACE *interface)
+ {
+@@ -1983,8 +1983,8 @@
+ 
+ 
+ /* StepExec:
+- *  Exécute un nombre donné d'instructions et retourne le
+- *  nombre de cycles nécessaires à leur éxécution.
++ *  ExÃ©cute un nombre donnÃ© d'instructions et retourne le
++ *  nombre de cycles nÃ©cessaires Ã  leur Ã©xÃ©cution.
+  */
+ int mc6809_StepExec(unsigned int ninst)
+ {
+@@ -2009,13 +2009,13 @@
+         FetchInstr(pc, fetch_buffer);
+         op=fetch_buffer;
+ 
+-        /* on décode l'instruction */
++        /* on dÃ©code l'instruction */
+         r=(*(op++))&0xFF;
+         ad=adr[r];
+         cpu_clock+=cpu_cycles[r];
+         pc+=taille[r];
+ 
+-        /* on éxécute l'instruction */
++        /* on Ã©xÃ©cute l'instruction */
+         (*code[r])();
+     }
+ 
+@@ -2025,8 +2025,8 @@
+ 
+ 
+ /* TimeExec:
+- *  Fait tourner le MC6809 jusqu'à un instant donné et
+- *  retourne le nombre d'instructions éxécutées.
++ *  Fait tourner le MC6809 jusqu'Ã  un instant donnÃ© et
++ *  retourne le nombre d'instructions Ã©xÃ©cutÃ©es.
+  */
+ int mc6809_TimeExec(mc6809_clock_t time_limit)
+ {
+@@ -2049,14 +2049,14 @@
+         FetchInstr(pc, fetch_buffer);
+         op=fetch_buffer;
+ 
+-        /* on décode l'instruction */
++        /* on dÃ©code l'instruction */
+         r=(*(op++))&0xFF;
+ 
+         ad=adr[r];
+         cpu_clock+=cpu_cycles[r];
+         pc+=taille[r];
+ 
+-        /* on éxécute l'instruction */
++        /* on Ã©xÃ©cute l'instruction */
+         (*code[r])();
+         ninst++;
+     }
+--- a/src/mc68xx/mc6821.c
++++ b/src/mc68xx/mc6821.c
+@@ -1,5 +1,5 @@
+ /*
+- *  Module d'émulation des micro-circuits Motorola MC68xx:
++ *  Module d'Ã©mulation des micro-circuits Motorola MC68xx:
+  *    - microprocesseur MC6809E
+  *    - PIA MC6846
+  *    - PIA MC6821
+@@ -24,8 +24,8 @@
+ /*
+  *  Module     : mc6821.c
+  *  Version    : 4.0
+- *  Créé par   : Eric Botcazou
+- *  Modifié par: Eric Botcazou 23/02/2001
++ *  CrÃ©Ã© par   : Eric Botcazou
++ *  ModifiÃ© par: Eric Botcazou 23/02/2001
+  *
+  *  Emulation du PIA Motorola MC6821.
+  */
+@@ -38,9 +38,9 @@
+ 
+ struct MC6821_PORT {
+     int cr;         /* registre de commande                  */
+-    int ddr;        /* registre de direction de données      */
+-    int odr;        /* registre de données en sortie         */
+-    int idr;        /* registre de données en entrée         */
++    int ddr;        /* registre de direction de donnÃ©es      */
++    int odr;        /* registre de donnÃ©es en sortie         */
++    int idr;        /* registre de donnÃ©es en entrÃ©e         */
+ };
+ 
+ struct MC6821_PIA {
+@@ -48,7 +48,7 @@
+     struct MC6821_PORT portb;
+ };
+ /* WriteCommand:
+- *  Dépose une valeur dans le registre de commande du port.
++ *  DÃ©pose une valeur dans le registre de commande du port.
+  */
+ void mc6821_WriteCommand(struct MC6821_PORT *port, int val)
+ {
+@@ -94,7 +94,7 @@
+ 
+ 
+ /* ReadData:
+- *  Retourne la valeur du registre de données sélectionné.
++ *  Retourne la valeur du registre de donnÃ©es sÃ©lectionnÃ©.
+  */
+ int mc6821_ReadData(struct MC6821_PORT *port)
+ {
+@@ -107,7 +107,7 @@
+ 
+ 
+ /* Init:
+- *  Initialise le port spécifié.
++ *  Initialise le port spÃ©cifiÃ©.
+  */
+ void mc6821_Init(struct MC6821_PORT *port, int cr, int idr)
+ {
+--- a/src/mc68xx/mc6846.c
++++ b/src/mc68xx/mc6846.c
+@@ -1,5 +1,5 @@
+ /*
+- *  Module d'émulation des micro-circuits Motorola MC68xx:
++ *  Module d'Ã©mulation des micro-circuits Motorola MC68xx:
+  *    - microprocesseur MC6809E
+  *    - PIA MC6846
+  *    - PIA MC6821
+@@ -24,8 +24,8 @@
+ /*
+  *  Module     : mc68xx/mc6846.c
+  *  Version    : 2.3
+- *  Créé par   : Eric Botcazou juin 1999
+- *  Modifié par: Eric Botcazou 9/12/2000
++ *  CrÃ©Ã© par   : Eric Botcazou juin 1999
++ *  ModifiÃ© par: Eric Botcazou 9/12/2000
+  *
+  *  Emulation du PIA Motorola MC6846.
+  */
+@@ -44,7 +44,7 @@
+ {
+     struct MC6846_PIA *mc6846=data;
+ 
+-    mc6846->csr|=1;  /* bit CSR0 à 1 */
++    mc6846->csr|=1;  /* bit CSR0 Ã  1 */
+     MAKE_CSR();
+ 
+     if (!(mc6846->tcr&0x28)) /* fonctionnement en continu */
+@@ -123,14 +123,14 @@
+ /* Le PIA du 6846                                     */
+ /******************************************************/
+ 
+-/* Nota: cette émulation du PIA du 6846 n'utilise volontairement pas
++/* Nota: cette Ã©mulation du PIA du 6846 n'utilise volontairement pas
+    de buffer de sortie (Output Register) et ne propage pas les modifi-
+-   cations du DDR sur le port de données PDR; en effet, dans les micros
+-   Thomson, la valeur du DDR est en pratique figée au démarrage */
++   cations du DDR sur le port de donnÃ©es PDR; en effet, dans les micros
++   Thomson, la valeur du DDR est en pratique figÃ©e au dÃ©marrage */
+ 
+ void mc6846_WriteCommand(struct MC6846_PIA *mc6846, int val)
+ {
+-    if ((val&2) != (mc6846->crc&2)) /* mode CP1 modifié */
++    if ((val&2) != (mc6846->crc&2)) /* mode CP1 modifiÃ© */
+     {
+         mc6846->csr&=0xFD;
+         MAKE_CSR();
+@@ -150,7 +150,7 @@
+         mc6846->crc=(mc6846->crc&0x7F) | (state<<7);
+ 
+         if  ((mc6846->crc&2) == (state<<1))
+-            mc6846->csr|=0x02;   /* bit CSR1 à 1 */
++            mc6846->csr|=0x02;   /* bit CSR1 Ã  1 */
+         else
+             mc6846->csr&=0xFD;
+ 
+@@ -170,7 +170,7 @@
+ 
+ 
+ /* Init:
+- *  Initialise le PIA MC6846 spécifié.
++ *  Initialise le PIA MC6846 spÃ©cifiÃ©.
+  */
+ void mc6846_Init(struct MC6846_PIA *mc6846, int crc, int prc, int w_mask)
+ {
+@@ -186,7 +186,7 @@
+     mc6846->timeout     = 0;
+     mc6846->callback    = TimerCallback;
+ 
+-    /* pour éviter un plantage lors d'une restauration trop rapide de l'état
+-       de l'émulateur à partir d'un fichier image */
++    /* pour Ã©viter un plantage lors d'une restauration trop rapide de l'Ã©tat
++       de l'Ã©mulateur Ã  partir d'un fichier image */
+     mc6809_SetTimer(MC6809_TIMER_DISABLED, mc6846->callback, (void *)mc6846);
+ }
+--- a/src/disk.c
++++ b/src/disk.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,10 +34,10 @@
+ /*
+  *  Module     : disk.c
+  *  Version    : 1.5.5
+- *  Créé par   : Alexandre Pukall mai 1998
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Alexandre Pukall mai 1998
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+- *  Gestion du format SAP 2.0: lecture et écriture disquette.
++ *  Gestion du format SAP 2.0: lecture et Ã©criture disquette.
+  */
+ 
+ 
+@@ -55,13 +55,13 @@
+ #include "mc68xx/mc6821.h"
+ #include "mc68xx/mc6846.h"
+ 
+-/* paramètres physiques des lecteurs Thomson 
++/* paramÃ¨tres physiques des lecteurs Thomson 
+ #define NBDRIVE    4
+ #define NBTRACK   40
+ #define NBSECT    16
+ #define SECTSIZE 256 */
+ 
+-/* contrôleur de disquettes */
++/* contrÃ´leur de disquettes */
+ struct DISK_CTRL disk_ctrl;
+ 
+ /* type d'un lecteur */
+@@ -80,7 +80,7 @@
+ 
+ 
+ /*****************************************/
+-/* émulation du contrôleur de disquettes */
++/* Ã©mulation du contrÃ´leur de disquettes */
+ /*****************************************/
+ 
+ 
+@@ -129,7 +129,7 @@
+ 
+ 
+ /* crc_pukall:
+- *  Calcule le nouveau CRC à partir de la donnée c.
++ *  Calcule le nouveau CRC Ã  partir de la donnÃ©e c.
+  */
+ static void crc_pukall(short int c)
+ {
+@@ -167,7 +167,7 @@
+ 
+ 
+ /* verify_sap_lect:
+- *  Vérifie l'intégrité du secteur.
++ *  VÃ©rifie l'intÃ©gritÃ© du secteur.
+  */
+ static int verify_sap_lect(sapsector_t *sapsector)
+ {
+@@ -206,7 +206,7 @@
+ 
+ 
+ /* sap_get_sector:
+- *  Lit un secteur sur le lecteur spécifié et retourne
++ *  Lit un secteur sur le lecteur spÃ©cifiÃ© et retourne
+  *  un code d'erreur moniteur TO7.
+  */
+ static int sap_get_sector(int drive, sapsector_t *sapsector)
+@@ -227,11 +227,11 @@
+     fread(buffer, sizeof(char), (size_t)SAP_SECT_SIZE, file);
+     fclose(file);
+ 
+-    /* pour être portable on n'écrit pas directement dans une structure */
++    /* pour Ãªtre portable on n'Ã©crit pas directement dans une structure */
+     sapsector->format=buffer[0];
+     sapsector->protection=buffer[1];
+ 
+-    /* teste la différence d'info piste/secteur */
++    /* teste la diffÃ©rence d'info piste/secteur */
+     if ((sapsector->track != buffer[2]) || (sapsector->sector != buffer[3]))
+         err=4;
+ 
+@@ -250,7 +250,7 @@
+ 
+ 
+ /* sap_put_sector:
+- *  Ecrit un secteur sur le lecteur spécifié et retourne
++ *  Ecrit un secteur sur le lecteur spÃ©cifiÃ© et retourne
+  *  un code d'erreur moniteur TO7.
+  */
+ static int sap_put_sector(int drive, sapsector_t *sapsector)
+@@ -271,7 +271,7 @@
+    buffer[4+i]=sapsector->crc1sect;
+    buffer[4+i+1]=sapsector->crc2sect;
+ 				
+-   /* écriture du secteur dans le fichier */
++   /* Ã©criture du secteur dans le fichier */
+    if ((file=fopen(disk[drive].filename,"rb+"))==NULL)
+        return 4;
+ 
+@@ -287,7 +287,7 @@
+ 
+ 
+ /* sap_format_track:
+- *  Formate une piste sur le lecteur spécifié et retourne
++ *  Formate une piste sur le lecteur spÃ©cifiÃ© et retourne
+  *  un code d'erreur moniteur TO7.
+  */
+ static int sap_format_track(int drive, int track, unsigned char filler_byte)
+@@ -308,7 +308,7 @@
+         sapsector.sector = sect;
+ 
+         err=verify_sap_ecri(&sapsector);
+-        /* err est toujours égal à 0 ... */
++        /* err est toujours Ã©gal Ã  0 ... */
+             
+         if (err==0)
+             err=sap_put_sector(drive, &sapsector);
+@@ -323,12 +323,12 @@
+ 
+ 
+ /**************************************/
+-/* émulation du Disk Operating System */
++/* Ã©mulation du Disk Operating System */
+ /**************************************/
+ 
+ 
+ /* ResetDiskCtrl:
+- *  Initialise le contrôleur de disquettes.
++ *  Initialise le contrÃ´leur de disquettes.
+  */
+ void ResetDiskCtrl(int *cc)
+ {
+@@ -339,7 +339,7 @@
+ 
+ 
+ /* ReadSector:
+- *  Lit un secteur et modifie le registre d'état.
++ *  Lit un secteur et modifie le registre d'Ã©tat.
+  */
+ void ReadSector(int *cc)
+ {
+@@ -349,7 +349,7 @@
+     int dest_data = LOAD_WORD(0x604F);
+     sapsector_t sapsector;
+ 
+-    /* Standard C: l'initialisation de structures avec des expressions non constantes n'est pas supportée */
++    /* Standard C: l'initialisation de structures avec des expressions non constantes n'est pas supportÃ©e */
+     sapsector.format = 0;
+     sapsector.protection = 0;
+     sapsector.track = LOAD_WORD(0x604A);
+@@ -428,7 +428,7 @@
+ 
+ 
+ /* WriteSector:
+- *  Ecrit un secteur et modifie le registre d'état.
++ *  Ecrit un secteur et modifie le registre d'Ã©tat.
+  */
+ void WriteSector(int *cc)
+ {
+@@ -438,7 +438,7 @@
+     int source_data = LOAD_WORD(0x604F);
+     sapsector_t sapsector;
+ 
+-    /* Standard C: l'initialisation de structures avec des expressions non constantes n'est pas supportée */
++    /* Standard C: l'initialisation de structures avec des expressions non constantes n'est pas supportÃ©e */
+     sapsector.format = 0;
+     sapsector.protection = 0;
+     sapsector.track = LOAD_WORD(0x604A);
+@@ -488,13 +488,13 @@
+                 for (i=0; i<SECTSIZE; i++)
+                     direct_buffer[i]=LOAD_BYTE((source_data+i)&0xFFFF);
+ 
+-                /* MSDOS: nécessaire pour que le secteur soit lu par un TO7 réel */
++                /* MSDOS: nÃ©cessaire pour que le secteur soit lu par un TO7 rÃ©el */
+                 direct_buffer[SECTSIZE]=0;
+ 
+                 err=to7_DirectWriteSector(drive, sapsector.track, sapsector.sector, 1, direct_buffer);
+             }
+             else if (to7_DirectReadSector)
+-                err=0x01;  /* disque protégé en écriture */
++                err=0x01;  /* disque protÃ©gÃ© en Ã©criture */
+             else
+                 err=0x10;
+             break;
+@@ -504,7 +504,7 @@
+                 sapsector.data[i]=LOAD_BYTE((source_data+i)&0xFFFF);
+ 
+             err=verify_sap_ecri(&sapsector);
+-            /* err est toujours égal à 0 ... */
++            /* err est toujours Ã©gal Ã  0 ... */
+             
+             if (err==0)
+                 err=sap_put_sector(drive, &sapsector);
+@@ -529,7 +529,7 @@
+ 
+ 
+ /* DiskNop:
+- *  Ne fait rien en elle-même, se contente de modifier le registre d'état.
++ *  Ne fait rien en elle-mÃªme, se contente de modifier le registre d'Ã©tat.
+  */
+ void DiskNop(int *cc)
+ {
+@@ -566,7 +566,7 @@
+ {
+     int sect, loc=0;
+ 
+-    /* mise à zéro de la table */
++    /* mise Ã  zÃ©ro de la table */
+     memset(sector_map, 0, sizeof(int)*NBSECT);
+ 
+     for (sect=1; sect<=NBSECT; sect++)
+@@ -581,12 +581,12 @@
+ }
+ 
+ 
+-/* octet de remplissage des pistes formatées du TO7 */
++/* octet de remplissage des pistes formatÃ©es du TO7 */
+ #define FILLER_BYTE 0xE5
+ 
+ 
+ /* FormatDrive:
+- *  Formate un lecteur et modifie le registre d'état.
++ *  Formate un lecteur et modifie le registre d'Ã©tat.
+  */
+ void FormatDrive(int *cc)
+ {
+@@ -613,7 +613,7 @@
+     }
+ 
+     /* construction de la carte des secteurs pour chaque piste,
+-       à partir du facteur d'entrelacement situé en 0x604D */
++       Ã  partir du facteur d'entrelacement situÃ© en 0x604D */
+     BuildSectorMap(sector_map, LOAD_BYTE(0x604D));
+ 
+     /* formatage des pistes */
+@@ -639,7 +639,7 @@
+                 if (to7_DirectFormatTrack)
+                     err=to7_DirectFormatTrack(drive, track, headers_table);
+                 else if (to7_DirectReadSector)
+-                    err=0x01;  /* disque protégé en écriture */
++                    err=0x01;  /* disque protÃ©gÃ© en Ã©criture */
+                 else
+                     err=0x10;
+                 break;
+@@ -664,8 +664,8 @@
+         *cc|=1;
+     }
+ 
+-    /* la construction de la piste 20 contenant le répertoire
+-       et la FAT est assurée par le TO7 lui-même */ 
++    /* la construction de la piste 20 contenant le rÃ©pertoire
++       et la FAT est assurÃ©e par le TO7 lui-mÃªme */ 
+ }
+ 
+ 
+@@ -677,11 +677,11 @@
+ {
+     int drive;
+         
+-    /* trap reset du contrôleur disk -> ResetDiskCtrl() */
++    /* trap reset du contrÃ´leur disk -> ResetDiskCtrl() */
+     mem.mon.bank[0][0x012E]=0x02;
+     mem.mon.bank[0][0x012F]=0x39;
+ 
+-    /* trap écriture d'un secteur -> WriteSector() */
++    /* trap Ã©criture d'un secteur -> WriteSector() */
+     mem.mon.bank[0][0x017D]=0x02;
+     mem.mon.bank[0][0x017E]=0x39;
+ 
+@@ -713,7 +713,7 @@
+ 
+ 
+ /* CheckFile:
+- *  Teste la présence et le mode d'accès du fichier.
++ *  Teste la prÃ©sence et le mode d'accÃ¨s du fichier.
+  */
+ static int CheckFile(const char filename[], int mode)
+ {
+@@ -746,8 +746,8 @@
+ 
+ 
+ /* DirectSetDrive:
+- *  Déclare le lecteur spécifié en accès direct et force
+- *  le mode lecture seule pour le premier accès.
++ *  DÃ©clare le lecteur spÃ©cifiÃ© en accÃ¨s direct et force
++ *  le mode lecture seule pour le premier accÃ¨s.
+  */
+ int to7_DirectSetDrive(int drive)
+ { 
+@@ -755,7 +755,7 @@
+     {
+         disk[drive].state = DIRECT_ACCESS;
+             
+-        /* premier accès en lecture seule */
++        /* premier accÃ¨s en lecture seule */
+         disk[drive].mode = TO7_READ_ONLY;
+     }
+ 
+@@ -765,8 +765,8 @@
+ 
+ 
+ /* LoadDisk:
+- *  Charge l'archive SAP dans le lecteur spécifié et
+- *  force si nécessaire le mode lecture seule.
++ *  Charge l'archive SAP dans le lecteur spÃ©cifiÃ© et
++ *  force si nÃ©cessaire le mode lecture seule.
+  */
+ int to7_LoadDisk(int drive, const char filename[])
+ {
+@@ -777,7 +777,7 @@
+         char header[SAP_HEADER_SIZE];
+         FILE *file=fopen(filename, "rb");
+ 
+-        /* on vérifie le header */ 
++        /* on vÃ©rifie le header */ 
+         fread(header, sizeof(char), SAP_HEADER_SIZE, file);
+         fclose(file);
+ 
+@@ -795,8 +795,8 @@
+ 
+ 
+ /* SetDiskMode:
+- *  Fixe le mode d'accès à la disquette.
+- *  (lecture seule ou lecture écriture)
++ *  Fixe le mode d'accÃ¨s Ã  la disquette.
++ *  (lecture seule ou lecture Ã©criture)
+  */ 
+ int to7_SetDiskMode(int drive, int mode)
+ {
+@@ -832,7 +832,7 @@
+ 
+ 
+ /* GetDiskFilename:
+- *  Retourne le nom du fichier utilisé comme disquette.
++ *  Retourne le nom du fichier utilisÃ© comme disquette.
+  */
+ const char* to7_GetDiskFilename(int drive)
+ {
+--- a/src/errors.c
++++ b/src/errors.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,10 +34,10 @@
+ /*
+  *  Module     : errors.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou 15/12/2000
+- *  Modifié par: Eric Botcazou 10/10/2001
++ *  CrÃ©Ã© par   : Eric Botcazou 15/12/2000
++ *  ModifiÃ© par: Eric Botcazou 10/10/2001
+  *
+- *  Gestion des erreurs générées par l'émulateur.
++ *  Gestion des erreurs gÃ©nÃ©rÃ©es par l'Ã©mulateur.
+  */
+ 
+ 
+@@ -52,12 +52,12 @@
+ 
+ 
+ static const char *default_error_table[TO7_ERROR_MAX]= {
+-    "Erreur: initialisation multiple de l'émulateur.",
++    "Erreur: initialisation multiple de l'Ã©mulateur.",
+     "Erreur: allocation d'espace impossible.",
+     "Erreur: impossible de trouver ",
+     "Erreur: ouverture impossible.",  
+     "Erreur: mauvais format de fichier.",
+-    "Erreur: périphérique non supporté."
++    "Erreur: pÃ©riphÃ©rique non supportÃ©."
+ };
+ 
+ static const char **custom_error_table = NULL;
+@@ -65,7 +65,7 @@
+ 
+ 
+ /* ErrorMessage:
+- *  Renvoie une erreur générée par l'émulateur.
++ *  Renvoie une erreur gÃ©nÃ©rÃ©e par l'Ã©mulateur.
+  */
+ int ErrorMessage(int error, const char moreinfo[])
+ {
+@@ -87,11 +87,11 @@
+ /**********************************/
+ 
+ 
+-char to7_error_msg[128];  /* 127 caractères au maximum */
++char to7_error_msg[128];  /* 127 caractÃ¨res au maximum */
+ 
+ 
+ /* RegisterErrorTable:
+- *  Inscrit une table d'erreur personnalisée.
++ *  Inscrit une table d'erreur personnalisÃ©e.
+  */
+ void to7_RegisterErrorTable(const char *table[])
+ {
+--- a/src/hardware.c
++++ b/src/hardware.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,13 +34,13 @@
+ /*
+  *  Module     : hardware.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Botcazou 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+- *  Emulation de l'environnement matériel du MC6809E:
+- *	- carte mémoire
+- *	- circuits d'entrées/sorties du système
+- *	- circuits d'entrées/sorties des périphériques
++ *  Emulation de l'environnement matÃ©riel du MC6809E:
++ *	- carte mÃ©moire
++ *	- circuits d'entrÃ©es/sorties du systÃ¨me
++ *	- circuits d'entrÃ©es/sorties des pÃ©riphÃ©riques
+  */
+ 
+ 
+@@ -61,14 +61,14 @@
+ #include "to7.h"
+ 
+ 
+-/* les composants matériels de l'émulateur */
+-struct MC6846_PIA mc6846;      /* PIA 6846 système         */
+-struct MC6821_PIA pia_int;     /* PIA 6821 système         */
++/* les composants matÃ©riels de l'Ã©mulateur */
++struct MC6846_PIA mc6846;      /* PIA 6846 systÃ¨me         */
++struct MC6821_PIA pia_int;     /* PIA 6821 systÃ¨me         */
+ struct MC6821_PIA pia_ext;     /* PIA 6821 musique et jeux */
+ struct GATE_ARRAY lga;         /* Logic Gate Array         */
+-struct MEMORY_PAGER mempager;  /* carte mémoire logique    */
+-struct MEMORY mem;             /* carte mémoire physique   */
+-struct MOTHERBOARD mb;         /* (pseudo) carte mère      */
++struct MEMORY_PAGER mempager;  /* carte mÃ©moire logique    */
++struct MEMORY mem;             /* carte mÃ©moire physique   */
++struct MOTHERBOARD mb;         /* (pseudo) carte mÃ¨re      */
+ 
+ static int gamma[16]={0, 100, 127, 147, 163, 179, 191, 203, 215, 223, 231, 239, 243, 247, 251, 255};
+ 
+@@ -77,7 +77,7 @@
+ 
+ 
+ 
+-/* Fonctions de commutation de l'espace mémoire:
++/* Fonctions de commutation de l'espace mÃ©moire:
+  */
+ static void update_cart(void)
+ {
+@@ -129,14 +129,14 @@
+ 
+ 
+ /* SetDeviceRegister:
+- *  Dépose un octet dans le registre du périphérique et
+- *  modifie en conséquence son état.
++ *  DÃ©pose un octet dans le registre du pÃ©riphÃ©rique et
++ *  modifie en consÃ©quence son Ã©tat.
+  */
+ static void SetDeviceRegister(int addr,int val)
+ {
+     switch (addr)
+     {
+-        /* PIA 6846 système */
++        /* PIA 6846 systÃ¨me */
+         case 0xE7C1:
+             mc6846_WriteCommand(&mc6846, val);
+ 
+@@ -151,14 +151,14 @@
+         case 0xE7C3:
+             mc6846_WriteData(&mc6846, val);
+ 
+-            /* bit 0: sélection demi-page VRAM */
++            /* bit 0: sÃ©lection demi-page VRAM */
+             mempager.screen.page = (mc6846.prc&1 ? 1 : 0);
+             mempager.screen.update();
+ 
+             /* bit 3: led MIN clavier */
+             SetNoCapsLed(mc6846.prc&8);
+ 
+-            /* bit 2, bits 4-6: couleur du pourtour de l'écran */
++            /* bit 2, bits 4-6: couleur du pourtour de l'Ã©cran */
+             if (to7_SetBorderColor)
+                 to7_SetBorderColor((mc6846.prc&0x70)>>4|(((~mc6846.prc)&4)<<1));
+             break;
+@@ -175,7 +175,7 @@
+             mc6846_SetTlsb(&mc6846, val);
+             break;
+ 
+-        /* PIA 6821 système */
++        /* PIA 6821 systÃ¨me */
+         case 0xE7C8:
+             mc6821_WriteData(&pia_int.porta, val);
+             break;
+@@ -189,7 +189,7 @@
+             /* bits 3-7 */
+             switch (mc6821_ReadPort(&pia_int.portb)&0xF8)
+             {
+-                /* mémoire interne 32ko */
++                /* mÃ©moire interne 32ko */
+                 case 0xF0:  /* DDRB 0x0F */
+                     mempager.data.page=2;
+                     break;
+@@ -198,7 +198,7 @@
+                     mempager.data.page=3;
+                     break;
+ 
+-                /* extension mémoire 64ko */
++                /* extension mÃ©moire 64ko */
+                 case 0x18:  /* DDRB 0xE7 */
+                     mempager.data.page=4;
+                     break;
+@@ -250,7 +250,7 @@
+             mc6821_WriteCommand(&pia_ext.portb, val);
+             break;
+ 
+-        /* contrôleur de disquettes */
++        /* contrÃ´leur de disquettes */
+         case 0xE7D0:
+             disk_ctrl_cmdr(val);
+             break;
+@@ -294,7 +294,7 @@
+ 
+ 
+ /* StoreByte:
+- *  Ecrit un octet en mémoire.
++ *  Ecrit un octet en mÃ©moire.
+  */
+ static void StoreByte(int addr, int val)
+ {
+@@ -343,7 +343,7 @@
+ 
+ 
+ /* StoreWord:
+- *  Ecrit deux octets en mémoire.
++ *  Ecrit deux octets en mÃ©moire.
+  */
+ static void StoreWord(int addr, int val)
+ {
+@@ -354,14 +354,14 @@
+ 
+ 
+ /* LoadByte:
+- *  Lit un octet en mémoire.
++ *  Lit un octet en mÃ©moire.
+  */
+ static int LoadByte(int addr)
+ {
+     if ((0xE7C0<=addr) && (addr<=0xE7FF))
+         switch (addr)
+         {
+-            /* PIA 6846 système */
++            /* PIA 6846 systÃ¨me */
+             case 0xE7C0:
+             case 0xE7C4:
+                 return mc6846.csr;
+@@ -384,7 +384,7 @@
+             case 0xE7C7:
+                 return mc6846_tlsb(&mc6846);
+ 
+-            /* PIA 6821 système */
++            /* PIA 6821 systÃ¨me */
+             case 0xE7C8:
+                 return mc6821_ReadData(&pia_int.porta);
+ 
+@@ -410,7 +410,7 @@
+             case 0xE7CF:
+ 		return mc6821_ReadCommand(&pia_ext.portb);
+ 
+-            /* contrôleur de disquettes (WD 2793) */
++            /* contrÃ´leur de disquettes (WD 2793) */
+             case 0xE7D0:
+                 return disk_ctrl.str;
+ 
+@@ -452,7 +452,7 @@
+ 
+ 
+ /* LoadWord:
+- *  Lit deux octets en mémoire.
++ *  Lit deux octets en mÃ©moire.
+  */
+ static int LoadWord(int addr)
+ {
+@@ -478,7 +478,7 @@
+ 
+ 
+ /* BiosCall:
+- *  Appel aux routines du BIOS de gestion des périphériques.
++ *  Appel aux routines du BIOS de gestion des pÃ©riphÃ©riques.
+  */
+ static int BiosCall(struct MC6809_REGS *regs)
+ {
+@@ -496,7 +496,7 @@
+             GetLightpen(&regs->xr, &regs->yr, &regs->cc);
+             break;
+ 
+- 	/* Contrôleur de disquettes */
++ 	/* ContrÃ´leur de disquettes */
+         case 0xE12F:
+             ResetDiskCtrl(&regs->cc);
+             break;
+@@ -526,7 +526,7 @@
+ 
+ 
+ /* InitHardware:
+- *  Initialise la carte mémoire de l'émulateur.
++ *  Initialise la carte mÃ©moire de l'Ã©mulateur.
+  */
+ int InitHardware(int disk_ctrl)
+ {
+@@ -540,7 +540,7 @@
+                                         BiosCall };
+     mc6809_Init(&interface);
+     
+-    /* définition de la carte mémoire physique */
++    /* dÃ©finition de la carte mÃ©moire physique */
+     /* pas de cartouche */
+     mem.cart.nbank = 0;
+     mem.cart.size = 0x4000;
+@@ -573,14 +573,14 @@
+ 
+     strcpy(mem.mon.filename_high[0], "to770.rom");
+ 
+-    /* définition de la carte mémoire logique */
++    /* dÃ©finition de la carte mÃ©moire logique */
+     mempager.cart.update   = update_cart;
+     mempager.screen.update = update_screen;
+     mempager.system.update = update_system;
+     mempager.data.update   = update_data;
+     mempager.mon.update    = update_mon;
+ 
+-    /* carte mère */
++    /* carte mÃ¨re */
+     mb.exact_clock = 0;
+ 
+     LOCK_VARIABLE(mc6809_irq);
+--- a/src/k7.c
++++ b/src/k7.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : k7.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Avril 1999
+- *  Modifié par: Eric Botcazou 03/11/2003
++ *  CrÃ©Ã© par   : Eric Avril 1999
++ *  ModifiÃ© par: Eric Botcazou 03/11/2003
+  *
+  *  Gestion des cassettes du TO7-70.
+  */
+@@ -89,7 +89,7 @@
+       fclose(k7);
+ 
+    k7 = new_k7;
+-   k7_counter = -1;  /* position du fichier modifiée */
++   k7_counter = -1;  /* position du fichier modifiÃ©e */
+ 
+    return mode;
+ }
+@@ -97,7 +97,7 @@
+ 
+ 
+ /* DoK7Stuff:
+- *  Emule le contrôleur du lecteur de cassettes.
++ *  Emule le contrÃ´leur du lecteur de cassettes.
+  */
+ void DoK7Stuff(int *br, int *cc)
+ {
+@@ -111,14 +111,14 @@
+       case 2:
+ 	 if ((k7) && !feof(k7)) {
+ 	    if (current_op == WRITE) {
+-	       fflush(k7); /* pour se conformer à l'ANSI C */
++	       fflush(k7); /* pour se conformer Ã  l'ANSI C */
+ 	       current_op=READ;
+ 	    }
+ 
+ 	    *br=fgetc(k7)&0xFF;
+ 	    *cc&=0xfe;
+ 
+-	    k7_counter = -1;  /* position du fichier modifiée */
++	    k7_counter = -1;  /* position du fichier modifiÃ©e */
+ 	 }
+ 	 else {
+ 	    STORE_BYTE(0x602A, 0x80);
+@@ -132,7 +132,7 @@
+ 	       int i;
+ 
+ 	       if (current_op==READ) {
+-		  fflush(k7); /* pour se conformer à l'ANSI C */
++		  fflush(k7); /* pour se conformer Ã  l'ANSI C */
+ 		  current_op=WRITE;
+ 	       }
+ 
+@@ -141,7 +141,7 @@
+ 
+ 	       STORE_BYTE(0x602A, 4);
+ 
+-	       k7_counter = -1;  /* position du fichier modifiée */
++	       k7_counter = -1;  /* position du fichier modifiÃ©e */
+ 	    }
+ 
+ 	    *cc&=0xfe;
+@@ -155,14 +155,14 @@
+       case 8:
+ 	 if ((k7) && (k7_mode == TO7_READ_WRITE)) {
+ 	    if (current_op == READ) {
+-	       fflush(k7); /* pour se conformer à l'ANSI C */
++	       fflush(k7); /* pour se conformer Ã  l'ANSI C */
+ 	       current_op = WRITE;
+ 	    }
+ 
+ 	    fputc(*br,k7);
+ 	    *cc&=0xfe;
+ 
+-	    k7_counter = -1;  /* position du fichier modifiée */
++	    k7_counter = -1;  /* position du fichier modifiÃ©e */
+ 	 }
+ 	 else {
+ 	    STORE_BYTE(0x602A, 0x80);
+@@ -204,8 +204,8 @@
+ 
+ /* LoadK7:
+  *  Charge une cassette dans le lecteur et retourne le mode d'ouverture.
+- *  Retourne TO8_ERROR en cas d'échec et préserve la cassette précédemment
+- *  chargée.
++ *  Retourne TO8_ERROR en cas d'Ã©chec et prÃ©serve la cassette prÃ©cÃ©demment
++ *  chargÃ©e.
+  */
+ int to7_LoadK7(const char filename[])
+ {
+@@ -222,8 +222,8 @@
+ 
+ 
+ /* SetK7Mode:
+- *  Fixe le mode d'accès à la cassette. Retourne le mode en cas de succès
+- *  ou TO8_ERROR en case d'échec.
++ *  Fixe le mode d'accÃ¨s Ã  la cassette. Retourne le mode en cas de succÃ¨s
++ *  ou TO8_ERROR en case d'Ã©chec.
+  */
+ int to7_SetK7Mode(int mode)
+ {
+@@ -263,8 +263,8 @@
+ void to7_SetK7Counter(int counter)
+ {
+    if (k7) {
+-      /* Vérifie que le compteur a réellement changé avant de repositionner
+-	 le fichier, de façon à éviter les écarts de position dûs à l'arrondi
++      /* VÃ©rifie que le compteur a rÃ©ellement changÃ© avant de repositionner
++	 le fichier, de faÃ§on Ã  Ã©viter les Ã©carts de position dÃ»s Ã  l'arrondi
+ 	 lors de la division par COUNTER_RATIO.  */
+       if (counter != k7_counter) {
+ 	 fseek(k7, counter*COUNTER_RATIO, SEEK_SET);
+@@ -276,7 +276,7 @@
+ 
+ 
+ /* GetK7Filename:
+- *  Retourne le nom du fichier utilisé comme cassette.
++ *  Retourne le nom du fichier utilisÃ© comme cassette.
+  */
+ const char* to7_GetK7Filename(void)
+ {
+--- a/src/keyboard.c
++++ b/src/keyboard.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : keyboard.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou 1998
+- *  Modifié par: Eric Botcazou 06/10/2001
++ *  CrÃ©Ã© par   : Eric Botcazou 1998
++ *  ModifiÃ© par: Eric Botcazou 06/10/2001
+  *
+  *  Gestion du clavier (et des manettes) du TO7-70.
+  */
+@@ -69,11 +69,11 @@
+ };
+ /* key_code[] convertit le scancode d'une touche PC (voir keycodes.h pour
+     la liste des scancodes) en la valeur que produit le clavier TO7-70 pour 
+-    la même touche; il y a trois valeurs particulières :
+-     - 0 désigne une touche non mappée sur le TO7-70,
+-     - 253 désigne une touche du bloc clavier gauche du PC,
+-     - 254 désigne une touche du clavier numérique du PC,
+-     - 255 désigne une touche spéciale du PC mais n'a pas d'utilisation
++    la mÃªme touche; il y a trois valeurs particuliÃ¨res :
++     - 0 dÃ©signe une touche non mappÃ©e sur le TO7-70,
++     - 253 dÃ©signe une touche du bloc clavier gauche du PC,
++     - 254 dÃ©signe une touche du clavier numÃ©rique du PC,
++     - 255 dÃ©signe une touche spÃ©ciale du PC mais n'a pas d'utilisation
+        dans le traitement */
+ 
+ static unsigned char key_rcode[KEY_MAX] = {
+@@ -120,7 +120,7 @@
+ 
+ 
+ /* DoKeyShift:
+- *  Transpose le code des touches shiftées.
++ *  Transpose le code des touches shiftÃ©es.
+  */
+ void DoKeyShift(int *br, int *cc)
+ {
+@@ -142,7 +142,7 @@
+ 
+ 
+ /* ResetKeyboard:
+- *  Remet à zéro le clavier et le port manette du TO7-70.
++ *  Remet Ã  zÃ©ro le clavier et le port manette du TO7-70.
+  */
+ void ResetKeyboard(int mask, int value)
+ {
+@@ -166,7 +166,7 @@
+ 
+ 
+ /* SetNoCapsLed:
+- *  Allume/éteint la led Minuscules.
++ *  Allume/Ã©teint la led Minuscules.
+  */
+ void SetNoCapsLed(int new_state)
+ {
+@@ -189,9 +189,9 @@
+ 
+ 
+ /* HandleKeyPress:
+- *  Prend en compte la frappe ou le relâchement d'une touche.
+- *   key: scancode de la touche frappée/relachée (voir to7keys.h pour la liste)
+- *   release: flag d'enfoncement/relâchement
++ *  Prend en compte la frappe ou le relÃ¢chement d'une touche.
++ *   key: scancode de la touche frappÃ©e/relachÃ©e (voir to7keys.h pour la liste)
++ *   release: flag d'enfoncement/relÃ¢chement
+  */
+ void to7_HandleKeyPress(int key, int release)
+ {
+@@ -207,7 +207,7 @@
+                 key_row[7] &= 0xFE;
+             break;
+ 
+-        case KEY_RCONTROL:  /* le control droit émule le bouton joystick 0 */
++        case KEY_RCONTROL:  /* le control droit Ã©mule le bouton joystick 0 */
+             if (release)
+             {
+                 pia_ext.portb.idr |= 0x40;
+@@ -220,7 +220,7 @@
+             }
+             break;
+ 
+-        case KEY_LCONTROL:  /* le controle gauche émule la touche CNT
++        case KEY_LCONTROL:  /* le controle gauche Ã©mule la touche CNT
+                                 et le bouton joystick 1 */
+             if (release)
+             {
+@@ -267,7 +267,7 @@
+ 
+                 code=key_lpd_code[0][key-KEY_A];
+             }
+-            else if (code==254)  /* touche du pavé numérique */
++            else if (code==254)  /* touche du pavÃ© numÃ©rique */
+             {
+                 code=key_pad_code[key-KEY_1_PAD];
+        
+@@ -291,10 +291,10 @@
+                 }
+ 
+                 pia_ext.porta.idr = j1_dir[0] | j0_dir[0];
+-                break; /* fin du traitement pour le pavé numérique */
++                break; /* fin du traitement pour le pavÃ© numÃ©rique */
+             }
+ 
+-	    if (code)  /* touche mappée */
++	    if (code)  /* touche mappÃ©e */
+             {
+                 if (key_rcode[key]&8)
+                     key_row[7]^=0x01;
+@@ -317,13 +317,13 @@
+  */
+ void InitKeyboard(void)
+ {
+-    /* on modifie l'emplacement de 4 caractères */
++    /* on modifie l'emplacement de 4 caractÃ¨res */
+     mem.mon.bank[0][0x1D17]=37;  /* _ -> % */
+     mem.mon.bank[0][0x1D19]=58;  /* . -> ; */
+     mem.mon.bank[0][0x1D25]=60;  /* / -> : */
+     mem.mon.bank[0][0x1D2D]=59;  /* @ -> < */
+ 
+-    /* appel de la routine de transposition des touches shiftées */
++    /* appel de la routine de transposition des touches shiftÃ©es */
+     mem.mon.bank[0][0x11F2]=0x02;
+ 
+     LOCK_VARIABLE(key_row);
+--- a/src/mouse.c
++++ b/src/mouse.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,8 +34,8 @@
+ /*
+  *  Module     : mouse.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou 1999
+- *  Modifié par: Eric Botcazou 15/07/2000
++ *  CrÃ©Ã© par   : Eric Botcazou 1999
++ *  ModifiÃ© par: Eric Botcazou 15/07/2000
+  *
+  *  Gestion du crayon optique du TO7-70.
+  */
+@@ -51,17 +51,17 @@
+ 
+ 
+ /* ResetMouse:
+- *  Réinitialise les périphériques de pointage.
++ *  RÃ©initialise les pÃ©riphÃ©riques de pointage.
+  */
+ void ResetMouse(void)
+ {
+-    mc6846.prc&=0xFD;  /* bouton crayon optique relâché */
++    mc6846.prc&=0xFD;  /* bouton crayon optique relÃ¢chÃ© */
+ }
+ 
+ 
+ 
+ /* GetLightPen:
+- *  Lit l'état du crayon optique.
++ *  Lit l'Ã©tat du crayon optique.
+  */
+ void GetLightpen(int *xr, int *yr, int *cc)
+ {
+@@ -91,7 +91,7 @@
+ 
+ 
+ /* HandleMouseClick:
+- *  Prend en compte un changement d'état des boutons de la souris.
++ *  Prend en compte un changement d'Ã©tat des boutons de la souris.
+  */
+ void to7_HandleMouseClick(int button, int release)
+ {
+--- a/src/readme.txt
++++ b/src/readme.txt
+@@ -13,7 +13,7 @@
+           TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+           TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+ 
+-                       L'émulateur Thomson TO7-70
++                       L'Ã©mulateur Thomson TO7-70
+                               version 1.5.5
+ 
+     Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+@@ -22,26 +22,26 @@
+ 
+ 1. Introduction
+ ---------------
+-Le code source de l'émulateur Thom est distribué sous licence GPL. Il est
+-écrit, pour sa partie indépendante de la plateforme, en Standard C89 avec
+-deux extensions mineures Standard C99 supportées par la plupart des
++Le code source de l'Ã©mulateur Thom est distribuÃ© sous licence GPL. Il est
++Ã©crit, pour sa partie indÃ©pendante de la plateforme, en Standard C89 avec
++deux extensions mineures Standard C99 supportÃ©es par la plupart des
+ compilateurs: le modificateur "inline" et le type "long long int".
+ 
+ 
+ L'arbre du code est le suivant:
+ 
+-src         : l'émulateur TO7-70 proprement dit (Standard C)
++src         : l'Ã©mulateur TO7-70 proprement dit (Standard C)
+  |
+- --- djgpp  : version MSDOS/DPMI, code écrit pour GCC (DJGPP)
++ --- djgpp  : version MSDOS/DPMI, code Ã©crit pour GCC (DJGPP)
+  |
+- --- linux  : version Linux/X11, code écrit pour GCC
++ --- linux  : version Linux/X11, code Ã©crit pour GCC
+  |
+- --- mc68xx : émulateurs des circuits Motorola MC6809E, MC6821 et MC6846
++ --- mc68xx : Ã©mulateurs des circuits Motorola MC6809E, MC6821 et MC6846
+ 
+ 
+ 2. Version MSDOS/DPMI
+ ---------------------
+-La plateforme de compilation de référence est la suivante:
++La plateforme de compilation de rÃ©fÃ©rence est la suivante:
+ - djgpp 2.03
+ - gcc 2.95.3
+ - binutils 2.11
+@@ -51,7 +51,7 @@
+ 
+ 3. Version Linux/X11
+ --------------------
+-La plateforme de compilation de référence est la suivante:
++La plateforme de compilation de rÃ©fÃ©rence est la suivante:
+ - kernel 2.4.3
+ - glibc 2.2.2
+ - egcs 1.1.2 (gcc 2.91.66)
+--- a/src/to7.c
++++ b/src/to7.c
+@@ -12,7 +12,7 @@
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+  *          TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+  *
+- *                      l'émulateur Thomson TO7-70
++ *                      l'Ã©mulateur Thomson TO7-70
+  *
+  *  Copyright (C) 1996 Sylvain Huet, 1999-2002 Eric Botcazou.
+  *
+@@ -34,10 +34,10 @@
+ /*
+  *  Module     : to7.c
+  *  Version    : 1.5.5
+- *  Créé par   : Eric Botcazou 1999
+- *  Modifié par: Eric Botcazou 15/01/2002
++ *  CrÃ©Ã© par   : Eric Botcazou 1999
++ *  ModifiÃ© par: Eric Botcazou 15/01/2002
+  *
+- *  Module de pilotage de l'émulateur.
++ *  Module de pilotage de l'Ã©mulateur.
+  */
+ 
+ 
+@@ -73,7 +73,7 @@
+ /* variables publiques */
+ int to7_new_video_params;
+ 
+-/* variables privées */
++/* variables privÃ©es */
+ static int to7_alive = 0;
+ static char memo7_label[TO7_MEMO7_LABEL_LENGTH+1];
+ static char memo7_filename[FILENAME_LENGTH+1];
+@@ -81,7 +81,7 @@
+ 
+ 
+ /* LoadFile:
+- *  Charge un fichier de taille donnée.
++ *  Charge un fichier de taille donnÃ©e.
+  */
+ static int LoadFile(char filename[], unsigned char dest[], int size)
+ {
+@@ -99,7 +99,7 @@
+ 
+ 
+ /* InitMemory:
+- *  Initialisation de la carte mémoire et chargement des ROMS.
++ *  Initialisation de la carte mÃ©moire et chargement des ROMS.
+  */
+ static int InitMemory(void)
+ {
+@@ -117,7 +117,7 @@
+ 
+     for (i=0; i<mem.mon.nbank; i++)
+     {
+-        if (mem.mon.filename_low[i][0])  /* ROM contrôleur de disquettes? */
++        if (mem.mon.filename_low[i][0])  /* ROM contrÃ´leur de disquettes? */
+         {
+             if (LoadFile(mem.mon.filename_low[i], mem.mon.bank[i], 0x800) == TO7_ERROR)
+                 return TO7_ERROR;
+@@ -137,7 +137,7 @@
+ 
+ /* DoLines:
+  *  Fait tourner le MC6809E en le synchronisant sur le
+- *  faisceau vidéo ligne par ligne.
++ *  faisceau vidÃ©o ligne par ligne.
+  */
+ static void DoLines(int nlines, unsigned long long int *exact_clock)
+ {
+@@ -171,7 +171,7 @@
+ 
+ 
+ /* LoadMemo7:
+- *  Charge une cartouche Mémo7 et extrait son label.
++ *  Charge une cartouche MÃ©mo7 et extrait son label.
+  */
+ int to7_LoadMemo7(const char filename[])
+ {
+@@ -197,8 +197,8 @@
+             
+     label_offset = length;
+   
+-    /* on détermine la longueur du fichier, qui doit être
+-       un multiple de 4096 sans excéder 65536 octets */
++    /* on dÃ©termine la longueur du fichier, qui doit Ãªtre
++       un multiple de 4096 sans excÃ©der 65536 octets */
+     while (fgetc(file) != EOF)
+         if (++length>65536)
+             goto bad_format;
+@@ -206,7 +206,7 @@
+     if (length%4096)
+         goto bad_format;
+         
+-    /* allocation de la mémoire nécessaire */
++    /* allocation de la mÃ©moire nÃ©cessaire */
+     nbank = (length-1)/mem.cart.size + 1;
+ 
+     if (mem.cart.nbank < nbank)
+@@ -262,7 +262,7 @@
+ 
+ 
+ /* GetMemo7Filename:
+- *  Retourne le nom du fichier utilisé comme cartouche Memo7.
++ *  Retourne le nom du fichier utilisÃ© comme cartouche Memo7.
+  */
+ const char* to7_GetMemo7Filename(void)
+ {
+@@ -282,25 +282,25 @@
+ 
+ 
+ /* ColdReset:
+- *  Simule un dé/rebranchement du TO7-70.
++ *  Simule un dÃ©/rebranchement du TO7-70.
+  */
+ void to7_ColdReset(void)
+ {
+-    /* initialisation du PIA 6846 système */
++    /* initialisation du PIA 6846 systÃ¨me */
+     mc6846_Init(&mc6846, 0, 0x81, 0x7D);
+     SetNoCapsLed(0);
+ 
+-    /* initialisation du PIA 6821 système */
++    /* initialisation du PIA 6821 systÃ¨me */
+     mc6821_Init(&pia_int.porta, 0, 0xFF);
+ 
+-    /* les bits 3-7 sont à 1 en entrée */
++    /* les bits 3-7 sont Ã  1 en entrÃ©e */
+     mc6821_Init(&pia_int.portb, 0, 0xFC);
+ 
+     /* initialisation du PIA 6821 musique et jeux */
+     mc6821_Init(&pia_ext.porta, 0xC0, 0xFF);
+     mc6821_Init(&pia_ext.portb, 0xC0, 0xCF);
+ 
+-    /* initialisation des pages mémoire */
++    /* initialisation des pages mÃ©moire */
+     mempager.cart.page = 0;
+     mempager.cart.update();
+ 
+@@ -319,13 +319,13 @@
+     /* initialisation du logic gate array */
+     memset(&lga, 0, sizeof(struct GATE_ARRAY));
+ 
+-    /* initialisation du contrôleur de disquettes */
++    /* initialisation du contrÃ´leur de disquettes */
+     memset(&disk_ctrl, 0, sizeof(struct DISK_CTRL));
+ 
+     /* checksum application */
+     STORE_BYTE(0x60D1, 0);
+ 
+-    /* flag de reset à froid */
++    /* flag de reset Ã  froid */
+     STORE_WORD(0x60FE, 0);
+ 
+     mc6809_Reset();
+@@ -334,19 +334,19 @@
+ 
+ 
+ /* DoFrame:
+- *  Fait tourner le TO7-70 pendant une trame vidéo.
++ *  Fait tourner le TO7-70 pendant une trame vidÃ©o.
+  */
+ void to7_DoFrame(void)
+ {
+-    /* début de la frame vidéo: bordure haute de l'écran */
++    /* dÃ©but de la frame vidÃ©o: bordure haute de l'Ã©cran */
+     DoLines(TOP_BORDER_LINES, &mb.exact_clock);
+ 
+-    /* fenêtre centrale de l'écran */
++    /* fenÃªtre centrale de l'Ã©cran */
+     lga.lp4|=0x80;
+ 
+     DoLines(SCREEN_LINES, &mb.exact_clock);
+ 
+-    /* bordure du bas de l'écran et remontée du faisceau */
++    /* bordure du bas de l'Ã©cran et remontÃ©e du faisceau */
+     lga.lp4&=0x7F;
+     DoLines(BOTTOM_BORDER_LINES, &mb.exact_clock);
+ }
+@@ -354,7 +354,7 @@
+ 
+ 
+ /* InputReset:
+- *  Remet à zéro les périphériques d'entrée.
++ *  Remet Ã  zÃ©ro les pÃ©riphÃ©riques d'entrÃ©e.
+  */
+ void to7_InputReset(int mask, int value)
+ {
+@@ -365,9 +365,9 @@
+ 
+ 
+ /* Exit:
+- *  Arrête l'émulateur et restitue les ressources utilisées.
+- *  (il n'est pas nécessaire de l'appeler explicitement, elle est
+- *   automatiquement invoquée à la sortie du programme)
++ *  ArrÃªte l'Ã©mulateur et restitue les ressources utilisÃ©es.
++ *  (il n'est pas nÃ©cessaire de l'appeler explicitement, elle est
++ *   automatiquement invoquÃ©e Ã  la sortie du programme)
+  */
+ void to7_Exit(void)
+ {
+@@ -376,7 +376,7 @@
+     if (!to7_alive)
+         return;
+ 
+-    /* on libère la mémoire */
++    /* on libÃ¨re la mÃ©moire */
+     for (i=0; i<mem.ram.nbank; i++)
+         if (mem.ram.bank[i])
+             free(mem.ram.bank[i]);
+@@ -395,11 +395,11 @@
+ 
+ 
+ /* Init:
+- *  Initialise l'émulateur et réserve les ressources nécessaires.
++ *  Initialise l'Ã©mulateur et rÃ©serve les ressources nÃ©cessaires.
+  */
+ int to7_Init(int disk_ctrl)
+ {
+-    /* on détecte les instances multiples */
++    /* on dÃ©tecte les instances multiples */
+     if (to7_alive)
+         return ErrorMessage(TO7_MULTIPLE_INIT, NULL);
+ 
+--- a/src/change.log
++++ b/src/change.log
+@@ -1,121 +1,121 @@
+ =======================================================================
+-=== De la version 1.5.4 à la version 1.5.5 (Novembre-Décembre 2003) ===
++=== De la version 1.5.4 Ã  la version 1.5.5 (Novembre-DÃ©cembre 2003) ===
+ =======================================================================
+-- doc/*.htm: corrections mineures et mise à jour des liens
++- doc/*.htm: corrections mineures et mise Ã  jour des liens
+ 
+ - misc/fixver.sh: prise en compte de thom_win.htm
+ 
+ - win/wmain.c: conversion des chemins de fichiers au format Windows
+ 
+ TODO:
+-- mode plein écran via Allegro pour la version Linux
+-- émuler au choix le TO7/TO7-70
++- mode plein Ã©cran via Allegro pour la version Linux
++- Ã©muler au choix le TO7/TO7-70
+ 
+ =======================================================================
+-=== De la version 1.5 à la version 1.5.4 (Févr. 2002-Novembre 2003) ===
++=== De la version 1.5 Ã  la version 1.5.4 (FÃ©vr. 2002-Novembre 2003) ===
+ =======================================================================
+ - makefile.*: gestion de UNIX_TOOLS
+-- makefile.lnx: ajout de -W à WFLAGS
++- makefile.lnx: ajout de -W Ã  WFLAGS
+ - misc/fixver.sh: prise en compte de src/readme.txt
+                   initialisation de TMPDIR
+ 
+ - compilation avec Allegro 4.0.3
+ 
+-- nouvelle version générique Allegro, reprenant une partie du code de
++- nouvelle version gÃ©nÃ©rique Allegro, reprenant une partie du code de
+   la version MSDOS (alleg/)
+ - nouvelle version Windows/DirectX (win/)
+-- version MSDOS adaptée (dos/)
++- version MSDOS adaptÃ©e (dos/)
+ 
+-- disk.c: affichage de tous les secteurs lus et écrits en mode DEBUG
++- disk.c: affichage de tous les secteurs lus et Ã©crits en mode DEBUG
+ - disk.h: correction d'une erreur avec CPP >= 2.96
+ - hardware.c: utilisation d'un #ifdef pour LEP_Motor
+-              décode la couleur du pourtour de l'écran
++              dÃ©code la couleur du pourtour de l'Ã©cran
+ - to7.h: nouvelles constantes TO7_*
+ - to7.c: nouvelle fonction to7_GetMemo7Filename()
+ - k7.c: nouvelle fonction to7_GetK7Filename()
+         suppression de to7_RewindK7
+         ajout de to7_GetK7Counter et to7_SetK7Counter
+-- alleg/agui.c: utilisation de constantes du préprocesseur
++- alleg/agui.c: utilisation de constantes du prÃ©processeur
+                 effacement de #include <dir.h>
+                 suppression d'un label 'default'
+                 support de la lecture directe pour multiples lecteurs
+                 ajout du compteur du lecteur de cassettes
+-- dos/graphic.c: ne décode plus la couleur du pourtour de l'écran
+-- dos/main.c: passe deux arguments à InitPointer()
++- dos/graphic.c: ne dÃ©code plus la couleur du pourtour de l'Ã©cran
++- dos/main.c: passe deux arguments Ã  InitPointer()
+ - linux/udisplay.c, ugraphic.c, usound.c: utilisation de stderr au lieu
+                                           de stdout en mode DEBUG
+ - linux/udisplay.[ch]: nouveau prototype pour InitDisplay()
+ - linux/udisk.c: synchronisation avec sap2
+ - linux/ufilentry.c, umessage.c, uquestion.c: modification d'un
+                      initialiseur de structure pour GTK+ 1.2.x
+-- linux/ugui.c: marquage de deux variables non utilisées
++- linux/ugui.c: marquage de deux variables non utilisÃ©es
+                 ajout du compteur du lecteur de cassettes
+ - linux/umain.c: correction pour le nouveau prototype de InitDisplay()
+-                 ??? sélection de la locale fr_FR
++                 ??? sÃ©lection de la locale fr_FR
+ - mc68xx/mc6809.c: passage en prototypes ANSI C
+ - win/wdialog.rc, wgui.c: ajout du compteur du lecteur de cassettes
+ - win/wmain.c: ajout d'un 'int' manquant
+ 
+ =======================================================================
+-=== De la version 1.4 à la version 1.5 (Janvier 2001-Janvier 2002)  ===
++=== De la version 1.4 Ã  la version 1.5 (Janvier 2001-Janvier 2002)  ===
+ =======================================================================
+ - fixdjgpp.bat, fixunix.sh: option --quick
+ - misc/fixver.sh, fixtime.sh: helper scripts pour la maintenance
+-- refonte du processus de compilation: création de makefile.all
++- refonte du processus de compilation: crÃ©ation de makefile.all
+ - makefiles: compilation avec -funroll-loops
+              remplacement de -m par -mcpu=
+ 
+-- propagation de #ifndef SCAN_DEPEND à tous les fichiers sources
+-- réorganisation des entêtes de fonctions
++- propagation de #ifndef SCAN_DEPEND Ã  tous les fichiers sources
++- rÃ©organisation des entÃªtes de fonctions
+ 
+ - defs.h: modification de struct MEMORY
+ - disk.c, disk.h: support des lecteurs de disquettes
+ - errors.c, to7err.h: nouvelle error TO7_UNSUPPORTED_DEVICE
+-- hardware.c: mise à jour de l'émulation des PIA 6821
+-              chargement de la ROM contrôleur de disquettes
+-- keyboard.c, to7keys.h: modification des scancodes pour être en
++- hardware.c: mise Ã  jour de l'Ã©mulation des PIA 6821
++              chargement de la ROM contrÃ´leur de disquettes
++- keyboard.c, to7keys.h: modification des scancodes pour Ãªtre en
+                          concordance avec Allegro 4.0
+ - k7.c: correction d'un bug de valeur de retour dans DoLoadk7()
+ - main.h: suppression du fichier
+-- mc68xx/mc6821.c: version 4.0 de l'émulation
++- mc68xx/mc6821.c: version 4.0 de l'Ã©mulation
+ - to7.c: nouvelle initialisation des deux PIA 6821
+          nouveau prototype pour to7_init()
+ 
+ - compilation avec Allegro 4.0
+ 
+-- djgpp/disk.c: support de l'accès direct aux disquettes
++- djgpp/disk.c: support de l'accÃ¨s direct aux disquettes
+ - djgpp/graphic.c: support de la LED du lecteur de disquettes
+                    correction du nom du fichier snapshot
+ - djgpp/gui.c: nouveau menu disquettes
+ - djgpp/main.c: nouvelle option -nodisk sur la ligne de commandes
+ - djgpp/sound.c: pas de compensation de volume
+ 
+-- linux/disk.c: support de l'accès direct aux disquettes
++- linux/disk.c: support de l'accÃ¨s direct aux disquettes
+ - linux/display.c: non prise en compte de LeaveNotify
+ - linux/graphic.c: correction de la trop grande taille du buffer
+ - linux/gui.c: ajout des frames, nouveau menu disquettes
+ - linux/main.c: nouvelle option -nodisk sur la ligne de commandes
+-- linux/thomson.xpm: nouvel icône Thomson
++- linux/thomson.xpm: nouvel icÃ´ne Thomson
+ 
+ =======================================================================
+-=== De la version 1.3 à la version 1.4 (Décembre 2000)              ===
++=== De la version 1.3 Ã  la version 1.4 (DÃ©cembre 2000)              ===
+ =======================================================================
+-- intégration du module d'émulation mc68xx
+-- passage des int aux unsigned char comme unité de mémoire (enfin !)
++- intÃ©gration du module d'Ã©mulation mc68xx
++- passage des int aux unsigned char comme unitÃ© de mÃ©moire (enfin !)
+ - script de configuration fixdjgpp.bat et fixunix.sh
+-- création du répertoire ./include
++- crÃ©ation du rÃ©pertoire ./include
+ 
+-- defs.h: TRUE est défini à 1
++- defs.h: TRUE est dÃ©fini Ã  1
+           nouvelle structure MOTHERBOARD
+-- errors.c, errors.h: nouveau mécanisme de gestion des erreurs
+-- to7err.h permet de remplacer les messages d'erreurs par défaut
++- errors.c, errors.h: nouveau mÃ©canisme de gestion des erreurs
++- to7err.h permet de remplacer les messages d'erreurs par dÃ©faut
+ - hardware.c: Fetch() devient FetchInstr()
+-              nouvelle (pseudo) carte mère mb
+-- keyboard.c, to7keys.h: modification des scancodes pour être en
++              nouvelle (pseudo) carte mÃ¨re mb
++- keyboard.c, to7keys.h: modification des scancodes pour Ãªtre en
+                          concordance avec Allegro 3.9.34 CVS
+ - keyboard.c: nouveau prototype et modification de ResetKeyboard()
+-- to7.c: réécriture de to7_LoadMemo7()
+-         nouvelle fonction to7_Exit() invoquée automatiquement à la
++- to7.c: rÃ©Ã©criture de to7_LoadMemo7()
++         nouvelle fonction to7_Exit() invoquÃ©e automatiquement Ã  la
+          sortie du programme
+          nouveau prototype pour to7_PutSoundByte()
+          nouveau prototype pour to7_InputReset() 
+@@ -128,93 +128,93 @@
+                changement du focus
+                Menu() devient ControlPanel()
+ 
+-- linux/display.c: le serveur X n'est plus initialisé directement
++- linux/display.c: le serveur X n'est plus initialisÃ© directement
+ 	           correction d'un bug d'initialisation du clavier
+                    correction d'un bug de reconnaissance de la touche ")"
+ - linux/gui.c: remplacement de "fichier" par "support"
+-               améliorations cosmétiques
+-- linux/filentry.c: redéfinition de l'objet FileEntry	
++               amÃ©liorations cosmÃ©tiques
++- linux/filentry.c: redÃ©finition de l'objet FileEntry	
+ - linux/main.c: initialisation du serveur X via GTK+
+                 nouvelle fonction ExitMessage() 
+ 	
+ =======================================================================
+-=== De la version 1.2 à la version 1.3 (Juillet-Août 2000)          ===
++=== De la version 1.2 Ã  la version 1.3 (Juillet-AoÃ»t 2000)          ===
+ =======================================================================
+-- modularisation complète de l'émulateur sur le modèle de Teo
+-- emulator.c est renommé to7.c
+-- toutes les références à DrawByte sont remplacées par DrawGPL
+-- hardware.c, main.c: émulation du Logic Gate Array
+-- hardware.c: nouvelle architecture de la mémoire physique et des
+-   pages mémoires
+-              nouveau mécanisme de récupération de la palette
+-              décalage d'un bit vers la gauche de la sortie sonore
+-- hardware.h, to7dbg.h: les fonctions d'accès à la mémoire sont
+-   remplacées par des macros
+-- tous les accès internes à la mémoire sont effectués via ces macros
+-- le PIA 6846 est maintenant un objet interne à Thom (hardware.c)
+-- les fonctions totalement inlinables ne sont plus compilées dans la
+-   version optimisée
++- modularisation complÃ¨te de l'Ã©mulateur sur le modÃ¨le de Teo
++- emulator.c est renommÃ© to7.c
++- toutes les rÃ©fÃ©rences Ã  DrawByte sont remplacÃ©es par DrawGPL
++- hardware.c, main.c: Ã©mulation du Logic Gate Array
++- hardware.c: nouvelle architecture de la mÃ©moire physique et des
++   pages mÃ©moires
++              nouveau mÃ©canisme de rÃ©cupÃ©ration de la palette
++              dÃ©calage d'un bit vers la gauche de la sortie sonore
++- hardware.h, to7dbg.h: les fonctions d'accÃ¨s Ã  la mÃ©moire sont
++   remplacÃ©es par des macros
++- tous les accÃ¨s internes Ã  la mÃ©moire sont effectuÃ©s via ces macros
++- le PIA 6846 est maintenant un objet interne Ã  Thom (hardware.c)
++- les fonctions totalement inlinables ne sont plus compilÃ©es dans la
++   version optimisÃ©e
+ - keyboard.c: fonction importable optionnelle to7_SetNoCapsLed
+ - k7.c: fonction d'initialisation InitK7()
+-        refonte de la protection en écriture
+-- mouse.c: le retraçage de l'écran n'est plus assuré pas le TO7-70
+-- to7.c: modification des fonctions de reset, appel à MC6809_Reset()
+-         support des cartouches de 16 à 64ko
+-- to7.c, hardware.c: extension mémoire 64ko RAM[4] à RAM[7]
++        refonte de la protection en Ã©criture
++- mouse.c: le retraÃ§age de l'Ã©cran n'est plus assurÃ© pas le TO7-70
++- to7.c: modification des fonctions de reset, appel Ã  MC6809_Reset()
++         support des cartouches de 16 Ã  64ko
++- to7.c, hardware.c: extension mÃ©moire 64ko RAM[4] Ã  RAM[7]
+ 
+ - djgpp/debug.c, djgpp/memmng.c: refonte des modules et support des
+-   nouvelles banques mémoire
+-- djgpp/debug.c: fonction trace d'éxécution du 6809 (mode DEBUG)
++   nouvelles banques mÃ©moire
++- djgpp/debug.c: fonction trace d'Ã©xÃ©cution du 6809 (mode DEBUG)
+ - djgpp/graphic.c: fonction RetraceScreen()
+-- djgpp/graphic.c: copie d'écran réalisée par Screenshot()
++- djgpp/graphic.c: copie d'Ã©cran rÃ©alisÃ©e par Screenshot()
+                    macro assembleur BLIT_GPL
+ - djgpp/gui.c: modification du menu cassettes
+-               le chargement d'une cartouche provoque un redémarrage
+-                à froid
++               le chargement d'une cartouche provoque un redÃ©marrage
++                Ã  froid
+ - djgpp/keybint.c: la gestion des Leds n'est plus exclusive
+-- djgpp/keybint.c, djgpp/main.c: commande SCREENSHOT appelée par F11
+-- djgpp/memmng.c: sauvegarde d'une portion de mémoire au format ASCII
++- djgpp/keybint.c, djgpp/main.c: commande SCREENSHOT appelÃ©e par F11
++- djgpp/memmng.c: sauvegarde d'une portion de mÃ©moire au format ASCII
+    ou assembleur
+-		  réorganisation de la boucle principale
+-- djgpp/sound.c: suppression de l'appel à detect_digi_driver()
++		  rÃ©organisation de la boucle principale
++- djgpp/sound.c: suppression de l'appel Ã  detect_digi_driver()
+                  test de fonctionnement du streaming
+ 		 nouveau prototype pour InitSound()
+ 
+ - version linux: suppression de l'option -small, la taille de la
+-   fenêtre est intégrée dans l'option -geometry
+-- linux/display.c: gestion du pointeur identique à la version MSDOS
++   fenÃªtre est intÃ©grÃ©e dans l'option -geometry
++- linux/display.c: gestion du pointeur identique Ã  la version MSDOS
+ - linux/filentry.c, linux/gui.c: tous les widgets externes sont
+-   détruits à la fermeture du panneau de contrôle 
+-- linux/gui.c: le chargement d'une cartouche provoque un redémarrage
+-   à froid
++   dÃ©truits Ã  la fermeture du panneau de contrÃ´le 
++- linux/gui.c: le chargement d'une cartouche provoque un redÃ©marrage
++   Ã  froid
+ 
+ =======================================================================
+-=== De la version 1.1 à la version 1.2 (Mars 2000)                  ===
++=== De la version 1.1 Ã  la version 1.2 (Mars 2000)                  ===
+ =======================================================================
+ - dans les makefile: nouvelle option DEBUGMODE
+ 
+ - version Linux: utilisation de l'extension MIT-SHM
+-	         simplification de la sélection de la taille de l'écran
+-- dans linux/graphic.c: nouveau mécanisme d'allocation de l'espace-
+-   mémoire associé au buffer (mode 32-bit reporté comme 24-bit),
+-    sélection de PutPixel par un pointeur de fonction 
+-- dans linux/gui.c: inclusion de thomson.xpm à la compilation
+-- dans linux/main.c: parenthèses pour éviter deux warnings
++	         simplification de la sÃ©lection de la taille de l'Ã©cran
++- dans linux/graphic.c: nouveau mÃ©canisme d'allocation de l'espace-
++   mÃ©moire associÃ© au buffer (mode 32-bit reportÃ© comme 24-bit),
++    sÃ©lection de PutPixel par un pointeur de fonction 
++- dans linux/gui.c: inclusion de thomson.xpm Ã  la compilation
++- dans linux/main.c: parenthÃ¨ses pour Ã©viter deux warnings
+ 	
+ =======================================================================
+-=== De la version 1.0.2 à la version 1.1 (Décembre 1999)            ===
++=== De la version 1.0.2 Ã  la version 1.1 (DÃ©cembre 1999)            ===
+ =======================================================================
+ - nouvelles options dans les makefiles
+ - dans emulator.c: nouvelle valeur de retour de LoadMemo7
+ 
+-- dans djgpp/gui.c: imbrication des différents menus
++- dans djgpp/gui.c: imbrication des diffÃ©rents menus
+                     nouvelles boites de dialogue message et question
+ 
+-- dans linux/main.c: synchronisation par pause() pour libérer des
++- dans linux/main.c: synchronisation par pause() pour libÃ©rer des
+    cycles CPU
+ 
+ =======================================================================
+-=== De la version 1.0.1 à la version 1.0.2 (Décembre 1999)          ===
++=== De la version 1.0.1 Ã  la version 1.0.2 (DÃ©cembre 1999)          ===
+ =======================================================================
+ - correction du bug sonore
+ - version MSDOS: support de toutes les cartes son de la librairie
+@@ -222,25 +222,25 @@
+ - dans linux/main.c:  correction du bug de GetUserInput()
+ 
+ =======================================================================
+-=== De la version 1.0 à la version 1.0.1 (Octobre 1999)             ===
++=== De la version 1.0 Ã  la version 1.0.1 (Octobre 1999)             ===
+ =======================================================================
+ - gui.h: ajout d'un void
+ - makefile.djgpp: nouvelle variable CC
+-- makefile.linux: suppression de trois règles de compilation inutiles
++- makefile.linux: suppression de trois rÃ¨gles de compilation inutiles
+ - version djgpp: suppression de need_screen_refresh
+    (gui.c, graphic.c, graphic.h, main.c)
+ - djgpp/main.c: correction d'une erreur dans le traitement de
+    l'option -m
+  	
+ =======================================================================
+-=== De la version 0.9.3 à la version 1.0 (Octobre 1999)             ===
++=== De la version 0.9.3 Ã  la version 1.0 (Octobre 1999)             ===
+ =======================================================================
+-- version djgpp: verrouillage du code et des données touchés par les
++- version djgpp: verrouillage du code et des donnÃ©es touchÃ©s par les
+    interruptions
+-- nouvelle entête des sources incluant un bandeau GPL
++- nouvelle entÃªte des sources incluant un bandeau GPL
+ 
+ =======================================================================
+-=== De la version 0.9.2 à la version 0.9.3 (Août 1999)              ===
++=== De la version 0.9.2 Ã  la version 0.9.3 (AoÃ»t 1999)              ===
+ =======================================================================
+ - emulator.c: ColdReset(): nouvelle valeur d'initialisation pour
+    les CR du PIA externe (voir Dieux du Stade), modification de
+@@ -251,33 +251,33 @@
+ - mc6809.c: version 2.4
+  
+ =======================================================================
+-=== De la version 0.9.1 à la version 0.9.2 (Juillet-Août 1999)      ===
++=== De la version 0.9.1 Ã  la version 0.9.2 (Juillet-AoÃ»t 1999)      ===
+ =======================================================================
+ - hardware.c:
+ 	correction d'un bug de commutation des banques
+-	décalage de la sortie son 6-bit
++	dÃ©calage de la sortie son 6-bit
+ - nouvelles options de compilation dans les makefile
+ - nouveau keycodes.h
+-- keyboard.c: trois caractères supplémentaires sont mappés fidèlement
++- keyboard.c: trois caractÃ¨res supplÃ©mentaires sont mappÃ©s fidÃ¨lement
+    au clavier du PC
+ - support de la plateforme Linux/X11:
+-	création des répertoires djgpp/ et linux/
++	crÃ©ation des rÃ©pertoires djgpp/ et linux/
+ 	boucle principale (linux/main.c)
+ 	interface avec le serveur X (linux/display.c)
+ 	module d'affichage (linux/graphic.c)
+-	interface utilisateur basée sur GTK+ (linux/gui.c + extensions)
+-	émulation sonore (linux/sound.c)
+-- réécriture du module k7.c (plus de robustesse)
+-- main.c: nouvelle structure EmuTO, gestion modifiée des commandes
+-- djgpp/gui.c: réorganisation de la boite de dialogue principale
+-- djgpp/sound.c: simplification du mécanisme de bufferisation
++	interface utilisateur basÃ©e sur GTK+ (linux/gui.c + extensions)
++	Ã©mulation sonore (linux/sound.c)
++- rÃ©Ã©criture du module k7.c (plus de robustesse)
++- main.c: nouvelle structure EmuTO, gestion modifiÃ©e des commandes
++- djgpp/gui.c: rÃ©organisation de la boite de dialogue principale
++- djgpp/sound.c: simplification du mÃ©canisme de bufferisation
+ 
+ =======================================================================
+-=== De FunzyTo770 v1.5 à la version 0.9.1 (Juin 1999)       	    ===
++=== De FunzyTo770 v1.5 Ã  la version 0.9.1 (Juin 1999)       	    ===
+ =======================================================================
+ - nouveau compilateur: djgpp (MSDOS/DPMI)
+-- refonte de l'architecture basée sur celle de Teo v0.9.1
+-  (en particulier, temporisation correcte de l'émulateur)
+-- implémentation du clavier aussi fidèle que possible à celui du PC
+-- émulation de l'extension musique et jeux (en particulier DAC 6-bit)
+-- remplacement de l'éditeur en ligne par le GUI/debugger/memory manager
++- refonte de l'architecture basÃ©e sur celle de Teo v0.9.1
++  (en particulier, temporisation correcte de l'Ã©mulateur)
++- implÃ©mentation du clavier aussi fidÃ¨le que possible Ã  celui du PC
++- Ã©mulation de l'extension musique et jeux (en particulier DAC 6-bit)
++- remplacement de l'Ã©diteur en ligne par le GUI/debugger/memory manager
+--- a/licence.txt
++++ b/licence.txt
+@@ -1,33 +1,33 @@
+-Ce document décrit le copyright et les conditions de distribution des
+-fichiers nommés ci-après:
++Ce document dÃ©crit le copyright et les conditions de distribution des
++fichiers nommÃ©s ci-aprÃ¨s:
+ 
+ 
+ * thom et thom.exe sont Copyright (C) 1996 Sylvain Huet,
+                                       1999-2003 Eric Botcazou.
+ 
+-Ils peuvent être librement redistribués à la condition EXPRESSE que le
+-code source soit également inclus sur le support de distribution ou que
+-toutes les informations nécessaires à l'obtention de ce code source soient
++Ils peuvent Ãªtre librement redistribuÃ©s Ã  la condition EXPRESSE que le
++code source soit Ã©galement inclus sur le support de distribution ou que
++toutes les informations nÃ©cessaires Ã  l'obtention de ce code source soient
+ fournies sur le support de distribution.
+ 
+ Certaines portions sont Copyright (C) DJ Delorie; elles sont disponibles
+-séparément, à la fois comme code source et fichier binaire, sur le site
++sÃ©parÃ©ment, Ã  la fois comme code source et fichier binaire, sur le site
+ Web http://www.delorie.com .
+ 
+ 
+ * cwsdpmi.exe est Copyright (C) 1995-1997 Charles W Sandmann
+ 
+-Il est disponible séparément, à la fois comme code source et fichier
++Il est disponible sÃ©parÃ©ment, Ã  la fois comme code source et fichier
+ binaire, sur le site Web http://www.delorie.com .
+ 
+-Il peut être redistribué à la condition EXPRESSE que le code source soit
+-également inclus sur le support de distribution ou que toutes les
+-informations nécessaires à l'obtention de ce code source soient fournies
++Il peut Ãªtre redistribuÃ© Ã  la condition EXPRESSE que le code source soit
++Ã©galement inclus sur le support de distribution ou que toutes les
++informations nÃ©cessaires Ã  l'obtention de ce code source soient fournies
+ sur le support de distribution.
+ 
+ 
+ * language.dat et keyboard.dat sont des fichiers librement redistribuables
+ de la librairie Allegro.
+ 
+-La libraire Allegro est disponible séparément, à la fois comme code source
++La libraire Allegro est disponible sÃ©parÃ©ment, Ã  la fois comme code source
+ et fichier binaire, sur le site Web http://alleg.sourceforge.net .
+--- a/readme.txt
++++ b/readme.txt
+@@ -12,7 +12,7 @@
+           TT        HH          HH  OOOOOOOOOOOOOO  MM          MM
+           TT        HH          HH  OOOOOOOOOOOOOO  MM          MM 
+ 
+-                       L'émulateur Thomson TO7-70
++                       L'Ã©mulateur Thomson TO7-70
+                               version 1.5.5
+ 
+     Copyright (C) 1996 Sylvain Huet, 1999-2003 Eric Botcazou.
+@@ -21,50 +21,50 @@
+ 
+ 1. Introduction
+ ---------------
+-Thom est un émulateur du micro-ordinateur Thomson TO7-70 pour PC, fonction-
+-nant sous MSDOS, Windows et Linux. Il est basé sur la version 1.5 de l'ému-
+-lateur FunzyTO7-70 de Sylvain Huet et y introduit de nombreuses nouveautés.
++Thom est un Ã©mulateur du micro-ordinateur Thomson TO7-70 pour PC, fonction-
++nant sous MSDOS, Windows et Linux. Il est basÃ© sur la version 1.5 de l'Ã©mu-
++lateur FunzyTO7-70 de Sylvain Huet et y introduit de nombreuses nouveautÃ©s.
+ 
+ 
+ 2. Comment l'obtenir ?
+ ----------------------
+-En le téléchargeant depuis la page:
++En le tÃ©lÃ©chargeant depuis la page:
+ 
+    http://nostalgies.thomsonistes.org/thom_home.html
+ 
+-L'archive principale contient le programme éxécutable de l'émulateur et la
+-documentation complète; pour des raisons de copyright, les ROMs du TO7-70
+-nécessaires à son fonctionnement n'y sont pas incluses, vous devez les
+-télécharger à partir d'une deuxième archive et les installer dans le même
+-répertoire que le programme éxécutable.
++L'archive principale contient le programme Ã©xÃ©cutable de l'Ã©mulateur et la
++documentation complÃ¨te; pour des raisons de copyright, les ROMs du TO7-70
++nÃ©cessaires Ã  son fonctionnement n'y sont pas incluses, vous devez les
++tÃ©lÃ©charger Ã  partir d'une deuxiÃ¨me archive et les installer dans le mÃªme
++rÃ©pertoire que le programme Ã©xÃ©cutable.
+ 
+ 
+-3. Compatibilité avec le TO7-70
++3. CompatibilitÃ© avec le TO7-70
+ -------------------------------
+-La compatibilité est proche de 100% pour les logiciels n'utilisant pas de
+-périphériques non émulés et ne contenant pas de protection physique. En
++La compatibilitÃ© est proche de 100% pour les logiciels n'utilisant pas de
++pÃ©riphÃ©riques non Ã©mulÃ©s et ne contenant pas de protection physique. En
+ d'autres termes, si un logiciel ne tourne pas sous Thom, alors probablement:
+-- il requiert la présence d'un périphérique externe autre que la souris,
++- il requiert la prÃ©sence d'un pÃ©riphÃ©rique externe autre que la souris,
+   le crayon optique, les manettes, le lecteur de cassettes (et donc il ne
+-  tournera pas tant que ce périphérique ne sera pas émulé),
+-- ou sa protection physique l'a fait échoué.
++  tournera pas tant que ce pÃ©riphÃ©rique ne sera pas Ã©mulÃ©),
++- ou sa protection physique l'a fait Ã©chouÃ©.
+ 
+-Je maintiens une liste des logiciels tournant sous Thom; si vous en possédez
+-un qui pose problème, envoyez-le moi, j'essaierai d'identifier la cause du
+-dysfonctionnement et je vous dirai s'il est possible d'y remédier.
++Je maintiens une liste des logiciels tournant sous Thom; si vous en possÃ©dez
++un qui pose problÃ¨me, envoyez-le moi, j'essaierai d'identifier la cause du
++dysfonctionnement et je vous dirai s'il est possible d'y remÃ©dier.
+ 
+ 
+-4. Problèmes connus
++4. ProblÃ¨mes connus
+ -------------------
+-- la détection automatique de la carte son dans la version MSDOS peut
+-  échouer; vous pouvez dans ce cas spécifier manuellement les
+-  caractéristiques de la carte (type de carte, adresse du port, canal DMA
+-  et numéro d'IRQ) en éditant le fichier allegro.cfg du répertoire principal.
++- la dÃ©tection automatique de la carte son dans la version MSDOS peut
++  Ã©chouer; vous pouvez dans ce cas spÃ©cifier manuellement les
++  caractÃ©ristiques de la carte (type de carte, adresse du port, canal DMA
++  et numÃ©ro d'IRQ) en Ã©ditant le fichier allegro.cfg du rÃ©pertoire principal.
+ 
+ 
+ 5. Conclusion
+ -------------
+-J'espère que Thom répondra à vos attentes; n'hésitez pas à me faire part de
++J'espÃ¨re que Thom rÃ©pondra Ã  vos attentes; n'hÃ©sitez pas Ã  me faire part de
+ vos remarques et suggestions.
+ 
+ 
+--- a/change.log
++++ b/change.log
+@@ -1,88 +1,88 @@
+ =======================================================================
+ === Version 1.5.5 (Juillet 2016) ===
+ =======================================================================
+-- Modification des sources pour être compilées sur les systèmes Linux récent.
++- Modification des sources pour Ãªtre compilÃ©es sur les systÃ¨mes Linux rÃ©cent.
+ - Modification du Makefile Linux
+ - Suppression de /dev/dsp au profit de Pulseaudio sous Linux (Experimental).
+ 
+ =======================================================================
+-=== De la version 1.5.4 à la version 1.5.5 (Novembre-Décembre 2003) ===
++=== De la version 1.5.4 Ã  la version 1.5.5 (Novembre-DÃ©cembre 2003) ===
+ =======================================================================
+-- corrections mineures et mise à jour des liens dans la documentation
++- corrections mineures et mise Ã  jour des liens dans la documentation
+ 
+-- sous Windows: l'émulateur utilise le répertoire memo7 par defaut
++- sous Windows: l'Ã©mulateur utilise le rÃ©pertoire memo7 par defaut
+ 
+ =======================================================================
+-=== De la version 1.5 à la version 1.5.4 (Févr. 2002-Novembre 2003) ===
++=== De la version 1.5 Ã  la version 1.5.4 (FÃ©vr. 2002-Novembre 2003) ===
+ =======================================================================
+ - support de la plateforme Windows/DirectX: Windows 9x,Me,NT4,2k,XP
+-                                            DirectX 3.0 ou supérieure
+-- émulation du compteur de cassettes
++                                            DirectX 3.0 ou supÃ©rieure
++- Ã©mulation du compteur de cassettes
+ 
+ =======================================================================
+-=== De la version 1.4 à la version 1.5 (Janvier 2001-Janvier 2002)  ===
++=== De la version 1.4 Ã  la version 1.5 (Janvier 2001-Janvier 2002)  ===
+ =======================================================================
+ - support des disquettes 5"25
+ - correction d'un bug d'affichage d'un message d'erreur k7
+-- optimisation supplémentaire du code
+-- sous MSDOS: correction du nom du fichier de la photo d'écran
+-- sous MSDOS: volume plus élevé du générateur sonore
+-- sous Linux: nouvelle interface utilisateur, nouvelle icône Thomson
++- optimisation supplÃ©mentaire du code
++- sous MSDOS: correction du nom du fichier de la photo d'Ã©cran
++- sous MSDOS: volume plus Ã©levÃ© du gÃ©nÃ©rateur sonore
++- sous Linux: nouvelle interface utilisateur, nouvelle icÃ´ne Thomson
+               correction d'un bug de la souris (sous Mandrake 8.0)
+-              correction du surdimensionnement du buffer écran
++              correction du surdimensionnement du buffer Ã©cran
+ 
+ =======================================================================
+-=== De la version 1.3 à la version 1.4 (Décembre 2000)              ===
++=== De la version 1.3 Ã  la version 1.4 (DÃ©cembre 2000)              ===
+ =======================================================================
+-- réduction significative de la quantité de mémoire utilisée
++- rÃ©duction significative de la quantitÃ© de mÃ©moire utilisÃ©e
+ - sous MSDOS: support des cartes son Windows Sound System
+ - sous MSDOS: refonte de l'interface utilisateur
+-- sous Linux: meilleure intégration de l'interface utilisateur
++- sous Linux: meilleure intÃ©gration de l'interface utilisateur
+ 	      correction de deux bugs du clavier
+ 
+ =======================================================================
+-=== De la version 1.2 à la version 1.3 (Juillet-Août 2000)          ===
++=== De la version 1.2 Ã  la version 1.3 (Juillet-AoÃ»t 2000)          ===
+ =======================================================================
+-- ajout de l'extension mémoire 64 ko du TO7-70
+-- support des cartouches de 16 à 64 ko
+-- amélioration de l'émulation sonore
+-- le chargement d'une cartouche provoque un redémarrage à froid
++- ajout de l'extension mÃ©moire 64 ko du TO7-70
++- support des cartouches de 16 Ã  64 ko
++- amÃ©lioration de l'Ã©mulation sonore
++- le chargement d'une cartouche provoque un redÃ©marrage Ã  froid
+ - sous MSDOS: la led CapsLock signale le mode majuscules
+-              copie d'écran commandée par [F11]
+-               (sur une idée de Louis Progeas)
+-              correction du bug d'autodétection de la carte son
+-              refonte du débogueur et du gestionnaire de mémoire
+-- sous Linux: suppression de l'option -small, -geometry spécifie aussi
+-   la taille de la fenêtre
+-- sous Linux: le curseur X peut être rendu invisible dans l'écran de
+-   l'émulateur
++              copie d'Ã©cran commandÃ©e par [F11]
++               (sur une idÃ©e de Louis Progeas)
++              correction du bug d'autodÃ©tection de la carte son
++              refonte du dÃ©bogueur et du gestionnaire de mÃ©moire
++- sous Linux: suppression de l'option -small, -geometry spÃ©cifie aussi
++   la taille de la fenÃªtre
++- sous Linux: le curseur X peut Ãªtre rendu invisible dans l'Ã©cran de
++   l'Ã©mulateur
+ 
+ =======================================================================
+-=== De la version 1.1 à la version 1.2 (Mars 2000)                  ===
++=== De la version 1.1 Ã  la version 1.2 (Mars 2000)                  ===
+ =======================================================================
+ - sous Linux: correction d'un bug de l'affichage en mode 32-bit
+-              support de l'extension MIT-SHM avec option de désactivation
+-	      simplification de la sélection de la taille de l'écran
++              support de l'extension MIT-SHM avec option de dÃ©sactivation
++	      simplification de la sÃ©lection de la taille de l'Ã©cran
+ 
+ =======================================================================
+-=== De la version 1.0.2 à la version 1.1 (Décembre 1999)            ===
++=== De la version 1.0.2 Ã  la version 1.1 (DÃ©cembre 1999)            ===
+ =======================================================================
+-- sous Linux: avec le son désactivé, l'émulateur ne prend plus 100%
++- sous Linux: avec le son dÃ©sactivÃ©, l'Ã©mulateur ne prend plus 100%
+    des ressources du CPU
+-- sous MSDOS: les différents menus sont maintenant imbriqués
++- sous MSDOS: les diffÃ©rents menus sont maintenant imbriquÃ©s
+               la configuration de la carte son n'est plus requise
+   (retrait du programme setup qui ne fonctionne pas correctement sous
+-    Windows 98, merci à Louis Progeas pour me l'avoir signalé)  
++    Windows 98, merci Ã  Louis Progeas pour me l'avoir signalÃ©)  
+ 
+ =======================================================================
+-=== De la version 1.0.1 à la version 1.0.2 (Décembre 1999)          ===
++=== De la version 1.0.1 Ã  la version 1.0.2 (DÃ©cembre 1999)          ===
+ =======================================================================
+-- correction d'un bug dans l'émulation sonore
++- correction d'un bug dans l'Ã©mulation sonore
+ - sous MSDOS: support de toutes les cartes son de la librairie Allegro 3.12
+-- correction d'un bug au démarrage de la version Linux      
+-- sous Linux: la fenêtre X s'ouvre maintenant quelle que soit sa position
++- correction d'un bug au dÃ©marrage de la version Linux      
++- sous Linux: la fenÃªtre X s'ouvre maintenant quelle que soit sa position
+ 	
+ =======================================================================
+-=== De la version 1.0 à la version 1.0.1 (Octobre 1999)             ===
++=== De la version 1.0 Ã  la version 1.0.1 (Octobre 1999)             ===
+ =======================================================================
+ - correction d'un bug dans le traitement de l'option -m sous MSDOS

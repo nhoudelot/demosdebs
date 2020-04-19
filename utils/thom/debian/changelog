@@ -1,0 +1,29 @@
+thom (1.6-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 20 Apr 2020 00:58:24 +0200
+
+thom (1.6-0ddebs4) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 01 Sep 2018 09:41:31 +0200
+
+thom (1.6-0ddebs3) unstable; urgency=medium
+
+  * Update package name in case of a dist upgrade
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Jul 2018 16:30:30 +0200
+
+thom (1.6-0ddebs2) unstable; urgency=medium
+
+  * added manual page
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 12 Oct 2016 23:52:16 +0200
+
+thom (1.6-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 10 Oct 2016 02:14:45 +0200

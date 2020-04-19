@@ -1,0 +1,19 @@
+Source: thom
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ libgtk1.2-dev,
+ libx11-dev,
+ libxext-dev,
+ libpulse-dev,
+ pandoc
+Standards-Version: 4.5.0
+Homepage: https://sourceforge.net/projects/thom/
+
+Package: thom
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Thomson TO7/70 emulator
+ Emulator for the Thomson TO7/70
