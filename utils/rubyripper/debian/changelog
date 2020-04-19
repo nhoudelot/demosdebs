@@ -1,3 +1,9 @@
+rubyripper (0.7.0rc2+git20180830-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 21:56:13 +0200
+
 rubyripper (0.7.0rc2+git20180830-0ddebs1) unstable; urgency=medium
 
   * sync version to last commit on github
