@@ -3,10 +3,10 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>= 10),
  upx,
  pandoc
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: http://www.exe2adf.com/
 
 Package: exe2adf
