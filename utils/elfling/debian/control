@@ -3,13 +3,12 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>= 10),
  libc6-dev,
  nasm,
  libsdl1.2-dev,
- libgl1-mesa-dev,
- pandoc
-Standards-Version: 4.1.4
+ libgl1-mesa-dev
+Standards-Version: 4.5.0
 Homepage: https://github.com/google/elfling
 
 Package: elfling
@@ -20,11 +19,11 @@ Description: Crinkler-like for the Linux Scene
  provides a context-modeling compressing linker that will transform a .o file
  into a "valid" ELF binary. This is not quite finished yet, the following
  caveats should be taken into account when using:
- - It can only link a single .o file for now.
- - It assumes that you want to link SDL 1.2 and OpenGL, the flags for specifying
-   libraries are currently ignored.
- - It may crash if your object file contains some construct it does not expect.
-   tested quite a few relocation and data declaration possibilities
-   absolutely certain to have missed a few :-)
- - 32-bit only. While the resulting binaries will run on 64-bit Linux, users
+   - It can only link a single .o file for now.
+   - It assumes that you want to link SDL 1.2 and OpenGL, the flags for
+   specifying libraries are currently ignored.
+   - It may crash if your object file contains some construct it does not expect.
+   tested quite a few relocation and data declaration possibilities absolutely 
+   certain to have missed a few :-)
+   - 32-bit only. While the resulting binaries will run on 64-bit Linux, users
    will need to install the required 32-bit libraries for running your stuff.

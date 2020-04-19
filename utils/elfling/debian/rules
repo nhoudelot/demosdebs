@@ -1,6 +1,14 @@
 #!/usr/bin/make -f
 
+# since drop of 32 bit isos, pandoc is not available on some distributions
+# it's impossible to dynamicaly generate the manual for 32 bit packages
+#
+# so, on change, it's important to keek the original markdown file 
+# and generate the manual with this line :
+# pandoc -s -t man -f markdown debian/elfling.1.md -o debian/elfling.1
+
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
 
 %:
 	dh $@
@@ -10,7 +18,3 @@ override_dh_auto_build:
 	make bin/elfling
 	make bin/prt
 	make bin/packer
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/elfling.1.md -o debian/elfling.1
