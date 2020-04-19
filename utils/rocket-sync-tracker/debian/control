@@ -3,15 +3,15 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>= 10),
  qtbase5-dev,
  qtbase5-dev-tools,
  qt5-qmake,
  pandoc
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://github.com/rocket/rocket
-Vcs-Git: git://github.com/rocket/rocket.git
-Vcs-Browser: https://github.com/rocket/rocket.git
+Vcs-Git: https://github.com/rocket/rocket.git
+Vcs-Browser: https://github.com/rocket/rocket
 
 Package: rocket-sync-tracker
 Architecture: any
