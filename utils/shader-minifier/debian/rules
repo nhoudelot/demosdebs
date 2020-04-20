@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with cli
+
+override_dh_auto_build:
+	./compile.bash
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/shader-minifier.exe.1.md -o debian/shader-minifier.exe.1

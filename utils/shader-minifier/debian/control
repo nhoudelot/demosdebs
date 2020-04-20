@@ -1,0 +1,22 @@
+Source: shader-minifier
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ fsharp,
+ pandoc
+Build-Depends-Indep:
+ cli-common-dev
+Standards-Version: 4.5.0
+Homepage: https://github.com/laurentlb/Shader_Minifier
+Vcs-Git: https://github.com/laurentlb/Shader_Minifier.git
+Vcs-Browser: https://github.com/laurentlb/Shader_Minifier
+
+Package: shader-minifier
+Architecture: all
+Depends:
+ ${cli:Depends},
+ ${misc:Depends}
+Description: Minify and obfuscate GLSL or HLSL code
+ Minify and obfuscate GLSL or HLSL code

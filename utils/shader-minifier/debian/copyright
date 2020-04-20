@@ -1,0 +1,16 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: shader-minifier
+Source: https://github.com/laurentlb/Shader_Minifier
+
+Files: *
+Copyright: 2013-2018 Laurent Le Brun
+License: Apache-2.0
+
+Files: debian/*
+Copyright: 2019 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+
+License: GPL-3+
+ On Debian systems, the complete text of the GNU General Public License
+ version 3 can be found in "/usr/share/common-licenses/GPL-3".
+
