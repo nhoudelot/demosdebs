@@ -6,7 +6,7 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+bindnow
 
 %:
-	dh $@ --parallel --sourcedirectory=build
+	dh $@ --sourcedirectory=build
 
 override_dh_auto_configure:
 	dh_auto_configure
@@ -15,6 +15,8 @@ override_dh_auto_configure:
 	 o=`basename $$i .in`;\
 	 sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
 	 done )
+
+#override_dh_auto_build:
 
 override_dh_install:
 		dh_install
