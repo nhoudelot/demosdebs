@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>= 10),
  pandoc,
  libhxcadaptor-dev,
  libusbhxcfe-dev,
@@ -11,7 +11,7 @@ Build-Depends:
  libfltk1.3-dev,
  libxext-dev,
  libxfixes-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/HxCFloppyEmulator_software/trunk/
 
 Package: hxcfloppyemulator

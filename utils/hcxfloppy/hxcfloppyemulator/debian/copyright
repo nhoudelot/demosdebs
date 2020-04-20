@@ -6,12 +6,12 @@ Files: *
 Copyright: 2006 Jean-François DEL NERO
 License: GPL-3.0+
 
-Files: sources/thirdpartylibs/fdrawcmd/fdrawcmd.h
+Files: sources/thirdpartylibs/fdrawcmd/fdrawcmd.*
 Copyright: 2010 Simon Owen
 License: fdrawcmd_License
 
 Files: debian/*
-Copyright: 2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2018-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: GPL-3.0+

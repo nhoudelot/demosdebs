@@ -1,3 +1,9 @@
+hxcfloppyemulator (2.1.22.3-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 20 Apr 2020 02:55:35 +0200
+
 hxcfloppyemulator (2.1.22.3-0ddebs1) unstable; urgency=medium
 
   * Upstream update

@@ -1,3 +1,8 @@
+Description: change to pass hardening flags
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/build/Makefile
 +++ b/build/Makefile
 @@ -40,6 +40,9 @@
