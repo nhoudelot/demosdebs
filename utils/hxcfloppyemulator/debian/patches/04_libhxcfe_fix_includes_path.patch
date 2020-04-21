@@ -1,0 +1,4908 @@
+Description: fix includes path
+ to compile in hardening mode, includes path have to be correct
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/libhxcfe/trunk/sources/floppy_loader.c
++++ b/libhxcfe/trunk/sources/floppy_loader.c
+@@ -63,7 +63,7 @@
+ 
+ #include "plugins_id.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "misc/env.h"
+ #include "misc/script_exec.h"
+--- a/libhxcfe/trunk/sources/floppy_utils.c
++++ b/libhxcfe/trunk/sources/floppy_utils.c
+@@ -55,7 +55,7 @@
+ #include "libhxcfe.h"
+ #include "floppy_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int32_t us2index(int32_t startindex,HXCFE_SIDE * track,uint32_t us,unsigned char fill,char fillorder)
+ {
+--- a/libhxcfe/trunk/sources/loaders_list.c
++++ b/libhxcfe/trunk/sources/loaders_list.c
+@@ -37,7 +37,7 @@
+ #include "floppy_loader.h"
+ #include "floppy_utils.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "./loaders/adf_loader/adf_loader.h"
+ #include "./loaders/adz_loader/adz_loader.h"
+--- a/libhxcfe/trunk/sources/tracks/display_track.c
++++ b/libhxcfe/trunk/sources/tracks/display_track.c
+@@ -47,29 +47,29 @@
+ #include <stdio.h>
+ #include <math.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../internal_libhxcfe.h"
++#include "track_generator.h"
++#include "../libhxcfe.h"
+ 
+-#include "tracks/luts.h"
++#include "luts.h"
+ 
+-#include "version.h"
++#include "../version.h"
+ 
+ #include "crc.h"
+ #include "std_crc32.h"
+ 
+-#include "floppy_utils.h"
++#include "../floppy_utils.h"
+ 
+ #include "display_track.h"
+ 
+ #include "font.h"
+ 
+-#include "stream_analyzer/fluxStreamAnalyzer.h"
++#include "../stream_analyzer/fluxStreamAnalyzer.h"
+ 
+-#include "loaders/bmp_loader/bmp_loader.h"
+-#include "loaders/bmp_loader/bmp_file.h"
++#include "../loaders/bmp_loader/bmp_loader.h"
++#include "../loaders/bmp_loader/bmp_file.h"
+ 
+ #define PI    ((float)  3.141592654f)
+ 
+--- a/libhxcfe/trunk/sources/tracks/sector_extractor.c
++++ b/libhxcfe/trunk/sources/tracks/sector_extractor.c
+@@ -46,35 +46,35 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../internal_libhxcfe.h"
++#include "track_generator.h"
++#include "../sector_search.h"
++#include "../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../libhxcfe.h"
+ 
+ #include "sector_extractor.h"
+-#include "tracks/crc.h"
++#include "crc.h"
+ 
+-#include "tracks/track_formats/aed6200p_track.h"
+-#include "tracks/track_formats/amiga_mfm_track.h"
+-#include "tracks/track_formats/apple2_gcr_track.h"
+-#include "tracks/track_formats/apple_mac_gcr_track.h"
+-#include "tracks/track_formats/arburg_track.h"
+-#include "tracks/track_formats/dec_rx02_track.h"
+-#include "tracks/track_formats/emu_emulator_fm_track.h"
+-#include "tracks/track_formats/heathkit_fm_track.h"
+-#include "tracks/track_formats/iso_ibm_fm_track.h"
+-#include "tracks/track_formats/iso_ibm_mfm_track.h"
+-#include "tracks/track_formats/membrain_mfm_track.h"
+-#include "tracks/track_formats/northstar_mfm_track.h"
+-#include "tracks/track_formats/tycom_fm_track.h"
++#include "track_formats/aed6200p_track.h"
++#include "track_formats/amiga_mfm_track.h"
++#include "track_formats/apple2_gcr_track.h"
++#include "track_formats/apple_mac_gcr_track.h"
++#include "track_formats/arburg_track.h"
++#include "track_formats/dec_rx02_track.h"
++#include "track_formats/emu_emulator_fm_track.h"
++#include "track_formats/heathkit_fm_track.h"
++#include "track_formats/iso_ibm_fm_track.h"
++#include "track_formats/iso_ibm_mfm_track.h"
++#include "track_formats/membrain_mfm_track.h"
++#include "track_formats/northstar_mfm_track.h"
++#include "track_formats/tycom_fm_track.h"
+ 
+ #include "trackutils.h"
+ 
+-#include "tracks/luts.h"
++#include "luts.h"
+ 
+ void checkEmptySector(HXCFE_SECTCFG * sector)
+ {
+--- a/libhxcfe/trunk/sources/tracks/track_generator.c
++++ b/libhxcfe/trunk/sources/tracks/track_generator.c
+@@ -46,33 +46,33 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+-#include "internal_libhxcfe.h"
++#include "../internal_libhxcfe.h"
+ #include "track_generator.h"
+-#include "libhxcfe.h"
++#include "../libhxcfe.h"
+ 
+ #include "crc.h"
+-#include "floppy_utils.h"
++#include "../floppy_utils.h"
+ #include "math.h"
+ 
+-#include "tracks/track_formats/aed6200p_track.h"
+-#include "tracks/track_formats/amiga_mfm_track.h"
+-#include "tracks/track_formats/apple2_gcr_track.h"
+-#include "tracks/track_formats/apple_mac_gcr_track.h"
+-#include "tracks/track_formats/arburg_track.h"
+-#include "tracks/track_formats/dec_rx02_track.h"
+-#include "tracks/track_formats/emu_emulator_fm_track.h"
+-#include "tracks/track_formats/heathkit_fm_track.h"
+-#include "tracks/track_formats/iso_ibm_fm_track.h"
+-#include "tracks/track_formats/iso_ibm_mfm_track.h"
+-#include "tracks/track_formats/membrain_mfm_track.h"
+-#include "tracks/track_formats/northstar_mfm_track.h"
+-#include "tracks/track_formats/tycom_fm_track.h"
+-
+-#include "tracks/encoding/mfm_encoding.h"
+-#include "tracks/encoding/fm_encoding.h"
+-#include "tracks/encoding/dec_m2fm_encoding.h"
++#include "track_formats/aed6200p_track.h"
++#include "track_formats/amiga_mfm_track.h"
++#include "track_formats/apple2_gcr_track.h"
++#include "track_formats/apple_mac_gcr_track.h"
++#include "track_formats/arburg_track.h"
++#include "track_formats/dec_rx02_track.h"
++#include "track_formats/emu_emulator_fm_track.h"
++#include "track_formats/heathkit_fm_track.h"
++#include "track_formats/iso_ibm_fm_track.h"
++#include "track_formats/iso_ibm_mfm_track.h"
++#include "track_formats/membrain_mfm_track.h"
++#include "track_formats/northstar_mfm_track.h"
++#include "track_formats/tycom_fm_track.h"
++
++#include "encoding/mfm_encoding.h"
++#include "encoding/fm_encoding.h"
++#include "encoding/dec_m2fm_encoding.h"
+ 
+ #include "trackutils.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_types_defs.c
++++ b/libhxcfe/trunk/sources/tracks/track_types_defs.c
+@@ -42,9 +42,9 @@
+ // Change History (most recent first):
+ ///////////////////////////////////////////////////////////////////////////////////
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+-#include "libhxcfe.h"
++#include "../libhxcfe.h"
+ #include "track_types_defs.h"
+ 
+ isoibm_config formatstab[]=
+--- a/libhxcfe/trunk/sources/fs_manager/fs_amigados/fs_amigados.c
++++ b/libhxcfe/trunk/sources/fs_manager/fs_amigados/fs_amigados.c
+@@ -47,24 +47,24 @@
+ #include <string.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
+-#include "fs_manager/fs_manager.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
++#include "../fs_manager.h"
++#include "../../libhxcfe.h"
+ 
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+-#include "thirdpartylibs/adflib/Lib/adflib.h"
+-#include "thirdpartylibs/adflib/Lib/adf_str.h"
+-#include "thirdpartylibs/adflib/Lib/adf_nativ.h"
+-#include "thirdpartylibs/adflib/Lib/adf_err.h"
+-#include "thirdpartylibs/adflib/Lib/adf_dir.h"
++#include "../../thirdpartylibs/adflib/Lib/adflib.h"
++#include "../../thirdpartylibs/adflib/Lib/adf_str.h"
++#include "../../thirdpartylibs/adflib/Lib/adf_nativ.h"
++#include "../../thirdpartylibs/adflib/Lib/adf_err.h"
++#include "../../thirdpartylibs/adflib/Lib/adf_dir.h"
+ 
+ HXCFE* floppycontext;
+ HXCFE_FSMNG * gb_fsmng;
+--- a/libhxcfe/trunk/sources/fs_manager/fs_cpm/fs_cpm.c
++++ b/libhxcfe/trunk/sources/fs_manager/fs_cpm/fs_cpm.c
+@@ -47,17 +47,17 @@
+ #include <string.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
+-#include "fs_manager/fs_manager.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
++#include "../fs_manager.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "libcpmfs/libcpmfs.h"
+ 
+--- a/libhxcfe/trunk/sources/fs_manager/fs_cpm/libcpmfs/libcpmfs.c
++++ b/libhxcfe/trunk/sources/fs_manager/fs_cpm/libcpmfs/libcpmfs.c
+@@ -47,7 +47,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include "types.h"
++#include "../../../types.h"
+ 
+ #include "libcpmfs.h"
+ 
+--- a/libhxcfe/trunk/sources/fs_manager/fs_fat12/fs_fat12.c
++++ b/libhxcfe/trunk/sources/fs_manager/fs_fat12/fs_fat12.c
+@@ -47,22 +47,22 @@
+ #include <string.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
+-#include "fs_manager/fs_manager.h"
+-#include "libhxcfe.h"
+-
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
+-
+-#include "thirdpartylibs/FATIOlib/fat_opts.h"
+-#include "thirdpartylibs/FATIOlib/fat_misc.h"
+-#include "thirdpartylibs/FATIOlib/fat_defs.h"
+-#include "thirdpartylibs/FATIOlib/fat_filelib.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
++#include "../fs_manager.h"
++#include "../../libhxcfe.h"
++
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
++
++#include "../../thirdpartylibs/FATIOlib/fat_opts.h"
++#include "../../thirdpartylibs/FATIOlib/fat_misc.h"
++#include "../../thirdpartylibs/FATIOlib/fat_defs.h"
++#include "../../thirdpartylibs/FATIOlib/fat_filelib.h"
+ //#include "thirdpartylibs/FATIOlib/conf.h"
+ 
+ 
+--- a/libhxcfe/trunk/sources/fs_manager/fs_manager.c
++++ b/libhxcfe/trunk/sources/fs_manager/fs_manager.c
+@@ -47,14 +47,14 @@
+ #include <string.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../internal_libhxcfe.h"
++#include "../tracks/track_generator.h"
++#include "../sector_search.h"
++#include "../fdc_ctrl.h"
+ #include "fs_manager.h"
+-#include "libhxcfe.h"
++#include "../libhxcfe.h"
+ 
+ #include "fs_fat12/fs_fat12.h"
+ #include "fs_amigados/fs_amigados.h"
+--- a/libhxcfe/trunk/sources/misc/env.c
++++ b/libhxcfe/trunk/sources/misc/env.c
+@@ -47,17 +47,17 @@
+ #include <string.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "libhxcfe.h"
+-#include "floppy_loader.h"
++#include "../internal_libhxcfe.h"
++#include "../tracks/track_generator.h"
++#include "../sector_search.h"
++#include "../libhxcfe.h"
++#include "../floppy_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "version.h"
++#include "../version.h"
+ 
+ #include "env.h"
+ 
+@@ -280,4 +280,4 @@
+ 	free(src);
+ 
+ 	return;
+-}
+\ No newline at end of file
++}
+--- a/libhxcfe/trunk/sources/misc/script_exec.c
++++ b/libhxcfe/trunk/sources/misc/script_exec.c
+@@ -47,19 +47,19 @@
+ #include <string.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "libhxcfe.h"
+-#include "floppy_loader.h"
++#include "../internal_libhxcfe.h"
++#include "../tracks/track_generator.h"
++#include "../sector_search.h"
++#include "../libhxcfe.h"
++#include "../floppy_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "env.h"
+ 
+-#include "version.h"
++#include "../version.h"
+ 
+ #define MAX_CFG_STRING_SIZE 1024
+ 
+--- a/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
++++ b/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
+@@ -50,20 +50,20 @@
+ 
+ #include <math.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../internal_libhxcfe.h"
++#include "../tracks/track_generator.h"
++#include "../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../floppy_loader.h"
++#include "../floppy_utils.h"
+ 
+ #include "fluxStreamAnalyzer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "misc/env.h"
++#include "../misc/env.h"
+ 
+ //#include "asm_mmx_routines.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/trackeditor.c
++++ b/libhxcfe/trunk/sources/tracks/trackeditor.c
+@@ -46,14 +46,14 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../internal_libhxcfe.h"
++#include "track_generator.h"
++#include "../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../floppy_loader.h"
++#include "../floppy_utils.h"
+ 
+ #include "trackutils.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/trackutils.c
++++ b/libhxcfe/trunk/sources/tracks/trackutils.c
+@@ -46,7 +46,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+ #include "luts.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/aed6200p_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/aed6200p_track.c
+@@ -46,24 +46,24 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+ #include "aed6200p_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/mfm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/mfm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/amiga_mfm_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/amiga_mfm_track.c
+@@ -46,25 +46,25 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
+-
+-#include "libhxcfe.h"
+-
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
+-#include "tracks/track_types_defs.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
++
++#include "../../libhxcfe.h"
++
++#include "../sector_extractor.h"
++#include "../crc.h"
++#include "../track_types_defs.h"
+ 
+ #include "amiga_mfm_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/mfm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/mfm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/apple2_gcr_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/apple2_gcr_track.c
+@@ -46,24 +46,24 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+ #include "apple2_gcr_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/fm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/fm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/apple_mac_gcr_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/apple_mac_gcr_track.c
+@@ -46,24 +46,24 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+ #include "apple2_gcr_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/fm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/fm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/arburg_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/arburg_track.c
+@@ -46,21 +46,21 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
++#include "../sector_extractor.h"
+ 
+-#include "tracks/crc.h"
++#include "../crc.h"
+ #include "arburg_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/fm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/fm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/c64_gcr_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/c64_gcr_track.c
+@@ -46,24 +46,24 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_utils.h"
++#include "../../floppy_utils.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+ #include "c64_gcr_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/luts.h"
++#include "../trackutils.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/dec_rx02_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/dec_rx02_track.c
+@@ -46,25 +46,25 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+-#include "tracks/track_formats/iso_ibm_fm_track.h"
++#include "../track_formats/iso_ibm_fm_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/dec_m2fm_encoding.h"
+-#include "tracks/encoding/fm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/dec_m2fm_encoding.h"
++#include "../encoding/fm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/emu_emulator_fm_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/emu_emulator_fm_track.c
+@@ -46,23 +46,23 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ #include "emu_emulator_fm_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/fm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/fm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/heathkit_fm_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/heathkit_fm_track.c
+@@ -46,26 +46,26 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_utils.h"
++#include "../../floppy_utils.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+-#include "tracks/track_formats/heathkit_fm_track.h"
++#include "../track_formats/heathkit_fm_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/fm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/fm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/iso_ibm_fm_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/iso_ibm_fm_track.c
+@@ -46,24 +46,24 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+-#include "tracks/track_formats/iso_ibm_fm_track.h"
++#include "../track_formats/iso_ibm_fm_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/fm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/fm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/iso_ibm_mfm_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/iso_ibm_mfm_track.c
+@@ -46,24 +46,24 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+-#include "tracks/track_formats/iso_ibm_mfm_track.h"
++#include "../track_formats/iso_ibm_mfm_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/mfm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/mfm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/membrain_mfm_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/membrain_mfm_track.c
+@@ -46,24 +46,24 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+ #include "membrain_mfm_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/mfm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/mfm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/northstar_mfm_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/northstar_mfm_track.c
+@@ -46,26 +46,26 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_utils.h"
++#include "../../floppy_utils.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+ #include "northstar_mfm_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/mfm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/mfm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/track_formats/tycom_fm_track.c
++++ b/libhxcfe/trunk/sources/tracks/track_formats/tycom_fm_track.c
+@@ -46,24 +46,24 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "sector_search.h"
+-#include "fdc_ctrl.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../sector_search.h"
++#include "../../fdc_ctrl.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/crc.h"
++#include "../sector_extractor.h"
++#include "../crc.h"
+ 
+ #include "tycom_fm_track.h"
+ 
+-#include "tracks/trackutils.h"
+-#include "tracks/encoding/fm_encoding.h"
++#include "../trackutils.h"
++#include "../encoding/fm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ #include "sector_sm.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/acornadf_loader/acornadf_loader.c
++++ b/libhxcfe/trunk/sources/loaders/acornadf_loader/acornadf_loader.c
+@@ -47,14 +47,14 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
+-#include "loaders/common/raw_iso.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
++#include "../common/raw_iso.h"
+ 
+ #include "acornadf_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/adf_loader/adf_loader.c
++++ b/libhxcfe/trunk/sources/loaders/adf_loader/adf_loader.c
+@@ -47,14 +47,14 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
+ 
+-#include "loaders/common/raw_amiga.h"
++#include "../common/raw_amiga.h"
+ 
+ #include "adf_loader.h"
+ #include "adf_writer.h"
+--- a/libhxcfe/trunk/sources/loaders/adf_loader/adf_writer.c
++++ b/libhxcfe/trunk/sources/loaders/adf_loader/adf_writer.c
+@@ -28,17 +28,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "adf_loader.h"
+ 
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/sector_extractor.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int ADF_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/adl_loader/adl_loader.c
++++ b/libhxcfe/trunk/sources/loaders/adl_loader/adl_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "adl_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/adz_loader/adz_loader.c
++++ b/libhxcfe/trunk/sources/loaders/adz_loader/adz_loader.c
+@@ -47,23 +47,23 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "./tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "adz_loader.h"
+ #include "adz_writer.h"
+ 
+-#include "loaders/common/raw_amiga.h"
++#include "../common/raw_amiga.h"
+ 
+ #include <zlib.h>
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #define UNPACKBUFFER 128*1024
+ 
+--- a/libhxcfe/trunk/sources/loaders/adz_loader/adz_writer.c
++++ b/libhxcfe/trunk/sources/loaders/adz_loader/adz_writer.c
+@@ -29,17 +29,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+ #include <zlib.h>
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "adz_loader.h"
+ #include "adz_writer.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ // Main writer function
+ int ADZ_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+--- a/libhxcfe/trunk/sources/loaders/afi_loader/afi_loader.c
++++ b/libhxcfe/trunk/sources/loaders/afi_loader/afi_loader.c
+@@ -47,21 +47,21 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "afi_format.h"
+ #include "afi_loader.h"
+ 
+ #include <zlib.h>
+-#include "tracks/crc.h"
++#include "../../tracks/crc.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ uint16_t filecheckcrc(FILE * f,uint32_t fileoffset,uint32_t size)
+ {
+--- a/libhxcfe/trunk/sources/loaders/afi_loader/afi_writer.c
++++ b/libhxcfe/trunk/sources/loaders/afi_loader/afi_writer.c
+@@ -29,19 +29,19 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "afi_format.h"
+ #include "afi_loader.h"
+ 
+ #include <zlib.h>
+ 
+-#include "tracks/crc.h"
++#include "../../tracks/crc.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ AFI_DATACODE datacode[]={
+ 	{AFI_DATA_MFM,AFI_DATA_TYPE_MFM},
+--- a/libhxcfe/trunk/sources/loaders/amigadosfs_loader/amigadosfs_loader.c
++++ b/libhxcfe/trunk/sources/loaders/amigadosfs_loader/amigadosfs_loader.c
+@@ -49,18 +49,18 @@
+ #include <sys/stat.h>
+ #include <time.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
+ 
+-#include "loaders/common/raw_amiga.h"
++#include "../common/raw_amiga.h"
+ 
+ #include "amigadosfs_loader.h"
+ 
+-#include "thirdpartylibs/adflib/Lib/adflib.h"
++#include "../../thirdpartylibs/adflib/Lib/adflib.h"
+ #include "stdboot3.h"
+ 
+ HXCFE* global_floppycontext;
+--- a/libhxcfe/trunk/sources/loaders/ana_loader/ana_loader.c
++++ b/libhxcfe/trunk/sources/loaders/ana_loader/ana_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "ana_loader.h"
+ #include "ana_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int AnaDisk_SanityCheck(HXCFE_IMGLDR * imgldr_ctx,char * imgfile,int32_t * mintrack,int32_t * maxtrack,int32_t * minhead,int32_t * maxhead)
+ {
+--- a/libhxcfe/trunk/sources/loaders/apple2_do_loader/apple2_do_loader.c
++++ b/libhxcfe/trunk/sources/loaders/apple2_do_loader/apple2_do_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "apple2_do_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int Apple2_do_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/apple2_nib_loader/apple2_nib_loader.c
++++ b/libhxcfe/trunk/sources/loaders/apple2_nib_loader/apple2_nib_loader.c
+@@ -47,23 +47,23 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "apple2_nib_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #define NIB_TRACK_SIZE 6656
+ 
+ //#define HDDD_A2_SUPPORT 1
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ int Apple2_nib_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/apridisk_loader/apridisk_loader.c
++++ b/libhxcfe/trunk/sources/loaders/apridisk_loader/apridisk_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "apridisk_loader.h"
+ #include "apridisk_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int ApriDisk_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/arburg_raw_loader/arburg_raw_loader.c
++++ b/libhxcfe/trunk/sources/loaders/arburg_raw_loader/arburg_raw_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+-#include "tracks/track_formats/arburg_track.h"
++#include "../../tracks/track_formats/arburg_track.h"
+ #include "arburg_raw_loader.h"
+ #include "arburg_raw_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int ARBURG_RAW_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/arburg_raw_loader/arburg_raw_writer.c
++++ b/libhxcfe/trunk/sources/loaders/arburg_raw_loader/arburg_raw_writer.c
+@@ -28,17 +28,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "arburg_raw_loader.h"
+ 
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/sector_extractor.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int ARBURG_RAW_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/atr_loader/atr_loader.c
++++ b/libhxcfe/trunk/sources/loaders/atr_loader/atr_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "atr_loader.h"
+ 
+ #include "atr_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int ATR_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_disk_writer.c
++++ b/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_disk_writer.c
+@@ -29,18 +29,18 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "bmp_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "bmp_file.h"
+ 
+-#include "misc/env.h"
++#include "../../misc/env.h"
+ 
+ extern void copyPict(uint32_t * dest,int d_xsize,int d_ysize,int d_xpos,int d_ypos,uint32_t * src,int s_xsize,int s_ysize);
+ 
+--- a/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_file.c
++++ b/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_file.c
+@@ -29,11 +29,11 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "bmp_file.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_loader.c
++++ b/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_loader.c
+@@ -47,13 +47,13 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "bmp_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_writer.c
++++ b/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_writer.c
+@@ -29,18 +29,18 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "bmp_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "bmp_file.h"
+ 
+-#include "misc/env.h"
++#include "../../misc/env.h"
+ 
+ static int32_t progress_callback( uint32_t current, uint32_t total, void * td, void * user )
+ {
+--- a/libhxcfe/trunk/sources/loaders/camputerslynxldf_loader/camputerslynxldf_loader.c
++++ b/libhxcfe/trunk/sources/loaders/camputerslynxldf_loader/camputerslynxldf_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "camputerslynxldf_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int CAMPUTERSLYNX_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/common/raw_amiga.c
++++ b/libhxcfe/trunk/sources/loaders/common/raw_amiga.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "./tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "raw_amiga.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int raw_amiga_loader(HXCFE_IMGLDR * imgldr_ctx,HXCFE_FLOPPY * floppydisk, FILE * f_img , unsigned char * imagebuffer, int size)
+ {
+--- a/libhxcfe/trunk/sources/loaders/common/raw_iso.c
++++ b/libhxcfe/trunk/sources/loaders/common/raw_iso.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "./tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "raw_iso.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int raw_iso_loader(HXCFE_IMGLDR * imgldr_ctx,HXCFE_FLOPPY * floppydisk, FILE * f_img , unsigned char * imagebuffer, int size, raw_iso_cfg * cfg)
+ {
+--- a/libhxcfe/trunk/sources/loaders/copyqm_loader/copyqm_loader.c
++++ b/libhxcfe/trunk/sources/loaders/copyqm_loader/copyqm_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "copyqm_loader.h"
+ #include "crctable.h"
+--- a/libhxcfe/trunk/sources/loaders/copyqm_loader/crctable.c
++++ b/libhxcfe/trunk/sources/loaders/copyqm_loader/crctable.c
+@@ -1,4 +1,4 @@
+-#include "types.h"
++#include "../../types.h"
+ 
+ /* Automatically generated CRC table */
+ /* polynomial: 0x104C11DB7, bit reverse algorithm */
+--- a/libhxcfe/trunk/sources/loaders/cpcdsk_loader/cpcdsk_loader.c
++++ b/libhxcfe/trunk/sources/loaders/cpcdsk_loader/cpcdsk_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "cpcdsk_loader.h"
+ #include "cpcdsk_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int CPCDSK_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/cpcdsk_loader/cpcdsk_writer.c
++++ b/libhxcfe/trunk/sources/loaders/cpcdsk_loader/cpcdsk_writer.c
+@@ -29,18 +29,18 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "cpcdsk_format.h"
+ #include "cpcdsk_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "floppy_utils.h"
++#include "../../floppy_utils.h"
+ 
+ int CPCDSK_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/cpcfs_loader/cpcfs_loader.c
++++ b/libhxcfe/trunk/sources/loaders/cpcfs_loader/cpcfs_loader.c
+@@ -49,17 +49,17 @@
+ #include <sys/stat.h>
+ #include <time.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "cpcfs_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ HXCFE* global_floppycontext;
+ extern int ScanFile(HXCFE* floppycontext,struct Volume * adfvolume,char * folder,char * file);
+--- a/libhxcfe/trunk/sources/loaders/d64_loader/d64_loader.c
++++ b/libhxcfe/trunk/sources/loaders/d64_loader/d64_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+-#include "tracks/track_formats/c64_gcr_track.h"
++#include "../../tracks/track_formats/c64_gcr_track.h"
+ 
+ #include "d64_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ typedef struct d64trackpos_
+ {
+--- a/libhxcfe/trunk/sources/loaders/d81_loader/d81_loader.c
++++ b/libhxcfe/trunk/sources/loaders/d81_loader/d81_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "d81_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/d88_loader/d88_loader.c
++++ b/libhxcfe/trunk/sources/loaders/d88_loader/d88_loader.c
+@@ -47,21 +47,21 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "d88_loader.h"
+ #include "d88_format.h"
+ 
+ #include "d88_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int D88_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/d88_loader/d88_writer.c
++++ b/libhxcfe/trunk/sources/loaders/d88_loader/d88_writer.c
+@@ -29,19 +29,19 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "d88_format.h"
+ #include "d88_writer.h"
+ 
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/sector_extractor.h"
+ 
+-#include "libhxcadaptor.h"
+-#include "floppy_utils.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_utils.h"
+ 
+ int D88_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/dim_loader/dim_loader.c
++++ b/libhxcfe/trunk/sources/loaders/dim_loader/dim_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "dim_loader.h"
+ #include "dim_writer.h"
+--- a/libhxcfe/trunk/sources/loaders/dim_loader/dim_writer.c
++++ b/libhxcfe/trunk/sources/loaders/dim_loader/dim_writer.c
+@@ -29,15 +29,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "dim_loader.h"
+ #include "dim_writer.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "dim_format.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/dmk_loader/dmk_loader.c
++++ b/libhxcfe/trunk/sources/loaders/dmk_loader/dmk_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "./tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "dmk_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "dmk_format.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/dmk_loader/dmk_writer.c
++++ b/libhxcfe/trunk/sources/loaders/dmk_loader/dmk_writer.c
+@@ -29,21 +29,21 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "dmk_format.h"
+ #include "dmk_loader.h"
+ 
+ #include "dmk_writer.h"
+ 
+-#include "tracks/sector_extractor.h"
+-#include "tracks/trackutils.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../tracks/trackutils.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ static int gettrackbit(unsigned char * input_data,int bit_offset)
+ {
+--- a/libhxcfe/trunk/sources/loaders/dms_loader/dms_loader.c
++++ b/libhxcfe/trunk/sources/loaders/dms_loader/dms_loader.c
+@@ -47,21 +47,21 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
+ 
+-#include "loaders/common/raw_amiga.h"
++#include "../common/raw_amiga.h"
+ 
+ #include "dms_loader.h"
+ 
+-#include "thirdpartylibs/xdms/vfile.h"
++#include "../../thirdpartylibs/xdms/vfile.h"
+ 
+-#include "thirdpartylibs/xdms/xdms-1.3.2/src/cdata.h"
+-#include "thirdpartylibs/xdms/xdms-1.3.2/src/pfile.h"
++#include "../../thirdpartylibs/xdms/xdms-1.3.2/src/cdata.h"
++#include "../../thirdpartylibs/xdms/xdms-1.3.2/src/pfile.h"
+ 
+ int DMS_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/dpx_loader/dpx_loader.c
++++ b/libhxcfe/trunk/sources/loaders/dpx_loader/dpx_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "dpx_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int DPX_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/ede_loader/ede_loader.c
++++ b/libhxcfe/trunk/sources/loaders/ede_loader/ede_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "ede_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int EDE_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/emax_loader/emax_loader.c
++++ b/libhxcfe/trunk/sources/loaders/emax_loader/emax_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "emax_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/emui_raw_loader/emui_raw_loader.c
++++ b/libhxcfe/trunk/sources/loaders/emui_raw_loader/emui_raw_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+-#include "tracks/track_formats/emu_emulator_fm_track.h"
++#include "../../tracks/track_formats/emu_emulator_fm_track.h"
+ #include "emui_raw_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int EMUI_RAW_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/emuii_loader/emuii_loader.c
++++ b/libhxcfe/trunk/sources/loaders/emuii_loader/emuii_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+-#include "tracks/track_formats/emu_emulator_fm_track.h"
++#include "../../tracks/track_formats/emu_emulator_fm_track.h"
+ 
+ #include "emuii_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #define SCTR_SIZE 512
+ #define HEADS 2
+--- a/libhxcfe/trunk/sources/loaders/emuii_raw_loader/emuii_raw_loader.c
++++ b/libhxcfe/trunk/sources/loaders/emuii_raw_loader/emuii_raw_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+-#include "tracks/track_formats/emu_emulator_fm_track.h"
++#include "../../tracks/track_formats/emu_emulator_fm_track.h"
+ #include "emuii_raw_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int EMUII_RAW_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/ensoniq_mirage_loader/ensoniq_mirage_loader.c
++++ b/libhxcfe/trunk/sources/loaders/ensoniq_mirage_loader/ensoniq_mirage_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "ensoniq_mirage_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int Ensoniq_mirage_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/extadf_loader/extadf_loader.c
++++ b/libhxcfe/trunk/sources/loaders/extadf_loader/extadf_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "./tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "extadf_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int EXTADF_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/fat12floppy_loader/fat12.c
++++ b/libhxcfe/trunk/sources/loaders/fat12floppy_loader/fat12.c
+@@ -30,16 +30,16 @@
+ #include <sys/stat.h>
+ #include <time.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
++#include "../../floppy_loader.h"
+ #include "fat12.h"
+ #include "fatlib.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int ScanFileAndAddToFAT(HXCFE* floppycontext,char * folder,char * file, unsigned char * fattable,unsigned char *entriestable,unsigned char *datatable,int parentcluster,FATCONFIG * fatconfig,int numberofcluster)
+ {
+--- a/libhxcfe/trunk/sources/loaders/fat12floppy_loader/fat12floppy_loader.c
++++ b/libhxcfe/trunk/sources/loaders/fat12floppy_loader/fat12floppy_loader.c
+@@ -48,17 +48,17 @@
+ #include <stdio.h>
+ #include <sys/stat.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+ #include "fat12floppy_loader.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "fat12.h"
+ #include "fat12formats.h"
+--- a/libhxcfe/trunk/sources/loaders/fat12floppy_loader/fatlib.c
++++ b/libhxcfe/trunk/sources/loaders/fat12floppy_loader/fatlib.c
+@@ -1,7 +1,7 @@
+ #include <string.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+ #include "fatlib.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/fd_loader/fd_loader.c
++++ b/libhxcfe/trunk/sources/loaders/fd_loader/fd_loader.c
+@@ -48,14 +48,14 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
+-#include "loaders/common/raw_iso.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
++#include "../common/raw_iso.h"
+ 
+ #include "fd_loader.h"
+ #include "fd_writer.h"
+--- a/libhxcfe/trunk/sources/loaders/fd_loader/fd_writer.c
++++ b/libhxcfe/trunk/sources/loaders/fd_loader/fd_writer.c
+@@ -32,15 +32,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "fd_loader.h"
+ #include "fd_writer.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ // Main writer function
+ 
+--- a/libhxcfe/trunk/sources/loaders/fdi_loader/fdi_loader.c
++++ b/libhxcfe/trunk/sources/loaders/fdi_loader/fdi_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "fdi_loader.h"
+ #include "fdi_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int FDI_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/fdi_nec_loader/fdi_nec_loader.c
++++ b/libhxcfe/trunk/sources/loaders/fdi_nec_loader/fdi_nec_loader.c
+@@ -47,14 +47,14 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
+-#include "loaders/common/raw_iso.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
++#include "../common/raw_iso.h"
+ 
+ #include "fdi_nec_loader.h"
+ #include "fdi_nec_format.h"
+--- a/libhxcfe/trunk/sources/loaders/fei_loader/fei_loader.c
++++ b/libhxcfe/trunk/sources/loaders/fei_loader/fei_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "fei_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ int FEI_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/flppcm_loader/flppcm_loader.c
++++ b/libhxcfe/trunk/sources/loaders/flppcm_loader/flppcm_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "flppcm_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/fzf_loader/fzf_loader.c
++++ b/libhxcfe/trunk/sources/loaders/fzf_loader/fzf_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "fzf_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/gkh_loader/gkh_loader.c
++++ b/libhxcfe/trunk/sources/loaders/gkh_loader/gkh_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "gkh_loader.h"
+ #include "gkh_format.h"
+--- a/libhxcfe/trunk/sources/loaders/hdm_loader/hdm_loader.c
++++ b/libhxcfe/trunk/sources/loaders/hdm_loader/hdm_loader.c
+@@ -47,14 +47,14 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
+-#include "loaders/common/raw_iso.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
++#include "../common/raw_iso.h"
+ 
+ #include "hdm_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/heathkit_loader/heathkit_loader.c
++++ b/libhxcfe/trunk/sources/loaders/heathkit_loader/heathkit_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "heathkit_loader.h"
+ #include "heathkit_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int Heathkit_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/heathkit_loader/heathkit_writer.c
++++ b/libhxcfe/trunk/sources/loaders/heathkit_loader/heathkit_writer.c
+@@ -29,15 +29,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "heathkit_loader.h"
+ #include "heathkit_writer.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ // Main writer function
+ int Heathkit_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+--- a/libhxcfe/trunk/sources/loaders/hfe_loader/exthfe_writer.c
++++ b/libhxcfe/trunk/sources/loaders/hfe_loader/exthfe_writer.c
+@@ -29,17 +29,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "hfe_loader.h"
+ #include "hfe_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ void extaddpad(unsigned char * track,int mfmsize,int tracksize)
+ {
+--- a/libhxcfe/trunk/sources/loaders/hfe_loader/hfe_hddd_a2_writer.c
++++ b/libhxcfe/trunk/sources/loaders/hfe_loader/hfe_hddd_a2_writer.c
+@@ -29,17 +29,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "hfe_loader.h"
+ #include "hfe_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ extern void addpad(unsigned char * track,int mfmsize,int tracksize);
+ 
+--- a/libhxcfe/trunk/sources/loaders/hfe_loader/hfe_loader.c
++++ b/libhxcfe/trunk/sources/loaders/hfe_loader/hfe_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "hfe_loader.h"
+ #include "hfe_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ char * trackencodingcode[]=
+ {
+--- a/libhxcfe/trunk/sources/loaders/hfe_loader/hfe_writer.c
++++ b/libhxcfe/trunk/sources/loaders/hfe_loader/hfe_writer.c
+@@ -29,17 +29,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "hfe_loader.h"
+ #include "hfe_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ void addpad(unsigned char * track,int mfmsize,int tracksize)
+ {
+--- a/libhxcfe/trunk/sources/loaders/hfe_loader/hfev3_loader.c
++++ b/libhxcfe/trunk/sources/loaders/hfe_loader/hfev3_loader.c
+@@ -47,22 +47,22 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "hfev3_loader.h"
+ #include "hfev3_format.h"
+ 
+ #include "hfev3_trackgen.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ //#define DEBUGVB 1
+ 
+--- a/libhxcfe/trunk/sources/loaders/hfe_loader/hfev3_writer.c
++++ b/libhxcfe/trunk/sources/loaders/hfe_loader/hfev3_writer.c
+@@ -29,19 +29,19 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "hfev3_loader.h"
+ #include "hfev3_format.h"
+ 
+ #include "hfev3_trackgen.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ typedef struct opcodetrack_
+ {
+--- a/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream.c
++++ b/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream.c
+@@ -47,22 +47,22 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/std_crc32.h"
++#include "../../tracks/std_crc32.h"
+ #include <lz4.h>
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "hxcstream_loader.h"
+ #include "hxcstream_format.h"
+ #include "hxcstream.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #define HXCSTREAM_NS_PER_TICK 40000 // 40,000 ns per tick
+ 
+--- a/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream_loader.c
++++ b/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream_loader.c
+@@ -50,13 +50,13 @@
+ 
+ #include <math.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "hxcstream_loader.h"
+ #include "hxcstream_format.h"
+@@ -64,12 +64,12 @@
+ 
+ //#include "hxcstream_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include <lz4.h>
+ 
+-#include "misc/env.h"
+-#include "misc/script_exec.h"
++#include "../../misc/env.h"
++#include "../../misc/script_exec.h"
+ 
+ int HxCStream_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/imd_loader/imd_loader.c
++++ b/libhxcfe/trunk/sources/loaders/imd_loader/imd_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "imd_loader.h"
+ #include "imd_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int IMD_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/imd_loader/imd_writer.c
++++ b/libhxcfe/trunk/sources/loaders/imd_loader/imd_writer.c
+@@ -30,17 +30,17 @@
+ #include <stdlib.h>
+ #include <time.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "version.h"
++#include "../../version.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "imd_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ extern unsigned char size_to_code(uint32_t size);
+ 
+--- a/libhxcfe/trunk/sources/loaders/img_loader/img_loader.c
++++ b/libhxcfe/trunk/sources/loaders/img_loader/img_loader.c
+@@ -47,17 +47,17 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+ #include "img_loader.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "pcimgfileformat.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/imz_loader/imz_loader.c
++++ b/libhxcfe/trunk/sources/loaders/imz_loader/imz_loader.c
+@@ -47,22 +47,22 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "floppy_utils.h"
++#include "../../floppy_utils.h"
+ 
+ #include "imz_loader.h"
+ 
+ #include <zlib.h>
+ #include <minizip/unzip.h>
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #define UNPACKBUFFER 128*1024
+ 
+--- a/libhxcfe/trunk/sources/loaders/ipf_loader/ipf_loader.c
++++ b/libhxcfe/trunk/sources/loaders/ipf_loader/ipf_loader.c
+@@ -47,26 +47,26 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "ipf_loader.h"
+ #include "ipf_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #define BYTE  int8_t
+ #define WORD  int16_t
+ #define DWORD int32_t
+ #define LIB_TYPE 1
+ #define LIB_USER 1
+-#include "./thirdpartylibs/capslib/Comtype.h"
+-#include "./thirdpartylibs/capslib/CapsAPI.h"
++#include "../../thirdpartylibs/capslib/Comtype.h"
++#include "../../thirdpartylibs/capslib/CapsAPI.h"
+ 
+ #include "capslibloader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/ipf_loader/ipf_writer.c
++++ b/libhxcfe/trunk/sources/loaders/ipf_loader/ipf_writer.c
+@@ -47,21 +47,21 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "ipf_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "ipf_format.h"
+-#include "tracks/std_crc32.h"
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/std_crc32.h"
++#include "../../tracks/sector_extractor.h"
+ 
+ void write_record_header(unsigned char * r_sign,unsigned char * data, unsigned long size, FILE * f)
+ {
+--- a/libhxcfe/trunk/sources/loaders/jv1_loader/jv1_loader.c
++++ b/libhxcfe/trunk/sources/loaders/jv1_loader/jv1_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "jv1_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int JV1_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/jv3_loader/jv3_loader.c
++++ b/libhxcfe/trunk/sources/loaders/jv3_loader/jv3_loader.c
+@@ -47,21 +47,21 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "jv3_loader.h"
+ #include "jv3_format.h"
+ 
+ #include "jv3_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ unsigned char* compute_interleave_tab(unsigned char interleave,unsigned short numberofsector);
+ 
+--- a/libhxcfe/trunk/sources/loaders/jv3_loader/jv3_writer.c
++++ b/libhxcfe/trunk/sources/loaders/jv3_loader/jv3_writer.c
+@@ -29,20 +29,20 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "jv3_format.h"
+ #include "jv3_loader.h"
+ 
+ #include "jv3_writer.h"
+ 
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/sector_extractor.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ // Return a value that can be used in the JV3 flags field
+ unsigned char jv3flags(unsigned char num,unsigned char mask)
+--- a/libhxcfe/trunk/sources/loaders/jvc_loader/jvc_loader.c
++++ b/libhxcfe/trunk/sources/loaders/jvc_loader/jvc_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "./tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "jvc_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int JVC_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/kryofluxstream_loader/kryofluxstream.c
++++ b/libhxcfe/trunk/sources/loaders/kryofluxstream_loader/kryofluxstream.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "kryofluxstream_loader.h"
+ #include "kryofluxstream_format.h"
+ #include "kryofluxstream.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ /*
+ #define KF_MCLOCK 48054857,14 //(((18432000 * 73) / 14) / 2)
+--- a/libhxcfe/trunk/sources/loaders/kryofluxstream_loader/kryofluxstream_loader.c
++++ b/libhxcfe/trunk/sources/loaders/kryofluxstream_loader/kryofluxstream_loader.c
+@@ -50,13 +50,13 @@
+ 
+ #include <math.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "kryofluxstream_loader.h"
+ #include "kryofluxstream_format.h"
+@@ -64,10 +64,10 @@
+ 
+ #include "kryofluxstream_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "misc/env.h"
+-#include "misc/script_exec.h"
++#include "../../misc/env.h"
++#include "../../misc/script_exec.h"
+ 
+ int KryoFluxStream_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/kryofluxstream_loader/kryofluxstream_writer.c
++++ b/libhxcfe/trunk/sources/loaders/kryofluxstream_loader/kryofluxstream_writer.c
+@@ -47,19 +47,19 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "kryofluxstream_format.h"
+ #include "kryofluxstream_loader.h"
+ 
+ #include "kryofluxstream_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "misc/env.h"
++#include "../../misc/env.h"
+ 
+ // Get the next cell value.
+ static int32_t getNextPulse(HXCFE_SIDE * track,int * offset,int * rollover)
+--- a/libhxcfe/trunk/sources/loaders/krz_loader/krz_loader.c
++++ b/libhxcfe/trunk/sources/loaders/krz_loader/krz_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "krz_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/mfm_loader/mfm_loader.c
++++ b/libhxcfe/trunk/sources/loaders/mfm_loader/mfm_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "mfm_loader.h"
+ #include "mfm_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int MFM_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/mfm_loader/mfm_writer.c
++++ b/libhxcfe/trunk/sources/loaders/mfm_loader/mfm_writer.c
+@@ -29,15 +29,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "mfm_loader.h"
+ #include "mfm_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int MFM_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/mgt_loader/mgt_loader.c
++++ b/libhxcfe/trunk/sources/loaders/mgt_loader/mgt_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "mgt_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/msa_loader/msa_loader.c
++++ b/libhxcfe/trunk/sources/loaders/msa_loader/msa_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+ #include "msa_loader.h"
+ #include "msa_writer.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ int MSA_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/msa_loader/msa_writer.c
++++ b/libhxcfe/trunk/sources/loaders/msa_loader/msa_writer.c
+@@ -29,16 +29,16 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "msa_loader.h"
+ #include "msa_writer.h"
+ #include "msa_format.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ unsigned short msapacktrack(unsigned char * inputtrack,int insize,unsigned char * outputtrack)
+ {
+--- a/libhxcfe/trunk/sources/loaders/msx_loader/msx_loader.c
++++ b/libhxcfe/trunk/sources/loaders/msx_loader/msx_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "msx_loader.h"
+ #include "msxfileformat.h"
+--- a/libhxcfe/trunk/sources/loaders/northstar_loader/northstar_loader.c
++++ b/libhxcfe/trunk/sources/loaders/northstar_loader/northstar_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "northstar_loader.h"
+ #include "northstar_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int Northstar_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/northstar_loader/northstar_writer.c
++++ b/libhxcfe/trunk/sources/loaders/northstar_loader/northstar_writer.c
+@@ -29,15 +29,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "northstar_loader.h"
+ #include "northstar_writer.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ // Main writer function
+ int Northstar_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+--- a/libhxcfe/trunk/sources/loaders/oldextadf_loader/oldextadf_loader.c
++++ b/libhxcfe/trunk/sources/loaders/oldextadf_loader/oldextadf_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "./tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "oldextadf_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int OLDEXTADF_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/oricdsk_loader/oricdsk_loader.c
++++ b/libhxcfe/trunk/sources/loaders/oricdsk_loader/oricdsk_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "oricdsk_loader.h"
+ #include "oricdsk_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int OricDSK_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/prophet_loader/prophet_loader.c
++++ b/libhxcfe/trunk/sources/loaders/prophet_loader/prophet_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "prophet_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int Prophet_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/qd_loader/qd_loader.c
++++ b/libhxcfe/trunk/sources/loaders/qd_loader/qd_loader.c
+@@ -47,21 +47,21 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "qd_loader.h"
+ #include "qd_format.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int QD_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/qd_loader/qd_writer.c
++++ b/libhxcfe/trunk/sources/loaders/qd_loader/qd_writer.c
+@@ -47,17 +47,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "qd_loader.h"
+ #include "qd_format.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int QD_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/raw_loader/raw_loader.c
++++ b/libhxcfe/trunk/sources/loaders/raw_loader/raw_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "raw_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int RAW_libIsValidFormat(HXCFE* floppycontext,cfgrawfile * imgformatcfg)
+ {
+--- a/libhxcfe/trunk/sources/loaders/raw_loader/raw_writer.c
++++ b/libhxcfe/trunk/sources/loaders/raw_loader/raw_writer.c
+@@ -28,17 +28,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "raw_loader.h"
+ 
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/sector_extractor.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int RAW_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/sad_loader/sad_loader.c
++++ b/libhxcfe/trunk/sources/loaders/sad_loader/sad_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "sad_loader.h"
+ #include "sad_fileformat.h"
+--- a/libhxcfe/trunk/sources/loaders/sap_loader/sap_loader.c
++++ b/libhxcfe/trunk/sources/loaders/sap_loader/sap_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+-#include "thirdpartylibs/libsap/libsap.h"
++#include "../../thirdpartylibs/libsap/libsap.h"
+ #include "sap_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int SAP_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/scl_loader/scl_loader.c
++++ b/libhxcfe/trunk/sources/loaders/scl_loader/scl_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "scl_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/scp_loader/scp_loader.c
++++ b/libhxcfe/trunk/sources/loaders/scp_loader/scp_loader.c
+@@ -51,22 +51,22 @@
+ 
+ #include <math.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "scp_loader.h"
+ #include "scp_writer.h"
+ #include "scp_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "misc/env.h"
+-#include "misc/script_exec.h"
++#include "../../misc/env.h"
++#include "../../misc/script_exec.h"
+ 
+ //#define SCPDEBUG 1
+ 
+--- a/libhxcfe/trunk/sources/loaders/scp_loader/scp_writer.c
++++ b/libhxcfe/trunk/sources/loaders/scp_loader/scp_writer.c
+@@ -48,19 +48,19 @@
+ #include <stdlib.h>
+ #include <time.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "scp_format.h"
+ #include "scp_loader.h"
+ 
+ #include "scp_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "misc/env.h"
++#include "../../misc/env.h"
+ 
+ uint32_t update_checksum(uint32_t checksum,unsigned char * buffer,unsigned int size)
+ {
+--- a/libhxcfe/trunk/sources/loaders/sdd_speccydos_loader/sdd_speccydos_loader.c
++++ b/libhxcfe/trunk/sources/loaders/sdd_speccydos_loader/sdd_speccydos_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "sdd_speccydos_loader.h"
+ #include "sdd_speccydos_writer.h"
+--- a/libhxcfe/trunk/sources/loaders/sdd_speccydos_loader/sdd_speccydos_writer.c
++++ b/libhxcfe/trunk/sources/loaders/sdd_speccydos_loader/sdd_speccydos_writer.c
+@@ -29,17 +29,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "sdd_speccydos_loader.h"
+ #include "sdd_speccydos_writer.h"
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/sector_extractor.h"
+ #include "sddfileformat.h"
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ // Main writer function
+ int SDDSpeccyDos_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+--- a/libhxcfe/trunk/sources/loaders/sdu_loader/sdu_loader.c
++++ b/libhxcfe/trunk/sources/loaders/sdu_loader/sdu_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "sdu_loader.h"
+ #include "sdu_format.h"
+--- a/libhxcfe/trunk/sources/loaders/smc_loader/snes_smc_loader.c
++++ b/libhxcfe/trunk/sources/loaders/smc_loader/snes_smc_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "snes_smc_loader.h"
+ #include "../fat12floppy_loader/fat12floppy_loader.h"
+ 
+ #include "../fat12floppy_loader/fat12.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ extern unsigned char msdos_bootsector;
+ 
+--- a/libhxcfe/trunk/sources/loaders/ssd_dsd_loader/ssd_dsd_loader.c
++++ b/libhxcfe/trunk/sources/loaders/ssd_dsd_loader/ssd_dsd_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "ssd_dsd_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/st_loader/st_loader.c
++++ b/libhxcfe/trunk/sources/loaders/st_loader/st_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+ #include "st_loader.h"
+ #include "st_writer.h"
+ 
+ #include "stfileformat.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ static int getfloppyconfig(unsigned char bootsector[512],uint32_t filesize, raw_iso_cfg *rawcfg)
+ {
+--- a/libhxcfe/trunk/sources/loaders/st_loader/st_writer.c
++++ b/libhxcfe/trunk/sources/loaders/st_loader/st_writer.c
+@@ -29,15 +29,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "st_loader.h"
+ #include "st_writer.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ // Main writer function
+ int ST_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+--- a/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_loader.c
++++ b/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_loader.c
+@@ -47,27 +47,27 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "streamhfe_loader.h"
+ #include "streamhfe_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/trackutils.h"
++#include "../../tracks/trackutils.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ #include <lz4.h>
+ 
+-#include "misc/env.h"
+-#include "misc/script_exec.h"
++#include "../../misc/env.h"
++#include "../../misc/script_exec.h"
+ 
+ static char * interfacemodecode[]=
+ {
+--- a/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_writer.c
++++ b/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_writer.c
+@@ -48,19 +48,19 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "streamhfe_loader.h"
+ #include "streamhfe_format.h"
+ 
+-#include "tracks/trackutils.h"
++#include "../../tracks/trackutils.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ #include <lz4.h>
+ 
+--- a/libhxcfe/trunk/sources/loaders/stt_loader/stt_loader.c
++++ b/libhxcfe/trunk/sources/loaders/stt_loader/stt_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "stt_loader.h"
+ 
+ #include "sttfileformat.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int STT_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/stw_loader/stw_loader.c
++++ b/libhxcfe/trunk/sources/loaders/stw_loader/stw_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "stw_loader.h"
+ #include "stw_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int STW_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/stw_loader/stw_writer.c
++++ b/libhxcfe/trunk/sources/loaders/stw_loader/stw_writer.c
+@@ -29,18 +29,18 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
++#include "../../internal_libhxcfe.h"
+ 
+-#include "tracks/trackutils.h"
++#include "../../tracks/trackutils.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "stw_loader.h"
+ #include "stw_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int STW_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/stx_loader/stx_loader.c
++++ b/libhxcfe/trunk/sources/loaders/stx_loader/stx_loader.c
+@@ -47,24 +47,24 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/encoding/mfm_encoding.h"
++#include "../../tracks/encoding/mfm_encoding.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "stx_loader.h"
+ #include "stx_writer.h"
+ 
+ #include "pasti_format.h"
+ 
+-#include "libhxcadaptor.h"
+-#include "tracks/crc.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../tracks/crc.h"
+ 
+ //#define PASTI_DBG 1
+ 
+--- a/libhxcfe/trunk/sources/loaders/stx_loader/stx_writer.c
++++ b/libhxcfe/trunk/sources/loaders/stx_loader/stx_writer.c
+@@ -47,17 +47,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "stx_loader.h"
+ #include "stx_writer.h"
+ #include "pasti_format.h"
+-#include "floppy_utils.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../floppy_utils.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ // Main writer function
+ int STX_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+--- a/libhxcfe/trunk/sources/loaders/svd_loader/svd_loader.c
++++ b/libhxcfe/trunk/sources/loaders/svd_loader/svd_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "svd_loader.h"
+ 
+ #include "svd.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int SVD_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/system24_loader/system24_loader.c
++++ b/libhxcfe/trunk/sources/loaders/system24_loader/system24_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "system24_loader.h"
+ 
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ 
+ int System24_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+--- a/libhxcfe/trunk/sources/loaders/teledisk_loader/td0_lzss.c
++++ b/libhxcfe/trunk/sources/loaders/teledisk_loader/td0_lzss.c
+@@ -28,7 +28,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+ #include "teledisk_format.h"
+ #include "td0_lzss.h"
+--- a/libhxcfe/trunk/sources/loaders/teledisk_loader/teledisk_loader.c
++++ b/libhxcfe/trunk/sources/loaders/teledisk_loader/teledisk_loader.c
+@@ -47,23 +47,23 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "teledisk_loader.h"
+ 
+ #include "teledisk_format.h"
+ #include "td0_lzss.h"
+ 
+-#include "tracks/crc.h"
++#include "../../tracks/crc.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int TeleDisk_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/ti99pc99_loader/ti99pc99_loader.c
++++ b/libhxcfe/trunk/sources/loaders/ti99pc99_loader/ti99pc99_loader.c
+@@ -47,24 +47,24 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "tracks/encoding/fm_encoding.h"
+-#include "tracks/encoding/mfm_encoding.h"
++#include "../../tracks/encoding/fm_encoding.h"
++#include "../../tracks/encoding/mfm_encoding.h"
+ 
+-#include "libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "ti99pc99_loader.h"
+ 
+-#include "tracks/crc.h"
++#include "../../tracks/crc.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int TI99PC99_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/ti99v9t9_loader/ti99v9t9_loader.c
++++ b/libhxcfe/trunk/sources/loaders/ti99v9t9_loader/ti99v9t9_loader.c
+@@ -47,19 +47,19 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "ti99v9t9_loader.h"
+ #include "ti99v9t9_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #pragma pack(1)
+ typedef struct ti99_vib
+--- a/libhxcfe/trunk/sources/loaders/ti99v9t9_loader/ti99v9t9_writer.c
++++ b/libhxcfe/trunk/sources/loaders/ti99v9t9_loader/ti99v9t9_writer.c
+@@ -29,17 +29,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "ti99v9t9_loader.h"
+ 
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/sector_extractor.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int TI99V9T9_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/trd_loader/trd_loader.c
++++ b/libhxcfe/trunk/sources/loaders/trd_loader/trd_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "trd_loader.h"
+ #include "trd_writer.h"
+--- a/libhxcfe/trunk/sources/loaders/trd_loader/trd_writer.c
++++ b/libhxcfe/trunk/sources/loaders/trd_loader/trd_writer.c
+@@ -29,15 +29,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "trd_loader.h"
+ #include "trd_writer.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ // Main writer function
+ int TRD_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+--- a/libhxcfe/trunk/sources/loaders/vdk_loader/vdk_loader.c
++++ b/libhxcfe/trunk/sources/loaders/vdk_loader/vdk_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "vdk_loader.h"
+ #include "vdk_writer.h"
+--- a/libhxcfe/trunk/sources/loaders/vdk_loader/vdk_writer.c
++++ b/libhxcfe/trunk/sources/loaders/vdk_loader/vdk_writer.c
+@@ -29,15 +29,15 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ #include "vdk_loader.h"
+ #include "vdk_writer.h"
+-#include "tracks/sector_extractor.h"
+-#include "libhxcadaptor.h"
++#include "../../tracks/sector_extractor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "vdk_format.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/vegasdsk_loader/vegasdsk_loader.c
++++ b/libhxcfe/trunk/sources/loaders/vegasdsk_loader/vegasdsk_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "vegasdsk_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int VEGASDSK_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/vfddat_loader/vfddat_loader.c
++++ b/libhxcfe/trunk/sources/loaders/vfddat_loader/vfddat_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "./tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "vfddat_loader.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int VFDDAT_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/vtr_loader/vtr_loader.c
++++ b/libhxcfe/trunk/sources/loaders/vtr_loader/vtr_loader.c
+@@ -47,20 +47,20 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "vtr_loader.h"
+ #include "vtr_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ int VTR_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/vtr_loader/vtr_writer.c
++++ b/libhxcfe/trunk/sources/loaders/vtr_loader/vtr_writer.c
+@@ -29,17 +29,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "vtr_loader.h"
+ #include "vtr_format.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+-#include "tracks/luts.h"
++#include "../../tracks/luts.h"
+ 
+ int VTR_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/w30_loader/w30_loader.c
++++ b/libhxcfe/trunk/sources/loaders/w30_loader/w30_loader.c
+@@ -47,15 +47,15 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
+-#include "floppy_loader.h"
+-#include "tracks/track_generator.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
++#include "../../floppy_loader.h"
++#include "../../tracks/track_generator.h"
+ 
+-#include "loaders/common/raw_iso.h"
++#include "../common/raw_iso.h"
+ 
+ #include "w30_loader.h"
+ 
+--- a/libhxcfe/trunk/sources/loaders/xml_db_loader/xml_db_loader.c
++++ b/libhxcfe/trunk/sources/loaders/xml_db_loader/xml_db_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "xml_db_loader.h"
+ #include "xml_db_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ HXCFE_XMLLDR * rfb = 0;
+ 
+--- a/libhxcfe/trunk/sources/loaders/xml_db_loader/xml_db_writer.c
++++ b/libhxcfe/trunk/sources/loaders/xml_db_loader/xml_db_writer.c
+@@ -28,17 +28,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "xml_db_loader.h"
+ 
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/sector_extractor.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int XMLDB_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
+ {
+--- a/libhxcfe/trunk/sources/loaders/xml_loader/xml_loader.c
++++ b/libhxcfe/trunk/sources/loaders/xml_loader/xml_loader.c
+@@ -47,18 +47,18 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
++#include "../../floppy_loader.h"
++#include "../../floppy_utils.h"
+ 
+ #include "xml_loader.h"
+ #include "xml_writer.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int XML_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
+ {
+--- a/libhxcfe/trunk/sources/loaders/xml_loader/xml_writer.c
++++ b/libhxcfe/trunk/sources/loaders/xml_loader/xml_writer.c
+@@ -28,17 +28,17 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../tracks/track_generator.h"
++#include "../../libhxcfe.h"
+ 
+ #include "xml_loader.h"
+ 
+-#include "tracks/sector_extractor.h"
++#include "../../tracks/sector_extractor.h"
+ 
+-#include "libhxcadaptor.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ void gettracktype(HXCFE_SECTORACCESS* ss,int track,int side,int * nbsect,int *firstsectid,char * format,int *sectorsize)
+ {
+--- a/libhxcfe/trunk/sources/loaders/hfe_loader/hfev3_trackgen.c
++++ b/libhxcfe/trunk/sources/loaders/hfe_loader/hfev3_trackgen.c
+@@ -50,8 +50,8 @@
+ 
+ #include <stdint.h>
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #include "hfev3_trackgen.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/crc.c
++++ b/libhxcfe/trunk/sources/tracks/crc.c
+@@ -14,7 +14,7 @@
+  *
+  *************************************************************************/
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+ #include "crc.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/std_crc32.c
++++ b/libhxcfe/trunk/sources/tracks/std_crc32.c
+@@ -45,7 +45,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+ static uint32_t crc32_tab[] = {
+ 	0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f,
+--- a/libhxcfe/trunk/sources/tracks/encoding/dec_m2fm_encoding.c
++++ b/libhxcfe/trunk/sources/tracks/encoding/dec_m2fm_encoding.c
+@@ -42,15 +42,15 @@
+ // Change History (most recent first):
+ ///////////////////////////////////////////////////////////////////////////////////
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+ #include <string.h>
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/trackutils.h"
++#include "../trackutils.h"
+ #include "mfm_encoding.h"
+ #include "dec_m2fm_encoding.h"
+ 
+--- a/libhxcfe/trunk/sources/tracks/encoding/fm_encoding.c
++++ b/libhxcfe/trunk/sources/tracks/encoding/fm_encoding.c
+@@ -42,13 +42,13 @@
+ // Change History (most recent first):
+ ///////////////////////////////////////////////////////////////////////////////////
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/trackutils.h"
++#include "../trackutils.h"
+ #include "fm_encoding.h"
+ 
+ int fmtobin(unsigned char * input_data,int input_data_size,unsigned char * decod_data,int decod_data_size,int bit_offset,int lastbit)
+--- a/libhxcfe/trunk/sources/tracks/encoding/mfm_encoding.c
++++ b/libhxcfe/trunk/sources/tracks/encoding/mfm_encoding.c
+@@ -42,16 +42,16 @@
+ // Change History (most recent first):
+ ///////////////////////////////////////////////////////////////////////////////////
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+-#include "internal_libhxcfe.h"
+-#include "tracks/track_generator.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../track_generator.h"
++#include "../../libhxcfe.h"
+ 
+-#include "tracks/trackutils.h"
++#include "../trackutils.h"
+ #include "mfm_encoding.h"
+ 
+-#include "tracks/luts.h"
++#include "../luts.h"
+ 
+ // -----------------------------------------------------------------------------
+ // MFM      : Reversal at each '1' or between 2 '0' (at the clock place).
+--- a/libhxcfe/trunk/sources/thirdpartylibs/libsap/libsap.c
++++ b/libhxcfe/trunk/sources/thirdpartylibs/libsap/libsap.c
+@@ -24,12 +24,12 @@
+ #include <string.h>
+ #include <time.h>
+ 
+-#include "types.h"
++#include "../../types.h"
+ 
+ #include "libsap.h"
+ 
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
++#include "../../libhxcfe.h"
++#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ int sap_errno;
+ 
+--- a/libhxcfe/trunk/sources/misc/capslib_loader/capslibloader.c
++++ b/libhxcfe/trunk/sources/misc/capslib_loader/capslibloader.c
+@@ -51,8 +51,8 @@
+ 
+ #include <stdint.h>
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
++#include "../../internal_libhxcfe.h"
++#include "../../libhxcfe.h"
+ 
+ #ifndef WIN32
+ typedef uint8_t BYTE;
+@@ -61,8 +61,8 @@
+ typedef void* HMODULE;
+ #endif
+ 
+-#include "thirdpartylibs/capslib/Comtype.h"
+-#include "thirdpartylibs/capslib/CapsAPI.h"
++#include "../../thirdpartylibs/capslib/Comtype.h"
++#include "../../thirdpartylibs/capslib/CapsAPI.h"
+ 
+ typedef SDWORD (* CAPSINIT)(void);
+ typedef SDWORD (* CAPSADDIMAGE)(void);
+--- a/libhxcfe/trunk/sources/thirdpartylibs/xdms/xdms-1.3.2/src/pfile.c
++++ b/libhxcfe/trunk/sources/thirdpartylibs/xdms/xdms-1.3.2/src/pfile.c
+@@ -32,8 +32,8 @@
+ #include "crc_csum.h"
+ #include "pfile.h"
+ 
+-#include "libhxcfe.h"
+-#include "libhxcadaptor.h"
++#include "../../../../libhxcfe.h"
++#include "../../../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ 
+ 
+--- a/libhxcfe/trunk/sources/xml_disk/xml_disk.c
++++ b/libhxcfe/trunk/sources/xml_disk/xml_disk.c
+@@ -46,15 +46,15 @@
+ #include <string.h>
+ #include <stdio.h>
+ 
+-#include "types.h"
++#include "../types.h"
+ 
+ #include <expat.h>
+ 
+-#include "internal_libhxcfe.h"
+-#include "libhxcfe.h"
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
+-#include "libhxcadaptor.h"
++#include "../internal_libhxcfe.h"
++#include "../libhxcfe.h"
++#include "../floppy_loader.h"
++#include "../floppy_utils.h"
++#include "../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
+ 
+ #include "xml_disk.h"
+ #include "./DiskLayouts/LayoutsIndex.h"

@@ -1,0 +1,2 @@
+libhxcadaptor/trunk/sources/libhxcadaptor.h usr/include/
+libhxcadaptor/trunk/build/libhxcadaptor.a /usr/lib/@DEB_HOST_MULTIARCH@/

@@ -1,0 +1,84 @@
+Source: hxcfloppyemulator
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ pandoc,
+ libfltk1.3-dev,
+ libxext-dev,
+ libxfixes-dev,
+ zlib1g-dev,
+ liblz4-dev,
+ libexpat1-dev,
+ libminizip-dev,
+ rename
+Standards-Version: 4.5.0
+Homepage: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/HxCFloppyEmulator_software/trunk/
+
+Package: libhxcfe-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libhxcfe2 (= ${binary:Version}),
+ ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcfe (development files)
+ development files for communication librarie
+
+Package: libhxcfe2
+Section: libs
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcfe
+ binary files for communication librarie
+
+Package: libusbhxcfe-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libusbhxcfe2 (= ${binary:Version}),
+ ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcfe on USB (development files)
+ development files for USB communication librarie
+
+Package: libusbhxcfe2
+Section: libs
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+  ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcfe on USB
+ shared binary
+
+Package: libhxcadaptor-dev
+Section: libdevel
+Architecture: any
+Depends:
+ ${misc:Depends}
+Multi-Arch: same
+Description: librarie to communicate with hxcadaptor
+ Development files
+
+Package: hxcfloppyemulator
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: This software act as the floppy server with the USB HxC Floppy Emulator
+ This program also allows you to convert floppy image files for the SDCard
+ based HxC Floppy Emulator.
+ 
+Package: hxcfe
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Command line version of the floppy server with the USB HxC Floppy Emulator
+ This cli program also allows you to convert floppy image files for the SDCard
+ based HxC Floppy Emulator.

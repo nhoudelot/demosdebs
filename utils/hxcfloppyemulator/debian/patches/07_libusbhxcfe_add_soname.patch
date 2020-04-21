@@ -1,0 +1,11 @@
+--- a/libusbhxcfe/trunk/build/Makefile
++++ b/libusbhxcfe/trunk/build/Makefile
+@@ -63,7 +63,7 @@
+ 	cp $@ ../../../build
+ 
+ libusbhxcfe.so: usb_hxcfloppyemulator.o variablebitrate.o ftdi.o
+-	$(CC) -o $@    $^ $(LDFLAGS)
++	$(CC) -o $@    $^ $(LDFLAGS) -Wl,-soname,libusbhxcfe.so.2
+ 	cp $@ ../../../build
+ 
+ win32_libusbhxcfe_res.o: $(BASEDIR)/win32/libusbhxcfe.rc

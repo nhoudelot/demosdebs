@@ -1,0 +1,51 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/HxCFloppyEmulator_software/trunk/build/Makefile
++++ b/HxCFloppyEmulator_software/trunk/build/Makefile
+@@ -17,7 +17,7 @@
+ 	LDFLAGS= -lasan
+ else
+ 	CFLAGS=-O3 $(INCLUDES) -Wall
+-	LDFLAGS= -s
++	LDFLAGS+= -g $(shell fltk-config --ldflags) -lpthread
+ endif
+ 
+ ifdef IPF_LIB_SUPPORT
+@@ -30,10 +30,6 @@
+ LIBHXCFE = libhxcfe.so
+ LIBUSBHXCFE = libusbhxcfe.so
+ 
+-ifeq ($(TARGET), Linux)
+-LDFLAGS += -lc -lm -ldl -lpthread -Wl,-rpath=.  -Wl,-Map,foo.map
+-endif
+-
+ ifeq ($(findstring CYGWIN,$(shell uname)),CYGWIN)
+ LIBHXCFE = libhxcfe.dll
+ LIBUSBHXCFE = libusbhxcfe.dll
+@@ -65,7 +61,7 @@
+ LIBHXCFE = libhxcfe.dylib
+ LIBUSBHXCFE = libusbhxcfe.dylib
+ else
+-LDFLAGS += $(shell $(BASEDIR)/thirdpartylibs/fltk/fltk-1.3.x/fltk-config --ldflags)
++LDFLAGS += $(shell fltk-config --ldflags)
+ endif
+ 
+ FTDIFLOPPYEMU=usb_hxcfloppyemulator.o variablebitrate.o
+@@ -90,11 +86,11 @@
+ 	cd $(BASEDIR)/gui/microintro/data/ && ../converttools/bmptob8/bmptoh vim_not_again.mod -DATA
+ 	cd $(BASEDIR)/gui/microintro/data/ && ../converttools/bmptob8/bmptoh COPYING_FULL -DATA
+ 
+-HxCFloppyEmulator.exe: win32_hxcfloppy_res.o main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(FLTKLIB) $(LIBHXCFE) $(LIBUSBHXCFE) ../../../build/libhxcadaptor.a
++HxCFloppyEmulator.exe: win32_hxcfloppy_res.o main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(LIBHXCFE) $(LIBUSBHXCFE) ../../../build/libhxcadaptor.a
+ 	$(CPP) -o $@    $^ $(LDFLAGS)
+ 	cp $@ ../../../build
+ 
+-hxcfloppyemulator: main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(FLTKLIB) $(LIBHXCFE) $(LIBUSBHXCFE) ../../../build/libhxcadaptor.a
++hxcfloppyemulator: main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(LIBHXCFE) $(LIBUSBHXCFE) ../../../build/libhxcadaptor.a
+ 	$(CPP) -o $@    $^ $(LDFLAGS)
+ 	cp $@ ../../../build
+ 

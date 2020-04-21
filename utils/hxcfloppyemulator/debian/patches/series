@@ -1,0 +1,11 @@
+01_libhxcfe_fix_static_links.patch
+02_libhxcfe_ADFlib_source-code-fixes.patch
+03_libhxcfe_ADFLib_64-bit-fixes.patch
+04_libhxcfe_fix_includes_path.patch
+05_libhxcfe_add_soname.patch
+06_libhxcfe_spellingerrors.patch
+07_libusbhxcfe_add_soname.patch
+09_HxCFloppyEmulator_software_adapt_makefile.patch
+10_HxCFloppyEmulator_software_fix_spelling_errors.patch
+12_use_system_fltk.patch
+13_global_hardening.patch
