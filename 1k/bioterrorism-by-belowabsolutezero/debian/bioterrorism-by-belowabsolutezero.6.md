@@ -1,6 +1,6 @@
 % bioterrorism-by-belowabsolutezero(6) Bioterrorism User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Below Absolute Zero
-% 2019-03-05
+% 2020-04-22
 
 # NAME
 bioterrorism-by-belowabsolutezero - the command to run Bioterrorism.
@@ -9,7 +9,7 @@ bioterrorism-by-belowabsolutezero - the command to run Bioterrorism.
 bioterrorism-by-belowabsolutezero [*options*]
 
 # DESCRIPTION
-Bioterrorism is a demonstration released by Below Absolute Zero in 2013.
+Bioterrorism is a 1k intro released by Below Absolute Zero in 2013.
 
 # OPTIONS
 there is no options to this program

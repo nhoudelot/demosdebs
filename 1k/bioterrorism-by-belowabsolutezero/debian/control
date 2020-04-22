@@ -3,11 +3,10 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>= 10),
  nasm,
- p7zip-full,
- pandoc
-Standards-Version: 4.1.4
+ p7zip-full
+Standards-Version: 4.5.0
 Homepage: http://www.pouet.net/prod.php?which=61749
 
 Package: bioterrorism-by-belowabsolutezero
@@ -16,5 +15,5 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  libsdl1.2debian
-Description: Demo for Linux, released in 2013
- Demo by Below Absolute Zero, released in 2013
+Description: 1K intro for Linux, released in 2013
+ 1K intro by Below Absolute Zero, released in 2013
