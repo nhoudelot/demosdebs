@@ -3,11 +3,11 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc,
+ debhelper (>= 10),
  pkgconf,
+ pandoc,
  libsdl1.2-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://320x200.org/2004/4k/
 
 Package: 4ksdemo-by-madmartigan
@@ -16,4 +16,4 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: MadMartigan 4k Intro/2004/Linux
- Demo by MadMartigan, released in 2004
+ 4k Intro by MadMartigan, released in 2004
