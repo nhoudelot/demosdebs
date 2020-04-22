@@ -1,3 +1,9 @@
+alieninvasion-by-nectarine (1.0-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 22 Apr 2020 18:15:48 +0200
+
 alieninvasion-by-nectarine (1.0-0ddebs4) unstable; urgency=medium
 
   * update to standard version to 4.1.4
