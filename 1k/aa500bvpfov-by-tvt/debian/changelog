@@ -1,3 +1,9 @@
+aa500bvpfov-by-tvt (1.0-0ddebs5) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 22 Apr 2020 19:32:55 +0200
+
 aa500bvpfov-by-tvt (1.0-0ddebs4) unstable; urgency=medium
 
   * removed pulseaudio-esound-compat dependencie 
