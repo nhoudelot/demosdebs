@@ -3,7 +3,7 @@ Upstream-Name: deark
 Source: http://entropymine.com/deark/
 
 Files: *
-Copyright: 2014-2016 Jason Summers
+Copyright: 2014-2020 Jason Summers
 License: public-domain
  This is free and unencumbered software released into the public domain.
  .
@@ -31,7 +31,7 @@ License: public-domain
  For more information, please refer to <http://unlicense.org/>
 
 Files: debian/*
-Copyright: 2016 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
