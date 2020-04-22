@@ -1,8 +1,11 @@
 #!/usr/bin/make -f
 
+# since drop of 32 bit isos, pandoc is not available on some distributions
+# it's impossible to dynamicaly generate the manual for 32 bit packages
+#
+# so, on change, it's important to keek the original markdown file 
+# and generate the manual with this line :
+# pandoc -s -t man -f markdown debian/inconsistency-by-hymy.6.md -o debian/inconsistency-by-hymy.6
+
 %:
 	dh $@ --sourcedirectory=src
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/inconsistency-by-hymy.6.md -o debian/inconsistency-by-hymy.6

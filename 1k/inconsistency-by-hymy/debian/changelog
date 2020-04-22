@@ -1,3 +1,11 @@
+inconsistency-by-hymy (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+  * removed auto-generation of the manual with pandoc, because this command is
+    not in distributions that have dropped 32 bits isos
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 22 Apr 2020 23:47:04 +0200
+
 inconsistency-by-hymy (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release
