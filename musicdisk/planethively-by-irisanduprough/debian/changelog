@@ -1,3 +1,9 @@
+planethively-by-irisanduprough (1.0+git20170506-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 22 Apr 2020 18:36:15 +0200
+
 planethively-by-irisanduprough (1.0+git20170506-0ddebs1) unstable; urgency=medium
 
   * sync with git
