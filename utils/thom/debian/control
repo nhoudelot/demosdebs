@@ -7,8 +7,7 @@ Build-Depends:
  libgtk1.2-dev,
  libx11-dev,
  libxext-dev,
- libpulse-dev,
- pandoc
+ libpulse-dev
 Standards-Version: 4.5.0
 Homepage: https://sourceforge.net/projects/thom/
 
