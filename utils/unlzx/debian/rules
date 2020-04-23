@@ -7,7 +7,3 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
 	dh $@
-	
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/unlzx.1.md -o debian/unlzx.1
