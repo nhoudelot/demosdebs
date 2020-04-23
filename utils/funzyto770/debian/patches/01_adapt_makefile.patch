@@ -6,11 +6,11 @@ Last-Update: 2020-04-19
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src70/makefile
 +++ b/src70/makefile
-@@ -1,35 +1,89 @@
+@@ -1,35 +1,83 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS   += -O3 -flto -Wall -ffast-math $(shell pkg-config x11 --cflags)
++CFLAGS   += -O3 -Wall -ffast-math $(shell pkg-config x11 --cflags) -std=gnu90
 +LDFLAGS += $(shell pkg-config x11 --libs)
 +TARGET   := funzyto770
 +TARGET_ENTK   := funzy_enterkey
@@ -28,12 +28,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +exec_prefix     := $(prefix)
 +bindir          := $(prefix)/bin
 +
-+#si code gcc4 compilé via gcc5 le standard par défaut était different
-+GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
-+ifeq "$(GCCVERSIONGTEQ5)" "1"
-+    CFLAGS += -std=gnu90
-+    CXXFLAGS += -fabi-compat-version=2
-+endif
 +#compilation en paralelle si disponible
 +ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))

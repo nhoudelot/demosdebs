@@ -5,8 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
  libx11-dev,
- pkg-config,
- pandoc
+ pkg-config
 Standards-Version: 4.5.0
 Homepage: https://www.sylvain-huet.com/hacks/
 
