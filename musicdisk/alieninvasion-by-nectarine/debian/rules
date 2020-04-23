@@ -6,4 +6,3 @@
 override_dh_install:
 	tar -jxvf alien_invasion-linux.tar.bz2
 	dh_install
-	pandoc -s -t man -f markdown debian/alieninvasion-by-nectarine.6.md -o debian/alieninvasion-by-nectarine.6
