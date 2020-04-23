@@ -2,7 +2,3 @@
 
 %:
 	dh $@  --buildsystem=cmake --builddirectory=build
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/iDSK.1.md -o debian/iDSK.1
