@@ -15,6 +15,3 @@ override_dh_install:
 	find . -name ".npmignore" -delete
 	find . -name "*.vcproj" -delete
 	find . -name "*.vcxproj" -delete
-	dh_install
-	pandoc -s -t man -f markdown debian/rocket.1.md -o debian/rocket.1
-
