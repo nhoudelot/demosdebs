@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- pandoc,
  gzip(>=1.3),
  coreutils(>=6.10)
 Standards-Version: 4.5.0
