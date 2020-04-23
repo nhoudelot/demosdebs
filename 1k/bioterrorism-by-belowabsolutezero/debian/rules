@@ -1,12 +1,5 @@
 #!/usr/bin/make -f
 
-# since drop of 32 bit isos, pandoc is not available on some distributions
-# it's impossible to dynamicaly generate the manual for 32 bit packages
-#
-# so, on change, it's important to keek the original markdown file 
-# and generate the manual with this line :
-# pandoc -s -t man -f markdown debian/bioterrorism-by-belowabsolutezero.6.md -o debian/bioterrorism-by-belowabsolutezero.6
-
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all nostrip
 
 %:
