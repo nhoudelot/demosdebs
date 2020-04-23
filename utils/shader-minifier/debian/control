@@ -4,8 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- fsharp,
- pandoc
+ fsharp
 Build-Depends-Indep:
  cli-common-dev
 Standards-Version: 4.5.0
