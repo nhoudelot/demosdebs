@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- pandoc,
  fp-compiler
 Standards-Version: 4.5.0
 Homepage: https://dolbybcsoftwaredecode.sourceforge.io/
