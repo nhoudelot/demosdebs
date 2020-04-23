@@ -6,14 +6,14 @@ Last-Update: 2020-04-18
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,8 +1,28 @@
--CC=gcc-5
--CFLAGS=-O2 -march=native -mtune=native
+@@ -1,6 +1,21 @@
+ override CPPFLAGS += -Iinclude
+ CFLAGS += -std=c99
+ 
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS +=-O3 -flto -Wall -ffast-math -std=gnu90
-+TARGET   := analyze-x86
++CFLAGS +=-O3 -Wall -ffast-math
 +#variable de nettoyage
 +RM_F := rm -f
 +#variables d’installation
@@ -25,17 +25,20 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +exec_prefix     := $(prefix)
 +bindir          := $(prefix)/bin
 +
-+export
- 
- all:
--	$(CC) $(CFLAGS) -Iinclude -o analyze-x86 analyze-x86.c
-+	$(CC) $(CFLAGS) -Iinclude -o $(TARGET) analyze-x86.c
+ PROGS = analyze-x86
+ SRCS = $(PROGS:%=%.c)
+ DEPS = $(SRCS:%.c=%.d)
+@@ -12,7 +27,12 @@
+ all: $(PROGS)
  
  clean:
--	rm analyze-x86
-+	-@$(RM_F) $(TARGET)
+-	rm -f $(PROGS) *.o *.d
++	-@$(RM_F) $(PROGS) *.o *.d
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
-+	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
-+	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(PROGS)
++	$(INSTALL_PROGRAM) $(PROGS) $(DESTDIR)$(bindir)
+ 
+ .PHONY: all clean
+ 

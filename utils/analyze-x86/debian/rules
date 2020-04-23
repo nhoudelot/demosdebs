@@ -6,7 +6,3 @@ export DEB_CXXFLAGS_MAINT_APPEND  = $(CPPFLAGS) -flto
 
 %:
 	dh $@
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/analyze-x86.1.md -o debian/analyze-x86.1
