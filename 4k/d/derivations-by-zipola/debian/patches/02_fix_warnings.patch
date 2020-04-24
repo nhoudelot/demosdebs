@@ -1,3 +1,11 @@
+Description: fix various things
+ missing an include, replace _start by main()
+ the app start only in fullscreen
+ that could be annoying, so we start in windowed mode
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/derivations.c
 +++ b/derivations.c
 @@ -14,7 +14,7 @@

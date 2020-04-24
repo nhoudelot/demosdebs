@@ -1,10 +1,9 @@
 #!/usr/bin/make -f
 
+export DEB_CFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
+
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --parallel
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/derivations-by-zipola.6.md -o debian/derivations-by-zipola.6
+	dh $@
