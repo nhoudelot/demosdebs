@@ -1,3 +1,8 @@
+Description: just a title to the window
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/canyonflight.c
 +++ b/canyonflight.c
 @@ -93,6 +93,7 @@
