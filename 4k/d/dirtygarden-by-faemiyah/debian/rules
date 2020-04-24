@@ -3,8 +3,4 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --with autoreconf
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/dirtygarden-by-faemiyah.6.md -o debian/dirtygarden-by-faemiyah.6
+	dh $@

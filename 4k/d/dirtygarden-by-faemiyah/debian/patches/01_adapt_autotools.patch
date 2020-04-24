@@ -1,3 +1,8 @@
+Description: update autotools scripts
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/configure.ac
 +++ b/configure.ac
 @@ -1,35 +1,58 @@

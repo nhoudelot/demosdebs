@@ -1,3 +1,8 @@
+Description: fix includes path & main()
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/main.c
 +++ b/src/main.c
 @@ -1339,7 +1339,7 @@
