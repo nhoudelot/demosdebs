@@ -4,7 +4,3 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
 	dh $@ --sourcedirectory=src
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/stochasticlenssimulator-by-gzrrplox.6.md -o debian/stochasticlenssimulator-by-gzrrplox.6
