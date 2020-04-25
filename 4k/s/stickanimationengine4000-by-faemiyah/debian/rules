@@ -6,11 +6,7 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 
 %:
-	dh $@  --with autoreconf
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/stickanimationengine4000-by-faemiyah.6.md -o debian/stickanimationengine4000-by-faemiyah.6
+	dh $@
 
 override_dh_installchangelogs:
 	dh_installchangelogs -a ChangeLog
