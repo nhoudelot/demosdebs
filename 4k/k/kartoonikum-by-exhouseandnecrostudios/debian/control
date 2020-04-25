@@ -3,12 +3,11 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc,
+ debhelper (>= 10),
  pkgconf,
  libsdl1.2-dev,
  mesa-common-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=31526
 
 Package: kartoonikum-by-exhouseandnecrostudios
@@ -17,5 +16,5 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends},
  common-install-function-ddebs(>=1.18)
-Description: Linux Demo by ExHouse and NecroStudios
- Demo by ExHouse and NecroStudios, released in 2007
+Description: Linux 4k intro by ExHouse and NecroStudios
+ 4k intro by ExHouse and NecroStudios, released in 2007
