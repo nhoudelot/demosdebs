@@ -3,8 +3,4 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --parallel
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/jeregrette-by-fitandbandwagon.6.md -o debian/jeregrette-by-fitandbandwagon.6
+	dh $@
