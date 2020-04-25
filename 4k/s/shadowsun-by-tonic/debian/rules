@@ -9,7 +9,3 @@ endif
 
 %:
 	dh $@
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/shadowsun-by-tonic.6.md -o debian/shadowsun-by-tonic.6
