@@ -1,3 +1,9 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-25
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/source/Makefile
 +++ b/source/Makefile
 @@ -1,31 +1,45 @@
@@ -21,7 +27,7 @@
  else
 -CFLAGS = -m32 -O1 -ffast-math -fomit-frame-pointer -mpush-args -mfpmath=387
 +CFLAGS += -Wall -pipe -mpush-args -std=gnu90
-+LDFLAGS += $(shell pkgconf --libs sdl gl)
++LDFLAGS += $(shell pkg-config --libs sdl gl)
  endif
  
  

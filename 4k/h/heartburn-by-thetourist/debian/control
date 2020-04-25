@@ -3,13 +3,12 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>= 10),
  nasm,
  libgl1-mesa-dev,
  libsdl2-dev,
- pkgconf,
- pandoc
-Standards-Version: 4.1.4
+ pkg-config
+Standards-Version: 4.5.0
 Homepage: http://www.pouet.net/prod.php?which=61809
 
 Package: heartburn-by-thetourist
@@ -23,9 +22,7 @@ Description: 4k intro for Linux, released in 2013
  .
  "Almost as good as a bad WinAmp plugin!"
  .
- .
  OpenGL4.0, Windows / Linux
- .
  .
  Tools:
  - Clinkster (soft synth)
