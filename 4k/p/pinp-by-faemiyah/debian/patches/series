@@ -1,3 +1,2 @@
-02_fix_makefile.patch
-03_fix_warnings.patch
-04_remove_fullscreen.patch
+01_fix_makefile.patch
+02_remove_fullscreen.patch

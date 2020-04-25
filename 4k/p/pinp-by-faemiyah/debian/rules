@@ -1,8 +1,4 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --with autoreconf
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/pinp-by-faemiyah.6.md -o debian/pinp-by-faemiyah.6
+	dh $@
