@@ -6,9 +6,8 @@ export DEB_CXXFLAGS_MAINT_APPEND  = -flto
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 %:
-	dh $@ --parallel --buildsystem=cmake --builddirectory=build
+	dh $@ --buildsystem=cmake --builddirectory=build
 
 override_dh_install:
 	mv build/ghosts_of_mars build/ghostsofmars-by-faemiyah
 	dh_install
-	pandoc -s -t man -f markdown debian/ghostsofmars-by-faemiyah.6.md -o debian/ghostsofmars-by-faemiyah.6

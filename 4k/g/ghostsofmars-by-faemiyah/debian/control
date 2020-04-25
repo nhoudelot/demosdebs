@@ -3,14 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>= 10),
  cmake,
  libboost-all-dev,
  libpng-dev,
  libsdl2-dev,
- libglew-dev,
- pandoc
-Standards-Version: 4.1.4
+ libglew-dev
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=66046
 
 Package: ghostsofmars-by-faemiyah
