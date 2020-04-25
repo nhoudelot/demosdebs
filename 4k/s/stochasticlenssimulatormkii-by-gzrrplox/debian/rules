@@ -8,7 +8,3 @@ endif
 
 %:
 	dh $@ --sourcedirectory=src
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/stochasticlenssimulatormkii-by-gzrrplox.6.md -o debian/stochasticlenssimulatormkii-by-gzrrplox.6
