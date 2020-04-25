@@ -1,1 +1,4 @@
 strata-by-luminaire binary: unknown-section demos
+strata-by-luminaire binary: hardening-no-pie usr/bin/strata-by-luminaire
+strata-by-luminaire binary: hardening-no-relro usr/bin/strata-by-luminaire
+strata-by-luminaire binary: program-not-linked-against-libc usr/bin/strata-by-luminaire

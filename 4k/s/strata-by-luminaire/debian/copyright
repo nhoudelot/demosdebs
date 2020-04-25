@@ -3,11 +3,12 @@ Upstream-Name: strata-by-luminaire
 Source: https://www.pouet.net/prod.php?which=66090
 
 Files: *
+Copyright: 2015 Luminaire
 License: public-domain
  (probably freeware)
 
 Files: debian/*
-Copyright: 2019 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2019-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: GPL-3.0+
