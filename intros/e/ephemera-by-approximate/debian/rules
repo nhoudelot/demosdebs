@@ -3,9 +3,5 @@
 %:
 	dh $@
 
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/ephemera-by-approximate.6.md -o debian/ephemera-by-approximate.6
-
 override_dh_strip:
 	dh_strip -Xephemerafinal32bit
