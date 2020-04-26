@@ -3,10 +3,9 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc,
+ debhelper (>= 10),
  libsdl2-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=25794
 
 Package: emodefect-by-fit

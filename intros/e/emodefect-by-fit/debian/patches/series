@@ -3,3 +3,4 @@
 03_adapt_path.patch
 04_migrate_to_SDL2.patch
 05_better_quit.patch
+06_add_fullscreen_key.patch
