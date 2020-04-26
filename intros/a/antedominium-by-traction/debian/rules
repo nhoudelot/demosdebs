@@ -1,10 +1,9 @@
 #!/usr/bin/make -f
 
+export DEB_CXXFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
+
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-pie
 
 %:
-	dh $@ --parallel
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/antedominium-by-traction.6.md -o debian/antedominium-by-traction.6
+	dh $@
