@@ -1,0 +1,13 @@
+Description: fix includes path
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/wave4k.c
++++ b/wave4k.c
+@@ -1,4 +1,4 @@
+-#include "SDL.h"
++#include <SDL/SDL.h>
+ #include <math.h>
+ #include <stdlib.h>
+ #include <string.h>

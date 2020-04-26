@@ -1,3 +1,9 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -1,22 +1,32 @@
@@ -11,8 +17,8 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS   += -Wall -pipe -std=gnu90 $(shell pkgconf --cflags sdl)
-+LDFLAGS  += $(shell pkgconf --libs sdl) -lm
++CFLAGS   += -Wall -pipe -std=gnu90 $(shell pkg-config --cflags sdl)
++LDFLAGS  += $(shell pkg-config --libs sdl) -lm
 +TARGET   := wavetraveler-by-francoischazal
 +#variable de nettoyage
 +RM_F = rm -f

@@ -3,11 +3,10 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc,
- pkgconf,
+ debhelper (>= 10),
+ pkg-config,
  libsdl1.2-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://320x200.org/2004/4k/
 
 Package: wavetraveler-by-francoischazal
@@ -16,4 +15,4 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Francois Chazal 4k Intro/2004/Linux
- Demo by Francois Chazal, released in 2004
+ 4k Intro by Francois Chazal, released in 2004
