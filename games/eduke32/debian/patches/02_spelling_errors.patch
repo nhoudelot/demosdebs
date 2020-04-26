@@ -1,3 +1,8 @@
+Description: fixing some spelling errors
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/source/build/src/polymost.cpp
 +++ b/source/build/src/polymost.cpp
 @@ -9557,7 +9557,7 @@

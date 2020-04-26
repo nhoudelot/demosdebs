@@ -11,7 +11,3 @@ endif
 	dh $@
 
 override_dh_auto_test:
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/eduke32.6.md -o debian/eduke32.6

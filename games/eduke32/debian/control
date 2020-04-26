@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- pandoc,
  nasm,
  libgl1-mesa-dev,
  libglu1-mesa-dev,
