@@ -1,3 +1,8 @@
+Description: setup a bigger window, as now we have bigger desktop resolution
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/tinymain.asm
 +++ b/tinymain.asm
 @@ -29,9 +29,9 @@

@@ -1,2 +1,3 @@
 yellowroseoftexas-by-fit binary: unknown-section demos
 yellowroseoftexas-by-fit binary: desktop-entry-lacks-keywords-entry usr/share/applications/yellowroseoftexas-by-fit.desktop
+yellowroseoftexas-by-fit binary: library-not-linked-against-libc usr/bin/yellowroseoftexas-by-fit
