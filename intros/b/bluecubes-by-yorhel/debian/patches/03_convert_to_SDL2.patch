@@ -1,3 +1,9 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/bluecubes.c
 +++ b/bluecubes.c
 @@ -3,9 +3,10 @@
@@ -89,10 +95,10 @@
  #variables de compilation
  SHELL := /bin/sh
  CC    := gcc
--CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell pkgconf glu sdl sdl --cflags)
--LDFLAGS  += $(shell pkgconf glu sdl sdl --libs) -lm -pipe
-+CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell pkgconf glu sdl2 --cflags)
-+LDFLAGS  += $(shell pkgconf glu sdl2 --libs) -lm -pipe
+-CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell pkg-config glu sdl sdl --cflags)
+-LDFLAGS  += $(shell pkg-config glu sdl sdl --libs) -lm -pipe
++CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell pkg-config glu sdl2 --cflags)
++LDFLAGS  += $(shell pkg-config glu sdl2 --libs) -lm -pipe
  #variable de nettoyage
  RM_F := rm -f
  #variables d'instalation

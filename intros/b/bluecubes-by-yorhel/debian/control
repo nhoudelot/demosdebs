@@ -3,11 +3,10 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc,
+ debhelper (>= 10),
  libsdl2-dev,
- pkgconf
-Standards-Version: 4.1.4
+ pkg-config
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=25866
 
 Package: bluecubes-by-yorhel
@@ -15,5 +14,5 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: YorHel Demo/2006/Linux
- Demo by YorHel, released in 2006
+Description: YorHel Intro/2006/Linux
+ Intro by YorHel, released in 2006

@@ -1,3 +1,9 @@
+Description: make window resizable
+ make window resizable with correct ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/bluecubes.c
 +++ b/bluecubes.c
 @@ -38,7 +38,7 @@
