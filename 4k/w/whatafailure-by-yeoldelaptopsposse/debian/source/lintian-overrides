@@ -1,0 +1,3 @@
+whatafailure-by-yeoldelaptopsposse source: source-is-missing yo04_lnx
+whatafailure-by-yeoldelaptopsposse source: source-contains-prebuilt-windows-binary yo04.exe
+whatafailure-by-yeoldelaptopsposse source: package-depends-on-hardcoded-libc whatafailure-by-yeoldelaptopsposse depends

@@ -3,9 +3,5 @@
 %:
 	dh $@
 
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/whatafailure-by-yeoldelaptopsposse.6.md -o debian/whatafailure-by-yeoldelaptopsposse.6
-
 override_dh_strip:
 	dh_strip -Xyo04_lnx
