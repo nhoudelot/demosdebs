@@ -1,0 +1,17 @@
+Source: fonts-blomster
+Section: fonts
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.dafont.com/blomster.font
+
+Package: fonts-blomster
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: blomster free fontypee fonts
+ Fonts designed by unknown
+

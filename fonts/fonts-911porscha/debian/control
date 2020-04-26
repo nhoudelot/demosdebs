@@ -1,0 +1,17 @@
+Source: fonts-911porscha
+Section: fonts
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: http://www.iconian.com
+
+Package: fonts-911porscha
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: 911porscha free fontypee fonts
+ Fonts designed by Dan Zadorozny
+

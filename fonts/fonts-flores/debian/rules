@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	dh_install
+	find debian/fonts-flores -type f -execdir rename 'y/A-Z/a-z/' {} \;
+
+override_dh_installdocs:
+	dh_installdocs
+	find debian/fonts-flores -type f -execdir rename 'y/A-Z/a-z/' {} \;

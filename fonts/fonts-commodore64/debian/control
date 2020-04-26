@@ -1,0 +1,16 @@
+Source: fonts-commodore64
+Section: fonts
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.dafont.com/fr/commodore-64.font
+
+Package: fonts-commodore64
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: commodore64 free TrueType fonts
+ Fonts designed by Devin Cook that looks like Commodore 64 fonts

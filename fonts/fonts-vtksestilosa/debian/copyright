@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: fonts-vtksestilosa
+Source: https://www.dafont.com/search.php?q=Estilosa
+
+Files: *
+Copyright: 2007 Douglas Vitkauskas
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2018-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

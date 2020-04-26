@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: fonts-911porscha
+Source: https://www.iconian.com
+
+Files: *
+Copyright: 2015 Dan Zadorozny
+License: iconian_license
+ Fonts are free for noncommercial use and are donationware for commercial
+ purposes.
+
+Files: debian/*
+Copyright: 2018-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

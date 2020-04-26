@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: fonts-flores
+Source: https://www.dafont.com/fr/flores.font
+
+Files: *
+Copyright: 2001 Harold Lohner
+License: freeware
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2018-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

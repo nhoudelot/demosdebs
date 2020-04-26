@@ -1,0 +1,17 @@
+Source: fonts-vtksestilosa
+Section: fonts
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.dafont.com/search.php?q=Estilosa
+
+Package: fonts-vtksestilosa
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: VTKS Estilosa free fontypee fonts
+ Fonts designed by  Douglas Vitkauskas
+

@@ -1,0 +1,17 @@
+fonts-flores (1.0-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Apr 2020 19:29:52 +0200
+
+fonts-flores (1.0-0ddebs2) unstable; urgency=medium
+
+  * update to standard version to 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Sep 2018 20:52:31 +0200
+
+fonts-flores (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 13 Feb 2018 19:43:09 +0100

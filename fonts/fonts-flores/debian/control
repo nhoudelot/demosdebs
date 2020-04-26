@@ -1,0 +1,16 @@
+Source: fonts-flores
+Section: fonts
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ rename
+Standards-Version: 4.5.0
+Homepage: https://www.dafont.com/fr/flores.font
+
+Package: fonts-flores
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: flores free fontypee fonts
+ Fonts designed by Harold Lohner
