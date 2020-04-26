@@ -5,7 +5,3 @@
 
 override_dh_strip:
 	dh_strip -Xapproximate_about_time.elf
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/abouttime-by-approximate.6.md -o debian/abouttime-by-approximate.6
