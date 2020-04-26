@@ -1,0 +1,4 @@
+fightcade source: source-contains-prebuilt-windows-binary ggpofba-ng.exe
+fightcade source: source-contains-prebuilt-windows-binary ggponet.dll
+fightcade source: source-contains-prebuilt-windows-binary kailleraclient.dll
+

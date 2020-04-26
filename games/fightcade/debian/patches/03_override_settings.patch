@@ -1,3 +1,9 @@
+Description: change settings path
+ on system install, data path should be in /usr/share, so we have to change the settings too
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/ggpo/common/settings.py
 +++ b/ggpo/common/settings.py
 @@ -41,8 +41,8 @@

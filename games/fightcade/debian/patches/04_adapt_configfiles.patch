@@ -1,3 +1,8 @@
+Description: create config path beforte launch
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/fightcade
 +++ b/fightcade
 @@ -10,6 +10,31 @@

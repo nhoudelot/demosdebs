@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>=10),
- pandoc,dh-python,
+ dh-python,
  python:any | python-all:any | python-dev:any | python-all-dev:any,
  pyqt5-dev-tools (>=5.5)
 Standards-Version: 4.5.0

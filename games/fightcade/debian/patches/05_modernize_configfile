@@ -1,3 +1,9 @@
+Description: modernize default config
+ as now system are 16/9, support 60hz and are at least 1280x720
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/config.init/ggpofba-ng.ini
 +++ b/config.init/ggpofba-ng.ini
 @@ -17,9 +17,9 @@
