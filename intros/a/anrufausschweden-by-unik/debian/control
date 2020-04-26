@@ -3,9 +3,8 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc
-Standards-Version: 4.1.4
+ debhelper (>= 10),
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=13621
 
 Package: anrufausschweden-by-unik
@@ -17,5 +16,5 @@ Depends:
  libc6,
  libgl1-mesa-glx | libgl1,
  libglu1-mesa | libglu1
-Description: anruf aus schweden is a Demo released in 2004
- Demo by unik, released in 2004
+Description: anruf aus schweden is a Intro released in 2004
+ Intro by unik, released in 2004
