@@ -3,14 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
+ debhelper (>= 10),
  cmake,
  libboost-all-dev,
  libsdl2-dev,
  libpng-dev,
  libglew-dev,
- pandoc
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=63860
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2014-08_4k-intro_whisky_in_a_tube
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2014-08_4k-intro_whisky_in_a_tube.git
@@ -21,8 +20,8 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Demo for Linux, released in 2014
- Demo by Faemiyah, released in 2014
+Description: 4k Intro for Linux, released in 2014
+ 4k Intro by Faemiyah, released in 2014
  Code:                    Trilkk
  Music, additional code:  Juippi
  Greets to: ADF, Blobtrox, Fit, G-INcorporated, Hedelmae, Lonely Coders,

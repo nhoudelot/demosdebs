@@ -3,9 +3,8 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --parallel --buildsystem=cmake --builddirectory=build
+	dh $@ --buildsystem=cmake --builddirectory=build
 
 override_dh_install:
 	mv build/whisky_in_a_tube build/whiskyinatube-by-faemiyah
 	dh_install
-	pandoc -s -t man -f markdown debian/whiskyinatube-by-faemiyah.6.md -o debian/whiskyinatube-by-faemiyah.6
