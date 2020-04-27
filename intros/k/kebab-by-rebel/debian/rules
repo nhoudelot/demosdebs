@@ -4,7 +4,3 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
 	dh $@
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/kebab-by-rebel.6.md -o debian/kebab-by-rebel.6

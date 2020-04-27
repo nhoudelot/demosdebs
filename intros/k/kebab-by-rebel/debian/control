@@ -3,11 +3,10 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc,
- pkgconf,
+ debhelper (>= 10),
+ pkg-config,
  libsdl2-mixer-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=52832
 
 Package: kebab-by-rebel
