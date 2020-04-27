@@ -1,1 +1,3 @@
 metachronie-by-mirage binary: unknown-section demos
+metachronie-by-mirage binary: hardening-no-pie usr/lib/x86_64-linux-gnu/metachronie-by-mirage/metachronie-linux_x86-64
+metachronie-by-mirage binary: hardening-no-relro usr/lib/x86_64-linux-gnu/metachronie-by-mirage/metachronie-linux_x86-64
