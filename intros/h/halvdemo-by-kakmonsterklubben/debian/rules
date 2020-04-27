@@ -2,7 +2,3 @@
 
 %:
 	dh $@
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/halvdemo-by-kakmonsterklubben.6.md -o debian/halvdemo-by-kakmonsterklubben.6

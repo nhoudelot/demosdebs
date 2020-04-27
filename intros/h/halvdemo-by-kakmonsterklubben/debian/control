@@ -3,12 +3,11 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc,
+ debhelper (>= 10),
  libsdl1.2-dev,
  libsdl-mixer1.2-dev,
  libstdc++5
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=14700
 
 Package: halvdemo-by-kakmonsterklubben
@@ -17,5 +16,5 @@ Depends:
  common-install-function-ddebs(>=1.18),
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Demo by kakmonsterklubben released in 2004
- kakmonsterklubben demo, released in 2004
+Description: Intro by kakmonsterklubben released in 2004
+ kakmonsterklubben intro, released in 2004
