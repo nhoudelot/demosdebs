@@ -3,9 +3,8 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc
-Standards-Version: 4.1.4
+ debhelper (>= 10),
+Standards-Version: 4.5.0
 Homepage: http://www.pouet.net/prod.php?which=61355
 
 Package: lightningroadtoliquidradiator-by-theundeadsceners
@@ -19,5 +18,5 @@ Depends:
  libxext6,
  xz-utils,
  common-install-function-ddebs(>=1.18)
-Description: Demo for Linux, released in 2013
- Demo by The Undead Sceners, released in 2013
+Description: Intro for Linux, released in 2013
+ Intro by The Undead Sceners, released in 2013
