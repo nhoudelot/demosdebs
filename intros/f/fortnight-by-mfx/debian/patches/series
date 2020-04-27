@@ -1,5 +1,5 @@
-01_modernise_makefile.diff
-02_added_windowed_option.diff
-03_remove_warnings_c.diff
-04_replace_mikmod_by_sdlmixer.diff
-05_adapt_path.diff
+01_modernise_makefile.patch
+02_added_windowed_option.patch
+03_remove_warnings_c.patch
+04_replace_mikmod_by_sdlmixer.patch
+05_adapt_path.patch

@@ -1,0 +1,110 @@
+Description: migrate to SDL_mixer
+ Migrate from mikmod to SDL_mixer
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -5,7 +5,7 @@
+ #include <string.h>
+ #include "signal.h"
+ #include <SDL/SDL.h>
+-#include <mikmod.h>
++#include <SDL/SDL_mixer.h>
+ #include <math.h>
+ 
+ 
+@@ -289,8 +289,6 @@
+ 	static int graffa[320*200];
+ 	int effu=argc>1 ? atoi(argv[1]) : 0;
+ 
+-	MODULE *module;
+-
+ /*  {
+     FILE *fp=fopen("pakked.dat", "r");
+     mov=readmovie(fp);
+@@ -341,24 +339,25 @@
+ 	SDL_EventState(SDL_QUIT, SDL_ENABLE);
+ 	fprintf(stderr, "d5\n");
+ 
++// start SDL with audio support
++	if(SDL_Init(SDL_INIT_AUDIO)==-1) {
++		printf("SDL_Init: %s\n", SDL_GetError());
++		exit(1);
++	}
+ 
+-
+-
+-	MikMod_RegisterAllDrivers();
+-	MikMod_RegisterAllLoaders();
+-	md_mode = DMODE_SOFT_MUSIC|DMODE_INTERP|DMODE_16BITS|DMODE_STEREO;
+-	if (MikMod_Init("")) {
+-		fprintf(stderr, "Could not initialize sound, reason: %s\n",  MikMod_strerror(MikMod_errno));
+-		return;
++// open 44.1KHz, signed 16bit, system byte order,
++//      stereo audio, using 1024 byte chunks
++	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
++	{
++		printf("%s", Mix_GetError());
++		exit(1);
+ 	}
++	Mix_Music *musique;
+ 	{
+-		MREADER m={ fakeseek, faketell, fakeread, fakeget, fakeeof };
+-		module = Player_LoadGeneric(&m, 64, 0);
+-//    module = Player_Load("dxn-sl2.xm", 64, 0);
+-	}
+-	if (!module) {
+-		fprintf(stderr, "fgsfgsrstr, reason: %s\n", MikMod_strerror(MikMod_errno));
+-		return;
++		if(!(musique = Mix_LoadMUS("dxn-sl2.xm"))) {
++			fprintf(stderr, "failed to load module\n");
++			exit(1);
++		}
+ 	}
+ 	fprintf(stderr, "d5\n");
+ 	{
+@@ -389,9 +388,7 @@
+ 	desing_precalc();
+ 	fprintf(stderr, "d5\n");
+ 	time0=SDL_GetTicks();
+-	Player_Start(module);
+-	md_reverb=12;
+-	md_musicvolume=42;
++	Mix_PlayMusic(musique,1);
+ 
+ 	while (!stopnow) {
+ 		float aikaero=.02;
+@@ -489,15 +486,13 @@
+ 
+ 		rectum.x=0; rectum.y=0; rectum.w=640; rectum.h=480;
+ 		SDL_DisplayYUVOverlay(ovl, &rectum);
+-		MikMod_Update();
+-//    usleep(100000);
+ 	}
+ 
+ 	//SDL_CloseAudio();
+ 
+-	Player_Stop();
+-	Player_Free(module);
+-	MikMod_Exit();
++	Mix_PauseMusic();
++	Mix_FreeMusic(musique);
++	Mix_CloseAudio();
+ 
+ 	return 0;
+ }
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,8 @@
+ SHELL = /bin/sh
+ CC = gcc
+ NASM = nasm
+-CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell sdl-config --cflags) $(shell libmikmod-config --cflags) -std=gnu90
+-LDFLAGS += $(shell sdl-config --libs) $(shell libmikmod-config --libs) -lm
++CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell pkg-config sdl SDL_mixer --cflags) -std=gnu90
++LDFLAGS += $(shell pkg-config sdl SDL_mixer --libs) -lm
+ RM_F = rm -f
+ 
+ TARGET=fortnight-by-mfx
