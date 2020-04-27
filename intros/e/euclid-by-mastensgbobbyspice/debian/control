@@ -3,15 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.20160114),
- pandoc,
+ debhelper (>= 10),
  libgl1-mesa-dev,
  freeglut3-dev,
  libasound2-dev,
  libvorbis-dev,
- pkgconf,
- dh-autoreconf
-Standards-Version: 4.1.4
+ pkg-config
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=61281
 
 Package: euclid-by-mastensgbobbyspice
@@ -20,8 +18,8 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  euclid-by-mastensgbobbyspice-data
-Description: Demo for Linux, released in 2013
- Demo by mastensg+Bobby Spice, released in 2013
+Description: Intro for Linux, released in 2013
+ Intro by mastensg+Bobby Spice, released in 2013
 
 Package: euclid-by-mastensgbobbyspice-data
 Architecture: all

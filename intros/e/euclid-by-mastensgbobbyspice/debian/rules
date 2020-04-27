@@ -3,8 +3,4 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --with autoreconf
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/euclid-by-mastensgbobbyspice.6.md -o debian/euclid-by-mastensgbobbyspice.6
+	dh $@
