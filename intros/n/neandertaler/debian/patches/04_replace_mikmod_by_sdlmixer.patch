@@ -1,3 +1,9 @@
+Description: migrate to SDL_mixer
+ Migrate from mikmod to SDL_mixer
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.cc
 +++ b/main.cc
 @@ -10,7 +10,8 @@
@@ -75,8 +81,8 @@
  ifeq ($(SOUND),YES)
  DEF += -DSOUND
 -LDFLAGS += -lmikmod
-+LDFLAGS += $(shell pkgconf SDL2_mixer --libs)
-+CXXFLAGS += $(shell pkgconf SDL2_mixer --cflags)
++LDFLAGS += $(shell pkg-config SDL2_mixer --libs)
++CXXFLAGS += $(shell pkg-config SDL2_mixer --cflags)
  endif
  
  # If old GLUT version

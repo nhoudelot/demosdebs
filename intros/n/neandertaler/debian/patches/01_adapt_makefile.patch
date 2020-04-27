@@ -1,3 +1,9 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -4,6 +4,7 @@
@@ -16,9 +22,9 @@
 -DEF = 
 -GL = -lglut -lGL -lGLU
 -LIBS = -lm
-+CXXFLAGS += -Wall -pipe $(shell pkgconf --cflags glu) -std=gnu++98 -fabi-version=2
++CXXFLAGS += -Wall -pipe $(shell pkg-config --cflags glu) -std=gnu++98 -fabi-version=2
 +DEF =
-+GL = -lglut $(shell pkgconf --libs glu)
++GL = -lglut $(shell pkg-config --libs glu)
 +LDFLAGS += -lm
 +RM_F = rm -f
 +
@@ -46,7 +52,7 @@
 -# SGI specific
 -ifeq ($(PLATFORM),IRIX)
 -X = -L/usr/lib32 -lX11 -lXext -lXmu -lXi
-+	X = $(shell pkgconf x11 xext xmu xi --libs)
++	X = $(shell pkg-config x11 xext xmu xi --libs)
 +	LIBS += -ldl
 +	DEF += -DBSDENV
 +	ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
