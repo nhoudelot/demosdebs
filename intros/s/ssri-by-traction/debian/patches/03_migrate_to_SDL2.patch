@@ -1,184 +1,22 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,89 +1,89 @@
--#find missing windows stuff yourself :p
--#SSRI by Traction
--#WIN32, LINUX, OS_X
--SHELL = /bin/sh
--PLATFORM = $(shell uname)
--ifeq ($(PLATFORM),Linux)
--PLATFORM = LINUX
--endif
--ifeq ($(PLATFORM),Darwin)
--PLATFORM = OS_X
--endif
--ifeq ($(PLATFORM),)
--PLATFORM = WIN32
--endif
--
--FULLSCREEN = FALSE
--WINDOW_WIDTH = 1280
--WINDOW_HEIGHT = 720
--
--#compiler we're using
--CC = gcc
--CXX = g++
--
--#sourcefiles in use
--OBJ = changer.o filter.o font.o hermitecurve.o line.o lista.o main.o matikka.o matrix.o molekyylidata.o object3d.o path.o primitives.o sound.o stuff.o sync.o tausta.o texture.o timer.o vector.o win32.o alku.o aukko.o kasvu.o kaupunki.o kellu.o molekyyli.o neuronit.o perhonen.o pyorre.o rakenne.o rata.o runko.o ruutu.o viivatus.o virta.o
--
--TARGET = ssri-by-traction
--LDFLAGS += -lm
--CFLAGS += -Wall -pipe -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT)
--
--ifeq ($(FULLSCREEN),TRUE)
--CFLAGS += -DFULLSCREEN
--endif
--
--#linux Makefile setup
--ifeq ($(PLATFORM), LINUX)
--LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf glu sdl fmodex --libs)
--CFLAGS += $(shell pkgconf glu sdl fmodex --cflags) -fpermissive -std=gnu++98
--endif
--
--.PHONY: all all-before all-after clean clean-custom
--all: all-before $(TARGET) all-after
--#define some system utilities
--RM = rm -f
--CP = cp -R
--MKDIR = mkdir
--
--#variables d'instalation
--INSTALL = install
--INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
--INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
--INSTALL_DATA    = $(INSTALL) -p    -o root -g root  -m  644
--prefix          = /usr
--exec_prefix     = $(prefix)
--bindir          = $(prefix)/bin
--datarootdir     = $(prefix)/share
--datadir         = $(prefix)/share/ssri-by-traction
--
--#parallel compilation if available
--ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-- NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-- MAKEFLAGS += -j$(NUMJOBS)
--endif
--
--export
--
--all: $(TARGET)
--
--clean:
--	 $(RM) $(OBJ) $(TARGET)
--
--%.o: %.c $(HEADERS)
--	$(CC) $(CFLAGS) -c $<
--
--%.o: %.cpp $(HEADERS)
--	$(CXX) $(CFLAGS) -c $<
--
--%.o: ./Effects/%.cpp $(HEADERS)
--	$(CXX) $(CFLAGS) -c $<
--
--$(TARGET): $(OBJ)
--	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
--
--install: $(TARGET)
--	$(INSTALL_DIR) $(DESTDIR)$(bindir)
--	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
--	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
--	$(INSTALL_DIR) $(DESTDIR)$(datadir)
--	$(INSTALL_DATA) music.xm $(DESTDIR)$(datadir)
-+#find missing windows stuff yourself :p
-+#SSRI by Traction
-+#WIN32, LINUX, OS_X
-+SHELL = /bin/sh
-+PLATFORM = $(shell uname)
-+ifeq ($(PLATFORM),Linux)
-+PLATFORM = LINUX
-+endif
-+ifeq ($(PLATFORM),Darwin)
-+PLATFORM = OS_X
-+endif
-+ifeq ($(PLATFORM),)
-+PLATFORM = WIN32
-+endif
-+
-+FULLSCREEN = FALSE
-+WINDOW_WIDTH = 1280
-+WINDOW_HEIGHT = 720
-+
-+#compiler we're using
-+CC = gcc
-+CXX = g++
-+
-+#sourcefiles in use
-+OBJ = changer.o filter.o font.o hermitecurve.o line.o lista.o main.o matikka.o matrix.o molekyylidata.o object3d.o path.o primitives.o sound.o stuff.o sync.o tausta.o texture.o timer.o vector.o win32.o alku.o aukko.o kasvu.o kaupunki.o kellu.o molekyyli.o neuronit.o perhonen.o pyorre.o rakenne.o rata.o runko.o ruutu.o viivatus.o virta.o
-+
-+TARGET = ssri-by-traction
-+LDFLAGS += -lm
-+CFLAGS += -Wall -pipe -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT)
-+
-+ifeq ($(FULLSCREEN),TRUE)
-+CFLAGS += -DFULLSCREEN
-+endif
-+
-+#linux Makefile setup
-+ifeq ($(PLATFORM), LINUX)
-+LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf glu sdl2 fmodex --libs)
-+CFLAGS += $(shell pkgconf glu sdl2 fmodex --cflags) -fpermissive -std=gnu++98
-+endif
-+
-+.PHONY: all all-before all-after clean clean-custom
-+all: all-before $(TARGET) all-after
-+#define some system utilities
-+RM = rm -f
-+CP = cp -R
-+MKDIR = mkdir
-+
-+#variables d'instalation
-+INSTALL = install
-+INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
-+INSTALL_DATA    = $(INSTALL) -p    -o root -g root  -m  644
-+prefix          = /usr
-+exec_prefix     = $(prefix)
-+bindir          = $(prefix)/bin
-+datarootdir     = $(prefix)/share
-+datadir         = $(prefix)/share/ssri-by-traction
-+
-+#parallel compilation if available
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
-+endif
-+
-+export
-+
-+all: $(TARGET)
-+
-+clean:
-+	 $(RM) $(OBJ) $(TARGET)
-+
-+%.o: %.c $(HEADERS)
-+	$(CC) $(CFLAGS) -c $<
-+
-+%.o: %.cpp $(HEADERS)
-+	$(CXX) $(CFLAGS) -c $<
-+
-+%.o: ./Effects/%.cpp $(HEADERS)
-+	$(CXX) $(CFLAGS) -c $<
-+
-+$(TARGET): $(OBJ)
-+	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
-+
-+install: $(TARGET)
-+	$(INSTALL_DIR) $(DESTDIR)$(bindir)
-+	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
-+	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
-+	$(INSTALL_DIR) $(DESTDIR)$(datadir)
-+	$(INSTALL_DATA) music.xm $(DESTDIR)$(datadir)
+@@ -34,8 +34,8 @@
+ 
+ #linux Makefile setup
+ ifeq ($(PLATFORM), LINUX)
+-LDFLAGS += -L/usr/lib/ -I./ $(shell pkg-config glu sdl fmodex --libs)
+-CFLAGS += $(shell pkg-config glu sdl fmodex --cflags) -fpermissive -std=gnu++98
++LDFLAGS += -L/usr/lib/ -I./ $(shell pkg-config glu sdl2 fmodex --libs)
++CFLAGS += $(shell pkg-config glu sdl2 fmodex --cflags) -fpermissive -std=gnu++98
+ endif
+ 
+ .PHONY: all all-before all-after clean clean-custom
 --- a/main.cpp
 +++ b/main.cpp
 @@ -3,7 +3,7 @@

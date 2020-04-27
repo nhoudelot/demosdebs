@@ -1,3 +1,9 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -1,6 +1,7 @@
@@ -59,8 +65,8 @@
 -LDFLAGS += `sdl-config --static-libs` ./libfmodex.dylib
 -CXX = g++-3.3
 -CC = gcc-3.3
-+LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf glu sdl fmodex --libs)
-+CFLAGS += $(shell pkgconf glu sdl fmodex --cflags) -fpermissive -std=gnu++98
++LDFLAGS += -L/usr/lib/ -I./ $(shell pkg-config glu sdl fmodex --libs)
++CFLAGS += $(shell pkg-config glu sdl fmodex --cflags) -fpermissive -std=gnu++98
  endif
  
  .PHONY: all all-before all-after clean clean-custom

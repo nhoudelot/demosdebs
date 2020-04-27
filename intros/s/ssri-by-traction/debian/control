@@ -3,14 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc,
+ debhelper (>= 10),
  mesa-common-dev,
  libglu1-mesa-dev,
  libsdl2-dev,
- pkgconf,
+ pkg-config,
  libfmodex-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=19434
 
 Package: ssri-by-traction

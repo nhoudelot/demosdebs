@@ -1,3 +1,8 @@
+Description: fix includes path
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sound.cpp
 +++ b/sound.cpp
 @@ -4,7 +4,7 @@

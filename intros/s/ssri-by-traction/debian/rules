@@ -3,8 +3,4 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-pie
 
 %:
-	dh $@ --parallel
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/ssri-by-traction.6.md -o debian/ssri-by-traction.6
+	dh $@
