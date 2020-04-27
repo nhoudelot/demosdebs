@@ -1,3 +1,9 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -1,5 +1,6 @@
@@ -33,8 +39,8 @@
 -LIBS = -mwindows -lSDL -lglu32 -lopengl32 -lm
 -COPT = -ffast-math -O2 -Wall -DBLKSIZE=$(BLKSIZE) -DNO_STRSEP
 -TARGET = micery.exe
-+LDFLAGS += $(shell pkgconf --libs sdl glu ) -lm
-+CFLAGS += -Wall -pipe $(shell pkgconf --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
++LDFLAGS += $(shell pkg-config --libs sdl glu ) -lm
++CFLAGS += -Wall -pipe $(shell pkg-config --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
  endif
  
  # All the objects

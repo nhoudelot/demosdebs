@@ -9,10 +9,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  USE_RCS = 0
  
  ifeq ($(PLATFORM),unix)
--LDFLAGS += $(shell pkgconf --libs sdl glu ) -lm
--CFLAGS += -Wall -pipe $(shell pkgconf --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
-+LDFLAGS += $(shell pkgconf --libs sdl2 glu ) -lm
-+CFLAGS += -Wall -pipe $(shell pkgconf --cflags sdl2 glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
+-LDFLAGS += $(shell pkg-config --libs sdl glu ) -lm
+-CFLAGS += -Wall -pipe $(shell pkg-config --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
++LDFLAGS += $(shell pkg-config --libs sdl2 glu ) -lm
++CFLAGS += -Wall -pipe $(shell pkg-config --cflags sdl2 glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
  endif
  
  # All the objects
