@@ -4,13 +4,12 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  dh-autoreconf,
- debhelper (>=9),
+ debhelper (>= 10),
  libsdl2-dev,
  libpng-dev,
  libboost-program-options-dev,
  libglew-dev,
- pandoc
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=62833
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2014-03_16k-intro_lavos
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2014-03_16k-intro_lavos.git
