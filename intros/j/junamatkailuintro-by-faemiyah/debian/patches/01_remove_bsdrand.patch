@@ -1,3 +1,8 @@
+Description: bsd rand didn't work, use normal rand
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
 @@ -135,10 +135,12 @@

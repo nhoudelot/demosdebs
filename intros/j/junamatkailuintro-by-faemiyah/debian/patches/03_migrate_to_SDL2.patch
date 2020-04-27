@@ -1,3 +1,9 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -14,7 +14,7 @@

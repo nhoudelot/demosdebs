@@ -1,0 +1,8 @@
+junamatkailuintro-by-faemiyah source: source-is-missing rel/junamatkailuintro_freebsd-amd64
+junamatkailuintro-by-faemiyah source: source-is-missing rel/junamatkailuintro_freebsd-ia32
+junamatkailuintro-by-faemiyah source: source-is-missing rel/junamatkailuintro_linux-amd64
+junamatkailuintro-by-faemiyah source: source-is-missing rel/junamatkailuintro_linux-armv6-rpi
+junamatkailuintro-by-faemiyah source: source-contains-prebuilt-windows-binary SDL.dll
+junamatkailuintro-by-faemiyah source: source-contains-prebuilt-windows-binary rel/SDL.dll
+junamatkailuintro-by-faemiyah source: source-contains-prebuilt-windows-binary rel/junamatkailuintro_windows-ia32.exe
+
