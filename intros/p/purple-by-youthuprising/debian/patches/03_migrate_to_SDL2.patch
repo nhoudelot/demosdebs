@@ -1,11 +1,17 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -7,7 +7,7 @@
  RES  =
  OBJ = main.o general.o Audio/sound.o Effects/iterator.o Effects/filler.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/start.o  Effects/tunnel.o Effects/cred.o $(RES)
  LINKOBJ  = main.o general.o Audio/sound.o Effects/iterator.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/filler.o Effects/start.o Effects/tunnel.o Effects/cred.o $(RES)
--LDFLAGS += $(shell pkgconf --libs sdl gl glu x11) -LAudio -lfmodex
-+LDFLAGS += $(shell pkgconf --libs sdl2 gl glu x11) -LAudio -lfmodex
+-LDFLAGS += $(shell pkg-config --libs sdl gl glu x11) -LAudio -lfmodex
++LDFLAGS += $(shell pkg-config --libs sdl2 gl glu x11) -LAudio -lfmodex
  
  CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD
  CFLAGS = $(INCS)
