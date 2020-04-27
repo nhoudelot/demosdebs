@@ -3,10 +3,6 @@
 %:
 	dh $@
 
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/glrez-by-rez.6.md -o debian/glrez-by-rez.6
-
 override_dh_strip:
 	dh_strip -Xlibfmodex-4.30.03.so
 
