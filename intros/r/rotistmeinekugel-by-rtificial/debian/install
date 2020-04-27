@@ -1,0 +1,4 @@
+debian/scripts/rotistmeinekugel-by-rtificial usr/bin/
+debian/resources/rotistmeinekugel-by-rtificial.desktop usr/share/applications/
+debian/resources/rotistmeinekugel-by-rtificial.png usr/share/icons/hicolor/256x256/apps/
+./rtificial-rmk-linux_1920_1080 usr/lib/i386-linux-gnu/rotistmeinekugel-by-rtificial/./
