@@ -1,3 +1,9 @@
+Description: migrate to PNG 1.6
+ Migrate from PNG 1.2 to PNG 1.6
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/texture.c
 +++ b/src/texture.c
 @@ -64,8 +64,8 @@

@@ -1,3 +1,11 @@
+Description: fix if glXCreateContextAttribsARB() API is unsupported
+ As this program was made for NVidia drivers, 
+ It was assumed that glXCreateContextAttribsARB will always work.
+ fixing it.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/cg_x11.c
 +++ b/src/cg_x11.c
 @@ -93,6 +93,8 @@
