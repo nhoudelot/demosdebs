@@ -1,3 +1,8 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/record.c
 +++ b/src/record.c
 @@ -3,12 +3,12 @@
