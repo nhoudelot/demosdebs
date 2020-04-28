@@ -1,0 +1,83 @@
+--- a/main.cc
++++ b/main.cc
+@@ -197,6 +197,39 @@
+ 					case SDLK_q: done=1; break;
+ 				}
+ 			}
++			if (event.window.windowID == Video->windowID)  {
++				if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++				    SDL_Rect newWindowSize;
++				    int w = event.window.data1;
++				    int h = event.window.data2;
++				    newWindowSize.x=0;
++				    newWindowSize.y=0;
++				    float aspect = (float)w / (float)h;
++				    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++					newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++					newWindowSize.x += (w - newWindowSize.w) / 2;
++					newWindowSize.h = h;
++				    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++					newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++					newWindowSize.y += (h - newWindowSize.h) / 2;
++					newWindowSize.w = w;
++				    } else if (w != newWindowSize.w) {
++					newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++					newWindowSize.x += (w - newWindowSize.w) / 2;
++					newWindowSize.h = h;
++				    } else if (h != newWindowSize.h) {
++					newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++					newWindowSize.y += (h - newWindowSize.h) / 2;
++					newWindowSize.w = w;
++				    }
++
++				//    SDL_DestroyTexture(sdlTexture);
++				//    sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_GetWindowPixelFormat(sdlWindow), SDL_TEXTUREACCESS_TARGET,XRES*2, YRES*2);
++				    SDL_Rect viewPort;
++				    SDL_RenderGetViewport(Video->sdlRenderer, &viewPort);
++				    SDL_RenderSetViewport(Video->sdlRenderer, &newWindowSize);
++				}
++			}
+ 		}
+ 	}
+ }
+--- a/xmodelib.cc
++++ b/xmodelib.cc
+@@ -40,7 +40,7 @@
+ 
+ VgaXMode::VgaXMode(char FullScreen)
+ {
+-	Uint32 vmodeflags = 0;
++	Uint32 vmodeflags = SDL_WINDOW_RESIZABLE;
+ 	int i;
+ 
+ 	//Enable fullscreen mode if is required
+@@ -55,6 +55,9 @@
+ 	//Create the 640x480x256 main "window"
+ 	sdlWindow = SDL_CreateWindow("InsolitDust BoRnTrO 2012",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,vmodeflags);
+ 	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_TARGETTEXTURE);
++	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
++
++	windowID = SDL_GetWindowID(sdlWindow);
+ 
+ 	Video_Surface = SDL_CreateRGBSurfaceWithFormat(0, 320, 240, 8,SDL_PIXELFORMAT_RGB332);
+ 	if (Video_Surface == NULL)
+--- a/xmodelib.h
++++ b/xmodelib.h
+@@ -31,6 +31,9 @@
+ #ifndef XMODELIB_H
+ #define XMODELIB_H
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ #include <SDL2/SDL.h>
+ 
+ class VgaXMode
+@@ -49,6 +52,7 @@
+ SDL_Window *sdlWindow;
+ SDL_Renderer *sdlRenderer;
+ SDL_Texture *sdlTexture;
++Uint32 windowID;
+ 
+ VgaXMode(char FullScreen);                                      //Constructor, FullScreen = 1 to go in fullscreen mode
+ ~VgaXMode();                                                            //Destructor

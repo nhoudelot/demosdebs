@@ -1,0 +1,30 @@
+--- a/main.cc
++++ b/main.cc
+@@ -186,18 +186,16 @@
+ 	{
+ 		usleep(15000);
+ 
+-		if (SDL_PollEvent(&event))
++		while(SDL_PollEvent(&event))
+ 		{
+-			switch (event.type)
+-			{
+-			case SDL_KEYDOWN:
+-				if (event.key.keysym.sym == SDLK_ESCAPE)
+-					done = 1;
+-				break;
+-
+-			case SDL_QUIT:
+-				done = 1;
+-				break;
++			if (event.type == SDL_QUIT) {
++				done=1;
++			}
++			if (event.type == SDL_KEYDOWN) {
++				switch (event.key.keysym.sym) {
++					case SDLK_ESCAPE: done=1; break;
++					case SDLK_q: done=1; break;
++				}
+ 			}
+ 		}
+ 	}

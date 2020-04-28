@@ -5,10 +5,9 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  libsdl1.2-dev,
  libsdl-mixer1.2-dev,
- debhelper (>=9),
- pandoc,
- pkgconf
-Standards-Version: 4.1.4
+ debhelper (>= 10),
+ pkg-config
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=58704
 
 Package: borntro-by-insolitdust

@@ -5,7 +5,7 @@
   $(TARGET): main.cc xmodelib.cc texturelib.cpp idscroller.cc timerlib.cpp
  	@echo Compiling Insolit Dust BoRnTrO
 -	g++ -o  $(TARGET) $(CXXFLAGS) main.cc xmodelib.cc texturelib.cpp idscroller.cc timerlib.cpp $(shell pkgconf sdl SDL_mixer --libs)
-+	g++ -o  $(TARGET) $(CXXFLAGS) main.cc xmodelib.cc texturelib.cpp idscroller.cc timerlib.cpp $(shell pkgconf sdl2 SDL2_mixer --libs) -g
++	g++ -o  $(TARGET) $(CXXFLAGS) main.cc xmodelib.cc texturelib.cpp idscroller.cc timerlib.cpp $(shell pkgconf sdl2 SDL2_mixer --libs)
  
  	@echo Build finished. Run ./borntro
  
@@ -30,7 +30,7 @@
  	Font->YPosScroller = 208;
 --- a/xmodelib.cc
 +++ b/xmodelib.cc
-@@ -40,36 +40,36 @@
+@@ -40,47 +40,36 @@
  
  VgaXMode::VgaXMode(char FullScreen)
  {
@@ -62,71 +62,64 @@
  		SDL_ShowCursor(0);
  	}
  
-+	// Initalize Color Masks.
-+	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-+	    redMask   = 0xff000000;
-+	    greenMask = 0x00ff0000;
-+	    blueMask  = 0x0000ff00;
-+	    alphaMask = 0x000000ff;
-+	#else
-+	    redMask   = 0x000000ff;
-+	    greenMask = 0x0000ff00;
-+	    blueMask  = 0x00ff0000;
-+	    alphaMask = 0xff000000;
-+	#endif
-+
  	//Create the 640x480x256 main "window"
 +	sdlWindow = SDL_CreateWindow("InsolitDust BoRnTrO 2012",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,vmodeflags);
 +	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_TARGETTEXTURE);
  
 -	Video_Surface = SDL_SetVideoMode(640, 480, 8, vmodeflags);
-+	Video_Surface = SDL_CreateRGBSurface(vmodeflags,640, 480, 32, redMask, greenMask, blueMask, alphaMask);
- 
+-
++	Video_Surface = SDL_CreateRGBSurfaceWithFormat(0, 320, 240, 8,SDL_PIXELFORMAT_RGB332);
  	if (Video_Surface == NULL)
  		exit(-1);
-@@ -81,6 +81,9 @@
+ 
+ 	//Create the 320x240x256 emulated video mode
+ 
+-	Video_Memory = SDL_CreateRGBSurface(vmodeflags, 320, 240, 8, 0, 0, 0, 0);
++	//Video_Memory = SDL_CreateRGBSurface(vmodeflags, 320, 240, 8, 0, 0, 0, 0);
++	Video_Memory =SDL_CreateRGBSurfaceWithFormat(0, 320, 240, 8,SDL_PIXELFORMAT_INDEX8);
+ 
  	if (Video_Memory == NULL)
  		exit(-1);
  
-+	sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_ARGB8888,SDL_TEXTUREACCESS_STREAMING,Video_Surface->w, Video_Surface->h);
-+	SDL_SetTextureBlendMode(sdlTexture , SDL_BLENDMODE_BLEND);
++	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,Video_Surface); // texture with format from video buffer
 +
  	//Build then Y offset table for speed up video memory read/write
  
  	PixTab = (unsigned int *)malloc(sizeof(unsigned int) * 240);
-@@ -112,12 +115,19 @@
- 	SDL_Rect srcrect = {0, 0, 320, 240};
- 	SDL_Rect dstrect = {0, 0, 640, 480};
- 
+@@ -108,16 +97,19 @@
+ void VgaXMode::Update()
+ {
+ 	//Stretch emulated 320x240 surface in main 640x480 window
+-
+-	SDL_Rect srcrect = {0, 0, 320, 240};
+-	SDL_Rect dstrect = {0, 0, 640, 480};
+-
 -	SDL_SoftStretch(Video_Memory, &srcrect, Video_Surface, &dstrect);
-+	//SDL_SoftStretch(Video_Memory, &srcrect, Video_Surface, &dstrect);
++//	SDL_Rect srcrect = {0, 0, 320, 240};
++//	SDL_Rect dstrect = {0, 0, 640, 480};
  
  	if (SDL_MUSTLOCK(Video_Surface))
  		SDL_UnlockSurface(Video_Surface);
  	else
 -		SDL_UpdateRect(Video_Surface, 0, 0, 0, 0);
-+		//SDL_UpdateRect(Video_Surface, 0, 0, 0, 0);
-+		SDL_BlitScaled(Video_Memory, &srcrect, Video_Surface, &dstrect);
 +
-+		SDL_UpdateTexture(sdlTexture, &dstrect, Video_Surface->pixels, Video_Surface->pitch);
-+		//SDL_UpdateTexture(sdlTexture, NULL, Video_Surface->pixels, Video_Surface->pitch);
++		//SDL_BlitScaled(Video_Memory, &srcrect, Video_Surface, &dstrect);
++		Video_Surface = SDL_ConvertSurface(Video_Memory,Video_Surface->format,0);
++		SDL_UpdateTexture(sdlTexture, 0, Video_Surface->pixels, Video_Surface->pitch);
 +		SDL_RenderClear(sdlRenderer);
 +		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
 +		SDL_RenderPresent(sdlRenderer);
  }
  
  void VgaXMode::PutPixel(int x, int y, unsigned char col)
-@@ -228,7 +238,16 @@
+@@ -228,7 +220,13 @@
  {
  	//Enabled palette
  
 -	SDL_SetColors(Video_Surface, Palette, 0, 256);
-+	//SDL_SetColors(Video_Surface, Palette, 0, 256);
 +	SDL_SetPaletteColors(Video_Surface->format->palette, Palette, 0, 256);
-+	//SDL_UpdateRect(Video_Surface, 0, 0, 0, 0);
 +	SDL_BlitSurface(Video_Memory, NULL, Video_Surface, NULL);
 +
-+	//SDL_UpdateTexture(sdlTexture, &dstrect, Video_Surface->pixels, Video_Surface->pitch);
 +	SDL_UpdateTexture(sdlTexture, NULL, Video_Surface->pixels, Video_Surface->pitch);
 +	SDL_RenderClear(sdlRenderer);
 +	SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
@@ -134,27 +127,25 @@
  }
  
  SDL_Color *VgaXMode::GetPalette(void)
-@@ -402,7 +421,8 @@
+@@ -402,7 +400,7 @@
  		return 1;
  	}
  
 -	SDL_SetColors(Video_Surface, FadePalette, 0, 256);
-+	//SDL_SetColors(Video_Surface, FadePalette, 0, 256);
 +	SDL_SetPaletteColors(Video_Surface->format->palette, FadePalette, 0, 256);
  
  	return 0;
  }
-@@ -465,7 +485,8 @@
+@@ -465,7 +463,7 @@
  		return 1;
  	}
  
 -	SDL_SetColors(Video_Surface, Palette, 0, 256);
-+	//SDL_SetColors(Video_Surface, Palette, 0, 256);
 +	SDL_SetPaletteColors(Video_Surface->format->palette, Palette, 0, 256);
  
  	return 0;
  }
-@@ -473,4 +494,4 @@
+@@ -473,4 +471,4 @@
  void VgaXMode::ResetFade(void)
  {
  	NewFade = 0;
@@ -163,7 +154,7 @@
 +}
 --- a/xmodelib.h
 +++ b/xmodelib.h
-@@ -31,11 +31,12 @@
+@@ -31,7 +31,7 @@
  #ifndef XMODELIB_H
  #define XMODELIB_H
  
@@ -172,12 +163,7 @@
  
  class VgaXMode
  {
- private:
-+Uint32 redMask, greenMask, blueMask, alphaMask;
- SDL_Surface *Video_Surface;                                     //Primary video surface
- SDL_Surface *Video_Memory;                                      //320x240 surface
- unsigned int *PixTab;                                           //Precalculated Y offset table
-@@ -45,6 +46,11 @@
+@@ -45,6 +45,11 @@
  char NewFade;                               //Uset to reset new fade effect
  
  public:
