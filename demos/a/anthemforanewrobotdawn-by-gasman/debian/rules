@@ -2,7 +2,3 @@
 
 %:
 	dh $@ --with python2
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/anthemforanewrobotdawn-by-gasman.6.md -o debian/anthemforanewrobotdawn-by-gasman.6
