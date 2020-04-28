@@ -3,12 +3,11 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc,
+ debhelper (>= 10),
  libsdl1.2-dev,
  libfmodex-dev,
  libpng12-0
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=34513
 
 Package: aestheticdistance-by-youthuprising
@@ -21,7 +20,7 @@ Depends:
  aestheticdistance-by-youthuprising-data
 Description: Demo for Linux, released in 2007
  Demo by Youth Uprising, released in 2007
- .: Aesthetic Distance - A demo by Youth Uprising.
+ Aesthetic Distance - A demo by Youth Uprising.
  Produced November through December 2007.
  Released at the Ultimate Meeting '07.
 

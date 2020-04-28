@@ -1,2 +1,4 @@
 aestheticdistance-by-youthuprising binary: unknown-section demos
 aestheticdistance-by-youthuprising binary: desktop-entry-lacks-keywords-entry usr/share/applications/aestheticdistance-by-youthuprising.desktop
+aestheticdistance-by-youthuprising binary: hardening-no-pie usr/lib/i386-linux-gnu/aestheticdistance-by-youthuprising/demo.linux32
+aestheticdistance-by-youthuprising binary: hardening-no-relro usr/lib/i386-linux-gnu/aestheticdistance-by-youthuprising/demo.linux32
