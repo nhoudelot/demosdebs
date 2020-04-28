@@ -1,3 +1,9 @@
+Description: adapt music path
+ use /tmp while building temporary file
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/demo/main.py
 +++ b/demo/main.py
 @@ -140,8 +140,9 @@

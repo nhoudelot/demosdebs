@@ -1,3 +1,8 @@
+Description: fixing python2 shebang
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/demo/effects.py
 +++ b/demo/effects.py
 @@ -1,3 +1,4 @@

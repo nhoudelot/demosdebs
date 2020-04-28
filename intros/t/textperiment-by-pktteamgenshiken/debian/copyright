@@ -7,13 +7,13 @@ Copyright: 2015 PKTteam & Genshiken
 License: public-domain
  (probably freeware)
 
-Files: demo/music.py
+Files: demo/music.*
 Copyright: 2001-12 Will Ware
 License: public-domain
  (probably freeware)
 
 Files: debian/*
-Copyright: 2019 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2019-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: GPL-3.0+
