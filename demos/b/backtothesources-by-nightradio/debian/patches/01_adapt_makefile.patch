@@ -1,34 +1,36 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/btts/make/Makefile
 +++ b/btts/make/Makefile
-@@ -1,7 +1,7 @@
+@@ -1,7 +1,8 @@
  SUNDOG = ../../sundog_engine/
  SUNVOX = ../../sunvox_engine/
  
 -APPNAME = btts
 +APPNAME = backtothesources-by-nightradio
++RM_F := rm -f
  
  include $(SUNDOG)various/sundog_makefile.inc
  include $(SUNVOX)sunvox_makefile.inc
-@@ -10,7 +10,7 @@
+@@ -10,7 +11,7 @@
  ## Main target options:                       ##
  ## ------------------------------------------ ##
  
 -CFLAGS = -O3 -s
-+CFLAGS += -O3 -fpermissive $(shell pkg-config gl --cflags)
++CFLAGS += -O3 -Wall -pipe -fpermissive $(shell pkg-config x11 gl xext --cflags) -std=gnu++98 -fabi-version=2
  #CFLAGS = -g
  
  ifeq ($(MAKECMDGOALS),palm)
-@@ -25,7 +25,12 @@
+@@ -25,7 +26,7 @@
  ifeq ($(MAKECMDGOALS),linux)
      #(remove -lrt on FreeBSD and Cygwin)
      # X11 (OpenGL) libs:
 -    LIBS = -L/usr/X11R6/lib -lpthread -lrt -lstdc++ -lX11 -lGL -lXext -lasound
-+GCCVERSIONGTEQ5 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 5)
-+ifeq "$(GCCVERSIONGTEQ5)" "1"
-+    CFLAGS += -std=gnu90
-+    CXXFLAGS += -fabi-compat-version=2
-+endif
-+    LIBS = -L/usr/X11R6/lib -lpthread -lrt -lstdc++ $(shell pkg-config x11 --libs) $(shell pkg-config gl --libs) $(shell pkg-config xext --libs) -lasound -lm
++    LIBS = -L/usr/X11R6/lib -pthread -lrt -lstdc++ $(shell pkg-config x11 gl xext --libs) -lasound -lm
      # X11 libs:
      #LIBS = -L/usr/X11R6/lib -lpthread -lrt -lstdc++ -lX11 -lasound
      # SDL:

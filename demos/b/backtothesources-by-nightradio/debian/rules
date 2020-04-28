@@ -1,20 +1,14 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-
-ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu"
-    export DEB_CFLAGS_MAINT_APPEND  = -march=core2
-endif
+export DEB_CFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 %:
-	dh $@ --parallel --sourcedirectory=btts/make
+	dh $@ --sourcedirectory=btts/make
 
 override_dh_auto_build:
 	dh_auto_build -- linux
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/backtothesources-by-nightradio.6.md -o debian/backtothesources-by-nightradio.6
 
 override_dh_fixperms:
 	dh_fixperms
