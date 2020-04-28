@@ -3,13 +3,12 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc,
+ debhelper (>= 10),
  mesa-common-dev,
  libsdl2-dev,
  libsdl2-mixer-dev,
- pkgconf
-Standards-Version: 4.1.4
+ pkg-config
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=50937
 
 Package: association-by-cyberneticgenetics

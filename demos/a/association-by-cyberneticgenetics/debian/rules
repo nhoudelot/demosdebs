@@ -5,8 +5,4 @@ export DEB_CFLAGS_MAINT_APPEND  = -flto
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 %:
-	dh $@ --parallel
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/association-by-cyberneticgenetics.6.md -o debian/association-by-cyberneticgenetics.6
+	dh $@

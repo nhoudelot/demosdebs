@@ -1,3 +1,9 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
 @@ -1,12 +1,15 @@
@@ -51,10 +57,10 @@
  #variables de compilation
  SHELL := /bin/sh
  CC := gcc
--CFLAGS += -Wall -pipe -pedantic $(shell pkgconf gl sdl SDL_mixer --cflags) -std=gnu90
--LDFLAGS += -L/usr/X11R6/lib $(shell pkgconf gl sdl SDL_mixer --libs) -lm
-+CFLAGS += -Wall -pipe -pedantic $(shell pkgconf gl sdl2 SDL2_mixer --cflags) -std=gnu90
-+LDFLAGS += -L/usr/X11R6/lib $(shell pkgconf gl sdl2 SDL2_mixer --libs) -lm
+-CFLAGS += -Wall -pipe -pedantic $(shell pkg-config gl sdl SDL_mixer --cflags) -std=gnu90
+-LDFLAGS += -L/usr/X11R6/lib $(shell pkg-config gl sdl SDL_mixer --libs) -lm
++CFLAGS += -Wall -pipe -pedantic $(shell pkg-config gl sdl2 SDL2_mixer --cflags) -std=gnu90
++LDFLAGS += -L/usr/X11R6/lib $(shell pkg-config gl sdl2 SDL2_mixer --libs) -lm
  
  TARGET   := association-by-cyberneticgenetics
  #variable de nettoyage
