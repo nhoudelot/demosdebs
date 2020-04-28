@@ -1,0 +1,17 @@
+Description: change data path
+ on system install, data path should be in /usr/share, so we have to change it in the code
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/boot.pixi
++++ b/boot.pixi
+@@ -118,7 +118,7 @@
+ if sv_load_dll() == -1 { exit( -1 ) }
+ dlcall( svl, sv_init, -1, 44100, 2, 0 )
+ dlcall( svl, sv_open_slot, 0 )
+-ts = "" sprintf( ts, "%s/data/music.sunvox", CURRENT_PATH )
++ts = "" sprintf( ts, "data/music.sunvox", CURRENT_PATH )
+ dlcall( svl, sv_load, 0, c_string( ts ) )
+ dlcall( svl, sv_rewind, 0, 0 )
+ 

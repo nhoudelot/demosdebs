@@ -1,0 +1,14 @@
+6bitgenesis-by-nightradio for Debian
+-----------------------------------
+
+Debian package for 6bit Genesis, a demo by NightRadio
+
+released in 2014
+
+This demo has no sources, so packaging can only be done with binary.
+
+more info : https://www.pouet.net/prod.php?which=64025
+
+I only kept the 64 bit version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 10 Dec 2019 18:28:43 +0100

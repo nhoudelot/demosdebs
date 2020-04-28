@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=6bit Genesis
+GenericName=Demo
+Comment=Demo by NightRadio, released in 2014
+Type=Application
+Exec=/usr/bin/6bitgenesis-by-nightradio
+Icon=6bitgenesis-by-nightradio
+Categories=AudioVideo;
+Name[fr_FR]=6bit Genesis

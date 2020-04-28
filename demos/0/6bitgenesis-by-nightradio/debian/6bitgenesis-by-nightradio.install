@@ -1,0 +1,5 @@
+debian/scripts/6bitgenesis-by-nightradio usr/bin/
+debian/resources/6bitgenesis-by-nightradio.desktop usr/share/applications/
+debian/resources/6bitgenesis-by-nightradio.png usr/share/icons/hicolor/256x256/apps/
+./data/bin/pixilang_linux_x86_64 usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/./data/bin/
+./data/lib/linux/lib_x86_64/sunvox.so usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/./data/lib/linux/lib_x86_64/
