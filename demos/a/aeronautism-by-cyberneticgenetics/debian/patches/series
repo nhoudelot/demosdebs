@@ -1,4 +1,4 @@
 01_adapt_makefile.patch
-03_adapthdatapath.patch
-04_adapt_to_png16.patch
-05_remove_fullscreen.patch
+02_adapt_datapath.patch
+03_adapt_to_png16.patch
+04_remove_fullscreen.patch
