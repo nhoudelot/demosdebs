@@ -5,3 +5,4 @@ aspaceodyssey-by-mental: embedded-library usr/lib/i386-linux-gnu/aspaceodyssey-b
 aspaceodyssey-by-mental: embedded-library usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/mnt04: libgd
 aspaceodyssey-by-mental: embedded-library usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/mnt04: libpng
 aspaceodyssey-by-mental: embedded-library usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/mnt04: zlib
+aspaceodyssey-by-mental: hardening-no-pie usr/lib/i386-linux-gnu/aspaceodyssey-by-mental/mnt04
