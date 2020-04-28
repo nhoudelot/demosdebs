@@ -1,2 +1,4 @@
-303-by-acme: desktop-entry-lacks-keywords-entry usr/share/applications/303-by-acme.desktop
-303-by-acme: unknown-section demos
+303-by-acme binary: desktop-entry-lacks-keywords-entry usr/share/applications/303-by-acme.desktop
+303-by-acme binary: unknown-section demos
+303-by-acme binary: hardening-no-pie usr/lib/i386-linux-gnu/303-by-acme/vir303
+303-by-acme binary: hardening-no-relro usr/lib/i386-linux-gnu/303-by-acme/vir303
