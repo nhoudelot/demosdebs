@@ -1,2 +1,4 @@
-business-by-jumalauta binary: unknown-section demos
-business-by-jumalauta binary: desktop-entry-lacks-keywords-entry usr/share/applications/business-by-jumalauta.desktop
+business-by-jumalauta: unknown-section demos
+business-by-jumalauta: desktop-entry-lacks-keywords-entry usr/share/applications/business-by-jumalauta.desktop
+business-by-jumalauta: hardening-no-pie usr/lib/i386-linux-gnu/business-by-jumalauta/demo.linux
+business-by-jumalauta: hardening-no-relro usr/lib/i386-linux-gnu/business-by-jumalauta/demo.linux
