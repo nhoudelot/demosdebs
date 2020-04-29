@@ -5,7 +5,3 @@
 
 override_dh_shlibdeps:
 	dh_shlibdeps -- -l.
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/engagethefresse-by-stroboholics.6.md -o debian/engagethefresse-by-stroboholics.6
