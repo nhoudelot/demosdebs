@@ -1,6 +1,6 @@
 01_adapt_makefile.patch
 02_remove_fullscreen.patch
-03_debianize_path.diff
+03_adapt_path.patch
 04_fix_warnings.patch
 05_convert_to_SDL2.patch
 06_better_quit.patch

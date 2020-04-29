@@ -1,6 +1,12 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,38 +1,36 @@
+@@ -1,38 +1,28 @@
  # unix/osx
  # Sorry no win32 target this time...
 -TARGET = unix
@@ -13,8 +19,8 @@
 +SHELL := /bin/sh
 +CC := gcc
 +CFLAGS += -Wall -std=gnu90 -pipe
-+INC := $(shell pkgconf sdl libjpeg gl --cflags)
-+LDFLAGS += $(shell pkgconf sdl libjpeg gl --libs) -lm
++INC := $(shell pkg-config sdl libjpeg gl --cflags)
++LDFLAGS += $(shell pkg-config sdl libjpeg gl --libs) -lm
 +OBJ := main.o piraali.o piraali2.o jpeg.o tausta.o font.o stara.o rays.o \
        pallot.o juttu.o cool_mzx/cool_mzx.a
 -HEADERS = include.h font.h tausta.h juttu.h pallot.h
@@ -28,22 +34,18 @@
 --I/sw/include
 -LIB = /sw/lib/libjpeg.a `sdl-config --static-libs` -lm
 -INSTALL = cp africa Africa.app/Contents/MacOS
+-endif
+-
+-export
+-
+-$(EXE): $(OBJ)
+-	$(CC) -o $@ $(OBJ) $(LIB)
+-	$(INSTALL)
 +HEADERS := include.h font.h tausta.h juttu.h pallot.h
 +TARGET := drfungigoesafrica-by-fit
 +
 +RM_F := rm -f
 +
-+#compilation en paralelle si disponible
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
- endif
- 
- export
- 
--$(EXE): $(OBJ)
--	$(CC) -o $@ $(OBJ) $(LIB)
--	$(INSTALL)
 +all: $(TARGET)
 +
 +$(TARGET): $(OBJ)

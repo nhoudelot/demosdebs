@@ -1,3 +1,8 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/jpeg.c
 +++ b/jpeg.c
 @@ -4,6 +4,7 @@
