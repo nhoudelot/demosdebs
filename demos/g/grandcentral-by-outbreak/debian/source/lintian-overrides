@@ -1,0 +1,6 @@
+grandcentral-by-outbreak source: source-is-missing GrandCentral_linux_32bit.elf
+grandcentral-by-outbreak source: source-is-missing GrandCentral_linux_64bit.elf
+grandcentral-by-outbreak source: source-is-missing libGLEW.so.1.5
+grandcentral-by-outbreak source: source-contains-prebuilt-windows-binary GrandCentral.exe
+grandcentral-by-outbreak source: source-contains-prebuilt-windows-binary audiere.dll
+

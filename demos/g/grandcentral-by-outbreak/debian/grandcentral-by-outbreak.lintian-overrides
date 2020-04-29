@@ -1,2 +1,5 @@
 grandcentral-by-outbreak: unknown-section demos
 grandcentral-by-outbreak: desktop-entry-lacks-keywords-entry usr/share/applications/grandcentral-by-outbreak.desktop
+grandcentral-by-outbreak: hardening-no-pie usr/lib/x86_64-linux-gnu/grandcentral-by-outbreak/GrandCentral_linux_64bit.elf
+grandcentral-by-outbreak: hardening-no-relro usr/lib/x86_64-linux-gnu/grandcentral-by-outbreak/GrandCentral_linux_64bit.elf
+
