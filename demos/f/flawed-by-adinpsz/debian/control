@@ -3,14 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc,
- pkgconf,
+ debhelper (>= 10),
+ pkg-config,
  libsdl2-dev,
  libglu1-mesa-dev,
  libfmodex-dev,
  libglew-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=57026
 
 Package: flawed-by-adinpsz
@@ -27,4 +26,4 @@ Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
 Description: data file for Linux demo, released in 2011
- Demo by adinpsz, released in 2011
+ data file for demo by adinpsz, released in 2011

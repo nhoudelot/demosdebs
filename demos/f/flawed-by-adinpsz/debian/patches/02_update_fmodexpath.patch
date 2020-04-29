@@ -1,3 +1,9 @@
+Description: migrate to fmodex
+ Migrate from fmod to fmodex
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Flawed/Sources/Music/Music.hpp
 +++ b/Flawed/Sources/Music/Music.hpp
 @@ -1,7 +1,7 @@

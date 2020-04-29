@@ -1,15 +1,21 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Flawed/Makefile
 +++ b/Flawed/Makefile
 @@ -12,9 +12,9 @@
  DEFINES += -O2
  DEFINES_DBG += -ggdb -D_DEBUG
  
--CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu++98 -fabi-version=2
--CFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl glu glew fmodex) -std=gnu90
--LDFLAGS += $(shell pkgconf --libs sdl glu glew fmodex)
-+CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl2 glu glew fmodex) -std=gnu++98 -fabi-version=2
-+CFLAGS += -Wall -pedantic -ansi -pipe $(shell pkgconf --cflags sdl2 glu glew fmodex) -std=gnu90
-+LDFLAGS += $(shell pkgconf --libs sdl2 glu glew fmodex)
+-CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell pkg-config --cflags sdl glu glew fmodex) -std=gnu++98 -fabi-version=2
+-CFLAGS += -Wall -pedantic -ansi -pipe $(shell pkg-config --cflags sdl glu glew fmodex) -std=gnu90
+-LDFLAGS += $(shell pkg-config --libs sdl glu glew fmodex)
++CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell pkg-config --cflags sdl2 glu glew fmodex) -std=gnu++98 -fabi-version=2
++CFLAGS += -Wall -pedantic -ansi -pipe $(shell pkg-config --cflags sdl2 glu glew fmodex) -std=gnu90
++LDFLAGS += $(shell pkg-config --libs sdl2 glu glew fmodex)
  
  ifeq ($(DEBUG),yes)
  	CXXFLAGS += $(DEFINES_DBG)
