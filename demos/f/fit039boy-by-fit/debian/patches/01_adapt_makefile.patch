@@ -1,3 +1,9 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -1,4 +1,4 @@
@@ -15,8 +21,8 @@
  
 -CFLAGS = -Wall -O2 -ffast-math `sdl-config --cflags`
 -LDFLAGS = `sdl-config --libs` -lGL -lm
-+CFLAGS += -Wall $(shell pkgconf sdl gl --cflags) -pipe -std=gnu90
-+LDFLAGS += $(shell pkgconf sdl gl --libs) -lm
++CFLAGS += -Wall $(shell pkg-config sdl gl --cflags) -pipe -std=gnu90
++LDFLAGS += $(shell pkg-config sdl gl --libs) -lm
  OBJ = main.o gl_render.o wavefront.o tga.o cgm.o cgm_gl.o writer.o \
 -catmull-rom.o stripe.o stiks.o houses.o vecmat.o 
 +catmull-rom.o stripe.o stiks.o houses.o vecmat.o

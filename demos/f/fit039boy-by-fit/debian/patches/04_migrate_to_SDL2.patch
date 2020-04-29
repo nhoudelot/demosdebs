@@ -1,13 +1,19 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -10,8 +10,8 @@
  MAKE = make
  TARGET = fit039boy-by-fit
  
--CFLAGS += -Wall $(shell pkgconf sdl gl --cflags) -pipe -std=gnu90
--LDFLAGS += $(shell pkgconf sdl gl --libs) -lm
-+CFLAGS += -Wall $(shell pkgconf sdl2 gl --cflags) -pipe -std=gnu90
-+LDFLAGS += $(shell pkgconf sdl2 gl --libs) -lm
+-CFLAGS += -Wall $(shell pkg-config sdl gl --cflags) -pipe -std=gnu90
+-LDFLAGS += $(shell pkg-config sdl gl --libs) -lm
++CFLAGS += -Wall $(shell pkg-config sdl2 gl --cflags) -pipe -std=gnu90
++LDFLAGS += $(shell pkg-config sdl2 gl --libs) -lm
  OBJ = main.o gl_render.o wavefront.o tga.o cgm.o cgm_gl.o writer.o \
  catmull-rom.o stripe.o stiks.o houses.o vecmat.o
  
