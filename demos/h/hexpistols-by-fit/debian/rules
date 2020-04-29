@@ -4,8 +4,4 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 #this package don't work with flto
 
 %:
-	dh $@ --parallel
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/hexpistols-by-fit.6.md -o debian/hexpistols-by-fit.6
+	dh $@
