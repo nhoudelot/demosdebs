@@ -3,10 +3,6 @@
 %:
 	dh $@
 
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/fastlove-by-wamma.6.md -o debian/fastlove-by-wamma.6
-
 override_dh_auto_install:
 	find . -name ".DS_Store" -delete
 	dh_auto_install
