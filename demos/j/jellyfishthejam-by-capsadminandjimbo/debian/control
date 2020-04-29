@@ -3,9 +3,8 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc
-Standards-Version: 4.1.4
+ debhelper (>= 10),
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=65870
 
 Package: jellyfishthejam-by-capsadminandjimbo
@@ -22,7 +21,7 @@ Description: Demo for Linux, released in 2015
  Code: Jimbo
  Music: CapsAdmin
  .
- This demo was written entirely in lua using the ffi to call into OpenGL.
+ This demo was written entirely in Lua using the ffi to call into OpenGL.
  The demo itself is source, and contains Win32 and Linux executables and
  libraries for running it.
  Thanks to:
