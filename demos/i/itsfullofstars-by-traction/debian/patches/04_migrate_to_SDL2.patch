@@ -1,3 +1,9 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.cpp
 +++ b/main.cpp
 @@ -81,7 +81,7 @@
@@ -84,10 +90,10 @@
  
  #linux Makefile setup
  ifeq ($(PLATFORM), LINUX)
--	LDFLAGS += -L/usr/lib/  -I./ $(shell pkgconf glu sdl fmodex --libs)
--	CFLAGS +=$(shell pkgconf glu sdl fmodex --cflags) -fpermissive
-+	LDFLAGS += -L/usr/lib/  -I./ $(shell pkgconf glu sdl2 fmodex --libs)
-+	CFLAGS +=$(shell pkgconf glu sdl2 fmodex --cflags) -fpermissive
+-	LDFLAGS += -L/usr/lib/  -I./ $(shell pkg-config glu sdl fmodex --libs)
+-	CFLAGS +=$(shell pkg-config glu sdl fmodex --cflags) -fpermissive
++	LDFLAGS += -L/usr/lib/  -I./ $(shell pkg-config glu sdl2 fmodex --libs)
++	CFLAGS +=$(shell pkg-config glu sdl2 fmodex --cflags) -fpermissive
  endif
  
  .PHONY: all all-before all-after clean clean-custom
