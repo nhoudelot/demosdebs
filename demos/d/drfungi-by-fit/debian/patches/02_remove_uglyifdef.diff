@@ -1,3 +1,8 @@
+Description: remove ifdef with UGLY_GL_HEADERS
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/kukat.c
 +++ b/kukat.c
 @@ -1,10 +1,5 @@

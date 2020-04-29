@@ -1,13 +1,19 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -6,8 +6,8 @@
  # General defaults
  SHELL := /bin/sh
  CC := gcc
--CFLAGS += -Wall $(shell pkgconf sdl gl libjpeg --cflags) -std=gnu90 -pipe
--LDFLAGS += $(shell pkgconf sdl gl libjpeg --libs) -lm
-+CFLAGS += -Wall $(shell pkgconf sdl2 gl libjpeg --cflags) -std=gnu90 -pipe
-+LDFLAGS += $(shell pkgconf sdl2 gl libjpeg --libs) -lm
+-CFLAGS += -Wall $(shell pkg-config sdl gl libjpeg --cflags) -std=gnu90 -pipe
+-LDFLAGS += $(shell pkg-config sdl gl libjpeg --libs) -lm
++CFLAGS += -Wall $(shell pkg-config sdl2 gl libjpeg --cflags) -std=gnu90 -pipe
++LDFLAGS += $(shell pkg-config sdl2 gl libjpeg --libs) -lm
  MZX := cool_mzx/cool_mzx.a
  OBJ := main.o jpeg.o kukat.o mcubes.o halftone.o tolppa.o
  

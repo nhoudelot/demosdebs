@@ -1,6 +1,12 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -2,35 +2,37 @@
+@@ -2,35 +2,30 @@
  # GNU make syntax
  
  # Change this... ATM known are OSX or empty for generic Unix/Linux
@@ -19,10 +25,17 @@
 -INC = -I/usr/local/include -I/sw/include -FOpenGL \
 --I/System/Library/Frameworks/OpenGL.framework/Headers
 -LIB = `/usr/local/bin/sdl-config --static-libs` /sw/lib/libjpeg.a -lm
+-endif
+-
+-export
+-
+-dr_fungi: $(OBJ) $(MZX)
+-	$(CC) -o dr_fungi $(OBJ) $(MZX) $(LIB)
+-	strip dr_fungi
 +SHELL := /bin/sh
 +CC := gcc
-+CFLAGS += -Wall $(shell pkgconf sdl gl libjpeg --cflags) -std=gnu90 -pipe
-+LDFLAGS += $(shell pkgconf sdl gl libjpeg --libs) -lm
++CFLAGS += -Wall $(shell pkg-config sdl gl libjpeg --cflags) -std=gnu90 -pipe
++LDFLAGS += $(shell pkg-config sdl gl libjpeg --libs) -lm
 +MZX := cool_mzx/cool_mzx.a
 +OBJ := main.o jpeg.o kukat.o mcubes.o halftone.o tolppa.o
 +
@@ -30,16 +43,6 @@
 +
 +TARGET=drfungi-by-fit
 +
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS := $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
- endif
- 
- export
- 
--dr_fungi: $(OBJ) $(MZX)
--	$(CC) -o dr_fungi $(OBJ) $(MZX) $(LIB)
--	strip dr_fungi
 +all: $(TARGET)
 +
 +$(TARGET): $(OBJ) $(MZX)
