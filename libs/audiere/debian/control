@@ -42,7 +42,6 @@ Description: Portable, high-level audio library
 
 Package: libaudiere
 Architecture: any
-Section: libs
 Multi-Arch: same
 Depends:
  ${misc:Depends},
