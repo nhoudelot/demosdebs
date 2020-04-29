@@ -1,2 +1,5 @@
-fieldtrip-by-lft binary: unknown-section demos
-fieldtrip-by-lft binary: desktop-entry-lacks-keywords-entry usr/share/applications/fieldtrip-by-lft.desktop
+fieldtrip-by-lft: unknown-section demos
+fieldtrip-by-lft: desktop-entry-lacks-keywords-entry usr/share/applications/fieldtrip-by-lft.desktop
+fieldtrip-by-lft: hardening-no-pie usr/lib/i386-linux-gnu/fieldtrip-by-lft/field_trip_by_lft
+fieldtrip-by-lft: hardening-no-relro usr/lib/i386-linux-gnu/fieldtrip-by-lft/field_trip_by_lft
+
