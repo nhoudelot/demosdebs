@@ -1,2 +1,5 @@
-daydream-by-hedelmae binary: unknown-section demos
-daydream-by-hedelmae binary: desktop-entry-lacks-keywords-entry usr/share/applications/daydream-by-hedelmae.desktop
+daydream-by-hedelmae: unknown-section demos
+daydream-by-hedelmae: desktop-entry-lacks-keywords-entry usr/share/applications/daydream-by-hedelmae.desktop
+daydream-by-hedelmae: hardening-no-pie usr/lib/i386-linux-gnu/daydream-by-hedelmae/daydream
+daydream-by-hedelmae: hardening-no-relro usr/lib/i386-linux-gnu/daydream-by-hedelmae/daydream
+
