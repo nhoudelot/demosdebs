@@ -1,2 +1,9 @@
-cold-by-adhocandkakmonsterklubben binary: unknown-section demos
-cold-by-adhocandkakmonsterklubben binary: desktop-entry-lacks-keywords-entry usr/share/applications/cold-by-adhocandkakmonsterklubben.desktop
+cold-by-adhocandkakmonsterklubben: unknown-section demos
+cold-by-adhocandkakmonsterklubben: desktop-entry-lacks-keywords-entry usr/share/applications/cold-by-adhocandkakmonsterklubben.desktop
+cold-by-adhocandkakmonsterklubben: binary-or-shlib-defines-rpath usr/lib/i386-linux-gnu/cold-by-adhocandkakmonsterklubben/adhoc_kmk_cold /usr/lib
+cold-by-adhocandkakmonsterklubben: binary-or-shlib-defines-rpath usr/lib/i386-linux-gnu/cold-by-adhocandkakmonsterklubben/adhoc_kmk_cold /usr/lib
+cold-by-adhocandkakmonsterklubben: embedded-library usr/lib/i386-linux-gnu/cold-by-adhocandkakmonsterklubben/adhoc_kmk_cold: tinyxml
+cold-by-adhocandkakmonsterklubben: hardening-no-pie usr/lib/i386-linux-gnu/cold-by-adhocandkakmonsterklubben/adhoc_kmk_cold
+cold-by-adhocandkakmonsterklubben: hardening-no-relro usr/lib/i386-linux-gnu/cold-by-adhocandkakmonsterklubben/adhoc_kmk_cold
+
+
