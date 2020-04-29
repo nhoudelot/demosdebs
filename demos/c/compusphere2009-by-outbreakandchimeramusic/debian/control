@@ -3,16 +3,15 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc,
+ debhelper (>= 10),
  libglu1-mesa-dev,
  libxrandr-dev,
  libpng12-0,
  libjpeg62-dev|libjpeg62-turbo-dev,
  libx11-dev,
- libaudiere,
+ libaudiere-dev,
  libglew1.5
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=53195
 
 Package: compusphere2009-by-outbreakandchimeramusic
