@@ -1,2 +1,3 @@
 hugeupsidedownsquirrel-by-candela: unknown-section demos
 hugeupsidedownsquirrel-by-candela: desktop-entry-lacks-keywords-entry usr/share/applications/hugeupsidedownsquirrel-by-candela.desktop
+hugeupsidedownsquirrel-by-candela: hardening-no-pie usr/lib/x86_64-linux-gnu/hugeupsidedownsquirrel-by-candela/demo_64
