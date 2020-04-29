@@ -4,8 +4,4 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 #flto is not working on this package
 
 %:
-	dh $@ --parallel
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/chrysler-by-fitandbandwagon.6.md -o debian/chrysler-by-fitandbandwagon.6
+	dh $@
