@@ -1,3 +1,9 @@
+Description: better fullscreen
+ update fullscreen function, to make go fullscreen and back, with the same key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/cool_gfx/gfx_sdl.c
 +++ b/cool_gfx/gfx_sdl.c
 @@ -93,6 +93,13 @@

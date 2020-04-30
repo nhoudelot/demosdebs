@@ -1,3 +1,8 @@
+Description: add a title to the window
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/cool_gfx/gfx_sdl.c
 +++ b/cool_gfx/gfx_sdl.c
 @@ -80,7 +80,7 @@
