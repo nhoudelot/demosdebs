@@ -1,1 +1,4 @@
-nostalgia-by-gnb binary: unknown-section demos
+nostalgia-by-gnb: unknown-section demos
+nostalgia-by-gnb: hardening-no-pie usr/lib/x86_64-linux-gnu/nostalgia-by-gnb/Nostalgia.release
+nostalgia-by-gnb: hardening-no-relro usr/lib/x86_64-linux-gnu/nostalgia-by-gnb/Nostalgia.release
+
