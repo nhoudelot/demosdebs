@@ -1,2 +1,5 @@
-outbreak10years-by-outbreak binary: unknown-section demos
-outbreak10years-by-outbreak binary: desktop-entry-lacks-keywords-entry usr/share/applications/outbreak10years-by-outbreak.desktop
+outbreak10years-by-outbreak: unknown-section demos
+outbreak10years-by-outbreak: desktop-entry-lacks-keywords-entry usr/share/applications/outbreak10years-by-outbreak.desktop
+outbreak10years-by-outbreak: hardening-no-pie usr/lib/i386-linux-gnu/outbreak10years-by-outbreak/i686/tenyears
+outbreak10years-by-outbreak: hardening-no-relro usr/lib/i386-linux-gnu/outbreak10years-by-outbreak/i686/tenyears
+

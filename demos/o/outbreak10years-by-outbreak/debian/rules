@@ -5,7 +5,3 @@
 
 override_dh_strip:
 	dh_strip -Xi686/tenyears
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/outbreak10years-by-outbreak.6.md -o debian/outbreak10years-by-outbreak.6
