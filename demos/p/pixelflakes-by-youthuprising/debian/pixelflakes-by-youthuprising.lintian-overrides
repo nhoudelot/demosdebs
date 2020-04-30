@@ -1,1 +1,7 @@
-pixelflakes-by-youthuprising binary: unknown-section demos
+pixelflakes-by-youthuprising: unknown-section demos
+pixelflakes-by-youthuprising: binary-or-shlib-defines-rpath usr/lib/x86_64-linux-gnu/pixelflakes-by-youthuprising/PixelFlakes_YUP_Linux /home/greg/dev/cpp/beast/bin
+pixelflakes-by-youthuprising: binary-or-shlib-defines-rpath usr/lib/x86_64-linux-gnu/pixelflakes-by-youthuprising/PixelFlakes_YUP_Linux /home/greg/dev/cpp/beast/lib
+pixelflakes-by-youthuprising: symlink-target-in-tmp symlink usr/lib/x86_64-linux-gnu/pixelflakes-by-youthuprising/Log.txt point to /tmp/Log.txt
+pixelflakes-by-youthuprising: hardening-no-pie usr/lib/x86_64-linux-gnu/pixelflakes-by-youthuprising/PixelFlakes_YUP_Linux
+pixelflakes-by-youthuprising: hardening-no-relro usr/lib/x86_64-linux-gnu/pixelflakes-by-youthuprising/PixelFlakes_YUP_Linux
+

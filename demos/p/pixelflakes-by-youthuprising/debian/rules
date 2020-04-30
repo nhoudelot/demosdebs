@@ -9,4 +9,3 @@ override_dh_shlibdeps:
 override_dh_install:
 	find linux -type f -name 'PixelFlakes_YUP_Linux' -exec chmod +x {} \;
 	dh_install
-	pandoc -s -t man -f markdown debian/pixelflakes-by-youthuprising.6.md -o debian/pixelflakes-by-youthuprising.6
