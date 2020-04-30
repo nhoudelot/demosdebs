@@ -1,3 +1,9 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/Makefile
 +++ b/src/Makefile
 @@ -1,16 +1,34 @@
@@ -13,8 +19,8 @@
 +#variables de compilation
 +SHELL   := /bin/sh
 +CC      := gcc
-+CFLAGS  += -Wall -pipe $(shell pkgconf --cflags glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0)
-+LDFLAGS += $(shell pkgconf --libs glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
++CFLAGS  += -Wall -pipe $(shell pkg-config --cflags glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0)
++LDFLAGS += $(shell pkg-config --libs glew gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
 +TARGET  := livininabox-by-cyberneticgenetics
 +#variable de nettoyage
 +RM_F := rm -f

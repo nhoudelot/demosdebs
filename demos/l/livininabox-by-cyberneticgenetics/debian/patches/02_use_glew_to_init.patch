@@ -1,3 +1,8 @@
+Description: use glew to init
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/cg_x11.c
 +++ b/src/cg_x11.c
 @@ -1,5 +1,6 @@

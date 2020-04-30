@@ -6,8 +6,4 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 
 %:
-	dh $@ --parallel --sourcedirectory=src
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/livininabox-by-cyberneticgenetics.6.md -o debian/livininabox-by-cyberneticgenetics.6
+	dh $@ --sourcedirectory=src

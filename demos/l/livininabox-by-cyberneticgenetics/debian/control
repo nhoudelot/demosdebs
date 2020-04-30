@@ -3,8 +3,8 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pkgconf,
+ debhelper (>= 10),
+ pkg-config,
  libpng-dev,
  mesa-common-dev,
  libasound2-dev,
@@ -14,8 +14,7 @@ Build-Depends:
  libgl1-mesa-dev,
  libvorbis-dev,
  libgtk-3-dev,
- pandoc
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=59386
 
 Package: livininabox-by-cyberneticgenetics
