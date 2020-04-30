@@ -1,3 +1,9 @@
+Description: change to a bigger resolution
+ the app was made at a time when screens were not so big
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/obsoleet.d3m0
 +++ b/obsoleet.d3m0
 @@ -5,8 +5,8 @@
