@@ -1,3 +1,8 @@
+Description: add new resolutions
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/origami.c
 +++ b/src/origami.c
 @@ -6529,12 +6529,17 @@

@@ -1,3 +1,8 @@
+Description: remove some flag to pass on debian/rules
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/configure.ac
 +++ b/configure.ac
 @@ -35,11 +35,7 @@
