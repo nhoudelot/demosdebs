@@ -8,6 +8,5 @@ override_dh_shlibdeps:
 
 override_dh_install:
 	dh_install
-	pandoc -s -t man -f markdown debian/nightdrive-by-contraz.6.md -o debian/nightdrive-by-contraz.6
 	mkdir -p "debian/nightdrive-by-contraz/usr/share/icons/hicolor/128x128/apps/"
 	cp "NightDrive.png" "debian/nightdrive-by-contraz/usr/share/icons/hicolor/128x128/apps/nightdrive-by-contraz.png"
