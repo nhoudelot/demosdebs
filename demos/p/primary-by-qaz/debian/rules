@@ -2,7 +2,3 @@
 
 %:
 	dh $@
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/primary-by-qaz.6.md -o debian/primary-by-qaz.6

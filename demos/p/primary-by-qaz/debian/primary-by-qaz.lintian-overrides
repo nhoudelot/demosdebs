@@ -1,2 +1,6 @@
 primary-by-qaz: unknown-section demos
 primary-by-qaz: desktop-entry-lacks-keywords-entry usr/share/applications/primary-by-qaz.desktop
+primary-by-qaz: hardening-no-pie usr/lib/x86_64-linux-gnu/primary-by-qaz/qaz-primary-linux
+primary-by-qaz: embedded-library usr/lib/x86_64-linux-gnu/primary-by-qaz/qaz-primary-linux: glew
+primary-by-qaz: embedded-library usr/lib/x86_64-linux-gnu/primary-by-qaz/qaz-primary-linux: zlib
+
