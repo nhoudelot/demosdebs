@@ -1,2 +1,3 @@
-lusiuslu01-by-mentai binary: unknown-section demos
-lusiuslu01-by-mentai binary: desktop-entry-lacks-keywords-entry usr/share/applications/lusiuslu01-by-mentai.desktop
+lusiuslu01-by-mentai: unknown-section demos
+lusiuslu01-by-mentai: desktop-entry-lacks-keywords-entry usr/share/applications/lusiuslu01-by-mentai.desktop
+lusiuslu01-by-mentai: hardening-no-pie usr/lib/i386-linux-gnu/lusiuslu01-by-mentai/lu-01

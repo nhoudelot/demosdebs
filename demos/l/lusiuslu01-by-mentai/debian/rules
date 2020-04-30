@@ -3,9 +3,5 @@
 %:
 	dh $@
 
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/lusiuslu01-by-mentai.6.md -o debian/lusiuslu01-by-mentai.6
-
 override_dh_shlibdeps:
 	dh_shlibdeps -XlibGLEW.so.1.5 -- -l. --ignore-missing-info
