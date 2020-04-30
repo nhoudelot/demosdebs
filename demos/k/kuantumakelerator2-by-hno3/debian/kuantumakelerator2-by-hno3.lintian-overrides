@@ -1,2 +1,5 @@
-kuantumakelerator2-by-hno3 binary: unknown-section demos
-kuantumakelerator2-by-hno3 binary: desktop-entry-lacks-keywords-entry usr/share/applications/kuantumakelerator2-by-hno3.desktop
+kuantumakelerator2-by-hno3: unknown-section demos
+kuantumakelerator2-by-hno3: desktop-entry-lacks-keywords-entry usr/share/applications/kuantumakelerator2-by-hno3.desktop
+kuantumakelerator2-by-hno3: hardening-no-pie usr/lib/i386-linux-gnu/kuantumakelerator2-by-hno3/kuantum2-linux
+kuantumakelerator2-by-hno3: hardening-no-relro usr/lib/i386-linux-gnu/kuantumakelerator2-by-hno3/kuantum2-linux
+
