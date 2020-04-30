@@ -6,4 +6,3 @@
 override_dh_install:
 	cp run_demo.py restart-by-xplsv
 	dh_install
-	pandoc -s -t man -f markdown debian/restart-by-xplsv.6.md -o debian/restart-by-xplsv.6

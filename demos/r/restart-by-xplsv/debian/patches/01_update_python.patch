@@ -1,3 +1,8 @@
+Description: update python shebang
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/run_demo.py
 +++ b/run_demo.py
 @@ -1,4 +1,4 @@
