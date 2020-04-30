@@ -3,8 +3,7 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc,
+ debhelper (>= 10),
  libglu1-mesa-dev,
  libx11-dev,
  libxrandr-dev,
@@ -14,7 +13,7 @@ Build-Depends:
  libglew1.5,
  dh-python,
  python|python-all|python-all-dev (>= 2.6.6-3~)
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=57448
 
 Package: lunareactivation-by-vovoid-launcher
@@ -22,6 +21,7 @@ Architecture: all
 Multi-Arch: foreign
 Depends:
  ${python:Depends},
+ ${misc:Depends},
  python-gtk2,
  common-install-function-ddebs(>=1.18)
 Description: Demo launcher for Linux, released in 2011

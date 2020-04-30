@@ -8,7 +8,3 @@ override_dh_python2:
 
 override_dh_shlibdeps:
 	dh_shlibdeps -Xdemo/libGLEW.so.1.5 -- -l./demo --ignore-missing-info
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/lunareactivation-by-vovoid.6.md -o debian/lunareactivation-by-vovoid.6
