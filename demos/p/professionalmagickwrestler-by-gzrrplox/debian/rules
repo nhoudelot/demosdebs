@@ -9,4 +9,3 @@ override_dh_install:
 	cp "win32/Professional magick wrestler_4.mp3" "debian/professionalmagickwrestler-by-gzrrplox-data/usr/share/professionalmagickwrestler-by-gzrrplox/Professional magick wrestler_4.mp3"
 	chmod -x "debian/professionalmagickwrestler-by-gzrrplox-data/usr/share/professionalmagickwrestler-by-gzrrplox/Professional magick wrestler_4.mp3"
 	ln -s "/usr/share/professionalmagickwrestler-by-gzrrplox/Professional magick wrestler_4.mp3" "debian/professionalmagickwrestler-by-gzrrplox/usr/lib/x86_64-linux-gnu/professionalmagickwrestler-by-gzrrplox/Professional magick wrestler_4.mp3"
-	pandoc -s -t man -f markdown debian/professionalmagickwrestler-by-gzrrplox.6.md -o debian/professionalmagickwrestler-by-gzrrplox.6

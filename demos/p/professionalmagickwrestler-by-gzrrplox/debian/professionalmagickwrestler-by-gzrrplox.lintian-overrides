@@ -1,2 +1,4 @@
 professionalmagickwrestler-by-gzrrplox: unknown-section demos
 professionalmagickwrestler-by-gzrrplox: desktop-entry-lacks-keywords-entry usr/share/applications/professionalmagickwrestler-by-gzrrplox.desktop
+professionalmagickwrestler-by-gzrrplox: hardening-no-pie usr/lib/x86_64-linux-gnu/professionalmagickwrestler-by-gzrrplox/pmw-960x600-windowed
+
