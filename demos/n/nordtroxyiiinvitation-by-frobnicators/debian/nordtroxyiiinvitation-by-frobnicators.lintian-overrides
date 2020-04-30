@@ -1,1 +1,4 @@
-nordtroxyiiinvitation-by-frobnicators binary: unknown-section demos
+nordtroxyiiinvitation-by-frobnicators: unknown-section demos
+nordtroxyiiinvitation-by-frobnicators: hardening-no-pie usr/lib/i386-linux-gnu/nordtroxyiiinvitation-by-frobnicators/bin/nox2
+nordtroxyiiinvitation-by-frobnicators: package-has-unnecessary-activation-of-ldconfig-trigger
+nordtroxyiiinvitation-by-frobnicators: embedded-library usr/lib/i386-linux-gnu/nordtroxyiiinvitation-by-frobnicators/libs/libGLEW.so.1.6: glew
