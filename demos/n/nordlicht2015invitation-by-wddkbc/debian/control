@@ -3,15 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pkgconf,
+ debhelper (>= 10),
+ pkg-config,
  libglew-dev,
  libglm-dev,
  libglfw3-dev,
  libbass-dev,
  libsoil-dev,
- pandoc
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=65385
 Vcs-Browser: https://github.com/dop3j0e/imvitation
 Vcs-Git: https://github.com/dop3j0e/imvitation.git

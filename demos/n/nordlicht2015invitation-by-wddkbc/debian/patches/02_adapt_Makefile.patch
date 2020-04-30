@@ -6,7 +6,7 @@ Last-Update: 2019-12-21
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,14 +1,49 @@
+@@ -1,14 +1,37 @@
 -CXXFLAGS=-std=c++11 -O2 -Ibass $(shell pkgconf --cflags glew)
 -LDFLAGS=-lbass -lglfw  	$(shell pkgconf --libs glew) -lSOIL -lGL
 -STATICS=glew/glew-1.12.0/build/lib/libGLEW.a glew/glew-1.12.0/build/lib/libGLEWmx.a
@@ -17,7 +17,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +TARGET   := nordlicht2015invitation-by-wddkbc
 +#variable de nettoyage
 +RM_F := rm -f
-
+ 
 -$(OUTFILE): k.i.t.t.o scn-cubewall.o scn-end.o scn-forever.o scn-ink.o scn-lazor.o scn-outstorm.o scn-park.o scn-pictures.o scn-rocket.o main.o
 +#variables d’installation
 +INSTALL := install
@@ -30,29 +30,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +datarootdir     := $(prefix)/share
 +datadir         := $(prefix)/share/nordlicht2015invitation-by-wddkbc/data
 +
-+CXXFLAGS += -Wall -pipe -std=c++11 -Ibass $(shell pkgconf --cflags glew)
-+LDFLAGS += -Wall -pipe -lbass -lglfw $(shell pkgconf --libs glew) -lSOIL -lGL
-+
-+#get DEB_BUILD_MAINT_OPTIONS working
-+ifneq (,$(filter noopt,$(DEB_BUILD_MAINT_OPTIONS)))
-+    CFLAGS += -O0
-+endif
-+ifeq (,$(filter nostrip,$(DEB_BUILD_MAINT_OPTIONS)))
-+    INSTALL_PROGRAM += -s
-+endif
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
-+endif
++CXXFLAGS += -Wall -pipe -std=c++11 -Ibass $(shell pkg-config --cflags glew)
++LDFLAGS += -Wall -pipe -lbass -lglfw $(shell pkg-config --libs glew) -lSOIL -lGL
 +
 +$(TARGET): k.i.t.t.o scn-cubewall.o scn-end.o scn-forever.o scn-ink.o scn-lazor.o scn-outstorm.o scn-park.o scn-pictures.o scn-rocket.o main.o
  	#cp bass/x64/libbass.so libbass.so
 -	$(CXX) -o $@ $(LDFLAGS) $^ $(LDFLAGS) #$(STATICS)
 +	$(CXX) -o $@ $(CXXFLAGS) $^ $(LDFLAGS)
-
+ 
  %.o: %.cpp
  	$(CXX) -c $(CXXFLAGS) $< -o $@
-
+ 
  clean:
 -	rm -f $(OUTFILE) *.o
 +	-@$(RM_F) $(TARGET) *.o
