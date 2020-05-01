@@ -1,2 +1,5 @@
-sci-by-freshmindworkz binary: unknown-section demos
-sci-by-freshmindworkz binary: desktop-entry-lacks-keywords-entry usr/share/applications/sci-by-freshmindworkz.desktop
+sci-by-freshmindworkz: unknown-section demos
+sci-by-freshmindworkz: desktop-entry-lacks-keywords-entry usr/share/applications/sci-by-freshmindworkz.desktop
+sci-by-freshmindworkz: hardening-no-pie usr/lib/i386-linux-gnu/sci-by-freshmindworkz/sci.lnx
+sci-by-freshmindworkz: hardening-no-relro usr/lib/i386-linux-gnu/sci-by-freshmindworkz/sci.lnx
+
