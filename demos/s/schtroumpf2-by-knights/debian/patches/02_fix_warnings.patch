@@ -1,3 +1,9 @@
+Description: fixing several simple warnings 
+ fix includes path too
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/introsystem.h
 +++ b/src/introsystem.h
 @@ -23,8 +23,9 @@

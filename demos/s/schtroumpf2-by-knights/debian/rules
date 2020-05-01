@@ -2,17 +2,9 @@
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu"
-    export DEB_CFLAGS_MAINT_APPEND  = -march=core2
-endif
-
 %:
-	dh $@ --with autoreconf --parallel
+	dh $@
 
 override_dh_auto_configure:
 	./autogen.sh
 	dh_auto_configure
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/schtroumpf2-by-knights.6.md -o debian/schtroumpf2-by-knights.6
