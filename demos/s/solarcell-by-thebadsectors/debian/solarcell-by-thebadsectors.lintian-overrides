@@ -2,4 +2,7 @@ solarcell-by-thebadsectors: unknown-section demos
 solarcell-by-thebadsectors: desktop-entry-lacks-keywords-entry usr/share/applications/solarcell-by-thebadsectors.desktop
 solarcell-by-thebadsectors: embedded-library usr/lib/x86_64-linux-gnu/solarcell-by-thebadsectors/tbs-sc-linux-64bit.lnx: glew
 solarcell-by-thebadsectors: embedded-library usr/lib/x86_64-linux-gnu/solarcell-by-thebadsectors/tbs-sc-linux-64bit.lnx: tinyxml
+solarcell-by-thebadsectors: hardening-no-pie usr/lib/x86_64-linux-gnu/solarcell-by-thebadsectors/tbs-sc-linux-64bit.lnx
+solarcell-by-thebadsectors: hardening-no-relro usr/lib/x86_64-linux-gnu/solarcell-by-thebadsectors/tbs-sc-linux-64bit.lnx
+
 
