@@ -1,3 +1,8 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/Bitmapfont.cpp
 +++ b/src/Bitmapfont.cpp
 @@ -61,7 +61,7 @@
