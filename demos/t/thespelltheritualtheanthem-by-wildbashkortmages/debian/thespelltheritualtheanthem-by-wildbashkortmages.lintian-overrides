@@ -1,1 +1,3 @@
-thespelltheritualtheanthem-by-wildbashkortmages binary: unknown-section demos
+thespelltheritualtheanthem-by-wildbashkortmages: unknown-section demos
+thespelltheritualtheanthem-by-wildbashkortmages: embedded-library usr/lib/x86_64-linux-gnu/thespelltheritualtheanthem-by-wildbashkortmages/bashkortostan: libjsoncpp
+thespelltheritualtheanthem-by-wildbashkortmages: hardening-no-pie usr/lib/x86_64-linux-gnu/thespelltheritualtheanthem-by-wildbashkortmages/bashkortostan
