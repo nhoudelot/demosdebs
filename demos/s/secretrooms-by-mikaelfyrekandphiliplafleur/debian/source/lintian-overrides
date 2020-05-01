@@ -4,4 +4,7 @@ secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing secret-room
 secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing secret-rooms-linux64
 secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing libs/linux32/libSDL2-2.0.so.0
 secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing libs/linux64/libSDL2-2.0.so.0
+secretrooms-by-mikaelfyrekandphiliplafleur source: incomplete-creative-commons-license cc-by-nc-nd-3 (paragraph at line 5)
+secretrooms-by-mikaelfyrekandphiliplafleur source: incomplete-creative-commons-license cc-by-nc-nd-4 (paragraph at line 14)
+secretrooms-by-mikaelfyrekandphiliplafleur source: intra-source-package-circular-dependency secretrooms-by-mikaelfyrekandphiliplafleur secretrooms-by-mikaelfyrekandphiliplafleur-data
 
