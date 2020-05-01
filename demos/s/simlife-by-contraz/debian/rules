@@ -5,7 +5,3 @@
 
 override_dh_shlibdeps:
 	dh_shlibdeps -- --ignore-missing-info -l.
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/simlife-by-contraz.6.md -o debian/simlife-by-contraz.6
