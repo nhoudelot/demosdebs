@@ -1,3 +1,9 @@
+Description: make window resizable
+ make window resizable with correct ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2020-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
 @@ -6,8 +6,33 @@

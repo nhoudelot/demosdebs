@@ -1,3 +1,10 @@
+Description: remove fullscreen
+ the app start only in fullscreen
+ that could be annoying, so we start in windowed mode
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
 @@ -16,7 +16,6 @@
