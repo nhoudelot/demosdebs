@@ -1,2 +1,8 @@
 theworldinabubble-by-thebadsectors: unknown-section demos
 theworldinabubble-by-thebadsectors: desktop-entry-lacks-keywords-entry usr/share/applications/theworldinabubble-by-thebadsectors.desktop
+theworldinabubble-by-thebadsectors: embedded-library usr/lib/x86_64-linux-gnu/theworldinabubble-by-thebadsectors/tbs-bubble-linux-64bit.lnx: glew
+theworldinabubble-by-thebadsectors: embedded-library usr/lib/x86_64-linux-gnu/theworldinabubble-by-thebadsectors/tbs-bubble-linux-64bit.lnx: tinyxml
+theworldinabubble-by-thebadsectors: hardening-no-pie usr/lib/x86_64-linux-gnu/theworldinabubble-by-thebadsectors/tbs-bubble-linux-64bit.lnx
+theworldinabubble-by-thebadsectors: hardening-no-relro usr/lib/x86_64-linux-gnu/theworldinabubble-by-thebadsectors/tbs-bubble-linux-64bit.lnx
+
+

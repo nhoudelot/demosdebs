@@ -5,7 +5,3 @@
 
 override_dh_strip:
 	dh_strip -Xtbs-bubble-linux-32bit.lnx
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/theworldinabubble-by-thebadsectors.6.md -o debian/theworldinabubble-by-thebadsectors.6
