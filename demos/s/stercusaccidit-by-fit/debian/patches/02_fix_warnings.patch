@@ -1,3 +1,8 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/cool_mzx/sd_mix.c
 +++ b/cool_mzx/sd_mix.c
 @@ -52,6 +52,8 @@

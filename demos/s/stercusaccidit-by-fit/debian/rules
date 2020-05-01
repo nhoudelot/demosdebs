@@ -6,7 +6,3 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 %:
 	dh $@
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/stercusaccidit-by-fit.6.md -o debian/stercusaccidit-by-fit.6
