@@ -1,2 +1,5 @@
-valleyball-by-bluflame binary: unknown-section demos
-valleyball-by-bluflame binary: desktop-entry-lacks-keywords-entry usr/share/applications/valleyball-by-bluflame.desktop
+valleyball-by-bluflame: unknown-section demos
+valleyball-by-bluflame: desktop-entry-lacks-keywords-entry usr/share/applications/valleyball-by-bluflame.desktop
+valleyball-by-bluflame: hardening-no-pie usr/lib/i386-linux-gnu/valleyball-by-bluflame/v640x480_windowed
+valleyball-by-bluflame: hardening-no-relro usr/lib/i386-linux-gnu/valleyball-by-bluflame/v640x480_windowed
+
