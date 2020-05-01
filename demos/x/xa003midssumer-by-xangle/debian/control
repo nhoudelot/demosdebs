@@ -3,14 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc,
+ debhelper (>= 10),
  libgtk2.0-dev,
  libsdl2-dev,
  pkgconf,
  libsdl2-mixer-dev,
  libsdl2-image-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=17115
 
 Package: xa003midssumer-by-xangle

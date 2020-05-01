@@ -1,3 +1,9 @@
+Description: change data path
+ on system install, data path should be in /usr/share, so we have to change it in the code
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/base/main.cpp
 +++ b/base/main.cpp
 @@ -67,7 +67,7 @@
