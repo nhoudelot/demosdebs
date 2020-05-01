@@ -1,0 +1,9 @@
+summertime-by-resistance source: source-is-missing summertime_lin32
+summertime-by-resistance source: source-is-missing summertime_lin64
+summertime-by-resistance source: source-contains-prebuilt-windows-binary SDL.dll
+summertime-by-resistance source: source-contains-prebuilt-windows-binary SDL_mixer.dll
+summertime-by-resistance source: source-contains-prebuilt-windows-binary libogg-0.dll
+summertime-by-resistance source: source-contains-prebuilt-windows-binary libvorbis-0.dll
+summertime-by-resistance source: source-contains-prebuilt-windows-binary libvorbisfile-3.dll
+summertime-by-resistance source: source-contains-prebuilt-windows-binary summertime_win32.exe
+

@@ -1,2 +1,3 @@
 summertime-by-resistance: unknown-section demos
 summertime-by-resistance: desktop-entry-lacks-keywords-entry usr/share/applications/summertime-by-resistance.desktop
+summertime-by-resistance: hardening-no-pie usr/lib/x86_64-linux-gnu/summertime-by-resistance/summertime_lin64
