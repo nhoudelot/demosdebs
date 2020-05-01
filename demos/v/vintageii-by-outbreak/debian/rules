@@ -4,7 +4,3 @@
 	dh $@
 
 override_dh_strip:
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/vintageii-by-outbreak.6.md -o debian/vintageii-by-outbreak.6

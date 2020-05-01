@@ -1,3 +1,5 @@
 vintageii-by-outbreak: unknown-section demos
 vintageii-by-outbreak: desktop-entry-lacks-keywords-entry usr/share/applications/vintageii-by-outbreak.desktop
+vintageii-by-outbreak: hardening-no-pie usr/lib/i386-linux-gnu/vintageii-by-outbreak/vintageII.elf
+vintageii-by-outbreak: hardening-no-relro usr/lib/i386-linux-gnu/vintageii-by-outbreak/vintageII.elf
 
