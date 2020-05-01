@@ -1,2 +1,3 @@
-yetanotherchristmasdemo-by-tufs binary: unknown-section demos
-yetanotherchristmasdemo-by-tufs binary: desktop-entry-lacks-keywords-entry usr/share/applications/yetanotherchristmasdemo-by-tufs.desktop
+yetanotherchristmasdemo-by-tufs: unknown-section demos
+yetanotherchristmasdemo-by-tufs: desktop-entry-lacks-keywords-entry usr/share/applications/yetanotherchristmasdemo-by-tufs.desktop
+yetanotherchristmasdemo-by-tufs: hardening-no-pie usr/lib/i386-linux-gnu/yetanotherchristmasdemo-by-tufs/demo_windowed.elf

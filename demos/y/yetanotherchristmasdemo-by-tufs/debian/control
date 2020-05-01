@@ -3,14 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc,
+ debhelper (>= 10),
  libpng12-0,
  libglu1-mesa-dev,
  libx11-dev,
  libxxf86vm-dev,
  libvorbis-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=52218
 
 Package: yetanotherchristmasdemo-by-tufs
