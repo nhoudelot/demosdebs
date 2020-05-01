@@ -7,6 +7,8 @@ Copyright: 2005 xAngle
 License: GPL-2+
 
 Files: debian/*
-Copyright: 2016-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ 
 License: GPL-2+
  /usr/share/common-licenses/GPL-2
