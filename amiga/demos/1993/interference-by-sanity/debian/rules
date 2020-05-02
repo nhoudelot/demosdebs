@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	cd DH1 && zip -r -9 ../DH1.zip .
+	dh_install

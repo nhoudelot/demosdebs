@@ -1,0 +1,5 @@
+debian/scripts/no-by-polkabrothers usr/bin/
+debian/resources/no-by-polkabrothers.desktop usr/share/applications/
+debian/resources/no-by-polkabrothers.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/no-by-polkabrothers.fs-uae usr/share/no-by-polkabrothers/./
+./DH1.zip usr/share/no-by-polkabrothers/./

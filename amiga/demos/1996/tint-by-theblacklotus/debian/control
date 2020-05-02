@@ -1,0 +1,22 @@
+Source: tint-by-theblacklotus
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=701
+
+Package: tint-by-theblacklotus
+Architecture: all
+Depends:
+ fs-uae,
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.16),
+ amiga-whdloadharddisk,
+ ${misc:Depends}
+Description: Amiga Demo released in 1996
+ Demo ranked 1st at The Gathering 1996
+ .
+ -Amiga program launched using fs-uae

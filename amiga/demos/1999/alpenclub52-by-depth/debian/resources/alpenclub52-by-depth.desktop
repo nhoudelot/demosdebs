@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=alpenclüb '52
+GenericName=Demo
+Comment=Demo ranked 6th at Mekka and Symposium 1999
+Type=Application
+Exec=/usr/bin/alpenclub52-by-depth
+Icon=alpenclub52-by-depth
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=alpenclüb '52

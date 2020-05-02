@@ -1,0 +1,5 @@
+debian/scripts/laufertro-by-apex usr/bin/
+debian/resources/laufertro-by-apex.desktop usr/share/applications/
+debian/resources/laufertro-by-apex.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/laufertro-by-apex.fs-uae usr/share/laufertro-by-apex/./ 
+./DH1.zip usr/share/laufertro-by-apex/./ 

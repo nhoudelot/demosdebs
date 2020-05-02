@@ -1,0 +1,21 @@
+Source: response-by-avalon
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=12408
+
+Package: response-by-avalon
+Architecture: all
+Depends: fs-uae(>=2.6),
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga demo released in 1995
+ Demo ranked 2nd at The Gathering 1995
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Ringing a Doorbell
+GenericName=Demo
+Comment=demo released in october 1993
+Type=Application
+Exec=/usr/bin/ringingadoorbell-by-movement
+Icon=ringingadoorbell-by-movement
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Ringing a Doorbell

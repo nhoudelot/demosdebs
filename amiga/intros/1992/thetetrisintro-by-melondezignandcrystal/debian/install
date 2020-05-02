@@ -1,0 +1,5 @@
+debian/scripts/thetetrisintro-by-melondezignandcrystal usr/bin/
+debian/resources/thetetrisintro-by-melondezignandcrystal.desktop usr/share/applications/
+debian/resources/thetetrisintro-by-melondezignandcrystal.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/thetetrisintro-by-melondezignandcrystal.fs-uae usr/share/thetetrisintro-by-melondezignandcrystal/./ 
+./DH1.zip usr/share/thetetrisintro-by-melondezignandcrystal/./ 

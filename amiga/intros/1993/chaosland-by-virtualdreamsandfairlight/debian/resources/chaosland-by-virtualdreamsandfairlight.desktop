@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Chaosland
+GenericName=Demo
+Comment=intro ranked 1st at The Party 1993
+Type=Application
+Exec=/usr/bin/chaosland-by-virtualdreamsandfairlight
+Icon=chaosland-by-virtualdreamsandfairlight
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Chaosland

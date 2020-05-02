@@ -1,0 +1,5 @@
+debian/scripts/manualoverride-by-subacid usr/bin/
+debian/resources/manualoverride-by-subacid.desktop usr/share/applications/
+debian/resources/manualoverride-by-subacid.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/manualoverride-by-subacid.fs-uae usr/share/manualoverride-by-subacid/./
+./DH1.zip usr/share/manualoverride-by-subacid/./

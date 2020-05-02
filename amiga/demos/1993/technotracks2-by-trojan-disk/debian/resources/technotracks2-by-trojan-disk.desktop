@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Techno Tracks 2
+GenericName=Demo
+Comment=Techno Tracks 2 - Released at The Gathering 1993
+Type=Application
+Exec=/usr/bin/technotracks2-by-trojan-disk
+Icon=technotracks2-by-trojan-disk
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Techno Tracks 2

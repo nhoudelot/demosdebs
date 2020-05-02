@@ -1,0 +1,5 @@
+debian/scripts/wateengorekop-by-quartex usr/bin/
+debian/resources/wateengorekop-by-quartex.desktop usr/share/applications/
+debian/resources/wateengorekop-by-quartex.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/wateengorekop-by-quartex.fs-uae usr/share/wateengorekop-by-quartex/./ 
+./DH1.zip usr/share/wateengorekop-by-quartex/./ 

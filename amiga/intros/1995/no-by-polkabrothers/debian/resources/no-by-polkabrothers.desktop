@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=No!
+GenericName=Demo
+Comment=Demo ranked 9th at The Party 1995
+Type=Application
+Exec=/usr/bin/no-by-polkabrothers
+Icon=no-by-polkabrothers
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=No!

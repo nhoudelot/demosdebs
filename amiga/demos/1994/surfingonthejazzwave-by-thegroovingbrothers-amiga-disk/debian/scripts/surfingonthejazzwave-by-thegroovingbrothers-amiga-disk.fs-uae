@@ -1,0 +1,15 @@
+# FS-UAE configuration for surfingonthejazzwave-by-thegroovingbrothers-amiga-disk
+
+[config]
+scanlines = 1
+fullscreen = 0
+window_width = 720
+window_height = 576
+keep_aspect = 1
+kickstarts_file = internal
+
+[fs-uae]
+amiga_model = A1200/020
+floppy_drive_0 = /usr/share/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk1.adz
+floppy_drive_1 = /usr/share/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk2.adz
+fast_memory = 2048

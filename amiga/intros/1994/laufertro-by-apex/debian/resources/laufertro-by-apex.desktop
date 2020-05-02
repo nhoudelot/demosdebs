@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Laufer Tro
+GenericName=Demo
+Comment=Intro ranked 22th at The Party 1994
+Type=Application
+Exec=/usr/bin/laufertro-by-apex
+Icon=laufertro-by-apex
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Laufer Tro

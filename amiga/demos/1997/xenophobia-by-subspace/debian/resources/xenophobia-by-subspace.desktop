@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=xenophobia
+GenericName=Demo
+Comment=demo ranked 2nd at Icing Beta 1997
+Type=Application
+Exec=/usr/bin/xenophobia-by-subspace
+Icon=xenophobia-by-subspace
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=xenophobia

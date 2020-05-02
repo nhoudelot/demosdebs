@@ -1,0 +1,5 @@
+debian/scripts/thekillingofanegg-by-slimproductions usr/bin/
+debian/resources/thekillingofanegg-by-slimproductions.desktop usr/share/applications/
+debian/resources/thekillingofanegg-by-slimproductions.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/thekillingofanegg-by-slimproductions.fs-uae usr/share/thekillingofanegg-by-slimproductions/./ 
+./DH1.zip usr/share/thekillingofanegg-by-slimproductions/./ 

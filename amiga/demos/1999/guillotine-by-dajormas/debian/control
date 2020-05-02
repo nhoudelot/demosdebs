@@ -1,0 +1,22 @@
+Source: guillotine-by-dajormas
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.jormas.com/showproduction.php?name=Guillotine
+
+Package: guillotine-by-dajormas
+Architecture: all
+Depends:
+ fs-uae(>=2.8),
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.6),
+ ${misc:Depends}
+Description: Amiga demo released in 1999
+ Demo ranked 7th at Mekka and Symposium 1999
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

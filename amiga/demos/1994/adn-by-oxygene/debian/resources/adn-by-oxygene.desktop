@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=ADN
+GenericName=Demo
+Comment=Demo ranked 1st at 3S Party 1994
+Type=Application
+Exec=/usr/bin/adn-by-oxygene
+Icon=adn-by-oxygene
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=ADN

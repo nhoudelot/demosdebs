@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source common-install-function
+
+domain=real-by-complex
+
+APP_FULLNAME="Real"
+APP_COPYRIGHT="Complex"
+APP_DESC="Demo ranked 1st at Saturne 1994"
+
+function run()
+{
+	/usr/bin/fs-uae /usr/share/$domain/$domain.fs-uae $1
+}
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage_AMIGA
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage_AMIGA
+		;;
+	--fullscreen)
+		run --fullscreen
+		;;
+	--version)
+		NSH_version_AMIGA
+		;;
+	*)
+		NSH_std_usage_AMIGA
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

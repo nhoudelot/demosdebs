@@ -1,0 +1,22 @@
+Source: s-by-skarla
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=7852
+
+Package: s-by-skarla
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+ amiga-whdloadharddisk,
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga Intro released in 1994
+ intro ranked 17th at The Party 1994
+ .
+ -Amiga program launched using fs-uae

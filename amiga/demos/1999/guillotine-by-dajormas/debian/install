@@ -1,0 +1,5 @@
+debian/scripts/guillotine-by-dajormas usr/bin/
+debian/resources/guillotine-by-dajormas.desktop usr/share/applications/
+debian/resources/guillotine-by-dajormas.png usr/share/icons/hicolor/256x256/apps/
+./DH1.zip usr/share/guillotine-by-dajormas/./ 
+./debian/scripts/guillotine-by-dajormas.fs-uae usr/share/guillotine-by-dajormas/./ 

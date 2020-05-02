@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=voyage
+GenericName=Demo
+Comment=demo ranked 3rd at The Party 1991
+Type=Application
+Exec=/usr/bin/voyage-by-razor1911-disk
+Icon=voyage-by-razor1911-disk
+Categories=AudioVideo
+Name[fr_FR]=voyage

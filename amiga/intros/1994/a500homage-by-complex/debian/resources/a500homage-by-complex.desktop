@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=A500 Homage
+GenericName=Demo
+Comment=Intro ranked 11th at The Party 1994
+Type=Application
+Exec=/usr/bin/a500homage-by-complex
+Icon=a500homage-by-complex
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=A500 Homage

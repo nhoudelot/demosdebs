@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Away
+GenericName=Demo
+Comment=Demo ranked 1st at Trip 1999
+Type=Application
+Exec=/usr/bin/away-by-genesis
+Icon=away-by-genesis
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Away

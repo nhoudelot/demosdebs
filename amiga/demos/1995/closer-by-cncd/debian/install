@@ -1,0 +1,5 @@
+debian/scripts/closer-by-cncd usr/bin/
+debian/resources/closer-by-cncd.desktop usr/share/applications/
+debian/resources/closer-by-cncd.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/closer-by-cncd.fs-uae usr/share/closer-by-cncd/./ 
+./DH1.zip usr/share/closer-by-cncd/./ 

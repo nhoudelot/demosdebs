@@ -1,0 +1,5 @@
+debian/scripts/whenwerideinourenemies-by-skarla usr/bin/
+debian/resources/whenwerideinourenemies-by-skarla.desktop usr/share/applications/
+debian/resources/whenwerideinourenemies-by-skarla.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/whenwerideinourenemies-by-skarla.fs-uae usr/share/whenwerideinourenemies-by-skarla/./ 
+./DH1.zip usr/share/whenwerideinourenemies-by-skarla/./ 

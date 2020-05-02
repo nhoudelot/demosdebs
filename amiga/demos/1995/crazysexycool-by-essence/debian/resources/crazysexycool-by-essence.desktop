@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Crazy Sexy Cool
+GenericName=Demo
+Comment=demo ranked 5 at the Party 1995
+Type=Application
+Exec=/usr/bin/crazysexycool-by-essence
+Icon=crazysexycool-by-essence
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Crazy Sexy Cool

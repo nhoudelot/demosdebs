@@ -1,0 +1,5 @@
+debian/scripts/globaltrash-by-silents-disk usr/bin/
+debian/resources/globaltrash-by-silents-disk.desktop usr/share/applications/
+debian/resources/globaltrash-by-silents-disk.png usr/share/icons/hicolor/256x256/apps/
+./globaltrash-by-silents-disk.adz usr/share/globaltrash-by-silents-disk/./ 
+./debian/scripts/globaltrash-by-silents-disk.fs-uae usr/share/globaltrash-by-silents-disk/./ 

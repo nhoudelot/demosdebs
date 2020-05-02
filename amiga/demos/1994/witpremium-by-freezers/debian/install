@@ -1,0 +1,5 @@
+debian/scripts/witpremium-by-freezers usr/bin/
+debian/resources/witpremium-by-freezers.desktop usr/share/applications/
+debian/resources/witpremium-by-freezers.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/witpremium-by-freezers.fs-uae usr/share/witpremium-by-freezers/./ 
+./DH1.zip usr/share/witpremium-by-freezers/./ 

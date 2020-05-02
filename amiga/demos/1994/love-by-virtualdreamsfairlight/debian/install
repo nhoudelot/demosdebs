@@ -1,0 +1,5 @@
+debian/scripts/love-by-virtualdreamsfairlight usr/bin/
+debian/resources/love-by-virtualdreamsfairlight.desktop usr/share/applications/
+debian/resources/love-by-virtualdreamsfairlight.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/love-by-virtualdreamsfairlight.fs-uae usr/share/love-by-virtualdreamsfairlight/./ 
+./DH1.zip usr/share/love-by-virtualdreamsfairlight/./ 

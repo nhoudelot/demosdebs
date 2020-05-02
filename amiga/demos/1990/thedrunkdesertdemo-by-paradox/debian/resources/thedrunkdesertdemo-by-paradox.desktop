@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=The Drunk Desert Demo
+GenericName=Demo
+Comment=Demo by Paradox,released in 1990
+Type=Application
+Exec=/usr/bin/thedrunkdesertdemo-by-paradox
+Icon=thedrunkdesertdemo-by-paradox
+Categories=Game;
+Name[fr_FR]=The Drunk Desert Demo

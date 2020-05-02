@@ -1,0 +1,22 @@
+Source: smokebomb-by-ozone
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=170
+
+Package: smokebomb-by-ozone
+Architecture: all
+Depends:
+ fs-uae(>=2.8),
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.6),
+ ${misc:Depends}
+Description: Amiga demo released in 1999
+ Demo ranked 3rd at Mekka and Symposium 1999
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

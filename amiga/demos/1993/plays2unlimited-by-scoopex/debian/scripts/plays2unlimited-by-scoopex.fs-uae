@@ -1,0 +1,20 @@
+# FS-UAE configuration for plays2unlimited-by-scoopex
+
+[config]
+scanlines = 1
+fullscreen = 0
+window_width = 720
+window_height = 576
+keep_aspect = 1
+kickstarts_file = internal
+
+[fs-uae]o
+
+amiga_model = A4000/040
+hard_drive_0 = /usr/share/amiga/whdloadharddisk/whdloadharddisk.hdf
+hard_drive_1 = /tmp/plays2unlimited-by-scoopex/
+hard_drive_2 = ~/.local/share/whdload/ 
+hard_drive_2_label = L
+hard_drive_4 = ~/.local/share/WHDSaves/
+hard_drive_4_label = WHDSaves
+fast_memory = 4096

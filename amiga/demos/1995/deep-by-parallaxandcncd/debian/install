@@ -1,0 +1,5 @@
+debian/scripts/deep-by-parallaxandcncd usr/bin/
+debian/resources/deep-by-parallaxandcncd.desktop usr/share/applications/
+debian/resources/deep-by-parallaxandcncd.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/deep-by-parallaxandcncd.fs-uae usr/share/deep-by-parallaxandcncd/./ 
+./DH1.zip usr/share/deep-by-parallaxandcncd/./ 

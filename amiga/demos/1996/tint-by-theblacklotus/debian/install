@@ -1,0 +1,5 @@
+debian/scripts/tint-by-theblacklotus usr/bin/
+debian/resources/tint-by-theblacklotus.desktop usr/share/applications/
+debian/resources/tint-by-theblacklotus.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/tint-by-theblacklotus.fs-uae usr/share/tint-by-theblacklotus/./
+./DH1.zip usr/share/tint-by-theblacklotus/./

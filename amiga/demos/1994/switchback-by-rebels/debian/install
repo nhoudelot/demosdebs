@@ -1,0 +1,5 @@
+debian/scripts/switchback-by-rebels usr/bin/
+debian/resources/switchback-by-rebels.desktop usr/share/applications/
+debian/resources/switchback-by-rebels.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/switchback-by-rebels.fs-uae usr/share/switchback-by-rebels/./ 
+./DH1.zip usr/share/switchback-by-rebels/./ 

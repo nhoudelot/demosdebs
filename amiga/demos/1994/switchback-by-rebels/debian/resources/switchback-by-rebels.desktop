@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Switchback
+GenericName=Demo
+Comment=demo ranked 1st at Doom's Day Party 1994
+Type=Application
+Exec=/usr/bin/switchback-by-rebels
+Icon=switchback-by-rebels
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Switchback

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Extension
+GenericName=Demo
+Comment=Demo by Pygmy Projects, released in 1993
+Type=Application
+Exec=/usr/bin/extension-by-pygmyprojects-amiga-whd
+Icon=extension-by-pygmyprojects-amiga-whd
+Categories=AudioVideo;Game;
+Name[fr_FR]=Extension

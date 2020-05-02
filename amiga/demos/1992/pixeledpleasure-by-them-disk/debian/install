@@ -1,0 +1,5 @@
+debian/scripts/pixeledpleasure-by-them-disk usr/bin/
+debian/resources/pixeledpleasure-by-them-disk.desktop usr/share/applications/
+debian/resources/pixeledpleasure-by-them-disk.png usr/share/icons/hicolor/256x256/apps/
+./pixeledpleasure-by-them-disk.adz usr/share/pixeledpleasure-by-them-disk/./ 
+./debian/scripts/pixeledpleasure-by-them-disk.fs-uae usr/share/pixeledpleasure-by-them-disk/./ 

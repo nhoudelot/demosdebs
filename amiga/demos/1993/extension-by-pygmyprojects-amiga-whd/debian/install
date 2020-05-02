@@ -1,0 +1,5 @@
+debian/scripts/extension-by-pygmyprojects-amiga-whd usr/bin/
+debian/resources/extension-by-pygmyprojects-amiga-whd.desktop usr/share/applications/
+debian/resources/extension-by-pygmyprojects-amiga-whd.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/extension-by-pygmyprojects-amiga-whd.fs-uae usr/share/extension-by-pygmyprojects-amiga-whd/./
+./DH1.zip usr/share/extension-by-pygmyprojects-amiga-whd/./

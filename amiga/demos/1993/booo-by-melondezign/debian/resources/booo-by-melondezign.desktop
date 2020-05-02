@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Booo
+GenericName=Demo
+Comment=Demo released in frebruary 1993
+Type=Application
+Exec=/usr/bin/booo-by-melondezign
+Icon=booo-by-melondezign
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Booo

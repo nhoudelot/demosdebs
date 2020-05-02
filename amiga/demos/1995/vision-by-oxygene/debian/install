@@ -1,0 +1,6 @@
+debian/scripts/vision-by-oxygene usr/bin/
+debian/resources/vision-by-oxygene.desktop usr/share/applications/
+debian/resources/vision-by-oxygene.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/vision-by-oxygene.fs-uae usr/share/vision-by-oxygene/./ 
+./readme.txt usr/share/vision-by-oxygene/./ 
+./DH1.zip usr/share/vision-by-oxygene/./ 

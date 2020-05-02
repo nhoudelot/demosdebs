@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Lola (McIntro)
+GenericName=Demo
+Comment=Intro ranked 2nd at The Party 1994
+Type=Application
+Exec=/usr/bin/lola-by-freshprince
+Icon=lola-by-freshprince
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Lola (McIntro)

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=3 Seconds of Delight
+GenericName=Demo
+Comment=Intro released in 1994
+Type=Application
+Exec=/usr/bin/3secondsofdelight-by-movement
+Icon=3secondsofdelight-by-movement
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=3 Seconds of Delight

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Lethal Dose 2
+GenericName=Demo
+Comment=demo ranked 1st at The Hammering 1994
+Type=Application
+Exec=/usr/bin/lethaldose2-by-faculty-disk
+Icon=lethaldose2-by-faculty-disk
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Lethal Dose 2

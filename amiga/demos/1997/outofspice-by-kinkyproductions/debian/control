@@ -1,0 +1,22 @@
+Source: outofspice-by-kinkyproductions
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=14053
+
+Package: outofspice-by-kinkyproductions
+Architecture: all
+Depends:
+ fs-uae,
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.16),
+ amiga-whdloadharddisk,
+ ${misc:Depends}
+Description: Amiga Demo released in 1997
+ demo ranked 2nd at Abduction 1997
+ .
+ -Amiga program launched using fs-uae

@@ -1,0 +1,5 @@
+debian/scripts/darkside-by-theblacklotus-amiga-whd usr/bin/
+debian/resources/darkside-by-theblacklotus-amiga-whd.desktop usr/share/applications/
+debian/resources/darkside-by-theblacklotus-amiga-whd.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/darkside-by-theblacklotus-amiga-whd.fs-uae usr/share/darkside-by-theblacklotus-amiga-whd/./
+./DH1.zip usr/share/darkside-by-theblacklotus-amiga-whd/./

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=real surreal
+GenericName=Demo
+Comment=demo ranked 16th at The Party 1995
+Type=Application
+Exec=/usr/bin/realsurreal-by-impactdk
+Icon=realsurreal-by-impactdk
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=real surreal

@@ -1,0 +1,5 @@
+debian/scripts/thedrunkdesertdemo-by-paradox usr/bin/
+debian/resources/thedrunkdesertdemo-by-paradox.desktop usr/share/applications/
+debian/resources/thedrunkdesertdemo-by-paradox.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/thedrunkdesertdemo-by-paradox.fs-uae usr/share/thedrunkdesertdemo-by-paradox/./
+./DH1.zip usr/share/thedrunkdesertdemo-by-paradox/./

@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: hospitalsincefriday-by-sanity
+Source: https://www.pouet.net/prod.php?which=12763
+
+Files: *
+Copyright: 1993 Sanity
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2014-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".

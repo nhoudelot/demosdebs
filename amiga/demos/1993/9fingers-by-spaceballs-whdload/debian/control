@@ -1,0 +1,22 @@
+Source: 9fingers-by-spaceballs-whdload
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip 
+Standards-Version: 4.5.0
+Homepage: https://www.spaceballs.no/releases.php?list=1993
+
+Package: 9fingers-by-spaceballs-whdload
+Architecture: all
+Depends:
+ fs-uae(>=1.3.16),
+ amiga-whdloadharddisk(>=1.10),
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga demo released in 1993
+ Amiga trackmo ranked #4 at The Party 1993
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

@@ -1,0 +1,20 @@
+amiga-kickstartaros (1:1.0+git20200320-0ddebs1) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+  * new url, better descriptions
+  * projet now use github, so change epoch
+  * update from upstream to last working commit
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 May 2020 02:25:50 +0200
+
+amiga-kickstartaros (1.0+svn55493-0ddebs1) unstable; urgency=medium
+
+  * update from upstream to svn55493
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 09 Nov 2018 00:21:29 +0100
+
+amiga-kickstartaros (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 09 Nov 2018 00:19:58 +0100

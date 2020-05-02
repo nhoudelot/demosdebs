@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=out of spice
+GenericName=Demo
+Comment=demo ranked 2nd at Abduction 1997
+Type=Application
+Exec=/usr/bin/outofspice-by-kinkyproductions
+Icon=outofspice-by-kinkyproductions
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=out of spice

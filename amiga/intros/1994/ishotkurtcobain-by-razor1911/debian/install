@@ -1,0 +1,5 @@
+debian/scripts/ishotkurtcobain-by-razor1911 usr/bin/
+debian/resources/ishotkurtcobain-by-razor1911.desktop usr/share/applications/
+debian/resources/ishotkurtcobain-by-razor1911.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/ishotkurtcobain-by-razor1911.fs-uae usr/share/ishotkurtcobain-by-razor1911/./ 
+./DH1.zip usr/share/ishotkurtcobain-by-razor1911/./ 

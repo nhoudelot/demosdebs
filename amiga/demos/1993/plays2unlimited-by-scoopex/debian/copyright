@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: plays2unlimited-by-scoopex
+Source: https://www.pouet.net/prod.php?which=21401
+
+Files: *
+Copyright: 1993 Scoopex & 2 Unlimited
+License: proprietary
+ All Right Reserved
+
+Files: debian/*
+Copyright: 2014-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

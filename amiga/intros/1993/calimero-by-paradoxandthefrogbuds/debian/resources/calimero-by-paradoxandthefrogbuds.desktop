@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Calimero
+GenericName=Demo
+Comment=intro ranked 9th at The Party 1993
+Type=Application
+Exec=/usr/bin/calimero-by-paradoxandthefrogbuds
+Icon=calimero-by-paradoxandthefrogbuds
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Calimero

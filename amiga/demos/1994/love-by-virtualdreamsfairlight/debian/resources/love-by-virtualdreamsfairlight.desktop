@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Love
+GenericName=Demo
+Comment=Demo ranked 1st at South Sealand Party 1994
+Type=Application
+Exec=/usr/bin/love-by-virtualdreamsfairlight
+Icon=love-by-virtualdreamsfairlight
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Love

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Wat Een Gore Kop
+GenericName=Demo
+Comment=Intro ranked 18th at The Party 1994
+Type=Application
+Exec=/usr/bin/wateengorekop-by-quartex
+Icon=wateengorekop-by-quartex
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Wat Een Gore Kop

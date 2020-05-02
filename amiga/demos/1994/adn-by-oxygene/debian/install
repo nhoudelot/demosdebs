@@ -1,0 +1,5 @@
+debian/scripts/adn-by-oxygene usr/bin/
+debian/resources/adn-by-oxygene.desktop usr/share/applications/
+debian/resources/adn-by-oxygene.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/adn-by-oxygene.fs-uae usr/share/adn-by-oxygene/./ 
+./DH1.zip usr/share/adn-by-oxygene/./ 

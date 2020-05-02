@@ -1,0 +1,21 @@
+Source: arte-by-sanity-disk
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=1477
+
+Package: arte-by-sanity-disk
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Amiga demo released in 1993
+ demo ranked 3rd at The Party 1993
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

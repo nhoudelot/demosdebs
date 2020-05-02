@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Wit Premium
+GenericName=Demo
+Comment=demo ranked 2nd at Gelloween 1994
+Type=Application
+Exec=/usr/bin/witpremium-by-freezers
+Icon=witpremium-by-freezers
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Wit Premium

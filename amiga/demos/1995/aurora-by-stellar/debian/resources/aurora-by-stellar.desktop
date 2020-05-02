@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Aurora
+GenericName=Demo
+Comment=demo ranked 1st at Scenario 1995
+Type=Application
+Exec=/usr/bin/aurora-by-stellar
+Icon=aurora-by-stellar
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Aurora

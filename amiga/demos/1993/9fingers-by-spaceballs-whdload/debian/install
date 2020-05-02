@@ -1,0 +1,5 @@
+debian/scripts/9fingers-by-spaceballs-whdload usr/bin/
+debian/resources/9fingers-by-spaceballs-whdload.desktop usr/share/applications/
+debian/resources/9fingers-by-spaceballs-whdload.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/9fingers-by-spaceballs-whdload.fs-uae usr/share/9fingers-by-spaceballs-whdload/./
+./DH1.zip usr/share/9fingers-by-spaceballs-whdload/./

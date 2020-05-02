@@ -1,0 +1,5 @@
+debian/scripts/alpenclub52-by-depth usr/bin/
+debian/resources/alpenclub52-by-depth.desktop usr/share/applications/
+debian/resources/alpenclub52-by-depth.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/alpenclub52-by-depth.fs-uae usr/share/alpenclub52-by-depth/./ 
+./DH1.zip usr/share/alpenclub52-by-depth/./ 

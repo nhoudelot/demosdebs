@@ -1,0 +1,6 @@
+debian/scripts/odyssey-by-alcatraz usr/bin/
+debian/resources/odyssey-by-alcatraz.desktop usr/share/applications/
+debian/resources/odyssey-by-alcatraz.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/odyssey-by-alcatraz.fs-uae usr/share/odyssey-by-alcatraz/./ 
+./DH1.zip usr/share/odyssey-by-alcatraz/./ 
+

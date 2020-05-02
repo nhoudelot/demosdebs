@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=S
+GenericName=Demo
+Comment=intro ranked 17th at The Party 1994
+Type=Application
+Exec=/usr/bin/s-by-skarla
+Icon=s-by-skarla
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=S

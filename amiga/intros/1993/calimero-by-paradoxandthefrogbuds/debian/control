@@ -1,0 +1,22 @@
+Source: calimero-by-paradoxandthefrogbuds
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=10355
+
+Package: calimero-by-paradoxandthefrogbuds
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga Intro released in 1993
+ intro ranked 9th at The Party 1993
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

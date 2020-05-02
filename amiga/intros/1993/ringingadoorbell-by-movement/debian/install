@@ -1,0 +1,5 @@
+debian/scripts/ringingadoorbell-by-movement usr/bin/
+debian/resources/ringingadoorbell-by-movement.desktop usr/share/applications/
+debian/resources/ringingadoorbell-by-movement.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/ringingadoorbell-by-movement.fs-uae usr/share/ringingadoorbell-by-movement/./ 
+./DH1.zip usr/share/ringingadoorbell-by-movement/./ 

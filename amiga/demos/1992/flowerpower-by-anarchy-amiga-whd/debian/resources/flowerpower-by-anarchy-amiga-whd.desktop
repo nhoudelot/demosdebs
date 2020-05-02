@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Flower Power
+GenericName=Demo
+Comment=Demo by Anarchy,released in 1992
+Type=Application
+Exec=/usr/bin/flowerpower-by-anarchy-amiga-whd
+Icon=flowerpower-by-anarchy-amiga-whd
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Flower Power

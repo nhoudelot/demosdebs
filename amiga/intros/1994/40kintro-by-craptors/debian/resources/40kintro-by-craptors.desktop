@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=40k intro
+GenericName=Demo
+Comment=intro ranked 14th at The Party 1994
+Type=Application
+Exec=/usr/bin/40kintro-by-craptors
+Icon=40kintro-by-craptors
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=40k intro

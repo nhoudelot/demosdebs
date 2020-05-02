@@ -1,0 +1,5 @@
+debian/scripts/smokebomb-by-ozone usr/bin/
+debian/resources/smokebomb-by-ozone.desktop usr/share/applications/
+debian/resources/smokebomb-by-ozone.png usr/share/icons/hicolor/256x256/apps/
+./DH1.zip usr/share/smokebomb-by-ozone/./ 
+./debian/scripts/smokebomb-by-ozone.fs-uae usr/share/smokebomb-by-ozone/./ 

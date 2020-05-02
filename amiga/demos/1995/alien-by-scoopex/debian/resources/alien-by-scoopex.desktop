@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Alien
+GenericName=Demo
+Comment=demo ranked 2nd at Abduction 1995
+Type=Application
+Exec=/usr/bin/alien-by-scoopex
+Icon=alien-by-scoopex
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Alien

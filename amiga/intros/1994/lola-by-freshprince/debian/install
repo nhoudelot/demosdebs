@@ -1,0 +1,5 @@
+debian/scripts/lola-by-freshprince usr/bin/
+debian/resources/lola-by-freshprince.desktop usr/share/applications/
+debian/resources/lola-by-freshprince.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/lola-by-freshprince.fs-uae usr/share/lola-by-freshprince/./ 
+./DH1.zip usr/share/lola-by-freshprince/./ 

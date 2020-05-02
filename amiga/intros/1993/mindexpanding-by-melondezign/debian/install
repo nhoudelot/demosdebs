@@ -1,0 +1,5 @@
+debian/scripts/mindexpanding-by-melondezign usr/bin/
+debian/resources/mindexpanding-by-melondezign.desktop usr/share/applications/
+debian/resources/mindexpanding-by-melondezign.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/mindexpanding-by-melondezign.fs-uae usr/share/mindexpanding-by-melondezign/./ 
+./DH1.zip usr/share/mindexpanding-by-melondezign/./ 

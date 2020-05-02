@@ -1,0 +1,5 @@
+debian/scripts/morebobs-by-complex usr/bin/
+debian/resources/morebobs-by-complex.desktop usr/share/applications/
+debian/resources/morebobs-by-complex.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/morebobs-by-complex.fs-uae usr/share/morebobs-by-complex/./
+./DH1.zip usr/share/morebobs-by-complex/./

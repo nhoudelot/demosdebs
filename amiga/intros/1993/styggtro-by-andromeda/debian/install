@@ -1,0 +1,5 @@
+debian/scripts/styggtro-by-andromeda usr/bin/
+debian/resources/styggtro-by-andromeda.desktop usr/share/applications/
+debian/resources/styggtro-by-andromeda.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/styggtro-by-andromeda.fs-uae usr/share/styggtro-by-andromeda/./ 
+./DH1.zip usr/share/styggtro-by-andromeda/./ 

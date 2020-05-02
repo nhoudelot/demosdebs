@@ -1,0 +1,5 @@
+debian/scripts/booo-by-melondezign usr/bin/
+debian/resources/booo-by-melondezign.desktop usr/share/applications/
+debian/resources/booo-by-melondezign.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/booo-by-melondezign.fs-uae usr/share/booo-by-melondezign/./ 
+./DH1.zip usr/share/booo-by-melondezign/./ 

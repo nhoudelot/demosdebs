@@ -1,0 +1,22 @@
+Source: extension-by-pygmyprojects-amiga-whd
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=3038
+
+Package: extension-by-pygmyprojects-amiga-whd
+Architecture: all
+Depends:
+ fs-uae(>=2.8),
+ amiga-whdloadharddisk(>=1.10),
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Amiga, released in 1993
+ Demo by Pygmy Projects, released in 1993
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

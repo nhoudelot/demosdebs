@@ -1,0 +1,5 @@
+debian/scripts/saturneparty2invitation-by-saturne usr/bin/
+debian/resources/saturneparty2invitation-by-saturne.desktop usr/share/applications/
+debian/resources/saturneparty2invitation-by-saturne.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/saturneparty2invitation-by-saturne.fs-uae usr/share/saturneparty2invitation-by-saturne/./ 
+./DH1.zip usr/share/saturneparty2invitation-by-saturne/./ 

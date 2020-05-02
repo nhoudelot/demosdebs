@@ -1,0 +1,5 @@
+debian/scripts/perkele-by-movement usr/bin/
+debian/resources/perkele-by-movement.desktop usr/share/applications/
+debian/resources/perkele-by-movement.png usr/share/icons/hicolor/256x256/apps/
+./DH1.zip usr/share/perkele-by-movement/./ 
+./debian/scripts/perkele-by-movement.fs-uae usr/share/perkele-by-movement/./ 

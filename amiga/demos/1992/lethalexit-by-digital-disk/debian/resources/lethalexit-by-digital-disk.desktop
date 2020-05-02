@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Lethal Exit
+GenericName=Demo
+Comment=demo released: 1992-12-29 on The Party 1992
+Type=Application
+Exec=/usr/bin/lethalexit-by-digital-disk
+Icon=lethalexit-by-digital-disk
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Lethal Exit

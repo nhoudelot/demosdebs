@@ -1,0 +1,5 @@
+debian/scripts/flowerpower-by-anarchy-amiga-whd usr/bin/
+debian/resources/flowerpower-by-anarchy-amiga-whd.desktop usr/share/applications/
+debian/resources/flowerpower-by-anarchy-amiga-whd.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/flowerpower-by-anarchy-amiga-whd.fs-uae usr/share/flowerpower-by-anarchy-amiga-whd/./
+./DH1.zip usr/share/flowerpower-by-anarchy-amiga-whd/./

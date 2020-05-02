@@ -1,0 +1,5 @@
+debian/scripts/falling-by-realitybytes-amiga-whd usr/bin/
+debian/resources/falling-by-realitybytes-amiga-whd.desktop usr/share/applications/
+debian/resources/falling-by-realitybytes-amiga-whd.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/falling-by-realitybytes-amiga-whd.fs-uae usr/share/falling-by-realitybytes-amiga-whd/./
+./DH1.zip usr/share/falling-by-realitybytes-amiga-whd/./

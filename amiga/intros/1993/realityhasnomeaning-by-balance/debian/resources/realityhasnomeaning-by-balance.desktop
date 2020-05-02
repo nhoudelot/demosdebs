@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Reality Has No Meaning
+GenericName=Demo
+Comment=intro ranked 4th at The Gathering 1993
+Type=Application
+Exec=/usr/bin/realityhasnomeaning-by-balance
+Icon=realityhasnomeaning-by-balance
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Reality Has No Meaning

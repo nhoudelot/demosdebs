@@ -1,0 +1,5 @@
+debian/scripts/stateoftheart-by-spaceballs-disk usr/bin/
+debian/resources/stateoftheart-by-spaceballs-disk.desktop usr/share/applications/
+debian/resources/stateoftheart-by-spaceballs-disk.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/stateoftheart-by-spaceballs-disk.fs-uae usr/share/stateoftheart-by-spaceballs-disk/./ 
+./stateoftheart-by-spaceballs-disk.adz usr/share/stateoftheart-by-spaceballs-disk/./ 

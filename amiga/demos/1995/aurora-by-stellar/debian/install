@@ -1,0 +1,5 @@
+debian/scripts/aurora-by-stellar usr/bin/
+debian/resources/aurora-by-stellar.desktop usr/share/applications/
+debian/resources/aurora-by-stellar.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/aurora-by-stellar.fs-uae usr/share/aurora-by-stellar/./ 
+./DH1.zip usr/share/aurora-by-stellar/./ 

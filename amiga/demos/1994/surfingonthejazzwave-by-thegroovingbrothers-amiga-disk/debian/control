@@ -1,0 +1,21 @@
+Source: surfingonthejazzwave-by-thegroovingbrothers-amiga-disk
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=12752
+
+Package: surfingonthejazzwave-by-thegroovingbrothers-amiga-disk
+Architecture: all
+Depends:
+ fs-uae,
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.16)
+Description: Amiga demo released in 1994
+ Musicdisk by the grooving brothers,
+ released in 1994
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

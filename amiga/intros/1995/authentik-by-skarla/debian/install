@@ -1,0 +1,5 @@
+debian/scripts/authentik-by-skarla usr/bin/
+debian/resources/authentik-by-skarla.desktop usr/share/applications/
+debian/resources/authentik-by-skarla.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/authentik-by-skarla.fs-uae usr/share/authentik-by-skarla/./
+./DH1.zip usr/share/authentik-by-skarla/./

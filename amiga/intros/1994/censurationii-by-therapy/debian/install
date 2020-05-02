@@ -1,0 +1,5 @@
+debian/scripts/censurationii-by-therapy usr/bin/
+debian/resources/censurationii-by-therapy.desktop usr/share/applications/
+debian/resources/censurationii-by-therapy.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/censurationii-by-therapy.fs-uae usr/share/censurationii-by-therapy/./ 
+./DH1.zip usr/share/censurationii-by-therapy/./ 

@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: voyage-by-razor1911-disk
+Source: https://janeway.exotica.org.uk/release.php?id=409
+
+Files: *
+Copyright: 1991 Razor 1911
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2014-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2
+

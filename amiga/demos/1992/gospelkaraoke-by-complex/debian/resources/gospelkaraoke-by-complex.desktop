@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Gospel Karaoke
+GenericName=Demo
+Comment=Demo released in june 1992
+Type=Application
+Exec=/usr/bin/gospelkaraoke-by-complex
+Icon=gospelkaraoke-by-complex
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Gospel Karaoke

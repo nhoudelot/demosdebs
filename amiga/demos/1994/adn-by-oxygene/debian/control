@@ -1,0 +1,22 @@
+Source: adn-by-oxygene
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=7621
+
+Package: adn-by-oxygene
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga demo released in 1994
+ Demo ranked 1st at 3S Party 1994
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

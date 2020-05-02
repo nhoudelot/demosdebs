@@ -1,0 +1,5 @@
+debian/scripts/quest-by-iris usr/bin/
+debian/resources/quest-by-iris.desktop usr/share/applications/
+debian/resources/quest-by-iris.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/quest-by-iris.fs-uae usr/share/quest-by-iris/./
+./DH1.zip usr/share/quest-by-iris/./

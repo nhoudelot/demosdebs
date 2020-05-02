@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=guillotine
+GenericName=Demo
+Comment=Demo ranked 7th at Mekka and Symposium 1999
+Type=Application
+Exec=/usr/bin/guillotine-by-dajormas
+Icon=guillotine-by-dajormas
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=guillotine

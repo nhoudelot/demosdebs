@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	gzip -c lethalexit-by-digital-disk.adf > lethalexit-by-digital-disk.adz
+	dh_install

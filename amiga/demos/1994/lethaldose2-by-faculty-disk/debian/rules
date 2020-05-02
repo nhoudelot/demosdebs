@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	gzip -c lethaldose2-by-faculty-disk1.adf > lethaldose2-by-faculty-disk1.adz
+	gzip -c lethaldose2-by-faculty-disk2.adf > lethaldose2-by-faculty-disk2.adz
+	dh_install

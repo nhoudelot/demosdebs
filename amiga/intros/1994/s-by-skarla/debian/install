@@ -1,0 +1,5 @@
+debian/scripts/s-by-skarla usr/bin/
+debian/resources/s-by-skarla.desktop usr/share/applications/
+debian/resources/s-by-skarla.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/s-by-skarla.fs-uae usr/share/s-by-skarla/./ 
+./DH1.zip usr/share/s-by-skarla/./ 

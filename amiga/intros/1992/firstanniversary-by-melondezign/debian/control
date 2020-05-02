@@ -1,0 +1,23 @@
+Source: firstanniversary-by-melondezign
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=49812
+
+Package: firstanniversary-by-melondezign
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+ amiga-kickstart205,
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga Intro released in 1992
+ intro released in october 1992
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Arte
+GenericName=Demo
+Comment=demo ranked 3rd at The Party 1993
+Type=Application
+Exec=/usr/bin/arte-by-sanity-disk
+Icon=arte-by-sanity-disk
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Arte

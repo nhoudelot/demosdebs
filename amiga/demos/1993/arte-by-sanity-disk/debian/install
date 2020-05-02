@@ -1,0 +1,5 @@
+debian/scripts/arte-by-sanity-disk usr/bin/
+debian/resources/arte-by-sanity-disk.desktop usr/share/applications/
+debian/resources/arte-by-sanity-disk.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/arte-by-sanity-disk.fs-uae usr/share/arte-by-sanity-disk/./
+./arte-by-sanity-disk.adz usr/share/arte-by-sanity-disk/./

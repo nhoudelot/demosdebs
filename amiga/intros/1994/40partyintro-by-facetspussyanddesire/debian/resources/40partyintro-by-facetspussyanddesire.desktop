@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=40k Party Intro
+GenericName=Demo
+Comment=intro ranked 19th at The Party 1994
+Type=Application
+Exec=/usr/bin/40partyintro-by-facetspussyanddesire
+Icon=40partyintro-by-facetspussyanddesire
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=40k Party Intro

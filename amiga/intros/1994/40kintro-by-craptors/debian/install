@@ -1,0 +1,5 @@
+debian/scripts/40kintro-by-craptors usr/bin/
+debian/resources/40kintro-by-craptors.desktop usr/share/applications/
+debian/resources/40kintro-by-craptors.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/40kintro-by-craptors.fs-uae usr/share/40kintro-by-craptors/./ 
+./DH1.zip usr/share/40kintro-by-craptors/./ 

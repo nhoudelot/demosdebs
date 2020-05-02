@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Kris Kros Sucks
+GenericName=Demo
+Comment=demo released in 1993
+Type=Application
+Exec=/usr/bin/kriskrossucks-by-kefrens
+Icon=kriskrossucks-by-kefrens
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Kris Kros Sucks

@@ -1,0 +1,40 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=crazysexycool-by-essence
+
+APP_FULLNAME="Crazy Sexy Cool"
+APP_COPYRIGHT="essence"
+APP_DESC="demo ranked 5 at the Party 1995"
+
+function run()
+{
+	NSH_CreateWHDSaves
+	/usr/bin/fs-uae /usr/share/$domain/$domain.fs-uae $1
+}
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage_AMIGA
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage_AMIGA
+		;;
+	--fullscreen)
+		run --fullscreen
+		;;
+	--version)
+		NSH_version_AMIGA
+		;;
+	*)
+		NSH_std_usage_AMIGA
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

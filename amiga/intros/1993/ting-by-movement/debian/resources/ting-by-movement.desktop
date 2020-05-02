@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Ting
+GenericName=Demo
+Comment=intro ranked 4th at Assembly 1993
+Type=Application
+Exec=/usr/bin/ting-by-movement
+Icon=ting-by-movement
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Ting

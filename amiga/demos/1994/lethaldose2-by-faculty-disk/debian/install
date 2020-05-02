@@ -1,0 +1,6 @@
+debian/scripts/lethaldose2-by-faculty-disk usr/bin/
+debian/resources/lethaldose2-by-faculty-disk.desktop usr/share/applications/
+debian/resources/lethaldose2-by-faculty-disk.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/lethaldose2-by-faculty-disk.fs-uae usr/share/lethaldose2-by-faculty-disk/./
+./lethaldose2-by-faculty-disk1.adz usr/share/lethaldose2-by-faculty-disk/./
+./lethaldose2-by-faculty-disk2.adz usr/share/lethaldose2-by-faculty-disk/./

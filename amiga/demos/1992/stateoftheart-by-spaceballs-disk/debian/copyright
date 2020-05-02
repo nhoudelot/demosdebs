@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: stateoftheart-by-spaceballs-disk
+Source: https://janeway.exotica.org.uk/release.php?id=180
+
+Files: *
+Copyright: 1992 Spaceballs
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2014-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

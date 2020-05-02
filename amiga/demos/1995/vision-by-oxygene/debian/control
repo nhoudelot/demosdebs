@@ -1,0 +1,22 @@
+Source: vision-by-oxygene
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=3032
+
+Package: vision-by-oxygene
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga demo released in 1995
+ demo ranked 2nd at The Party 1995
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

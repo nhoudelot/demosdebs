@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Mindflow
+GenericName=Demo
+Comment=Demo ranked 1st at Assembly 1994
+Type=Application
+Exec=/usr/bin/mindflow-by-stellar
+Icon=mindflow-by-stellar
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Mindflow

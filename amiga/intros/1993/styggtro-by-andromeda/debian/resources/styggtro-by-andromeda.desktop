@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Styggtro
+GenericName=Demo
+Comment=intro ranked 5th at The Gathering 1993
+Type=Application
+Exec=/usr/bin/styggtro-by-andromeda
+Icon=styggtro-by-andromeda
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Styggtro

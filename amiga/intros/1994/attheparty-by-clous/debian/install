@@ -1,0 +1,5 @@
+debian/scripts/attheparty-by-clous usr/bin/
+debian/resources/attheparty-by-clous.desktop usr/share/applications/
+debian/resources/attheparty-by-clous.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/attheparty-by-clous.fs-uae usr/share/attheparty-by-clous/./ 
+./DH1.zip usr/share/attheparty-by-clous/./ 

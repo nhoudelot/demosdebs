@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=when we ride on our enemies
+GenericName=Demo
+Comment=Demo ranked 2nd at Mekka and Symposium 1999
+Type=Application
+Exec=/usr/bin/whenwerideinourenemies-by-skarla
+Icon=whenwerideinourenemies-by-skarla
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=when we ride on our enemies

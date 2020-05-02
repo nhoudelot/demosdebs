@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Plays 2 unlimited
+GenericName=Demo
+Comment=released at The Gathering 1993
+Type=Application
+Exec=/usr/bin/plays2unlimited-by-scoopex
+Icon=plays2unlimited-by-scoopex
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Plays 2 unlimited

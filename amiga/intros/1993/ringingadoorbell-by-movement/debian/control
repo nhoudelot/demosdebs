@@ -1,0 +1,22 @@
+Source: ringingadoorbell-by-movement
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=53254
+
+Package: ringingadoorbell-by-movement
+Architecture: all
+Depends:
+ fs-uae(>=1.3.16),
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.6),
+ amiga-whdloadharddisk,
+ ${misc:Depends}
+Description: Amiga Intro released in 1993
+ Intro released in october 1993
+ .
+ -Amiga program launched using fs-uae

@@ -1,0 +1,22 @@
+Source: faluredcolor2beta-by-razor1911
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=11506
+
+Package: faluredcolor2beta-by-razor1911
+Architecture: all
+Depends:
+ fs-uae(>=1.3.16),
+ amiga-whdloadharddisk,
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga Intro released in 1994
+ intro ranked 16th at The Party 1994
+ .
+ -Amiga program launched using fs-uae

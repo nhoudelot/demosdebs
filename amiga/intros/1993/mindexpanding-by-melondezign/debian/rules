@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ 
+
+
+override_dh_install:
+	zip -r -9 DH1.zip . -x 'debian*' -x '.pc*'
+	dh_install

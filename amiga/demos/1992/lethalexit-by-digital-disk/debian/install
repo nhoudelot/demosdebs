@@ -1,0 +1,5 @@
+debian/scripts/lethalexit-by-digital-disk usr/bin/
+debian/resources/lethalexit-by-digital-disk.desktop usr/share/applications/
+debian/resources/lethalexit-by-digital-disk.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/lethalexit-by-digital-disk.fs-uae usr/share/lethalexit-by-digital-disk/./ 
+./lethalexit-by-digital-disk.adz usr/share/lethalexit-by-digital-disk/./ 

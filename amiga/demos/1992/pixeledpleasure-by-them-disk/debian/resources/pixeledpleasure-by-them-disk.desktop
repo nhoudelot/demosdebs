@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Pixeled Pleasure
+GenericName=Demo
+Comment=Pixeled Pleasure - Demo Released in 1991
+Type=Application
+Exec=/usr/bin/pixeledpleasure-by-them-disk
+Icon=pixeledpleasure-by-them-disk
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Pixeled Pleasure

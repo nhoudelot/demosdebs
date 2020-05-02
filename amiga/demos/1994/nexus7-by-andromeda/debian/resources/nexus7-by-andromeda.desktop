@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Nexus-7
+GenericName=Demo
+Comment=Demo ranked 1st at The Party 1994
+Type=Application
+Exec=/usr/bin/nexus7-by-andromeda
+Icon=nexus7-by-andromeda
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Nexus-7

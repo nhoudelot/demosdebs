@@ -1,0 +1,22 @@
+Source: 40partyintro-by-facetspussyanddesire
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=32352
+
+Package: 40partyintro-by-facetspussyanddesire
+Architecture: all
+Depends:
+ fs-uae(>=1.3.16),
+ amiga-kickstartaros,
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga Intro released in 1994
+ intro ranked 19th at The Party 1994
+ .
+ -Amiga program launched using fs-uae

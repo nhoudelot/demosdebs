@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Deep
+GenericName=Demo
+Comment=Demo ranked 1st at The Gathering 1995
+Type=Application
+Exec=/usr/bin/deep-by-parallaxandcncd
+Icon=deep-by-parallaxandcncd
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Deep

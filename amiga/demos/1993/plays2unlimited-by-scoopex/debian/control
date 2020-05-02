@@ -1,0 +1,23 @@
+Source: plays2unlimited-by-scoopex
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=21401
+
+Package: plays2unlimited-by-scoopex
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+ amiga-whdloadharddisk(>=1.10),
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: MusicDisk released in 1993
+ released at The Gathering 1993
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed
+

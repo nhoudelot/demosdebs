@@ -1,0 +1,22 @@
+Source: thedrunkdesertdemo-by-paradox
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip,
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=4428
+
+Package: thedrunkdesertdemo-by-paradox
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+ amiga-whdloadharddisk(>=1.10),
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga demo released in 1990
+ Demo by Paradox,released in 1990
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

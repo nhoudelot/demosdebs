@@ -1,0 +1,5 @@
+debian/scripts/technologicaldeath-by-madelks-disk usr/bin/
+debian/resources/technologicaldeath-by-madelks-disk.desktop usr/share/applications/
+debian/resources/technologicaldeath-by-madelks-disk.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/technologicaldeath-by-madelks-disk.fs-uae usr/share/technologicaldeath-by-madelks-disk/./
+./technologicaldeath-by-madelks-disk.adz usr/share/technologicaldeath-by-madelks-disk/./

@@ -1,0 +1,5 @@
+debian/scripts/ting-by-movement usr/bin/
+debian/resources/ting-by-movement.desktop usr/share/applications/
+debian/resources/ting-by-movement.png usr/share/icons/hicolor/256x256/apps/
+./DH1.zip usr/share/ting-by-movement/./ 
+./debian/scripts/ting-by-movement.fs-uae usr/share/ting-by-movement/./ 

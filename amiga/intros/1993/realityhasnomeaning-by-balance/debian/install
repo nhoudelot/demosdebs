@@ -1,0 +1,5 @@
+debian/scripts/realityhasnomeaning-by-balance usr/bin/
+debian/resources/realityhasnomeaning-by-balance.desktop usr/share/applications/
+debian/resources/realityhasnomeaning-by-balance.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/realityhasnomeaning-by-balance.fs-uae usr/share/realityhasnomeaning-by-balance/./ 
+./DH1.zip usr/share/realityhasnomeaning-by-balance/./ 

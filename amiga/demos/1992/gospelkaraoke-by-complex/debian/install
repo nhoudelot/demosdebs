@@ -1,0 +1,5 @@
+debian/scripts/gospelkaraoke-by-complex usr/bin/
+debian/resources/gospelkaraoke-by-complex.desktop usr/share/applications/
+debian/resources/gospelkaraoke-by-complex.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/gospelkaraoke-by-complex.fs-uae usr/share/gospelkaraoke-by-complex/./ 
+./DH1.zip usr/share/gospelkaraoke-by-complex/./ 

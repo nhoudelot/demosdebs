@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Perkele
+GenericName=Demo
+Comment=intro released in ????
+Type=Application
+Exec=/usr/bin/perkele-by-movement
+Icon=perkele-by-movement
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Perkele

@@ -1,0 +1,5 @@
+debian/scripts/harmagedon-by-infect-disk usr/bin/
+debian/resources/harmagedon-by-infect-disk.desktop usr/share/applications/
+debian/resources/harmagedon-by-infect-disk.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/harmagedon-by-infect-disk.fs-uae usr/share/harmagedon-by-infect-disk/./
+./harmagedon-by-infect-disk.adz usr/share/harmagedon-by-infect-disk/./

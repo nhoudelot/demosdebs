@@ -1,0 +1,23 @@
+Source: darkside-by-theblacklotus-amiga-whd
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=3588
+
+Package: darkside-by-theblacklotus-amiga-whd
+Architecture: all
+Depends:
+ fs-uae,
+ amiga-kickstartaros,
+ amiga-whdloadharddisk(>=1.10),
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga Demo released in 1996
+ Demo by The Black Lotus,
+ released in 1996
+ .
+ -Amiga program launched using fs-uae

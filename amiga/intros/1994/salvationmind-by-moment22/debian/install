@@ -1,0 +1,5 @@
+debian/scripts/salvationmind-by-moment22 usr/bin/
+debian/resources/salvationmind-by-moment22.desktop usr/share/applications/
+debian/resources/salvationmind-by-moment22.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/salvationmind-by-moment22.fs-uae usr/share/salvationmind-by-moment22/./ 
+./DH1.zip usr/share/salvationmind-by-moment22/./ 

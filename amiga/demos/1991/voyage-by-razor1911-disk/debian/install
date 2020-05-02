@@ -1,0 +1,5 @@
+debian/scripts/voyage-by-razor1911-disk usr/bin/
+debian/resources/voyage-by-razor1911-disk.desktop usr/share/applications/
+debian/resources/voyage-by-razor1911-disk.png usr/share/icons/hicolor/256x256/apps/
+./voyage-by-razor1911-disk.adz usr/share/voyage-by-razor1911-disk/./ 
+./debian/scripts/voyage-by-razor1911-disk.fs-uae usr/share/voyage-by-razor1911-disk/./ 

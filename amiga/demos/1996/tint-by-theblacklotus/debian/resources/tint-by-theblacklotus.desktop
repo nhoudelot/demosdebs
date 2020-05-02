@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Tint
+GenericName=Demo
+Comment=Demo ranked 1st at The Gathering 1996
+Type=Application
+Exec=/usr/bin/tint-by-theblacklotus
+Icon=tint-by-theblacklotus
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Tint

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Global Trash
+GenericName=Demo
+Comment=demo released 1991-04-26 on Amiga Summit Convention
+Type=Application
+Exec=/usr/bin/globaltrash-by-silents-disk
+Icon=globaltrash-by-silents-disk
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Global Trash

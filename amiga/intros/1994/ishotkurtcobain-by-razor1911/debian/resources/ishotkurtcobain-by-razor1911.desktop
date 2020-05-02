@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=I Shot Kurt Cobain
+GenericName=Demo
+Comment=intro released at The Party 1994
+Type=Application
+Exec=/usr/bin/ishotkurtcobain-by-razor1911
+Icon=ishotkurtcobain-by-razor1911
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=I Shot Kurt Cobain

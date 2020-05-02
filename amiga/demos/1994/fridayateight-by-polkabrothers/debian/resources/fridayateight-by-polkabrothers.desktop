@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Friday at Eight
+GenericName=Demo
+Comment=Demo ranked 3rd at The Gathering 1994
+Type=Application
+Exec=/usr/bin/fridayateight-by-polkabrothers
+Icon=fridayateight-by-polkabrothers
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Friday at Eight

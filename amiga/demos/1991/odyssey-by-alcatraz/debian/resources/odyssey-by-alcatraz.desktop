@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Odyssey
+GenericName=Demo
+Comment=demo ranked 1st at The Party 1991
+Type=Application
+Exec=/usr/bin/odyssey-by-alcatraz
+Icon=odyssey-by-alcatraz
+Categories=AudioVideo
+Name[fr_FR]=Odyssey

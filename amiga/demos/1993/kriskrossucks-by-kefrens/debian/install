@@ -1,0 +1,5 @@
+debian/scripts/kriskrossucks-by-kefrens usr/bin/
+debian/resources/kriskrossucks-by-kefrens.desktop usr/share/applications/
+debian/resources/kriskrossucks-by-kefrens.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/kriskrossucks-by-kefrens.fs-uae usr/share/kriskrossucks-by-kefrens/./ 
+./DH1.zip usr/share/kriskrossucks-by-kefrens/./ 

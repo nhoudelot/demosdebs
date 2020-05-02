@@ -1,0 +1,5 @@
+debian/scripts/real-by-complex usr/bin/
+debian/resources/real-by-complex.desktop usr/share/applications/
+debian/resources/real-by-complex.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/real-by-complex.fs-uae usr/share/real-by-complex/./ 
+./DH1.zip usr/share/real-by-complex/./ 

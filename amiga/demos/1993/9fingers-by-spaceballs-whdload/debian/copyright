@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: 9fingers-by-spaceballs-whdload
+Source: https://www.spaceballs.no/releases.php?list=1993
+
+Files: *
+Copyright: 1993 Spaceballs
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2014-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

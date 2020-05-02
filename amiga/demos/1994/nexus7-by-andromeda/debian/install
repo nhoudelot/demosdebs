@@ -1,0 +1,5 @@
+debian/scripts/nexus7-by-andromeda usr/bin/
+debian/resources/nexus7-by-andromeda.desktop usr/share/applications/
+debian/resources/nexus7-by-andromeda.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/nexus7-by-andromeda.fs-uae usr/share/nexus7-by-andromeda/./ 
+./DH1.zip usr/share/nexus7-by-andromeda/./ 

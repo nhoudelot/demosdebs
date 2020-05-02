@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Real
+GenericName=Demo
+Comment=Demo ranked 1st at Saturne 1994
+Type=Application
+Exec=/usr/bin/real-by-complex
+Icon=real-by-complex
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Real

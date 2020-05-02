@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Saturne Party 2 Invitation
+GenericName=Demo
+Comment=Intro invit by Saturne released in 1994-02-03
+Type=Application
+Exec=/usr/bin/saturneparty2invitation-by-saturne
+Icon=saturneparty2invitation-by-saturne
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Saturne Party 2 Invitation

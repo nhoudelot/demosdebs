@@ -1,0 +1,5 @@
+debian/scripts/alien-by-scoopex usr/bin/
+debian/resources/alien-by-scoopex.desktop usr/share/applications/
+debian/resources/alien-by-scoopex.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/alien-by-scoopex.fs-uae usr/share/alien-by-scoopex/./ 
+./DH1.zip usr/share/alien-by-scoopex/./ 

@@ -1,0 +1,5 @@
+debian/scripts/3secondsofdelight-by-movement usr/bin/
+debian/resources/3secondsofdelight-by-movement.desktop usr/share/applications/
+debian/resources/3secondsofdelight-by-movement.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/3secondsofdelight-by-movement.fs-uae usr/share/3secondsofdelight-by-movement/./ 
+./DH1.zip usr/share/3secondsofdelight-by-movement/./ 

@@ -1,0 +1,5 @@
+debian/scripts/fridayateight-by-polkabrothers usr/bin/
+debian/resources/fridayateight-by-polkabrothers.desktop usr/share/applications/
+debian/resources/fridayateight-by-polkabrothers.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/fridayateight-by-polkabrothers.fs-uae usr/share/fridayateight-by-polkabrothers/./ 
+./DH1.zip usr/share/fridayateight-by-polkabrothers/./ 

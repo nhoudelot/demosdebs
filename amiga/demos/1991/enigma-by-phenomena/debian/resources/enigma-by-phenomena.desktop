@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Enigma
+GenericName=Demo
+Comment=Enigma - Demo ranked 1s at Anarchy Easter Party 1991
+Type=Application
+Exec=/usr/bin/enigma-by-phenomena
+Icon=enigma-by-phenomena
+Categories=AudioVideo;
+Name[fr_FR]=Enigma

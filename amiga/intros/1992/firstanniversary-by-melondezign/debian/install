@@ -1,0 +1,5 @@
+debian/scripts/firstanniversary-by-melondezign usr/bin/
+debian/resources/firstanniversary-by-melondezign.desktop usr/share/applications/
+debian/resources/firstanniversary-by-melondezign.png usr/share/icons/hicolor/256x256/apps/
+./DH1.zip usr/share/firstanniversary-by-melondezign/./ 
+./debian/scripts/firstanniversary-by-melondezign.fs-uae usr/share/firstanniversary-by-melondezign/./ 

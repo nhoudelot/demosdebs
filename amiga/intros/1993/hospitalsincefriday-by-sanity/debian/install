@@ -1,0 +1,5 @@
+debian/scripts/hospitalsincefriday-by-sanity usr/bin/
+debian/resources/hospitalsincefriday-by-sanity.desktop usr/share/applications/
+debian/resources/hospitalsincefriday-by-sanity.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/hospitalsincefriday-by-sanity.fs-uae usr/share/hospitalsincefriday-by-sanity/./ 
+./DH1.zip usr/share/hospitalsincefriday-by-sanity/./ 

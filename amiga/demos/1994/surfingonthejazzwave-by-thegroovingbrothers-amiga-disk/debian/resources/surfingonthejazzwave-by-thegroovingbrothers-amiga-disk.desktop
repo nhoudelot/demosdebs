@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=surfing on the jazz wave
+GenericName=Demo
+Comment=Demo by the grooving brothers,released in 1994
+Type=Application
+Exec=/usr/bin/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk
+Icon=surfingonthejazzwave-by-thegroovingbrothers-amiga-disk
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=surfing on the jazz wave

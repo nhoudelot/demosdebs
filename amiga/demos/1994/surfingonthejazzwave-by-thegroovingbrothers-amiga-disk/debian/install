@@ -1,0 +1,6 @@
+debian/scripts/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk usr/bin/
+debian/resources/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk.desktop usr/share/applications/
+debian/resources/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk.fs-uae usr/share/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk/./
+./surfingonthejazzwave-by-thegroovingbrothers-amiga-disk1.adz usr/share/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk/./
+./surfingonthejazzwave-by-thegroovingbrothers-amiga-disk2.adz usr/share/surfingonthejazzwave-by-thegroovingbrothers-amiga-disk/./

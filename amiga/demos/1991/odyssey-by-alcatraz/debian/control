@@ -1,0 +1,22 @@
+Source: odyssey-by-alcatraz
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://alcatraz.untergrund.net/index.php?site=productions
+
+Package: odyssey-by-alcatraz
+Architecture: all
+Depends:
+ fs-uae(>=2.8),
+ amiga-whdloadharddisk(>=1.10),
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga demo released in 1991
+ demo ranked 1st at The Party 1991
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

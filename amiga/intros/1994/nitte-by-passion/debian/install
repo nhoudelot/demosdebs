@@ -1,0 +1,5 @@
+debian/scripts/nitte-by-passion usr/bin/
+debian/resources/nitte-by-passion.desktop usr/share/applications/
+debian/resources/nitte-by-passion.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/nitte-by-passion.fs-uae usr/share/nitte-by-passion/./ 
+./DH1.zip usr/share/nitte-by-passion/./ 

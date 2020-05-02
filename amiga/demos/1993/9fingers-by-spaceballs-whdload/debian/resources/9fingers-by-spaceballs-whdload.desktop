@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=9 Fingers
+GenericName=Demo
+Comment=Amiga trackmo ranked #4 at The Party 1993
+Type=Application
+Exec=/usr/bin/9fingers-by-spaceballs-whdload
+Icon=9fingers-by-spaceballs-whdload
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=9 Fingers

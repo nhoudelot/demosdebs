@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=quest
+GenericName=Demo
+Comment=Demo ranked 5th at Mekka and Symposium 1999
+Type=Application
+Exec=/usr/bin/quest-by-iris
+Icon=quest-by-iris
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=quest

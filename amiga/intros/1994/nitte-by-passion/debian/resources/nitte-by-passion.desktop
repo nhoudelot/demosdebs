@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Nitte
+GenericName=Demo
+Comment=intro ranked 3rd at The Party 1994
+Type=Application
+Exec=/usr/bin/nitte-by-passion
+Icon=nitte-by-passion
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Nitte

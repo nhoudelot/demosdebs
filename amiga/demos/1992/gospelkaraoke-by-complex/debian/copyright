@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: gospelkaraoke-by-complex
+Source: https://www.pouet.net/prod.php?which=5371
+
+Files: *
+Copyright: 1992 Complex
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2014-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".

@@ -1,0 +1,5 @@
+debian/scripts/interference-by-sanity usr/bin/
+debian/resources/interference-by-sanity.desktop usr/share/applications/
+debian/resources/interference-by-sanity.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/interference-by-sanity.fs-uae usr/share/interference-by-sanity/./
+./DH1.zip usr/share/interference-by-sanity/./

@@ -1,0 +1,42 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=alien-by-scoopex
+
+APP_FULLNAME="Alien"
+APP_COPYRIGHT="Scoopex"
+APP_DESC="demo ranked 2nd at Abduction 1995"
+
+function run()
+{
+	NSH_CreateWHDSaves
+	NSH_ExtractDH1
+	/usr/bin/fs-uae /usr/share/$domain/$domain.fs-uae $1
+	NSH_RemoveDH1
+}
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage_AMIGA
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage_AMIGA
+		;;
+	--fullscreen)
+		run --fullscreen
+		;;
+	--version)
+		NSH_version_AMIGA
+		;;
+	*)
+		NSH_std_usage_AMIGA
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

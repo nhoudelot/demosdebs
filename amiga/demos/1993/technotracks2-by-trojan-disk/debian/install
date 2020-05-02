@@ -1,0 +1,5 @@
+debian/scripts/technotracks2-by-trojan-disk.fs-uae usr/share/technotracks2-by-trojan-disk/
+debian/scripts/technotracks2-by-trojan-disk usr/bin/
+debian/resources/technotracks2-by-trojan-disk.desktop usr/share/applications/
+debian/resources/technotracks2-by-trojan-disk.png usr/share/icons/hicolor/256x256/apps/
+technotracks2-by-trojan-disk.adz usr/share/technotracks2-by-trojan-disk/

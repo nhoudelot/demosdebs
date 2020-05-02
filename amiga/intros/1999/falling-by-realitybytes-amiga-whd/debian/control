@@ -1,0 +1,21 @@
+Source: falling-by-realitybytes-amiga-whd
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip 
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=3932
+
+Package: falling-by-realitybytes-amiga-whd
+Architecture: all
+Depends:
+ fs-uae,
+ amiga-whdloadharddisk(>=1.10),
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga Demo released in 1999
+ AGA intro by Reality Bytes released at Icing 1999
+ .
+ -Amiga program launched using fs-uae

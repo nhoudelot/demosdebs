@@ -1,0 +1,5 @@
+debian/scripts/a500homage-by-complex usr/bin/
+debian/resources/a500homage-by-complex.desktop usr/share/applications/
+debian/resources/a500homage-by-complex.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/a500homage-by-complex.fs-uae usr/share/a500homage-by-complex/./ 
+./DH1.zip usr/share/a500homage-by-complex/./ 

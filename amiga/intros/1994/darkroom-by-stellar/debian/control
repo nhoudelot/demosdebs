@@ -1,0 +1,22 @@
+Source: darkroom-by-stellar
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=3452
+
+Package: darkroom-by-stellar
+Architecture: all
+Depends:
+ fs-uae,
+ amiga-kickstartaros,
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga Intro released in 1994
+ intro ranked 3rd at Assembly 1994
+ .
+ -Amiga program launched using fs-uae

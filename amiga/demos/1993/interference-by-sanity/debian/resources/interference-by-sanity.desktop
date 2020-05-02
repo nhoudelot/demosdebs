@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Interference
+GenericName=Demo
+Comment=Demo released in april 1993
+Type=Application
+Exec=/usr/bin/interference-by-sanity
+Icon=interference-by-sanity
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Interference

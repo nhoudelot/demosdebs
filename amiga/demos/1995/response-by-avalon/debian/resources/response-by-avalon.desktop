@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Response
+GenericName=Demo
+Comment=Demo ranked 2nd at The Gathering 1995
+Type=Application
+Exec=/usr/bin/response-by-avalon
+Icon=response-by-avalon
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Response

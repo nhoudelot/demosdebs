@@ -1,0 +1,5 @@
+debian/scripts/enigma-by-phenomena usr/bin/
+debian/resources/enigma-by-phenomena.desktop usr/share/applications/
+debian/resources/enigma-by-phenomena.png usr/share/icons/hicolor/256x256/apps/
+./DH1.zip usr/share/enigma-by-phenomena/./ 
+./debian/scripts/enigma-by-phenomena.fs-uae usr/share/enigma-by-phenomena/./ 

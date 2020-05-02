@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=falling
+GenericName=Demo
+Comment=Demo by Reality Bytes,released in 1999
+Type=Application
+Exec=/usr/bin/falling-by-realitybytes-amiga-whd
+Icon=falling-by-realitybytes-amiga-whd
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=falling

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Dark Side
+GenericName=Demo
+Comment=Demo by The Black Lotus,released in 1996
+Type=Application
+Exec=/usr/bin/darkside-by-theblacklotus-amiga-whd
+Icon=darkside-by-theblacklotus-amiga-whd
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Dark Side

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=zero gravity 2
+GenericName=Demo
+Comment=Intro ranked 2nd at The Party 1996
+Type=Application
+Exec=/usr/bin/zerogravity2-by-scoopex
+Icon=zerogravity2-by-scoopex
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=zero gravity 2

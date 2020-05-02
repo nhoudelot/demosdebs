@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=First Anniversary
+GenericName=Demo
+Comment=intro released in october 1992
+Type=Application
+Exec=/usr/bin/firstanniversary-by-melondezign
+Icon=firstanniversary-by-melondezign
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=First Anniversary

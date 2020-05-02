@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Mind Expanding
+GenericName=Demo
+Comment=demo released 22 at The Party 1993
+Type=Application
+Exec=/usr/bin/mindexpanding-by-melondezign
+Icon=mindexpanding-by-melondezign
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Mind Expanding

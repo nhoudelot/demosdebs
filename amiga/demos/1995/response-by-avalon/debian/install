@@ -1,0 +1,6 @@
+debian/scripts/response-by-avalon usr/bin/
+debian/resources/response-by-avalon.desktop usr/share/applications/
+debian/resources/response-by-avalon.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/response-by-avalon.fs-uae usr/share/response-by-avalon/./ 
+./file_id.diz usr/share/response-by-avalon/./ 
+./DH1.zip usr/share/response-by-avalon/./ 

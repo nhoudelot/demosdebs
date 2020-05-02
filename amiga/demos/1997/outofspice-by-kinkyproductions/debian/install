@@ -1,0 +1,5 @@
+debian/scripts/outofspice-by-kinkyproductions usr/bin/
+debian/resources/outofspice-by-kinkyproductions.desktop usr/share/applications/
+debian/resources/outofspice-by-kinkyproductions.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/outofspice-by-kinkyproductions.fs-uae usr/share/outofspice-by-kinkyproductions/./
+./DH1.zip usr/share/outofspice-by-kinkyproductions/./

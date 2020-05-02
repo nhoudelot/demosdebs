@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Censuration II
+GenericName=Demo
+Comment=Intro ranked 23rd at The Party 1994
+Type=Application
+Exec=/usr/bin/censurationii-by-therapy
+Icon=censurationii-by-therapy
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Censuration II

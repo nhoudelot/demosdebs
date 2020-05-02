@@ -1,0 +1,5 @@
+debian/scripts/away-by-genesis usr/bin/
+debian/resources/away-by-genesis.desktop usr/share/applications/
+debian/resources/away-by-genesis.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/away-by-genesis.fs-uae usr/share/away-by-genesis/./ 
+./DH1.zip usr/share/away-by-genesis/./ 

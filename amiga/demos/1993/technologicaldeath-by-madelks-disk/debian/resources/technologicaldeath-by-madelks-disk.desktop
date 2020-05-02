@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Technological Death
+GenericName=Demo
+Comment=Amiga demo ranked 1st at  Mountain Congress 1993
+Type=Application
+Exec=/usr/bin/technologicaldeath-by-madelks-disk
+Icon=technologicaldeath-by-madelks-disk
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Technological Death

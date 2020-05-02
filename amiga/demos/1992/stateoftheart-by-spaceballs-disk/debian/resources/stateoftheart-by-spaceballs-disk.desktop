@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=State of the Art
+GenericName=Demo
+Comment=demo released: 1992-12-29 on The Party 1992
+Type=Application
+Exec=/usr/bin/stateoftheart-by-spaceballs-disk
+Icon=stateoftheart-by-spaceballs-disk
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=State of the Art

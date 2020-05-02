@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=The Killing of an Egg
+GenericName=Demo
+Comment=Intro ranked 5th at The Party 1994
+Type=Application
+Exec=/usr/bin/thekillingofanegg-by-slimproductions
+Icon=thekillingofanegg-by-slimproductions
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=The Killing of an Egg

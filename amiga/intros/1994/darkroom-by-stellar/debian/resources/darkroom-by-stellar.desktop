@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=darkroom
+GenericName=Demo
+Comment=intro ranked 3rd at Assembly 1994
+Type=Application
+Exec=/usr/bin/darkroom-by-stellar
+Icon=darkroom-by-stellar
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=darkroom

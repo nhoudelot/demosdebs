@@ -1,0 +1,5 @@
+debian/scripts/pyrox-by-bizarrearts usr/bin/
+debian/resources/pyrox-by-bizarrearts.desktop usr/share/applications/
+debian/resources/pyrox-by-bizarrearts.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/pyrox-by-bizarrearts.fs-uae usr/share/pyrox-by-bizarrearts/./ 
+./DH1.zip usr/share/pyrox-by-bizarrearts/./ 

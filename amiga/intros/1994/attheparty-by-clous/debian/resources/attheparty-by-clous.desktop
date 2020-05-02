@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=At the party
+GenericName=Demo
+Comment=intro ranked 10th at The PArty 1994
+Type=Application
+Exec=/usr/bin/attheparty-by-clous
+Icon=attheparty-by-clous
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=At the party

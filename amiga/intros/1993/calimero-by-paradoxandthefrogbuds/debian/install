@@ -1,0 +1,5 @@
+debian/scripts/calimero-by-paradoxandthefrogbuds usr/bin/
+debian/resources/calimero-by-paradoxandthefrogbuds.desktop usr/share/applications/
+debian/resources/calimero-by-paradoxandthefrogbuds.png usr/share/icons/hicolor/256x256/apps/
+./DH1.zip usr/share/calimero-by-paradoxandthefrogbuds/./ 
+./debian/scripts/calimero-by-paradoxandthefrogbuds.fs-uae usr/share/calimero-by-paradoxandthefrogbuds/./ 

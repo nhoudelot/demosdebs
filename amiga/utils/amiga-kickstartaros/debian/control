@@ -1,0 +1,17 @@
+Source: amiga-kickstartaros
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends: 
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: http://www.aros.org/nightly1.php
+
+Package: amiga-kickstartaros
+Architecture: all
+Depends: ${misc:Depends}
+Description: Aros Kickstart ROM for Amiga emulation
+ Opensource alternative Kickstart ROM.
+ m68k kickstart version for use in emulator, 
+ found in : amiga-m68k-boot-iso:/boot/amiga/ 
+

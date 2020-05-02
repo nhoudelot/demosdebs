@@ -1,0 +1,5 @@
+debian/scripts/zerogravity2-by-scoopex usr/bin/
+debian/resources/zerogravity2-by-scoopex.desktop usr/share/applications/
+debian/resources/zerogravity2-by-scoopex.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/zerogravity2-by-scoopex.fs-uae usr/share/zerogravity2-by-scoopex/./
+./DH1.zip usr/share/zerogravity2-by-scoopex/./

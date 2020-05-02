@@ -1,0 +1,6 @@
+debian/scripts/mindflow-by-stellar usr/bin/
+debian/resources/mindflow-by-stellar.desktop usr/share/applications/
+debian/resources/mindflow-by-stellar.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/mindflow-by-stellar.fs-uae usr/share/mindflow-by-stellar/./ 
+./mindflow-by-stellar.nfo usr/share/mindflow-by-stellar/./ 
+./DH1.zip usr/share/mindflow-by-stellar/./ 

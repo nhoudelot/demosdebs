@@ -1,0 +1,5 @@
+debian/scripts/blur-by-focusdesign usr/bin/
+debian/resources/blur-by-focusdesign.desktop usr/share/applications/
+debian/resources/blur-by-focusdesign.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/blur-by-focusdesign.fs-uae usr/share/blur-by-focusdesign/./ 
+./DH1.zip usr/share/blur-by-focusdesign/./ 

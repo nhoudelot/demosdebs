@@ -1,0 +1,21 @@
+Source: technotracks2-by-trojan-disk
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=16468
+
+Package: technotracks2-by-trojan-disk
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+  ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Amiga demo released in 1993
+ Released at The Gathering 1993
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Hospital Since Friday
+GenericName=Demo
+Comment=intro ranked 15th at The Party 1993
+Type=Application
+Exec=/usr/bin/hospitalsincefriday-by-sanity
+Icon=hospitalsincefriday-by-sanity
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Hospital Since Friday

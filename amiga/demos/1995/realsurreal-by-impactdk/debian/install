@@ -1,0 +1,5 @@
+debian/scripts/realsurreal-by-impactdk usr/bin/
+debian/resources/realsurreal-by-impactdk.desktop usr/share/applications/
+debian/resources/realsurreal-by-impactdk.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/realsurreal-by-impactdk.fs-uae usr/share/realsurreal-by-impactdk/./
+./DH1.zip usr/share/realsurreal-by-impactdk/./

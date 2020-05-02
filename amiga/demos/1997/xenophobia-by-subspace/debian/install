@@ -1,0 +1,5 @@
+debian/scripts/xenophobia-by-subspace usr/bin/
+debian/resources/xenophobia-by-subspace.desktop usr/share/applications/
+debian/resources/xenophobia-by-subspace.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/xenophobia-by-subspace.fs-uae usr/share/xenophobia-by-subspace/./ 
+./DH1.zip usr/share/xenophobia-by-subspace/./ 

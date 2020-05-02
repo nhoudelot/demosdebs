@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Smoke Bomb
+GenericName=Demo
+Comment=Demo ranked 3rd at Mekka and Symposium 1999
+Type=Application
+Exec=/usr/bin/smokebomb-by-ozone
+Icon=smokebomb-by-ozone
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Smoke Bomb

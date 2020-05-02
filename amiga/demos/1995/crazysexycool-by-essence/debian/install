@@ -1,0 +1,5 @@
+debian/scripts/crazysexycool-by-essence usr/bin/
+debian/resources/crazysexycool-by-essence.desktop usr/share/applications/
+debian/resources/crazysexycool-by-essence.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/crazysexycool-by-essence.fs-uae usr/share/crazysexycool-by-essence/./ 
+./DH1.zip usr/share/crazysexycool-by-essence/./ 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Authentik
+GenericName=Demo
+Comment=demo discalified at The Party 1995
+Type=Application
+Exec=/usr/bin/authentik-by-skarla
+Icon=authentik-by-skarla
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Authentik

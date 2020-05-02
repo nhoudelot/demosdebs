@@ -1,0 +1,22 @@
+Source: styggtro-by-andromeda
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=19132
+
+Package: styggtro-by-andromeda
+Architecture: all
+Depends:
+ fs-uae(>=2.6),
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.16),
+ ${misc:Depends}
+Description: Amiga Intro released in 1993
+ intro ranked 5th at The Gathering 1993
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

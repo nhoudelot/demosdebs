@@ -1,0 +1,5 @@
+debian/scripts/chaosland-by-virtualdreamsandfairlight usr/bin/
+debian/resources/chaosland-by-virtualdreamsandfairlight.desktop usr/share/applications/
+debian/resources/chaosland-by-virtualdreamsandfairlight.png usr/share/icons/hicolor/256x256/apps/
+./DH1.zip usr/share/chaosland-by-virtualdreamsandfairlight/./ 
+./debian/scripts/chaosland-by-virtualdreamsandfairlight.fs-uae usr/share/chaosland-by-virtualdreamsandfairlight/./ 

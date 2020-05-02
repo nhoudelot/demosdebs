@@ -1,0 +1,13 @@
+# FS-UAE configuration for pixeledpleasure-by-them-disk
+
+[config]
+scanlines = 1
+fullscreen = 0
+window_width = 720
+window_height = 576
+keep_aspect = 1
+kickstarts_file = internal
+
+[fs-uae]
+amiga_model = A500+
+floppy_drive_0 = ./pixeledpleasure-by-them-disk.adz

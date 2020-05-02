@@ -1,0 +1,5 @@
+debian/scripts/doodledoo-by-virtualdreamsandfairlight usr/bin/
+debian/resources/doodledoo-by-virtualdreamsandfairlight.desktop usr/share/applications/
+debian/resources/doodledoo-by-virtualdreamsandfairlight.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/doodledoo-by-virtualdreamsandfairlight.fs-uae usr/share/doodledoo-by-virtualdreamsandfairlight/./ 
+./DH1.zip usr/share/doodledoo-by-virtualdreamsandfairlight/./ 

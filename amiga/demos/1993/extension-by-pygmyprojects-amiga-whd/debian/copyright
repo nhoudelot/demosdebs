@@ -1,0 +1,46 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: extension-by-pygmyprojects-amiga-whd
+Source: https://www.pouet.net/prod.php?which=3038
+
+Files: *
+Copyright: 1993 Pygmy Projects
+License: public-domain
+ This is PD - product and it can be spread FREELY
+ .	AS LONG AS THIS LHA-PACKAGE IS NOT MODIFIED!
+ .
+ .	ANY companies spreading this should make
+ .            PROFIT OUT OF THIS!
+ .
+ ANY pd-companies willing to sell this demo for PROFIT
+ should contact me at the address end of this file.
+ We worked hard to make this demo and many hours were spent for thinking
+ and coding these effects.
+ .
+ .DON'T USE ANY SCREENSHOTS OF THIS DEMO IF YOU MAKE PROFIT
+ .				OUT OF IT!
+ .
+ (There were snapshots our our earlier demo Voyage (made for The Fantasy
+ Force and released at Byterapers Gathering in summer of 199?) in video,
+ which we saw at MTV (Same one with loadsa effects from other demos too!).)
+ .
+ Exception: If you are for example a TV-program of whole (demo-)scene and
+ want to include our production in it, then be our guest.
+ .
+ If you want to use screenshots of our demo, then contact me at the address
+ end of this file.
+ Contact me (FLAME/PYGMY PROJECTS) for some things mentioned before:
+ .
+ .		Jani Vaarala
+ .		Tellervontie 2 A 15
+ .		90570 Oulu
+ .		Finland
+ .
+ E-mail:		jvaarala at phoenix.oulu.fi or
+ .		(flame at stekt.oulu.fi)
+ .
+ .	    Coders are free to contact me too!
+
+Files: debian/*
+Copyright: 2016-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

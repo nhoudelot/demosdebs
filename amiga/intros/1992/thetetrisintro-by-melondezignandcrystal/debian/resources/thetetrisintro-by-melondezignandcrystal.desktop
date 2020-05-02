@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=The tetris intro (legalize it 3)
+GenericName=Demo
+Comment=Intro ranked 1st at The PArty 1992
+Type=Application
+Exec=/usr/bin/thetetrisintro-by-melondezignandcrystal
+Icon=thetetrisintro-by-melondezignandcrystal
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=The tetris intro (legalize it 3)

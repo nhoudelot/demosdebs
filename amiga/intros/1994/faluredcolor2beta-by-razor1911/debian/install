@@ -1,0 +1,5 @@
+debian/scripts/faluredcolor2beta-by-razor1911 usr/bin/
+debian/resources/faluredcolor2beta-by-razor1911.desktop usr/share/applications/
+debian/resources/faluredcolor2beta-by-razor1911.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/faluredcolor2beta-by-razor1911.fs-uae usr/share/faluredcolor2beta-by-razor1911/./ 
+./DH1.zip usr/share/faluredcolor2beta-by-razor1911/./ 
