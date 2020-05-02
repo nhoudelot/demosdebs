@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=final
+GenericName=Demo
+Comment=Demo by unknown,released in 1997
+Type=Application
+Exec=/usr/bin/final-by-unknown-atari
+Icon=final-by-unknown-atari
+Categories=AudioVideo;Game;
+Name[fr_FR]=final

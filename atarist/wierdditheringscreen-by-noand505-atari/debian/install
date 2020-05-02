@@ -1,0 +1,4 @@
+debian/scripts/wierdditheringscreen-by-noand505-atari usr/bin/
+debian/resources/wierdditheringscreen-by-noand505-atari.desktop usr/share/applications/
+debian/resources/wierdditheringscreen-by-noand505-atari.png usr/share/icons/hicolor/256x256/apps/
+./harddrive/auto/dither.prg usr/share/wierdditheringscreen-by-noand505-atari/./harddrive/auto/ 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Wierd Dithering Screen
+GenericName=Demo
+Comment=Demo by No and 505,released in 2001
+Type=Application
+Exec=/usr/bin/wierdditheringscreen-by-noand505-atari
+Icon=wierdditheringscreen-by-noand505-atari
+Categories=AudioVideo;Game;
+Name[fr_FR]=Wierd Dithering Screen

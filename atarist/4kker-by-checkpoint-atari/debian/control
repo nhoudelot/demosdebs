@@ -1,0 +1,19 @@
+Source: 4kker-by-checkpoint-atari
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=25104
+
+Package: 4kker-by-checkpoint-atari
+Architecture: all
+Depends:
+ hatari-emutos,
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Atari released in 2006
+ Demo by Checkpoint released in 2006
+ .
+ -Atari program launched using hatari

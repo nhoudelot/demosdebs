@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Babelfish
+GenericName=Demo
+Comment=Demo by The Sirius Cybernetics Corporation,released in 1998
+Type=Application
+Exec=/usr/bin/babelfish-by-thesiriuscyberneticscorporation-atari
+Icon=babelfish-by-thesiriuscyberneticscorporation-atari
+Categories=AudioVideo;Game;
+Name[fr_FR]=Babelfish

@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: wierdditheringscreen-by-noand505-atari
+Source: https://tammat.mbnet.fi/hatari/games.shtml
+
+Files: *
+Copyright: 2001 No and 505
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2016-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

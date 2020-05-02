@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: flashback-by-thecarebears-atari
+Source: https://www.pouet.net/prod.php?which=11784
+
+Files: *
+Copyright: 1993 The Carebears
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2016-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

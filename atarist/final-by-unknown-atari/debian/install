@@ -1,0 +1,4 @@
+debian/scripts/final-by-unknown-atari usr/bin/
+debian/resources/final-by-unknown-atari.desktop usr/share/applications/
+debian/resources/final-by-unknown-atari.png usr/share/icons/hicolor/256x256/apps/
+final.prg usr/share/final-by-unknown-atari/harddrive/auto/ 

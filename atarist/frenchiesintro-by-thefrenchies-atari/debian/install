@@ -1,0 +1,7 @@
+debian/scripts/frenchiesintro-by-thefrenchies-atari usr/bin/
+debian/resources/frenchiesintro-by-thefrenchies-atari.desktop usr/share/applications/
+debian/resources/frenchiesintro-by-thefrenchies-atari.png usr/share/icons/hicolor/256x256/apps/
+96ko.prg usr/share/frenchiesintro-by-thefrenchies-atari/./harddrive/auto/ 
+DESKTOP.INF usr/share/frenchiesintro-by-thefrenchies-atari/./harddrive/ 
+keys.map usr/share/frenchiesintro-by-thefrenchies-atari/./harddrive/ 
+NEWDESK.INF usr/share/frenchiesintro-by-thefrenchies-atari/./harddrive/ 

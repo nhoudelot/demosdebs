@@ -1,0 +1,4 @@
+debian/scripts/4kker-by-checkpoint-atari usr/bin/
+debian/resources/4kker-by-checkpoint-atari.desktop usr/share/applications/
+debian/resources/4kker-by-checkpoint-atari.png usr/share/icons/hicolor/256x256/apps/
+4KKER.PRG usr/share/4kker-by-checkpoint-atari/./harddrive/auto/ 

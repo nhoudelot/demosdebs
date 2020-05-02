@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=wierdditheringscreen-by-noand505-atari
+
+APP_FULLNAME="Wierd Dithering Screen"
+APP_COPYRIGHT="No and 505"
+APP_DESC="demo by No and 505 released in 2001"
+
+function run()
+{
+	/usr/bin/hatari --machine ste -s 2 -d /usr/share/${domain}//harddrive
+}
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage_ATARI
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage_ATARI
+		;;
+	--fullscreen)
+		run --fullscreen
+		;;
+	--version)
+		NSH_version_ATARI
+		;;
+	*)
+		NSH_std_usage_ATARI
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

@@ -1,0 +1,4 @@
+debian/scripts/babelfish-by-thesiriuscyberneticscorporation-atari usr/bin/
+debian/resources/babelfish-by-thesiriuscyberneticscorporation-atari.desktop usr/share/applications/
+debian/resources/babelfish-by-thesiriuscyberneticscorporation-atari.png usr/share/icons/hicolor/256x256/apps/
+FISH.PRG usr/share/babelfish-by-thesiriuscyberneticscorporation-atari/./harddrive/auto/ 

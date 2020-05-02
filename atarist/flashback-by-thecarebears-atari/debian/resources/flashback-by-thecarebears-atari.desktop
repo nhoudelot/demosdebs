@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Flashback
+GenericName=Demo
+Comment=Demo by The Carebears,released in 1993
+Type=Application
+Exec=/usr/bin/flashback-by-thecarebears-atari
+Icon=flashback-by-thecarebears-atari
+Categories=AudioVideo;Game;
+Name[fr_FR]=Flashback

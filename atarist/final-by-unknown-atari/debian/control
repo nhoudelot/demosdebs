@@ -1,0 +1,19 @@
+Source: final-by-unknown-atari
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://tammat.mbnet.fi/hatari/games.shtml
+
+Package: final-by-unknown-atari
+Architecture: all
+Depends:
+ hatari-emutos,
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Atari released in 1997
+ Demo by unknown released in 1997
+ .
+ -Atari program launched using hatari

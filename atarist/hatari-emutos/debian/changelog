@@ -1,0 +1,42 @@
+hatari-emutos (0.9.12-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 May 2020 00:20:08 +0200
+
+hatari-emutos (0.9.11-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Sep 2019 11:04:03 +0200
+
+hatari-emutos (0.9.9.1-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 24 Nov 2018 02:53:27 +0100
+
+hatari-emutos (0.9.6-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 4.1.4
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 06 Oct 2018 15:14:09 +0200
+
+hatari-emutos (0.9.6-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 03 Sep 2016 23:56:25 +0200
+
+hatari-emutos (0.9.5-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 29 Jul 2016 21:04:52 +0200
+
+hatari-emutos (0.9.5-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 14 Feb 2016 23:43:33 +0100

@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=flashback-by-thecarebears-atari
+
+APP_FULLNAME="Flashback"
+APP_COPYRIGHT="The Carebears"
+APP_DESC="demo by The Carebears released in 1993"
+
+function run()
+{
+	/usr/bin/hatari --memsize 2 /usr/share/${domain}/FLASH.MSA
+}
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage_ATARI
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage_ATARI
+		;;
+	--fullscreen)
+		run --fullscreen
+		;;
+	--version)
+		NSH_version_ATARI
+		;;
+	*)
+		NSH_std_usage_ATARI
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

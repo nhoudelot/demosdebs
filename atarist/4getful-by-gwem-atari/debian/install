@@ -1,0 +1,4 @@
+debian/scripts/4getful-by-gwem-atari usr/bin/
+debian/resources/4getful-by-gwem-atari.desktop usr/share/applications/
+debian/resources/4getful-by-gwem-atari.png usr/share/icons/hicolor/256x256/apps/
+out_ste.prg usr/share/4getful-by-gwem-atari/./harddrive/auto/ 

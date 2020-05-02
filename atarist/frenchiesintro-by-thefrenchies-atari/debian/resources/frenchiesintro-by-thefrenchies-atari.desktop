@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Frenchies intro
+GenericName=Demo
+Comment=Demo by The Frenchies,released in 2004
+Type=Application
+Exec=/usr/bin/frenchiesintro-by-thefrenchies-atari
+Icon=frenchiesintro-by-thefrenchies-atari
+Categories=AudioVideo;Game;
+Name[fr_FR]=Frenchies intro

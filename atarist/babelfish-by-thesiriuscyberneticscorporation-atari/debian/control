@@ -1,0 +1,19 @@
+Source: babelfish-by-thesiriuscyberneticscorporation-atari
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=979
+
+Package: babelfish-by-thesiriuscyberneticscorporation-atari
+Architecture: all
+Depends:
+ hatari-emutos,
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo for Atari released in 1998
+ Demo by The Sirius Cybernetics Corporation released in 1998
+ .
+ -Atari program launched using hatari

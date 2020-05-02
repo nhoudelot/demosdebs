@@ -1,0 +1,20 @@
+Source: hatari-emutos
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://emutos.sourceforge.net/
+
+Package: hatari-emutos
+Architecture: all
+Depends:
+ ${misc:Depends},
+ hatari
+Description:  Free operating system for Atari hardware
+ Free operating system for computers based on Motorola 68000 or ColdFire
+ microprocessors.
+ .
+ EmuTOS is mainly designed to run on traditional Atari hardware (ST, TT, 
+ Falcon) and their emulators.

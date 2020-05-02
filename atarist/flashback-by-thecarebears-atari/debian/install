@@ -1,0 +1,4 @@
+debian/scripts/flashback-by-thecarebears-atari usr/bin/
+debian/resources/flashback-by-thecarebears-atari.desktop usr/share/applications/
+debian/resources/flashback-by-thecarebears-atari.png usr/share/icons/hicolor/256x256/apps/
+FLASH.MSA usr/share/flashback-by-thecarebears-atari/
