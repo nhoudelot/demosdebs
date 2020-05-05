@@ -1,0 +1,9 @@
+pretaporter-by-concept for Debian
+--------------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * replaced PMODE/W(1.24) with DOS/32A DOS Extender(04-20-06)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 May 2020 00:28:00 +0200

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Babylon
+GenericName=Demo
+Comment=Babylon - Demos by psychis monks released at Assembly 1996
+Type=Application
+Exec=/usr/bin/babylon-by-psychicmonks
+Icon=babylon-by-psychicmonks
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Babylon

@@ -1,0 +1,5 @@
+JADE.EXE usr/share/jade-by-eclipse/
+debian/scripts/jade-by-eclipse.conf usr/share/jade-by-eclipse/
+debian/scripts/jade-by-eclipse usr/bin/
+debian/resources/jade-by-eclipse.desktop usr/share/applications/
+debian/resources/jade-by-eclipse.png usr/share/icons/hicolor/256x256/apps/

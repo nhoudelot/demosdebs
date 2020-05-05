@@ -1,0 +1,7 @@
+debian/scripts/daclone-by-halcyon usr/bin/
+debian/resources/daclone-by-halcyon.desktop usr/share/applications/
+debian/resources/daclone-by-halcyon.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/daclone-by-halcyon.conf usr/share/daclone-by-halcyon/./ 
+./DA_CLONE.EXE usr/share/daclone-by-halcyon/./ 
+./JOIKHU.S3M usr/share/daclone-by-halcyon/./ 
+./KUVA.DAT.init usr/share/daclone-by-halcyon/./ 

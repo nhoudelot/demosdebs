@@ -1,0 +1,7 @@
+KUKSA.DAT usr/share/kayttokuksa-by-taat/
+KUKSA.XM usr/share/kayttokuksa-by-taat/
+KUKSA.EXE usr/share/kayttokuksa-by-taat/
+debian/scripts/kayttokuksa-by-taat.conf usr/share/kayttokuksa-by-taat/
+debian/scripts/kayttokuksa-by-taat usr/bin/
+debian/resources/kayttokuksa-by-taat.desktop usr/share/applications/
+debian/resources/kayttokuksa-by-taat.png usr/share/icons/hicolor/256x256/apps/

@@ -1,0 +1,26 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: claudia-by-deathstar
+Source: https://www.pouet.net/prod.php?which=1604
+
+Files: *
+Copyright: 1997 CdS
+           1997 FrOYd
+           1997 Asavaris
+           1997 pix
+License: public-domain
+ (probably freeware)
+
+Files: CLAUDIA.EXE
+Copyright: 1997 CdS
+           1997 FrOYd
+           1997 Asavaris
+           1997 pix
+           1994-1997 Charles Scheffold
+           1994-1997 Tomasz Pytel
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

@@ -1,0 +1,45 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: atlantis-by-mooze
+Source: https://www.mooze.org/releases/atlantis.zip
+
+Files: *
+Copyright: 1996 uffo-Wup
+           1996 Unsigned
+           1996 Breadfan
+License: atlantis-license
+
+Files: ATLANTIS.EXE
+Copyright: 1996 uffo-Wup
+           1996 Unsigned
+           1996 Breadfan
+           1994-1997 Charles Scheffold
+           1994-1997 Tomasz Pytel
+License: atlantis-license
+
+License: atlantis-license
+ .
+ COPYRIGHT LICENSE
+ .
+ .
+ This material is not freeware. You are allowed to copy it without
+ restrictions for non-commercial use.
+ .
+ No payment of any kind may be charged for this product or any combination
+ of products or services including this product without our authorization
+ and official written license.
+ .
+ Commercial use, especially the industrial manufacturing on any data
+ storage media and their distribution without the expressed permission of
+ the producer, is strictly prohibited.
+ .
+ This program or the data files contained therein may not be altered or
+ modified without the permission of the author.
+ .
+ You take full responsibility for the operation of this software and any
+ consequences thereof. We the creators can not accept liability for damages
+ or failures arising from the use of this software.
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

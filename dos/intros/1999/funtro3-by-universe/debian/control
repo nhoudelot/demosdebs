@@ -1,0 +1,18 @@
+Source: funtro3-by-universe
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=6618
+
+Package: funtro3-by-universe
+Architecture: all
+Depends: dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: DOS Intro released in 1999
+ intro ranked 3rd at ByteFall 1999
+ .
+ -MS-DOS program launched using Dosbox

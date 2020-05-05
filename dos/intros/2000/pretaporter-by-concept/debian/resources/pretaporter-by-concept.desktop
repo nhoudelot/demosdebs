@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Pret a porter
+GenericName=Demo
+Comment=Pret a porter - intro ranked 1st at Fallas Party 2000
+Type=Application
+Exec=/usr/bin/pretaporter-by-concept
+Icon=pretaporter-by-concept
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Pret a porter

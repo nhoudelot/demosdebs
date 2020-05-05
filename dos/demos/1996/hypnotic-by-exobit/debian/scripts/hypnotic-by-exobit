@@ -1,0 +1,77 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=hypnotic-by-exobit
+
+if [ $(which gettext) ]; then
+	gettext="gettext --domain=$domain -s --"
+else
+	gettext=echo
+fi
+
+function usage()
+{
+	$gettext "Usage: hypnotic-by-exobit [OPTION]"
+	$gettext "Start Hypnotic - Demo ranked 2nd at Euskal 1996"
+	echo
+	$gettext "--help       display this help and exit"
+	$gettext "--fullscreen	start demo in fullscreen (Ctrl-F9 to exit)"
+	$gettext "--debug	start the dosbox environnement without running the demo"
+	$gettext "--version    display version information and exit"
+}
+
+function version()
+{
+	$gettext "hypnotic-by-exobit"
+	$gettext "Copyright (C) Exobit "
+	$gettext "Dosbox Copyright (C) Dosbox Team"
+}
+
+	
+
+function run()
+{
+	NSH_CreateTmpDomainDir
+	NSH_InstallRWFileInTmp HYPNOTIC.DAT HYPNOTIC.DAT
+	/usr/bin/dosbox-x -conf  /usr/share/$domain/$1.conf $2
+    	NSH_RemoveTmpDomainDir
+}
+
+function run_debug()
+{
+	NSH_CreateTmpDomainDir
+	NSH_InstallRWFileInTmp HYPNOTIC.DAT HYPNOTIC.DAT
+	NSH_SetDebugDOSBOX
+	/usr/bin/dosbox-x -conf  /tmp/$1_debug.conf
+	NSH_RemoveDebugDOSBOX
+	NSH_RemoveTmpDomainDir
+}
+
+if [ "$#" -gt "1" ]; then
+	usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run $domain
+else
+	case "$1" in
+	--help)
+		usage
+		;;
+	--fullscreen)
+		run $domain -fullscreen
+		;;
+	--debug)
+		run_debug $domain
+		;;
+	--version)
+		version
+		;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

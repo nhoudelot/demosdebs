@@ -1,0 +1,5 @@
+TEXTDEMO.EXE usr/share/palikka-by-moottori/
+debian/scripts/palikka-by-moottori.conf usr/share/palikka-by-moottori/
+debian/scripts/palikka-by-moottori usr/bin/
+debian/resources/palikka-by-moottori.desktop usr/share/applications/
+debian/resources/palikka-by-moottori.png usr/share/icons/hicolor/256x256/apps/

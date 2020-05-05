@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=TOTEM issue #1
+GenericName=Demo
+Comment=TOTEM issue #1 - This is the first and last issue of Totem
+Type=Application
+Exec=/usr/bin/totem-issue1-by-jff
+Icon=totem-issue1-by-jff
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=TOTEM issue #1

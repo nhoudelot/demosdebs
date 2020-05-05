@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Phenotype
+GenericName=Demo
+Comment=Phenotype - demo ranked 3rd at Wired 1995
+Type=Application
+Exec=/usr/bin/phenotype-by-purge
+Icon=phenotype-by-purge
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Phenotype

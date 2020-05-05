@@ -1,0 +1,11 @@
+303-by-acme for Debian
+---------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * embed with DOS/4GW(-)[-]
+ * compiled with WATCOM C
+(can be embeded with DOS32/A, but then it don't work with dosbox-x)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 06 May 2020 14:08:00 +0200

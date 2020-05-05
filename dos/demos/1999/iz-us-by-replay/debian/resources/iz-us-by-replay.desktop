@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=IZ-US
+GenericName=Demo
+Comment=IZ-US - demo ranked 5th at Hype 1999
+Type=Application
+Exec=/usr/bin/iz-us-by-replay
+Icon=iz-us-by-replay
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=IZ-US

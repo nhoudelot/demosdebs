@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Shian Lee
+GenericName=Demo
+Comment=Shian Lee - demo ranked 1st at Volcanic 1997
+Type=Application
+Exec=/usr/bin/shianlee-by-bomb
+Icon=shianlee-by-bomb
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Shian Lee

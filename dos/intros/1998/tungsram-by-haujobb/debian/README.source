@@ -1,0 +1,10 @@
+tungsram-by-haujobb for Debian
+-----------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * replaced DOS/4G by DOS/32A DOS Extender(04-20-06)
+ * compiled with WATCOM C(-)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 08 May 2020 18:59:00 +0200

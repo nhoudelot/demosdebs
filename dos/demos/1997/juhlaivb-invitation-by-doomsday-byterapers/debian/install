@@ -1,0 +1,6 @@
+juhla.xm usr/share/juhlaivb-invitation-by-doomsday-byterapers/
+juhla.exe usr/share/juhlaivb-invitation-by-doomsday-byterapers/
+debian/scripts/juhlaivb-invitation-by-doomsday-byterapers.conf usr/share/juhlaivb-invitation-by-doomsday-byterapers/
+debian/scripts/juhlaivb-invitation-by-doomsday-byterapers usr/bin/
+debian/resources/juhlaivb-invitation-by-doomsday-byterapers.desktop usr/share/applications/
+debian/resources/juhlaivb-invitation-by-doomsday-byterapers.png usr/share/icons/hicolor/256x256/apps/

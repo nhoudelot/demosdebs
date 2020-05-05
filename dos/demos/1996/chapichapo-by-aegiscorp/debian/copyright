@@ -1,0 +1,34 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: chapichapo-by-aegiscorp
+Source: https://www.pouet.net/prod.php?which=300
+
+Files: *
+Copyright: 1996 Lone Runner
+           1996 Manu Too
+           1996 Number Six
+           1996 Shaman
+           1996 DGM
+           1996 Gandalf
+           1996 Tran
+           1996 Mikmod v2.10
+License: public-domain
+ (probably NOT freeware, because of the samples)
+
+Files: CHAPI.EXE
+Copyright: 1996 Lone Runner
+           1996 Manu Too
+           1996 Number Six
+           1996 Shaman
+           1996 DGM
+           1996 Gandalf
+           1996 Tran
+           1996 Mikmod v2.10
+           1994-1997 Charles Scheffold
+           1994-1997 Tomasz Pytel
+License: public-domain
+ (probably NOT freeware, because of the samples)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

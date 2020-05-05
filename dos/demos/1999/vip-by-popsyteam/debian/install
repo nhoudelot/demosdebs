@@ -1,0 +1,6 @@
+POPSY.COM usr/share/vip-by-popsyteam/
+VIP.EXE.init usr/share/vip-by-popsyteam/
+debian/scripts/vip-by-popsyteam.conf usr/share/vip-by-popsyteam/
+debian/scripts/vip-by-popsyteam usr/bin/
+debian/resources/vip-by-popsyteam.desktop usr/share/applications/
+debian/resources/vip-by-popsyteam.png usr/share/icons/hicolor/256x256/apps/

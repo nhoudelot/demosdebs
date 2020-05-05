@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Robotnik
+GenericName=Demo
+Comment=Robotnik - demo ranked 2nd at The Gathering 1997
+Type=Application
+Exec=/usr/bin/robotnik-by-rage
+Icon=robotnik-by-rage
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Robotnik

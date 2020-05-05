@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=okiedokie
+GenericName=Demo
+Comment=okiedokie - demo ranked 4th at the Gathering 1999
+Type=Application
+Exec=/usr/bin/okiedokie-by-soopadoopa
+Icon=okiedokie-by-soopadoopa
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=okiedokie

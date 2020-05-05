@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Muhammad
+GenericName=Demo
+Comment=Muhammad - demo ranked 2nd at Hype 1999
+Type=Application
+Exec=/usr/bin/muhammad-by-bbagf
+Icon=muhammad-by-bbagf
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Muhammad

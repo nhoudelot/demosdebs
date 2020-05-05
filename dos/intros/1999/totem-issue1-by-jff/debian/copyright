@@ -1,0 +1,32 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: totem-issue1-by-jff
+Source: https://www.j-f-f.net
+
+Files: *
+Copyright: 1999 Cleaner
+           1999 Bat
+           1999 Exocet
+           1999 Benji
+License: unknwon
+ (probably freeware)
+
+Files: TOTEM.EXE
+Copyright: 1999 Cleaner
+           1999 Bat
+           1999 Exocet
+           1999 Benji
+           1994-1997 Charles Scheffold
+           1994-1997 Tomasz Pytel
+License: public-domain
+ (probably freeware)
+
+License: freeware
+ Due to the fact that PMODE/W is no longer supported it is now free
+ for use in commercial and non-commercial applications, provided said
+ applications are not themselves DOS extenders.
+ To put it bluntly, don't go ripping off our DOS extender to make your own.
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

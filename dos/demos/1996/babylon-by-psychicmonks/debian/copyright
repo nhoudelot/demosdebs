@@ -1,0 +1,71 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: babylon-by-psychicmonks
+Source: https://www.pouet.net/prod.php?which=3627
+
+Files: *
+Copyright: 1996 necros
+           1996 solstice
+           1996 likuid krystal
+           1996 pelusa
+           1996 ior
+           1996 iv
+           1996 carcass
+           1996 aahz
+License: public-domain
+ (probably freeware)
+
+Files: BABYLON.EXE
+Copyright: 1996 necros
+           1996 solstice
+           1996 likuid krystal
+           1996 pelusa
+           1996 ior
+           1996 iv
+           1996 carcass
+           1996 aahz
+           1996-2006 Narech K.
+License: DOS/32-license
+ DOS/32 Advanced DOS Extender Software License
+ =============================================
+ .
+ Copyright (C) 1996-2006 by Narech K. All rights reserved.
+ .
+ Redistribution  and  use  in source and  binary  forms, with or without
+ modification,  are permitted provided that the following conditions are
+ met:
+ .
+ 1.  Redistributions  of  source code  must  retain  the above copyright
+ notice, this list of conditions and the following disclaimer.
+ .
+ 2.  Redistributions  in binary form  must reproduce the above copyright
+ notice,  this  list of conditions and  the  following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ .
+ 3. The end-user documentation included with the redistribution, if any,
+ must include the following acknowledgment:
+ .
+ "This product uses DOS/32 Advanced DOS Extender technology."
+ .
+ Alternately,  this acknowledgment may appear in the software itself, if
+ and wherever such third-party acknowledgments normally appear.
+ .
+ 4.  Products derived from this software  may not be called "DOS/32A" or
+ "DOS/32 Advanced".
+ .
+ THIS  SOFTWARE AND DOCUMENTATION IS PROVIDED  "AS IS" AND ANY EXPRESSED
+ OR  IMPLIED  WARRANTIES,  INCLUDING, BUT  NOT  LIMITED  TO, THE IMPLIED
+ WARRANTIES  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED.  IN  NO  EVENT SHALL THE  AUTHORS  OR  COPYRIGHT HOLDERS BE
+ LIABLE  FOR  ANY DIRECT, INDIRECT,  INCIDENTAL,  SPECIAL, EXEMPLARY, OR
+ CONSEQUENTIAL  DAMAGES  (INCLUDING, BUT NOT  LIMITED TO, PROCUREMENT OF
+ SUBSTITUTE  GOODS  OR  SERVICES;  LOSS OF  USE,  DATA,  OR  PROFITS; OR
+ BUSINESS  INTERRUPTION) HOWEVER CAUSED AND  ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ OTHERWISE)  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

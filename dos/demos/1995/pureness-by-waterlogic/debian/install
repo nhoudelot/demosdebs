@@ -1,0 +1,7 @@
+PURENESS.DAT usr/share/pureness-by-waterlogic/
+PURENESS.EXE usr/share/pureness-by-waterlogic/
+NEVER.S3M usr/share/pureness-by-waterlogic/
+debian/scripts/pureness-by-waterlogic.conf usr/share/pureness-by-waterlogic/
+debian/scripts/pureness-by-waterlogic usr/bin/
+debian/resources/pureness-by-waterlogic.desktop usr/share/applications/
+debian/resources/pureness-by-waterlogic.png usr/share/icons/hicolor/256x256/apps/

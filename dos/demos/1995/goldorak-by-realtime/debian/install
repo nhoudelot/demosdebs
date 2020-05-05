@@ -1,0 +1,5 @@
+GOLDORAK.EXE.init usr/share/goldorak-by-realtime/
+debian/scripts/goldorak-by-realtime.conf usr/share/goldorak-by-realtime/
+debian/scripts/goldorak-by-realtime usr/bin/
+debian/resources/goldorak-by-realtime.desktop usr/share/applications/
+debian/resources/goldorak-by-realtime.png usr/share/icons/hicolor/256x256/apps/

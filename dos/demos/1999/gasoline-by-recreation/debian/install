@@ -1,0 +1,6 @@
+HAIRO3.XM usr/share/gasoline-by-recreation/
+GASOLINE.EXE.init usr/share/gasoline-by-recreation/
+debian/scripts/gasoline-by-recreation.conf usr/share/gasoline-by-recreation/
+debian/scripts/gasoline-by-recreation usr/bin/
+debian/resources/gasoline-by-recreation.desktop usr/share/applications/
+debian/resources/gasoline-by-recreation.png usr/share/icons/hicolor/256x256/apps/

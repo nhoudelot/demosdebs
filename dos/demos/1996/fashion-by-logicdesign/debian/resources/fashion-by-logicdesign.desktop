@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Fashion
+GenericName=Demo
+Comment=Fashion - Demo ranked 1st at X 1996
+Type=Application
+Exec=/usr/bin/fashion-by-logicdesign
+Icon=fashion-by-logicdesign
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Fashion

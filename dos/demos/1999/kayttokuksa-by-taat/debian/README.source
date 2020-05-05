@@ -1,0 +1,10 @@
+kayttokuksa-by-taat for Debian
+----------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * use DOS/4GW replaced with DOS/32A DOS Extender(04-20-06)
+ * compiled with WATCOM C
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 May 2020 20:16:00 +0200

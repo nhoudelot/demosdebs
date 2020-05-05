@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Exine
+GenericName=Demo
+Comment=Exine - Demo ranked 2nd at volcanic 1996
+Type=Application
+Exec=/usr/bin/exine-by-anarchy
+Icon=exine-by-anarchy
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Exine

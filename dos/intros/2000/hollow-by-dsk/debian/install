@@ -1,0 +1,9 @@
+debian/scripts/hollow-by-dsk.conf usr/share/hollow-by-dsk/
+debian/scripts/hollow-by-dsk usr/bin/
+debian/resources/hollow-by-dsk.desktop usr/share/applications/
+debian/resources/hollow-by-dsk.png usr/share/icons/hicolor/256x256/apps/
+./HOLLOW.EXE usr/share/hollow-by-dsk/./ 
+./debian/scripts/hollow-by-dsk.conf usr/share/hollow-by-dsk/./ 
+./Sb usr/share/hollow-by-dsk/./ 
+./Sb/HOLLOW.XM usr/share/hollow-by-dsk/./Sb/ 
+./Sb/HOLLOWSB.EXE usr/share/hollow-by-dsk/./Sb/ 

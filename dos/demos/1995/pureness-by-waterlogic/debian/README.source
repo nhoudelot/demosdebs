@@ -1,0 +1,12 @@
+pureness-by-waterlogic for Debian
+-------------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * is compressed with PKLITE(1.15)
+   It can be uncompressed with UNP but it cannot be run anymore. So I kept the 
+   compressed version
+ * is compiled with Borland C/C++(1991) and linked with Borland TLINK(5.0)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 04 May 2020 22:45:00 +0200

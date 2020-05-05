@@ -1,0 +1,9 @@
+FISHLIME.XM usr/share/codliveroild-by-damones/  
+KITTOS.3DS usr/share/codliveroild-by-damones/  
+KUHA.EXE usr/share/codliveroild-by-damones/  
+MUNKKI2.3DS usr/share/codliveroild-by-damones/  
+PALLO.3DS usr/share/codliveroild-by-damones/
+debian/scripts/codliveroild-by-damones.conf usr/share/codliveroild-by-damones/
+debian/scripts/codliveroild-by-damones usr/bin/
+debian/resources/codliveroild-by-damones.desktop usr/share/applications/
+debian/resources/codliveroild-by-damones.png usr/share/icons/hicolor/256x256/apps/

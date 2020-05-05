@@ -1,0 +1,8 @@
+debian/scripts/horison4k-by-nocturnal.conf usr/share/horison4k-by-nocturnal/
+debian/scripts/horison4k-by-nocturnal usr/bin/
+debian/resources/horison4k-by-nocturnal.desktop usr/share/applications/
+debian/resources/horison4k-by-nocturnal.png usr/share/icons/hicolor/256x256/apps/
+./HORIFAKE.COM usr/share/horison4k-by-nocturnal/./ 
+./HORISON.COM usr/share/horison4k-by-nocturnal/./ 
+./debian/scripts/horison4k-by-nocturnal.conf usr/share/horison4k-by-nocturnal/./ 
+./HORISRC.ZIP usr/share/horison4k-by-nocturnal/./ 

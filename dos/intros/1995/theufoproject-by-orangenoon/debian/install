@@ -1,0 +1,7 @@
+debian/scripts/theufoproject-by-orangenoon.conf usr/share/theufoproject-by-orangenoon/
+debian/scripts/theufoproject-by-orangenoon usr/bin/
+debian/resources/theufoproject-by-orangenoon.desktop usr/share/applications/
+debian/resources/theufoproject-by-orangenoon.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/theufoproject-by-orangenoon.conf usr/share/theufoproject-by-orangenoon/./ 
+./UFO.EXE usr/share/theufoproject-by-orangenoon/./
+./UFO.UFO.init usr/share/theufoproject-by-orangenoon/./

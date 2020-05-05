@@ -1,0 +1,17 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: jade-by-eclipse
+Source: https://www.eclipse-game.com/?menu=demos&sub=intros&dat=2
+
+Files: *
+Copyright: 1995 Light Show
+           1995 Profil
+           1995 ZANY BIRD
+           1995 Rez
+           1995 ROBBAN
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

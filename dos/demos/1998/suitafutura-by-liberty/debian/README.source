@@ -1,0 +1,10 @@
+suitafutura-by-liberty for Debian
+--------------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * replaced DOS/4GW by DOS/32A DOS Extender(04-20-06)
+ * comiled with WATCOM C(-)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 May 2020 12:02:00 +0200

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Vivid Experiment
+GenericName=Demo
+Comment=Vivid Experiment - demo ranked 3rd at Assembly 1996
+Type=Application
+Exec=/usr/bin/vividexperiment-by-doomsday
+Icon=vividexperiment-by-doomsday
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Vivid Experiment

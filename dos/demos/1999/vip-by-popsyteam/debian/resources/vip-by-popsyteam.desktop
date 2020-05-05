@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=VIP 1
+GenericName=Demo
+Comment=VIP 1 - Invit demo ranked 2nd at the Arf!Party 1999
+Type=Application
+Exec=/usr/bin/vip-by-popsyteam
+Icon=vip-by-popsyteam
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=VIP 1

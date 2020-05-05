@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Falco - The Space Rider
+GenericName=Demo
+Comment=Falco - The Space Rider - Intro ranked 9th at Mekka & Symposium 2000
+Type=Application
+Exec=/usr/bin/falco-by-cryogen
+Icon=falco-by-cryogen
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Falco - The Space Rider

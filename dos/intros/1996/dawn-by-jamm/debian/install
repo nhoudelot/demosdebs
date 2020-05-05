@@ -1,0 +1,5 @@
+DAWN.EXE usr/share/dawn-by-jamm/
+debian/scripts/dawn-by-jamm.conf usr/share/dawn-by-jamm/
+debian/scripts/dawn-by-jamm usr/bin/
+debian/resources/dawn-by-jamm.desktop usr/share/applications/
+debian/resources/dawn-by-jamm.png usr/share/icons/hicolor/256x256/apps/

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Explicit
+GenericName=Demo
+Comment=Explicit - Demo Ranked 3rd at NAID 1996
+Type=Application
+Exec=/usr/bin/explicit-by-hornet-otm
+Icon=explicit-by-hornet-otm
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Explicit

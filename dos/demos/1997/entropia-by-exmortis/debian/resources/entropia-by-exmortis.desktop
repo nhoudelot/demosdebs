@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Entropia
+GenericName=Demo
+Comment=Entropia - Demo ranked 1st at General Probe 1997
+Type=Application
+Exec=/usr/bin/entropia-by-exmortis
+Icon=entropia-by-exmortis
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Entropia

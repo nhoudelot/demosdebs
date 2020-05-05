@@ -1,0 +1,6 @@
+DOS4GW.EXE.init usr/share/iz-us-by-replay/
+IZ-US.EXE.init usr/share/iz-us-by-replay/
+debian/scripts/iz-us-by-replay.conf usr/share/iz-us-by-replay/
+debian/scripts/iz-us-by-replay usr/bin/
+debian/resources/iz-us-by-replay.desktop usr/share/applications/
+debian/resources/iz-us-by-replay.png usr/share/icons/hicolor/128x128/apps/

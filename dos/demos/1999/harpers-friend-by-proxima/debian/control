@@ -1,0 +1,19 @@
+Source: harpers-friend-by-proxima
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=59014
+
+Package: harpers-friend-by-proxima
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: DOS Demo released in 1999
+ Demo ranked 10th at the Gathering 1999
+ .
+ -MS-DOS program launched using Dosbox

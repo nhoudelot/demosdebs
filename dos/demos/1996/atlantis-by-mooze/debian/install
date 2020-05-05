@@ -1,0 +1,6 @@
+ATLANTIS.EXE usr/share/atlantis-by-mooze/
+ATLANTIS.XM usr/share/atlantis-by-mooze/
+debian/scripts/atlantis-by-mooze.conf usr/share/atlantis-by-mooze/
+debian/scripts/atlantis-by-mooze usr/bin/
+debian/resources/atlantis-by-mooze.desktop usr/share/applications/
+debian/resources/atlantis-by-mooze.png usr/share/icons/hicolor/256x256/apps/

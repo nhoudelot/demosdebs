@@ -1,0 +1,6 @@
+FUNTRO3!.EXE usr/share/funtro3-by-universe/
+debian/scripts/funtro3-by-universe.conf usr/share/funtro3-by-universe/
+MUSIC2.S3M.init usr/share/funtro3-by-universe/
+debian/scripts/funtro3-by-universe usr/bin/
+debian/resources/funtro3-by-universe.desktop usr/share/applications/
+debian/resources/funtro3-by-universe.png usr/share/icons/hicolor/256x256/apps/

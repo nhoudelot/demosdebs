@@ -1,0 +1,5 @@
+JUST.EXE usr/share/just-by-legenddesign/
+debian/scripts/just-by-legenddesign.conf usr/share/just-by-legenddesign/
+debian/scripts/just-by-legenddesign usr/bin/
+debian/resources/just-by-legenddesign.desktop usr/share/applications/
+debian/resources/just-by-legenddesign.png usr/share/icons/hicolor/256x256/apps/

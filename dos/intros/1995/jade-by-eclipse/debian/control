@@ -1,0 +1,20 @@
+Source: jade-by-eclipse
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.eclipse-game.com/?menu=demos&sub=intros&dat=2
+
+Package: jade-by-eclipse
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: DOS Intro released in 1995
+ Ranked 1st at the Volcanic party 1995
+ Select 4 at the prompt
+ .
+ -MS-DOS program launched using Dosbox

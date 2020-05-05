@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=The UFO Project
+GenericName=Demo
+Comment=intro 64k released in december 1995
+Type=Application
+Exec=/usr/bin/theufoproject-by-orangenoon
+Icon=theufoproject-by-orangenoon
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=The UFO Project

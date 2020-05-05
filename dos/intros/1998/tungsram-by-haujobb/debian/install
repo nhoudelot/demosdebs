@@ -1,0 +1,6 @@
+JALAYT.XM usr/share/tungsram-by-haujobb/
+TUNGSRAM.EXE usr/share/tungsram-by-haujobb/
+debian/scripts/tungsram-by-haujobb.conf usr/share/tungsram-by-haujobb/
+debian/scripts/tungsram-by-haujobb usr/bin/
+debian/resources/tungsram-by-haujobb.desktop usr/share/applications/
+debian/resources/tungsram-by-haujobb.png usr/share/icons/hicolor/256x256/apps/

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Bomberman Attitude
+GenericName=Demo
+Comment=Bomberman Attitude - Intro ranked 5th at Saturne Party 1996
+Type=Application
+Exec=/usr/bin/bomb-by-dentifrice
+Icon=bomb-by-dentifrice
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Bomberman Attitude

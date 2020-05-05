@@ -1,0 +1,7 @@
+X14.S3M.init usr/share/x14-by-orange/
+X14.EXE usr/share/x14-by-orange/
+DATA.DAT.init usr/share/x14-by-orange/
+debian/scripts/x14-by-orange.conf usr/share/x14-by-orange/
+debian/scripts/x14-by-orange usr/bin/
+debian/resources/x14-by-orange.desktop usr/share/applications/
+debian/resources/x14-by-orange.png usr/share/icons/hicolor/256x256/apps/

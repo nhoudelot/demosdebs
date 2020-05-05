@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=planet groove
+GenericName=Demo
+Comment=planet groove - Demo Ranked 20th at The Party 1995
+Type=Application
+Exec=/usr/bin/planetgroove-by-fudge
+Icon=planetgroove-by-fudge
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=planet groove

@@ -1,0 +1,11 @@
+iz-us-by-replay for Debian
+---------------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * use PKLITE(1.12-1.13), UPX and DOS/4GW
+unpack the PKLITE don't create a workable EXE
+ * update DOS/4GW to 2.01
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 May 2020 17:33:00 +0200

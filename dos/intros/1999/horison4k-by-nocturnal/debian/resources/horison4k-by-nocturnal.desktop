@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=horison 4k
+GenericName=Demo
+Comment=4k intro ranked 11th at The Gathering 1999
+Type=Application
+Exec=/usr/bin/horison4k-by-nocturnal
+Icon=horison4k-by-nocturnal
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=horison 4k

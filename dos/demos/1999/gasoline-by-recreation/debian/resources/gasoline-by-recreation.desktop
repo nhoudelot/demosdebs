@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=gasoline
+GenericName=Demo
+Comment=gasoline - Demo ranked 1st at Assembly 1999
+Type=Application
+Exec=/usr/bin/gasoline-by-recreation
+Icon=gasoline-by-recreation
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=gasoline

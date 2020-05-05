@@ -1,0 +1,6 @@
+HYPNOTIC.DAT.init usr/share/hypnotic-by-exobit/
+HYPNOTIC.EXE usr/share/hypnotic-by-exobit/
+debian/scripts/hypnotic-by-exobit.conf usr/share/hypnotic-by-exobit/
+debian/scripts/hypnotic-by-exobit usr/bin/
+debian/resources/hypnotic-by-exobit.desktop usr/share/applications/
+debian/resources/hypnotic-by-exobit.png usr/share/icons/hicolor/256x256/apps/

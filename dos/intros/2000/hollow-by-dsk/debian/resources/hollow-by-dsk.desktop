@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Hollow
+GenericName=Demo
+Comment=intro ranked 3rd at Fallas Party 2000
+Type=Application
+Exec=/usr/bin/hollow-by-dsk
+Icon=hollow-by-dsk
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Hollow

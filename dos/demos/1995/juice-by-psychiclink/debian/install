@@ -1,0 +1,5 @@
+JUICE.EXE usr/share/juice-by-psychiclink/
+debian/scripts/juice-by-psychiclink.conf usr/share/juice-by-psychiclink/
+debian/scripts/juice-by-psychiclink usr/bin/
+debian/resources/juice-by-psychiclink.desktop usr/share/applications/
+debian/resources/juice-by-psychiclink.png usr/share/icons/hicolor/256x256/apps/

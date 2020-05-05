@@ -1,0 +1,6 @@
+SEMTEX.MOD.init usr/share/semtexcity-by-jeskolaproduction/
+SEMTEX.EXE usr/share/semtexcity-by-jeskolaproduction/
+debian/scripts/semtexcity-by-jeskolaproduction.conf usr/share/semtexcity-by-jeskolaproduction/
+debian/scripts/semtexcity-by-jeskolaproduction usr/bin/
+debian/resources/semtexcity-by-jeskolaproduction.desktop usr/share/applications/
+debian/resources/semtexcity-by-jeskolaproduction.png usr/share/icons/hicolor/256x256/apps/

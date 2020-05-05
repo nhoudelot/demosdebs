@@ -1,0 +1,7 @@
+phenotype-by-purge for Debian
+----------------------------
+
+Emulation speed, setup to i80486DX2-66 (26800 cycles), with dynamic core.
+Fixed cycles, because sometime, the demo goeas too fast
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 04 May 2020 21:50:00 +0200

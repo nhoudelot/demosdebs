@@ -1,0 +1,6 @@
+MUSE-GUS.EXE usr/share/lemuseum-by-jff/
+JFF-MUSE.EXE.init usr/share/lemuseum-by-jff/
+debian/scripts/lemuseum-by-jff.conf usr/share/lemuseum-by-jff/
+debian/scripts/lemuseum-by-jff usr/bin/
+debian/resources/lemuseum-by-jff.desktop usr/share/applications/
+debian/resources/lemuseum-by-jff.png usr/share/icons/hicolor/256x256/apps/

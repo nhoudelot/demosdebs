@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=ACME Smoke Yellow Weed
+GenericName=Demo
+Comment=ACME Smoke Yellow Weed - Intro 64k ranked 1st at Somewhere in Holland 1995
+Type=Application
+Exec=/usr/bin/acme-syw-by-acme
+Icon=acme-syw-by-acme
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=ACME Smoke Yellow Weed

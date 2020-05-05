@@ -1,0 +1,5 @@
+DEN-GIRL.EXE usr/share/iwgiwrm-by-dentifrice/
+debian/scripts/iwgiwrm-by-dentifrice.conf usr/share/iwgiwrm-by-dentifrice/
+debian/scripts/iwgiwrm-by-dentifrice usr/bin/
+debian/resources/iwgiwrm-by-dentifrice.desktop usr/share/applications/
+debian/resources/iwgiwrm-by-dentifrice.png usr/share/icons/hicolor/256x256/apps/

@@ -1,0 +1,6 @@
+GUGGLEME.XM usr/share/guggleme-by-doomsday/
+GUGGLEME.EXE usr/share/guggleme-by-doomsday/
+debian/scripts/guggleme-by-doomsday.conf usr/share/guggleme-by-doomsday/
+debian/scripts/guggleme-by-doomsday usr/bin/
+debian/resources/guggleme-by-doomsday.desktop usr/share/applications/
+debian/resources/guggleme-by-doomsday.png usr/share/icons/hicolor/256x256/apps/

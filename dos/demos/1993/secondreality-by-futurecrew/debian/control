@@ -1,0 +1,20 @@
+Source: secondreality-by-futurecrew
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=63
+
+Package: secondreality-by-futurecrew
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Demo for MS-DOS released in 1993
+ Demo by Future Crew released in 1993
+ Ranked 1st at Assembly 1993
+ .
+ -MS-DOS program launched using Dosbox

@@ -1,0 +1,16 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: harpers-friend-by-proxima
+Source: https://www.pouet.net/prod.php?which=59014
+
+Files: *
+Copyright: 1999 theo
+           1999 720
+           1999 oce
+           1999 sunday
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

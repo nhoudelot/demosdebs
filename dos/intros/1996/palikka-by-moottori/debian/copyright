@@ -1,0 +1,15 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: palikka-by-moottori
+Source: https://www.pouet.net/prod.php?which=4744
+
+Files: *
+Copyright: 1996 Fingers (Iikka Keränen), niilo.keranen@pp.inet.fi
+           1996 Jake (Jarkko Vääräniemi), jarkko.vaaraniemi@mbnet.fi
+           1996 Zptb (Kyösti Ylikulju), yl@xuq.nullnet.fi
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

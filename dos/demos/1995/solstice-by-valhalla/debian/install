@@ -1,0 +1,7 @@
+SOLSTICE.DAT usr/share/solstice-by-valhalla/
+SOLSTICE.MOO usr/share/solstice-by-valhalla/
+SOLSTICE.EXE usr/share/solstice-by-valhalla/
+debian/scripts/solstice-by-valhalla.conf usr/share/solstice-by-valhalla/
+debian/scripts/solstice-by-valhalla usr/bin/
+debian/resources/solstice-by-valhalla.desktop usr/share/applications/
+debian/resources/solstice-by-valhalla.png usr/share/icons/hicolor/256x256/apps/

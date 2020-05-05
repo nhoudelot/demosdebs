@@ -1,0 +1,11 @@
+palikka-by-moottori for Debian
+-----------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * has been unpacked from PKLITE(1.15)
+ * compiled with Borland C/C++(1991)
+ * linked with Borland TLINK(5.0)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 08 May 2020 18:22:00 +0200

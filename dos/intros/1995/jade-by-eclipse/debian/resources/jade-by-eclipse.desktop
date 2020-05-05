@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Jade
+GenericName=Demo
+Comment=Jade - Ranked 1st at the Volcanic party 1995
+Type=Application
+Exec=/usr/bin/jade-by-eclipse
+Icon=jade-by-eclipse
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Jade

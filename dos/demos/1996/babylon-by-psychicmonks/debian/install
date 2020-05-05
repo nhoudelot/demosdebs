@@ -1,0 +1,7 @@
+PM.DAT usr/share/babylon-by-psychicmonks/
+BABYLON.S3M usr/share/babylon-by-psychicmonks/
+BABYLON.EXE usr/share/babylon-by-psychicmonks/
+debian/scripts/babylon-by-psychicmonks.conf usr/share/babylon-by-psychicmonks/
+debian/scripts/babylon-by-psychicmonks usr/bin/
+debian/resources/babylon-by-psychicmonks.desktop usr/share/applications/
+debian/resources/babylon-by-psychicmonks.png usr/share/icons/hicolor/256x256/apps/

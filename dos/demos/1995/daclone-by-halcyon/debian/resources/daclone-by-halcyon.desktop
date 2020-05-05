@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Da Clone
+GenericName=Demo
+Comment=demo released in june 1995
+Type=Application
+Exec=/usr/bin/daclone-by-halcyon
+Icon=daclone-by-halcyon
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Da Clone

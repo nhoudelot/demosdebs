@@ -1,0 +1,5 @@
+DX.EXE usr/share/dxproject-by-realtech/
+debian/scripts/dxproject-by-realtech.conf usr/share/dxproject-by-realtech/
+debian/scripts/dxproject-by-realtech usr/bin/
+debian/resources/dxproject-by-realtech.desktop usr/share/applications/
+debian/resources/dxproject-by-realtech.png usr/share/icons/hicolor/256x256/apps/

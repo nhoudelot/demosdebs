@@ -1,0 +1,6 @@
+debian/scripts/magiccarpet-by-keenlikefrogs.conf usr/share/magiccarpet-by-keenlikefrogs/
+debian/scripts/magiccarpet-by-keenlikefrogs usr/bin/
+debian/resources/magiccarpet-by-keenlikefrogs.desktop usr/share/applications/
+debian/resources/magiccarpet-by-keenlikefrogs.png usr/share/icons/hicolor/256x256/apps/
+./MAGIC64.EXE usr/share/magiccarpet-by-keenlikefrogs/./ 
+./debian/scripts/magiccarpet-by-keenlikefrogs.conf usr/share/magiccarpet-by-keenlikefrogs/./ 

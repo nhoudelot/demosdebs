@@ -1,0 +1,5 @@
+DEN-BOMB.EXE usr/share/bomb-by-dentifrice/
+debian/scripts/bomb-by-dentifrice.conf usr/share/bomb-by-dentifrice/
+debian/scripts/bomb-by-dentifrice usr/bin/
+debian/resources/bomb-by-dentifrice.desktop usr/share/applications/
+debian/resources/bomb-by-dentifrice.png usr/share/icons/hicolor/256x256/apps/

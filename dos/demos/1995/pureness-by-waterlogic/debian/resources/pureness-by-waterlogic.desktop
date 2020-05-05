@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Pureness
+GenericName=Demo
+Comment=Pureness - demo ranked 1st at The Scene 1995
+Type=Application
+Exec=/usr/bin/pureness-by-waterlogic
+Icon=pureness-by-waterlogic
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Pureness

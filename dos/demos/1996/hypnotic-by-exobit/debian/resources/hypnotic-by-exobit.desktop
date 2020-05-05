@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Hypnotic
+GenericName=Demo
+Comment=Hypnotic - Demo ranked 2nd at Euskal 1996
+Type=Application
+Exec=/usr/bin/hypnotic-by-exobit
+Icon=hypnotic-by-exobit
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Hypnotic

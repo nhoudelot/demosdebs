@@ -1,0 +1,6 @@
+MLB_TOUR.XM usr/share/okiedokie-by-soopadoopa/
+DEMO.EXE usr/share/okiedokie-by-soopadoopa/
+debian/scripts/okiedokie-by-soopadoopa.conf usr/share/okiedokie-by-soopadoopa/
+debian/scripts/okiedokie-by-soopadoopa usr/bin/
+debian/resources/okiedokie-by-soopadoopa.desktop usr/share/applications/
+debian/resources/okiedokie-by-soopadoopa.png usr/share/icons/hicolor/256x256/apps/

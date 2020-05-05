@@ -1,0 +1,20 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: astral-blur-by-tbl
+Source: https://www.pouet.net/prod.php?which=1
+
+Files: *
+Copyright: 1997 Nix
+           1997 Jace
+           1997 Balance
+           1997 Wox
+           1997 Louie
+           1997 Danny
+           1997 Lowlife
+           1997 Azazel
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

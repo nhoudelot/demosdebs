@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Lisa
+GenericName=Demo
+Comment=Lisa - demo ranked 1st at Gasp 1995
+Type=Application
+Exec=/usr/bin/lisa-by-eclipse
+Icon=lisa-by-eclipse
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Lisa

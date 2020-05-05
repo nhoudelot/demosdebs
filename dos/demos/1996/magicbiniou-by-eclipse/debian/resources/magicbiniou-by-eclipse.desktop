@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Magic Biniou
+GenericName=Demo
+Comment=Magic Biniou - Demo ranked 1st at volcanic 1996
+Type=Application
+Exec=/usr/bin/magicbiniou-by-eclipse
+Icon=magicbiniou-by-eclipse
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Magic Biniou

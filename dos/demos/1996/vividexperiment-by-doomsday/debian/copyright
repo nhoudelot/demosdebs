@@ -1,0 +1,23 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: vividexperiment-by-doomsday
+Source: https://www.pouet.net/prod.php?which=2167
+
+Files: *
+Copyright: 1996 doomsday
+License: public-domain
+ (probably freeware)
+
+Files: VIVID.EXE
+Copyright: 1996 doomsday
+           1994-1997 Charles Scheffold
+           1994-1997 Tomasz Pytel
+License: freeware
+ Due to the fact that PMODE/W is no longer supported it is now free
+ for use in commercial and non-commercial applications, provided said
+ applications are not themselves DOS extenders.
+ To put it bluntly, don't go ripping off our DOS extender to make your own.
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

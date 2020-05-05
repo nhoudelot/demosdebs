@@ -1,0 +1,5 @@
+DEMO.EXE.init usr/share/harpers-friend-by-proxima/
+debian/scripts/harpers-friend-by-proxima.conf usr/share/harpers-friend-by-proxima/
+debian/scripts/harpers-friend-by-proxima usr/bin/
+debian/resources/harpers-friend-by-proxima.desktop usr/share/applications/
+debian/resources/harpers-friend-by-proxima.png usr/share/icons/hicolor/256x256/apps/

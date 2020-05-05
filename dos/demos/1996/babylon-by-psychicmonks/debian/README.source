@@ -1,0 +1,10 @@
+babylon-by-psychicmonks for Debian
+---------------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * DOS protected mode extender PMODE/W(1.20) has been replaced by DOS/32A 
+ * compiled with WATCOM C
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 05 May 2020 03:48:00 +0200

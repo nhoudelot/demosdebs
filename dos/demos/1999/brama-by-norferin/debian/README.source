@@ -1,0 +1,10 @@
+brama-by-norferin for Debian
+---------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * use DOS/4GW as DOS extender replaced with DOS/32A
+ * compiled with WATCOM C
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 May 2020 16:43:00 +0200

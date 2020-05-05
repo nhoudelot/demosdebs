@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Solstice
+GenericName=Demo
+Comment=Solstice - demo ranked 1st at Wired 1995
+Type=Application
+Exec=/usr/bin/solstice-by-valhalla
+Icon=solstice-by-valhalla
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Solstice

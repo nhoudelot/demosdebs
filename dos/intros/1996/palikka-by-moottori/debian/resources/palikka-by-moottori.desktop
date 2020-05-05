@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Palikka
+GenericName=Demo
+Comment=Palikka - Intro ranked 4th at assembly 1996
+Type=Application
+Exec=/usr/bin/palikka-by-moottori
+Icon=palikka-by-moottori
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Palikka

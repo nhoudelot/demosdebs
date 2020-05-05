@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Cod Liver Oil
+GenericName=Demo
+Comment=Cod Liver Oil - Demo ranked 2nd at Assembly 1999
+Type=Application
+Exec=/usr/bin/codliveroild-by-damones
+Icon=codliveroild-by-damones
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Cod Liver Oil

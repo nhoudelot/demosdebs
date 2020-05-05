@@ -1,0 +1,5 @@
+FASHION.EXE usr/share/fashion-by-logicdesign/
+debian/scripts/fashion-by-logicdesign.conf usr/share/fashion-by-logicdesign/
+debian/scripts/fashion-by-logicdesign usr/bin/
+debian/resources/fashion-by-logicdesign.desktop usr/share/applications/
+debian/resources/fashion-by-logicdesign.png usr/share/icons/hicolor/256x256/apps/

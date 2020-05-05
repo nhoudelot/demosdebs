@@ -1,0 +1,11 @@
+okiedokie-by-soopadoopa for Debian
+---------------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * is packed with PMODE/W(1.33)[-]
+ * compiled with WATCOM C(-)
+ (unpack produce a shorter file)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 May 2020 22:50:00 +0200

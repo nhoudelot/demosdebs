@@ -1,0 +1,6 @@
+MUHAMMAD.DAT usr/share/muhammad-by-bbagf/
+MUHAMMAD.EXE usr/share/muhammad-by-bbagf/
+debian/scripts/muhammad-by-bbagf.conf usr/share/muhammad-by-bbagf/
+debian/scripts/muhammad-by-bbagf usr/bin/
+debian/resources/muhammad-by-bbagf.desktop usr/share/applications/
+debian/resources/muhammad-by-bbagf.png usr/share/icons/hicolor/256x256/apps/

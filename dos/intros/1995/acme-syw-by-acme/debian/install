@@ -1,0 +1,5 @@
+ACME-SYW.EXE usr/share/acme-syw-by-acme/
+debian/scripts/acme-syw-by-acme.conf usr/share/acme-syw-by-acme/
+debian/scripts/acme-syw-by-acme usr/bin/
+debian/resources/acme-syw-by-acme.desktop usr/share/applications/
+debian/resources/acme-syw-by-acme.png usr/share/icons/hicolor/256x256/apps/

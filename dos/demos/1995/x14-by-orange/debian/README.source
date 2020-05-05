@@ -1,0 +1,10 @@
+x14-by-orange for Debian
+-----------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * has been unpacked from PKLITE(1.12)[Multi-segment file]
+ * use DOS protected mode extender(1994 by TRAN (Thomas Pytel))
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 05 May 2020 02:48:00 +0200

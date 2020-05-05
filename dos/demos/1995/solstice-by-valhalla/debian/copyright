@@ -1,0 +1,24 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: solstice-by-valhalla
+Source: https://www.pouet.net/prod.php?which=106
+
+Files: *
+Copyright: 1995 Valhalla
+License: public-domain
+ Solstice is public domain, this means that you can freely give the
+ COMPLETE version of this demo to any of your friends etc. as long as no
+ charge is made.
+ PD and Shareware distributors may distribute this demo as long it is the
+ complete version, and as long as there are no special pricing policies on
+ this product.
+ Any other commercial establishments using this product must contact us before
+ use. This also includes CDRom distribution, if you wish to put this on your
+ CDRom, you MUST contact us first!
+ This program has been thoroughly tested, and should cause no problems, you use
+ this software at your own risk. If any bugs are found, we will attempt to
+ rectify them.
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

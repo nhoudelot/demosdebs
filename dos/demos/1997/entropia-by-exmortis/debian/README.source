@@ -1,0 +1,11 @@
+entropia-by-exmortis for Debian
+------------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * has been unpacked from PMODE/W(1.22)
+ * replaced with PMODE/W(1.33)
+   don't work with DOS/32A DOS Extender(04-20-06)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 06 May 2020 14:08:00 +0200

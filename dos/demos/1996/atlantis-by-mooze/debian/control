@@ -1,0 +1,19 @@
+Source: atlantis-by-mooze
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.mooze.org/releases/atlantis.zip
+
+Package: atlantis-by-mooze
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: Demo : Atlantis by Mooze
+ a mooze contribution to assembly 1996 democompo
+ .
+ -MS-DOS program launched using Dosbox

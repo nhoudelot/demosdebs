@@ -1,0 +1,6 @@
+debian/scripts/secondreality-by-futurecrew usr/bin/
+debian/resources/secondreality-by-futurecrew.desktop usr/share/applications/
+debian/resources/secondreality-by-futurecrew.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/secondreality-by-futurecrew.conf usr/share/secondreality-by-futurecrew/
+./REALITY.FC usr/share/secondreality-by-futurecrew/./ 
+./SECOND.EXE usr/share/secondreality-by-futurecrew/./ 

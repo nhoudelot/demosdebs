@@ -1,0 +1,49 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=secondreality-by-futurecrew
+
+APP_FULLNAME="Second Reality"
+APP_COPYRIGHT="Future Crew"
+APP_DESC="demo by Future Crew released in 1993"
+
+function run()
+{
+	/usr/bin/dosbox-x -conf ${NSH_SHAREDIR}/${domain}/${domain}.conf $1
+}
+
+function run_debug()
+{
+	NSH_SetDebugDOSBOX
+	/usr/bin/dosbox-x -conf  /tmp/${domain}_debug.conf
+	NSH_RemoveDebugDOSBOX
+}
+
+if [ "$#" -gt "1" ]; then
+	NSH_std_usage_DOSBOX
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage_DOSBOX
+		;;
+	--fullscreen)
+		run -fullscreen
+		;;
+	--debug)
+		run_debug
+		;;
+	--version)
+		NSH_version_DOSBOX
+		;;
+	*)
+		NSH_std_usage_DOSBOX
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

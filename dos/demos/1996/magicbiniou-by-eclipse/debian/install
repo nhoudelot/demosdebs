@@ -1,0 +1,5 @@
+MAGIC.EXE usr/share/magicbiniou-by-eclipse/
+debian/scripts/magicbiniou-by-eclipse.conf usr/share/magicbiniou-by-eclipse/
+debian/scripts/magicbiniou-by-eclipse usr/bin/
+debian/resources/magicbiniou-by-eclipse.desktop usr/share/applications/
+debian/resources/magicbiniou-by-eclipse.png usr/share/icons/hicolor/256x256/apps/

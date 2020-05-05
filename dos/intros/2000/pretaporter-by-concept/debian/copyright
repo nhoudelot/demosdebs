@@ -1,0 +1,24 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: pretaporter-by-concept
+Source: https://www.pouet.net/prod.php?which=243
+
+Files: *
+Copyright: 2000 Ago
+           2000 Naif
+           2000 Bugnick
+License: public-domain
+ (probably freeware)
+
+Files: pret.exe
+Copyright: 2000 Ago
+           2000 Naif
+           2000 Bugnick
+           1994-1997 Charles Scheffold
+           1994-1997 Tomasz Pytel
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

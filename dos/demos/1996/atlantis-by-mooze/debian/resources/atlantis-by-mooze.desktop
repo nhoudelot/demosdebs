@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Atlantis
+GenericName=Demo
+Comment=Atlantis - a mooze contribution to assembly 1996 democompo
+Type=Application
+Exec=/usr/bin/atlantis-by-mooze
+Icon=atlantis-by-mooze
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Atlantis

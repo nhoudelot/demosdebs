@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Astral Blur
+GenericName=Demo
+Comment=Astral Blur - Demo ranked 3rd at The Gathering 1997
+Type=Application
+Exec=/usr/bin/astral-blur-by-tbl
+Icon=astral-blur-by-tbl
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Astral Blur

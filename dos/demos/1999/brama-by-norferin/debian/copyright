@@ -1,0 +1,19 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: brama-by-norferin
+Source: https://www.pouet.net/prod.php?which=15049
+
+Files: *
+Copyright: 1999 Norferin
+License: norferin-license
+ If  You'd  like to put some of our production on CD or any  kind of
+ shareware  collections,  you can do it.
+ You  can not  change  anything  in   our  productions.  You  should not
+ spread  any of our productions  parts  as  a  single  stuff.
+ We  can  not  guarantee  that  our stuff will work  on  Your  PC as
+ properly as on ours. We are not responsible for  any  hardware   or
+ software  crashes.  Use  our  programs on your own risk.
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

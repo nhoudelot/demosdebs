@@ -1,0 +1,9 @@
+CLAUDIA.S3M usr/share/claudia-by-deathstar/
+CLAUDIA.EXE usr/share/claudia-by-deathstar/
+CLAUDIA.DAT usr/share/claudia-by-deathstar/
+debian/scripts/claudia-by-deathstar.conf usr/share/claudia-by-deathstar/
+debian/scripts/claudia-by-deathstar usr/bin/
+debian/resources/claudia-by-deathstar.desktop usr/share/applications/
+debian/resources/claudia-by-deathstar.png usr/share/icons/hicolor/256x256/apps/
+
+

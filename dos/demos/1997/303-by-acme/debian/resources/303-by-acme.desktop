@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=303
+GenericName=Demo
+Comment=303 - demo ranked 1st at X 1997
+Type=Application
+Exec=/usr/bin/303-by-acme
+Icon=303-by-acme
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=303

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=solex
+GenericName=Demo
+Comment=solex - demo released in may 1996
+Type=Application
+Exec=/usr/bin/solex-by-oxygene
+Icon=solex-by-oxygene
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=solex

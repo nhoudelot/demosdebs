@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Le Museum
+GenericName=Demo
+Comment=Le Museum - Intro released at Slach Party 2001
+Type=Application
+Exec=/usr/bin/lemuseum-by-jff
+Icon=lemuseum-by-jff
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Le Museum

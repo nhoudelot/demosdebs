@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=tungsram
+GenericName=Demo
+Comment=tungsram - Demo ranked 1st by Haujobb
+Type=Application
+Exec=/usr/bin/tungsram-by-haujobb
+Icon=tungsram-by-haujobb
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=tungsram

@@ -1,0 +1,6 @@
+RUNME.BAT usr/share/exine-by-anarchy/
+EXINE.EXE usr/share/exine-by-anarchy/
+debian/scripts/exine-by-anarchy.conf usr/share/exine-by-anarchy/
+debian/scripts/exine-by-anarchy usr/bin/
+debian/resources/exine-by-anarchy.desktop usr/share/applications/
+debian/resources/exine-by-anarchy.png usr/share/icons/hicolor/256x256/apps/

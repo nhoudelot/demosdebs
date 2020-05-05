@@ -1,0 +1,19 @@
+Source: fashion-by-logicdesign
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=73
+
+Package: fashion-by-logicdesign
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: Demo : Fashion by Logic Design
+ Demo ranked 1st at X 1996
+ .
+ -MS-DOS program launched using Dosbox

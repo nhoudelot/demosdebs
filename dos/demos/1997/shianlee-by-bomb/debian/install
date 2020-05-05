@@ -1,0 +1,5 @@
+SHIANLEE.EXE usr/share/shianlee-by-bomb/
+debian/scripts/shianlee-by-bomb.conf usr/share/shianlee-by-bomb/
+debian/scripts/shianlee-by-bomb usr/bin/
+debian/resources/shianlee-by-bomb.desktop usr/share/applications/
+debian/resources/shianlee-by-bomb.png usr/share/icons/hicolor/256x256/apps/

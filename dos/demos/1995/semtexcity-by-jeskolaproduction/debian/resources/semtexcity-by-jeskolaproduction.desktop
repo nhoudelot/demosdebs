@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Semtex City
+GenericName=Demo
+Comment=Semtex City - demo ranked 1st at Juhla 1995
+Type=Application
+Exec=/usr/bin/semtexcity-by-jeskolaproduction
+Icon=semtexcity-by-jeskolaproduction
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Semtex City

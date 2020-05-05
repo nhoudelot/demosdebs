@@ -1,0 +1,5 @@
+LISA.EXE.init usr/share/lisa-by-eclipse/
+debian/scripts/lisa-by-eclipse.conf usr/share/lisa-by-eclipse/
+debian/scripts/lisa-by-eclipse usr/bin/
+debian/resources/lisa-by-eclipse.desktop usr/share/applications/
+debian/resources/lisa-by-eclipse.png usr/share/icons/hicolor/256x256/apps/

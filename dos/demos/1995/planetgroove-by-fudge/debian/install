@@ -1,0 +1,5 @@
+GROOVE.EXE.init usr/share/planetgroove-by-fudge/
+debian/scripts/planetgroove-by-fudge.conf usr/share/planetgroove-by-fudge/
+debian/scripts/planetgroove-by-fudge usr/bin/
+debian/resources/planetgroove-by-fudge.desktop usr/share/applications/
+debian/resources/planetgroove-by-fudge.png usr/share/icons/hicolor/256x256/apps/

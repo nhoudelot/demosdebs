@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Harper's Friend
+GenericName=Demo
+Comment=Harper's Friend - Demo ranked 10th at the Gathering 1999
+Type=Application
+Exec=/usr/bin/harpers-friend-by-proxima
+Icon=harpers-friend-by-proxima
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Harper's Friend

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Juhla IVb Invitation
+GenericName=Demo
+Comment=Juhla IVb Invitation - intro invitation to Juhla 1997
+Type=Application
+Exec=/usr/bin/juhlaivb-invitation-by-doomsday-byterapers
+Icon=juhlaivb-invitation-by-doomsday-byterapers
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Juhla IVb Invitation

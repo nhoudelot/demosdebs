@@ -1,0 +1,5 @@
+ROBOTNIK.EXE usr/share/robotnik-by-rage/
+debian/scripts/robotnik-by-rage.conf usr/share/robotnik-by-rage/
+debian/scripts/robotnik-by-rage usr/bin/
+debian/resources/robotnik-by-rage.desktop usr/share/applications/
+debian/resources/robotnik-by-rage.png usr/share/icons/hicolor/256x256/apps/

@@ -1,0 +1,19 @@
+Source: acme-syw-by-acme
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=2454
+
+Package: acme-syw-by-acme
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: DOS Intro released in 1995
+ Intro 64k ranked 1st at Somewhere in Holland 1995
+ .
+ - MS-DOS program launched using Dosbox

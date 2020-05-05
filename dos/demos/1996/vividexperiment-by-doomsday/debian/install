@@ -1,0 +1,7 @@
+VIVID.EXE usr/share/vividexperiment-by-doomsday/
+EXPRMNT2.XM usr/share/vividexperiment-by-doomsday/
+EXPRMNT1.XM usr/share/vividexperiment-by-doomsday/
+debian/scripts/vividexperiment-by-doomsday.conf usr/share/vividexperiment-by-doomsday/
+debian/scripts/vividexperiment-by-doomsday usr/bin/
+debian/resources/vividexperiment-by-doomsday.desktop usr/share/applications/
+debian/resources/vividexperiment-by-doomsday.png usr/share/icons/hicolor/256x256/apps/

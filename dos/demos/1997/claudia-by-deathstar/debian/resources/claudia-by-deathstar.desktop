@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Claudia
+GenericName=Demo
+Comment=Claudia - Demo ranked 1st at Mekka & Symposium 1997
+Type=Application
+Exec=/usr/bin/claudia-by-deathstar
+Icon=claudia-by-deathstar
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Claudia

@@ -1,0 +1,8 @@
+SB_VER/FALCO.XM usr/share/falco-by-cryogen/SB_VER/
+SB_VER/FALCO_SB.EXE usr/share/falco-by-cryogen/SB_VER/
+SB_VER/FSOUND.DLL usr/share/falco-by-cryogen/SB_VER/
+FALCO.EXE usr/share/falco-by-cryogen/
+debian/scripts/falco-by-cryogen.conf usr/share/falco-by-cryogen/
+debian/scripts/falco-by-cryogen usr/bin/
+debian/resources/falco-by-cryogen.desktop usr/share/applications/
+debian/resources/falco-by-cryogen.png usr/share/icons/hicolor/256x256/apps/

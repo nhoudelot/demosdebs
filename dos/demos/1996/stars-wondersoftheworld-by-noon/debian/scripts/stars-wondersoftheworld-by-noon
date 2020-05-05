@@ -1,0 +1,75 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=stars-wondersoftheworld-by-noon
+
+if [ $(which gettext) ]; then
+	gettext="gettext --domain=$domain -s --"
+else
+	gettext=echo
+fi
+
+function usage()
+{
+	$gettext "Usage: stars-wondersoftheworld-by-noon [OPTION]"
+	$gettext "Start Stars: Wonders of the Wolrd - Demo ranked 1st at Assembly 1995"
+	echo
+	$gettext "--help       display this help and exit"
+	$gettext "--fullscreen	start demo in fullscreen (Ctrl-F9 to exit)"
+	$gettext "--debug	start the dosbox environnement without running the demo"
+	$gettext "--version    display version information and exit"
+}
+
+function version()
+{
+	$gettext "stars-wondersoftheworld-by-noon"
+	$gettext "Copyright (C) nooon "
+	$gettext "Dosbox Copyright (C) Dosbox Team"
+}
+
+function run()
+{
+	NSH_CreateTmpDomainDir
+	NSH_InstallRWFileInTmp STARS.EXE STARS.EXE
+	/usr/bin/dosbox-x -conf  /usr/share/$domain/$1.conf $2
+	NSH_RemoveTmpDomainDir
+}
+
+function run_debug()
+{
+	NSH_CreateTmpDomainDir
+	NSH_InstallRWFileInTmp STARS.EXE STARS.EXE
+	NSH_SetDebugDOSBOX
+	/usr/bin/dosbox-x -conf  /tmp/$1_debug.conf
+	NSH_RemoveDebugDOSBOX
+	NSH_RemoveTmpDomainDir
+}
+
+if [ "$#" -gt "1" ]; then
+	usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run $domain
+else
+	case "$1" in
+	--help)
+		usage
+		;;
+	--fullscreen)
+		run $domain -fullscreen
+		;;
+	--debug)
+		run_debug $domain
+		;;
+	--version)
+		version
+		;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

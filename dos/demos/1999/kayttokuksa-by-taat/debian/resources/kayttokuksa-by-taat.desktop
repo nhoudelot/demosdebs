@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Käyttökuksa
+GenericName=Demo
+Comment=Käyttökuksa - demo ranked 4th at Assembly 1999
+Type=Application
+Exec=/usr/bin/kayttokuksa-by-taat
+Icon=kayttokuksa-by-taat
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Käyttökuksa

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Paper
+GenericName=Demo
+Comment=Paper - Intro ranked 1st at wired 1996
+Type=Application
+Exec=/usr/bin/paper-by-psychiclink-acme
+Icon=paper-by-psychiclink-acme
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Paper

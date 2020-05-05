@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Second Reality
+GenericName=Demo
+Comment=Demo by Future Crew,released in 1993
+Type=Application
+Exec=/usr/bin/secondreality-by-futurecrew
+Icon=secondreality-by-futurecrew
+Categories=AudioVideo;Game;
+Name[fr_FR]=Second Reality

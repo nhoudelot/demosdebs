@@ -1,0 +1,7 @@
+HER.DMF.init usr/share/phenotype-by-purge/
+PHENOTYP.PUR usr/share/phenotype-by-purge/
+PHENOTYP.EXE usr/share/phenotype-by-purge/
+debian/scripts/phenotype-by-purge.conf usr/share/phenotype-by-purge/
+debian/scripts/phenotype-by-purge usr/bin/
+debian/resources/phenotype-by-purge.desktop usr/share/applications/
+debian/resources/phenotype-by-purge.png usr/share/icons/hicolor/256x256/apps/

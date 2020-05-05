@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=x14
+GenericName=Demo
+Comment=x14 - demo ranked 1st at Juhla2 1995
+Type=Application
+Exec=/usr/bin/x14-by-orange
+Icon=x14-by-orange
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=x14

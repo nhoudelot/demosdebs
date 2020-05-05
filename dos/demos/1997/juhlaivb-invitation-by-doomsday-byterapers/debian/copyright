@@ -1,0 +1,23 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: juhlaivb-invitation-by-doomsday-byterapers
+Source: https://www.pouet.net/prod.php?which=5532
+
+Files: *
+Copyright: 1997 doomsday & Byterapers
+License: public-domain
+ (probably freeware)
+
+Files: juhla.exe
+Copyright: 1997 doomsday & Byterapers
+           1994-1997 Charles Scheffold
+           1994-1997 Tomasz Pytel
+License: freeware
+ Due to the fact that PMODE/W is no longer supported it is now free
+ for use in commercial and non-commercial applications, provided said
+ applications are not themselves DOS extenders.
+ To put it bluntly, don't go ripping off our DOS extender to make your own.
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

@@ -1,0 +1,19 @@
+Source: astral-blur-by-tbl
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=1
+
+Package: astral-blur-by-tbl
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: Demo : Astral Blur by The Black Lotus
+ Demo ranked 3rd at The Gathering 1997
+ .
+ -MS-DOS program launched using Dosbox

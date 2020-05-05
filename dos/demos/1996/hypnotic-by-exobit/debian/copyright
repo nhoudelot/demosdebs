@@ -1,0 +1,25 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: hypnotic-by-exobit
+Source: https://github.com/khroma/Hypnotic
+
+Files: *
+Copyright: 1996 Exobit
+License: exobit-license
+ This material is not freeware. You are allowed to copy it without
+ restrictions for non-commercial use.
+ .
+ You take full responsibility for the use of this software and any
+ consequences thereof.
+ .
+ The copyright of this software if reserved by we, the autors. That means
+ that this demo must be distributed without changes of any kind in all the
+ files that compose it. Unleast you are a lamer we hope that you'll understand
+ why we ask this. ;)
+ .
+ A final disclamer, if you are epileptic *PLEASE DON'T RUN THIS DEMO* some
+ visual effects may be dangerous for your health.
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

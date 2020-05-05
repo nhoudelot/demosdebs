@@ -1,0 +1,6 @@
+MACHINES.DAT usr/share/machineofmadness-by-dublus/
+MACHINES.EXE usr/share/machineofmadness-by-dublus/
+debian/scripts/machineofmadness-by-dublus.conf usr/share/machineofmadness-by-dublus/
+debian/scripts/machineofmadness-by-dublus usr/bin/
+debian/resources/machineofmadness-by-dublus.desktop usr/share/applications/
+debian/resources/machineofmadness-by-dublus.png usr/share/icons/hicolor/256x256/apps/

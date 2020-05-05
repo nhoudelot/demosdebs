@@ -1,0 +1,18 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: iz-us-by-replay
+Source: https://www.pouet.net/prod.php?which=1108
+
+Files: *
+Copyright: 1999 replay
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2
+
+Files: DOS4GW.EXE
+Copyright: 1996 Tenberry Software, Inc.
+License: proprietary
+ (unkown details)

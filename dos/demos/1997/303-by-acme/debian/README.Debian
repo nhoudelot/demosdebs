@@ -1,0 +1,9 @@
+303-by-acme for Debian
+---------------------
+
+Emulation speed setup to max with dynamic core.
+
+Needed to add DOS/32 (renamed as DOS4GW.EXE) to make the demo work.
+"This product uses DOS/32 Advanced DOS Extender technology."
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 06 May 2020 14:08:00 +0200

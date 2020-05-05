@@ -1,0 +1,5 @@
+ASTRAL.EXE usr/share/astral-blur-by-tbl/
+debian/scripts/astral-blur-by-tbl.conf usr/share/astral-blur-by-tbl/
+debian/scripts/astral-blur-by-tbl usr/bin/
+debian/resources/astral-blur-by-tbl.desktop usr/share/applications/
+debian/resources/astral-blur-by-tbl.png usr/share/icons/hicolor/256x256/apps/

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Funtro-3
+GenericName=Demo
+Comment=Funtro-3 - intro ranked 3rd at ByteFall 1999
+Type=Application
+Exec=/usr/bin/funtro3-by-universe
+Icon=funtro3-by-universe
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Funtro-3

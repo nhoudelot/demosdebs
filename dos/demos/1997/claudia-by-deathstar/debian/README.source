@@ -1,0 +1,11 @@
+claudia-by-deathstar for Debian
+------------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * has been unpacked from PMODE/W(1.33)
+ * use DOS/32A DOS Extender(04-20-06)
+ * compiled with WATCOM C(-)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 06 May 2020 15:51:00 +0200

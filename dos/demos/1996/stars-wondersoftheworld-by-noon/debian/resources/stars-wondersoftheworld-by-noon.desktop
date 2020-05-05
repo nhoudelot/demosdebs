@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Stars: Wonders of the Wolrd
+GenericName=Demo
+Comment=Stars: Wonders of the Wolrd - Demo ranked 1st at Assembly 1995
+Type=Application
+Exec=/usr/bin/stars-wondersoftheworld-by-noon
+Icon=stars-wondersoftheworld-by-noon
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Stars: Wonders of the Wolrd

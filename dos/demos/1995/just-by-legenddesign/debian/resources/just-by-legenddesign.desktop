@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Just
+GenericName=Demo
+Comment=Just - demo ranked 2nd at Wired 1995
+Type=Application
+Exec=/usr/bin/just-by-legenddesign
+Icon=just-by-legenddesign
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Just

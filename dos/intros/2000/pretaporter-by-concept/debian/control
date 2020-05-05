@@ -1,0 +1,20 @@
+Source: pretaporter-by-concept
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=243
+Vcs-Git: https://git.debian.org/collab-maint/pretaporter-by-concept.git
+Vcs-Browser: https://git.debian.org/?p=collab-maint/pretaporter-by-concept.git;a=summary
+
+Package: pretaporter-by-concept
+Architecture: all
+Depends: dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: DOS Intro released in 2000
+ intro ranked 1st at Fallas Party 2000
+ .
+ -MS-DOS program launched using Dosbox

@@ -1,0 +1,8 @@
+lemuseum-by-jff for Debian
+-------------------------
+
+Emulation speed setup to max with dynamic core.
+using only the SoundBlaster version of the intro, as the GUS version don't work
+with DOSBox
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 May 2020 00:43:00 +0200

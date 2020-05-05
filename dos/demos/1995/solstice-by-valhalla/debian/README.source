@@ -1,0 +1,10 @@
+solstice-by-valhalla for Debian
+------------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * has been unpacked from PMODE/W(1.21
+ * DOS Extender replaced with DOS/32A DOS Extender(04-20-06)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 05 May 2020 02:28:00 +0200

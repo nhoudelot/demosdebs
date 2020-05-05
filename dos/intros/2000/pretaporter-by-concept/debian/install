@@ -1,0 +1,5 @@
+pret.exe usr/share/pretaporter-by-concept/
+debian/scripts/pretaporter-by-concept.conf usr/share/pretaporter-by-concept/
+debian/scripts/pretaporter-by-concept usr/bin/
+debian/resources/pretaporter-by-concept.desktop usr/share/applications/
+debian/resources/pretaporter-by-concept.png usr/share/icons/hicolor/256x256/apps/

@@ -1,0 +1,15 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: lemuseum-by-jff
+Source: https://www.j-f-f.net/oldskool_intros.html
+
+Files: *
+Copyright: 2001 Cleaner
+           2001 Exocet
+           2001 Benji
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

@@ -1,0 +1,9 @@
+CHAPI.EXE usr/share/chapichapo-by-aegiscorp/
+RESOURCE.DAT usr/share/chapichapo-by-aegiscorp/
+MUSIC3.XM usr/share/chapichapo-by-aegiscorp/
+MUSIC2.XM usr/share/chapichapo-by-aegiscorp/
+MUSIC1.XM usr/share/chapichapo-by-aegiscorp/
+debian/scripts/chapichapo-by-aegiscorp.conf usr/share/chapichapo-by-aegiscorp/
+debian/scripts/chapichapo-by-aegiscorp usr/bin/
+debian/resources/chapichapo-by-aegiscorp.desktop usr/share/applications/
+debian/resources/chapichapo-by-aegiscorp.png usr/share/icons/hicolor/256x256/apps/

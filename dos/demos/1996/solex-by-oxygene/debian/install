@@ -1,0 +1,6 @@
+O_SOLEX.EXE usr/share/solex-by-oxygene/
+ODDITY.XM usr/share/solex-by-oxygene/
+debian/scripts/solex-by-oxygene.conf usr/share/solex-by-oxygene/
+debian/scripts/solex-by-oxygene usr/bin/
+debian/resources/solex-by-oxygene.desktop usr/share/applications/
+debian/resources/solex-by-oxygene.png usr/share/icons/hicolor/256x256/apps/

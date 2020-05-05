@@ -1,0 +1,5 @@
+STARS.EXE.init usr/share/stars-wondersoftheworld-by-noon/
+debian/scripts/stars-wondersoftheworld-by-noon.conf usr/share/stars-wondersoftheworld-by-noon/
+debian/scripts/stars-wondersoftheworld-by-noon usr/bin/
+debian/resources/stars-wondersoftheworld-by-noon.desktop usr/share/applications/
+debian/resources/stars-wondersoftheworld-by-noon.png usr/share/icons/hicolor/256x256/apps/

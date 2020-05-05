@@ -1,0 +1,20 @@
+Source: juice-by-psychiclink
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=69
+
+Package: juice-by-psychiclink
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: Demo : Juice by Psychic Link
+ demo ranked 2nd at Assembly 1995
+ This is the v1.0 (party version)
+ .
+ -MS-DOS program launched using Dosbox

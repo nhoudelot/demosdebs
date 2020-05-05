@@ -1,0 +1,19 @@
+Source: semtexcity-by-jeskolaproduction
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=4741
+
+Package: semtexcity-by-jeskolaproduction
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: Demo : Semtex City by Jeskola! Productions
+ demo ranked 1st at Juhla 1995
+ .
+ -MS-DOS program launched using Dosbox

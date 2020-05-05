@@ -1,0 +1,19 @@
+Source: pureness-by-waterlogic
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=5076
+
+Package: pureness-by-waterlogic
+Architecture: all
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: Demo : Pureness by Waterlogic
+ demo ranked 1st at The Scene 1995
+ .
+ -MS-DOS program launched using Dosbox

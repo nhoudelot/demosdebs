@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=DX Project
+GenericName=Demo
+Comment=DX Project - Demo ranked 3rd at Assembly 1995
+Type=Application
+Exec=/usr/bin/dxproject-by-realtech
+Icon=dxproject-by-realtech
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=DX Project

@@ -1,0 +1,5 @@
+NATION2.EXE usr/share/nation0part2-by-jamm/
+debian/scripts/nation0part2-by-jamm.conf usr/share/nation0part2-by-jamm/
+debian/scripts/nation0part2-by-jamm usr/bin/
+debian/resources/nation0part2-by-jamm.desktop usr/share/applications/
+debian/resources/nation0part2-by-jamm.png usr/share/icons/hicolor/256x256/apps/

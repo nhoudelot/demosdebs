@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Suita Futura
+GenericName=Demo
+Comment=Suita Futura - Demo ranked 2nd at Gravity 1998
+Type=Application
+Exec=/usr/bin/suitafutura-by-liberty
+Icon=suitafutura-by-liberty
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Suita Futura

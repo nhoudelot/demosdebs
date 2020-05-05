@@ -1,0 +1,7 @@
+HAND_MG.XM usr/share/entropia-by-exmortis/
+GRIND usr/share/entropia-by-exmortis/
+ENTROPIA.EXE usr/share/entropia-by-exmortis/
+debian/scripts/entropia-by-exmortis.conf usr/share/entropia-by-exmortis/
+debian/scripts/entropia-by-exmortis usr/bin/
+debian/resources/entropia-by-exmortis.desktop usr/share/applications/
+debian/resources/entropia-by-exmortis.png usr/share/icons/hicolor/256x256/apps/

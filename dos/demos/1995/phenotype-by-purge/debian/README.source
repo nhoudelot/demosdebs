@@ -1,0 +1,11 @@
+phenotype-by-purge for Debian
+----------------------------
+
+TXT files converted to UTF8
+
+Executable :
+ * was using Crypt by LightShow //ECLIPSE(1.20) and has been unpacked
+ * compiled with WATCOM C
+ * use DOS/32A DOS Extender(04-20-06)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 04 May 2020 21:50:00 +0200

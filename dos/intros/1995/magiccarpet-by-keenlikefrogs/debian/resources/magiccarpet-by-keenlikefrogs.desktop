@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Magic Carpet
+GenericName=Demo
+Comment=intro ranked 1st at Wired 1995
+Type=Application
+Exec=/usr/bin/magiccarpet-by-keenlikefrogs
+Icon=magiccarpet-by-keenlikefrogs
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Magic Carpet

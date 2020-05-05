@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Goldorak
+GenericName=Demo
+Comment=Goldorak - Demo rank 1st at somewhere in holland 1995
+Type=Application
+Exec=/usr/bin/goldorak-by-realtime
+Icon=goldorak-by-realtime
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Goldorak

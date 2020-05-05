@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Air
+GenericName=Demo
+Comment=intro 64k ranked 3rd at Abduction 1996
+Type=Application
+Exec=/usr/bin/air-by-xes
+Icon=air-by-xes
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Air

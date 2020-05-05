@@ -1,0 +1,5 @@
+TOTEM.EXE.init usr/share/totem-issue1-by-jff/
+debian/scripts/totem-issue1-by-jff.conf usr/share/totem-issue1-by-jff/
+debian/scripts/totem-issue1-by-jff usr/bin/
+debian/resources/totem-issue1-by-jff.desktop usr/share/applications/
+debian/resources/totem-issue1-by-jff.png usr/share/icons/hicolor/256x256/apps/

@@ -1,0 +1,30 @@
+debian/scripts/brama-by-norferin.conf usr/share/brama-by-norferin/
+debian/scripts/brama-by-norferin usr/bin/
+debian/resources/brama-by-norferin.desktop usr/share/applications/
+debian/resources/brama-by-norferin.png usr/share/icons/hicolor/256x256/apps/
+BRAMA.INF usr/share/brama-by-norferin/
+KILL_ME.IT usr/share/brama-by-norferin/
+NFNBRAMA.EXE usr/share/brama-by-norferin/
+DANE/BRAMA04.JPG usr/share/brama-by-norferin/DANE/
+DANE/STONE11.3DS usr/share/brama-by-norferin/DANE/
+DANE/BIGBUMP.BMP usr/share/brama-by-norferin/DANE/
+DANE/MAPA2.TGA usr/share/brama-by-norferin/DANE/
+DANE/STAR.3DS usr/share/brama-by-norferin/DANE/
+DANE/BRAMA12.JPG usr/share/brama-by-norferin/DANE/
+DANE/BIGBUMPN.BMP usr/share/brama-by-norferin/DANE/
+DANE/NOFA.TGA usr/share/brama-by-norferin/DANE/
+DANE/LIGHT2.JPG usr/share/brama-by-norferin/DANE/
+DANE/ANIMKA.JPG usr/share/brama-by-norferin/DANE/
+DANE/BRAMA07.JPG usr/share/brama-by-norferin/DANE/
+DANE/BRAMA03.JPG usr/share/brama-by-norferin/DANE/
+DANE/BRAMA09.JPG usr/share/brama-by-norferin/DANE/
+DANE/BRAMA02.JPG usr/share/brama-by-norferin/DANE/
+DANE/BRAMA08.JPG usr/share/brama-by-norferin/DANE/
+DANE/BRAMA01.JPG usr/share/brama-by-norferin/DANE/
+DANE/JUVE01A.3DS usr/share/brama-by-norferin/DANE/
+DANE/BRAMA10.JPG usr/share/brama-by-norferin/DANE/
+DANE/BRAMA06.JPG usr/share/brama-by-norferin/DANE/
+DANE/BRAMA11.JPG usr/share/brama-by-norferin/DANE/
+DANE/BRAMA05.JPG usr/share/brama-by-norferin/DANE/
+
+

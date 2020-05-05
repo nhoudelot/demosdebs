@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Brama
+GenericName=Demo
+Comment=Brama - Demo ranked 3rd at Analogue 1999
+Type=Application
+Exec=/usr/bin/brama-by-norferin
+Icon=brama-by-norferin
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Brama

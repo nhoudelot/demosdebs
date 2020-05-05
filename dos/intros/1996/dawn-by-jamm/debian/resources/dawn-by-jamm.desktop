@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Dawn
+GenericName=Demo
+Comment=Dawn - Intro 64k ranked 1st at Juhla 1996
+Type=Application
+Exec=/usr/bin/dawn-by-jamm
+Icon=dawn-by-jamm
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Dawn

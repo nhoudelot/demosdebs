@@ -1,0 +1,20 @@
+Source: dawn-by-jamm
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=2553
+#Vcs-Git: git://git.debian.org/collab-maint/dream-by-jamm.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/dream-by-jamm.git;a=summary
+
+Package: dawn-by-jamm
+Architecture: all
+Depends: dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.0),
+ ${misc:Depends}
+Description: DOS Intro released in 1996
+ Intro ranked 1st at Juhla 1996
+ .
+ -MS-DOS program launched using Dosbox

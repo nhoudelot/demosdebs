@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Guggle me !
+GenericName=Demo
+Comment=Guggle me ! - Demo ranked 2nd at Skenery 1996
+Type=Application
+Exec=/usr/bin/guggleme-by-doomsday
+Icon=guggleme-by-doomsday
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Guggle me !

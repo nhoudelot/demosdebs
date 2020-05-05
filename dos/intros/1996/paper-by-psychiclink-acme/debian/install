@@ -1,0 +1,5 @@
+PAPER.EXE usr/share/paper-by-psychiclink-acme/
+debian/scripts/paper-by-psychiclink-acme.conf usr/share/paper-by-psychiclink-acme/
+debian/scripts/paper-by-psychiclink-acme usr/bin/
+debian/resources/paper-by-psychiclink-acme.desktop usr/share/applications/
+debian/resources/paper-by-psychiclink-acme.png usr/share/icons/hicolor/256x256/apps/

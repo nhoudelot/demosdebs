@@ -1,0 +1,9 @@
+dxproject-by-realtech for Debian
+-------------------------------
+
+Replaced Dos extender PMODE/W 1.16 by PMODE/W 1.33
+Emulation speed, setup to max 
+dynamic core needed to get 60+ fps
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 May 2020 17:48:00 +0200

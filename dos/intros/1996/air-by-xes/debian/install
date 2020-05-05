@@ -1,0 +1,6 @@
+debian/scripts/air-by-xes.conf usr/share/air-by-xes/
+debian/scripts/air-by-xes usr/bin/
+debian/resources/air-by-xes.desktop usr/share/applications/
+debian/resources/air-by-xes.png usr/share/icons/hicolor/256x256/apps/
+./AIR.EXE usr/share/air-by-xes/./ 
+./debian/scripts/air-by-xes.conf usr/share/air-by-xes/./ 

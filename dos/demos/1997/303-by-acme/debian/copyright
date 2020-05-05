@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: 303-by-acme
+Source: https://www.pouet.net/prod.php?which=44
+
+Files: *
+Copyright: 1997 vic
+           1997 statix
+License: public-domain
+ (Probably Freeware)
+
+Files: debian/*
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

@@ -1,0 +1,22 @@
+explicit-by-hornet-otm binary: unknown-section demos
+ explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/ANCIENTU.FNT point to /tmp/explicit-by-hornet-otm/ANCIENTU.FNT
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/DUCK1.GVO point to /tmp/explicit-by-hornet-otm/DUCK1.GVO
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/DUCKBACK.GIF point to /tmp/explicit-by-hornet-otm/DUCKBACK.GIF
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/DUCKBACK.IT point to /tmp/explicit-by-hornet-otm/DUCKBACK.IT
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/EXBW.PCX point to /tmp/explicit-by-hornet-otm/EXBW.PCX
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/EXCOLOR.FNT point to /tmp/explicit-by-hornet-otm/EXCOLOR.FNT
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/GIRLS2.LIB point to /tmp/explicit-by-hornet-otm/GIRLS2.LIB
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/GUY100.LIB point to /tmp/explicit-by-hornet-otm/GUY100.LIB
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/GUY200.LIB point to /tmp/explicit-by-hornet-otm/GUY200.LIB
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/GUY300.LIB point to /tmp/explicit-by-hornet-otm/GUY300.LIB
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/JULIA.PAL point to /tmp/explicit-by-hornet-otm/JULIA.PAL
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/ROCK1.GVO point to /tmp/explicit-by-hornet-otm/ROCK1.GVO
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/TABLE.DAT point to /tmp/explicit-by-hornet-otm/TABLE.DAT
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/TEKREMIX.S3M point to /tmp/explicit-by-hornet-otm/TEKREMIX.S3M
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet-otm/TUNNELTX.PCX point to /tmp/explicit-by-hornet-otm/TUNNELTX.PCX
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet/JULIA.IT point to /tmp/explicit-by-hornet/JULIA.IT
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet/TIMEBACK.GIF point to /tmp/explicit-by-hornet/TIMEBACK.GIF
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet/TIMELINE.IT point to /tmp/explicit-by-hornet/TIMELINE.IT
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet/TLDARK.PCX point to /tmp/explicit-by-hornet/TLDARK.PCX
+explicit-by-hornet-otm: symlink-target-in-tmp symlink usr/share/explicit-by-hornet/TLLIGHT.PCX point to /tmp/explicit-by-hornet/TLLIGHT.PCX
+

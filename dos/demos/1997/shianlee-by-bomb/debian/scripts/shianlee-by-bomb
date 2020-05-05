@@ -1,0 +1,69 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=shianlee-by-bomb
+
+if [ $(which gettext) ]; then
+	gettext="gettext --domain=$domain -s --"
+else
+	gettext=echo
+fi
+
+function usage()
+{
+	$gettext "Usage: shianlee-by-bomb [OPTION]"
+	$gettext "Start Shian Lee - demo ranked 1st at Volcanic 1997"
+	echo
+	$gettext "--help       display this help and exit"
+	$gettext "--fullscreen	start demo in fullscreen (Ctrl-F9 to exit)"
+	$gettext "--debug	start the dosbox environnement without running the demo"
+	$gettext "--version    display version information and exit"
+}
+
+function version()
+{
+	$gettext "shianlee-by-bomb"
+	$gettext "Copyright (C) Bomb! "
+	$gettext "Dosbox Copyright (C) Dosbox Team"
+}
+
+function run()
+{
+	/usr/bin/dosbox-x -conf  /usr/share/$domain/$1.conf $2
+}
+
+function run_debug()
+{
+	NSH_SetDebugDOSBOX
+	/usr/bin/dosbox-x -conf  /tmp/$1_debug.conf
+	NSH_RemoveDebugDOSBOX
+}
+
+if [ "$#" -gt "1" ]; then
+	usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run $domain
+else
+	case "$1" in
+	--help)
+		usage
+		;;
+	--fullscreen)
+		run $domain -fullscreen
+		;;
+	--debug)
+		run_debug $domain
+		;;
+	--version)
+		version
+		;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
