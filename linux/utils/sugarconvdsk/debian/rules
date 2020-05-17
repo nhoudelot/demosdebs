@@ -1,10 +1,9 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --parallel --buildsystem=cmake --sourcedirectory=SugarConvDsk --builddirectory=build
+	dh $@ --buildsystem=cmake --sourcedirectory=SugarConvDsk --builddirectory=build
 
 override_dh_install:
 	dh_install
-	pandoc -s -t man -f markdown debian/sugarconvdsk.1.md -o debian/sugarconvdsk.1
 	mkdir -p "debian/sugarconvdsk/usr/bin/"
 	cp "build/SugarConvDsk" "debian/sugarconvdsk/usr/bin/sugarconvdsk"
