@@ -2,7 +2,3 @@
 
 %:
 	dh $@ --sourcedirectory=src
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/luisita.1.md -o debian/luisita.1

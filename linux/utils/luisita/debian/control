@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- pandoc,
  libsoil-dev,
  libbass-dev,
  liblua5.1-0-dev,
