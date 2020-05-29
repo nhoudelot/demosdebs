@@ -11,9 +11,9 @@ Package: planetgroove-by-fudge
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: Demo : planet groove by fudge
  Demo Ranked 20th at The Party 1995
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

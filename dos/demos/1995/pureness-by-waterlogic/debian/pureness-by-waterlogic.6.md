@@ -1,6 +1,6 @@
 % pureness-by-waterlogic(6) Pureness User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Waterlogic
-% 2018-10-07
+% 2020-05-29
 
 # NAME
 pureness-by-waterlogic - the command to run Pureness.
@@ -10,15 +10,15 @@ pureness-by-waterlogic [*options*]
 
 # DESCRIPTION
 Pureness is a demonstration released by Waterlogic in 1995.
-pureness-by-waterlogic is the launcher that use Dosbox to run it.
+pureness-by-waterlogic is the launcher that use Dosbox-x to run it.
 demo ranked 1st at The Scene 1995
 
 # OPTIONS
 \--fullscreen
-:   Start game in fullscreen (Ctrl-F9 to exit)
+:   Start game in fullscreen
 
 \--debug
-:   start dosbox environnement without running the demo
+:   start dosbox-x environnement without running the demo
 
 \--version
 :   Display version and author information
@@ -27,7 +27,7 @@ demo ranked 1st at The Scene 1995
 :   Display help for the command
 
 # SEE ALSO
-`dosbox`(1)
+`dosbox-x`(1)
 
 # BUGS
 No known bugs.

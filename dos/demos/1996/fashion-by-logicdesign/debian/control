@@ -11,9 +11,9 @@ Package: fashion-by-logicdesign
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: Demo : Fashion by Logic Design
  Demo ranked 1st at X 1996
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

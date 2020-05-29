@@ -11,9 +11,9 @@ Package: magiccarpet-by-keenlikefrogs
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: DOS Intro released in 1995
  intro ranked 1st at Wired 1995
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

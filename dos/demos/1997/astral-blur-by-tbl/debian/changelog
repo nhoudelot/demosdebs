@@ -1,3 +1,12 @@
+astral-blur-by-tbl (1:1.0+1-0ddebs3) unstable; urgency=medium
+
+  * update debian/astral-blur-by-tbl to use new common-install-function-
+    ddebs(>=1.61)
+  * remove ioctl in debian/astral-blur-by-tbl.conf file
+  * update manual and descriptions for Dosbox-x
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 May 2020 22:47:35 +0200
+
 astral-blur-by-tbl (1:1.0+1-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

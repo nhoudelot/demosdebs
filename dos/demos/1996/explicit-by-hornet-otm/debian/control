@@ -11,9 +11,9 @@ Package: explicit-by-hornet-otm
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: Demo : Explicit by Hornet & OTM
  Demo Ranked 3rd at NAID 1996
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

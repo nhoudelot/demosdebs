@@ -1,6 +1,6 @@
 % 303-by-acme(6) 303 User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Acme
-% 2018-10-07
+% 2020-05-29
 
 # NAME
 303-by-acme - the command to run 303.
@@ -10,15 +10,15 @@
 
 # DESCRIPTION
 303 is a demonstration released by Acme in 1997.
-303-by-acme is the launcher that use Dosbox to run it.
+303-by-acme is the launcher that use Dosbox-x to run it.
 demo ranked 1st at X 1997
 
 # OPTIONS
 \--fullscreen
-:   Start game in fullscreen (Ctrl-F9 to exit)
+:   Start game in fullscreen
 
 \--debug
-:   start dosbox environnement without running the demo
+:   start dosbox-x environnement without running the demo
 
 \--version
 :   Display version and author information
@@ -27,7 +27,7 @@ demo ranked 1st at X 1997
 :   Display help for the command
 
 # SEE ALSO
-`dosbox`(1)
+`dosbox-x`(1)
 
 # BUGS
 No known bugs.

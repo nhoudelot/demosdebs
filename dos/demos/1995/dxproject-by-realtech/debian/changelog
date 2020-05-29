@@ -1,3 +1,12 @@
+dxproject-by-realtech (1:1.0+2-0ddebs2) unstable; urgency=medium
+
+  * update debian/dxproject-by-realtech to use new common-install-
+    function-ddebs(>=1.61)
+  * remove ioctl in debian/dxproject-by-realtech.conf file
+  * update manual and descriptions for Dosbox-x
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 May 2020 19:11:33 +0200
+
 dxproject-by-realtech (1:1.0+2-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

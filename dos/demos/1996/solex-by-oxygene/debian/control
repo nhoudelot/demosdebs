@@ -11,9 +11,9 @@ Package: solex-by-oxygene
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: Demo : solex by Oxygene
  demo released in may 1996
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

@@ -4,67 +4,45 @@ source  /usr/share/common-install-function-ddebs/common-install-function
 
 domain=horison4k-by-nocturnal
 
-if [ $(which gettext) ]; then
-	gettext="gettext --domain=$domain -s --"
-else
-	gettext=echo
-fi
+APP_FULLNAME="horison 4k"
+APP_COPYRIGHT="Nocturnal"
+APP_DESC="4k intro ranked 11th at The Gathering 1999"
 
-function usage()
+function prerun()
 {
-	$gettext "Usage: horison4k-by-nocturnal [OPTION]"
-	$gettext "Start horison 4k - 4k intro ranked 11th at The Gathering 1999"
-	echo
-	$gettext "--help       display this help and exit"
-	$gettext "--fullscreen	start demo in fullscreen (Ctrl-F9 to exit)"
-	$gettext "--debug	start the dosbox environnement without running the demo"
-	$gettext "--version    display version information and exit"
+	sleep 1
 }
 
-function version()
+function postrun()
 {
-	$gettext "horison4k-by-nocturnal"
-	$gettext "Copyright (C) Nocturnal "
-	$gettext "Dosbox Copyright (C) Dosbox Team"
-}
-
-
-function run()
-{
-	/usr/bin/dosbox-x -conf  /usr/share/$domain/$1.conf $2
-}
-
-function run_debug()
-{
-	NSH_SetDebugDOSBOX
-	/usr/bin/dosbox-x -conf  /tmp/$1_debug.conf
-	NSH_RemoveDebugDOSBOX
+	sleep 1
 }
 
 if [ "$#" -gt "1" ]; then
-	usage
+	NSH_std_usage_DOSBOX
 	exit 1
 elif [ "$#" -lt "1" ]; then
-	run $domain
+	NSH_RunDOSBOX
 else
 	case "$1" in
 	--help)
-		usage
+		NSH_std_usage_DOSBOX
 		;;
 	--fullscreen)
-		run $domain -fullscreen
+		NSH_RunDOSBOXX -fullscreen
 		;;
 	--debug)
-		run_debug $domain
+		NSH_RunDebugDOSBOX
 		;;
 	--version)
-		version
+		NSH_version_DOSBOX
 		;;
 	*)
-		usage
+		NSH_std_usage_DOSBOX
 		exit 1
 		;;
 	esac
 fi
 
+exit 0
 exit 0

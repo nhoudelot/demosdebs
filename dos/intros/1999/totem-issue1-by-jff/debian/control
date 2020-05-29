@@ -6,13 +6,13 @@ Build-Depends:
  debhelper (>= 10)
 Standards-Version: 4.5.0
 Homepage: https://www.j-f-f.net
-#Vcs-Git: git://git.debian.org/collab-maint/totem-issue1-by-jff.git
-#Vcs-Browser: http://git.debian.org/?p=collab-maint/totem-issue1-by-jff.git;a=summary
+Vcs-Git: https://git.debian.org/collab-maint/totem-issue1-by-jff.git
+Vcs-Browser: https://git.debian.org/?p=collab-maint/totem-issue1-by-jff.git;a=summary
 
 Package: totem-issue1-by-jff
 Architecture: all
 Depends: dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: E-mag :TOTEM issue #1 by Just For Fun
  This is the first and last issue of Totem,
@@ -20,4 +20,4 @@ Description: E-mag :TOTEM issue #1 by Just For Fun
  the weird chartsmag by Just For Fun...
  Enjoy :)
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

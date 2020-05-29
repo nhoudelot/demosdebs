@@ -1,3 +1,13 @@
+juhlaivb-invitation-by-doomsday-byterapers (1:1.0+2-0ddebs2) unstable; urgency=medium
+
+  * update debian/juhlaivb-invitation-by-doomsday-byterapers to use new
+    common-install-function-ddebs(>=1.61)
+  * remove ioctl in debian/juhlaivb-invitation-by-doomsday-
+    byterapers.conf file
+  * update manual and descriptions for Dosbox-x
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 May 2020 22:47:36 +0200
+
 juhlaivb-invitation-by-doomsday-byterapers (1:1.0+2-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

@@ -10,9 +10,9 @@ Homepage: https://www.j-f-f.net/oldskool_intros.html
 Package: lemuseum-by-jff
 Architecture: all
 Depends: dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: DOS Intro released in 2001
  Intro released at Slach Party 2001
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

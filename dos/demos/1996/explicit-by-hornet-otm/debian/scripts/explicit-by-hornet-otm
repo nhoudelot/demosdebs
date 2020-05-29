@@ -4,72 +4,44 @@ source /usr/share/common-install-function-ddebs/common-install-function
 
 domain=explicit-by-hornet-otm
 
-if [ $(which gettext) ]; then
-	gettext="gettext --domain=$domain -s --"
-else
-	gettext=echo
-fi
+APP_FULLNAME="Explicit"
+APP_COPYRIGHT="Hornet & OTM"
+APP_DESC="demo Ranked 3rd at NAID 1996"
 
-usage()
-{
-	$gettext "Usage: explicit-by-hornet-otm [OPTION]"
-	$gettext "Start Explicit - Demo Ranked 3rd at NAID 1996"
-	echo
-	$gettext "--help       display this help and exit"
-	$gettext "--fullscreen	start demo in fullscreen (Ctrl-F9 to exit)"
-	$gettext "--debug	start the dosbox environnement without running the demo"
-	$gettext "--version    display version information and exit"
-}
-
-version()
-{
-	$gettext "explicit-by-hornet-otm"
-	$gettext "Copyright (C) Hornet & OTM "
-	$gettext "Dosbox Copyright (C) Dosbox Team"
-}
-
-function run()
+function prerun()
 {
 	NSH_CreateTmpDomainDir
 	NSH_CopyDirInTmp .
-	/usr/bin/dosbox-x -conf  /usr/share/$domain/$1.conf $2
-    	NSH_RemoveTmpDomainDir
 }
 
-function run_debug()
+function postrun()
 {
-	NSH_CreateTmpDomainDir
-	NSH_CopyDirInTmp .
-	NSH_SetDebugDOSBOX
-	/usr/bin/dosbox-x -conf  /tmp/$1_debug.conf
-	NSH_RemoveDebugDOSBOX
 	NSH_RemoveTmpDomainDir
 }
 
 if [ "$#" -gt "1" ]; then
-	usage
+	NSH_std_usage_DOSBOX
 	exit 1
 elif [ "$#" -lt "1" ]; then
-	run $domain
+	NSH_RunDOSBOX
 else
 	case "$1" in
 	--help)
-		usage
+		NSH_std_usage_DOSBOX
 		;;
 	--fullscreen)
-		run $domain -fullscreen
+		NSH_RunDOSBOXX -fullscreen
 		;;
 	--debug)
-		run_debug $domain
+		NSH_RunDebugDOSBOX
 		;;
 	--version)
-		version
+		NSH_version_DOSBOX
 		;;
 	*)
-		usage
+		NSH_std_usage_DOSBOX
 		exit 1
 		;;
 	esac
 fi
 
-exit 0

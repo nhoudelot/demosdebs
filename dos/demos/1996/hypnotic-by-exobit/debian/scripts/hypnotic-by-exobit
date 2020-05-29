@@ -4,71 +4,42 @@ source /usr/share/common-install-function-ddebs/common-install-function
 
 domain=hypnotic-by-exobit
 
-if [ $(which gettext) ]; then
-	gettext="gettext --domain=$domain -s --"
-else
-	gettext=echo
-fi
+APP_FULLNAME="Hypnotic"
+APP_COPYRIGHT="Exobit"
+APP_DESC="demo ranked 2nd at Euskal 1996"
 
-function usage()
-{
-	$gettext "Usage: hypnotic-by-exobit [OPTION]"
-	$gettext "Start Hypnotic - Demo ranked 2nd at Euskal 1996"
-	echo
-	$gettext "--help       display this help and exit"
-	$gettext "--fullscreen	start demo in fullscreen (Ctrl-F9 to exit)"
-	$gettext "--debug	start the dosbox environnement without running the demo"
-	$gettext "--version    display version information and exit"
-}
-
-function version()
-{
-	$gettext "hypnotic-by-exobit"
-	$gettext "Copyright (C) Exobit "
-	$gettext "Dosbox Copyright (C) Dosbox Team"
-}
-
-	
-
-function run()
+function prerun()
 {
 	NSH_CreateTmpDomainDir
-	NSH_InstallRWFileInTmp HYPNOTIC.DAT HYPNOTIC.DAT
-	/usr/bin/dosbox-x -conf  /usr/share/$domain/$1.conf $2
-    	NSH_RemoveTmpDomainDir
+	NSH_InstallRWFileInTmp "HYPNOTIC.DAT" "HYPNOTIC.DAT"
 }
 
-function run_debug()
+function postrun()
 {
-	NSH_CreateTmpDomainDir
-	NSH_InstallRWFileInTmp HYPNOTIC.DAT HYPNOTIC.DAT
-	NSH_SetDebugDOSBOX
-	/usr/bin/dosbox-x -conf  /tmp/$1_debug.conf
-	NSH_RemoveDebugDOSBOX
 	NSH_RemoveTmpDomainDir
 }
 
 if [ "$#" -gt "1" ]; then
-	usage
+	NSH_std_usage_DOSBOX
 	exit 1
 elif [ "$#" -lt "1" ]; then
-	run $domain
+	NSH_RunDOSBOX
 else
 	case "$1" in
 	--help)
-		usage
+		NSH_std_usage_DOSBOX
 		;;
 	--fullscreen)
-		run $domain -fullscreen
+		NSH_RunDOSBOXX -fullscreen
 		;;
 	--debug)
-		run_debug $domain
+		NSH_RunDebugDOSBOX
 		;;
 	--version)
-		version
+		NSH_version_DOSBOX
 		;;
 	*)
-		usage
+		NSH_std_usage_DOSBOX
 		exit 1
 		;;
 	esac

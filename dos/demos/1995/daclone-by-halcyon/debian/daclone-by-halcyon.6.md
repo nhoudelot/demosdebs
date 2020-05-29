@@ -1,6 +1,6 @@
 % daclone-by-halcyon(6) Da Clone User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Halcyon
-% 2015-03-15
+% 2020-05-29
 
 # NAME
 daclone-by-halcyon - launcher for Da Clone
@@ -9,7 +9,7 @@ daclone-by-halcyon - launcher for Da Clone
 daclone-by-halcyon [*options*]
 
 # DESCRIPTION
-daclone-by-halcyon - is the launcher for Da Clone that use Dosbox in back-end.  
+daclone-by-halcyon - is the launcher for Da Clone that use Dosbox-x in back-end.  
 demo released in june 1995
 
 # OPTIONS
@@ -17,17 +17,17 @@ demo released in june 1995
 :   Display help for the command
 
 \--fullscreen
-Start game in fullscreen (Ctrl-F9 to exit)
+Start game in fullscreen
 
 \--debug
-start the dosbox environnement without running the demo
+start the dosbox-x environnement without running the demo
 
 
 \--version
 :   Display version and author information
 
 # SEE ALSO
-`dosbox`(1)
+`dosbox-x`(1)
 
 # BUGS
 No known bugs.

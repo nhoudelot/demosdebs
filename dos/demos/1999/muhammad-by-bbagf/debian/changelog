@@ -1,3 +1,12 @@
+muhammad-by-bbagf (1:1.0+2-0ddebs2) unstable; urgency=medium
+
+  * update debian/muhammad-by-bbagf to use new common-install-function-
+    ddebs(>=1.61)
+  * remove ioctl in debian/muhammad-by-bbagf.conf file
+  * update manual and descriptions for Dosbox-x
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 29 May 2020 00:00:00 +0200
+
 muhammad-by-bbagf (1:1.0+2-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

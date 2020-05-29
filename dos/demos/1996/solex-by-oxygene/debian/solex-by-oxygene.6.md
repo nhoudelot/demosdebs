@@ -1,6 +1,6 @@
 % solex-by-oxygene(6) solex User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Oxygene
-% 2018-10-07
+% 2020-05-29
 
 # NAME
 solex-by-oxygene - the command to run solex.
@@ -10,14 +10,14 @@ solex-by-oxygene [*options*]
 
 # DESCRIPTION
 solex is a demonstration released by Oxygene in 1996.
-solex-by-oxygene is the launcher that use Dosbox to run it.
+solex-by-oxygene is the launcher that use Dosbox-x to run it.
 
 # OPTIONS
 \--fullscreen
-:   Start game in fullscreen (Ctrl-F9 to exit)
+:   Start game in fullscreen
 
 \--debug
-:   start dosbox environnement without running the demo
+:   start dosbox-x environnement without running the demo
 
 \--version
 :   Display version and author information
@@ -26,7 +26,7 @@ solex-by-oxygene is the launcher that use Dosbox to run it.
 :   Display help for the command
 
 # SEE ALSO
-`dosbox`(1)
+`dosbox-x`(1)
 
 # BUGS
 No known bugs.

@@ -4,69 +4,42 @@ source /usr/share/common-install-function-ddebs/common-install-function
 
 domain=daclone-by-halcyon
 
-if [ $(which gettext) ]; then
-	gettext="gettext --domain=$domain -s --"
-else
-	gettext=echo
-fi
+APP_FULLNAME="Da Clone"
+APP_COPYRIGHT="Halcyon"
+APP_DESC="demo released in june 1995"
 
-function usage()
-{
-	$gettext "Usage: daclone-by-halcyon [OPTION]"
-	$gettext "Start Da Clone - demo released in june 1995"
-	echo
-	$gettext "    --help       display this help and exit"
-	$gettext "    --fullscreen start game in fullscreen (Ctrl-F9 to quit)"
-	$gettext "    --debug      start the dosbox environnement without running the demo"
-	$gettext "    --version    display version information and exit"
-}
-
-function version()
-{
-	$gettext "daclone-by-halcyon"
-	$gettext "Copyright (C) Halcyon "
-	$gettext "Dosbox Copyright (C) Dosbox Team"
-}
-
-function run()
+function prerun()
 {
 	NSH_CreateTmpDomainDir
-	NSH_InstallRWFileInTmp KUVA.DAT KUVA.DAT
-	/usr/bin/dosbox-x -conf /usr/share/${domain}/${domain}.conf $2
-	NSH_RemoveTmpDomainDir
+	NSH_InstallRWFileInTmp "KUVA.DAT" "KUVA.DAT"
 }
 
-function run_debug()
+function postrun()
 {
-	NSH_CreateTmpDomainDir
-	NSH_SetDebugDOSBOX
-	NSH_InstallRWFileInTmp KUVA.DAT KUVA.DAT
-	/usr/bin/dosbox-x -conf  /tmp/${domain}_debug.conf
-	NSH_RemoveDebugDOSBOX
 	NSH_RemoveTmpDomainDir
 }
 
 if [ "$#" -gt "1" ]; then
-	usage
+	NSH_std_usage_DOSBOX
 	exit 1
 elif [ "$#" -lt "1" ]; then
-	run $domain 
+	NSH_RunDOSBOX
 else
 	case "$1" in
 	--help)
-		usage
+		NSH_std_usage_DOSBOX
 		;;
 	--fullscreen)
-		run $domain -fullscreen
+		NSH_RunDOSBOXX -fullscreen
 		;;
 	--debug)
-		run_debug 
+		NSH_RunDebugDOSBOX
 		;;
 	--version)
-		version
+		NSH_version_DOSBOX
 		;;
 	*)
-		usage
+		NSH_std_usage_DOSBOX
 		exit 1
 		;;
 	esac

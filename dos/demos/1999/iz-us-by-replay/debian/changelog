@@ -1,3 +1,12 @@
+iz-us-by-replay (1:1.0+2-0ddebs2) unstable; urgency=medium
+
+  * update debian/iz-us-by-replay to use new common-install-function-
+    ddebs(>=1.61)
+  * remove ioctl in debian/iz-us-by-replay.conf file
+  * update manual and descriptions for Dosbox-x
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 May 2020 23:59:59 +0200
+
 iz-us-by-replay (1:1.0+2-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

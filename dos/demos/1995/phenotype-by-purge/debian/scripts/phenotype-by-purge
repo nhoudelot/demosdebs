@@ -4,70 +4,42 @@ source /usr/share/common-install-function-ddebs/common-install-function
 
 domain=phenotype-by-purge
 
-if [ $(which gettext) ]; then
-	gettext="gettext --domain=$domain -s --"
-else
-	gettext=echo
-fi
+APP_FULLNAME="Phenotype"
+APP_COPYRIGHT="purge"
+APP_DESC="demo ranked 3rd at Wired 1995"
 
-usage()
-{
-	$gettext "Usage: phenotype-by-purge [OPTION]"
-	$gettext "Start Phenotype - demo ranked 3rd at Wired 1995"
-	echo
-	$gettext "--help       display this help and exit"
-	$gettext "--fullscreen	start demo in fullscreen (Ctrl-F9 to exit)"
-	$gettext "--debug	start the dosbox environnement without running the demo"
-	$gettext "--version    display version information and exit"
-}
-
-version()
-{
-	$gettext "phenotype-by-purge"
-	$gettext "Copyright (C) purge "
-	$gettext "Dosbox Copyright (C) Dosbox Team"
-}
-
-function run()
-{
-	
-	NSH_CreateTmpDomainDir
-	NSH_InstallRWFileInTmp HER.DMF HER.DMF
-	/usr/bin/dosbox-x -conf  /usr/share/$domain/$1.conf $2
-   	NSH_RemoveTmpDomainDir
-}
-
-function run_debug()
+function prerun()
 {
 	NSH_CreateTmpDomainDir
-	NSH_InstallRWFileInTmp HER.DMF HER.DMF
-	NSH_SetDebugDOSBOX
-	/usr/bin/dosbox-x -conf  /tmp/$1_debug.conf
-	NSH_RemoveDebugDOSBOX
+	NSH_InstallRWFileInTmp "HER.DMF" "HER.DMF"
+}
+
+function postrun()
+{
 	NSH_RemoveTmpDomainDir
 }
 
 if [ "$#" -gt "1" ]; then
-	usage
+	NSH_std_usage_DOSBOX
 	exit 1
 elif [ "$#" -lt "1" ]; then
-	run $domain
+	NSH_RunDOSBOX
 else
 	case "$1" in
 	--help)
-		usage
+		NSH_std_usage_DOSBOX
 		;;
 	--fullscreen)
-		run $domain -fullscreen
+		NSH_RunDOSBOXX -fullscreen
 		;;
 	--debug)
-		run_debug $domain
+		NSH_RunDebugDOSBOX
 		;;
 	--version)
-		version
+		NSH_version_DOSBOX
 		;;
 	*)
-		usage
+		NSH_std_usage_DOSBOX
 		exit 1
 		;;
 	esac

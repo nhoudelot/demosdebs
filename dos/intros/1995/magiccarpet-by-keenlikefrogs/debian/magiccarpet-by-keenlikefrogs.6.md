@@ -1,6 +1,6 @@
 % magiccarpet-by-keenlikefrogs(6) Magic Carpet User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Keen Like Frogs
-% 2018-10-08
+% 2020-05-29
 
 # NAME
 magiccarpet-by-keenlikefrogs - the command to run Magic Carpet.
@@ -10,15 +10,15 @@ magiccarpet-by-keenlikefrogs [*options*]
 
 # DESCRIPTION
 Magic Carpet is a demonstration released by Keen Like Frogs in 1995.
-magiccarpet-by-keenlikefrogs is the launcher that use Dosbox to run it.
+magiccarpet-by-keenlikefrogs is the launcher that use Dosbox-x to run it.
 intro ranked 1st at Wired 1995
 
 # OPTIONS
 \--fullscreen
-:   Start game in fullscreen (Ctrl-F9 to exit)
+:   Start game in fullscreen
 
 \--debug
-:   start dosbox environnement without running the demo
+:   start dosbox-x environnement without running the demo
 
 \--version
 :   Display version and author information
@@ -27,7 +27,7 @@ intro ranked 1st at Wired 1995
 :   Display help for the command
 
 # SEE ALSO
-`dosbox`(1)
+`dosbox-x`(1)
 
 # BUGS
 No known bugs.

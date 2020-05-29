@@ -1,6 +1,6 @@
 % magicbiniou-by-eclipse(6) Magic Biniou User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Eclipse
-% 2018-10-07
+% 2020-05-29
 
 # NAME
 magicbiniou-by-eclipse - the command to run Magic Biniou.
@@ -10,15 +10,15 @@ magicbiniou-by-eclipse [*options*]
 
 # DESCRIPTION
 Magic Biniou is a demonstration released by Eclipse in 1996.
-magicbiniou-by-eclipse is the launcher that use Dosbox to run it.
+magicbiniou-by-eclipse is the launcher that use Dosbox-x to run it.
 Demo ranked 1st at volcanic 1996
 
 # OPTIONS
 \--fullscreen
-:   Start game in fullscreen (Ctrl-F9 to exit)
+:   Start game in fullscreen
 
 \--debug
-:   start dosbox environnement without running the demo
+:   start dosbox-x environnement without running the demo
 
 \--version
 :   Display version and author information
@@ -27,7 +27,7 @@ Demo ranked 1st at volcanic 1996
 :   Display help for the command
 
 # SEE ALSO
-`dosbox`(1)
+`dosbox-x`(1)
 
 # BUGS
 No known bugs.

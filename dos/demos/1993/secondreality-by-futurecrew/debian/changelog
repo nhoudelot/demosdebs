@@ -1,3 +1,12 @@
+secondreality-by-futurecrew (1.0+1-0ddebs2) unstable; urgency=medium
+
+  * update debian/secondreality-by-futurecrew to use new common-install-
+    function-ddebs(>=1.61)
+  * remove ioctl in debian/secondreality-by-futurecrew.conf file
+  * update manual and descriptions for Dosbox-x
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 May 2020 19:02:36 +0200
+
 secondreality-by-futurecrew (1.0+1-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

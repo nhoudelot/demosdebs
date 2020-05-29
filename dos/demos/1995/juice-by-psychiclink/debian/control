@@ -11,10 +11,10 @@ Package: juice-by-psychiclink
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: Demo : Juice by Psychic Link
  demo ranked 2nd at Assembly 1995
  This is the v1.0 (party version)
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

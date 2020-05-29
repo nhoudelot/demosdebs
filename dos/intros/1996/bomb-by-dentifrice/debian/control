@@ -10,9 +10,9 @@ Homepage: https://www.pouet.net/prod.php?which=1126
 Package: bomb-by-dentifrice
 Architecture: all
 Depends: dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: DOS Intro released in 1996
  Intro ranked 5th at Saturne Party 1996
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

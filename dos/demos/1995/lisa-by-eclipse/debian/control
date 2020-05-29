@@ -11,9 +11,9 @@ Package: lisa-by-eclipse
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.0),
+ common-install-function-ddebs (>=1.61),
  ${misc:Depends}
 Description: Demo : Lisa by Eclipse
  demo ranked 1st at Gasp 1995
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

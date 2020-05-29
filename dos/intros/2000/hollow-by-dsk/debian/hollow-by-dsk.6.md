@@ -1,6 +1,6 @@
 % hollow-by-dsk(6) Hollow User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),dSK
-% 2018-10-08
+% 2020-05-29
 
 # NAME
 hollow-by-dsk - the command to run Hollow.
@@ -10,15 +10,15 @@ hollow-by-dsk [*options*]
 
 # DESCRIPTION
 Hollow is a demonstration released by dSK in 2000.
-hollow-by-dsk is the launcher that use Dosbox to run it.
+hollow-by-dsk is the launcher that use Dosbox-x to run it.
 intro ranked 3rd at Fallas Party 2000
 
 # OPTIONS
 \--fullscreen
-:   Start game in fullscreen (Ctrl-F9 to exit)
+:   Start game in fullscreen
 
 \--debug
-:   start dosbox environnement without running the demo
+:   start dosbox-x environnement without running the demo
 
 \--version
 :   Display version and author information
@@ -27,7 +27,7 @@ intro ranked 3rd at Fallas Party 2000
 :   Display help for the command
 
 # SEE ALSO
-`dosbox`(1)
+`dosbox-x`(1)
 
 # BUGS
 No known bugs.
