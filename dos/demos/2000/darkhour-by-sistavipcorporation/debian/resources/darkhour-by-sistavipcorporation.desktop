@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Dark Hour
+GenericName=Demo
+Comment=Dark Hour - demo ranked 21st at Mekka & Symposium 2000
+Type=Application
+Exec=/usr/bin/darkhour-by-sistavipcorporation
+Icon=darkhour-by-sistavipcorporation
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Dark Hour

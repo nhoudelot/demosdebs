@@ -1,0 +1,15 @@
+Source: insectjazz-by-damage
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends: pandoc,debhelper (>= 9.0)
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=686
+
+Package: insectjazz-by-damage
+Architecture: all
+Depends: dosbox (>=0.74),common-install-function-ddebs (>=1.0),${misc:Depends}
+Description: DOS Demo released in 2000
+ Demo ranked 3rd at the Elevator 2000
+ .
+ -MS-DOS program launched using Dosbox

@@ -1,0 +1,7 @@
+MIDAS.CFG usr/share/presidenttipelia-by-humppamachines-revengeoftheperse/
+PRESIDEN.S3M usr/share/presidenttipelia-by-humppamachines-revengeoftheperse/
+PRESIDEN.EXE usr/share/presidenttipelia-by-humppamachines-revengeoftheperse/
+debian/scripts/presidenttipelia-by-humppamachines-revengeoftheperse.conf usr/share/presidenttipelia-by-humppamachines-revengeoftheperse/
+debian/scripts/presidenttipelia-by-humppamachines-revengeoftheperse usr/bin/
+debian/resources/presidenttipelia-by-humppamachines-revengeoftheperse.desktop usr/share/applications/
+debian/resources/presidenttipelia-by-humppamachines-revengeoftheperse.png usr/share/icons/hicolor/256x256/apps/

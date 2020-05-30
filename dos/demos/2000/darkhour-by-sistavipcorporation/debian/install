@@ -1,0 +1,10 @@
+SDL.DLL usr/share/darkhour-by-sistavipcorporation/
+WINDARK.EXE usr/share/darkhour-by-sistavipcorporation/
+DARKHOUR.DAT usr/share/darkhour-by-sistavipcorporation/
+DARKHOUR.XM usr/share/darkhour-by-sistavipcorporation/
+DOSDARK.EXE usr/share/darkhour-by-sistavipcorporation/
+MIDAS11.DLL usr/share/darkhour-by-sistavipcorporation/
+debian/scripts/darkhour-by-sistavipcorporation.conf usr/share/darkhour-by-sistavipcorporation/
+debian/scripts/darkhour-by-sistavipcorporation usr/bin/
+debian/resources/darkhour-by-sistavipcorporation.desktop usr/share/applications/
+debian/resources/darkhour-by-sistavipcorporation.png usr/share/icons/hicolor/256x256/apps/

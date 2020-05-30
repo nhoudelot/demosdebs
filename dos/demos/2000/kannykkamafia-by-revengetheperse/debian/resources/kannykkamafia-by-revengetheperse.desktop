@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=kännykkä mafia
+GenericName=Demo
+Comment=kännykkä mafia - demo ranked 10th at Elevator 2000
+Type=Application
+Exec=/usr/bin/kannykkamafia-by-revengetheperse
+Icon=kannykkamafia-by-revengetheperse
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=kännykkä mafia

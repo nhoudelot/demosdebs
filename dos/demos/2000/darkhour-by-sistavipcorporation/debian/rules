@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/darkhour-by-sistavipcorporation.6.md -o debian/darkhour-by-sistavipcorporation.6

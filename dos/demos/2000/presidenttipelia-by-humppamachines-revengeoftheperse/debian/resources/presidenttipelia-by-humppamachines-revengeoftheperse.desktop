@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=presidenttipeliä
+GenericName=Demo
+Comment=presidenttipeliä - demo ranked 9th at Elevator 2000
+Type=Application
+Exec=/usr/bin/presidenttipelia-by-humppamachines-revengeoftheperse
+Icon=presidenttipelia-by-humppamachines-revengeoftheperse
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=presidenttipeliä

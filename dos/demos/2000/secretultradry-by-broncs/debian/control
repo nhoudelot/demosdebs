@@ -1,0 +1,15 @@
+Source: secretultradry-by-broncs
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends: pandoc,debhelper (>= 9.0)
+Standards-Version: 4.1.4
+Homepage: https://broncs.dee.cz/broncs.htm
+
+Package: secretultradry-by-broncs
+Architecture: all
+Depends: dosbox (>=0.74),common-install-function-ddebs (>=1.0),${misc:Depends}
+Description: DOS Demo released in 2000
+ demo ranked 3rd at Demobit 2000
+ .
+ -MS-DOS program launched using Dosbox

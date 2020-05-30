@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: secretultradry-by-broncs
+Source: https://broncs.dee.cz/broncs.htm
+
+Files: *
+Copyright: 2000 Broncs
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2013-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

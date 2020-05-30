@@ -1,0 +1,9 @@
+debian/scripts/secretultradry-by-broncs.conf usr/share/secretultradry-by-broncs/
+debian/scripts/secretultradry-by-broncs usr/bin/
+debian/resources/secretultradry-by-broncs.desktop usr/share/applications/
+debian/resources/secretultradry-by-broncs.png usr/share/icons/hicolor/256x256/apps/
+CWSDPMI.EXE usr/share/secretultradry-by-broncs/
+SUD.DAT usr/share/secretultradry-by-broncs/
+SUD.EXE usr/share/secretultradry-by-broncs/
+SUD.XM usr/share/secretultradry-by-broncs/
+SUD.PLG usr/share/secretultradry-by-broncs/

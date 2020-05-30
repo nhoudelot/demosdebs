@@ -1,0 +1,7 @@
+debian/scripts/kannykkamafia-by-revengetheperse.conf usr/share/kannykkamafia-by-revengetheperse/
+debian/scripts/kannykkamafia-by-revengetheperse usr/bin/
+debian/resources/kannykkamafia-by-revengetheperse.desktop usr/share/applications/
+debian/resources/kannykkamafia-by-revengetheperse.png usr/share/icons/hicolor/256x256/apps/
+CWSDPMI.EXE usr/share/kannykkamafia-by-revengetheperse/
+MAFIA.DAT usr/share/kannykkamafia-by-revengetheperse/
+MAFIA.EXE usr/share/kannykkamafia-by-revengetheperse/

@@ -1,0 +1,8 @@
+INSECT.EXE usr/share/insectjazz-by-damage/
+ISOD.IT usr/share/insectjazz-by-damage/
+JAZZ.DAT usr/share/insectjazz-by-damage/
+KIMONO.KEU usr/share/insectjazz-by-damage/
+debian/scripts/insectjazz-by-damage.conf usr/share/insectjazz-by-damage/
+debian/scripts/insectjazz-by-damage usr/bin/
+debian/resources/insectjazz-by-damage.desktop usr/share/applications/
+debian/resources/insectjazz-by-damage.png usr/share/icons/hicolor/256x256/apps/
