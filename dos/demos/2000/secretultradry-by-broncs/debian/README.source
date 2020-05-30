@@ -1,0 +1,10 @@
+secretultradry-by-broncs for Debian
+----------------------------------
+
+Executable :
+ * was unpacked from UPX(0.82)
+ * compiled with djgpp(2)
+ * use Go32Stub DOS-Extender(2.0)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 May 2020 16:18:38 +0200
+

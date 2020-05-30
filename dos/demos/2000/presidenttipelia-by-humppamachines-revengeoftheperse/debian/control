@@ -2,14 +2,18 @@ Source: presidenttipelia-by-humppamachines-revengeoftheperse
 Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: pandoc,debhelper (>= 9.0)
-Standards-Version: 4.1.4
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=4728
 
 Package: presidenttipelia-by-humppamachines-revengeoftheperse
 Architecture: all
-Depends: dosbox (>=0.74),common-install-function-ddebs (>=1.0),${misc:Depends}
+Depends:
+ dosboxx (>=0.83),
+ common-install-function-ddebs (>=1.61),
+ ${misc:Depends}
 Description: DOS Demo released in 2000
  demo ranked 9th at Elevator 2000
  .
- -MS-DOS program launched using Dosbox
+ -MS-DOS program launched using Dosbox-x

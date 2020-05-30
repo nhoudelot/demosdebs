@@ -35,6 +35,6 @@ License: Key-Real-license
  ok,ok, the license text was ripped!
 
 Files: debian/*
-Copyright: 2013-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  /usr/share/common-licenses/GPL-2

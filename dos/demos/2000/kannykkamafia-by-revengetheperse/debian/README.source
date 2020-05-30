@@ -1,0 +1,10 @@
+kannykkamafia-by-revengetheperse for Debian
+------------------------------------------
+
+Executable :
+ * DOS Extender is Go32Stub DOS-Extender(2.0)
+Read/Write temporary files :
+* TEMP.XM link to /tmp/<package>
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 May 2020 15:58:52 +0200
+

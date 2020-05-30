@@ -4,69 +4,42 @@ source /usr/share/common-install-function-ddebs/common-install-function
 
 domain=darkhour-by-sistavipcorporation
 
-if [ $(which gettext) ]; then
-	gettext="gettext --domain=$domain -s --"
-else
-	gettext=echo
-fi
+APP_FULLNAME="Dark Hour"
+APP_COPYRIGHT="Sista Vip Corporation"
+APP_DESC="demo ranked 21st at Mekka & Symposium 2000"
 
-function usage()
-{
-	$gettext "Usage: darkhour-by-sistavipcorporation [OPTION]"
-	$gettext "Start Dark Hour - demo ranked 21st at Mekka & Symposium 2000"
-	echo
-	$gettext "--help       display this help and exit"
-	$gettext "--fullscreen	start demo in fullscreen (Ctrl-F9 to exit)"
-	$gettext "--debug	start the dosbox environnement without running the demo"
-	$gettext "--version    display version information and exit"
-}
-
-function version()
-{
-	$gettext "darkhour-by-sistavipcorporation"
-	$gettext "Copyright (C) Sista Vip Corporation "
-	$gettext "Dosbox Copyright (C) Dosbox Team"
-}
-
-function run()
+function prerun()
 {
 	NSH_CreateTmpDomainDir
 	NSH_CopyDirInTmp .
-	/usr/bin/dosbox -conf  /usr/share/$domain/$1.conf $2
-	NSH_RemoveTmpDomainDir
 }
 
-function run_debug()
+function postrun()
 {
-	NSH_CreateTmpDomainDir
-	NSH_CopyDirInTmp .
-	NSH_SetDebugDOSBOX
-	/usr/bin/dosbox -conf  /tmp/$1_debug.conf
-	NSH_RemoveDebugDOSBOX
 	NSH_RemoveTmpDomainDir
 }
 
 if [ "$#" -gt "1" ]; then
-	usage
+	NSH_std_usage_DOSBOX
 	exit 1
 elif [ "$#" -lt "1" ]; then
-	run $domain
+	NSH_RunDOSBOX
 else
 	case "$1" in
 	--help)
-		usage
+		NSH_std_usage_DOSBOX
 		;;
 	--fullscreen)
-		run $domain -fullscreen
+		NSH_RunDOSBOXX -fullscreen
 		;;
 	--debug)
-		run_debug $domain
+		NSH_RunDebugDOSBOX
 		;;
 	--version)
-		version
+		NSH_version_DOSBOX
 		;;
 	*)
-		usage
+		NSH_std_usage_DOSBOX
 		exit 1
 		;;
 	esac

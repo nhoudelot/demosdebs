@@ -1,6 +1,6 @@
 % secretultradry-by-broncs(6) Secret Ultra Dry User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Broncs
-% 2018-10-07
+% 2020-05-30
 
 # NAME
 secretultradry-by-broncs - the command to run Secret Ultra Dry.
@@ -10,15 +10,15 @@ secretultradry-by-broncs [*options*]
 
 # DESCRIPTION
 Secret Ultra Dry is a demonstration released by Broncs in 2000.
-secretultradry-by-broncs is the launcher that use Dosbox to run it.
+secretultradry-by-broncs is the launcher that use Dosbox-x to run it.
 demo ranked 3rd at Demobit 2000
 
 # OPTIONS
 \--fullscreen
-:   Start game in fullscreen (Ctrl-F9 to exit)
+:   Start game in fullscreen
 
 \--debug
-:   start dosbox environnement without running the demo
+:   start dosbox-x environnement without running the demo
 
 \--version
 :   Display version and author information
@@ -27,7 +27,7 @@ demo ranked 3rd at Demobit 2000
 :   Display help for the command
 
 # SEE ALSO
-`dosbox`(1)
+`dosbox-x`(1)
 
 # BUGS
 No known bugs.

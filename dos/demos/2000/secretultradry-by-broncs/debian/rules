@@ -2,8 +2,3 @@
 
 %:
 	dh $@
-
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/secretultradry-by-broncs.6.md -o debian/secretultradry-by-broncs.6
