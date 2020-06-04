@@ -15,6 +15,7 @@ Depends:
  amiga-kickstartaros,
  common-install-function-ddebs(>=1.6),
  amiga-whdloadharddisk, 
+ common-install-function-ddebs(>=1.65),
  ${misc:Depends}
 Description: Amiga Demo released in 1992
  Demo released in june 1992

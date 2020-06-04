@@ -14,7 +14,7 @@ Depends:
  fs-uae,
  amiga-kickstartaros,
  amiga-whdloadharddisk(>=1.10),
- common-install-function-ddebs(>=1.16),
+ common-install-function-ddebs(>=1.65),
  ${misc:Depends}
 Description: Amiga Demo released in 1996
  Demo by The Black Lotus,

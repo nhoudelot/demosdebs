@@ -14,6 +14,6 @@ hard_drive_0 = /usr/share/amiga/whdloadharddisk/whdloadharddisk.hdf
 hard_drive_1 = /usr/share/smokebomb-by-ozone/DH1.zip
 hard_drive_2 = ~/.local/share/whdload/
 hard_drive_2_label = L
-hard_drive_4 = ~/.local/share/WHDSaves/
+hard_drive_4 = ~/.local/share/games/fs-uae/WHDSaves/
 hard_drive_4_label = WHDSaves
 fast_memory = 8192

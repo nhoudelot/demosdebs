@@ -15,6 +15,7 @@ Depends:
  amiga-kickstartaros,
  amiga-whdloadharddisk,
  common-install-function-ddebs(>=1.6),
+ common-install-function-ddebs(>=1.65),
  ${misc:Depends}
 Description: Amiga Demo released in 1999
  Demo ranked 5th at Mekka and Symposium 1999

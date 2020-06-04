@@ -1,3 +1,9 @@
+technologicaldeath-by-madelks-disk (1:1.0+4-0ddebs1) unstable; urgency=medium
+
+  * Corrected  NFO
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 05 Jun 2020 00:49:29 +0200
+
 technologicaldeath-by-madelks-disk (1:1.0+3-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

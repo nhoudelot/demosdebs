@@ -14,7 +14,7 @@ Depends:
  fs-uae(>=2.6),
  amiga-whdloadharddisk,
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.16),
+ common-install-function-ddebs(>=1.65),
  ${misc:Depends}
 Description: Amiga Intro released in 1994
  intro ranked 17th at The Party 1994

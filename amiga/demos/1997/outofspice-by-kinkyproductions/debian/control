@@ -13,8 +13,8 @@ Architecture: all
 Depends:
  fs-uae,
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.16),
  amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.65),
  ${misc:Depends}
 Description: Amiga Demo released in 1997
  demo ranked 2nd at Abduction 1997

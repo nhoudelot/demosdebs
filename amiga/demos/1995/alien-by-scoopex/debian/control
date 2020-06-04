@@ -13,7 +13,7 @@ Architecture: all
 Depends:
  fs-uae(>=2.6),
  amiga-whdloadharddisk,
- common-install-function-ddebs(>=1.16),
+ common-install-function-ddebs(>=1.65),
  ${misc:Depends}
 Description: Amiga demo released in 1995
  demo ranked 2nd at Abduction 1995

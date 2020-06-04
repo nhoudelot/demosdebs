@@ -14,7 +14,7 @@ Depends:
  fs-uae(>=2.6),
  amiga-kickstart205,
  amiga-whdloadharddisk,
- common-install-function-ddebs(>=1.16),
+ common-install-function-ddebs(>=1.65),
  ${misc:Depends}
 Description: Amiga Intro released in 1992
  intro released in october 1992

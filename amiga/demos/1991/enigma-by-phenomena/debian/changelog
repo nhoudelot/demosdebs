@@ -1,3 +1,10 @@
+enigma-by-phenomena (1.3+2-0ddebs3) unstable; urgency=medium
+
+  * Update debian/scripts/enigma-by-phenomena.fs-uae to common-install-
+    function-ddebs(>=1.65)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 04 Jun 2020 23:05:47 +0200
+
 enigma-by-phenomena (1.3+2-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

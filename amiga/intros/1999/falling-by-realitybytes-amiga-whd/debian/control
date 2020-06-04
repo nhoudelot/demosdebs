@@ -13,7 +13,7 @@ Architecture: all
 Depends:
  fs-uae,
  amiga-whdloadharddisk(>=1.10),
- common-install-function-ddebs(>=1.16),
+ common-install-function-ddebs(>=1.65),
  ${misc:Depends}
 Description: Amiga Demo released in 1999
  AGA intro by Reality Bytes released at Icing 1999

@@ -13,7 +13,7 @@ Architecture: all
 Depends: fs-uae,
  amiga-kickstart31a1200,
  amiga-whdloadharddisk(>=1.10),
- common-install-function-ddebs(>=1.16),
+ common-install-function-ddebs(>=1.65),
  ${misc:Depends}
 Description: Amiga intro released in 1989
  intro released in july 1989
