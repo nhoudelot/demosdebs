@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=4k0
+GenericName=Demo
+Comment=intro ranked 1st at The Party 1994
+Type=Application
+Exec=/usr/bin/4k0-by-polkabrothers
+Icon=4k0-by-polkabrothers
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=4k0

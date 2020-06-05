@@ -1,0 +1,5 @@
+debian/scripts/4k0-by-polkabrothers usr/bin/
+debian/resources/4k0-by-polkabrothers.desktop usr/share/applications/
+debian/resources/4k0-by-polkabrothers.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/4k0-by-polkabrothers.fs-uae usr/share/4k0-by-polkabrothers/./ 
+./DH1.zip usr/share/4k0-by-polkabrothers/./ 
