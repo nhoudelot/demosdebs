@@ -1,0 +1,5 @@
+debian/scripts/fullmoon-by-virtualdreamsandfairlight usr/bin/
+debian/resources/fullmoon-by-virtualdreamsandfairlight.desktop usr/share/applications/
+debian/resources/fullmoon-by-virtualdreamsandfairlight.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/fullmoon-by-virtualdreamsandfairlight.fs-uae usr/share/fullmoon-by-virtualdreamsandfairlight/./ 
+./DH1.zip usr/share/fullmoon-by-virtualdreamsandfairlight/./ 

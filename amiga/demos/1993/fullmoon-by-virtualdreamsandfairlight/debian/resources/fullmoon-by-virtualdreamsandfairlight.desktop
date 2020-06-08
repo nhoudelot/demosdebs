@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Fullmoon
+GenericName=Demo
+Comment=Demo ranked 2nd at The Party 1993
+Type=Application
+Exec=/usr/bin/fullmoon-by-virtualdreamsandfairlight
+Icon=fullmoon-by-virtualdreamsandfairlight
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Fullmoon

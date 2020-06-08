@@ -1,0 +1,23 @@
+Source: fullmoon-by-virtualdreamsandfairlight
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=410
+
+Package: fullmoon-by-virtualdreamsandfairlight
+Architecture: all
+Depends:
+ fs-uae,
+ amiga-kickstartaros,
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.66),
+ ${misc:Depends}
+Description: Amiga Demo released in 1993
+ Demo ranked 2nd at The Party 1993
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

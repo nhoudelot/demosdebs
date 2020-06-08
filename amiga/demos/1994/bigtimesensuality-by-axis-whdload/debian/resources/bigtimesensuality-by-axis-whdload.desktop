@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=big time sensuality
+GenericName=Demo
+Comment=demo released in march 1994
+Type=Application
+Exec=/usr/bin/bigtimesensuality-by-axis-whdload
+Icon=bigtimesensuality-by-axis-whdload
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=big time sensuality

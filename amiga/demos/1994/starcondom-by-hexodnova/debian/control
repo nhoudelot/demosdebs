@@ -1,0 +1,22 @@
+Source: starcondom-by-hexodnova
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://janeway.exotica.org.uk/release.php?id=20791
+
+Package: starcondom-by-hexodnova
+Architecture: all
+Depends:
+ fs-uae,
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.66),
+ ${misc:Depends}
+Description: Amiga Demo released in 1994
+ Released: 1994-04-23 on Saturne Party 2 1994, ranked 9 in the Demo competition
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

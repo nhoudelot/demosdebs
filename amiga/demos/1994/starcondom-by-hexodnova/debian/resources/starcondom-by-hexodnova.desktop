@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Star Condom
+GenericName=Demo
+Comment=Released: 1994-04-23 on Saturne Party 2 1994, ranked 9 in the Demo competition
+Type=Application
+Exec=/usr/bin/starcondom-by-hexodnova
+Icon=starcondom-by-hexodnova
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Star Condom

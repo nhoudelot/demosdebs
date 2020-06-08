@@ -1,0 +1,45 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=bigtimesensuality-by-axis-whdload
+
+APP_FULLNAME="big time sensuality"
+APP_COPYRIGHT="Axis"
+APP_DESC="demo released in march 1994"
+
+function prerun()
+{
+	NSH_CreateWHDSaves
+	NSH_ExtractDH1
+}
+
+function postrun()
+{
+	NSH_RemoveDH1
+}
+
+if [ "$#" -gt "1" ]; then
+	NSH_std_usage_AMIGA
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	NSH_RunAMIGA
+else
+	case "$1" in
+	--help)
+		NSH_std_usage_AMIGA
+		;;
+	--fullscreen)
+		NSH_RunAMIGA -fullscreen
+		;;
+	--version)
+		NSH_version_AMIGA
+		;;
+	*)
+		NSH_std_usage_AMIGA
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

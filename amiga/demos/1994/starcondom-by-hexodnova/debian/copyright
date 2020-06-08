@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: morebobs-by-complex
-Source: https://www.pouet.net/prod.php?which=15670
+Upstream-Name: starcondom-by-hexodnova
+Source: https://janeway.exotica.org.uk/release.php?id=20791
 
 Files: *
-Copyright: 1989 Complex
+Copyright: 1994 Hexod & Nova
 License: public-domain
  (probably freeware)
 

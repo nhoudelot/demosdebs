@@ -1,0 +1,23 @@
+Source: bigtimesensuality-by-axis-whdload
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ zip
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=3449
+
+Package: bigtimesensuality-by-axis-whdload
+Architecture: all
+Depends:
+ fs-uae,
+ amiga-kickstartaros,
+ amiga-whdloadharddisk(>=1.10),
+ common-install-function-ddebs(>=1.66),
+ ${misc:Depends}
+Description: Amiga Demo released in 1994
+ demo released in march 1994
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

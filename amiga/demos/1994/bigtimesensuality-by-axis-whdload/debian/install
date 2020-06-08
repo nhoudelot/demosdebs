@@ -1,0 +1,5 @@
+debian/scripts/bigtimesensuality-by-axis-whdload usr/bin/
+debian/resources/bigtimesensuality-by-axis-whdload.desktop usr/share/applications/
+debian/resources/bigtimesensuality-by-axis-whdload.png usr/share/icons/hicolor/256x256/apps/
+./debian/scripts/bigtimesensuality-by-axis-whdload.fs-uae usr/share/bigtimesensuality-by-axis-whdload/./ 
+./DH1.zip usr/share/bigtimesensuality-by-axis-whdload/./ 

@@ -1,0 +1,5 @@
+debian/scripts/starcondom-by-hexodnova usr/bin/
+debian/resources/starcondom-by-hexodnova.desktop usr/share/applications/
+debian/resources/starcondom-by-hexodnova.png usr/share/icons/hicolor/256x256/apps/
+DH0.zip usr/share/starcondom-by-hexodnova/./ 
+./debian/scripts/starcondom-by-hexodnova.fs-uae usr/share/starcondom-by-hexodnova/./ 

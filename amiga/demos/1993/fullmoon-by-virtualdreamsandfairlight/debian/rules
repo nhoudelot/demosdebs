@@ -4,5 +4,5 @@
 	dh $@
 
 override_dh_install:
-	zip -r -9 DH1.zip . -x 'debian*' -x '.pc*'
+	cd DH1 && zip -r -9 ../DH1.zip .
 	dh_install

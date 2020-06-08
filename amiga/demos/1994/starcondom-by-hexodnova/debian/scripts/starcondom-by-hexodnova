@@ -1,0 +1,44 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=starcondom-by-hexodnova
+
+APP_FULLNAME="Star Condom"
+APP_COPYRIGHT="Hexod & Nova"
+APP_DESC="Released: 1994-04-23 on Saturne Party 2 1994, ranked 9 in the Demo competition"
+
+function prerun()
+{
+	sleep 1
+}
+
+function postrun()
+{
+	sleep 1
+}
+
+if [ "$#" -gt "1" ]; then
+	NSH_std_usage_AMIGA
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	NSH_RunAMIGA
+else
+	case "$1" in
+	--help)
+		NSH_std_usage_AMIGA
+		;;
+	--fullscreen)
+		NSH_RunAMIGA -fullscreen
+		;;
+	--version)
+		NSH_version_AMIGA
+		;;
+	*)
+		NSH_std_usage_AMIGA
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
