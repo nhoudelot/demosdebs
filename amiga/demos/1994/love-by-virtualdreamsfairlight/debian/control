@@ -14,9 +14,10 @@ Depends:
  fs-uae,
  amiga-kickstartaros,
  amiga-whdloadharddisk,
- common-install-function-ddebs(>=1.65),
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga Demo released in 1994
  Demo ranked 1st at South Sealand Party 1994
  .
  -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

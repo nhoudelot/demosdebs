@@ -1,3 +1,9 @@
+flowerpower-by-anarchy-amiga-whd (1.0+4-0ddebs4) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 13:21:24 +0200
+
 flowerpower-by-anarchy-amiga-whd (1.0+4-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/flowerpower-by-anarchy-amiga-whd.fs-uae to

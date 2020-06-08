@@ -13,9 +13,8 @@ Architecture: all
 Depends:
  fs-uae(>=2.8),
  amiga-whdloadharddisk,
- common-install-function-ddebs(>=1.6),
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.65),
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga demo released in 1999
  Demo ranked 6th at Mekka and Symposium 1999

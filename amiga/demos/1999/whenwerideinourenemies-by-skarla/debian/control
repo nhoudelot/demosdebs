@@ -12,9 +12,9 @@ Package: whenwerideinourenemies-by-skarla
 Architecture: all
 Depends:
  fs-uae(>=2.8),
- common-install-function-ddebs(>=1.6),
  amiga-whdloadharddisk,
- common-install-function-ddebs(>=1.65),
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga demo released in 1999
  Demo ranked 2nd at Mekka and Symposium 1999

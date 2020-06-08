@@ -1,3 +1,9 @@
+smokebomb-by-ozone (1:1.0+3-0ddebs4) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 17:48:27 +0200
+
 smokebomb-by-ozone (1:1.0+3-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/smokebomb-by-ozone.fs-uae to common-install-

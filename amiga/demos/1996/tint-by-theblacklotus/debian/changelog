@@ -1,3 +1,9 @@
+tint-by-theblacklotus (1:1.1+4-0ddebs6) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 17:01:55 +0200
+
 tint-by-theblacklotus (1:1.1+4-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/tint-by-theblacklotus.fs-uae to common-install-

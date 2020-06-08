@@ -10,7 +10,6 @@ kickstarts_dir = /usr/share/amiga/kickstarts
 kickstart_file = aros-amiga-m68k-rom.bin
 kickstart_ext_file = aros-amiga-m68k-ext.bin
 
-
 [fs-uae]
 amiga_model = A4000/040
 hard_drive_0 = /usr/share/amiga/whdloadharddisk/whdloadharddisk.hdf

@@ -8,23 +8,28 @@ APP_FULLNAME="guillotine"
 APP_COPYRIGHT="da Jormas"
 APP_DESC="Demo ranked 7th at Mekka and Symposium 1999"
 
-function run()
+function prerun()
 {
-	/usr/bin/fs-uae /usr/share/$domain/$domain.fs-uae $1
+	sleep 1
+}
+
+function postrun()
+{
+	sleep 1
 }
 
 if [ "$#" -gt "1" ]; then
-	 NSH_std_usage_AMIGA
+	NSH_std_usage_AMIGA
 	exit 1
 elif [ "$#" -lt "1" ]; then
-	run
+	NSH_RunAMIGA
 else
 	case "$1" in
 	--help)
 		NSH_std_usage_AMIGA
 		;;
 	--fullscreen)
-		run --fullscreen
+		NSH_RunAMIGA -fullscreen
 		;;
 	--version)
 		NSH_version_AMIGA

@@ -13,7 +13,8 @@ Architecture: all
 Depends:
  fs-uae(>=2.6),
  amiga-whdloadharddisk(>=1.10),
- common-install-function-ddebs(>=1.65),
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: MusicDisk released in 1993
  released at The Gathering 1993

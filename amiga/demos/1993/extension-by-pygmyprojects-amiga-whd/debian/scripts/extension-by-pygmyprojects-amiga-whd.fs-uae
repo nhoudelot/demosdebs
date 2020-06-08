@@ -6,7 +6,9 @@ fullscreen = 0
 window_width = 720
 window_height = 576
 keep_aspect = 1
-kickstarts_file = internal
+kickstarts_dir = /usr/share/amiga/kickstarts
+kickstart_file = aros-amiga-m68k-rom.bin
+kickstart_ext_file = aros-amiga-m68k-ext.bin
 
 [fs-uae]
 amiga_model = A1200

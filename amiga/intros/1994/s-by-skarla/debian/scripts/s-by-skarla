@@ -8,24 +8,28 @@ APP_FULLNAME="S"
 APP_COPYRIGHT="skarla"
 APP_DESC="intro ranked 17th at The Party 1994"
 
-function run()
+function prerun()
 {
 	NSH_CreateWHDSaves
-	/usr/bin/fs-uae /usr/share/$domain/$domain.fs-uae $1
+}
+
+function postrun()
+{
+	sleep 1
 }
 
 if [ "$#" -gt "1" ]; then
-	 NSH_std_usage_AMIGA
+	NSH_std_usage_AMIGA
 	exit 1
 elif [ "$#" -lt "1" ]; then
-	run
+	NSH_RunAMIGA
 else
 	case "$1" in
 	--help)
 		NSH_std_usage_AMIGA
 		;;
 	--fullscreen)
-		run --fullscreen
+		NSH_RunAMIGA -fullscreen
 		;;
 	--version)
 		NSH_version_AMIGA

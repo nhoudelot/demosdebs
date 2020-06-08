@@ -1,3 +1,9 @@
+extension-by-pygmyprojects-amiga-whd (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 13:37:33 +0200
+
 extension-by-pygmyprojects-amiga-whd (1.0+1-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/extension-by-pygmyprojects-amiga-whd.fs-uae to

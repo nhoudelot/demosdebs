@@ -11,7 +11,8 @@ Package: globaltrash-by-silents-disk
 Architecture: all
 Depends:
  fs-uae(>=2.6),
- common-install-function-ddebs(>=1.16),
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga demo released in 1991
  demo released 1991-04-26 on Amiga Summit Convention

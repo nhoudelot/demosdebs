@@ -1,3 +1,9 @@
+odyssey-by-alcatraz (1:1.1+5-0ddebs4) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 13:15:40 +0200
+
 odyssey-by-alcatraz (1:1.1+5-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/odyssey-by-alcatraz.fs-uae to common-install-

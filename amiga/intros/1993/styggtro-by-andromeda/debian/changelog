@@ -1,3 +1,9 @@
+styggtro-by-andromeda (1:1.0+4-0ddebs4) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 18:51:28 +0200
+
 styggtro-by-andromeda (1:1.0+4-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/styggtro-by-andromeda.fs-uae to common-install-

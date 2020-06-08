@@ -13,7 +13,8 @@ Architecture: all
 Depends:
  fs-uae(>=2.8),
  amiga-whdloadharddisk,
- common-install-function-ddebs(>=1.65),
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga demo released in 1993
  Demo released in april 1993

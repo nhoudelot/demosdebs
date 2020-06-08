@@ -1,3 +1,9 @@
+hospitalsincefriday-by-sanity (1:1.0+7-0ddebs4) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 18:51:28 +0200
+
 hospitalsincefriday-by-sanity (1:1.0+7-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/hospitalsincefriday-by-sanity.fs-uae to common-

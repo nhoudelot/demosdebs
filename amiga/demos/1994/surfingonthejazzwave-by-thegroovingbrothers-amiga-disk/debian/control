@@ -12,7 +12,8 @@ Architecture: all
 Depends:
  fs-uae,
  ${misc:Depends},
- common-install-function-ddebs(>=1.16)
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.66)
 Description: Amiga demo released in 1994
  Musicdisk by the grooving brothers,
  released in 1994

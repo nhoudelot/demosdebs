@@ -1,3 +1,9 @@
+falling-by-realitybytes-amiga-whd (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 22:13:29 +0200
+
 falling-by-realitybytes-amiga-whd (1.0+1-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/falling-by-realitybytes-amiga-whd.fs-uae to

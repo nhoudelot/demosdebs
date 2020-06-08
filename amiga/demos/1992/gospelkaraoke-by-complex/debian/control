@@ -13,11 +13,11 @@ Architecture: all
 Depends:
  fs-uae(>=1.3.16),
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.6),
- amiga-whdloadharddisk, 
- common-install-function-ddebs(>=1.65),
+ amiga-whdloadharddisk,
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga Demo released in 1992
  Demo released in june 1992
  .
  -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

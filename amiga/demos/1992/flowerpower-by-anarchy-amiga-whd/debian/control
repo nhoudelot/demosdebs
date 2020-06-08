@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- zip 
+ zip
 Standards-Version: 4.5.0
 Homepage: https://janeway.exotica.org.uk/release.php?id=8935
 
@@ -12,12 +12,13 @@ Package: flowerpower-by-anarchy-amiga-whd
 Architecture: all
 Depends:
  fs-uae(>=1.3.16),
- amiga-whdloadharddisk(>=1.10),
+ amiga-whdloadharddisk,
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.65),
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga Demo released in 1992
  Demo by Anarchy,
  released in 1992
  .
  -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

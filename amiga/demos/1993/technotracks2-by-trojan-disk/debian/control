@@ -13,7 +13,8 @@ Architecture: all
 Depends:
  fs-uae(>=2.6),
   ${misc:Depends},
- common-install-function-ddebs(>=1.18)
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.66)
 Description: Amiga demo released in 1993
  Released at The Gathering 1993
  .

@@ -12,8 +12,9 @@ Package: nitte-by-passion
 Architecture: all
 Depends:
  fs-uae(>=2.6),
+ amiga-kickstartaros,
  amiga-whdloadharddisk,
- common-install-function-ddebs(>=1.65),
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga Intro released in 1994
  intro ranked 3rd at The Party 1994

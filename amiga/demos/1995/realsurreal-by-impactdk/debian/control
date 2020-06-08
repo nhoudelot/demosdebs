@@ -14,7 +14,7 @@ Depends:
  fs-uae(>=2.6),
  amiga-whdloadharddisk,
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.65),
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga demo released in 1995
  demo ranked 16th at The Party 1995

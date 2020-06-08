@@ -1,3 +1,9 @@
+alpenclub52-by-depth (1:1.0+3-0ddebs4) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 17:48:26 +0200
+
 alpenclub52-by-depth (1:1.0+3-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/alpenclub52-by-depth.fs-uae to common-install-

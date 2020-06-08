@@ -2,16 +2,17 @@ Source: lethalexit-by-digital-disk
 Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: 
+Build-Depends:
  debhelper (>= 10)
 Standards-Version: 4.5.0
 Homepage: https://janeway.exotica.org.uk/release.php?id=196
 
 Package: lethalexit-by-digital-disk
 Architecture: all
-Depends: 
+Depends:
  fs-uae(>=2.6),
- common-install-function-ddebs(>=1.16),
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga demo released in 1992
  demo released: 1992-12-29 on The Party 1992

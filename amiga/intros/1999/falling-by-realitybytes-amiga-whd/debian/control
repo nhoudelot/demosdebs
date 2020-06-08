@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- zip 
+ zip
 Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=3932
 
@@ -13,9 +13,11 @@ Architecture: all
 Depends:
  fs-uae,
  amiga-whdloadharddisk(>=1.10),
- common-install-function-ddebs(>=1.65),
+ amiga-kickstartaros,
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga Demo released in 1999
  AGA intro by Reality Bytes released at Icing 1999
  .
  -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed

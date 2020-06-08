@@ -1,3 +1,9 @@
+closer-by-cncd (1:1.0+4-0ddebs4) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 16:46:30 +0200
+
 closer-by-cncd (1:1.0+4-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/closer-by-cncd.fs-uae to common-install-

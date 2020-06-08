@@ -14,7 +14,7 @@ Depends:
  fs-uae,
  amiga-kickstartaros,
  amiga-whdloadharddisk,
- common-install-function-ddebs(>=1.65),
+ common-install-function-ddebs(>=1.66),
  ${misc:Depends}
 Description: Amiga Demo released in 1997
  demo ranked 2nd at Icing Beta 1997

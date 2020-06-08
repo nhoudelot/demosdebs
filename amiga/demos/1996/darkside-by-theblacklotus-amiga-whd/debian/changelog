@@ -1,3 +1,9 @@
+darkside-by-theblacklotus-amiga-whd (1:1.0+4-0ddebs5) unstable; urgency=medium
+
+  * Update launch script to common-install-function-ddebs(>=1.66)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Jun 2020 17:01:54 +0200
+
 darkside-by-theblacklotus-amiga-whd (1:1.0+4-0ddebs4) unstable; urgency=medium
 
   * Update debian/scripts/darkside-by-theblacklotus-amiga-whd.fs-uae to
