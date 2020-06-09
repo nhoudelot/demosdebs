@@ -1,4 +1,4 @@
-# FS-UAE configuration for zerogravity2-by-scoopex
+# FS-UAE configuration for harmagedon-by-infect-amiga-whd
 
 [config]
 scanlines = 1
@@ -11,9 +11,11 @@ kickstart_file = aros-amiga-m68k-rom.bin
 kickstart_ext_file = aros-amiga-m68k-ext.bin
 
 [fs-uae]
-amiga_model = A1200/020
+amiga_model = A4000/040
 hard_drive_0 = /usr/share/amiga/whdloadharddisk/whdloadharddisk.hdf
-hard_drive_1 = /usr/share/zerogravity2-by-scoopex/DH1.zip
+hard_drive_1 = /tmp/harmagedon-by-infect-amiga-whd/
+hard_drive_2 = ~/.local/share/whdload/
+hard_drive_2_label = L
 hard_drive_4 = ~/.local/share/games/fs-uae/WHDSaves/
 hard_drive_4_label = WHDSaves
 fast_memory = 4096

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Harmagedon
+GenericName=Demo
+Comment=Demo by Infect, released in 1993
+Type=Application
+Exec=/usr/bin/harmagedon-by-infect-amiga-whd
+Icon=harmagedon-by-infect-amiga-whd
+Categories=AudioVideo;
+Name[fr_FR]=Harmagedon

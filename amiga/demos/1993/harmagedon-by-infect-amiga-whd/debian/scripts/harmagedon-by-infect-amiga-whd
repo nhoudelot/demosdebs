@@ -2,20 +2,21 @@
 
 source /usr/share/common-install-function-ddebs/common-install-function
 
-domain=zerogravity2-by-scoopex
+domain=harmagedon-by-infect-amiga-whd
 
-APP_FULLNAME="zero gravity 2"
-APP_COPYRIGHT="Scoopex"
-APP_DESC="Intro ranked 2nd at The Party 1996"
+APP_FULLNAME="Harmagedon"
+APP_COPYRIGHT="Infect"
+APP_DESC="Demo by Infect, released in 1993"
 
 function prerun()
 {
 	NSH_CreateWHDSaves
+	NSH_ExtractDH1
 }
 
 function postrun()
 {
-	sleep 1
+	NSH_RemoveDH1
 }
 
 if [ "$#" -gt "1" ]; then

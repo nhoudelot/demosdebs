@@ -1,0 +1,5 @@
+debian/scripts/harmagedon-by-infect-amiga-whd usr/bin/
+debian/resources/harmagedon-by-infect-amiga-whd.desktop usr/share/applications/
+debian/resources/harmagedon-by-infect-amiga-whd.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/harmagedon-by-infect-amiga-whd.fs-uae usr/share/harmagedon-by-infect-amiga-whd/
+DH1.zip usr/share/harmagedon-by-infect-amiga-whd

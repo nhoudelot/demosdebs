@@ -1,0 +1,24 @@
+Source: harmagedon-by-infect-amiga-whd
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ zip,
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: <insert the upstream URL, if relevant>
+
+Package: harmagedon-by-infect-amiga-whd
+Architecture: all
+Depends:
+ fs-uae(>=2.8),
+ amiga-kickstartaros,
+ amiga-whdloadharddisk(>=1.10),
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61)
+Description: Demo by Infect, released in 1993
+ Demo by Infect, released in 1993
+ ranked 5th at The Party 1993
+ .
+ -Amiga program launched using fs-uae
+ -Kickstart *NOT* needed
