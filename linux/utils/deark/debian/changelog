@@ -1,3 +1,9 @@
+deark (1.5.5-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Jun 2020 17:51:21 +0200
+
 deark (1.5.4-0ddebs2) unstable; urgency=medium
 
   * removed auto-generation of the manual with pandoc, because this command is
