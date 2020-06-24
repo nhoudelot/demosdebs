@@ -1,0 +1,9 @@
+detectiteasy for Debian
+----------------------
+
+source files must be retrieve using :
+
+git clone  --recursive -b 2.05 https://github.com/horsicq/DIE-engine
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Jun 2020 12:08:21 +0200
+

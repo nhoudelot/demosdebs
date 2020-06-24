@@ -1,0 +1,85 @@
+--- a/die_source/_options.h
++++ b/die_source/_options.h
+@@ -200,17 +200,17 @@
+ #define __DataBaseYARAPath "Paths/DataBaseYARA"
+ #endif
+ 
+-#define __DefaultDataBasePath "$app/db"
+-#define __DefaultEditorPath "$app/editor"
+-#define __DefaultHelpPath "$app/help"
+-#define __DefaultInfoPath "$app/info"
+-#define __DefaultPluginsPath "$app/die_plugins"
+-#define __DefaultQSSPath "$app/qss"
+-#define __DefaultLangsPath "$app/lang"
+-#define __DefaultScriptsPath "$app/scripts"
+-#define __DefaultSearchPath "$app/search"
++#define __DefaultDataBasePath "/usr/share/detectiteasy/db"
++#define __DefaultEditorPath "/usr/share/detectiteasy/editor"
++#define __DefaultHelpPath "/usr/share/detectiteasy/help"
++#define __DefaultInfoPath "/usr/share/detectiteasy/info"
++#define __DefaultPluginsPath "/usr/share/detectiteasy/die_plugins"
++#define __DefaultQSSPath "/usr/share/detectiteasy/qss"
++#define __DefaultLangsPath "/usr/share/detectiteasy/lang"
++#define __DefaultScriptsPath "/usr/share/detectiteasy/scripts"
++#define __DefaultSearchPath "/usr/share/detectiteasy/search"
+ #ifdef USE_YARA
+-#define __DefaultDataBaseYARAPath "$app/yara/packer.yar"
++#define __DefaultDataBaseYARAPath "/usr/share/detectiteasy/yara/packer.yar"
+ #endif
+ 
+ // KeySequences
+--- a/die_source/gui_source/handleoptions.cpp
++++ b/die_source/gui_source/handleoptions.cpp
+@@ -26,7 +26,7 @@
+ 
+ void HandleOptions::save(__DIE_OPTIONS *pOptions)
+ {
+-    QString sIniFile=Utils::getApplicationPath()+QDir::separator()+"die.ini";
++    QString sIniFile=Utils::getConfigPath()+QDir::separator()+"die.ini";
+     QSettings settings(sIniFile,QSettings::IniFormat);
+ 
+     settings.setValue(__StayOnTop,pOptions->bStayOnTop);
+@@ -78,7 +78,7 @@
+ 
+ void HandleOptions::load(__DIE_OPTIONS *pOptions)
+ {
+-    QString sIniFile=Utils::getApplicationPath()+QDir::separator()+"die.ini";
++    QString sIniFile=Utils::getConfigPath()+QDir::separator()+"die.ini";
+     QSettings settings(sIniFile,QSettings::IniFormat);
+ 
+     pOptions->bStayOnTop=settings.value(__StayOnTop,false).toBool();
+--- a/die_source/utils.cpp
++++ b/die_source/utils.cpp
+@@ -43,6 +43,14 @@
+     return sResult;
+ }
+ 
++QString Utils::getConfigPath()
++{
++    QString sResult;
++    sResult=QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
++
++    return sResult;
++}
++
+ QString Utils::getPath(QString sFileName)
+ {
+     QFileInfo fi;
+--- a/die_source/utils.h
++++ b/die_source/utils.h
+@@ -24,6 +24,7 @@
+ #include "_options.h"
+ #include <QDir>
+ #include <QCoreApplication>
++#include <QStandardPaths>
+ 
+ class Utils
+ {
+@@ -31,6 +32,7 @@
+     Utils();
+ 
+     static QString getApplicationPath();
++    static QString getConfigPath();
+     static QString getPath(QString sFileName);
+     static QString getLastDirecory(__DIE_OPTIONS *pOptions);
+ 

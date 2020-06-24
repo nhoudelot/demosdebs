@@ -1,0 +1,70 @@
+--- a/XArchive/3rdparty/bzip2/bzip2.pri
++++ b/XArchive/3rdparty/bzip2/bzip2.pri
+@@ -17,12 +17,7 @@
+ }
+ unix:!macx {
+     BITSIZE = $$system(getconf LONG_BIT)
+-    if (contains(BITSIZE, 64)) {
+-        LIBS +=  $$PWD/libs/lin64/libbzip2.a
+-    }
+-    if (contains(BITSIZE, 32)) {
+-        LIBS +=  $$PWD/libs/lin32/libbzip2.a
+-    }
++    LIBS += -lbz2
+ }
+ unix:macx {
+     LIBS +=  $$PWD/libs/mac/libbzip2.a
+--- a/die_source/gui_source/gui_source.pro
++++ b/die_source/gui_source/gui_source.pro
+@@ -368,7 +368,8 @@
+ 
+ TRANSLATIONS=   ../translate/*.ts
+ 
+-include(../../qwt/qwt.pri)
++INCLUDEPATH += /usr/include/qwt/
++LIBS += -lqwt-qt5
+ include(../../beaengine/beaengine.pri)
+ include(../../qtsingleapplication/qtsingleapplication.pri)
+ include(../../build.pri)
+--- a/XArchive/xarchive.pri
++++ b/XArchive/xarchive.pri
+@@ -16,12 +16,12 @@
+ 
+ !contains(XCONFIG, zlib) {
+     XCONFIG += zlib
+-    include(3rdparty/zlib/zlib.pri)
++    LIBS += -lz
+ }
+ 
+ !contains(XCONFIG, bzip2) {
+     XCONFIG += bzip2
+-    include(3rdparty/bzip2/bzip2.pri)
++    LIBS += -lbz2
+ }
+ 
+ !contains(XCONFIG, lzma) {
+--- a/QYara/qyara.pri
++++ b/QYara/qyara.pri
+@@ -4,11 +4,11 @@
+ DEPENDPATH += $$PWD/libyara/include
+ 
+ HEADERS += \
+-    $$PWD/qyara.h 
++    $$PWD/qyara.h
+ 
+ SOURCES += \
+-    $$PWD/qyara.cpp 
+-	
++    $$PWD/qyara.cpp
++
+ win32-g++ {
+     LIBS += $$PWD/libs/win32-g++/libyara.lib
+ }
+@@ -33,4 +33,6 @@
+     LIBS +=  $$PWD/libs/mac/libyara.a
+ }
+ 
+-include(../QOpenSSL/openssl.pri)
++INCLUDEPATH += /usr/include/openssl
++LIBS += -lcrypto
++LIBS += -ldl

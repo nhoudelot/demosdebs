@@ -1,0 +1,13 @@
+detectiteasy for Debian
+----------------------
+
+there is a script to compile a portable version of the program.
+but i'm not using it
+
+also, use those system libs, instead of the embedded ones
+* libqwt-qt5-dev
+* zlib
+* bzip2
+* libssl-dev
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Jun 2020 12:08:21 +0200

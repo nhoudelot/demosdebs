@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+export QT_SELECT := qt5
+export MAKEFLAGS += -j$($(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS))))
+export DEB_CXXFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-format
+
+%:
+	dh $@
+
+override_dh_auto_configure-arch:
+	dh_auto_configure -Sqmake -Ddie_source/console_source
+	dh_auto_configure -Sqmake -Ddie_source/lite_source
+	dh_auto_configure -Sqmake -Ddie_source/gui_source
+
+override_dh_auto_build-arch:
+	dh_auto_build -Sqmake -Ddie_source/console_source
+	dh_auto_build -Sqmake -Ddie_source/lite_source
+	dh_auto_build -Sqmake -Ddie_source/gui_source
+
+override_dh_auto_clean-arch:
+	dh_auto_clean -Sqmake -Ddie_source/console_source
+	dh_auto_clean -Sqmake -Ddie_source/lite_source
+	dh_auto_clean -Sqmake -Ddie_source/gui_source
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/diec.1.md -o debian/diec.1

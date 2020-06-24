@@ -1,0 +1,139 @@
+--- a/build_lin64.sh
++++ b/build_lin64.sh
+@@ -1,7 +1,7 @@
+ #/bin/bash -x
+ 
+ SOURCE_PATH=$PWD
+-QT_PATH=$HOME/Qt5.6.3/5.6.3/gcc_64
++#QT_PATH=$HOME/Qt5.6.3/5.6.3/gcc_64
+ RELEASE_VERSION=$(cat "release_version.txt")
+ echo "Version:"
+ echo ${RELEASE_VERSION}
+@@ -15,7 +15,7 @@
+ function makeproject
+ {
+     cd $SOURCE_PATH/die_source/$1
+-    
++
+     $QT_PATH/bin/qmake $1.pro -spec linux-g++
+     make -f Makefile clean
+     make -f Makefile
+@@ -23,7 +23,7 @@
+     rm -rf Makefile
+     rm -rf Makefile.Release
+     rm -rf Makefile.Debug
+-    rm -rf object_script.*     
++    rm -rf object_script.*
+ 
+     cd $SOURCE_PATH
+ }
+--- a/die_source/console_source/console_source.pro
++++ b/die_source/console_source/console_source.pro
+@@ -9,6 +9,11 @@
+ 
+ include(../../build.pri)
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++
+ HEADERS += \
+     _mainclass.h \
+     ../scriptpe.h \
+--- a/die_source/gui_source/gui_source.pro
++++ b/die_source/gui_source/gui_source.pro
+@@ -12,6 +12,11 @@
+     ICON = pics/main.icns
+ }
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++
+ INCLUDEPATH += $$PWD
+ DEPENDPATH += $$PWD
+ 
+--- a/die_source/lite_source/lite_source.pro
++++ b/die_source/lite_source/lite_source.pro
+@@ -6,6 +6,11 @@
+ 
+ include(../../build.pri)
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++
+ win32 {
+     RC_ICONS = lite.ico
+ }
+--- a/die_source/plugins_source/plugins_source.pro
++++ b/die_source/plugins_source/plugins_source.pro
+@@ -1,4 +1,9 @@
+ TEMPLATE      = subdirs
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++
+ SUBDIRS       = \
+-            SimpleExample
+\ No newline at end of file
++            SimpleExample
+--- a/die_source/plugins_source/SimpleExample/SimpleExample.pro
++++ b/die_source/plugins_source/SimpleExample/SimpleExample.pro
+@@ -22,6 +22,10 @@
+ 
+ }
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
+ 
+ TEMPLATE = lib
+ CONFIG += plugin
+--- a/qwt/src/src.pro
++++ b/qwt/src/src.pro
+@@ -14,6 +14,11 @@
+ include( $${QWT_ROOT}/qwtbuild.pri )
+ include( $${QWT_ROOT}/qwtfunctions.pri )
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++
+ QWT_OUT_ROOT = $${OUT_PWD}/..
+ 
+ TEMPLATE          = lib
+@@ -28,7 +33,7 @@
+ }
+ else {
+     CONFIG += staticlib
+-} 
++}
+ 
+ contains(QWT_CONFIG, QwtFramework) {
+ 
+@@ -40,7 +45,7 @@
+ # Install directives
+ 
+ target.path    = $${QWT_INSTALL_LIBS}
+-INSTALLS       = target 
++INSTALLS       = target
+ 
+ CONFIG(lib_bundle) {
+ 
+@@ -86,7 +91,7 @@
+     else {
+ 
+         # there is no QMAKE_PKGCONFIG_FILE fo Qt4
+-        QMAKE_PKGCONFIG_REQUIRES = QtGui 
++        QMAKE_PKGCONFIG_REQUIRES = QtGui
+ 
+         contains(QWT_CONFIG, QwtSvg) {
+             QMAKE_PKGCONFIG_REQUIRES += QtSvg
