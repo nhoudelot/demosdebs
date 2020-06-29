@@ -1,0 +1,14 @@
+debian/scripts/ned-dragonhell usr/bin/
+debian/scripts/ned-flowers usr/bin/
+debian/scripts/ned-fractalbulb usr/bin/
+debian/scripts/ned-madonna usr/bin/
+debian/scripts/ned-orgasmsofthedeath usr/bin/
+debian/scripts/ned-residentevil-fronthall usr/bin/
+debian/scripts/ned-residentevil-village usr/bin/
+./dragonhell/ usr/share/nedexamples-by-bartoshe/
+./flowers/ usr/share/nedexamples-by-bartoshe
+./fractalbulb/ usr/share/nedexamples-by-bartoshe/
+./orgasmsofthedeath/ usr/share/nedexamples-by-bartoshe/
+./residentevil-village/ usr/share/nedexamples-by-bartoshe/
+./residentevil-fronthall/ usr/share/nedexamples-by-bartoshe/
+./madonna/ usr/share/nedexamples-by-bartoshe/

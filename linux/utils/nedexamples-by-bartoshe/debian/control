@@ -1,0 +1,26 @@
+Source: nedexamples-by-bartoshe
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://sourceforge.net/projects/deaddeer/files/exampleszip/
+
+Package: nedexamples-by-bartoshe
+Architecture: all
+Depends:
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61),
+ nedplayer
+Description: Ned examples by Bartoshe, released in 2016
+ Severals Ned example for Nedplayer
+ no icons, you have to start it with the terminal
+ Examples are :
+ - madonna
+ - evilcaspers
+ - residentevil
+ - dragonhell
+ - orgasmsofthedeath
+ - fractalbulb
+ - flowers
