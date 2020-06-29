@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Nedplayer demos script
+GenericName=utilities
+Comment=Player for Dead Deer projects
+Type=Application
+Exec=/usr/bin/nedscript-fire-tutorial
+Icon=nedscript_fire_tutorial
+Categories=AudioVideo;Game;
+Name[fr_FR]=Nedplayer scripte de démo

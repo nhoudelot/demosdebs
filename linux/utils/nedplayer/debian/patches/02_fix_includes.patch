@@ -1,0 +1,51 @@
+--- a/lib3d/data/lzcompress.cpp
++++ b/lib3d/data/lzcompress.cpp
+@@ -2232,7 +2232,7 @@
+ }
+ 
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////
+-#if defined(WIN32)||defined(LINUX)
++#if defined(WIN32)
+ #ifdef API3D_VR
+ #include "../../zlib/zlib.h"
+ #else
+--- a/lib3d/data/png.cpp
++++ b/lib3d/data/png.cpp
+@@ -39,7 +39,7 @@
+ #include <memory.h>
+ 
+ 
+-#if defined(WIN32)||defined(LINUX)
++#if defined(WIN32)
+ #ifdef API3D_VR
+ #include "../../zlib/zlib.h"
+ #else
+--- a/player/copypaste.hpp
++++ b/player/copypaste.hpp
+@@ -18,7 +18,7 @@
+ 
+ char *signCP="DEADDEERCOPY";
+ 
+-#if defined(WIN32)||defined(LINUX)
++#if defined(WIN32)
+ #include "../zlib/zlib.h"
+ #else
+ #include "zlib.h"
+@@ -910,4 +910,4 @@
+ #endif
+ 
+ }
+-#endif
+\ No newline at end of file
++#endif
+--- a/ned/jpeg2000/jpeg2000.cpp
++++ b/ned/jpeg2000/jpeg2000.cpp
+@@ -55,7 +55,7 @@
+ #include "../player/file_io_zip.h"
+ #endif
+ 
+-#include "../../libjp2/openjpeg.h"
++#include <openjpeg-1.5/openjpeg.h>
+ 
+ 
+ typedef unsigned char uint8;

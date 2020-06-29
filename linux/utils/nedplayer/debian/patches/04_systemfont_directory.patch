@@ -1,0 +1,65 @@
+--- a/player/script_anim.cpp
++++ b/player/script_anim.cpp
+@@ -161,6 +161,7 @@
+ #endif
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ float SCALE_DEFORM=1.0f;
++extern char current_file[1024];
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ extern float MUL_ZFAR_REFL;
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+@@ -5803,9 +5804,9 @@
+ #else
+ #ifdef LINUX
+ #ifndef LEVELEDIT_PLAYER
+-	sprintf(dir,"%s/data/fonts",ExecutablePath);
++	sprintf(dir,"%s/data/fonts",current_file);
+ #else
+-	sprintf(dir,"%s/fonts",ExecutablePath);
++	sprintf(dir,"/usr/share/nedplayer/fonts");
+ #endif
+ #else
+ #ifdef ANDROID
+@@ -11740,9 +11741,9 @@
+ #else
+ #ifdef LINUX
+ #ifndef LEVELEDIT_PLAYER
+-	sprintf(dir,"%s/data/fonts",ExecutablePath);
++	sprintf(dir,"%s/data/fonts",current_file);
+ #else
+-	sprintf(dir,"%s/fonts",ExecutablePath);
++	sprintf(dir,"/usr/share/nedplayer/fonts");
+ #endif
+ #else
+ #ifdef ANDROID
+@@ -16894,7 +16895,7 @@
+ 
+ 	nfontfiles=0;
+ 
+-    sprintf(dirfontfiles,"%s/data/fonts",ExecutablePath);
++    sprintf(dirfontfiles,"/usr/share/nedplayer/fonts");
+     chdir(dirfontfiles);
+     
+     DIR* dirFile = opendir( "." );
+--- a/player/fonts.cpp
++++ b/player/fonts.cpp
+@@ -52,6 +52,7 @@
+ extern Fonte		fontzg;
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ extern char		ExecutablePath[1024];
++extern char current_file[1024];
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ void KillFonts()
+ {
+@@ -86,9 +87,9 @@
+ #else
+ #ifdef LINUX
+ #ifndef LEVELEDIT_PLAYER
+-	sprintf(dir,"%s/data/fonts",ExecutablePath);
++	sprintf(dir,"%s/data/fonts",current_file);
+ #else
+-	sprintf(dir,"%s/fonts",ExecutablePath);
++	sprintf(dir,"/usr/share/nedplayer/fonts");
+ #endif
+ #else
+ #ifdef ANDROID

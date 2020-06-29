@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -std=gnu11
+export DEB_CXXFLAGS_MAINT_APPEND  = -std=gnu++14
+#export DEB_LDFLAGS_MAINT_APPEND  = -flto
+
+%:
+	dh $@  --sourcedirectory=player
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/nedplayer.1.md -o debian/nedplayer.1

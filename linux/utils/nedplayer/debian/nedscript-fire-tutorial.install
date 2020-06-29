@@ -1,0 +1,4 @@
+debian/resources/nedscript-fire-tutorial.desktop usr/share/applications/
+debian/resources/nedscript-fire-tutorial.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/nedscript-fire-tutorial usr/bin/
+script_fire_tutorial/data usr/share/nedscript-fire-tutorial

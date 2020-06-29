@@ -1,0 +1,17 @@
+nedplayer for Debian
+-------------------
+
+several sources files should be combined
+
+player_linux.tar.bz2 unpack in player/
+ned.zip unpack in /
+lib3d.zip unpack in /
+libscripts.zip unpack in /
+sound.zip unpack in /
+freetype 2.8 from ubuntu bionic in / (with patches)
+
+nedscript_fire_tutorial is the ned example, embeded with the binary release of
+the player
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 26 Jun 2020 01:37:53 +0200
+

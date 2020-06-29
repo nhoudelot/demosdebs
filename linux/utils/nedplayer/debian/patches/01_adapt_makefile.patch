@@ -1,0 +1,1421 @@
+--- a/player/Player.mk
++++ b/player/Player.mk
+@@ -5,8 +5,8 @@
+ ## Release
+ ProjectName            :=Player
+ ConfigurationName      :=Release
+-WorkspacePath          := "/home/laurent/Bureau/Code/Player"
+-ProjectPath            := "/home/laurent/Bureau/Code/Player"
++WorkspacePath          := "."
++ProjectPath            := "."
+ IntermediateDirectory  :=./Release
+ OutDir                 := $(IntermediateDirectory)
+ CurrentFileName        :=
+@@ -27,7 +27,7 @@
+ LibraryPathSwitch      :=-L
+ PreprocessorSwitch     :=-D
+ SourceSwitch           :=-c 
+-OutputFile             :=./$(ProjectName)
++OutputFile             :=./nedplayer
+ Preprocessors          :=$(PreprocessorSwitch)CLASSNED $(PreprocessorSwitch)INTEL $(PreprocessorSwitch)COMPILECODEASM $(PreprocessorSwitch)X64 $(PreprocessorSwitch)NDEBUG $(PreprocessorSwitch)GL_GLEXT_PROTOTYPES $(PreprocessorSwitch)LINUX $(PreprocessorSwitch)API3D_OPENGL20 $(PreprocessorSwitch)_DEFINES_OPENGL_NO_SDL_INIT_ $(PreprocessorSwitch)_DEFINES_API_CODE_BSP_LIGHTS_ $(PreprocessorSwitch)_DEFINES_API_CODE_SOFTRENDERER_ $(PreprocessorSwitch)_DEFINES_API_CODE_TREES_ $(PreprocessorSwitch)_DEFINES_API_CODE_METABALLS_ $(PreprocessorSwitch)_DEFINES_API_CODE_GENVEGETAUX_ $(PreprocessorSwitch)_DEFINES_API_CODE_GENTEXTURE_ $(PreprocessorSwitch)_DEFINES_API_CODE_PHYSIC_ $(PreprocessorSwitch)API_OPENAL $(PreprocessorSwitch)LEVELEDIT_PLAYER $(PreprocessorSwitch)FT2_BUILD_LIBRARY $(PreprocessorSwitch)OPJ_STATIC 
+ ObjectSwitch           :=-o 
+ ArchiveOutputSwitch    := 
+@@ -35,13 +35,13 @@
+ ObjectsFileList        :="Player.txt"
+ PCHCompileFlags        :=
+ MakeDirCommand         :=mkdir -p
+-LinkOptions            :=  $(shell ../wx/bin/wx-config --static --libs gl,core,base) -lGL -lGLU -lopenal
+-IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch).. $(IncludeSwitch)../ogg $(IncludeSwitch)../vorbis $(IncludeSwitch)../freetype $(IncludeSwitch)../freetype/include 
++LinkOptions            :=  $(LDFLAGS) $(shell wx-config --libs gl,core,base) -lGL -lGLU -lopenal $(shell pkg-config --libs zlib ogg vorbis vorbisfile) -lopenjpeg
++IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch).. $(IncludeSwitch)/usr/include/ogg $(IncludeSwitch)/usr/include/vorbis $(IncludeSwitch)/usr/include/openjpeg-1.5/ $(IncludeSwitch)../freetype $(IncludeSwitch)../freetype/include
+ IncludePCH             := 
+ RcIncludePath          := 
+ Libs                   := 
+ ArLibs                 :=  
+-LibPath                := $(LibraryPathSwitch). 
++LibPath                := $(LibraryPathSwitch).
+ 
+ ##
+ ## Common variables
+@@ -50,8 +50,8 @@
+ AR       := /usr/bin/ar rcu
+ CXX      := /usr/bin/g++
+ CC       := /usr/bin/gcc
+-CXXFLAGS :=  -O3 $(shell ../wx/bin/wx-config --static --cxxflags --unicode=yes --debug=no) -Wno-write-strings -Wno-format-security -Wno-deprecated-declarations -Wno-unused-result -Wno-format-zero-length -ffast-math -funsafe-math-optimizations -Wno-format-extra-args $(Preprocessors)
+-CFLAGS   :=  -O3 $(shell ../wx/bin/wx-config --static --cxxflags --unicode=yes --debug=no) -Wno-write-strings -Wno-format-security  -Wno-deprecated-declarations  -Wno-unused-result  -Wno-format-zero-length  -ffast-math -funsafe-math-optimizations  -Wno-format-extra-args $(Preprocessors)
++CXXFLAGS +=  -O3 $(shell wx-config --cxxflags --unicode=yes --debug=no) -pipe -Wno-write-strings -Wno-format-security -Wno-deprecated-declarations -Wno-unused-result -Wno-format-zero-length -ffast-math -funsafe-math-optimizations -Wno-format-extra-args $(Preprocessors)
++CFLAGS   +=  -O3 $(shell wx-config --cxxflags --unicode=yes --debug=no) -pipe -Wno-write-strings -Wno-format-security  -Wno-deprecated-declarations  -Wno-unused-result  -Wno-format-zero-length  -ffast-math -funsafe-math-optimizations -Wno-format-extra-args $(Preprocessors)
+ ASFLAGS  := 
+ AS       := /usr/bin/as
+ 
+@@ -66,19 +66,14 @@
+ Objects1=$(IntermediateDirectory)/base_3d_api.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_3d_api_base.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_bsp_2d.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_bsp_light.cpp$(ObjectSuffix) \
+ 	$(IntermediateDirectory)/base_bsp_ortho.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_bsp_volumic.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_generator.cpp$(ObjectSuffix) $(IntermediateDirectory)/misc_gentexture.cpp$(ObjectSuffix) $(IntermediateDirectory)/misc_genvegetal.cpp$(ObjectSuffix) $(IntermediateDirectory)/data_lzcompress.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_maths.cpp$(ObjectSuffix) $(IntermediateDirectory)/misc_metaballs.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_objects3d.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_physics.cpp$(ObjectSuffix) \
+ 	$(IntermediateDirectory)/data_png.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_pob_generator.cpp$(ObjectSuffix) $(IntermediateDirectory)/misc_softrenderer.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_texture.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_texturecontainer.cpp$(ObjectSuffix) $(IntermediateDirectory)/data_tga.cpp$(ObjectSuffix) $(IntermediateDirectory)/misc_trees.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_triangularisation.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_vertexbuffer.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_vertexbuffercontainer.cpp$(ObjectSuffix) \
+-	$(IntermediateDirectory)/base_vertexprogram.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_edges.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_physic_calculate.cpp$(ObjectSuffix) $(IntermediateDirectory)/data_datacontainer.cpp$(ObjectSuffix) $(IntermediateDirectory)/data_scene.cpp$(ObjectSuffix) $(IntermediateDirectory)/sound_api_sound.cpp$(ObjectSuffix) $(IntermediateDirectory)/sound_load_ogg.cpp$(ObjectSuffix) $(IntermediateDirectory)/ogg_bitwise.c$(ObjectSuffix) $(IntermediateDirectory)/ogg_framing.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_analysis.c$(ObjectSuffix) \
+-	$(IntermediateDirectory)/vorbis_bitrate.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_block.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_codebook.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_envelope.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_floor0.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_floor1.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_info.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_lookup.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_lpc.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_lsp.c$(ObjectSuffix) \
+-	$(IntermediateDirectory)/vorbis_mapping0.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_mdct.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_psy.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_registry.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_res0.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_sharedbook.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_smallft.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_synthesis.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_vorbisenc.c$(ObjectSuffix) $(IntermediateDirectory)/vorbis_vorbisfile.c$(ObjectSuffix) \
+-	$(IntermediateDirectory)/vorbis_window.c$(ObjectSuffix) $(IntermediateDirectory)/libscripts_reader_script.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_Script_prog.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_script_prog_code.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNEDdraw.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(ObjectSuffix) \
++	$(IntermediateDirectory)/base_vertexprogram.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_edges.cpp$(ObjectSuffix) $(IntermediateDirectory)/base_physic_calculate.cpp$(ObjectSuffix) $(IntermediateDirectory)/data_datacontainer.cpp$(ObjectSuffix) $(IntermediateDirectory)/data_scene.cpp$(ObjectSuffix) $(IntermediateDirectory)/sound_api_sound.cpp$(ObjectSuffix) $(IntermediateDirectory)/sound_load_ogg.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_reader_script.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_Script_prog.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_script_prog_code.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(ObjectSuffix) $(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNEDdraw.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(ObjectSuffix) \
+ 	$(IntermediateDirectory)/ned_classNEDdrawSHDMAP.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNEDdrawSOFTSHADOWS.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNEDdrawSTENCIL.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNEDshaders.cpp$(ObjectSuffix) $(IntermediateDirectory)/ned_classNED.cpp$(ObjectSuffix) $(IntermediateDirectory)/jpeg2000_jpeg2000.cpp$(ObjectSuffix) $(IntermediateDirectory)/net_tcp_clientserver.cpp$(ObjectSuffix) $(IntermediateDirectory)/net_tcp_cs.cpp$(ObjectSuffix) $(IntermediateDirectory)/net_tcp_resolve.cpp$(ObjectSuffix) $(IntermediateDirectory)/autofit_autofit.c$(ObjectSuffix) \
+ 	$(IntermediateDirectory)/bdf_bdf.c$(ObjectSuffix) $(IntermediateDirectory)/cff_cff.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftbase.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftbitmap.c$(ObjectSuffix) $(IntermediateDirectory)/cache_ftcache.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftfstype.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftgasp.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftglyph.c$(ObjectSuffix) $(IntermediateDirectory)/gzip_ftgzip.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftinit.c$(ObjectSuffix) \
+ 	$(IntermediateDirectory)/lzw_ftlzw.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftstroke.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftsystem.c$(ObjectSuffix) $(IntermediateDirectory)/smooth_smooth.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftbbox.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftfntfmt.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftmm.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftpfr.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftsynth.c$(ObjectSuffix) $(IntermediateDirectory)/base_fttype1.c$(ObjectSuffix) \
+ 	$(IntermediateDirectory)/base_ftwinfnt.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftlcdfil.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftgxval.c$(ObjectSuffix) 
+ 
+ Objects2=$(IntermediateDirectory)/base_ftotval.c$(ObjectSuffix) $(IntermediateDirectory)/base_ftpatent.c$(ObjectSuffix) $(IntermediateDirectory)/pcf_pcf.c$(ObjectSuffix) $(IntermediateDirectory)/pfr_pfr.c$(ObjectSuffix) $(IntermediateDirectory)/psaux_psaux.c$(ObjectSuffix) $(IntermediateDirectory)/pshinter_pshinter.c$(ObjectSuffix) $(IntermediateDirectory)/psnames_psmodule.c$(ObjectSuffix) \
+-	$(IntermediateDirectory)/raster_raster.c$(ObjectSuffix) $(IntermediateDirectory)/sfnt_sfnt.c$(ObjectSuffix) $(IntermediateDirectory)/truetype_truetype.c$(ObjectSuffix) $(IntermediateDirectory)/type1_type1.c$(ObjectSuffix) $(IntermediateDirectory)/cid_type1cid.c$(ObjectSuffix) $(IntermediateDirectory)/type42_type42.c$(ObjectSuffix) $(IntermediateDirectory)/winfonts_winfnt.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_bio.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_cidx_manager.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_cio.c$(ObjectSuffix) \
+-	$(IntermediateDirectory)/libjp2_dwt.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_image.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_j2k.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_jp2.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_jpt.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_mct.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_mqc.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_openjpeg.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_phix_manager.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_pi.c$(ObjectSuffix) \
+-	$(IntermediateDirectory)/libjp2_ppix_manager.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_raw.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_t1.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_t2.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_tcd.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_tgt.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_thix_manager.c$(ObjectSuffix) $(IntermediateDirectory)/libjp2_tpix_manager.c$(ObjectSuffix) $(IntermediateDirectory)/cpp_fontes.cpp$(ObjectSuffix) $(IntermediateDirectory)/cpp_lib_font.cpp$(ObjectSuffix) \
++	$(IntermediateDirectory)/raster_raster.c$(ObjectSuffix) $(IntermediateDirectory)/sfnt_sfnt.c$(ObjectSuffix) $(IntermediateDirectory)/truetype_truetype.c$(ObjectSuffix) $(IntermediateDirectory)/type1_type1.c$(ObjectSuffix) $(IntermediateDirectory)/cid_type1cid.c$(ObjectSuffix) $(IntermediateDirectory)/type42_type42.c$(ObjectSuffix) $(IntermediateDirectory)/winfonts_winfnt.c$(ObjectSuffix) $(IntermediateDirectory)/cpp_fontes.cpp$(ObjectSuffix) $(IntermediateDirectory)/cpp_lib_font.cpp$(ObjectSuffix) \
+ 	$(IntermediateDirectory)/cpp_surfaces.cpp$(ObjectSuffix) $(IntermediateDirectory)/cpp_volum.cpp$(ObjectSuffix) $(IntermediateDirectory)/GraphicInterface.cpp$(ObjectSuffix) $(IntermediateDirectory)/bw_bw.cpp$(ObjectSuffix) 
+ 
+ 
+@@ -109,7 +104,7 @@
+ ## Objects
+ ##
+ $(IntermediateDirectory)/create_objects.cpp$(ObjectSuffix): create_objects.cpp $(IntermediateDirectory)/create_objects.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/create_objects.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/create_objects.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "create_objects.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/create_objects.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/create_objects.cpp$(DependSuffix): create_objects.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/create_objects.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/create_objects.cpp$(DependSuffix) -MM "create_objects.cpp"
+ 
+@@ -117,7 +112,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/create_objects.cpp$(PreprocessSuffix) "create_objects.cpp"
+ 
+ $(IntermediateDirectory)/dialogs.cpp$(ObjectSuffix): dialogs.cpp $(IntermediateDirectory)/dialogs.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/dialogs.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/dialogs.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "dialogs.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/dialogs.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/dialogs.cpp$(DependSuffix): dialogs.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/dialogs.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/dialogs.cpp$(DependSuffix) -MM "dialogs.cpp"
+ 
+@@ -125,7 +120,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/dialogs.cpp$(PreprocessSuffix) "dialogs.cpp"
+ 
+ $(IntermediateDirectory)/functions.cpp$(ObjectSuffix): functions.cpp $(IntermediateDirectory)/functions.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/functions.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/functions.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "functions.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/functions.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/functions.cpp$(DependSuffix): functions.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/functions.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/functions.cpp$(DependSuffix) -MM "functions.cpp"
+ 
+@@ -133,7 +128,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/functions.cpp$(PreprocessSuffix) "functions.cpp"
+ 
+ $(IntermediateDirectory)/inversecinematic.cpp$(ObjectSuffix): inversecinematic.cpp $(IntermediateDirectory)/inversecinematic.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/inversecinematic.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/inversecinematic.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "inversecinematic.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/inversecinematic.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/inversecinematic.cpp$(DependSuffix): inversecinematic.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/inversecinematic.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/inversecinematic.cpp$(DependSuffix) -MM "inversecinematic.cpp"
+ 
+@@ -141,7 +136,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/inversecinematic.cpp$(PreprocessSuffix) "inversecinematic.cpp"
+ 
+ $(IntermediateDirectory)/physics2d.cpp$(ObjectSuffix): physics2d.cpp $(IntermediateDirectory)/physics2d.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/physics2d.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/physics2d.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "physics2d.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/physics2d.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/physics2d.cpp$(DependSuffix): physics2d.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/physics2d.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/physics2d.cpp$(DependSuffix) -MM "physics2d.cpp"
+ 
+@@ -149,7 +144,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/physics2d.cpp$(PreprocessSuffix) "physics2d.cpp"
+ 
+ $(IntermediateDirectory)/render.cpp$(ObjectSuffix): render.cpp $(IntermediateDirectory)/render.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/render.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/render.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "render.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/render.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/render.cpp$(DependSuffix): render.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/render.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/render.cpp$(DependSuffix) -MM "render.cpp"
+ 
+@@ -157,7 +152,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/render.cpp$(PreprocessSuffix) "render.cpp"
+ 
+ $(IntermediateDirectory)/scripts_command.cpp$(ObjectSuffix): scripts_command.cpp $(IntermediateDirectory)/scripts_command.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/scripts_command.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/scripts_command.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "scripts_command.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/scripts_command.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/scripts_command.cpp$(DependSuffix): scripts_command.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/scripts_command.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/scripts_command.cpp$(DependSuffix) -MM "scripts_command.cpp"
+ 
+@@ -165,7 +160,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/scripts_command.cpp$(PreprocessSuffix) "scripts_command.cpp"
+ 
+ $(IntermediateDirectory)/script_anim.cpp$(ObjectSuffix): script_anim.cpp $(IntermediateDirectory)/script_anim.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/script_anim.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/script_anim.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "script_anim.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/script_anim.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/script_anim.cpp$(DependSuffix): script_anim.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/script_anim.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/script_anim.cpp$(DependSuffix) -MM "script_anim.cpp"
+ 
+@@ -173,7 +168,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/script_anim.cpp$(PreprocessSuffix) "script_anim.cpp"
+ 
+ $(IntermediateDirectory)/script_fsm.cpp$(ObjectSuffix): script_fsm.cpp $(IntermediateDirectory)/script_fsm.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/script_fsm.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/script_fsm.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "script_fsm.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/script_fsm.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/script_fsm.cpp$(DependSuffix): script_fsm.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/script_fsm.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/script_fsm.cpp$(DependSuffix) -MM "script_fsm.cpp"
+ 
+@@ -181,7 +176,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/script_fsm.cpp$(PreprocessSuffix) "script_fsm.cpp"
+ 
+ $(IntermediateDirectory)/shaping.cpp$(ObjectSuffix): shaping.cpp $(IntermediateDirectory)/shaping.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/shaping.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/shaping.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "shaping.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/shaping.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/shaping.cpp$(DependSuffix): shaping.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/shaping.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/shaping.cpp$(DependSuffix) -MM "shaping.cpp"
+ 
+@@ -189,7 +184,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/shaping.cpp$(PreprocessSuffix) "shaping.cpp"
+ 
+ $(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM "main.cpp"
+ 
+@@ -197,7 +192,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
+ 
+ $(IntermediateDirectory)/prog.cpp$(ObjectSuffix): prog.cpp $(IntermediateDirectory)/prog.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/prog.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/prog.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "prog.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/prog.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/prog.cpp$(DependSuffix): prog.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/prog.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/prog.cpp$(DependSuffix) -MM "prog.cpp"
+ 
+@@ -205,7 +200,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/prog.cpp$(PreprocessSuffix) "prog.cpp"
+ 
+ $(IntermediateDirectory)/cpp_gif.cpp$(ObjectSuffix): cpp/gif.cpp $(IntermediateDirectory)/cpp_gif.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/cpp/gif.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_gif.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "cpp/gif.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_gif.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/cpp_gif.cpp$(DependSuffix): cpp/gif.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/cpp_gif.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/cpp_gif.cpp$(DependSuffix) -MM "cpp/gif.cpp"
+ 
+@@ -213,7 +208,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/cpp_gif.cpp$(PreprocessSuffix) "cpp/gif.cpp"
+ 
+ $(IntermediateDirectory)/cpp_libnsgif.cpp$(ObjectSuffix): cpp/libnsgif.cpp $(IntermediateDirectory)/cpp_libnsgif.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/cpp/libnsgif.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_libnsgif.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "cpp/libnsgif.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_libnsgif.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/cpp_libnsgif.cpp$(DependSuffix): cpp/libnsgif.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/cpp_libnsgif.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/cpp_libnsgif.cpp$(DependSuffix) -MM "cpp/libnsgif.cpp"
+ 
+@@ -221,7 +216,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/cpp_libnsgif.cpp$(PreprocessSuffix) "cpp/libnsgif.cpp"
+ 
+ $(IntermediateDirectory)/form.cpp$(ObjectSuffix): form.cpp $(IntermediateDirectory)/form.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/form.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/form.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "form.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/form.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/form.cpp$(DependSuffix): form.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/form.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/form.cpp$(DependSuffix) -MM "form.cpp"
+ 
+@@ -229,7 +224,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/form.cpp$(PreprocessSuffix) "form.cpp"
+ 
+ $(IntermediateDirectory)/marching2d.cpp$(ObjectSuffix): marching2d.cpp $(IntermediateDirectory)/marching2d.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/marching2d.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/marching2d.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "marching2d.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/marching2d.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/marching2d.cpp$(DependSuffix): marching2d.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/marching2d.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/marching2d.cpp$(DependSuffix) -MM "marching2d.cpp"
+ 
+@@ -237,7 +232,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/marching2d.cpp$(PreprocessSuffix) "marching2d.cpp"
+ 
+ $(IntermediateDirectory)/base_3d_api.cpp$(ObjectSuffix): ../lib3d/base/3d_api.cpp $(IntermediateDirectory)/base_3d_api.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/3d_api.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_3d_api.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/3d_api.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_3d_api.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_3d_api.cpp$(DependSuffix): ../lib3d/base/3d_api.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_3d_api.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_3d_api.cpp$(DependSuffix) -MM "../lib3d/base/3d_api.cpp"
+ 
+@@ -245,7 +240,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_3d_api.cpp$(PreprocessSuffix) "../lib3d/base/3d_api.cpp"
+ 
+ $(IntermediateDirectory)/base_3d_api_base.cpp$(ObjectSuffix): ../lib3d/base/3d_api_base.cpp $(IntermediateDirectory)/base_3d_api_base.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/3d_api_base.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_3d_api_base.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/3d_api_base.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_3d_api_base.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_3d_api_base.cpp$(DependSuffix): ../lib3d/base/3d_api_base.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_3d_api_base.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_3d_api_base.cpp$(DependSuffix) -MM "../lib3d/base/3d_api_base.cpp"
+ 
+@@ -253,7 +248,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_3d_api_base.cpp$(PreprocessSuffix) "../lib3d/base/3d_api_base.cpp"
+ 
+ $(IntermediateDirectory)/base_bsp_2d.cpp$(ObjectSuffix): ../lib3d/base/bsp_2d.cpp $(IntermediateDirectory)/base_bsp_2d.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/bsp_2d.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_bsp_2d.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/bsp_2d.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_bsp_2d.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_bsp_2d.cpp$(DependSuffix): ../lib3d/base/bsp_2d.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_bsp_2d.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_bsp_2d.cpp$(DependSuffix) -MM "../lib3d/base/bsp_2d.cpp"
+ 
+@@ -261,7 +256,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_bsp_2d.cpp$(PreprocessSuffix) "../lib3d/base/bsp_2d.cpp"
+ 
+ $(IntermediateDirectory)/base_bsp_light.cpp$(ObjectSuffix): ../lib3d/base/bsp_light.cpp $(IntermediateDirectory)/base_bsp_light.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/bsp_light.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_bsp_light.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/bsp_light.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_bsp_light.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_bsp_light.cpp$(DependSuffix): ../lib3d/base/bsp_light.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_bsp_light.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_bsp_light.cpp$(DependSuffix) -MM "../lib3d/base/bsp_light.cpp"
+ 
+@@ -269,7 +264,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_bsp_light.cpp$(PreprocessSuffix) "../lib3d/base/bsp_light.cpp"
+ 
+ $(IntermediateDirectory)/base_bsp_ortho.cpp$(ObjectSuffix): ../lib3d/base/bsp_ortho.cpp $(IntermediateDirectory)/base_bsp_ortho.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/bsp_ortho.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_bsp_ortho.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/bsp_ortho.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_bsp_ortho.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_bsp_ortho.cpp$(DependSuffix): ../lib3d/base/bsp_ortho.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_bsp_ortho.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_bsp_ortho.cpp$(DependSuffix) -MM "../lib3d/base/bsp_ortho.cpp"
+ 
+@@ -277,7 +272,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_bsp_ortho.cpp$(PreprocessSuffix) "../lib3d/base/bsp_ortho.cpp"
+ 
+ $(IntermediateDirectory)/base_bsp_volumic.cpp$(ObjectSuffix): ../lib3d/base/bsp_volumic.cpp $(IntermediateDirectory)/base_bsp_volumic.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/bsp_volumic.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_bsp_volumic.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/bsp_volumic.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_bsp_volumic.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_bsp_volumic.cpp$(DependSuffix): ../lib3d/base/bsp_volumic.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_bsp_volumic.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_bsp_volumic.cpp$(DependSuffix) -MM "../lib3d/base/bsp_volumic.cpp"
+ 
+@@ -285,7 +280,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_bsp_volumic.cpp$(PreprocessSuffix) "../lib3d/base/bsp_volumic.cpp"
+ 
+ $(IntermediateDirectory)/base_generator.cpp$(ObjectSuffix): ../lib3d/base/generator.cpp $(IntermediateDirectory)/base_generator.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/generator.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_generator.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/generator.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_generator.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_generator.cpp$(DependSuffix): ../lib3d/base/generator.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_generator.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_generator.cpp$(DependSuffix) -MM "../lib3d/base/generator.cpp"
+ 
+@@ -293,7 +288,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_generator.cpp$(PreprocessSuffix) "../lib3d/base/generator.cpp"
+ 
+ $(IntermediateDirectory)/misc_gentexture.cpp$(ObjectSuffix): ../lib3d/misc/gentexture.cpp $(IntermediateDirectory)/misc_gentexture.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/misc/gentexture.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_gentexture.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/misc/gentexture.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_gentexture.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/misc_gentexture.cpp$(DependSuffix): ../lib3d/misc/gentexture.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/misc_gentexture.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/misc_gentexture.cpp$(DependSuffix) -MM "../lib3d/misc/gentexture.cpp"
+ 
+@@ -301,7 +296,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/misc_gentexture.cpp$(PreprocessSuffix) "../lib3d/misc/gentexture.cpp"
+ 
+ $(IntermediateDirectory)/misc_genvegetal.cpp$(ObjectSuffix): ../lib3d/misc/genvegetal.cpp $(IntermediateDirectory)/misc_genvegetal.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/misc/genvegetal.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_genvegetal.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/misc/genvegetal.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_genvegetal.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/misc_genvegetal.cpp$(DependSuffix): ../lib3d/misc/genvegetal.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/misc_genvegetal.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/misc_genvegetal.cpp$(DependSuffix) -MM "../lib3d/misc/genvegetal.cpp"
+ 
+@@ -309,7 +304,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/misc_genvegetal.cpp$(PreprocessSuffix) "../lib3d/misc/genvegetal.cpp"
+ 
+ $(IntermediateDirectory)/data_lzcompress.cpp$(ObjectSuffix): ../lib3d/data/lzcompress.cpp $(IntermediateDirectory)/data_lzcompress.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/data/lzcompress.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_lzcompress.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/data/lzcompress.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_lzcompress.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/data_lzcompress.cpp$(DependSuffix): ../lib3d/data/lzcompress.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/data_lzcompress.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/data_lzcompress.cpp$(DependSuffix) -MM "../lib3d/data/lzcompress.cpp"
+ 
+@@ -317,7 +312,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/data_lzcompress.cpp$(PreprocessSuffix) "../lib3d/data/lzcompress.cpp"
+ 
+ $(IntermediateDirectory)/base_maths.cpp$(ObjectSuffix): ../lib3d/base/maths.cpp $(IntermediateDirectory)/base_maths.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/maths.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_maths.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/maths.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_maths.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_maths.cpp$(DependSuffix): ../lib3d/base/maths.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_maths.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_maths.cpp$(DependSuffix) -MM "../lib3d/base/maths.cpp"
+ 
+@@ -325,7 +320,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_maths.cpp$(PreprocessSuffix) "../lib3d/base/maths.cpp"
+ 
+ $(IntermediateDirectory)/misc_metaballs.cpp$(ObjectSuffix): ../lib3d/misc/metaballs.cpp $(IntermediateDirectory)/misc_metaballs.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/misc/metaballs.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_metaballs.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/misc/metaballs.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_metaballs.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/misc_metaballs.cpp$(DependSuffix): ../lib3d/misc/metaballs.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/misc_metaballs.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/misc_metaballs.cpp$(DependSuffix) -MM "../lib3d/misc/metaballs.cpp"
+ 
+@@ -333,7 +328,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/misc_metaballs.cpp$(PreprocessSuffix) "../lib3d/misc/metaballs.cpp"
+ 
+ $(IntermediateDirectory)/base_objects3d.cpp$(ObjectSuffix): ../lib3d/base/objects3d.cpp $(IntermediateDirectory)/base_objects3d.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/objects3d.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_objects3d.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/objects3d.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_objects3d.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_objects3d.cpp$(DependSuffix): ../lib3d/base/objects3d.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_objects3d.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_objects3d.cpp$(DependSuffix) -MM "../lib3d/base/objects3d.cpp"
+ 
+@@ -341,7 +336,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_objects3d.cpp$(PreprocessSuffix) "../lib3d/base/objects3d.cpp"
+ 
+ $(IntermediateDirectory)/base_physics.cpp$(ObjectSuffix): ../lib3d/base/physics.cpp $(IntermediateDirectory)/base_physics.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/physics.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_physics.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/physics.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_physics.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_physics.cpp$(DependSuffix): ../lib3d/base/physics.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_physics.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_physics.cpp$(DependSuffix) -MM "../lib3d/base/physics.cpp"
+ 
+@@ -349,7 +344,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_physics.cpp$(PreprocessSuffix) "../lib3d/base/physics.cpp"
+ 
+ $(IntermediateDirectory)/data_png.cpp$(ObjectSuffix): ../lib3d/data/png.cpp $(IntermediateDirectory)/data_png.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/data/png.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_png.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/data/png.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_png.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/data_png.cpp$(DependSuffix): ../lib3d/data/png.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/data_png.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/data_png.cpp$(DependSuffix) -MM "../lib3d/data/png.cpp"
+ 
+@@ -357,7 +352,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/data_png.cpp$(PreprocessSuffix) "../lib3d/data/png.cpp"
+ 
+ $(IntermediateDirectory)/base_pob_generator.cpp$(ObjectSuffix): ../lib3d/base/pob_generator.cpp $(IntermediateDirectory)/base_pob_generator.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/pob_generator.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_pob_generator.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/pob_generator.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_pob_generator.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_pob_generator.cpp$(DependSuffix): ../lib3d/base/pob_generator.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_pob_generator.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_pob_generator.cpp$(DependSuffix) -MM "../lib3d/base/pob_generator.cpp"
+ 
+@@ -365,7 +360,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_pob_generator.cpp$(PreprocessSuffix) "../lib3d/base/pob_generator.cpp"
+ 
+ $(IntermediateDirectory)/misc_softrenderer.cpp$(ObjectSuffix): ../lib3d/misc/softrenderer.cpp $(IntermediateDirectory)/misc_softrenderer.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/misc/softrenderer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_softrenderer.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/misc/softrenderer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_softrenderer.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/misc_softrenderer.cpp$(DependSuffix): ../lib3d/misc/softrenderer.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/misc_softrenderer.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/misc_softrenderer.cpp$(DependSuffix) -MM "../lib3d/misc/softrenderer.cpp"
+ 
+@@ -373,7 +368,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/misc_softrenderer.cpp$(PreprocessSuffix) "../lib3d/misc/softrenderer.cpp"
+ 
+ $(IntermediateDirectory)/base_texture.cpp$(ObjectSuffix): ../lib3d/base/texture.cpp $(IntermediateDirectory)/base_texture.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/texture.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_texture.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/texture.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_texture.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_texture.cpp$(DependSuffix): ../lib3d/base/texture.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_texture.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_texture.cpp$(DependSuffix) -MM "../lib3d/base/texture.cpp"
+ 
+@@ -381,7 +376,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_texture.cpp$(PreprocessSuffix) "../lib3d/base/texture.cpp"
+ 
+ $(IntermediateDirectory)/base_texturecontainer.cpp$(ObjectSuffix): ../lib3d/base/texturecontainer.cpp $(IntermediateDirectory)/base_texturecontainer.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/texturecontainer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_texturecontainer.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/texturecontainer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_texturecontainer.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_texturecontainer.cpp$(DependSuffix): ../lib3d/base/texturecontainer.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_texturecontainer.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_texturecontainer.cpp$(DependSuffix) -MM "../lib3d/base/texturecontainer.cpp"
+ 
+@@ -389,7 +384,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_texturecontainer.cpp$(PreprocessSuffix) "../lib3d/base/texturecontainer.cpp"
+ 
+ $(IntermediateDirectory)/data_tga.cpp$(ObjectSuffix): ../lib3d/data/tga.cpp $(IntermediateDirectory)/data_tga.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/data/tga.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_tga.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/data/tga.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_tga.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/data_tga.cpp$(DependSuffix): ../lib3d/data/tga.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/data_tga.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/data_tga.cpp$(DependSuffix) -MM "../lib3d/data/tga.cpp"
+ 
+@@ -397,7 +392,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/data_tga.cpp$(PreprocessSuffix) "../lib3d/data/tga.cpp"
+ 
+ $(IntermediateDirectory)/misc_trees.cpp$(ObjectSuffix): ../lib3d/misc/trees.cpp $(IntermediateDirectory)/misc_trees.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/misc/trees.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_trees.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/misc/trees.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/misc_trees.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/misc_trees.cpp$(DependSuffix): ../lib3d/misc/trees.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/misc_trees.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/misc_trees.cpp$(DependSuffix) -MM "../lib3d/misc/trees.cpp"
+ 
+@@ -405,7 +400,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/misc_trees.cpp$(PreprocessSuffix) "../lib3d/misc/trees.cpp"
+ 
+ $(IntermediateDirectory)/base_triangularisation.cpp$(ObjectSuffix): ../lib3d/base/triangularisation.cpp $(IntermediateDirectory)/base_triangularisation.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/triangularisation.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_triangularisation.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/triangularisation.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_triangularisation.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_triangularisation.cpp$(DependSuffix): ../lib3d/base/triangularisation.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_triangularisation.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_triangularisation.cpp$(DependSuffix) -MM "../lib3d/base/triangularisation.cpp"
+ 
+@@ -413,7 +408,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_triangularisation.cpp$(PreprocessSuffix) "../lib3d/base/triangularisation.cpp"
+ 
+ $(IntermediateDirectory)/base_vertexbuffer.cpp$(ObjectSuffix): ../lib3d/base/vertexbuffer.cpp $(IntermediateDirectory)/base_vertexbuffer.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/vertexbuffer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_vertexbuffer.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/vertexbuffer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_vertexbuffer.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_vertexbuffer.cpp$(DependSuffix): ../lib3d/base/vertexbuffer.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_vertexbuffer.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_vertexbuffer.cpp$(DependSuffix) -MM "../lib3d/base/vertexbuffer.cpp"
+ 
+@@ -421,7 +416,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_vertexbuffer.cpp$(PreprocessSuffix) "../lib3d/base/vertexbuffer.cpp"
+ 
+ $(IntermediateDirectory)/base_vertexbuffercontainer.cpp$(ObjectSuffix): ../lib3d/base/vertexbuffercontainer.cpp $(IntermediateDirectory)/base_vertexbuffercontainer.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/vertexbuffercontainer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_vertexbuffercontainer.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/vertexbuffercontainer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_vertexbuffercontainer.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_vertexbuffercontainer.cpp$(DependSuffix): ../lib3d/base/vertexbuffercontainer.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_vertexbuffercontainer.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_vertexbuffercontainer.cpp$(DependSuffix) -MM "../lib3d/base/vertexbuffercontainer.cpp"
+ 
+@@ -429,7 +424,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_vertexbuffercontainer.cpp$(PreprocessSuffix) "../lib3d/base/vertexbuffercontainer.cpp"
+ 
+ $(IntermediateDirectory)/base_vertexprogram.cpp$(ObjectSuffix): ../lib3d/base/vertexprogram.cpp $(IntermediateDirectory)/base_vertexprogram.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/vertexprogram.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_vertexprogram.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/vertexprogram.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_vertexprogram.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_vertexprogram.cpp$(DependSuffix): ../lib3d/base/vertexprogram.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_vertexprogram.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_vertexprogram.cpp$(DependSuffix) -MM "../lib3d/base/vertexprogram.cpp"
+ 
+@@ -437,7 +432,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_vertexprogram.cpp$(PreprocessSuffix) "../lib3d/base/vertexprogram.cpp"
+ 
+ $(IntermediateDirectory)/base_edges.cpp$(ObjectSuffix): ../lib3d/base/edges.cpp $(IntermediateDirectory)/base_edges.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/edges.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_edges.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/edges.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_edges.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_edges.cpp$(DependSuffix): ../lib3d/base/edges.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_edges.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_edges.cpp$(DependSuffix) -MM "../lib3d/base/edges.cpp"
+ 
+@@ -445,7 +440,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_edges.cpp$(PreprocessSuffix) "../lib3d/base/edges.cpp"
+ 
+ $(IntermediateDirectory)/base_physic_calculate.cpp$(ObjectSuffix): ../lib3d/base/physic_calculate.cpp $(IntermediateDirectory)/base_physic_calculate.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/base/physic_calculate.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_physic_calculate.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/base/physic_calculate.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_physic_calculate.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_physic_calculate.cpp$(DependSuffix): ../lib3d/base/physic_calculate.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_physic_calculate.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/base_physic_calculate.cpp$(DependSuffix) -MM "../lib3d/base/physic_calculate.cpp"
+ 
+@@ -453,7 +448,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_physic_calculate.cpp$(PreprocessSuffix) "../lib3d/base/physic_calculate.cpp"
+ 
+ $(IntermediateDirectory)/data_datacontainer.cpp$(ObjectSuffix): ../lib3d/data/datacontainer.cpp $(IntermediateDirectory)/data_datacontainer.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/data/datacontainer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_datacontainer.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/data/datacontainer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_datacontainer.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/data_datacontainer.cpp$(DependSuffix): ../lib3d/data/datacontainer.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/data_datacontainer.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/data_datacontainer.cpp$(DependSuffix) -MM "../lib3d/data/datacontainer.cpp"
+ 
+@@ -461,7 +456,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/data_datacontainer.cpp$(PreprocessSuffix) "../lib3d/data/datacontainer.cpp"
+ 
+ $(IntermediateDirectory)/data_scene.cpp$(ObjectSuffix): ../lib3d/data/scene.cpp $(IntermediateDirectory)/data_scene.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/lib3d/data/scene.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_scene.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../lib3d/data/scene.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/data_scene.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/data_scene.cpp$(DependSuffix): ../lib3d/data/scene.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/data_scene.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/data_scene.cpp$(DependSuffix) -MM "../lib3d/data/scene.cpp"
+ 
+@@ -469,7 +464,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/data_scene.cpp$(PreprocessSuffix) "../lib3d/data/scene.cpp"
+ 
+ $(IntermediateDirectory)/sound_api_sound.cpp$(ObjectSuffix): ../sound/api_sound.cpp $(IntermediateDirectory)/sound_api_sound.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/sound/api_sound.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/sound_api_sound.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../sound/api_sound.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/sound_api_sound.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/sound_api_sound.cpp$(DependSuffix): ../sound/api_sound.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/sound_api_sound.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/sound_api_sound.cpp$(DependSuffix) -MM "../sound/api_sound.cpp"
+ 
+@@ -477,207 +472,16 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/sound_api_sound.cpp$(PreprocessSuffix) "../sound/api_sound.cpp"
+ 
+ $(IntermediateDirectory)/sound_load_ogg.cpp$(ObjectSuffix): ../sound/load_ogg.cpp $(IntermediateDirectory)/sound_load_ogg.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/sound/load_ogg.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/sound_load_ogg.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../sound/load_ogg.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/sound_load_ogg.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/sound_load_ogg.cpp$(DependSuffix): ../sound/load_ogg.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/sound_load_ogg.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/sound_load_ogg.cpp$(DependSuffix) -MM "../sound/load_ogg.cpp"
+ 
+ $(IntermediateDirectory)/sound_load_ogg.cpp$(PreprocessSuffix): ../sound/load_ogg.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/sound_load_ogg.cpp$(PreprocessSuffix) "../sound/load_ogg.cpp"
+ 
+-$(IntermediateDirectory)/ogg_bitwise.c$(ObjectSuffix): ../ogg/bitwise.c $(IntermediateDirectory)/ogg_bitwise.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/ogg/bitwise.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ogg_bitwise.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/ogg_bitwise.c$(DependSuffix): ../ogg/bitwise.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ogg_bitwise.c$(ObjectSuffix) -MF$(IntermediateDirectory)/ogg_bitwise.c$(DependSuffix) -MM "../ogg/bitwise.c"
+-
+-$(IntermediateDirectory)/ogg_bitwise.c$(PreprocessSuffix): ../ogg/bitwise.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ogg_bitwise.c$(PreprocessSuffix) "../ogg/bitwise.c"
+-
+-$(IntermediateDirectory)/ogg_framing.c$(ObjectSuffix): ../ogg/framing.c $(IntermediateDirectory)/ogg_framing.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/ogg/framing.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ogg_framing.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/ogg_framing.c$(DependSuffix): ../ogg/framing.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ogg_framing.c$(ObjectSuffix) -MF$(IntermediateDirectory)/ogg_framing.c$(DependSuffix) -MM "../ogg/framing.c"
+-
+-$(IntermediateDirectory)/ogg_framing.c$(PreprocessSuffix): ../ogg/framing.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ogg_framing.c$(PreprocessSuffix) "../ogg/framing.c"
+-
+-$(IntermediateDirectory)/vorbis_analysis.c$(ObjectSuffix): ../vorbis/analysis.c $(IntermediateDirectory)/vorbis_analysis.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/analysis.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_analysis.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_analysis.c$(DependSuffix): ../vorbis/analysis.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_analysis.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_analysis.c$(DependSuffix) -MM "../vorbis/analysis.c"
+-
+-$(IntermediateDirectory)/vorbis_analysis.c$(PreprocessSuffix): ../vorbis/analysis.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_analysis.c$(PreprocessSuffix) "../vorbis/analysis.c"
+-
+-$(IntermediateDirectory)/vorbis_bitrate.c$(ObjectSuffix): ../vorbis/bitrate.c $(IntermediateDirectory)/vorbis_bitrate.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/bitrate.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_bitrate.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_bitrate.c$(DependSuffix): ../vorbis/bitrate.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_bitrate.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_bitrate.c$(DependSuffix) -MM "../vorbis/bitrate.c"
+-
+-$(IntermediateDirectory)/vorbis_bitrate.c$(PreprocessSuffix): ../vorbis/bitrate.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_bitrate.c$(PreprocessSuffix) "../vorbis/bitrate.c"
+-
+-$(IntermediateDirectory)/vorbis_block.c$(ObjectSuffix): ../vorbis/block.c $(IntermediateDirectory)/vorbis_block.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/block.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_block.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_block.c$(DependSuffix): ../vorbis/block.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_block.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_block.c$(DependSuffix) -MM "../vorbis/block.c"
+-
+-$(IntermediateDirectory)/vorbis_block.c$(PreprocessSuffix): ../vorbis/block.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_block.c$(PreprocessSuffix) "../vorbis/block.c"
+-
+-$(IntermediateDirectory)/vorbis_codebook.c$(ObjectSuffix): ../vorbis/codebook.c $(IntermediateDirectory)/vorbis_codebook.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/codebook.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_codebook.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_codebook.c$(DependSuffix): ../vorbis/codebook.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_codebook.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_codebook.c$(DependSuffix) -MM "../vorbis/codebook.c"
+-
+-$(IntermediateDirectory)/vorbis_codebook.c$(PreprocessSuffix): ../vorbis/codebook.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_codebook.c$(PreprocessSuffix) "../vorbis/codebook.c"
+-
+-$(IntermediateDirectory)/vorbis_envelope.c$(ObjectSuffix): ../vorbis/envelope.c $(IntermediateDirectory)/vorbis_envelope.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/envelope.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_envelope.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_envelope.c$(DependSuffix): ../vorbis/envelope.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_envelope.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_envelope.c$(DependSuffix) -MM "../vorbis/envelope.c"
+-
+-$(IntermediateDirectory)/vorbis_envelope.c$(PreprocessSuffix): ../vorbis/envelope.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_envelope.c$(PreprocessSuffix) "../vorbis/envelope.c"
+-
+-$(IntermediateDirectory)/vorbis_floor0.c$(ObjectSuffix): ../vorbis/floor0.c $(IntermediateDirectory)/vorbis_floor0.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/floor0.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_floor0.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_floor0.c$(DependSuffix): ../vorbis/floor0.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_floor0.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_floor0.c$(DependSuffix) -MM "../vorbis/floor0.c"
+-
+-$(IntermediateDirectory)/vorbis_floor0.c$(PreprocessSuffix): ../vorbis/floor0.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_floor0.c$(PreprocessSuffix) "../vorbis/floor0.c"
+-
+-$(IntermediateDirectory)/vorbis_floor1.c$(ObjectSuffix): ../vorbis/floor1.c $(IntermediateDirectory)/vorbis_floor1.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/floor1.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_floor1.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_floor1.c$(DependSuffix): ../vorbis/floor1.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_floor1.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_floor1.c$(DependSuffix) -MM "../vorbis/floor1.c"
+-
+-$(IntermediateDirectory)/vorbis_floor1.c$(PreprocessSuffix): ../vorbis/floor1.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_floor1.c$(PreprocessSuffix) "../vorbis/floor1.c"
+-
+-$(IntermediateDirectory)/vorbis_info.c$(ObjectSuffix): ../vorbis/info.c $(IntermediateDirectory)/vorbis_info.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/info.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_info.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_info.c$(DependSuffix): ../vorbis/info.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_info.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_info.c$(DependSuffix) -MM "../vorbis/info.c"
+-
+-$(IntermediateDirectory)/vorbis_info.c$(PreprocessSuffix): ../vorbis/info.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_info.c$(PreprocessSuffix) "../vorbis/info.c"
+-
+-$(IntermediateDirectory)/vorbis_lookup.c$(ObjectSuffix): ../vorbis/lookup.c $(IntermediateDirectory)/vorbis_lookup.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/lookup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_lookup.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_lookup.c$(DependSuffix): ../vorbis/lookup.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_lookup.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_lookup.c$(DependSuffix) -MM "../vorbis/lookup.c"
+-
+-$(IntermediateDirectory)/vorbis_lookup.c$(PreprocessSuffix): ../vorbis/lookup.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_lookup.c$(PreprocessSuffix) "../vorbis/lookup.c"
+-
+-$(IntermediateDirectory)/vorbis_lpc.c$(ObjectSuffix): ../vorbis/lpc.c $(IntermediateDirectory)/vorbis_lpc.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/lpc.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_lpc.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_lpc.c$(DependSuffix): ../vorbis/lpc.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_lpc.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_lpc.c$(DependSuffix) -MM "../vorbis/lpc.c"
+-
+-$(IntermediateDirectory)/vorbis_lpc.c$(PreprocessSuffix): ../vorbis/lpc.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_lpc.c$(PreprocessSuffix) "../vorbis/lpc.c"
+-
+-$(IntermediateDirectory)/vorbis_lsp.c$(ObjectSuffix): ../vorbis/lsp.c $(IntermediateDirectory)/vorbis_lsp.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/lsp.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_lsp.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_lsp.c$(DependSuffix): ../vorbis/lsp.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_lsp.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_lsp.c$(DependSuffix) -MM "../vorbis/lsp.c"
+-
+-$(IntermediateDirectory)/vorbis_lsp.c$(PreprocessSuffix): ../vorbis/lsp.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_lsp.c$(PreprocessSuffix) "../vorbis/lsp.c"
+-
+-$(IntermediateDirectory)/vorbis_mapping0.c$(ObjectSuffix): ../vorbis/mapping0.c $(IntermediateDirectory)/vorbis_mapping0.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/mapping0.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_mapping0.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_mapping0.c$(DependSuffix): ../vorbis/mapping0.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_mapping0.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_mapping0.c$(DependSuffix) -MM "../vorbis/mapping0.c"
+-
+-$(IntermediateDirectory)/vorbis_mapping0.c$(PreprocessSuffix): ../vorbis/mapping0.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_mapping0.c$(PreprocessSuffix) "../vorbis/mapping0.c"
+-
+-$(IntermediateDirectory)/vorbis_mdct.c$(ObjectSuffix): ../vorbis/mdct.c $(IntermediateDirectory)/vorbis_mdct.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/mdct.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_mdct.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_mdct.c$(DependSuffix): ../vorbis/mdct.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_mdct.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_mdct.c$(DependSuffix) -MM "../vorbis/mdct.c"
+-
+-$(IntermediateDirectory)/vorbis_mdct.c$(PreprocessSuffix): ../vorbis/mdct.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_mdct.c$(PreprocessSuffix) "../vorbis/mdct.c"
+-
+-$(IntermediateDirectory)/vorbis_psy.c$(ObjectSuffix): ../vorbis/psy.c $(IntermediateDirectory)/vorbis_psy.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/psy.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_psy.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_psy.c$(DependSuffix): ../vorbis/psy.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_psy.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_psy.c$(DependSuffix) -MM "../vorbis/psy.c"
+-
+-$(IntermediateDirectory)/vorbis_psy.c$(PreprocessSuffix): ../vorbis/psy.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_psy.c$(PreprocessSuffix) "../vorbis/psy.c"
+-
+-$(IntermediateDirectory)/vorbis_registry.c$(ObjectSuffix): ../vorbis/registry.c $(IntermediateDirectory)/vorbis_registry.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/registry.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_registry.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_registry.c$(DependSuffix): ../vorbis/registry.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_registry.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_registry.c$(DependSuffix) -MM "../vorbis/registry.c"
+-
+-$(IntermediateDirectory)/vorbis_registry.c$(PreprocessSuffix): ../vorbis/registry.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_registry.c$(PreprocessSuffix) "../vorbis/registry.c"
+-
+-$(IntermediateDirectory)/vorbis_res0.c$(ObjectSuffix): ../vorbis/res0.c $(IntermediateDirectory)/vorbis_res0.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/res0.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_res0.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_res0.c$(DependSuffix): ../vorbis/res0.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_res0.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_res0.c$(DependSuffix) -MM "../vorbis/res0.c"
+-
+-$(IntermediateDirectory)/vorbis_res0.c$(PreprocessSuffix): ../vorbis/res0.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_res0.c$(PreprocessSuffix) "../vorbis/res0.c"
+-
+-$(IntermediateDirectory)/vorbis_sharedbook.c$(ObjectSuffix): ../vorbis/sharedbook.c $(IntermediateDirectory)/vorbis_sharedbook.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/sharedbook.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_sharedbook.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_sharedbook.c$(DependSuffix): ../vorbis/sharedbook.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_sharedbook.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_sharedbook.c$(DependSuffix) -MM "../vorbis/sharedbook.c"
+-
+-$(IntermediateDirectory)/vorbis_sharedbook.c$(PreprocessSuffix): ../vorbis/sharedbook.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_sharedbook.c$(PreprocessSuffix) "../vorbis/sharedbook.c"
+-
+-$(IntermediateDirectory)/vorbis_smallft.c$(ObjectSuffix): ../vorbis/smallft.c $(IntermediateDirectory)/vorbis_smallft.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/smallft.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_smallft.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_smallft.c$(DependSuffix): ../vorbis/smallft.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_smallft.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_smallft.c$(DependSuffix) -MM "../vorbis/smallft.c"
+-
+-$(IntermediateDirectory)/vorbis_smallft.c$(PreprocessSuffix): ../vorbis/smallft.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_smallft.c$(PreprocessSuffix) "../vorbis/smallft.c"
+-
+-$(IntermediateDirectory)/vorbis_synthesis.c$(ObjectSuffix): ../vorbis/synthesis.c $(IntermediateDirectory)/vorbis_synthesis.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/synthesis.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_synthesis.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_synthesis.c$(DependSuffix): ../vorbis/synthesis.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_synthesis.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_synthesis.c$(DependSuffix) -MM "../vorbis/synthesis.c"
+-
+-$(IntermediateDirectory)/vorbis_synthesis.c$(PreprocessSuffix): ../vorbis/synthesis.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_synthesis.c$(PreprocessSuffix) "../vorbis/synthesis.c"
+-
+-$(IntermediateDirectory)/vorbis_vorbisenc.c$(ObjectSuffix): ../vorbis/vorbisenc.c $(IntermediateDirectory)/vorbis_vorbisenc.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/vorbisenc.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_vorbisenc.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_vorbisenc.c$(DependSuffix): ../vorbis/vorbisenc.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_vorbisenc.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_vorbisenc.c$(DependSuffix) -MM "../vorbis/vorbisenc.c"
+-
+-$(IntermediateDirectory)/vorbis_vorbisenc.c$(PreprocessSuffix): ../vorbis/vorbisenc.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_vorbisenc.c$(PreprocessSuffix) "../vorbis/vorbisenc.c"
+-
+-$(IntermediateDirectory)/vorbis_vorbisfile.c$(ObjectSuffix): ../vorbis/vorbisfile.c $(IntermediateDirectory)/vorbis_vorbisfile.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/vorbisfile.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_vorbisfile.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_vorbisfile.c$(DependSuffix): ../vorbis/vorbisfile.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_vorbisfile.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_vorbisfile.c$(DependSuffix) -MM "../vorbis/vorbisfile.c"
+-
+-$(IntermediateDirectory)/vorbis_vorbisfile.c$(PreprocessSuffix): ../vorbis/vorbisfile.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_vorbisfile.c$(PreprocessSuffix) "../vorbis/vorbisfile.c"
+-
+-$(IntermediateDirectory)/vorbis_window.c$(ObjectSuffix): ../vorbis/window.c $(IntermediateDirectory)/vorbis_window.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/vorbis/window.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/vorbis_window.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/vorbis_window.c$(DependSuffix): ../vorbis/window.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/vorbis_window.c$(ObjectSuffix) -MF$(IntermediateDirectory)/vorbis_window.c$(DependSuffix) -MM "../vorbis/window.c"
+-
+-$(IntermediateDirectory)/vorbis_window.c$(PreprocessSuffix): ../vorbis/window.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/vorbis_window.c$(PreprocessSuffix) "../vorbis/window.c"
+ 
+ $(IntermediateDirectory)/libscripts_reader_script.cpp$(ObjectSuffix): ../libscripts/reader_script.cpp $(IntermediateDirectory)/libscripts_reader_script.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/libscripts/reader_script.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_reader_script.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../libscripts/reader_script.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_reader_script.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/libscripts_reader_script.cpp$(DependSuffix): ../libscripts/reader_script.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libscripts_reader_script.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/libscripts_reader_script.cpp$(DependSuffix) -MM "../libscripts/reader_script.cpp"
+ 
+@@ -685,7 +489,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libscripts_reader_script.cpp$(PreprocessSuffix) "../libscripts/reader_script.cpp"
+ 
+ $(IntermediateDirectory)/libscripts_Script_prog.cpp$(ObjectSuffix): ../libscripts/Script_prog.cpp $(IntermediateDirectory)/libscripts_Script_prog.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/libscripts/Script_prog.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_Script_prog.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../libscripts/Script_prog.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_Script_prog.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/libscripts_Script_prog.cpp$(DependSuffix): ../libscripts/Script_prog.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libscripts_Script_prog.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/libscripts_Script_prog.cpp$(DependSuffix) -MM "../libscripts/Script_prog.cpp"
+ 
+@@ -693,7 +497,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libscripts_Script_prog.cpp$(PreprocessSuffix) "../libscripts/Script_prog.cpp"
+ 
+ $(IntermediateDirectory)/libscripts_script_prog_code.cpp$(ObjectSuffix): ../libscripts/script_prog_code.cpp $(IntermediateDirectory)/libscripts_script_prog_code.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/libscripts/script_prog_code.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_script_prog_code.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../libscripts/script_prog_code.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_script_prog_code.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/libscripts_script_prog_code.cpp$(DependSuffix): ../libscripts/script_prog_code.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libscripts_script_prog_code.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/libscripts_script_prog_code.cpp$(DependSuffix) -MM "../libscripts/script_prog_code.cpp"
+ 
+@@ -701,7 +505,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libscripts_script_prog_code.cpp$(PreprocessSuffix) "../libscripts/script_prog_code.cpp"
+ 
+ $(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(ObjectSuffix): ../libscripts/script_prog_code64.cpp $(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/libscripts/script_prog_code64.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../libscripts/script_prog_code64.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(DependSuffix): ../libscripts/script_prog_code64.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(DependSuffix) -MM "../libscripts/script_prog_code64.cpp"
+ 
+@@ -709,7 +513,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libscripts_script_prog_code64.cpp$(PreprocessSuffix) "../libscripts/script_prog_code64.cpp"
+ 
+ $(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(ObjectSuffix): ../libscripts/script_prog_exe.cpp $(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/libscripts/script_prog_exe.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../libscripts/script_prog_exe.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(DependSuffix): ../libscripts/script_prog_exe.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(DependSuffix) -MM "../libscripts/script_prog_exe.cpp"
+ 
+@@ -717,7 +521,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libscripts_script_prog_exe.cpp$(PreprocessSuffix) "../libscripts/script_prog_exe.cpp"
+ 
+ $(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(ObjectSuffix): ../libscripts/script_prog_bytecode.cpp $(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/libscripts/script_prog_bytecode.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../libscripts/script_prog_bytecode.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(DependSuffix): ../libscripts/script_prog_bytecode.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(DependSuffix) -MM "../libscripts/script_prog_bytecode.cpp"
+ 
+@@ -725,7 +529,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libscripts_script_prog_bytecode.cpp$(PreprocessSuffix) "../libscripts/script_prog_bytecode.cpp"
+ 
+ $(IntermediateDirectory)/ned_classNEDdraw.cpp$(ObjectSuffix): ../ned/classNEDdraw.cpp $(IntermediateDirectory)/ned_classNEDdraw.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/classNEDdraw.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdraw.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/classNEDdraw.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdraw.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/ned_classNEDdraw.cpp$(DependSuffix): ../ned/classNEDdraw.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ned_classNEDdraw.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ned_classNEDdraw.cpp$(DependSuffix) -MM "../ned/classNEDdraw.cpp"
+ 
+@@ -733,7 +537,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ned_classNEDdraw.cpp$(PreprocessSuffix) "../ned/classNEDdraw.cpp"
+ 
+ $(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(ObjectSuffix): ../ned/classNEDdrawDYNAMIC.cpp $(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/classNEDdrawDYNAMIC.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/classNEDdrawDYNAMIC.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(DependSuffix): ../ned/classNEDdrawDYNAMIC.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(DependSuffix) -MM "../ned/classNEDdrawDYNAMIC.cpp"
+ 
+@@ -741,7 +545,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ned_classNEDdrawDYNAMIC.cpp$(PreprocessSuffix) "../ned/classNEDdrawDYNAMIC.cpp"
+ 
+ $(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(ObjectSuffix): ../ned/classNEDdrawFULLSHADOWMAP.cpp $(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/classNEDdrawFULLSHADOWMAP.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/classNEDdrawFULLSHADOWMAP.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(DependSuffix): ../ned/classNEDdrawFULLSHADOWMAP.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(DependSuffix) -MM "../ned/classNEDdrawFULLSHADOWMAP.cpp"
+ 
+@@ -749,7 +553,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ned_classNEDdrawFULLSHADOWMAP.cpp$(PreprocessSuffix) "../ned/classNEDdrawFULLSHADOWMAP.cpp"
+ 
+ $(IntermediateDirectory)/ned_classNEDdrawSHDMAP.cpp$(ObjectSuffix): ../ned/classNEDdrawSHDMAP.cpp $(IntermediateDirectory)/ned_classNEDdrawSHDMAP.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/classNEDdrawSHDMAP.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawSHDMAP.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/classNEDdrawSHDMAP.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawSHDMAP.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/ned_classNEDdrawSHDMAP.cpp$(DependSuffix): ../ned/classNEDdrawSHDMAP.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ned_classNEDdrawSHDMAP.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ned_classNEDdrawSHDMAP.cpp$(DependSuffix) -MM "../ned/classNEDdrawSHDMAP.cpp"
+ 
+@@ -757,7 +561,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ned_classNEDdrawSHDMAP.cpp$(PreprocessSuffix) "../ned/classNEDdrawSHDMAP.cpp"
+ 
+ $(IntermediateDirectory)/ned_classNEDdrawSOFTSHADOWS.cpp$(ObjectSuffix): ../ned/classNEDdrawSOFTSHADOWS.cpp $(IntermediateDirectory)/ned_classNEDdrawSOFTSHADOWS.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/classNEDdrawSOFTSHADOWS.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawSOFTSHADOWS.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/classNEDdrawSOFTSHADOWS.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawSOFTSHADOWS.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/ned_classNEDdrawSOFTSHADOWS.cpp$(DependSuffix): ../ned/classNEDdrawSOFTSHADOWS.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ned_classNEDdrawSOFTSHADOWS.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ned_classNEDdrawSOFTSHADOWS.cpp$(DependSuffix) -MM "../ned/classNEDdrawSOFTSHADOWS.cpp"
+ 
+@@ -765,7 +569,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ned_classNEDdrawSOFTSHADOWS.cpp$(PreprocessSuffix) "../ned/classNEDdrawSOFTSHADOWS.cpp"
+ 
+ $(IntermediateDirectory)/ned_classNEDdrawSTENCIL.cpp$(ObjectSuffix): ../ned/classNEDdrawSTENCIL.cpp $(IntermediateDirectory)/ned_classNEDdrawSTENCIL.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/classNEDdrawSTENCIL.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawSTENCIL.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/classNEDdrawSTENCIL.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDdrawSTENCIL.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/ned_classNEDdrawSTENCIL.cpp$(DependSuffix): ../ned/classNEDdrawSTENCIL.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ned_classNEDdrawSTENCIL.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ned_classNEDdrawSTENCIL.cpp$(DependSuffix) -MM "../ned/classNEDdrawSTENCIL.cpp"
+ 
+@@ -773,7 +577,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ned_classNEDdrawSTENCIL.cpp$(PreprocessSuffix) "../ned/classNEDdrawSTENCIL.cpp"
+ 
+ $(IntermediateDirectory)/ned_classNEDshaders.cpp$(ObjectSuffix): ../ned/classNEDshaders.cpp $(IntermediateDirectory)/ned_classNEDshaders.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/classNEDshaders.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDshaders.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/classNEDshaders.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNEDshaders.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/ned_classNEDshaders.cpp$(DependSuffix): ../ned/classNEDshaders.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ned_classNEDshaders.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ned_classNEDshaders.cpp$(DependSuffix) -MM "../ned/classNEDshaders.cpp"
+ 
+@@ -781,7 +585,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ned_classNEDshaders.cpp$(PreprocessSuffix) "../ned/classNEDshaders.cpp"
+ 
+ $(IntermediateDirectory)/ned_classNED.cpp$(ObjectSuffix): ../ned/classNED.cpp $(IntermediateDirectory)/ned_classNED.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/classNED.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNED.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/classNED.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ned_classNED.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/ned_classNED.cpp$(DependSuffix): ../ned/classNED.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ned_classNED.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ned_classNED.cpp$(DependSuffix) -MM "../ned/classNED.cpp"
+ 
+@@ -789,7 +593,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ned_classNED.cpp$(PreprocessSuffix) "../ned/classNED.cpp"
+ 
+ $(IntermediateDirectory)/jpeg2000_jpeg2000.cpp$(ObjectSuffix): ../ned/jpeg2000/jpeg2000.cpp $(IntermediateDirectory)/jpeg2000_jpeg2000.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/jpeg2000/jpeg2000.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/jpeg2000_jpeg2000.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/jpeg2000/jpeg2000.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/jpeg2000_jpeg2000.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/jpeg2000_jpeg2000.cpp$(DependSuffix): ../ned/jpeg2000/jpeg2000.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/jpeg2000_jpeg2000.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/jpeg2000_jpeg2000.cpp$(DependSuffix) -MM "../ned/jpeg2000/jpeg2000.cpp"
+ 
+@@ -797,7 +601,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/jpeg2000_jpeg2000.cpp$(PreprocessSuffix) "../ned/jpeg2000/jpeg2000.cpp"
+ 
+ $(IntermediateDirectory)/net_tcp_clientserver.cpp$(ObjectSuffix): ../ned/net/tcp_clientserver.cpp $(IntermediateDirectory)/net_tcp_clientserver.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/net/tcp_clientserver.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/net_tcp_clientserver.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/net/tcp_clientserver.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/net_tcp_clientserver.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/net_tcp_clientserver.cpp$(DependSuffix): ../ned/net/tcp_clientserver.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/net_tcp_clientserver.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/net_tcp_clientserver.cpp$(DependSuffix) -MM "../ned/net/tcp_clientserver.cpp"
+ 
+@@ -805,7 +609,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/net_tcp_clientserver.cpp$(PreprocessSuffix) "../ned/net/tcp_clientserver.cpp"
+ 
+ $(IntermediateDirectory)/net_tcp_cs.cpp$(ObjectSuffix): ../ned/net/tcp_cs.cpp $(IntermediateDirectory)/net_tcp_cs.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/net/tcp_cs.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/net_tcp_cs.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/net/tcp_cs.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/net_tcp_cs.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/net_tcp_cs.cpp$(DependSuffix): ../ned/net/tcp_cs.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/net_tcp_cs.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/net_tcp_cs.cpp$(DependSuffix) -MM "../ned/net/tcp_cs.cpp"
+ 
+@@ -813,7 +617,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/net_tcp_cs.cpp$(PreprocessSuffix) "../ned/net/tcp_cs.cpp"
+ 
+ $(IntermediateDirectory)/net_tcp_resolve.cpp$(ObjectSuffix): ../ned/net/tcp_resolve.cpp $(IntermediateDirectory)/net_tcp_resolve.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/ned/net/tcp_resolve.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/net_tcp_resolve.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "../ned/net/tcp_resolve.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/net_tcp_resolve.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/net_tcp_resolve.cpp$(DependSuffix): ../ned/net/tcp_resolve.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/net_tcp_resolve.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/net_tcp_resolve.cpp$(DependSuffix) -MM "../ned/net/tcp_resolve.cpp"
+ 
+@@ -821,7 +625,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/net_tcp_resolve.cpp$(PreprocessSuffix) "../ned/net/tcp_resolve.cpp"
+ 
+ $(IntermediateDirectory)/autofit_autofit.c$(ObjectSuffix): ../freetype/src/autofit/autofit.c $(IntermediateDirectory)/autofit_autofit.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/autofit/autofit.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/autofit_autofit.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/autofit/autofit.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/autofit_autofit.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/autofit_autofit.c$(DependSuffix): ../freetype/src/autofit/autofit.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/autofit_autofit.c$(ObjectSuffix) -MF$(IntermediateDirectory)/autofit_autofit.c$(DependSuffix) -MM "../freetype/src/autofit/autofit.c"
+ 
+@@ -829,7 +633,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/autofit_autofit.c$(PreprocessSuffix) "../freetype/src/autofit/autofit.c"
+ 
+ $(IntermediateDirectory)/bdf_bdf.c$(ObjectSuffix): ../freetype/src/bdf/bdf.c $(IntermediateDirectory)/bdf_bdf.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/bdf/bdf.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/bdf_bdf.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/bdf/bdf.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/bdf_bdf.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/bdf_bdf.c$(DependSuffix): ../freetype/src/bdf/bdf.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/bdf_bdf.c$(ObjectSuffix) -MF$(IntermediateDirectory)/bdf_bdf.c$(DependSuffix) -MM "../freetype/src/bdf/bdf.c"
+ 
+@@ -837,7 +641,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/bdf_bdf.c$(PreprocessSuffix) "../freetype/src/bdf/bdf.c"
+ 
+ $(IntermediateDirectory)/cff_cff.c$(ObjectSuffix): ../freetype/src/cff/cff.c $(IntermediateDirectory)/cff_cff.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/cff/cff.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cff_cff.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/cff/cff.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cff_cff.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/cff_cff.c$(DependSuffix): ../freetype/src/cff/cff.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/cff_cff.c$(ObjectSuffix) -MF$(IntermediateDirectory)/cff_cff.c$(DependSuffix) -MM "../freetype/src/cff/cff.c"
+ 
+@@ -845,7 +649,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/cff_cff.c$(PreprocessSuffix) "../freetype/src/cff/cff.c"
+ 
+ $(IntermediateDirectory)/base_ftbase.c$(ObjectSuffix): ../freetype/src/base/ftbase.c $(IntermediateDirectory)/base_ftbase.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftbase.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftbase.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftbase.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftbase.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftbase.c$(DependSuffix): ../freetype/src/base/ftbase.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftbase.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftbase.c$(DependSuffix) -MM "../freetype/src/base/ftbase.c"
+ 
+@@ -853,7 +657,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftbase.c$(PreprocessSuffix) "../freetype/src/base/ftbase.c"
+ 
+ $(IntermediateDirectory)/base_ftbitmap.c$(ObjectSuffix): ../freetype/src/base/ftbitmap.c $(IntermediateDirectory)/base_ftbitmap.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftbitmap.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftbitmap.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftbitmap.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftbitmap.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftbitmap.c$(DependSuffix): ../freetype/src/base/ftbitmap.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftbitmap.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftbitmap.c$(DependSuffix) -MM "../freetype/src/base/ftbitmap.c"
+ 
+@@ -861,7 +665,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftbitmap.c$(PreprocessSuffix) "../freetype/src/base/ftbitmap.c"
+ 
+ $(IntermediateDirectory)/cache_ftcache.c$(ObjectSuffix): ../freetype/src/cache/ftcache.c $(IntermediateDirectory)/cache_ftcache.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/cache/ftcache.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cache_ftcache.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/cache/ftcache.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cache_ftcache.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/cache_ftcache.c$(DependSuffix): ../freetype/src/cache/ftcache.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/cache_ftcache.c$(ObjectSuffix) -MF$(IntermediateDirectory)/cache_ftcache.c$(DependSuffix) -MM "../freetype/src/cache/ftcache.c"
+ 
+@@ -869,7 +673,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/cache_ftcache.c$(PreprocessSuffix) "../freetype/src/cache/ftcache.c"
+ 
+ $(IntermediateDirectory)/base_ftfstype.c$(ObjectSuffix): ../freetype/src/base/ftfstype.c $(IntermediateDirectory)/base_ftfstype.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftfstype.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftfstype.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftfstype.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftfstype.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftfstype.c$(DependSuffix): ../freetype/src/base/ftfstype.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftfstype.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftfstype.c$(DependSuffix) -MM "../freetype/src/base/ftfstype.c"
+ 
+@@ -877,7 +681,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftfstype.c$(PreprocessSuffix) "../freetype/src/base/ftfstype.c"
+ 
+ $(IntermediateDirectory)/base_ftgasp.c$(ObjectSuffix): ../freetype/src/base/ftgasp.c $(IntermediateDirectory)/base_ftgasp.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftgasp.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftgasp.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftgasp.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftgasp.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftgasp.c$(DependSuffix): ../freetype/src/base/ftgasp.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftgasp.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftgasp.c$(DependSuffix) -MM "../freetype/src/base/ftgasp.c"
+ 
+@@ -885,7 +689,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftgasp.c$(PreprocessSuffix) "../freetype/src/base/ftgasp.c"
+ 
+ $(IntermediateDirectory)/base_ftglyph.c$(ObjectSuffix): ../freetype/src/base/ftglyph.c $(IntermediateDirectory)/base_ftglyph.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftglyph.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftglyph.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftglyph.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftglyph.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftglyph.c$(DependSuffix): ../freetype/src/base/ftglyph.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftglyph.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftglyph.c$(DependSuffix) -MM "../freetype/src/base/ftglyph.c"
+ 
+@@ -893,7 +697,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftglyph.c$(PreprocessSuffix) "../freetype/src/base/ftglyph.c"
+ 
+ $(IntermediateDirectory)/gzip_ftgzip.c$(ObjectSuffix): ../freetype/src/gzip/ftgzip.c $(IntermediateDirectory)/gzip_ftgzip.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/gzip/ftgzip.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/gzip_ftgzip.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/gzip/ftgzip.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/gzip_ftgzip.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/gzip_ftgzip.c$(DependSuffix): ../freetype/src/gzip/ftgzip.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/gzip_ftgzip.c$(ObjectSuffix) -MF$(IntermediateDirectory)/gzip_ftgzip.c$(DependSuffix) -MM "../freetype/src/gzip/ftgzip.c"
+ 
+@@ -901,7 +705,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/gzip_ftgzip.c$(PreprocessSuffix) "../freetype/src/gzip/ftgzip.c"
+ 
+ $(IntermediateDirectory)/base_ftinit.c$(ObjectSuffix): ../freetype/src/base/ftinit.c $(IntermediateDirectory)/base_ftinit.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftinit.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftinit.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftinit.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftinit.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftinit.c$(DependSuffix): ../freetype/src/base/ftinit.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftinit.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftinit.c$(DependSuffix) -MM "../freetype/src/base/ftinit.c"
+ 
+@@ -909,7 +713,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftinit.c$(PreprocessSuffix) "../freetype/src/base/ftinit.c"
+ 
+ $(IntermediateDirectory)/lzw_ftlzw.c$(ObjectSuffix): ../freetype/src/lzw/ftlzw.c $(IntermediateDirectory)/lzw_ftlzw.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/lzw/ftlzw.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/lzw_ftlzw.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/lzw/ftlzw.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/lzw_ftlzw.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/lzw_ftlzw.c$(DependSuffix): ../freetype/src/lzw/ftlzw.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/lzw_ftlzw.c$(ObjectSuffix) -MF$(IntermediateDirectory)/lzw_ftlzw.c$(DependSuffix) -MM "../freetype/src/lzw/ftlzw.c"
+ 
+@@ -917,7 +721,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/lzw_ftlzw.c$(PreprocessSuffix) "../freetype/src/lzw/ftlzw.c"
+ 
+ $(IntermediateDirectory)/base_ftstroke.c$(ObjectSuffix): ../freetype/src/base/ftstroke.c $(IntermediateDirectory)/base_ftstroke.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftstroke.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftstroke.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftstroke.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftstroke.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftstroke.c$(DependSuffix): ../freetype/src/base/ftstroke.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftstroke.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftstroke.c$(DependSuffix) -MM "../freetype/src/base/ftstroke.c"
+ 
+@@ -925,7 +729,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftstroke.c$(PreprocessSuffix) "../freetype/src/base/ftstroke.c"
+ 
+ $(IntermediateDirectory)/base_ftsystem.c$(ObjectSuffix): ../freetype/src/base/ftsystem.c $(IntermediateDirectory)/base_ftsystem.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftsystem.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftsystem.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftsystem.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftsystem.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftsystem.c$(DependSuffix): ../freetype/src/base/ftsystem.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftsystem.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftsystem.c$(DependSuffix) -MM "../freetype/src/base/ftsystem.c"
+ 
+@@ -933,7 +737,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftsystem.c$(PreprocessSuffix) "../freetype/src/base/ftsystem.c"
+ 
+ $(IntermediateDirectory)/smooth_smooth.c$(ObjectSuffix): ../freetype/src/smooth/smooth.c $(IntermediateDirectory)/smooth_smooth.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/smooth/smooth.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/smooth_smooth.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/smooth/smooth.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/smooth_smooth.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/smooth_smooth.c$(DependSuffix): ../freetype/src/smooth/smooth.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/smooth_smooth.c$(ObjectSuffix) -MF$(IntermediateDirectory)/smooth_smooth.c$(DependSuffix) -MM "../freetype/src/smooth/smooth.c"
+ 
+@@ -941,7 +745,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/smooth_smooth.c$(PreprocessSuffix) "../freetype/src/smooth/smooth.c"
+ 
+ $(IntermediateDirectory)/base_ftbbox.c$(ObjectSuffix): ../freetype/src/base/ftbbox.c $(IntermediateDirectory)/base_ftbbox.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftbbox.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftbbox.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftbbox.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftbbox.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftbbox.c$(DependSuffix): ../freetype/src/base/ftbbox.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftbbox.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftbbox.c$(DependSuffix) -MM "../freetype/src/base/ftbbox.c"
+ 
+@@ -949,7 +753,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftbbox.c$(PreprocessSuffix) "../freetype/src/base/ftbbox.c"
+ 
+ $(IntermediateDirectory)/base_ftfntfmt.c$(ObjectSuffix): ../freetype/src/base/ftfntfmt.c $(IntermediateDirectory)/base_ftfntfmt.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftfntfmt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftfntfmt.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftfntfmt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftfntfmt.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftfntfmt.c$(DependSuffix): ../freetype/src/base/ftfntfmt.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftfntfmt.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftfntfmt.c$(DependSuffix) -MM "../freetype/src/base/ftfntfmt.c"
+ 
+@@ -957,7 +761,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftfntfmt.c$(PreprocessSuffix) "../freetype/src/base/ftfntfmt.c"
+ 
+ $(IntermediateDirectory)/base_ftmm.c$(ObjectSuffix): ../freetype/src/base/ftmm.c $(IntermediateDirectory)/base_ftmm.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftmm.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftmm.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftmm.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftmm.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftmm.c$(DependSuffix): ../freetype/src/base/ftmm.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftmm.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftmm.c$(DependSuffix) -MM "../freetype/src/base/ftmm.c"
+ 
+@@ -965,7 +769,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftmm.c$(PreprocessSuffix) "../freetype/src/base/ftmm.c"
+ 
+ $(IntermediateDirectory)/base_ftpfr.c$(ObjectSuffix): ../freetype/src/base/ftpfr.c $(IntermediateDirectory)/base_ftpfr.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftpfr.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftpfr.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftpfr.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftpfr.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftpfr.c$(DependSuffix): ../freetype/src/base/ftpfr.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftpfr.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftpfr.c$(DependSuffix) -MM "../freetype/src/base/ftpfr.c"
+ 
+@@ -973,7 +777,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftpfr.c$(PreprocessSuffix) "../freetype/src/base/ftpfr.c"
+ 
+ $(IntermediateDirectory)/base_ftsynth.c$(ObjectSuffix): ../freetype/src/base/ftsynth.c $(IntermediateDirectory)/base_ftsynth.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftsynth.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftsynth.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftsynth.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftsynth.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftsynth.c$(DependSuffix): ../freetype/src/base/ftsynth.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftsynth.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftsynth.c$(DependSuffix) -MM "../freetype/src/base/ftsynth.c"
+ 
+@@ -981,7 +785,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftsynth.c$(PreprocessSuffix) "../freetype/src/base/ftsynth.c"
+ 
+ $(IntermediateDirectory)/base_fttype1.c$(ObjectSuffix): ../freetype/src/base/fttype1.c $(IntermediateDirectory)/base_fttype1.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/fttype1.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_fttype1.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/fttype1.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_fttype1.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_fttype1.c$(DependSuffix): ../freetype/src/base/fttype1.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_fttype1.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_fttype1.c$(DependSuffix) -MM "../freetype/src/base/fttype1.c"
+ 
+@@ -989,7 +793,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_fttype1.c$(PreprocessSuffix) "../freetype/src/base/fttype1.c"
+ 
+ $(IntermediateDirectory)/base_ftwinfnt.c$(ObjectSuffix): ../freetype/src/base/ftwinfnt.c $(IntermediateDirectory)/base_ftwinfnt.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftwinfnt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftwinfnt.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftwinfnt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftwinfnt.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftwinfnt.c$(DependSuffix): ../freetype/src/base/ftwinfnt.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftwinfnt.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftwinfnt.c$(DependSuffix) -MM "../freetype/src/base/ftwinfnt.c"
+ 
+@@ -997,7 +801,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftwinfnt.c$(PreprocessSuffix) "../freetype/src/base/ftwinfnt.c"
+ 
+ $(IntermediateDirectory)/base_ftlcdfil.c$(ObjectSuffix): ../freetype/src/base/ftlcdfil.c $(IntermediateDirectory)/base_ftlcdfil.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftlcdfil.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftlcdfil.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftlcdfil.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftlcdfil.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftlcdfil.c$(DependSuffix): ../freetype/src/base/ftlcdfil.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftlcdfil.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftlcdfil.c$(DependSuffix) -MM "../freetype/src/base/ftlcdfil.c"
+ 
+@@ -1005,7 +809,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftlcdfil.c$(PreprocessSuffix) "../freetype/src/base/ftlcdfil.c"
+ 
+ $(IntermediateDirectory)/base_ftgxval.c$(ObjectSuffix): ../freetype/src/base/ftgxval.c $(IntermediateDirectory)/base_ftgxval.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftgxval.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftgxval.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftgxval.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftgxval.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftgxval.c$(DependSuffix): ../freetype/src/base/ftgxval.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftgxval.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftgxval.c$(DependSuffix) -MM "../freetype/src/base/ftgxval.c"
+ 
+@@ -1013,7 +817,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftgxval.c$(PreprocessSuffix) "../freetype/src/base/ftgxval.c"
+ 
+ $(IntermediateDirectory)/base_ftotval.c$(ObjectSuffix): ../freetype/src/base/ftotval.c $(IntermediateDirectory)/base_ftotval.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftotval.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftotval.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftotval.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftotval.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftotval.c$(DependSuffix): ../freetype/src/base/ftotval.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftotval.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftotval.c$(DependSuffix) -MM "../freetype/src/base/ftotval.c"
+ 
+@@ -1021,7 +825,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftotval.c$(PreprocessSuffix) "../freetype/src/base/ftotval.c"
+ 
+ $(IntermediateDirectory)/base_ftpatent.c$(ObjectSuffix): ../freetype/src/base/ftpatent.c $(IntermediateDirectory)/base_ftpatent.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/base/ftpatent.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftpatent.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/base/ftpatent.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/base_ftpatent.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/base_ftpatent.c$(DependSuffix): ../freetype/src/base/ftpatent.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/base_ftpatent.c$(ObjectSuffix) -MF$(IntermediateDirectory)/base_ftpatent.c$(DependSuffix) -MM "../freetype/src/base/ftpatent.c"
+ 
+@@ -1029,7 +833,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/base_ftpatent.c$(PreprocessSuffix) "../freetype/src/base/ftpatent.c"
+ 
+ $(IntermediateDirectory)/pcf_pcf.c$(ObjectSuffix): ../freetype/src/pcf/pcf.c $(IntermediateDirectory)/pcf_pcf.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/pcf/pcf.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/pcf_pcf.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/pcf/pcf.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/pcf_pcf.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/pcf_pcf.c$(DependSuffix): ../freetype/src/pcf/pcf.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/pcf_pcf.c$(ObjectSuffix) -MF$(IntermediateDirectory)/pcf_pcf.c$(DependSuffix) -MM "../freetype/src/pcf/pcf.c"
+ 
+@@ -1037,7 +841,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/pcf_pcf.c$(PreprocessSuffix) "../freetype/src/pcf/pcf.c"
+ 
+ $(IntermediateDirectory)/pfr_pfr.c$(ObjectSuffix): ../freetype/src/pfr/pfr.c $(IntermediateDirectory)/pfr_pfr.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/pfr/pfr.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/pfr_pfr.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/pfr/pfr.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/pfr_pfr.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/pfr_pfr.c$(DependSuffix): ../freetype/src/pfr/pfr.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/pfr_pfr.c$(ObjectSuffix) -MF$(IntermediateDirectory)/pfr_pfr.c$(DependSuffix) -MM "../freetype/src/pfr/pfr.c"
+ 
+@@ -1045,7 +849,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/pfr_pfr.c$(PreprocessSuffix) "../freetype/src/pfr/pfr.c"
+ 
+ $(IntermediateDirectory)/psaux_psaux.c$(ObjectSuffix): ../freetype/src/psaux/psaux.c $(IntermediateDirectory)/psaux_psaux.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/psaux/psaux.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/psaux_psaux.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/psaux/psaux.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/psaux_psaux.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/psaux_psaux.c$(DependSuffix): ../freetype/src/psaux/psaux.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/psaux_psaux.c$(ObjectSuffix) -MF$(IntermediateDirectory)/psaux_psaux.c$(DependSuffix) -MM "../freetype/src/psaux/psaux.c"
+ 
+@@ -1053,7 +857,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/psaux_psaux.c$(PreprocessSuffix) "../freetype/src/psaux/psaux.c"
+ 
+ $(IntermediateDirectory)/pshinter_pshinter.c$(ObjectSuffix): ../freetype/src/pshinter/pshinter.c $(IntermediateDirectory)/pshinter_pshinter.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/pshinter/pshinter.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/pshinter_pshinter.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/pshinter/pshinter.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/pshinter_pshinter.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/pshinter_pshinter.c$(DependSuffix): ../freetype/src/pshinter/pshinter.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/pshinter_pshinter.c$(ObjectSuffix) -MF$(IntermediateDirectory)/pshinter_pshinter.c$(DependSuffix) -MM "../freetype/src/pshinter/pshinter.c"
+ 
+@@ -1061,7 +865,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/pshinter_pshinter.c$(PreprocessSuffix) "../freetype/src/pshinter/pshinter.c"
+ 
+ $(IntermediateDirectory)/psnames_psmodule.c$(ObjectSuffix): ../freetype/src/psnames/psmodule.c $(IntermediateDirectory)/psnames_psmodule.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/psnames/psmodule.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/psnames_psmodule.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/psnames/psmodule.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/psnames_psmodule.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/psnames_psmodule.c$(DependSuffix): ../freetype/src/psnames/psmodule.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/psnames_psmodule.c$(ObjectSuffix) -MF$(IntermediateDirectory)/psnames_psmodule.c$(DependSuffix) -MM "../freetype/src/psnames/psmodule.c"
+ 
+@@ -1069,7 +873,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/psnames_psmodule.c$(PreprocessSuffix) "../freetype/src/psnames/psmodule.c"
+ 
+ $(IntermediateDirectory)/raster_raster.c$(ObjectSuffix): ../freetype/src/raster/raster.c $(IntermediateDirectory)/raster_raster.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/raster/raster.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/raster_raster.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/raster/raster.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/raster_raster.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/raster_raster.c$(DependSuffix): ../freetype/src/raster/raster.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/raster_raster.c$(ObjectSuffix) -MF$(IntermediateDirectory)/raster_raster.c$(DependSuffix) -MM "../freetype/src/raster/raster.c"
+ 
+@@ -1077,7 +881,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/raster_raster.c$(PreprocessSuffix) "../freetype/src/raster/raster.c"
+ 
+ $(IntermediateDirectory)/sfnt_sfnt.c$(ObjectSuffix): ../freetype/src/sfnt/sfnt.c $(IntermediateDirectory)/sfnt_sfnt.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/sfnt/sfnt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/sfnt_sfnt.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/sfnt/sfnt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/sfnt_sfnt.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/sfnt_sfnt.c$(DependSuffix): ../freetype/src/sfnt/sfnt.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/sfnt_sfnt.c$(ObjectSuffix) -MF$(IntermediateDirectory)/sfnt_sfnt.c$(DependSuffix) -MM "../freetype/src/sfnt/sfnt.c"
+ 
+@@ -1085,7 +889,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/sfnt_sfnt.c$(PreprocessSuffix) "../freetype/src/sfnt/sfnt.c"
+ 
+ $(IntermediateDirectory)/truetype_truetype.c$(ObjectSuffix): ../freetype/src/truetype/truetype.c $(IntermediateDirectory)/truetype_truetype.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/truetype/truetype.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/truetype_truetype.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/truetype/truetype.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/truetype_truetype.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/truetype_truetype.c$(DependSuffix): ../freetype/src/truetype/truetype.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/truetype_truetype.c$(ObjectSuffix) -MF$(IntermediateDirectory)/truetype_truetype.c$(DependSuffix) -MM "../freetype/src/truetype/truetype.c"
+ 
+@@ -1093,7 +897,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/truetype_truetype.c$(PreprocessSuffix) "../freetype/src/truetype/truetype.c"
+ 
+ $(IntermediateDirectory)/type1_type1.c$(ObjectSuffix): ../freetype/src/type1/type1.c $(IntermediateDirectory)/type1_type1.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/type1/type1.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/type1_type1.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/type1/type1.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/type1_type1.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/type1_type1.c$(DependSuffix): ../freetype/src/type1/type1.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/type1_type1.c$(ObjectSuffix) -MF$(IntermediateDirectory)/type1_type1.c$(DependSuffix) -MM "../freetype/src/type1/type1.c"
+ 
+@@ -1101,7 +905,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/type1_type1.c$(PreprocessSuffix) "../freetype/src/type1/type1.c"
+ 
+ $(IntermediateDirectory)/cid_type1cid.c$(ObjectSuffix): ../freetype/src/cid/type1cid.c $(IntermediateDirectory)/cid_type1cid.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/cid/type1cid.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cid_type1cid.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/cid/type1cid.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cid_type1cid.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/cid_type1cid.c$(DependSuffix): ../freetype/src/cid/type1cid.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/cid_type1cid.c$(ObjectSuffix) -MF$(IntermediateDirectory)/cid_type1cid.c$(DependSuffix) -MM "../freetype/src/cid/type1cid.c"
+ 
+@@ -1109,7 +913,7 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/cid_type1cid.c$(PreprocessSuffix) "../freetype/src/cid/type1cid.c"
+ 
+ $(IntermediateDirectory)/type42_type42.c$(ObjectSuffix): ../freetype/src/type42/type42.c $(IntermediateDirectory)/type42_type42.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/type42/type42.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/type42_type42.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/type42/type42.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/type42_type42.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/type42_type42.c$(DependSuffix): ../freetype/src/type42/type42.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/type42_type42.c$(ObjectSuffix) -MF$(IntermediateDirectory)/type42_type42.c$(DependSuffix) -MM "../freetype/src/type42/type42.c"
+ 
+@@ -1117,183 +921,15 @@
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/type42_type42.c$(PreprocessSuffix) "../freetype/src/type42/type42.c"
+ 
+ $(IntermediateDirectory)/winfonts_winfnt.c$(ObjectSuffix): ../freetype/src/winfonts/winfnt.c $(IntermediateDirectory)/winfonts_winfnt.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/freetype/src/winfonts/winfnt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/winfonts_winfnt.c$(ObjectSuffix) $(IncludePath)
++	$(CC) $(SourceSwitch) "../freetype/src/winfonts/winfnt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/winfonts_winfnt.c$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/winfonts_winfnt.c$(DependSuffix): ../freetype/src/winfonts/winfnt.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/winfonts_winfnt.c$(ObjectSuffix) -MF$(IntermediateDirectory)/winfonts_winfnt.c$(DependSuffix) -MM "../freetype/src/winfonts/winfnt.c"
+ 
+ $(IntermediateDirectory)/winfonts_winfnt.c$(PreprocessSuffix): ../freetype/src/winfonts/winfnt.c
+ 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/winfonts_winfnt.c$(PreprocessSuffix) "../freetype/src/winfonts/winfnt.c"
+ 
+-$(IntermediateDirectory)/libjp2_bio.c$(ObjectSuffix): ../libjp2/bio.c $(IntermediateDirectory)/libjp2_bio.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/bio.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_bio.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_bio.c$(DependSuffix): ../libjp2/bio.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_bio.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_bio.c$(DependSuffix) -MM "../libjp2/bio.c"
+-
+-$(IntermediateDirectory)/libjp2_bio.c$(PreprocessSuffix): ../libjp2/bio.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_bio.c$(PreprocessSuffix) "../libjp2/bio.c"
+-
+-$(IntermediateDirectory)/libjp2_cidx_manager.c$(ObjectSuffix): ../libjp2/cidx_manager.c $(IntermediateDirectory)/libjp2_cidx_manager.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/cidx_manager.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_cidx_manager.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_cidx_manager.c$(DependSuffix): ../libjp2/cidx_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_cidx_manager.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_cidx_manager.c$(DependSuffix) -MM "../libjp2/cidx_manager.c"
+-
+-$(IntermediateDirectory)/libjp2_cidx_manager.c$(PreprocessSuffix): ../libjp2/cidx_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_cidx_manager.c$(PreprocessSuffix) "../libjp2/cidx_manager.c"
+-
+-$(IntermediateDirectory)/libjp2_cio.c$(ObjectSuffix): ../libjp2/cio.c $(IntermediateDirectory)/libjp2_cio.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/cio.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_cio.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_cio.c$(DependSuffix): ../libjp2/cio.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_cio.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_cio.c$(DependSuffix) -MM "../libjp2/cio.c"
+-
+-$(IntermediateDirectory)/libjp2_cio.c$(PreprocessSuffix): ../libjp2/cio.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_cio.c$(PreprocessSuffix) "../libjp2/cio.c"
+-
+-$(IntermediateDirectory)/libjp2_dwt.c$(ObjectSuffix): ../libjp2/dwt.c $(IntermediateDirectory)/libjp2_dwt.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/dwt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_dwt.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_dwt.c$(DependSuffix): ../libjp2/dwt.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_dwt.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_dwt.c$(DependSuffix) -MM "../libjp2/dwt.c"
+-
+-$(IntermediateDirectory)/libjp2_dwt.c$(PreprocessSuffix): ../libjp2/dwt.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_dwt.c$(PreprocessSuffix) "../libjp2/dwt.c"
+-
+-$(IntermediateDirectory)/libjp2_image.c$(ObjectSuffix): ../libjp2/image.c $(IntermediateDirectory)/libjp2_image.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/image.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_image.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_image.c$(DependSuffix): ../libjp2/image.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_image.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_image.c$(DependSuffix) -MM "../libjp2/image.c"
+-
+-$(IntermediateDirectory)/libjp2_image.c$(PreprocessSuffix): ../libjp2/image.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_image.c$(PreprocessSuffix) "../libjp2/image.c"
+-
+-$(IntermediateDirectory)/libjp2_j2k.c$(ObjectSuffix): ../libjp2/j2k.c $(IntermediateDirectory)/libjp2_j2k.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/j2k.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_j2k.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_j2k.c$(DependSuffix): ../libjp2/j2k.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_j2k.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_j2k.c$(DependSuffix) -MM "../libjp2/j2k.c"
+-
+-$(IntermediateDirectory)/libjp2_j2k.c$(PreprocessSuffix): ../libjp2/j2k.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_j2k.c$(PreprocessSuffix) "../libjp2/j2k.c"
+-
+-$(IntermediateDirectory)/libjp2_jp2.c$(ObjectSuffix): ../libjp2/jp2.c $(IntermediateDirectory)/libjp2_jp2.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/jp2.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_jp2.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_jp2.c$(DependSuffix): ../libjp2/jp2.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_jp2.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_jp2.c$(DependSuffix) -MM "../libjp2/jp2.c"
+-
+-$(IntermediateDirectory)/libjp2_jp2.c$(PreprocessSuffix): ../libjp2/jp2.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_jp2.c$(PreprocessSuffix) "../libjp2/jp2.c"
+-
+-$(IntermediateDirectory)/libjp2_jpt.c$(ObjectSuffix): ../libjp2/jpt.c $(IntermediateDirectory)/libjp2_jpt.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/jpt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_jpt.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_jpt.c$(DependSuffix): ../libjp2/jpt.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_jpt.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_jpt.c$(DependSuffix) -MM "../libjp2/jpt.c"
+-
+-$(IntermediateDirectory)/libjp2_jpt.c$(PreprocessSuffix): ../libjp2/jpt.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_jpt.c$(PreprocessSuffix) "../libjp2/jpt.c"
+-
+-$(IntermediateDirectory)/libjp2_mct.c$(ObjectSuffix): ../libjp2/mct.c $(IntermediateDirectory)/libjp2_mct.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/mct.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_mct.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_mct.c$(DependSuffix): ../libjp2/mct.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_mct.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_mct.c$(DependSuffix) -MM "../libjp2/mct.c"
+-
+-$(IntermediateDirectory)/libjp2_mct.c$(PreprocessSuffix): ../libjp2/mct.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_mct.c$(PreprocessSuffix) "../libjp2/mct.c"
+-
+-$(IntermediateDirectory)/libjp2_mqc.c$(ObjectSuffix): ../libjp2/mqc.c $(IntermediateDirectory)/libjp2_mqc.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/mqc.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_mqc.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_mqc.c$(DependSuffix): ../libjp2/mqc.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_mqc.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_mqc.c$(DependSuffix) -MM "../libjp2/mqc.c"
+-
+-$(IntermediateDirectory)/libjp2_mqc.c$(PreprocessSuffix): ../libjp2/mqc.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_mqc.c$(PreprocessSuffix) "../libjp2/mqc.c"
+-
+-$(IntermediateDirectory)/libjp2_openjpeg.c$(ObjectSuffix): ../libjp2/openjpeg.c $(IntermediateDirectory)/libjp2_openjpeg.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/openjpeg.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_openjpeg.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_openjpeg.c$(DependSuffix): ../libjp2/openjpeg.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_openjpeg.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_openjpeg.c$(DependSuffix) -MM "../libjp2/openjpeg.c"
+-
+-$(IntermediateDirectory)/libjp2_openjpeg.c$(PreprocessSuffix): ../libjp2/openjpeg.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_openjpeg.c$(PreprocessSuffix) "../libjp2/openjpeg.c"
+-
+-$(IntermediateDirectory)/libjp2_phix_manager.c$(ObjectSuffix): ../libjp2/phix_manager.c $(IntermediateDirectory)/libjp2_phix_manager.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/phix_manager.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_phix_manager.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_phix_manager.c$(DependSuffix): ../libjp2/phix_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_phix_manager.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_phix_manager.c$(DependSuffix) -MM "../libjp2/phix_manager.c"
+-
+-$(IntermediateDirectory)/libjp2_phix_manager.c$(PreprocessSuffix): ../libjp2/phix_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_phix_manager.c$(PreprocessSuffix) "../libjp2/phix_manager.c"
+-
+-$(IntermediateDirectory)/libjp2_pi.c$(ObjectSuffix): ../libjp2/pi.c $(IntermediateDirectory)/libjp2_pi.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/pi.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_pi.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_pi.c$(DependSuffix): ../libjp2/pi.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_pi.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_pi.c$(DependSuffix) -MM "../libjp2/pi.c"
+-
+-$(IntermediateDirectory)/libjp2_pi.c$(PreprocessSuffix): ../libjp2/pi.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_pi.c$(PreprocessSuffix) "../libjp2/pi.c"
+-
+-$(IntermediateDirectory)/libjp2_ppix_manager.c$(ObjectSuffix): ../libjp2/ppix_manager.c $(IntermediateDirectory)/libjp2_ppix_manager.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/ppix_manager.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_ppix_manager.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_ppix_manager.c$(DependSuffix): ../libjp2/ppix_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_ppix_manager.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_ppix_manager.c$(DependSuffix) -MM "../libjp2/ppix_manager.c"
+-
+-$(IntermediateDirectory)/libjp2_ppix_manager.c$(PreprocessSuffix): ../libjp2/ppix_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_ppix_manager.c$(PreprocessSuffix) "../libjp2/ppix_manager.c"
+-
+-$(IntermediateDirectory)/libjp2_raw.c$(ObjectSuffix): ../libjp2/raw.c $(IntermediateDirectory)/libjp2_raw.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/raw.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_raw.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_raw.c$(DependSuffix): ../libjp2/raw.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_raw.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_raw.c$(DependSuffix) -MM "../libjp2/raw.c"
+-
+-$(IntermediateDirectory)/libjp2_raw.c$(PreprocessSuffix): ../libjp2/raw.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_raw.c$(PreprocessSuffix) "../libjp2/raw.c"
+-
+-$(IntermediateDirectory)/libjp2_t1.c$(ObjectSuffix): ../libjp2/t1.c $(IntermediateDirectory)/libjp2_t1.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/t1.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_t1.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_t1.c$(DependSuffix): ../libjp2/t1.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_t1.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_t1.c$(DependSuffix) -MM "../libjp2/t1.c"
+-
+-$(IntermediateDirectory)/libjp2_t1.c$(PreprocessSuffix): ../libjp2/t1.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_t1.c$(PreprocessSuffix) "../libjp2/t1.c"
+-
+-$(IntermediateDirectory)/libjp2_t2.c$(ObjectSuffix): ../libjp2/t2.c $(IntermediateDirectory)/libjp2_t2.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/t2.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_t2.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_t2.c$(DependSuffix): ../libjp2/t2.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_t2.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_t2.c$(DependSuffix) -MM "../libjp2/t2.c"
+-
+-$(IntermediateDirectory)/libjp2_t2.c$(PreprocessSuffix): ../libjp2/t2.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_t2.c$(PreprocessSuffix) "../libjp2/t2.c"
+-
+-$(IntermediateDirectory)/libjp2_tcd.c$(ObjectSuffix): ../libjp2/tcd.c $(IntermediateDirectory)/libjp2_tcd.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/tcd.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_tcd.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_tcd.c$(DependSuffix): ../libjp2/tcd.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_tcd.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_tcd.c$(DependSuffix) -MM "../libjp2/tcd.c"
+-
+-$(IntermediateDirectory)/libjp2_tcd.c$(PreprocessSuffix): ../libjp2/tcd.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_tcd.c$(PreprocessSuffix) "../libjp2/tcd.c"
+-
+-$(IntermediateDirectory)/libjp2_tgt.c$(ObjectSuffix): ../libjp2/tgt.c $(IntermediateDirectory)/libjp2_tgt.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/tgt.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_tgt.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_tgt.c$(DependSuffix): ../libjp2/tgt.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_tgt.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_tgt.c$(DependSuffix) -MM "../libjp2/tgt.c"
+-
+-$(IntermediateDirectory)/libjp2_tgt.c$(PreprocessSuffix): ../libjp2/tgt.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_tgt.c$(PreprocessSuffix) "../libjp2/tgt.c"
+-
+-$(IntermediateDirectory)/libjp2_thix_manager.c$(ObjectSuffix): ../libjp2/thix_manager.c $(IntermediateDirectory)/libjp2_thix_manager.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/thix_manager.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_thix_manager.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_thix_manager.c$(DependSuffix): ../libjp2/thix_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_thix_manager.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_thix_manager.c$(DependSuffix) -MM "../libjp2/thix_manager.c"
+-
+-$(IntermediateDirectory)/libjp2_thix_manager.c$(PreprocessSuffix): ../libjp2/thix_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_thix_manager.c$(PreprocessSuffix) "../libjp2/thix_manager.c"
+-
+-$(IntermediateDirectory)/libjp2_tpix_manager.c$(ObjectSuffix): ../libjp2/tpix_manager.c $(IntermediateDirectory)/libjp2_tpix_manager.c$(DependSuffix)
+-	$(CC) $(SourceSwitch) "/home/laurent/Bureau/Code/libjp2/tpix_manager.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/libjp2_tpix_manager.c$(ObjectSuffix) $(IncludePath)
+-$(IntermediateDirectory)/libjp2_tpix_manager.c$(DependSuffix): ../libjp2/tpix_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libjp2_tpix_manager.c$(ObjectSuffix) -MF$(IntermediateDirectory)/libjp2_tpix_manager.c$(DependSuffix) -MM "../libjp2/tpix_manager.c"
+-
+-$(IntermediateDirectory)/libjp2_tpix_manager.c$(PreprocessSuffix): ../libjp2/tpix_manager.c
+-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libjp2_tpix_manager.c$(PreprocessSuffix) "../libjp2/tpix_manager.c"
+-
+ $(IntermediateDirectory)/cpp_fontes.cpp$(ObjectSuffix): cpp/fontes.cpp $(IntermediateDirectory)/cpp_fontes.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/cpp/fontes.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_fontes.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "cpp/fontes.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_fontes.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/cpp_fontes.cpp$(DependSuffix): cpp/fontes.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/cpp_fontes.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/cpp_fontes.cpp$(DependSuffix) -MM "cpp/fontes.cpp"
+ 
+@@ -1301,7 +937,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/cpp_fontes.cpp$(PreprocessSuffix) "cpp/fontes.cpp"
+ 
+ $(IntermediateDirectory)/cpp_lib_font.cpp$(ObjectSuffix): cpp/lib_font.cpp $(IntermediateDirectory)/cpp_lib_font.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/cpp/lib_font.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_lib_font.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "cpp/lib_font.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_lib_font.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/cpp_lib_font.cpp$(DependSuffix): cpp/lib_font.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/cpp_lib_font.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/cpp_lib_font.cpp$(DependSuffix) -MM "cpp/lib_font.cpp"
+ 
+@@ -1309,7 +945,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/cpp_lib_font.cpp$(PreprocessSuffix) "cpp/lib_font.cpp"
+ 
+ $(IntermediateDirectory)/cpp_surfaces.cpp$(ObjectSuffix): cpp/surfaces.cpp $(IntermediateDirectory)/cpp_surfaces.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/cpp/surfaces.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_surfaces.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "cpp/surfaces.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_surfaces.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/cpp_surfaces.cpp$(DependSuffix): cpp/surfaces.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/cpp_surfaces.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/cpp_surfaces.cpp$(DependSuffix) -MM "cpp/surfaces.cpp"
+ 
+@@ -1317,7 +953,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/cpp_surfaces.cpp$(PreprocessSuffix) "cpp/surfaces.cpp"
+ 
+ $(IntermediateDirectory)/cpp_volum.cpp$(ObjectSuffix): cpp/volum.cpp $(IntermediateDirectory)/cpp_volum.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/cpp/volum.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_volum.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "cpp/volum.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/cpp_volum.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/cpp_volum.cpp$(DependSuffix): cpp/volum.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/cpp_volum.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/cpp_volum.cpp$(DependSuffix) -MM "cpp/volum.cpp"
+ 
+@@ -1325,7 +961,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/cpp_volum.cpp$(PreprocessSuffix) "cpp/volum.cpp"
+ 
+ $(IntermediateDirectory)/GraphicInterface.cpp$(ObjectSuffix): GraphicInterface.cpp $(IntermediateDirectory)/GraphicInterface.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/GraphicInterface.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GraphicInterface.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "GraphicInterface.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GraphicInterface.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/GraphicInterface.cpp$(DependSuffix): GraphicInterface.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GraphicInterface.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/GraphicInterface.cpp$(DependSuffix) -MM "GraphicInterface.cpp"
+ 
+@@ -1333,7 +969,7 @@
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GraphicInterface.cpp$(PreprocessSuffix) "GraphicInterface.cpp"
+ 
+ $(IntermediateDirectory)/bw_bw.cpp$(ObjectSuffix): bw/bw.cpp $(IntermediateDirectory)/bw_bw.cpp$(DependSuffix)
+-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/laurent/Bureau/Code/Player/bw/bw.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/bw_bw.cpp$(ObjectSuffix) $(IncludePath)
++	$(CXX) $(IncludePCH) $(SourceSwitch) "bw/bw.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/bw_bw.cpp$(ObjectSuffix) $(IncludePath)
+ $(IntermediateDirectory)/bw_bw.cpp$(DependSuffix): bw/bw.cpp
+ 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/bw_bw.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/bw_bw.cpp$(DependSuffix) -MM "bw/bw.cpp"
+ 
+@@ -1347,5 +983,7 @@
+ ##
+ clean:
+ 	$(RM) -r ./Release/
++	$(RM) $(OutputFile)
++	$(RM) $(ObjectsFileList)
+ 
+ 

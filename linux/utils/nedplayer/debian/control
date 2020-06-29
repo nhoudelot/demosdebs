@@ -1,0 +1,47 @@
+Source: nedplayer
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ pandoc,
+ pkg-config,
+ libwxgtk3.0-gtk3-dev|libwxgtk3.0-dev,
+ libfreetype6-dev,
+ libvorbis-dev, 
+ libogg-dev,
+ libopenal-dev,
+ libopenjpeg-dev
+Standards-Version: 4.5.0
+Homepage: http://deaddeer.free.fr/
+
+Package: nedplayer
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ fonts-wine,
+ ttf-mscorefonts-installer,
+ fonts-segoe,
+ nedscript-fire-tutorial
+Description: Player for Dead Deer projects
+ Player for Dead Deer projects
+
+Package: fonts-segoe
+Section: fonts
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: segoe fonts
+ Fonts designed by Steve Matteson
+
+Package: nedscript-fire-tutorial
+Section: demos
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ common-install-function-ddebs
+Description: ned file example
+ running nedscript fire tutorial
