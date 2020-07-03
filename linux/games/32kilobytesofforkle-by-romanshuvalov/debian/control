@@ -1,0 +1,20 @@
+Source: 32kilobytesofforkle-by-romanshuvalov
+Section: games
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=10),
+ libglu1-mesa-dev,
+ libx11-dev,
+ libopenal-dev
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=67197
+
+Package: 32kilobytesofforkle-by-romanshuvalov
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18)
+Description: Game for Linux, released in 2016
+ Game by Roman Shuvalov, released in 2016

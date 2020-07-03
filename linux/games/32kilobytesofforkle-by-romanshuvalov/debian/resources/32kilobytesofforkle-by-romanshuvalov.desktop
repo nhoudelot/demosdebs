@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=32 kilobytes of Forkle
+GenericName=Demo
+Comment=Game by Roman Shuvalov, released in 2016
+Type=Application
+Exec=/usr/games/32kilobytesofforkle-by-romanshuvalov
+Icon=32kilobytesofforkle-by-romanshuvalov
+Categories=AudioVideo;
+Name[fr_FR]=32 kilobytes of Forkle

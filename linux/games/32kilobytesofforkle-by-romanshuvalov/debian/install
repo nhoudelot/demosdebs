@@ -1,0 +1,4 @@
+debian/scripts/32kilobytesofforkle-by-romanshuvalov usr/games/
+debian/resources/32kilobytesofforkle-by-romanshuvalov.desktop usr/share/applications/
+debian/resources/32kilobytesofforkle-by-romanshuvalov.png usr/share/icons/hicolor/256x256/apps/
+./f32k_linux usr/lib/i386-linux-gnu/32kilobytesofforkle-by-romanshuvalov/./
