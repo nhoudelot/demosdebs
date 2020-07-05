@@ -1,0 +1,23 @@
+Source: universalmandala1k-by-theolddude
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ nasm,
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=67038
+Vcs-Browser: https://yousource.it.jyu.fi/synti2/synti2/trees/master/synti2/doc/spinoff_1k/instanssi16_mindfulness
+Vcs-Git: https://yousource.it.jyu.fi/synti2/synti2.git
+
+Package: universalmandala1k-by-theolddude
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlib:Depends},
+ libsdl2-2.0,
+ libglu1-mesa,
+ libglu1,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by The Old Dude, released in 2016
+ Demo by The Old Dude, released in 2016

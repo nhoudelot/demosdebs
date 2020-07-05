@@ -1,0 +1,60 @@
+--- a/Makefile
++++ b/Makefile
+@@ -10,27 +10,43 @@
+ #GZIP_TMP_CMD = zopfli --i2000 tmp
+ #GZIP_TMP_CMD = zopfli --i3000 tmp
+ 
++TARGET   := universalmandala
++
++#variable de nettoyage
++RM_F := rm -f
++#variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
+ 
+ # Compile and pack current version:
+-current.run: i16_mindfulness.asm definitions_from_libs.asm general_macros.asm debug_macros.asm
+-	nasm -f bin -o $@.bin $<
+-	chmod +x $@.bin
+-	cp $@.bin tmp
+-	$(GZIP_TMP_CMD)
+-	cp selfextr.stub.unclean $@
+-	tac -rs. tmp.gz >> $@
+-	cp tmp.gz $@.bin.gz
++$(TARGET): i16_mindfulness.asm definitions_from_libs.asm general_macros.asm debug_macros.asm
++	nasm -f bin -o $@ $<
++	chmod +x $@
++#	cp $@.bin tmp
++#	cp selfextr.stub.unclean $@
++#	tac -rs. tmp.gz >> $@
++#	cp tmp.gz $@.bin.gz
+ #	rm tmp.gz
+-	chmod ugo+x $@
++#	chmod ugo+x $@
+ 
+ 	@echo End result:
+ 	@ls -lt $@
+ 
+ 
+ clean:
+-	-rm current.run.bin a.out *.o tmp tmp.gz
+-	-rm *.bin.gz
+-	-rm *~
+-	-rm current.run
+-
++	-@$(RM_F) $(TARGET) a.out *.o tmp tmp.gz
++	-@$(RM_F) *.bin.gz
++	-@$(RM_F) *~
++	-@$(RM_F) $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
+ 

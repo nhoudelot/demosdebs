@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=universal mandala 1k
+GenericName=Demo
+Comment=Demo by The Old Dude, released in 2016
+Type=Application
+Exec=/usr/bin/universalmandala
+Icon=universalmandala1k-by-theolddude
+Categories=AudioVideo;
+Name[fr_FR]=universal mandala 1k
