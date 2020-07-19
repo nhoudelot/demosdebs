@@ -1,0 +1,18 @@
+Source: electromagnetic-by-hackers
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ libsdl1.2-dev
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=67450
+
+Package: electromagnetic-by-hackers
+Architecture: i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61)
+Description: 16k Intro by Hackers, released in 2016
+ Intro by Hackers, ranked 3rd at Simulaatio 2016

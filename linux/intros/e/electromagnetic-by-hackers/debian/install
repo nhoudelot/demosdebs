@@ -1,0 +1,5 @@
+debian/scripts/electromagnetic-by-hackers usr/bin/
+debian/resources/electromagnetic-by-hackers.desktop usr/share/applications/
+debian/resources/electromagnetic-by-hackers.png usr/share/icons/hicolor/256x256/apps/
+./player usr/lib/i386-linux-gnu/electromagnetic-by-hackers/./ 
+./player.packxz usr/lib/i386-linux-gnu/electromagnetic-by-hackers/./ 

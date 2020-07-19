@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Electro-Magnetic
+GenericName=Demo
+Comment=Demo by Hackers, released in 2016
+Type=Application
+Exec=/usr/bin/electromagnetic-by-hackers
+Icon=electromagnetic-by-hackers
+Categories=AudioVideo;
+Name[fr_FR]=Electro-Magnetic

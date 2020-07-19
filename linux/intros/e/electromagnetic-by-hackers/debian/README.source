@@ -1,0 +1,15 @@
+electromagnetic-by-hackers for Debian
+------------------------------------
+
+binary have been patched to remove fullscreen
+
+executable seems to be compiled for ubuntu Wily (15.10)
+
+GCC: (Ubuntu 5.2.1-22ubuntu2) 5.2.1 20151010
+
+Source files:
+------------- 
+4klang.asm crtstuff.c player.c
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 06 Jul 2020 10:44:04 +0200
+
