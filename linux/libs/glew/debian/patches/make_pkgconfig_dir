@@ -1,0 +1,31 @@
+Index: glew-1.5.3/Makefile
+===================================================================
+--- glew-1.5.3.orig/Makefile	2010-04-10 18:25:05.000000000 +0200
++++ glew-1.5.3/Makefile	2010-04-10 18:36:05.000000000 +0200
+@@ -81,7 +81,7 @@
+ 
+ all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) glew.pc
+ 
+-libsonly: lib/$(LIB.SHARED) lib/$(LIB.STATIC)
++libsonly: lib/$(LIB.SHARED) lib/$(LIB.STATIC) glew.pc
+ 
+ lib:
+ 	mkdir lib
+@@ -126,6 +126,7 @@
+ 	$(INSTALL) -d -m 0755 $(BINDIR)
+ 	$(INSTALL) -d -m 0755 $(INCDIR)
+ 	$(INSTALL) -d -m 0755 $(LIBDIR)
++	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
+ # runtime
+ ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
+ 	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(BINDIR)/
+@@ -145,7 +146,9 @@
+ 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
+ endif
+ # utilities
++ifneq ($(GLEW_MX), 1)
+ 	$(INSTALL) -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) $(BINDIR)/
++endif
+ 
+ uninstall:
+ 	$(RM) $(INCDIR)/wglew.h

@@ -5,7 +5,7 @@ Last-Update: 2020-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1,35 +1,58 @@
+@@ -1,35 +1,59 @@
 +AC_PREREQ([2.69])
  AC_INIT([dirty_garden], [1.0.0], [trilkk@iki.fi])
  
@@ -55,8 +55,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +AC_ADD_LIB([-ldl])
 +
 +# Checks for library functions.
-+AC_FUNC_MALLOC
-+AC_FUNC_REALLOC
++#AC_FUNC_MALLOC
++#AC_FUNC_REALLOC
++AC_CHECK_DECLS([malloc, realloc, calloc, free])
 +AC_CHECK_FUNCS([strerror])
  
  AC_CONFIG_FILES([Makefile src/Makefile])

@@ -1,0 +1,19 @@
+Source: common-install-function-ddebs
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+
+Package: common-install-function-ddebs
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ unzip,
+ fuseiso,
+ ${misc:Depends},
+ mesa-utils
+Description: commons bash function used in demos debs package
+ This package provide a file with the basics functions
+ used by the script in installer made by Nicolas HOUDELOT

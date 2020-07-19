@@ -86,14 +86,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  private:
 --- a/Makefile
 +++ b/Makefile
-@@ -34,8 +34,8 @@
+@@ -35,8 +35,8 @@
  
  #linux Makefile setup
  ifeq ($(PLATFORM), LINUX)
--	LDFLAGS += -L/usr/lib/  -I./ $(shell pkg-config glu sdl fmodex --libs)
--	CFLAGS +=$(shell pkg-config glu sdl fmodex --cflags) -fpermissive
-+	LDFLAGS += -L/usr/lib/  -I./ $(shell pkg-config glu sdl2 fmodex --libs)
-+	CFLAGS +=$(shell pkg-config glu sdl2 fmodex --cflags) -fpermissive
+-	LDFLAGS += -L/usr/lib/  -I./ $(shell $(PKG_CONFIG) glu sdl fmodex --libs)
+-	CFLAGS +=$(shell $(PKG_CONFIG) glu sdl fmodex --cflags) -fpermissive
++	LDFLAGS += -L/usr/lib/  -I./ $(shell $(PKG_CONFIG) glu sdl2 fmodex --libs)
++	CFLAGS +=$(shell $(PKG_CONFIG) glu sdl2 fmodex --cflags) -fpermissive
  endif
  
  .PHONY: all all-before all-after clean clean-custom

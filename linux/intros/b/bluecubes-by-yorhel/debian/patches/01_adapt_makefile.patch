@@ -6,12 +6,13 @@ Last-Update: 2020-04-27
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,34 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell pkg-config glu sdl sdl --cflags)
-+LDFLAGS  += $(shell pkg-config glu sdl sdl --libs) -lm -pipe
++PKG_CONFIG:=pkg-config
++CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell $(PKG_CONFIG) glu sdl sdl --cflags)
++LDFLAGS  += $(shell $(PKG_CONFIG) glu sdl sdl --libs) -lm -pipe
 +#variable de nettoyage
 +RM_F := rm -f
 +#variables d'instalation

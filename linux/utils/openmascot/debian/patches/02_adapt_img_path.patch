@@ -1,0 +1,11 @@
+--- a/src/mascot.cpp
++++ b/src/mascot.cpp
+@@ -20,7 +20,7 @@
+ 	// Image loading
+ 	sf::Image newImg;
+ 	sf::Texture newFrame;
+-	std::string spritesImg[] = {"img/shime1.png"};
++	std::string spritesImg[] = {"/usr/share/openmascot/img/shime1.png"};
+ 
+ 	for (int i(0); i<std::size(spritesImg);i++){
+ 		// Load and store all images defined by spritesImg[]

@@ -6,28 +6,29 @@ Last-Update: 2020-04-19
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -12,8 +12,9 @@
+@@ -12,8 +12,10 @@
  endif
  
  CITO = cito
 -CC = gcc 
 -CFLAGS = -O2 -Wall
-+CC = gcc
++CC := gcc
++PKG_CONFIG := pkg-config
 +CFLAGS += -Wall -pipe
 +LDFLAGS +=
  INSTALL = install
  INSTALL_PROGRAM = $(INSTALL)
  INSTALL_DATA = $(INSTALL) -m 644
-@@ -21,7 +22,7 @@
+@@ -21,7 +23,7 @@
  all: recoil2png $(if $(CAN_INSTALL_MAGICK),imagemagick/recoil.so) recoil-mime.xml
  
  recoil2png: recoil2png.c pngsave.c pngsave.h recoil-stdio.c recoil-stdio.h recoil.c recoil.h
 -	$(CC) $(CFLAGS) recoil2png.c pngsave.c recoil-stdio.c recoil.c -lpng -lz -o $@
-+	$(CC) $(CFLAGS) recoil2png.c pngsave.c recoil-stdio.c recoil.c -o $@ $(shell pkgconf libpng --libs) $(LDFLAGS)
++	$(CC) $(CFLAGS) recoil2png.c pngsave.c recoil-stdio.c recoil.c -o $@ $(shell $(PKG_CONFIG) --libs libpng) $(LDFLAGS)
  
  ifdef CAN_INSTALL_MAGICK
  imagemagick/recoil.so: imagemagick/recoilmagick.c recoil.c recoil.h formats.h
-@@ -43,7 +44,7 @@
+@@ -43,7 +45,7 @@
  	$(CITO) -o $*.c $<
  
  benchmark: benchmark.c recoil-stdio.c recoil-stdio.h recoil.c recoil.h

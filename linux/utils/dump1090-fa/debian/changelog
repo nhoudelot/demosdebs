@@ -1,3 +1,9 @@
+dump1090-fa (3.7.2-0ddebs3) unstable; urgency=medium
+
+  * adapted to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Jul 2020 12:57:45 +0200
+
 dump1090-fa (3.7.2-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

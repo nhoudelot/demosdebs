@@ -32,12 +32,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	$(RM) *.o *~
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,33 @@
 +#variables de compilation
 +SHELL = /bin/sh
-+CXX   = g++
-+CXXFLAGS += -std=gnu++98 -fabi-version=2 -Wall -pipe $(shell pkgconf --cflags sdl glu)
-+LDFLAGS  += $(shell pkg-config --libs sdl glu) -lm
++CXX   := g++
++PKG_CONFIG := pkg-config
++CXXFLAGS += -std=gnu++98 -fabi-version=2 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
 +TARGET   := bugymetaballs-by-lordcow
 +#variable de nettoyage
 +RM_F := rm -f

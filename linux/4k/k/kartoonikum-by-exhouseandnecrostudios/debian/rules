@@ -1,5 +1,10 @@
 #!/usr/bin/make -f
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
+
+ifeq "$(DEB_HOST_GNU_CPU)" "i386" 
+    export DEB_CFLAGS_MAINT_APPEND  = -DX86_ASM
+endif
 
 %:
 	dh $@

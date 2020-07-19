@@ -1,0 +1,19 @@
+Source: mame-xbox360ctrl
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ pandoc
+Standards-Version: 4.5.0
+Homepage: http://example.com/no-uri-given
+
+Package: mame-xbox360ctrl
+Architecture: all
+Depends:
+ ${misc:Depends},
+ mame(>=0.177),
+ common-install-mameshader-config(>=1.2)
+Description: mame ctrl file for Xbox 360 controller
+ ctrl file for Xbox 360 controller
+ configure for arcade and some consoles

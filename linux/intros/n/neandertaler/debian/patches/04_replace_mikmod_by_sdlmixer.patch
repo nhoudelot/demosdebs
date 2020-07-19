@@ -76,13 +76,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
 --- a/Makefile
 +++ b/Makefile
-@@ -47,7 +47,8 @@
+@@ -48,7 +48,8 @@
  # If sound enabled
  ifeq ($(SOUND),YES)
  DEF += -DSOUND
 -LDFLAGS += -lmikmod
-+LDFLAGS += $(shell pkg-config SDL2_mixer --libs)
-+CXXFLAGS += $(shell pkg-config SDL2_mixer --cflags)
++LDFLAGS += $(shell $(PKG_CONFIG) SDL2_mixer --libs)
++CXXFLAGS += $(shell $(PKG_CONFIG) SDL2_mixer --cflags)
  endif
  
  # If old GLUT version

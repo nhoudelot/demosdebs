@@ -14,7 +14,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  PLATFORM = $(shell uname)
  ifeq ($(PLATFORM),Linux)
  PLATFORM = LINUX
-@@ -12,9 +13,9 @@
+@@ -12,20 +13,21 @@
  PLATFORM = WIN32
  endif
  
@@ -26,8 +26,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +WINDOW_HEIGHT = 720
  
  #compiler we're using
- CC = gcc
-@@ -23,9 +24,9 @@
+-CC = gcc
+-CXX = g++
++CC := gcc
++CXX := g++
++PKG_CONFIG:=pkg-config
+ 
  #sourcefiles in use
  OBJ = changer.o filter.o font.o hermitecurve.o line.o lista.o main.o matikka.o matrix.o molekyylidata.o object3d.o path.o primitives.o sound.o stuff.o sync.o tausta.o texture.o timer.o vector.o win32.o alku.o aukko.o kasvu.o kaupunki.o kellu.o molekyyli.o neuronit.o perhonen.o pyorre.o rakenne.o rata.o runko.o ruutu.o viivatus.o virta.o
  
@@ -40,7 +44,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  ifeq ($(FULLSCREEN),TRUE)
  CFLAGS += -DFULLSCREEN
-@@ -33,27 +34,8 @@
+@@ -33,27 +35,8 @@
  
  #linux Makefile setup
  ifeq ($(PLATFORM), LINUX)
@@ -65,12 +69,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -LDFLAGS += `sdl-config --static-libs` ./libfmodex.dylib
 -CXX = g++-3.3
 -CC = gcc-3.3
-+LDFLAGS += -L/usr/lib/ -I./ $(shell pkg-config glu sdl fmodex --libs)
-+CFLAGS += $(shell pkg-config glu sdl fmodex --cflags) -fpermissive -std=gnu++98
++LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) glu sdl fmodex --libs)
++CFLAGS += $(shell $(PKG_CONFIG) glu sdl fmodex --cflags) -fpermissive -std=gnu++98
  endif
  
  .PHONY: all all-before all-after clean clean-custom
-@@ -63,6 +45,27 @@
+@@ -63,6 +46,27 @@
  CP = cp -R
  MKDIR = mkdir
  
@@ -98,7 +102,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  clean:
  	 $(RM) $(OBJ) $(TARGET)
  
-@@ -77,3 +80,10 @@
+@@ -77,3 +81,10 @@
  
  $(TARGET): $(OBJ)
  	$(CXX) -o $@ $(OBJ) $(LDFLAGS)

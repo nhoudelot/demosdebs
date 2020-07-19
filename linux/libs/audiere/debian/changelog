@@ -1,3 +1,9 @@
+audiere (1.10.1-0ddebs6) unstable; urgency=medium
+
+  * compiled wirh FLAC & pulseaudio support
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Jul 2020 18:28:06 +0200
+
 audiere (1.10.1-0ddebs5) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

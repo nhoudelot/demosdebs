@@ -6,25 +6,25 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -2,7 +2,7 @@
- SHELL := /bin/sh
+@@ -3,7 +3,7 @@
  CC	:= gcc
+ PKG_CONFIG:=pkg-config
  
--CFLAGS	+= -Wall -pipe -I/usr/include $(shell sdl-config --cflags)
-+CFLAGS	+= -Wall -pipe -I/usr/include $(shell sdl2-config --cflags)
+-CFLAGS	+= -Wall -pipe -I/usr/include $(shell $(PKG_CONFIG) sdl vorbisfile --cflags)
++CFLAGS	+= -Wall -pipe -I/usr/include $(shell $(PKG_CONFIG) sdl2 vorbisfile --cflags)
  CFLAGS2	+= -fpeephole2 -fexpensive-optimizations
  LDFLAGS +=
  
-@@ -26,10 +26,10 @@
+@@ -27,10 +27,10 @@
  	-@$(RM_F) $(TARGET)
  
  main: attract.o convolve.o filter.o input.o interpolate.o im.o list.o main.o pnm.o script.o util.o xmalloc.o tuherrus.o suodatin.o
--	$(CC) -o $(TARGET) $^ $(LDFLAGS) $(shell sdl-config --libs) -lvorbisfile -lm
-+	$(CC) -o $(TARGET) $^ $(LDFLAGS) $(shell sdl2-config --libs) -lvorbisfile -lm
+-	$(CC) -o $(TARGET) $^ $(LDFLAGS) $(shell $(PKG_CONFIG) sdl vorbisfile --libs ) -lm
++	$(CC) -o $(TARGET) $^ $(LDFLAGS) $(shell $(PKG_CONFIG) sdl2 vorbisfile --libs ) -lm
  
  editor: convolve.o editor.o filter.o input.o interpolate.o im.o list.o pnm.o script.o util.o xmalloc.o
--	$(CC) -o $@ $^ $(LDFLAGS) $(shell sdl-config --libs)
-+	$(CC) -o $@ $^ $(LDFLAGS) $(shell sdl2-config --libs)
+-	$(CC) -o $@ $^ $(LDFLAGS) $(shell $(PKG_CONFIG) sdl --libs)
++	$(CC) -o $@ $^ $(LDFLAGS) $(shell $(PKG_CONFIG) sdl2 --libs)
  
  script-buildbg: script-buildbg.c
  	$(CC) $(CFLAGS) -o $@ $^ -lm

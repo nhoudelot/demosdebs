@@ -91,14 +91,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -
 --- a/Makefile
 +++ b/Makefile
-@@ -1,8 +1,8 @@
- #variables de compilation
+@@ -2,8 +2,8 @@
  SHELL := /bin/sh
  CC    := gcc
--CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell pkg-config glu sdl sdl --cflags)
--LDFLAGS  += $(shell pkg-config glu sdl sdl --libs) -lm -pipe
-+CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell pkg-config glu sdl2 --cflags)
-+LDFLAGS  += $(shell pkg-config glu sdl2 --libs) -lm -pipe
+ PKG_CONFIG:=pkg-config
+-CFLAGS   += -Wall -pipe -std=c99 -pipe -pedantic $(shell $(PKG_CONFIG) glu sdl sdl --cflags)
+-LDFLAGS  += $(shell $(PKG_CONFIG) glu sdl sdl --libs) -lm -pipe
++CFLAGS   += -Wall -pipe -std=c99 -pedantic $(shell $(PKG_CONFIG) glu sdl2 --cflags)
++LDFLAGS  += $(shell $(PKG_CONFIG) glu sdl2 --libs) -lm -pipe
  #variable de nettoyage
  RM_F := rm -f
  #variables d'instalation

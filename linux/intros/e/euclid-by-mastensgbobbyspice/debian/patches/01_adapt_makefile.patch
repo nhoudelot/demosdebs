@@ -49,7 +49,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +AC_TYPE_UINT8_T
 +
 +# Checks for library functions.
-+AC_FUNC_MALLOC
++AC_CHECK_DECLS([malloc])
 +AC_CHECK_FUNCS([gettimeofday memset pow putenv strerror])
 +
 +AC_CONFIG_FILES([Makefile])

@@ -6,28 +6,19 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -2,10 +2,10 @@
- SHELL = /bin/sh
- MAKE = make
- CC = gcc
--CFLAGS += -Wall $(shell sdl-config --cflags) -DNOAMIKA -DBLKSIZE=4096 -std=gnu90 -pipe
-+CFLAGS += -Wall $(shell sdl2-config --cflags) -DNOAMIKA -DBLKSIZE=4096 -std=gnu90 -pipe
+@@ -3,10 +3,10 @@
+ MAKE := make
+ CC := gcc
+ PKG_CONFIG:=pkg-config
+-CFLAGS += -Wall $(shell $(PKG_CONFIG) --cflags sdl) -DNOAMIKA -DBLKSIZE=4096 -std=gnu90 -pipe
++CFLAGS += -Wall $(shell $(PKG_CONFIG) --cflags sdl2) -DNOAMIKA -DBLKSIZE=4096 -std=gnu90 -pipe
  #-DLSB
  # Do define LSB on little endian systems
--LDFLAGS += $(shell sdl-config --libs) -lm
-+LDFLAGS += $(shell sdl2-config --libs) -lm
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl) -lm
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2) -lm
  
  TARGET   := stercusaccidit-by-fit
  #variable de nettoyage
-@@ -33,7 +33,7 @@
- OBJ=main.o data/data.a noise.o halftone.o cgm.o cgm_soft.o wurms.o maf.o render.o writer.o sade.o
- 
- $(TARGET): $(OBJ) cool_mzx/cool_mzx.a
--	$(CC) -flto -o $@ $(OBJ) data/data.a cool_mzx/cool_mzx.a $(LDFLAGS)
-+	$(CC) -o $@ $(OBJ) data/data.a cool_mzx/cool_mzx.a $(LDFLAGS)
- 
- cool_mzx/cool_mzx.a:
- 	cd cool_mzx && $(MAKE)
 --- a/cool_mzx/Makefile
 +++ b/cool_mzx/Makefile
 @@ -3,7 +3,7 @@

@@ -1,0 +1,3 @@
+version=3
+http://sf.net/openjpeg.mirror/openjpeg-([\d\.]+)\.tar\.gz \
+debian debian/orig-tar.sh

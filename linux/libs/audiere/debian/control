@@ -7,8 +7,10 @@ Build-Depends:
  libvorbis-dev,
  libdumb1-dev,
  libcdaudio-dev,
+ libflac-dev,
  libspeex-dev,
  libasound2-dev,
+ libpulse-dev,
  pkg-config
 Homepage: https://github.com/expertmm/Audiere
 Standards-Version: 4.5.0

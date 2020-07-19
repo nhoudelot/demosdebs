@@ -1,3 +1,9 @@
+bluecubes-by-yorhel (1.0+1-0ddebs5) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 02 Aug 2020 00:29:07 +0200
+
 bluecubes-by-yorhel (1.0+1-0ddebs4) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

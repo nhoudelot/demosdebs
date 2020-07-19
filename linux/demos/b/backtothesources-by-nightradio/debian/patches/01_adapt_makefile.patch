@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ## ------------------------------------------ ##
  
 -CFLAGS = -O3 -s
-+CFLAGS += -O3 -Wall -pipe -fpermissive $(shell pkg-config x11 gl xext --cflags) -std=gnu++98 -fabi-version=2
++CFLAGS +=  -Wall -pipe -fpermissive $(shell $(PKG_CONFIG) x11 gl xext --cflags)
  #CFLAGS = -g
  
  ifeq ($(MAKECMDGOALS),palm)
@@ -30,21 +30,149 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      #(remove -lrt on FreeBSD and Cygwin)
      # X11 (OpenGL) libs:
 -    LIBS = -L/usr/X11R6/lib -lpthread -lrt -lstdc++ -lX11 -lGL -lXext -lasound
-+    LIBS = -L/usr/X11R6/lib -pthread -lrt -lstdc++ $(shell pkg-config x11 gl xext --libs) -lasound -lm
++    LIBS = -L/usr/X11R6/lib -pthread -lrt -lstdc++ $(shell $(PKG_CONFIG) x11 gl xext --libs) -lasound -lm
      # X11 libs:
      #LIBS = -L/usr/X11R6/lib -lpthread -lrt -lstdc++ -lX11 -lasound
      # SDL:
+@@ -70,7 +71,7 @@
+ ## ------------------------------------------ ##
+ 
+ user_code.o: ../main/user_code.cpp $(STD_INCS)
+-	$(CC) $(DEFINES) -c ../main/user_code.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c ../main/user_code.cpp
+ 
+ jpg.o: ../main/lib_jpg/jpg.cpp $(STD_INCS)
+-	$(CC) $(DEFINES) -c ../main/lib_jpg/jpg.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c ../main/lib_jpg/jpg.cpp
 --- a/sundog_engine/various/sundog_makefile.inc
 +++ b/sundog_engine/various/sundog_makefile.inc
-@@ -21,6 +21,7 @@
- 	-DARCH_X86 \
- 	-DLINUX
+@@ -15,12 +15,12 @@
+ 	-DPALMOS
+ endif
+ ifeq ($(MAKECMDGOALS),linux)
+-    CC = gcc $(CFLAGS) -Wno-multichar -malign-double
+-    CXX = gcc $(CFLAGS) -Wno-multichar -malign-double
+-    TARGET_DEFINES = \
+-	-DARCH_X86 \
+-	-DLINUX
++	PKG_CONFIG:=pkg-config
++	CFLAGS +=  -Wno-multichar
++    CC := gcc
++    CXX = $(CC)
  endif
 +RM_F := rm -f
  ifeq ($(MAKECMDGOALS),win32)
      CC = i686-pc-mingw32-gcc $(CFLAGS) -fno-exceptions -Wno-multichar -malign-double
      CXX = i686-pc-mingw32-gcc $(CFLAGS) -fno-exceptions -Wno-multichar -malign-double
-@@ -240,4 +241,4 @@
+@@ -132,12 +132,12 @@
+ 
+ .SECONDEXPANSION:
+ linux: $$(OBJECTS)
+-	$(CC) $(LDFLAGS) -o $(APPNAME) $(OBJECTS) $(LIBS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $(APPNAME) $(OBJECTS) $(LIBS)
+ 
+ .SECONDEXPANSION:
+ palm: $$(OBJECTS)
+ #Link main code ( with special ARM script - armscript.ld ) :
+-	$(CC) $(DEFINES) -o main_palm.o $(OBJECTS) -Xlinker --script=$(SUNDOG)various/palmos/armscript.ld
++	$(CC) $(CFLAGS) $(DEFINES) -o main_palm.o $(OBJECTS) -Xlinker --script=$(SUNDOG)various/palmos/armscript.ld
+ #Create BIN files from the program_palm.o :
+ 	arm-elf-objcopy -j .text -O binary main_palm.o armcode
+ 	split -b 64000 armcode armc
+@@ -164,80 +164,80 @@
+ 	m68k-palmos-obj-res arm_starter.o
+ 	build-prc -v 1.0 resources/palmos_info.def -o $(APPNAME).prc *.grc *.bin
+ palm_functions.o: $(ARM_PALM_FILES) 
+-	$(CC) $(DEFINES) -c $(SUNDOG)various/palmos/palm_functions.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNDOG)various/palmos/palm_functions.cpp
+ 
+ .SECONDEXPANSION:
+ win32: $$(OBJECTS)
+ ifneq ($(SUNDOG_NOWINDOWS),true)
+ 	i686-pc-mingw32-windres resources/win_res.rc win_res.o
+-	$(CC) $(LDFLAGS) -mwindows -o $(APPNAME).exe $(OBJECTS) win_res.o $(LIBS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -mwindows -o $(APPNAME).exe $(OBJECTS) win_res.o $(LIBS)
+ else
+-	$(CC) $(LDFLAGS) -o $(APPNAME).exe $(OBJECTS) $(LIBS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $(APPNAME).exe $(OBJECTS) $(LIBS)
+ endif
+ 
+ .SECONDEXPANSION:
+ wince: $$(OBJECTS)
+ 	arm-wince-mingw32ce-windres resources/win_res.rc win_res.o
+-	$(CC) $(LDFLAGS) -o $(APPNAME).exe $(OBJECTS) win_res.o $(LIBS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $(APPNAME).exe $(OBJECTS) win_res.o $(LIBS)
+ 
+ ## ------------------------------------------ ##
+ ## SunDog engine rules: (main)                ##
+ ## ------------------------------------------ ##
+ 
+ main.o: $(CMAIN)main.cpp $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(CMAIN)main.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CMAIN)main.cpp
+ 
+ ## ------------------------------------------ ##
+ ## SunDog engine rules: (sound manager)       ##
+ ## ------------------------------------------ ##
+ 
+ sound_player.o: $(CSOUND)sound_player.cpp $(SOUND)sound.h $(SOUND_INCS)
+-	$(CC) $(DEFINES) -c $(CSOUND)sound_player.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CSOUND)sound_player.cpp
+ 
+ sound_sndout.o: $(CSOUND)sound_sndout.cpp $(SOUND)sound.h $(SOUND_INCS)
+-	$(CC) $(DEFINES) -c $(CSOUND)sound_sndout.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CSOUND)sound_sndout.cpp
+ 
+ ## ------------------------------------------ ##
+ ## SunDog engine rules: (...)                 ##
+ ## ------------------------------------------ ##
+ 
+ timemanager.o: $(CTM)timemanager.cpp $(TM)timemanager.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(CTM)timemanager.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CTM)timemanager.cpp
+ 
+ v3nus_fs.o: $(CFS)v3nus_fs.cpp $(FS)v3nus_fs.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(CFS)v3nus_fs.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CFS)v3nus_fs.cpp
+ 
+ utils.o: $(CUTILS)utils.cpp $(UTILS)utils.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(CUTILS)utils.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CUTILS)utils.cpp
+ 
+ debug.o: $(CCORE)debug.cpp
+-	$(CC) $(DEFINES) -c $(CCORE)debug.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CCORE)debug.cpp
+ 
+ memory.o: $(CMEM)memory.cpp $(MEM)memory.h $(CORE)core.h
+-	$(CC) $(DEFINES) -c $(CMEM)memory.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CMEM)memory.cpp
+ 
+ ## ------------------------------------------ ##
+ ## SunDog engine rules: (window manager)      ##
+ ## ------------------------------------------ ##
+ 
+ wmanager.o: $(CWM)wmanager.cpp $(WM_INCS) $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(CWM)wmanager.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CWM)wmanager.cpp
+ 
+ image.o: $(CWM)image.cpp $(WM_INCS) $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(CWM)image.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CWM)image.cpp
+ 
+ wbd.o: $(CWM)wbd.cpp $(WM_INCS) $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(CWM)wbd.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CWM)wbd.cpp
+ 
+ handlers.o: $(CWM)handlers.cpp $(WM_INCS) $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(CWM)handlers.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(CWM)handlers.cpp
+ 
+ devrgn.o: $(WM)regions/devrgn.cpp $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(WM)regions/devrgn.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(WM)regions/devrgn.cpp
+ 
+ ## ------------------------------------------ ##
+ ##                                            ##
  ## ------------------------------------------ ##
  
  clean:
@@ -52,9 +180,71 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	-$(RM_F) *.o *.grc *.bin
 --- a/sunvox_engine/sunvox_makefile.inc
 +++ b/sunvox_engine/sunvox_makefile.inc
-@@ -65,3 +65,5 @@
+@@ -19,49 +19,51 @@
+     psynths_vocal_filter.o
+ 
+ sunvox_engine.o: $(SUNVOX)sunvox_engine.cpp $(SUNVOX)sunvox_engine.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)sunvox_engine.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)sunvox_engine.cpp
+ 
+ psynth_net.o: $(SUNVOX)psynth/psynth_net.cpp $(SUNVOX)psynth/psynth_net.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynth_net.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynth_net.cpp
+ 
+ psynths_echo.o: $(SUNVOX)psynth/psynths_echo.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_echo.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_echo.cpp
+ 
+ psynths_flanger.o: $(SUNVOX)psynth/psynths_flanger.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_flanger.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_flanger.cpp
+ 
+ psynths_filter.o: $(SUNVOX)psynth/psynths_filter.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_filter.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_filter.cpp
+ 
+ psynths_generator.o: $(SUNVOX)psynth/psynths_generator.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_generator.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_generator.cpp
+ 
+ psynths_spectravoice.o: $(SUNVOX)psynth/psynths_spectravoice.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_spectravoice.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_spectravoice.cpp
+ 
+ psynths_kicker.o: $(SUNVOX)psynth/psynths_kicker.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_kicker.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_kicker.cpp
+ 
+ psynths_sampler.o: $(SUNVOX)psynth/psynths_sampler.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_sampler.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_sampler.cpp
+ 
+ psynths_distortion.o: $(SUNVOX)psynth/psynths_distortion.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_distortion.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_distortion.cpp
+ 
+ psynths_loop.o: $(SUNVOX)psynth/psynths_loop.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_loop.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_loop.cpp
+ 
+ psynths_delay.o: $(SUNVOX)psynth/psynths_delay.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_delay.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_delay.cpp
+ 
+ psynths_fm.o: $(SUNVOX)psynth/psynths_fm.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_fm.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_fm.cpp
+ 
+ psynths_lfo.o: $(SUNVOX)psynth/psynths_lfo.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_lfo.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_lfo.cpp
+ 
+ psynths_reverb.o: $(SUNVOX)psynth/psynths_reverb.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_reverb.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_reverb.cpp
  
  psynths_vocal_filter.o: $(SUNVOX)psynth/psynths_vocal_filter.cpp $(SUNVOX)psynth/psynth.h $(STD_INCS)
- 	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_vocal_filter.cpp
+-	$(CC) $(DEFINES) -c $(SUNVOX)psynth/psynths_vocal_filter.cpp
++	$(CC) $(CFLAGS) $(DEFINES) -c $(SUNVOX)psynth/psynths_vocal_filter.cpp
 +
 +clean:

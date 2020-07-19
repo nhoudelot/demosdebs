@@ -6,12 +6,13 @@ Last-Update: 2020-04-25
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,33 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS   += -std=c99 -Wall -pipe $(shell pkg-config --cflags sdl glu)
-+LDFLAGS  += $(shell pkg-config --libs sdl glu) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
 +TARGET   := shadowsun-by-tonic
 +#variable de nettoyage
 +RM_F := rm -f

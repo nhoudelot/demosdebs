@@ -6,7 +6,7 @@ Last-Update: 2020-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,28 +1,44 @@
+@@ -1,28 +1,45 @@
  # Derivations by zipola
  # Compiles and links the executable.
 -CC = gcc
@@ -18,8 +18,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -LDFLAGS = -dynamic-linker /lib/ld-linux.so.2
 -LDLIBS = /usr/lib/libSDL.so /usr/lib/libGL.so
 -TARGET = derivations
-+CFLAGS += -Wall -std=gnu90 -pipe $(shell pkgconf --cflags sdl gl )
-+LDFLAGS += $(shell pkgconf --libs sdl gl ) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl gl )
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl ) -lm
 +TARGET := derivations-by-zipola
 +
 +#variables d’installation
@@ -68,7 +69,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  derivations.o: derivations.c
  	$(CC) $(CFLAGS) -c $<
-@@ -47,3 +63,9 @@
+@@ -47,3 +64,9 @@
  
  clean:
  	$(RM) *.o *~

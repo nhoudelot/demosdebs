@@ -6,16 +6,19 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,23 +1,57 @@
+@@ -1,23 +1,58 @@
+-MAKE = make
+-CC = gcc
 +#variables de compilation
 +SHELL = /bin/sh
- MAKE = make
- CC = gcc
++MAKE := make
++CC := gcc
++PKG_CONFIG:=pkg-config
  
  # Change BUFSIZE for crappy systems that need a large audio buffer
 -CFLAGS = -O2 -ffast-math `sdl-config --cflags` -DNOAMIKA -DBUFSIZE=2048
-+CFLAGS += -Wall $(shell sdl-config --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
-+LDFLAGS += $(shell sdl-config --libs) -lm
++CFLAGS += -Wall $(shell  $(PKG_CONFIG) sdl --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
++LDFLAGS += $(shell $(PKG_CONFIG) sdl --libs) -lm
 +TARGET   = hexpistols-by-fit
 +#variable de nettoyage
 +RM_F = rm -f
@@ -52,7 +55,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	$(CC) -o $@ $(OBJ) cool_mzx/cool_mzx.a $(LDFLAGS)
  
  cool_mzx/cool_mzx.a:
- 	cd cool_mzx && $(MAKE)
+-	cd cool_mzx && $(MAKE)
++	cd cool_mzx && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
  
  %.o: %.c $(INC)
  	$(CC) $(CFLAGS) -c $<

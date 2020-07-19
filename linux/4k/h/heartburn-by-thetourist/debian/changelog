@@ -1,3 +1,9 @@
+heartburn-by-thetourist (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 29 Jul 2020 18:36:01 +0200
+
 heartburn-by-thetourist (1.0+1-0ddebs3) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

@@ -1,3 +1,9 @@
+dunelegacy (0.96.4-0ddebs7) unstable; urgency=medium
+
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 14 Apr 2020 21:32:30 +0200
+
 dunelegacy (0.96.4-0ddebs6) unstable; urgency=medium
 
   * debian/rules : use flto

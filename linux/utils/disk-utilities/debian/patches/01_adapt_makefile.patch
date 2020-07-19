@@ -6,7 +6,7 @@ Last-Update: 2020-04-18
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Rules.mk
 +++ b/Rules.mk
-@@ -15,10 +15,10 @@
+@@ -15,27 +15,29 @@
  PLATFORM = linux
  endif
  
@@ -18,8 +18,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +LIBDIR = $(PREFIX)/lib/$(DEB_HOST_MULTIARCH)
  
  $(ARCH) := y
- CFLAGS-$(x86_32) += -m32 -march=i686
-@@ -29,13 +29,15 @@
+-CFLAGS-$(x86_32) += -m32 -march=i686
+-CFLAGS-$(x86_64) += -m64
++#CFLAGS-$(x86_32) += -m32 -march=i686
++#CFLAGS-$(x86_64) += -m64
+ 
+ INSTALL      = install
+ INSTALL_DIR  = $(INSTALL) -d -m0755 -p
  INSTALL_DATA = $(INSTALL) -m0644 -p
  INSTALL_PROG = $(INSTALL) -m0755 -p
  
@@ -38,7 +43,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifneq ($(PLATFORM),win32)
 --- a/libdisk/Makefile
 +++ b/libdisk/Makefile
-@@ -22,7 +22,7 @@
+@@ -8,6 +8,8 @@
+ MAJOR_VERSION := 0
+ MINOR_VERSION := 0
+ 
++CC := $(DEB_HOST_GNU_TYPE)-gcc
++
+ # base name of the shared library name
+ SOLIB_PFX := libdisk
+ 
+@@ -22,7 +24,7 @@
  SOLIB   := $(SOLIB_PFX).so
  SONAME  := $(SOLIB_PFX).so.$(MAJOR_VERSION)
  SOVERS  := $(SOLIB_PFX).so.$(MAJOR_VERSION).$(MINOR_VERSION)
@@ -47,7 +61,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  endif
  
  ifeq ($(PLATFORM),win32)
-@@ -50,11 +50,11 @@
+@@ -50,11 +52,11 @@
  endif
  
  libdisk.a: $(OBJS) stream/streams.o container/containers.o format/formats.o

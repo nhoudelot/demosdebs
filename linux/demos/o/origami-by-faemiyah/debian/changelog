@@ -1,3 +1,9 @@
+origami-by-faemiyah (1.0-0ddebs12) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 07 Aug 2020 15:26:55 +0200
+
 origami-by-faemiyah (1.0-0ddebs11) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

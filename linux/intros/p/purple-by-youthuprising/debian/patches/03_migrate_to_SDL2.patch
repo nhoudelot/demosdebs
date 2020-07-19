@@ -6,15 +6,18 @@ Last-Update: 2020-04-27
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -7,7 +7,7 @@
+@@ -8,9 +8,9 @@
  RES  =
  OBJ = main.o general.o Audio/sound.o Effects/iterator.o Effects/filler.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/start.o  Effects/tunnel.o Effects/cred.o $(RES)
  LINKOBJ  = main.o general.o Audio/sound.o Effects/iterator.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/filler.o Effects/start.o Effects/tunnel.o Effects/cred.o $(RES)
--LDFLAGS += $(shell pkg-config --libs sdl gl glu x11) -LAudio -lfmodex
-+LDFLAGS += $(shell pkg-config --libs sdl2 gl glu x11) -LAudio -lfmodex
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl glu x11) -LAudio -lfmodex
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl glu x11) -LAudio -lfmodex
  
- CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD
+-CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD $(shell $(PKG_CONFIG) --cflags sdl gl glu x11)
++CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD $(shell $(PKG_CONFIG) --cflags sdl2 gl glu x11)
  CFLAGS = $(INCS)
+ RM = rm -f
+ TARGET   := purple-by-youthuprising
 --- a/general.h
 +++ b/general.h
 @@ -12,12 +12,11 @@

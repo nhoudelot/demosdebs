@@ -6,23 +6,29 @@ Last-Update: 2020-04-30
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -3,17 +3,33 @@
+@@ -3,17 +3,35 @@
  ARCH =
  
  # If SDL is installed with some exceptional path or prefix
 -SDLPREFIX = 
 +SDLPREFIX =
  
- CC = gcc
+-CC = gcc
 -CFLAGS = -O2 -fomit-frame-pointer -Wall -ffast-math -std=c99 \
-+CFLAGS += -Wall -pipe -std=c99 \
-  -fno-strict-aliasing `$(SDLPREFIX)sdl-config --cflags` -DBLKSIZE=4096 \
+- -fno-strict-aliasing `$(SDLPREFIX)sdl-config --cflags` -DBLKSIZE=4096 \
 - -DDOUBLEPIX
 -LDFLAGS = `$(SDLPREFIX)sdl-config --libs` -lpng -lz -lm
+-RANLIB = ranlib
+-AR = ar
++CC := gcc
++PKG_CONFIG:=pkg-config
++CFLAGS += -Wall -pipe -std=c99 \
++ -fno-strict-aliasing $(shell $(PKG_CONFIG) --cflags sdl) -DBLKSIZE=4096 \
 + -DDOUBLEPIX -DDATADIR=\"/usr/share/onceuponatimeintheeast-by-fit/data/\" $(shell pkg-config libpng --cflags)
-+LDFLAGS += `$(SDLPREFIX)sdl-config --libs` $(shell pkg-config libpng --libs) -lz -lm
- RANLIB = ranlib
- AR = ar
++LDFLAGS += $(shell $(PKG_CONFIG) sdl libpng --libs) -lz -lm
++RANLIB := ranlib
++AR := ar
++MAKE := make
 +#variables d’installation
 +INSTALL := install
 +INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
@@ -45,13 +51,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  OBJ = main.o halftone.o render.o noise.o png_wrap.o partikle.o putpix.o \
        heart.o overlay.o feissi.o rects.o cool_mzx/cool_mzx.a
  
-@@ -91,5 +107,13 @@
- 	cd cool_mzx && make
+@@ -88,8 +106,16 @@
+ 	mv $< $@
+ 
+ cool_mzx/cool_mzx.a:
+-	cd cool_mzx && make
++	cd cool_mzx && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
  
  clean:
 -	-rm $(TARGET) *.o *~ *.gpe
+-	cd cool_mzx && make clean
 +	-@$(RM_F) $(TARGET) *.o *~ *.gpe
- 	cd cool_mzx && make clean
++	cd cool_mzx && $(MAKE) clean
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

@@ -6,7 +6,7 @@ Last-Update: 2020-04-27
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,77 +1,91 @@
+@@ -1,77 +1,92 @@
 -#Ante Dominum by Traction
 -PLATFORM = $(shell uname)
 -ifeq ($(PLATFORM),Linux)
@@ -102,8 +102,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +WINDOW_HEIGHT = 600
 +
 +#compiler we're using
-+CC = gcc
-+CXX = g++
++CC := gcc
++CXX := g++
++PKG_CONFIG := pkg-config
 +
 +OBJ = changer.o filter.o hermitecurve.o lista.o matrix.o path.o stuff.o texture.o win32.o complex.o floater.o liikkuva.o main.o molekyylidata.o primitives.o sync.o timer.o config.o font.o line.o matikka.o object3d.o sound.o tausta.o vector.o alku.o curves.o field.o newton.o rossler.o cell.o dla.o iterator.o platon.o runko.o converge.o fibotree.o lorentz.o pot2d.o
 +
@@ -121,8 +122,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +endif
 +
 +ifeq ($(PLATFORM), LINUX)
-+	LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf --libs glu sdl fmodex)
-+	CFLAGS += $(shell pkgconf --cflags glu sdl fmodex)
++	LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) --libs glu sdl fmodex)
++	CFLAGS += $(shell $(PKG_CONFIG) --cflags glu sdl fmodex)
 +endif
 +
 +#variables d'instalation

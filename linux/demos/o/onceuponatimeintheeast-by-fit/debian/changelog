@@ -1,3 +1,9 @@
+onceuponatimeintheeast-by-fit (1.0+1-0ddebs7) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 06 Aug 2020 17:42:00 +0200
+
 onceuponatimeintheeast-by-fit (1.0+1-0ddebs6) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

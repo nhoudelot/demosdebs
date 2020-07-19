@@ -6,7 +6,7 @@ Last-Update: 2020-04-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,16 +1,31 @@
+@@ -1,16 +1,32 @@
 -CC = gcc
 -CFLAGS = -Wall -W -pedantic `sdl-config --cflags` -march=i386 -Os
 -CLIBS = -L/usr/X11R6/lib -lGL `sdl-config --libs` -lm -lSDL_mixer
@@ -17,8 +17,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#variables de compilation
 +SHELL := /bin/sh
 +CC := gcc
-+CFLAGS += -Wall -pipe -pedantic $(shell pkg-config gl sdl SDL_mixer --cflags) -std=gnu90
-+LDFLAGS += -L/usr/X11R6/lib $(shell pkg-config gl sdl SDL_mixer --libs) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS += -Wall -pipe -pedantic $(shell $(PKG_CONFIG) gl sdl SDL_mixer --cflags) -std=gnu90
++LDFLAGS += -L/usr/X11R6/lib $(shell $(PKG_CONFIG) gl sdl SDL_mixer --libs) -lm
 +
 +TARGET   := association-by-cyberneticgenetics
 +#variable de nettoyage

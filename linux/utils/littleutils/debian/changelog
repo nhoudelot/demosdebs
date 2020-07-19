@@ -1,3 +1,9 @@
+littleutils (1.2.0-0ddebs2) unstable; urgency=medium
+
+  * adapt to cross-building
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Jul 2020 09:20:40 +0200
+
 littleutils (1.2.0-0ddebs1) unstable; urgency=medium
 
   * New upstream release

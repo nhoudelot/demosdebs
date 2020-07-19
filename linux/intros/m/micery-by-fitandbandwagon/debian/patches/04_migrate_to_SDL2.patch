@@ -5,14 +5,14 @@ Last-Update: 2019-12-02
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -17,8 +17,8 @@
+@@ -18,8 +18,8 @@
  USE_RCS = 0
  
  ifeq ($(PLATFORM),unix)
--LDFLAGS += $(shell pkg-config --libs sdl glu ) -lm
--CFLAGS += -Wall -pipe $(shell pkg-config --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
-+LDFLAGS += $(shell pkg-config --libs sdl2 glu ) -lm
-+CFLAGS += -Wall -pipe $(shell pkg-config --cflags sdl2 glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl glu ) -lm
+-CFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 glu ) -lm
++CFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
  endif
  
  # All the objects

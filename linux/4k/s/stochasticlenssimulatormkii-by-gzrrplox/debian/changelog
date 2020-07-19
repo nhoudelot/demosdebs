@@ -1,3 +1,9 @@
+stochasticlenssimulatormkii-by-gzrrplox (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 31 Jul 2020 12:13:45 +0200
+
 stochasticlenssimulatormkii-by-gzrrplox (1.0+1-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

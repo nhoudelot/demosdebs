@@ -6,7 +6,7 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,24 +1,42 @@
+@@ -1,24 +1,44 @@
  #makefile for kareoke by mrtm@linux.nu
 -
 -APPNAME = kareoke
@@ -14,12 +14,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +SHELL = /bin/sh
 +TARGET = thegnusongkaraoke-by-s3k7lunch
  OBJECTS = scriptread.o main.o gfx.o sdl.o font.o
- CC = g++
+-CC = g++
 -LDFLAGS = -s
 -LIBS = -L/usr/lib -L/usr/local/lib -lSDL -lpthread
-+CFLAGS += $(shell sdl-config --cflags) -Wall -pipe -std=gnu90
++CC:=gcc
++CXX := g++
++PKG_CONFIG:=pkg-config
++CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl) -Wall -pipe -std=gnu90
 +CXXFLAGS += -Wall -pipe
-+LIBS = -L/usr/lib $(shell sdl-config --libs) -lpthread
++LIBS = -L/usr/lib $(shell $(PKG_CONFIG) --libs sdl) -pthread
 +
 +INSTALL = install
 +INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
@@ -41,7 +44,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
  
  $(TARGET): $(OBJECTS)
- 	$(CC) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(LIBS)
+-	$(CC) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(LIBS)
++	$(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(LIBS)
  
 -clean:	
 -	rm *.o
@@ -50,16 +54,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	-@$(RM_F) *.o $(TARGET)
  %.o:	%.cc
 -	$(CC) -Wall -I/usr/include -I/usr/local/include -c $<
-+	$(CC) $(CXXFLAGS) -I/usr/include -c $<
++	$(CXX) $(CXXFLAGS) -I/usr/include -c $<
  
  #this makes tinyptc
  %.o:	%.c
 -	gcc -Os -Wall -I/usr/include -I/usr/local/include -c $<
-+	gcc $(CFLAGS) -I/usr/include -c $<
++	$(CC) $(CFLAGS) -I/usr/include -c $<
  
  scriptread.o:	scriptread.cc scriptread.hh
  main.o:		main.cc
-@@ -26,5 +44,30 @@
+@@ -26,5 +46,30 @@
  font.o:		font.cc font.hh
  
  #tintyptc

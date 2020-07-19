@@ -6,14 +6,19 @@ Last-Update: 2020-04-27
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,5 +1,6 @@
+@@ -1,8 +1,10 @@
  # unix/mac/win32
  PLATFORM = unix
 +SHELL = /bin/sh
  
  # compiler
- CC = gcc
-@@ -12,48 +13,60 @@
+-CC = gcc
++CC := gcc
++PKG_CONFIG:=pkg-config
+ 
+ # version control system
+ CI = ci
+@@ -12,48 +14,60 @@
  # external libraries
  
  BLKSIZE = 4096
@@ -39,8 +44,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -LIBS = -mwindows -lSDL -lglu32 -lopengl32 -lm
 -COPT = -ffast-math -O2 -Wall -DBLKSIZE=$(BLKSIZE) -DNO_STRSEP
 -TARGET = micery.exe
-+LDFLAGS += $(shell pkg-config --libs sdl glu ) -lm
-+CFLAGS += -Wall -pipe $(shell pkg-config --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl glu ) -lm
++CFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
  endif
  
  # All the objects

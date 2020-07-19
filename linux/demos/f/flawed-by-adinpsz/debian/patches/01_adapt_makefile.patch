@@ -6,7 +6,7 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Flawed/Makefile
 +++ b/Flawed/Makefile
-@@ -1,18 +1,20 @@
+@@ -1,18 +1,21 @@
 +#variables de compilation
 +SHELL := /bin/sh
  # General variables
@@ -24,20 +24,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -export CXXFLAGS += -Wall -Wextra -pedantic -ansi -I ./include/
 -export CFLAGS += -Wall -Wextra -pedantic -ansi -I ./include/
 -export LDFLAGS += -L./lib/ -lSDL -lGL -lGLU -lfmodex64
-+CXX = g++
-+CC = gcc
-+LD = g++
++CXX := g++
++CC := gcc
++LD = $(CXX)
++PKG_CONFIG:=pkg-config
 +
 +DEFINES += -O2
 +DEFINES_DBG += -ggdb -D_DEBUG
 +
-+CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell pkg-config --cflags sdl glu glew fmodex) -std=gnu++98 -fabi-version=2
-+CFLAGS += -Wall -pedantic -ansi -pipe $(shell pkg-config --cflags sdl glu glew fmodex) -std=gnu90
-+LDFLAGS += $(shell pkg-config --libs sdl glu glew fmodex)
++CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl glu glew fmodex) -std=gnu++98 -fabi-version=2
++CFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl glu glew fmodex) -std=gnu90
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl glu glew fmodex)
  
  ifeq ($(DEBUG),yes)
  	CXXFLAGS += $(DEFINES_DBG)
-@@ -21,25 +23,38 @@
+@@ -21,25 +24,38 @@
  
  # Folders settings
  
@@ -85,7 +86,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($(DEBUG),yes)
  	@echo "\033[35m=== Compilation in debug mode\t\t\tDONE\033[0m"
  else
-@@ -58,31 +73,26 @@
+@@ -58,31 +74,26 @@
  	@echo "$(CC) $< -> $@\033[0m";\
  	$(CC) $(CFLAGS) -c $< -o $@
  

@@ -1,3 +1,9 @@
+flawed-by-adinpsz (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 05 Aug 2020 10:25:28 +0200
+
 flawed-by-adinpsz (1.0+1-0ddebs3) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

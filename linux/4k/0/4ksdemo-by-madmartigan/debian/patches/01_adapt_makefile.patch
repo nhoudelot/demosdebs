@@ -5,32 +5,38 @@ Last-Update: 2020-04-22
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- /dev/null
++++ b/g.h
+@@ -0,0 +1,5 @@
++#include "SDL.h"
++#include "SDL_opengl.h"
++#include <math.h>
++#include <stdlib.h>
++
+--- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,40 @@
+@@ -0,0 +1,38 @@
 +#variables de compilation
 +SHELL = /bin/sh
-+CXX   = g++
-+CXXFLAGS += -Wall -pipe -ansi -pedantic -std=gnu++98 -fabi-version=2 $(shell pkgconf --cflags sdl glu)
-+LDFLAGS  += $(shell pkgconf --libs sdl glu) -lm
++CXX   := g++
++PKG_CONFIG := pkg-config
++CXXFLAGS += -Wall -pipe -ansi -pedantic -std=gnu++98 -fabi-version=2 $(shell $(PKG_CONFIG) --cflags sdl glu)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
 +TARGET   := 4ksdemo-by-madmartigan
 +#variable de nettoyage
-+RM_F := rm -f
++RM_F ?= rm -f
 +#variables d'instalation
-+INSTALL = install
-+INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
-+prefix          = /usr
-+exec_prefix     = $(prefix)
-+bindir          = $(prefix)/bin
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
 +
 +SOURCE          = main.cpp
 +
 +#get DEB_BUILD_MAINT_OPTIONS working
 +ifneq (,$(filter noopt,$(DEB_BUILD_MAINT_OPTIONS)))
 +    CFLAGS += -O0
-+endif
-+ifeq (,$(filter nostrip,$(DEB_BUILD_MAINT_OPTIONS)))
-+    INSTALL_PROGRAM += -s
 +endif
 +
 +export
@@ -47,11 +53,3 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +clean:
 +	-$(RM_F) $(TARGET)
---- /dev/null
-+++ b/g.h
-@@ -0,0 +1,5 @@
-+#include "SDL.h"
-+#include "SDL_opengl.h"
-+#include <math.h>
-+#include <stdlib.h>
-+

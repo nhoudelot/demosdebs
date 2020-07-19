@@ -6,14 +6,15 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -1,28 +1,43 @@
+@@ -1,28 +1,44 @@
 -CXXFLAGS=`sdl-config --cflags` -Os -Wall -Wextra -Wshadow -ffast-math
 -LDFLAGS=`sdl-config --libs` -lGL
 +#variables de compilation
 +SHELL := /bin/sh
 +CXX   := g++
-+CXXFLAGS +=$(shell pkg-config --cflags sdl gl) -Wall -std=gnu++98 -fabi-version=2 -pipe
-+LDFLAGS +=$(shell pkg-config --libs sdl gl)
++PKG_CONFIG:=pkg-config
++CXXFLAGS +=$(shell $(PKG_CONFIG) --cflags sdl gl) -Wall -std=gnu++98 -fabi-version=2 -pipe
++LDFLAGS +=$(shell $(PKG_CONFIG) --libs sdl gl)
  
 -TARGET=main
 +TARGET=stochasticlenssimulatormkii-by-gzrrplox
@@ -61,12 +62,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	./formatter > shaders.h
 -	g++ $(CXXFLAGS) -c $(TARGET).cpp
 -	$(LD) $(LDFLAGS) $(TARGET).o -o $(TARGET).payload
-+	g++ $(CXXFLAGS) -c main.cpp
-+	$(LD) main.o -o $(TARGET).payload $(LDFLAGS)
++	$(CXX) $(CXXFLAGS) -c main.cpp
++	$(CXX) main.o -o $(TARGET).payload $(LDFLAGS)
  
  settings:
  
-@@ -31,5 +46,11 @@
+@@ -31,5 +47,11 @@
  CXXFLAGS+= -std=c++0x
  letters:
  

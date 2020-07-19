@@ -6,14 +6,15 @@ Last-Update: 2020-04-23
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,6 +1,33 @@
+@@ -1,6 +1,34 @@
 -CFLAGS = `sdl-config --cflags`
 -LDLIBS = `sdl-config --libs`
 +#variables de compilation
 +SHELL = /bin/sh
-+CC    = gcc
-+CFLAGS   +=  -std=c99 -Wall -pipe -fstrict-aliasing $(shell pkgconf --cflags sdl glu)
-+LDFLAGS  += $(shell pkgconf --libs sdl glu) -lm
++CC    := gcc
++PKG_CONFIG:=pkg-config
++CFLAGS   +=  -std=c99 -Wall -pipe -fstrict-aliasing $(shell $(PKG_CONFIG) --cflags sdl glu)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
 +TARGET   = analeptique-by-acetate
 +#variables d'instalation
 +INSTALL = install

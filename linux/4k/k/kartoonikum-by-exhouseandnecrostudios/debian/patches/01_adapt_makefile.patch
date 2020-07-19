@@ -23,7 +23,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  endif
  
  #debuggie thingie
-@@ -25,103 +25,113 @@
+@@ -18,110 +18,121 @@
+ USESDL = TRUE
+ 
+ #compiler we're using
+-CC = gcc
+-CXX = g++
++CC := gcc
++CXX := g++
++PKG_CONFIG := pkg-config
+ 
+ #sourcefiles in use
  OBJ = main.o
  # play.o synth.o
  
@@ -72,13 +82,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -
 +	CFLAGS += -DSDL
 +	ifeq ($(DEBUG),TRUE)
-+		CFLAGS += -ggdb -DDEBUG -fno-strict-aliasing -DX86_ASM -std=c99 $(shell pkgconf --cflags sdl) $(INCLUDES)
-+		LDFLAGS += $(shell pkgconf --libs sdl gl glu x11) -lm
++		CFLAGS += -ggdb -DDEBUG -fno-strict-aliasing -std=c99 $(shell $(PKG_CONFIG) --cflags sdl) $(INCLUDES)
++		LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl glu x11) -lm
 +	else
 +		CFLAGS += -Wall -pipe -fmodulo-sched -fno-toplevel-reorder -fno-inline -fno-defer-pop -fno-keep-static-consts -fmerge-all-constants -fstrength-reduce  \
-+			-fno-builtin -D__X11__ -DSDL $(shell pkg-config gl glu sdl --libs) -DX86_ASM -std=c99 $(INCLUDES)
++			-fno-builtin -D__X11__ -DSDL $(shell $(PKG_CONFIG) gl glu sdl --libs) -std=c99 $(INCLUDES)
 +		CFLAGS += $(ADDFLAGS)
-+		LDFLAGS += -nostdlib -nostartfiles -ldl -L/usr/lib/ $(shell pkg-config x11 --libs)
++		LDFLAGS += -nostdlib -nostartfiles -ldl -L/usr/lib/ $(shell $(PKG_CONFIG) x11 --libs)
 +	endif
  endif
  
@@ -201,7 +211,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  %.o: %.m $(HEADERS)
  	$(CC) $(CFLAGS) $(CCFLAGS) -c $<
-@@ -131,3 +141,8 @@
+@@ -131,3 +142,8 @@
  
  $(TARGET): $(OBJ)
  	$(CC) -o $@ $(OBJ) $(LDFLAGS)

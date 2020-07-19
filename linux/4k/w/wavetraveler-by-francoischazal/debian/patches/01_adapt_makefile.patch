@@ -6,7 +6,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,22 +1,32 @@
+@@ -1,22 +1,33 @@
 -CC = gcc
 -CFLAGS = -Wall `sdl-config --cflags` -ggdb
 -LIBS = -lm `sdl-config --libs`
@@ -17,8 +17,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS   += -Wall -pipe -std=gnu90 $(shell pkg-config --cflags sdl)
-+LDFLAGS  += $(shell pkg-config --libs sdl) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS   += -Wall -pipe -std=gnu90 $(shell $(PKG_CONFIG) --cflags sdl)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl) -lm
 +TARGET   := wavetraveler-by-francoischazal
 +#variable de nettoyage
 +RM_F = rm -f

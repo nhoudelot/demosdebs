@@ -1,0 +1,4 @@
+usr/include/*
+usr/lib/libGLEW.a
+usr/lib/libGLEW.so
+usr/lib/pkgconfig/glew.pc

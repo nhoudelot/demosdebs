@@ -6,7 +6,7 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -2,35 +2,30 @@
+@@ -2,35 +2,31 @@
  # GNU make syntax
  
  # Change this... ATM known are OSX or empty for generic Unix/Linux
@@ -34,8 +34,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	strip dr_fungi
 +SHELL := /bin/sh
 +CC := gcc
-+CFLAGS += -Wall $(shell pkg-config sdl gl libjpeg --cflags) -std=gnu90 -pipe
-+LDFLAGS += $(shell pkg-config sdl gl libjpeg --libs) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS += -Wall $(shell $(PKG_CONFIG) sdl gl libjpeg --cflags) -std=gnu90 -pipe
++LDFLAGS += $(shell $(PKG_CONFIG) sdl gl libjpeg --libs) -lm
 +MZX := cool_mzx/cool_mzx.a
 +OBJ := main.o jpeg.o kukat.o mcubes.o halftone.o tolppa.o
 +
@@ -50,7 +51,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  $(MZX):
 -	cd cool_mzx && make
-+	cd cool_mzx && $(MAKE)
++	cd cool_mzx && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
  
  %.o: %.c
 -	$(CC) $(COPT) $(INC) -c $<
@@ -63,12 +64,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	cd cool_mzx && $(MAKE) clean
 --- a/cool_mzx/Makefile
 +++ b/cool_mzx/Makefile
-@@ -1,13 +1,19 @@
+@@ -1,13 +1,18 @@
  # A very pathetic makefile...
 +SHELL := /bin/sh
 +CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
-+CFLAGS += -Wall -O3 -ffast-math -funsigned-char -std=gnu90 -pipe
-+PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
++CFLAGS += -Wall -ffast-math -funsigned-char -std=gnu90 -pipe
 +RM_F := rm -f
  
 -COPT += -funsigned-char
@@ -78,8 +78,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  lib: obj
 -	ar rc cool_mzx.a pt*.o cool*.o sd*.o
 -	ranlib cool_mzx.a
-+	$(AR) rc $(PLUGIN) cool_mzx.a pt*.o cool*.o sd*.o
-+	$(RANLIB) $(PLUGIN) cool_mzx.a
++	$(AR) rc cool_mzx.a pt*.o cool*.o sd*.o
++	$(RANLIB) cool_mzx.a
  
  obj:
 -	$(CC) $(COPT) -c *.c

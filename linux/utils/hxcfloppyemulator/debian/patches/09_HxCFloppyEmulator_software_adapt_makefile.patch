@@ -6,6 +6,17 @@ Last-Update: 2020-04-20
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/HxCFloppyEmulator_software/trunk/build/Makefile
 +++ b/HxCFloppyEmulator_software/trunk/build/Makefile
+@@ -1,7 +1,7 @@
+ #CC=i386-pc-linux-gcc
+-CC=gcc
+-BUILD_CC=gcc
+-CPP=g++
++CC:=$(DEB_HOST_GNU_TYPE)-gcc
++BUILD_CC=$(DEB_HOST_GNU_TYPE)-gcc
++CPP:=$(DEB_HOST_GNU_TYPE)-g++
+ 
+ TARGET := $(shell uname)
+ 
 @@ -17,7 +17,7 @@
  	LDFLAGS= -lasan
  else
@@ -48,4 +59,48 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +hxcfloppyemulator: main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(LIBHXCFE) $(LIBUSBHXCFE) ../../../build/libhxcadaptor.a
  	$(CPP) -o $@    $^ $(LDFLAGS)
  	cp $@ ../../../build
+ 
+--- a/HxCFloppyEmulator_cmdline/trunk/build/Makefile
++++ b/HxCFloppyEmulator_cmdline/trunk/build/Makefile
+@@ -1,5 +1,5 @@
+ #CC=i386-pc-linux-gcc
+-CC=gcc
++CC:=$(DEB_HOST_GNU_TYPE)-gcc
+ 
+ TARGET := $(shell uname)
+ 
+--- a/libhxcadaptor/trunk/build/Makefile
++++ b/libhxcadaptor/trunk/build/Makefile
+@@ -1,6 +1,6 @@
+ #CC=i386-pc-linux-gcc
+-CC=gcc
+-AR=ar
++CC:=$(DEB_HOST_GNU_TYPE)-gcc
++AR:=ar
+ 
+ TARGET := $(shell uname)
+ 
+--- a/libhxcfe/trunk/build/Makefile
++++ b/libhxcfe/trunk/build/Makefile
+@@ -1,7 +1,7 @@
+ #CC=i386-pc-linux-gcc
+-CC=gcc
+-BUILD_CC=gcc
+-AR=ar
++CC:=$(DEB_HOST_GNU_TYPE)-gcc
++BUILD_CC:=$(DEB_HOST_GNU_TYPE)-gcc
++AR:=ar
+ 
+ TARGET := $(shell uname)
+ 
+--- a/libusbhxcfe/trunk/build/Makefile
++++ b/libusbhxcfe/trunk/build/Makefile
+@@ -1,6 +1,6 @@
+ #CC=i386-pc-linux-gcc
+-CC=gcc
+-AR=ar
++CC:=$(DEB_HOST_GNU_TYPE)-gcc
++AR:=ar
+ 
+ TARGET := $(shell uname)
  

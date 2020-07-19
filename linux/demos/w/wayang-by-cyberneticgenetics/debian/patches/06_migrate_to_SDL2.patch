@@ -6,14 +6,14 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,8 +1,8 @@
- #variables de compilation
+@@ -2,8 +2,8 @@
  SHELL := /bin/sh
  CC    := gcc
--CFLAGS += -Wall -pedantic $(shell pkg-config gl sdl libpng SDL_mixer --cflags) -std=gnu90 -pipe
--LDFLAGS +=  -L/usr/X11R6/lib $(shell pkg-config gl sdl libpng SDL_mixer --libs) -lm
-+CFLAGS += -Wall -pedantic $(shell pkg-config gl sdl2 libpng SDL2_mixer --cflags) -std=gnu90 -pipe
-+LDFLAGS +=  -L/usr/X11R6/lib $(shell pkg-config gl sdl2 libpng SDL2_mixer --libs) -lm
+ PKG_CONFIG:=pkg-config
+-CFLAGS += -Wall -pedantic $(shell $(PKG_CONFIG) gl sdl libpng SDL_mixer --cflags) -std=gnu90 -pipe
+-LDFLAGS +=  -L/usr/X11R6/lib $(shell $(PKG_CONFIG) gl sdl libpng SDL_mixer --libs) -lm
++CFLAGS += -Wall -pedantic $(shell $(PKG_CONFIG) gl sdl2 libpng SDL2_mixer --cflags) -std=gnu90 -pipe
++LDFLAGS +=  -L/usr/X11R6/lib $(shell $(PKG_CONFIG) gl sdl2 libpng SDL2_mixer --libs) -lm
  TARGET   := wayang-by-cyberneticgenetics
  #variable de nettoyage
  RM_F := rm -f

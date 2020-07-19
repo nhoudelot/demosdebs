@@ -6,12 +6,12 @@ Last-Update: 2020-04-25
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/source/Makefile
 +++ b/source/Makefile
-@@ -16,7 +16,7 @@
+@@ -17,7 +17,7 @@
  CFLAGS += -m32 -O0 -g
  else
  CFLAGS += -Wall -pipe -mpush-args -std=gnu90
--LDFLAGS += $(shell pkg-config --libs sdl gl)
-+LDFLAGS += $(shell pkg-config --libs sdl2 gl)
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl)
  endif
  
  

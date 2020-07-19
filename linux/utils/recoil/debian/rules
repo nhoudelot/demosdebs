@@ -3,6 +3,7 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_CFLAGS_MAINT_APPEND  = -flto
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
 
 %:
 	dh $@
@@ -11,4 +12,4 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 override_dh_auto_clean:
 
 override_dh_auto_install:
-	$(MAKE) PREFIX=$$(pwd)/debian/tmp/usr XNVIEW=$$(pwd)/debian/tmp/opt/XnView BUILDING_PACKAGE=1 install-thumbnailer install-xnview
+	$(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc PREFIX=$$(pwd)/debian/tmp/usr XNVIEW=$$(pwd)/debian/tmp/opt/XnView BUILDING_PACKAGE=1 install-thumbnailer install-xnview

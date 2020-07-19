@@ -6,12 +6,13 @@ Last-Update: 2020-04-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,6 +1,6 @@
- CC = gcc
--CFLAGS += $(shell sdl-config --cflags) -Wall -std=gnu90 -pipe
--LDFLAGS += $(shell sdl-config --libs) -lm
-+CFLAGS += $(shell sdl2-config --cflags) -Wall -std=gnu90 -pipe
-+LDFLAGS += $(shell sdl2-config --libs) -lm
+@@ -1,7 +1,7 @@
+ CC := gcc
+ PKG_CONFIG:=pkg-config
+-CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl) -Wall -std=gnu90 -pipe
+-LDFLAGS += -flto $(shell $(PKG_CONFIG) --libs sdl) -lm
++CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl2) -Wall -std=gnu90 -pipe
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2) -lm
  OBJ = data.o kirjaimet2.o kokko.o maf.o main.o mosaic.o pallot.o plasma.o\
  ratas.o stripes.o video.o cool_mzx/cool_mzx.a
  

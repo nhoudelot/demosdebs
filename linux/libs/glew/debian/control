@@ -1,0 +1,30 @@
+Source: glew
+Priority: optional
+Section: libs
+Maintainer: Joost Yervante Damad <andete@debian.org>
+Build-Depends: debhelper (>> 10), libgl1-mesa-dev | libgl-dev, libglu1-mesa-dev | libglu-dev, libx11-dev, docbook-to-man, libxmu-dev, libxi-dev, binutils (>> 2.18)
+Standards-Version: 4.5.0
+Homepage: http://glew.sourceforge.net/
+
+Package: libglew1.5
+Architecture: any
+Multi-Arch: same
+Conflicts: libglew1
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: glew-utils
+Description: The OpenGL Extension Wrangler - runtime environment
+ For more information about GLEW please refer to the description of the
+ libglew-dev package.
+ .
+ This package contains the runtime support files.
+
+Package: libglewmx1.5
+Architecture: any
+Conflicts: libglew1
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenGL Extension Wrangler - runtime environment
+ For more information about GLEW please refer to the description of the
+ libglew-dev package.
+ .
+ This package contains the runtime support files, built with GLEW_MX option,
+ adding support for thread-safe usage of multiple rendering contexts.

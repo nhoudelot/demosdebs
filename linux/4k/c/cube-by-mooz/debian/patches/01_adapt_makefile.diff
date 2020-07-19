@@ -6,7 +6,7 @@ Last-Update: 2020-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,6 +1,32 @@
+@@ -1,6 +1,33 @@
 -CFLAGS = `sdl-config --cflags`
 -LDLIBS = `sdl-config --libs`
 -all:
@@ -16,9 +16,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 \ No newline at end of file
 +#variables de compilation
 +SHELL = /bin/sh
-+CC    = gcc
-+CFLAGS   += -std=c99 -ansi -Wall -pipe $(shell pkgconf --cflags sdl glu)
-+LDFLAGS  += $(shell pkgconf --libs sdl glu) -lm
++CC    := gcc
++PKG_CONFIG:=pkg-config
++CFLAGS   += -std=c99 -ansi -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
 +TARGET   := cube-by-mooz
 +#variable de nettoyage
 +RM_F := rm -f

@@ -1,0 +1,56 @@
+Description: Upstream changes introduced in version 1.5.3-1
+ This patch has been created by dpkg-source during the package build.
+ Here's the last changelog entry, hopefully it gives details on why
+ those changes were made:
+ .
+ glew (1.5.3-1) unstable; urgency=low
+ .
+   * New upstream release (Closes: #577183)
+   * reworked mx build support to reflect new version
+ .
+ The person named in the Author field signed this changelog entry.
+Author: Joost Yervante Damad <andete@debian.org>
+Bug-Debian: http://bugs.debian.org/577183
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- glew-1.5.3.orig/config/Makefile.kfreebsd
++++ glew-1.5.3/config/Makefile.kfreebsd
+@@ -6,12 +6,12 @@ CFLAGS.EXTRA = -DGLEW_MX
+ NAME_SUF=mx
+ endif
+ PICFLAG = -fPIC
+-LDFLAGS.SO = -shared -Wl,-soname $(LIB.SONAME) -Wl,-Bsymbolic-functions
+-LDFLAGS.EXTRA = -L/usr/X11R6/lib
++LDFLAGS.SO = -shared -Wl,-soname=$(LIB.SONAME) -Wl,-Bsymbolic-functions
++M_ARCH ?= $(shell uname -m)
++LIBDIR = $(GLEW_DEST)/lib
+ LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
+ LDFLAGS.STATIC = -Wl,-Bstatic
+ LDFLAGS.DYNAMIC = -Wl,-Bdynamic
+-LIBDIR = $(GLEW_DEST)/lib
+ NAME = GLEW$(NAME_SUF)
+ WARN = -Wall -W
+ POPT = -O2
+--- glew-1.5.3.orig/config/Makefile.gnu
++++ glew-1.5.3/config/Makefile.gnu
+@@ -7,7 +7,8 @@ NAME_SUF=mx
+ endif
+ PICFLAG = -fPIC
+ LDFLAGS.SO = -shared -Wl,-soname=$(LIB.SONAME) -Wl,-Bsymbolic-functions
+-LDFLAGS.EXTRA = -L/usr/X11R6/lib
++M_ARCH ?= $(shell uname -m)
++LIBDIR = $(GLEW_DEST)/lib
+ LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
+ LDFLAGS.STATIC = -Wl,-Bstatic
+ LDFLAGS.DYNAMIC = -Wl,-Bdynamic

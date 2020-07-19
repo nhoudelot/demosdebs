@@ -1,6 +1,10 @@
 #!/usr/bin/make -f
 
-ifeq "$(DEB_BUILD_ARCH)" "armhf"
+ifeq "$(DEB_HOST_ARCH)" "armhf"
+	OPTIONS=--disable-optimize
+endif
+
+ifeq "$(DEB_HOST_ARCH)" "arm64"
 	OPTIONS=--disable-optimize
 endif
 
@@ -20,8 +24,8 @@ endif
 	dh $@
 
 override_dh_auto_configure:
-	cd mp4v2 && ./configure $(CROSS) CFLAGS="$(CFLAGS)" $(OPTIONS)
-	cd faad2 && ./configure $(CROSS) CFLAGS="$(CFLAGS)" --without-xmms --without-mpeg4ip
+	cd mp4v2 && ./configure --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE) CFLAGS="$(CFLAGS)" $(OPTIONS)
+	cd faad2 && ./configure --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE) CFLAGS="$(CFLAGS)" --without-xmms --without-mpeg4ip
 
 	dh_auto_configure
 

@@ -5,21 +5,24 @@ Last-Update: 2019-11-14
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,8 +1,10 @@
-+#variables de compilation
-+SHELL = /bin/sh
- CC = gcc
- CXX = g++
+@@ -1,8 +1,11 @@
+-CC = gcc
+-CXX = g++
 -CFLAGS = -O2 -ffast-math -fomit-frame-pointer -Irubber1.0
 -CXXFLAGS = -O2 -ffast-math -fomit-frame-pointer -Irubber1.0 -std=c++0x
 -LIBS = /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut -lGLU -lGL -lm
-+CFLAGS += -Wall -pipe -Irubber1.0 $(shell pkg-config --cflags glu)
-+CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell pkg-config --cflags glu)
-+LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell pkg-config --libs glu) -lm
++#variables de compilation
++SHELL = /bin/sh
++CC := gcc
++CXX := g++
++PKG_CONFIG := pkg-config
++CFLAGS += -Wall -pipe -Irubber1.0 $(shell $(PKG_CONFIG) --cflags glu)
++CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell $(PKG_CONFIG) --cflags glu)
++LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu) -lm
  
  OBJ = test3d.o Kewlmation.o \
        rubber1.0/Rubber.o rubber1.0/Shader.o rubber1.0/Texture.o \
-@@ -10,9 +12,21 @@
+@@ -10,9 +13,21 @@
        rubber1.0/Fbo.o rubber1.0/BassRocket.o \
        rocket/sync/data.o rocket/sync/device.o rocket/sync/track.o
  

@@ -1,0 +1,6 @@
+./common-install-mame-config usr/bin/
+./resources/common-install-mame-config.desktop usr/share/applications/
+./resources/common-install-mame-config.png usr/share/icons/hicolor/256x256/apps/
+./common-install-resetmamectrl-config usr/bin/
+./resources/common-install-resetmamectrl-config.desktop usr/share/applications/
+./resources/common-install-resetmamectrl-config.png usr/share/icons/hicolor/256x256/apps/

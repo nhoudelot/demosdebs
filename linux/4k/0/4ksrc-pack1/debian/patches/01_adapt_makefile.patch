@@ -6,14 +6,15 @@ Last-Update: 2020-04-23
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/linux/Makefile
 +++ b/linux/Makefile
-@@ -1,29 +1,54 @@
+@@ -1,29 +1,55 @@
  # makefile to build all entries of the first ever #demoscene
  # 4k source compo.
 +#variables de compilation
 +SHELL = /bin/sh
-+CC    = gcc
-+CFLAGS   += -Wall -pipe -std=c9x $(shell pkgconf --cflags sdl glu)
-+LDFLAGS  += $(shell pkgconf --libs sdl glu) -lglut -lm
++CC    := gcc
++PKG_CONFIG:=pkg-config
++CFLAGS   += -Wall -pipe -std=c9x $(shell $(PKG_CONFIG) --cflags sdl glu)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lglut -lm
 +TARGETS = dwitvs hogwagen 3d randomname
 +
 +#variables d'instalation

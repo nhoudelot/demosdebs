@@ -6,16 +6,25 @@ Last-Update: 2020-04-27
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -7,22 +7,41 @@
+@@ -1,70 +1,89 @@
+ # Project: Demo02
+ # Makefile created by Dev-C++ 4.9.9.2
+ 
+-CPP  = g++
+-CC   = gcc
++CXX  := g++
++CC   := gcc
++PKG_CONFIG:=pkg-config
+ WINDRES = windres.exe
  RES  =
  OBJ = main.o general.o Audio/sound.o Effects/iterator.o Effects/filler.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/start.o  Effects/tunnel.o Effects/cred.o $(RES)
  LINKOBJ  = main.o general.o Audio/sound.o Effects/iterator.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/filler.o Effects/start.o Effects/tunnel.o Effects/cred.o $(RES)
 -LIBS = -s $(shell pkg-config --libs sdl gl glu x11) -LAudio -lfmodex
 -BIN  = demo02
 -CXXFLAGS = -Os -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD
-+LDFLAGS += $(shell pkg-config --libs sdl gl glu x11) -LAudio -lfmodex
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl glu x11) -LAudio -lfmodex
 +
-+CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD
++CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD $(shell $(PKG_CONFIG) --cflags sdl gl glu x11)
  CFLAGS = $(INCS)
  RM = rm -f
 +TARGET   := purple-by-youthuprising
@@ -30,13 +39,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  .PHONY: all all-before all-after clean clean-custom
  
 -all: all-before $(BIN) all-after
-+#get DEB_BUILD_MAINT_OPTIONS working
-+ifneq (,$(filter noopt,$(DEB_BUILD_MAINT_OPTIONS)))
-+    CFLAGS += -O0
-+endif
-+ifeq (,$(filter nostrip,$(DEB_BUILD_MAINT_OPTIONS)))
-+    INSTALL_PROGRAM += -s
-+endif
 +ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + MAKEFLAGS += -j$(NUMJOBS)
@@ -51,19 +53,69 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -$(BIN): $(OBJ)
 -	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 +$(TARGET): $(OBJ)
-+	$(CPP) $(LINKOBJ) -o $(TARGET) $(LDFLAGS)
++	$(CXX) $(LINKOBJ) -o $(TARGET) $(LDFLAGS)
  
  main.o: main.cpp
- 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
-@@ -66,5 +85,11 @@
- Effects/filler.o: Effects/filler.cpp
- 	$(CPP) -c Effects/filler.cpp -o Effects/filler.o $(CXXFLAGS)
+-	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
++	$(CXX) -c main.cpp -o main.o $(CXXFLAGS)
  
+ Vector.o: Vector.cpp
+-	$(CPP) -c Vector.cpp -o Vector.o $(CXXFLAGS)
++	$(CXX) -c Vector.cpp -o Vector.o $(CXXFLAGS)
+ 
+ general.o: general.cpp
+-	$(CPP) -c general.cpp -o general.o $(CXXFLAGS)
++	$(CXX) -c general.cpp -o general.o $(CXXFLAGS)
+ 
+ Effects/iterator.o: Effects/iterator.cpp
+-	$(CPP) -c Effects/iterator.cpp -o Effects/iterator.o $(CXXFLAGS)
++	$(CXX) -c Effects/iterator.cpp -o Effects/iterator.o $(CXXFLAGS)
+ 
+ font.o: font.cpp
+-	$(CPP) -c font.cpp -o font.o $(CXXFLAGS)
++	$(CXX) -c font.cpp -o font.o $(CXXFLAGS)
+ 
+ player.o: player.cpp
+-	$(CPP) -c player.cpp -o player.o $(CXXFLAGS)
++	$(CXX) -c player.cpp -o player.o $(CXXFLAGS)
+ 
+ Effects/cred.o: Effects/cred.cpp
+-	$(CPP) -c Effects/cred.cpp -o Effects/cred.o $(CXXFLAGS)
++	$(CXX) -c Effects/cred.cpp -o Effects/cred.o $(CXXFLAGS)
+ 
+ Effects/fuzzy.o: Effects/fuzzy.cpp
+-	$(CPP) -c Effects/fuzzy.cpp -o Effects/fuzzy.o $(CXXFLAGS)
++	$(CXX) -c Effects/fuzzy.cpp -o Effects/fuzzy.o $(CXXFLAGS)
+ 
+ Effects/dla.o: Effects/dla.cpp
+-	$(CPP) -c Effects/dla.cpp -o Effects/dla.o $(CXXFLAGS)
++	$(CXX) -c Effects/dla.cpp -o Effects/dla.o $(CXXFLAGS)
+ 
+ Effects/tunnel.o: Effects/tunnel.cpp
+-	$(CPP) -c Effects/tunnel.cpp -o Effects/tunnel.o $(CXXFLAGS)
++	$(CXX) -c Effects/tunnel.cpp -o Effects/tunnel.o $(CXXFLAGS)
+ 
+ timer.o: timer.cpp
+-	$(CPP) -c timer.cpp -o timer.o $(CXXFLAGS)
++	$(CXX) -c timer.cpp -o timer.o $(CXXFLAGS)
+ 
+ primitives.o: primitives.cpp
+-	$(CPP) -c primitives.cpp -o primitives.o $(CXXFLAGS)
++	$(CXX) -c primitives.cpp -o primitives.o $(CXXFLAGS)
+ 
+ Effects/electro.o: Effects/electro.cpp
+-	$(CPP) -c Effects/electro.cpp -o Effects/electro.o $(CXXFLAGS)
++	$(CXX) -c Effects/electro.cpp -o Effects/electro.o $(CXXFLAGS)
+ 
+ Effects/filler.o: Effects/filler.cpp
+-	$(CPP) -c Effects/filler.cpp -o Effects/filler.o $(CXXFLAGS)
++	$(CXX) -c Effects/filler.cpp -o Effects/filler.o $(CXXFLAGS)
++
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 +	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
 +	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
-+
+ 
  #demo02_private.res: demo02_private.rc audio.rc
  #	$(WINDRES) -i demo02_private.rc --input-format=rc -o demo02_private.res -O coff

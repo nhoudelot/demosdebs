@@ -6,14 +6,14 @@ Last-Update: 2020-04-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -34,8 +34,8 @@
+@@ -35,8 +35,8 @@
  
  #linux Makefile setup
  ifeq ($(PLATFORM), LINUX)
--LDFLAGS += -L/usr/lib/ -I./ $(shell pkg-config glu sdl fmodex --libs)
--CFLAGS += $(shell pkg-config glu sdl fmodex --cflags) -fpermissive -std=gnu++98
-+LDFLAGS += -L/usr/lib/ -I./ $(shell pkg-config glu sdl2 fmodex --libs)
-+CFLAGS += $(shell pkg-config glu sdl2 fmodex --cflags) -fpermissive -std=gnu++98
+-LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) glu sdl fmodex --libs)
+-CFLAGS += $(shell $(PKG_CONFIG) glu sdl fmodex --cflags) -fpermissive -std=gnu++98
++LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) glu sdl2 fmodex --libs)
++CFLAGS += $(shell $(PKG_CONFIG) glu sdl2 fmodex --cflags) -fpermissive -std=gnu++98
  endif
  
  .PHONY: all all-before all-after clean clean-custom

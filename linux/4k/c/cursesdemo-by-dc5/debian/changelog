@@ -1,3 +1,9 @@
+cursesdemo-by-dc5 (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Jul 2020 11:40:56 +0200
+
 cursesdemo-by-dc5 (1.0+1-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

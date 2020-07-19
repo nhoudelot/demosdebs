@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,16 +1,50 @@
+@@ -1,16 +1,51 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +
@@ -11,8 +11,9 @@
 +warn := -Wall
 +
 +CC := gcc
-+CFLAGS += -std=gnu99 -pedantic $(warn) -Isource $(shell pkgconf sdl SDL_mixer --cflags) -pipe
-+LDFLAGS += $(shell pkgconf sdl SDL_mixer --libs) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS += -std=gnu99 -pedantic $(warn) -Isource $(shell $(PKG_CONFIG) sdl SDL_mixer --cflags) -pipe
++LDFLAGS += $(shell $(PKG_CONFIG) sdl SDL_mixer --libs) -lm
 +
 +#variable de nettoyage
 +RM_F := rm -f

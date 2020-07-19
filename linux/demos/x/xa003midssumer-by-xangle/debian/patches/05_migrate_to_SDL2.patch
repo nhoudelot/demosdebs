@@ -435,14 +435,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
 --- a/Makefile
 +++ b/Makefile
-@@ -20,8 +20,8 @@
- GUILIB = $(shell pkgconf --libs gtk+-2.0)
+@@ -21,8 +21,8 @@
+ GUILIB = $(shell $(PKG_CONFIG) --libs gtk+-2.0)
  
  # Library and include flags ----------------------------------------------------
--LDFLAGS += $(shell pkgconf sdl libpng SDL_mixer --libs) $(GUILIB)
--INC = $(shell sdl-config --cflags) $(GUIOPT) $(DEBUG) $(FPSLOCK) $(NO_STEX)
-+LDFLAGS += $(shell pkgconf sdl2 libpng SDL2_mixer --libs) $(GUILIB)
-+INC = $(shell sdl2-config --cflags) $(GUIOPT) $(DEBUG) $(FPSLOCK) $(NO_STEX)
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl libpng SDL_mixer) $(GUILIB)
+-INC = $(shell $(PKG_CONFIG) --cflags sdl libpng SDL_mixer) $(GUIOPT) $(DEBUG) $(FPSLOCK) $(NO_STEX)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 libpng SDL2_mixer) $(GUILIB)
++INC = $(shell $(PKG_CONFIG) --cflags sdl2 libpng SDL2_mixer) $(GUIOPT) $(DEBUG) $(FPSLOCK) $(NO_STEX)
  
  # Targets ----------------------------------------------------------------------
  OBASE = base/main.o $(GUICODE) base/xdm.o base/xio.o base/xs.o

@@ -6,7 +6,7 @@ Build-Depends:
  debhelper (>= 10),
  libgtk2.0-dev,
  libsdl2-dev,
- pkgconf,
+ pkg-config,
  libsdl2-mixer-dev,
  libsdl2-image-dev
 Standards-Version: 4.5.0

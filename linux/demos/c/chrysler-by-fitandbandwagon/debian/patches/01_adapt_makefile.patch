@@ -6,13 +6,15 @@ Last-Update: 2020-04-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,27 +1,33 @@
- CC = gcc
+@@ -1,27 +1,34 @@
+-CC = gcc
 -CFLAGS = -O2 -ffast-math `sdl-config --cflags`
 -#LDFLAGS = `sdl-config --libs` -lm
 -LDFLAGS = `sdl-config --static-libs` -lm
-+CFLAGS += $(shell sdl-config --cflags) -Wall -std=gnu90 -pipe
-+LDFLAGS += $(shell sdl-config --libs) -lm
++CC := gcc
++PKG_CONFIG:=pkg-config
++CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl) -Wall -std=gnu90 -pipe
++LDFLAGS += -flto $(shell $(PKG_CONFIG) --libs sdl) -lm
  OBJ = data.o kirjaimet2.o kokko.o maf.o main.o mosaic.o pallot.o plasma.o\
  ratas.o stripes.o video.o cool_mzx/cool_mzx.a
  
@@ -43,7 +45,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  cool_mzx/cool_mzx.a:
 -	cd cool_mzx && make
-+	cd cool_mzx && $(MAKE)
++	cd cool_mzx && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
  
  clean:
 -	-rm *.o *~ chrysler
@@ -54,16 +56,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	cd cool_mzx && $(MAKE) clean
 --- a/cool_mzx/Makefile
 +++ b/cool_mzx/Makefile
-@@ -1,13 +1,25 @@
+@@ -1,13 +1,24 @@
  # A very pathetic makefile...
  
 -CFLAGS += -funsigned-char
 +CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
-+CFLAGS += -funsigned-char -Wall -O3 -flto -ffast-math -std=gnu90 -pipe
-+PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
++CFLAGS += -funsigned-char -Wall -ffast-math -std=gnu90 -pipe
 +
-+AR= ar
-+RANLIB = ranlib
++AR:= ar
++RANLIB := ranlib
 +
 +ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + NUMJOBS := $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -75,8 +76,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  lib: obj
 -	ar rc cool_mzx.a pt*.o cool*.o sd*.o
 -	ranlib cool_mzx.a
-+	$(AR) rc $(PLUGIN) cool_mzx.a pt*.o cool*.o sd*.o
-+	$(RANLIB) $(PLUGIN) cool_mzx.a
++	$(AR) rc cool_mzx.a pt*.o cool*.o sd*.o
++	$(RANLIB) cool_mzx.a
  
  obj:
  	$(CC) $(CFLAGS) -c *.c

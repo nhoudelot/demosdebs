@@ -1,3 +1,9 @@
+backtothesources-by-nightradio (1.0-0ddebs5) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 03 Aug 2020 22:28:47 +0200
+
 backtothesources-by-nightradio (1.0-0ddebs4) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

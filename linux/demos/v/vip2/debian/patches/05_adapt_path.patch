@@ -1,0 +1,1183 @@
+Description: change data path
+ on system install, data path should be in /usr/share, so we have to change it in the code
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Sources/BPeloche.cpp
++++ b/Sources/BPeloche.cpp
+@@ -36,7 +36,7 @@
+ 	GBmp = new BitmapU3D( NULL )	;
+ 
+ 	TextureManager::SetRepertoire( "" )																	;
+-	TexPic1 = TextureManager::OpenJpg( "Datas/2d/BruitPeloche.jpg", BILINEAR_TEXTURE|TILE_TEXTURE  )	;
++	TexPic1 = TextureManager::OpenJpg( "/usr/share/vip2/datas/2d/BruitPeloche.jpg", BILINEAR_TEXTURE|TILE_TEXTURE  )	;
+ 	TexPic1->IncUser()																					;
+ 
+ 	MatPic1	= new MaterialU3D( "MatPic1" )	;
+--- a/Sources/CilsBack.cpp
++++ b/Sources/CilsBack.cpp
+@@ -23,8 +23,8 @@
+ //-----------------------------------------------------------------------------------------------------------------------------------------
+ CilsBack::CilsBack()
+ {
+-	Tex	= TextureManager::OpenJpg( "Datas/meshes/Cils/Fond.jpg", BILINEAR_TEXTURE  )										;
+-	Tex1 = TextureManager::OpenJpg( "Datas/meshes/Cils/mapmul.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE|TILE_TEXTURE  )	;
++	Tex	= TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Cils/Fond.jpg", BILINEAR_TEXTURE  )										;
++	Tex1 = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Cils/mapmul.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE|TILE_TEXTURE  )	;
+ 	Tex->IncUser()	;
+ 	Tex1->IncUser()	;
+ 
+--- a/Sources/CilsBoule.cpp
++++ b/Sources/CilsBoule.cpp
+@@ -162,7 +162,7 @@
+ 	Bmp = new BitmapU3D( NULL )	;
+ 
+ 	TextureManager::SetRepertoire( "" )																		;
+-	Tex = TextureManager::OpenJpg( "Datas/meshes/Cils/parti.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
++	Tex = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Cils/parti.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
+ 	Tex->IncUser()																							;
+ 
+ 	Mat	= new MaterialU3D( "Mat" )		;
+--- a/Sources/CilsCarotus.cpp
++++ b/Sources/CilsCarotus.cpp
+@@ -19,7 +19,7 @@
+ //-----------------------------------------------------------------------------------------------------------------------------------------
+ CilsCarotus::CilsCarotus()
+ {
+-	carotus1 = new UImage( "Datas/meshes/Cils/carotus.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE)	;
++	carotus1 = new UImage( "/usr/share/vip2/datas/meshes/Cils/carotus.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE)	;
+ 	carotus1->SetTransp( MatTranspAddAlpha )														;
+ 	carotus1->Disable()																				;
+ 	Bcarotus1 = FALSE																				;
+--- a/Sources/CilsTextes.cpp
++++ b/Sources/CilsTextes.cpp
+@@ -28,7 +28,7 @@
+ 
+ 	Salvation = new UImage*[NB_SALVATION]	;
+ 	
+-	Salvation[0] = new UImage( "Datas/meshes/Cils/salvation.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Salvation[0] = new UImage( "/usr/share/vip2/datas/meshes/Cils/salvation.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	Salvation[0]->SetPos( 0.5f, 0.5f )																		;
+ 	Salvation[0]->SetTransp( MatTranspIncrust )																;
+ 
+@@ -41,7 +41,7 @@
+ 
+ 	Temptation = new UImage*[NB_TEMPTATION]	;
+ 
+-	Temptation[0] = new UImage( "Datas/meshes/Cils/Temptation.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Temptation[0] = new UImage( "/usr/share/vip2/datas/meshes/Cils/Temptation.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	Temptation[0]->SetPos( 0.5f, 0.5f )																		;
+ 	Temptation[0]->SetTransp( MatTranspIncrust )															;
+ 
+@@ -54,7 +54,7 @@
+ 
+ 	Disinfo	 = new UImage*[NB_DISINFO]	;
+ 
+-	Disinfo[0] = new UImage( "Datas/meshes/Cils/Disinfo.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Disinfo[0] = new UImage( "/usr/share/vip2/datas/meshes/Cils/Disinfo.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	Disinfo[0]->SetPos( 0.5f, 0.5f )																	;
+ 	Disinfo[0]->SetTransp( MatTranspIncrust )															;
+ 
+@@ -67,7 +67,7 @@
+ 
+ 	Testi	 = new UImage*[NB_TESTI]	;
+ 
+-	Testi[0] = new UImage( "Datas/meshes/Cils/Testi.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Testi[0] = new UImage( "/usr/share/vip2/datas/meshes/Cils/Testi.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	Testi[0]->SetPos( 0.5f, 0.5f )																	;
+ 	Testi[0]->SetTransp( MatTranspIncrust )															;
+ 
+@@ -80,7 +80,7 @@
+ 
+ 	Freedom	 = new UImage*[NB_FREEDOM]	;
+ 
+-	Freedom[0] = new UImage( "Datas/meshes/Cils/Testi.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Freedom[0] = new UImage( "/usr/share/vip2/datas/meshes/Cils/Testi.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	Freedom[0]->SetPos( 0.5f, 0.5f )																;
+ 	Freedom[0]->SetTransp( MatTranspIncrust )														;
+ 
+@@ -91,8 +91,8 @@
+ 	}
+ 
+ 
+-	dates = new UImage( "Datas/meshes/Cils/Textebas.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	dates->OpenMask( "Datas/meshes/Cils/Textebas.raw" )										;
++	dates = new UImage( "/usr/share/vip2/datas/meshes/Cils/Textebas.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	dates->OpenMask( "/usr/share/vip2/datas/meshes/Cils/Textebas.raw" )										;
+ 	dates->SetTransp( MatTranspAlpha )															;
+ 	dates->SetPos( dates->GetXSize()*.5f, 1.0f - dates->GetYSize()*.5f )						;
+ 
+--- a/Sources/Colonne.cpp
++++ b/Sources/Colonne.cpp
+@@ -43,11 +43,11 @@
+ void ColonnePart::PreLoad()
+ {
+ 	Monde = new MondeU3D									;
+-	Monde->LoadU3D( "Datas/meshes/Colonne/coldem.u3d" )	;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/Colonne/coldem.u3d" )	;
+ 	Monde->ConstructAllObjStaticLighting()					;
+ 	Monde->SetActualCamera( Monde->GetCamera("Camera03") )	;
+ 	Monde->SetAllSpecular( FALSE )							;	// enleve le specular ki prend moult temps en plus dans cette scene !
+-	Monde->LoadTXM( "Datas/meshes/Colonne/colonne.txm" )	;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/Colonne/colonne.txm" )	;
+ }
+ 
+ //----------------------------------------------------------------------------------------------------------------------------------------
+--- a/Sources/Couple.cpp
++++ b/Sources/Couple.cpp
+@@ -54,16 +54,16 @@
+ void CouplePart::PreLoad()
+ {
+ 	Monde = new MondeU3D										;
+-	Monde->LoadU3D( "Datas/meshes/Couple/Couple03.u3d" )		;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/Couple/Couple03.u3d" )		;
+ 	Monde->ConstructAllObjStaticLighting()						;
+ 	Monde->SetActualCamera( Monde->GetCamera("Camera01") )		;
+-	Monde->LoadTXM( "Datas/meshes/Couple/couple.txm" )		;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/Couple/couple.txm" )		;
+ 
+ 	Monde1 = new MondeU3D										;
+-	Monde1->LoadU3D( "Datas/meshes/Couple/Cpl_fnt.u3d" )		;
++	Monde1->LoadU3D( "/usr/share/vip2/datas/meshes/Couple/Cpl_fnt.u3d" )		;
+ 	Monde1->ConstructAllObjStaticLighting()						;
+ 	Monde1->SetActualCamera( Monde1->GetCamera("Camera01") )	;
+-	Monde1->LoadTXM( "Datas/meshes/Couple/couple_fnt.txm" )	;
++	Monde1->LoadTXM( "/usr/share/vip2/datas/meshes/Couple/couple_fnt.txm" )	;
+ }
+ 
+ //----------------------------------------------------------------------------------------------------------------------------------------
+@@ -83,7 +83,7 @@
+ 
+ 	Textes = new CoupleTextes	;
+ 
+-	Flash = new UImage( "Datas/meshes/Couple/Flash.jpg"  )	;
++	Flash = new UImage( "/usr/share/vip2/datas/meshes/Couple/Flash.jpg"  )	;
+ 	Flash->SetSize( 1.0f )										;
+ 	Flash->SetPos( 0.5f, 0.5f )									;
+ 	Flash->SetTransp( MatTranspAddAlpha )						;
+--- a/Sources/CouplePetals.cpp
++++ b/Sources/CouplePetals.cpp
+@@ -197,7 +197,7 @@
+ 
+ 	//-------------------- ini et load l'image d'une particul !
+ 	TextureManager::SetRepertoire( "" )																				;
+-	partTex = TextureManager::OpenJpg( "Datas/meshes/Couple/petal.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
++	partTex = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Couple/petal.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
+ 	partTex->IncUser()																								;
+ 
+ 	partMat	= new MaterialU3D( "partMat" )	;
+@@ -208,8 +208,8 @@
+ 
+ 	partBmp = new BitmapU3D( partMat )	;
+ 
+-	Tex3D = TextureManager::OpenJpg( "Datas/meshes/Couple/petal3D.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE|ALPHA_TEXTURE  )	;
+-	TextureManager::OpenMask( Tex3D, "Datas/meshes/Couple/petal3D.raw" )															;
++	Tex3D = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Couple/petal3D.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE|ALPHA_TEXTURE  )	;
++	TextureManager::OpenMask( Tex3D, "/usr/share/vip2/datas/meshes/Couple/petal3D.raw" )															;
+ 	Tex3D->IncUser()																												;
+ 
+ 	Mat3D = new MaterialU3D( "Tex3D" )	;
+@@ -219,7 +219,7 @@
+ 	Mat3D->Side( TRUE )					;
+ 	Mat3D->Confirm()					;
+ 
+-	TexShadow3D = TextureManager::OpenJpg( "Datas/meshes/Couple/shadow.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
++	TexShadow3D = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Couple/shadow.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
+ 	TexShadow3D->IncUser()																								;
+ 
+ 	MatShadow3D = new MaterialU3D( "TexShadow3D" )	;
+--- a/Sources/CouplePluieL.cpp
++++ b/Sources/CouplePluieL.cpp
+@@ -101,7 +101,7 @@
+ {
+ 	//-------------------- ini et load l'image d'une particul !
+ 	TextureManager::SetRepertoire( "" )																				;
+-	partTex = TextureManager::OpenJpg( "Datas/meshes/Couple/VentP.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
++	partTex = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Couple/VentP.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
+ 	partTex->IncUser()																								;
+ 
+ 	partMat	= new MaterialU3D( "partMat" )	;
+--- a/Sources/CouplePluieP.cpp
++++ b/Sources/CouplePluieP.cpp
+@@ -121,7 +121,7 @@
+ 
+ 	//-------------------- ini et load l'image d'une particul !
+ 	TextureManager::SetRepertoire( "" )																				;
+-	partTex = TextureManager::OpenJpg( "Datas/meshes/Couple/VentP.jpg", BILINEAR_TEXTURE/*|TRILINEAR_TEXTURE*/  )	;
++	partTex = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Couple/VentP.jpg", BILINEAR_TEXTURE/*|TRILINEAR_TEXTURE*/  )	;
+ 	partTex->IncUser()																								;
+ 
+ 	partMat	= new MaterialU3D( "partMat" )	;
+--- a/Sources/CoupleRPluie.cpp
++++ b/Sources/CoupleRPluie.cpp
+@@ -89,7 +89,7 @@
+ 
+ 	//-------------------- ini et load l'image de particul
+ 	TextureManager::SetRepertoire( "" )																				;
+-	partTex = TextureManager::OpenJpg( "Datas/meshes/Couple/Bruine.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
++	partTex = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Couple/Bruine.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
+ 	partTex->IncUser()																								;
+ 
+ 	partMat	= new MaterialU3D( "partMat" )	;
+--- a/Sources/CoupleTextes.cpp
++++ b/Sources/CoupleTextes.cpp
+@@ -19,22 +19,22 @@
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ CoupleTextes::CoupleTextes()
+ {
+-	Sub	=new UImage( "Datas/meshes/Couple/sub.jpg", BILINEAR_TEXTURE, 512.f, 32.f )	;
++	Sub	=new UImage( "/usr/share/vip2/datas/meshes/Couple/sub.jpg", BILINEAR_TEXTURE, 512.f, 32.f )	;
+ 	Sub->SetPos( 0.5f, 0.35f )															;
+ 	Sub->SetTransp( MatTranspAddAlpha )													;
+ 	Sub->SetZoom( 3.0f )																;
+ 
+-	Nihil = new UImage( "Datas/meshes/Couple/Nihil.jpg", BILINEAR_TEXTURE, 512.f, 32.f )	;
++	Nihil = new UImage( "/usr/share/vip2/datas/meshes/Couple/Nihil.jpg", BILINEAR_TEXTURE, 512.f, 32.f )	;
+ 	Nihil->SetPos( 0.5f, 0.6f )																;
+ 	Nihil->SetTransp( MatTranspAddAlpha )													;
+ 	Nihil->SetZoom( 3.0f )																	;
+ 
+-	Corres = new UImage( "Datas/meshes/Couple/corres.jpg", BILINEAR_TEXTURE, 32.f, 512.f  )	;
++	Corres = new UImage( "/usr/share/vip2/datas/meshes/Couple/corres.jpg", BILINEAR_TEXTURE, 32.f, 512.f  )	;
+ 	Corres->SetTransp( MatTranspAddAlpha )														;
+ 	Corres->SetPos( .25f, .5f )																	;
+ 	Corres->Disable()																			;
+ 
+-	Revive = new UImage	( "Datas/meshes/Couple/revive.jpg", BILINEAR_TEXTURE, 64.f, 512.f )	;
++	Revive = new UImage	( "/usr/share/vip2/datas/meshes/Couple/revive.jpg", BILINEAR_TEXTURE, 64.f, 512.f )	;
+ 	Revive->SetPos( Revive->GetXSize()*0.5f, Revive->GetYSize()*0.5f )							;
+ 	Revive->SetTransp( MatTranspAddAlpha )														;
+ 	Revive->InterpoYPos( Revive->GetYSize()*0.7f, 0.0f, 15.f )									;
+@@ -46,7 +46,7 @@
+ 	Revive1->SetPos( Revive1->GetXSize()*.6f, Revive->GetYSize()*0.6f )	;
+ 	Revive1->InterpoYPos( Revive1->GetYSize()*0.7f, -0.1f, 15.f )		;
+ 
+-	Again = new UImage	( "Datas/meshes/Couple/Again.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Again = new UImage	( "/usr/share/vip2/datas/meshes/Couple/Again.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	Again->SetPos( .5f, .5f )																		;
+ 	Again->SetTransp( MatTranspAddAlpha )															;
+ 	Again->Disable()																				;
+--- a/Sources/Etoile.cpp
++++ b/Sources/Etoile.cpp
+@@ -45,10 +45,10 @@
+ void EtoilePart::PreLoad()
+ {
+ 	Monde = new MondeU3D									;
+-	Monde->LoadU3D( "Datas/meshes/etoile/scene.u3d" )	;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/etoile/scene.u3d" )	;
+ 	Monde->GetStates().SortPolyTr = FALSE					;	// ne trie pas les poly transparents
+ 	Monde->AddAFDCallback( "Scales", AffScale )				;
+-	Monde->LoadTXM( "Datas/meshes/etoile/scene.txm" )	;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/etoile/scene.txm" )	;
+ }
+ 
+ //----------------------------------------------------------------------------------------------------------------------------------------
+--- a/Sources/EtoileGreets.cpp
++++ b/Sources/EtoileGreets.cpp
+@@ -22,17 +22,17 @@
+ 	TDefil = timedefil	;
+ 	Temps = 0.0f		;
+ 
+-/*	GreetsInter = new UImage( "Datas/meshes/Etoile/greetsI.jpg", BILINEAR_TEXTURE, 256.f, 512.f )	;
++/*	GreetsInter = new UImage( "/usr/share/vip2/datas/meshes/Etoile/greetsI.jpg", BILINEAR_TEXTURE, 256.f, 512.f )	;
+ 	GreetsInter->SetTransp( MatTranspAddAlpha )															;
+ 	GreetsInter->SetUpLeftPos( 0.0f, 0.0f )																;
+ 	GreetsInter->InterpoYPos( 1.f + GreetsInter->GetYSize()*.5f, -GreetsInter->GetYSize()*.5f, TDefil )	;
+ 
+-	GreetsFrench = new UImage( "Datas/meshes/Etoile/greetsF.jpg", BILINEAR_TEXTURE, 256.f, 512.f )		;
++	GreetsFrench = new UImage( "/usr/share/vip2/datas/meshes/Etoile/greetsF.jpg", BILINEAR_TEXTURE, 256.f, 512.f )		;
+ 	GreetsFrench->SetTransp( MatTranspAddAlpha )															;
+ 	GreetsFrench->SetUpLeftPos( 1.0f - GreetsFrench->GetXSize(), 0.0f )										;
+ 	GreetsFrench->InterpoYPos( -GreetsFrench->GetYSize()*.5f, 1.f + GreetsFrench->GetYSize()*.5f, TDefil )	;*/
+ 
+-/*	Cote1 = new UImage( "Datas/meshes/Etoile/cote.jpg", BILINEAR_TEXTURE|TILE_TEXTURE )		;
++/*	Cote1 = new UImage( "/usr/share/vip2/datas/meshes/Etoile/cote.jpg", BILINEAR_TEXTURE|TILE_TEXTURE )		;
+ 	Cote1->SetTransp( MatTranspAddAlpha )														;
+ 	Cote1->SetYSize( 1.0f )																		;
+ 	Cote1->SetUpLeftPos( 0.0f, 0.0f )															;
+@@ -88,7 +88,7 @@
+ void EtoileGreets::AddImage( U32 num, LPCSTR nom, Ufloat posx, Ufloat posy )
+ {
+ 	char nomf[256];
+-	sprintf(nomf, "Datas/meshes/etoile/%s", nom);
++	sprintf(nomf, "/usr/share/vip2/datas/meshes/etoile/%s", nom);
+ 
+ 	Greets[num] = new UImage( nomf, BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+ 	Greets[num]->SetTransp( MatTranspAddAlpha )							;
+--- a/Sources/Final.cpp
++++ b/Sources/Final.cpp
+@@ -55,12 +55,12 @@
+ void FinalPart::PreLoad()
+ {
+ 	Monde = new MondeU3D								;
+-	Monde->LoadU3D( "Datas/meshes/Final/titre.u3d" )	;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/Final/titre.u3d" )	;
+ 	Monde->ConstrAllObjWireDatas()						;
+ 	Monde->AddAFDCallback( "cartoon", AffCartoon )		;
+ 
+ 	Back = new MondeU3D									;
+-	Back->LoadU3D( "Datas/meshes/Final/boules.u3d" )	;
++	Back->LoadU3D( "/usr/share/vip2/datas/meshes/Final/boules.u3d" )	;
+ 	Back->ConstrAllObjWireDatas()						;
+ 	Back->AddAFDCallback( "volumel", AffVolumeLight )	;
+ 	Back->SetAllObjTypeDraw( ObjetU3D::dnone )			;
+@@ -70,8 +70,8 @@
+ 
+ void WINAPI	FinalPart::Initialise(UScheduler *sche, U32 user)
+ {
+-	Monde->LoadTXM( "Datas/meshes/Final/titre.txm" )	;
+-	Back->LoadTXM( "Datas/meshes/Final/boules.txm" )	;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/Final/titre.txm" )	;
++	Back->LoadTXM( "/usr/share/vip2/datas/meshes/Final/boules.txm" )	;
+ 
+ 	Spline = new FinalSpline( Monde )	;
+ 	Spline->Appear( 5.0f )				;
+@@ -80,7 +80,7 @@
+ 	MatVolume = new MaterialU3D( "Plam" )																						;
+ 	MatVolume->SetTransp( MatTranspAddAlpha )																					;
+ 	MatVolume->SetShading( MatShadingFlat )																						;
+-	MatVolume->SetTexture1( TextureManager::OpenJpg( "Datas/meshes/Final/degrad.jpg", BILINEAR_TEXTURE|TILE_TEXTURE )	)	;
++	MatVolume->SetTexture1( TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Final/degrad.jpg", BILINEAR_TEXTURE|TILE_TEXTURE )	)	;
+ 	MatVolume->Confirm()																										;
+ 
+ 	Bruit = new BPeloche	;
+--- a/Sources/FinalTexte.cpp
++++ b/Sources/FinalTexte.cpp
+@@ -23,18 +23,18 @@
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ FinalTexte::FinalTexte()
+ {
+-	Url	 = new UImage( "Datas/meshes/Final/url.jpg", ALPHA_TEXTURE|BILINEAR_TEXTURE )	;
+-	Url->OpenMask( "Datas/meshes/Final/url.raw" )										;
++	Url	 = new UImage( "/usr/share/vip2/datas/meshes/Final/url.jpg", ALPHA_TEXTURE|BILINEAR_TEXTURE )	;
++	Url->OpenMask( "/usr/share/vip2/datas/meshes/Final/url.raw" )										;
+ 	Url->SetTransp( MatTranspAlpha )														;
+ 	Url->SetUpLeftPos( GetUniXpos(128.f), GetUniYpos(368.f) )								;
+ 	Url->Disable()																			;
+ 
+-	UrlAdd = new UImage( "Datas/meshes/Final/urlflash.jpg" )	;
++	UrlAdd = new UImage( "/usr/share/vip2/datas/meshes/Final/urlflash.jpg" )	;
+ 	UrlAdd->SetTransp( MatTranspAddAlpha )						;
+ 	UrlAdd->SetPos( Url->GetXpos(), Url->GetYpos() )			;
+ 	UrlAdd->Disable()											;
+ 
+-	FScroll	= new UImage( "Datas/meshes/Final/finalscroll.jpg", BILINEAR_TEXTURE, 256.f, 512.f )		;
++	FScroll	= new UImage( "/usr/share/vip2/datas/meshes/Final/finalscroll.jpg", BILINEAR_TEXTURE, 256.f, 512.f )		;
+ 	FScroll->SetTransp( MatTranspAddAlpha )																;
+ 	FScroll->SetPos( 1.0f- FScroll->GetXpos()*.5f, .5f )												;
+ 	FScroll->Disable()																					;
+--- a/Sources/Ghost.cpp
++++ b/Sources/Ghost.cpp
+@@ -42,7 +42,7 @@
+ void GhostPart::PreLoad()
+ {
+ 	Monde = new MondeU3D									;
+-	Monde->LoadU3D( "Datas/meshes/Ghost/Gis13.u3d" )		;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/Ghost/Gis13.u3d" )		;
+ 	Monde->ConstructAllObjStaticLighting()					;
+ 	Monde->SetActualCamera( Monde->GetCamera("Camera01") )	;
+ 	Monde->GetStates().SortPolyTr = FALSE					;
+@@ -60,7 +60,7 @@
+ 		}
+ 	}
+ 
+-	Monde->LoadTXM( "Datas/meshes/Ghost/gis02.txm" )		;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/Ghost/gis02.txm" )		;
+ 
+ }
+ 
+--- a/Sources/Ghost2D.cpp
++++ b/Sources/Ghost2D.cpp
+@@ -24,7 +24,7 @@
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ Ghost2D::Ghost2D()
+ {
+-	Rond[0] = new UImage( "Datas/meshes/Ghost/Rond.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Rond[0] = new UImage( "/usr/share/vip2/datas/meshes/Ghost/Rond.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	Rond[0]->SetTransp( MatTranspAddAlpha )															;
+ 	Rond[0]->InterpoAlpha( 0.0f, 1.0f, TAPPEAR )													;
+ 	Rond[0]->Disable()																				;
+@@ -36,7 +36,7 @@
+ 	}
+ 
+ 
+-	BarreV[0] = new UImage( "Datas/meshes/Ghost/BarreV.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	BarreV[0] = new UImage( "/usr/share/vip2/datas/meshes/Ghost/BarreV.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	BarreV[0]->SetTransp( MatTranspAddAlpha )															;
+ 	BarreV[0]->InterpoAlpha( 0.0f, 1.0f, TAPPEAR )														;
+ 	BarreV[0]->Disable()																				;
+@@ -48,7 +48,7 @@
+ 	}
+ 
+ 
+-	BarreH[0] = new UImage( "Datas/meshes/Ghost/BarreH.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	BarreH[0] = new UImage( "/usr/share/vip2/datas/meshes/Ghost/BarreH.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	BarreH[0]->SetTransp( MatTranspAddAlpha )															;
+ 	BarreH[0]->InterpoAlpha( 0.0f, 1.0f, TAPPEAR )														;
+ 	BarreH[0]->Disable()																				;
+--- a/Sources/GhostEclaires.cpp
++++ b/Sources/GhostEclaires.cpp
+@@ -275,7 +275,7 @@
+ 
+ 	//-------------------- ini et load l'image d'une particul !
+ 	TextureManager::SetRepertoire( "" )																				;
+-	partTex = TextureManager::OpenJpg( "Datas/meshes/Ghost/particul.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
++	partTex = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Ghost/particul.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
+ 	partTex->IncUser()																								;
+ 
+ 	partMat	= new MaterialU3D( "partMat" )	;
+--- a/Sources/GhostEtincelle.cpp
++++ b/Sources/GhostEtincelle.cpp
+@@ -111,7 +111,7 @@
+ 
+ 	//-------------------- ini et load l'image d'une particul !
+ 	TextureManager::SetRepertoire( "" )																				;
+-	partTex = TextureManager::OpenJpg( "Datas/meshes/Ghost/etincelle.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
++	partTex = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Ghost/etincelle.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
+ 	partTex->IncUser()																								;
+ 
+ 	partMat	= new MaterialU3D( "partMat" )	;
+--- a/Sources/Lettres.cpp
++++ b/Sources/Lettres.cpp
+@@ -52,46 +52,46 @@
+ void LettresPart::PreLoad()
+ {
+ 	Lettres[0] = new MondeU3D								;
+-	Lettres[0]->LoadU3D( "Datas/meshes/Lettres/V.u3d" )	;
++	Lettres[0]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/V.u3d" )	;
+ 
+ 	Lettres[1] = new MondeU3D								;
+-	Lettres[1]->LoadU3D( "Datas/meshes/Lettres/I.u3d" )	;
++	Lettres[1]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/I.u3d" )	;
+ 
+ 	Lettres[2] = new MondeU3D								;
+-	Lettres[2]->LoadU3D( "Datas/meshes/Lettres/P.u3d" )	;
++	Lettres[2]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/P.u3d" )	;
+ 
+ 	Lettres[3] = new MondeU3D								;
+-	Lettres[3]->LoadU3D( "Datas/meshes/Lettres/2.u3d" )	;
++	Lettres[3]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/2.u3d" )	;
+ 
+ 	Lettres[4] = new MondeU3D								;
+-	Lettres[4]->LoadU3D( "Datas/meshes/Lettres/P2.u3d" )	;
++	Lettres[4]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/P2.u3d" )	;
+ 
+ 	Lettres[5] = new MondeU3D								;
+-	Lettres[5]->LoadU3D( "Datas/meshes/Lettres/O.u3d" )	;
++	Lettres[5]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/O.u3d" )	;
+ 
+ 	Lettres[6] = new MondeU3D								;
+-	Lettres[6]->LoadU3D( "Datas/meshes/Lettres/P1.u3d" )	;
++	Lettres[6]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/P1.u3d" )	;
+ 
+ 	Lettres[7] = new MondeU3D								;
+-	Lettres[7]->LoadU3D( "Datas/meshes/Lettres/S.u3d" )	;
++	Lettres[7]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/S.u3d" )	;
+ 
+ 	Lettres[8] = new MondeU3D								;
+-	Lettres[8]->LoadU3D( "Datas/meshes/Lettres/Y.u3d" )	;
++	Lettres[8]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/Y.u3d" )	;
+ 
+ 	Lettres[9] = new MondeU3D								;
+-	Lettres[9]->LoadU3D( "Datas/meshes/Lettres/T.u3d" )	;
++	Lettres[9]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/T.u3d" )	;
+ 
+ 	Lettres[10] = new MondeU3D								;
+-	Lettres[10]->LoadU3D( "Datas/meshes/Lettres/E.u3d" )	;
++	Lettres[10]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/E.u3d" )	;
+ 
+ 	Lettres[11] = new MondeU3D								;
+-	Lettres[11]->LoadU3D( "Datas/meshes/Lettres/A.u3d" )	;
++	Lettres[11]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/A.u3d" )	;
+ 
+ 	Lettres[12] = new MondeU3D								;
+-	Lettres[12]->LoadU3D( "Datas/meshes/Lettres/M.u3d" )	;
++	Lettres[12]->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/M.u3d" )	;
+ 
+ 	FScene = new MondeU3D									;
+-	FScene->LoadU3D( "Datas/meshes/Lettres/All.u3d" )	;
++	FScene->LoadU3D( "/usr/share/vip2/datas/meshes/Lettres/All.u3d" )	;
+ 
+ 	Back = new LettresBack			;
+ }
+@@ -100,13 +100,13 @@
+ 
+ void WINAPI	LettresPart::Initialise(UScheduler *sche, U32 user)
+ {
+-	TexGeneral = TextureManager::OpenJpg( "Datas/meshes/Lettres/metal.jpg", ENGINE_TEXTURE )	;	// texture pour toutes les lettres
++	TexGeneral = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Lettres/metal.jpg", ENGINE_TEXTURE )	;	// texture pour toutes les lettres
+ 	TextureManager::AddUse( TexGeneral	)														;
+ 
+ 	ActuaLettre = 0	;
+ 	for( U32 a=0; a<NB_LETTRES_LPART; a++)
+ 	{
+-		Lettres[a]->LoadTXM( "Datas/meshes/Lettres/vip.txm" )	;
++		Lettres[a]->LoadTXM( "/usr/share/vip2/datas/meshes/Lettres/vip.txm" )	;
+ 
+ 		Lettres[a]->GetStates().SortPolyTr = FALSE		;
+ 
+@@ -118,7 +118,7 @@
+ 		Lettres[a]->GetMatFromIterator()->Confirm()						;
+ 	}
+ 
+-	FScene->LoadTXM( "Datas/meshes/Lettres/vip.txm" )		;
++	FScene->LoadTXM( "/usr/share/vip2/datas/meshes/Lettres/vip.txm" )		;
+ 	FScene->GetStates().SortPolyTr = FALSE						;
+ 	FScene->IniMatIterator()									;
+ 	FScene->GetMatFromIterator()->SetTransp( MatTranspAlpha )	;
+@@ -131,7 +131,7 @@
+ 	Fondu->SetColor( 0.0f, 0.0f, 0.0f )	;
+ 	Fondu->Disable()					;
+ 
+-	Url = new UImage( "Datas/meshes/Lettres/url.jpg" )	;
++	Url = new UImage( "/usr/share/vip2/datas/meshes/Lettres/url.jpg" )	;
+ 	Url->SetPos( 0.0f, .5f )								;
+ 	Url->SetTransp( MatTranspAddAlpha )						;
+ 	Url->Disable()											;
+--- a/Sources/LettresBack.cpp
++++ b/Sources/LettresBack.cpp
+@@ -19,11 +19,11 @@
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ LettresBack::LettresBack()
+ {
+-/*	image1	=new UImage( "Datas/meshes/Lettres/fond1.jpg", BILINEAR_TEXTURE, 512.f, 512.f )	;
++/*	image1	=new UImage( "/usr/share/vip2/datas/meshes/Lettres/fond1.jpg", BILINEAR_TEXTURE, 512.f, 512.f )	;
+ 	image1->SetPos( 0.5f, 0.5f )																;
+ 	image1->SetSize( 1.0f )																		;
+ 
+-	image2	=new UImage( "Datas/meshes/Lettres/fond2.jpg", BILINEAR_TEXTURE, 512.f, 512.f )	;
++	image2	=new UImage( "/usr/share/vip2/datas/meshes/Lettres/fond2.jpg", BILINEAR_TEXTURE, 512.f, 512.f )	;
+ 	image2->SetPos( 0.5f, 0.5f )																;
+ 	image2->SetTransp( MatTranspAlpha )															;
+ 	image2->SetSize( 1.0f )																		;*/
+--- a/Sources/NebuTexte.cpp
++++ b/Sources/NebuTexte.cpp
+@@ -19,9 +19,9 @@
+ {
+ 	TextureManager::SetRepertoire( "" )	;
+ 
+-	texture1 = TextureManager::OpenJpg( "Datas/meshes/nebuleuse/nebu lettres.jpg", BILINEAR_TEXTURE )	;
+-	texture2 = TextureManager::OpenJpg( "Datas/meshes/nebuleuse/nebu lettres1.jpg", BILINEAR_TEXTURE )	;
+-	texture3 = TextureManager::OpenJpg( "Datas/meshes/nebuleuse/nebu lettres2.jpg", BILINEAR_TEXTURE )	;
++	texture1 = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/nebuleuse/nebu lettres.jpg", BILINEAR_TEXTURE )	;
++	texture2 = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/nebuleuse/nebu lettres1.jpg", BILINEAR_TEXTURE )	;
++	texture3 = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/nebuleuse/nebu lettres2.jpg", BILINEAR_TEXTURE )	;
+ 
+ 	Forsaken1 = new UImage							;
+ 	Forsaken1->SetTexture( texture1, 512.f, 128.f )	;
+--- a/Sources/Nebuleuse.cpp
++++ b/Sources/Nebuleuse.cpp
+@@ -110,13 +110,13 @@
+ 
+ 	//------------ Ini MondeU3D
+ 	Monde = new MondeU3D									;
+-	Monde->LoadU3D( "Datas/meshes/nebuleuse/sc1.u3d" )	;
+-	Monde->LoadTXM( "Datas/meshes/nebuleuse/sc1.txm" )	;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/nebuleuse/sc1.u3d" )	;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/nebuleuse/sc1.txm" )	;
+ 
+ 
+ 	//----------- Ini Champ de particules
+-	Nebuleuse = new Nebuparticule( "Datas/meshes/nebuleuse/particul.jpg",  
+-								   "Datas/meshes/nebuleuse/Exparticul.jpg" )	;
++	Nebuleuse = new Nebuparticule( "/usr/share/vip2/datas/meshes/nebuleuse/particul.jpg",
++								   "/usr/share/vip2/datas/meshes/nebuleuse/Exparticul.jpg" )	;
+ 	Monde->AddAFDCallback( "Nebuleuse", AffNebuleuse )							;
+ 	RayonsExp = new NebuRayon( 2.5f )											;
+ 
+--- a/Sources/NeuroBack.cpp
++++ b/Sources/NeuroBack.cpp
+@@ -23,25 +23,25 @@
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ NeuroBackground::NeuroBackground()
+ {
+-	DestroyBar = new UImage( "Datas/2d/barre_destroy.jpg", BILINEAR_TEXTURE|TILE_TEXTURE, 64.f, 512.f )	;
++	DestroyBar = new UImage( "/usr/share/vip2/datas/2d/barre_destroy.jpg", BILINEAR_TEXTURE|TILE_TEXTURE, 64.f, 512.f )	;
+ 	DestroyBar->SetTransp( MatTranspAddAlpha )																;
+ 	DestroyBar->SetCoord( 0.0f, 1.0f, 0.0f, 2.0f )															;
+ 	DestroyBar->SetUpLeftPos( GetUniXpos( 48.0f ), GetUniYpos( 0.0f ) )										;
+ 
+ 
+-	CleanTexte = new UImage( "Datas/2d/Texte_clean.jpg", BILINEAR_TEXTURE, 64.f, 512.f )	;
++	CleanTexte = new UImage( "/usr/share/vip2/datas/2d/Texte_clean.jpg", BILINEAR_TEXTURE, 64.f, 512.f )	;
+ 	CleanTexte->SetTransp( MatTranspAddAlpha )												;
+ 	CleanTexte->SetUpLeftPos( GetUniXpos( 500.0f ), -CleanTexte->GetYSize()*.5f )			;
+ 	CleanTexte->InterpoYPos( CleanTexte->GetYpos(), 1.f+CleanTexte->GetYSize(), 2.0f)		;
+ 
+ 
+-	DestroyTexte = new UImage( "Datas/2d/Texte_dstr.jpg", BILINEAR_TEXTURE|TILE_TEXTURE, 64.f, 512.f )	;
++	DestroyTexte = new UImage( "/usr/share/vip2/datas/2d/Texte_dstr.jpg", BILINEAR_TEXTURE|TILE_TEXTURE, 64.f, 512.f )	;
+ 	DestroyTexte->SetTransp( MatTranspAddAlpha )															;
+ 	DestroyTexte->SetYSize( 1.f )																			;
+ 	DestroyTexte->SetUpLeftPos( GetUniXpos( 136.0f ), GetUniYpos( 0.0f ) )									;
+ 
+ 
+-	Nenfants = new UImage( "Datas/2d/nenfants.jpg", BILINEAR_TEXTURE )	;
++	Nenfants = new UImage( "/usr/share/vip2/datas/2d/nenfants.jpg", BILINEAR_TEXTURE )	;
+ 	Nenfants->SetTransp( MatTranspAddAlpha )								;
+ 	Nenfants->SetUpLeftPos( GetUniXpos( 260.0f ), 1.0f )					;
+ 	Nenfants->InterpoYPos( Nenfants->GetYpos(), -Nenfants->GetYpos(), 3.0f)	;
+--- a/Sources/NeuroLights.cpp
++++ b/Sources/NeuroLights.cpp
+@@ -36,17 +36,17 @@
+ //	BigLight = (LightU3D*)monde->GetLight( "MainL" )->GetPtr()	;
+ 	BigLight = (LightU3D*)monde->GetLight( "MainL" )			;
+ 
+-	Big = new UImage( "Datas/meshes/neurones/BFlare.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Big = new UImage( "/usr/share/vip2/datas/meshes/neurones/BFlare.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	Big->SetTransp( MatTranspAddAlpha )																;
+ 
+-	BigRay = new UImage( "Datas/meshes/neurones/FlarePart.jpg", BILINEAR_TEXTURE )	;
++	BigRay = new UImage( "/usr/share/vip2/datas/meshes/neurones/FlarePart.jpg", BILINEAR_TEXTURE )	;
+ 	BigRay->SetTransp( MatTranspAddAlpha )												;
+ 
+-	Lens[0] = new UImage( "Datas/meshes/neurones/lens1.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+-	Lens[1] = new UImage( "Datas/meshes/neurones/lens2.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+-	Lens[2] = new UImage( "Datas/meshes/neurones/lens3.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+-	Lens[3] = new UImage( "Datas/meshes/neurones/lens4.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+-	Lens[4] = new UImage( "Datas/meshes/neurones/lens5.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Lens[0] = new UImage( "/usr/share/vip2/datas/meshes/neurones/lens1.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Lens[1] = new UImage( "/usr/share/vip2/datas/meshes/neurones/lens2.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Lens[2] = new UImage( "/usr/share/vip2/datas/meshes/neurones/lens3.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Lens[3] = new UImage( "/usr/share/vip2/datas/meshes/neurones/lens4.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	Lens[4] = new UImage( "/usr/share/vip2/datas/meshes/neurones/lens5.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 	Lens[0]->SetTransp( MatTranspAddAlpha )																;
+ 	Lens[1]->SetTransp( MatTranspAddAlpha )																;
+ 	Lens[2]->SetTransp( MatTranspAddAlpha )																;
+--- a/Sources/NeuroTexte.cpp
++++ b/Sources/NeuroTexte.cpp
+@@ -19,7 +19,7 @@
+ {
+ 	TextureManager::SetRepertoire( "" )	;
+ 
+-	texture1 = TextureManager::OpenJpg( "Datas/meshes/neurones/Texte (1).jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
++	texture1 = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/neurones/Texte (1).jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE )	;
+ 
+ 	There = new UImage								;
+ 	There->SetTexture( texture1, 512.f, 256.f )		;
+@@ -57,20 +57,20 @@
+ 	Me->SetTransp( MatTranspAddAlpha )				;
+ 	Me->Disable()									;
+ 
+-	Allthat	 = new UImage( "Datas/meshes/neurones/allthat.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Allthat->OpenMask( "Datas/meshes/neurones/allthat.raw" )										;
++	Allthat	 = new UImage( "/usr/share/vip2/datas/meshes/neurones/allthat.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Allthat->OpenMask( "/usr/share/vip2/datas/meshes/neurones/allthat.raw" )										;
+ 	Allthat->SetPos( Allthat->GetXSize()*.5f, 1.0f - Allthat->GetYSize()*.5f )						;
+ 	Allthat->SetTransp( MatTranspAlpha )															;
+ 	Allthat->Disable()																				;
+ 
+-	Shatters	 = new UImage( "Datas/meshes/neurones/shatters.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Shatters->OpenMask( "Datas/meshes/neurones/shatters.raw" )											;
++	Shatters	 = new UImage( "/usr/share/vip2/datas/meshes/neurones/shatters.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Shatters->OpenMask( "/usr/share/vip2/datas/meshes/neurones/shatters.raw" )											;
+ 	Shatters->SetPos( Shatters->GetXSize()*.5f, 1.0f - Shatters->GetYSize()*.5f )							;
+ 	Shatters->SetTransp( MatTranspAlpha )																	;
+ 	Shatters->Disable()																						;
+ 
+-	Absense		 = new UImage( "Datas/meshes/neurones/absence.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Absense->OpenMask( "Datas/meshes/neurones/absence.raw" )											;
++	Absense		 = new UImage( "/usr/share/vip2/datas/meshes/neurones/absence.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Absense->OpenMask( "/usr/share/vip2/datas/meshes/neurones/absence.raw" )											;
+ 	Absense->SetPos( Absense->GetXSize()*.5f, 1.0f - Absense->GetYSize()*.5f )							;
+ 	Absense->SetTransp( MatTranspAlpha )																;
+ 	Absense->Disable()																					;
+--- a/Sources/Neurone.cpp
++++ b/Sources/Neurone.cpp
+@@ -50,14 +50,14 @@
+ {
+ 	//------------ Load MondeU3D
+ 	Monde = new MondeU3D										;
+-	Monde->LoadU3D( "Datas/meshes/neurones/Neur_dem.u3d" )	;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/neurones/Neur_dem.u3d" )	;
+ 
+ 	//----------- fait des inis sur le monde
+ 	Monde->ConstrAllObjColTree()									;	// speeed collisions !
+ 	Monde->ConstructAllObjStaticLighting()							;	// pre calc lumières
+ 	Monde->GetActualCamera()->SetAnimCallBack( CameraTremblement )	;
+ 
+-	Monde->LoadTXM( "Datas/meshes/neurones/neuro.txm" )		;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/neurones/neuro.txm" )		;
+ }
+ 
+ //----------------------------------------------------------------------------------------------------------------------------------------
+@@ -85,7 +85,7 @@
+ 	FondNoir->SetSize( 1.0f )				;
+ 	FondNoir->Disable()						;
+ 
+-	RotoTRuc = new UImage( "Datas/meshes/neurones/roto_truc.jpg" )				;
++	RotoTRuc = new UImage( "/usr/share/vip2/datas/meshes/neurones/roto_truc.jpg" )				;
+ 	RotoTRuc->SetTransp( MatTranspAddAlpha )										;
+ 	RotoTRuc->ConsProRota( FALSE )													;
+ 	RotoTRuc->SetPos( RotoTRuc->GetXSize()*.5f, 1.f - RotoTRuc->GetYSize()*.5f )	;
+--- a/Sources/Oeil.cpp
++++ b/Sources/Oeil.cpp
+@@ -47,15 +47,15 @@
+ {
+ 	//------------ Load MondeU3D
+ 	Monde = new MondeU3D								;
+-	Monde->LoadU3D( "Datas/meshes/Oeil/morph.u3d" )	;
+-	Monde->LoadTXM( "Datas/meshes/Oeil/morph.txm" )	;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/Oeil/morph.u3d" )	;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/Oeil/morph.txm" )	;
+ }
+ 
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ 
+ void WINAPI	OeilPart::Initialise(UScheduler *sche, U32 user)
+ {
+-//	Monde->LoadTXM( "Datas/meshes/Oeil/Oeil.txm" )	;
++//	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/Oeil/Oeil.txm" )	;
+ 	Monde->SetAllUVcalc( ObjetU3D::envStage1 )			;
+ 
+ 	Lignes = new OeilLigne		;
+--- a/Sources/OeilDefor.cpp
++++ b/Sources/OeilDefor.cpp
+@@ -36,7 +36,7 @@
+ 	Bmp = new BitmapU3D( NULL )	;
+ 
+ 	TextureManager::SetRepertoire( "" )										;
+-	Tex = TextureManager::OpenJpg( "Datas/meshes/Oeil/fakeoeil.jpg"  )	;
++	Tex = TextureManager::OpenJpg( "/usr/share/vip2/datas/meshes/Oeil/fakeoeil.jpg"  )	;
+ 	Tex->IncUser()															;
+ 
+ 	Mat	= new MaterialU3D( "Mat" )			;
+--- a/Sources/OeilTextes.cpp
++++ b/Sources/OeilTextes.cpp
+@@ -20,35 +20,35 @@
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ OeilTextes::OeilTextes()
+ {
+-	Revive = new UImageBlur( 5, "Datas/meshes/Oeil/revive.jpg", TRILINEAR_TEXTURE|BILINEAR_TEXTURE )	;
++	Revive = new UImageBlur( 5, "/usr/share/vip2/datas/meshes/Oeil/revive.jpg", TRILINEAR_TEXTURE|BILINEAR_TEXTURE )	;
+ 	Revive->SetTransp( MatTranspAddAlpha )																;
+ 	Revive->Disable()																					;
+ 	disaRevive = FALSE	;
+ 
+-	Vip	 = new UImageBlur( 5, "Datas/meshes/Oeil/VIP2trash.jpg", TRILINEAR_TEXTURE|BILINEAR_TEXTURE )	;
++	Vip	 = new UImageBlur( 5, "/usr/share/vip2/datas/meshes/Oeil/VIP2trash.jpg", TRILINEAR_TEXTURE|BILINEAR_TEXTURE )	;
+ 	Vip->SetTransp( MatTranspAddAlpha )																		;
+ 	Vip->Disable()																							;
+ 	disaVip = FALSE	;
+ 
+ 	Vpos = 0																							;
+-	Vertical[0] = 	new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/h_com.jpg", BILINEAR_TEXTURE )		;
+-	Vertical[1] = 	new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/h_evil.jpg", BILINEAR_TEXTURE )	;
+-	Vertical[2] = 	new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/h_eyes.jpg", BILINEAR_TEXTURE )	;
+-	Vertical[3] = 	new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/h_hurt.jpg", BILINEAR_TEXTURE )	;
+-	Vertical[4] = 	new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/h_roots.jpg", BILINEAR_TEXTURE )	;
+-	Vertical[5] = 	new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/h_seek.jpg", BILINEAR_TEXTURE )	;
+-	Vertical[6] = 	new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/h_waste.jpg", BILINEAR_TEXTURE )	;
+-	Vertical[7] = 	new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/h_weed.jpg", BILINEAR_TEXTURE )	;
++	Vertical[0] = 	new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/h_com.jpg", BILINEAR_TEXTURE )		;
++	Vertical[1] = 	new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/h_evil.jpg", BILINEAR_TEXTURE )	;
++	Vertical[2] = 	new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/h_eyes.jpg", BILINEAR_TEXTURE )	;
++	Vertical[3] = 	new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/h_hurt.jpg", BILINEAR_TEXTURE )	;
++	Vertical[4] = 	new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/h_roots.jpg", BILINEAR_TEXTURE )	;
++	Vertical[5] = 	new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/h_seek.jpg", BILINEAR_TEXTURE )	;
++	Vertical[6] = 	new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/h_waste.jpg", BILINEAR_TEXTURE )	;
++	Vertical[7] = 	new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/h_weed.jpg", BILINEAR_TEXTURE )	;
+ 
+ 	Hpos = 0																							;
+-	Horizontal[0] = new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/t_back.jpg", BILINEAR_TEXTURE )	;
+-	Horizontal[1] = new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/t_clear.jpg", BILINEAR_TEXTURE )	;
+-	Horizontal[2] = new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/t_fear.jpg", BILINEAR_TEXTURE )	;
+-	Horizontal[3] = new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/t_http.jpg", BILINEAR_TEXTURE )	;
+-	Horizontal[4] = new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/t_tear.jpg", BILINEAR_TEXTURE )	;
+-	Horizontal[5] = new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/t_today.jpg", BILINEAR_TEXTURE )	;
+-	Horizontal[6] = new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/t_void.jpg", BILINEAR_TEXTURE )	;
+-	Horizontal[7] = new UImageBlur( NB_BLURPI, "Datas/meshes/Oeil/t_waste.jpg", BILINEAR_TEXTURE )	;
++	Horizontal[0] = new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/t_back.jpg", BILINEAR_TEXTURE )	;
++	Horizontal[1] = new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/t_clear.jpg", BILINEAR_TEXTURE )	;
++	Horizontal[2] = new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/t_fear.jpg", BILINEAR_TEXTURE )	;
++	Horizontal[3] = new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/t_http.jpg", BILINEAR_TEXTURE )	;
++	Horizontal[4] = new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/t_tear.jpg", BILINEAR_TEXTURE )	;
++	Horizontal[5] = new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/t_today.jpg", BILINEAR_TEXTURE )	;
++	Horizontal[6] = new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/t_void.jpg", BILINEAR_TEXTURE )	;
++	Horizontal[7] = new UImageBlur( NB_BLURPI, "/usr/share/vip2/datas/meshes/Oeil/t_waste.jpg", BILINEAR_TEXTURE )	;
+ 
+ 	for( U32 a=0; a<8; a++ )
+ 	{
+@@ -66,13 +66,13 @@
+ 	}
+ 
+ 
+-	TexteArabe = new UImage( "Datas/meshes/Oeil/Text.jpg", BILINEAR_TEXTURE, 512.f, 512.f )	;
++	TexteArabe = new UImage( "/usr/share/vip2/datas/meshes/Oeil/Text.jpg", BILINEAR_TEXTURE, 512.f, 512.f )	;
+ 	TexteArabe->SetTransp( MatTranspAddAlpha )													;
+ 	TexteArabe->SetYSize( 1.0f )																;
+ 	TexteArabe->SetAlpha( .7f )																	;
+ //	TexteArabe->InterpoYPos( TexteArabe->GetYpos(), -.1f, 16.f )								;	// 20 secondes de scroll
+ 
+-	Rond[0] = new UImage( "Datas/meshes/Oeil/Rond.jpg" )	;
++	Rond[0] = new UImage( "/usr/share/vip2/datas/meshes/Oeil/Rond.jpg" )	;
+ 	Rond[0]->SetTransp( MatTranspAddAlpha	)				;
+ 	Rond[0]->Disable()										;
+ 
+--- a/Sources/Plans.cpp
++++ b/Sources/Plans.cpp
+@@ -56,11 +56,11 @@
+ {
+ 	//------------ Load MondeU3D
+ 	Monde = new MondeU3D									;
+-	Monde->LoadU3D( "Datas/meshes/Plans/Plans1.u3d" )	;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/Plans/Plans1.u3d" )	;
+ 	Monde->GetStates().SortPolyTr = FALSE					;	// enleve trie des poly transparents
+ 
+ 	MondeClock = new MondeU3D									;
+-	MondeClock->LoadU3D( "Datas/meshes/Plans/clock.u3d" )	;
++	MondeClock->LoadU3D( "/usr/share/vip2/datas/meshes/Plans/clock.u3d" )	;
+ 	MondeClock->GetStates().SortPolyTr = FALSE					;	// enleve trie des poly transparents
+ }
+ 
+@@ -68,14 +68,14 @@
+ 
+ void WINAPI	PlansPart::Initialise(UScheduler *sche, U32 user)
+ {
+-	Monde->LoadTXM( "Datas/meshes/Plans/Plans.txm" )	;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/Plans/Plans.txm" )	;
+ 	PAnim = new PlansAnim( Monde )						;
+ 	PTransp	 = new PlansTransp( Monde )					;
+ 
+-	MondeClock->LoadTXM( "Datas/meshes/Plans/clock.txm" )	;
++	MondeClock->LoadTXM( "/usr/share/vip2/datas/meshes/Plans/clock.txm" )	;
+ 	ClockAnim = new PlansClockAnim( MondeClock )				;
+ 
+-	LigneHaut = new UImage( "Datas/meshes/Plans/bluefond.jpg", BILINEAR_TEXTURE, 512.f, 128.f )	;
++	LigneHaut = new UImage( "/usr/share/vip2/datas/meshes/Plans/bluefond.jpg", BILINEAR_TEXTURE, 512.f, 128.f )	;
+ 	LigneHaut->SetTransp( MatTranspMulAlpha )														;
+ 	LigneHaut->SetXSize( 1.0f )																		;
+ 	LigneHaut->SetYSize( 1.f/3.f )																	;
+@@ -86,7 +86,7 @@
+ 	LigneBas->SetCoord( 0.0f, 1.0f, 1.0f, 0.0f )				;
+ 	LigneBas->SetPos( .5f, 1.0f - LigneBas->GetYSize()*.5f )	;
+ 
+-	LignePetite = new UImage( "Datas/meshes/Plans/ligne.jpg", BILINEAR_TEXTURE|TILE_TEXTURE)	;
++	LignePetite = new UImage( "/usr/share/vip2/datas/meshes/Plans/ligne.jpg", BILINEAR_TEXTURE|TILE_TEXTURE)	;
+ 	LignePetite->SetTransp( MatTranspAddAlpha )													;
+ 	LignePetite->SetCoord( 0.0f, 100.f, 0.0f, 1.0f )											;
+ 	LignePetite->SetXSize( 1.0f )																;
+--- a/Sources/PlansCache.cpp
++++ b/Sources/PlansCache.cpp
+@@ -19,43 +19,43 @@
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ PlansCache::PlansCache( Ufloat time )
+ {
+-	Tuo = new UImage( "Datas/meshes/Cache1/Tuo.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Tuo->OpenMask( "Datas/meshes/Cache1/mask.raw" )										;
++	Tuo = new UImage( "/usr/share/vip2/datas/meshes/Cache1/Tuo.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Tuo->OpenMask( "/usr/share/vip2/datas/meshes/Cache1/mask.raw" )										;
+ 	Tuo->SetUpLeftPos( 0.0f, GetUniYpos( 220.f)	)											;
+ 	Tuo->SetTransp( MatTranspAlpha )														;
+ 	Tuo->Disable()																			;
+ 	BTuo = FALSE	;
+ 
+-	U2 = new UImage( "Datas/meshes/Cache1/U2.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	U2->OpenMask( "Datas/meshes/Cache1/mask.raw" )									;
++	U2 = new UImage( "/usr/share/vip2/datas/meshes/Cache1/U2.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	U2->OpenMask( "/usr/share/vip2/datas/meshes/Cache1/mask.raw" )									;
+ 	U2->SetUpLeftPos( 0.0f, GetUniYpos( 220.f)	)										;
+ 	U2->SetTransp( MatTranspAlpha )														;
+ 	U2->Disable()																		;
+ 	BU2 = FALSE	;
+ 
+-	Ghell = new UImage( "Datas/meshes/Cache1/Ghell.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Ghell->OpenMask( "Datas/meshes/Cache1/mask.raw" )										;
++	Ghell = new UImage( "/usr/share/vip2/datas/meshes/Cache1/Ghell.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Ghell->OpenMask( "/usr/share/vip2/datas/meshes/Cache1/mask.raw" )										;
+ 	Ghell->SetUpLeftPos( 0.0f, GetUniYpos( 220.f)	)											;
+ 	Ghell->SetTransp( MatTranspAlpha )															;
+ 	Ghell->Disable()																			;
+ 	BGhell = FALSE	;
+ 
+-	Madman = new UImage( "Datas/meshes/Cache1/Madman.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Madman->OpenMask( "Datas/meshes/Cache1/mask.raw" )										;
++	Madman = new UImage( "/usr/share/vip2/datas/meshes/Cache1/Madman.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Madman->OpenMask( "/usr/share/vip2/datas/meshes/Cache1/mask.raw" )										;
+ 	Madman->SetUpLeftPos( 0.0f, GetUniYpos( 220.f)	)											;
+ 	Madman->SetTransp( MatTranspAlpha )															;
+ 	Madman->Disable()																			;
+ 	BMadman = FALSE	;
+ 
+-	Taggy = new UImage( "Datas/meshes/Cache1/Taggy.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Taggy->OpenMask( "Datas/meshes/Cache1/mask.raw" )										;
++	Taggy = new UImage( "/usr/share/vip2/datas/meshes/Cache1/Taggy.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Taggy->OpenMask( "/usr/share/vip2/datas/meshes/Cache1/mask.raw" )										;
+ 	Taggy->SetUpLeftPos( 0.0f, GetUniYpos( 220.f)	)											;
+ 	Taggy->SetTransp( MatTranspAlpha )															;
+ 	Taggy->Disable()																			;
+ 	BTaggy = FALSE	;
+ 
+-	FFactory = new UImage( "Datas/meshes/Cache1/FF.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	FFactory->OpenMask( "Datas/meshes/Cache1/mask.raw" )										;
++	FFactory = new UImage( "/usr/share/vip2/datas/meshes/Cache1/FF.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	FFactory->OpenMask( "/usr/share/vip2/datas/meshes/Cache1/mask.raw" )										;
+ 	FFactory->SetUpLeftPos( 0.0f, GetUniYpos( 220.f)	)										;
+ 	FFactory->SetTransp( MatTranspAlpha )														;
+ 	FFactory->Disable()																			;
+--- a/Sources/PlansTextes.cpp
++++ b/Sources/PlansTextes.cpp
+@@ -18,77 +18,77 @@
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ PlansTextes::PlansTextes( Ufloat time )
+ {
+-	DStaff = new UImage( "Datas/meshes/Plans/dstaff.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	DStaff->OpenMask( "Datas/meshes/Plans/dstaff.raw" )										;
++	DStaff = new UImage( "/usr/share/vip2/datas/meshes/Plans/dstaff.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	DStaff->OpenMask( "/usr/share/vip2/datas/meshes/Plans/dstaff.raw" )										;
+ 	DStaff->SetUpLeftPos( GetUniXpos( 370.f), GetUniYpos( 20.f)	)								;
+ 	DStaff->SetTransp( MatTranspAlpha )															;
+ 	DStaff->InterpoAlpha( 0.0f, 1.0f, time )													;
+ 	DStaff->InterpoXPos( GetUniXpos( 270.f), GetUniXpos( 370.f), time )							;
+ 	BDStaff = FALSE	;
+ 
+-	Programing = new UImage( "Datas/meshes/Plans/Programing.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Programing->OpenMask( "Datas/meshes/Plans/Programing.raw" )										;
++	Programing = new UImage( "/usr/share/vip2/datas/meshes/Plans/Programing.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Programing->OpenMask( "/usr/share/vip2/datas/meshes/Plans/Programing.raw" )										;
+ 	Programing->SetUpLeftPos( GetUniXpos( 354.f), GetUniYpos( 332.f)	)								;
+ 	Programing->SetTransp( MatTranspAlpha )																;
+ 	Programing->Disable()																				;
+ 	BPrograming = FALSE	;	
+ 
+-	Gfx2d = new UImage( "Datas/meshes/Plans/2dgfx.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Gfx2d->OpenMask( "Datas/meshes/Plans/2dgfx.raw" )									;
++	Gfx2d = new UImage( "/usr/share/vip2/datas/meshes/Plans/2dgfx.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Gfx2d->OpenMask( "/usr/share/vip2/datas/meshes/Plans/2dgfx.raw" )									;
+ 	Gfx2d->SetUpLeftPos( GetUniXpos( 354.f), GetUniYpos( 332.f)	)							;
+ 	Gfx2d->SetTransp( MatTranspAlpha )														;
+ 	Gfx2d->Disable()																		;
+ 	BGfx2d = FALSE	;
+ 
+-	Gfx3d = new UImage( "Datas/meshes/Plans/3dgfx.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Gfx3d->OpenMask( "Datas/meshes/Plans/3dgfx.raw" )									;
++	Gfx3d = new UImage( "/usr/share/vip2/datas/meshes/Plans/3dgfx.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Gfx3d->OpenMask( "/usr/share/vip2/datas/meshes/Plans/3dgfx.raw" )									;
+ 	Gfx3d->SetTransp( MatTranspAlpha )														;
+ 	Gfx3d->Disable()																		;
+ 	BGfx3d = FALSE	;
+ 
+-	Music = new UImage( "Datas/meshes/Plans/music.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Music->OpenMask( "Datas/meshes/Plans/music.raw" )									;
++	Music = new UImage( "/usr/share/vip2/datas/meshes/Plans/music.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Music->OpenMask( "/usr/share/vip2/datas/meshes/Plans/music.raw" )									;
+ 	Music->SetTransp( MatTranspAlpha )														;
+ 	Music->Disable()																		;
+ 	BMusic = FALSE	;
+ 
+-	Tuo = new UImage( "Datas/meshes/Plans/Tuo.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Tuo->OpenMask( "Datas/meshes/Plans/Tuo.raw" )									;
++	Tuo = new UImage( "/usr/share/vip2/datas/meshes/Plans/Tuo.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Tuo->OpenMask( "/usr/share/vip2/datas/meshes/Plans/Tuo.raw" )									;
+ 	Tuo->SetUpLeftPos( GetUniXpos( 408.f), GetUniYpos( 374.f)	)						;
+ 	Tuo->SetTransp( MatTranspAlpha )													;
+ 	Tuo->Disable()																		;
+ 	BTuo = FALSE	;
+ 
+-	U2 = new UImage( "Datas/meshes/Plans/U2.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	U2->OpenMask( "Datas/meshes/Plans/U2.raw" )										;
++	U2 = new UImage( "/usr/share/vip2/datas/meshes/Plans/U2.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	U2->OpenMask( "/usr/share/vip2/datas/meshes/Plans/U2.raw" )										;
+ 	U2->SetUpLeftPos( GetUniXpos( 423.f), GetUniYpos( 377.f)	)						;
+ 	U2->SetTransp( MatTranspAlpha )														;
+ 	U2->Disable()																		;
+ 	BU2 = FALSE	;
+ 
+-	Ghell = new UImage( "Datas/meshes/Plans/Ghell.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Ghell->OpenMask( "Datas/meshes/Plans/Ghell.raw" )									;
++	Ghell = new UImage( "/usr/share/vip2/datas/meshes/Plans/Ghell.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Ghell->OpenMask( "/usr/share/vip2/datas/meshes/Plans/Ghell.raw" )									;
+ 	Ghell->SetUpLeftPos( GetUniXpos( 354.f), GetUniYpos( 377.f)	)							;
+ 	Ghell->SetTransp( MatTranspAlpha )														;
+ 	Ghell->Disable()																		;
+ 	BGhell = FALSE	;
+ 
+-	Madman = new UImage( "Datas/meshes/Plans/Madman.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Madman->OpenMask( "Datas/meshes/Plans/Madman.raw" )										;
++	Madman = new UImage( "/usr/share/vip2/datas/meshes/Plans/Madman.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Madman->OpenMask( "/usr/share/vip2/datas/meshes/Plans/Madman.raw" )										;
+ 	Madman->SetUpLeftPos( GetUniXpos( 354.f), GetUniYpos( 377.f)	)							;
+ 	Madman->SetTransp( MatTranspAlpha )															;
+ 	Madman->Disable()																			;
+ 	BMadman = FALSE	;
+ 
+-	Taggy = new UImage( "Datas/meshes/Plans/Taggy.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	Taggy->OpenMask( "Datas/meshes/Plans/Taggy.raw" )									;
++	Taggy = new UImage( "/usr/share/vip2/datas/meshes/Plans/Taggy.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	Taggy->OpenMask( "/usr/share/vip2/datas/meshes/Plans/Taggy.raw" )									;
+ 	Taggy->SetUpLeftPos( GetUniXpos( 354.f), GetUniYpos( 377.f)	)							;
+ 	Taggy->SetTransp( MatTranspAlpha )														;
+ 	Taggy->Disable()																		;
+ 	BTaggy = FALSE	;
+ 
+-	FFactory = new UImage( "Datas/meshes/Plans/FF.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
+-	FFactory->OpenMask( "Datas/meshes/Plans/FF.raw" )									;
++	FFactory = new UImage( "/usr/share/vip2/datas/meshes/Plans/FF.jpg", BILINEAR_TEXTURE|ALPHA_TEXTURE )	;
++	FFactory->OpenMask( "/usr/share/vip2/datas/meshes/Plans/FF.raw" )									;
+ 	FFactory->SetUpLeftPos( GetUniXpos( 354.f), GetUniYpos( 377.f)	)						;
+ 	FFactory->SetTransp( MatTranspAlpha )													;
+ 	FFactory->Disable()																		;
+--- a/Sources/Smile.cpp
++++ b/Sources/Smile.cpp
+@@ -36,7 +36,7 @@
+ void SmilePart::PreLoad()
+ {
+ 	Monde = new MondeU3D								;
+-	Monde->LoadU3D( "Datas/meshes/Smile/morph.u3d" )	;
++	Monde->LoadU3D( "/usr/share/vip2/datas/meshes/Smile/morph.u3d" )	;
+ 	Monde->SetAllUVcalc( ObjetU3D::envStage0 )			;
+ }
+ 
+@@ -44,7 +44,7 @@
+ 
+ void WINAPI	SmilePart::Initialise(UScheduler *sche, U32 user)
+ {
+-	Monde->LoadTXM( "Datas/meshes/Smile/smile.txm" )	;
++	Monde->LoadTXM( "/usr/share/vip2/datas/meshes/Smile/smile.txm" )	;
+ 	
+ 	TextureManager::LoadAll()	;	// load toute les textures
+ 
+--- a/Sources/XGrezilles.cpp
++++ b/Sources/XGrezilles.cpp
+@@ -88,7 +88,7 @@
+ 	GBmp = new BitmapU3D( NULL )	;
+ 
+ 	TextureManager::SetRepertoire( "" )																	;
+-	TexPic1 = TextureManager::OpenJpg( "Datas/2d/GPic1.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
++	TexPic1 = TextureManager::OpenJpg( "/usr/share/vip2/datas/2d/GPic1.jpg", BILINEAR_TEXTURE|TRILINEAR_TEXTURE  )	;
+ 	TexPic1->IncUser()																					;
+ 
+ 	MatPic1	= new MaterialU3D( "MatPic1" )	;
+--- a/Sources/main.cpp
++++ b/Sources/main.cpp
+@@ -1,7 +1,7 @@
+ #include <glwindow.h>
+ #include <stdafx.h>
+ 
+-#define MP3_PATH "Datas/zic/vip2.mp3"
++#define MP3_PATH "/usr/share/vip2/datas/zic/vip2.mp3"
+ // #define NOMP3 1	// remove the sound
+ 
+ //----------------------------------------------------------------------------------------------------------------------------------------
+--- a/Datas/meshes/Colonne/colonne.txm
++++ b/Datas/meshes/Colonne/colonne.txm
+@@ -14,7 +14,7 @@
+ //--------------------------------------
+ 
+ //Repertoire D:/Sources/PoPsY-new/vip2/Datas/meshes/Colonne/
+-Repertoire Datas/meshes/Colonne/
++Repertoire /usr/share/vip2/datas/meshes/Colonne/
+ 
+ TileTex
+ Open env1.jpg
+--- a/Datas/meshes/Couple/couple.txm
++++ b/Datas/meshes/Couple/couple.txm
+@@ -13,7 +13,7 @@
+ //			Texture List
+ //--------------------------------------
+ 
+-Repertoire Datas/meshes/Couple/
++Repertoire  /usr/share/vip2/datas/meshes/Couple/
+ 
+ TileTex
+ Open G_black2.jpg
+--- a/Datas/meshes/Couple/couple_fnt.txm
++++ b/Datas/meshes/Couple/couple_fnt.txm
+@@ -14,7 +14,7 @@
+ //--------------------------------------
+ 
+ //Repertoire D:/Sources/PoPsY-new/vip2/Datas/meshes/Couple/
+-Repertoire Datas/meshes/Couple/
++Repertoire  /usr/share/vip2/datas/meshes/Couple/
+ 
+ TileTex
+ Open cailloux.jpg
+--- a/Datas/meshes/etoile/scene.txm
++++ b/Datas/meshes/etoile/scene.txm
+@@ -13,7 +13,7 @@
+ //			Texture List
+ //--------------------------------------
+ 
+-Repertoire Datas/meshes/etoile/
++Repertoire  /usr/share/vip2/datas/meshes/etoile/
+ 
+ TileTex
+ Open metal.jpg
+--- a/Datas/meshes/Ghost/gis02.txm
++++ b/Datas/meshes/Ghost/gis02.txm
+@@ -13,7 +13,7 @@
+ //			Texture List
+ //--------------------------------------
+ 
+-Repertoire Datas/meshes/Ghost/
++Repertoire  /usr/share/vip2/datas/meshes/Ghost/
+ 
+ TileTex
+ Open envmap.jpg
+--- a/Datas/meshes/Lettres/vip.txm
++++ b/Datas/meshes/Lettres/vip.txm
+@@ -13,7 +13,7 @@
+ //			Texture List
+ //--------------------------------------
+ 
+-Repertoire Datas/meshes/Lettres/
++Repertoire  /usr/share/vip2/datas/meshes/Lettres/
+ 
+ 
+ //--------------------------------------
+--- a/Datas/meshes/nebuleuse/sc1.txm
++++ b/Datas/meshes/nebuleuse/sc1.txm
+@@ -13,7 +13,7 @@
+ // Liste des images necessaires
+ //--------------------------------------
+ 
+-Repertoire Datas/meshes/nebuleuse/
++Repertoire  /usr/share/vip2/datas/meshes/nebuleuse/
+ 
+ Open etoiles.jpg
+ Open neb2.jpg
+--- a/Datas/meshes/neurones/neuro.txm
++++ b/Datas/meshes/neurones/neuro.txm
+@@ -13,7 +13,7 @@
+ // Liste des images necessaires
+ //--------------------------------------
+ 
+-Repertoire Datas/meshes/neurones/
++Repertoire  /usr/share/vip2/datas/meshes/neurones/
+ 
+ TileTex
+ Open map.jpg
+--- a/Datas/meshes/Oeil/morph.txm
++++ b/Datas/meshes/Oeil/morph.txm
+@@ -13,7 +13,7 @@
+ //			Texture List
+ //--------------------------------------
+ 
+-Repertoire Datas/meshes/Oeil/
++Repertoire  /usr/share/vip2/datas/meshes/Oeil/
+ 
+ TileTex
+ MaskOpen PROUT1.raw
+--- a/Datas/meshes/Plans/Plans.txm
++++ b/Datas/meshes/Plans/Plans.txm
+@@ -13,7 +13,7 @@
+ //			Texture List
+ //--------------------------------------
+ 
+-Repertoire Datas/meshes/Plans/
++Repertoire  /usr/share/vip2/datas/meshes/Plans/
+ 
+ Open map1.jpg
+ 
+--- a/Datas/meshes/Smile/smile.txm
++++ b/Datas/meshes/Smile/smile.txm
+@@ -14,7 +14,7 @@
+ //--------------------------------------
+ 
+ //Repertoire D:/Sources/PoPsY-new/vip2/Datas/meshes/smile/
+-Repertoire Datas/meshes/Smile/
++Repertoire  /usr/share/vip2/datas/meshes/Smile/
+ 
+ TileTex
+ Open env1.jpg

@@ -6,7 +6,7 @@ Build-Depends:
  debhelper (>= 10),
  libsdl1.2-dev,
  mesa-common-dev,
- pkgconf,
+ pkg-config
 Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=10576
 

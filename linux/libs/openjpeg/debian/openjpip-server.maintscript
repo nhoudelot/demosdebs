@@ -1,0 +1,2 @@
+mv_conffile /etc/apache2/mods-available/openjpip.conf /etc/apache2/conf-available/openjpip-server.conf 1:1.5.2-3.1~
+rm_conffile /etc/apache2/mods-available/openjpip.load 1:1.5.2-3.1~

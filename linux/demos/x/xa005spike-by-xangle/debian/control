@@ -10,7 +10,8 @@ Build-Depends:
  libfontconfig1-dev,
  libxinerama-dev,
  libsdl1.2-dev,
- libfmod-dev
+ libfmod-dev,
+ pkg-config
 Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=17997
 

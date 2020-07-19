@@ -97,14 +97,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
 --- a/Makefile
 +++ b/Makefile
-@@ -1,8 +1,8 @@
+@@ -1,8 +1,9 @@
  SHELL = /bin/sh
- CC = gcc
+-CC = gcc
++CC := gcc
  NASM = nasm
 -CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell sdl-config --cflags) $(shell libmikmod-config --cflags) -std=gnu90
 -LDFLAGS += $(shell sdl-config --libs) $(shell libmikmod-config --libs) -lm
-+CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell pkg-config sdl SDL_mixer --cflags) -std=gnu90
-+LDFLAGS += $(shell pkg-config sdl SDL_mixer --libs) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell $(PKG_CONFIG) sdl SDL_mixer --cflags) -std=gnu90
++LDFLAGS += $(shell $(PKG_CONFIG) sdl SDL_mixer --libs) -lm
  RM_F = rm -f
  
  TARGET=fortnight-by-mfx

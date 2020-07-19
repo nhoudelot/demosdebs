@@ -1,0 +1,9 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: common-install-mameshader-config
+Source: http://example.com/no-uri-given
+
+Files: *
+Copyright: 2017-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3
+

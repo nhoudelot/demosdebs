@@ -1,0 +1,11 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -31,7 +31,7 @@
+ AC_TYPE_UINT8_T
+ 
+ # Checks for library functions.
+-AC_FUNC_MALLOC
++#AC_FUNC_MALLOC
+ AC_CHECK_FUNCS([floor ftruncate memmove memset pow sqrt strcasecmp strdup strerror strrchr strstr utime])
+ 
+ AC_CONFIG_FILES([Makefile

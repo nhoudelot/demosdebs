@@ -6,14 +6,14 @@ Last-Update: 2020-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -3,8 +3,8 @@
- SHELL := /bin/sh
+@@ -4,8 +4,8 @@
  CC    := gcc
  # Try -Os -O1 -O2 -O3
--CFLAGS += -Wall -std=gnu90 -pipe $(shell pkgconf --cflags sdl gl )
--LDFLAGS += $(shell pkgconf --libs sdl gl ) -lm
-+CFLAGS += -Wall -std=gnu90 -pipe $(shell pkgconf --cflags sdl2 gl )
-+LDFLAGS += $(shell pkgconf --libs sdl2 gl ) -lm
+ PKG_CONFIG:=pkg-config
+-CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl gl )
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl ) -lm
++CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl2 gl )
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl ) -lm
  TARGET := derivations-by-zipola
  
  #variables d’installation

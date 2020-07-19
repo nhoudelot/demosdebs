@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	sed -e "s/CODE_1_BUTTON8/CODE_1_BUTTON9/g" xbox360controller.cfg > xbox360hori_arcade_p1.cfg
+	sed -i -e "s/CODE_1_BUTTON5/CODE_1_BUTTON5/g" xbox360hori_arcade_p1.cfg
+	sed -i -e "s/CODE_1_BUTTON7/CODE_1_BUTTON10/g" xbox360hori_arcade_p1.cfg
+	sed -i -e "s/CODE_1_RZAXIS_POS_SWITCH/CODE_1_BUTTON8/g" xbox360hori_arcade_p1.cfg
+	sed -i -e "s/CODE_1_ZAXIS_POS_SWITCH/CODE_1_BUTTON7/g" xbox360hori_arcade_p1.cfg
+	sed -e "s/CODE_2_BUTTON8/CODE_2_BUTTON9/g" xbox360controller.cfg > xbox360hori_arcade_p2.cfg
+	sed -i -e "s/CODE_2_BUTTON5/CODE_2_BUTTON5/g" xbox360hori_arcade_p2.cfg
+	sed -i -e "s/CODE_2_BUTTON7/CODE_2_BUTTON10/g" xbox360hori_arcade_p2.cfg
+	sed -i -e "s/CODE_1_RZAXIS_POS_SWITCH/CODE_2_BUTTON8/g" xbox360hori_arcade_p2.cfg
+	sed -i -e "s/CODE_2_ZAXIS_POS_SWITCH/CODE_2_BUTTON7/g" xbox360hori_arcade_p2.cfg
+	# L1 -> R2 on 6 buttons machines (snes)
+	sed -i -e "s/@BUTTON@/BUTTON5/g" xbox360controller.cfg
+	sed -i -e "s/@BUTTON@/BUTTON8/g" xbox360hori_arcade_p1.cfg
+	sed -i -e "s/@BUTTON@/BUTTON8/g" xbox360hori_arcade_p2.cfg
+	dh_auto_install

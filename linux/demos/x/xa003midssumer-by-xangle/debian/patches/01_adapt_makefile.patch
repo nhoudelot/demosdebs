@@ -6,14 +6,15 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,11 +1,12 @@
+@@ -1,11 +1,13 @@
 -PROJECT = xa-003
 -EXEC = $(PROJECT)
 -CPPC = g++ 
 +SHELL = /bin/sh
 +PROJECT = xa003midssumer-by-xangle
 +EXE = $(PROJECT)
-+CPPC = g++
++CXX := g++
++PKG_CONFIG:=pkg-config
  
  # Compile flags ----------------------------------------------------------------
 -#FLAGS = -g -Wall
@@ -25,22 +26,22 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # DEBUG ------------------------------------------------------------------------
  #DEBUG = -DDEBUG
-@@ -16,11 +17,11 @@
+@@ -16,11 +18,11 @@
  # GUI --------------------------------------------------------------------------
  GUIOPT = -DUSE_GUI
  GUICODE = base/xdl.o
 -GUILIB = `pkg-config --libs gtk+-2.0`
-+GUILIB = $(shell pkgconf --libs gtk+-2.0)
++GUILIB = $(shell $(PKG_CONFIG) --libs gtk+-2.0)
  
  # Library and include flags ----------------------------------------------------
 -LIB = `sdl-config --libs` -lpng $(GUILIB) -lSDL_mixer
 -INC = `sdl-config --cflags` $(GUIOPT) $(DEBUG) $(FPSLOCK) $(NO_STEX)
-+LDFLAGS += $(shell pkgconf sdl libpng SDL_mixer --libs) $(GUILIB)
-+INC = $(shell sdl-config --cflags) $(GUIOPT) $(DEBUG) $(FPSLOCK) $(NO_STEX)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl libpng SDL_mixer) $(GUILIB)
++INC = $(shell $(PKG_CONFIG) --cflags sdl libpng SDL_mixer) $(GUIOPT) $(DEBUG) $(FPSLOCK) $(NO_STEX)
  
  # Targets ----------------------------------------------------------------------
  OBASE = base/main.o $(GUICODE) base/xdm.o base/xio.o base/xs.o
-@@ -30,26 +31,43 @@
+@@ -30,26 +32,43 @@
  OGFX = $(GFX)cube.o $(GFX)plasma.o $(GFX)font.o $(GFX)anim.o $(GFX)noice.o $(GFX)sort.o
  OBJECTS = $(OBASE) $(OSCENE) $(OGFX)
  
@@ -73,14 +74,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#	@gzexe $(EXEC)
 -	@rm -f $(EXEC)~
 -	@wc -c $(EXEC)
-+	$(CPPC) $(CXXFLAGS) $(OBJECTS) -o $(EXE) $(LDFLAGS)
++	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXE) $(LDFLAGS)
  
  sstrip: $(OBJECTS)
  #	http://www.muppetlabs.com/~breadbox/software/elfkickers.html
 -#	Use FLAGS = -Os -s
 -	@$(CPPC) $(FLAGS) $(OBJECTS) -o $(EXEC) $(LIB)
 +#	Use CXXFLAGS = -Os -s
-+	@$(CPPC) $(CXXFLAGS) $(OBJECTS) -o $(EXEC) $(LDFLAGS)
++	@$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC) $(LDFLAGS)
  	@sstrip $(EXEC)
  	@upx -q $(EXEC)
  	@rm -f $(EXEC)~
@@ -90,11 +91,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#	Use FLAGS = -Os -s
 -	@$(CPPC) $(FLAGS) $(OBJECTS) -o $(EXEC) $(LIB)
 +#	Use CXXFLAGS = -Os -s
-+	@$(CPPC) $(CXXFLAGS) $(OBJECTS) -o $(EXEC) $(LDFLAGS)
++	@$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC) $(LDFLAGS)
  	@upx -q $(EXEC)
  	@rm -f $(EXEC)~
  	@wc -c $(EXEC)
-@@ -62,39 +80,45 @@
+@@ -62,39 +81,45 @@
  
  clean:
  	@echo -n Cleaning up...
@@ -106,51 +107,51 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Object dependencys -----------------------------------------------------------
  base/main.o: base/main.cpp
 -	$(CPPC) $(FLAGS) -c base/main.cpp -o base/main.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c base/main.cpp -o base/main.o $(INC)
++	$(CXX) $(CXXFLAGS) -c base/main.cpp -o base/main.o $(INC)
  base/xdl.o: base/xdl.cpp
 -	$(CPPC) $(FLAGS) -c base/xdl.cpp -o base/xdl.o $(INC) `pkg-config --cflags gtk+-2.0`
-+	$(CPPC) $(CXXFLAGS) -c base/xdl.cpp -o base/xdl.o $(INC) `pkg-config --cflags gtk+-2.0`
++	$(CXX) $(CXXFLAGS) -c base/xdl.cpp -o base/xdl.o $(INC) `pkg-config --cflags gtk+-2.0`
  base/xdm.o: base/xdm.cpp
 -	$(CPPC) $(FLAGS) -c base/xdm.cpp -o base/xdm.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c base/xdm.cpp -o base/xdm.o $(INC)
++	$(CXX) $(CXXFLAGS) -c base/xdm.cpp -o base/xdm.o $(INC)
  base/xio.o: base/xio.cpp
 -	$(CPPC) $(FLAGS) -c base/xio.cpp -o base/xio.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c base/xio.cpp -o base/xio.o $(INC)
++	$(CXX) $(CXXFLAGS) -c base/xio.cpp -o base/xio.o $(INC)
  base/xs.o: base/xs.cpp
 -	$(CPPC) $(FLAGS) -c base/xs.cpp -o base/xs.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c base/xs.cpp -o base/xs.o $(INC)
++	$(CXX) $(CXXFLAGS) -c base/xs.cpp -o base/xs.o $(INC)
  # Scene
  $(SC)intro.o: $(SC)intro.cpp
 -	$(CPPC) $(FLAGS) -c $(SC)intro.cpp -o $(SC)intro.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(SC)intro.cpp -o $(SC)intro.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(SC)intro.cpp -o $(SC)intro.o $(INC)
  $(SC)rollingcube.o: $(SC)rollingcube.cpp
 -	$(CPPC) $(FLAGS) -c $(SC)rollingcube.cpp -o $(SC)rollingcube.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(SC)rollingcube.cpp -o $(SC)rollingcube.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(SC)rollingcube.cpp -o $(SC)rollingcube.o $(INC)
  $(SC)end.o: $(SC)end.cpp
 -	$(CPPC) $(FLAGS) -c $(SC)end.cpp -o $(SC)end.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(SC)end.cpp -o $(SC)end.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(SC)end.cpp -o $(SC)end.o $(INC)
  $(SC)greets.o: $(SC)greets.cpp
 -	$(CPPC) $(FLAGS) -c $(SC)greets.cpp -o $(SC)greets.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(SC)greets.cpp -o $(SC)greets.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(SC)greets.cpp -o $(SC)greets.o $(INC)
  # Gfx
  $(GFX)cube.o: $(GFX)cube.cpp
 -	$(CPPC) $(FLAGS) -c $(GFX)cube.cpp -o $(GFX)cube.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(GFX)cube.cpp -o $(GFX)cube.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(GFX)cube.cpp -o $(GFX)cube.o $(INC)
  $(GFX)plasma.o: $(GFX)plasma.cpp
 -	$(CPPC) $(FLAGS) -c $(GFX)plasma.cpp -o $(GFX)plasma.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(GFX)plasma.cpp -o $(GFX)plasma.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(GFX)plasma.cpp -o $(GFX)plasma.o $(INC)
  $(GFX)font.o: $(GFX)font.cpp
 -	$(CPPC) $(FLAGS) -c $(GFX)font.cpp -o $(GFX)font.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(GFX)font.cpp -o $(GFX)font.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(GFX)font.cpp -o $(GFX)font.o $(INC)
  $(GFX)anim.o: $(GFX)anim.cpp
 -	$(CPPC) $(FLAGS) -c $(GFX)anim.cpp -o $(GFX)anim.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(GFX)anim.cpp -o $(GFX)anim.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(GFX)anim.cpp -o $(GFX)anim.o $(INC)
  $(GFX)noice.o: $(GFX)noice.cpp
 -	$(CPPC) $(FLAGS) -c $(GFX)noice.cpp -o $(GFX)noice.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(GFX)noice.cpp -o $(GFX)noice.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(GFX)noice.cpp -o $(GFX)noice.o $(INC)
  $(GFX)sort.o: $(GFX)sort.cpp
 -	$(CPPC) $(FLAGS) -c $(GFX)sort.cpp -o $(GFX)sort.o $(INC)
-+	$(CPPC) $(CXXFLAGS) -c $(GFX)sort.cpp -o $(GFX)sort.o $(INC)
++	$(CXX) $(CXXFLAGS) -c $(GFX)sort.cpp -o $(GFX)sort.o $(INC)
 +
 +install: $(EXE)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

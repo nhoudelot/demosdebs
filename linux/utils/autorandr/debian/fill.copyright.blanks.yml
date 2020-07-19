@@ -1,0 +1,23 @@
+---
+debian:
+  copyright: 2017, Don Armstrong
+  license: GPL-3+
+contrib/bash_completion/autorandr:
+  copyright: 2011 Maciej Sitarz
+  license: GPL-3+
+contrib/pm-utils/40autorandr:
+  copyright: 2012 Maciej Sitarz
+  license: GPL-3+
+contrib/packaging/debian/*:
+  copyright: 2016, Phillip Berndt
+  license: GPL-3+
+Makefile:
+  copyright: 2016, Phillip Berndt
+  license: GPL-3+
+README.md:
+  copyright: 2016, Phillip Berndt
+  license: GPL-3+
+setup.py:
+  copyright: 2016, Phillip Berndt
+  license: GPL-3+
+  

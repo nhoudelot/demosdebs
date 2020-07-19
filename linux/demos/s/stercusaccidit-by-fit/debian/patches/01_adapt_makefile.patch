@@ -6,17 +6,19 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,19 +1,52 @@
+@@ -1,19 +1,53 @@
+-CC = gcc
+-CFLAGS = -O2 -ffast-math `sdl-config --cflags` -DNOAMIKA -DBLKSIZE=4096
 +#variables de compilation
 +SHELL = /bin/sh
-+MAKE = make
- CC = gcc
--CFLAGS = -O2 -ffast-math `sdl-config --cflags` -DNOAMIKA -DBLKSIZE=4096
-+CFLAGS += -Wall $(shell sdl-config --cflags) -DNOAMIKA -DBLKSIZE=4096 -std=gnu90 -pipe
++MAKE := make
++CC := gcc
++PKG_CONFIG:=pkg-config
++CFLAGS += -Wall $(shell $(PKG_CONFIG) --cflags sdl) -DNOAMIKA -DBLKSIZE=4096 -std=gnu90 -pipe
  #-DLSB
  # Do define LSB on little endian systems
 -LDFLAGS = `sdl-config --static-libs` -lm
-+LDFLAGS += $(shell sdl-config --libs) -lm
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl) -lm
  
 -main: main.o data/data.a noise.o halftone.o cgm.o cgm_soft.o wurms.o \
 -	maf.o render.o writer.o sade.o cool_mzx/cool_mzx.a
@@ -46,15 +48,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +OBJ=main.o data/data.a noise.o halftone.o cgm.o cgm_soft.o wurms.o maf.o render.o writer.o sade.o
 +
 +$(TARGET): $(OBJ) cool_mzx/cool_mzx.a
-+	$(CC) -flto -o $@ $(OBJ) data/data.a cool_mzx/cool_mzx.a $(LDFLAGS)
++	$(CC) -o $@ $(OBJ) data/data.a cool_mzx/cool_mzx.a $(LDFLAGS)
  
  cool_mzx/cool_mzx.a:
 -	cd cool_mzx && make
-+	cd cool_mzx && $(MAKE)
++	cd cool_mzx && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
  
  data/data.a:
 -	cd data && make
-+	cd data && $(MAKE)
++	cd data && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
  
  clean:
 -	-rm main *.o *~

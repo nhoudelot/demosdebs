@@ -5,7 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
  cmake,
- libboost-all-dev,
+ libboost-program-options-dev,
  libglew-dev,
  libpng-dev,
  libsdl2-dev,

@@ -6,14 +6,14 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -3,8 +3,8 @@
- SHELL := /bin/sh
+@@ -4,8 +4,8 @@
  CC := gcc
+ PKG_CONFIG:=pkg-config
  CFLAGS += -Wall -std=gnu90 -pipe
--INC := $(shell pkg-config sdl libjpeg gl --cflags)
--LDFLAGS += $(shell pkg-config sdl libjpeg gl --libs) -lm
-+INC := $(shell pkg-config sdl2 libjpeg gl --cflags)
-+LDFLAGS += $(shell pkg-config sdl2 libjpeg gl --libs) -lm
+-INC := $(shell $(PKG_CONFIG) sdl libjpeg gl --cflags)
+-LDFLAGS += $(shell $(PKG_CONFIG) sdl libjpeg gl --libs) -lm
++INC := $(shell $(PKG_CONFIG) sdl2 libjpeg gl --cflags)
++LDFLAGS += $(shell $(PKG_CONFIG) sdl2 libjpeg gl --libs) -lm
  OBJ := main.o piraali.o piraali2.o jpeg.o tausta.o font.o stara.o rays.o \
        pallot.o juttu.o cool_mzx/cool_mzx.a
  HEADERS := include.h font.h tausta.h juttu.h pallot.h

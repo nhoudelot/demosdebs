@@ -7,8 +7,8 @@ Homepage: https://recoil.sourceforge.net/
 Build-Depends:
  debhelper (>= 10),
  libpng-dev,
- xsltproc,
- pkgconf
+ pkg-config,
+ xsltproc
 
 Package: recoil-2png
 Architecture: any

@@ -1,0 +1,39 @@
+Description: convert pouet.txt to utf8
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/pouet.txt
++++ b/pouet.txt
+@@ -1,24 +1,24 @@
+ Et oui !
+ 
+-Si on est arrivé à la bourre à la Take Over 2000 c'est grace à U2 qui avait
+-ingénieusement oublié son porte-feuilles chez dlyr
++Si on est arrivÃ© Ã  la bourre Ã  la Take Over 2000 c'est grace Ã  U2 qui avait
++ingÃ©nieusement oubliÃ© son porte-feuilles chez dlyr
+ 
+-Tuo est bien entendu arrivé encore plus à la bourre, vetu de sa belle
++Tuo est bien entendu arrivÃ© encore plus Ã  la bourre, vetu de sa belle
+ chemise bleue de bucheron
+ 
+-Madman aura énormément bossé sur place pour faire toutes les textures manquantes
++Madman aura Ã©normÃ©ment bossÃ© sur place pour faire toutes les textures manquantes
+ 
+-et rez ne s'est toujours pas rasé... et veut casser plein de bassins
++et rez ne s'est toujours pas rasÃ©... et veut casser plein de bassins
+ 
+ Puis chandra a la tete du gars qu'a pas trop dormi...
+ Il nous dit "c'est la danse des canards"
+ 
+ Et revoici skal qui nous revient avec son sac de couchage
+ 
+-décidément le coin français de la TO est agité !
++dÃ©cidÃ©ment le coin franÃ§ais de la TO est agitÃ© !
+ 
+ Bon a part ca la dead-line DEMO est dans un peu plus de 8h et il nous reste plus
+-grand chose à faire... donc c00l
++grand chose Ã  faire... donc c00l
+ 
+ G-Hell
+ 

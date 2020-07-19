@@ -1,3 +1,9 @@
+antedominium-by-traction (1.0+2-0ddebs4) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 01 Aug 2020 17:32:26 +0200
+
 antedominium-by-traction (1.0+2-0ddebs3) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

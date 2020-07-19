@@ -1,3 +1,9 @@
+nordlicht2015invitation-by-wddkbc (1.0+git20150405-0ddebs3) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 06 Aug 2020 16:48:23 +0200
+
 nordlicht2015invitation-by-wddkbc (1.0+git20150405-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

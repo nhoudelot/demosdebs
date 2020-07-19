@@ -6,15 +6,16 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,10 +1,17 @@
+@@ -1,10 +1,18 @@
 -CC = gcc
 -CFLAGS = -Wall -W -pedantic `sdl-config --cflags`
 -CLIBS = -L/usr/X11R6/lib -lGL `sdl-config --libs` -lm -lpng -lSDL_mixer
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS += -Wall -pedantic $(shell pkg-config gl sdl libpng SDL_mixer --cflags) -std=gnu90 -pipe
-+LDFLAGS +=  -L/usr/X11R6/lib $(shell pkg-config gl sdl libpng SDL_mixer --libs) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS += -Wall -pedantic $(shell $(PKG_CONFIG) gl sdl libpng SDL_mixer --cflags) -std=gnu90 -pipe
++LDFLAGS +=  -L/usr/X11R6/lib $(shell $(PKG_CONFIG) gl sdl libpng SDL_mixer --libs) -lm
 +TARGET   := wayang-by-cyberneticgenetics
 +#variable de nettoyage
 +RM_F := rm -f
@@ -30,7 +31,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  main.o: main.c mesh3d.h texture.h wayang.h
  	$(CC) $(CFLAGS) main.c -c
  texture.o: texture.c texture.h
-@@ -18,5 +25,5 @@
+@@ -18,5 +26,5 @@
  
  clean:
  	@echo Cleaning up...

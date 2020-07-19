@@ -5,7 +5,7 @@ Last-Update: 2019-11-15
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,19 +1,45 @@
+@@ -1,19 +1,46 @@
 -CC = gcc
 -CFLAGS = -O2 -ffast-math `sdl-config --cflags`
 -LDFLAGS = `sdl-config --libs` -lGL -lm
@@ -16,8 +16,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#variables de compilation
 +SHELL := /bin/sh
 +CC := gcc
-+CFLAGS += -Wall -pipe $(shell sdl-config --cflags) $(shell pkg-config gl --cflags) -std=gnu90
-+LDFLAGS += $(shell sdl-config --libs) $(shell pkg-config gl --libs) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) sdl gl --cflags) -std=gnu90
++LDFLAGS += $(shell $(PKG_CONFIG) sdl gl --libs) -lm
 +MAKE := make
 +AR := ar
 +RANLIB := ranlib

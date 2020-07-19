@@ -6,7 +6,7 @@ Last-Update: 2020-04-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -1,16 +1,39 @@
+@@ -1,16 +1,40 @@
 -CC = gcc
 -CFLAGS = -Wall -W -pedantic
 -CLIBS = -lGL -lGLU -lX11 -lXrandr -lm -lpng -lvorbisfile -lasound
@@ -19,8 +19,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#variables de compilation
 +SHELL	:= /bin/sh
 +CC 		:= gcc
-+CFLAGS 	+= -Wall -pipe -pedantic -std=gnu90
-+CLIBS 	:= $(shell pkg-config --libs glu x11 xrandr libpng vorbisfile) -lasound -lm
++PKG_CONFIG:=pkg-config
++CFLAGS 	+= -Wall -pipe -pedantic -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu x11 xrandr libpng vorbisfile)
++CLIBS 	:= $(shell $(PKG_CONFIG) --libs glu x11 xrandr libpng vorbisfile) -lasound -lm
 +
 +TARGET = aeronautism-by-cyberneticgenetics# demo name here
 +
@@ -56,7 +57,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  texture.o: texture.c texture.h
  	$(CC) $(CFLAGS) texture.c -c
  mesh3d.o: mesh3d.c mesh3d.h
-@@ -27,11 +50,16 @@
+@@ -27,11 +51,16 @@
  	$(CC) $(CFLAGS) particle.c -c
  poligonexplode.o: poligonexplode.c poligonexplode.h
  	$(CC) $(CFLAGS) poligonexplode.c -c

@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  exit $res
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -1,11 +1,37 @@
+@@ -1,11 +1,36 @@
 -CC = {CC}
 -CFLAGS = -Wall -O2 -g
 -LDFLAGS =
@@ -29,8 +29,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -RELDIR = amigadepacker-{VERSION}
 +#variables de compilation
 +SHELL := /bin/sh
-+CC    := gcc
-+CFLAGS += -O3 -flto -Wall -ffast-math -std=gnu90 -pipe
++CFLAGS += -Wall -ffast-math -std=gnu90 -pipe
 +LDFLAGS +=
 +MODULES := main.o decrunch.o ppdepack.o mmcmp.o s404_dec.o unsqsh.o compat.o
 +RELDIR := amigadepacker-0.04
@@ -62,11 +61,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET):	$(MODULES)
-+	$(CC) -flto -o $@ $(MODULES) $(LDFLAGS)
++	$(CC) -o $@ $(MODULES) $(LDFLAGS)
  
  main.o:	main.c decrunch.h version.h
  	$(CC) $(CFLAGS) -c $<
-@@ -28,11 +54,13 @@
+@@ -28,11 +53,13 @@
  unsqsh.o:	unsqsh.c unsqsh.h decrunch.h compat.h
  	$(CC) $(CFLAGS) -c $<
  
@@ -85,9 +84,20 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  release:	
  	rm -rf $(RELDIR)
-@@ -45,4 +73,4 @@
+@@ -45,4 +72,4 @@
  	cd tests && ./check.sh
  
  clean:	
 -	rm -f *.o
 +	-@$(RM_F) *.o $(TARGET)
+--- a/configure
++++ b/configure
+@@ -27,7 +27,7 @@
+ fi
+ 
+ if test -z "$CC" ; then
+-    CC=gcc
++    CC:=gcc
+ fi
+ 
+ echo "#define VERSION \"$version\"" > version.h

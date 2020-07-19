@@ -1,14 +1,7 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-
-ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu"
-    export DEB_CXXFLAGS_MAINT_APPEND  = -march=core2
-endif
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 
 %:
-	dh $@ --parallel
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/vip2.6.md -o debian/vip2.6
+	dh $@

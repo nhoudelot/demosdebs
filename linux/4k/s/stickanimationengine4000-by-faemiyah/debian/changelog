@@ -1,3 +1,9 @@
+stickanimationengine4000-by-faemiyah (1.0-0ddebs9) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 30 Jul 2020 20:40:50 +0200
+
 stickanimationengine4000-by-faemiyah (1.0-0ddebs8) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

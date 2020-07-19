@@ -4,6 +4,7 @@ export DEB_CXXFLAGS_MAINT_APPEND  = -flto
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-pie
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 
 %:
 	dh $@

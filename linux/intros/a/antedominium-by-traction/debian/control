@@ -7,7 +7,7 @@ Build-Depends:
  mesa-common-dev,
  libfmodex-dev,
  libsdl2-dev,
- pkgconf
+ pkg-config
 Standards-Version: 4.5.0
 Homepage:https://www.pouet.net/prod.php?which=24476
 

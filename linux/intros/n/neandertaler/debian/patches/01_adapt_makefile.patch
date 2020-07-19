@@ -14,17 +14,20 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  PLATFORM = LINUX
  # YES for sound, NO or whatever for no sound
  SOUND = YES
-@@ -12,27 +13,41 @@
+@@ -11,28 +12,43 @@
+ OLDGLUT = NO
  
  # General defines
- CC = g++
+-CC = g++
 -COPT = -O2 -ffast-math -fomit-frame-pointer
 -DEF = 
 -GL = -lglut -lGL -lGLU
 -LIBS = -lm
-+CXXFLAGS += -Wall -pipe $(shell pkg-config --cflags glu) -std=gnu++98 -fabi-version=2
++CXX := g++
++PKG_CONFIG:=pkg-config
++CXXFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags glu) -std=gnu++98 -fabi-version=2
 +DEF =
-+GL = -lglut $(shell pkg-config --libs glu)
++GL = -lglut $(shell $(PKG_CONFIG) --libs glu)
 +LDFLAGS += -lm
 +RM_F = rm -f
 +
@@ -52,7 +55,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -# SGI specific
 -ifeq ($(PLATFORM),IRIX)
 -X = -L/usr/lib32 -lX11 -lXext -lXmu -lXi
-+	X = $(shell pkg-config x11 xext xmu xi --libs)
++	X = $(shell $(PKG_CONFIG) x11 xext xmu xi --libs)
 +	LIBS += -ldl
 +	DEF += -DBSDENV
 +	ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -69,7 +72,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  endif
  
  # If old GLUT version
-@@ -40,13 +55,23 @@
+@@ -40,13 +56,23 @@
  DEF += -DOLDGLUT
  endif
  
@@ -80,11 +83,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): neandertaler_mainloop.o main.cc
-+	$(CC) $(CXXFLAGS) main.cc neandertaler_mainloop.o -o $(TARGET) $(DEF) $(GL) $(X) $(LDFLAGS)
++	$(CXX) $(CXXFLAGS) main.cc neandertaler_mainloop.o -o $(TARGET) $(DEF) $(GL) $(X) $(LDFLAGS)
  
  neandertaler_mainloop.o: neandertaler_mainloop.cc
 -	$(CC) $(COPT) -c neandertaler_mainloop.cc $(DEF)
-+	$(CC) $(CXXFLAGS) -c neandertaler_mainloop.cc $(DEF)
++	$(CXX) $(CXXFLAGS) -c neandertaler_mainloop.cc $(DEF)
 +
 +clean:
 +	-$(RM_F) $(TARGET) *.o

@@ -6,10 +6,11 @@ Last-Update: 2020-04-25
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/source/Makefile
 +++ b/source/Makefile
-@@ -1,31 +1,45 @@
+@@ -1,31 +1,46 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
++PKG_CONFIG := pkg-config
 +TARGET   := heartburn-by-thetourist
 +#variable de nettoyage
 +RM_F := rm -f
@@ -27,7 +28,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  else
 -CFLAGS = -m32 -O1 -ffast-math -fomit-frame-pointer -mpush-args -mfpmath=387
 +CFLAGS += -Wall -pipe -mpush-args -std=gnu90
-+LDFLAGS += $(shell pkg-config --libs sdl gl)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl)
  endif
  
  
@@ -61,7 +62,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		-S -o heartburn.S heartburn.c
  endif
  
-@@ -35,6 +49,12 @@
+@@ -35,6 +50,12 @@
  
  
  clean:

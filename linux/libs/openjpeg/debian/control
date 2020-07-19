@@ -1,0 +1,55 @@
+Source: openjpeg
+Priority: optional
+Maintainer: Debian PhotoTools Maintainers <pkg-phototools-devel@lists.alioth.debian.org>
+Uploaders:
+ Robin Cornelius <robin.cornelius@gmail.com>
+ , David Paleino <dapal@debian.org>
+ , Mathieu Malaterre <malat@debian.org>
+Homepage: http://www.openjpeg.org
+Build-Depends:
+ debhelper (>= 9)
+ , cmake (>= 2.8.0)
+ , libxerces2-java
+ , libtiff-dev
+ , libpng-dev
+ , liblcms2-dev
+ , zlib1g-dev
+ , libfcgi-dev
+ , libcurl4-gnutls-dev | libcurl-ssl-dev
+ , doxygen
+Standards-Version: 3.9.5
+Section: libs
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-phototools/openjpeg.git
+Vcs-Git: git://anonscm.debian.org/pkg-phototools/openjpeg.git
+
+Package: libopenjpeg-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libopenjpeg5 (= ${binary:Version})
+ , ${misc:Depends}
+Description: development files for OpenJPEG, a JPEG 2000 image library - dev
+ OpenJPEG is a library for handling the JPEG 2000 image compression format.
+ JPEG 2000 is a wavelet-based image compression standard and permits progressive
+ transmission by pixel and resolution accuracy for progressive downloads of an
+ encoded image. It supports lossless and lossy compression, supports higher
+ compression than JPEG 1991, and has resilience to errors in the image.
+ .
+ This is the development package
+
+Package: libopenjpeg5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends}
+ , ${misc:Depends}
+Description: JPEG 2000 image compression/decompression library - runtime
+ OpenJPEG is a library for handling the JPEG 2000 image compression format.
+ JPEG 2000 is a wavelet-based image compression standard and permits progressive
+ transmission by pixel and resolution accuracy for progressive downloads of an
+ encoded image. It supports lossless and lossy compression, supports higher
+ compression than JPEG 1991, and has resilience to errors in the image.
+ .
+ this is the runtime package

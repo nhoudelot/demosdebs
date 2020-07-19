@@ -1,0 +1,87 @@
+#!/usr/bin/make -f
+# (C) 2003 Marcelo E. Magallón <mmagallo@debian.org>
+# (C) 2006-2009 Joost Yervante Damad <andete@debian.org>
+
+export DH_VERBOSE
+# export DH_NO_ACT
+# export DH_OPTIONS
+
+include /usr/share/dpkg/architecture.mk
+
+DPKG_EXPORT_BUILDFLAGS = 1
+DEB_CFLAGS_MAINT_APPEND = -Wall -g
+include /usr/share/dpkg/buildflags.mk
+
+srcversion := $(shell dpkg-parsechangelog | grep ^Version: | cut -d ' ' -f 2)
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	touch configure-stamp
+
+build:
+
+install: build-stamp build-stampmx
+build-stamp: configure-stamp debian-manpages
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	$(MAKE) GL_LDFLAGS=-lGL GLU_LDFLAGS=-lGLU GLUT_LDFLAGS=-lglut LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH)
+	touch build-stamp
+	dh_installdirs
+	$(MAKE) install GLEW_DEST=$(CURDIR)/debian/tmp/usr LIBDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
+
+build-stampmx: configure-stamp debian-manpages
+	dh_testdir
+	dh_testroot
+	$(MAKE) clean
+	$(MAKE) libsonly GL_LDFLAGS=-lGL GLU_LDFLAGS=-lGLU GLUT_LDFLAGS=-lglut GLEW_MX=1 LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH)
+	dh_installdirs
+	$(MAKE) install GLEW_DEST=$(CURDIR)/debian/tmp/usr GLEW_MX=1  LIBDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
+	touch build-stampmx
+
+clean:
+	dh_testdir
+	dh_testroot
+	cp -f config/Makefile.linux config/Makefile.gnu
+	cp -f config/Makefile.linux config/Makefile.kfreebsd
+	rm -f build-stamp build-stampmx configure-stamp
+	$(MAKE) distclean
+	$(MAKE) distclean GLEW_MX=1
+	dh_clean
+	-rm $(shell cat debian/*.manpages)
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+build-arch: build
+build-indep: build
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installchangelogs
+	dh_install --sourcedir=debian/tmp
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_makeshlibs -V
+	dh_installdeb
+	dh_shlibdeps # -ldebian/tmp/usr/lib -ldebian/tmpmx/usr/lib
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+
+debian-manpages: $(shell cat debian/*.manpages)
+
+debian/%.1: debian/%.sgml
+	docbook-to-man $< > $@
+
+.PHONY: build clean binary-indep binary-arch binary install debian-manpages

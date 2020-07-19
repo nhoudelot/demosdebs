@@ -6,15 +6,16 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,38 +1,53 @@
+@@ -1,38 +1,54 @@
 +#variables de compilation
 +SHELL := /bin/sh
  CC	:= gcc
++PKG_CONFIG:=pkg-config
  
 -CFLAGS	:= -W -Wall -I/usr/include `sdl-config --cflags`
 -CFLAGS	+= -O3 -ffast-math -fpeephole2 -fexpensive-optimizations
 -#CFLAGS	+= -g
-+CFLAGS	+= -Wall -pipe -I/usr/include $(shell sdl-config --cflags)
++CFLAGS	+= -Wall -pipe -I/usr/include $(shell $(PKG_CONFIG) sdl vorbisfile --cflags)
 +CFLAGS2	+= -fpeephole2 -fexpensive-optimizations
 +LDFLAGS +=
 +
@@ -41,11 +42,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  main: attract.o convolve.o filter.o input.o interpolate.o im.o list.o main.o pnm.o script.o util.o xmalloc.o tuherrus.o suodatin.o
 -	$(CC) -o $@ $^ `sdl-config --libs` -lvorbisfile
-+	$(CC) -o $(TARGET) $^ $(LDFLAGS) $(shell sdl-config --libs) -lvorbisfile -lm
++	$(CC) -o $(TARGET) $^ $(LDFLAGS) $(shell $(PKG_CONFIG) sdl vorbisfile --libs ) -lm
  
  editor: convolve.o editor.o filter.o input.o interpolate.o im.o list.o pnm.o script.o util.o xmalloc.o
 -	$(CC) -o $@ $^ `sdl-config --libs`
-+	$(CC) -o $@ $^ $(LDFLAGS) $(shell sdl-config --libs)
++	$(CC) -o $@ $^ $(LDFLAGS) $(shell $(PKG_CONFIG) sdl --libs)
  
  script-buildbg: script-buildbg.c
 -	$(CC) -W -Wall -o $@ $^ -lm

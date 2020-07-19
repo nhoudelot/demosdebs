@@ -1,3 +1,9 @@
+amigadepacker (0.04-0ddebs10) unstable; urgency=medium
+
+  * adapt to cross compilition
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Jul 2020 16:01:23 +0200
+
 amigadepacker (0.04-0ddebs9) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

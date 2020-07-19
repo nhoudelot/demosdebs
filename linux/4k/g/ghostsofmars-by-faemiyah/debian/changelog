@@ -1,3 +1,9 @@
+ghostsofmars-by-faemiyah (1.0+git20171018-0ddebs3) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 29 Jul 2020 11:09:29 +0200
+
 ghostsofmars-by-faemiyah (1.0+git20171018-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

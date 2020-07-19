@@ -1,3 +1,9 @@
+itsfullofstars-by-traction (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 06 Aug 2020 08:51:32 +0200
+
 itsfullofstars-by-traction (1.0+1-0ddebs3) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

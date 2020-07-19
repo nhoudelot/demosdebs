@@ -1,0 +1,18 @@
+Source: common-install-mameshader-config
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ pandoc
+Standards-Version: 4.5.0
+Homepage: http://example.com/no-uri-given
+
+Package: common-install-mameshader-config
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ zenity
+Description: config tool for common-install-function
+ Disable Mame shader when common-install-function is used

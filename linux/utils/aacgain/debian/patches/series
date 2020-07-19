@@ -21,3 +21,4 @@
 faad2_0009-syntax.c-check-for-syntax-element-inconsistencies.patch
 faad2_0010-sbr_hfadj-sanitize-frequency-band-borders.patch
 faad2_0004-Fix-a-couple-buffer-overflows.patch
+fix_malloc.patch

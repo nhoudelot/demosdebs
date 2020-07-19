@@ -1,0 +1,13 @@
+Index: glew-1.5.4/include/GL/glxew.h
+===================================================================
+--- glew-1.5.4.orig/include/GL/glxew.h	2010-04-28 00:16:36.000000000 +0200
++++ glew-1.5.4/include/GL/glxew.h	2010-06-12 08:48:06.000000000 +0200
+@@ -1207,7 +1207,7 @@
+ #ifndef GLX_SGI_video_sync
+ #define GLX_SGI_video_sync 1
+ 
+-typedef int ( * PFNGLXGETVIDEOSYNCSGIPROC) (uint* count);
++typedef int ( * PFNGLXGETVIDEOSYNCSGIPROC) (unsigned int* count);
+ typedef int ( * PFNGLXWAITVIDEOSYNCSGIPROC) (int divisor, int remainder, unsigned int* count);
+ 
+ #define glXGetVideoSyncSGI GLXEW_GET_FUN(__glewXGetVideoSyncSGI)

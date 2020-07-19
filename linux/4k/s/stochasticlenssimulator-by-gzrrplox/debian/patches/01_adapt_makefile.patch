@@ -6,23 +6,23 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -1,29 +1,51 @@
+@@ -1,29 +1,52 @@
 -CXXFLAGS=`sdl-config --cflags` -O1 -Wall -Wextra -Wshadow -ffast-math
 -LDFLAGS=`sdl-config --libs` -lGL
 +#variables de compilation
 +SHELL := /bin/sh
 +CXX   := g++
-+CXXFLAGS += $(shell pkg-config --cflags sdl gl) -Wall -std=gnu++98 -fabi-version=2 -pipe
-+LDFLAGS  += $(shell pkg-config --libs sdl gl)
++PKG_CONFIG:=pkg-config
++CXXFLAGS += $(shell $(PKG_CONFIG) --cflags sdl gl) -Wall -std=gnu++98 -fabi-version=2 -pipe
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl gl)
  
 -TARGET=slsim
 +TARGET=stochasticlenssimulator-by-gzrrplox
  
  #CXXFLAGS+= -DDEBUG=1
--#LD=g++
+ #LD=g++
 -	
 -LD=bold -c -a 
-+LD=g++
 +
 +#LD=bold -c -a
 +
@@ -62,7 +62,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	g++ $(CXXFLAGS) -c $(TARGET).cpp
 -	$(LD) $(LDFLAGS) $(TARGET).o -o $(TARGET).payload
 +	$(CXX) $(CXXFLAGS) -c slsim.cpp
-+	$(LD) slsim.o -o $(TARGET).payload $(LDFLAGS)
++	$(CXX) slsim.o -o $(TARGET).payload $(LDFLAGS)
  
  settings:
  

@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- gzip(>=1),
  mesa-common-dev,
  libsdl1.2-dev,
  pkg-config

@@ -8,7 +8,6 @@ Build-Depends:
  zlib1g-dev,
  pngcrush,
  libjpeg-progs,
- gzip,
  bzip2,
  ghostscript,
  file,

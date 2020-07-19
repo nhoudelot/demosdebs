@@ -6,7 +6,7 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,38 +1,28 @@
+@@ -1,38 +1,29 @@
  # unix/osx
  # Sorry no win32 target this time...
 -TARGET = unix
@@ -18,9 +18,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -OBJ = main.o piraali.o piraali2.o jpeg.o tausta.o font.o stara.o rays.o \
 +SHELL := /bin/sh
 +CC := gcc
++PKG_CONFIG:=pkg-config
 +CFLAGS += -Wall -std=gnu90 -pipe
-+INC := $(shell pkg-config sdl libjpeg gl --cflags)
-+LDFLAGS += $(shell pkg-config sdl libjpeg gl --libs) -lm
++INC := $(shell $(PKG_CONFIG) sdl libjpeg gl --cflags)
++LDFLAGS += $(shell $(PKG_CONFIG) sdl libjpeg gl --libs) -lm
 +OBJ := main.o piraali.o piraali2.o jpeg.o tausta.o font.o stara.o rays.o \
        pallot.o juttu.o cool_mzx/cool_mzx.a
 -HEADERS = include.h font.h tausta.h juttu.h pallot.h
@@ -57,7 +58,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  cool_mzx/cool_mzx.a:
 -	cd cool_mzx && make
-+	cd cool_mzx && $(MAKE) $(shell dpkg-buildflags --export=cmdline)
++	cd cool_mzx && $(MAKE) $(shell dpkg-buildflags --export=cmdline) CC=$(DEB_HOST_GNU_TYPE)-gcc
  
  clean:
 -	cd cool_mzx && make clean

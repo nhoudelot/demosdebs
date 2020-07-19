@@ -1,3 +1,9 @@
+aacgain (1.9+1-0ddebs3) unstable; urgency=medium
+
+  * debian/rules adapted to cross compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Jul 2020 15:19:10 +0200
+
 aacgain (1.9+1-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

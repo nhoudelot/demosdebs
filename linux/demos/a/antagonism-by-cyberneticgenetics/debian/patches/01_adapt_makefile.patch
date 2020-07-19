@@ -6,7 +6,7 @@ Last-Update: 2020-04-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -1,12 +1,26 @@
+@@ -1,12 +1,27 @@
 -CC = gcc
 -CFLAGS = -Wall -W -pedantic `pkg-config --cflags gtk+-3.0` -ggdb
 -CLIBS = -lGL -lX11 -lXrandr -lm -lpng -lvorbisfile -lasound `pkg-config --libs gtk+-3.0` -L/usr/lib/nvidia-current-updates/
@@ -19,8 +19,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
-+CFLAGS += -Wall -pipe -pedantic $(shell pkg-config --cflags gtk+-3.0)
-+LDFLAGS += $(shell pkg-config --libs gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
++PKG_CONFIG:=pkg-config
++CFLAGS += -Wall -pipe -pedantic $(shell $(PKG_CONFIG) --cflags gtk+-3.0)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
 +
 +TARGET = antagonism-by-cyberneticgenetics
 +#variable de nettoyage
@@ -42,7 +43,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # Common demo stuff
  main.o: main.c
-@@ -35,10 +49,16 @@
+@@ -35,10 +50,16 @@
  	$(CC) $(CFLAGS) pointcloud.c -c
  hardscene.o: hardscene.c hardscene.h
  	$(CC) $(CFLAGS) hardscene.c -c

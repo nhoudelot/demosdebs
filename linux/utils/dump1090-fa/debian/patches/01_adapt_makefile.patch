@@ -1,0 +1,41 @@
+--- a/Makefile
++++ b/Makefile
+@@ -9,6 +9,9 @@
+ CFLAGS += $(DIALECT) -O2 -g -Wall -Werror -W -D_DEFAULT_SOURCE
+ LIBS = -lpthread -lm -lrt
+ 
++CC:=gcc
++PKG_CONFIG:=pkg-config
++
+ ifeq ($(RTLSDR), yes)
+   SDR_OBJ += sdr_rtlsdr.o
+   CPPFLAGS += -DENABLE_RTLSDR
+@@ -21,13 +24,13 @@
+       LIBS_SDR += -L$(RTLSDR_PREFIX)/lib -lrtlsdr -lusb-1.0
+     endif
+   else
+-    CFLAGS += $(shell pkg-config --cflags librtlsdr)
++    CFLAGS += $(shell $(PKG_CONFIG) --cflags librtlsdr)
+     # some packaged .pc files are massively broken, try to handle it
+-    RTLSDR_LFLAGS := $(shell pkg-config --libs-only-L librtlsdr)
++    RTLSDR_LFLAGS := $(shell $(PKG_CONFIG) --libs-only-L librtlsdr)
+     ifeq ($(RTLSDR_LFLAGS),-L)
+-      LIBS_SDR += $(shell pkg-config --libs-only-l --libs-only-other librtlsdr)
++      LIBS_SDR += $(shell $(PKG_CONFIG) --libs-only-l --libs-only-other librtlsdr)
+     else
+-      LIBS_SDR += $(shell pkg-config --libs librtlsdr)
++      LIBS_SDR += $(shell $(PKG_CONFIG) --libs librtlsdr)
+     endif
+   endif
+ endif
+@@ -35,8 +38,8 @@
+ ifeq ($(BLADERF), yes)
+   SDR_OBJ += sdr_bladerf.o
+   CPPFLAGS += -DENABLE_BLADERF
+-  CFLAGS += $(shell pkg-config --cflags libbladeRF)
+-  LIBS_SDR += $(shell pkg-config --libs libbladeRF)
++  CFLAGS += $(shell $(PKG_CONFIG) --cflags libbladeRF)
++  LIBS_SDR += $(shell $(PKG_CONFIG) --libs libbladeRF)
+ endif
+ 
+ all: dump1090 view1090

@@ -5,7 +5,8 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
  libsdl2-dev,
- libvorbis-dev
+ libvorbis-dev,
+ pkg-config
 Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=51968
 

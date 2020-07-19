@@ -1,8 +1,22 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-export DEB_CFLAGS_MAINT_APPEND  = -flto
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
+ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu" 
+    export TARGET_DEFINES = -DARCH_X86 -DLINUX
+    export DEB_CFLAGS_MAINT_APPEND  = -flto -malign-double
+endif
+ifeq "$(DEB_HOST_MULTIARCH)" "i386-linux-gnu" 
+    export TARGET_DEFINES = -DARCH_X86 -DLINUX
+    export DEB_CFLAGS_MAINT_APPEND  = -flto -malign-double
+endif
+ifeq "$(DEB_HOST_MULTIARCH)" "arm-linux-gnueabihf" 
+    export TARGET_DEFINES = -DARCH_ARM -DLINUX
+endif
+ifeq "$(DEB_HOST_MULTIARCH)" "aarch64-linux-gnu" 
+    export TARGET_DEFINES = -DARCH_ARM -DLINUX
+endif
+
 
 %:
 	dh $@ --sourcedirectory=btts/make

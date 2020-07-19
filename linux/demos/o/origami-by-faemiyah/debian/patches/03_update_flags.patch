@@ -5,7 +5,15 @@ Last-Update: 2020-04-30
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/configure.ac
 +++ b/configure.ac
-@@ -35,11 +35,7 @@
+@@ -28,18 +28,14 @@
+ AC_TYPE_UINT32_T
+ AC_TYPE_UINT8_T
+ 
+-AC_FUNC_MALLOC
++AC_CHECK_DECLS([malloc])
+ AC_CHECK_FUNCS([floor pow sqrt])
+ 
+ AC_CHECK_GL([no])
  AC_CHECK_GTK([2.4.10], [no])
  AC_CHECK_SDL([1.2.4])
  AC_CHECK_SDL_IMAGE([no])

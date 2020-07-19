@@ -6,14 +6,14 @@ Last-Update: 2020-04-27
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -35,8 +35,8 @@
+@@ -36,8 +36,8 @@
  endif
  
  ifeq ($(PLATFORM), LINUX)
--	LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf --libs glu sdl fmodex)
--	CFLAGS += $(shell pkgconf --cflags glu sdl fmodex)
-+	LDFLAGS += -L/usr/lib/ -I./ $(shell pkgconf --libs glu sdl2 fmodex)
-+	CFLAGS += $(shell pkgconf --cflags glu sdl2 fmodex)
+-	LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) --libs glu sdl fmodex)
+-	CFLAGS += $(shell $(PKG_CONFIG) --cflags glu sdl fmodex)
++	LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) --libs glu sdl2 fmodex)
++	CFLAGS += $(shell $(PKG_CONFIG) --cflags glu sdl2 fmodex)
  endif
  
  #variables d'instalation

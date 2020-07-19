@@ -6,7 +6,7 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,16 +1,42 @@
+@@ -1,16 +1,43 @@
  ### Makefile for the Xenox 04 demo ###
 -
 -OBJS=src/main.o src/SDLWindow.o src/PNGImage.o src/Texture.o src/Music.o\
@@ -21,8 +21,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -LIBS=`sdl-config --libs` -lGL -lGLU -lSDL_mixer `pkg-config libpng --libs`
 -TARGET=xl04_dem0f0
 +CXX := g++
-+CXXFLAGS += -Wall -std=c++98 $(shell pkg-config SDL_mixer sdl libpng glu --cflags)
-+LDFLAGS += $(shell pkg-config SDL_mixer sdl libpng glu --libs)
++PKG_CONFIG:=pkg-config
++CXXFLAGS += -Wall -std=c++98 $(shell $(PKG_CONFIG) SDL_mixer sdl libpng glu --cflags)
++LDFLAGS += $(shell $(PKG_CONFIG) SDL_mixer sdl libpng glu --libs)
 +
 +RM_F := rm -f
 +INSTALL := install

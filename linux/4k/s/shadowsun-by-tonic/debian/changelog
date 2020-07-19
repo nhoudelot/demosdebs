@@ -1,3 +1,15 @@
+shadowsun-by-tonic (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 30 Jul 2020 09:28:09 +0200
+
+shadowsun-by-tonic (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 30 Jul 2020 09:28:05 +0200
+
 shadowsun-by-tonic (1.0+1-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

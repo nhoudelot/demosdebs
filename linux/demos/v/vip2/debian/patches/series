@@ -1,9 +1,9 @@
-01_adapt_makefile.diff
-02_fix_linuxoss.diff
-03_convert_to_utf8.diff
-04_add_alsa_support.diff
-05_debianize_path.diff
-06_resize_and_correct_ar.diff
+01_adapt_makefile.patch
+02_fix_linuxoss.patch
+03_convert_to_utf8.patch
+04_add_alsa_support.patch
+05_adapt_path.patch
+06_resize_and_correct_ar.patch
 0012-CVE-2006-1655-fix-heap-overflow-in-layer3.c-III_anti.patch
 0014-CVE-2004-0991-copy-frame-size-checking-from-mpg123-0.patch
 0016-Increase-MAXFRAMESIZE-to-3456-bytes-which-is-much-cl.patch

@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- pkgconf,
+ pkg-config,
  libsdl1.2-dev
 Standards-Version: 4.5.0
 Homepage: https://320x200.org/2004/4k/

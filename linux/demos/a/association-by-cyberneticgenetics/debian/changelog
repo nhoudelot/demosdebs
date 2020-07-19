@@ -1,3 +1,9 @@
+association-by-cyberneticgenetics (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 03 Aug 2020 16:51:46 +0200
+
 association-by-cyberneticgenetics (1.0+1-0ddebs3) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

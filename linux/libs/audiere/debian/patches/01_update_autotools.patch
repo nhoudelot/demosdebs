@@ -5,13 +5,16 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/configure.ac
 +++ b/configure.ac
-@@ -2,35 +2,35 @@
+@@ -1,36 +1,40 @@
+-dnl Process this file with autoconf to produce a configure script.
++# Process this file with autoconf to produce a configure script.
  
- dnl Boilerplate code.
- 
+-dnl Boilerplate code.
++# Boilerplate code.
++
 +VERSION=1.10.1
 +PACKAGE="audiere"
-+
+ 
  AC_CONFIG_MACRO_DIRS([m4])
 -AC_INIT(src/audiere.h)
 +AC_INIT([audiere],[1.10.1])
@@ -26,9 +29,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  AC_SUBST(PACKAGE)
  
 -AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
++AC_CANONICAL_BUILD
++AC_CANONICAL_HOST
++AC_CANONICAL_TARGET
++
 +AM_INIT_AUTOMAKE([foreign])
  
- dnl Checks for options.
+-dnl Checks for options.
++# Checks for options.
  
  AC_ARG_ENABLE(debug,
 -    AC_HELP_STRING(--enable-debug, build debug),
@@ -49,7 +57,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      CFLAGS="-I/Library/Frameworks/SDL.framework/Headers $CFLAGS"
      CXXFLAGS="-I/Library/Frameworks/SDL.framework/Headers $CXXFLAGS"
      LIBS="-framework SDL  $LIBS"
-@@ -39,7 +39,7 @@
+@@ -39,7 +43,7 @@
      AC_DEFINE(HAVE_SDL))
  
  AC_ARG_ENABLE(sdl,
@@ -58,24 +66,59 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      CFLAGS="`sdl-config --cflags` $CFLAGS"
      CXXFLAGS="`sdl-config --cflags` $CXXFLAGS"
      LIBS="`sdl-config --libs`  $LIBS"
-@@ -49,13 +49,11 @@
+@@ -47,28 +51,25 @@
+     HAVE_SDL=true
+     AC_DEFINE(HAVE_SDL))
  
- dnl Checks for programs.
- 
+-dnl Checks for programs.
+-
 -AC_PROG_CC
 -AC_PROG_CPP
++# Checks for programs.
  AC_PROG_CXX
 -AC_PROG_CXXCPP
 +AC_PROG_CC
 +AC_PROG_INSTALL
  AC_PROG_MAKE_SET
- AC_LIBTOOL_WIN32_DLL dnl Must be called before AC_PROG_LIBTOOL
+-AC_LIBTOOL_WIN32_DLL dnl Must be called before AC_PROG_LIBTOOL
 -AM_PROG_LIBTOOL
++AC_LIBTOOL_WIN32_DLL # Must be called before AC_PROG_LIBTOOL
  
  LT_INIT
  
-@@ -99,8 +97,8 @@
- dnl Look for pthreads
+-dnl We test with C++ libraries, so use the C++ compiler...
++# We test with C++ libraries, so use the C++ compiler...
+ AC_LANG(C++)
+ 
+-dnl Checks for libraries.
++# Checks for libraries.
+ 
+ win32=no
+ core_audio=no
+ case $host in
+   *cygwin*|*mingw*)
+-    dnl If building on Cygwin or mingw, don't let windows.h define min() or max()
++    # If building on Cygwin or mingw, don't let windows.h define min() or max()
+     CXXFLAGS="-DWIN32_LEAN_AND_MEAN -DNOMINMAX -DADR_DECL= -DADR_CALL= $CXXFLAGS"
+     win32=yes
+     ;;
+@@ -85,8 +86,8 @@
+ AM_CONDITIONAL(WIN32, test "x$win32" = "xyes")
+ AM_CONDITIONAL(HAVE_CORE_AUDIO, test "x$core_audio" = "xyes")
+ 
+-dnl If building with gcc, build with all warnings except "class has virtual
+-dnl functions but non-virtual destructor".
++# If building with gcc, build with all warnings except "class has virtual
++# functions but non-virtual destructor".
+ if test "x$GXX" = "xyes" ; then
+    CXXFLAGS="$CXXFLAGS -Wall -Wno-non-virtual-dtor"
+ fi
+@@ -96,16 +97,16 @@
+ 
+ AM_CONDITIONAL(HAVE_SDL, test "x$HAVE_SDL" = "xtrue")
+ 
+-dnl Look for pthreads
++# Look for pthreads
  if test "x$win32" = "xno";then
    AC_CHECK_LIB(pthread, pthread_create,
 -      LIBS="-lpthread $LIBS"
@@ -85,15 +128,68 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      ,
        AC_MSG_ERROR(could not find pthread library))
  fi
-@@ -196,6 +194,7 @@
  
- dnl Checks for header files.
+-dnl Look for FLAC
++# Look for FLAC
+ AC_CHECK_LIB(FLAC, FLAC__stream_decoder_process_single,
+     LIBS="-lFLAC -lm $LIBS"
+     EXTRA_LIBS="-lFLAC -lm $EXTRA_LIBS"
+@@ -118,7 +119,7 @@
+     -lm)
+ AM_CONDITIONAL(HAVE_FLAC, test "x$HAVE_FLAC" = "xtrue")
  
+-dnl Look for DUMB
++# Look for DUMB
+ AC_CHECK_LIB(dumb, duh_start_renderer,
+     LIBS="-ldumb $LIBS"
+     EXTRA_LIBS="-ldumb $EXTRA_LIBS"
+@@ -129,7 +130,7 @@
+     AC_DEFINE(NO_DUMB))
+ AM_CONDITIONAL(HAVE_DUMB, test "x$HAVE_DUMB" = "xtrue")
+ 
+-dnl Look for libcdaudio
++# Look for libcdaudio
+ AC_CHECK_LIB(cdaudio, cd_init_device,
+     LIBS="-lcdaudio $LIBS"
+     EXTRA_LIBS="-lcdaudio $EXTRA_LIBS"
+@@ -139,11 +140,11 @@
+     AC_MSG_WARN([CD audio support might still be possible through another means such as winmm.]))
+ AM_CONDITIONAL(HAVE_LIBCDAUDIO, test "x$HAVE_LIBCDAUDIO" = "xtrue")
+ 
+-dnl Look for the POSIX realtime clock
++# Look for the POSIX realtime clock
+ AC_SEARCH_LIBS(clock_gettime, rt,
+     AC_DEFINE(HAVE_CLOCK_GETTIME))
+ 
+-dnl Look for SGI audio
++# Look for SGI audio
+ AC_CHECK_LIB(audio, alNewConfig,
+     HAVE_AL=true
+     AC_DEFINE(HAVE_AL)
+@@ -151,7 +152,7 @@
+     EXTRA_LIBS="-laudio $EXTRA_LIBS")
+ AM_CONDITIONAL(HAVE_AL, test "x$HAVE_AL" = "xtrue")
+ 
+-dnl Look for wxWindows
++# Look for wxWindows
+ AC_PATH_PROG(WX_CONFIG, wx-config, no, $PATH:/usr/local/bin)
+ if [[ "$WX_CONFIG" = "no" ]] ; then
+     AC_MSG_WARN([wxWindows not found, not building wxPlayer.
+@@ -194,17 +195,19 @@
+ 
+ AM_CONDITIONAL(HAVE_WXWINDOWS, test "x$HAVE_WXWINDOWS" = "xtrue")
+ 
+-dnl Checks for header files.
++# Checks for header files.
 +
+ 
  AC_HEADER_STDC
- AC_CHECK_HEADER(unistd.h)
+-AC_CHECK_HEADER(unistd.h)
++# Checks for header files.
++AC_CHECK_HEADERS([fcntl.h float.h inttypes.h limits.h stddef.h stdlib.h string.h sys/ioctl.h sys/time.h unistd.h])
  AC_CHECK_HEADER(sys/soundcard.h,
-@@ -204,7 +203,7 @@
+     HAVE_OSS=true
+     AC_DEFINE(HAVE_OSS))
  AM_CONDITIONAL(HAVE_OSS, test "x$HAVE_OSS" = "xtrue")
  
  AC_HEADER_STDC
@@ -102,10 +198,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  AC_CHECK_HEADER(alsa/asoundlib.h,
      HAVE_ALSA=true
-@@ -271,9 +270,26 @@
+@@ -253,7 +256,7 @@
+     EXTRA_LIBS="-ldsound -lole32 -lrpcrt4 $EXTRA_LIBS")
+ AM_CONDITIONAL(HAVE_DSOUND, test "x$HAVE_DSOUND" = "xtrue")
+ 
+-dnl Look for portaudio1.9
++# Look for portaudio1.9
+ AC_CHECK_LIB(portaudio, Pa_WriteStream,
+     HAVE_PA=true
+     AC_DEFINE(HAVE_PA)
+@@ -270,11 +273,28 @@
+     [#include <windows.h>])
  AM_CONDITIONAL(HAVE_WINMM, test "x$HAVE_WINMM" = "xtrue")
  
- dnl Checks for typedefs, structures, and compiler characteristics.
+-dnl Checks for typedefs, structures, and compiler characteristics.
++# Checks for typedefs, structures, and compiler characteristics.
 +AC_CHECK_HEADER_STDBOOL
 +AC_C_INLINE
 +AC_TYPE_INT16_T
@@ -121,15 +228,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  AC_C_BIGENDIAN
  
-+dnl Checks for library functions.
+-dnl Output makefiles.
++# Checks for library functions.
 +AC_FUNC_MALLOC
 +AC_FUNC_REALLOC
 +AC_CHECK_FUNCS([atexit clock_gettime floor gettimeofday memmove memset pow putenv sqrt strchr])
 +
- dnl Output makefiles.
++# Output makefiles.
  
  AC_SUBST(WORDS_BIGENDIAN)
-@@ -295,3 +311,15 @@
+ AC_SUBST(EXTRA_LIBS)
+@@ -295,3 +315,20 @@
          test/interactive/Makefile
          test/performance/Makefile,
      [chmod a+x audiere-config])
@@ -137,11 +246,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +echo "
 +Configuration for $PACKAGE_TARNAME $PACKAGE_VERSION:
-+    Target system:            $target
-+    Enable debug:             $debug
-+    Enable optimizations:     $optimizations
-+    Compiler flags:           $CFLAGS
-+    Linker flags:             $LDFLAGS
-+    Libs:                     $LIBS
-+    Install prefix:           $prefix
++ 	Target system:            $target
++	Enable debug:             $debug
++	Enable optimizations:     $optimizations
++    Build system:             $build
++    Host system:              $host
++    C Compiler flags:         $CFLAGS
++    CPP Compiler flags:       $CPPFLAGS
++    C++ Compiler flags:       $CXXFLAGS
++	Linker flags:             $LDFLAGS
++	Libs:                     $LIBS
++	Install prefix:           $prefix
++    Install libs:             $libdir
 +Type 'make' to build and 'make install' to install $PACKAGE."

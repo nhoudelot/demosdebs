@@ -1,0 +1,55 @@
+Index: glew-1.5.3/Makefile
+===================================================================
+--- glew-1.5.3.orig/Makefile	2010-05-21 20:25:47.000000000 +0200
++++ glew-1.5.3/Makefile	2010-05-21 20:27:21.000000000 +0200
+@@ -79,9 +79,9 @@
+ VISUALINFO.BIN.OBJS = $(VISUALINFO.BIN.SRCS:.c=.o)
+ BIN.LIBS = -Llib $(LDFLAGS.DYNAMIC) -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
+ 
+-all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) glew.pc
++all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) glew.pc glewmx.pc
+ 
+-libsonly: lib/$(LIB.SHARED) lib/$(LIB.STATIC) glew.pc
++libsonly: lib/$(LIB.SHARED) lib/$(LIB.STATIC) glew.pc glewmx.pc
+ 
+ lib:
+ 	mkdir lib
+@@ -121,6 +121,15 @@
+ 		-e "s|@version@|$(GLEW_VERSION)|g" \
+ 		< $< > $@
+ 
++glewmx.pc: glewmx.pc.in
++	sed \
++		-e "s|@prefix@|$(GLEW_DEST)|g" \
++		-e "s|@libdir@|$(LIBDIR)|g" \
++		-e "s|@exec_prefix@|$(BINDIR)|g" \
++		-e "s|@includedir@|$(INCDIR)|g" \
++		-e "s|@version@|$(GLEW_VERSION)|g" \
++		< $< > $@
++
+ install: libsonly
+ # directories
+ 	$(INSTALL) -d -m 0755 $(BINDIR)
+@@ -139,6 +148,7 @@
+ 	$(INSTALL) -m 0644 include/GL/glew.h $(INCDIR)/
+ 	$(INSTALL) -m 0644 include/GL/glxew.h $(INCDIR)/
+ 	$(INSTALL) -m 0644 glew.pc $(LIBDIR)/pkgconfig/
++	$(INSTALL) -m 0644 glewmx.pc $(LIBDIR)/pkgconfig/
+ ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
+ 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
+ else
+Index: glew-1.5.3/glewmx.pc.in
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ glew-1.5.3/glewmx.pc.in	2010-05-21 20:25:40.000000000 +0200
+@@ -0,0 +1,10 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
++
++Name: glewmx
++Description: The OpenGL Extension Wrangler library (mx)
++Version: @version@
++Cflags: -I${includedir}
++Libs: -L${libdir} -lGLEWmx

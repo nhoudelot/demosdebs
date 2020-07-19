@@ -1,3 +1,9 @@
+emodefect-by-fit (1.0-0ddebs8) unstable; urgency=medium
+
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 02 Aug 2020 00:49:36 +0200
+
 emodefect-by-fit (1.0-0ddebs7) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

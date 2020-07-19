@@ -6,14 +6,14 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -4,8 +4,8 @@
- CC = gcc
+@@ -5,8 +5,8 @@
+ PKG_CONFIG:=pkg-config
  
  # Change BUFSIZE for crappy systems that need a large audio buffer
--CFLAGS += -Wall $(shell sdl-config --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
--LDFLAGS += $(shell sdl-config --libs) -lm
-+CFLAGS += -Wall $(shell sdl2-config --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
-+LDFLAGS += $(shell sdl2-config --libs) -lm
+-CFLAGS += -Wall $(shell  $(PKG_CONFIG) sdl --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
+-LDFLAGS += $(shell $(PKG_CONFIG) sdl --libs) -lm
++CFLAGS += -Wall $(shell  $(PKG_CONFIG) sdl2 --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
++LDFLAGS += $(shell $(PKG_CONFIG) sdl2 --libs) -lm
  TARGET   = hexpistols-by-fit
  #variable de nettoyage
  RM_F = rm -f

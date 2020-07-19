@@ -53,14 +53,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	return(0);
 --- a/Makefile
 +++ b/Makefile
-@@ -1,8 +1,8 @@
- #variables de compilation
+@@ -2,8 +2,8 @@
  SHELL := /bin/sh
  CC := gcc
--CFLAGS += -Wall -pipe -pedantic $(shell pkg-config gl sdl SDL_mixer --cflags) -std=gnu90
--LDFLAGS += -L/usr/X11R6/lib $(shell pkg-config gl sdl SDL_mixer --libs) -lm
-+CFLAGS += -Wall -pipe -pedantic $(shell pkg-config gl sdl2 SDL2_mixer --cflags) -std=gnu90
-+LDFLAGS += -L/usr/X11R6/lib $(shell pkg-config gl sdl2 SDL2_mixer --libs) -lm
+ PKG_CONFIG:=pkg-config
+-CFLAGS += -Wall -pipe -pedantic $(shell $(PKG_CONFIG) gl sdl SDL_mixer --cflags) -std=gnu90
+-LDFLAGS += -L/usr/X11R6/lib $(shell $(PKG_CONFIG) gl sdl SDL_mixer --libs) -lm
++CFLAGS += -Wall -pipe -pedantic $(shell $(PKG_CONFIG) gl sdl2 SDL2_mixer --cflags) -std=gnu90
++LDFLAGS += -L/usr/X11R6/lib $(shell $(PKG_CONFIG) gl sdl2 SDL2_mixer --libs) -lm
  
  TARGET   := association-by-cyberneticgenetics
  #variable de nettoyage

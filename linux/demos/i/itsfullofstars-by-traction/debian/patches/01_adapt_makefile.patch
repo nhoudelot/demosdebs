@@ -6,7 +6,7 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,78 +1,90 @@
+@@ -1,78 +1,91 @@
 -#It's Full Of Stars by Traction
 -#WIN32, LINUX, OS_X
 -PLATFORM = $(shell uname)
@@ -104,8 +104,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +WINDOW_HEIGHT = 600
 +
 +#compiler we're using
-+CC = gcc
-+CXX = g++
++CC := gcc
++CXX := g++
++PKG_CONFIG:=pkg-config
 +
 +#sourcefiles in use
 +OBJ = changer.o complex.o filter.o floater.o font.o hermitecurve.o liikkuva.o line.o lista.o main.o matikka.o matrix.o object3d.o path.o primitives.o sound.o stuff.o sync.o tausta.o texture.o timer.o vector.o win32.o alku.o dla.o hila.o kasvi.o kaupunki.o lento.o loppu.o maailma.o runko.o synty.o tunneli.o universumi.o valo.o
@@ -121,8 +122,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +#linux Makefile setup
 +ifeq ($(PLATFORM), LINUX)
-+	LDFLAGS += -L/usr/lib/  -I./ $(shell pkg-config glu sdl fmodex --libs)
-+	CFLAGS +=$(shell pkg-config glu sdl fmodex --cflags) -fpermissive
++	LDFLAGS += -L/usr/lib/  -I./ $(shell $(PKG_CONFIG) glu sdl fmodex --libs)
++	CFLAGS +=$(shell $(PKG_CONFIG) glu sdl fmodex --cflags) -fpermissive
 +endif
 +
 +.PHONY: all all-before all-after clean clean-custom
