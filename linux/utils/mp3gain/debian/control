@@ -6,7 +6,6 @@ Uploaders: Simon McVittie <smcv@debian.org>
 Build-Depends:
  debhelper (>= 10),
  docbook-to-man,
- pkgconf,
  libmpg123-dev
 Homepage: http://mp3gain.sourceforge.net/
 Standards-Version: 4.5.0
