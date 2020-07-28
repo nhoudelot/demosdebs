@@ -9,7 +9,7 @@ Section: libs
 Homepage: http://www.un4seen.com/
 
 Package: libbass
-Architecture: i386 amd64
+Architecture: i386 amd64 armhf arm64
 Multi-Arch: same
 Depends:
  ${misc:Depends},
@@ -18,7 +18,7 @@ Description: Transitional package
  Transitional package to libbass2. It can be safely removed.
 
 Package: libbass2
-Architecture: i386 amd64
+Architecture: i386 amd64 armhf arm64
 Multi-Arch: same
 Depends:
  ${shlibs:Depends},

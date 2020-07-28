@@ -1,3 +1,47 @@
+libbass (2.4.15-0ddebs1) unstable; urgency=medium
+
+  * added armhf and arm64 version
+  * upstream update
+    2.4.15 - 17/12/2019
+    -------------------
+    * Channel processing granularity option
+      BASS_ATTRIB_GRANULE (BASS_ChannelSetAttribute option)
+    * Asynchronous mixtime sync callbacks
+      BASS_SYNC_THREAD (BASS_ChannelSetSync flag)
+    * Output device update period can be set in samples
+      BASS_CONFIG_DEV_PERIOD (BASS_SetConfig option)
+    * Continuous output when nothing is playing is now optional on OSX/iOS too
+      BASS_CONFIG_DEV_NONSTOP (BASS_SetConfig option)
+    * AAudio output support on Android
+      BASS_Init
+      BASS_CONFIG_ANDROID_AAUDIO (BASS_SetConfig option)
+    * Support for audio session IDs on Android
+      BASS_CONFIG_ANDROID_SESSIONID (BASS_SetConfig option)
+    * ParcelFileDescriptor support on Android
+      BASS_StreamCreateFile
+      BASS_SampleLoad
+      BASS_MusicLoad
+   * FloatValue Java class added to receive floating-point values on Android 10
+      BASS_Get3DFactors
+      BASS_RecordGetInput
+      BASS_ChannelGetAttribute
+      BASS_ChannelGet3DAttributes
+   * Audio session configuration option on iOS
+      BASS_CONFIG_IOS_SESSION (BASS_SetConfig option)
+   * OGG channel type constant renamed/duplicated to VORBIS
+      BASS_CTYPE_STREAM_VORBIS
+   * Error code for recognised file formats without audio
+      BASS_ERROR_NOTAUDIO (BASS_StreamCreateFile/User/URL error code)
+   * Error code for unstreamable MP4 files due to atom order
+      BASS_ERROR_UNSTREAMABLE (BASS_StreamCreateFileUser/URL error code)
+   * Fix for AAC streaming with BASS_STREAM_BLOCK on OSX 10.15 and iOS 13
+      BASS_StreamCreateURL/FileUser
+   * Fix for playback rate changing bug when using DirectSound
+      BASS_ATTRIB_FREQ (BASS_ChannelSetAttribute option)
+   * armv6 architecture support dropped on iOS
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Jul 2020 13:12:55 +0200
+
 libbass (2.4.14-0ddebs2) unstable; urgency=medium
 
   * update to standard version 4.5.0
