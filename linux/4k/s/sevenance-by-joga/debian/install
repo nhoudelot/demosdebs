@@ -1,0 +1,4 @@
+debian/scripts/sevenance-by-joga usr/bin/
+debian/resources/sevenance-by-joga.desktop usr/share/applications/
+debian/resources/sevenance-by-joga.png usr/share/icons/hicolor/256x256/apps/
+./sevenance-1920x1080 usr/lib/x86_64-linux-gnu/sevenance-by-joga/./ 
