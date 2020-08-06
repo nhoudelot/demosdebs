@@ -3,15 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc,
+ debhelper (>= 10),
  graphicsmagick-libmagick-dev-compat,
  libftgl-dev,
  libfmodex-dev,
  scons,
  freeglut3-dev,
  mesa-common-dev
-Standards-Version: 4.1.4
+Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=31073
 
 Package: mleinandsharkywedtro-by-limpninja

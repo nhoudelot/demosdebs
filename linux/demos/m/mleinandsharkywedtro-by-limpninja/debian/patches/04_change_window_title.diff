@@ -1,3 +1,8 @@
+Description: add window title
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/view.cpp
 +++ b/view.cpp
 @@ -412,7 +412,7 @@
