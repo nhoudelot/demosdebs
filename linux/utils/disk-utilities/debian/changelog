@@ -1,3 +1,11 @@
+disk-utilities (1:0.0+git20200716-0ddebs1) focal; urgency=medium
+
+  * New upstream release
+  * updated debian/watch
+  * removed debian-rules-sets-DEB_BUILD_OPTIONS in debian/rules
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Sep 2020 10:58:01 +0200
+
 disk-utilities (1:0.0+git20200321-0ddebs2) unstable; urgency=medium
 
   * Adapt for crossbuilding
