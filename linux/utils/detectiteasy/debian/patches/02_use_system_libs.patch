@@ -14,57 +14,30 @@
  }
  unix:macx {
      LIBS +=  $$PWD/libs/mac/libbzip2.a
---- a/die_source/gui_source/gui_source.pro
-+++ b/die_source/gui_source/gui_source.pro
-@@ -368,7 +368,8 @@
- 
- TRANSLATIONS=   ../translate/*.ts
- 
--include(../../qwt/qwt.pri)
-+INCLUDEPATH += /usr/include/qwt/
-+LIBS += -lqwt-qt5
- include(../../beaengine/beaengine.pri)
- include(../../qtsingleapplication/qtsingleapplication.pri)
- include(../../build.pri)
 --- a/XArchive/xarchive.pri
 +++ b/XArchive/xarchive.pri
-@@ -16,12 +16,12 @@
+@@ -22,12 +22,12 @@
  
  !contains(XCONFIG, zlib) {
      XCONFIG += zlib
--    include(3rdparty/zlib/zlib.pri)
+-    include($$PWD/3rdparty/zlib/zlib.pri)
 +    LIBS += -lz
  }
  
  !contains(XCONFIG, bzip2) {
      XCONFIG += bzip2
--    include(3rdparty/bzip2/bzip2.pri)
+-    include($$PWD/3rdparty/bzip2/bzip2.pri)
 +    LIBS += -lbz2
  }
  
  !contains(XCONFIG, lzma) {
---- a/QYara/qyara.pri
-+++ b/QYara/qyara.pri
-@@ -4,11 +4,11 @@
- DEPENDPATH += $$PWD/libyara/include
+--- a/XQwt/xqwt.pri
++++ b/XQwt/xqwt.pri
+@@ -3,5 +3,6 @@
  
- HEADERS += \
--    $$PWD/qyara.h 
-+    $$PWD/qyara.h
- 
- SOURCES += \
--    $$PWD/qyara.cpp 
--	
-+    $$PWD/qyara.cpp
-+
- win32-g++ {
-     LIBS += $$PWD/libs/win32-g++/libyara.lib
+ !contains(XCONFIG, qwt) {
+     XCONFIG += qwt
+-    include($$PWD/3rdparty/qwt/qwt.pri)
++    INCLUDEPATH += /usr/include/qwt/
++	LIBS += -lqwt-qt5
  }
-@@ -33,4 +33,6 @@
-     LIBS +=  $$PWD/libs/mac/libyara.a
- }
- 
--include(../QOpenSSL/openssl.pri)
-+INCLUDEPATH += /usr/include/openssl
-+LIBS += -lcrypto
-+LIBS += -ldl

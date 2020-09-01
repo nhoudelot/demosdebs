@@ -1,60 +1,30 @@
---- a/die_source/_options.h
-+++ b/die_source/_options.h
-@@ -200,17 +200,17 @@
- #define __DataBaseYARAPath "Paths/DataBaseYARA"
- #endif
- 
--#define __DefaultDataBasePath "$app/db"
--#define __DefaultEditorPath "$app/editor"
--#define __DefaultHelpPath "$app/help"
--#define __DefaultInfoPath "$app/info"
--#define __DefaultPluginsPath "$app/die_plugins"
--#define __DefaultQSSPath "$app/qss"
--#define __DefaultLangsPath "$app/lang"
--#define __DefaultScriptsPath "$app/scripts"
--#define __DefaultSearchPath "$app/search"
-+#define __DefaultDataBasePath "/usr/share/detectiteasy/db"
-+#define __DefaultEditorPath "/usr/share/detectiteasy/editor"
-+#define __DefaultHelpPath "/usr/share/detectiteasy/help"
-+#define __DefaultInfoPath "/usr/share/detectiteasy/info"
-+#define __DefaultPluginsPath "/usr/share/detectiteasy/die_plugins"
-+#define __DefaultQSSPath "/usr/share/detectiteasy/qss"
-+#define __DefaultLangsPath "/usr/share/detectiteasy/lang"
-+#define __DefaultScriptsPath "/usr/share/detectiteasy/scripts"
-+#define __DefaultSearchPath "/usr/share/detectiteasy/search"
- #ifdef USE_YARA
--#define __DefaultDataBaseYARAPath "$app/yara/packer.yar"
-+#define __DefaultDataBaseYARAPath "/usr/share/detectiteasy/yara/packer.yar"
- #endif
- 
- // KeySequences
---- a/die_source/gui_source/handleoptions.cpp
-+++ b/die_source/gui_source/handleoptions.cpp
-@@ -26,7 +26,7 @@
- 
- void HandleOptions::save(__DIE_OPTIONS *pOptions)
+--- a/XOptions/xoptions.cpp
++++ b/XOptions/xoptions.cpp
+@@ -28,7 +28,7 @@
+ void XOptions::setName(QString sName)
  {
--    QString sIniFile=Utils::getApplicationPath()+QDir::separator()+"die.ini";
-+    QString sIniFile=Utils::getConfigPath()+QDir::separator()+"die.ini";
-     QSettings settings(sIniFile,QSettings::IniFormat);
+     this->sName=sName;
+-    this->sFilePath=getApplicationDataPath()+QDir::separator()+QString("%1").arg(sName);
++    this->sFilePath=getConfigPath()+QDir::separator()+QString("%1").arg(sName);
+ }
  
-     settings.setValue(__StayOnTop,pOptions->bStayOnTop);
-@@ -78,7 +78,7 @@
+ void XOptions::setValueIDs(QList<ID> listVariantIDs)
+@@ -58,8 +58,8 @@
+             case ID_STYLE:                  varDefault="Fusion";        break;
+             case ID_LANG:                   varDefault="System";        break;
+             case ID_QSS:                    varDefault="";              break;
+-            case ID_DBPATH:                 varDefault="$data/db";      break;
+-            case ID_INFOPATH:               varDefault="$data/info";    break;
++            case ID_DBPATH:                 varDefault="/usr/share/detectiteasy/db";      break;
++            case ID_INFOPATH:               varDefault="/usr/share/detectiteasy/info";    break;
+             case ID_SCANENGINE:             varDefault="die";           break;
+         }
  
- void HandleOptions::load(__DIE_OPTIONS *pOptions)
- {
--    QString sIniFile=Utils::getApplicationPath()+QDir::separator()+"die.ini";
-+    QString sIniFile=Utils::getConfigPath()+QDir::separator()+"die.ini";
-     QSettings settings(sIniFile,QSettings::IniFormat);
- 
-     pOptions->bStayOnTop=settings.value(__StayOnTop,false).toBool();
---- a/die_source/utils.cpp
-+++ b/die_source/utils.cpp
-@@ -43,6 +43,14 @@
+@@ -150,6 +150,15 @@
      return sResult;
  }
  
-+QString Utils::getConfigPath()
++QString XOptions::getConfigPath()
 +{
 +    QString sResult;
 +    sResult=QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
@@ -62,24 +32,52 @@
 +    return sResult;
 +}
 +
- QString Utils::getPath(QString sFileName)
++
+ void XOptions::setLastDirectory(QString sValue)
  {
-     QFileInfo fi;
---- a/die_source/utils.h
-+++ b/die_source/utils.h
-@@ -24,6 +24,7 @@
- #include "_options.h"
- #include <QDir>
- #include <QCoreApplication>
+     QFileInfo fi(sValue);
+@@ -249,7 +258,7 @@
+     {
+         pComboBox->addItem("System","System");
+ 
+-        QList<QString> listRecords=getAllFilesFromDirectory(getApplicationLangPath(),"*.qm");
++        QList<QString> listRecords=getAllFilesFromDirectory("/usr/share/detectiteasy/lang","*.qm");
+ 
+         int nCount=listRecords.count();
+ 
+@@ -272,7 +281,7 @@
+     }
+     else if(id==ID_QSS)
+     {
+-        QList<QString> listRecords=getAllFilesFromDirectory(getApplicationQssPath(),"*.qss");
++        QList<QString> listRecords=getAllFilesFromDirectory("/usr/share/detectiteasy/qss","*.qss");
+ 
+         int nCount=listRecords.count();
+ 
+@@ -444,7 +453,7 @@
+ #ifdef Q_OS_MAC
+     sResult=qApp->applicationDirPath()+"/../Resources";
+ #else
+-    sResult=qApp->applicationDirPath();
++    sResult="/usr/share/detectiteasy";
+ #endif
+     return sResult;
+ }
+--- a/XOptions/xoptions.h
++++ b/XOptions/xoptions.h
+@@ -32,6 +32,7 @@
+ #include <QApplication>
+ #include <QStyleFactory>
+ #include <QTranslator>
 +#include <QStandardPaths>
  
- class Utils
+ class XOptions : public QObject
  {
-@@ -31,6 +32,7 @@
-     Utils();
- 
-     static QString getApplicationPath();
+@@ -75,6 +76,7 @@
+     static QString getApplicationQssPath();
+     static QList<QString> getAllFilesFromDirectory(QString sDirectory,QString sExtension);
+     static QString getApplicationDataPath();
 +    static QString getConfigPath();
-     static QString getPath(QString sFileName);
-     static QString getLastDirecory(__DIE_OPTIONS *pOptions);
- 
+ #ifdef QT_GUI_LIB
+     void setCheckBox(QCheckBox *pCheckBox,ID id);
+     void getCheckBox(QCheckBox *pCheckBox,ID id);

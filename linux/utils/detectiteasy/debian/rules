@@ -10,19 +10,26 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-format
 	dh $@
 
 override_dh_auto_configure-arch:
-	dh_auto_configure -Sqmake -Ddie_source/console_source
-	dh_auto_configure -Sqmake -Ddie_source/lite_source
-	dh_auto_configure -Sqmake -Ddie_source/gui_source
+	dh_auto_configure -Sqmake -Dconsole_source
+	dh_auto_configure -Sqmake -Dgui_source
 
 override_dh_auto_build-arch:
-	dh_auto_build -Sqmake -Ddie_source/console_source
-	dh_auto_build -Sqmake -Ddie_source/lite_source
-	dh_auto_build -Sqmake -Ddie_source/gui_source
+	mkdir lang
+	lrelease gui_source/translation/die_de.ts -qm  lang/die_de.qm
+	lrelease gui_source/translation/die_ja.ts -qm  lang/die_ja.qm
+	lrelease gui_source/translation/die_pl.ts -qm  lang/die_pl.qm
+	lrelease gui_source/translation/die_pt_BR.ts -qm  lang/die_pt_BR.qm
+	lrelease gui_source/translation/die_fr.ts -qm  lang/die_fr.qm
+	lrelease gui_source/translation/die_ru.ts -qm  lang/die_ru.qm
+	lrelease gui_source/translation/die_vi.ts -qm  lang/die_vi.qm
+	lrelease gui_source/translation/die_zh.ts -qm  lang/die_zh.qm
+	lrelease gui_source/translation/die_zh_TW.ts -qm  lang/die_zh_TW.qm
+	dh_auto_build -Sqmake -Dconsole_source
+	dh_auto_build -Sqmake -Dgui_source
 
 override_dh_auto_clean-arch:
-	dh_auto_clean -Sqmake -Ddie_source/console_source
-	dh_auto_clean -Sqmake -Ddie_source/lite_source
-	dh_auto_clean -Sqmake -Ddie_source/gui_source
+	dh_auto_clean -Sqmake -Dconsole_source
+	dh_auto_clean -Sqmake -Dgui_source
 
 override_dh_install:
 	dh_install

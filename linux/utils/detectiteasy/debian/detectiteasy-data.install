@@ -1,8 +1,8 @@
 Detect-It-Easy/db usr/share/detectiteasy/
 Detect-It-Easy/info usr/share/detectiteasy/
 Detect-It-Easy/scripts usr/share/detectiteasy/
-Detect-It-Easy/qss usr/share/detectiteasy/
 Detect-It-Easy/editor usr/share/detectiteasy/
 Detect-It-Easy/search usr/share/detectiteasy/
-Detect-It-Easy/yara usr/share/detectiteasy/
-die_source/lang usr/share/detectiteasy/
+Detect-It-Easy/TRANSLATIONS usr/share/detectiteasy/
+XStyles/qss usr/share/detectiteasy/
+lang usr/share/detectiteasy/

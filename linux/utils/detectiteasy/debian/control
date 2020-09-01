@@ -8,9 +8,11 @@ Build-Depends:
  qtbase5-dev,
  qtbase5-dev-tools,
  qt5-qmake,
+ qttools5-dev-tools,
  qtscript5-dev,
  libqt5svg5-dev,
  libqwt-qt5-dev,
+ libqt5opengl5-dev,
  libbz2-dev,
  zlib1g-dev,
  libssl-dev
