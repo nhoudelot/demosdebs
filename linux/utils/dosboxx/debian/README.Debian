@@ -1,0 +1,7 @@
+dosboxx for Debian
+-----------------
+
+Compiling against SDL2
+Cause it's faster, can use system SDL2, and avoid the ugly hacked SDL1.2 version bundled
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 04 May 2020 10:20:14 +0200

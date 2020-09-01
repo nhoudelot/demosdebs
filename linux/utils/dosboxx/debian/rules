@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=-all
+
+export DEB_CFLAGS_MAINT_APPEND  = -flto
+export DEB_CXXFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
+
+CONFIGURE_EXTRA_FLAGS +=  --enable-core-inline --enable-sdl2 --disable-avcodec 
+
+%:
+	dh $@ --buildsystem=autoconf
+
+override_dh_auto_configure:
+	./autogen.sh
+	dh_auto_configure -- $(CONFIGURE_EXTRA_FLAGS)
+
+override_dh_install:
+	cp src/dosbox.png debian/resources/dosboxx.png
+	dh_install

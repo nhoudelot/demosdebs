@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Dosbox-x
+GenericName=utilities
+Comment=x86 emulator with DOS
+Type=Application
+Exec=/usr/bin/dosboxx
+Icon=dosboxx
+Categories=
+Name[fr_FR]=Dosbox-x
