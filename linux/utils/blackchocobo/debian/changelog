@@ -1,3 +1,9 @@
+blackchocobo (1.10.0-0ddebs2) unstable; urgency=medium
+
+  * bugfix debian/watch file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Sep 2020 11:17:27 +0200
+
 blackchocobo (1.10.0-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0
