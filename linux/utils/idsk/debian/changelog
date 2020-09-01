@@ -1,3 +1,9 @@
+idsk (0.20-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Sep 2020 17:23:44 +0200
+
 idsk (0.19-0ddebs3) unstable; urgency=medium
 
   * Removed auto-generation of the manual with pandoc, because this command is

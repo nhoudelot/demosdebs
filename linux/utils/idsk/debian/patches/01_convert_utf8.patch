@@ -559,96 +559,7 @@
  	fclose (f);
  	return true;
  }
-@@ -883,8 +883,8 @@
- 	FILE* Hfile;
- 	if ( NULL==(cFileName = (char*)malloc(16*sizeof(char))) )
- 		return false;
--	
--	
-+
-+
- 
- 	cFileName = GetNomAmsdos((char *)Masque.c_str());
- 	if ((  Hfile = fopen(Masque.c_str(),"rb")) == NULL ) return false;
-@@ -897,7 +897,7 @@
- 		free(cFileName);
- 		return false;
- 	}
--		
-+
- 	if (TypeModeImport == MODE_ASCII) {
- 		for (int i=0 ; i < 0x20000 ; i++) {
- 			// last ascii char
-@@ -910,10 +910,10 @@
-         // Regarde si le fichier contient une en-tete ou non
-         //
-         bool IsAmsdos = CheckAmsdos( Buff );
--      
-+
-       	if ( ! IsAmsdos ) {
- 		// Creer une en-tete amsdos par defaut
--		cout << "Cr�ation automatique d'une en-t�te pour le fichier ...\n";
-+		cout << "Cr�ation automatique d'une en-tête pour le fichier ...\n";
- 		e = CreeEnteteAmsdos( cFileName, ( unsigned short )Lg );
- 		if ( loadAdress != 0)
- 		{
-@@ -931,7 +931,7 @@
-         if ( isBigEndian() ) e = StAmsdosEndian(e);
- 	}
- 	else
--		cout << "Le fichier a d�j� une en-t�te\n";
-+		cout << "Le fichier a déjàune en-tête\n";
-         //
-         // En fonction du mode d'importation...
-         //
-@@ -946,38 +946,38 @@
- 				Lg -= sizeof( StAmsdos );
- 			}
- 		break;
--				
-+
- 		case MODE_BINAIRE :
- 			//
- 			// Importation en mode BINAIRE
- 			//
--				
-+
- 			if ( ! IsAmsdos )
- 				//
- 				// Indique qu'il faudra ajouter une en-tete
- 				//
- 				AjouteEntete = true;
- 		break;
--				
-+
- 	}
--		
-+
-         //
-         // Si fichier ok pour etre import
-         //
-         if ( AjouteEntete ) {
-         	// Ajoute l'en-tete amsdos si necessaire
--        	
-+
- 		memmove( &Buff[ sizeof( StAmsdos ) ], Buff, Lg );
-                	memcpy( Buff, e, sizeof( StAmsdos ) );
-                	Lg += sizeof( StAmsdos );
- 	}
- 
--	//if (MODE_BINAIRE) ClearAmsdos(Buff); //Remplace les octets inutilis�s par des 0 dans l'en-t�te
-+	//if (MODE_BINAIRE) ClearAmsdos(Buff); //Remplace les octets inutilisés par des 0 dans l'en-tête
- 
-         if ( CopieFichier( Buff,cFileName,Lg,256, UserNumber, System_file, Read_only) != ERR_NO_ERR )
- 		ret = false;
--	else 
--		ret = true;	
-+	else
-+		ret = true;
- 
- 	return ret;
- }
-@@ -992,19 +992,19 @@
+@@ -966,19 +966,19 @@
  	int i = nItem;
  	bool FirstBlock = true;
  	StDirEntry TabDir[ 64 ];
@@ -673,7 +584,7 @@
  	do
  	{
          // Longueur du fichier
-@@ -1019,12 +1019,12 @@
+@@ -993,12 +993,12 @@
  					memcpy( p  , &p[ 0x80 ]  , TailleBloc  );
  				}
  				FirstBlock = false;
@@ -688,7 +599,7 @@
  			}
  			lMax -= 1024;
  		}
-@@ -1034,7 +1034,7 @@
+@@ -1008,7 +1008,7 @@
  		strncat(current, GetNomAmsdos( TabDir[ i ].Ext ), 3);
  		if ( i > 64 ) return false;
  	}while( ! strncmp( NomFic, current, max( strlen( current ), strlen( NomFic ) ) ) );
@@ -697,7 +608,7 @@
  	if ( TailleFic == 0 )
  		TailleFic = LongFic;
  	return true;
-@@ -1046,23 +1046,23 @@
+@@ -1020,23 +1020,23 @@
  	int TailleCourante=0;
  	char OffSet[ 7 ];
  	const char * CodeHexa = "0123456789ABCDEF";
@@ -726,7 +637,7 @@
  				Ascii[ i ] = '.';
  			char Val[ 4 ];
  			// manage the hexadeciaml display
-@@ -1076,9 +1076,9 @@
+@@ -1050,9 +1050,9 @@
  		strcat( Listing, Hex );
  		strcat( Listing, "| ");
  		strcat( Listing, Ascii );
@@ -738,7 +649,7 @@
  	return true;
  }
  
-@@ -1087,20 +1087,20 @@
+@@ -1061,20 +1061,20 @@
  	char NomFic[ 16 ];
  	int i = item;
  	StDirEntry TabDir[ 64 ];
@@ -764,7 +675,7 @@
  	return ;
  }
  
-@@ -1113,30 +1113,30 @@
+@@ -1087,30 +1087,30 @@
  	int c = item;
  	for ( int j = 0; j < 64; j++ )
  		memcpy( &TabDir[ j ], GetInfoDirEntry( j ), sizeof( StDirEntry ));
@@ -801,7 +712,7 @@
  }
  
  
-@@ -1167,12 +1167,12 @@
+@@ -1141,12 +1141,12 @@
  			{
  				Nom[ j ] &= 0x7F;
  
