@@ -1,4 +1,3 @@
-extra/opt-pdf usr/bin
 imageutils/imagsize usr/bin
 imageutils/jpgcom usr/bin
 imageutils/pngrecolor usr/bin

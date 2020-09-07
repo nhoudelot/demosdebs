@@ -20,7 +20,7 @@
        (void) fclose (fp);
 --- a/scripts/opt-png.in
 +++ b/scripts/opt-png.in
-@@ -128,7 +128,7 @@
+@@ -130,7 +130,7 @@
      fi
      OUT3="$?"
      if [ "$OUT3" -ne 0 ]; then
