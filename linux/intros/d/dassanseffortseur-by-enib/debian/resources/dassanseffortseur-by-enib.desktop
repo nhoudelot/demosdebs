@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Das Sanseffortseur
+GenericName=Demo
+Comment=Demo by Enib, released in 2016
+Type=Application
+Exec=/usr/bin/dassanseffortseur-by-enib
+Icon=dassanseffortseur-by-enib
+Categories=AudioVideo;
+Name[fr_FR]=Das Sanseffortseur

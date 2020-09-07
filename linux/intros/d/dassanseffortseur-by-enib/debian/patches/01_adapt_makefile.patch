@@ -1,0 +1,58 @@
+--- a/src/makefile
++++ b/src/makefile
+@@ -1,12 +1,23 @@
+-TARGET_NAME=DasSanseffortseur
+-
++TARGET:=dassanseffortseur-by-enib
++SHELL := /bin/sh
++CXX   := g++
++PKG_CONFIG := pkg-config
+ EXTRA_INCLUDE=
+-#LIBS= -L. -lsfml-graphics -lsfml-window -lsfml-system -lrtaudio_static -lpulse -lpulse-simple -lpthread -lGL `pkg-config --libs gtk+-2.0`
+-LIBS= -L. -lX11 -lrtaudio_static -lpulse -lpulse-simple -lpthread -lGL `pkg-config --libs gtk+-2.0` -lGLU
++#LDFLAGS += -L. -lsfml-graphics -lsfml-window -lsfml-system -lrtaudio_static -lpulse -lpulse-simple -lpthread -lGL `pkg-config --libs gtk+-2.0`
++LDFLAGS += -pthread $(shell $(PKG_CONFIG) --libs x11 rtaudio glu gtk+-2.0) -fpie
+ DEFINES= -DeRELEASE -DePLAYER -DeGTK
+ 
+ 
+-CXXFLAGS= $(DEFINES) $(EXTRA_INCLUDE) -W -Wall -s -Os -std=c++11 `pkg-config --cflags gtk+-2.0`
++CXXFLAGS += $(DEFINES) $(EXTRA_INCLUDE) -W -Wall -pipe -std=c++11 $(shell $(PKG_CONFIG) --cflags x11 rtaudio glu gtk+-2.0)
++
++# variables d’installation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
+ 
+ OBJ= cameras.o \
+ 	frameworks.o \
+@@ -65,15 +76,20 @@
+ 	datastream.hpp
+ 
+ all: $(OBJ) $(FILECPP) $(FILEC) $(HEADER)
+-	g++ -o $(TARGET_NAME) $(OBJ) $(LIBS) 
+-	strip -s -x -X -v $(TARGET_NAME)
+-	upx --ultra-brute $(TARGET_NAME)
++	$(CXX) -o $(TARGET) $(OBJ) $(LDFLAGS)
++	#strip -s -x -X -v $(TARGET)
++	#upx --ultra-brute $(TARGET)
+ 
+ %.o: %.cpp $(HEADER)
+ 	@echo Compile C++ $< to $@
+-	g++  -c $< -o $@ $(CXXFLAGS)
++	$(CXX) -c $< -o $@ $(CXXFLAGS)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
+ 
+ clean:
+-	rm *.o
+-	rm *~
++	-@$(RM_F) *.o
++	-@$(RM_F) *~
+ 

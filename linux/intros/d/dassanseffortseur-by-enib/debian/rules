@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CXXFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
+
+%:
+	dh $@ --sourcedirectory=src
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/dassanseffortseur-by-enib.6.md -o debian/dassanseffortseur-by-enib.6

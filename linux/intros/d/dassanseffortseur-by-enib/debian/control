@@ -1,0 +1,28 @@
+Source: dassanseffortseur-by-enib
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ pandoc,
+ pkg-config,
+ libglu1-mesa-dev,
+ librtaudio-dev,
+ libx11-dev,
+ libgtk2.0-dev
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=67607
+
+Package: dassanseffortseur-by-enib
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ common-install-function-ddebs(>=1.61)
+Description: Demo by Enib, released in 2016
+ First demo, presented at the French demo contest API8.
+ The demo is runnable on Linux 64bits environnement that must have:
+   - Pulse Audio
+   - OpenGL (with some GLEXT obviouly) 
+   - X11
+   - GTK2 (Optional)

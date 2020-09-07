@@ -1,0 +1,11 @@
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -29,7 +29,7 @@
+ 
+ #include "window.hpp"
+ #include "vec3.hpp"
+-#include "RtAudio.h"
++#include <rtaudio/RtAudio.h>
+ 
+ #ifdef eDEBUG
+ 
