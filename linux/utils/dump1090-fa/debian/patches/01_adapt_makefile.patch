@@ -1,22 +1,59 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -9,6 +9,9 @@
- CFLAGS += $(DIALECT) -O2 -g -Wall -Werror -W -D_DEFAULT_SOURCE
- LIBS = -lpthread -lm -lrt
+@@ -9,27 +9,29 @@
+ LIBS = -lpthread -lm
+ SDR_OBJ = sdr.o fifo.o sdr_ifile.o
+ 
++PKG_CONFIG:=pkg-config
++
+ # Try to autodetect available libraries via pkg-config if no explicit setting was used
+-PKGCONFIG=$(shell pkg-config --version >/dev/null 2>&1 && echo "yes" || echo "no")
++PKGCONFIG=$(shell $(PKG_CONFIG) --version >/dev/null 2>&1 && echo "yes" || echo "no")
+ ifeq ($(PKGCONFIG), yes)
+   ifndef RTLSDR
+     ifdef RTLSDR_PREFIX
+       RTLSDR := yes
+     else
+-      RTLSDR := $(shell pkg-config --exists librtlsdr && echo "yes" || echo "no")
++      RTLSDR := $(shell $(PKG_CONFIG) --exists librtlsdr && echo "yes" || echo "no")
+     endif
+   endif
+ 
+   ifndef BLADERF
+-    BLADERF := $(shell pkg-config --exists libbladeRF && echo "yes" || echo "no")
++    BLADERF := $(shell $(PKG_CONFIG) --exists libbladeRF && echo "yes" || echo "no")
+   endif
+ 
+   ifndef HACKRF
+-    HACKRF := $(shell pkg-config --exists libhackrf && echo "yes" || echo "no")
++    HACKRF := $(shell $(PKG_CONFIG) --exists libhackrf && echo "yes" || echo "no")
+   endif
+ 
+   ifndef LIMESDR
+-    LIMESDR := $(shell pkg-config --exists LimeSuite && echo "yes" || echo "no")
++    LIMESDR := $(shell $(PKG_CONFIG) --exists LimeSuite && echo "yes" || echo "no")
+   endif
+ else
+   # pkg-config not available. Only use explicitly enabled libraries.
+@@ -72,6 +74,8 @@
+ RTLSDR ?= yes
+ BLADERF ?= yes
  
 +CC:=gcc
-+PKG_CONFIG:=pkg-config
 +
  ifeq ($(RTLSDR), yes)
    SDR_OBJ += sdr_rtlsdr.o
    CPPFLAGS += -DENABLE_RTLSDR
-@@ -21,13 +24,13 @@
-       LIBS_SDR += -L$(RTLSDR_PREFIX)/lib -lrtlsdr -lusb-1.0
-     endif
-   else
--    CFLAGS += $(shell pkg-config --cflags librtlsdr)
-+    CFLAGS += $(shell $(PKG_CONFIG) --cflags librtlsdr)
+@@ -87,16 +91,16 @@
      # some packaged .pc files are massively broken, try to handle it
+ 
+     # FreeBSD's librtlsdr.pc includes -std=gnu89 in cflags
+-    RTLSDR_CFLAGS := $(shell pkg-config --cflags librtlsdr)
++    RTLSDR_CFLAGS := $(shell $(PKG_CONFIG) --cflags librtlsdr)
+     CFLAGS += $(filter-out -std=%,$(RTLSDR_CFLAGS))
+ 
+     # some linux librtlsdr packages return a bare -L with no path in --libs
+     # which horribly confuses things because it eats the next option on the command line
 -    RTLSDR_LFLAGS := $(shell pkg-config --libs-only-L librtlsdr)
 +    RTLSDR_LFLAGS := $(shell $(PKG_CONFIG) --libs-only-L librtlsdr)
      ifeq ($(RTLSDR_LFLAGS),-L)
@@ -28,7 +65,7 @@
      endif
    endif
  endif
-@@ -35,8 +38,8 @@
+@@ -104,22 +108,22 @@
  ifeq ($(BLADERF), yes)
    SDR_OBJ += sdr_bladerf.o
    CPPFLAGS += -DENABLE_BLADERF
@@ -38,4 +75,22 @@
 +  LIBS_SDR += $(shell $(PKG_CONFIG) --libs libbladeRF)
  endif
  
- all: dump1090 view1090
+ ifeq ($(HACKRF), yes)
+   SDR_OBJ += sdr_hackrf.o
+   CPPFLAGS += -DENABLE_HACKRF
+-  CFLAGS += $(shell pkg-config --cflags libhackrf)
+-  LIBS_SDR += $(shell pkg-config --libs libhackrf)
++  CFLAGS += $(shell $(PKG_CONFIG) --cflags libhackrf)
++  LIBS_SDR += $(shell $(PKG_CONFIG) --libs libhackrf)
+ endif
+ 
+ ifeq ($(LIMESDR), yes)
+   SDR_OBJ += sdr_limesdr.o
+   CPPFLAGS += -DENABLE_LIMESDR
+-  CFLAGS += $(shell pkg-config --cflags LimeSuite)
+-  LIBS_SDR += $(shell pkg-config --libs LimeSuite)
++  CFLAGS += $(shell $(PKG_CONFIG) --cflags LimeSuite)
++  LIBS_SDR += $(shell $(PKG_CONFIG) --libs LimeSuite)
+ endif
+ 
+ all: showconfig dump1090 view1090

@@ -1,3 +1,9 @@
+dump1090-fa (4.0-0ddebs1) focal; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Oct 2020 16:28:26 +0200
+
 dump1090-fa (3.8.1-0ddebs1) unstable; urgency=medium
 
   * New upstream release
