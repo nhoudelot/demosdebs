@@ -6,7 +6,6 @@
 ./NOTES-TESTING-LOG
 ./PULL_REQUEST_TEMPLATE.md
 ./README.MinGW
-./README.cmake.md
 ./README.joystick
 ./README.keyboard-layout-handling
 ./README.md
@@ -14,3 +13,4 @@
 ./README.xbrz
 ./optimization-1
 ./optimization-1/DosBox.txt
+./THANKS
