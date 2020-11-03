@@ -1,4 +1,10 @@
-disk-utilities (1:0.0+git20200716-0ddebs1) focal; urgency=medium
+disk-utilities (1:0.0+git20201102-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 03 Nov 2020 12:09:27 +0100
+
+disk-utilities (1:0.0+git20200716-0ddebs1) unstable; urgency=medium
 
   * New upstream release
   * updated debian/watch
