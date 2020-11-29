@@ -1,6 +1,6 @@
 --- a/libusbhxcfe/trunk/build/Makefile
 +++ b/libusbhxcfe/trunk/build/Makefile
-@@ -63,7 +63,7 @@
+@@ -69,7 +69,7 @@
  	cp $@ ../../../build
  
  libusbhxcfe.so: usb_hxcfloppyemulator.o variablebitrate.o ftdi.o

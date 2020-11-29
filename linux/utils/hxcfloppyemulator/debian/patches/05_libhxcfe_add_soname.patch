@@ -1,6 +1,6 @@
 --- a/libhxcfe/trunk/build/Makefile
 +++ b/libhxcfe/trunk/build/Makefile
-@@ -24,6 +24,7 @@
+@@ -30,6 +30,7 @@
  CFLAGS += -fPIC -Wl,-Map,foo.map
  LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl
  LDFLAGS += -g -lc -lm  -ldl

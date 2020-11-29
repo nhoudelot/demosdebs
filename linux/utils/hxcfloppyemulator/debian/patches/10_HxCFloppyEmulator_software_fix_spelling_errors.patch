@@ -5,7 +5,7 @@ Last-Update: 2020-04-20
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/HxCFloppyEmulator_software/trunk/sources/gui/cb_floppy_infos_window.cxx
 +++ b/HxCFloppyEmulator_software/trunk/sources/gui/cb_floppy_infos_window.cxx
-@@ -860,7 +860,7 @@
+@@ -918,7 +918,7 @@
  							sprintf(str,"DEC RX02 Sector");
  						break;
  						default:
@@ -14,7 +14,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  						break;
  					}
  					fiw->buf->append((char*)str);
-@@ -1003,4 +1003,4 @@
+@@ -1061,4 +1061,4 @@
  
  	}
  

@@ -249,8 +249,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#include "../../thirdpartylibs/adflib/Lib/adf_err.h"
 +#include "../../thirdpartylibs/adflib/Lib/adf_dir.h"
  
- HXCFE* floppycontext;
- HXCFE_FSMNG * gb_fsmng;
+ static HXCFE* floppycontext;
+ static HXCFE_FSMNG * gb_fsmng;
 --- a/libhxcfe/trunk/sources/fs_manager/fs_cpm/fs_cpm.c
 +++ b/libhxcfe/trunk/sources/fs_manager/fs_cpm/fs_cpm.c
 @@ -47,17 +47,17 @@
@@ -382,7 +382,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #include "env.h"
  
-@@ -280,4 +280,4 @@
+@@ -314,4 +314,4 @@
  	free(src);
  
  	return;
@@ -421,7 +421,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
 +++ b/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
-@@ -50,20 +50,20 @@
+@@ -50,21 +50,21 @@
  
  #include <math.h>
  
@@ -431,14 +431,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "internal_libhxcfe.h"
 -#include "tracks/track_generator.h"
 -#include "libhxcfe.h"
+-
+-#include "floppy_loader.h"
+-#include "floppy_utils.h"
+-#include "tracks/trackutils.h"
 +#include "../internal_libhxcfe.h"
 +#include "../tracks/track_generator.h"
 +#include "../libhxcfe.h"
- 
--#include "floppy_loader.h"
--#include "floppy_utils.h"
++
 +#include "../floppy_loader.h"
 +#include "../floppy_utils.h"
++#include "../tracks/trackutils.h"
  
  #include "fluxStreamAnalyzer.h"
  
@@ -1712,8 +1715,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "libhxcadaptor.h"
 +#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
  
- int CPCDSK_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
- {
+ //#define CPCDSK_DBG 1
+ 
 --- a/libhxcfe/trunk/sources/loaders/cpcdsk_loader/cpcdsk_writer.c
 +++ b/libhxcfe/trunk/sources/loaders/cpcdsk_loader/cpcdsk_writer.c
 @@ -29,18 +29,18 @@
@@ -1739,8 +1742,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "floppy_utils.h"
 +#include "../../floppy_utils.h"
  
- int CPCDSK_libWrite_DiskFile(HXCFE_IMGLDR* imgldr_ctx,HXCFE_FLOPPY * floppy,char * filename)
- {
+ #include "version.h"
+ 
 --- a/libhxcfe/trunk/sources/loaders/cpcfs_loader/cpcfs_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/cpcfs_loader/cpcfs_loader.c
 @@ -49,17 +49,17 @@
@@ -1987,7 +1990,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "libhxcadaptor.h"
 +#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
  
- static int gettrackbit(unsigned char * input_data,int bit_offset)
+ void setdmktrackbit(unsigned char * input_data,int bit_offset,int state)
  {
 --- a/libhxcfe/trunk/sources/loaders/dms_loader/dms_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/dms_loader/dms_loader.c
@@ -3785,7 +3788,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "misc/env.h"
 +#include "../../misc/env.h"
  
- uint32_t update_checksum(uint32_t checksum,unsigned char * buffer,unsigned int size)
+ static uint32_t update_checksum(uint32_t checksum,unsigned char * buffer,unsigned int size)
  {
 --- a/libhxcfe/trunk/sources/loaders/sdd_speccydos_loader/sdd_speccydos_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/sdd_speccydos_loader/sdd_speccydos_loader.c
@@ -4158,8 +4161,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
 +#include "../../tracks/crc.h"
  
- //#define PASTI_DBG 1
- 
+ // Enable the debug outputs by default
+ #define PASTI_DBG 1
 --- a/libhxcfe/trunk/sources/loaders/stx_loader/stx_writer.c
 +++ b/libhxcfe/trunk/sources/loaders/stx_loader/stx_writer.c
 @@ -47,17 +47,17 @@

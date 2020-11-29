@@ -84,7 +84,7 @@
  		break;
 --- a/libhxcfe/trunk/sources/loaders/stx_loader/stx_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/stx_loader/stx_loader.c
-@@ -705,7 +705,7 @@
+@@ -707,7 +707,7 @@
  						{
  							hxc_fread( &temp_val, sizeof(unsigned short), f );
  #ifdef PASTI_DBG
@@ -106,7 +106,7 @@
  											col=(s_col *)&td->framebuffer[(td->xsize*j) + i];
 --- a/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
 +++ b/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
-@@ -2281,7 +2281,7 @@
+@@ -2301,7 +2301,7 @@
  
  			/////////////////////////////////////////////////////////
  #ifdef FLUXSTREAMDBG
@@ -115,7 +115,7 @@
  
  			// print missing blocks.
  			for(block_num=0;block_num<tb->number_of_blocks;block_num++)
-@@ -2365,7 +2365,7 @@
+@@ -2385,7 +2385,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -124,7 +124,7 @@
  #endif
  										}
  										else
-@@ -2386,7 +2386,7 @@
+@@ -2406,7 +2406,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -133,7 +133,7 @@
  #endif
  										}
  										else
-@@ -2411,7 +2411,7 @@
+@@ -2431,7 +2431,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -142,7 +142,7 @@
  #endif
  										}
  										else
-@@ -2448,7 +2448,7 @@
+@@ -2468,7 +2468,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -151,7 +151,7 @@
  #endif
  										}
  										else
-@@ -2529,7 +2529,7 @@
+@@ -2549,7 +2549,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -160,7 +160,7 @@
  #endif
  										}
  										else
-@@ -2550,7 +2550,7 @@
+@@ -2570,7 +2570,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -169,7 +169,7 @@
  #endif
  										}
  										else
-@@ -3232,7 +3232,7 @@
+@@ -3290,7 +3290,7 @@
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Bitrate: %d",side->bitrate);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Number of sector: %d",side->number_of_sector);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Track encoding: %d",side->track_encoding);

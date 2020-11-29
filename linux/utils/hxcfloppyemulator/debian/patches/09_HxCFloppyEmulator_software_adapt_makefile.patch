@@ -17,16 +17,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  TARGET := $(shell uname)
  
-@@ -17,7 +17,7 @@
- 	LDFLAGS= -lasan
+@@ -18,7 +18,7 @@
+ 	LDFLAGS=
  else
  	CFLAGS=-O3 $(INCLUDES) -Wall
 -	LDFLAGS= -s
 +	LDFLAGS+= -g $(shell fltk-config --ldflags) -lpthread
  endif
  
- ifdef IPF_LIB_SUPPORT
-@@ -30,10 +30,6 @@
+ ifeq ($(DEBUG_ASAN), 1)
+@@ -36,10 +36,6 @@
  LIBHXCFE = libhxcfe.so
  LIBUSBHXCFE = libusbhxcfe.so
  
@@ -37,7 +37,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($(findstring CYGWIN,$(shell uname)),CYGWIN)
  LIBHXCFE = libhxcfe.dll
  LIBUSBHXCFE = libusbhxcfe.dll
-@@ -65,7 +61,7 @@
+@@ -71,7 +67,7 @@
  LIBHXCFE = libhxcfe.dylib
  LIBUSBHXCFE = libusbhxcfe.dylib
  else
@@ -46,7 +46,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  endif
  
  FTDIFLOPPYEMU=usb_hxcfloppyemulator.o variablebitrate.o
-@@ -90,11 +86,11 @@
+@@ -96,11 +92,11 @@
  	cd $(BASEDIR)/gui/microintro/data/ && ../converttools/bmptob8/bmptoh vim_not_again.mod -DATA
  	cd $(BASEDIR)/gui/microintro/data/ && ../converttools/bmptob8/bmptoh COPYING_FULL -DATA
  
