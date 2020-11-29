@@ -1,3 +1,9 @@
+chatty (0.13.1-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 19 Nov 2020 00:13:56 +0100
+
 chatty (0.13-0ddebs1) unstable; urgency=medium
 
   * New upstream release
