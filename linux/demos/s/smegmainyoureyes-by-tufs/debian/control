@@ -14,6 +14,7 @@ Homepage: https://www.pouet.net/prod.php?which=52142
 Package: smegmainyoureyes-by-tufs
 Architecture: any
 Depends:
+ smegmainyoureyes-by-tufs-data,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: demo ranked 1st at Xenox 2004

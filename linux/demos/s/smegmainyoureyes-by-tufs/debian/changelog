@@ -1,3 +1,9 @@
+smegmainyoureyes-by-tufs (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * missing dependencie with data package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 15 Dec 2020 00:43:49 +0100
+
 smegmainyoureyes-by-tufs (1.0+1-0ddebs3) unstable; urgency=medium
 
   * adapt to cross-compilation
