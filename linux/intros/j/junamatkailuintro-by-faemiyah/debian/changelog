@@ -1,3 +1,9 @@
+junamatkailuintro-by-faemiyah (1.0+git20170414-0ddebs4) unstable; urgency=medium
+
+  * debian/rules correct install (package was empty)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 16 Dec 2020 00:47:08 +0100
+
 junamatkailuintro-by-faemiyah (1.0+git20170414-0ddebs3) unstable; urgency=medium
 
   * adapt to cross-compilation

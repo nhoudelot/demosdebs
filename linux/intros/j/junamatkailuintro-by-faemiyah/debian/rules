@@ -7,3 +7,4 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 override_dh_install:
 	mv build/junamatkailuintro build/junamatkailuintro-by-faemiyah
+	dh_install
