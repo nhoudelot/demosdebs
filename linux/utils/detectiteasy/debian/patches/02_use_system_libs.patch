@@ -16,7 +16,7 @@
      LIBS +=  $$PWD/libs/mac/libbzip2.a
 --- a/XArchive/xarchive.pri
 +++ b/XArchive/xarchive.pri
-@@ -22,12 +22,12 @@
+@@ -24,12 +24,12 @@
  
  !contains(XCONFIG, zlib) {
      XCONFIG += zlib

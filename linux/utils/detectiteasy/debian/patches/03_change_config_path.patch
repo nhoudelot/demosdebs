@@ -3,24 +3,24 @@
 @@ -28,7 +28,7 @@
  void XOptions::setName(QString sName)
  {
-     this->sName=sName;
--    this->sFilePath=getApplicationDataPath()+QDir::separator()+QString("%1").arg(sName);
-+    this->sFilePath=getConfigPath()+QDir::separator()+QString("%1").arg(sName);
+     this->g_sName=sName;
+-    this->g_sFilePath=getApplicationDataPath()+QDir::separator()+QString("%1").arg(sName);
++    this->g_sFilePath=getConfigPath()+QDir::separator()+QString("%1").arg(sName);
  }
  
  void XOptions::setValueIDs(QList<ID> listVariantIDs)
-@@ -58,8 +58,8 @@
-             case ID_STYLE:                  varDefault="Fusion";        break;
-             case ID_LANG:                   varDefault="System";        break;
-             case ID_QSS:                    varDefault="";              break;
--            case ID_DBPATH:                 varDefault="$data/db";      break;
--            case ID_INFOPATH:               varDefault="$data/info";    break;
-+            case ID_DBPATH:                 varDefault="/usr/share/detectiteasy/db";      break;
-+            case ID_INFOPATH:               varDefault="/usr/share/detectiteasy/info";    break;
-             case ID_SCANENGINE:             varDefault="die";           break;
-         }
- 
-@@ -150,6 +150,15 @@
+@@ -73,8 +73,8 @@
+                 case ID_STYLE:                  varDefault="Fusion";        break;
+                 case ID_LANG:                   varDefault="System";        break;
+                 case ID_QSS:                    varDefault="veles";         break;
+-                case ID_DBPATH:                 varDefault="$data/db";      break;
+-                case ID_INFOPATH:               varDefault="$data/info";    break;
++                case ID_DBPATH:                 varDefault="/usr/share/detectiteasy/db";      break;
++                case ID_INFOPATH:               varDefault="/usr/share/detectiteasy/info";    break;
+                 case ID_SCANENGINE:             varDefault="die";           break;
+                 case ID_ROOTPATH:               varDefault="";              break;
+                 case ID_DATAPATH:               varDefault="$data/data";    break;
+@@ -183,6 +183,15 @@
      return sResult;
  }
  
@@ -36,25 +36,25 @@
  void XOptions::setLastDirectory(QString sValue)
  {
      QFileInfo fi(sValue);
-@@ -249,7 +258,7 @@
-     {
+@@ -297,7 +306,7 @@
+         pComboBox->addItem("English","");
          pComboBox->addItem("System","System");
  
--        QList<QString> listRecords=getAllFilesFromDirectory(getApplicationLangPath(),"*.qm");
-+        QList<QString> listRecords=getAllFilesFromDirectory("/usr/share/detectiteasy/lang","*.qm");
+-        QList<QString> listFileNames=getAllFilesFromDirectory(getApplicationLangPath(),"*.qm");
++        QList<QString> listFileNames=getAllFilesFromDirectory("/usr/share/detectiteasy/lang","*.qm");
  
-         int nCount=listRecords.count();
+         int nNumberOfRecords=listFileNames.count();
  
-@@ -272,7 +281,7 @@
-     }
-     else if(id==ID_QSS)
+@@ -322,7 +331,7 @@
      {
--        QList<QString> listRecords=getAllFilesFromDirectory(getApplicationQssPath(),"*.qss");
-+        QList<QString> listRecords=getAllFilesFromDirectory("/usr/share/detectiteasy/qss","*.qss");
+         pComboBox->addItem("Default","");
  
-         int nCount=listRecords.count();
+-        QList<QString> listFileNames=getAllFilesFromDirectory(getApplicationQssPath(),"*.qss");
++        QList<QString> listFileNames=getAllFilesFromDirectory("/usr/share/detectiteasy/qss","*.qss");
  
-@@ -444,7 +453,7 @@
+         int nNumberOfRecords=listFileNames.count();
+ 
+@@ -515,7 +524,7 @@
  #ifdef Q_OS_MAC
      sResult=qApp->applicationDirPath()+"/../Resources";
  #else
@@ -65,15 +65,15 @@
  }
 --- a/XOptions/xoptions.h
 +++ b/XOptions/xoptions.h
-@@ -32,6 +32,7 @@
- #include <QApplication>
- #include <QStyleFactory>
+@@ -26,6 +26,7 @@
+ #include <QDir>
+ #include <QSettings>
  #include <QTranslator>
 +#include <QStandardPaths>
- 
- class XOptions : public QObject
- {
-@@ -75,6 +76,7 @@
+ #ifdef QT_GUI_LIB
+ #include <QWidget>
+ #include <QCheckBox>
+@@ -94,6 +95,7 @@
      static QString getApplicationQssPath();
      static QList<QString> getAllFilesFromDirectory(QString sDirectory,QString sExtension);
      static QString getApplicationDataPath();

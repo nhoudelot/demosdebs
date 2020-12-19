@@ -1,3 +1,11 @@
+detectiteasy (3.01b-0ddebs1) unstable; urgency=medium
+
+  * Upstream update
+  * arabic & spanish  translation was missing
+  * Now building 3rd part libs (can be build for i386 , armhf & arm64)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 19 Dec 2020 02:08:53 +0100
+
 detectiteasy (3.00-0ddebs1) unstable; urgency=medium
 
   * Upstream update

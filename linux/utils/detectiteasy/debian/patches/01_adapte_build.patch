@@ -18,9 +18,9 @@
  }
 --- a/console_source/console_source.pro
 +++ b/console_source/console_source.pro
-@@ -3,6 +3,11 @@
+@@ -5,6 +5,11 @@
  
- include(../build.pri)
+ XCONFIG += use_dex
  
 +QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
 +QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
@@ -32,7 +32,7 @@
  TARGET = diec
 --- a/gui_source/gui_source.pro
 +++ b/gui_source/gui_source.pro
-@@ -43,3 +43,8 @@
+@@ -48,3 +48,8 @@
  macx {
      ICON = ../icons/main.icns
  }

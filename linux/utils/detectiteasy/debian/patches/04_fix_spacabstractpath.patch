@@ -1,0 +1,20 @@
+--- a/XMIME/xmime.pri
++++ b/XMIME/xmime.pri
+@@ -9,5 +9,5 @@
+ 
+ !contains(XCONFIG, staticscan) {
+     XCONFIG += staticscan
+-    include(../Staticscan/staticscan.pri)
++    include(../StaticScan/staticscan.pri)
+ }
+--- a/nfd_widget/nfd_widget.pri
++++ b/nfd_widget/nfd_widget.pri
+@@ -14,7 +14,7 @@
+ 
+ !contains(XCONFIG, staticscan) {
+     XCONFIG += staticscan
+-    include($$PWD/../staticscan/staticscan.pri)
++    include($$PWD/../StaticScan/staticscan.pri)
+ }
+ 
+ !contains(XCONFIG, dialogtextinfo) {
