@@ -1,0 +1,19 @@
+--- a/App/usr/share/applications/xppentablet.desktop
++++ b/App/usr/share/applications/xppentablet.desktop
+@@ -1,11 +1,13 @@
+ [Desktop Entry]
+ Name=pentablet
+ Comment=XPPen driver
+-Exec=/usr/lib/pentablet/pentablet.sh
+-Icon=/usr/share/icons/pentablet.png
++Comment[fr_FR]=Pilote XPPen
++Exec=xppenutils
++Icon=/usr/share/icons/hicolor/1024x1024/apps/pentablet.png
+ Terminal=false
+ Type=Application
+ X-Ubuntu-Touch=true                                        
+ Categories=Application;Utility;
+ StartupNotify=true
+-Name[en_US]=xppentablet
++Name[en_US]=XP-Pen Tablet
++Name[fr_FR]=Tablette XP-Pen

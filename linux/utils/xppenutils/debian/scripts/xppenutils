@@ -1,0 +1,56 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=pentablet
+
+APP_FULLNAME="Business"
+APP_COPYRIGHT="XP-Pen"
+APP_DESC="XP-Pen (Official) Linux utility"
+
+APP_EXE="pentablet"
+
+function NSH_cpUserDataFileToHOME()
+{
+	if [ ! -e ${NSH_LOCALUSERDIR}/${domain}/$2 ]
+	then
+		cp -r /usr/share/${domain}/$1 ${NSH_LOCALUSERDIR}/${domain}/$2
+	fi
+}
+
+function prerun()
+{
+	NSH_CreateUserDataDir
+	NSH_cpUserDataFileToHOME conf/language.ini language.ini
+	NSH_cpUserDataFileToHOME conf/config.xml config.xml
+	NSH_cpUserDataFileToHOME conf/name_config.ini name_config.ini
+	chmod 777 ${NSH_LOCALUSERDIR}/${domain}
+}
+
+function run()
+{
+	prerun
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain}
+	./${APP_EXE}
+	cd $backuppwd
+}
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

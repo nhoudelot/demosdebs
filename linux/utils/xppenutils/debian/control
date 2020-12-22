@@ -1,0 +1,34 @@
+Source: xppenutils
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ qtbase5-dev,
+ qtbase5-dev-tools,
+ libqt5x11extras5-dev,
+ libusb-1.0-0-dev,
+ libgl1-mesa-dev,
+ libx11-dev,
+ libxtst-dev
+Standards-Version: 4.5.0
+Homepage: https://www.xp-pen.fr/download/index
+
+Package: xppenutils
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ xppenutils-data,
+ common-install-function-ddebs(>=1.18)
+Description: XP-Pen (Official) Linux utility
+ XP-Pen (Official) configuration for tablet
+
+Package: xppenutils-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for xppenutils
+ XP-Pen (Official) configuration for tablet
+ arch independant data files

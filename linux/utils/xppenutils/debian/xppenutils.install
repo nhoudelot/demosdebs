@@ -1,0 +1,4 @@
+debian/scripts/xppenutils usr/bin/
+App/usr/share/applications/xppentablet.desktop usr/share/applications/
+App/usr/share/icons/pentablet.png usr/share/icons/hicolor/1024x1024/apps/
+App/usr/lib/pentablet/pentablet usr/lib/x86_64-linux-gnu/pentablet
