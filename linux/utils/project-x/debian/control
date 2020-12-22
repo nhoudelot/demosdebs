@@ -15,6 +15,7 @@ Homepage: https://sourceforge.net/projects/project-x
 
 Package: project-x
 Architecture: all
+XB-ddebs: oneperdistrib
 Depends:
  ${misc:Depends},
  ${java:Depends},

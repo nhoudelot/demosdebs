@@ -29,6 +29,7 @@ Description: Documentations for dtc
 
 Package: kryofluxui
 Architecture: all
+XB-ddebs: oneperdistrib
 Depends:
  dtc,
  jarwrapper,

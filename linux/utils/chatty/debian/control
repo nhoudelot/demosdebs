@@ -17,6 +17,7 @@ Homepage: http://chatty.github.io/
 
 Package: chatty
 Architecture: all
+XB-ddebs: oneperdistrib
 Depends:
  ${java:Depends},
  ${misc:Depends},

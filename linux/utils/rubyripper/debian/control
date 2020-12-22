@@ -17,6 +17,7 @@ XS-Ruby-Versions: all
 Package: rubyripper
 Architecture: all
 XB-Ruby-Versions: ${ruby:Versions}
+XB-ddebs: oneperdistrib
 Depends: ruby | ruby-interpreter,
 		 cdparanoia,
          eject,
