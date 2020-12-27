@@ -1,0 +1,31 @@
+Source: tiatracker-by-cluster
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ qtbase5-dev,
+ qtbase5-dev-tools,
+ qt5-qmake,
+ libsdl2-dev,
+ pandoc
+Standards-Version: 4.5.0
+Homepage: https://bitbucket.org/kylearan/tiatracker/src/master/
+
+Package: tiatracker-by-cluster
+Architecture: any
+Depends:
+ tiatracker-by-cluster-data,
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: PC tracker/sequencer released in 2016
+ This is a new music routine for the Atari VCS and a PC tracker/sequencer 
+ application for composing music for inclusion in VCS games and demos.
+
+Package: tiatracker-by-cluster-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for tiatracker
+ tiatracker data files

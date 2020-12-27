@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS := hardening=+all
+export DEB_CXXFLAGS_MAINT_APPEND  := -flto
+export DEB_LDFLAGS_MAINT_APPEND := -flto
+
+export QT_SELECT := qt5
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	find . -name "license.txt" -delete
+	dh_auto_install
+
+override_dh_install:
+	cp graphics/tt_icon.png graphics/tiatracker-by-cluster.png
+	dh_install
+	pandoc -s -t man -f markdown debian/tiatracker.1.md -o debian/tiatracker.1

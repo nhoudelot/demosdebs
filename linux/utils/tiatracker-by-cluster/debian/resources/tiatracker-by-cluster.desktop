@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=TIATracker
+GenericName=Demo
+Comment=music tracker for making Atari VCS 2600
+Comment[fr_FR]=tracker de musique pour Atari VCS 2600
+Type=Application
+Exec=/usr/bin/tiatracker
+Icon=tiatracker-by-cluster
+Categories=AudioVideo;AudioVideoEditing;

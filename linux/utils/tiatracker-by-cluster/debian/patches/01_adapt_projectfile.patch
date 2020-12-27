@@ -1,0 +1,50 @@
+--- a/TIATracker.pro
++++ b/TIATracker.pro
+@@ -8,7 +8,7 @@
+ 
+ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+ 
+-TARGET = TIATracker
++TARGET = tiatracker
+ TEMPLATE = app
+ 
+ 
+@@ -123,33 +123,33 @@
+ install_it.path = $$OUT_PWD
+ install_it.files = $$PWD/data/*
+ 
+-INSTALLS += \
++#INSTALLS += \
+     install_it
+ 
+ # Copy player to output directory
+ install_player.path = $$OUT_PWD
+ install_player.files = $$PWD/player
+ 
+-INSTALLS += \
++#INSTALLS += \
+     install_player
+ 
+ # Copy examples to output directory
+ install_instruments.path = $$OUT_PWD
+ install_instruments.files = $$PWD/instruments
+ 
+-INSTALLS += \
++#INSTALLS += \
+     install_instruments
+ 
+ install_songs.path = $$OUT_PWD
+ install_songs.files = $$PWD/songs
+ 
+-INSTALLS += \
++#INSTALLS += \
+     install_songs
+ 
+ install_guides.path = $$OUT_PWD
+ install_guides.files = $$PWD/guides
+ 
+-INSTALLS += \
++#INSTALLS += \
+     install_guides
+ 
+ 
