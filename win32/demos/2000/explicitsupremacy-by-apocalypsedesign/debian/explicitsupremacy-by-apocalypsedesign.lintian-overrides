@@ -1,0 +1,4 @@
+explicitsupremacy-by-apocalypsedesign binary: unknown-section demos
+explicitsupremacy-by-apocalypsedesign binary: script-not-executable usr/share/explicitsupremacy-by-apocalypsedesign/explicitsupremacy-by-apocalypsedesign_userinstall.pol
+explicitsupremacy-by-apocalypsedesign binary: unknown-section demos
+explicitsupremacy-by-apocalypsedesign binary: unusual-interpreter usr/share/explicitsupremacy-by-apocalypsedesign/explicitsupremacy-by-apocalypsedesign_userinstall.pol #!playonlinux-bash

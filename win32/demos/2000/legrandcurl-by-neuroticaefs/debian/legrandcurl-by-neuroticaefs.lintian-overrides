@@ -1,0 +1,4 @@
+legrandcurl-by-neuroticaefs binary: unknown-section demos
+legrandcurl-by-neuroticaefs binary: script-not-executable usr/share/legrandcurl-by-neuroticaefs/legrandcurl-by-neuroticaefs_userinstall.pol
+legrandcurl-by-neuroticaefs binary: unknown-section demos
+legrandcurl-by-neuroticaefs binary: unusual-interpreter usr/share/legrandcurl-by-neuroticaefs/legrandcurl-by-neuroticaefs_userinstall.pol #!playonlinux-bash

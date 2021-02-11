@@ -1,0 +1,8 @@
+debian/scripts/whitenoisecantjump-by-alienprophet usr/bin/
+debian/scripts/whitenoisecantjump-by-alienprophet.conf etc/
+debian/resources/whitenoisecantjump-by-alienprophet.desktop usr/share/applications/
+debian/resources/whitenoisecantjump-by-alienprophet.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/whitenoisecantjump-by-alienprophet_userinstall.pol usr/share/whitenoisecantjump-by-alienprophet/./ 
+./bass.dll usr/share/whitenoisecantjump-by-alienprophet/./ 
+./demo.exe usr/share/whitenoisecantjump-by-alienprophet/./ 
+./drikmit.pis usr/share/whitenoisecantjump-by-alienprophet/./ 

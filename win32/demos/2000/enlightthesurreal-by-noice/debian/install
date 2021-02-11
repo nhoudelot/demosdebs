@@ -1,0 +1,12 @@
+debian/scripts/enlightthesurreal-by-noice usr/bin/
+debian/scripts/enlightthesurreal-by-noice.conf etc/
+debian/resources/enlightthesurreal-by-noice.desktop usr/share/applications/
+debian/resources/enlightthesurreal-by-noice.png usr/share/icons/hicolor/32x32/apps/
+./noc_enl.exe usr/share/enlightthesurreal-by-noice/./ 
+./goadll.dll usr/share/enlightthesurreal-by-noice/./ 
+./sigtab.txt usr/share/enlightthesurreal-by-noice/./ 
+./data.dat usr/share/enlightthesurreal-by-noice/./ 
+./font.ttf usr/share/enlightthesurreal-by-noice/./ 
+./BASS.DLL usr/share/enlightthesurreal-by-noice/./ 
+./music.mp3 usr/share/enlightthesurreal-by-noice/./ 
+./debian/scripts/enlightthesurreal-by-noice_userinstall.pol usr/share/enlightthesurreal-by-noice/./ 

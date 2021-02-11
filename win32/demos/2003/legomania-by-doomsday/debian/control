@@ -1,0 +1,20 @@
+Source: legomania-by-doomsday
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=10540
+
+Package: legomania-by-doomsday
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.39),
+ ${misc:Depends}
+Description: Win32 Demo released in 2003
+ demo ranked 1st at Asembly 2003
+ .
+ -windows program launched using PlayOnLinux

@@ -1,0 +1,4 @@
+heroes-by-fairlight binary: unknown-section demos
+heroes-by-fairlight binary: script-not-executable usr/share/heroes-by-fairlight/heroes-by-fairlight_userinstall.pol
+heroes-by-fairlight binary: unknown-section demos
+heroes-by-fairlight binary: unusual-interpreter usr/share/heroes-by-fairlight/heroes-by-fairlight_userinstall.pol #!playonlinux-bash

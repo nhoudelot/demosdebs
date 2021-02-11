@@ -1,0 +1,4 @@
+energia-by-sunflower binary: unknown-section demos
+energia-by-sunflower binary: script-not-executable usr/share/energia-by-sunflower/energia-by-sunflower_userinstall.pol
+energia-by-sunflower binary: unknown-section demos
+energia-by-sunflower binary: unusual-interpreter usr/share/energia-by-sunflower/energia-by-sunflower_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,4 @@
+omsemogo-by-bamboosh binary: unknown-section demos
+omsemogo-by-bamboosh binary: script-not-executable usr/share/omsemogo-by-bamboosh/omsemogo-by-bamboosh_userinstall.pol
+omsemogo-by-bamboosh binary: unknown-section demos
+omsemogo-by-bamboosh binary: unusual-interpreter usr/share/omsemogo-by-bamboosh/omsemogo-by-bamboosh_userinstall.pol #!playonlinux-bash

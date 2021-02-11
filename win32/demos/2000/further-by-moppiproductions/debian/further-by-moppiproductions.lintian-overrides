@@ -1,0 +1,4 @@
+further-by-moppiproductions binary: unknown-section demos
+further-by-moppiproductions binary: script-not-executable usr/share/further-by-moppiproductions/further-by-moppiproductions_userinstall.pol
+further-by-moppiproductions binary: unknown-section demos
+further-by-moppiproductions binary: unusual-interpreter usr/share/further-by-moppiproductions/further-by-moppiproductions_userinstall.pol #!playonlinux-bash

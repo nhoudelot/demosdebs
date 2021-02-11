@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Persistent
+GenericName=Demo
+Comment=Persistent - Demo ranked 1st at aRTS 2000
+Type=Application
+Exec=/usr/bin/persistent-by-wipeandukonx
+Icon=persistent-by-wipeandukonx
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Persistent

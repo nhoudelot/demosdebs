@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=SunkDemo
+GenericName=Demo
+Comment=SunkDemo - Demo ranked 8th at Dreamhack 2000
+Type=Application
+Exec=/usr/bin/sunkdemo-by-evilninjamob
+Icon=sunkdemo-by-evilninjamob
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=SunkDemo

@@ -1,0 +1,4 @@
+horizontalcool-by-carillonandcyberlad binary: unknown-section demos
+horizontalcool-by-carillonandcyberlad binary: script-not-executable usr/share/horizontalcool-by-carillonandcyberlad/horizontalcool-by-carillonandcyberlad_userinstall.pol
+horizontalcool-by-carillonandcyberlad binary: unknown-section demos
+horizontalcool-by-carillonandcyberlad binary: unusual-interpreter usr/share/horizontalcool-by-carillonandcyberlad/horizontalcool-by-carillonandcyberlad_userinstall.pol #!playonlinux-bash

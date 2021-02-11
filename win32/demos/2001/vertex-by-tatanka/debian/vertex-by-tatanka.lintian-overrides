@@ -1,0 +1,4 @@
+vertex-by-tatanka binary: unknown-section demos
+vertex-by-tatanka binary: script-not-executable usr/share/vertex-by-tatanka/vertex-by-tatanka_userinstall.pol
+vertex-by-tatanka binary: unknown-section demos
+vertex-by-tatanka binary: unusual-interpreter usr/share/vertex-by-tatanka/vertex-by-tatanka_userinstall.pol #!playonlinux-bash

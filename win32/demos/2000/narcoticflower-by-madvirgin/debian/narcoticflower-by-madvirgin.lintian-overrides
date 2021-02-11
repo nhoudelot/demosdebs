@@ -1,0 +1,4 @@
+narcoticflower-by-madvirgin binary: unknown-section demos
+narcoticflower-by-madvirgin binary: script-not-executable usr/share/narcoticflower-by-madvirgin/narcoticflower-by-madvirgin_userinstall.pol
+narcoticflower-by-madvirgin binary: unknown-section demos
+narcoticflower-by-madvirgin binary: unusual-interpreter usr/share/narcoticflower-by-madvirgin/narcoticflower-by-madvirgin_userinstall.pol #!playonlinux-bash

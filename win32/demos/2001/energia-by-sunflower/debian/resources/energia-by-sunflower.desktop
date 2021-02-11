@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=energia
+GenericName=Demo
+Comment=energia - Demo ranked 6th at Assembly 2001
+Type=Application
+Exec=/usr/bin/energia-by-sunflower
+Icon=energia-by-sunflower
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=energia

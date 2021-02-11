@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=OBE
+GenericName=Demo
+Comment=OBE - Demo ranked 10th at Assembly 2001
+Type=Application
+Exec=/usr/bin/obe-byvirtualdreamsfairlightsumealabs
+Icon=obe-byvirtualdreamsfairlightsumealabs
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=OBE

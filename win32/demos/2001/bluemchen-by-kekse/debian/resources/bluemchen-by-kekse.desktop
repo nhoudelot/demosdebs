@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Bluemchen
+GenericName=Demo
+Comment=Bluemchen - Demo ranked 5th at Ambience 2001
+Type=Application
+Exec=/usr/bin/bluemchen-by-kekse
+Icon=bluemchen-by-kekse
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Bluemchen

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=En haluaisi olla
+GenericName=Demo
+Comment=En haluaisi olla - demo ranked 6th at Assembly 2000
+Type=Application
+Exec=/usr/bin/enhaluaisiolla-by-damage
+Icon=enhaluaisiolla-by-damage
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=En haluaisi olla

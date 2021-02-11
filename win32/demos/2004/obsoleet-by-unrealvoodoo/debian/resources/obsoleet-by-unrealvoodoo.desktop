@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=obsoleet
+GenericName=Demo
+Comment=demo ranked 1st at Assembly 2004
+Type=Application
+Exec=/usr/bin/obsoleet-by-unrealvoodoo
+Icon=obsoleet-by-unrealvoodoo
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=obsoleet

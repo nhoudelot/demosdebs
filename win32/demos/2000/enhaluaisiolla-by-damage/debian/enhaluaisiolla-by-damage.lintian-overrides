@@ -1,0 +1,4 @@
+enhaluaisiolla-by-damage binary: unknown-section demos
+enhaluaisiolla-by-damage binary: script-not-executable usr/share/enhaluaisiolla-by-damage/enhaluaisiolla-by-damage_userinstall.pol
+enhaluaisiolla-by-damage binary: unknown-section demos
+enhaluaisiolla-by-damage binary: unusual-interpreter usr/share/enhaluaisiolla-by-damage/enhaluaisiolla-by-damage_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Mikrostrange
+GenericName=Demo
+Comment=Mikrostrange - demo ranked 2nd at Mekka and Symposium 2000
+Type=Application
+Exec=/usr/bin/mikrostrange-by-haujobb
+Icon=mikrostrange-by-haujobb
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Mikrostrange

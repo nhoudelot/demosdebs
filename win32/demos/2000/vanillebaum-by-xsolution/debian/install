@@ -1,0 +1,8 @@
+debian/scripts/vanillebaum-by-xsolution usr/bin/
+debian/scripts/vanillebaum-by-xsolution.conf etc/
+debian/resources/vanillebaum-by-xsolution.desktop usr/share/applications/
+debian/resources/vanillebaum-by-xsolution.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/vanillebaum-by-xsolution_userinstall.pol usr/share/vanillebaum-by-xsolution/./ 
+./vanillebaum.exe usr/share/vanillebaum-by-xsolution/./ 
+./ijl11.dll usr/share/vanillebaum-by-xsolution/./ 
+./BASS.DLL usr/share/vanillebaum-by-xsolution/./ 

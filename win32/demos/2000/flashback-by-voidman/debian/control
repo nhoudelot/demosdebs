@@ -1,0 +1,20 @@
+Source: flashback-by-voidman
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=5547
+
+Package: flashback-by-voidman
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.39),
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ Demo ranked 8th at Dialogos 2000
+ .
+ -windows program launched using PlayOnLinux

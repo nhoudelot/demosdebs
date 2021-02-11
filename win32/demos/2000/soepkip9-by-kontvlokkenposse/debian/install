@@ -1,0 +1,16 @@
+debian/scripts/soepkip9-by-kontvlokkenposse usr/bin/
+debian/scripts/soepkip9-by-kontvlokkenposse.conf etc/
+debian/resources/soepkip9-by-kontvlokkenposse.desktop usr/share/applications/
+debian/resources/soepkip9-by-kontvlokkenposse.png usr/share/icons/hicolor/32x32/apps/
+./KONTVLOK.PAK usr/share/soepkip9-by-kontvlokkenposse/./ 
+./debian/scripts/soepkip9-by-kontvlokkenposse_userinstall.pol usr/share/soepkip9-by-kontvlokkenposse/./ 
+./EEN.IMV usr/share/soepkip9-by-kontvlokkenposse/./ 
+./VIER.IMV usr/share/soepkip9-by-kontvlokkenposse/./ 
+./ZEVEN.IMV usr/share/soepkip9-by-kontvlokkenposse/./ 
+./DISCO.EXE usr/share/soepkip9-by-kontvlokkenposse/./ 
+./DATA.MP3 usr/share/soepkip9-by-kontvlokkenposse/./ 
+./ZES.IMV usr/share/soepkip9-by-kontvlokkenposse/./ 
+./DRIE.IMV usr/share/soepkip9-by-kontvlokkenposse/./ 
+./VIJF.IMV usr/share/soepkip9-by-kontvlokkenposse/./ 
+./TWEE.IMV usr/share/soepkip9-by-kontvlokkenposse/./ 
+./BASS.DLL usr/share/soepkip9-by-kontvlokkenposse/./ 

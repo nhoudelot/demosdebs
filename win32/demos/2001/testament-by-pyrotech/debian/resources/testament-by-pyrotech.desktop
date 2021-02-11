@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Testament
+GenericName=Demo
+Comment=demon not shown at Assembly 2001
+Type=Application
+Exec=/usr/bin/testament-by-pyrotech
+Icon=testament-by-pyrotech
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Testament

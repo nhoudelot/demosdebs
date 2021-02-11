@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=moral hard candy
+GenericName=Demo
+Comment=moral hard candy - Demo released at sumer encounter 1999
+Type=Application
+Exec=/usr/bin/moralhardcandy-by-blasphemy
+Icon=moralhardcandy-by-blasphemy
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=moral hard candy

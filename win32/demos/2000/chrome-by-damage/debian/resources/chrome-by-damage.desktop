@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Chrome
+GenericName=Demo
+Comment=Chrome - Demo ranked 2rd at The Party 2000
+Type=Application
+Exec=/usr/bin/chrome-by-damage
+Icon=chrome-by-damage
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Chrome

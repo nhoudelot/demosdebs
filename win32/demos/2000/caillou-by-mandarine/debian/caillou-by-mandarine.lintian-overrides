@@ -1,0 +1,4 @@
+caillou-by-mandarine binary: unknown-section demos
+caillou-by-mandarine binary: script-not-executable usr/share/caillou-by-mandarine/caillou-by-mandarine_userinstall.pol
+caillou-by-mandarine binary: unknown-section demos
+caillou-by-mandarine binary: unusual-interpreter usr/share/caillou-by-mandarine/caillou-by-mandarine_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,4 @@
+bluemchen-by-kekse binary: unknown-section demos
+bluemchen-by-kekse binary: script-not-executable usr/share/bluemchen-by-kekse/bluemchen-by-kekse_userinstall.pol
+bluemchen-by-kekse binary: unknown-section demos
+bluemchen-by-kekse binary: unusual-interpreter usr/share/bluemchen-by-kekse/bluemchen-by-kekse_userinstall.pol #!playonlinux-bash

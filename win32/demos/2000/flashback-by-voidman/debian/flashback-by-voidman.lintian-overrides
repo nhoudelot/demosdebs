@@ -1,0 +1,4 @@
+flashback-by-voidman binary: unknown-section demos
+flashback-by-voidman binary: script-not-executable usr/share/flashback-by-voidman/flashback-by-voidman_userinstall.pol
+flashback-by-voidman binary: unknown-section demos
+flashback-by-voidman binary: unusual-interpreter usr/share/flashback-by-voidman/flashback-by-voidman_userinstall.pol #!playonlinux-bash

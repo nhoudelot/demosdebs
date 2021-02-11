@@ -1,0 +1,9 @@
+debian/scripts/sts04instantzen-by-synesthetics usr/bin/
+debian/scripts/sts04instantzen-by-synesthetics.conf etc/
+debian/resources/sts04instantzen-by-synesthetics.desktop usr/share/applications/
+debian/resources/sts04instantzen-by-synesthetics.png usr/share/icons/hicolor/32x32/apps/
+./libjpeg.6.dll usr/share/sts04instantzen-by-synesthetics/./ 
+./debian/scripts/sts04instantzen-by-synesthetics_userinstall.pol usr/share/sts04instantzen-by-synesthetics/./ 
+./datafile.dat usr/share/sts04instantzen-by-synesthetics/./ 
+./sts-04.exe usr/share/sts04instantzen-by-synesthetics/./ 
+./fmod.dll usr/share/sts04instantzen-by-synesthetics/./ 

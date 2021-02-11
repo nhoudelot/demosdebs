@@ -1,0 +1,14 @@
+debian/scripts/bluemchen-by-kekse usr/bin/
+debian/scripts/bluemchen-by-kekse.conf etc/
+debian/resources/bluemchen-by-kekse.desktop usr/share/applications/
+debian/resources/bluemchen-by-kekse.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/bluemchen-by-kekse_userinstall.pol usr/share/bluemchen-by-kekse/./ 
+./DemopajaPlayer.exe usr/share/bluemchen-by-kekse/./ 
+./NurGetraeumt.mp3 usr/share/bluemchen-by-kekse/./ 
+./bass.dll usr/share/bluemchen-by-kekse/./ 
+./plugins usr/share/bluemchen-by-kekse/./ 
+./plugins/TestPlugin.dll usr/share/bluemchen-by-kekse/./plugins/ 
+./plugins/ImagePlugin.dll usr/share/bluemchen-by-kekse/./plugins/ 
+./plugins/jpegimp.dll usr/share/bluemchen-by-kekse/./plugins/ 
+./demo.dmo usr/share/bluemchen-by-kekse/./ 
+./ijl11.dll usr/share/bluemchen-by-kekse/./ 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Legomania
+GenericName=Demo
+Comment=demo ranked 1st at Asembly 2003
+Type=Application
+Exec=/usr/bin/legomania-by-doomsday
+Icon=legomania-by-doomsday
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Legomania

@@ -1,0 +1,4 @@
+legobasic-by-hybrisnemesis binary: unknown-section demos
+legobasic-by-hybrisnemesis binary: script-not-executable usr/share/legobasic-by-hybrisnemesis/legobasic-by-hybrisnemesis_userinstall.pol
+legobasic-by-hybrisnemesis binary: unknown-section demos
+legobasic-by-hybrisnemesis binary: unusual-interpreter usr/share/legobasic-by-hybrisnemesis/legobasic-by-hybrisnemesis_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,4 @@
+enlightthesurreal-by-noice binary: unknown-section demos
+enlightthesurreal-by-noice binary: script-not-executable usr/share/enlightthesurreal-by-noice/enlightthesurreal-by-noice_userinstall.pol
+enlightthesurreal-by-noice binary: unknown-section demos
+enlightthesurreal-by-noice binary: unusual-interpreter usr/share/enlightthesurreal-by-noice/enlightthesurreal-by-noice_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,10 @@
+debian/scripts/obe-byvirtualdreamsfairlightsumealabs usr/bin/
+debian/scripts/obe-byvirtualdreamsfairlightsumealabs.conf etc/
+debian/resources/obe-byvirtualdreamsfairlightsumealabs.desktop usr/share/applications/
+debian/resources/obe-byvirtualdreamsfairlightsumealabs.png usr/share/icons/hicolor/32x32/apps/
+./obe.exe usr/share/obe-byvirtualdreamsfairlightsumealabs/./ 
+./gd_d3d8.dll usr/share/obe-byvirtualdreamsfairlightsumealabs/./ 
+./debian/scripts/obe-byvirtualdreamsfairlightsumealabs_userinstall.pol usr/share/obe-byvirtualdreamsfairlightsumealabs/./ 
+./obe.dat usr/share/obe-byvirtualdreamsfairlightsumealabs/./ 
+./Msvcp60.dll usr/share/obe-byvirtualdreamsfairlightsumealabs/./ 
+./fmod.dll usr/share/obe-byvirtualdreamsfairlightsumealabs/./ 

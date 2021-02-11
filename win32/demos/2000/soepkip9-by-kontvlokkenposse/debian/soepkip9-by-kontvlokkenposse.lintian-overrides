@@ -1,0 +1,4 @@
+soepkip9-by-kontvlokkenposse binary: unknown-section demos
+soepkip9-by-kontvlokkenposse binary: script-not-executable usr/share/soepkip9-by-kontvlokkenposse/soepkip9-by-kontvlokkenposse_userinstall.pol
+soepkip9-by-kontvlokkenposse binary: unknown-section demos
+soepkip9-by-kontvlokkenposse binary: unusual-interpreter usr/share/soepkip9-by-kontvlokkenposse/soepkip9-by-kontvlokkenposse_userinstall.pol #!playonlinux-bash

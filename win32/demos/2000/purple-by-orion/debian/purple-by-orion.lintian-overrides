@@ -1,0 +1,4 @@
+purple-by-orion binary: unknown-section demos
+purple-by-orion binary: script-not-executable usr/share/purple-by-orion/purple-by-orion_userinstall.pol
+purple-by-orion binary: unknown-section demos
+purple-by-orion binary: unusual-interpreter usr/share/purple-by-orion/purple-by-orion_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,11 @@
+debian/scripts/enhaluaisiolla-by-damage usr/bin/
+debian/scripts/enhaluaisiolla-by-damage.conf etc/
+debian/resources/enhaluaisiolla-by-damage.desktop usr/share/applications/
+debian/resources/enhaluaisiolla-by-damage.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/enhaluaisiolla-by-damage_userinstall.pol usr/share/enhaluaisiolla-by-damage/./ 
+./NOSOUND.EXE usr/share/enhaluaisiolla-by-damage/./ 
+./BASS.DLL usr/share/enhaluaisiolla-by-damage/./ 
+./INFO.TXT usr/share/enhaluaisiolla-by-damage/./ 
+./DEMO.EXE usr/share/enhaluaisiolla-by-damage/./ 
+./LAHJA.MP3 usr/share/enhaluaisiolla-by-damage/./ 
+./D usr/share/enhaluaisiolla-by-damage/./ 

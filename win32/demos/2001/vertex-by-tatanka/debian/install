@@ -1,0 +1,11 @@
+debian/scripts/vertex-by-tatanka usr/bin/
+debian/scripts/vertex-by-tatanka.conf etc/
+debian/resources/vertex-by-tatanka.desktop usr/share/applications/
+debian/resources/vertex-by-tatanka.png usr/share/icons/hicolor/32x32/apps/
+./pa.3d usr/share/vertex-by-tatanka/./ 
+./hysteria.MP3 usr/share/vertex-by-tatanka/./ 
+./aga.3d usr/share/vertex-by-tatanka/./ 
+./emila.3d usr/share/vertex-by-tatanka/./ 
+./vertex.exe usr/share/vertex-by-tatanka/./ 
+./debian/scripts/vertex-by-tatanka_userinstall.pol usr/share/vertex-by-tatanka/./ 
+./BASS.DLL usr/share/vertex-by-tatanka/./

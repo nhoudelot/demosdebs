@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Further
+GenericName=Demo
+Comment=Further - Demo seen at Assembly 2000
+Type=Application
+Exec=/usr/bin/further-by-moppiproductions
+Icon=further-by-moppiproductions
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Further

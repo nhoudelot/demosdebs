@@ -1,0 +1,4 @@
+obsoleet-by-unrealvoodoo binary: unknown-section demos
+obsoleet-by-unrealvoodoo binary: script-not-executable usr/share/obsoleet-by-unrealvoodoo/obsoleet-by-unrealvoodoo_userinstall.pol
+obsoleet-by-unrealvoodoo binary: unknown-section demos
+obsoleet-by-unrealvoodoo binary: unusual-interpreter usr/share/obsoleet-by-unrealvoodoo/obsoleet-by-unrealvoodoo_userinstall.pol #!playonlinux-bash

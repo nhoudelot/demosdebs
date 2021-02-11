@@ -1,0 +1,16 @@
+debian/scripts/further-by-moppiproductions usr/bin/
+debian/scripts/further-by-moppiproductions.conf etc/
+debian/resources/further-by-moppiproductions.desktop usr/share/applications/
+debian/resources/further-by-moppiproductions.png usr/share/icons/hicolor/32x32/apps/
+./MSVCP60.DLL usr/share/further-by-moppiproductions/./ 
+./debian/scripts/further-by-moppiproductions_userinstall.pol usr/share/further-by-moppiproductions/./ 
+./bass.dll usr/share/further-by-moppiproductions/./ 
+./56kb_m.mp3 usr/share/further-by-moppiproductions/./ 
+./plugins usr/share/further-by-moppiproductions/./ 
+./plugins/jpegimp.dll usr/share/further-by-moppiproductions/./plugins/ 
+./plugins/testplugin.dll usr/share/further-by-moppiproductions/./plugins/ 
+./plugins/texteffect.dll usr/share/further-by-moppiproductions/./plugins/ 
+./plugins/3dengine.dll usr/share/further-by-moppiproductions/./plugins/ 
+./further.dmo usr/share/further-by-moppiproductions/./ 
+./demopaja.exe usr/share/further-by-moppiproductions/./ 
+./ijl11.dll usr/share/further-by-moppiproductions/./ 

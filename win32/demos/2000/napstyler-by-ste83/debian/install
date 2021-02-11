@@ -1,0 +1,10 @@
+debian/scripts/napstyler-by-ste83 usr/bin/
+debian/scripts/napstyler-by-ste83.conf etc/
+debian/resources/napstyler-by-ste83.desktop usr/share/applications/
+debian/resources/napstyler-by-ste83.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/napstyler-by-ste83_userinstall.pol usr/share/napstyler-by-ste83/./ 
+./COMPU.EXE usr/share/napstyler-by-ste83/./ 
+./KL-JEPP.MP3 usr/share/napstyler-by-ste83/./ 
+./INFOFILE.TXT usr/share/napstyler-by-ste83/./ 
+./COMPU.TAH usr/share/napstyler-by-ste83/./ 
+./BASS.DLL usr/share/napstyler-by-ste83/./ 

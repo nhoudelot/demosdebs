@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Fears
+GenericName=Demo
+Comment=Fears - Demo ranked 1st at Abstract 2001
+Type=Application
+Exec=/usr/bin/fears-by-nah-kolor
+Icon=fears-by-nah-kolor
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Fears

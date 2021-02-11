@@ -1,0 +1,7 @@
+debian/scripts/thisis-by-orion usr/bin/
+debian/scripts/thisis-by-orion.conf etc/
+debian/resources/thisis-by-orion.desktop usr/share/applications/
+debian/resources/thisis-by-orion.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/thisis-by-orion_userinstall.pol usr/share/thisis-by-orion/./ 
+./bass.dll usr/share/thisis-by-orion/./ 
+./ThisIs.exe usr/share/thisis-by-orion/./ 

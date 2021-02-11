@@ -1,0 +1,7 @@
+debian/scripts/fr025thepopulardemo-by-farbrausch usr/bin/
+debian/scripts/fr025thepopulardemo-by-farbrausch.conf etc/
+debian/resources/fr025thepopulardemo-by-farbrausch.desktop usr/share/applications/
+debian/resources/fr025thepopulardemo-by-farbrausch.png usr/share/icons/hicolor/32x32/apps/
+./fr-025-final2.txt usr/share/fr025thepopulardemo-by-farbrausch/./ 
+./fr-025-final2.exe usr/share/fr025thepopulardemo-by-farbrausch/./ 
+./debian/scripts/fr025thepopulardemo-by-farbrausch_userinstall.pol usr/share/fr025thepopulardemo-by-farbrausch/./ 

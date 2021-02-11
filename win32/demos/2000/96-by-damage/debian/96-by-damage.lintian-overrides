@@ -1,0 +1,4 @@
+96-by-damage binary: unknown-section demos
+96-by-damage binary: script-not-executable usr/share/96-by-damage/96-by-damage_userinstall.pol
+96-by-damage binary: unknown-section demos
+96-by-damage binary: unusual-interpreter usr/share/96-by-damage/96-by-damage_userinstall.pol #!playonlinux-bash

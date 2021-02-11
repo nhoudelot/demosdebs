@@ -1,0 +1,12 @@
+debian/scripts/gerbera-by-moppiproductions usr/bin/
+debian/scripts/gerbera-by-moppiproductions.conf etc/
+debian/resources/gerbera-by-moppiproductions.desktop usr/share/applications/
+debian/resources/gerbera-by-moppiproductions.png usr/share/icons/hicolor/32x32/apps/
+./gerbera.dat usr/share/gerbera-by-moppiproductions/./ 
+./debian/scripts/gerbera-by-moppiproductions_userinstall.pol usr/share/gerbera-by-moppiproductions/./ 
+./plugins usr/share/gerbera-by-moppiproductions/./ 
+./plugins/opengldriver.dll usr/share/gerbera-by-moppiproductions/./plugins/ 
+./fmod.dll usr/share/gerbera-by-moppiproductions/./ 
+./PajaPlayer.exe usr/share/gerbera-by-moppiproductions/./ 
+./final_001.mp3 usr/share/gerbera-by-moppiproductions/./ 
+./ijl11.dll usr/share/gerbera-by-moppiproductions/./ 

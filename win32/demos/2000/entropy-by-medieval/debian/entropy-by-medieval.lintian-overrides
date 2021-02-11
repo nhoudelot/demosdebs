@@ -1,0 +1,4 @@
+entropy-by-medieval binary: unknown-section demos
+entropy-by-medieval binary: script-not-executable usr/share/entropy-by-medieval/entropy-by-medieval_userinstall.pol
+entropy-by-medieval binary: unknown-section demos
+entropy-by-medieval binary: unusual-interpreter usr/share/entropy-by-medieval/entropy-by-medieval_userinstall.pol #!playonlinux-bash

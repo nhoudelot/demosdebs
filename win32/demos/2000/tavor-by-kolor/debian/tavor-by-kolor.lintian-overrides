@@ -1,0 +1,4 @@
+tavor-by-kolor binary: unknown-section demos
+tavor-by-kolor binary: script-not-executable usr/share/tavor-by-kolor/tavor-by-kolor_userinstall.pol
+tavor-by-kolor binary: unknown-section demos
+tavor-by-kolor binary: unusual-interpreter usr/share/tavor-by-kolor/tavor-by-kolor_userinstall.pol #!playonlinux-bash

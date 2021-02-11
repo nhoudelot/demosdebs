@@ -1,0 +1,4 @@
+demosceneactivist-by-nuance binary: script-not-executable usr/share/demosceneactivist-by-nuance/demosceneactivist-by-nuance_userinstall.pol
+demosceneactivist-by-nuance binary: script-not-executable usr/share/demosceneactivist-by-nuance/demosceneactivist-by-nuance_userinstall.pol
+demosceneactivist-by-nuance binary: unknown-section demos
+demosceneactivist-by-nuance binary: unusual-interpreter usr/share/demosceneactivist-by-nuance/demosceneactivist-by-nuance_userinstall.pol #!playonlinux-bash

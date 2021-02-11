@@ -1,0 +1,4 @@
+strangefeelings-by-haujobb binary: unknown-section demos
+strangefeelings-by-haujobb binary: script-not-executable usr/share/strangefeelings-by-haujobb/strangefeelings-by-haujobb_userinstall.pol
+strangefeelings-by-haujobb binary: unknown-section demos
+strangefeelings-by-haujobb binary: unusual-interpreter usr/share/strangefeelings-by-haujobb/strangefeelings-by-haujobb_userinstall.pol #!playonlinux-bash

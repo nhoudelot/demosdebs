@@ -1,0 +1,10 @@
+debian/scripts/systemapoc-by-astral usr/bin/
+debian/scripts/systemapoc-by-astral.conf etc/
+debian/resources/systemapoc-by-astral.desktop usr/share/applications/
+debian/resources/systemapoc-by-astral.png usr/share/icons/hicolor/32x32/apps/
+./astral.scr usr/share/systemapoc-by-astral/./ 
+./alpha2.mp3 usr/share/systemapoc-by-astral/./ 
+./demo-win.exe usr/share/systemapoc-by-astral/./ 
+./astral.pak usr/share/systemapoc-by-astral/./ 
+./astral2.pak usr/share/systemapoc-by-astral/./ 
+./debian/scripts/systemapoc-by-astral_userinstall.pol usr/share/systemapoc-by-astral/./ 

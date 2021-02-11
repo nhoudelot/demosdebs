@@ -1,0 +1,4 @@
+lovecreationmax-by-inf binary: unknown-section demos
+lovecreationmax-by-inf binary: script-not-executable usr/share/lovecreationmax-by-inf/lovecreationmax-by-inf_userinstall.pol
+lovecreationmax-by-inf binary: unknown-section demos
+lovecreationmax-by-inf binary: unusual-interpreter usr/share/lovecreationmax-by-inf/lovecreationmax-by-inf_userinstall.pol #!playonlinux-bash

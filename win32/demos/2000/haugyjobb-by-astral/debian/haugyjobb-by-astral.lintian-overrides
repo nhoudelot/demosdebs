@@ -1,0 +1,4 @@
+haugyjobb-by-astral binary: unknown-section demos
+haugyjobb-by-astral binary: script-not-executable usr/share/haugyjobb-by-astral/haugyjobb-by-astral_userinstall.pol
+haugyjobb-by-astral binary: unknown-section demos
+haugyjobb-by-astral binary: unusual-interpreter usr/share/haugyjobb-by-astral/haugyjobb-by-astral_userinstall.pol #!playonlinux-bash

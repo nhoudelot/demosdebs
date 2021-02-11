@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: fairplaytothequeen-by-candela
+Source: https://www.pouet.net/prod.php?which=17088
+
+Files: *
+Copyright: 2005 Candela
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2017-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3.0+
+ /usr/share/common-licenses/GPL-3

@@ -1,0 +1,4 @@
+leveltwo-by-peon binary: unknown-section demos
+leveltwo-by-peon binary: script-not-executable usr/share/leveltwo-by-peon/leveltwo-by-peon_userinstall.pol
+leveltwo-by-peon binary: unknown-section demos
+leveltwo-by-peon binary: unusual-interpreter usr/share/leveltwo-by-peon/leveltwo-by-peon_userinstall.pol #!playonlinux-bash

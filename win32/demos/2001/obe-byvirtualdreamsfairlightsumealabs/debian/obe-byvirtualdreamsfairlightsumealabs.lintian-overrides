@@ -1,0 +1,4 @@
+obe-byvirtualdreamsfairlightsumealabs binary: unknown-section demos
+obe-byvirtualdreamsfairlightsumealabs binary: script-not-executable usr/share/obe-byvirtualdreamsfairlightsumealabs/obe-byvirtualdreamsfairlightsumealabs_userinstall.pol
+obe-byvirtualdreamsfairlightsumealabs binary: unknown-section demos
+obe-byvirtualdreamsfairlightsumealabs binary: unusual-interpreter usr/share/obe-byvirtualdreamsfairlightsumealabs/obe-byvirtualdreamsfairlightsumealabs_userinstall.pol #!playonlinux-bash
