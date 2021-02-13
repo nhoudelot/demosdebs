@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Real Finality
+GenericName=Demo
+Comment=intro released at Affict Anniversary 2001
+Type=Application
+Exec=/usr/bin/realfinality-by-darkeden
+Icon=realfinality-by-darkeden
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Real Finality

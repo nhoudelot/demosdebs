@@ -1,0 +1,7 @@
+debian/scripts/frektaali-by-taat usr/bin/
+debian/scripts/frektaali-by-taat.conf etc/
+debian/resources/frektaali-by-taat.desktop usr/share/applications/
+debian/resources/frektaali-by-taat.png usr/share/icons/hicolor/32x32/apps/
+./frekta.exe usr/share/frektaali-by-taat/./ 
+./frekta_w.exe usr/share/frektaali-by-taat/./ 
+./debian/scripts/frektaali-by-taat_userinstall.pol usr/share/frektaali-by-taat/./ 

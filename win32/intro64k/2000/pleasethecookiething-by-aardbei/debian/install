@@ -1,0 +1,6 @@
+debian/scripts/pleasethecookiething-by-aardbei usr/bin/
+debian/scripts/pleasethecookiething-by-aardbei.conf etc/
+debian/pleasethecookiething-by-aardbei.desktop usr/share/applications/
+debian/pleasethecookiething-by-aardbei.png usr/share/icons/hicolor/32x32/apps/
+./PTCT.exe usr/share/pleasethecookiething-by-aardbei/./ 
+./debian/scripts/pleasethecookiething-by-aardbei_userinstall.pol usr/share/pleasethecookiething-by-aardbei/./ 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=fr-030: candytron
+GenericName=Demo
+Comment=intro ranked 2nd at Breakpoint 2003
+Type=Application
+Exec=/usr/bin/fr030candytron-by-farbrausch
+Icon=fr030candytron-by-farbrausch
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=fr-030: candytron

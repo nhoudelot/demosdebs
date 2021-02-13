@@ -1,0 +1,7 @@
+debian/scripts/attraction-by-themoosebrothersoutbreak usr/bin/
+debian/scripts/attraction-by-themoosebrothersoutbreak.conf etc/
+debian/resources/attraction-by-themoosebrothersoutbreak.desktop usr/share/applications/
+debian/resources/attraction-by-themoosebrothersoutbreak.png usr/share/icons/hicolor/32x32/apps/
+./attract.nfo usr/share/attraction-by-themoosebrothersoutbreak/./ 
+./debian/scripts/attraction-by-themoosebrothersoutbreak_userinstall.pol usr/share/attraction-by-themoosebrothersoutbreak/./ 
+./attract.exe usr/share/attraction-by-themoosebrothersoutbreak/./ 

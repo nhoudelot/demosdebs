@@ -1,0 +1,6 @@
+debian/scripts/cryonicsweare-by-cryonics usr/bin/
+debian/scripts/cryonicsweare-by-cryonics.conf etc/
+debian/resources/cryonicsweare-by-cryonics.desktop usr/share/applications/
+debian/resources/cryonicsweare-by-cryonics.png usr/share/icons/hicolor/32x32/apps/
+./we_are_cryonics.exe usr/share/cryonicsweare-by-cryonics/./ 
+./debian/scripts/cryonicsweare-by-cryonics_userinstall.pol usr/share/cryonicsweare-by-cryonics/./ 

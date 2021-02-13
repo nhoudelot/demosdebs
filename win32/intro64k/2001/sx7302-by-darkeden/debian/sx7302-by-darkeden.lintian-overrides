@@ -1,0 +1,4 @@
+sx7302-by-darkeden binary: unknown-section demos
+sx7302-by-darkeden binary: script-not-executable usr/share/sx7302-by-darkeden/sx7302-by-darkeden_userinstall.pol
+sx7302-by-darkeden binary: unknown-section demos
+sx7302-by-darkeden binary: unusual-interpreter usr/share/sx7302-by-darkeden/sx7302-by-darkeden_userinstall.pol #!playonlinux-bash

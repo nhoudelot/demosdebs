@@ -1,0 +1,6 @@
+debian/scripts/dropletvsocean-by-sands usr/bin/
+debian/scripts/dropletvsocean-by-sands.conf etc/
+debian/resources/dropletvsocean-by-sands.desktop usr/share/applications/
+debian/resources/dropletvsocean-by-sands.png usr/share/icons/hicolor/32x32/apps/
+./droplet.exe usr/share/dropletvsocean-by-sands/./ 
+./debian/scripts/dropletvsocean-by-sands_userinstall.pol usr/share/dropletvsocean-by-sands/./ 

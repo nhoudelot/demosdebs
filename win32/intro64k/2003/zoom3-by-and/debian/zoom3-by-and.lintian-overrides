@@ -1,0 +1,4 @@
+zoom3-by-and binary: unknown-section demos
+zoom3-by-and binary: script-not-executable usr/share/zoom3-by-and/zoom3-by-and_userinstall.pol
+zoom3-by-and binary: unknown-section demos
+zoom3-by-and binary: unusual-interpreter usr/share/zoom3-by-and/zoom3-by-and_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,6 @@
+debian/scripts/fr-08theproduct-by-farbrausch usr/bin/
+debian/scripts/fr-08theproduct-by-farbrausch.conf etc/
+debian/resources/fr-08theproduct-by-farbrausch.desktop usr/share/applications/
+debian/resources/fr-08theproduct-by-farbrausch.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/fr-08theproduct-by-farbrausch_userinstall.pol usr/share/fr-08theproduct-by-farbrausch/./ 
+./fr08v101.exe usr/share/fr-08theproduct-by-farbrausch/./ 

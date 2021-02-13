@@ -1,0 +1,4 @@
+softworld-by-justforfun binary: unknown-section demos
+softworld-by-justforfun binary: script-not-executable usr/share/softworld-by-justforfun/softworld-by-justforfun_userinstall.pol
+softworld-by-justforfun binary: unknown-section demos
+softworld-by-justforfun binary: unusual-interpreter usr/share/softworld-by-justforfun/softworld-by-justforfun_userinstall.pol #!playonlinux-bash

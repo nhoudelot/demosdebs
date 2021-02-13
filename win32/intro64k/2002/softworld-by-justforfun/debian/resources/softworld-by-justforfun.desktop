@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Softworld
+GenericName=Demo
+Comment=intro ranked 2nd at Synthesis Party 2002
+Type=Application
+Exec=/usr/bin/softworld-by-justforfun
+Icon=softworld-by-justforfun
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Softworld

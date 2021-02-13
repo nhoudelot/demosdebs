@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Zoom 3
+GenericName=Demo
+Comment=Intro 64k ranked 1st at Assembly 2003
+Type=Application
+Exec=/usr/bin/zoom3-by-and
+Icon=zoom3-by-and
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Zoom 3

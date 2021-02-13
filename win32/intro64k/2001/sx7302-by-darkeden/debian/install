@@ -1,0 +1,6 @@
+debian/scripts/sx7302-by-darkeden usr/bin/
+debian/scripts/sx7302-by-darkeden.conf etc/
+debian/resources/sx7302-by-darkeden.desktop usr/share/applications/
+debian/resources/sx7302-by-darkeden.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/sx7302-by-darkeden_userinstall.pol usr/share/sx7302-by-darkeden/./ 
+./sx7302.exe usr/share/sx7302-by-darkeden/./ 

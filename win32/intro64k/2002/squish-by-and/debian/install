@@ -1,0 +1,6 @@
+debian/scripts/squish-by-and usr/bin/
+debian/scripts/squish-by-and.conf etc/
+debian/resources/squish-by-and.desktop usr/share/applications/
+debian/resources/squish-by-and.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/squish-by-and_userinstall.pol usr/share/squish-by-and/./ 
+./squish.exe usr/share/squish-by-and/./ 

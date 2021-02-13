@@ -1,0 +1,4 @@
+fr030candytron-by-farbrausch binary: unknown-section demos
+fr030candytron-by-farbrausch binary: script-not-executable usr/share/fr030candytron-by-farbrausch/fr030candytron-by-farbrausch_userinstall.pol
+fr030candytron-by-farbrausch binary: unknown-section demos
+fr030candytron-by-farbrausch binary: unusual-interpreter usr/share/fr030candytron-by-farbrausch/fr030candytron-by-farbrausch_userinstall.pol #!playonlinux-bash

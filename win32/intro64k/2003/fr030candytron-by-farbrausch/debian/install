@@ -1,0 +1,7 @@
+debian/scripts/fr030candytron-by-farbrausch usr/bin/
+debian/scripts/fr030candytron-by-farbrausch.conf etc/
+debian/resources/fr030candytron-by-farbrausch.desktop usr/share/applications/
+debian/resources/fr030candytron-by-farbrausch.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/fr030candytron-by-farbrausch_userinstall.pol usr/share/fr030candytron-by-farbrausch/./ 
+./fr030-candytron-final-101.exe usr/share/fr030candytron-by-farbrausch/./ 
+./fr030_final_readme.txt usr/share/fr030candytron-by-farbrausch/./ 

@@ -1,0 +1,4 @@
+cryonicsweare-by-cryonics binary: unknown-section demos
+cryonicsweare-by-cryonics binary: script-not-executable usr/share/cryonicsweare-by-cryonics/cryonicsweare-by-cryonics_userinstall.pol
+cryonicsweare-by-cryonics binary: unknown-section demos
+cryonicsweare-by-cryonics binary: unusual-interpreter usr/share/cryonicsweare-by-cryonics/cryonicsweare-by-cryonics_userinstall.pol #!playonlinux-bash

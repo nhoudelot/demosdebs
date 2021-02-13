@@ -1,0 +1,6 @@
+debian/scripts/softworld-by-justforfun usr/bin/
+debian/scripts/softworld-by-justforfun.conf etc/
+debian/resources/softworld-by-justforfun.desktop usr/share/applications/
+debian/resources/softworld-by-justforfun.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/softworld-by-justforfun_userinstall.pol usr/share/softworld-by-justforfun/./ 
+./softworld.exe usr/share/softworld-by-justforfun/./ 
