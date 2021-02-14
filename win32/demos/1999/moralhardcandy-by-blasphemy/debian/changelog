@@ -7,8 +7,11 @@ moralhardcandy-by-blasphemy (1:1.0+4-0ddebs2) unstable; urgency=medium
     packaging
   * add debian/ReadMe.source to give some info
     about the package
+  * because of sound pblm, need to use the static wine 6.0
+  * set polscreenmode="integratedfullscreen"
+  * set fullscreen to 640x480
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 May 2020 02:18:21 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 14 Feb 2021 01:55:49 +0100
 
 moralhardcandy-by-blasphemy (1:1.0+4-0ddebs1) unstable; urgency=medium
 
