@@ -1,3 +1,0 @@
-fairplaytothequeen-by-candela binary: unknown-section demos
-fairplaytothequeen-by-candela: script-not-executable usr/share/fairplaytothequeen-by-candela/fairplaytothequeen-by-candela_userinstall.pol
-fairplaytothequeen-by-candela: unusual-interpreter usr/share/fairplaytothequeen-by-candela/fairplaytothequeen-by-candela_userinstall.pol #!playonlinux-bash

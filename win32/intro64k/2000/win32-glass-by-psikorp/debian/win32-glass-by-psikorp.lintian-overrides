@@ -1,0 +1,4 @@
+win32-glass-by-psikorp binary: unknown-section demos
+win32-glass-by-psikorp binary: script-not-executable usr/share/win32/apps/win32-glass-by-psikorp/win32-glass-by-psikorp_userinstall.pol
+win32-glass-by-psikorp binary: unknown-section demos
+win32-glass-by-psikorp binary: unusual-interpreter usr/share/win32/apps/win32-glass-by-psikorp/win32-glass-by-psikorp_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Art
+GenericName=Demo
+Comment=Art - demo ranked 2nd at Assembly 2000
+Type=Application
+Exec=/usr/bin/win32-art-by-haujobb
+Icon=win32-art-by-haujobb
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Art

@@ -1,0 +1,10 @@
+win32-legomania-by-doomsday for Debian
+-------------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio (2003) C++
+ * use Fmod 3.4
+ * use ijl 1.1.2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Feb 2021 23:51:07 +0100

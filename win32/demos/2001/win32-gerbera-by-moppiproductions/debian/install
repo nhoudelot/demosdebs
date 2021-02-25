@@ -1,0 +1,10 @@
+debian/scripts/win32-gerbera-by-moppiproductions usr/bin/
+debian/scripts/win32-gerbera-by-moppiproductions.conf etc/
+debian/resources/win32-gerbera-by-moppiproductions.desktop usr/share/applications/
+debian/resources/win32-gerbera-by-moppiproductions.png usr/share/icons/hicolor/32x32/apps/
+./gerbera.dat usr/share/win32/apps/win32-gerbera-by-moppiproductions/./ 
+./debian/scripts/win32-gerbera-by-moppiproductions_userinstall.pol usr/share/win32/apps/win32-gerbera-by-moppiproductions/./ 
+./plugins usr/share/win32/apps/win32-gerbera-by-moppiproductions/./ 
+./fmod.dll usr/share/win32/apps/win32-gerbera-by-moppiproductions/./ 
+./PajaPlayer.exe usr/share/win32/apps/win32-gerbera-by-moppiproductions/./ 
+./final_001.mp3 usr/share/win32/apps/win32-gerbera-by-moppiproductions/./ 

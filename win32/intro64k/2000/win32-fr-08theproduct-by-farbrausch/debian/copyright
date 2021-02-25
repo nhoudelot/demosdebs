@@ -1,0 +1,19 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: win32-fr-08theproduct-by-farbrausch
+Source: https://www.pouet.net/prod.php?which=1221
+
+Files: *
+Copyright: 2000 farbrausch
+License: custom
+ ALL CONTENTS IN THIS ARCHIVE ARE (C) 2000-01 FARB-RAUSCH CONSUMER CONSULTING,
+ GERMANY. COPYING AND DISTRIBUTION ARE ALLOWED AS LONG THE ORIGINAL CONTENTS
+ OF THE ARCHIVE REMAIN UNCHANGED AND YOU DON'T CHARGE ANY FEE FOR COPYING
+ OR DISTRIBUTION OF THIS ARCHIVE. THE CONTENT IS PROVIDED AS-IS, WITHOUT
+ ANY WARRANTY CONCERNING FUNCTION OR HARMLESSNESS. FARB-RAUSCH CONSUMER
+ CONSULTING CAN NOT BE MADE LIABLE FOR DAMAGES INCURRING DUE TO USE OF
+ THE CONTENT.
+
+Files: debian/*
+Copyright: 2014-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

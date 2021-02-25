@@ -1,9 +1,0 @@
-debian/scripts/lapsus-by-maturefunk usr/bin/
-debian/scripts/lapsus-by-maturefunk.conf etc/
-debian/resources/lapsus-by-maturefunk.desktop usr/share/applications/
-debian/resources/lapsus-by-maturefunk.png usr/share/icons/hicolor/32x32/apps/
-./Lapsus.dat usr/share/lapsus-by-maturefunk/./ 
-./glut32.dll usr/share/lapsus-by-maturefunk/./ 
-./fmod.dll usr/share/lapsus-by-maturefunk/./ 
-./debian/scripts/lapsus-by-maturefunk_userinstall.pol usr/share/lapsus-by-maturefunk/./
-./Lapsus.exe usr/share/lapsus-by-maturefunk/./ 

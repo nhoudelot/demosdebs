@@ -1,0 +1,9 @@
+win32-entropy-by-medieval for Debian
+-----------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio(6.0)
+ * Use MFC4.2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2021 11:05:02 +0100

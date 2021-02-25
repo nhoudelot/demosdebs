@@ -1,0 +1,17 @@
+debian/scripts/win32-explicitsupremacy-by-apocalypsedesign usr/bin/
+debian/scripts/win32-explicitsupremacy-by-apocalypsedesign.conf etc/
+debian/resources/win32-explicitsupremacy-by-apocalypsedesign.desktop usr/share/applications/
+debian/resources/win32-explicitsupremacy-by-apocalypsedesign.png usr/share/icons/hicolor/32x32/apps/
+./scena4 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./Explicit.exe usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./info.txt usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./fmod.dll usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./scena3 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./debian/scripts/win32-explicitsupremacy-by-apocalypsedesign_userinstall.pol usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./scena1 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./scena7 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./scena5 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./fby.mp3 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./scena6 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./scena8 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
+./scena2 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 

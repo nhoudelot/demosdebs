@@ -1,0 +1,10 @@
+debian/scripts/win32-legrandcurl-by-neuroticaefs usr/bin/
+debian/scripts/win32-legrandcurl-by-neuroticaefs.conf etc/
+debian/resources/win32-legrandcurl-by-neuroticaefs.desktop usr/share/applications/
+debian/resources/win32-legrandcurl-by-neuroticaefs.png usr/share/icons/hicolor/32x32/apps/
+./stub.exe usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 
+./b2k.dll usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 
+./data usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 
+./gfx usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 
+./music.mp3 usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 
+./debian/scripts/win32-legrandcurl-by-neuroticaefs_userinstall.pol usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 

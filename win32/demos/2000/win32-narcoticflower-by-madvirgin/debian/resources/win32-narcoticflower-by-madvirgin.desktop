@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Narcotic Flower
+GenericName=Demo
+Comment=Narcotic Flower - Demo ranked 1st at VEP 2000
+Type=Application
+Exec=/usr/bin/win32-narcoticflower-by-madvirgin
+Icon=win32-narcoticflower-by-madvirgin
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Narcotic Flower

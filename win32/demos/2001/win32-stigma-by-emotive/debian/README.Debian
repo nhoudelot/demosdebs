@@ -1,0 +1,11 @@
+win32-stigma-by-emotive for Debian
+---------------------------
+
+* with system wine 6.0 it give the error
+  ALSA lib pulse.c:242:(pulse_connect) PulseAudio: Unable to connect: Erreur du protocole
+  so we have to use static wine of playonlinux
+* unable also to goes fullscreen or windowed
+  so we have to start in virtual desktop
+* impossible to replace bass.dll 0.8a
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Feb 2021 23:58:19 +0100

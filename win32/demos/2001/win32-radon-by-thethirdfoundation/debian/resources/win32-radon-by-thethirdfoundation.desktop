@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Radon
+GenericName=Demo
+Comment=Radon - Demo released in march 2001
+Type=Application
+Exec=/usr/bin/win32-radon-by-thethirdfoundation
+Icon=win32-radon-by-thethirdfoundation
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Radon

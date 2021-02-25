@@ -1,9 +1,0 @@
-debian/scripts/legomania-by-doomsday usr/bin/
-debian/scripts/legomania-by-doomsday.conf etc/
-debian/resources/legomania-by-doomsday.desktop usr/share/applications/
-debian/resources/legomania-by-doomsday.png usr/share/icons/hicolor/32x32/apps/
-./lmania.ogg usr/share/legomania-by-doomsday/./ 
-./dsd_lm.exe usr/share/legomania-by-doomsday/./ 
-./debian/scripts/legomania-by-doomsday_userinstall.pol usr/share/legomania-by-doomsday/./ 
-./fmod.dll usr/share/legomania-by-doomsday/./ 
-./ijl11.dll usr/share/legomania-by-doomsday/./ 

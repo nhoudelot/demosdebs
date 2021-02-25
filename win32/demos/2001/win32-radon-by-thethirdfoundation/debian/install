@@ -1,0 +1,9 @@
+debian/scripts/win32-radon-by-thethirdfoundation usr/bin/
+debian/scripts/win32-radon-by-thethirdfoundation.conf etc/
+debian/resources/win32-radon-by-thethirdfoundation.desktop usr/share/applications/
+debian/resources/win32-radon-by-thethirdfoundation.png usr/share/icons/hicolor/32x32/apps/
+./models usr/share/win32/apps/win32-radon-by-thethirdfoundation/./ 
+./radon.exe usr/share/win32/apps/win32-radon-by-thethirdfoundation/./ 
+./debian/scripts/win32-radon-by-thethirdfoundation_userinstall.pol usr/share/win32/apps/win32-radon-by-thethirdfoundation/./ 
+./graphics usr/share/win32/apps/win32-radon-by-thethirdfoundation/./ 
+./music usr/share/win32/apps/win32-radon-by-thethirdfoundation/./ 

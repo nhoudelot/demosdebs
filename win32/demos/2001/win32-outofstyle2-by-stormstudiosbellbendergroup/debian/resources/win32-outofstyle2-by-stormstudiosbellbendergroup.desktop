@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Out Of Style 2
+GenericName=Demo
+Comment=Out Of Style 2 - Demo ranked 15th at Assembly 2001
+Type=Application
+Exec=/usr/bin/win32-outofstyle2-by-stormstudiosbellbendergroup
+Icon=win32-outofstyle2-by-stormstudiosbellbendergroup
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Out Of Style 2

@@ -1,0 +1,4 @@
+win32-legrandcurl-by-neuroticaefs binary: unknown-section demos
+win32-legrandcurl-by-neuroticaefs binary: script-not-executable usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/win32-legrandcurl-by-neuroticaefs_userinstall.pol
+win32-legrandcurl-by-neuroticaefs binary: unknown-section demos
+win32-legrandcurl-by-neuroticaefs binary: unusual-interpreter usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/win32-legrandcurl-by-neuroticaefs_userinstall.pol #!playonlinux-bash

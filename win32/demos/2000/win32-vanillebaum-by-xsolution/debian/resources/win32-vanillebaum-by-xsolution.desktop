@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Vanillebaum
+GenericName=Demo
+Comment=Vanillebaum - Demo ranked 18th at Mekka and Symposium 2000
+Type=Application
+Exec=/usr/bin/win32-vanillebaum-by-xsolution
+Icon=win32-vanillebaum-by-xsolution
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Vanillebaum

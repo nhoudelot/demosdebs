@@ -1,0 +1,9 @@
+win32-lovecreationmax-by-inf for Debian
+--------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio (6.0) C
+ * use FMOD 3.6
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Feb 2021 22:52:18 +0100

@@ -1,0 +1,10 @@
+debian/scripts/win32-moralhardcandy-by-blasphemy usr/bin/
+debian/scripts/win32-moralhardcandy-by-blasphemy.conf etc/
+debian/resources/win32-moralhardcandy-by-blasphemy.desktop usr/share/applications/
+debian/resources/win32-moralhardcandy-by-blasphemy.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/win32-moralhardcandy-by-blasphemy_userinstall.pol usr/share/win32/apps/win32-moralhardcandy-by-blasphemy/./ 
+./7KINGSI2.XM usr/share/win32/apps/win32-moralhardcandy-by-blasphemy/./ 
+./CANDYD.EXE usr/share/win32/apps/win32-moralhardcandy-by-blasphemy/./ 
+./CANDYW.EXE usr/share/win32/apps/win32-moralhardcandy-by-blasphemy/./ 
+./CANDY.DAT usr/share/win32/apps/win32-moralhardcandy-by-blasphemy/./ 
+./BASS.DLL usr/share/win32/apps/win32-moralhardcandy-by-blasphemy/./ 

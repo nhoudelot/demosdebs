@@ -1,0 +1,9 @@
+win32-thenonstopibizaexperience-by-orange for Debian
+---------------------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio (6.0) C++
+ * use bass.dll 0.8a
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Feb 2021 23:58:18 +0100

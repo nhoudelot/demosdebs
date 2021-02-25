@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Attraction
+GenericName=Demo
+Comment=intro ranked 6th at Assembly 2000
+Type=Application
+Exec=/usr/bin/win32-attraction-by-themoosebrothersoutbreak
+Icon=win32-attraction-by-themoosebrothersoutbreak
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Attraction

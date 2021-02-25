@@ -1,0 +1,4 @@
+win32-sx7302-by-darkeden binary: unknown-section demos
+win32-sx7302-by-darkeden binary: script-not-executable usr/share/win32/apps/win32-sx7302-by-darkeden/win32-sx7302-by-darkeden_userinstall.pol
+win32-sx7302-by-darkeden binary: unknown-section demos
+win32-sx7302-by-darkeden binary: unusual-interpreter usr/share/win32/apps/win32-sx7302-by-darkeden/win32-sx7302-by-darkeden_userinstall.pol #!playonlinux-bash

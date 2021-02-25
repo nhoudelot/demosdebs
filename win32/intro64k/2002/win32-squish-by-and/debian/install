@@ -1,0 +1,6 @@
+debian/scripts/win32-squish-by-and usr/bin/
+debian/scripts/win32-squish-by-and.conf etc/
+debian/resources/win32-squish-by-and.desktop usr/share/applications/
+debian/resources/win32-squish-by-and.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/win32-squish-by-and_userinstall.pol usr/share/win32/apps/win32-squish-by-and/./ 
+./squish.exe usr/share/win32/apps/win32-squish-by-and/./ 

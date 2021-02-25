@@ -1,0 +1,4 @@
+win32-dropletvsocean-by-sands binary: unknown-section demos
+win32-dropletvsocean-by-sands binary: script-not-executable usr/share/win32/apps/win32-dropletvsocean-by-sands/win32-dropletvsocean-by-sands_userinstall.pol
+win32-dropletvsocean-by-sands binary: unknown-section demos
+win32-dropletvsocean-by-sands binary: unusual-interpreter usr/share/win32/apps/win32-dropletvsocean-by-sands/win32-dropletvsocean-by-sands_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=STS-04: Instant Zen
+GenericName=Demo
+Comment=demo ranked 2nd at Assembly 2005
+Type=Application
+Exec=/usr/bin/win32-sts04instantzen-by-synesthetics
+Icon=win32-sts04instantzen-by-synesthetics
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=STS-04: Instant Zen

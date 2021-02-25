@@ -1,0 +1,9 @@
+win32-purple-by-orion for Debian
+-------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio(6.0) C++
+ * packed with UPX 3.08 (unpacked)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Feb 2021 00:53:18 +0100

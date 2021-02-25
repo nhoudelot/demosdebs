@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Explicit Supremacy
+GenericName=Demo
+Comment=Explicit Supremacy - Demo ranked 15th at Assembly 2000
+Type=Application
+Exec=/usr/bin/win32-explicitsupremacy-by-apocalypsedesign
+Icon=win32-explicitsupremacy-by-apocalypsedesign
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Explicit Supremacy

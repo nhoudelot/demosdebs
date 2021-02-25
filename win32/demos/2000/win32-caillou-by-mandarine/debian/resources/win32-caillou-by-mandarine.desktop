@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Caillou
+GenericName=Demo
+Comment=Caillou - demo ranked 7th at lucky and Tigrou Party 2000
+Type=Application
+Exec=/usr/bin/win32-caillou-by-mandarine
+Icon=win32-caillou-by-mandarine
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Caillou

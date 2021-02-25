@@ -1,0 +1,9 @@
+win32-stuffiwhackedtogetherwheniwasborder-by-trauma for Debian
+-------------------------------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio(6.0) C
+ * use fmod 3.20a
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Feb 2021 11:07:18 +0100

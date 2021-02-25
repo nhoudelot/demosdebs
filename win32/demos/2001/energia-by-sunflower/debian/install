@@ -1,9 +1,0 @@
-debian/scripts/energia-by-sunflower usr/bin/
-debian/scripts/energia-by-sunflower.conf etc/
-debian/resources/energia-by-sunflower.desktop usr/share/applications/
-debian/resources/energia-by-sunflower.png usr/share/icons/hicolor/32x32/apps/
-./demo.dat usr/share/energia-by-sunflower/./ 
-./debian/scripts/energia-by-sunflower_userinstall.pol usr/share/energia-by-sunflower/./ 
-./RinneRadio-Helsinki_\[Crankshaft.mix\].mp3 usr/share/energia-by-sunflower/./ 
-./bass.dll usr/share/energia-by-sunflower/./ 
-./Energia_FIXED.exe usr/share/energia-by-sunflower/./ 

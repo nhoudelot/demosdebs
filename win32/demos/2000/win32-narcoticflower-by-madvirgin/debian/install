@@ -1,0 +1,8 @@
+debian/scripts/win32-narcoticflower-by-madvirgin usr/bin/
+debian/scripts/win32-narcoticflower-by-madvirgin.conf etc/
+debian/resources/win32-narcoticflower-by-madvirgin.desktop usr/share/applications/
+debian/resources/win32-narcoticflower-by-madvirgin.png usr/share/icons/hicolor/32x32/apps/
+./DEMO.MVD usr/share/win32/apps/win32-narcoticflower-by-madvirgin/./ 
+./NarcoticFlower.exe usr/share/win32/apps/win32-narcoticflower-by-madvirgin/./ 
+./debian/scripts/win32-narcoticflower-by-madvirgin_userinstall.pol usr/share/win32/apps/win32-narcoticflower-by-madvirgin/./ 
+./fmod.dll usr/share/win32/apps/win32-narcoticflower-by-madvirgin/./ 

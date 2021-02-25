@@ -1,0 +1,9 @@
+win32-narcoticflower-by-madvirgin for Debian
+-------------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio (6.0) C++
+ * use fmod 3.6
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Feb 2021 01:14:18 +0100

@@ -1,0 +1,15 @@
+debian/scripts/win32-96-by-damage usr/bin/
+debian/scripts/win32-96-by-damage.conf etc/
+debian/resources/win32-96-by-damage.desktop usr/share/applications/
+debian/resources/win32-96-by-damage.png usr/share/icons/hicolor/32x32/apps/
+./SOD.MP3 usr/share/win32/apps/win32-96-by-damage/./ 
+./4.ASE usr/share/win32/apps/win32-96-by-damage/./ 
+./1.ASE usr/share/win32/apps/win32-96-by-damage/./ 
+./96.EXE usr/share/win32/apps/win32-96-by-damage/./ 
+./DATA usr/share/win32/apps/win32-96-by-damage/./ 
+./debian/scripts/win32-96-by-damage_userinstall.pol usr/share/win32/apps/win32-96-by-damage/./ 
+./6.ASE usr/share/win32/apps/win32-96-by-damage/./ 
+./3.ASE usr/share/win32/apps/win32-96-by-damage/./ 
+./5.ASE usr/share/win32/apps/win32-96-by-damage/./ 
+./2.ASE usr/share/win32/apps/win32-96-by-damage/./ 
+./BASS.DLL usr/share/win32/apps/win32-96-by-damage/./ 

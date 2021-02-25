@@ -1,9 +1,0 @@
-debian/scripts/chrome-by-damage usr/bin/
-debian/scripts/chrome-by-damage.conf etc/
-debian/resources/chrome-by-damage.desktop usr/share/applications/
-debian/resources/chrome-by-damage.png usr/share/icons/hicolor/32x32/apps/
-./kromi.mp3 usr/share/chrome-by-damage/./ 
-./data usr/share/chrome-by-damage/./ 
-./BASS.DLL usr/share/chrome-by-damage/./ 
-./chrome.exe usr/share/chrome-by-damage/./ 
-./debian/scripts/chrome-by-damage_userinstall.pol usr/share/chrome-by-damage/./ 

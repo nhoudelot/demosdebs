@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=B.L.U.E.
+GenericName=Demo
+Comment=demo ranked 1st at krangparty 2004
+Type=Application
+Exec=/usr/bin/win32-blue-by-fourbytealiens
+Icon=win32-blue-by-fourbytealiens
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=B.L.U.E.

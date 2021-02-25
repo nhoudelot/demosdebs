@@ -1,0 +1,21 @@
+Source: win32-tavor-by-kolor
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=1085
+
+Package: win32-tavor-by-kolor
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.69),
+ win32-bassdll08a,
+ ${misc:Depends}
+Description: Win32 Demo released in 2000
+ Demo ranked 8th by Mekka and Symposium 2000
+ .
+ -windows program launched using PlayOnLinux

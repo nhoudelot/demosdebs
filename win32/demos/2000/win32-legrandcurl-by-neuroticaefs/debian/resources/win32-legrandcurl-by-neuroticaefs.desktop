@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Le grand curl
+GenericName=Demo
+Comment=Le grand curl - Demo ranked 10th at the Dreamhack 2000
+Type=Application
+Exec=/usr/bin/win32-legrandcurl-by-neuroticaefs
+Icon=win32-legrandcurl-by-neuroticaefs
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Le grand curl

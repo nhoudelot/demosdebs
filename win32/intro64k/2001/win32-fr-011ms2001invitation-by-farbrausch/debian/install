@@ -1,0 +1,6 @@
+debian/scripts/win32-fr-011ms2001invitation-by-farbrausch usr/bin/
+debian/scripts/win32-fr-011ms2001invitation-by-farbrausch.conf etc/
+debian/resources/win32-fr-011ms2001invitation-by-farbrausch.desktop usr/share/applications/
+debian/resources/win32-fr-011ms2001invitation-by-farbrausch.png usr/share/icons/hicolor/16x16/apps/
+./fr011.exe usr/share/win32/apps/win32-fr-011ms2001invitation-by-farbrausch/./ 
+./debian/scripts/win32-fr-011ms2001invitation-by-farbrausch_userinstall.pol usr/share/win32/apps/win32-fr-011ms2001invitation-by-farbrausch/./ 

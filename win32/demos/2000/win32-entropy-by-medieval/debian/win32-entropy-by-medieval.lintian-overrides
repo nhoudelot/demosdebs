@@ -1,0 +1,4 @@
+win32-entropy-by-medieval binary: unknown-section demos
+win32-entropy-by-medieval binary: script-not-executable usr/share/win32/apps/win32-entropy-by-medieval/win32-entropy-by-medieval_userinstall.pol
+win32-entropy-by-medieval binary: unknown-section demos
+win32-entropy-by-medieval binary: unusual-interpreter usr/share/win32/apps/win32-entropy-by-medieval/win32-entropy-by-medieval_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,20 @@
+Source: win32-fears-by-nah-kolor
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=3340
+
+Package: win32-fears-by-nah-kolor
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.69),
+ ${misc:Depends}
+Description: Win32 Demo released in 2001
+ Demo ranked 1st at Abstract 2001
+ .
+ -windows program launched using PlayOnLinux

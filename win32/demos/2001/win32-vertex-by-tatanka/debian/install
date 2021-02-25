@@ -1,0 +1,11 @@
+debian/scripts/win32-vertex-by-tatanka usr/bin/
+debian/scripts/win32-vertex-by-tatanka.conf etc/
+debian/resources/win32-vertex-by-tatanka.desktop usr/share/applications/
+debian/resources/win32-vertex-by-tatanka.png usr/share/icons/hicolor/32x32/apps/
+./pa.3d usr/share/win32/apps/win32-vertex-by-tatanka/./ 
+./hysteria.MP3 usr/share/win32/apps/win32-vertex-by-tatanka/./ 
+./aga.3d usr/share/win32/apps/win32-vertex-by-tatanka/./ 
+./emila.3d usr/share/win32/apps/win32-vertex-by-tatanka/./ 
+./vertex.exe usr/share/win32/apps/win32-vertex-by-tatanka/./ 
+./debian/scripts/win32-vertex-by-tatanka_userinstall.pol usr/share/win32/apps/win32-vertex-by-tatanka/./ 
+./BASS.DLL usr/share/win32/apps/win32-vertex-by-tatanka/./

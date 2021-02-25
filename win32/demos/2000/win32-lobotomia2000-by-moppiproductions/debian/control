@@ -1,0 +1,23 @@
+Source: win32-lobotomia2000-by-moppiproductions
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=728
+
+Package: win32-lobotomia2000-by-moppiproductions
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.69),
+ win32-bassdll08a,
+ win32-ijldll112,
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ invit demo released in august 2000
+ .
+ -windows program launched using PlayOnLinux
+

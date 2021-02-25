@@ -1,0 +1,4 @@
+win32-narcoticflower-by-madvirgin binary: unknown-section demos
+win32-narcoticflower-by-madvirgin binary: script-not-executable usr/share/win32/apps/win32-narcoticflower-by-madvirgin/win32-narcoticflower-by-madvirgin_userinstall.pol
+win32-narcoticflower-by-madvirgin binary: unknown-section demos
+win32-narcoticflower-by-madvirgin binary: unusual-interpreter usr/share/win32/apps/win32-narcoticflower-by-madvirgin/win32-narcoticflower-by-madvirgin_userinstall.pol #!playonlinux-bash

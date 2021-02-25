@@ -1,4 +1,0 @@
-lapsus-by-maturefunk binary: unknown-section demos
-lapsus-by-maturefunk binary: script-not-executable usr/share/lapsus-by-maturefunk/lapsus-by-maturefunk_userinstall.pol
-lapsus-by-maturefunk binary: unknown-section demos
-lapsus-by-maturefunk binary: unusual-interpreter usr/share/lapsus-by-maturefunk/lapsus-by-maturefunk_userinstall.pol #!playonlinux-bash

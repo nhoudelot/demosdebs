@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=stigma
+GenericName=Demo
+Comment=demo ranked 1st at Ambience 2001
+Type=Application
+Exec=/usr/bin/win32-stigma-by-emotive
+Icon=win32-stigma-by-emotive
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=stigma

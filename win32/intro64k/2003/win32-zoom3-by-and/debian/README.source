@@ -1,0 +1,8 @@
+win32-zoom3-by-and for Debian
+----------------------------
+
+Executable :
+ * win32
+ * packed with modified UPX
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 1 Mar 2021 00:10:04 +0100

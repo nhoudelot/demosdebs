@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=(we took the) greenpill
+GenericName=Demo
+Comment=demo ranked 14th at Assmebly 2001
+Type=Application
+Exec=/usr/bin/win32-wetookthegreenpill-by-haujobb
+Icon=win32-wetookthegreenpill-by-haujobb
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=(we took the) greenpill

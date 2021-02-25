@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=entropy
+GenericName=Demo
+Comment=entropy - demo ranked 7th at The Party 2000
+Type=Application
+Exec=/usr/bin/win32-entropy-by-medieval
+Icon=win32-entropy-by-medieval
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=entropy

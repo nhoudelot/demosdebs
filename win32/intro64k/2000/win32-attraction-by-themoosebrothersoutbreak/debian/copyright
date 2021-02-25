@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: win32-attraction-by-themoosebrothersoutbreak
+Source: https://www.pouet.net/prod.php?which=4332
+
+Files: *
+Copyright: 2000 The Moose Brothers
+           2000 Outbreak
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2014-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

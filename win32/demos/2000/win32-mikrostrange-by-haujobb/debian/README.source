@@ -1,0 +1,9 @@
+win32-mikrostrange-by-haujobb for Debian
+---------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio(6.0)
+ * use bass.dll 0.8
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Feb 2021 23:32:18 +0100

@@ -1,0 +1,6 @@
+win32-entropy-by-medieval for Debian
+-----------------------------
+* use system WINE
+* install vcrun6 to provide MFC42.dll
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2021 11:35:02 +0100

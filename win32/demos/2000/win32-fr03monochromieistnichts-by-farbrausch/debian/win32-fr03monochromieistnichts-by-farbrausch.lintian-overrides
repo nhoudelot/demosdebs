@@ -1,0 +1,4 @@
+win32-fr03monochromieistnichts-by-farbrausch binary: unknown-section demos
+win32-fr03monochromieistnichts-by-farbrausch binary: script-not-executable usr/share/win32/apps/win32-fr03monochromieistnichts-by-farbrausch/win32-fr03monochromieistnichts-by-farbrausch_userinstall.pol
+win32-fr03monochromieistnichts-by-farbrausch binary: unknown-section demos
+win32-fr03monochromieistnichts-by-farbrausch binary: unusual-interpreter usr/share/win32/apps/win32-fr03monochromieistnichts-by-farbrausch/win32-fr03monochromieistnichts-by-farbrausch_userinstall.pol #!playonlinux-bash

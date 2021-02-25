@@ -1,8 +1,0 @@
-debian/scripts/narcoticflower-by-madvirgin usr/bin/
-debian/scripts/narcoticflower-by-madvirgin.conf etc/
-debian/resources/narcoticflower-by-madvirgin.desktop usr/share/applications/
-debian/resources/narcoticflower-by-madvirgin.png usr/share/icons/hicolor/32x32/apps/
-./DEMO.MVD usr/share/narcoticflower-by-madvirgin/./ 
-./NarcoticFlower.exe usr/share/narcoticflower-by-madvirgin/./ 
-./debian/scripts/narcoticflower-by-madvirgin_userinstall.pol usr/share/narcoticflower-by-madvirgin/./ 
-./fmod.dll usr/share/narcoticflower-by-madvirgin/./ 

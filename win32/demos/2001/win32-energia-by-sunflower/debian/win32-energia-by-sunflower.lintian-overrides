@@ -1,0 +1,4 @@
+win32-energia-by-sunflower binary: unknown-section demos
+win32-energia-by-sunflower binary: script-not-executable usr/share/win32-energia-by-sunflower/win32/apps/win32-energia-by-sunflower_userinstall.pol
+win32-energia-by-sunflower binary: unknown-section demos
+win32-energia-by-sunflower binary: unusual-interpreter usr/share/win32-energia-by-sunflower/win32/apps/win32-energia-by-sunflower_userinstall.pol #!playonlinux-bash

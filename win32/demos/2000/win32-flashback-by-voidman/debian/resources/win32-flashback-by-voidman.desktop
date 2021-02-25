@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Flashback
+GenericName=Demo
+Comment=Flashback - Demo ranked 8th at Dialogos 2000
+Type=Application
+Exec=/usr/bin/win32-flashback-by-voidman
+Icon=win32-flashback-by-voidman
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Flashback

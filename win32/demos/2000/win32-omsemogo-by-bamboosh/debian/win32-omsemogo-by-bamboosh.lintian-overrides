@@ -1,0 +1,4 @@
+win32-omsemogo-by-bamboosh binary: unknown-section demos
+win32-omsemogo-by-bamboosh binary: script-not-executable usr/share/win32/apps/win32-omsemogo-by-bamboosh/win32-omsemogo-by-bamboosh_userinstall.pol
+win32-omsemogo-by-bamboosh binary: unknown-section demos
+win32-omsemogo-by-bamboosh binary: unusual-interpreter usr/share/win32/apps/win32-omsemogo-by-bamboosh/win32-omsemogo-by-bamboosh_userinstall.pol #!playonlinux-bash

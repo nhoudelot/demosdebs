@@ -1,0 +1,6 @@
+win32-sts04instantzen-by-synesthetics for Debian
+-----------------------------------------------
+
+* use fmod 3.75 dll, instead of the given one.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 26 Feb 2021 10:33:07 +0100

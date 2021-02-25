@@ -1,0 +1,9 @@
+win32-cosmowavmusicdisctrailer-by-orion for Debian
+-------------------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio(6.0)
+ * upgraded bass.dll from 0.8a to 1.6 (fix wine sound)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Feb 2021 01:51:04 +0100

@@ -1,0 +1,9 @@
+win32-lobotomia2000-by-moppiproductions for Debian
+-------------------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio C++ (6.0 SP5)
+ * use bass.dll 0.8
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Feb 2021 14:56:12 +0100

@@ -1,0 +1,6 @@
+debian/scripts/win32-dropletvsocean-by-sands usr/bin/
+debian/scripts/win32-dropletvsocean-by-sands.conf etc/
+debian/resources/win32-dropletvsocean-by-sands.desktop usr/share/applications/
+debian/resources/win32-dropletvsocean-by-sands.png usr/share/icons/hicolor/32x32/apps/
+./droplet.exe usr/share/win32/apps/win32-dropletvsocean-by-sands/./ 
+./debian/scripts/win32-dropletvsocean-by-sands_userinstall.pol usr/share/win32/apps/win32-dropletvsocean-by-sands/./ 

@@ -1,0 +1,21 @@
+Source: win32-stigma-by-emotive
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=1474
+
+Package: win32-stigma-by-emotive
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.69),
+ win32-bassdll08a,
+ ${misc:Depends}
+Description: Win32 Demo released in 2001
+ demo ranked 1st at Ambience 2001
+ .
+ -windows program launched using PlayOnLinux

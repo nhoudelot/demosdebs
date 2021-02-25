@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=fr-019: poemtoahorse
+GenericName=Demo
+Comment=intro ranked 1st at Mekka and Syposium 2002
+Type=Application
+Exec=/usr/bin/win32-fr019poemtoahorse-by-farbrausch
+Icon=win32-fr019poemtoahorse-by-farbrausch
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=fr-019: poemtoahorse

@@ -1,4 +1,0 @@
-nowhere-by-threestate binary: unknown-section demos
-nowhere-by-threestate binary: script-not-executable usr/share/nowhere-by-threestate/nowhere-by-threestate_userinstall.pol
-nowhere-by-threestate binary: unknown-section demos
-nowhere-by-threestate binary: unusual-interpreter usr/share/nowhere-by-threestate/nowhere-by-threestate_userinstall.pol #!playonlinux-bash

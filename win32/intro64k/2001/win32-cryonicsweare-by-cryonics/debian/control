@@ -1,0 +1,20 @@
+Source: win32-cryonicsweare-by-cryonics
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=4591
+
+Package: win32-cryonicsweare-by-cryonics
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.69),
+ ${misc:Depends}
+Description: Win32 Intro released in 2001
+ intro ranked 1st at dreamhack 2001
+ .
+ -windows program launched using PlayOnLinux

@@ -1,0 +1,4 @@
+win32-heroes-by-fairlight binary: unknown-section demos
+win32-heroes-by-fairlight binary: script-not-executable usr/share/win32-heroes-by-fairlight/win32/apps/win32-heroes-by-fairlight_userinstall.pol
+win32-heroes-by-fairlight binary: unknown-section demos
+win32-heroes-by-fairlight binary: unusual-interpreter usr/share/win32-heroes-by-fairlight/win32/apps/win32-heroes-by-fairlight_userinstall.pol #!playonlinux-bash

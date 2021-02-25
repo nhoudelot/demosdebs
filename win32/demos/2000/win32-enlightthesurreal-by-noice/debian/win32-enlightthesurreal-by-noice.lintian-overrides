@@ -1,0 +1,4 @@
+win32-enlightthesurreal-by-noice binary: unknown-section demos
+win32-enlightthesurreal-by-noice binary: script-not-executable usr/share/win32/apps/win32-enlightthesurreal-by-noice/win32-enlightthesurreal-by-noice_userinstall.pol
+win32-enlightthesurreal-by-noice binary: unknown-section demos
+win32-enlightthesurreal-by-noice binary: unusual-interpreter usr/share/win32/apps/win32-enlightthesurreal-by-noice/win32-enlightthesurreal-by-noice_userinstall.pol #!playonlinux-bash

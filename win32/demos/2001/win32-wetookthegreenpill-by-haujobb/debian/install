@@ -1,0 +1,7 @@
+debian/scripts/win32-wetookthegreenpill-by-haujobb usr/bin/
+debian/scripts/win32-wetookthegreenpill-by-haujobb.conf etc/
+debian/resources/win32-wetookthegreenpill-by-haujobb.desktop usr/share/applications/
+debian/resources/win32-wetookthegreenpill-by-haujobb.png usr/share/icons/hicolor/32x32/apps/
+./data usr/share/win32/apps/win32-wetookthegreenpill-by-haujobb/./ 
+./we.exe usr/share/win32/apps/win32-wetookthegreenpill-by-haujobb/./ 
+./debian/scripts/win32-wetookthegreenpill-by-haujobb_userinstall.pol usr/share/win32/apps/win32-wetookthegreenpill-by-haujobb/./ 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=heroes
+GenericName=Demo
+Comment=heroes - Cracktro by Fairlight
+Type=Application
+Exec=/usr/bin/win32-heroes-by-fairlight
+Icon=win32-heroes-by-fairlight
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=heroes

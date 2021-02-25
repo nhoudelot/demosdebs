@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Sx7302
+GenericName=Demo
+Comment=intro ranked 3rd at Addict Anniversary 2001
+Type=Application
+Exec=/usr/bin/win32-sx7302-by-darkeden
+Icon=win32-sx7302-by-darkeden
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Sx7302

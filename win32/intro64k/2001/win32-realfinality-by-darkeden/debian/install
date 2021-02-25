@@ -1,0 +1,6 @@
+debian/scripts/win32-realfinality-by-darkeden usr/bin/
+debian/scripts/win32-realfinality-by-darkeden.conf etc/
+debian/resources/win32-realfinality-by-darkeden.desktop usr/share/applications/
+debian/resources/win32-realfinality-by-darkeden.png usr/share/icons/hicolor/32x32/apps/
+./realfin.exe usr/share/win32/apps/win32-realfinality-by-darkeden/./ 
+./debian/scripts/win32-realfinality-by-darkeden_userinstall.pol usr/share/win32/apps/win32-realfinality-by-darkeden/./ 

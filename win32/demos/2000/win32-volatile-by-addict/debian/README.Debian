@@ -1,0 +1,9 @@
+win32-volatile-by-addict for Debian
+----------------------------
+
+* with system wine 6.0 it give the error
+  ALSA lib pulse.c:242:(pulse_connect) PulseAudio: Unable to connect: Erreur du protocole
+  so we have to use static wine of playonlinux
+* impossible to replace bass.dll 0.8a
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 20 Feb 2021 00:59:31 +0100

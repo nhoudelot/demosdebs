@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Hau(gy)jobb
+GenericName=Demo
+Comment=Hau(gy)jobb - Demo ranked 8th at Assembly 2000
+Type=Application
+Exec=/usr/bin/win32-haugyjobb-by-astral
+Icon=win32-haugyjobb-by-astral
+Categories=AudioVideo;Emulator;
+Name[fr_FR]=Hau(gy)jobb

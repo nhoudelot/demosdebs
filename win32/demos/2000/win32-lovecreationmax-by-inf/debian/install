@@ -1,0 +1,9 @@
+debian/scripts/win32-lovecreationmax-by-inf usr/bin/
+debian/scripts/win32-lovecreationmax-by-inf.conf etc/
+debian/resources/win32-lovecreationmax-by-inf.desktop usr/share/applications/
+debian/resources/win32-lovecreationmax-by-inf.png usr/share/icons/hicolor/32x32/apps/
+./data/ usr/share/win32/apps/win32-lovecreationmax-by-inf/./ 
+./data/music/ usr/share/win32/apps/win32-lovecreationmax-by-inf/./data/ 
+./debian/scripts/win32-lovecreationmax-by-inf_userinstall.pol usr/share/win32/apps/win32-lovecreationmax-by-inf/./ 
+./love.exe usr/share/win32/apps/win32-lovecreationmax-by-inf/./ 
+./fmod.dll usr/share/win32/apps/win32-lovecreationmax-by-inf/./ 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Cryonics we are
+GenericName=Demo
+Comment=intro ranked 1st at dreamhack 2001
+Type=Application
+Exec=/usr/bin/win32-cryonicsweare-by-cryonics
+Icon=win32-cryonicsweare-by-cryonics
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Cryonics we are

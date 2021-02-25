@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Volatile
+GenericName=Demo
+Comment=Volatile - Demo ranked 3rd at Satellite 2000
+Type=Application
+Exec=/usr/bin/win32-volatile-by-addict
+Icon=win32-volatile-by-addict
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Volatile

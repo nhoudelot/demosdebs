@@ -1,4 +1,0 @@
-volatile-by-addict binary: unknown-section demos
-volatile-by-addict binary: script-not-executable usr/share/volatile-by-addict/volatile-by-addict_userinstall.pol
-volatile-by-addict binary: unknown-section demos
-volatile-by-addict binary: unusual-interpreter usr/share/volatile-by-addict/volatile-by-addict_userinstall.pol #!playonlinux-bash

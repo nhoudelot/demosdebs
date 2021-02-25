@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Ekoteko
+GenericName=Demo
+Comment=intro ranked 6th at Asembly 2001
+Type=Application
+Exec=/usr/bin/win32-ekoteko-by-taat
+Icon=win32-ekoteko-by-taat
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Ekoteko

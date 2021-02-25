@@ -1,4 +1,0 @@
-glass-by-psikorp binary: unknown-section demos
-glass-by-psikorp binary: script-not-executable usr/share/glass-by-psikorp/glass-by-psikorp_userinstall.pol
-glass-by-psikorp binary: unknown-section demos
-glass-by-psikorp binary: unusual-interpreter usr/share/glass-by-psikorp/glass-by-psikorp_userinstall.pol #!playonlinux-bash

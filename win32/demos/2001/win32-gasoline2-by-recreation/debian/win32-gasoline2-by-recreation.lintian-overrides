@@ -1,0 +1,4 @@
+win32-gasoline2-by-recreation binary: unknown-section demos
+win32-gasoline2-by-recreation binary: script-not-executable usr/share/win32-gasoline2-by-recreation/win32/apps/win32-gasoline2-by-recreation_userinstall.pol
+win32-gasoline2-by-recreation binary: unknown-section demos
+win32-gasoline2-by-recreation binary: unusual-interpreter usr/share/win32-gasoline2-by-recreation/win32/apps/win32-gasoline2-by-recreation_userinstall.pol #!playonlinux-bash

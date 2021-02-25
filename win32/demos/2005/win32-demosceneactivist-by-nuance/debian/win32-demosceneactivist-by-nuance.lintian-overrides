@@ -1,0 +1,4 @@
+win32-demosceneactivist-by-nuance binary: script-not-executable usr/share/win32/apps/win32-demosceneactivist-by-nuance/win32-demosceneactivist-by-nuance_userinstall.pol
+win32-demosceneactivist-by-nuance binary: script-not-executable usr/share/win32/apps/win32-demosceneactivist-by-nuance/win32-demosceneactivist-by-nuance_userinstall.pol
+win32-demosceneactivist-by-nuance binary: unknown-section demos
+win32-demosceneactivist-by-nuance binary: unusual-interpreter usr/share/win32/apps/win32-demosceneactivist-by-nuance/win32-demosceneactivist-by-nuance_userinstall.pol #!playonlinux-bash

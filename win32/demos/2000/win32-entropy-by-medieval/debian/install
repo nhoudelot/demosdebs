@@ -1,0 +1,13 @@
+debian/scripts/win32-entropy-by-medieval usr/bin/
+debian/scripts/win32-entropy-by-medieval.conf etc/
+debian/resources/win32-entropy-by-medieval.desktop usr/share/applications/
+debian/resources/win32-entropy-by-medieval.png usr/share/icons/hicolor/32x32/apps/
+./fmod.dll usr/share/win32/apps/win32-entropy-by-medieval/./ 
+./hermes.dll usr/share/win32/apps/win32-entropy-by-medieval/./ 
+./ptc.dll usr/share/win32/apps/win32-entropy-by-medieval/./ 
+./Music usr/share/win32/apps/win32-entropy-by-medieval/./ 
+./Music/BZ-FREE3.XM usr/share/win32/apps/win32-entropy-by-medieval/./Music/ 
+./debian/scripts/win32-entropy-by-medieval_userinstall.pol usr/share/win32/apps/win32-entropy-by-medieval/./ 
+./Models usr/share/win32/apps/win32-entropy-by-medieval/./ 
+./Gfx usr/share/win32/apps/win32-entropy-by-medieval/./ 
+./Entropy.exe usr/share/win32/apps/win32-entropy-by-medieval/./ 

@@ -1,0 +1,4 @@
+win32-persistent-by-wipeandukonx binary: unknown-section demos
+win32-persistent-by-wipeandukonx binary: script-not-executable usr/share/win32/apps/win32-persistent-by-wipeandukonx/win32-persistent-by-wipeandukonx_userinstall.pol
+win32-persistent-by-wipeandukonx binary: unknown-section demos
+win32-persistent-by-wipeandukonx binary: unusual-interpreter usr/share/win32/apps/win32-persistent-by-wipeandukonx/win32-persistent-by-wipeandukonx_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,4 @@
+win32-blue-by-fourbytealiens binary: unknown-section demos
+win32-blue-by-fourbytealiens binary: script-not-executable usr/share/win32/apps/win32-blue-by-fourbytealiens/win32-blue-by-fourbytealiens_userinstall.pol
+win32-blue-by-fourbytealiens binary: unknown-section demos
+win32-blue-by-fourbytealiens binary: unusual-interpreter usr/share/win32/apps/win32-blue-by-fourbytealiens/win32-blue-by-fourbytealiens_userinstall.pol #!playonlinux-bash

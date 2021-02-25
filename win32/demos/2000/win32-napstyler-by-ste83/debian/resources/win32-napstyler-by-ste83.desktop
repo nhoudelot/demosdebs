@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=napstyler
+GenericName=Demo
+Comment=napstyler - Demo ranked 6th at Evoke 2000
+Type=Application
+Exec=/usr/bin/win32-napstyler-by-ste83
+Icon=win32-napstyler-by-ste83
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=napstyler

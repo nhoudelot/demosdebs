@@ -1,0 +1,7 @@
+debian/scripts/win32-ekoteko-by-taat usr/bin/
+debian/scripts/win32-ekoteko-by-taat.conf etc/
+debian/resources/win32-ekoteko-by-taat.desktop usr/share/applications/
+debian/resources/win32-ekoteko-by-taat.png usr/share/icons/hicolor/32x32/apps/
+./ekoteko.exe usr/share/win32/apps/win32-ekoteko-by-taat/./ 
+./debian/scripts/win32-ekoteko-by-taat_userinstall.pol usr/share/win32/apps/win32-ekoteko-by-taat/./ 
+./ekoteko-windowed.exe usr/share/win32/apps/win32-ekoteko-by-taat/./ 

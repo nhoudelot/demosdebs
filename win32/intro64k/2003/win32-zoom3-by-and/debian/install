@@ -1,0 +1,6 @@
+debian/scripts/win32-zoom3-by-and usr/bin/
+debian/scripts/win32-zoom3-by-and.conf etc/
+debian/resources/win32-zoom3-by-and.desktop usr/share/applications/
+debian/resources/win32-zoom3-by-and.png usr/share/icons/hicolor/32x32/apps/
+./zoom3_v1_02.exe usr/share/win32/apps/win32-zoom3-by-and/./ 
+./debian/scripts/win32-zoom3-by-and_userinstall.pol usr/share/win32/apps/win32-zoom3-by-and/./ 

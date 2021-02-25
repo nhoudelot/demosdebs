@@ -1,0 +1,7 @@
+napstyler-by-ste83 for Debian
+----------------------------
+
+* unpacked fmod.dll but
+* use fmod 3.75 dll, instead of the given one.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 26 Feb 2021 10:42:07 +0100

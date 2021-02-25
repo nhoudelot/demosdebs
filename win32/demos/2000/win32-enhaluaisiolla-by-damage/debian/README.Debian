@@ -1,0 +1,10 @@
+win32-enhaluaisiolla-by-damage for Debian
+----------------------------------
+
+* with system wine 6.0
+  ALSA lib pulse.c:242:(pulse_connect) PulseAudio: Unable to connect: Erreur du protocole
+  so we have to use static wine of playonlinux
+* unable also to goes fullscreen
+  so we have to start in virtual desktop
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2021 11:32:54 +0100

@@ -1,0 +1,6 @@
+debian/scripts/win32-fr019poemtoahorse-by-farbrausch usr/bin/
+debian/scripts/win32-fr019poemtoahorse-by-farbrausch.conf etc/
+debian/resources/win32-fr019poemtoahorse-by-farbrausch.desktop usr/share/applications/
+debian/resources/win32-fr019poemtoahorse-by-farbrausch.png usr/share/icons/hicolor/32x32/apps/
+./fr-019-v110.exe usr/share/win32/apps/win32-fr019poemtoahorse-by-farbrausch/./ 
+./debian/scripts/win32-fr019poemtoahorse-by-farbrausch_userinstall.pol usr/share/win32/apps/win32-fr019poemtoahorse-by-farbrausch/./ 

@@ -1,0 +1,4 @@
+win32-eternal-by-flyinpig binary: unknown-section demos
+win32-eternal-by-flyinpig binary: script-not-executable usr/share/win32/apps/win32-eternal-by-flyinpig/win32-eternal-by-flyinpig_userinstall.pol
+win32-eternal-by-flyinpig binary: unknown-section demos
+win32-eternal-by-flyinpig binary: unusual-interpreter usr/share/win32/apps/win32-eternal-by-flyinpig/win32-eternal-by-flyinpig_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,7 @@
+debian/scripts/win32-art-by-haujobb usr/bin/
+debian/scripts/win32-art-by-haujobb.conf etc/
+debian/resources/win32-art-by-haujobb.desktop usr/share/applications/
+debian/resources/win32-art-by-haujobb.png usr/share/icons/hicolor/32x32/apps/
+./Art.exe usr/share/win32/apps/win32-art-by-haujobb/./ 
+./debian/scripts/win32-art-by-haujobb_userinstall.pol usr/share/win32/apps/win32-art-by-haujobb/./ 
+./data usr/share/win32/apps/win32-art-by-haujobb/./ 

@@ -1,0 +1,4 @@
+win32-systemapoc-by-astral binary: unknown-section demos
+win32-systemapoc-by-astral binary: script-not-executable usr/share/win32/apps/win32-systemapoc-by-astral/win32-systemapoc-by-astral_userinstall.pol
+win32-systemapoc-by-astral binary: unknown-section demos
+win32-systemapoc-by-astral binary: unusual-interpreter usr/share/win32/apps/win32-systemapoc-by-astral/win32-systemapoc-by-astral_userinstall.pol #!playonlinux-bash

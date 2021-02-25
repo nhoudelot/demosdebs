@@ -1,0 +1,17 @@
+debian/scripts/win32-horizontalcool-by-carillonandcyberlad usr/bin/
+debian/scripts/win32-horizontalcool-by-carillonandcyberlad.conf etc/
+debian/resources/win32-horizontalcool-by-carillonandcyberlad.desktop usr/share/applications/
+debian/resources/win32-horizontalcool-by-carillonandcyberlad.png usr/share/icons/hicolor/32x32/apps/
+./polygon.dll usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./util.dll usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./math.dll usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./motions usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./objects usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./debian/scripts/win32-horizontalcool-by-carillonandcyberlad_userinstall.pol usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./shaders usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./maps usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./music usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./flics usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./surface.dll usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./horizontalcool.exe usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./ 
+./scripts usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/./

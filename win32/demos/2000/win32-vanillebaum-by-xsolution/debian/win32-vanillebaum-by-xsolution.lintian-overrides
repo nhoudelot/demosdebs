@@ -1,0 +1,4 @@
+win32-vanillebaum-by-xsolution binary: unknown-section demos
+win32-vanillebaum-by-xsolution binary: script-not-executable usr/share/win32/apps/win32-vanillebaum-by-xsolution/win32-vanillebaum-by-xsolution_userinstall.pol
+win32-vanillebaum-by-xsolution binary: unknown-section demos
+win32-vanillebaum-by-xsolution binary: unusual-interpreter usr/share/win32/apps/win32-vanillebaum-by-xsolution/win32-vanillebaum-by-xsolution_userinstall.pol #!playonlinux-bash

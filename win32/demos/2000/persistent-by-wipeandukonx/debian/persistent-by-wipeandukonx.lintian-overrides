@@ -1,4 +1,0 @@
-persistent-by-wipeandukonx binary: unknown-section demos
-persistent-by-wipeandukonx binary: script-not-executable usr/share/persistent-by-wipeandukonx/persistent-by-wipeandukonx_userinstall.pol
-persistent-by-wipeandukonx binary: unknown-section demos
-persistent-by-wipeandukonx binary: unusual-interpreter usr/share/persistent-by-wipeandukonx/persistent-by-wipeandukonx_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,4 @@
+win32-nowhere-by-threestate binary: unknown-section demos
+win32-nowhere-by-threestate binary: script-not-executable usr/share/win32/apps/win32-nowhere-by-threestate/win32-nowhere-by-threestate_userinstall.pol
+win32-nowhere-by-threestate binary: unknown-section demos
+win32-nowhere-by-threestate binary: unusual-interpreter usr/share/win32/apps/win32-nowhere-by-threestate/win32-nowhere-by-threestate_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,9 @@
+win32-enlightthesurreal-by-noice for Debian
+------------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio(6.0)
+ * use bass.dll 0.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2021 11:33:15 +0100

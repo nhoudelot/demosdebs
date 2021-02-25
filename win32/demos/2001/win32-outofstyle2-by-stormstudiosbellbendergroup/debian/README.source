@@ -1,0 +1,10 @@
+win32-outofstyle2-by-stormstudiosbellbendergroup for Debian
+----------------------------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio (6.0 SP5) C++
+ * use bass.dll 0.8a
+ * packed with UPX 1.01
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Feb 2021 23:44:19 +0100

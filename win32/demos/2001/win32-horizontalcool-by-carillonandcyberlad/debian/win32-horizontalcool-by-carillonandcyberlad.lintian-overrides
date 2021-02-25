@@ -1,0 +1,4 @@
+win32-horizontalcool-by-carillonandcyberlad binary: unknown-section demos
+win32-horizontalcool-by-carillonandcyberlad binary: script-not-executable usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/win32-horizontalcool-by-carillonandcyberlad_userinstall.pol
+win32-horizontalcool-by-carillonandcyberlad binary: unknown-section demos
+win32-horizontalcool-by-carillonandcyberlad binary: unusual-interpreter usr/share/win32/apps/win32-horizontalcool-by-carillonandcyberlad/win32-horizontalcool-by-carillonandcyberlad_userinstall.pol #!playonlinux-bash

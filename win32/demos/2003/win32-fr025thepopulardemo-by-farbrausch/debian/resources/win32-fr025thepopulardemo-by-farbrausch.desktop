@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=fr-025: the.popular.demo
+GenericName=Demo
+Comment=demo ranked 1st at Breakpoint 2003
+Type=Application
+Exec=/usr/bin/win32-fr025thepopulardemo-by-farbrausch
+Icon=win32-fr025thepopulardemo-by-farbrausch
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=fr-025: the.popular.demo

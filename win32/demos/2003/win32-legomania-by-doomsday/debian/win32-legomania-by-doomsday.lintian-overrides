@@ -1,0 +1,4 @@
+win32-legomania-by-doomsday binary: unknown-section demos
+win32-legomania-by-doomsday binary: script-not-executable usr/share/win32-legomania-by-doomsday/win32/apps/win32-legomania-by-doomsday_userinstall.pol
+win32-legomania-by-doomsday binary: unknown-section demos
+win32-legomania-by-doomsday binary: unusual-interpreter usr/share/win32-legomania-by-doomsday/win32/apps/win32-legomania-by-doomsday_userinstall.pol #!playonlinux-bash

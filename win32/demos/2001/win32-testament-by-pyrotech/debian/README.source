@@ -1,0 +1,8 @@
+win32-testament-by-pyrotech for Debian
+-------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio (2002) C
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Feb 2021 00:01:07 +0100

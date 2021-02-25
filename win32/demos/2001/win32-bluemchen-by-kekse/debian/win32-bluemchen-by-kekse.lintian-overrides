@@ -1,0 +1,4 @@
+win32-bluemchen-by-kekse binary: unknown-section demos
+win32-bluemchen-by-kekse binary: script-not-executable usr/share/win32-bluemchen-by-kekse/win32/apps/win32-bluemchen-by-kekse_userinstall.pol
+win32-bluemchen-by-kekse binary: unknown-section demos
+win32-bluemchen-by-kekse binary: unusual-interpreter usr/share/win32-bluemchen-by-kekse/win32/apps/win32-bluemchen-by-kekse_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,4 @@
+win32-flashback-by-voidman binary: unknown-section demos
+win32-flashback-by-voidman binary: script-not-executable usr/share/win32/apps/win32-flashback-by-voidman/win32-flashback-by-voidman_userinstall.pol
+win32-flashback-by-voidman binary: unknown-section demos
+win32-flashback-by-voidman binary: unusual-interpreter usr/share/win32/apps/win32-flashback-by-voidman/win32-flashback-by-voidman_userinstall.pol #!playonlinux-bash

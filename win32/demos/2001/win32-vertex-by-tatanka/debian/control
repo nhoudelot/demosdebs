@@ -1,0 +1,21 @@
+Source: win32-vertex-by-tatanka
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.tatanka.pl/niespodzianka/english.htm
+
+Package: win32-vertex-by-tatanka
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.69),
+ win32-bassdll08a,
+ ${misc:Depends}
+Description: Win32 Demo released in 2001
+ demo ranked 1st at Addict Anniversary 2001
+ .
+ -windows program launched using PlayOnLinux

@@ -1,4 +1,0 @@
-squish-by-and binary: unknown-section demos
-squish-by-and binary: script-not-executable usr/share/squish-by-and/squish-by-and_userinstall.pol
-squish-by-and binary: unknown-section demos
-squish-by-and binary: unusual-interpreter usr/share/squish-by-and/squish-by-and_userinstall.pol #!playonlinux-bash

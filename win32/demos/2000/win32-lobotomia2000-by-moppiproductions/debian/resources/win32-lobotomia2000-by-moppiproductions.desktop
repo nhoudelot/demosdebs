@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Lobotomia 2000
+GenericName=Demo
+Comment=Lobotomia 2000 - invit demo released in august 2000
+Type=Application
+Exec=/usr/bin/win32-lobotomia2000-by-moppiproductions
+Icon=win32-lobotomia2000-by-moppiproductions
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Lobotomia 2000

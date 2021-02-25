@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=195/95/256
+GenericName=Demo
+Comment=Demo by Rgba,released in 2005
+Type=Application
+Exec=/usr/bin/win32-19595256-by-rgba
+Icon=win32-19595256-by-rgba
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=195/95/256

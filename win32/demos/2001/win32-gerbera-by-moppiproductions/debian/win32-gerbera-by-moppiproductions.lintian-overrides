@@ -1,0 +1,4 @@
+win32-gerbera-by-moppiproductions binary: unknown-section demos
+win32-gerbera-by-moppiproductions binary: script-not-executable usr/share/win32/apps/win32-gerbera-by-moppiproductions/win32-gerbera-by-moppiproductions_userinstall.pol
+win32-gerbera-by-moppiproductions binary: unknown-section demos
+win32-gerbera-by-moppiproductions binary: unusual-interpreter usr/share/win32/apps/win32-gerbera-by-moppiproductions/win32-gerbera-by-moppiproductions_userinstall.pol #!playonlinux-bash

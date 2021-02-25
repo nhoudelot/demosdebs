@@ -1,4 +1,0 @@
-chrome-by-damage binary: unknown-section demos
-chrome-by-damage binary: script-not-executable usr/share/chrome-by-damage/chrome-by-damage_userinstall.pol
-chrome-by-damage binary: unknown-section demos
-chrome-by-damage binary: unusual-interpreter usr/share/chrome-by-damage/chrome-by-damage_userinstall.pol #!playonlinux-bash

@@ -1,4 +1,0 @@
-gerbera-by-moppiproductions binary: unknown-section demos
-gerbera-by-moppiproductions binary: script-not-executable usr/share/gerbera-by-moppiproductions/gerbera-by-moppiproductions_userinstall.pol
-gerbera-by-moppiproductions binary: unknown-section demos
-gerbera-by-moppiproductions binary: unusual-interpreter usr/share/gerbera-by-moppiproductions/gerbera-by-moppiproductions_userinstall.pol #!playonlinux-bash

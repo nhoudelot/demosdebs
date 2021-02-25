@@ -1,0 +1,4 @@
+win32-spackeninspace-by-tntandskyrunner binary: unknown-section demos
+win32-spackeninspace-by-tntandskyrunner binary: script-not-executable usr/share/win32/apps/win32-spackeninspace-by-tntandskyrunner/win32-spackeninspace-by-tntandskyrunner_userinstall.pol
+win32-spackeninspace-by-tntandskyrunner binary: unknown-section demos
+win32-spackeninspace-by-tntandskyrunner binary: unusual-interpreter usr/share/win32/apps/win32-spackeninspace-by-tntandskyrunner/win32-spackeninspace-by-tntandskyrunner_userinstall.pol #!playonlinux-bash

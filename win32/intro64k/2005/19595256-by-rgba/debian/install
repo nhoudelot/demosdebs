@@ -1,6 +1,0 @@
-debian/scripts/19595256-by-rgba usr/bin/
-debian/scripts/19595256-by-rgba.conf etc/
-debian/resources/19595256-by-rgba.desktop usr/share/applications/
-debian/resources/19595256-by-rgba.png usr/share/icons/hicolor/256x256/apps/
-./debian/scripts/19595256-by-rgba_userinstall.pol usr/share/19595256-by-rgba/./ 
-./rgba_195_95_256_win32_pc.exe usr/share/19595256-by-rgba/./ 

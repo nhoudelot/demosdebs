@@ -1,0 +1,6 @@
+debian/scripts/win32-sx7302-by-darkeden usr/bin/
+debian/scripts/win32-sx7302-by-darkeden.conf etc/
+debian/resources/win32-sx7302-by-darkeden.desktop usr/share/applications/
+debian/resources/win32-sx7302-by-darkeden.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/win32-sx7302-by-darkeden_userinstall.pol usr/share/win32/apps/win32-sx7302-by-darkeden/./ 
+./sx7302.exe usr/share/win32/apps/win32-sx7302-by-darkeden/./ 

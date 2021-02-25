@@ -1,0 +1,22 @@
+Source: win32-liquidwen-by-haujobb
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=7130
+
+Package: win32-liquidwen-by-haujobb
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.69),
+ win32-bassdll16a,
+ win32-ijldll112,
+ ${misc:Depends}
+Description: Windows Demo released in 2002
+ demo ranked 1st at Assembly 2002
+ .
+ -windows program launched using PlayOnLinux

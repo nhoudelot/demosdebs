@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=The nonstop Ibiza experience
+GenericName=Demo
+Comment=The nonstop Ibiza experience - Demo ranked 5th at Assembly 2000
+Type=Application
+Exec=/usr/bin/win32-thenonstopibizaexperience-by-orange
+Icon=win32-thenonstopibizaexperience-by-orange
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=The nonstop Ibiza experience

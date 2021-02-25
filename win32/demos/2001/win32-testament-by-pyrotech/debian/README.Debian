@@ -1,0 +1,10 @@
+win32-testament-by-pyrotech for Debian
+-------------------------------
+
+* with system wine 6.0 it give the error
+  (wine:1564450): GStreamer-CRITICAL **: 00:04:16.600: gst_pad_unlink: assertion 'GST_IS_PAD (sinkpad)' failed
+  so we have to use static wine of playonlinux
+* unable also to goes fullscreen or windowed
+  so we have to start in virtual desktop
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Feb 2021 00:01:07 +0100

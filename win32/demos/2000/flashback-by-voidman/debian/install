@@ -1,8 +1,0 @@
-debian/scripts/flashback-by-voidman usr/bin/
-debian/scripts/flashback-by-voidman.conf etc/
-debian/resources/flashback-by-voidman.desktop usr/share/applications/
-debian/resources/flashback-by-voidman.png usr/share/icons/hicolor/32x32/apps/
-./flashback.exe usr/share/flashback-by-voidman/./ 
-./fmod.dll usr/share/flashback-by-voidman/./ 
-./Sound.mp3 usr/share/flashback-by-voidman/./ 
-./debian/scripts/flashback-by-voidman_userinstall.pol usr/share/flashback-by-voidman/./ 

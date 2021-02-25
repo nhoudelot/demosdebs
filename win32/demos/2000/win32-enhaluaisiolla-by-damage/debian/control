@@ -1,0 +1,21 @@
+Source: win32-enhaluaisiolla-by-damage
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=588
+
+Package: win32-enhaluaisiolla-by-damage
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.69),
+ win32-bassdll08a,
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ demo ranked 6th at Assembly 2000
+ .
+ -windows program launched using PlayOnLinux

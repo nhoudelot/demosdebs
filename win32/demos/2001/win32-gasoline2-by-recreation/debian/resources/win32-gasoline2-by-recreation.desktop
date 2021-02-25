@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Gasoline 2
+GenericName=Demo
+Comment=Gasoline 2 - Demo
+Type=Application
+Exec=/usr/bin/win32-gasoline2-by-recreation
+Icon=win32-gasoline2-by-recreation
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Gasoline 2

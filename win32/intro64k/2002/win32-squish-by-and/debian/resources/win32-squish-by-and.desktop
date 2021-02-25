@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Squish
+GenericName=Demo
+Comment=intro ranked 1st at Assembly 2002
+Type=Application
+Exec=/usr/bin/win32-squish-by-and
+Icon=win32-squish-by-and
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Squish

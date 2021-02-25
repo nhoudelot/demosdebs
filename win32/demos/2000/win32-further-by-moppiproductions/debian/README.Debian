@@ -1,0 +1,12 @@
+win32-further-by-moppiproductions for Debian
+-------------------------------------
+
+* with system wine 6.0
+  ALSA lib pulse.c:242:(pulse_connect) PulseAudio: Unable to connect: Erreur du protocole
+  so we have to use static wine of playonlinux
+* unable also to goes fullscreen
+  so we have to start in virtual desktop
+* install vcrun6 to provide MFC42.dll
+* bass.dll impossible to replace
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2021 11:27:42 +0100

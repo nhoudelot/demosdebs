@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Spacken in Space
+GenericName=Demo
+Comment=Spacken in Space - Demo ranked 9th at Dialogs 2000
+Type=Application
+Exec=/usr/bin/win32-spackeninspace-by-tntandskyrunner
+Icon=win32-spackeninspace-by-tntandskyrunner
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Spacken in Space

@@ -1,0 +1,8 @@
+win32-legomania-by-doomsday for Debian
+-------------------------------------
+
+* can't use fmod 3.75 dll because of 
+  Call from 7BC2CEC0 to unimplemented function fmod.dll._FSOUND_Stream_OpenFile@12
+* use ijl 1.1.2 dll, instead of the given one.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Feb 2021 23:51:07 +0100

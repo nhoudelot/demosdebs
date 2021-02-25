@@ -1,0 +1,9 @@
+win32-vertex-by-tatanka for Debian
+---------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio (6.0) C++
+ * use bass.dll 0.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Feb 2021 00:01:07 +0100

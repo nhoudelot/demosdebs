@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=soepkip 9
+GenericName=Demo
+Comment=soepkip 9 - Demo ranked 1st at Fast Demo compo at Takeover 2000
+Type=Application
+Exec=/usr/bin/win32-soepkip9-by-kontvlokkenposse
+Icon=win32-soepkip9-by-kontvlokkenposse
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=soepkip 9

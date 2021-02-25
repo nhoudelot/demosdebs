@@ -1,0 +1,7 @@
+debian/scripts/win32-fairplaytothequeen-by-candela usr/bin/
+debian/resources/win32-fairplaytothequeen-by-candela.desktop usr/share/applications/
+debian/resources/win32-fairplaytothequeen-by-candela.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/win32-fairplaytothequeen-by-candela.conf etc/
+./data usr/share/win32/apps/win32-fairplaytothequeen-by-candela/./
+./queen.exe usr/share/win32/apps/win32-fairplaytothequeen-by-candela/./
+./debian/scripts/win32-fairplaytothequeen-by-candela_userinstall.pol usr/share/win32/apps/win32-fairplaytothequeen-by-candela/./

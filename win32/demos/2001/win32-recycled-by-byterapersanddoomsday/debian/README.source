@@ -1,0 +1,9 @@
+win32-recycled-by-byterapersanddoomsday for Debian
+-------------------------------------------
+
+Executable :
+ * win32
+ * compiled with Watcom C/C++
+ * use bass.dll 1.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Feb 2021 19:12:19 +0100

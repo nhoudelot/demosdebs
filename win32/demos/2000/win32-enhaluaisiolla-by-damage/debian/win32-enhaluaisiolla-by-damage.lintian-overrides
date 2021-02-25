@@ -1,0 +1,4 @@
+win32-enhaluaisiolla-by-damage binary: unknown-section demos
+win32-enhaluaisiolla-by-damage binary: script-not-executable usr/share/win32/apps/win32-enhaluaisiolla-by-damage/win32-enhaluaisiolla-by-damage_userinstall.pol
+win32-enhaluaisiolla-by-damage binary: unknown-section demos
+win32-enhaluaisiolla-by-damage binary: unusual-interpreter usr/share/win32/apps/win32-enhaluaisiolla-by-damage/win32-enhaluaisiolla-by-damage_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=the day the earth was born
+GenericName=Demo
+Comment=the day the earth was born - Demo ranked 2nd at Remedy 2000
+Type=Application
+Exec=/usr/bin/win32-thedaytheearthwasborn-by-theplanetofleathermoomins
+Icon=win32-thedaytheearthwasborn-by-theplanetofleathermoomins
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=the day the earth was born

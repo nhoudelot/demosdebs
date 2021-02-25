@@ -1,0 +1,20 @@
+Source: win32-zoom3-by-and
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=10545
+
+Package: win32-zoom3-by-and
+Architecture: all
+Depends:
+ wine,
+ playonlinux(>=4),
+ common-install-function-ddebs(>=1.69),
+ ${misc:Depends}
+Description: Win32 Intro released in 2003
+ Intro 64k ranked 1st at Assembly 2003
+ .
+ -windows program launched using PlayOnLinux

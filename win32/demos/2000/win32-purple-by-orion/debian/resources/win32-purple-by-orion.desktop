@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Purple
+GenericName=Demo
+Comment=Purple - demo ranked 4th at the Lucky and Tigrou Party 2000
+Type=Application
+Exec=/usr/bin/win32-purple-by-orion
+Icon=win32-purple-by-orion
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Purple

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Demoscene Activist
+GenericName=Demo
+Comment=demo ranked 6th at Breakpoint 2005
+Type=Application
+Exec=/usr/bin/win32-demosceneactivist-by-nuance
+Icon=win32-demosceneactivist-by-nuance
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Demoscene Activist

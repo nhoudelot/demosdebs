@@ -1,0 +1,8 @@
+debian/scripts/win32-liquidwen-by-haujobb usr/bin/
+debian/scripts/win32-liquidwen-by-haujobb.conf etc/
+debian/resources/win32-liquidwen-by-haujobb.desktop usr/share/applications/
+debian/resources/win32-liquidwen-by-haujobb.png usr/share/icons/hicolor/32x32/apps/
+./debian/scripts/win32-liquidwen-by-haujobb_userinstall.pol usr/share/win32/apps/win32-liquidwen-by-haujobb/./ 
+./data usr/share/win32/apps/win32-liquidwen-by-haujobb/./ 
+./liquid.wen usr/share/win32/apps/win32-liquidwen-by-haujobb/./ 
+./liquid.exe usr/share/win32/apps/win32-liquidwen-by-haujobb/./ 

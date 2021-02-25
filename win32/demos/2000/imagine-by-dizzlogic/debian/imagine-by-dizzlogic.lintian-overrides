@@ -1,4 +1,0 @@
-imagine-by-dizzlogic binary: unknown-section demos
-imagine-by-dizzlogic binary: script-not-executable usr/share/imagine-by-dizzlogic/imagine-by-dizzlogic_userinstall.pol
-imagine-by-dizzlogic binary: unknown-section demos
-imagine-by-dizzlogic binary: unusual-interpreter usr/share/imagine-by-dizzlogic/imagine-by-dizzlogic_userinstall.pol #!playonlinux-bash

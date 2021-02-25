@@ -1,7 +1,0 @@
-debian/scripts/cosmowavmusicdisctrailer-by-orion usr/bin/
-debian/scripts/cosmowavmusicdisctrailer-by-orion.conf etc/
-debian/resources/cosmowavmusicdisctrailer-by-orion.desktop usr/share/applications/
-debian/resources/cosmowavmusicdisctrailer-by-orion.png usr/share/icons/hicolor/32x32/apps/
-./CosmoWave.exe usr/share/cosmowavmusicdisctrailer-by-orion/./ 
-./bass.dll usr/share/cosmowavmusicdisctrailer-by-orion/./ 
-./debian/scripts/cosmowavmusicdisctrailer-by-orion_userinstall.pol usr/share/cosmowavmusicdisctrailer-by-orion/./ 

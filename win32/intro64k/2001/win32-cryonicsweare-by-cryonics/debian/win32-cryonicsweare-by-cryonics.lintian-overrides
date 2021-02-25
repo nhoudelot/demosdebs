@@ -1,0 +1,4 @@
+win32-cryonicsweare-by-cryonics binary: unknown-section demos
+win32-cryonicsweare-by-cryonics binary: script-not-executable usr/share/win32/apps/win32-cryonicsweare-by-cryonics/win32-cryonicsweare-by-cryonics_userinstall.pol
+win32-cryonicsweare-by-cryonics binary: unknown-section demos
+win32-cryonicsweare-by-cryonics binary: unusual-interpreter usr/share/win32/apps/win32-cryonicsweare-by-cryonics/win32-cryonicsweare-by-cryonics_userinstall.pol #!playonlinux-bash

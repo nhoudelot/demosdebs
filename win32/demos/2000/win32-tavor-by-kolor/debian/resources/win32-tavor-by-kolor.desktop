@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Tavor
+GenericName=Demo
+Comment=Tavor - Demo ranked 8th by Mekka and Symposium 2000
+Type=Application
+Exec=/usr/bin/win32-tavor-by-kolor
+Icon=win32-tavor-by-kolor
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Tavor

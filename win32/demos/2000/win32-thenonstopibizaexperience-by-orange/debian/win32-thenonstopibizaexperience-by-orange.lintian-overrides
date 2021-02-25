@@ -1,0 +1,4 @@
+win32-thenonstopibizaexperience-by-orange binary: unknown-section demos
+win32-thenonstopibizaexperience-by-orange binary: script-not-executable usr/share/win32/apps/win32-thenonstopibizaexperience-by-orange/win32-thenonstopibizaexperience-by-orange_userinstall.pol
+win32-thenonstopibizaexperience-by-orange binary: unknown-section demos
+win32-thenonstopibizaexperience-by-orange binary: unusual-interpreter usr/share/win32/apps/win32-thenonstopibizaexperience-by-orange/win32-thenonstopibizaexperience-by-orange_userinstall.pol #!playonlinux-bash

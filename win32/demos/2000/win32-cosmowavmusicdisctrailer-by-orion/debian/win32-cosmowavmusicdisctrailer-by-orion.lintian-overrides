@@ -1,0 +1,4 @@
+win32-cosmowavmusicdisctrailer-by-orion binary: unknown-section demos
+win32-cosmowavmusicdisctrailer-by-orion binary: script-not-executable usr/share/win32/apps/win32-cosmowavmusicdisctrailer-by-orion/win32-cosmowavmusicdisctrailer-by-orion_userinstall.pol
+win32-cosmowavmusicdisctrailer-by-orion binary: unknown-section demos
+win32-cosmowavmusicdisctrailer-by-orion binary: unusual-interpreter usr/share/win32/apps/win32-cosmowavmusicdisctrailer-by-orion/win32-cosmowavmusicdisctrailer-by-orion_userinstall.pol #!playonlinux-bash

@@ -1,0 +1,10 @@
+win32-bluemchen-by-kekse for Debian
+----------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio(6.0 SP5)
+ * using DemopajaProject
+ * use bass.dll 0.8a
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Feb 2021 19:12:19 +0100
