@@ -1,0 +1,15 @@
+Source: win32-bassdll10
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://www.un4seen.com/download.php?bass10
+
+Package: win32-bassdll10
+Architecture: all
+Depends:
+ ${misc:Depends}
+Description: Bass.dll v1.0 by Ian Luck, released in 2001
+ Sound Library for win32 app, launched with Wine.

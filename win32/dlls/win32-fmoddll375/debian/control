@@ -1,0 +1,20 @@
+Source: win32-fmoddll375
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10)
+Standards-Version: 4.5.0
+Homepage: https://web.archive.org/web/20051231045410/http://www.fmod.org/
+
+Package: win32-fmoddll375
+Architecture: all
+Depends:
+ ${misc:Depends}
+Description: Programming library for audio playback
+ FMOD is a fast, powerful, and easy to use sound system. It runs on
+ Windows, Linux, Windows CE, and now also on Macintosh, GameCube, PS2,
+ and XBox. FMOD supports 3d sound, midi, mods, mp3, ogg vorbis, wma, aiff,
+ recording, obstruction/occlusion, cd playback (analog or digital), cd ripping,
+ mmx, internet streaming, dsp effects, spectrum analysis, user created samples
+ and streams, synchronization support, ASIO, EAX 2&3, C/C++/VB/Delphi and more.
