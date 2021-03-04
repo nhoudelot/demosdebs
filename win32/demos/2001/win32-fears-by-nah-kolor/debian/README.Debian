@@ -1,7 +1,8 @@
 win32-fears-by-nah-kolor for Debian
-----------------------------
+----------------------------------
 
 * unable also to goes fullscreen or windowed
   so we have to start in virtual desktop
+* executable can't start with %F argument
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Feb 2021 22:37:19 +0100
