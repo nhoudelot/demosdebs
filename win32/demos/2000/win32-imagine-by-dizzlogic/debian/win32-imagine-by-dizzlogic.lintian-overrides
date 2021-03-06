@@ -1,0 +1,4 @@
+win32-imagine-by-dizzlogic binary: unknown-section demos
+win32-imagine-by-dizzlogic binary: script-not-executable usr/share/win32/apps/win32-imagine-by-dizzlogic/win32-imagine-by-dizzlogic_userinstall.pol
+win32-imagine-by-dizzlogic binary: unknown-section demos
+win32-imagine-by-dizzlogic binary: unusual-interpreter usr/share/win32/apps/win32-imagine-by-dizzlogic/win32-imagine-by-dizzlogic_userinstall.pol #!playonlinux-bash

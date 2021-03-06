@@ -1,0 +1,22 @@
+#!/bin/bash -e
+
+domain=win32-imagine-by-dizzlogic
+
+source /usr/share/common-install-function-ddebs/common-install-function
+source /etc/$domain.conf
+
+APP_FULLNAME="imagine"
+APP_COPYRIGHT="Dizzlogic"
+APP_DESC="demo ranked 11 at Dreamhack 2000"
+
+function prerun()
+{
+	sleep 1
+}
+
+function postrun()
+{
+	sleep 1
+}
+
+source /usr/share/common-install-function-ddebs/endscript_wine
