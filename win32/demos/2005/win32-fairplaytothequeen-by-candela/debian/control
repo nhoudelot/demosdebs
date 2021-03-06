@@ -12,7 +12,7 @@ Architecture: all
 Depends:
  win32-fmoddll375,
  ${misc:Depends},
- common-install-function-ddebs(>=1.69),
+ common-install-function-ddebs(>=1.71),
  wine,
  playonlinux(>=4)
 Description: Demo for Windows, released in 2005

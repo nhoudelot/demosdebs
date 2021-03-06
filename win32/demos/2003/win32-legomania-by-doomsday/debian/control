@@ -12,7 +12,7 @@ Architecture: all
 Depends:
  wine,
  playonlinux(>=4),
- common-install-function-ddebs(>=1.69),
+ common-install-function-ddebs(>=1.71),
  win32-ijldll112,
  ${misc:Depends}
 Description: Win32 Demo released in 2003

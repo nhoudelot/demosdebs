@@ -1,3 +1,10 @@
+win32-softworld-by-justforfun (1:1.0+4-0ddebs4) unstable; urgency=medium
+
+  * Update debian/scripts/win32-softworld-by-justforfun to common-
+    install-function-ddebs(>=1.71)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 06 Mar 2021 10:47:11 +0100
+
 win32-softworld-by-justforfun (1:1.0+4-0ddebs3) unstable; urgency=medium
 
   * renamed package

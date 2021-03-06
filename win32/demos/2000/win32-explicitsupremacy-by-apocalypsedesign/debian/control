@@ -12,7 +12,7 @@ Architecture: all
 Depends:
  wine,
  playonlinux(>=4),
- common-install-function-ddebs(>=1.39),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Windows Demo released in 2000
  Demo ranked 15th at Assembly 2000

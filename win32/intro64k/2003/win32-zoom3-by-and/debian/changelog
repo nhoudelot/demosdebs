@@ -1,3 +1,10 @@
+win32-zoom3-by-and (1:1.02+1-0ddebs2) unstable; urgency=medium
+
+  * Update debian/scripts/win32-zoom3-by-and to common-install-function-
+    ddebs(>=1.71)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 06 Mar 2021 10:51:50 +0100
+
 win32-zoom3-by-and (1:1.02+1-0ddebs1) unstable; urgency=medium
 
   * renamed package
