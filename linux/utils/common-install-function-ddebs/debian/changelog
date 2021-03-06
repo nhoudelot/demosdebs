@@ -1,3 +1,62 @@
+common-install-function-ddebs (1.71-0ddebs1) unstable; urgency=medium
+
+  * Renamed all wine function
+  * removed NSH_std_run_wo_arg_WINE and more function wine related
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 04 Mar 2021 23:06:50 +0100
+
+common-install-function-ddebs (1.70-0ddebs1) unstable; urgency=medium
+
+  * added some debug text
+  * NSH_LinkConfig() : bugfix, wrong path of .init file
+  * NSH_std_run_WINE() 
+    * bugfix, need to wait a second after first run
+    * added possibility to optionnal argument
+  * removed NSH_std_run_wo_arg_WINE()
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 04 Mar 2021 11:21:31 +0100
+
+common-install-function-ddebs (1.69-0ddebs1) unstable; urgency=medium
+
+  * Updated NSH_POL_CreatePrefix() to use system wine when version is set to 
+    system
+  * Updated NSH_CURRENT_WINE to system
+    we assume that by default it's always working with the system wine.
+    system wine is always lighter, and works better most of the time
+    also, it's automatically at the latest stable version (if you use PPA)
+  * better value for $polscreenmode 
+    - integrated
+    - integratedfullscreen
+    - virtualdesktop
+  * NSH_POL_SetPrefix() renamed prefix
+    - integ_wine${WINE_RECOMM}${ARCH}generic
+    - vdesk_wine${WINE_RECOMM}${ARCH}generic
+  * NSH_std_run_WINE() 
+      if $polscreenmode=integratedfullscreen
+      then the screen resolution is changed, with correct aspect-ratio on 
+      primary screen, just before starting the app and goes back to a "standard"
+      desktop
+  * $APP_RES has been added as a new configuration variable in .conf files
+    (used in NSH_std_run_WINE())
+  * NSH_SetInstallPath() got new option and updated to be more agnostic
+    - wine to install win32 normal apps
+    - winegame install win32 games has beend modified
+  * updated NSH_prepare_std_first_run_WINE()
+  * added $NSH_LOCALUSERCONFIG to cleanup the mess in config directory
+    so updated a lot of functions
+  * removed patch, that is not usefull anymore
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Feb 2021 10:57:44 +0100
+
+common-install-function-ddebs (1.68-0ddebs1) unstable; urgency=medium
+
+  * Updated NSH_CURRENT_WINE to 6.0
+  * Bugfix NSH_POL_Create_Install_Link() and NSH_POL_Create_HDDInstall_Link()
+  * removed audio fix (didn't fix anything anymore)
+  * removed automatic POL_Wine_X11Drv() and POL_Wine_SetVideoDriver()
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 07 Feb 2021 22:44:06 +0100
+
 common-install-function-ddebs (1.67-0ddebs1) unstable; urgency=medium
 
   * bugfix : create parents local mame dir

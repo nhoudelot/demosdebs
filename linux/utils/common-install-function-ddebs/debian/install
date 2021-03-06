@@ -1,2 +1,2 @@
-./common-install-function usr/share/common-install-function-ddebs/./ 
-
+./common-install-function usr/share/common-install-function-ddebs/./
+./endscript_wine usr/share/common-install-function-ddebs/./

@@ -3,6 +3,6 @@ Upstream-Name: common-install-function-ddebs
 Source: http://example.com/no-uri-given
 
 Files: *
-Copyright: 2014-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2014-2021 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
  /usr/share/common-licenses/GPL-3
