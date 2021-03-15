@@ -2,11 +2,20 @@
 +++ b/build_lin64.sh
 @@ -1,5 +1,5 @@
  #!/bin/bash -x
--QT_PATH=$HOME/Qt/5.12.8/gcc_64
-+#QT_PATH=$HOME/Qt/5.12.8/gcc_64
+-QT_PATH=$HOME/Qt/5.15.2/gcc_64
++#QT_PATH=$HOME/Qt/5.15.2/gcc_64
  RELEASE_VERSION=$(cat "release_version.txt")
  echo $RELEASE_VERSION
  SOURCE_PATH=$PWD
+@@ -11,7 +11,7 @@
+ function makeproject
+ {
+     cd $SOURCE_PATH/$1
+-    
++
+     $QT_PATH/bin/qmake $1.pro -spec linux-g++
+     make -f Makefile clean
+     make -f Makefile
 @@ -19,7 +19,7 @@
      rm -rf Makefile
      rm -rf Makefile.Release
@@ -32,7 +41,7 @@
  TARGET = diec
 --- a/gui_source/gui_source.pro
 +++ b/gui_source/gui_source.pro
-@@ -48,3 +48,8 @@
+@@ -53,3 +53,8 @@
  macx {
      ICON = ../icons/main.icns
  }

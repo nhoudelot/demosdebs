@@ -1,4 +1,3 @@
 01_adapte_build.patch
 02_use_system_libs.patch
 03_change_config_path.patch
-04_fix_spacabstractpath.patch

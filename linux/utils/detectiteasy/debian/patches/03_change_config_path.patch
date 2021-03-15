@@ -20,7 +20,7 @@
                  case ID_SCANENGINE:             varDefault="die";           break;
                  case ID_ROOTPATH:               varDefault="";              break;
                  case ID_DATAPATH:               varDefault="$data/data";    break;
-@@ -183,6 +183,15 @@
+@@ -187,6 +187,15 @@
      return sResult;
  }
  
@@ -36,7 +36,7 @@
  void XOptions::setLastDirectory(QString sValue)
  {
      QFileInfo fi(sValue);
-@@ -297,7 +306,7 @@
+@@ -300,7 +309,7 @@
          pComboBox->addItem("English","");
          pComboBox->addItem("System","System");
  
@@ -45,7 +45,7 @@
  
          int nNumberOfRecords=listFileNames.count();
  
-@@ -322,7 +331,7 @@
+@@ -325,7 +334,7 @@
      {
          pComboBox->addItem("Default","");
  
@@ -54,7 +54,7 @@
  
          int nNumberOfRecords=listFileNames.count();
  
-@@ -515,7 +524,7 @@
+@@ -524,7 +533,7 @@
  #ifdef Q_OS_MAC
      sResult=qApp->applicationDirPath()+"/../Resources";
  #else
@@ -65,7 +65,7 @@
  }
 --- a/XOptions/xoptions.h
 +++ b/XOptions/xoptions.h
-@@ -26,6 +26,7 @@
+@@ -25,6 +25,7 @@
  #include <QDir>
  #include <QSettings>
  #include <QTranslator>
@@ -73,7 +73,7 @@
  #ifdef QT_GUI_LIB
  #include <QWidget>
  #include <QCheckBox>
-@@ -94,6 +95,7 @@
+@@ -95,6 +96,7 @@
      static QString getApplicationQssPath();
      static QList<QString> getAllFilesFromDirectory(QString sDirectory,QString sExtension);
      static QString getApplicationDataPath();
