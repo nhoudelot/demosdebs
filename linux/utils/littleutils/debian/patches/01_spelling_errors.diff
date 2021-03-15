@@ -31,12 +31,12 @@
      fi
 --- a/littleutils/frenum.1
 +++ b/littleutils/frenum.1
-@@ -69,7 +69,7 @@
+@@ -65,7 +65,7 @@
  \&  Julianne             Julianne0004        Juliann4
  \&
  .fi
 -Note that the name is truncated to acommodate the number.
 +Note that the name is truncated to accommodate the number.
  .TP
- \fB\-t\fR, \fB--Trunc[ate]\fR \fInn\fR
+ \fB\-t\fR, \fB\-\-Trunc[ate]\fR \fInn\fR
  Delete from nn or first non-alpha.  If you want to preserve all alphas, you
