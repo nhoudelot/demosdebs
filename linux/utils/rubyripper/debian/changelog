@@ -1,3 +1,9 @@
+rubyripper (0.8.0rc1-0ubuntu1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Mar 2021 23:34:31 +0100
+
 rubyripper (0.7.0rc2+git20180830-0ddebs3) unstable; urgency=medium
 
   * updated debian/watch
