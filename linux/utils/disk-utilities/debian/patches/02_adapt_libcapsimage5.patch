@@ -19,15 +19,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <dlfcn.h>
  
  #ifdef __APPLE__
-@@ -188,7 +193,7 @@
-     memfree(cpss);
-     put_capslib();
-     filename_extension(name, suffix, sizeof(suffix));
--        
-+
-     return NULL;
- }
- 
 --- a/libdisk/Makefile
 +++ b/libdisk/Makefile
 @@ -36,7 +36,7 @@
