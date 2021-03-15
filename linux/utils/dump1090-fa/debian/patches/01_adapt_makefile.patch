@@ -2,7 +2,7 @@
 +++ b/Makefile
 @@ -9,27 +9,29 @@
  LIBS = -lpthread -lm
- SDR_OBJ = sdr.o fifo.o sdr_ifile.o
+ SDR_OBJ = cpu.o sdr.o fifo.o sdr_ifile.o dsp/helpers/tables.o
  
 +PKG_CONFIG:=pkg-config
 +
@@ -35,7 +35,7 @@
    endif
  else
    # pkg-config not available. Only use explicitly enabled libraries.
-@@ -72,6 +74,8 @@
+@@ -92,6 +94,8 @@
  RTLSDR ?= yes
  BLADERF ?= yes
  
@@ -44,7 +44,7 @@
  ifeq ($(RTLSDR), yes)
    SDR_OBJ += sdr_rtlsdr.o
    CPPFLAGS += -DENABLE_RTLSDR
-@@ -87,16 +91,16 @@
+@@ -107,16 +111,16 @@
      # some packaged .pc files are massively broken, try to handle it
  
      # FreeBSD's librtlsdr.pc includes -std=gnu89 in cflags
@@ -65,7 +65,7 @@
      endif
    endif
  endif
-@@ -104,22 +108,22 @@
+@@ -124,22 +128,22 @@
  ifeq ($(BLADERF), yes)
    SDR_OBJ += sdr_bladerf.o
    CPPFLAGS += -DENABLE_BLADERF
@@ -93,4 +93,4 @@
 +  LIBS_SDR += $(shell $(PKG_CONFIG) --libs LimeSuite)
  endif
  
- all: showconfig dump1090 view1090
+ 
