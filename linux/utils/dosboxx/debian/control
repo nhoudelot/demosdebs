@@ -28,6 +28,5 @@ Description: Fork of DOSBox, an x86 emulator with SVGA graphics, sound and DOS
  CMS/Gameblaster, Tandy 3 voice, Adlib, Sound Blaster Pro/16,
  Disney Soundsource and a Gravis Ultrasound. MPU-401 is forwarded to
  the host.
- This fork continues the developement of the original DOSBox, addind a Gui, 
+ This fork continues the development of the original DOSBox, addind a Gui,
  PentiumPro support, Voodoo, and PC-98
-
