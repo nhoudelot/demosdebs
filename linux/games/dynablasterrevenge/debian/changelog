@@ -1,3 +1,9 @@
+dynablasterrevenge (1.0.2+git20210101-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 16 Mar 2021 00:00:32 +0100
+
 dynablasterrevenge (1.0.2+git20200226-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

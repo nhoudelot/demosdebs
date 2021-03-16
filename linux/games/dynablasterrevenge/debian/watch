@@ -5,9 +5,7 @@ version=4
 #debian uupdate
 #
 # when there's not
-opts="uversionmangle=s/.*date=(\d{4})-(\d\d)-(\d\d)T.*/1.0.2+git$1$2$3/, \
-    filenamemangle=s/.*date=(\d{4})-(\d\d)-(\d\d)T.*/1.0.2+git$1$2$3.tar.gz/, \
-    repack,compression=xz" \
-    https://qa.debian.org/cgi-bin/fakeupstream.cgi?upstream=github_commits_package_json/varnholt/dynablaster_revenge \
-    .*/archive/(.*@ARCHIVE_EXT@?.*) \
-    debian uupdate
+opts="mode=git, pgpmode=none, pretty=1.0.2+git%cd, \
+    	 repack,compression=xz" \
+         https://github.com/varnholt/dynablaster_revenge \
+         HEAD debian uupdate
