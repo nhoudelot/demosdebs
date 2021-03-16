@@ -1,3 +1,9 @@
+rawgl (0.2.1+git20200418-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 16 Mar 2021 10:11:40 +0100
+
 rawgl (0.2.1+git20190705-0ddebs4) unstable; urgency=medium
 
   * adapt to cross-compilation

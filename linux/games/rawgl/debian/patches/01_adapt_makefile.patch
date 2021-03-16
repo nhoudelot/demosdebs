@@ -27,7 +27,7 @@
 +bindir = $(exec_prefix)/games
  
  SRCS = aifcplayer.cpp bitmap.cpp file.cpp engine.cpp graphics_gl.cpp graphics_soft.cpp \
- 	script.cpp mixer.cpp pak.cpp resource.cpp resource_mac.cpp resource_nth.cpp \
+ 	script.cpp mixer.cpp pak.cpp resource.cpp resource_nth.cpp \
 @@ -14,10 +27,25 @@
  OBJS = $(SRCS:.cpp=.o)
  DEPS = $(SRCS:.cpp=.d)
