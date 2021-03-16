@@ -6,7 +6,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/GNUmakefile
 +++ b/GNUmakefile
-@@ -901,6 +901,16 @@
+@@ -805,6 +805,16 @@
      editor \
  
  
@@ -23,7 +23,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($(PRETTY_OUTPUT),1)
  .SILENT:
  endif
-@@ -1123,7 +1133,6 @@
+@@ -1006,7 +1016,6 @@
  
  rev: $(engine_obj)/rev.$o
  

@@ -5,7 +5,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/source/build/src/polymost.cpp
 +++ b/source/build/src/polymost.cpp
-@@ -9557,7 +9557,7 @@
+@@ -9723,7 +9723,7 @@
      if (parm->numparms != 1)
      {
          OSD_Printf("Current texturing mode is %s\n", glfiltermodes[gltexfiltermode].name);
@@ -27,7 +27,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      "decoder error, couldn't decode frame",
 --- a/source/duke3d/src/astub.cpp
 +++ b/source/duke3d/src/astub.cpp
-@@ -7697,7 +7697,7 @@
+@@ -7715,7 +7715,7 @@
              }
              else
              {
