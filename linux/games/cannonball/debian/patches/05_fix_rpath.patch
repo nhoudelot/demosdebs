@@ -1,10 +1,10 @@
 --- a/cmake/CMakeLists.txt
 +++ b/cmake/CMakeLists.txt
-@@ -309,6 +309,7 @@
- endif()
+@@ -221,6 +221,7 @@
+ endif(WIN32)
  
  add_executable(cannonball ${SRCS})
 +set_target_properties(cannonball PROPERTIES SKIP_BUILD_RPATH TRUE)
  
- # Copy Configuration file to current build
- 
+ # -----------------------------------------------------------------------------
+ # Compiler Definitions

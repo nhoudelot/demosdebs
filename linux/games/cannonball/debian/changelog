@@ -1,3 +1,9 @@
+cannonball (0.3+git20210315-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 16 Mar 2021 23:07:03 +0100
+
 cannonball (0.3+git20191023-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0
