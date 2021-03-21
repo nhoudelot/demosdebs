@@ -1,3 +1,10 @@
+secretultradry-by-broncs (1:1.0+2-0ddebs2) unstable; urgency=medium
+
+  * Update debian/scripts/secretultradry-by-broncs to common-install-
+    function-ddebs(>=1.71)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Mar 2021 23:21:26 +0100
+
 secretultradry-by-broncs (1:1.0+2-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

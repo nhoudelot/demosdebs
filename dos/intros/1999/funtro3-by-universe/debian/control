@@ -10,7 +10,7 @@ Homepage: https://www.pouet.net/prod.php?which=6618
 Package: funtro3-by-universe
 Architecture: all
 Depends: dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: DOS Intro released in 1999
  intro ranked 3rd at ByteFall 1999

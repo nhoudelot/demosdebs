@@ -10,7 +10,7 @@ Homepage: https://www.pouet.net/prod.php?which=17400
 Package: horison4k-by-nocturnal
 Architecture: all
 Depends: dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: DOS Intro released in 1999
  4k intro ranked 11th at The Gathering 1999

@@ -11,7 +11,7 @@ Package: stars-wondersoftheworld-by-noon
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Demo : Stars: Wonders of the Wolrd by nooon
  Demo ranked 1st at Assembly 1995

@@ -11,7 +11,7 @@ Package: vividexperiment-by-doomsday
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Demo : Vivid Experiment by doomsday
  demo ranked 3rd at Assembly 1996

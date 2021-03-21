@@ -11,8 +11,8 @@ Package: secondreality-by-futurecrew
 Architecture: all
 Depends:
  dosboxx (>=0.83),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends},
- common-install-function-ddebs(>=1.61)
 Description: Demo for MS-DOS released in 1993
  Demo by Future Crew released in 1993
  Ranked 1st at Assembly 1993

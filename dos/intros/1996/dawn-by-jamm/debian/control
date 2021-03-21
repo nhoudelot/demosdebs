@@ -12,7 +12,7 @@ Vcs-Browser: https://git.debian.org/?p=collab-maint/dream-by-jamm.git;a=summary
 Package: dawn-by-jamm
 Architecture: all
 Depends: dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: DOS Intro released in 1996
  Intro ranked 1st at Juhla 1996

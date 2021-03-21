@@ -11,7 +11,7 @@ Package: pureness-by-waterlogic
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Demo : Pureness by Waterlogic
  demo ranked 1st at The Scene 1995

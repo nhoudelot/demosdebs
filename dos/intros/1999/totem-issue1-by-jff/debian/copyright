@@ -27,6 +27,6 @@ License: freeware
  To put it bluntly, don't go ripping off our DOS extender to make your own.
 
 Files: debian/*
-Copyright: 2013-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2013-2021 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  /usr/share/common-licenses/GPL-2

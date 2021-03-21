@@ -1,3 +1,10 @@
+harpers-friend-by-proxima (1:1.0+2-0ddebs3) unstable; urgency=medium
+
+  * Update debian/scripts/harpers-friend-by-proxima to common-install-
+    function-ddebs(>=1.71)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Mar 2021 23:11:29 +0100
+
 harpers-friend-by-proxima (1:1.0+2-0ddebs2) unstable; urgency=medium
 
   * update debian/harpers-friend-by-proxima to use new common-install-

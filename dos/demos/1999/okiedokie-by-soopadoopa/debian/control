@@ -11,7 +11,7 @@ Package: okiedokie-by-soopadoopa
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: DOS Demo released in 1999
  demo ranked 4th at the Gathering 1999

@@ -10,7 +10,7 @@ Homepage: https://www.pouet.net/prod.php?which=1367
 Package: nation0part2-by-jamm
 Architecture: all
 Depends: dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: DOS Intro released in 1996
  Intro Ranked 3rd at Assembly 1996

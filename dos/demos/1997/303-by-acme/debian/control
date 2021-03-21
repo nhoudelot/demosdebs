@@ -11,7 +11,7 @@ Package: 303-by-acme
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Demo : 303 by Acme
  demo ranked 1st at X 1997

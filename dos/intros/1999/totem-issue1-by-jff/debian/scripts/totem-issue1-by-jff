@@ -19,30 +19,4 @@ function postrun()
 	NSH_RemoveTmpDomainDir
 }
 
-if [ "$#" -gt "1" ]; then
-	NSH_std_usage_DOSBOX
-	exit 1
-elif [ "$#" -lt "1" ]; then
-	NSH_RunDOSBOX
-else
-	case "$1" in
-	--help)
-		NSH_std_usage_DOSBOX
-		;;
-	--fullscreen)
-		NSH_RunDOSBOXX -fullscreen
-		;;
-	--debug)
-		NSH_RunDebugDOSBOX
-		;;
-	--version)
-		NSH_version_DOSBOX
-		;;
-	*)
-		NSH_std_usage_DOSBOX
-		exit 1
-		;;
-	esac
-fi
-
-exit 0
+source /usr/share/common-install-function-ddebs/endscript_dos

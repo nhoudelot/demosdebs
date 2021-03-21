@@ -11,7 +11,7 @@ Package: insectjazz-by-damage
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: DOS Demo released in 2000
  Demo ranked 3rd at the Elevator 2000

@@ -11,7 +11,7 @@ Package: entropia-by-exmortis
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs (>=1.61),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Demo : Entropia by Exmortis
  Demo ranked 1st at General Probe 1997

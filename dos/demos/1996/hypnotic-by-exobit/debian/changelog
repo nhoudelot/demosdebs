@@ -1,3 +1,10 @@
+hypnotic-by-exobit (1:1.0+1-0ddebs4) unstable; urgency=medium
+
+  * Update debian/scripts/hypnotic-by-exobit to common-install-function-
+    ddebs(>=1.71)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Mar 2021 20:50:54 +0100
+
 hypnotic-by-exobit (1:1.0+1-0ddebs3) unstable; urgency=medium
 
   * update debian/hypnotic-by-exobit to use new common-install-function-
