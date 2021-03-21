@@ -14,7 +14,7 @@ Depends:
  fs-uae,
  amiga-whdloadharddisk(>=1.10),
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Amiga Demo released in 1999
  AGA intro by Reality Bytes released at Icing 1999

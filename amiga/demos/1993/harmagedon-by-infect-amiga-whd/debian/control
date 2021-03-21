@@ -6,7 +6,7 @@ Build-Depends:
  zip,
  debhelper (>= 10)
 Standards-Version: 4.5.0
-Homepage: <insert the upstream URL, if relevant>
+Homepage: http://www.pouet.net/prod.php?which=12435
 
 Package: harmagedon-by-infect-amiga-whd
 Architecture: all
@@ -14,9 +14,9 @@ Depends:
  fs-uae(>=2.8),
  amiga-kickstartaros,
  amiga-whdloadharddisk(>=1.10),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends},
- common-install-function-ddebs(>=1.61)
-Description: Demo by Infect, released in 1993
+Description: Demo for Amiga, released in 1993
  Demo by Infect, released in 1993
  ranked 5th at The Party 1993
  .

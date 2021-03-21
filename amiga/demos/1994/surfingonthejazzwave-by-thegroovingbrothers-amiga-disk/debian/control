@@ -11,9 +11,9 @@ Package: surfingonthejazzwave-by-thegroovingbrothers-amiga-disk
 Architecture: all
 Depends:
  fs-uae,
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends},
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66)
 Description: Amiga demo released in 1994
  Musicdisk by the grooving brothers,
  released in 1994

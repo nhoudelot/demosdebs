@@ -13,7 +13,7 @@ Architecture: all
 Depends:
  fs-uae,
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Amiga Demo released in 1994
  Released: 1994-04-23 on Saturne Party 2 1994, ranked 9 in the Demo competition

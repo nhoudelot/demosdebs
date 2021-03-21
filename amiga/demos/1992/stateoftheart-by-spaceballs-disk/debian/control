@@ -12,7 +12,7 @@ Architecture: all
 Depends:
  fs-uae(>=2.6),
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Amiga demo released in 1992
  demo released: 1992-12-29 on The Party 1992

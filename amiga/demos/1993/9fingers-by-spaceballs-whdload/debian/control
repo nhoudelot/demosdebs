@@ -14,7 +14,7 @@ Depends:
  fs-uae(>=1.3.16),
  amiga-whdloadharddisk(>=1.10),
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Amiga demo released in 1993
  Amiga trackmo ranked #4 at The Party 1993

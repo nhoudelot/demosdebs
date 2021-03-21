@@ -12,9 +12,9 @@ Package: arte-by-sanity-disk
 Architecture: all
 Depends:
  fs-uae(>=2.6),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends},
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66)
 Description: Amiga demo released in 1993
  demo ranked 3rd at The Party 1993
  .

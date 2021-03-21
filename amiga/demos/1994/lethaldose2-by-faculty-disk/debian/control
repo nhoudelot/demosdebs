@@ -11,9 +11,9 @@ Package: lethaldose2-by-faculty-disk
 Architecture: all
 Depends:
  fs-uae(>=2.6),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends},
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66)
 Description: Amiga demo released in 1994
  demo ranked 1st at The Hammering 1994
  .

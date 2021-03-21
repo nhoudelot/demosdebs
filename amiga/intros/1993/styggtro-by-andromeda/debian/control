@@ -14,7 +14,7 @@ Depends:
  fs-uae(>=2.6),
  amiga-whdloadharddisk,
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Amiga Intro released in 1993
  intro ranked 5th at The Gathering 1993

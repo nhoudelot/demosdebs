@@ -1,3 +1,10 @@
+aurora-by-stellar (1:1.0+4-0ddebs5) unstable; urgency=medium
+
+  * Update debian/scripts/aurora-by-stellar to common-install-function-
+    ddebs(>=1.71)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 20 Mar 2021 14:10:02 +0100
+
 aurora-by-stellar (1:1.0+4-0ddebs4) unstable; urgency=medium
 
   * Update launch script to common-install-function-ddebs(>=1.66)

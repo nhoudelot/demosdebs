@@ -1,13 +1,13 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: harmagedon-by-infect-amiga-whd
-Source: <url://example.com>
+Source: http://www.pouet.net/prod.php?which=12435
 
 Files: *
 Copyright: 1993 Infect
 License: GPL-3.0+
 
 Files: debian/*
-Copyright: 2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2020-2021 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: GPL-3.0+
@@ -26,4 +26,3 @@ License: GPL-3.0+
  .
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
-

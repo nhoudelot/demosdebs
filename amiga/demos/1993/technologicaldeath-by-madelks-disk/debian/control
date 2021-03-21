@@ -12,9 +12,9 @@ Package: technologicaldeath-by-madelks-disk
 Architecture: all
 Depends:
  fs-uae(>=1.3.16),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends},
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66)
 Description: Amiga demo released in 1993
  Amiga demo ranked 1st at  Mountain Congress 1993
  .

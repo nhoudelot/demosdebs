@@ -1,3 +1,10 @@
+salvationmind-by-moment22 (1:1.0+4-0ddebs5) unstable; urgency=medium
+
+  * Update debian/scripts/salvationmind-by-moment22 to common-install-
+    function-ddebs(>=1.71)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Mar 2021 11:57:18 +0100
+
 salvationmind-by-moment22 (1:1.0+4-0ddebs4) unstable; urgency=medium
 
   * Update launch script to common-install-function-ddebs(>=1.66)

@@ -14,7 +14,7 @@ Depends:
  fs-uae(>=2.6),
  amiga-whdloadharddisk(>=1.10),
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Amiga demo released in 1991
  Demo ranked 1s at Anarchy Easter Party 1991

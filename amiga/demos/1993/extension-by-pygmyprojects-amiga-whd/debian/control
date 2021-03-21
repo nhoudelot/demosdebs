@@ -14,7 +14,7 @@ Depends:
  fs-uae(>=2.8),
  amiga-whdloadharddisk(>=1.10),
  amiga-kickstartaros,
- common-install-function-ddebs(>=1.66),
+ common-install-function-ddebs(>=1.71),
  ${misc:Depends}
 Description: Demo for Amiga, released in 1993
  Demo by Pygmy Projects, released in 1993
