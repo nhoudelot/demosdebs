@@ -1,3 +1,9 @@
+amiga-kickstartaros (1:1.0+git20210318-0ddebs1) unstable; urgency=medium
+
+  * upstream update
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Mar 2021 00:46:46 +0100
+
 amiga-kickstartaros (1:1.0+git20200320-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0
