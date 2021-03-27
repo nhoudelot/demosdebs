@@ -10,7 +10,7 @@ Homepage: https://www.pouet.net/prod.php?which=4744
 Package: palikka-by-moottori
 Architecture: all
 Depends: dosboxx (>=0.83),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.72),
  ${misc:Depends}
 Description: DOS Intro released in 1996
  Intro ranked 4th at assembly 1996

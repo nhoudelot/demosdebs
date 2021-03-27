@@ -7,6 +7,8 @@ domain=solex-by-oxygene
 APP_FULLNAME="solex"
 APP_COPYRIGHT="Oxygene"
 APP_DESC="demo released in may 1996"
+APP_EXE="O_SOLEX.EXE"
+APP_SETSOUND="O_SOLEX.EXE"
 
 function prerun()
 {

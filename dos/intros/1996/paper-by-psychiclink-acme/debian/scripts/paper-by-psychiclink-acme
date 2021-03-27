@@ -7,6 +7,8 @@ domain=paper-by-psychiclink-acme
 APP_FULLNAME="Paper"
 APP_COPYRIGHT="Psychic Link & Acme"
 APP_DESC="intro ranked 1st at wired 1996"
+APP_EXE="PAPER.EXE"
+APP_SETSOUND="PAPER.EXE"
 
 function prerun()
 {

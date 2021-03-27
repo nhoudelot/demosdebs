@@ -7,6 +7,8 @@ domain=exine-by-anarchy
 APP_FULLNAME="Exine"
 APP_COPYRIGHT="Anarchy"
 APP_DESC="demo ranked 2nd at volcanic 1996"
+APP_EXE="RUNME.BAT"
+APP_SETSOUND="RUNME.BAT"
 
 function prerun()
 {

@@ -7,6 +7,8 @@ domain=tungsram-by-haujobb
 APP_FULLNAME="tungsram"
 APP_COPYRIGHT="Haujobb"
 APP_DESC="demo ranked 1st by Haujobb"
+APP_EXE="TUNGSRAM.EXE"
+APP_SETSOUND="TUNGSRAM.EXE"
 
 function prerun()
 {

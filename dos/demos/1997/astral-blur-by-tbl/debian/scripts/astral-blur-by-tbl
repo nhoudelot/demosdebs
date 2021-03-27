@@ -7,6 +7,8 @@ domain=astral-blur-by-tbl
 APP_FULLNAME="Astral Blur"
 APP_COPYRIGHT="The Black Lotus"
 APP_DESC="demo ranked 3rd at The Gathering 1997"
+APP_EXE="ASTRAL.EXE"
+APP_SETSOUND="ASTRAL.EXE"
 
 function prerun()
 {

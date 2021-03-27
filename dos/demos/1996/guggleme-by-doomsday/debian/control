@@ -11,7 +11,7 @@ Package: guggleme-by-doomsday
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.72),
  ${misc:Depends}
 Description: Demo : Guggle me ! by doomsday
  Demo ranked 2nd at Skenery 1996

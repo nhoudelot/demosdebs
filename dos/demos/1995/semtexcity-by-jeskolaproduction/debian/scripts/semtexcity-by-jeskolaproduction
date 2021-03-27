@@ -7,6 +7,8 @@ domain=semtexcity-by-jeskolaproduction
 APP_FULLNAME=" Semtex City"
 APP_COPYRIGHT="Jeskola! Productions"
 APP_DESC="demo ranked 1st at Juhla 1995"
+APP_EXE="SEMTEX.EXE"
+APP_SETSOUND="SEMTEX.EXE"
 
 function prerun()
 {

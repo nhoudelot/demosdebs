@@ -7,6 +7,8 @@ domain=muhammad-by-bbagf
 APP_FULLNAME="Muhammad"
 APP_COPYRIGHT="Breakin, Bliss, Abullalah, Grip, Fugue"
 APP_DESC="demo ranked 2nd at Hype 1999"
+APP_EXE="MUHAMMAD.EXE"
+APP_SETSOUND="MUHAMMAD.EXE"
 
 function prerun()
 {

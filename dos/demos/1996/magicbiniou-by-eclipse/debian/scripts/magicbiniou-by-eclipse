@@ -7,6 +7,8 @@ domain=magicbiniou-by-eclipse
 APP_FULLNAME="Magic Biniou"
 APP_COPYRIGHT="Eclipse"
 APP_DESC="demo ranked 1st at volcanic 1996"
+APP_EXE="MAGIC.EXE"
+APP_SETSOUND="MAGIC.EXE"
 
 function prerun()
 {

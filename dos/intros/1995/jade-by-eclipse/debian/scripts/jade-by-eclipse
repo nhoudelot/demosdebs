@@ -7,6 +7,8 @@ domain=jade-by-eclipse
 APP_FULLNAME="Jade"
 APP_COPYRIGHT="Eclipse"
 APP_DESC="ranked 1st at the Volcanic party 1995"
+APP_EXE="JADE.EXE"
+APP_SETSOUND="JADE.EXE"
 
 function prerun()
 {

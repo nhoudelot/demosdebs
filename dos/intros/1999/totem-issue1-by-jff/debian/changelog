@@ -1,3 +1,10 @@
+totem-issue1-by-jff (1:1.0+2-0ddebs4) unstable; urgency=medium
+
+  * Update debian/scripts/totem-issue1-by-jff to common-install-function-
+    ddebs(>=1.72)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Mar 2021 09:30:08 +0100
+
 totem-issue1-by-jff (1:1.0+2-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/totem-issue1-by-jff to common-install-function-

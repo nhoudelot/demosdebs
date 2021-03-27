@@ -7,6 +7,8 @@ domain=bomb-by-dentifrice
 APP_FULLNAME="Second Reality"
 APP_COPYRIGHT="Future Crew"
 APP_DESC="demo by Future Crew released in 1993"
+APP_EXE="DEN-BOMB.EXE"
+APP_SETSOUND="DEN-BOMB.EXE"
 
 function prerun()
 {

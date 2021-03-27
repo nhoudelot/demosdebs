@@ -7,6 +7,8 @@ domain=kayttokuksa-by-taat
 APP_FULLNAME="Käyttökuksa"
 APP_COPYRIGHT="tAAt"
 APP_DESC="demo ranked 4th at Assembly 1999"
+APP_EXE="KUKSA.EXE"
+APP_SETSOUND="KUKSA.EXE"
 
 function prerun()
 {

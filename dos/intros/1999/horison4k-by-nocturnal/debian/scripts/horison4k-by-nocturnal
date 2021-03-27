@@ -7,6 +7,8 @@ domain=horison4k-by-nocturnal
 APP_FULLNAME="horison 4k"
 APP_COPYRIGHT="Nocturnal"
 APP_DESC="4k intro ranked 11th at The Gathering 1999"
+APP_EXE="HORISON.COM"
+APP_SETSOUND="HORISON.COM"
 
 function prerun()
 {

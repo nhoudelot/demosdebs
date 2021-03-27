@@ -10,7 +10,7 @@ Homepage: https://www.pouet.net/prod.php?which=1771
 Package: falco-by-cryogen
 Architecture: all
 Depends: dosboxx (>=0.83),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.72),
  ${misc:Depends}
 Description: DOS Intro released in 2000
  Intro ranked 9th at Mekka & Symposium 2000

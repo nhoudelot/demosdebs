@@ -11,7 +11,7 @@ Package: babylon-by-psychicmonks
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.72),
  ${misc:Depends}
 Description: Demo : Babylon by Psychics Monks
  Demos by psychis monks released at Assembly 1996

@@ -7,6 +7,8 @@ domain=juice-by-psychiclink
 APP_FULLNAME="Juice"
 APP_COPYRIGHT="Psychic Link"
 APP_DESC="demo ranked 2nd at Assembly 1995"
+APP_EXE="JUICE.EXE"
+APP_SETSOUND="JUICE.EXE"
 
 function prerun()
 {

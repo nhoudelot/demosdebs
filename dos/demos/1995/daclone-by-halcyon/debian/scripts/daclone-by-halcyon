@@ -7,6 +7,8 @@ domain=daclone-by-halcyon
 APP_FULLNAME="Da Clone"
 APP_COPYRIGHT="Halcyon"
 APP_DESC="demo released in june 1995"
+APP_EXE="DA_CLONE.EXE"
+APP_SETSOUND="DA_CLONE.EXE"
 
 function prerun()
 {

@@ -7,6 +7,8 @@ domain=pretaporter-by-concept
 APP_FULLNAME="Pret a porter"
 APP_COPYRIGHT="Concept"
 APP_DESC="intro ranked 1st at Fallas Party 2000"
+APP_EXE="pret.exe"
+APP_SETSOUND="pret.exe"
 
 function prerun()
 {

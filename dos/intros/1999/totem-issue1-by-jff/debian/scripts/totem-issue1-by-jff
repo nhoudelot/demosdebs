@@ -7,6 +7,8 @@ domain=totem-issue1-by-jff
 APP_FULLNAME="TOTEM issue #1"
 APP_COPYRIGHT="Just For Fun"
 APP_DESC="this is the first and last issue of Totem"
+APP_EXE="TOTEM.EXE"
+APP_SETSOUND="TOTEM.EXE"
 
 function prerun()
 {

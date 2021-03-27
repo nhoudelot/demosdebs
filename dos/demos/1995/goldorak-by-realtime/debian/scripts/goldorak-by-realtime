@@ -7,6 +7,8 @@ domain=goldorak-by-realtime
 APP_FULLNAME="Goldorak"
 APP_COPYRIGHT="Realtime"
 APP_DESC="demo ranked 1st at somewhere in holland 1995"
+APP_EXE="GOLDORAK.EXE"
+APP_SETSOUND="GOLDORAK.EXE"
 
 function prerun()
 {

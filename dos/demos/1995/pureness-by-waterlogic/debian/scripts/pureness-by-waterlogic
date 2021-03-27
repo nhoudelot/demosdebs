@@ -7,6 +7,8 @@ domain=pureness-by-waterlogic
 APP_FULLNAME="Pureness"
 APP_COPYRIGHT="Waterlogic"
 APP_DESC="demo ranked 1st at The Scene 1995"
+APP_EXE="PURENESS.EXE"
+APP_SETSOUND="PURENESS.EXE"
 
 function prerun()
 {

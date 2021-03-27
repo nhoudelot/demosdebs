@@ -7,6 +7,8 @@ domain=stars-wondersoftheworld-by-noon
 APP_FULLNAME="Stars: Wonders of the World"
 APP_COPYRIGHT="noon"
 APP_DESC="demo ranked 1st at Assembly 1995"
+APP_EXE="STARS.EXE"
+APP_SETSOUND="STARS.EXE"
 
 function prerun()
 {

@@ -7,6 +7,8 @@ domain=codliveroild-by-damones
 APP_FULLNAME="Cod Liver Oil"
 APP_COPYRIGHT="Damones"
 APP_DESC="demo ranked 2nd at Assembly 1999"
+APP_EXE="KUHA.EXE"
+APP_SETSOUND="KUHA.EXE"
 
 function prerun()
 {

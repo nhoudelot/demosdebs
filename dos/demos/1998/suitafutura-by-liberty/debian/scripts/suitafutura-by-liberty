@@ -7,6 +7,8 @@ domain=suitafutura-by-liberty
 APP_FULLNAME="Suita Futura"
 APP_COPYRIGHT="Liberty"
 APP_DESC="demo ranked 2nd at Gravity 1998"
+APP_EXE="SUITA.EXE"
+APP_SETSOUND="SUITA.EXE"
 
 function prerun()
 {

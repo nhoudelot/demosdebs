@@ -7,6 +7,8 @@ domain=robotnik-by-rage
 APP_FULLNAME="Robotnik"
 APP_COPYRIGHT="Rage"
 APP_DESC="demo ranked 2nd at The Gathering 1997"
+APP_EXE="ROBOTNIK.EXE"
+APP_SETSOUND="ROBOTNIK.EXE"
 
 function prerun()
 {

@@ -11,7 +11,7 @@ Package: vip-by-popsyteam
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.72),
  ${misc:Depends}
 Description: DOS Demo released in 1999
  Invit demo ranked 2nd at the Arf!Party 1999

@@ -7,6 +7,8 @@ domain=explicit-by-hornet-otm
 APP_FULLNAME="Explicit"
 APP_COPYRIGHT="Hornet & OTM"
 APP_DESC="demo Ranked 3rd at NAID 1996"
+APP_EXE="EXPLICIT.EXE"
+APP_SETSOUND="EXPLICIT.EXE"
 
 function prerun()
 {

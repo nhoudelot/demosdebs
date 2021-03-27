@@ -7,6 +7,8 @@ domain=dawn-by-jamm
 APP_FULLNAME="Dawn"
 APP_COPYRIGHT="jamm"
 APP_DESC="intro 64k ranked 1st at Juhla 1996"
+APP_EXE="DAWN.EXE"
+APP_SETSOUND="DAWN.EXE"
 
 function prerun()
 {

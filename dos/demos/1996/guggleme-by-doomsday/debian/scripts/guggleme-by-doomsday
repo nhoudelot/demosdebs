@@ -7,6 +7,8 @@ domain=guggleme-by-doomsday
 APP_FULLNAME="Guggle me !"
 APP_COPYRIGHT="doomsday"
 APP_DESC="demo ranked 2nd at Skenery 1996"
+APP_EXE="GUGGLEME.EXE"
+APP_SETSOUND="GUGGLEME.EXE"
 
 function prerun()
 {

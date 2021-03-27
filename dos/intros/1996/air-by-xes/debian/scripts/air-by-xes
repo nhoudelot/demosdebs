@@ -7,6 +7,8 @@ domain=air-by-xes
 APP_FULLNAME="Air"
 APP_COPYRIGHT="Xes"
 APP_DESC="intro 64k ranked 3rd at Abduction 1996"
+APP_EXE="AIR.EXE"
+APP_SETSOUND="AIR.EXE"
 
 function prerun()
 {

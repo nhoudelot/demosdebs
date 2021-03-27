@@ -11,7 +11,7 @@ Package: astral-blur-by-tbl
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.72),
  ${misc:Depends}
 Description: Demo : Astral Blur by The Black Lotus
  Demo ranked 3rd at The Gathering 1997

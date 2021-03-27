@@ -7,6 +7,8 @@ domain=palikka-by-moottori
 APP_FULLNAME="Palikka"
 APP_COPYRIGHT="Moottori"
 APP_DESC="intro ranked 4th at assembly 1996"
+APP_EXE="TEXTDEMO.EXE"
+APP_SETSOUND="TEXTDEMO.EXE"
 
 function prerun()
 {

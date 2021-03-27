@@ -7,6 +7,8 @@ domain=iz-us-by-replay
 APP_FULLNAME="IZ-US"
 APP_COPYRIGHT="replay"
 APP_DESC="demo ranked 5th at Hype 1999"
+APP_EXE="IZ-US.EXE"
+APP_SETSOUND="IZ-US.EXE"
 
 function prerun()
 {

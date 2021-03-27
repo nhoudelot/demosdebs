@@ -11,7 +11,7 @@ Package: acme-syw-by-acme
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.72),
  ${misc:Depends}
 Description: DOS Intro released in 1995
  Intro 64k ranked 1st at Somewhere in Holland 1995

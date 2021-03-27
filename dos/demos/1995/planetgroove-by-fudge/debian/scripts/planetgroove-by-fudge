@@ -7,6 +7,8 @@ domain=planetgroove-by-fudge
 APP_FULLNAME="planet groove"
 APP_COPYRIGHT="fudge"
 APP_DESC="demo Ranked 20th at The Party 1995"
+APP_EXE="GROOVE.EXE"
+APP_SETSOUND="GROOVE.EXE"
 
 function prerun()
 {

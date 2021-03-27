@@ -7,6 +7,8 @@ domain=lemuseum-by-jff
 APP_FULLNAME="Le Museum"
 APP_COPYRIGHT="Just For Fun"
 APP_DESC="intro released at Slach Party 2001"
+APP_EXE="JFF-MUSE.EXE"
+APP_SETSOUND="JFF-MUSE.EXE"
 
 function prerun()
 {

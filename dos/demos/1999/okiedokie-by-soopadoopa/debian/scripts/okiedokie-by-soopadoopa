@@ -7,6 +7,8 @@ domain=okiedokie-by-soopadoopa
 APP_FULLNAME="okiedokie"
 APP_COPYRIGHT="soopadoopa"
 APP_DESC="demo ranked 4th at the Gathering 1999"
+APP_EXE="DEMO.EXE"
+APP_SETSOUND="DEMO.EXE"
 
 function prerun()
 {

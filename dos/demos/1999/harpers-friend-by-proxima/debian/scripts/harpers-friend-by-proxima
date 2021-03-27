@@ -7,6 +7,8 @@ domain=harpers-friend-by-proxima
 APP_FULLNAME="Harper's Friend"
 APP_COPYRIGHT="Proxima"
 APP_DESC="demo ranked 10th at the Gathering 1999"
+APP_EXE="DEMO.EXE"
+APP_SETSOUND="DEMO.EXE"
 
 function prerun()
 {

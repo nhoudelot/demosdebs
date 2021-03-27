@@ -7,6 +7,8 @@ domain=juhlaivb-invitation-by-doomsday-byterapers
 APP_FULLNAME="Juhla IVb Invitation"
 APP_COPYRIGHT="doomsday & Byterapers"
 APP_DESC="intro invitation to Juhla 1997"
+APP_EXE="juhla.exe"
+APP_SETSOUND="juhla.exe"
 
 function prerun()
 {

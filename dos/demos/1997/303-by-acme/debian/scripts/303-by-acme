@@ -7,6 +7,8 @@ domain=303-by-acme
 APP_FULLNAME="303"
 APP_COPYRIGHT="Acme"
 APP_DESC="demo ranked 1st at X 1997"
+APP_EXE="303.EXE"
+APP_SETSOUND="303.EXE"
 
 function prerun()
 {

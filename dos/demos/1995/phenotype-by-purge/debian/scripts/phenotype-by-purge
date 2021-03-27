@@ -7,6 +7,8 @@ domain=phenotype-by-purge
 APP_FULLNAME="Phenotype"
 APP_COPYRIGHT="purge"
 APP_DESC="demo ranked 3rd at Wired 1995"
+APP_EXE="PHENOTYP.EXE"
+APP_SETSOUND="PHENOTYP.EXE"
 
 function prerun()
 {

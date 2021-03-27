@@ -1,3 +1,10 @@
+juhlaivb-invitation-by-doomsday-byterapers (1:1.0+2-0ddebs4) unstable; urgency=medium
+
+  * Update debian/scripts/juhlaivb-invitation-by-doomsday-byterapers to
+    common-install-function-ddebs(>=1.72)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 26 Mar 2021 22:52:16 +0100
+
 juhlaivb-invitation-by-doomsday-byterapers (1:1.0+2-0ddebs3) unstable; urgency=medium
 
   * Update debian/scripts/juhlaivb-invitation-by-doomsday-byterapers to

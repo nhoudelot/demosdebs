@@ -7,6 +7,8 @@ domain=acme-syw-by-acme
 APP_FULLNAME="ACME Smoke Yellow Weed"
 APP_COPYRIGHT="Acme"
 APP_DESC="intro 64k ranked 1st at Somewhere in Holland 1995"
+APP_EXE="ACME-SYW.EXE"
+APP_SETSOUND="ACME-SYW.EXE"
 
 function prerun()
 {

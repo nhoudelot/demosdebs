@@ -7,6 +7,8 @@ domain=funtro3-by-universe
 APP_FULLNAME="Funtro-3"
 APP_COPYRIGHT="UniVerse"
 APP_DESC="intro ranked 3rd at ByteFall 1999"
+APP_EXE="FUNTRO3!.EXE"
+APP_SETSOUND="FUNTRO3!.EXE"
 
 function prerun()
 {

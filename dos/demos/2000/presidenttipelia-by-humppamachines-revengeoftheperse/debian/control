@@ -11,7 +11,7 @@ Package: presidenttipelia-by-humppamachines-revengeoftheperse
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.72),
  ${misc:Depends}
 Description: DOS Demo released in 2000
  demo ranked 9th at Elevator 2000

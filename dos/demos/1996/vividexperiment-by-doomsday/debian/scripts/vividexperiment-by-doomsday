@@ -7,6 +7,8 @@ domain=vividexperiment-by-doomsday
 APP_FULLNAME="Vivid Experiment"
 APP_COPYRIGHT="doomsday"
 APP_DESC="demo ranked 3rd at Assembly 1996"
+APP_EXE="VIVID.EXE"
+APP_SETSOUND="VIVID.EXE"
 
 function prerun()
 {

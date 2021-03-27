@@ -7,6 +7,8 @@ domain=machineofmadness-by-dublus
 APP_FULLNAME="Machine of Madness"
 APP_COPYRIGHT="dublus"
 APP_DESC="demo ranked 1st at Assembly 1996"
+APP_EXE="MACHINES.EXE"
+APP_SETSOUND="MACHINES.EXE"
 
 function prerun()
 {

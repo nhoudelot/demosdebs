@@ -7,6 +7,8 @@ domain=theufoproject-by-orangenoon
 APP_FULLNAME="The UFO Project"
 APP_COPYRIGHT="orange and noon"
 APP_DESC="intro 64k released in december 1995"
+APP_EXE="UFO.EXE"
+APP_SETSOUND="UFO.EXE"
 
 function prerun()
 {

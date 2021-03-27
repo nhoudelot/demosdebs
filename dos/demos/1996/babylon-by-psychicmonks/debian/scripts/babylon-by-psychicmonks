@@ -7,6 +7,8 @@ domain=babylon-by-psychicmonks
 APP_FULLNAME="Babylon"
 APP_COPYRIGHT="Psychics Monks"
 APP_DESC="demo by psychis monks released at Assembly 1996"
+APP_EXE="BABYLON.EXE"
+APP_SETSOUND="BABYLON.EXE"
 
 function prerun()
 {

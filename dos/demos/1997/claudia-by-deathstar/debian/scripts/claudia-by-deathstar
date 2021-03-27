@@ -7,6 +7,8 @@ domain=claudia-by-deathstar
 APP_FULLNAME="Claudia"
 APP_COPYRIGHT="Deathstar"
 APP_DESC="demo ranked 1st at Mekka & Symposium 1997"
+APP_EXE="CLAUDIA.EXE"
+APP_SETSOUND="CLAUDIA.EXE"
 
 function prerun()
 {

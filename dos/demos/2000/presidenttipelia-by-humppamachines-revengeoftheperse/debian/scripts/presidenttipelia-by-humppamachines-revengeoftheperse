@@ -7,6 +7,8 @@ domain=presidenttipelia-by-humppamachines-revengeoftheperse
 APP_FULLNAME="presidenttipeliä"
 APP_COPYRIGHT="Humppamachines & Revenge the Perse"
 APP_DESC="demo ranked 9th at Elevator 2000"
+APP_EXE="PRESIDEN.EXE"
+APP_SETSOUND="PRESIDEN.EXE"
 
 function prerun()
 {

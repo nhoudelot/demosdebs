@@ -7,6 +7,8 @@ domain=atlantis-by-mooze
 APP_FULLNAME="Atlantis"
 APP_COPYRIGHT="Mooze"
 APP_DESC="a mooze contribution to assembly 1996 democompo"
+APP_EXE="ATLANTIS.EXE"
+APP_SETSOUND="ATLANTIS.EXE"
 
 function prerun()
 {

@@ -7,6 +7,8 @@ domain=iwgiwrm-by-dentifrice
 APP_FULLNAME="If I was a Girl, I would rape myself"
 APP_COPYRIGHT="dentifrice"
 APP_DESC="intro released at Saturne Party 1996"
+APP_EXE="DEN-GIRL.EXE"
+APP_SETSOUND="DEN-GIRL.EXE"
 
 function prerun()
 {

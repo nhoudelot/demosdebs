@@ -7,6 +7,8 @@ domain=brama-by-norferin
 APP_FULLNAME="Brama"
 APP_COPYRIGHT="Norferin"
 APP_DESC="demo ranked 3rd at Analogue 1999"
+APP_EXE="NFNBRAMA.EXE"
+APP_SETSOUND="NFNBRAMA.EXE"
 
 function prerun()
 {

@@ -7,6 +7,8 @@ domain=solstice-by-valhalla
 APP_FULLNAME="Solstice"
 APP_COPYRIGHT="Valhalla"
 APP_DESC="demo ranked 1st at Wired 1995"
+APP_EXE="SOLSTICE.EXE"
+APP_SETSOUND="SOLSTICE.EXE"
 
 function prerun()
 {

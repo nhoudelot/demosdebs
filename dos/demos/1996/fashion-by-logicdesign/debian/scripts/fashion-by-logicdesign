@@ -7,6 +7,8 @@ domain=fashion-by-logicdesign
 APP_FULLNAME="Fashion"
 APP_COPYRIGHT="Logic Design"
 APP_DESC="demo ranked 1st at X 1996"
+APP_EXE="FASHION.EXE"
+APP_SETSOUND="FASHION.EXE"
 
 function prerun()
 {

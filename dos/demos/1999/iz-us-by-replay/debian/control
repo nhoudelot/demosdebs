@@ -11,7 +11,7 @@ Package: iz-us-by-replay
 Architecture: all
 Depends:
  dosboxx (>=0.83),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.72),
  ${misc:Depends}
 Description: DOS Demo released in 1999
  demo ranked 5th at Hype 1999

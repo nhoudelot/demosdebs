@@ -7,6 +7,8 @@ domain=darkhour-by-sistavipcorporation
 APP_FULLNAME="Dark Hour"
 APP_COPYRIGHT="Sista Vip Corporation"
 APP_DESC="demo ranked 21st at Mekka & Symposium 2000"
+APP_EXE="DOSDARK.EXE"
+APP_SETSOUND="DOSDARK.EXE"
 
 function prerun()
 {

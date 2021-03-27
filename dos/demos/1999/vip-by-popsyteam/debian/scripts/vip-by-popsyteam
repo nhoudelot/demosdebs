@@ -7,6 +7,8 @@ domain=vip-by-popsyteam
 APP_FULLNAME="VIP 1"
 APP_COPYRIGHT="Popsy Team"
 APP_DESC="invit demo ranked 2nd at the Arf!Party 1999"
+APP_EXE="VIP.EXE"
+APP_SETSOUND="VIP.EXE"
 
 function prerun()
 {

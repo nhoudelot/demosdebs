@@ -7,6 +7,8 @@ domain=kannykkamafia-by-revengetheperse
 APP_FULLNAME="kännykkä mafia"
 APP_COPYRIGHT="Revenge the Perse"
 APP_DESC="demo ranked 10th at Elevator 2000"
+APP_EXE="MAFIA.EXE"
+APP_SETSOUND="MAFIA.EXE"
 
 function prerun()
 {

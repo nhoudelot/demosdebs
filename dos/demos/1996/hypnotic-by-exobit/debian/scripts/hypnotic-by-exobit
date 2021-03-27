@@ -7,6 +7,8 @@ domain=hypnotic-by-exobit
 APP_FULLNAME="Hypnotic"
 APP_COPYRIGHT="Exobit"
 APP_DESC="demo ranked 2nd at Euskal 1996"
+APP_EXE="HYPNOTIC.EXE"
+APP_SETSOUND="HYPNOTIC.EXE"
 
 function prerun()
 {

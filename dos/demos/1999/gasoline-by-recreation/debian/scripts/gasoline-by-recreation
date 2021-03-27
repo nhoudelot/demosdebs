@@ -7,6 +7,8 @@ domain=gasoline-by-recreation
 APP_FULLNAME="gasoline"
 APP_COPYRIGHT="Recreation"
 APP_DESC="demo ranked 1st at Assembly 1999"
+APP_EXE="GASOLINE.EXE"
+APP_SETSOUND="GASOLINE.EXE"
 
 function prerun()
 {

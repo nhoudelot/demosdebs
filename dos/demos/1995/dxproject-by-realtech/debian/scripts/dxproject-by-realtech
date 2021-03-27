@@ -7,6 +7,8 @@ domain=dxproject-by-realtech
 APP_FULLNAME="DX Project"
 APP_COPYRIGHT="realtech"
 APP_DESC="demo ranked 3rd at Assembly 1995"
+APP_EXE="DX.EXE"
+APP_SETSOUND="DX.EXE"
 
 function prerun()
 {

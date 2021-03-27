@@ -7,6 +7,8 @@ domain=just-by-legenddesign
 APP_FULLNAME="Just"
 APP_COPYRIGHT="legend design"
 APP_DESC="demo ranked 2nd at Wired 1995"
+APP_EXE="JUST.EXE"
+APP_SETSOUND="JUST.EXE"
 
 function prerun()
 {
