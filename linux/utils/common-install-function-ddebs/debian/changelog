@@ -1,7 +1,22 @@
+common-install-function-ddebs (1.73-0ddebs1) unstable; urgency=medium
+
+  * add scummvm endscript
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 29 Mar 2021 21:35:59 +0200
+
+common-install-function-ddebs (1.72-0ddebs1) unstable; urgency=medium
+
+  * endscript_dos : added $APP_SETSOUND and $APP_EXE
+  * endscript_dos : use NSH_RunAnyDOSBOX instead of NSH_RunDOSBOX
+  * removed NSH_RunDOSBOX()
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 24 Mar 2021 10:46:31 +0100
+
 common-install-function-ddebs (1.71-0ddebs1) unstable; urgency=medium
 
   * Renamed all wine function
   * removed NSH_std_run_wo_arg_WINE and more function wine related
+  * created endscript fonctions to avoid bad copy/paste
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 04 Mar 2021 23:06:50 +0100
 
