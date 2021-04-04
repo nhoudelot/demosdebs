@@ -1,3 +1,10 @@
+odyssey-by-alcatraz (1:1.1+5-0ddebs6) unstable; urgency=medium
+
+  * debian/odyssey-by-alcatraz.lintian-overrides : overrides broken-zip
+    warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Apr 2021 16:14:49 +0200
+
 odyssey-by-alcatraz (1:1.1+5-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/odyssey-by-alcatraz to common-install-function-

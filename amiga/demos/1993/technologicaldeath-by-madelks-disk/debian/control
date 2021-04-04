@@ -3,8 +3,7 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
- zip
+ debhelper (>= 10)
 Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=2955
 

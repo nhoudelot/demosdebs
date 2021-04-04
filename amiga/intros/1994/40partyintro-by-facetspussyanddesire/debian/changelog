@@ -1,3 +1,10 @@
+40partyintro-by-facetspussyanddesire (1:1.0+5-0ddebs7) unstable; urgency=medium
+
+  * debian/40partyintro-by-facetspussyanddesire.lintian-overrides :
+    overrides broken-zip warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Apr 2021 01:39:43 +0200
+
 40partyintro-by-facetspussyanddesire (1:1.0+5-0ddebs6) unstable; urgency=medium
 
   * Update debian/scripts/40partyintro-by-facetspussyanddesire to common-

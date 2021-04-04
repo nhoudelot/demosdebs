@@ -1,3 +1,10 @@
+bigtimesensuality-by-axis-whdload (1.4+7-0ddebs6) unstable; urgency=medium
+
+  * debian/bigtimesensuality-by-axis-whdload.lintian-overrides :
+    overrides broken-zip warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Apr 2021 16:55:10 +0200
+
 bigtimesensuality-by-axis-whdload (1.4+7-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/bigtimesensuality-by-axis-whdload to common-

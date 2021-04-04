@@ -1,3 +1,10 @@
+extension-by-pygmyprojects-amiga-whd (1.0+1-0ddebs6) unstable; urgency=medium
+
+  * debian/extension-by-pygmyprojects-amiga-whd.lintian-overrides :
+    overrides broken-zip warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Apr 2021 00:34:50 +0200
+
 extension-by-pygmyprojects-amiga-whd (1.0+1-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/extension-by-pygmyprojects-amiga-whd to common-

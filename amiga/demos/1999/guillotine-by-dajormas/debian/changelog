@@ -1,3 +1,10 @@
+guillotine-by-dajormas (1:1.0+3-0ddebs5) unstable; urgency=medium
+
+  * debian/guillotine-by-dajormas.lintian-overrides : overrides broken-
+    zip warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Apr 2021 23:42:36 +0200
+
 guillotine-by-dajormas (1:1.0+3-0ddebs4) unstable; urgency=medium
 
   * Update launch script to common-install-function-ddebs(>=1.66)

@@ -1,3 +1,10 @@
+adn-by-oxygene (1:1.0+4-0ddebs6) unstable; urgency=medium
+
+  * debian/adn-by-oxygene.lintian-overrides : overrides broken-zip
+    warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Apr 2021 00:10:45 +0200
+
 adn-by-oxygene (1:1.0+4-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/adn-by-oxygene to common-install-function-

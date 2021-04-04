@@ -1,3 +1,10 @@
+outofspice-by-kinkyproductions (1:1.0+4-0ddebs6) unstable; urgency=medium
+
+  * debian/outofspice-by-kinkyproductions.lintian-overrides : overrides
+    broken-zip warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Apr 2021 17:30:26 +0200
+
 outofspice-by-kinkyproductions (1:1.0+4-0ddebs5) unstable; urgency=medium
 
   * Update launch script to common-install-function-ddebs(>=1.66)

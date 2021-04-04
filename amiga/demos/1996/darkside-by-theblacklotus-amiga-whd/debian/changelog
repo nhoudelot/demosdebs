@@ -1,3 +1,10 @@
+darkside-by-theblacklotus-amiga-whd (1:1.0+4-0ddebs7) unstable; urgency=medium
+
+  * debian/darkside-by-theblacklotus-amiga-whd.lintian-overrides :
+    overrides broken-zip warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Apr 2021 17:27:22 +0200
+
 darkside-by-theblacklotus-amiga-whd (1:1.0+4-0ddebs6) unstable; urgency=medium
 
   * Update debian/scripts/darkside-by-theblacklotus-amiga-whd to common-

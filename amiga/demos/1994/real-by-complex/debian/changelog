@@ -1,3 +1,10 @@
+real-by-complex (1:1.0+3-0ddebs6) unstable; urgency=medium
+
+  * debian/real-by-complex.lintian-overrides : overrides broken-zip
+    warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Apr 2021 00:12:44 +0200
+
 real-by-complex (1:1.0+3-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/real-by-complex to common-install-function-

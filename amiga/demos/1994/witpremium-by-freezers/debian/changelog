@@ -1,3 +1,10 @@
+witpremium-by-freezers (1:1.0+3-0ddebs6) unstable; urgency=medium
+
+  * debian/witpremium-by-freezers.lintian-overrides : overrides broken-
+    zip warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Apr 2021 00:15:37 +0200
+
 witpremium-by-freezers (1:1.0+3-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/witpremium-by-freezers to common-install-

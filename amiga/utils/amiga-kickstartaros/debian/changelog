@@ -1,4 +1,4 @@
-amiga-kickstartaros (1:1.0+git20210318-0ddebs2~ubuntu20.04) focal; urgency=medium
+amiga-kickstartaros (1:1.0+git20210318-0ddebs2) unstable; urgency=medium
 
   * removed amiga-kickstartaros.lintian-overrides
 

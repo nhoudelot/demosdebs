@@ -1,3 +1,10 @@
+nexus7-by-andromeda (1:1.0+3-0ddebs6) unstable; urgency=medium
+
+  * debian/nexus7-by-andromeda.lintian-overrides : overrides broken-zip
+    warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Apr 2021 00:11:45 +0200
+
 nexus7-by-andromeda (1:1.0+3-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/nexus7-by-andromeda to common-install-function-

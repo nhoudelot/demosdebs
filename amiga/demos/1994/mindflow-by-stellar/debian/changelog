@@ -1,3 +1,10 @@
+mindflow-by-stellar (1:1.0+3-0ddebs6) unstable; urgency=medium
+
+  * debian/mindflow-by-stellar.lintian-overrides : overrides broken-zip
+    warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Apr 2021 16:50:57 +0200
+
 mindflow-by-stellar (1:1.0+3-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/mindflow-by-stellar to common-install-function-

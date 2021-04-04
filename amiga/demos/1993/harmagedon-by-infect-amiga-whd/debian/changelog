@@ -1,3 +1,10 @@
+harmagedon-by-infect-amiga-whd (1.0-0ddebs3) unstable; urgency=medium
+
+  * debian/harmagedon-by-infect-amiga-whd.lintian-overrides : overrides
+    broken-zip warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 04 Apr 2021 16:27:58 +0200
+
 harmagedon-by-infect-amiga-whd (1.0-0ddebs2) unstable; urgency=medium
 
   * Update debian/scripts/harmagedon-by-infect-amiga-whd to common-

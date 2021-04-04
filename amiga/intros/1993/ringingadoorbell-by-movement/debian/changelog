@@ -1,3 +1,10 @@
+ringingadoorbell-by-movement (1:1.0+7-0ddebs6) unstable; urgency=medium
+
+  * debian/ringingadoorbell-by-movement.lintian-overrides : overrides
+    broken-zip warning
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Apr 2021 01:25:01 +0200
+
 ringingadoorbell-by-movement (1:1.0+7-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/ringingadoorbell-by-movement to common-install-
