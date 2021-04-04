@@ -1,3 +1,9 @@
+nedplayer (3.11.97-0ddebs2) unstable; urgency=medium
+
+  * adapt to cross-building
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Jul 2020 01:42:20 +0200
+
 nedplayer (3.11.97-0ddebs1) unstable; urgency=medium
 
   * Upstream update
