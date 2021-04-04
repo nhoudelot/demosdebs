@@ -12,7 +12,7 @@ Architecture: all
 Depends:
  hatari-emutos,
  ${misc:Depends},
- common-install-function-ddebs(>=1.18)
+ common-install-function-ddebs(>=1.74)
 Description: Demo for Atari released in 1993
  Demo by The Carebears released in 1993
  .
