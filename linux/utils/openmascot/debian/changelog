@@ -1,8 +1,14 @@
-openmascot (1.0+git20200326-0ubuntu1) UNRELEASED; urgency=medium
+openmascot (1.0+git20200326-0ddebs2) unstable; urgency=medium
+
+  * update debian/watch file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 02 Sep 2020 00:09:59 +0200
+
+openmascot (1.0+git20200326-0ddebs1) unstable; urgency=medium
 
   * New upstream release
 
- -- NaSH <lenashou@gmail.com>  Thu, 18 Jun 2020 10:24:02 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Jun 2020 10:24:02 +0200
 
 openmascot (1.0-0ddebs1) unstable; urgency=medium
 

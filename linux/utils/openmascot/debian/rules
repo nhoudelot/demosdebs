@@ -3,7 +3,7 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --parallel --buildsystem=cmake --builddirectory=build
+	dh $@ --buildsystem=cmake --builddirectory=build
 
 override_dh_auto_configure:
 	cp builds/CMakeLists.txt .

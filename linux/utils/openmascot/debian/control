@@ -17,5 +17,5 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: A shimeji-like software in cpp for Linux
- A shimeji-like software in cpp for Linux
+Description: shimeji-like software in cpp for Linux
+ shimeji-like software in cpp for Linux

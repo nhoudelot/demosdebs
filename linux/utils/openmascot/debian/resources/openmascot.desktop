@@ -1,10 +1,10 @@
 [Desktop Entry]
-Version=1.0
+Version=1.1
 Name=OpenMascot
 GenericName=utilities
 Comment=A shimeji-like software in cpp for Linux
 Type=Application
-Exec=/usr/bin/OpenMascot
+Exec=/usr/bin/openmascot
 Icon=openmascot
-Categories=
+Categories=Utility;Amusement
 Name[fr_FR]=OpenMascot
