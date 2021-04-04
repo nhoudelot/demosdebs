@@ -1,3 +1,9 @@
+common-install-function-ddebs (1.74-0ddebs1) unstable; urgency=medium
+
+  * add atarist endscript
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 03 Apr 2021 21:16:10 +0200
+
 common-install-function-ddebs (1.73-0ddebs1) unstable; urgency=medium
 
   * add scummvm endscript
