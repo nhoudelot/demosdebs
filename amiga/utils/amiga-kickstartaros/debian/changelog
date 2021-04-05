@@ -1,3 +1,9 @@
+amiga-kickstartaros (1:1.0+git20210318-0ddebs2~ubuntu20.04) focal; urgency=medium
+
+  * removed amiga-kickstartaros.lintian-overrides
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Apr 2021 10:04:27 +0200
+
 amiga-kickstartaros (1:1.0+git20210318-0ddebs1) unstable; urgency=medium
 
   * upstream update
