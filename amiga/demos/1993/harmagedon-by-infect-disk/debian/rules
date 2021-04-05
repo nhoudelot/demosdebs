@@ -1,8 +1,0 @@
-#!/usr/bin/make -f
-
-%:
-	dh $@
-
-override_dh_install:
-	gzip -c harmagedon-by-infect-disk.adf > harmagedon-by-infect-disk.adz
-	dh_install
