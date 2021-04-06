@@ -1,1 +1,2 @@
-lemuseum-by-jff source: source-contains-unsafe-symlink
+lemuseum-by-jff source: source-contains-prebuilt-windows-binary JFF-MUSE.EXE.init
+lemuseum-by-jff source: source-contains-prebuilt-windows-binary MUSE-GUS.EXE

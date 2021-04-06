@@ -1,1 +1,2 @@
 goldorak-by-realtime binary: unknown-section demos
+goldorak-by-realtime binary: symlink-target-in-tmp symlink usr/share/goldorak-by-realtime/GOLDORAK.EXE point to /tmp/goldorak-by-realtime/GOLDORAK.EXE

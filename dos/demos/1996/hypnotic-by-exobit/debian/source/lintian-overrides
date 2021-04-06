@@ -1,1 +1,2 @@
-hypnotic-by-exobit source: source-contains-unsafe-symlink
+hypnotic-by-exobit source: absolute-symbolic-link-target-in-source HYPNOTIC.DAT -> /tmp/hypnotic-by-exobit/HYPNOTIC.DAT
+hypnotic-by-exobit source: source-contains-prebuilt-windows-binary HYPNOTIC.EXE

@@ -1,1 +1,2 @@
 stars-wondersoftheworld-by-noon binary: unknown-section demos
+stars-wondersoftheworld-by-noon: symlink-target-in-tmp symlink usr/share/stars-wondersoftheworld-by-noon/STARS.EXE point to /tmp/stars-wondersoftheworld-by-noon/STARS.EXE

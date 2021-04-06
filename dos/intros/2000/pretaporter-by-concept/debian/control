@@ -6,8 +6,6 @@ Build-Depends:
  debhelper (>= 10)
 Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=243
-Vcs-Git: https://git.debian.org/collab-maint/pretaporter-by-concept.git
-Vcs-Browser: https://git.debian.org/?p=collab-maint/pretaporter-by-concept.git;a=summary
 
 Package: pretaporter-by-concept
 Architecture: all

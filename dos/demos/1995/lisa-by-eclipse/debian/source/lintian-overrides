@@ -1,1 +1,2 @@
 lisa-by-eclipse source: source-contains-unsafe-symlink
+lisa-by-eclipse source: source-contains-prebuilt-windows-binary LISA.EXE.init

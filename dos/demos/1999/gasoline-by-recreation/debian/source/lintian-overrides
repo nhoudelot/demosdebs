@@ -1,1 +1,1 @@
-gasoline-by-recreation source: source-contains-unsafe-symlink
+gasoline-by-recreation source: source-contains-prebuilt-windows-binary GASOLINE.EXE.init

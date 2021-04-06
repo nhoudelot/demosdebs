@@ -1,1 +1,2 @@
 hypnotic-by-exobit binary: unknown-section demos
+hypnotic-by-exobit: symlink-target-in-tmp symlink usr/share/hypnotic-by-exobit/HYPNOTIC.DAT point to /tmp/hypnotic-by-exobit/HYPNOTIC.DAT

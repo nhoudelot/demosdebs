@@ -1,1 +1,3 @@
 iz-us-by-replay binary: unknown-section demos
+iz-us-by-replay: symlink-target-in-tmp symlink usr/share/iz-us-by-replay/DOS4GW.EXE point to /tmp/iz-us-by-replay/DOS4GW.EXE
+iz-us-by-replay: symlink-target-in-tmp symlink usr/share/iz-us-by-replay/IZ-US.EXE point to /tmp/iz-us-by-replay/IZ-US.EXE

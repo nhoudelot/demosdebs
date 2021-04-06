@@ -1,0 +1,3 @@
+falco-by-cryogen source: source-contains-prebuilt-windows-binary FALCO.EXE
+falco-by-cryogen source: source-contains-prebuilt-windows-binary SB_VER/FALCO_SB.EXE
+falco-by-cryogen source: source-contains-prebuilt-windows-binary SB_VER/FSOUND.DLL

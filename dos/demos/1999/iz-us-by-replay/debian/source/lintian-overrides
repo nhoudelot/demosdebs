@@ -1,2 +1,2 @@
-iz-us-by-replay source: source-contains-unsafe-symlink
-iz-us-by-replay source: source-contains-unsafe-symlink
+iz-us-by-replay source: source-contains-prebuilt-windows-binary DOS4GW.EXE.init
+iz-us-by-replay source: source-contains-prebuilt-windows-binary IZ-US.EXE.init

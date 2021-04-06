@@ -1,1 +1,2 @@
-kannykkamafia-by-revengetheperse source: source-contains-unsafe-symlink
+kannykkamafia-by-revengetheperse source: source-contains-prebuilt-windows-binary CWSDPMI.EXE
+kannykkamafia-by-revengetheperse source: source-contains-prebuilt-windows-binary MAFIA.EXE

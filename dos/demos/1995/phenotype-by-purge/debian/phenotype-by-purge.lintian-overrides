@@ -1,1 +1,2 @@
 phenotype-by-purge binary: unknown-section demos
+phenotype-by-purge binary: symlink-target-in-tmp symlink usr/share/phenotype-by-purge/HER.DMF point to /tmp/phenotype-by-purge/HER.DMF

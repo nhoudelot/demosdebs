@@ -1,1 +1,2 @@
 iwgiwrm-by-dentifrice binary: unknown-section demos
+iwgiwrm-by-dentifrice: symlink-target-in-tmp symlink usr/share/iwgiwrm-by-dentifrice/REMDYSUX.TMP point to /tmp/iwgiwrm-by-dentifrice/REMDYSUX.TMP

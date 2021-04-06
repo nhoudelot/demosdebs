@@ -1,1 +1,2 @@
 kannykkamafia-by-revengetheperse binary: unknown-section demos
+kannykkamafia-by-revengetheperse: symlink-target-in-tmp symlink usr/share/kannykkamafia-by-revengetheperse/TEMP.XM point to /tmp/kannykkamafia-by-revengetheperse/TEMP.XM

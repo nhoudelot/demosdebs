@@ -1,1 +1,2 @@
 magiccarpet-by-keenlikefrogs binary: unknown-section demos
+magiccarpet-by-keenlikefrogs: symlink-target-in-tmp symlink usr/share/magiccarpet-by-keenlikefrogs/___KLF__.EXE point to /tmp/magiccarpet-by-keenlikefrogs/___KLF__.EXE

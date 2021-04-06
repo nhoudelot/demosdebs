@@ -6,8 +6,6 @@ Build-Depends:
  debhelper (>= 10)
 Standards-Version: 4.5.0
 Homepage: https://www.j-f-f.net
-Vcs-Git: https://git.debian.org/collab-maint/totem-issue1-by-jff.git
-Vcs-Browser: https://git.debian.org/?p=collab-maint/totem-issue1-by-jff.git;a=summary
 
 Package: totem-issue1-by-jff
 Architecture: all

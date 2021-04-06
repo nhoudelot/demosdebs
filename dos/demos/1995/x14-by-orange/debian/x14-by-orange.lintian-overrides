@@ -1,1 +1,3 @@
 x14-by-orange binary: unknown-section demos
+x14-by-orange binary: symlink-target-in-tmp symlink usr/share/x14-by-orange/DATA.DAT point to /tmp/x14-by-orange/DATA.DAT
+x14-by-orange binary: symlink-target-in-tmp symlink usr/share/x14-by-orange/X14.S3M point to /tmp/x14-by-orange/X14.S3M

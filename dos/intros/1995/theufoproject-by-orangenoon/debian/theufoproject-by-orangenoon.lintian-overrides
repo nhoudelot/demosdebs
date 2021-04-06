@@ -1,1 +1,2 @@
 theufoproject-by-orangenoon binary: unknown-section demos
+theufoproject-by-orangenoon: symlink-target-in-tmp symlink usr/share/theufoproject-by-orangenoon/UFO.UFO point to /tmp/theufoproject-by-orangenoon/UFO.UFO
