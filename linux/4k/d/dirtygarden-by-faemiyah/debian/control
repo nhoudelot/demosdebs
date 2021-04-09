@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- dh-autoreconf,
  libsdl1.2-dev,
  libglu1-mesa-dev,
  libpng-dev

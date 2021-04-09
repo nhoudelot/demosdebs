@@ -1,1 +1,3 @@
 electromagnetic-by-hackers binary: unknown-section demos
+electromagnetic-by-hackers: executable-not-elf-or-script usr/lib/i386-linux-gnu/electromagnetic-by-hackers/player.packxz
+electromagnetic-by-hackers: hardening-no-pie usr/lib/i386-linux-gnu/electromagnetic-by-hackers/player

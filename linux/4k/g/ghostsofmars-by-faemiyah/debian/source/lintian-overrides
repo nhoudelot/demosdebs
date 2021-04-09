@@ -1,0 +1,6 @@
+ghostsofmars-by-faemiyah source: source-is-missing rel/ghosts_of_mars_freebsd-amd64
+ghostsofmars-by-faemiyah source: source-is-missing rel/ghosts_of_mars_freebsd-ia32
+ghostsofmars-by-faemiyah source: source-is-missing rel/ghosts_of_mars_linux-amd64
+ghostsofmars-by-faemiyah source: source-contains-prebuilt-windows-binary SDL2.dll
+ghostsofmars-by-faemiyah source: source-contains-prebuilt-windows-binary rel/SDL2.dll
+ghostsofmars-by-faemiyah source: source-contains-prebuilt-windows-binary rel/ghosts_of_mars_windows-ia32.exe

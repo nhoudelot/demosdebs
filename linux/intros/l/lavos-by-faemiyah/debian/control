@@ -3,7 +3,6 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- dh-autoreconf,
  debhelper (>= 10),
  libsdl2-dev,
  libpng-dev,

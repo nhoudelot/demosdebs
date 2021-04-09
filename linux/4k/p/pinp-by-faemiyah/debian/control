@@ -5,7 +5,6 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
  nasm,
- dh-autoreconf,
  libgl1-mesa-dev,
  libsdl1.2-dev,
  freeglut3-dev

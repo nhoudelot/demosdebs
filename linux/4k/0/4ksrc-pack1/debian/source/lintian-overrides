@@ -1,0 +1,4 @@
+4ksrc-pack1 source: source-contains-prebuilt-windows-binary win32/3d.exe
+4ksrc-pack1 source: source-contains-prebuilt-windows-binary win32/dwitvs.exe
+4ksrc-pack1 source: source-contains-prebuilt-windows-binary win32/hogwagen.exe
+4ksrc-pack1 source: source-contains-prebuilt-windows-binary win32/randomname.exe
