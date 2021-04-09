@@ -1,3 +1,9 @@
+aa500bvpfov-by-tvt (1.0-0ddebs7) unstable; urgency=medium
+
+  * Should not depend of gzip
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Jul 2020 21:15:30 +0200
+
 aa500bvpfov-by-tvt (1.0-0ddebs6) unstable; urgency=medium
 
   * Removed auto-generation of the manual with pandoc, because this command is
