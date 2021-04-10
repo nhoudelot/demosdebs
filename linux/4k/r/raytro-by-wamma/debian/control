@@ -4,14 +4,13 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
- elfkickers,
- p7zip-full,
+ pkg-config,
  libsdl1.2-dev
 Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=49797
 
 Package: raytro-by-wamma
-Architecture: i386
+Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},

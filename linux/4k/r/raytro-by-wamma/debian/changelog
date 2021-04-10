@@ -1,3 +1,10 @@
+raytro-by-wamma (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * now compile standard ELF
+  * now is cross build compatible
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 11 Apr 2021 01:15:48 +0200
+
 raytro-by-wamma (1.0+1-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0
