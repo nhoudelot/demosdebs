@@ -20,13 +20,13 @@
        (void) fclose (fp);
 --- a/scripts/opt-png.in
 +++ b/scripts/opt-png.in
-@@ -130,7 +130,7 @@
+@@ -124,7 +124,7 @@
+       pngcrush -brute -l 9 -s $TMPPNG2A $TMPPNG2
      fi
-     OUT3="$?"
-     if [ "$OUT3" -ne 0 ]; then
--      echo "opt-png error: bizzare result on $1: pngcrush rc = ${OUT3}"
-+      echo "opt-png error: bizarre result on $1: pngcrush rc = ${OUT3}"
-       rm -f ${TMPPNG0} ${TMPPNG1} ${TMPPNG2A} ${TMPPNG2}
+     if [ $? -ne 0 ]; then
+-      echo "opt-png error: bizzare result on $1: pngcrush rc = $?"
++      echo "opt-png error: bizare result on $1: pngcrush rc = $?"
+       rm -f $TMPPNG0 $TMPPNG1 $TMPPNG2A $TMPPNG2
        shift; continue
      fi
 --- a/littleutils/frenum.1
