@@ -6,7 +6,7 @@ Last-Update: 2020-04-18
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -20,6 +20,18 @@
+@@ -22,6 +22,18 @@
  
  INCLUDES:=-Isrc
  
@@ -25,21 +25,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($(OS),Windows_NT)
  EXE_EXT:=.exe
  else
-@@ -89,11 +101,11 @@
+@@ -95,11 +107,11 @@
  
  DEARK1_A:=$(OBJDIR)/src/deark1.a
  $(DEARK1_A): $(OFILES_DEARK1)
--	$(AR) rcs $@ $^
+-	$(AR) $(ARFLAGS) $@ $^
 +	$(AR) rcs $(PLUGIN) $@ $^
  
  DEARK2_A:=$(OBJDIR)/src/deark2.a
  $(DEARK2_A): $(OFILES_DEARK2)
--	$(AR) rcs $@ $^
+-	$(AR) $(ARFLAGS) $@ $^
 +	$(AR) rcs $(PLUGIN) $@ $^
  
  MODS_AB_A:=$(OBJDIR)/modules/mods-ab.a
  MODS_CH_A:=$(OBJDIR)/modules/mods-ch.a
-@@ -101,15 +113,15 @@
+@@ -107,15 +119,15 @@
  MODS_PQ_A:=$(OBJDIR)/modules/mods-pq.a
  MODS_RZ_A:=$(OBJDIR)/modules/mods-rz.a
  $(MODS_AB_A): $(OFILES_MODS_AB)
@@ -60,7 +60,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # I'm sorry if your linker doesn't like this library order, but the link
  # command was getting so long that I've decided to start using helper
-@@ -133,18 +145,20 @@
+@@ -139,18 +151,20 @@
  INSTALL_TARGET:=$(DEARK_INSTALLDIR)/$(DEARK_EXE_BASENAME)
  install: $(INSTALL_TARGET)
  $(INSTALL_TARGET): $(DEARK_EXE)
@@ -84,3 +84,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  ifeq ($(MAKECMDGOALS),dep)
  
+@@ -161,4 +175,3 @@
+ 	$(CC) $(CFLAGS) $(INCLUDES) -MM -MT '$$(OBJDIR)/$*.o' -MF $@ $<
+ 
+ endif
+-

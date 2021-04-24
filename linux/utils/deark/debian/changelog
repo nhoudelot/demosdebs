@@ -1,3 +1,10 @@
+deark (1.5.8-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/watch now that there is tags, use real github page
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 24 Apr 2021 15:51:25 +0200
+
 deark (1.5.5-0ddebs1) unstable; urgency=medium
 
   * New upstream release
