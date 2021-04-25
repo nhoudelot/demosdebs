@@ -18,7 +18,7 @@ took system zlib & expat, instead of local one
  LDFLAGS += -g -lc -lm  -ldl
  endif
  
-@@ -111,8 +112,8 @@
+@@ -115,8 +116,8 @@
  		trackeditor.o sector_extractor.o display_track.o fluxStreamAnalyzer.o script_exec.o env.o
  
  LIBS_OBJS = $(BASE) $(FS_SUPPORT) $(ADFLIBOBJ) $(ENCODING_SUPPORT) $(TRACK_FORMATS_SUPPORT) $(DISKLOADERPLUGINS) \
@@ -27,7 +27,7 @@ took system zlib & expat, instead of local one
 +			$(DISKWRITERPLUGINS) $(XDMSLIBOBJ) \
 +			$(XML_DISK) $(FATIOLIB)
  
- all: SCRIPT_FILE XML_FILES $(EXEC)
+ all: SCRIPT_FILE $(BASEDIR)/licensetxt.h XML_FILES BMP_FILES $(EXEC)
  
 --- a/libhxcfe/trunk/sources/loaders/adz_loader/adz_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/adz_loader/adz_loader.c

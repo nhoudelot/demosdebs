@@ -1,7 +1,7 @@
 --- a/build/Makefile
 +++ b/build/Makefile
 @@ -27,7 +27,7 @@
- 		$(MAKE) -C ../HxCFloppyEmulator_software/trunk/sources/thirdpartylibs/fltk/fltk-1.3.x/ DIRS=src
+ 		$(MAKE) -C ../HxCFloppyEmulator_software/trunk/sources/thirdpartylibs/fltk/fltk-1.x.x/ DIRS=src
  endif
  
 -HxCFloppyEmulator_software: libhxcfe libusbhxcfe fltk

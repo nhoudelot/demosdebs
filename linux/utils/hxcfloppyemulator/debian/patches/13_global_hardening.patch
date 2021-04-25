@@ -51,7 +51,7 @@
  endif
  
  ifeq ($(DEBUG_ASAN), 1)
-@@ -33,6 +33,8 @@
+@@ -34,6 +34,8 @@
  endif
  
  ifeq ($(TARGET), Linux)
@@ -79,7 +79,7 @@
  	LDFLAGS+= -g $(shell fltk-config --ldflags) -lpthread
  endif
  
-@@ -110,97 +113,97 @@
+@@ -115,97 +118,97 @@
  	$(RESC) $< $@
  
  main.o: $(BASEDIR)/main.cxx

@@ -77,11 +77,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#include "../loaders/bmp_loader/bmp_loader.h"
 +#include "../loaders/bmp_loader/bmp_file.h"
  
- #define PI    ((float)  3.141592654f)
- 
+ #include "xml_disk/packer/pack.h"
+ #include "misc/data/data_bmp_hxc2001_logo_bmp.h"
 --- a/libhxcfe/trunk/sources/tracks/sector_extractor.c
 +++ b/libhxcfe/trunk/sources/tracks/sector_extractor.c
-@@ -46,35 +46,35 @@
+@@ -46,38 +46,38 @@
  #include <stdio.h>
  #include <stdlib.h>
  
@@ -109,6 +109,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "tracks/track_formats/apple2_gcr_track.h"
 -#include "tracks/track_formats/apple_mac_gcr_track.h"
 -#include "tracks/track_formats/arburg_track.h"
+-#include "tracks/track_formats/c64_gcr_track.h"
 -#include "tracks/track_formats/dec_rx02_track.h"
 -#include "tracks/track_formats/emu_emulator_fm_track.h"
 -#include "tracks/track_formats/heathkit_fm_track.h"
@@ -117,11 +118,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "tracks/track_formats/membrain_mfm_track.h"
 -#include "tracks/track_formats/northstar_mfm_track.h"
 -#include "tracks/track_formats/tycom_fm_track.h"
+-#include "tracks/track_formats/qd_mo5_track.h"
+-#include "tracks/track_formats/victor9k_gcr_track.h"
 +#include "track_formats/aed6200p_track.h"
 +#include "track_formats/amiga_mfm_track.h"
 +#include "track_formats/apple2_gcr_track.h"
 +#include "track_formats/apple_mac_gcr_track.h"
 +#include "track_formats/arburg_track.h"
++#include "track_formats/c64_gcr_track.h"
 +#include "track_formats/dec_rx02_track.h"
 +#include "track_formats/emu_emulator_fm_track.h"
 +#include "track_formats/heathkit_fm_track.h"
@@ -130,6 +134,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#include "track_formats/membrain_mfm_track.h"
 +#include "track_formats/northstar_mfm_track.h"
 +#include "track_formats/tycom_fm_track.h"
++#include "track_formats/qd_mo5_track.h"
++#include "track_formats/victor9k_gcr_track.h"
  
  #include "trackutils.h"
  
@@ -140,7 +146,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  {
 --- a/libhxcfe/trunk/sources/tracks/track_generator.c
 +++ b/libhxcfe/trunk/sources/tracks/track_generator.c
-@@ -46,33 +46,33 @@
+@@ -46,34 +46,34 @@
  #include <stdlib.h>
  #include <stdio.h>
  
@@ -163,6 +169,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "tracks/track_formats/apple2_gcr_track.h"
 -#include "tracks/track_formats/apple_mac_gcr_track.h"
 -#include "tracks/track_formats/arburg_track.h"
+-#include "tracks/track_formats/c64_gcr_track.h"
 -#include "tracks/track_formats/dec_rx02_track.h"
 -#include "tracks/track_formats/emu_emulator_fm_track.h"
 -#include "tracks/track_formats/heathkit_fm_track.h"
@@ -180,6 +187,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#include "track_formats/apple2_gcr_track.h"
 +#include "track_formats/apple_mac_gcr_track.h"
 +#include "track_formats/arburg_track.h"
++#include "track_formats/c64_gcr_track.h"
 +#include "track_formats/dec_rx02_track.h"
 +#include "track_formats/emu_emulator_fm_track.h"
 +#include "track_formats/heathkit_fm_track.h"
@@ -1478,8 +1486,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "libhxcadaptor.h"
 +#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
  
- int ATR_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
- {
+ #include "tracks/luts.h"
+ 
 --- a/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_disk_writer.c
 +++ b/libhxcfe/trunk/sources/loaders/bmp_loader/bmp_disk_writer.c
 @@ -29,18 +29,18 @@

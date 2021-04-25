@@ -5,60 +5,13 @@ Last-Update: 2020-04-20
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/HxCFloppyEmulator_software/trunk/sources/gui/cb_floppy_infos_window.cxx
 +++ b/HxCFloppyEmulator_software/trunk/sources/gui/cb_floppy_infos_window.cxx
-@@ -918,7 +918,7 @@
- 							sprintf(str,"DEC RX02 Sector");
- 						break;
- 						default:
--							sprintf(str,"Unknow Sector");
-+							sprintf(str,"Unknown Sector");
- 						break;
- 					}
- 					fiw->buf->append((char*)str);
-@@ -1061,4 +1061,4 @@
+@@ -1086,4 +1086,4 @@
  
  	}
  
 -}
 \ No newline at end of file
 +}
---- a/HxCFloppyEmulator_software/trunk/sources/gui/cb_usbhxcfecfg_window.cxx
-+++ b/HxCFloppyEmulator_software/trunk/sources/gui/cb_usbhxcfecfg_window.cxx
-@@ -139,7 +139,7 @@
- 		break;
- 
- 		default:
--			window->strout_usbhfestatus->value((const char*)"Unknow status !");
-+			window->strout_usbhfestatus->value((const char*)"Unknown status !");
- 		break;
- 
- 	}
-@@ -232,4 +232,4 @@
- #if !defined(STANDALONEFSBROWSER) && !defined(HXC_STREAMER_MODE)
- 	libusbhxcfe_getStats(guicontext->hxcfe,guicontext->usbhxcfe,&stats,1);
- #endif
--}
-\ No newline at end of file
-+}
---- a/HxCFloppyEmulator_software/trunk/sources/gui/fluid/rawfile_loader_window.fl
-+++ b/HxCFloppyEmulator_software/trunk/sources/gui/fluid/rawfile_loader_window.fl
-@@ -36,7 +36,7 @@
-         xywh {130 212 85 25} down_box DOWN_BOX labelsize 12
-       }
-       Fl_Value_Input numin_pregap {
--        label {PRE-GAP lenght}
-+        label {PRE-GAP length}
-         user_data this
-         callback raw_loader_window_datachanged
-         xywh {230 216 95 20} labelsize 12 align 5 textsize 12
-@@ -147,7 +147,7 @@
-         xywh {10 20 105 20} down_box BORDER_BOX labelsize 12 align 5 when 1 textsize 11
-       } {}
-       Fl_Value_Input numin_gap3 {
--        label {GAP3 lenght}
-+        label {GAP3 length}
-         user_data this
-         callback raw_loader_window_datachanged
-         xywh {10 215 105 20} labelsize 12 align 5 textsize 12
 --- a/HxCFloppyEmulator_software/trunk/sources/gui/log.cxx
 +++ b/HxCFloppyEmulator_software/trunk/sources/gui/log.cxx
 @@ -131,7 +131,7 @@

@@ -1,27 +1,35 @@
 #! /bin/bash
 
-wget  https://sourceforge.net/p/hxcfloppyemu/code/2236/tarball?path=/HxCFloppyEmulator/build
-wget  https://sourceforge.net/p/hxcfloppyemu/code/2236/tarball?path=/HxCFloppyEmulator/libhxcadaptor/trunk
-wget  https://sourceforge.net/p/hxcfloppyemu/code/2236/tarball?path=/HxCFloppyEmulator/libhxcfe/trunk
-wget  https://sourceforge.net/p/hxcfloppyemu/code/2236/tarball?path=/HxCFloppyEmulator/libusbhxcfe/trunk
-wget  https://sourceforge.net/p/hxcfloppyemu/code/2236/tarball?path=/HxCFloppyEmulator/HxCFloppyEmulator_cmdline/trunk
-wget  https://sourceforge.net/p/hxcfloppyemu/code/2236/tarball?path=/HxCFloppyEmulator/HxCFloppyEmulator_software/trunk
+# get latest version release here
+# https://sourceforge.net/projects/hxcfloppyemu/files/HxCFloppyEmulator_Software/
+# get the revision release of this version here
+# https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/
+# click on history, we get 2449 here
+# https://sourceforge.net/p/hxcfloppyemu/code/2449/tree/
 
-unzip hxcfloppyemu-code-r2236-HxCFloppyEmulator-build.zip
-unzip hxcfloppyemu-code-r2236-HxCFloppyEmulator-libhxcadaptor-trunk.zip
-unzip hxcfloppyemu-code-r2236-HxCFloppyEmulator-libhxcfe-trunk.zip
-unzip hxcfloppyemu-code-r2236-HxCFloppyEmulator-libusbhxcfe-trunk.zip
-unzip hxcfloppyemu-code-r2236-HxCFloppyEmulator-HxCFloppyEmulator_cmdline-trunk.zip
-unzip hxcfloppyemu-code-r2236-HxCFloppyEmulator-HxCFloppyEmulator_software-trunk.zip
 
-mv hxcfloppyemu-code-r2236-HxCFloppyEmulator-build build
+#  https://sourceforge.net/p/hxcfloppyemu/code/2449/tarball?path=/HxCFloppyEmulator/build
+#  https://sourceforge.net/p/hxcfloppyemu/code/2449/tarball?path=/HxCFloppyEmulator/libhxcadaptor/trunk
+#  https://sourceforge.net/p/hxcfloppyemu/code/2449/tarball?path=/HxCFloppyEmulator/libhxcfe/trunk
+#  https://sourceforge.net/p/hxcfloppyemu/code/2449/tarball?path=/HxCFloppyEmulator/libusbhxcfe/trunk
+#  https://sourceforge.net/p/hxcfloppyemu/code/2449/tarball?path=/HxCFloppyEmulator/HxCFloppyEmulator_cmdline/trunk
+#  https://sourceforge.net/p/hxcfloppyemu/code/2449/tarball?path=/HxCFloppyEmulator/HxCFloppyEmulator_software/trunk
+
+unzip hxcfloppyemu-code-r2449-HxCFloppyEmulator-build.zip
+unzip hxcfloppyemu-code-r2449-HxCFloppyEmulator-libhxcadaptor-trunk.zip
+unzip hxcfloppyemu-code-r2449-HxCFloppyEmulator-libhxcfe-trunk.zip
+unzip hxcfloppyemu-code-r2449-HxCFloppyEmulator-libusbhxcfe-trunk.zip
+unzip hxcfloppyemu-code-r2449-HxCFloppyEmulator-HxCFloppyEmulator_cmdline-trunk.zip
+unzip hxcfloppyemu-code-r2449-HxCFloppyEmulator-HxCFloppyEmulator_software-trunk.zip
+
+mv hxcfloppyemu-code-r2449-HxCFloppyEmulator-build build
 mkdir libhxcadaptor
-mv hxcfloppyemu-code-r2236-HxCFloppyEmulator-libhxcadaptor-trunk libhxcadaptor/trunk
+mv hxcfloppyemu-code-r2449-HxCFloppyEmulator-libhxcadaptor-trunk libhxcadaptor/trunk
 mkdir libhxcfe
-mv hxcfloppyemu-code-r2236-HxCFloppyEmulator-libhxcfe-trunk libhxcfe/trunk
+mv hxcfloppyemu-code-r2449-HxCFloppyEmulator-libhxcfe-trunk libhxcfe/trunk
 mkdir libusbhxcfe
-mv hxcfloppyemu-code-r2236-HxCFloppyEmulator-libusbhxcfe-trunk libusbhxcfe/trunk
+mv hxcfloppyemu-code-r2449-HxCFloppyEmulator-libusbhxcfe-trunk libusbhxcfe/trunk
 mkdir HxCFloppyEmulator_cmdline
-mv hxcfloppyemu-code-r2236-HxCFloppyEmulator-HxCFloppyEmulator_cmdline-trunk HxCFloppyEmulator_cmdline/trunk
+mv hxcfloppyemu-code-r2449-HxCFloppyEmulator-HxCFloppyEmulator_cmdline-trunk HxCFloppyEmulator_cmdline/trunk
 mkdir HxCFloppyEmulator_software
-mv hxcfloppyemu-code-r2236-HxCFloppyEmulator-HxCFloppyEmulator_software-trunk HxCFloppyEmulator_software/trunk
+mv hxcfloppyemu-code-r2449-HxCFloppyEmulator-HxCFloppyEmulator_software-trunk HxCFloppyEmulator_software/trunk
