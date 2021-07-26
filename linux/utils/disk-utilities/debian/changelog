@@ -1,3 +1,9 @@
+disk-utilities (1:0.0+git20210725-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 26 Jul 2021 09:46:59 +0200
+
 disk-utilities (1:0.0+git20210314-0ddebs1) unstable; urgency=medium
 
   * New upstream release
