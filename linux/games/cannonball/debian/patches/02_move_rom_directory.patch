@@ -1,6 +1,6 @@
 --- a/src/main/romloader.cpp
 +++ b/src/main/romloader.cpp
-@@ -212,4 +212,4 @@
+@@ -244,4 +244,4 @@
      int size = (int) in.tellg();
      in.close();
      return size; 
@@ -9,19 +9,140 @@
 +}
 --- a/src/main/engine/omusic.cpp
 +++ b/src/main/engine/omusic.cpp
-@@ -39,13 +39,13 @@
+@@ -40,13 +40,13 @@
      if (tilemap == NULL)
      {
          tilemap = new RomLoader();
--        status += tilemap->load_binary("res/tilemap.bin");
-+        status += tilemap->load_binary("/usr/share/games/cannonball/res/tilemap.bin");
+-        status += tilemap->load_binary(std::string(path + "tilemap.bin").c_str());
++        status += tilemap->load_binary(std::string(path + "/usr/share/games/cannonball/res/tilemap.bin").c_str());
      }
  
      if (tile_patch == NULL)
      {
          tile_patch = new RomLoader();
--        status += tile_patch->load_binary("res/tilepatch.bin");
-+        status += tile_patch->load_binary("/usr/share/games/cannonball/res/tilepatch.bin");
+-        status += tile_patch->load_binary(std::string(path + "tilepatch.bin").c_str());
++        status += tile_patch->load_binary(std::string(path + "/usr/share/games/cannonball/res/tilepatch.bin").c_str());
      }
  
      return status == 0;
+@@ -71,17 +71,17 @@
+     last_music_selected       = -1;
+     preview_counter           = -20; // Delay before playing music
+     ostats.time_counter       = config.sound.music_timer; // Move 30 seconds to timer countdown (note on the original roms this is 15 seconds)
+-    ostats.frame_counter      = ostats.frame_reset;  
+-     
++    ostats.frame_counter      = ostats.frame_reset;
++
+     blit_music_select();
+     ohud.blit_text2(TEXT2_SELECT_MUSIC); // Select Music By Steering
+-  
++
+     osoundint.queue_sound(sound::RESET);
+     if (!config.sound.preview)
+         osoundint.queue_sound(sound::PCM_WAVE); // Wave Noises
+ 
+     // Enable block of sprites
+-    entry_start = OSprites::SPRITE_ENTRIES - 0x10;    
++    entry_start = OSprites::SPRITE_ENTRIES - 0x10;
+     for (int i = entry_start; i < entry_start + 5; i++)
+     {
+         osprites.jump_table[i].init(i);
+@@ -252,7 +252,7 @@
+             {
+                 play_music();
+                 preview_counter = 0;
+-            }      
++            }
+         }
+     }
+ }
+@@ -291,7 +291,7 @@
+     play_music();
+ }
+ 
+-// Original Version of Music Selection Screen With 3 Tracks. 
++// Original Version of Music Selection Screen With 3 Tracks.
+ // Wheel Left = Track 0, Wheel Centre = Track 1, Wheel Right = Track 2
+ void OMusic::tick_original(oentry* fm, oentry* dial, oentry* hand)
+ {
+@@ -301,7 +301,7 @@
+ 
+     // Steer Left
+     if (oinputs.steering_adjust + 0x80 <= 0x55)
+-    {                
++    {
+         set_hand(HAND_LEFT, fm, dial, hand);
+         ohud.blit_text2(TEXT2_MAGICAL);
+         video.write_text32(0x1105C0, NOTE_TILES1);
+@@ -332,7 +332,7 @@
+ void OMusic::tick_enhanced(oentry* fm, oentry* dial, oentry* hand)
+ {
+     if (input.has_pressed(Input::LEFT) || oinputs.is_analog_l())
+-        if (--cursor_pos < 0) cursor_pos = total_tracks - 1;  
++        if (--cursor_pos < 0) cursor_pos = total_tracks - 1;
+     if (input.has_pressed(Input::RIGHT) || oinputs.is_analog_r())
+         if (++cursor_pos >= total_tracks) cursor_pos = 0;
+ 
+@@ -343,14 +343,14 @@
+     else
+         set_hand(HAND_RIGHT, fm, dial, hand);
+ 
+-    music_selected = cursor_pos;    
++    music_selected = cursor_pos;
+     ohud.blit_text_big(11, config.sound.music.at(music_selected).title.c_str(), true);
+ }
+ 
+ void OMusic::set_hand(short direction, oentry* fm, oentry* dial, oentry* hand)
+ {
+     if (direction == HAND_LEFT)
+-    {                
++    {
+         hand->x = 17;
+         fm->addr   = outrun.adr.sprite_fm_left;
+         dial->addr = outrun.adr.sprite_dial_left;
+@@ -382,7 +382,7 @@
+ }
+ 
+ // Blit Music Selection Tiles to text ram layer (Double Row)
+-// 
++//
+ // Source Address: 0xE0DC
+ // Input:          Destination address into tile ram
+ // Output:         None
+@@ -420,9 +420,9 @@
+ 
+     // Set Tilemap Scroll
+     otiles.set_scroll(config.s16_x_off);
+-    
++
+     // --------------------------------------------------------------------------------------------
+-    // Blit to Tilemap 16: Widescreen Version. Uses Custom Tilemap. 
++    // Blit to Tilemap 16: Widescreen Version. Uses Custom Tilemap.
+     // --------------------------------------------------------------------------------------------
+     if (tilemap->loaded && config.s16_x_off > 0)
+     {
+@@ -441,7 +441,7 @@
+         }
+     }
+     // --------------------------------------------------------------------------------------------
+-    // Blit to Tilemap 16: Original 4:3 Version. 
++    // Blit to Tilemap 16: Original 4:3 Version.
+     // --------------------------------------------------------------------------------------------
+     else
+     {
+@@ -458,7 +458,7 @@
+                 // No Compression: write tile directly to tile ram
+                 if (data != 0)
+                 {
+-                    video.write_tile16(&dst_addr, data);    
++                    video.write_tile16(&dst_addr, data);
+                     x++;
+                 }
+                 // Compression
+@@ -480,5 +480,5 @@
+         // Fix Misplaced tile on music select screen (above steering wheel)
+         if (config.engine.fix_bugs)
+             video.write_tile16(0x10F730, 0x0C80);
+-    } 
++    }
+ }

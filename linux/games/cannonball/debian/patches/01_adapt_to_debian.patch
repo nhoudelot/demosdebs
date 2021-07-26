@@ -9,10 +9,3 @@
  
  # Source location
  set(main_cpp_base ../src/main)
-@@ -275,4 +275,4 @@
- )
- configure_file(../res/tilepatch.bin ./res/tilepatch.bin
-     COPYONLY 
--)
-\ No newline at end of file
-+)

@@ -42,8 +42,8 @@
  
  // Abstract Rendering Class
  class RenderBase
-@@ -72,4 +72,4 @@
-     uint32_t Rmask, Gmask, Bmask;
+@@ -76,4 +76,4 @@
+     int shadow_multi;
  
      bool sdl_screen_size();
 -};

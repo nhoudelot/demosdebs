@@ -1,3 +1,9 @@
+cannonball (0.3+git20210504-0ddebs1) focal; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 24 Jul 2021 10:09:13 +0200
+
 cannonball (0.3+git20210315-0ddebs1) unstable; urgency=medium
 
   * New upstream release
