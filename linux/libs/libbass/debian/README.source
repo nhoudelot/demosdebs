@@ -1,7 +1,7 @@
 libbass for Debian
 ------------------
 
-source have been assembled from the un4seen archive
+source have been assembled from un4seen archive
+* linux and arm version
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 Feb 2016 19:48:28 +0100
-
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 28 Jul 2021 09:45:24 +0200

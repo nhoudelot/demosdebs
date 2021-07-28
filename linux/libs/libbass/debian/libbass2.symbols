@@ -2,6 +2,7 @@ libbass.so.2 libbass2 #MINVER#
  BASS_Apply3D@Base 2.4.6
  BASS_ChannelBytes2Seconds@Base 2.4.6
  BASS_ChannelFlags@Base 2.4.6
+ BASS_ChannelFree@Base 2.4.16
  BASS_ChannelGet3DAttributes@Base 2.4.6
  BASS_ChannelGet3DPosition@Base 2.4.6
  BASS_ChannelGetAttribute@Base 2.4.6
@@ -58,6 +59,7 @@ libbass.so.2 libbass2 #MINVER#
  BASS_MusicFree@Base 2.4.6
  BASS_MusicLoad@Base 2.4.6
  BASS_Pause@Base 2.4.6
+ BASS_PluginEnable@Base 2.4.16
  BASS_PluginFree@Base 2.4.6
  BASS_PluginGetInfo@Base 2.4.6
  BASS_PluginLoad@Base 2.4.6
