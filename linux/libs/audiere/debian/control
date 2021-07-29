@@ -12,7 +12,7 @@ Build-Depends:
  libasound2-dev,
  libpulse-dev,
  pkg-config
-Homepage: https://github.com/expertmm/Audiere
+Homepage: https://github.com/poikilos/Audiere
 Standards-Version: 4.5.0
 
 Package: libaudiere-1.10.1

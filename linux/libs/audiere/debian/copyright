@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: audiere
-Source: https://github.com/expertmm/Audiere
+Source: https://github.com/poikilos/Audiere
 
 Files: *
 Copyright: 2001-2006 Chad Austin
@@ -20,7 +20,7 @@ License: GPL-2+
 
 Files: debian/*
 Copyright: 2006 Lukas Fittl <lfittl@fsfe.org>
-		   2016-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+		   2016-2021 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
 
 License: GPL-2+

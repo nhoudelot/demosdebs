@@ -1,3 +1,9 @@
+audiere (1.10.1-0ddebs7) unstable; urgency=medium
+
+  * github source changed url
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 29 Jul 2021 09:21:50 +0200
+
 audiere (1.10.1-0ddebs6) unstable; urgency=medium
 
   * compiled wirh FLAC & pulseaudio support
