@@ -1,4 +1,4 @@
-debian/resources/detectiteasy.desktop usr/share/applications/
-debian/resources/detectiteasy.png usr/share/icons/hicolor/256x256/apps/
+DEBIAN/die.desktop usr/share/applications
+DEBIAN/hicolor/ usr/share/icons
 build/release/diec usr/bin
 build/release/die usr/bin

@@ -1,26 +1,26 @@
 --- a/XOptions/xoptions.cpp
 +++ b/XOptions/xoptions.cpp
-@@ -28,7 +28,7 @@
- void XOptions::setName(QString sName)
- {
-     this->g_sName=sName;
--    this->g_sFilePath=getApplicationDataPath()+QDir::separator()+QString("%1").arg(sName);
-+    this->g_sFilePath=getConfigPath()+QDir::separator()+QString("%1").arg(sName);
- }
+@@ -97,7 +97,7 @@
+     }
+     else
+     {
+-        pSettings=new QSettings(getApplicationDataPath()+QDir::separator()+QString("%1").arg(g_sName),QSettings::IniFormat);
++        pSettings=new QSettings(getConfigPath()+QDir::separator()+QString("%1").arg(g_sName),QSettings::IniFormat);
+     }
  
- void XOptions::setValueIDs(QList<ID> listVariantIDs)
-@@ -73,8 +73,8 @@
-                 case ID_STYLE:                  varDefault="Fusion";        break;
-                 case ID_LANG:                   varDefault="System";        break;
-                 case ID_QSS:                    varDefault="veles";         break;
--                case ID_DBPATH:                 varDefault="$data/db";      break;
--                case ID_INFOPATH:               varDefault="$data/info";    break;
-+                case ID_DBPATH:                 varDefault="/usr/share/detectiteasy/db";      break;
+     int nNumberOfIDs=g_listValueIDs.count();
+@@ -128,8 +128,8 @@
+                 case ID_STYLE:                  varDefault="Fusion";                break;
+                 case ID_LANG:                   varDefault="System";                break;
+                 case ID_QSS:                    varDefault="veles";                 break;
+-                case ID_DATABASEPATH:           varDefault="$data/db";              break;
+-                case ID_INFOPATH:               varDefault="$data/info";            break;
++                case ID_DATABASEPATH:           varDefault="/usr/share/detectiteasy/db";      break;
 +                case ID_INFOPATH:               varDefault="/usr/share/detectiteasy/info";    break;
-                 case ID_SCANENGINE:             varDefault="die";           break;
-                 case ID_ROOTPATH:               varDefault="";              break;
-                 case ID_DATAPATH:               varDefault="$data/data";    break;
-@@ -187,6 +187,15 @@
+                 case ID_SCANENGINE:             varDefault="die";                   break;
+                 case ID_ROOTPATH:               varDefault="";                      break;
+                 case ID_DATAPATH:               varDefault="$data/data";            break;
+@@ -286,6 +286,15 @@
      return sResult;
  }
  
@@ -36,7 +36,7 @@
  void XOptions::setLastDirectory(QString sValue)
  {
      QFileInfo fi(sValue);
-@@ -300,7 +309,7 @@
+@@ -419,7 +428,7 @@
          pComboBox->addItem("English","");
          pComboBox->addItem("System","System");
  
@@ -45,7 +45,7 @@
  
          int nNumberOfRecords=listFileNames.count();
  
-@@ -325,7 +334,7 @@
+@@ -444,7 +453,7 @@
      {
          pComboBox->addItem("Default","");
  
@@ -54,15 +54,15 @@
  
          int nNumberOfRecords=listFileNames.count();
  
-@@ -524,7 +533,7 @@
- #ifdef Q_OS_MAC
-     sResult=qApp->applicationDirPath()+"/../Resources";
- #else
--    sResult=qApp->applicationDirPath();
-+    sResult="/usr/share/detectiteasy";
- #endif
-     return sResult;
- }
+@@ -688,7 +697,7 @@
+             sResult=sApplicationDirPath.section("/",0,2);
+         }
+ 
+-        sResult+=QString("/usr/lib/%1").arg(qApp->applicationName());
++        sResult="/usr/share/detectiteasy";
+     }
+     else
+     {
 --- a/XOptions/xoptions.h
 +++ b/XOptions/xoptions.h
 @@ -25,6 +25,7 @@
@@ -73,10 +73,10 @@
  #ifdef QT_GUI_LIB
  #include <QWidget>
  #include <QCheckBox>
-@@ -95,6 +96,7 @@
-     static QString getApplicationQssPath();
+@@ -101,6 +102,7 @@
      static QList<QString> getAllFilesFromDirectory(QString sDirectory,QString sExtension);
-     static QString getApplicationDataPath();
+     static bool checkNative();
+     QString getApplicationDataPath();
 +    static QString getConfigPath();
  #ifdef QT_GUI_LIB
      void setCheckBox(QCheckBox *pCheckBox,ID id);

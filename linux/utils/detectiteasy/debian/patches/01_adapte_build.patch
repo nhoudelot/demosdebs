@@ -50,3 +50,11 @@
 +QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
 +QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
 +QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
+--- a/die_source.pro
++++ b/die_source.pro
+@@ -4,5 +4,4 @@
+ SUBDIRS         += gui_source
+ 
+ target.path = $$PWD
+-target.commands = bash -x $$PWD/install.sh
+ INSTALLS += target

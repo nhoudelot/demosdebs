@@ -5,6 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper (>= 10),
  pandoc,
+ pkg-config,
  qtbase5-dev,
  qtbase5-dev-tools,
  qt5-qmake,
@@ -53,7 +54,7 @@ Description: Detect It Easy(DiE) is a packer identifier
  (“Binary”, “PE” and others). The names of sub-folders correspond to the types of files.
  First, DIE determines the type of file, and then sequentially loads all the signatures,
  which lie in the corresponding folder. Currently the program defines the following types:
- 
+
 Package: detectiteasy-data
 Architecture: all
 Multi-Arch: foreign
