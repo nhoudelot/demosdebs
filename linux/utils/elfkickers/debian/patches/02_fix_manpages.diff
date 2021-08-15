@@ -1,7 +1,7 @@
 --- a/ebfc/ebfc.1
 +++ b/ebfc/ebfc.1
 @@ -1,5 +1,4 @@
- .TH EBFC 1 "July 1999" "ELF kickers 2.0"
+ .TH EBFC 1 "May 2021" "ELF kickers 3.2"
 -.LO 1
  .SH NAME
  ebfc \- ELF Brainfuck compiler

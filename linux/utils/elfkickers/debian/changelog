@@ -1,3 +1,9 @@
+elfkickers (3.1+git20210517-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 15 Aug 2021 15:19:40 +0200
+
 elfkickers (3.1+git20200218-0ddebs2) unstable; urgency=medium
 
   * update debian/watch

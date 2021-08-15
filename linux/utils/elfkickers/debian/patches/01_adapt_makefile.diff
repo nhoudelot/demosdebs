@@ -63,26 +63,30 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -CFLAGS = -Wall -Wextra -Wno-missing-field-initializers
 +CFLAGS += -O3 -Wall -Wextra -pipe -Wno-missing-field-initializers
  
- ebfc: ebfc.o brainfuck.o libelfparts.a
+ # The main program.
  
-@@ -10,7 +9,7 @@
- 
- libelfparts.a: elfparts.o ehdr.o phdrtab.o shdrtab.o progbits.o	\
+@@ -15,7 +14,7 @@
+ libelfparts.a: elfparts.o \
+ 	       ehdr.o phdrtab.o shdrtab.o progbits.o \
                 strtab.o symtab.o hash.o rel.o got.o dynamic.o
 -	ar crs libelfparts.a $^
 +	$(AR) crs libelfparts.a $^
  
- elfparts.o: elfparts.c elfparts.h gen.h
- ehdr.o: ehdr.c elfparts.h gen.h
-@@ -25,6 +24,6 @@
- dynamic.o: dynamic.c elfparts.h gen.h
+ elfparts.o: elfparts.c elfparts.h elfpartsi.h
+ ehdr.o: ehdr.c elfparts.h elfpartsi.h
+@@ -30,8 +29,8 @@
+ dynamic.o: dynamic.c elfparts.h elfpartsi.h
  
  clean:
--	rm -f elfparts.o ehdr.o phdrtab.o shdrtab.o progbits.o strtab.o
--	rm -f symtab.o hash.o rel.o got.o dynamic.o ebfc.o brainfuck.o
+-	rm -f ebfc.o brainfuck.o
+-	rm -f elfparts.o elfpseq.o
+-	rm -f ehdr.o phdrtab.o shdrtab.o progbits.o strtab.o
+-	rm -f symtab.o hash.o rel.o got.o dynamic.o
 -	rm -f ebfc libelfparts.a
-+	-@$(RM_F) elfparts.o ehdr.o phdrtab.o shdrtab.o progbits.o strtab.o
-+	-@$(RM_F) symtab.o hash.o rel.o got.o dynamic.o ebfc.o brainfuck.o
++	-@$(RM_F) ebfc.o brainfuck.o
++	-@$(RM_F) elfparts.o elfpseq.o
++	-@$(RM_F) ehdr.o phdrtab.o shdrtab.o progbits.o strtab.o
++	-@$(RM_F) symtab.o hash.o rel.o got.o dynamic.o
 +	-@$(RM_F) ebfc libelfparts.a
 --- a/elfls/Makefile
 +++ b/elfls/Makefile
@@ -138,7 +142,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  OBJS = gen.o names.o address.o readelf.o shdrtab.o phdrtab.o dynamic.o \
         pieces.o outbase.o outitems.o outelf64.o outelf32.o out.o elftoc.o
-@@ -38,4 +37,4 @@
+@@ -40,4 +39,4 @@
  mknames.o: mknames.c
  
  clean:
