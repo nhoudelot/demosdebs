@@ -8,7 +8,13 @@ Build-Depends:
  nasm,
  libsdl2-net-dev,
  libpcap-dev,
- libfluidsynth-dev
+ libfluidsynth-dev,
+ libavformat-dev,
+ libavcodec-dev,
+ libswscale-dev,
+ libfreetype-dev|libfreetype6-dev,
+ libxkbfile-dev,
+ libxrandr-dev
 Standards-Version: 4.5.0
 Homepage: https://github.com/joncampbell123/dosbox-x
 Vcs-Git: https://github.com/joncampbell123/dosbox-x.git

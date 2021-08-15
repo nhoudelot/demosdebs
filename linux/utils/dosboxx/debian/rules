@@ -6,7 +6,7 @@ export DEB_CFLAGS_MAINT_APPEND  = -flto
 export DEB_CXXFLAGS_MAINT_APPEND  = -flto
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
-CONFIGURE_EXTRA_FLAGS +=  --enable-core-inline --enable-sdl2 --disable-avcodec 
+CONFIGURE_EXTRA_FLAGS +=  --enable-core-inline --enable-sdl2
 
 %:
 	dh $@ --buildsystem=autoconf
