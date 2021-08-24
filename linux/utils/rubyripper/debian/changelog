@@ -1,8 +1,14 @@
-rubyripper (0.8.0rc1-0ubuntu1) UNRELEASED; urgency=medium
+rubyripper (0.8.0~rc3-0ddebs1) unstable; urgency=medium
 
   * New upstream release
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Mar 2021 23:34:31 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 20 Aug 2021 08:58:55 +0200
+
+rubyripper (0.8.0~rc1-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Mar 2021 23:36:42 +0100
 
 rubyripper (0.7.0rc2+git20180830-0ddebs3) unstable; urgency=medium
 
