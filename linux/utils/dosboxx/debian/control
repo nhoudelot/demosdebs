@@ -20,19 +20,43 @@ Homepage: https://github.com/joncampbell123/dosbox-x
 Vcs-Git: https://github.com/joncampbell123/dosbox-x.git
 Vcs-Browser: https://github.com/joncampbell123/dosbox-x
 
+Package: fonts-sarasa-fixed-j
+Architecture: all
+Multi-Arch: foreign
+Section: fonts
+Depends:
+ ${misc:Depends}
+Description: sarasa fonts
+ Fonts designed by unknown
+
+Package: fonts-unifontfull-medium-mono
+Architecture: all
+Multi-Arch: foreign
+Section: fonts
+Depends:
+ ${misc:Depends}
+Description: unifont mono fonts
+ Fonts designed by unknown
+
 Package: dosboxx
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Fork of DOSBox, an x86 emulator with SVGA graphics, sound and DOS
- DOSBox is a x86 emulator with Tandy/Hercules/CGA/EGA/VGA/SVGA graphics,
- sound and DOS. It's been designed to run old DOS games on platforms that
- don't support it.
+Description: DOSBox-X emulates a legacy IBM PC and DOS environment.
+ DOSBox-X is an open-source DOS emulator for running DOS games and applications.
+ DOS-based Windows such as Windows 3.x and Windows 9x are officially supported.
+ Compared to DOSBox, DOSBox-X is much more flexible and provides more features.
  .
- The following legacy sound devices are emulated: PC Speaker, Creative
- CMS/Gameblaster, Tandy 3 voice, Adlib, Sound Blaster Pro/16,
- Disney Soundsource and a Gravis Ultrasound. MPU-401 is forwarded to
- the host.
- This fork continues the development of the original DOSBox, addind a Gui,
- PentiumPro support, Voodoo, and PC-98
+ DOSBox-X emulates a PC necessary for running many DOS games and applications
+ that simply cannot be run on modern PCs and operating systems, similar to
+ DOSBox. However, while the main focus of DOSBox is for running DOS games,
+ DOSBox-X goes much further than this. Started as a fork of the DOSBox project,
+ it retains compatibility with the wide base of DOS games and DOS gaming DOSBox
+ was designed for. But it is also a platform for running DOS applications,
+ including emulating the environments to run Windows 3.x, 9x and ME and software
+ written for those versions of Windows. By adding official support for
+ Windows 95, 98, and ME emulation and acceleration, we hope that those old
+ Windows games and applications could be enjoyed or used once more. Moreover,
+ DOSBox-X adds support for emulating the NEC PC-98 such that you can also play
+ PC-98 games with it.

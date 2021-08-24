@@ -1,3 +1,11 @@
+dosboxx (0.83.16-0ddebs2) unstable; urgency=medium
+
+  * create fonts package
+  * use svg icon
+  * update description like in the spec file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Aug 2021 11:16:44 +0200
+
 dosboxx (0.83.16-0ddebs1) unstable; urgency=medium
 
   * New upstream release 
