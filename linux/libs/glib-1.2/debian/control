@@ -8,9 +8,7 @@ Homepage: http://www.gtk.org/
 
 Package: libglib1.2ldbl
 Architecture: any
-Depends:
- ${shlibs:Depends},
- ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: libglib1.2
 Replaces: libglib1.2
 Description: GLib library of C routines
@@ -21,9 +19,7 @@ Description: GLib library of C routines
 Package: libglib1.2-dev
 Section: libdevel
 Architecture: any
-Depends:
- libglib1.2ldbl (= ${binary:Version}),
- pkg-config
+Depends: libglib1.2ldbl (= ${binary:Version}), pkg-config
 Provides: libglib-dev
 Description: GLib library of C routines (development)
  GLib is a library containing many useful C routines for things such as trees,

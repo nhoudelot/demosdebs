@@ -1,3 +1,10 @@
+rubyripper (0.8.0~rc3-0ddebs2) unstable; urgency=medium
+
+  * Use configure and install script instead
+    now all languages are installed
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Oct 2021 00:30:25 +0200
+
 rubyripper (0.8.0~rc3-0ddebs1) unstable; urgency=medium
 
   * New upstream release

@@ -6,7 +6,8 @@ Uploaders: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends: debhelper (>= 10),
                gem2deb,
                rake,
-               ruby-rspec
+               ruby-rspec,
+               ruby-gettext
 Standards-Version: 4.5.0
 Vcs-Git: https://github.com/bleskodev/rubyripper.git
 Vcs-Browser: https://github.com/bleskodev/rubyripper
