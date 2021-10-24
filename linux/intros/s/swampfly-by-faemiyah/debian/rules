@@ -8,3 +8,7 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 override_dh_installchangelogs:
 	dh_installchangelogs -a ChangeLog
+
+override_dh_auto_install:
+	find . -name "COPYING" -delete
+	dh_auto_install

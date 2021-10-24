@@ -53,21 +53,76 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
  //######################################
-@@ -1323,7 +1323,7 @@
- 		else if((currtick > FRAME_TICKS) &&
- 		        (tick_cumulative < currtick - FRAME_TICKS))
- 		{
--			printf("\rframeskip: %u     ", currtick - tick_cumulative);
-+			printf("\rframeskip: %i     ", currtick - tick_cumulative);
- 			fflush(stdout);
- 			while(tick_cumulative < currtick - FRAME_TICKS)
- 			{
-@@ -1365,7 +1365,7 @@
- 				break;
+@@ -454,7 +454,7 @@
  #endif
- 			case SDLK_SPACE:
--				printf("Ticks: %u\n", currtick);
-+				printf("Ticks: %i\n", currtick);
- 			default:
- 				break;
- 			}
+ 
+ /** Vertex shader. */
+-ICONST char vshader[] = 
++ICONST char vshader[] =
+ "a=gl_Vertex;" GLSL_NEWLINE
+ #if defined(USE_LD)
+ "vec4 c=gl_Color;" GLSL_NEWLINE
+@@ -656,7 +656,7 @@
+  * y movement sin multiplier
+  * y movement sin addition
+  */
+-ICONST int8_t dragonfly_data[] = 
++ICONST int8_t dragonfly_data[] =
+ {
+   // Middle point
+   3, 0, 0, 0, 0,
+@@ -1152,7 +1152,7 @@
+           break;
+         }
+ 
+-        *olditer = dlsym(handle, iter);			
++        *olditer = dlsym(handle, iter);
+       }
+     } while(*(++iter));
+   }
+@@ -1210,12 +1210,12 @@
+     DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, sdl_flags);
+   }
+   DDL_ShowCursor(0);
+-#if defined(WIN32)
+-  if(glewInit() != GLEW_OK)
+-  {
+-    return -1;
+-  }
+-#endif
++#if defined(WIN32)
++  if(glewInit() != GLEW_OK)
++  {
++    return -1;
++  }
++#endif
+ 
+   // Drawing rules.
+   //dlEnable(GL_AUTO_NORMAL);
+@@ -1263,7 +1263,7 @@
+ #endif
+ 
+   //SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
+-  starttick = DDL_GetTicks();	
++  starttick = DDL_GetTicks();
+ 
+ #if defined(USE_LD) && defined(HAVE_LIBPNG)
+   if(flag_record)
+@@ -1323,7 +1323,7 @@
+     else if((currtick > FRAME_TICKS) &&
+         (tick_cumulative < currtick - FRAME_TICKS))
+     {
+-      printf("\rframeskip: %u     ", currtick - tick_cumulative);
++      printf("\rframeskip: %i     ", currtick - tick_cumulative);
+       fflush(stdout);
+       while(tick_cumulative < currtick - FRAME_TICKS)
+       {
+@@ -1365,7 +1365,7 @@
+           break;
+ #endif
+         case SDLK_SPACE:
+-          printf("Ticks: %u\n", currtick);
++          printf("Ticks: %i\n", currtick);
+         default:
+           break;
+       }

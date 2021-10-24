@@ -7,70 +7,84 @@ Last-Update: 2020-04-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/swamp_fly.c
 +++ b/src/swamp_fly.c
-@@ -1308,7 +1308,8 @@
- 	}
+@@ -1304,14 +1304,13 @@
+       DDL_GL_SwapWindow(sdlWindow);
+       ++frame_idx;
+     }
+-    DDL_GL_DeleteContext(sdlGlcontext);
+-	DDL_DestroyWindow(sdlWindow);
+     DDL_Quit();
+     return 0;
+   }
  #endif
  
--	for(;;)
-+	int quit = 0;
-+	while(!quit)
- 	{
- 		// Perform drawing.
+-  for(;;)
++  int quit = 0;
++  while(!quit)
+   {
+     // Perform drawing.
  #if defined(MANUAL_ADVANCE)
-@@ -1345,7 +1346,7 @@
- 		// Draw process.
- 		if(currtick >= INTRO_LENGTH)
- 		{
--			break;
-+			quit++;
- 		}
- 		draw(currtick);
- 		DDL_GL_SwapWindow(sdlWindow);
-@@ -1354,38 +1355,18 @@
- 		tick_cumulative += FRAME_TICKS;
+@@ -1348,7 +1347,7 @@
+     // Draw process.
+     if(currtick >= INTRO_LENGTH)
+     {
+-      break;
++      quit++;
+     }
+     draw(currtick);
+     DDL_GL_SwapWindow(sdlWindow);
+@@ -1357,41 +1356,23 @@
+     tick_cumulative += FRAME_TICKS;
  #endif
  
--		// Abort on any keypress.
--		if(DDL_PollEvent(&event) && (event.type == SDL_KEYDOWN))
-+		while(SDL_PollEvent(&event))
- 		{
+-    // Abort on any keypress.
+-    if(DDL_PollEvent(&event) && (event.type == SDL_KEYDOWN))
++    while(SDL_PollEvent(&event))
+     {
 -#if defined(USE_LD)
--			switch(event.key.keysym.sym)
--			{
+-      switch(event.key.keysym.sym)
+-      {
 -#if defined(MANUAL_ADVANCE)
--			case SDLK_RSHIFT:
--				currtickmul = 100;
--				break;
--			case SDLK_LSHIFT:
--				currtickmul = 1;
--				break;
--			case SDLK_PERIOD:
--				currtick += 20 * currtickmul;
--				break;
--			case SDLK_COMMA:
--				currtick -= 20 * currtickmul;
--				break;
+-        case SDLK_RSHIFT:
+-          currtickmul = 100;
+-          break;
+-        case SDLK_LSHIFT:
+-          currtickmul = 1;
+-          break;
+-        case SDLK_PERIOD:
+-          currtick += 20 * currtickmul;
+-          break;
+-        case SDLK_COMMA:
+-          currtick -= 20 * currtickmul;
+-          break;
 -#endif
--			case SDLK_SPACE:
--				printf("Ticks: %i\n", currtick);
--			default:
--				break;
-+			if (event.type == SDL_QUIT) {
-+				quit++;
- 			}
--			if(event.key.keysym.sym == SDLK_ESCAPE)
--			{
--				break;
-+			if (event.type == SDL_KEYUP) {
-+				switch (event.key.keysym.sym) {
+-        case SDLK_SPACE:
+-          printf("Ticks: %i\n", currtick);
+-        default:
+-          break;
+-      }
+-      if(event.key.keysym.sym == SDLK_ESCAPE)
+-      {
+-        break;
+-      }
+-#else
+-      break;
+-#endif
++		if (event.type == SDL_QUIT) {
++			quit++;
++		}
++		if (event.type == SDL_KEYUP) {
++			switch (event.key.keysym.sym) {
 +				case SDLK_SPACE:printf("Ticks: %i\n", currtick); break;
 +				case SDLK_ESCAPE: quit++; break;
 +				case SDLK_q: quit++; break;
-+				}
- 			}
--#else
--			break;
--#endif
- 		}
- 	}
++			}
++		}
+     }
+   }
  
++  DDL_GL_DeleteContext(sdlGlcontext);
++  DDL_DestroyWindow(sdlWindow);
+   DDL_Quit();
+ #if !defined(USE_LD)
+   asm("movl $1,%eax\nxor %ebx,%ebx\nint $128\n");

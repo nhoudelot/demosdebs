@@ -7,22 +7,22 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/swamp_fly.c
 +++ b/src/swamp_fly.c
 @@ -138,6 +138,7 @@
- 	"glShaderSource\0"
- 	"glTexEnvi\0"
- 	"glUseProgram\0\0"
-+	"glViewport\0"
- 	"libGLU.so\0"
- 	"gluLookAt\0"
- 	"gluPerspective\0\0"
-@@ -153,6 +154,7 @@
- 	"SDL_GL_CreateContext\0"
- 	"SDL_GL_DeleteContext\0"
- 	"SDL_DestroyWindow\0"
-+	"SDL_GetWindowID\0"
- 	"SDL_ShowCursor\0\0";
+ "glShaderSource\0"
+ "glTexEnvi\0"
+ "glUseProgram\0\0"
++"glViewport\0"
+ "libGLU.so\0"
+ "gluLookAt\0"
+ "gluPerspective\0\0"
+@@ -154,6 +155,7 @@
+ "SDL_GL_CreateContext\0"
+ "SDL_GL_DeleteContext\0"
+ "SDL_DestroyWindow\0"
++"SDL_GetWindowID\0"
+ "SDL_ShowCursor\0\0";
  
  #define dsinf sinf
-@@ -177,6 +179,7 @@
+@@ -178,6 +180,7 @@
  #define dlShaderSource glShaderSource
  #define dlTexEnvi glTexEnvi
  #define dlUseProgram glUseProgram
@@ -30,7 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #define dluLookAt gluLookAt
  #define dluPerspective gluPerspective
-@@ -191,9 +194,13 @@
+@@ -192,9 +195,13 @@
  #define DDL_GL_CreateContext SDL_GL_CreateContext
  #define DDL_GL_DeleteContext SDL_GL_DeleteContext
  #define DDL_DestroyWindow SDL_DestroyWindow
@@ -44,7 +44,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #else
  
  /* To understand this, you need to realize that all function names are
-@@ -239,6 +246,28 @@
+@@ -240,6 +247,28 @@
  #endif
  /** \endcond */
  
@@ -73,31 +73,31 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  //######################################
  // rand() ##############################
  //######################################
-@@ -1173,9 +1202,9 @@
- 	{
+@@ -1174,9 +1203,9 @@
+   {
  #if defined(USE_LD)
  #if defined(SCREEN_F)
--		uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
-+		uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE| SDL_WINDOW_FULLSCREEN;
+-    uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
++    uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE| SDL_WINDOW_FULLSCREEN;
  #else
--		uint32_t sdl_flags = SDL_WINDOW_OPENGL;
-+		uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
+-    uint32_t sdl_flags = SDL_WINDOW_OPENGL;
++    uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
  #endif
- 		for(ii = 1; (ii < argc); ++ii)
- 		{
-@@ -1309,6 +1338,7 @@
+     for(ii = 1; (ii < argc); ++ii)
+     {
+@@ -1310,6 +1339,7 @@
  #endif
  
- 	int quit = 0;
-+	Uint32 windowID = DDL_GetWindowID(sdlWindow);
- 	while(!quit)
- 	{
- 		// Perform drawing.
-@@ -1367,6 +1397,16 @@
+   int quit = 0;
++  Uint32 windowID = DDL_GetWindowID(sdlWindow);
+   while(!quit)
+   {
+     // Perform drawing.
+@@ -1368,6 +1398,17 @@
  				case SDLK_q: quit++; break;
- 				}
  			}
-+			if(event.type == SDL_WINDOWEVENT)
+ 		}
++		if(event.type == SDL_WINDOWEVENT)
 +			{
 +				if (event.window.windowID == windowID)  {
 +					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
@@ -107,6 +107,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +					}
 +				}
 +			}
- 		}
- 	}
++		}
+     }
+   }
  

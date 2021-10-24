@@ -6,16 +6,16 @@ Last-Update: 2020-04-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/swamp_fly.c
 +++ b/src/swamp_fly.c
-@@ -155,6 +155,8 @@
- 	"SDL_GL_DeleteContext\0"
- 	"SDL_DestroyWindow\0"
- 	"SDL_GetWindowID\0"
-+	"SDL_GetWindowFlags\0"
-+	"SDL_SetWindowFullscreen\0"
- 	"SDL_ShowCursor\0\0";
+@@ -156,6 +156,8 @@
+ "SDL_GL_DeleteContext\0"
+ "SDL_DestroyWindow\0"
+ "SDL_GetWindowID\0"
++"SDL_GetWindowFlags\0"
++"SDL_SetWindowFullscreen\0"
+ "SDL_ShowCursor\0\0";
  
  #define dsinf sinf
-@@ -195,6 +197,8 @@
+@@ -196,6 +198,8 @@
  #define DDL_GL_DeleteContext SDL_GL_DeleteContext
  #define DDL_DestroyWindow SDL_DestroyWindow
  #define DDL_GetWindowID SDL_GetWindowID
@@ -24,7 +24,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #define DDL_ShowCursor SDL_ShowCursor
  #define DDL_Quit SDL_Quit
  
-@@ -267,6 +271,12 @@
+@@ -268,6 +272,12 @@
  	dlViewport(x, y, w, h);
  }
  
@@ -37,11 +37,48 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  //######################################
  // rand() ##############################
-@@ -1393,6 +1403,7 @@
- 			if (event.type == SDL_KEYUP) {
- 				switch (event.key.keysym.sym) {
+@@ -1386,19 +1396,20 @@
+     tick_cumulative += FRAME_TICKS;
+ #endif
+ 
+-    while(SDL_PollEvent(&event))
+-    {
+-		if (event.type == SDL_QUIT) {
+-			quit++;
+-		}
+-		if (event.type == SDL_KEYUP) {
+-			switch (event.key.keysym.sym) {
++		while(SDL_PollEvent(&event))
++		{
++			if (event.type == SDL_QUIT) {
++				quit++;
++			}
++			if (event.type == SDL_KEYUP) {
++				switch (event.key.keysym.sym) {
  				case SDLK_SPACE:printf("Ticks: %i\n", currtick); break;
 +				case SDLK_f: ToggleFullscreen(sdlWindow); break;
  				case SDLK_ESCAPE: quit++; break;
  				case SDLK_q: quit++; break;
++				}
+ 			}
+-		}
+-		if(event.type == SDL_WINDOWEVENT)
++			if(event.type == SDL_WINDOWEVENT)
+ 			{
+ 				if (event.window.windowID == windowID)  {
+ 					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
+@@ -1409,11 +1420,9 @@
  				}
+ 			}
+ 		}
+-    }
+-  }
+-
+-  DDL_GL_DeleteContext(sdlGlcontext);
+-  DDL_DestroyWindow(sdlWindow);
++	}
++	DDL_GL_DeleteContext(sdlGlcontext);
++	DDL_DestroyWindow(sdlWindow);
+   DDL_Quit();
+ #if !defined(USE_LD)
+   asm("movl $1,%eax\nxor %ebx,%ebx\nint $128\n");
