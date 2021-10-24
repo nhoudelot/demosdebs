@@ -5,7 +5,7 @@ Last-Update: 2020-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/main.c
 +++ b/src/main.c
-@@ -1339,7 +1339,7 @@
+@@ -1338,7 +1338,7 @@
  void *__progname;
  /** \brief Object file starting point.
   */
@@ -16,11 +16,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #if defined(USE_LD)
 --- a/src/record.c
 +++ b/src/record.c
-@@ -3,11 +3,12 @@
+@@ -3,12 +3,12 @@
  #include <stdlib.h>
  #include <string.h>
  
 -#include "png.h"
+-#include "zlib.h"
 +#include <png.h>
 +#include <zlib.h>
  #ifdef __APPLE__

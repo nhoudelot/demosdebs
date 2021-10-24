@@ -16,7 +16,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  /** Delay between frames (milliseconds). */
  #define FRAME_TICKS 16
-@@ -1383,6 +1383,7 @@
+@@ -1382,6 +1382,7 @@
  #endif
  #endif
  		DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, sdl_flags);

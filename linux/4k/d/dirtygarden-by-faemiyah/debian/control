@@ -9,6 +9,8 @@ Build-Depends:
  libpng-dev
 Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=57451
+Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2011-08_4k-intro_dirty_garden
+Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2011-08_4k-intro_dirty_garden.git
 
 Package: dirtygarden-by-faemiyah
 Architecture: any
