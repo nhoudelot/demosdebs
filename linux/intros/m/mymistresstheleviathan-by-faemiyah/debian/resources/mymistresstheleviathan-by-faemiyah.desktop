@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=My Mistress the Leviathan
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2016
+Type=Application
+Exec=/usr/bin/mymistresstheleviathan-by-faemiyah -w
+Icon=mymistresstheleviathan-by-faemiyah
+Categories=AudioVideo;
+Name[fr_FR]=My Mistress the Leviathan

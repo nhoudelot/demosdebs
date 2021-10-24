@@ -1,0 +1,29 @@
+Source: mymistresstheleviathan-by-faemiyah
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ cmake,
+ libboost-program-options-dev,
+ pkg-config,
+ libsdl2-dev,
+ libfreetype6-dev,
+ libglew-dev
+Standards-Version: 4.5.0
+Homepage: https://github.com/faemiyah/faemiyah-demoscene_2016-08_80k-intro_my_mistress_the_leviathan
+Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2016-08_80k-intro_my_mistress_the_leviathan
+Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2016-08_80k-intro_my_mistress_the_leviathan.git
+
+Package: mymistresstheleviathan-by-faemiyah
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Intro by Faemiyah, released in 2016
+ Assembly 2016 real wild compo, 2nd place
+ My Mistress the Leviathan
+ .
+ Animation, additional code, direction, graphics, models:  Warma
+ Code:                                                     Trilkk
+ Music, synth:                                             Juippi

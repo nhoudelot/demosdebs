@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -flto
+export DEB_CPPFLAGS_MAINT_APPEND  = -flto
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
+
+%:
+	dh $@ --buildsystem=cmake --builddirectory=build
+
+override_dh_install:
+	mv build/my_mistress_the_leviathan build/mymistresstheleviathan-by-faemiyah
+	dh_install

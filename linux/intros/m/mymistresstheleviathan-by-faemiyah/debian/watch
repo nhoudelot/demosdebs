@@ -1,0 +1,5 @@
+version=4
+opts="mode=git, pgpmode=none, pretty=1.0+git%cd, \
+         repack,compression=xz" \
+         https://github.com/faemiyah/faemiyah-demoscene_2016-08_80k-intro_my_mistress_the_leviathan \
+         HEAD debian uupdate

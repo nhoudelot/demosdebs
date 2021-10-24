@@ -1,0 +1,3 @@
+debian/resources/mymistresstheleviathan-by-faemiyah.desktop usr/share/applications/
+debian/resources/mymistresstheleviathan-by-faemiyah.png usr/share/icons/hicolor/256x256/apps/
+build/mymistresstheleviathan-by-faemiyah usr/bin/

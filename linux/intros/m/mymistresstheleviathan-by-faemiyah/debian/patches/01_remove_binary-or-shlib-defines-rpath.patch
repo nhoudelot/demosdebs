@@ -1,0 +1,8 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -148,4 +148,5 @@
+   target_link_libraries(my_mistress_the_leviathan "${FREETYPE_LIBRARY}")
+   target_link_libraries(my_mistress_the_leviathan "${PNG_LIBRARY}")
+   target_link_libraries(my_mistress_the_leviathan "${SDL2_LIBRARY}")
++  set_target_properties(my_mistress_the_leviathan PROPERTIES SKIP_BUILD_RPATH TRUE)
+ endif()
