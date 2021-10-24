@@ -10,6 +10,8 @@ Build-Depends:
  libgtk2.0-dev
 Standards-Version: 4.5.0
 Homepage: https://github.com/faemiyah/faemiyah-demoscene_2005-07_32k-intro_origami
+Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2005-07_32k-intro_origami
+Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2005-07_32k-intro_origami.git
 
 Package: origami-by-faemiyah
 Architecture: any

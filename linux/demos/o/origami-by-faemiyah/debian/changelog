@@ -1,3 +1,9 @@
+origami-by-faemiyah (1.0+git20170414-0ddebs1) unstable; urgency=medium
+
+  * Update version to the last git commit
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Oct 2021 16:31:59 +0200
+
 origami-by-faemiyah (1.0-0ddebs12) unstable; urgency=medium
 
   * adapt to cross-compilation
