@@ -11,7 +11,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  AC_CANONICAL_BUILD
  AC_CANONICAL_HOST
-@@ -6,15 +6,19 @@
+@@ -6,13 +6,19 @@
  
  AM_INIT_AUTOMAKE([dist-bzip2])
  
@@ -22,20 +22,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +AC_PROG_CC
 +AC_PROG_CPP
  AC_PROG_INSTALL
--AC_PROG_LIBTOOL
  AC_PROG_LN_S
 +AC_PROG_LIBTOOL
  AC_PROG_MAKE_SET
--AC_PROG_RANLIB
 +LT_INIT
-+
  
 -AC_REQUEST_C99([SAE4_C99], [yes])
++
 +AC_CHECK_C99([SAE4_C99], [yes])
  
  AC_COMPILE_MODE([SAE4_DEBUG])
  AC_CONDITIONAL_DEFINE([SAE4_GNU_LD], [yes])
-@@ -25,6 +29,9 @@
+@@ -23,6 +29,9 @@
  AC_CONDITIONAL_DEFINE([SAE4_BIG_ENDIAN], [$bigendian])
  AC_CONDITIONAL_DEFINE([SAE4_LITTLE_ENDIAN], [$littleendian])
  
@@ -45,7 +43,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  AC_CHECK_HEADER([inttypes.h],
  								[AC_DEFINE([SAE4_HAVE_INTTYPES_H],
  													 [],
-@@ -42,10 +49,19 @@
+@@ -40,10 +49,19 @@
  								[])
  
  
@@ -67,20 +65,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #AC_SPECIFIC_HEADER([src/config.h],
 --- a/acinclude.m4
 +++ b/acinclude.m4
-@@ -1,441 +1,658 @@
+@@ -1,5 +1,5 @@
 -dnl If $2 is 'yes', define and make an am_conditional of $1
 -dnl AC_CONDITIONAL_DEFINE([DEFINE_STRING], [TEST_STRING])
 +# If $2 is 'yes', define and make an am_conditional of $1
 +# AC_CONDITIONAL_DEFINE([DEFINE_STRING], [TEST_STRING])
  AC_DEFUN([AC_CONDITIONAL_DEFINE],
  [
--  if test x$2 == xyes ; then
--    AC_DEFINE_UNQUOTED([$1], [], [Conditionally defined])
-+  if test "x$2" = "xyes" ; then
-+    AC_DEFINE_UNQUOTED([$1], [1], [Conditionally defined])
-   fi
--  AM_CONDITIONAL([$1], [test x$2 == xyes])
-+  AM_CONDITIONAL([$1], [test "x$2" = "xyes"])
+   if test "x$2" = "xyes" ; then
+@@ -9,582 +9,650 @@
    AC_SUBST([$1], [$2])
  ])
  
@@ -201,19 +194,26 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +  else
 +    LIBS="$1"
 +  fi
-+])
-+
+ ])
+ 
+-dnl Check for CC compiler and preserve existing flags (or their absence).
+-dnl Use as you would use AC_PROG_CC.
+-dnl AC_CHECK_COMPILERS([compilers])
 +# Check for CC compiler and preserve existing flags (or their absence).
 +# Use as you would use AC_PROG_CC.
 +# AC_CHECK_COMPILERS([compilers])
-+AC_DEFUN([AC_CHECK_CC],
-+[
+ AC_DEFUN([AC_CHECK_CC],
+ [
+-	CFLAGS_save="$CFLAGS"
+-	AC_PROG_CC([$1])
+-	CFLAGS="$CFLAGS_save"
 +  : ${CFLAGS=""}
 +  AC_PROG_CC([$1])
  ])
  
--dnl Check if given C compiler flag is approperiate and include if yes.
--dnl AC_CHECK_CCFLAG([FLAG])
+-dnl Check for CXX compiler and preserve existing flags (or their absence).
+-dnl Use as you would use AC_PROG_CXX.
+-dnl AC_CHECK_COMPILERS([compilers])
 +# As AC_CHECK_CC, but require C99 standard.
 +# AC_INCORPORATE_C99([compilers])
 +AC_DEFUN([AC_CHECK_C99],
@@ -226,29 +226,36 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +# Check for CXX compiler and preserve existing flags (or their absence).
 +# Use as you would use AC_PROG_CXX.
 +# AC_CHECK_COMPILERS([compilers])
-+AC_DEFUN([AC_CHECK_CXX],
-+[
+ AC_DEFUN([AC_CHECK_CXX],
+ [
+-	CXXFLAGS_save="$CXXFLAGS"
+-	AC_PROG_CXX([$1])
+-	CXXFLAGS="$CXXFLAGS_save"
 +  : ${CXXFLAGS=""}
 +  AC_PROG_CXX([$1])
-+])
-+
+ ])
+ 
+-dnl Check if given C compiler flag is approperiate and include if yes.
+-dnl AC_CHECK_CCFLAG([FLAG])
 +# Check if given C compiler flag is approperiate and include if yes.
 +# AC_CHECK_CCFLAG([FLAG])
  AC_DEFUN([AC_CHECK_CCFLAG],
  [
--	AC_LANG_PUSH([C])
--	AC_MSG_CHECKING([if $CC accepts $1])
--	CFLAGS_save=[$CFLAGS]
--	AC_ADD_CCFLAG([$1])
--	AC_TRY_COMPILE([],
--		[],
--		flag=[yes],
--		flag=[no])
--	if test x$flag == xno ; then
--		CFLAGS="$CFLAGS_save"
+-	if test "x$CC" != x ; then
+-		AC_LANG_PUSH([C])
+-		AC_MSG_CHECKING([if $CC accepts $1])
+-		CFLAGS_save=[$CFLAGS]
+-		AC_ADD_CCFLAG([$1])
+-		AC_TRY_COMPILE([],
+-			[],
+-			flag=[yes],
+-			flag=[no])
+-		if test x$flag = xno ; then
+-			CFLAGS="$CFLAGS_save"
+-		fi
+-		AC_MSG_RESULT([$flag])
+-		AC_LANG_POP([C])
 -	fi
--	AC_MSG_RESULT([$flag])
--	AC_LANG_POP([C])
 +  if test "x$CC" != x ; then
 +    AC_LANG_PUSH([C])
 +    AC_MSG_CHECKING([if $CC accepts $1])
@@ -271,19 +278,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +# AC_CHECK_CXXFLAG([flag])
  AC_DEFUN([AC_CHECK_CXXFLAG],
  [
--	AC_LANG_PUSH([C++])
--	AC_MSG_CHECKING([if $CXX accepts $1])
--	CXXFLAGS_save=[$CXXFLAGS]
--	AC_ADD_CXXFLAG([$1])
--	AC_TRY_COMPILE([],
--		[],
--		flag=[yes],
--		flag=[no])
--	if test x$flag == xno ; then
--		CXXFLAGS="$CXXFLAGS_save"
+-	if test "x$CXX" != x ; then
+-		AC_LANG_PUSH([C++])
+-		AC_MSG_CHECKING([if $CXX accepts $1])
+-		CXXFLAGS_save=[$CXXFLAGS]
+-		AC_ADD_CXXFLAG([$1])
+-		AC_TRY_COMPILE([],
+-			[],
+-			flag=[yes],
+-			flag=[no])
+-		if test x$flag = xno ; then
+-			CXXFLAGS="$CXXFLAGS_save"
+-		fi
+-		AC_MSG_RESULT([$flag])
+-		AC_LANG_POP([C++])
 -	fi
--	AC_MSG_RESULT([$flag])
--	AC_LANG_POP([C++])
 +  if test "x$CXX" != x ; then
 +    AC_LANG_PUSH([C++])
 +    AC_MSG_CHECKING([if $CXX accepts $1])
@@ -298,12 +307,27 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +    AC_MSG_RESULT([$flag])
 +    AC_LANG_POP([C++])
 +  fi
-+])
-+
+ ])
+ 
+-dnl Check if given C++ compiler flag produces runnable code.
+-dnl AC_CHECK_CCRUN([FLAG])
 +# Check if given C++ compiler flag produces runnable code.
 +# AC_CHECK_CCRUN([FLAG])
-+AC_DEFUN([AC_CHECK_CCRUN],
-+[
+ AC_DEFUN([AC_CHECK_CCRUN],
+ [
+-	AC_LANG_PUSH([C])
+-	AC_MSG_CHECKING([if $CC runs $1])
+-	CFLAGS_save=[$CFLAGS]
+-	AC_ADD_CCFLAG([$1])
+-	AC_RUN_IFELSE(AC_LANG_PROGRAM([], []),
+-		flag=[yes],
+-		flag=[no],
+-		flag=[no])
+-	if test x$flag = xno ; then
+-		CFLAGS="$CFLAGS_save"
+-	fi
+-	AC_MSG_RESULT([$flag])
+-	AC_LANG_POP([C])
 +  AC_LANG_PUSH([C])
 +  AC_MSG_CHECKING([if $CC runs $1])
 +  CFLAGS_save=[$CFLAGS]
@@ -319,12 +343,25 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +  AC_LANG_POP([C])
  ])
  
--dnl Check a flag for both C and C++
--dnl AC_CHECK_CFLAG([flag])
+-dnl Check if given C++ compiler flag produces runnable code.
+-dnl AC_CHECK_CXXRUN([FLAG])
 +# Check if given C++ compiler flag produces runnable code.
 +# AC_CHECK_CXXRUN([FLAG])
-+AC_DEFUN([AC_CHECK_CXXRUN],
-+[
+ AC_DEFUN([AC_CHECK_CXXRUN],
+ [
+-	AC_LANG_PUSH([C++])
+-	AC_MSG_CHECKING([if $CXX runs $1])
+-	CXXFLAGS_save=[$CXXFLAGS]
+-	AC_ADD_CXXFLAG([$1])
+-	AC_RUN_IFELSE(AC_LANG_PROGRAM([], []),
+-		flag=[yes],
+-		flag=[no],
+-		flag=[no])
+-	if test x$flag = xno ; then
+-		CXXFLAGS="$CXXFLAGS_save"
+-	fi
+-	AC_MSG_RESULT([$flag])
+-	AC_LANG_POP([C++])
 +  AC_LANG_PUSH([C++])
 +  AC_MSG_CHECKING([if $CXX runs $1])
 +  CXXFLAGS_save=[$CXXFLAGS]
@@ -338,8 +375,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +  fi
 +  AC_MSG_RESULT([$flag])
 +  AC_LANG_POP([C++])
-+])
-+
+ ])
+ 
+-
+-dnl Check a flag for both C and C++
+-dnl AC_CHECK_CFLAG([flag])
 +# Check a flag for both C and C++
 +# AC_CHECK_CFLAG([flag])
  AC_DEFUN([AC_CHECK_CFLAG],
@@ -348,12 +388,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	AC_CHECK_CXXFLAG([$1])
 +  AC_CHECK_CCFLAG([$1])
 +  AC_CHECK_CXXFLAG([$1])
-+])
-+
+ ])
+ 
+-dnl Check a run flag for both C and C++
+-dnl AC_CHECK_CRUN([flag])
 +# Check a run flag for both C and C++
 +# AC_CHECK_CRUN([flag])
-+AC_DEFUN([AC_CHECK_CRUN],
-+[
+ AC_DEFUN([AC_CHECK_CRUN],
+ [
+-	AC_CHECK_CCRUN([$1])
+-	AC_CHECK_CXXRUN([$1])
 +  AC_CHECK_CCRUN([$1])
 +  AC_CHECK_CXXRUN([$1])
  ])
@@ -364,14 +408,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +# AC_CHECK_LDFLAG([FLAG])
  AC_DEFUN([AC_CHECK_LDFLAG],
  [
--	AC_MSG_CHECKING([if $LD accepts $1])
+-	AC_MSG_CHECKING([if linker accepts $1])
 -	LDFLAGS_save=[$LDFLAGS]
 -	AC_ADD_LDFLAG([$1])
 -	AC_TRY_LINK([],
 -		[],
 -		flag=[yes],
 -		flag=[no])
--	if test x$flag == xno ; then
+-	if test x$flag = xno ; then
 -		LDFLAGS=[$LDFLAGS_save]
 -	fi
 -	AC_MSG_RESULT([$flag])
@@ -470,7 +514,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      optimizations=[no],
      optimizations=[yes])
  
--	if test x$debug == xyes ; then
+-	if test x$debug = xyes ; then
 -		optimizations=[no]
 -	fi
 -
@@ -480,17 +524,22 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -  	AC_MSG_RESULT([debug])
 -		AC_CHECK_CFLAG([-O0])
 -		AC_CHECK_CFLAG([-g])
+-		AC_CHECK_CFLAG([-funit-at-a-time])
 -	elif test x$optimizations != xno ; then
 -  	AC_MSG_RESULT([optimized])
 -		AC_CHECK_CFLAG([-O3])
 -		AC_CHECK_CFLAG([-ffast-math])
+-		AC_CHECK_CFLAG([-fgcse-sm])
+-		AC_CHECK_CFLAG([-fgcse-las])
+-		AC_CHECK_CFLAG([-fgcse-after-reload])
+-		AC_CHECK_CFLAG([-fsee])
 -		AC_CHECK_CFLAG([-fsingle-precision-constant])
 -	else
 -  	AC_MSG_RESULT([normal])
 -		AC_CHECK_CFLAG([-O2])
 -	fi
 -	AC_CHECK_CFLAG([-pipe])
--	if test x$debug == xno ; then
+-	if test x$debug = xno ; then
 -		AC_CHECK_CFLAG([-fomit-frame-pointer])
 -		AC_CHECK_LDFLAG([-s])
 -	fi
@@ -512,7 +561,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -		AC_CHECK_CCFLAG([-Wstrict-prototypes])
 -		AC_CHECK_CFLAG([-Wswitch-default])
 -	fi
--	if test x$debug$optimizations == xnoyes ; then
+-	if test x$debug$optimizations = xnoyes ; then
 -		AC_CHECK_CFLAG([-ftracer])
 -		AC_CHECK_CFLAG([-fweb])
 -	fi
@@ -541,7 +590,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -		tests=[no])
 -	AC_CONDITIONAL_DEFINE([$1], [$tests])
 -	AC_MSG_RESULT([$tests])
--	if test x$tests == xyes ; then
+-	if test x$tests = xyes ; then
 -		ifelse([$2], , :, [$2])
 -	else
 -		ifelse([$3], , :, [$3])
@@ -625,7 +674,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	AC_RUN_IFELSE(
 -		[int main(void)
 -		{
--			if(sizeof(void*) == 4)
+-			if(sizeof(void*) = 4)
 -			{
 -				return 0;
 -			}
@@ -634,7 +683,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -		[acptrsize32bit=yes],
 -		[acptrsize32bit=no],
 -		[acptrsize32bit=no])
--	if test x$acptrsize32bit == xyes ; then
+-	if test x$acptrsize32bit = xyes ; then
 -		AC_MSG_RESULT([yes])
 -	else
 -		AC_MSG_RESULT([no])
@@ -644,7 +693,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	AC_RUN_IFELSE(
 -		[int main(void)
 -		{
--			if(sizeof(void*) == 8)
+-			if(sizeof(void*) = 8)
 -			{
 -				return 0;
 -			}
@@ -653,7 +702,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -		[acptrsize64bit=yes],
 -		[acptrsize64bit=no],
 -		[acptrsize64bit=no])
--	if test x$acptrsize64bit == xyes ; then
+-	if test x$acptrsize64bit = xyes ; then
 -		AC_MSG_RESULT([yes])
 -	else
 -		AC_MSG_RESULT([no])
@@ -706,12 +755,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  AC_DEFUN([AC_INCORPORATE],
  [
 -	AC_MSG_CHECKING([if $1 is ok])
--	if test x$2 == xyes ; then
+-	if test x$2 = xyes ; then
 -		AC_ADD_CCFLAG([$3])
 -		AC_ADD_CXXFLAG([$3])
 -		AC_ADD_LIB([$4])
 -		AC_MSG_RESULT([yes])
--	elif test x$6 == xyes ; then
+-	elif test x$6 = xyes ; then
 -		AC_MSG_ERROR([no])
 -	else
 -		AC_MSG_RESULT([no])
@@ -797,8 +846,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +  fi
 +  AC_INCORPORATE([boost_program_options], [$boost_program_options], [], [], [$1], [$2])
 +  AC_LANG_POP([C++])
-+])
-+
+ ])
+ 
+-dnl Incorporate Freetype2.
+-dnl AC_INCORPORATE_FREETYPE2([version], [define on found], [obligatory])
 +# Incorporate Boost property tree.
 +# AC_INCORPORATE_BOOST_PROPERTY_TREE([define on found], [obligatory])
 +AC_DEFUN([AC_INCORPORATE_BOOST_PROPERTY_TREE],
@@ -887,10 +938,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +    AC_CONDITIONAL_DEFINE([$1], [no])
 +  fi
 +  AC_LANG_POP([C++])
- ])
- 
--dnl Incorporate Freetype2.
--dnl AC_INCORPORATE_FREETYPE2([version], [define on found], [obligatory])a
++])
++
 +# Incorporate Freetype2.
 +# AC_INCORPORATE_FREETYPE2([version], [define on found], [obligatory])
  AC_DEFUN([AC_INCORPORATE_FREETYPE2],
@@ -903,8 +952,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +    freetype2=[yes],
 +    freetype2=[no])
 +  AC_INCORPORATE([Freetype2], [$freetype2], [$FT2_CFLAGS], [$FT2_LIBS], [$2], [$3])
-+])
-+
+ ])
+ 
+-dnl Incorporate libpng.
+-dnl AC_INCORPORATE_LIBPNG([version], [define on found], [obligatory])
 +# Incorporate GLUT.
 +# AC_INCORPORATE_GLUT([define on found], [obligatory])
 +AC_DEFUN([AC_INCORPORATE_GLUT],
@@ -913,10 +964,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +  AC_CHECK_LIB([glut], [glutInit])
 +  AC_INCORPORATE([GLUT], [$ac_cv_lib_glut_glutInit], [], [], [$1], [$2])
 +  AC_LANG_POP([C])
- ])
- 
--dnl Incorporate libpng.
--dnl AC_INCORPORATE_LIBPNG([version], [define on found], [obligatory])a
++])
++
 +
 +# Incorporate libjpeg.
 +# AC_INCORPORATE_LIBJPEG([version], [define on found], [obligatory])
@@ -935,7 +984,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	AC_INCORPORATE_PKGCONFIG([libpng],
 -		[$1],
 -		[$2],
--		[$3])
+-		[no])
+-	if test x$pkgc = xno ; then
+-		AC_INCORPORATE_PKGCONFIG([libpng12],
+-			[$1],
+-			[$2],
+-			[$3])
+-	fi
 +  AC_INCORPORATE_PKGCONFIG([libpng],
 +    [$1],
 +    [$2],
@@ -1004,18 +1059,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -		glu=[yes],
 -		glu=[no])
 -	AC_MSG_CHECKING([if OpenGL is ok])
--	if test x$gl == xyes ; then
--		if test x$glu == xyes ; then
+-	if test "x$gl" = "xyes" ; then
+-		if test "x$glu" = "xyes" ; then
 -			AC_MSG_RESULT([yes])
 -			AC_CONDITIONAL_DEFINE([$1], [yes])
--		elif test x$2 == xyes ; then
+-		elif test "x$2" = "xyes" ; then
 -			AC_MSG_ERROR([no])
 -			AC_CONDITIONAL_DEFINE([$1], [no])
 -		else
 -			AC_MSG_RESULT([no])
 -			AC_CONDITIONAL_DEFINE([$1], [no])
 -		fi
--	elif test x$2 == xyes ; then
+-	elif test "x$2" = "xyes" ; then
 -		AC_MSG_ERROR([no])
 -		AC_CONDITIONAL_DEFINE([$1], [no])
 -	else
@@ -1035,15 +1090,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +# Incorporate Vorbis.
 +# AC_INCORPORATE_VORBIS([define on found], [obligatory])
 +AC_DEFUN([AC_INCORPORATE_VORBIS],
-+[
-+  XIPH_PATH_VORBIS(have_ogg=[yes],
-+    have_ogg=[no])
-+  AC_INCORPORATE([VORBIS], [$have_ogg], [$VORBIS_CFLAGS], [$VORBIS_LIBS], [$1], [$2])
-+])
-+
-+# Incorporate ALSA.
-+# AC_INCORPORATE_ALSA([version], [define on found], [obligatory])
-+AC_DEFUN([AC_INCORPORATE_ALSA],
  [
 -	AC_LANG_PUSH([C])
 -	AC_SEARCH_LIBS([glutInit],
@@ -1059,16 +1105,91 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -[
 -	AC_PROG_CC_C99()
 -	AC_MSG_CHECKING([for C99])
--	if test x$ac_cv_prog_cc_c99 != xno ; then
+-	if test "x$ac_cv_prog_cc_c99" != "xno" ; then
 -		AC_MSG_RESULT([yes])
--		AC_CONDITIONAL_DEFINE([$1], [$ac_cv_prog_cc_c99])
+-		AC_CONDITIONAL_DEFINE([$1], [yes])
 -	else
--		if test x$obligatory == xyes ; then
+-		if test x$obligatory = xyes ; then
 -			AC_MSG_ERROR([no])
 -		else
 -			AC_MSG_RESULT([no])
 -		fi
 -	fi
+-])
+-
+-dnl Check if openmp is supported.
+-dnl AC_CHECK_OPENMP([define on yes], [obligatory])
+-AC_DEFUN([AC_INCORPORATE_OPENMP],
+-[
+-	openmp_c=[yes]
+-	openmp_cxx=[yes]
+-	openmp_ld=[yes]
+-
+-	if test "x$CC" != x ; then
+-		AC_LANG_PUSH([C])
+-		AC_MSG_CHECKING([if $CC accepts -fopenmp])
+-		CFLAGS_save=[$CFLAGS]
+-		AC_ADD_CCFLAG([-fopenmp])
+-		AC_TRY_COMPILE([],
+-			[],
+-			flag=[yes],
+-			flag=[no])
+-		if test x$flag = xno ; then
+-			openmp_c=[no]
+-		fi
+-		AC_MSG_RESULT([$flag])
+-		AC_LANG_POP([C])
+-		CFLAGS="$CFLAGS_save"
+-	fi
+-
+-	if test "x$CXX" != x ; then
+-		AC_LANG_PUSH([C++])
+-		AC_MSG_CHECKING([if $CXX accepts -fopenmp])
+-		CXXFLAGS_save=[$CXXFLAGS]
+-		AC_ADD_CXXFLAG([-fopenmp])
+-		AC_TRY_COMPILE([],
+-			[],
+-			flag=[yes],
+-			flag=[no])
+-		if test x$flag = xno ; then
+-			openmp_cxx=[no]
+-		fi
+-		AC_MSG_RESULT([$flag])
+-		AC_LANG_POP([C++])
+-		CXXFLAGS="$CXXFLAGS_save"
+-	fi
+-
+-	AC_MSG_CHECKING([if $LD accepts -fopenmp])
+-	LDFLAGS_save=[$LDFLAGS]
+-	AC_ADD_LDFLAG([-fopenmp])
+-	AC_TRY_LINK([],
+-		[],
+-		flag=[yes],
+-		flag=[no])
+-	if test x$flag = xno ; then
+-		openmp_ld=[no]
+-	fi
+-	AC_MSG_RESULT([$flag])
+-	LDFLAGS=[$LDFLAGS_save]
+-
+-	openmp_ok=[no]
+-	if test x$openmp_c = xyes ; then
+-		if test x$openmp_cxx = xyes ; then
+-			if test x$openmp_ld = xyes ; then
+-				openmp_ok=[yes]
+-			fi
+-		fi
+-	fi
++  XIPH_PATH_VORBIS(have_ogg=[yes],
++    have_ogg=[no])
++  AC_INCORPORATE([VORBIS], [$have_ogg], [$VORBIS_CFLAGS], [$VORBIS_LIBS], [$1], [$2])
++])
+ 
+-	AC_INCORPORATE([OpenMP], [$openmp_ok], [-fopenmp], [-fopenmp], [$1], [$2])
++# Incorporate ALSA.
++# AC_INCORPORATE_ALSA([version], [define on found], [obligatory])
++AC_DEFUN([AC_INCORPORATE_ALSA],
++[
 +  AM_PATH_ALSA([$1],
 +    alsa=[yes],
 +    alsa=[no])

@@ -6,7 +6,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/sae4.c
 +++ b/src/sae4.c
-@@ -997,6 +997,30 @@
+@@ -1005,6 +1005,30 @@
  }
  #endif
  
@@ -37,7 +37,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  //######################################
  // Main ################################
  //######################################
-@@ -1039,8 +1063,9 @@
+@@ -1055,8 +1079,9 @@
  	SDL_Window *sdlWindow;
  	SDL_GLContext sdlGlcontext;
  	// Do not take the screen with you since it is not needed.
@@ -48,8 +48,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	DDL_ShowCursor(0);
  
  	dlEnable(GL_DEPTH_TEST);
-@@ -1105,189 +1130,199 @@
- 		SDL_Event event;
+@@ -1119,189 +1144,199 @@
+ 		// Abort on any keypress.
  		while(DDL_PollEvent(&event))
  		{
 -		    if (event.type == SDL_QUIT) {

@@ -41,18 +41,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  AC_CHECK_FUNCS([select])
 --- a/src/sae4.c
 +++ b/src/sae4.c
-@@ -47,8 +47,8 @@
- #include "sys/types.h"
- 
- // SDL brings all the enum stuff and everything we need for operation.
+@@ -55,8 +55,8 @@
+ #include <SDL/SDL.h>
+ #include <SDL/SDL_opengl.h>
+ #else
 -#include "SDL.h"
 -#include "SDL_opengl.h"
 +#include <SDL2/SDL.h>
 +#include <SDL2/SDL_opengl.h>
+ #endif
  
  // glut definitions are not included in SDL definitions.
- #if defined(WIN32) 
-@@ -230,7 +230,12 @@
+@@ -239,7 +239,12 @@
  #define DDL_PauseAudio SDL_PauseAudio
  #define DDL_PollEvent SDL_PollEvent
  #define DDL_SetVideoMode SDL_SetVideoMode
@@ -65,9 +65,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #define DDL_Quit SDL_Quit
  
  #endif
-@@ -1031,8 +1036,11 @@
+@@ -1047,8 +1052,11 @@
  #endif
- 	DDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
+ 	DDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
  
 +	SDL_Window *sdlWindow;
 +	SDL_GLContext sdlGlcontext;
@@ -78,7 +78,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	DDL_ShowCursor(0);
  
  	dlEnable(GL_DEPTH_TEST);
-@@ -1087,7 +1095,8 @@
+@@ -1102,7 +1110,8 @@
  		}
  		draw(DDL_GetTicks());
  #endif
@@ -88,12 +88,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  		// Small delay. Will probably sleep more in reality.
  		DDL_Delay(FRAME_TICKS / 2);
-@@ -1327,6 +1336,8 @@
+@@ -1341,6 +1350,8 @@
  
  	}
  
 +	DDL_GL_DeleteContext(sdlGlcontext);
 +	DDL_DestroyWindow(sdlWindow);
  	DDL_Quit();
- 
  #if !defined(SAE4_GNU_LD)
+ 	asm("movl $1,%eax\nxor %ebx,%ebx\nint $128\n");

@@ -1,1 +1,7 @@
-stickanimationengine4000-by-faemiyah source: source-is-missing src/stickanimationengine4000-by-faemiyah
+stickanimationengine4000-by-faemiyah source: source-contains-prebuilt-windows-binary rel/SDL.dll
+stickanimationengine4000-by-faemiyah source: source-contains-prebuilt-windows-binary rel/glut32.dll
+stickanimationengine4000-by-faemiyah source: source-contains-prebuilt-windows-binary rel/sae4_windows-ia32_fullscreen.exe
+stickanimationengine4000-by-faemiyah source: source-contains-prebuilt-windows-binary rel/sae4_windows-ia32_windowed.exe
+stickanimationengine4000-by-faemiyah source: source-package-component-has-long-file-name 86 > 80
+stickanimationengine4000-by-faemiyah source: source-is-missing rel/sae4_freebsd-ia32
+stickanimationengine4000-by-faemiyah source: source-is-missing rel/sae4_linux-amd64

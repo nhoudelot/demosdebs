@@ -6,7 +6,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/sae4.c
 +++ b/src/sae4.c
-@@ -1021,6 +1021,13 @@
+@@ -1029,6 +1029,13 @@
  	glViewport(x, y, w, h);
  }
  
@@ -20,7 +20,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  //######################################
  // Main ################################
  //######################################
-@@ -1309,6 +1316,7 @@
+@@ -1323,6 +1330,7 @@
      #endif
  				    case SDLK_ESCAPE: cont=0; break;
  				    case SDLK_q: cont=0; break;

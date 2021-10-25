@@ -7,10 +7,10 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/sae4.c
 +++ b/src/sae4.c
-@@ -1103,8 +1103,12 @@
+@@ -1117,8 +1117,12 @@
+ 		DDL_Delay(FRAME_TICKS / 2);
  
  		// Abort on any keypress.
- 		SDL_Event event;
 -		if(DDL_PollEvent(&event) && (event.type == SDL_KEYDOWN))
 +		while(DDL_PollEvent(&event))
  		{
@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #if defined(SAE4_GNU_LD)
  			switch(event.key.keysym.sym)
  			{
-@@ -1278,12 +1282,13 @@
+@@ -1292,12 +1296,13 @@
  					currtick -= 20 * currtickmul;
  					break;
  #endif
@@ -38,7 +38,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #else
  			break;
  #endif
-@@ -1333,7 +1338,6 @@
+@@ -1347,7 +1352,6 @@
  			}
  		}
  #endif

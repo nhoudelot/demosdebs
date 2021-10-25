@@ -9,6 +9,8 @@ Build-Depends:
  mesa-common-dev
 Standards-Version: 4.5.0
 Homepage: https://www.pouet.net/prod.php?which=51137
+Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2008-08_4k-intro_stick_animation_engine_4000
+Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2008-08_4k-intro_stick_animation_engine_4000.git
 
 Package: stickanimationengine4000-by-faemiyah
 Architecture: any
