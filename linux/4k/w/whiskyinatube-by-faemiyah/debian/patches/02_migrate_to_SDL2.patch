@@ -64,6 +64,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #if defined(USE_LD)
  
  /** \cond */
+@@ -209,7 +212,7 @@
+   {
+     sstr << "requested " << requested->channels << "-channel audio, got " << acquired.channels << "-channel\n";
+   }
+-  if(requested->samples != acquired.samples)
++  if(requested->samples/2 != acquired.samples)
+   {
+     sstr << "requested audio buffer of " << requested->samples << " samples, got " << acquired.samples <<
+       std::endl;
 @@ -884,8 +887,8 @@
  #endif
    dnload();

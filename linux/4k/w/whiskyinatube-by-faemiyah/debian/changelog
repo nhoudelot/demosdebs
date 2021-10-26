@@ -1,3 +1,9 @@
+whiskyinatube-by-faemiyah (1.0+git20170414-0ddebs5) unstable; urgency=medium
+
+  * Fixed SDL_OpenAudio problem (with SDL2)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 26 Oct 2021 01:00:14 +0200
+
 whiskyinatube-by-faemiyah (1.0+git20170414-0ddebs4) unstable; urgency=medium
 
   * Updated watch file
