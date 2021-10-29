@@ -1,0 +1,27 @@
+Source: raspberrypsy-by-desire
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ libsdl1.2-dev
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=68146
+
+Package: raspberrypsy-by-desire-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for raspberrypsy-by-desire
+ raspberrypsy-by-desire data files
+
+Package: raspberrypsy-by-desire
+Architecture: amd64 i386 armhf
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ raspberrypsy-by-desire-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by Desire, released in 2016
+ Demo by Desire, released in 2016 for AMD64 i386 and Raspberry Pi

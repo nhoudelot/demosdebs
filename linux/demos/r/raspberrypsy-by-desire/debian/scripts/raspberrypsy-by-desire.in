@@ -1,0 +1,40 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=raspberrypsy-by-desire
+
+APP_FULLNAME="Raspberry Psy"
+APP_COPYRIGHT="Desire"
+APP_DESC="Demo by Desire, released in 2016"
+APP_DESC="demo by Desire released in 2016"
+
+APP_EXE="@EXE@"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/@DEB_HOST_MULTIARCH@/${domain}
+	./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

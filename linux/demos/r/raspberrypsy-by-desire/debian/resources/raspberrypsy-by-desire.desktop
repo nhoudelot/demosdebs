@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Raspberry Psy
+GenericName=Demo
+Comment=Demo by Desire, released in 2016
+Type=Application
+Exec=/usr/bin/raspberrypsy-by-desire
+Icon=raspberrypsy-by-desire
+Categories=AudioVideo;
+Name[fr_FR]=Raspberry Psy

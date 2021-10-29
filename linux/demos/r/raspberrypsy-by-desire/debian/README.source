@@ -1,0 +1,15 @@
+raspberrypsy-by-desire for Debian
+--------------------------------
+
+executables had been unpacked from UPX
+
+executable seems to be compiled for Ubuntu Xenial (16.04) (i386 & amd64)
+and Debian 8  (arm)
+
+64 bit : GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.1) 5.4.0 20160609
+32 bit : GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.2) 5.4.0 20160609
+Armhf  : GCC: (Raspbian 4.9.2-10) 4.9.2
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 27 Oct 2021 22:53:01 +0200
+
