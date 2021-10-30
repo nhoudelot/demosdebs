@@ -1,0 +1,30 @@
+Source: deusexmankinddividedcracktro-by-razor1911
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 10),
+ libxrandr-dev,
+ libxxf86vm-dev,
+ libasound2-dev,
+ libx11-dev,
+ libgl1-mesa-dev,
+ libxcursor-dev,
+ libxinerama-dev 
+Standards-Version: 4.5.0
+Homepage: https://www.pouet.net/prod.php?which=68539
+
+Package: deusexmankinddividedcracktro-by-razor1911
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61)
+Description: Cracktro by Razor 1911, released in 2016
+ XT-95 Checker Cracktro
+ Type ... : .............Cracktro
+ Date ... : .......... 2016-11-21
+ Code ... : ...............  XT95
+ Music .. : .......Dubmood & Wasp
+ Logo ... : .............Sprocket
+ Font ... : ..................Rez

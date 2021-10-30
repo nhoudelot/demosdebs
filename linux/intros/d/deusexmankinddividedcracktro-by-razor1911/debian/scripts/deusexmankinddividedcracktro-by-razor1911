@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=deusexmankinddividedcracktro-by-razor1911
+
+APP_FULLNAME=" Deus Ex: Mankind Divided Cracktro"
+APP_COPYRIGHT="Razor 1911"
+APP_DESC="Demo by Razor 1911, released in 2016"
+
+APP_EXE="rzr_-_XT95_Checker_cracktro.x64"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain}
+	./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
