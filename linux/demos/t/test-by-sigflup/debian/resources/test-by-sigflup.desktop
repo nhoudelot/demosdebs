@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=test
+GenericName=Demo
+Comment=Demo by SigFLUP, released in 2017
+Type=Application
+Exec=/usr/bin/test-by-sigflup
+Icon=test-by-sigflup
+Categories=AudioVideo;
+Name[fr_FR]=test

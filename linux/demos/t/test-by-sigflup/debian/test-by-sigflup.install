@@ -1,0 +1,4 @@
+debian/scripts/test-by-sigflup usr/bin/
+./test usr/lib/x86_64-linux-gnu/test-by-sigflup
+debian/resources/test-by-sigflup.desktop usr/share/applications/
+debian/resources/test-by-sigflup.png usr/share/icons/hicolor/256x256/apps/
