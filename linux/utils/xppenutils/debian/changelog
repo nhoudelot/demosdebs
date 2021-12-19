@@ -1,3 +1,14 @@
+xppenutils (3.2.1-0ddebs1) unstable; urgency=medium
+
+  * Upstream Update
+    Use QT of the distribution
+    Workaround to install in architecture /usr/lib
+    Workaround to respect XDG folder of config file in : $HOME/.config/ 
+    Split arch independent file in a different package
+    Removed auto-start, that should be decided by the user, and not system wide
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Dec 2021 14:11:41 +0100
+
 xppenutils (3.05-0ddebs1) unstable; urgency=medium
 
   * Initial release

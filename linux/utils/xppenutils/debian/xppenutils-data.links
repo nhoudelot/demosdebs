@@ -1,0 +1,3 @@
+tmp/pentablet/log.txt usr/share/pentablet/conf/xppen/log.txt
+tmp/pentablet/oldlog.txt.init usr/share/pentablet/conf/xppen/oldlog.txt
+tmp/pentablet/config.xml usr/share/pentablet/conf/xppen/config.xml

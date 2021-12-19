@@ -20,7 +20,7 @@ set -e
 
 case "$1" in
     purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
-    udevadm control --reload-rules && udevadm trigger
+    udevadm trigger --subsystem-match=usb --action=change || true
     ;;
 
     *)

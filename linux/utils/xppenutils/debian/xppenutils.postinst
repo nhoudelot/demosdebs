@@ -19,7 +19,7 @@ set -e
 
 case "$1" in
     configure)
-    udevadm control --reload-rules && udevadm trigger
+    udevadm trigger --subsystem-match=usb --action=change || true
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

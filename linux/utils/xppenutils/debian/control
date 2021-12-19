@@ -9,6 +9,8 @@ Build-Depends:
  libqt5x11extras5-dev,
  libusb-1.0-0-dev,
  libgl1-mesa-dev,
+ libxrandr-dev,
+ libxinerama-dev,
  libx11-dev,
  libxtst-dev
 Standards-Version: 4.5.0
@@ -21,14 +23,16 @@ Depends:
  ${misc:Depends},
  xppenutils-data,
  common-install-function-ddebs(>=1.18)
-Description: XP-Pen (Official) Linux utility
- XP-Pen (Official) configuration for tablet
+Description: XP-Pen Linux Driver utility
+ XP-Pen configuration tool and driver for XP-Pen tablets
+ It's an unOfficial package, that integrate better in your distribution
+ Config save is "per user"
 
 Package: xppenutils-data
 Architecture: all
 Multi-Arch: foreign
 Depends:
  ${misc:Depends},
-Description: Data files for xppenutils
- XP-Pen (Official) configuration for tablet
- arch independant data files
+Description: Data files for XP-Pen Linux Driver utility
+ XP-Pen configuration tool and driver for XP-Pen tablets
+ arch independent data files
