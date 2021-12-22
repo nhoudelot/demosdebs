@@ -16,7 +16,7 @@
      LIBS +=  $$PWD/libs/mac/libbzip2.a
 --- a/XArchive/xarchive.pri
 +++ b/XArchive/xarchive.pri
-@@ -24,12 +24,12 @@
+@@ -29,12 +29,12 @@
  
  !contains(XCONFIG, zlib) {
      XCONFIG += zlib
@@ -33,7 +33,7 @@
  !contains(XCONFIG, lzma) {
 --- a/XQwt/xqwt.pri
 +++ b/XQwt/xqwt.pri
-@@ -3,5 +3,6 @@
+@@ -3,7 +3,8 @@
  
  !contains(XCONFIG, qwt) {
      XCONFIG += qwt
@@ -41,3 +41,5 @@
 +    INCLUDEPATH += /usr/include/qwt/
 +	LIBS += -lqwt-qt5
  }
+ 
+ DISTFILES += \

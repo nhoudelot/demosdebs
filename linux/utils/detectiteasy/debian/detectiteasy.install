@@ -1,4 +1,4 @@
-DEBIAN/die.desktop usr/share/applications
-DEBIAN/hicolor/ usr/share/icons
+LINUX/die.desktop usr/share/applications
+LINUX/hicolor/ usr/share/icons
 build/release/diec usr/bin
 build/release/die usr/bin
