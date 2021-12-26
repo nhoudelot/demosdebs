@@ -29,17 +29,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  INSTALL_PROG = $(INSTALL) -m0755 -p
  
 +PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
- AR ?= ar
- CC ?= gcc
- LD ?= ld
-@@ -36,7 +37,8 @@
- RM := rm -f
- 
- LDFLAGS ?=
--CFLAGS ?= -O2
-+CFLAGS += -O2
+ AR := ar
+ CC := gcc
+ LD := ld
+@@ -40,6 +41,7 @@
+ CFLAGS += -O0 -g -fsanitize=address
+ else
+ CFLAGS += -O2
 +CFLAGS += -flto
- #CFLAGS = -O0 -g
+ endif
  CFLAGS += -fno-strict-aliasing -std=gnu99 -Wall
  ifneq ($(PLATFORM),win32)
 --- a/libdisk/Makefile
