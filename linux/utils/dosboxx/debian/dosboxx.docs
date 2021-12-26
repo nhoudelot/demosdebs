@@ -2,13 +2,14 @@
 ./BUGS
 ./CODE_OF_CONDUCT.md
 ./CONTRIBUTING.md
+./CREDITS.md
 ./NEWS
-./NOTES-TESTING-LOG
-./PULL_REQUEST_TEMPLATE.md
+./README.debugger
 ./README.MinGW
 ./README.joystick
 ./README.keyboard-layout-handling
 ./README.md
+./README.source-code-description
 ./README.video
 ./README.xbrz
 ./optimization-1
