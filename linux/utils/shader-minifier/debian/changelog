@@ -1,3 +1,9 @@
+shader-minifier (1.1.6+git20210607-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Dec 2021 20:33:53 +0100
+
 shader-minifier (1.1.6+git20180603-0ddebs3) unstable; urgency=medium
 
   * updated debian/watch

@@ -4,4 +4,5 @@
 	dh $@ --with cli
 
 override_dh_auto_build:
+	chmod +x ./compile.bash
 	./compile.bash
