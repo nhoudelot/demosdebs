@@ -44,13 +44,15 @@
  ifeq ($(RTLSDR), yes)
    SDR_OBJ += sdr_rtlsdr.o
    CPPFLAGS += -DENABLE_RTLSDR
-@@ -107,16 +111,16 @@
-     # some packaged .pc files are massively broken, try to handle it
+@@ -108,18 +112,18 @@
  
      # FreeBSD's librtlsdr.pc includes -std=gnu89 in cflags
+     # some linux librtlsdr packages return a bare -I/ with no path in --cflags
 -    RTLSDR_CFLAGS := $(shell pkg-config --cflags librtlsdr)
 +    RTLSDR_CFLAGS := $(shell $(PKG_CONFIG) --cflags librtlsdr)
-     CFLAGS += $(filter-out -std=%,$(RTLSDR_CFLAGS))
+     RTLSDR_CFLAGS := $(filter-out -std=%,$(RTLSDR_CFLAGS))
+     RTLSDR_CFLAGS := $(filter-out -I/,$(RTLSDR_CFLAGS))
+     CFLAGS += $(RTLSDR_CFLAGS)
  
      # some linux librtlsdr packages return a bare -L with no path in --libs
      # which horribly confuses things because it eats the next option on the command line
@@ -65,7 +67,7 @@
      endif
    endif
  endif
-@@ -124,22 +128,22 @@
+@@ -127,22 +131,22 @@
  ifeq ($(BLADERF), yes)
    SDR_OBJ += sdr_bladerf.o
    CPPFLAGS += -DENABLE_BLADERF
