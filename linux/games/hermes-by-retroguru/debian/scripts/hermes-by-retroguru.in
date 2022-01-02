@@ -1,0 +1,44 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=hermes
+APP_FULLNAME="Hermes"
+APP_COPYRIGHT="Retroguru"
+APP_DESC="Game by Retroguru, released in 2017"
+
+APP_EXE="@EXE@"
+
+function run()
+{
+	backuppwd=$(pwd)
+	NSH_CreateTmpDomainDir
+	NSH_SetInstallPath game
+    NSH_CreateUserDataDir
+    NSH_LinkUserDataFileToTMP "hiscores.dat" "hiscores.dat" 
+    NSH_CreateConfigDir
+	cd /usr/lib/@DEB_HOST_MULTIARCH@/${domain}
+	./${APP_EXE} -w
+	NSH_RemoveTmpDomainDir
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

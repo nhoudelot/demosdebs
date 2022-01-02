@@ -1,0 +1,10 @@
+hermes-by-retroguru for Debian
+-----------------------------
+
+source has been repackaged
+* hermes_amd64 come from the linux 64 bit package
+* hermes_i386 come from the linux 32 bit package
+* both binary has been unpacked from upx
+
+ -- Nicolas Houdelot <nicolas.houdelot@free.fr>  Sat, 01 Jan 2022 23:02:01 +0100
+

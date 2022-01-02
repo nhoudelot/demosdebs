@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
+	EXE=hermes_amd64
+endif
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
+	EXE=hermes_i386
+endif
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure
+	(cd debian; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed -e 's/@EXE@/${EXE}/g' -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+		done )
+	(cd debian/scripts; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed -e 's/@EXE@/${EXE}/g' -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+		done )
+
+override_dh_install:
+	cp icon.png hermes-by-retroguru.png
+	dh_install
+	find debian -type f -name '*.rga' -exec chmod 0644 {} +

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Hermes
+GenericName=Game
+Comment=Game by Retroguru, released in 2017
+Type=Application
+Exec=/usr/games/hermes-by-retroguru
+Icon=hermes-by-retroguru
+Categories=Game;
+Name[fr_FR]=hermes-by-retroguru.desktop
