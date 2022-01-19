@@ -1,3 +1,10 @@
+chatty (0.16-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+  * use system slf4j-api.jar and slf4j-jdk14.jar
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 20 Jan 2022 00:00:19 +0100
+
 chatty (0.15-0ddebs1) unstable; urgency=medium
 
   * New upstream release

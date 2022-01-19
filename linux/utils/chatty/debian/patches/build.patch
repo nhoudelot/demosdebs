@@ -1,7 +1,7 @@
 # make an own build.xml because the sources do not contain all build files
 --- /dev/null
 +++ b/build.xml
-@@ -0,0 +1,40 @@
+@@ -0,0 +1,42 @@
 +<project name="chatty" default="jar">
 + <target name="clean">
 +   <delete dir="bin"/>
@@ -14,11 +14,12 @@
 +       <classpath>
 +          <fileset dir="assets/lib">
 +          	 <include name="Java-WebSocket-1.4.0.jar" />
-+          	  <include name="slf4j-api-1.7.29.jar" />
-+          	 <include name="jkeymaster-1.3-2.jar" />
++           	 <include name="jkeymaster-1.3-2.jar" />
 +             <include name="JTattoo-1.6.12-2.jar" />
 +             <include name="txtmark-0.13.jar" />
 +             <include name="tyrus-standalone-client-1.13.1.jar" />
++             <include name="httpclient5-5.1.jar" />
++             <include name="httpcore5-5.1.1.jar" />
 +          </fileset>
 +       </classpath>
 +    </javac>
@@ -33,11 +34,12 @@
 +       <fileset dir="bin" />
 +        <zipgroupfileset dir="assets/lib">
 +        	 <include name="Java-WebSocket-1.4.0.jar" />
-+        	  <include name="slf4j-api-1.7.29.jar" />
 +        	 <include name="jkeymaster-1.3-2.jar" />
 +             <include name="JTattoo-1.6.12-2.jar" />
 +             <include name="txtmark-0.13.jar" />
 +             <include name="tyrus-standalone-client-1.13.1.jar" />
++             <include name="httpclient5-5.1.jar" />
++             <include name="httpcore5-5.1.1.jar" />
 +        </zipgroupfileset>
 +    </jar>
 + </target>

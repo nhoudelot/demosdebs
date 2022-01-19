@@ -6,7 +6,8 @@ Build-Depends: debhelper (>= 10),
 			   javahelper (>= 0.25),
 			   ant,
 			   ant-optional,
-			   libjson-simple-java
+			   libjson-simple-java,
+			   libslf4j-java
 Build-Depends-Indep: default-jdk
 Build-Conflicts: openjdk-6-jre-headless,
                  openjdk-6-jre-lib,

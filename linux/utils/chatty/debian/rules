@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 JAVA_HOME=/usr/lib/jvm/default-java
-export CLASSPATH=/usr/share/java/json-simple.jar:/usr/share/java/java-atk-wrapper.jar
+export CLASSPATH=/usr/share/java/json-simple.jar:/usr/share/java/java-atk-wrapper.jar:/usr/share/java/slf4j-api.jar:/usr/share/java/slf4j-jdk14.jar
 
 %:
 	dh $@ --with javahelper
