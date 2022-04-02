@@ -1,0 +1,12 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -290,8 +290,7 @@
+ AC_C_BIGENDIAN
+ 
+ # Checks for library functions.
+-AC_FUNC_MALLOC
+-AC_FUNC_REALLOC
++AC_CHECK_DECLS([malloc, realloc, calloc, free])
+ AC_CHECK_FUNCS([atexit clock_gettime floor gettimeofday memmove memset pow putenv sqrt strchr])
+ 
+ # Output makefiles.

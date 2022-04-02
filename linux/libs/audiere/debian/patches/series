@@ -1,2 +1,3 @@
 01_update_autotools.patch
 02_fix_includes.patch
+03_fix_crosscompile.patch

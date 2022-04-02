@@ -1,19 +1,16 @@
 Source: audiere
 Section: libs
 Priority: optional
-Maintainer: Debian QA Group <packages@qa.debian.org>
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
- libvorbis-dev,
- libdumb1-dev,
- libcdaudio-dev,
+ debhelper-compat (= 12),
  libflac-dev,
  libspeex-dev,
  libasound2-dev,
  libpulse-dev,
  pkg-config
 Homepage: https://github.com/poikilos/Audiere
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 
 Package: libaudiere-1.10.1
 Architecture: any
