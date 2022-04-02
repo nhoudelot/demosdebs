@@ -1,8 +1,10 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-export DEB_CFLAGS_MAINT_APPEND  = -flto
-export DEB_LDFLAGS_MAINT_APPEND  = -flto
+ifneq "$(DEB_HOST_MULTIARCH)" "m68k-linux-gnu" 
+	export DEB_CFLAGS_MAINT_APPEND  = -flto
+	export DEB_LDFLAGS_MAINT_APPEND  = -flto
+endif
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 

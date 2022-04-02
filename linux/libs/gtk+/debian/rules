@@ -5,6 +5,8 @@ CONFIGURE_EXTRA_FLAGS += --with-xinput=xfree \
 						--with-native-locale \
 						--disable-static \
 						--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 
 %:
 	dh $@

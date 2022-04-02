@@ -2,6 +2,7 @@
 
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 CONFIGURE_EXTRA_FLAGS +=  --disable-static --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
 
 %:
 	dh $@

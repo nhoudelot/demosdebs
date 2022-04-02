@@ -6,10 +6,11 @@ Build-Depends:
  libbass-dev,
  mesa-common-dev,
  libglu1-mesa-dev,
+ libgl-dev,
  freeglut3-dev,
- debhelper (>= 10),
- pkg-config
-Standards-Version: 4.5.0
+ debhelper-compat (= 12),
+ pkgconf
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=61227
 
 Package: 1finger-by-kewlers
@@ -17,6 +18,7 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ libbass2,
  1finger-by-kewlers-data
 Description: demos by kewlers ranked 5th at Revision 2013
  Linux port of this demo

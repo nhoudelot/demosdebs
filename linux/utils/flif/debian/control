@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian PhotoTools Maintainers <pkg-phototools-devel@lists.alioth.debian.org>
 Uploaders: Paride Legovini <pl@ninthfloor.org>
 Build-Depends:
- debhelper (>=11~),
+ debhelper-compat (= 12),
  dh-exec (>=0.3),
  bash-completion,
  libpng-dev,
@@ -12,7 +12,7 @@ Build-Depends:
  libimage-exiftool-perl,
  imagemagick
 Build-Conflicts: graphicsmagick-imagemagick-compat
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Vcs-Git: https://salsa.debian.org/debian-phototools-team/flif.git
 Vcs-Browser: https://salsa.debian.org/debian-phototools-team/flif
 Homepage: http://flif.info/

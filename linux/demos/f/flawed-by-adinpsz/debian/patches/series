@@ -4,3 +4,4 @@
 04_change_resolution.patch
 05_change_data_path.patch
 06_migrate_to_SDL2.patch
+07_fix_gcc11.patch

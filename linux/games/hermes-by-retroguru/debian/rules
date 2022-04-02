@@ -7,6 +7,11 @@ ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
 	EXE=hermes_i386
 endif
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+    RUN_DHDWZ=dh_dwz 
+endif
+
 %:
 	dh $@
 
@@ -27,3 +32,6 @@ override_dh_install:
 	cp icon.png hermes-by-retroguru.png
 	dh_install
 	find debian -type f -name '*.rga' -exec chmod 0644 {} +
+
+override_dh_dwz:
+	$(RUN_DHDWZ)

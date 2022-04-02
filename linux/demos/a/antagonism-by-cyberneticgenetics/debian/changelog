@@ -1,3 +1,15 @@
+antagonism-by-cyberneticgenetics (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * preferred to use pkgconf which requires less dependencies during
+    build
+  * replaced deprecated build dependency libgl1-mesa-dev by libgl-dev
+  * allow-multiple-definition to fix gcc 11 compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Apr 2022 22:35:11 +0200
+
 antagonism-by-cyberneticgenetics (1.0+1-0ddebs3) unstable; urgency=medium
 
   * adapt to cross-compilation

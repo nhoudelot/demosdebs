@@ -1,3 +1,12 @@
+supa-by-mrp (1.2-0ddebs3) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * avoid use of dh_dwz when compile on buster
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 18 Apr 2022 23:32:51 +0200
+
 supa-by-mrp (1.2-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

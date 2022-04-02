@@ -2,6 +2,11 @@
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all,nocheck
 
+ifneq "$(DEB_HOST_MULTIARCH)" "m68k-linux-gnu" 
+	export DEB_CFLAGS_MAINT_APPEND  = -flto
+	export DEB_LDFLAGS_MAINT_APPEND  = -flto
+endif
+
 CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 
 

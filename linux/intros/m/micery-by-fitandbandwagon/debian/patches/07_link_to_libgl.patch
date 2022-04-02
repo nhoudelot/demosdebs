@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -18,8 +18,8 @@
+ USE_RCS = 0
+ 
+ ifeq ($(PLATFORM),unix)
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 glu ) -lm
+-CFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu ) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 glu gl) -lm
++CFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu gl) -std=gnu90 -DBLKSIZE=$(BLKSIZE)
+ endif
+ 
+ # All the objects

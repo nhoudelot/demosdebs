@@ -1,3 +1,11 @@
+harmagedon-by-infect-amiga-whd (1.0-0ddebs4) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 04 May 2022 01:10:21 +0200
+
 harmagedon-by-infect-amiga-whd (1.0-0ddebs3) unstable; urgency=medium
 
   * debian/harmagedon-by-infect-amiga-whd.lintian-overrides : overrides

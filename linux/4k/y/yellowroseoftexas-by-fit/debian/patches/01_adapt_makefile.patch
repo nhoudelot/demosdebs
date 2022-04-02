@@ -10,11 +10,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -CC = gcc-3.3
 -COPT = -O1 -ffast-math -fno-inline -fmove-all-movables \
 -       -fno-loop-optimize -fexpensive-optimizations -fpeephole2 -fshort-double -S
+-SOPT = -R .comment -R .note -R .note.ABI-tag -R .fini -R .gnu.version
 +SHELL = /bin/sh
 +CC    := gcc
-+CFLAGS += -Wall -pipe -fno-inline -fno-loop-optimize -fexpensive-optimizations -fpeephole2
-+LDFLAGS  += -ldl -lSDL -pthread -lm
- SOPT = -R .comment -R .note -R .note.ABI-tag -R .fini -R .gnu.version
++CFLAGS += -Wall -pipe -fno-inline -fno-loop-optimize -fexpensive-optimizations -fpeephole2 -std=gnu90
++LDFLAGS += -lc -ldl -lSDL -pthread -lm
++#SOPT = -R .comment -R .note -R .note.ABI-tag -R .fini -R .gnu.version
  OBJ = syna_tiny.o tinymain.o osa.o minigl.o
 +NASM := nasm
  
@@ -53,10 +54,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): $(OBJ)
-+	$(CC) -nostdlib $(OBJ) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
++	$(CC) -nostdlib $(CFLAGS) $(OBJ) -o $(TARGET) $(LDFLAGS)
  
  syna_tiny.o: syna_tiny.asm
- 	nasm -f elf syna_tiny.asm
+-	nasm -f elf syna_tiny.asm
++	$(NASM) -f elf syna_tiny.asm
  
  minigl.o: minigl.asm
 -	nasm -f elf minigl.asm

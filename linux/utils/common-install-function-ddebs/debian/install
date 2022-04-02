@@ -1,6 +1,8 @@
 ./common-install-function usr/share/common-install-function-ddebs/./
-./endscript_wine usr/share/common-install-function-ddebs/./
 ./endscript_amiga usr/share/common-install-function-ddebs/./
+./endscript_atarist usr/share/common-install-function-ddebs/./
 ./endscript_dos usr/share/common-install-function-ddebs/./
 ./endscript_mame usr/share/common-install-function-ddebs/./
 ./endscript_mamepsx usr/share/common-install-function-ddebs/./
+./endscript_scummvm usr/share/common-install-function-ddebs/./
+./endscript_wine usr/share/common-install-function-ddebs/./

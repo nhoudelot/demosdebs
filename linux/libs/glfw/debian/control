@@ -1,14 +1,14 @@
 Source: glfw
 Section: libs
 Priority: optional
-Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Uploaders: Mahyuddin Susanto <udienz@ubuntu.com>,
            James Cowgill <james410@cowgill.org.uk>
-Build-Depends: debhelper (>= 10), dh-exec,
+Build-Depends: debhelper-compat (= 12), dh-exec,
                libgl1-mesa-dev | libgl-dev,
                libglu1-mesa-dev | libglu-dev,
                libxrandr-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.glfw.org/
 
 Package: libglfw2

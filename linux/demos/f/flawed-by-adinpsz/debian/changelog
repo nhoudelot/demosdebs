@@ -1,3 +1,14 @@
+flawed-by-adinpsz (1.0+1-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * preferred to use pkgconf which requires less dependencies during
+    build
+  * glew2.2 force to compile with -std=c++11
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Apr 2022 19:21:16 +0200
+
 flawed-by-adinpsz (1.0+1-0ddebs4) unstable; urgency=medium
 
   * adapt to cross-compilation

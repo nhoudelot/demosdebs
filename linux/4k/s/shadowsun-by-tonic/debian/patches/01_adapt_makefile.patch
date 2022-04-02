@@ -11,8 +11,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +SHELL := /bin/sh
 +CC    := gcc
 +PKG_CONFIG:=pkg-config
-+CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu)
-+LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
++CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu gl)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
 +TARGET   := shadowsun-by-tonic
 +#variable de nettoyage
 +RM_F := rm -f

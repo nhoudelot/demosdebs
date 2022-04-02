@@ -3,13 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  mesa-common-dev,
  libglu1-mesa-dev,
+ libgl-dev,
  libsdl2-dev,
  libfmodex-dev,
- pkg-config
-Standards-Version: 4.5.0
+ pkgconf
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=24373
 
 Package: itsfullofstars-by-traction

@@ -1,3 +1,11 @@
+flowerpower-by-anarchy-amiga-whd (1.0+4-0ddebs7) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 04 May 2022 00:44:07 +0200
+
 flowerpower-by-anarchy-amiga-whd (1.0+4-0ddebs6) unstable; urgency=medium
 
   * debian/flowerpower-by-anarchy-amiga-whd.lintian-overrides :

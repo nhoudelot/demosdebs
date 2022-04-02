@@ -24,7 +24,7 @@ endif
 	dh $@
 
 override_dh_auto_configure:
-	cd mp4v2 && ./configure --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE) CFLAGS="$(CFLAGS)" $(OPTIONS)
+	cd mp4v2 && ./configure --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE) CFLAGS="$(CFLAGS) -Wno-narrowing" $(OPTIONS)
 	cd faad2 && ./configure --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE) CFLAGS="$(CFLAGS)" --without-xmms --without-mpeg4ip
 
 	dh_auto_configure

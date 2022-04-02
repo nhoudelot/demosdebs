@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -35,8 +35,8 @@
+ 
+ #linux Makefile setup
+ ifeq ($(PLATFORM), LINUX)
+-LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) glu sdl2 fmodex --libs)
+-CFLAGS += $(shell $(PKG_CONFIG) glu sdl2 fmodex --cflags) -fpermissive -std=gnu++98
++LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) glu gl sdl2 fmodex --libs)
++CFLAGS += $(shell $(PKG_CONFIG) glu gl sdl2 fmodex --cflags) -fpermissive -std=gnu++98
+ endif
+ 
+ .PHONY: all all-before all-after clean clean-custom

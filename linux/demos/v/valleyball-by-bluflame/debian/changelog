@@ -1,3 +1,11 @@
+valleyball-by-bluflame (1.0-0ddebs9) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 01 May 2022 19:28:24 +0200
+
 valleyball-by-bluflame (1.0-0ddebs8) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

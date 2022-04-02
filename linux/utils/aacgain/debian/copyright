@@ -8,7 +8,7 @@ License: GPL-2+
 
 Files: debian/*
 Copyright: 06 Nov 2007 16:01:15 Christian Marillat <marillat@deb-multimedia.org>
-		   2016-2019 Nicolas HOUDELOT <nicolas@demosdebs.org>
+		   2016-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
 
 Files: faad2/*

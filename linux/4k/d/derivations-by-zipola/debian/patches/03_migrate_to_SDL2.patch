@@ -12,8 +12,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  PKG_CONFIG:=pkg-config
 -CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl gl )
 -LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl ) -lm
-+CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl2 gl )
-+LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl ) -lm
++CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl2 gl)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl) -lm
  TARGET := derivations-by-zipola
  
  #variables d’installation
@@ -61,16 +61,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	//SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL);
  
  	glEnable(GL_DEPTH_TEST);
---- a/gfx.h
-+++ b/gfx.h
-@@ -33,4 +33,7 @@
- 
- static boid boid_array[N_BOIDS];
- 
-+SDL_Window *sdlWindow;
-+SDL_GLContext sdlGlcontext;
-+
- #endif
 --- a/letters.c
 +++ b/letters.c
 @@ -4,8 +4,8 @@
@@ -117,3 +107,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <math.h>
  #include <stdint.h>
  
+--- a/gfx.h
++++ b/gfx.h
+@@ -33,4 +33,7 @@
+ 
+ static boid boid_array[N_BOIDS];
+ 
++SDL_Window *sdlWindow;
++SDL_GLContext sdlGlcontext;
++
+ #endif

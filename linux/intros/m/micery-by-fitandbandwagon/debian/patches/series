@@ -4,3 +4,4 @@
 04_migrate_to_SDL2.patch
 05_fullscreen_f_key.patch
 06_resizable.patch
+07_link_to_libgl.patch

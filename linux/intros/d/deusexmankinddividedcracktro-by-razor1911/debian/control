@@ -3,15 +3,15 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libxrandr-dev,
  libxxf86vm-dev,
  libasound2-dev,
  libx11-dev,
- libgl1-mesa-dev,
+ libgl-dev,
  libxcursor-dev,
  libxinerama-dev 
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=68539
 
 Package: deusexmankinddividedcracktro-by-razor1911

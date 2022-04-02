@@ -6,7 +6,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,23 +1,32 @@
+@@ -1,23 +1,33 @@
 -CFLAGS = -std=c99 -pedantic
 -SDL_FLAGS = `sdl-config --cflags`
 -SDL_LIBS = `sdl-config --libs`
@@ -29,9 +29,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	$(RM) $(TARGETS)
 +#variables de compilation
 +SHELL = /bin/sh
-+CC    = gcc
-+CFLAGS   += -std=c99 -Wall -pipe $(shell pkg-config --cflags sdl)
-+LDFLAGS  += $(shell pkg-config --libs sdl) -lm
++CC    := gcc
++PKG_CONFIG:=pkg-config
++CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl) -lm
 +TARGET   = unnamed-by-pirro
 +#variable de nettoyage
 +RM_F = rm -f

@@ -5,10 +5,18 @@
 #export DH_VERBOSE=1
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+    RUN_DHDWZ=dh_dwz 
+endif
+
 %:
 	dh $@
 
 override_dh_strip:
+
+override_dh_dwz:
+	$(RUN_DHDWZ)
 
 override_dh_auto_configure:
 	dh_auto_configure
@@ -20,4 +28,4 @@ override_dh_auto_configure:
 
 override_dh_install:
 		dh_install
-		(find debian/libbass2 -type f -execdir rename 's/libbass.so/libbass.so.2.4.15/g' * {} \;)
+		(find debian/libbass2 -type f -execdir rename 's/libbass.so/libbass.so.2.4.16/g' * {} \;)

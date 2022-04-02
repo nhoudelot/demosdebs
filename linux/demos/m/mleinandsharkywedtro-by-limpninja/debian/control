@@ -3,14 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
- graphicsmagick-libmagick-dev-compat,
+ debhelper-compat (= 12),
+ libgraphicsmagick++1-dev,
  libftgl-dev,
  libfmodex-dev,
  scons,
  freeglut3-dev,
  mesa-common-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=31073
 
 Package: mleinandsharkywedtro-by-limpninja
@@ -19,6 +19,15 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends},
  common-install-function-ddebs(>=1.18),
+ mleinandsharkywedtro-by-limpninja-data,
  fonts-blomster
 Description: Linux demo by Limp Ninja, released in 2007
  Demo by Limp Ninja, released in 2007
+
+Package: mleinandsharkywedtro-by-limpninja-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for mleinandsharkywedtro-by-limpninja
+ mleinandsharkywedtro-by-limpninja data files

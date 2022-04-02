@@ -3,11 +3,11 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libsdl1.2-dev,
- libglu1-mesa-dev,
+ libgl-dev,
  libpng-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=57451
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2011-08_4k-intro_dirty_garden
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2011-08_4k-intro_dirty_garden.git

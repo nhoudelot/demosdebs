@@ -1,3 +1,11 @@
+strata-by-luminaire (1.0-0ddebs3) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Apr 2022 14:22:48 +0200
+
 strata-by-luminaire (1.0-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

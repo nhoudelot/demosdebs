@@ -1,3 +1,12 @@
+kryoflux (3.0-0ddebs4) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * avoid use of dh_dwz when compile on buster
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 05 Apr 2022 23:55:37 +0200
+
 kryoflux (3.0-0ddebs3) unstable; urgency=medium
 
   * trigger udevadm while installing and removing package

@@ -1,5 +1,10 @@
 #!/usr/bin/make -f
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+	RUN_DHDWZ=dh_dwz 
+endif
+
 %:
 	dh $@
 
@@ -12,3 +17,6 @@ override_dh_fixperms:
 	find debian -name '*.obj' -exec chmod 0644 {} +
 	find debian -name '*.vert' -exec chmod 0644 {} +
 	find debian -name '*.max' -exec chmod 0644 {} +
+
+override_dh_dwz:
+	$(RUN_DHDWZ)

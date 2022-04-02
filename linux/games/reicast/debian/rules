@@ -7,11 +7,6 @@ export USE_PULSEAUDIO=1
 
 ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
 
-ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu"
-    export DEB_CXXFLAGS_MAINT_APPEND  = -march=core2
-    export DEB_CFLAGS_MAINT_APPEND  = -march=core2
-endif
-
 ifeq ($(ARCH),armhf)
 #	PLATFORM=platform="armv7h neon"
 	export USE_X11=1

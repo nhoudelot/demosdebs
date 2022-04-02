@@ -1,3 +1,14 @@
+dassanseffortseur-by-enib (1.0-0ddebs2) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * preferred to use pkgconf which requires less dependencies during
+    build
+  * added libopengl-dev and libglx-dev dependencie for jammy
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 16 Apr 2022 13:19:34 +0200
+
 dassanseffortseur-by-enib (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release

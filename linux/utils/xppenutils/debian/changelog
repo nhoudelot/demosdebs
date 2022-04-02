@@ -1,3 +1,12 @@
+xppenutils (3.2.1-0ddebs2) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * avoid use of dh_dwz when compile on buster
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 08 Apr 2022 20:13:54 +0200
+
 xppenutils (3.2.1-0ddebs1) unstable; urgency=medium
 
   * Upstream Update

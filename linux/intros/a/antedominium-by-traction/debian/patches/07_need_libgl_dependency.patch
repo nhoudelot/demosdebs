@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -36,8 +36,8 @@
+ endif
+ 
+ ifeq ($(PLATFORM), LINUX)
+-	LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) --libs glu sdl2 fmodex)
+-	CFLAGS += $(shell $(PKG_CONFIG) --cflags glu sdl2 fmodex)
++	LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) --libs glu gl sdl2 fmodex)
++	CFLAGS += $(shell $(PKG_CONFIG) --cflags glu gl sdl2 fmodex)
+ endif
+ 
+ #variables d'instalation

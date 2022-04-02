@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: libfmod
+Source: https://web.archive.org/web/20051231045410/http://www.fmod.org/
+
+Files: *
+Copyright: 2005 Firelight Technologies Pty
+License: proprietary
+ All Right Reserved
+
+Files: debian/*
+Copyright: 2016-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

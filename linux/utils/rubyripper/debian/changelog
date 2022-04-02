@@ -1,3 +1,12 @@
+rubyripper (0.8.0~rc3-0ddebs2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- NaSH <lenashou@gmail.com>  Sat, 09 Apr 2022 00:42:10 +0200
+
 rubyripper (0.8.0~rc3-0ddebs2) unstable; urgency=medium
 
   * Use configure and install script instead

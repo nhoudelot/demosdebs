@@ -1,0 +1,13 @@
+--- a/Flawed/Makefile
++++ b/Flawed/Makefile
+@@ -13,8 +13,8 @@
+ DEFINES += -O2
+ DEFINES_DBG += -ggdb -D_DEBUG
+ 
+-CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu glew fmodex)
+-CFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu glew fmodex)
++CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu glew fmodex) -std=c++11
++CFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu glew fmodex) -std=c++11
+ LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 glu glew fmodex)
+ 
+ ifeq ($(DEBUG),yes)

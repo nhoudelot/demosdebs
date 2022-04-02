@@ -1,3 +1,12 @@
+glfw (2.7.9-1ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * ability to cross-compile the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 Apr 2022 17:45:03 +0200
+
 glfw (2.7.9-1ddebs4) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

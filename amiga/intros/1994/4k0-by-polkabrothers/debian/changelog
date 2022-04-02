@@ -1,3 +1,11 @@
+4k0-by-polkabrothers (1:1.0+4-0ddebs7) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 May 2022 10:37:51 +0200
+
 4k0-by-polkabrothers (1:1.0+4-0ddebs6) unstable; urgency=medium
 
   * debian/4k0-by-polkabrothers.lintian-overrides : overrides broken-zip

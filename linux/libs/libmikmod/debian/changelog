@@ -1,3 +1,11 @@
+libmikmod (3.1.12-5ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 Apr 2022 13:18:22 +0200
+
 libmikmod (3.1.12-5ddebs4) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

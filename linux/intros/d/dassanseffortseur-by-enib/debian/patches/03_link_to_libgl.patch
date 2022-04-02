@@ -1,0 +1,16 @@
+--- a/src/makefile
++++ b/src/makefile
+@@ -4,11 +4,11 @@
+ PKG_CONFIG := pkg-config
+ EXTRA_INCLUDE=
+ #LDFLAGS += -L. -lsfml-graphics -lsfml-window -lsfml-system -lrtaudio_static -lpulse -lpulse-simple -lpthread -lGL `pkg-config --libs gtk+-2.0`
+-LDFLAGS += -pthread $(shell $(PKG_CONFIG) --libs x11 rtaudio glu gtk+-2.0) -fpie
++LDFLAGS += -pthread $(shell $(PKG_CONFIG) --libs x11 rtaudio glu opengl glx gtk+-2.0) -fpie
+ DEFINES= -DeRELEASE -DePLAYER -DeGTK
+ 
+ 
+-CXXFLAGS += $(DEFINES) $(EXTRA_INCLUDE) -W -Wall -pipe -std=c++11 $(shell $(PKG_CONFIG) --cflags x11 rtaudio glu gtk+-2.0)
++CXXFLAGS += $(DEFINES) $(EXTRA_INCLUDE) -W -Wall -pipe -std=c++11 $(shell $(PKG_CONFIG) --cflags x11 rtaudio glu opengl glx gtk+-2.0)
+ 
+ # variables d’installation
+ INSTALL := install

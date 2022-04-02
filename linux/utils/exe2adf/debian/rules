@@ -7,6 +7,11 @@ ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
     BIN=exe2adf-linux32bit
 endif
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+	RUN_DHDWZ=dh_dwz 
+endif
+
 %:
 	dh $@
 
@@ -14,3 +19,6 @@ override_dh_install:
 	cp $(BIN) exe2adf
 	upx -d exe2adf
 	dh_install
+
+override_dh_dwz:
+	$(RUN_DHDWZ)

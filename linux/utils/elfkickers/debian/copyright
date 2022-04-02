@@ -6,10 +6,8 @@ Files: *
 Copyright: 1999-2011 Brian Raiter <breadbox@muppetlabs.com>
 License: GPL-2+
 
-# If you want to use GPL v2 or later for the /debian/* files use
-# the following clauses, or change it to suit. Delete these two lines
 Files: debian/*
-Copyright: 2016-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
 
 License: GPL-2+

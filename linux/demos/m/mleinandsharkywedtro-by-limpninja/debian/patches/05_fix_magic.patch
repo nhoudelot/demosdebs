@@ -1,0 +1,24 @@
+--- a/texture.h
++++ b/texture.h
+@@ -5,7 +5,7 @@
+ #include <GL/glu.h>
+ #include <string>
+ 
+-#include <Magick++.h>
++#include <GraphicsMagick/Magick++.h>
+ 
+ class Texture {
+ public:
+--- a/SConstruct
++++ b/SConstruct
+@@ -16,8 +16,8 @@
+     libs += ['CORE_RL_Magick++_', 'CORE_RL_magick_', 'opengl32' , 'glu32', 'X11' ]
+ else:
+     libpath += ["/usr/lib/x86_64-linux-gnu/"]
+-    incpath = ["/usr/include/fmodex/","/usr/include/freetype2"]
+-    libs += ["Magick++","Magick", 'GLU','GL' ]
++    incpath = ["/usr/include/fmodex/","/usr/include/freetype2","/usr/include/GraphicsMagick/"]
++    libs += ["GraphicsMagick++",'GLU','GL' ]
+ 
+ env = Environment( ENV = os.environ, CXXFLAGS=["-O3","-g3","-flto","-pipe","-std=gnu++11","-fabi-version=8"], LINKFLAGS=["-O3","-g3","-flto"], CPPPATH=["CGLA/"]+incpath )
+ if crosscompile:

@@ -1,0 +1,42 @@
+Source: libfmod
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ rename
+Standards-Version: 4.6.0.1
+Section: libs
+Homepage: https://www.fmod.org/
+
+Package: libfmod
+Architecture: i386
+Depends:
+ ${misc:Depends},
+ libfmod3
+Description: Transitional package
+ Transitional package to libfmod3. It can be safely removed.
+
+Package: libfmod3
+Architecture: i386
+Replaces: libfmod (<< 3.75-ddebs5~)
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Programming library for audio playback
+ FMOD is a fast, powerful, and easy to use sound system. It runs on
+ Windows, Linux, Windows CE, and now also on Macintosh, GameCube, PS2,
+ and XBox. FMOD supports 3d sound, midi, mods, mp3, ogg vorbis, wma, aiff,
+ recording, obstruction/occlusion, cd playback (analog or digital), cd ripping,
+ mmx, internet streaming, dsp effects, spectrum analysis, user created samples
+ and streams, synchronization support, ASIO, EAX 2&3, C/C++/VB/Delphi and more.
+
+Package: libfmod-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libfmod3 (= ${binary:Version}),
+ ${misc:Depends}
+Description: Headers files of this library for audio playback
+ Programming library and toolkit for the creation and playback
+ of interactive audio.
+ Header files

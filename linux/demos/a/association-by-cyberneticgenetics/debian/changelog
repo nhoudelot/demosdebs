@@ -1,3 +1,13 @@
+association-by-cyberneticgenetics (1.0+1-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * preferred to use pkgconf which requires less dependencies during
+    build
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Apr 2022 22:35:12 +0200
+
 association-by-cyberneticgenetics (1.0+1-0ddebs4) unstable; urgency=medium
 
   * adapt to cross-compilation

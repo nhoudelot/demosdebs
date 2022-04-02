@@ -1,3 +1,11 @@
+xrick (021212+1-0ddebs2) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 May 2022 21:21:28 +0200
+
 xrick (021212+1-0ddebs1) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

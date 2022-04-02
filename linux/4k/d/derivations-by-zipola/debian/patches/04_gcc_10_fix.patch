@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -5,7 +5,7 @@
+ # Try -Os -O1 -O2 -O3
+ PKG_CONFIG:=pkg-config
+ CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl2 gl)
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl) -lm
++LDFLAGS += -Wl,--allow-multiple-definition $(shell $(PKG_CONFIG) --libs sdl2 gl) -lm
+ TARGET := derivations-by-zipola
+ 
+ #variables d’installation

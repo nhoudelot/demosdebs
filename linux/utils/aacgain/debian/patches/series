@@ -22,3 +22,6 @@ faad2_0009-syntax.c-check-for-syntax-element-inconsistencies.patch
 faad2_0010-sbr_hfadj-sanitize-frequency-band-borders.patch
 faad2_0004-Fix-a-couple-buffer-overflows.patch
 fix_malloc.patch
+0005-Fix-clang-compilation.patch
+0007-Fix-Out-of-bounds-memory-access-in-MP4v2-2.0.0.patch
+gcc10.patch

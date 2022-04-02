@@ -1,6 +1,12 @@
 #!/usr/bin/make -f
 export QT_SELECT := qt5
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+	RUN_DHDWZ=dh_dwz 
+endif
+
+
 %:
 	dh $@
 
@@ -13,3 +19,6 @@ override_dh_shlibdeps:
 
 override_dh_installudev:
 	dh_installudev --priority=10
+
+override_dh_dwz:
+	$(RUN_DHDWZ)

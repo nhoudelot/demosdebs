@@ -20,7 +20,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +CXX   := g++
 +PKG_CONFIG := pkg-config
 +CXXFLAGS += -Wall -pipe -ansi -pedantic -std=gnu++98 -fabi-version=2 $(shell $(PKG_CONFIG) --cflags sdl glu)
-+LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
 +TARGET   := 4ksdemo-by-madmartigan
 +#variable de nettoyage
 +RM_F ?= rm -f

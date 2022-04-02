@@ -1,3 +1,12 @@
+vintageii-by-outbreak (1.0-0ddebs10) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * avoid use of dh_dwz when compile on buster
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 May 2022 01:55:54 +0200
+
 vintageii-by-outbreak (1.0-0ddebs9) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

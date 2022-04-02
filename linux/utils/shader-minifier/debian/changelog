@@ -1,3 +1,11 @@
+shader-minifier (1.1.6+git20210607-0ddebs2) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 08 Apr 2022 10:45:39 +0200
+
 shader-minifier (1.1.6+git20210607-0ddebs1) unstable; urgency=medium
 
   * New upstream release

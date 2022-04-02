@@ -3,14 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  cmake,
  libboost-program-options-dev,
- pkg-config,
+ pkgconf,
  libsdl2-dev,
  libfreetype6-dev,
  libglew-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://github.com/faemiyah/faemiyah-demoscene_2016-08_80k-intro_my_mistress_the_leviathan
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2016-08_80k-intro_my_mistress_the_leviathan
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2016-08_80k-intro_my_mistress_the_leviathan.git

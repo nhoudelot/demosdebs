@@ -1,3 +1,11 @@
+emodefect-by-fit (1.0-0ddebs9) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 17 Apr 2022 12:33:43 +0200
+
 emodefect-by-fit (1.0-0ddebs8) unstable; urgency=medium
 
   * adapt to cross-compilation

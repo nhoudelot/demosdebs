@@ -5,6 +5,9 @@
 export DH_VERBOSE
 # export DH_NO_ACT
 # export DH_OPTIONS
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
+export CXX = $(DEB_HOST_GNU_TYPE)-g++
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 
 include /usr/share/dpkg/architecture.mk
 
@@ -25,31 +28,29 @@ install: build-stamp build-stampmx
 build-stamp: configure-stamp debian-manpages
 	dh_testdir
 	dh_testroot
-	dh_clean -k
-	$(MAKE) GL_LDFLAGS=-lGL GLU_LDFLAGS=-lGLU GLUT_LDFLAGS=-lglut LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH)
+	dh_clean
+	$(MAKE) GL_LDFLAGS=-lGL GLU_LDFLAGS=-lGLU GLUT_LDFLAGS=-lglut LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH) CC=$(DEB_HOST_GNU_TYPE)-gcc LD=$(DEB_HOST_GNU_TYPE)-gcc
 	touch build-stamp
 	dh_installdirs
-	$(MAKE) install GLEW_DEST=$(CURDIR)/debian/tmp/usr LIBDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
+	$(MAKE) install GLEW_DEST=$(CURDIR)/debian/tmp/usr LIBDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH) CC=$(DEB_HOST_GNU_TYPE)-gcc LD=$(DEB_HOST_GNU_TYPE)-gcc
 
 build-stampmx: configure-stamp debian-manpages
 	dh_testdir
 	dh_testroot
 	$(MAKE) clean
-	$(MAKE) libsonly GL_LDFLAGS=-lGL GLU_LDFLAGS=-lGLU GLUT_LDFLAGS=-lglut GLEW_MX=1 LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH)
+	$(MAKE) libsonly GL_LDFLAGS=-lGL GLU_LDFLAGS=-lGLU GLUT_LDFLAGS=-lglut GLEW_MX=1 LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH) CC=$(DEB_HOST_GNU_TYPE)-gcc LD=$(DEB_HOST_GNU_TYPE)-gcc
 	dh_installdirs
-	$(MAKE) install GLEW_DEST=$(CURDIR)/debian/tmp/usr GLEW_MX=1  LIBDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
+	$(MAKE) install GLEW_DEST=$(CURDIR)/debian/tmp/usr GLEW_MX=1  LIBDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH) CC=$(DEB_HOST_GNU_TYPE)-gcc LD=$(DEB_HOST_GNU_TYPE)-gcc
 	touch build-stampmx
 
 clean:
 	dh_testdir
 	dh_testroot
 	cp -f config/Makefile.linux config/Makefile.gnu
-	cp -f config/Makefile.linux config/Makefile.kfreebsd
 	rm -f build-stamp build-stampmx configure-stamp
 	$(MAKE) distclean
 	$(MAKE) distclean GLEW_MX=1
 	dh_clean
-	-rm $(shell cat debian/*.manpages)
 
 # Build architecture-independent files here.
 binary-indep: build install

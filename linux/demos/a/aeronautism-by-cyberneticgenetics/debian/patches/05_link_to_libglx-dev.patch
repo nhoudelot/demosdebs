@@ -1,0 +1,13 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -2,8 +2,8 @@
+ SHELL	:= /bin/sh
+ CC 		:= gcc
+ PKG_CONFIG:=pkg-config
+-CFLAGS 	+= -Wall -pipe -pedantic -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu x11 xrandr libpng vorbisfile)
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs glu x11 xrandr libpng vorbisfile) -lasound -lm
++CFLAGS 	+= -Wall -pipe -pedantic -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu opengl glx x11 xrandr libpng vorbisfile)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs glu opengl glx x11 xrandr libpng vorbisfile) -lasound -lm
+ 
+ TARGET = aeronautism-by-cyberneticgenetics# demo name here
+ 

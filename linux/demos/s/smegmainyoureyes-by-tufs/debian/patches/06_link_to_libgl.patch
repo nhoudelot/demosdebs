@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -7,8 +7,8 @@
+ 
+ CXX := g++
+ PKG_CONFIG:=pkg-config
+-CXXFLAGS += -Wall -std=c++98 $(shell $(PKG_CONFIG) SDL_mixer sdl libpng glu --cflags)
+-LDFLAGS += $(shell $(PKG_CONFIG) SDL_mixer sdl libpng glu --libs)
++CXXFLAGS += -Wall -std=c++98 $(shell $(PKG_CONFIG) SDL_mixer sdl libpng glu gl --cflags)
++LDFLAGS += $(shell $(PKG_CONFIG) SDL_mixer sdl libpng glu gl --libs)
+ 
+ RM_F := rm -f
+ INSTALL := install

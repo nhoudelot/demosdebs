@@ -1,3 +1,11 @@
+lisa-by-eclipse (1:1.0+1-0ddebs6) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 May 2022 23:55:28 +0200
+
 lisa-by-eclipse (1:1.0+1-0ddebs5) unstable; urgency=medium
 
   * Update debian/scripts/lisa-by-eclipse to common-install-function-

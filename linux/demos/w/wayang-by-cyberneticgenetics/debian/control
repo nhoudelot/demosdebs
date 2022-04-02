@@ -3,13 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
- pkg-config,
+ debhelper-compat (= 12),
+ pkgconf,
  libpng-dev,
  libsdl2-dev,
  libsdl2-mixer-dev,
  mesa-common-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=53381
 
 Package: wayang-by-cyberneticgenetics

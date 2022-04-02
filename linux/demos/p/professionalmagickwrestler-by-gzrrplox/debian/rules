@@ -1,5 +1,10 @@
 #!/usr/bin/make -f
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+    RUN_DHDWZ=dh_dwz 
+endif
+
 %:
 	dh $@
 
@@ -9,3 +14,6 @@ override_dh_install:
 	cp "win32/Professional magick wrestler_4.mp3" "debian/professionalmagickwrestler-by-gzrrplox-data/usr/share/professionalmagickwrestler-by-gzrrplox/Professional magick wrestler_4.mp3"
 	chmod -x "debian/professionalmagickwrestler-by-gzrrplox-data/usr/share/professionalmagickwrestler-by-gzrrplox/Professional magick wrestler_4.mp3"
 	ln -s "/usr/share/professionalmagickwrestler-by-gzrrplox/Professional magick wrestler_4.mp3" "debian/professionalmagickwrestler-by-gzrrplox/usr/lib/x86_64-linux-gnu/professionalmagickwrestler-by-gzrrplox/Professional magick wrestler_4.mp3"
+
+override_dh_dwz:
+	$(RUN_DHDWZ)

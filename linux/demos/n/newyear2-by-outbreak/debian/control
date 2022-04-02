@@ -3,14 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 9.0),
- pandoc,
+ debhelper-compat (= 12),
  libsdl1.2-dev,
  libstdc++5,
  libpng12-0,
  libjpeg62-turbo-dev|libjpeg62-dev,
- libfmod
-Standards-Version: 4.1.4
+ libfmod-dev
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=15123
 
 Package: newyear2-by-outbreak
@@ -18,7 +17,7 @@ Architecture: i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libfmod,
+ libfmod3 (>=3.73),
  newyear2-by-outbreak-data
 Description: Linux Demo by Outbreak 2004
  Demo by Outbreak, released in 2004

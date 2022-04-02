@@ -3,12 +3,12 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  mesa-common-dev,
  libsdl2-dev,
  libjpeg-dev,
- pkg-config
-Standards-Version: 4.5.0
+ pkgconf
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=8966
 
 Package: drfungi-by-fit

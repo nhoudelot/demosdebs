@@ -2,3 +2,4 @@
 02_adapt_path.patch
 03_fix_warnings.patch
 04_replace_mikmod_by_sdlmixer.patch
+05_link_to_libgl.patch

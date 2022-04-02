@@ -1,3 +1,11 @@
+openjpeg (1:1.5.2-3.2debbs2) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 Apr 2022 14:55:29 +0200
+
 openjpeg (1:1.5.2-3.2debbs1) unstable; urgency=medium
 
   * kept only the necessary for libopenjpeg5 and libopenjpeg-dev

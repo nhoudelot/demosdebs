@@ -1,3 +1,11 @@
+analyze-x86 (1.0+git20181231-0ddebs3) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 Apr 2022 17:32:00 +0200
+
 analyze-x86 (1.0+git20181231-0ddebs2) unstable; urgency=medium
 
   * update debian/watch

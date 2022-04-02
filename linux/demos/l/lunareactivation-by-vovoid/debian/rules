@@ -1,5 +1,10 @@
 #!/usr/bin/make -f
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+    RUN_DHDWZ=dh_dwz 
+endif
+
 %:
 	dh $@ --with python2
 
@@ -8,3 +13,6 @@ override_dh_python2:
 
 override_dh_shlibdeps:
 	dh_shlibdeps -Xdemo/libGLEW.so.1.5 -- -l./demo --ignore-missing-info
+
+override_dh_dwz:
+	$(RUN_DHDWZ)

@@ -3,13 +3,13 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=10),
+ debhelper-compat (= 12),
  cmake,
  libx11-dev,
  libxext-dev,
  libsfml-dev,
  pandoc
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://github.com/logantann/shimeji-re
 
 Package: openmascot
@@ -18,4 +18,4 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: shimeji-like software in cpp for Linux
- shimeji-like software in cpp for Linux
+ software like shimeji for your desktop

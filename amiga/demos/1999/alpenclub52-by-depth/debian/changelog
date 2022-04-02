@@ -1,3 +1,11 @@
+alpenclub52-by-depth (1:1.0+3-0ddebs6) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 May 2022 01:14:39 +0200
+
 alpenclub52-by-depth (1:1.0+3-0ddebs5) unstable; urgency=medium
 
   * debian/alpenclub52-by-depth.lintian-overrides : overrides broken-zip

@@ -17,6 +17,6 @@ License: MiniFMOD
  Some parts of this source is copyright (c) 2002, Luks <luks@host.sk>
 
 Files: debian/*
-Copyright: 2016-2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  /usr/share/common-licenses/GPL-2

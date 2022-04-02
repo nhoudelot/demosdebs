@@ -3,7 +3,7 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libfltk1.3-dev,
  libdevil-dev,
  libglew1.5,
@@ -11,7 +11,7 @@ Build-Depends:
  libglu1-mesa-dev,
  libfmodex-dev,
  libsdl1.2-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=57319
 
 Package: simlife-by-contraz

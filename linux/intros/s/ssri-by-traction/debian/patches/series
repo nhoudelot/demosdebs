@@ -4,3 +4,4 @@
 04_better_quit.patch
 05_add_fullscreen_key.patch
 06_automatic_resize.patch
+07_link_to_libgl.patch

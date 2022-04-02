@@ -2,11 +2,11 @@ Source: libbass
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  rename
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Section: libs
-Homepage: http://www.un4seen.com/
+Homepage: https://www.un4seen.com/
 
 Package: libbass
 Architecture: i386 amd64 armhf arm64
@@ -22,8 +22,7 @@ Architecture: i386 amd64 armhf arm64
 Multi-Arch: same
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libc6
+ ${misc:Depends}
 Description: Audio library
  Audio library for use in software on several platforms. Its purpose is to
  provide developers with powerful and efficient sample, stream (MP3, MP2,

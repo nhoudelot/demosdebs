@@ -1,15 +1,16 @@
 #!/usr/bin/make -f
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+    RUN_DHDWZ=dh_dwz 
+endif
+
 %:
 	dh $@
 
 override_dh_auto_build:
 
 override_dh_strip:
-
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/electrify-by-outbreak.6.md -o debian/electrify-by-outbreak.6
 
 override_dh_fixperms:
 	dh_fixperms
@@ -21,3 +22,5 @@ override_dh_fixperms:
 	find debian -name 'shader.frag' -exec chmod 0644 {} +
 	find debian -name 'objects.o3d' -exec chmod 0644 {} +
 
+override_dh_dwz:
+	$(RUN_DHDWZ)

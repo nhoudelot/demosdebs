@@ -1,3 +1,11 @@
+amigadepacker (0.04-0ddebs11) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 Apr 2022 16:52:29 +0200
+
 amigadepacker (0.04-0ddebs10) unstable; urgency=medium
 
   * adapt to cross compilition

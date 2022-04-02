@@ -3,9 +3,9 @@ Section: fonts
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  rename
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.dafont.com/fr/flores.font
 
 Package: fonts-flores

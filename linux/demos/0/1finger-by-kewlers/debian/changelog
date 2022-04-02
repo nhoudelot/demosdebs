@@ -1,3 +1,21 @@
+1finger-by-kewlers (1.0+3-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * preferred to use pkgconf which requires less dependencies during
+    build
+  * added libgl-dev as a build dependency, to get -lGl for the linker,
+    on jammy
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Apr 2022 01:38:57 +0200
+
+1finger-by-kewlers (1.0+3-0ddebs4) unstable; urgency=medium
+
+  * libbass2 dependencie missing
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 17 Feb 2021 00:12:53 +0100
+
 1finger-by-kewlers (1.0+3-0ddebs3) unstable; urgency=medium
 
   * adapt to cross-compilation

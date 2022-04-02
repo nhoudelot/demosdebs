@@ -1,3 +1,12 @@
+yoyo-by-thebadsectors (1.1-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * avoid use of dh_dwz when compile on buster
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 May 2022 12:58:50 +0200
+
 yoyo-by-thebadsectors (1.1-0ddebs4) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

@@ -3,14 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libdevil-dev,
  libnoise-dev,
  libfmodex-dev,
- libgl1-mesa-dev,
+ libgl-dev,
  libfltk1.1-dev,
  libglfw-dev|libglfw3-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: http://www.pouet.net/prod.php?which=61570
 
 Package: nightdrive-by-contraz

@@ -3,9 +3,8 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>=9),
- pandoc
-Standards-Version: 4.1.4
+ debhelper-compat (= 12)
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=56349
 
 Package: electrify-by-outbreak

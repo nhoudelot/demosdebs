@@ -32,14 +32,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  AR := ar
  CC := gcc
  LD := ld
-@@ -40,6 +41,7 @@
- CFLAGS += -O0 -g -fsanitize=address
- else
- CFLAGS += -O2
-+CFLAGS += -flto
- endif
- CFLAGS += -fno-strict-aliasing -std=gnu99 -Wall
- ifneq ($(PLATFORM),win32)
 --- a/libdisk/Makefile
 +++ b/libdisk/Makefile
 @@ -8,6 +8,8 @@

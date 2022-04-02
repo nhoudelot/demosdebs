@@ -1,3 +1,11 @@
+arte-by-sanity-disk (1:1.0+3-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 04 May 2022 01:10:19 +0200
+
 arte-by-sanity-disk (1:1.0+3-0ddebs4) unstable; urgency=medium
 
   * Update debian/scripts/arte-by-sanity-disk to common-install-function-

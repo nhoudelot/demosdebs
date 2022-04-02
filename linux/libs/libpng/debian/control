@@ -4,11 +4,11 @@ Priority: optional
 Maintainer: Anibal Monsalve Salazar <anibal@debian.org>
 Uploaders: Nobuhiro Iwamatsu <iwamatsu@debian.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libtool,
  zlib1g-dev,
  mawk
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: http://libpng.org/pub/png/libpng.html
 
 Package: libpng12-0

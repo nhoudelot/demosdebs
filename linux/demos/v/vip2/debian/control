@@ -3,13 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libglu1-mesa-dev,
+ libgl-dev,
  libjpeg-dev,
  libxxf86vm-dev,
  libasound2-dev,
- pkg-config
-Standards-Version: 4.5.0
+ pkgconf
+Standards-Version: 4.6.0.1
 Homepage: https://www.sesse.net/vip2-linux/
 
 Package: vip2

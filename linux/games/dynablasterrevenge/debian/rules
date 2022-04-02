@@ -22,10 +22,5 @@ override_dh_auto_clean-arch:
 	dh_auto_clean -Sqmake -Dclient
 	dh_auto_clean -Sqmake -Dserver
 
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/dynablasterrevenge-client.6.md -o debian/dynablasterrevenge-client.6
-	pandoc -s -t man -f markdown debian/dynablasterrevenge-server.6.md -o debian/dynablasterrevenge-server.6
-
 override_dh_installchangelogs:
 	dh_installchangelogs -a doc/changelog.txt

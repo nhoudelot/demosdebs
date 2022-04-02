@@ -7,6 +7,8 @@ domain=secondreality-by-futurecrew
 APP_FULLNAME="Second Reality"
 APP_COPYRIGHT="Future Crew"
 APP_DESC="demo by Future Crew released in 1993"
+APP_EXE="SECOND.exe"
+APP_SETSOUND="SECOND.exe"
 
 function prerun()
 {

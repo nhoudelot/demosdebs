@@ -1,8 +1,8 @@
 Source: glib-1.2
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: debhelper (>=10)
-Standards-Version: 4.5.0
+Build-Depends: debhelper-compat (= 10)
+Standards-Version: 4.6.0.1
 Section: libs
 Homepage: http://www.gtk.org/
 

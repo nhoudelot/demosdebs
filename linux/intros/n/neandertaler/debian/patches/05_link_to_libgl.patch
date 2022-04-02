@@ -1,0 +1,14 @@
+--- a/Makefile
++++ b/Makefile
+@@ -14,9 +14,9 @@
+ # General defines
+ CXX := g++
+ PKG_CONFIG:=pkg-config
+-CXXFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags glu) -std=gnu++98 -fabi-version=2
++CXXFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags glu gl) -std=gnu++98 -fabi-version=2
+ DEF =
+-GL = -lglut $(shell $(PKG_CONFIG) --libs glu)
++GL = -lglut $(shell $(PKG_CONFIG) --libs glu gl)
+ LDFLAGS += -lm
+ RM_F = rm -f
+ 

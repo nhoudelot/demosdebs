@@ -1,3 +1,18 @@
+common-install-function-ddebs (1.75-0ddebs2) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 04 Apr 2022 11:04:06 +0200
+
+common-install-function-ddebs (1.75-0ddebs1) unstable; urgency=medium
+
+  * add "game" to $NSH_SetInstallPath
+  * simplified NSH_LinkUserDataFileToTMP()
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 02 Jan 2022 12:06:44 +0100
+
 common-install-function-ddebs (1.74-0ddebs1) unstable; urgency=medium
 
   * add atarist endscript

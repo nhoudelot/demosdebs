@@ -1,3 +1,14 @@
+4ksdemo-by-madmartigan (1.0+1-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * preferred to use pkgconf which requires less dependencies during
+    build
+  * added -lGl for the linker, on jammy
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 Apr 2022 20:28:33 +0200
+
 4ksdemo-by-madmartigan (1.0+1-0ddebs4) unstable; urgency=medium
 
   * adapt to cross-building

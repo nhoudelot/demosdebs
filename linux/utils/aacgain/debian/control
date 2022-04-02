@@ -3,9 +3,9 @@ Section: utils
 Priority: optional
 Maintainer: Christian Marillat <marillat@deb-multimedia.org>
 Homepage: http://altosdesign.com/aacgain/
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libmp3lame-dev,
  ccache
 

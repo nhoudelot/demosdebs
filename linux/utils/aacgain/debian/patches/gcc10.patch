@@ -1,0 +1,237 @@
+--- a/mp4v2/libutil/Utility.cpp
++++ b/mp4v2/libutil/Utility.cpp
+@@ -537,26 +537,26 @@
+                 printHelp( false, false );
+                 return SUCCESS;
+ 
+-            case LC_DEBUG:
++            case int(LC_DEBUG):
+                 debugUpdate( std::strtoul( prog::optarg, NULL, 0 ) );
+                 break;
+ 
+-            case LC_VERBOSE:
++            case int(LC_VERBOSE):
+             {
+                 const uint32_t level = std::strtoul( prog::optarg, NULL, 0 );
+                 _verbosity = ( level < 4 ) ? level : 3;
+                 break;
+             }
+ 
+-            case LC_HELP:
++            case int(LC_HELP):
+                 printHelp( true, false );
+                 return SUCCESS;
+ 
+-            case LC_VERSION:
++            case int(LC_VERSION):
+                 printVersion( false );
+                 return SUCCESS;
+ 
+-            case LC_VERSIONX:
++            case int(LC_VERSIONX):
+                 printVersion( true );
+                 return SUCCESS;
+ 
+--- a/mp4v2/util/mp4art.cpp
++++ b/mp4v2/util/mp4art.cpp
+@@ -375,11 +375,11 @@
+     handled = true;
+ 
+     switch( code ) {
+-        case LC_ART_ANY:
++        case int(LC_ART_ANY):
+             _artFilter = numeric_limits<uint32_t>::max();
+             break;
+ 
+-        case LC_ART_INDEX:
++        case int(LC_ART_INDEX):
+         {
+             istringstream iss( prog::optarg );
+             iss >> _artFilter;
+@@ -388,29 +388,29 @@
+             break;
+         }
+ 
+-        case LC_LIST:
++        case int(LC_LIST):
+             _action = &ArtUtility::actionList;
+             break;
+ 
+-        case LC_ADD:
++        case int(LC_ADD):
+             _action = &ArtUtility::actionAdd;
+             _artImageFile = prog::optarg;
+             if( _artImageFile.empty() )
+                 return herrf( "invalid image file: empty-string\n" );
+             break;
+ 
+-        case LC_REMOVE:
++        case int(LC_REMOVE):
+             _action = &ArtUtility::actionRemove;
+             break;
+ 
+-        case LC_REPLACE:
++        case int(LC_REPLACE):
+             _action = &ArtUtility::actionReplace;
+             _artImageFile = prog::optarg;
+             if( _artImageFile.empty() )
+                 return herrf( "invalid image file: empty-string\n" );
+             break;
+ 
+-        case LC_EXTRACT:
++        case int(LC_EXTRACT):
+             _action = &ArtUtility::actionExtract;
+             break;
+ 
+--- a/mp4v2/util/mp4chaps.cpp
++++ b/mp4v2/util/mp4chaps.cpp
+@@ -636,32 +636,32 @@
+ 
+     switch( code ) {
+         case 'A':
+-        case LC_CHPT_ANY:
++        case int(LC_CHPT_ANY):
+             _ChapterType = MP4ChapterTypeAny;
+             break;
+ 
+         case 'Q':
+-        case LC_CHPT_QT:
++        case int(LC_CHPT_QT):
+             _ChapterType = MP4ChapterTypeQt;
+             break;
+ 
+         case 'N':
+-        case LC_CHPT_NERO:
++        case int(LC_CHPT_NERO):
+             _ChapterType = MP4ChapterTypeNero;
+             break;
+ 
+         case 'C':
+-        case LC_CHPT_COMMON:
++        case int(LC_CHPT_COMMON):
+             _ChapterFormat = CHPT_FMT_COMMON;
+             break;
+ 
+         case 'l':
+-        case LC_CHP_LIST:
++        case int(LC_CHP_LIST):
+             _action = &ChapterUtility::actionList;
+             break;
+ 
+         case 'e':
+-        case LC_CHP_EVERY:
++        case int(LC_CHP_EVERY):
+         {
+             istringstream iss( prog::optarg );
+             iss >> _ChaptersEvery;
+@@ -677,7 +677,7 @@
+             _action = &ChapterUtility::actionExport;
+             break;
+ 
+-        case LC_CHP_EXPORT:
++        case int(LC_CHP_EXPORT):
+             _action = &ChapterUtility::actionExport;
+             /* currently not supported since the chapters of n input files would be written to one chapter file
+             _ChapterFile = prog::optarg;
+@@ -692,7 +692,7 @@
+             _action = &ChapterUtility::actionImport;
+             break;
+ 
+-        case LC_CHP_IMPORT:
++        case int(LC_CHP_IMPORT):
+             _action = &ChapterUtility::actionImport;
+             /* currently not supported since the chapters of n input files would be read from one chapter file
+             _ChapterFile = prog::optarg;
+@@ -704,12 +704,12 @@
+             break;
+ 
+         case 'c':
+-        case LC_CHP_CONVERT:
++        case int(LC_CHP_CONVERT):
+             _action = &ChapterUtility::actionConvert;
+             break;
+ 
+         case 'r':
+-        case LC_CHP_REMOVE:
++        case int(LC_CHP_REMOVE):
+             _action = &ChapterUtility::actionRemove;
+             break;
+ 
+--- a/mp4v2/util/mp4file.cpp
++++ b/mp4v2/util/mp4file.cpp
+@@ -195,15 +195,15 @@
+     handled = true;
+ 
+     switch( code ) {
+-        case LC_LIST:
++        case int(LC_LIST):
+             _action = &FileUtility::actionList;
+             break;
+ 
+-        case LC_OPTIMIZE:
++        case int(LC_OPTIMIZE):
+             _action = &FileUtility::actionOptimize;
+             break;
+ 
+-        case LC_DUMP:
++        case int(LC_DUMP):
+             _action = &FileUtility::actionDump;
+             break;
+ 
+--- a/mp4v2/util/mp4subtitle.cpp
++++ b/mp4v2/util/mp4subtitle.cpp
+@@ -165,25 +165,25 @@
+     handled = true;
+ 
+     switch( code ) {
+-        case LC_LIST:
++        case int(LC_LIST):
+             _action = &SubtitleUtility::actionList;
+             break;
+ 
+-        case LC_EXPORT:
++        case int(LC_EXPORT):
+             _action = &SubtitleUtility::actionExport;
+             _stTextFile = prog::optarg;
+             if( _stTextFile.empty() )
+                 return herrf( "invalid TXT file: empty-string\n" );
+             break;
+ 
+-        case LC_IMPORT:
++        case int(LC_IMPORT):
+             _action = &SubtitleUtility::actionImport;
+             _stTextFile = prog::optarg;
+             if( _stTextFile.empty() )
+                 return herrf( "invalid TXT file: empty-string\n" );
+             break;
+ 
+-        case LC_REMOVE:
++        case int(LC_REMOVE):
+             _action = &SubtitleUtility::actionRemove;
+             break;
+ 
+--- a/mp4v2/util/mp4track.cpp
++++ b/mp4v2/util/mp4track.cpp
+@@ -787,11 +787,11 @@
+     handled = true;
+ 
+     switch( code ) {
+-        case LC_TRACK_WILDCARD:
++        case int(LC_TRACK_WILDCARD):
+             _trackMode = TM_WILDCARD;
+             break;
+ 
+-        case LC_TRACK_INDEX:
++        case int(LC_TRACK_INDEX):
+         {
+             _trackMode = TM_INDEX;
+             istringstream iss( prog::optarg );
+@@ -801,7 +801,7 @@
+             break;
+         }
+ 
+-        case LC_TRACK_ID:
++        case int(LC_TRACK_ID):
+         {
+             _trackMode = TM_ID;
+             istringstream iss( prog::optarg );

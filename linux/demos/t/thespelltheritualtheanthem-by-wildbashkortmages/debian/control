@@ -3,12 +3,12 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libsdl2-dev,
  liblua5.2-dev,
  libsdl2-image-dev,
  libfmodex-dev,
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=66412
 
 Package: thespelltheritualtheanthem-by-wildbashkortmages

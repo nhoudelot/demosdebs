@@ -3,12 +3,12 @@ Section: utils
 Priority: optional
 Maintainer: Joao Pinto <joao.pinto@getdeb.net>
 Uploaders: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: debhelper (>= 10),
+Build-Depends: debhelper-compat (= 12),
                gem2deb,
                rake,
                ruby-rspec,
                ruby-gettext
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Vcs-Git: https://github.com/bleskodev/rubyripper.git
 Vcs-Browser: https://github.com/bleskodev/rubyripper
 Homepage: https://github.com/bleskodev/rubyripper

@@ -1,3 +1,4 @@
 01_adapt_makefile.patch
 02_fix_warnings.patch
 03_migrate_to_SDL2.patch
+04_gcc_10_fix.patch

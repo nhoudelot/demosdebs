@@ -1,0 +1,15 @@
+--- a/Makefile
++++ b/Makefile
+@@ -64,9 +64,9 @@
+ AR    := ar
+ RANLIB := ranlib
+ PKG_CONFIG:=pkg-config
+-CFLAGS   += -Wall -ffast-math -std=gnu90 -pipe $(shell $(PKG_CONFIG) glu x11 alsa xxf86vm libjpeg --cflags)
+-CXXFLAGS += -Wall -ffast-math -std=gnu++98  -fabi-version=2 -pipe $(shell $(PKG_CONFIG) glu x11 alsa xxf86vm libjpeg --cflags)
+-LDFLAGS  += $(shell $(PKG_CONFIG) glu x11 alsa xxf86vm libjpeg --libs)
++CFLAGS   += -Wall -ffast-math -std=gnu90 -pipe $(shell $(PKG_CONFIG) glu gl x11 alsa xxf86vm libjpeg --cflags)
++CXXFLAGS += -Wall -ffast-math -std=gnu++98  -fabi-version=2 -pipe $(shell $(PKG_CONFIG) glu gl x11 alsa xxf86vm libjpeg --cflags)
++LDFLAGS  += $(shell $(PKG_CONFIG) glu gl x11 alsa xxf86vm libjpeg --libs)
+ RM_F = rm -f
+ INSTALL = install
+ INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755

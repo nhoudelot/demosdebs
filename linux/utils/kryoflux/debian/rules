@@ -10,6 +10,11 @@ ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
 	DIR=i686
 endif
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+	RUN_DHDWZ=dh_dwz 
+endif
+
 %:
 	dh $@ 
 
@@ -24,3 +29,7 @@ override_dh_auto_configure:
                 
 override_dh_installudev:
 	dh_installudev --name=kryoflux --priority=80
+
+override_dh_dwz:
+	$(RUN_DHDWZ)
+

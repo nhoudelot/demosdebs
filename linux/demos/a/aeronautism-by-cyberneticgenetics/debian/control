@@ -3,15 +3,17 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
- pkg-config,
+ debhelper-compat (= 12),
+ pkgconf,
  libx11-dev,
  libxrandr-dev,
  libvorbis-dev,
  libpng-dev,
  libglu1-mesa-dev,
+ libopengl-dev|libglvnd-core-dev,
+ libglx-dev|libglvnd-core-dev,
  libasound2-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=55946
 
 Package: aeronautism-by-cyberneticgenetics

@@ -1,3 +1,11 @@
+suitafutura-by-liberty (1:1.0+2-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 May 2022 23:55:32 +0200
+
 suitafutura-by-liberty (1:1.0+2-0ddebs4) unstable; urgency=medium
 
   * Update debian/scripts/suitafutura-by-liberty to common-install-

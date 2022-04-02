@@ -1,0 +1,16 @@
+Description: comparison of pointer without integer zero
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2022-04-21 
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sundog_engine/window_manager/code/handlers.cpp
++++ b/sundog_engine/window_manager/code/handlers.cpp
+@@ -2309,7 +2309,7 @@
+     	    files_load_props( win, wm );
+ 	    if( data->prop_path[ data->prop_cur_disk ] )
+ 		text_set_text( data->path, data->prop_path[ data->prop_cur_disk ], wm );
+-	    if( data->prop_cur_file >= 0 )
++	    if( data->prop_cur_file != nullptr )
+ 	    {
+ 		list_data *ldata = list_get_data( data->files, wm );
+ 		UTF8_CHAR *item = list_get_item( list_get_selected_num( ldata ), ldata );//Set file num:

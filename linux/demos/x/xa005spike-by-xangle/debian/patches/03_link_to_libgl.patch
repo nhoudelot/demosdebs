@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -22,8 +22,8 @@
+ 
+ # Detect OS --------------------------------------------------------------------
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "linux")),)
+-	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl glu zlib libpng) -lfmod-3.75 $(GUILIB)
+-	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl glu zlib libpng) $(GUIOPT)
++	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl glu gl zlib libpng) -lfmod-3.75 $(GUILIB)
++	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl glu gl zlib libpng) $(GUIOPT)
+ endif
+ 
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "Apple")),)

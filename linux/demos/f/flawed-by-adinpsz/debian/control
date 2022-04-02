@@ -3,13 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
- pkg-config,
+ debhelper-compat (= 12),
+ pkgconf,
  libsdl2-dev,
  libglu1-mesa-dev,
  libfmodex-dev,
  libglew-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=57026
 
 Package: flawed-by-adinpsz

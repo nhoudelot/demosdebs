@@ -11,7 +11,7 @@ License: GPL-2
  /usr/share/common-licenses/GPL-2
 
 Files: debian/*
-Copyright: 2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2018-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
 		   2015 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
 License: GPL-3.0+
  /usr/share/common-licenses/GPL-3

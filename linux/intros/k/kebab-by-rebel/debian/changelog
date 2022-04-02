@@ -1,3 +1,13 @@
+kebab-by-rebel (1.0+2-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * preferred to use pkgconf which requires less dependencies during
+    build
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 18 Apr 2022 01:07:27 +0200
+
 kebab-by-rebel (1.0+2-0ddebs4) unstable; urgency=medium
 
   * adapt to cross-compilation

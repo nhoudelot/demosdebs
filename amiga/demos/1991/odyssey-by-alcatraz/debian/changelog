@@ -1,3 +1,11 @@
+odyssey-by-alcatraz (1:1.1+5-0ddebs7) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 04 May 2022 00:09:39 +0200
+
 odyssey-by-alcatraz (1:1.1+5-0ddebs6) unstable; urgency=medium
 
   * debian/odyssey-by-alcatraz.lintian-overrides : overrides broken-zip

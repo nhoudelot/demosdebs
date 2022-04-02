@@ -1,3 +1,11 @@
+s-by-skarla (1:1.0+6-0ddebs8) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 05 May 2022 10:37:52 +0200
+
 s-by-skarla (1:1.0+6-0ddebs7) unstable; urgency=medium
 
   * debian/s-by-skarla.lintian-overrides : overrides broken-zip warning

@@ -2,7 +2,7 @@ Source: chatty
 Section: utils
 Priority: optional
 Maintainer: Christoph Korn <christoph.korn@getdeb.net>
-Build-Depends: debhelper (>= 10),
+Build-Depends: debhelper-compat (= 12),
 			   javahelper (>= 0.25),
 			   ant,
 			   ant-optional,
@@ -13,7 +13,7 @@ Build-Conflicts: openjdk-6-jre-headless,
                  openjdk-6-jre-lib,
                  openjdk-7-jre-headless,
                  openjdk-7-jre-lib
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: http://chatty.github.io/
 
 Package: chatty

@@ -5,9 +5,9 @@ Uploaders:
  Robin Cornelius <robin.cornelius@gmail.com>
  , David Paleino <dapal@debian.org>
  , Mathieu Malaterre <malat@debian.org>
-Homepage: http://www.openjpeg.org
+Homepage: https://www.openjpeg.org
 Build-Depends:
- debhelper (>= 9)
+ debhelper-compat (= 12)
  , cmake (>= 2.8.0)
  , libxerces2-java
  , libtiff-dev
@@ -17,9 +17,9 @@ Build-Depends:
  , libfcgi-dev
  , libcurl4-gnutls-dev | libcurl-ssl-dev
  , doxygen
-Standards-Version: 3.9.5
+Standards-Version: 4.6.0.1
 Section: libs
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-phototools/openjpeg.git
+Vcs-Browser: https://anonscm.debian.org/gitweb/?p=pkg-phototools/openjpeg.git
 Vcs-Git: git://anonscm.debian.org/pkg-phototools/openjpeg.git
 
 Package: libopenjpeg-dev

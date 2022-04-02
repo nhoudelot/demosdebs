@@ -1,3 +1,13 @@
+bugymetaballs-by-lordcow (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * added libgl-dev as a build dependency, to get -lGl for the linker,
+    on jammy
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 Apr 2022 02:14:19 +0200
+
 bugymetaballs-by-lordcow (1.0+1-0ddebs3) unstable; urgency=medium
 
   * adapt to cross-compilation

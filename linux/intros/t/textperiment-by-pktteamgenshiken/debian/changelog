@@ -1,3 +1,11 @@
+textperiment-by-pktteamgenshiken (1.0+git20150726-0ddebs3) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Apr 2022 01:34:19 +0200
+
 textperiment-by-pktteamgenshiken (1.0+git20150726-0ddebs2) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

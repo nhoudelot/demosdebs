@@ -1,0 +1,4 @@
+electrify-by-outbreak source: source-is-missing electrify.elf
+electrify-by-outbreak source: package-depends-on-hardcoded-libc electrify-by-outbreak depends
+electrify-by-outbreak source: source-contains-prebuilt-windows-binary audiere.dll
+electrify-by-outbreak source: source-contains-prebuilt-windows-binary electrify.exe

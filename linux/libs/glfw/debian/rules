@@ -2,6 +2,7 @@
 # -*- makefile -*-
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
 
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 

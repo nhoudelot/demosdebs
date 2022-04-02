@@ -2,9 +2,9 @@ Source: voyage-by-razor1911-disk
 Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Build-Depends:
- debhelper (>= 10)
+ debhelper-compat (= 12)
 Homepage: https://janeway.exotica.org.uk/release.php?id=409
 
 Package: voyage-by-razor1911-disk

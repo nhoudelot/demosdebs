@@ -3,12 +3,12 @@ Section: games
 Priority: optional
 Maintainer: Richard Schaller <richard.schaller@gmx.de>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libsdl2-dev,
  libsdl2-mixer-dev,
  dh-autoreconf,
  libcppunit-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://sourceforge.net/projects/dunelegacy
 
 Package: dunelegacy

@@ -3,7 +3,7 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  cmake,
  libboost-filesystem-dev,
  libboost-program-options-dev,
@@ -12,7 +12,7 @@ Build-Depends:
  libpng-dev,
  libsdl2-dev,
  libglew-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=66046
 
 Package: ghostsofmars-by-faemiyah

@@ -3,11 +3,11 @@ Section: games
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
+ debhelper-compat (= 12),
  libsdl2-dev,
  libsdl2-mixer-dev,
- pkgconf,
- debhelper (>= 10.0)
-Standards-Version: 4.5.0
+ pkgconf
+Standards-Version: 4.6.0.1
 Homepage: https://github.com/cyxx/rawgl
 Vcs-Git: https://github.com/cyxx/rawgl.git
 Vcs-Browser: https://github.com/cyxx/rawgl

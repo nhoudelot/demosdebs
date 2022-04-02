@@ -1,3 +1,14 @@
+yellowroseoftexas-by-fit (1.0+1-0ddebs4) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * -nostdlib is used at compilation. so, starting jammy, need to link
+    with glibc (-lc), to get dlopen() function (it's now included in
+    glibc 2.34)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 15 Apr 2022 20:28:30 +0200
+
 yellowroseoftexas-by-fit (1.0+1-0ddebs3) unstable; urgency=medium
 
   * adapt to cross-compilation

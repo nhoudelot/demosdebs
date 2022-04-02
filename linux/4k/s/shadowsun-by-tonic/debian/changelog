@@ -1,8 +1,14 @@
 shadowsun-by-tonic (1.0+1-0ddebs4) unstable; urgency=medium
 
-  * adapt to cross-compilation
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * preferred to use pkgconf which requires less dependencies during
+    build
+  * added libgl-dev as a build dependency, to get -lGl for the linker,
+    on jammy
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 30 Jul 2020 09:28:09 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Apr 2022 14:22:47 +0200
 
 shadowsun-by-tonic (1.0+1-0ddebs3) unstable; urgency=medium
 

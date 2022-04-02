@@ -3,9 +3,9 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libncurses5-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: http://www.pouet.net/prod.php?which=10644
 
 Package: cursesdemo-by-dc5
@@ -13,5 +13,5 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: demo ranked 3rd at Pilgrimage 2003
- little ncurse demo ranked 3rd
+Description: 4k intro ranked 3rd at Pilgrimage 2003
+ little ncurse 4k intro ranked 3rd

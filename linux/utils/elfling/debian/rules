@@ -8,7 +8,8 @@
 # pandoc -s -t man -f markdown debian/elfling.1.md -o debian/elfling.1
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
+export CXX = $(DEB_HOST_GNU_TYPE)-g++
 
 %:
 	dh $@

@@ -3,7 +3,7 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libglu1-mesa-dev,
  libpng12-dev,
  libxrandr-dev,
@@ -12,7 +12,7 @@ Build-Depends:
  libjpeg62-dev|libjpeg62-turbo-dev,
  libaudiere,
  libglew1.5
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=53577
 
 Package: stress-by-outbreakandchimeramusic

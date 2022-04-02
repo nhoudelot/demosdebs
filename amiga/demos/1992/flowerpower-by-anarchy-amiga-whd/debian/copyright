@@ -8,7 +8,7 @@ License: public-domain
  (probably freeware)
 
 Files: debian/*
-Copyright: 2015-2021 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2015-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  On Debian systems, the complete text of the GNU General
  Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".

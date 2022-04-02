@@ -3,12 +3,12 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  nasm,
- libgl1-mesa-dev,
+ libgl-dev,
  libsdl2-dev,
- pkg-config
-Standards-Version: 4.5.0
+ pkgconf
+Standards-Version: 4.6.0.1
 Homepage: http://www.pouet.net/prod.php?which=61809
 
 Package: heartburn-by-thetourist

@@ -1,2 +1,3 @@
 01_manforgame.patch
 02_remove_embeded_dependencies.patch
+03_fix_cpp.patch

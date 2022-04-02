@@ -3,9 +3,9 @@ Section: libs
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  rename
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.fmod.org/download/
 
 Package: libfmodex-dev
@@ -38,10 +38,8 @@ Multi-Arch: same
 Replaces: libfmodex (<<4.44.64-0ddebs3~)
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libc6,
- libstdc++6
-Description: Package development for the FMOD Ex library.
+ ${misc:Depends}
+Description: FMOD Ex library Package development
  FMOD is a cross platform audio library and toolset to let you easily
  implement the latest audio technologies into your title.
  .

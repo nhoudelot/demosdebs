@@ -6,11 +6,12 @@ Last-Update: 2020-04-19
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -1,28 +1,37 @@
+@@ -1,28 +1,38 @@
 +#variables de compilation
 +SHELL	:= /bin/sh
 +CC		:= gcc
 +CXX		:= g++
++PKG_CONFIG:=pkg-config
 +
  OBJECTS = main.o luisita.o
 - 
@@ -56,7 +57,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +$(TARGET): $(OBJECTS)
 +	#cp ./bass/libbass.so ../libbass.so
-+	$(CXX) -O3 -o $(TARGET) $(OBJECTS) /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/liblua5.1.a -L/usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/bass -lbass -pthread  -lSOIL $(shell pkg-config --libs --cflags sdl glew) -ldl
++	$(CXX) -O3 -o $(TARGET) $(OBJECTS) /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/liblua5.1.a -L/usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/bass -lbass -pthread  -lSOIL $(shell $(PKG_CONFIG) --libs --cflags sdl glew) -ldl
  
  clean:
 -	rm $(OBJECTS)

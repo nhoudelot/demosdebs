@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +CC 		:= gcc
 +PKG_CONFIG:=pkg-config
 +CFLAGS 	+= -Wall -pipe -pedantic -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu x11 xrandr libpng vorbisfile)
-+CLIBS 	:= $(shell $(PKG_CONFIG) --libs glu x11 xrandr libpng vorbisfile) -lasound -lm
++LDFLAGS += $(shell $(PKG_CONFIG) --libs glu x11 xrandr libpng vorbisfile) -lasound -lm
 +
 +TARGET = aeronautism-by-cyberneticgenetics# demo name here
 +
@@ -48,7 +48,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): main.o texture.o mesh3d.o cg_music.o cg_x11.o cg_time.o shader.o particle.o poligonexplode.o aeronautism.o
-+	$(CC) -flto -o $(TARGET)  *.o  $(CLIBS)
++	$(CC) -flto -o $(TARGET)  *.o  $(LDFLAGS)
  
  # Common demo stuff
  main.o: main.c

@@ -2,3 +2,4 @@
 02_adapt_makefile.diff
 03_adapt_path.patch
 04_change_window_title.diff
+05_fix_magic.patch

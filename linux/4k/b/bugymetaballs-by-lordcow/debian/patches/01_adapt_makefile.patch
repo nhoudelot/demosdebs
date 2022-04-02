@@ -37,8 +37,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +SHELL = /bin/sh
 +CXX   := g++
 +PKG_CONFIG := pkg-config
-+CXXFLAGS += -std=gnu++98 -fabi-version=2 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu)
-+LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
++CXXFLAGS += -std=gnu++98 -fabi-version=2 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu gl)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
 +TARGET   := bugymetaballs-by-lordcow
 +#variable de nettoyage
 +RM_F := rm -f

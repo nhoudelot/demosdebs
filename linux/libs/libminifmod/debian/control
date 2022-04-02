@@ -2,9 +2,9 @@ Source: libminifmod
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  nasm
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Section: libs
 Homepage: http://www.fmod.org/files/minifmod160_gcc.zip
 

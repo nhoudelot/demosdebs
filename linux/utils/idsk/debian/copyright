@@ -39,7 +39,7 @@ License: Boost_Software_License
  DEALINGS IN THE SOFTWARE.
 
 Files: debian/*
-Copyright: 2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2018-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: GPL-3.0+

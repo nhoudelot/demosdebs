@@ -3,12 +3,12 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  libgtk1.2-dev,
  libx11-dev,
  libxext-dev,
  libpulse-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://sourceforge.net/projects/thom/
 
 Package: thom

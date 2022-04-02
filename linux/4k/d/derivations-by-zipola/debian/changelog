@@ -1,3 +1,13 @@
+derivations-by-zipola (1.0+1-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * added -Wl,--allow-multiple-definition to LDFLAGS, because -fno-
+    common is set by default on gcc 10
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 Apr 2022 23:58:22 +0200
+
 derivations-by-zipola (1.0+1-0ddebs4) unstable; urgency=medium
 
   * adapt to cross-compilation (only for i386 as there is ASM in the code)

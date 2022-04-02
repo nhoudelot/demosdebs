@@ -1,3 +1,14 @@
+aacgain (1.9+1-0ddebs4) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * added patch mp4v2 : 0005-Fix-clang-compilation
+  * added patch mp4v2 : 0007-Fix-Out-of-bounds-memory-access-in-MP4v2-2.0.0
+  * added patch mp4v2 : gcc10
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 Apr 2022 16:29:56 +0200
+
 aacgain (1.9+1-0ddebs3) unstable; urgency=medium
 
   * debian/rules adapted to cross compilation

@@ -3,12 +3,12 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  mesa-common-dev,
  libsdl1.2-dev,
  libboost-dev,
- pkg-config
-Standards-Version: 4.5.0
+ pkgconf
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=57004
 
 Package: stochasticlenssimulatormkii-by-gzrrplox

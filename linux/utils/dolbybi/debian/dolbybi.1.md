@@ -123,7 +123,7 @@ More details on the options
 	the main path. Basically signals don't add together very well, if there is
 	too much difference in the phase.
 	
-    To fix this I experemented with outher ways of performing the filtering in 
+    To fix this I experimented with outher ways of performing the filtering in 
     the side path with hopefully less of a phase change. To cut a long story
     short there are now 4 filter modes.
     /FM:1 is the original method.
@@ -140,7 +140,7 @@ More details on the options
 	output is shortened by missing off some of the end.
 
 /USE64 RIFF 64 format, as described by the note above, is always used
-	reguardless of the size of the output.
+	regardless of the size of the output.
 
 /ENC It may be necessary to try encoding a file, and this is actually easier to
 	do in software than decoding. So I have added this option.
@@ -197,7 +197,7 @@ More details on the options
 	but using the new calibration values it just worked out.
 
 /PF: Since this is an experimental program, advanced users might like to
-	experement with	changing some of the program parameters. This can be done by
+	experiment with	changing some of the program parameters. This can be done by
 	 writing new values to a parameter file, and reading it in using this
 	 option.
 

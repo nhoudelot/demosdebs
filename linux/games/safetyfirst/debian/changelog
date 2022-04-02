@@ -1,3 +1,13 @@
+safetyfirst (1.0-0ddebs4) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * replaced deprecated build dependency libgl1-mesa-dev by libgl-dev
+  * avoid use of dh_dwz when compile on buster
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 May 2022 21:21:28 +0200
+
 safetyfirst (1.0-0ddebs3) unstable; urgency=medium
 
   * Removed auto-generation of the manual with pandoc, because this command is

@@ -4,13 +4,13 @@ Priority: optional
 Maintainer: Chris Rizzitello <sithlord48@gmail.com>
 Build-Depends:
  cmake,
- debhelper (>= 10),
+ debhelper-compat (= 12),
  qtbase5-dev,
  qtbase5-dev-tools,
  qttools5-dev,
  qttools5-dev-tools,
  qtdeclarative5-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0.1
 Homepage: https://www.blackchocobo.com
 Vcs-Git: https://github.com/sithlord48/blackchocobo.git
 Vcs-Browser: https://github.com/sithlord48/blackchocobo

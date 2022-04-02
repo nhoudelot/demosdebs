@@ -1,0 +1,22 @@
+--- a/config/Makefile.linux
++++ b/config/Makefile.linux
+@@ -1,6 +1,6 @@
+ NAME = $(GLEW_NAME)
+-CC = cc
+-LD = cc
++CC := cc
++LD := cc
+ ifneq (undefined, $(origin GLEW_MX))
+ CFLAGS.EXTRA = -DGLEW_MX
+ NAME_SUF=mx
+--- a/config/Makefile.gnu
++++ b/config/Makefile.gnu
+@@ -1,6 +1,6 @@
+ NAME = $(GLEW_NAME)
+-CC = cc
+-LD = cc
++CC := cc
++LD := cc
+ ifneq (undefined, $(origin GLEW_MX))
+ CFLAGS.EXTRA = -DGLEW_MX
+ NAME_SUF=mx

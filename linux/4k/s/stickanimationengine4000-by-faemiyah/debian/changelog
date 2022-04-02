@@ -1,3 +1,12 @@
+stickanimationengine4000-by-faemiyah (1.0+git20170414-0ddebs2) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+  * avoid use of dh_dwz when compile on buster
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Apr 2022 14:22:48 +0200
+
 stickanimationengine4000-by-faemiyah (1.0+git20170414-0ddebs1) unstable; urgency=medium
 
   * Update version to the last git commit
