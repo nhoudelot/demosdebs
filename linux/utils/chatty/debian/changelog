@@ -1,3 +1,9 @@
+chatty (0.18-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 May 2022 11:54:37 +0200
+
 chatty (0.17-0ddebs2) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
