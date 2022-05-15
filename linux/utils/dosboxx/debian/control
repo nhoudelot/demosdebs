@@ -38,11 +38,20 @@ Depends:
 Description: unifont mono fonts
  Fonts designed by unknown
 
+Package: dosboxx-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for dosboxx
+ dosboxx data files
+
 Package: dosboxx
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends}
+ ${misc:Depends},
+ dosboxx-data
 Description: DOSBox-X emulates a legacy IBM PC and DOS environment.
  DOSBox-X is an open-source DOS emulator for running DOS games and applications.
  DOS-based Windows such as Windows 3.x and Windows 9x are officially supported.

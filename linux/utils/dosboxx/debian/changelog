@@ -1,3 +1,10 @@
+dosboxx (0.83.25-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+  * created a data package to reduce packages size on the repository
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 15 May 2022 16:46:38 +0200
+
 dosboxx (0.83.20-0ddebs2) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
