@@ -19,7 +19,7 @@ took system zlib & expat, instead of local one
  endif
  
 @@ -115,8 +116,8 @@
- 		trackeditor.o sector_extractor.o display_track.o fluxStreamAnalyzer.o script_exec.o env.o
+ 		trackeditor.o sector_extractor.o display_track.o fluxStreamAnalyzer.o streamConvert.o script_exec.o env.o
  
  LIBS_OBJS = $(BASE) $(FS_SUPPORT) $(ADFLIBOBJ) $(ENCODING_SUPPORT) $(TRACK_FORMATS_SUPPORT) $(DISKLOADERPLUGINS) \
 -			$(DISKWRITERPLUGINS) $(XDMSLIBOBJ) $(ZLIBOBJ) $(MINIZIPOBJ) $(LZ4OBJ) \
@@ -106,8 +106,8 @@ took system zlib & expat, instead of local one
 -#include "thirdpartylibs/lz4/lib/lz4lib.h"
 +#include <lz4.h>
  
- // 0XXXXXXX  < 128
- // 10XXXXXX XXXXXXXX < 16K
+ #define SHIFTER_FREQ 25000000
+ 
 --- a/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream_loader.c
 @@ -66,7 +66,7 @@

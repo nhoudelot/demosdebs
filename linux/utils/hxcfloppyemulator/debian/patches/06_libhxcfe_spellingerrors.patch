@@ -106,7 +106,7 @@
  											col=(s_col *)&td->framebuffer[(td->xsize*j) + i];
 --- a/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
 +++ b/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
-@@ -2328,7 +2328,7 @@
+@@ -2367,7 +2367,7 @@
  
  			/////////////////////////////////////////////////////////
  #ifdef FLUXSTREAMDBG
@@ -115,7 +115,7 @@
  
  			// print missing blocks.
  			for(block_num=0;block_num<tb->number_of_blocks;block_num++)
-@@ -2412,7 +2412,7 @@
+@@ -2451,7 +2451,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -124,7 +124,7 @@
  #endif
  										}
  										else
-@@ -2433,7 +2433,7 @@
+@@ -2472,7 +2472,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -133,7 +133,7 @@
  #endif
  										}
  										else
-@@ -2458,7 +2458,7 @@
+@@ -2497,7 +2497,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -142,7 +142,7 @@
  #endif
  										}
  										else
-@@ -2495,7 +2495,7 @@
+@@ -2534,7 +2534,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -151,7 +151,7 @@
  #endif
  										}
  										else
-@@ -2576,7 +2576,7 @@
+@@ -2615,7 +2615,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -160,7 +160,7 @@
  #endif
  										}
  										else
-@@ -2597,7 +2597,7 @@
+@@ -2636,7 +2636,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -169,7 +169,7 @@
  #endif
  										}
  										else
-@@ -3391,7 +3391,7 @@
+@@ -3529,7 +3529,7 @@
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Bitrate: %d",side->bitrate);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Number of sector: %d",side->number_of_sector);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Track encoding: %d",side->track_encoding);
@@ -178,7 +178,7 @@
  
  	nbbadbit = 0;
  
-@@ -3646,7 +3646,7 @@
+@@ -3789,7 +3789,7 @@
  					if(pl->forward_link[first_index] == 1)
  					{
  #ifdef FLUXSTREAMDBG
@@ -299,7 +299,7 @@
 +}
 --- a/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_loader.c
-@@ -400,7 +400,7 @@
+@@ -402,7 +402,7 @@
  			floppydisk->floppyNumberOfSide,
  			floppydisk->floppyBitRate,
  			floppydisk->floppySectorPerTrack,

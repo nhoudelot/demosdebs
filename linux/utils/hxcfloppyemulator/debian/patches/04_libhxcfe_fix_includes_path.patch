@@ -81,7 +81,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include "misc/data/data_bmp_hxc2001_logo_bmp.h"
 --- a/libhxcfe/trunk/sources/tracks/sector_extractor.c
 +++ b/libhxcfe/trunk/sources/tracks/sector_extractor.c
-@@ -46,38 +46,38 @@
+@@ -46,39 +46,39 @@
  #include <stdio.h>
  #include <stdlib.h>
  
@@ -120,6 +120,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "tracks/track_formats/tycom_fm_track.h"
 -#include "tracks/track_formats/qd_mo5_track.h"
 -#include "tracks/track_formats/victor9k_gcr_track.h"
+-#include "tracks/track_formats/micraln_fm_track.h"
 +#include "track_formats/aed6200p_track.h"
 +#include "track_formats/amiga_mfm_track.h"
 +#include "track_formats/apple2_gcr_track.h"
@@ -136,6 +137,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#include "track_formats/tycom_fm_track.h"
 +#include "track_formats/qd_mo5_track.h"
 +#include "track_formats/victor9k_gcr_track.h"
++#include "track_formats/micraln_fm_track.h"
  
  #include "trackutils.h"
  
@@ -146,7 +148,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  {
 --- a/libhxcfe/trunk/sources/tracks/track_generator.c
 +++ b/libhxcfe/trunk/sources/tracks/track_generator.c
-@@ -46,34 +46,34 @@
+@@ -46,35 +46,35 @@
  #include <stdlib.h>
  #include <stdio.h>
  
@@ -178,6 +180,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "tracks/track_formats/membrain_mfm_track.h"
 -#include "tracks/track_formats/northstar_mfm_track.h"
 -#include "tracks/track_formats/tycom_fm_track.h"
+-#include "tracks/track_formats/micraln_fm_track.h"
 -
 -#include "tracks/encoding/mfm_encoding.h"
 -#include "tracks/encoding/fm_encoding.h"
@@ -196,6 +199,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#include "track_formats/membrain_mfm_track.h"
 +#include "track_formats/northstar_mfm_track.h"
 +#include "track_formats/tycom_fm_track.h"
++#include "track_formats/micraln_fm_track.h"
 +
 +#include "encoding/mfm_encoding.h"
 +#include "encoding/fm_encoding.h"
@@ -362,49 +366,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #include "fs_fat12/fs_fat12.h"
  #include "fs_amigados/fs_amigados.h"
---- a/libhxcfe/trunk/sources/misc/env.c
-+++ b/libhxcfe/trunk/sources/misc/env.c
-@@ -47,17 +47,17 @@
- #include <string.h>
- #include <stdio.h>
- 
--#include "types.h"
-+#include "../types.h"
- 
--#include "internal_libhxcfe.h"
--#include "tracks/track_generator.h"
--#include "sector_search.h"
--#include "libhxcfe.h"
--#include "floppy_loader.h"
-+#include "../internal_libhxcfe.h"
-+#include "../tracks/track_generator.h"
-+#include "../sector_search.h"
-+#include "../libhxcfe.h"
-+#include "../floppy_loader.h"
- 
--#include "libhxcadaptor.h"
-+#include "../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
- 
--#include "version.h"
-+#include "../version.h"
- 
- #include "env.h"
- 
-@@ -314,4 +314,4 @@
- 	free(src);
- 
- 	return;
--}
-\ No newline at end of file
-+}
 --- a/libhxcfe/trunk/sources/misc/script_exec.c
 +++ b/libhxcfe/trunk/sources/misc/script_exec.c
-@@ -47,19 +47,19 @@
+@@ -47,21 +47,21 @@
+ #include <stdlib.h>
  #include <string.h>
- #include <stdio.h>
  
 -#include "types.h"
 +#include "../types.h"
+ 
+ #include "script_exec.h"
  
 -#include "internal_libhxcfe.h"
 -#include "tracks/track_generator.h"
@@ -425,8 +396,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "version.h"
 +#include "../version.h"
  
- #define MAX_CFG_STRING_SIZE 1024
- 
+ #define SCRIPT_NO_ERROR            HXCFE_NOERROR
+ #define	SCRIPT_CMD_NOT_FOUND       HXCFE_INTERNALERROR
 --- a/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
 +++ b/libhxcfe/trunk/sources/stream_analyzer/fluxStreamAnalyzer.c
 @@ -50,21 +50,21 @@
@@ -2838,8 +2809,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#include "../../misc/env.h"
 +#include "../../misc/script_exec.h"
  
- int HxCStream_libIsValidDiskFile( HXCFE_IMGLDR * imgldr_ctx, HXCFE_IMGLDR_FILEINFOS * imgfile )
- {
+ extern float clv_track2rpm(int track, int type);
+ 
 --- a/libhxcfe/trunk/sources/loaders/imd_loader/imd_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/imd_loader/imd_loader.c
 @@ -47,19 +47,19 @@
@@ -3228,8 +3199,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "misc/env.h"
 +#include "../../misc/env.h"
  
- // Get the next cell value.
- static int32_t getNextPulse(HXCFE_SIDE * track,int * offset,int * rollover)
+ #include "stream_analyzer/fluxStreamAnalyzer.h"
+ 
 --- a/libhxcfe/trunk/sources/loaders/krz_loader/krz_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/krz_loader/krz_loader.c
 @@ -47,15 +47,15 @@
@@ -3796,8 +3767,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "misc/env.h"
 +#include "../../misc/env.h"
  
- static uint32_t update_checksum(uint32_t checksum,unsigned char * buffer,unsigned int size)
- {
+ #include "stream_analyzer/fluxStreamAnalyzer.h"
+ 
 --- a/libhxcfe/trunk/sources/loaders/sdd_speccydos_loader/sdd_speccydos_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/sdd_speccydos_loader/sdd_speccydos_loader.c
 @@ -47,15 +47,15 @@
@@ -3901,7 +3872,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#include "libhxcadaptor.h"
 +#include "../../../../../libhxcadaptor/trunk/sources/libhxcadaptor.h"
  
- extern unsigned char msdos_bootsector;
+ extern unsigned char msdos_bootsector[];
  
 --- a/libhxcfe/trunk/sources/loaders/ssd_dsd_loader/ssd_dsd_loader.c
 +++ b/libhxcfe/trunk/sources/loaders/ssd_dsd_loader/ssd_dsd_loader.c

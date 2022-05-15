@@ -5,7 +5,7 @@ Last-Update: 2020-04-20
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/HxCFloppyEmulator_software/trunk/sources/gui/cb_floppy_infos_window.cxx
 +++ b/HxCFloppyEmulator_software/trunk/sources/gui/cb_floppy_infos_window.cxx
-@@ -1086,4 +1086,4 @@
+@@ -1096,4 +1096,4 @@
  
  	}
  
