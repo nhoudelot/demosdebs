@@ -3,6 +3,6 @@ detectiteasy for Debian
 
 source files must be retrieve using :
 
-git clone  --recursive -b 3.01 https://github.com/horsicq/DIE-engine
+git clone  --recursive -b 3.04 https://github.com/horsicq/DIE-engine
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 14 Mar 2021 22:44:21 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 25 Mai 2022 12:52:12 +0200

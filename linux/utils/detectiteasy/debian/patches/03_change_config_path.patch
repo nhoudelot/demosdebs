@@ -1,6 +1,6 @@
 --- a/XOptions/xoptions.cpp
 +++ b/XOptions/xoptions.cpp
-@@ -115,7 +115,7 @@
+@@ -177,7 +177,7 @@
      }
      else
      {
@@ -9,18 +9,7 @@
      }
  
  #ifdef QT_DEBUG
-@@ -153,8 +153,8 @@
-                 case ID_STYLE:                  varDefault="Fusion";                break; // TODO Check styles in OSX and Linux
-                 case ID_LANG:                   varDefault="System";                break;
-                 case ID_QSS:                    varDefault="";                      break;
--                case ID_DATABASEPATH:           varDefault="$data/db";              break;
--                case ID_INFOPATH:               varDefault="$data/info";            break;
-+                case ID_DATABASEPATH:           varDefault="/usr/share/detectiteasy/db";      break;
-+                case ID_INFOPATH:               varDefault="/usr/share/detectiteasy/info";    break;
-                 case ID_SCANENGINE:             varDefault="die";                   break;
-                 case ID_DISASMSYNTAX:           varDefault="";                      break;
-                 case ID_ROOTPATH:               varDefault="";                      break;
-@@ -328,6 +328,14 @@
+@@ -468,6 +468,14 @@
      return sResult;
  }
  
@@ -35,7 +24,7 @@
  void XOptions::setLastDirectory(QString sPathName)
  {
      QFileInfo fi(sPathName);
-@@ -532,7 +540,7 @@
+@@ -672,7 +680,7 @@
          pComboBox->addItem("English","");
          pComboBox->addItem("System","System");
  
@@ -44,7 +33,7 @@
  
          qint32 nNumberOfRecords=listFileNames.count();
  
-@@ -557,7 +565,7 @@
+@@ -697,7 +705,7 @@
      {
          pComboBox->addItem("Default","");
  
@@ -53,15 +42,15 @@
  
          qint32 nNumberOfRecords=listFileNames.count();
  
-@@ -1010,7 +1018,7 @@
-             sResult=sApplicationDirPath.section("/",0,2);
-         }
+@@ -1210,7 +1218,7 @@
+                 sResult=sApplicationDirPath.section("/",0,2);
+             }
  
--        sResult+=QString("/usr/lib/%1").arg(qApp->applicationName());
-+        sResult="/usr/share/detectiteasy";
+-            sResult+=QString("/usr/lib/%1").arg(qApp->applicationName());
++            sResult+=QString("/usr/share/detectiteasy").arg(qApp->applicationName());
+         }
      }
      else
-     {
 --- a/XOptions/xoptions.h
 +++ b/XOptions/xoptions.h
 @@ -26,6 +26,7 @@
@@ -72,7 +61,7 @@
  #ifdef QT_GUI_LIB
  #include <QApplication>
  #include <QCheckBox>
-@@ -131,6 +132,7 @@
+@@ -174,6 +175,7 @@
      static QList<QString> getAllFilesFromDirectory(QString sDirectory,QString sExtension);
      static bool checkNative();
      QString getApplicationDataPath();

@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- pandoc,
  pkgconf,
  qtbase5-dev,
  qtbase5-dev-tools,
