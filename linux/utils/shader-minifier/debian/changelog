@@ -1,3 +1,9 @@
+shader-minifier (1.1.6+git20220513-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 17 May 2022 00:52:24 +0200
+
 shader-minifier (1.1.6+git20210607-0ddebs2) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
