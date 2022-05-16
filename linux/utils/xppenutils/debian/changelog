@@ -1,3 +1,9 @@
+xppenutils (3.2.3-0ddebs1) unstable; urgency=medium
+
+  * New Upstream Release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 16 May 2022 10:08:47 +0200
+
 xppenutils (3.2.1-0ddebs2) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
