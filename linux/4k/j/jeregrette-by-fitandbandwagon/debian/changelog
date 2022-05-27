@@ -5,6 +5,8 @@ jeregrette-by-fitandbandwagon (1.0+1-0ddebs4) unstable; urgency=medium
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * added an icon
+  * remove fullscreen on start
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 13 Apr 2022 22:34:15 +0200
 

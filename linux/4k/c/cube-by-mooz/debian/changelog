@@ -7,8 +7,9 @@ cube-by-mooz (1.0+1-0ddebs4) unstable; urgency=medium
     build
   * added libopengl-dev dependencie for jammy, or libglvnd-core-dev for
     buster compatiliby
+  * added an icon
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 Apr 2022 13:15:54 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 May 2022 00:57:47 +0200
 
 cube-by-mooz (1.0+1-0ddebs3) unstable; urgency=medium
 

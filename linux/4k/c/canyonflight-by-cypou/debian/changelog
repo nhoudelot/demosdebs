@@ -7,6 +7,7 @@ canyonflight-by-cypou (1.0+1-0ddebs4) unstable; urgency=medium
     on jammy
   * preferred to use pkgconf which requires less dependencies during
     build
+  * added an icon
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 Apr 2022 20:24:10 +0200
 

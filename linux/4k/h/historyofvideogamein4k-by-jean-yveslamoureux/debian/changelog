@@ -5,6 +5,7 @@ historyofvideogamein4k-by-jean-yveslamoureux (1.0-0ddebs11) unstable; urgency=me
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * added an icon
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 12 Apr 2022 00:19:41 +0200
 

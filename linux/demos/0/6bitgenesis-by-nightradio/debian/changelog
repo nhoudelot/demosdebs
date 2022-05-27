@@ -4,6 +4,7 @@
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
   * avoid use of dh_dwz when compile on buster
+  * added an icon
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Apr 2022 01:38:57 +0200
 

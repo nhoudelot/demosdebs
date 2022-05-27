@@ -7,6 +7,7 @@ fab-by-tharsis (1.0-0ddebs11) unstable; urgency=medium
     build
   * added libgl-dev as a build dependency, to get -lGl for the linker,
     on jammy
+  * added an icon
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 10 Apr 2022 14:41:16 +0200
 

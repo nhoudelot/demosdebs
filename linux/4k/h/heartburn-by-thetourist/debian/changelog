@@ -6,6 +6,7 @@ heartburn-by-thetourist (1.0+1-0ddebs5) unstable; urgency=medium
   * replaced deprecated build dependency libgl1-mesa-dev by libgl-dev
   * preferred to use pkgconf which requires less dependencies during
     build
+  * added an icon
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 12 Apr 2022 00:19:41 +0200
 
