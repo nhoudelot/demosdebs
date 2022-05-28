@@ -4,11 +4,13 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
+ libvorbis-dev,
+ libcdaudio-dev,
  libflac-dev,
  libspeex-dev,
  libasound2-dev,
  libpulse-dev,
- pkg-config
+ pkgconf
 Homepage: https://github.com/poikilos/Audiere
 Standards-Version: 4.6.0.1
 
@@ -56,6 +58,8 @@ Depends:
  libaudiere-1.10.1 (= ${binary:Version}),
  ${misc:Depends},
  libvorbis-dev,
+ libdumb1-dev,
+ libcdaudio-dev,
  libspeex-dev,
  libasound2-dev
 Description: Portable, high-level audio library (development files)
