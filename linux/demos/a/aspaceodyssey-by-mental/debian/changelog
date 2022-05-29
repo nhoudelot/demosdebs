@@ -4,6 +4,7 @@ aspaceodyssey-by-mental (1.0-0ddebs8) unstable; urgency=medium
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
   * avoid use of dh_dwz when compile on buster
+  * fixed link to libfmodex.so.4
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Apr 2022 22:35:11 +0200
 
