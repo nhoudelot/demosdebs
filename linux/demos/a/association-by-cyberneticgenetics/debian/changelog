@@ -5,6 +5,8 @@ association-by-cyberneticgenetics (1.0+1-0ddebs5) unstable; urgency=medium
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * fix window title
+  * added an icon
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Apr 2022 22:35:12 +0200
 

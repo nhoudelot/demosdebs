@@ -29,7 +29,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  /* Initialization */
  	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 -	SDL_SetVideoMode( 1024, 768, 16, SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_HWPALETTE | SDL_RESIZABLE | SDL_HWSURFACE);
-+	sdlWindow = SDL_CreateWindow("Blue Cubes by YorHel",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
++	sdlWindow = SDL_CreateWindow("Association by Cybernetic Genetics",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
 +	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
  	SDL_ShowCursor(SDL_DISABLE);
  	glClearColor(0.0,0.0,0.0,0.0);
