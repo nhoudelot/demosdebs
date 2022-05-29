@@ -7,6 +7,8 @@ audiere (1.10.1-0ddebs8) unstable; urgency=medium
   * updated to standards-version 4.6.0.1
   * make use of debhelper-compat (= 12) dependency, and removed debian/compat
     file
+  * fix audio distortion/missing on Matisse HD Audio and probably other
+    5.1 soundcard, when using pulsaudio
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 Apr 2022 00:33:10 +0200
 

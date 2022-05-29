@@ -1,0 +1,35 @@
+Description: fix distortion on some soundcards
+ On Starsip/Matisse HD Audio Controller, we got sound, only when the card is setup to 5.1
+So I guess I had to setup the channel mapping to stero
+but there was still distortion. It was because rate was set to 44100 instead of 48000 that is now the minimum
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2022-05-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/device_pulse.cpp
++++ b/src/device_pulse.cpp
+@@ -19,12 +19,13 @@
+ 
+ 
+   PulseAudioDevice::PulseAudioDevice(std::string& description)
+-    : MixerDevice(44100)
++    : MixerDevice(48000)
+   {
+   
+ 	m_ss.format = PA_SAMPLE_S16LE;
+-	m_ss.rate = 44100;
++	m_ss.rate = 48000;
+ 	m_ss.channels = 2;
++	pa_channel_map map;
+ 	
+ 	m_sp = pa_simple_new(
+ 		NULL,					// default server
+@@ -33,7 +34,7 @@
+ 		NULL,					// default device
+ 		description.c_str(),	// description of the stream
+ 		&m_ss,					// sample format
+-		NULL,					// default channel map
++		pa_channel_map_init_stereo(&map),					// we init stereo mapping
+ 		NULL,					// default buffering attributes,
+ 		NULL					// ignore error code
+ 	);
