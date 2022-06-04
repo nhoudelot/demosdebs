@@ -1,0 +1,190 @@
+Description: migrate sound to fmodex
+ so now the demo can be compiled in 64 bits
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.c
++++ b/src/intro.c
+@@ -8,10 +8,13 @@
+ SDL_Surface *screen;
+ SDL_Color palette[256];
+ SDL_Color savedpalette[256];
+-FSOUND_STREAM *tuneptr;
+ 
+ short transparent;
+ 
++FMOD_SYSTEM *tuneptr;
++FMOD_SOUND *musique;
++FMOD_RESULT result;
++FMOD_CHANNEL * channel;
+ 
+ void intro(void){
+ 
+@@ -26,7 +29,7 @@
+ 	short movement;
+ 	int Itimer;
+ 
+-	FSOUND_Stream_Play(0, tuneptr);
++	FMOD_System_PlaySound(tuneptr, FMOD_CHANNEL_FREE, musique, 0, &channel);
+ 
+ 	busy = 1;
+ 
+@@ -52,7 +55,8 @@
+ 
+ 	while(busy) {
+ 
+-		if((millisecond = FSOUND_Stream_GetTime(tuneptr)) >= 17000) busy = 0;
++		FMOD_Channel_GetPosition(channel, &millisecond, FMOD_TIMEUNIT_MS);
++		if(millisecond >= 17000) busy = 0;
+ 		latency = SDL_GetTicks() - prevTicks;
+ 		prevTicks = SDL_GetTicks();
+ 
+--- a/src/main.h
++++ b/src/main.h
+@@ -4,7 +4,7 @@
+ #include <math.h>
+ #include <time.h>
+ #include <SDL/SDL.h>
+-#include <fmod.h>
++#include <fmodex/fmod.h>
+ #include "bmp.h"
+ #define SCREEN_X 320
+ #define SCREEN_Y 240
+@@ -63,7 +63,10 @@
+ extern SDL_Surface *sinefont[64];
+ extern SDL_Color palette[256];
+ extern SDL_Color savedpalette[256];
+-extern FSOUND_STREAM *tuneptr;
++extern FMOD_SYSTEM *tuneptr;
++extern FMOD_SOUND *musique;
++extern FMOD_CHANNEL *channel;
++extern FMOD_RESULT result;
+ extern bmp graphics;
+ extern float omatrix[4][4];
+ extern Uint32 prevTicks;
+@@ -72,5 +75,5 @@
+ short busy;
+ short transparent;
+ 
+-int millisecond;
++unsigned int millisecond;
+ 
+--- a/src/init.c
++++ b/src/init.c
+@@ -10,69 +10,47 @@
+ #define LE_MUSIC "data/snd/tune.ogg"
+ 
+ SDL_Surface *screen;
+-FSOUND_STREAM *tuneptr;
+ bmp graphics;
+ 
+ short init(void){
+ 
+-	int audio_samplerate;
+ 	int returncode;
+-	int sndinit_tries;
+ 
+-	sndinit_tries = 1;
+ 	returncode = 0;
+-	audio_samplerate = 44100;
+ 
+ 	returncode = loadbitmap(&graphics, GRAPHICS);
+ 
+ 	if(returncode != 0) {
+ 		printf("%s!\n", bitmap_printerror(returncode));
+-		return -1;
++		exit(EXIT_FAILURE);
+ 	}
+ 
+ 	/* Initialize fmod */
+ 
+ 
+ 	printf("init fmod..");
+-	while(!FSOUND_Init(audio_samplerate, 24, 0)) {
+-		audio_samplerate = (44100 / ++sndinit_tries);
+-		printf("\nFailed! Trying a lower samplerate..");
+-		if(audio_samplerate <= 5512) {
+-			printf("\nERROR: ");
+-			switch (FSOUND_GetError()) {
+-			case FMOD_ERR_INIT:
+-				printf("Could not initialize output device.\n");
+-				break;
+-			case FMOD_ERR_ALLOCATED:
+-				printf("Output device already in use.\n");
+-				break;
+-			case FMOD_ERR_OUTPUT_FORMAT:
+-				printf("Output device not capable of 16-bit stereo output.\n");
+-				break;
+-			default:
+-				printf("Unknown error.\n");
+-				break;
+-			}
+-			return -1;
+-		}
+-	}
+-	printf("%dhz.\n", audio_samplerate);
+ 
++	result = FMOD_System_Create(&tuneptr);
++	if(result != FMOD_OK) {
++		printf("Could not init system ! Err: %i\n",result);
++		exit(EXIT_FAILURE);
++	}
++	FMOD_System_Init(tuneptr, 1, FMOD_INIT_NORMAL, NULL);
+ 
+ 	printf("init tune..");
+-	tuneptr = FSOUND_Stream_Open(LE_MUSIC, FSOUND_LOOP_NORMAL, 0, 0);
+-	if(tuneptr == NULL) {
+-		printf("Could not load tune!\n");
+-		return -1;
++	result = FMOD_System_CreateSound(tuneptr, LE_MUSIC, FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
++	if(result != FMOD_OK) {
++		printf("Could not load tune! Err: %i\n",result);
++		exit(EXIT_FAILURE);
+ 	}
+-	FSOUND_Stream_SetLoopCount(tuneptr, -1);
++	FMOD_Sound_SetLoopCount(musique, -1);
+ 	printf("Ok\n");
+ 
+ 	/* Initialize graphics last */
+ 	printf("init SDL ..");
+ 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
+ 		printf("failed!\n");
+-		return -1;
++		exit(EXIT_FAILURE);
+ 	}
+ 	SDL_ShowCursor(SDL_DISABLE);
+ 	atexit(SDL_Quit);
+@@ -83,7 +61,7 @@
+ #endif
+ 	if(!realscreen) {
+ 		printf("Could not set video mode!\n");
+-		return -1;
++		exit(EXIT_FAILURE);
+ 	}
+ 	SDL_WM_SetCaption("Introx dhw2004 demo","POOPERS");
+ 	printf("Ok.\n");
+@@ -94,9 +72,9 @@
+ 
+ short deinit(void){
+ 
+-	FSOUND_Stream_Stop(tuneptr);
+-	FSOUND_Stream_Close(tuneptr);
+-	FSOUND_Close();
++	FMOD_Sound_Release(musique);
++	FMOD_System_Close(tuneptr);
++	FMOD_System_Release(tuneptr);
+ 
+ 	free(graphics.image);
+ 	exit(0);
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ CC    = gcc
+ 
+ CFLAGS += -Wall -pipe -std=c90 $(shell sdl-config --cflags) -fno-aggressive-loop-optimizations
+-LDFLAGS += $(shell sdl-config --libs) -lfmod-3.75 -pthread -lm
++LDFLAGS += $(shell sdl-config --libs) -lfmodex -pthread -lm
+ 
+ OBJS = src/main.o src/intro.o src/bmp.o src/init.o src/sine.o src/water.o src/math.o src/cube.o src/end.o
+ 

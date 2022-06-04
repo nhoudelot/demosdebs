@@ -1,0 +1,4 @@
+deliriumborntro-by-delirium binary: unknown-section demos
+deliriumborntro-by-delirium binary: script-not-executable usr/share/deliriumborntro-by-delirium/deliriumborntro-by-delirium_userinstall.pol
+deliriumborntro-by-delirium binary: unknown-section demos
+deliriumborntro-by-delirium binary: unusual-interpreter usr/share/deliriumborntro-by-delirium/deliriumborntro-by-delirium_userinstall.pol #!playonlinux-bash

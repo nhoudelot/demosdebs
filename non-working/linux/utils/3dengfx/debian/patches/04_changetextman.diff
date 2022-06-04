@@ -1,0 +1,42 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ 3dengfx (0.5-0unstable~ddebs4) unstable; urgency=medium
+ .
+   * fix path to relative path in includes
+Author: NaSH <lenashou@gmail.com>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- a/src/3dengfx/texman.cpp
++++ b/src/3dengfx/texman.cpp
+@@ -54,11 +54,11 @@
+ }
+ 
+ void add_texture(Texture *texture, const char *fname) {
+-	
+ 	if(!textures) init_tex_man();
+-	
++
++        char template_name[]="/tmp/cmguiXXXXXX";
+ 	if(!fname) {	// enter a randomly named texture
+-		textures->insert(tmpnam(0), texture);
++		textures->insert(mkstemp(template_name), texture);
+ 	} else {
+ 		textures->insert(fname, texture);
+ 	}

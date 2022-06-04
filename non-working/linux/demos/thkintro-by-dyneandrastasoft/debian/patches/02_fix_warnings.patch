@@ -1,0 +1,193 @@
+Description: warning fix
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-11-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/context.cpp
++++ b/context.cpp
+@@ -36,8 +36,8 @@
+ 
+ Context::Context() {
+ 
+-	notice("squatarra the %s %s engine",PACKAGE,VERSION);
+-	act("intro by jaromil @ rastasoft // june 2004");
++	notice((char *)"squatarra the %s %s engine",PACKAGE,VERSION);
++	act((char *)"intro by jaromil @ rastasoft // june 2004");
+ 	screen = NULL;
+ 
+ 	/* initialize fps counter */
+@@ -52,15 +52,15 @@
+ 
+ Context::~Context() {
+ 	close();
+-	notice("cu on http://trans.hackmeeting.org");
++	notice((char *)"cu on http://trans.hackmeeting.org");
+ }
+ 
+ bool Context::init(int wx, int hx) {
+ 
+ 	screen = new SdlScreen();
+ 	if(!screen->init(wx,hx)) {
+-		error("Can't initialize the viewport");
+-		error("This is a fatal error");
++		error((char *)"Can't initialize the viewport");
++		error((char *)"This is a fatal error");
+ 		return(false);
+ 	}
+ 
+--- a/plugin.h
++++ b/plugin.h
+@@ -36,12 +36,12 @@
+ void *operator[](const char *);
+ 
+ int init(ScreenGeometry *sg) {
+-	func("plugin %s::init",getname());
++	func((char *)"plugin %s::init",getname());
+ 	return (*__init)(sg);
+ };
+ 
+ int clean() {
+-	func("plugin %s::clean", getname());
++	func((char *)"plugin %s::clean", getname());
+ 	return (*__clean)();
+ };
+ 
+--- a/scroll_layer.cpp
++++ b/scroll_layer.cpp
+@@ -104,13 +104,13 @@
+ 	fd = fopen(file,"r");
+ 	if(!fd) {
+ 		error("ScrollLayer::open : error opening %s : %s",
+-		      file, strerror(errno));
++		      file);
+ 		return false;
+ 	}
+ 	while(!feof(fd)) {
+ 		if(fgets(str,511,fd) <0) {
+ 			error("ScrollLayer::open : error reading %s : %s",
+-			      file, strerror(errno));
++			      file);
+ 			break;
+ 		}
+ 		append(str);
+--- a/fastmemcpy.cpp
++++ b/fastmemcpy.cpp
+@@ -229,7 +229,7 @@
+ 				MOVNTQ " %%mm6, 48(%1)\n"
+ 				MOVNTQ " %%mm7, 56(%1)\n"
+ 				: : "r" (from), "r" (to) : "memory");
+-			((const unsigned char *)from)+=64;
++			(const unsigned char *)from= (const unsigned char *)from + 64;
+ 			((unsigned char *)to)+=64;
+ 		}
+ #ifdef HAVE_MMX2
+--- a/png_layer.cpp
++++ b/png_layer.cpp
+@@ -46,17 +46,17 @@
+ }
+ 
+ bool PngLayer::open(char *file) {
+-	func("PngLayer::open(%s)",file);
++	func((char *)"PngLayer::open(%s)",file);
+ 
+ 	fp = fopen(file,"rb");
+ 	if(!fp) {
+-		error("Pnglayer::open(%s) - %s",file,strerror(errno));
++		error((char *)"Pnglayer::open(%s) - %s",file,strerror(errno));
+ 		return (false);
+ 	}
+ 
+ 	fread(sig,1,PNG_BYTES_TO_CHECK,fp);
+ 	if(png_sig_cmp(sig,(png_size_t)0,PNG_BYTES_TO_CHECK)) {
+-		error("Pnglayer::open(%s) - not a valid png file",file);
++		error((char *)"Pnglayer::open(%s) - not a valid png file",file);
+ 		fclose(fp); fp = NULL;
+ 		return (false);
+ 	}
+@@ -72,7 +72,7 @@
+ 	int bit_depth, color_type, interlace_type;
+ 
+ 	if(!fp) {
+-		error("no png file opened, layer skipped");
++		error((char *)"no png file opened, layer skipped");
+ 		return false;
+ 	}
+ 
+@@ -81,13 +81,13 @@
+ 	core = png_create_read_struct
+ 	               (PNG_LIBPNG_VER_STRING, NULL,NULL,NULL);
+ 	if (!core) {
+-		error("can't create PNG core");
++		error((char *)"can't create PNG core");
+ 		return(false);
+ 	}
+ 
+ 	info = png_create_info_struct(core);
+ 	if (!info) {
+-		error("can't gather PNG info");
++		error((char *)"can't gather PNG info");
+ 		png_destroy_read_struct
+ 		        (&core, (png_infopp)NULL, (png_infopp)NULL);
+ 		return (false);
+@@ -96,7 +96,7 @@
+ 	/* initialize error message callback */
+ 
+ 	if ( setjmp(core->jmpbuf) )
+-		error("error reading the PNG file.");
++		error((char *)"error reading the PNG file.");
+ 
+ 	/* start peeking into the file */
+ 
+@@ -117,12 +117,12 @@
+ 	png_set_packing(core);
+ 
+ 	if (color_type == PNG_COLOR_TYPE_PALETTE) {
+-		func("PNG set palette to rgb");
++		func((char *)"PNG set palette to rgb");
+ 		png_set_palette_to_rgb(core);
+ 	}
+ 
+ 	if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8) {
+-		func("PNG set gray to 8bpp");
++		func((char *)"PNG set gray to 8bpp");
+ 		png_set_gray_1_2_4_to_8(core);
+ 	}
+ 
+@@ -132,7 +132,7 @@
+ 
+ 	if (color_type == PNG_COLOR_TYPE_GRAY ||
+ 	    color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
+-		func("PNG set gray to rgb");
++		func((char *)"PNG set gray to rgb");
+ 		png_set_gray_to_rgb(core);
+ 	}
+ 
+@@ -185,7 +185,7 @@
+ 	   buffer[i+2] &= buffer[i+3];
+ 	   } */
+ 
+-	func("PngLayer :: w[%u] h[%u] bpp[%u] size[%u]",
++	func((char *)"PngLayer :: w[%u] h[%u] bpp[%u] size[%u]",
+ 	     geo.w,geo.h,geo.bpp,geo.size);
+ 	return(true);
+ }
+@@ -195,7 +195,7 @@
+ }
+ 
+ void PngLayer::close() {
+-	func("PngLayer::close()");
++	func((char *)"PngLayer::close()");
+ 	free(row_pointers);
+ 	free(buffer);
+ }
+--- a/linklist.h
++++ b/linklist.h
+@@ -52,7 +52,7 @@
+ bool movedown(int pos);
+ bool moveto(int num, int pos);
+ Entry *pick(int pos);
+-Entry *Linklist::selected();
++Entry *selected();
+ 
+ Entry *operator[](int pos) {
+ 	return pick(pos);

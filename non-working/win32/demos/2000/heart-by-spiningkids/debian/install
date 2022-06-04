@@ -1,0 +1,8 @@
+debian/scripts/heart-by-spiningkids usr/bin/
+debian/scripts/heart-by-spiningkids.conf etc/
+debian/resources/heart-by-spiningkids.desktop usr/share/applications/
+debian/resources/heart-by-spiningkids.png usr/share/icons/hicolor/32x32/apps/
+./Heart.exe usr/share/heart-by-spiningkids/./ 
+./Data.skp usr/share/heart-by-spiningkids/./ 
+./bass.dll usr/share/heart-by-spiningkids/./ 
+./debian/scripts/heart-by-spiningkids_userinstall.pol usr/share/heart-by-spiningkids/./ 

@@ -1,0 +1,41 @@
+--- a/src/water.c
++++ b/src/water.c
+@@ -1,3 +1,4 @@
++#include <stdlib.h>
+ #include "main.h"
+ #define MAX_BUBBLES 2000
+ #define TEXTLEN 56
+@@ -41,14 +42,14 @@
+ 	SDL_Surface *charsurf;
+ 	printf("%d %d\n", strlen( scrolltext), strlen( scrolltext1));
+ 
+-	srandom( time(NULL ) );
++	srand( time(NULL ) );
+ 
+ 	/* init bubble-values */
+ 	for( i = 0; i < MAX_BUBBLES; i++ ) {
+-		bubbles[i].l.x = (double)random()/RAND_MAX - 0.5;
+-		bubbles[i].l.y = (double)random()/RAND_MAX - 0.5;
++		bubbles[i].l.x = (double)rand()/RAND_MAX - 0.5;
++		bubbles[i].l.y = (double)rand()/RAND_MAX - 0.5;
+ 		bubbles[i].l.z = 56;
+-		bubbles[i].speed = (double)random()/RAND_MAX;
++		bubbles[i].speed = (double)rand()/RAND_MAX;
+ 		if( bubbles[i].speed > 0.5 )
+ 			bubbles[i].speed -= 0.5;
+ 	}
+@@ -103,10 +104,10 @@
+ 
+ 		for( i = 0; i < MAX_BUBBLES; i++ ) {
+ 			if( ((bubbles[i].l.z -= bubbles[i].speed) <= 0) || ((bubbles[i].l.y-=0.002)<=-25) ) {
+-				bubbles[i].l.x = (double)random()/RAND_MAX-0.5 +  sine[sinec] *2;
+-				bubbles[i].l.y = (double)random()/RAND_MAX-0.5 +  cosine[sinec]*2;
+-				bubbles[i].l.z = random()%20+40;
+-				bubbles[i].color = random()%255;
++				bubbles[i].l.x = (double)rand()/RAND_MAX-0.5 +  sine[sinec] *2;
++				bubbles[i].l.y = (double)rand()/RAND_MAX-0.5 +  cosine[sinec]*2;
++				bubbles[i].l.z = rand()%20+40;
++				bubbles[i].color = rand()%255;
+ 			}
+ 
+ 			tmppoint2 = project( bubbles[i].l );

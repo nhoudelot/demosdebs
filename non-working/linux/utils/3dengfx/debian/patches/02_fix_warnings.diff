@@ -1,0 +1,173 @@
+--- a/src/n3dmath2/n3dmath2_mat.inl
++++ b/src/n3dmath2/n3dmath2_mat.inl
+@@ -18,6 +18,9 @@
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
++#include <cstring>
++#include <cassert>
++
+ inline scalar_t *Matrix3x3::operator [](int index) {
+ 	return m[index];
+ }
+--- a/src/3dengfx/textures.cpp
++++ b/src/3dengfx/textures.cpp
+@@ -21,6 +21,7 @@
+ #include "3dengfx_config.h"
+ 
+ #include <cassert>
++#include <cstring>
+ #include "opengl.h"
+ #include "textures.hpp"
+ 
+--- a/src/3dengfx/3dscene.cpp
++++ b/src/3dengfx/3dscene.cpp
+@@ -20,6 +20,7 @@
+ 
+ #include "3dengfx_config.h"
+ 
++#include <algorithm>
+ #include <string>
+ #include "3dscene.hpp"
+ #include "texman.hpp"
+@@ -427,6 +428,8 @@
+ #include "fxwt/text.hpp"
+ #ifdef __unix__
+ #include <sys/stat.h>
++#include <limits.h>
++#include <unistd.h>
+ #endif	// __unix__
+ 
+ void Scene::render_sequence(unsigned long start, unsigned long end, int fps, const char *out_dir) {
+--- a/src/3dengfx/psys.cpp
++++ b/src/3dengfx/psys.cpp
+@@ -20,6 +20,7 @@
+ 
+ #include <vector>
+ #include <cmath>
++#include <cstdlib>
+ #include "3dengfx_config.h"
+ #include "3denginefx.hpp"
+ #include "texman.hpp"
+--- a/src/3dengfx/ply.cpp
++++ b/src/3dengfx/ply.cpp
+@@ -3,6 +3,7 @@
+ #include <cstdio>
+ #include <cctype>
+ #include <cassert>
++#include <cstdlib>
+ #include "gfx/3dgeom.hpp"
+ #include "common/err_msg.h"
+ 
+@@ -28,7 +29,7 @@
+ const size_t prop_size[] = {32, 8, 16, 32, 0};
+ 
+ struct PropTypeMatch {
+-	char *symb;
++	const char *symb;
+ 	PropType type;
+ } prop_match[] = {
+ 	{"float",	PROP_FLOAT},
+--- a/src/gfx/curves.cpp
++++ b/src/gfx/curves.cpp
+@@ -31,6 +31,7 @@
+ #include <cmath>
+ #include <cctype>
+ #include <cassert>
++#include <cstdlib>
+ #include "curves.hpp"
+ #include "common/err_msg.h"
+ 
+--- a/src/n3dmath2/n3dmath2.cpp
++++ b/src/n3dmath2/n3dmath2.cpp
+@@ -19,6 +19,7 @@
+ */
+ 
+ #include "n3dmath2.hpp"
++#include <cstdlib>
+ 
+ const scalar_t e = 2.7182818;
+ 
+--- a/src/dsys/dsys.cpp
++++ b/src/dsys/dsys.cpp
+@@ -34,6 +34,8 @@
+ 
+ #if defined(__unix__) || defined(unix)
+ #include <sys/stat.h>
++#include <limits.h>
++#include <unistd.h>
+ #endif	// unix
+ 
+ using namespace dsys;
+--- a/src/dsys/fx.cpp
++++ b/src/dsys/fx.cpp
+@@ -21,6 +21,7 @@
+ #include "3dengfx_config.h"
+ 
+ #include <list>
++#include <algorithm>
+ #include "fx.hpp"
+ #include "dsys.hpp"
+ #include "script.h"
+--- a/src/dsys/cmd.cpp
++++ b/src/dsys/cmd.cpp
+@@ -24,6 +24,7 @@
+  */
+ 
+ #include <cassert>
++#include <cstdlib>
+ #include "cmd.hpp"
+ #include "script.h"
+ #include "dsys.hpp"
+--- a/src/common/string_hash.cpp
++++ b/src/common/string_hash.cpp
+@@ -1,6 +1,7 @@
+ // This code belongs to the public domain.
+ 
+ #include <string>
++#include <cstring>
+ 
+ /*
+  * Hashing algorithm for strings from:
+--- a/src/fxwt/init_sdl.cpp
++++ b/src/fxwt/init_sdl.cpp
+@@ -108,7 +108,7 @@
+ 	// now if we don't have DONT_CARE_DEPTH in the dont_care_flags check for 
+ 	// exact depth buffer format, however consider 24 and 32 bit the same
+ 	if(!(gparams->dont_care_flags & DONT_CARE_DEPTH) && azbits != gparams->depth_bits) {
+-		if(!(gparams->depth_bits == 32 && azbits == 24 || gparams->depth_bits == 24 && azbits == 32)) {
++		if(!((gparams->depth_bits == 32 && azbits == 24) || (gparams->depth_bits == 24) && (azbits == 32))) {
+ 			error("%s: Could not set requested exact zbuffer depth", __func__);
+ 			return false;
+ 		}
+--- a/src/3dengfx/3denginefx.cpp
++++ b/src/3dengfx/3denginefx.cpp
+@@ -28,6 +28,7 @@
+ #include <iostream>
+ #include <list>
+ #include <csignal>
++#include <cstdlib>
+ #include "opengl.h"
+ #include "fxwt/fxwt.hpp"
+ #include "fxwt/init.hpp"
+--- a/src/fxwt/fxwt_x.cpp
++++ b/src/fxwt/fxwt_x.cpp
+@@ -34,6 +34,7 @@
+ 
+ #ifdef __unix__
+ #include <unistd.h>
++#include <cstdlib>
+ #ifdef _POSIX_PRIORITY_SCHEDULING
+ #include <sched.h>
+ #endif	// _POSIX_PRIORITY_SCHEDULING
+--- a/src/fxwt/gfx_library.h
++++ b/src/fxwt/gfx_library.h
+@@ -8,7 +8,7 @@
+ #endif	/* GFX_LIBRARY */
+ 
+ #if GFX_LIBRARY == SDL
+-#include "SDL.h"
++#include "SDL/SDL.h"
+ #define glGetProcAddress(x) SDL_GL_GetProcAddress(x)
+ #endif	/* SDL */
+ 

@@ -1,0 +1,6450 @@
+--- a/sunvox_engine/psynth/psynth.h
++++ b/sunvox_engine/psynth/psynth.h
+@@ -7,6 +7,7 @@
+ #include "core/core.h"
+ #include "memory/memory.h"
+ #include "time/timemanager.h"
++#include <cmath>
+ #ifdef SUNVOX_GUI
+ #include "window_manager/wmanager.h"
+ #endif
+@@ -88,77 +89,77 @@
+ 
+ struct psynth_control
+ {
+-    const UTF8_CHAR	*ctl_name;  //For example: "Delay", "Feedback"
+-    const UTF8_CHAR    	*ctl_label; //For example: "dB", "samples"
+-    CTYPE	    	ctl_min;
+-    CTYPE	    	ctl_max;
+-    CTYPE	    	ctl_def;
+-    CTYPE	    	*ctl_val;
+-    int		    	type;
+-};
+-
+-//One item of the sound net:
+-#define PSYNTH_FLAG_EXISTS		( 1 << 0 )
+-#define PSYNTH_FLAG_OUTPUT		( 1 << 1 )
+-#define PSYNTH_FLAG_GENERATOR		( 1 << 3 )
+-#define PSYNTH_FLAG_EFFECT		( 1 << 4 )
+-#define PSYNTH_FLAG_RENDERED		( 1 << 5 )
+-#define PSYNTH_FLAG_INITIALIZED		( 1 << 6 )
+-#define PSYNTH_FLAG_MUTE		( 1 << 7 )
+-#define PSYNTH_FLAG_SOLO		( 1 << 8 )
+-#define PSYNTH_FLAG_LAST		( 1 << 30 )
+-#define PSYNTH_MAX_CHANNELS		8
+-#define PSYNTH_MAX_CONTROLLERS		17
+-struct psynth_net_item
+-{
+-    int		    flags;
+-
+-    UTF8_CHAR	    item_name[ 32 ];
+-    int		    name_counter;			    //For generation unique names
+-
+-    int		    (*synth)(  
+-			PSYTEXX_SYNTH_PARAMETERS
+-		    );
+-    void	    *data_ptr;				    //User data
+-    STYPE	    *channels_in[ PSYNTH_MAX_CHANNELS ];
+-    STYPE	    *channels_out[ PSYNTH_MAX_CHANNELS ];
+-    int		    in_empty[ PSYNTH_MAX_CHANNELS ];	    //Number of NULL bytes
+-    int		    out_empty[ PSYNTH_MAX_CHANNELS ];	    //Number of NULL bytes
+-
+-    int		    x, y;   //In percents (0..1024)
+-    int		    instr_num;
+-
+-#ifdef HIRES_TIMER
+-    int             cpu_usage; //In percents (0..100)
+-    int             cpu_usage_ticks;
+-    int             cpu_usage_samples;
+-#endif
+-
+-    //Standart properties:
+-    int		    finetune;	//-256...256
+-    int		    relative_note;
+-
+-    //Number of channels:
+-    int		    input_channels;
+-    int		    output_channels;
+-
+-    //Links to an input synths:
+-    int		    *input_links;
+-    int		    input_num;
+-
+-    //Controllers:
+-    psynth_control  ctls[ PSYNTH_MAX_CONTROLLERS ];
+-    int		    ctls_num;
+-
+-#ifdef SUNVOX_GUI
+-    //Visual (optional)
+-    WINDOWPTR	    visual;
+-#endif
+-
+-    //Data chunks:
+-    char	    **chunks;
+-    int		    *chunk_flags;
+-};
++    const UTF8_CHAR	*ctl_name;  //For example: "Delay", "Feedback"
++    const UTF8_CHAR    	*ctl_label; //For example: "dB", "samples"
++    CTYPE	    	ctl_min;
++    CTYPE	    	ctl_max;
++    CTYPE	    	ctl_def;
++    CTYPE	    	*ctl_val;
++    int		    	type;
++};
++
++//One item of the sound net:
++#define PSYNTH_FLAG_EXISTS		( 1 << 0 )
++#define PSYNTH_FLAG_OUTPUT		( 1 << 1 )
++#define PSYNTH_FLAG_GENERATOR		( 1 << 3 )
++#define PSYNTH_FLAG_EFFECT		( 1 << 4 )
++#define PSYNTH_FLAG_RENDERED		( 1 << 5 )
++#define PSYNTH_FLAG_INITIALIZED		( 1 << 6 )
++#define PSYNTH_FLAG_MUTE		( 1 << 7 )
++#define PSYNTH_FLAG_SOLO		( 1 << 8 )
++#define PSYNTH_FLAG_LAST		( 1 << 30 )
++#define PSYNTH_MAX_CHANNELS		8
++#define PSYNTH_MAX_CONTROLLERS		17
++struct psynth_net_item
++{
++    int		    flags;
++
++    UTF8_CHAR	    item_name[ 32 ];
++    int		    name_counter;			    //For generation unique names
++
++    int		    (*synth)(
++			PSYTEXX_SYNTH_PARAMETERS
++		    );
++    void	    *data_ptr;				    //User data
++    STYPE	    *channels_in[ PSYNTH_MAX_CHANNELS ];
++    STYPE	    *channels_out[ PSYNTH_MAX_CHANNELS ];
++    int		    in_empty[ PSYNTH_MAX_CHANNELS ];	    //Number of NULL bytes
++    int		    out_empty[ PSYNTH_MAX_CHANNELS ];	    //Number of NULL bytes
++
++    int		    x, y;   //In percents (0..1024)
++    int		    instr_num;
++
++#ifdef HIRES_TIMER
++    int             cpu_usage; //In percents (0..100)
++    int             cpu_usage_ticks;
++    int             cpu_usage_samples;
++#endif
++
++    //Standart properties:
++    int		    finetune;	//-256...256
++    int		    relative_note;
++
++    //Number of channels:
++    int		    input_channels;
++    int		    output_channels;
++
++    //Links to an input synths:
++    int		    *input_links;
++    int		    input_num;
++
++    //Controllers:
++    psynth_control  ctls[ PSYNTH_MAX_CONTROLLERS ];
++    int		    ctls_num;
++
++#ifdef SUNVOX_GUI
++    //Visual (optional)
++    WINDOWPTR	    visual;
++#endif
++
++    //Data chunks:
++    char	    **chunks;
++    int		    *chunk_flags;
++};
+ 
+ //Sound net (created by host):
+ #define MAX_PERIOD_PTR			30720
+@@ -216,27 +217,27 @@
+     CTYPE *value,
+     void *net );
+ 
+-//Global tables:
+-extern ulong g_linear_tab[ 768 ];
+-extern uchar g_vibrato_tab[ 256 ];
+-
+-//Global variables:
+-#ifdef SUNVOX_GUI
+-extern window_manager *g_wm;
+-#endif
+-
+-//Data chunks. They can be used to storage such data as samples, envelopes.
+-//This data will be saved to file with sunvox tune.
+-#define PSYNTH_CHUNK_FLAG_SAMPLE_8BIT	    ( 1 << 0 )
+-#define PSYNTH_CHUNK_FLAG_SAMPLE_16BIT	    ( 1 << 1 )
+-#define PSYNTH_CHUNK_FLAG_SAMPLE_FLOAT	    ( 1 << 2 )
+-#define PSYNTH_CHUNK_FLAG_SAMPLE_STEREO	    ( 1 << 3 )
+-extern void psynth_new_chunk( int synth_id, int num, int size, int flags, void *net ); //Create new chunk of "size" bytes
+-extern void *psynth_get_chunk( int synth_id, int num, void *net ); //Get ptr to selected chunk, or NULL if chunk is not exists
+-extern int psynth_get_chunk_info( int synth_id, int num, void *net, ulong *size, int *flags );
+-extern void *psynth_resize_chunk( int synth_id, int num, ulong new_size, void *net );
+-extern void psynth_clear_chunk( int synth_id, int num, void *net );
+-extern void psynth_clear_chunks( int synth_id, void *net ); //Remove all chunks in synth
++//Global tables:
++extern ulong g_linear_tab[ 768 ];
++extern uchar g_vibrato_tab[ 256 ];
++
++//Global variables:
++#ifdef SUNVOX_GUI
++extern window_manager *g_wm;
++#endif
++
++//Data chunks. They can be used to storage such data as samples, envelopes.
++//This data will be saved to file with sunvox tune.
++#define PSYNTH_CHUNK_FLAG_SAMPLE_8BIT	    ( 1 << 0 )
++#define PSYNTH_CHUNK_FLAG_SAMPLE_16BIT	    ( 1 << 1 )
++#define PSYNTH_CHUNK_FLAG_SAMPLE_FLOAT	    ( 1 << 2 )
++#define PSYNTH_CHUNK_FLAG_SAMPLE_STEREO	    ( 1 << 3 )
++extern void psynth_new_chunk( int synth_id, int num, int size, int flags, void *net ); //Create new chunk of "size" bytes
++extern void *psynth_get_chunk( int synth_id, int num, void *net ); //Get ptr to selected chunk, or NULL if chunk is not exists
++extern int psynth_get_chunk_info( int synth_id, int num, void *net, ulong *size, int *flags );
++extern void *psynth_resize_chunk( int synth_id, int num, ulong new_size, void *net );
++extern void psynth_clear_chunk( int synth_id, int num, void *net );
++extern void psynth_clear_chunks( int synth_id, void *net ); //Remove all chunks in synth
+ 
+ //Number of inputs/outputs:
+ extern int psynth_get_number_of_outputs( int synth_id, void *net );
+--- a/sunvox_engine/psynth/psynths_delay.cpp
++++ b/sunvox_engine/psynth/psynths_delay.cpp
+@@ -4,188 +4,188 @@
+     Copyright (C) 2002 - 2008 Alex Zolotov <nightradio@gmail.com>
+ */
+ 
+-#include "psynth.h"
+-
+-//Unique names for objects in your synth:
+-#define SYNTH_DATA	psynth_delay_data
+-#define SYNTH_HANDLER	psynth_delay
+-//And unique parameters:
+-#define SYNTH_INPUTS	2
+-#define SYNTH_OUTPUTS	2
+-
+-struct SYNTH_DATA
+-{
+-    //Controls: ############################################################
+-    CTYPE   ctl_dry;
+-    CTYPE   ctl_wet;
+-    CTYPE   ctl_delay_l;
+-    CTYPE   ctl_delay_r;
+-    CTYPE   ctl_volume_l;
+-    CTYPE   ctl_volume_r;
+-    CTYPE   ctl_mono;
+-    CTYPE   ctl_inverse;
+-    //Synth data: ##########################################################
+-    int	    buf_size;
+-    STYPE   *buf[ SYNTH_OUTPUTS ];
+-    int	    buf_ptr;
+-};
+-
+-int SYNTH_HANDLER( 
+-    PSYTEXX_SYNTH_PARAMETERS
+-    )
+-{
+-    psynth_net *pnet = (psynth_net*)net;
+-    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
+-    int retval = 0;
+-    int i;
+-    int ch;
+-
+-    switch( command )
+-    {
+-	case COMMAND_GET_DATA_SIZE:
+-	    retval = sizeof( SYNTH_DATA );
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Delay";
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Delay.\nMax delay is 1/64 second";
+-	    break;
+-
+-	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+-	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
+-
+-	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
+-
+-	case COMMAND_INIT:
+-	    psynth_register_ctl( synth_id, "Dry", "", 0, 512, 256, 0, &data->ctl_dry, net );
+-	    psynth_register_ctl( synth_id, "Wet", "", 0, 512, 256, 0, &data->ctl_wet, net );
+-	    psynth_register_ctl( synth_id, "Delay L", "", 0, 256, 128, 0, &data->ctl_delay_l, net );
+-	    psynth_register_ctl( synth_id, "Delay R", "", 0, 256, 160, 0, &data->ctl_delay_r, net );
+-	    psynth_register_ctl( synth_id, "Volume L", "", 0, 256, 256, 0, &data->ctl_volume_l, net );
+-	    psynth_register_ctl( synth_id, "Volume R", "", 0, 256, 256, 0, &data->ctl_volume_r, net );
+-	    psynth_register_ctl( synth_id, "Mono", "off/on", 0, 1, 0, 1, &data->ctl_mono, net );
+-	    psynth_register_ctl( synth_id, "Inverse amplitude", "off/on", 0, 1, 0, 1, &data->ctl_inverse, net );
+-	    data->buf_size = pnet->sampling_freq / 64;
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		data->buf[ i ] = (STYPE*)MEM_NEW( HEAP_DYNAMIC, data->buf_size * sizeof( STYPE ) );
+-	    }
+-	    data->buf_ptr = 0;
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		if( data->buf[ i ] ) mem_set( data->buf[ i ], data->buf_size * sizeof( STYPE ), 0 );
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLEAN:
+-	    data->buf_ptr = 0;
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		if( data->buf[ i ] ) 
+-		{
+-		    for( int s = 0; s < data->buf_size; s++ )
+-			data->buf[ i ][ s ] = 0;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_RENDER_REPLACE:
++#include "psynth.h"
++
++//Unique names for objects in your synth:
++#define SYNTH_DATA	psynth_delay_data
++#define SYNTH_HANDLER	psynth_delay
++//And unique parameters:
++#define SYNTH_INPUTS	2
++#define SYNTH_OUTPUTS	2
++
++struct SYNTH_DATA
++{
++    //Controls: ############################################################
++    CTYPE   ctl_dry;
++    CTYPE   ctl_wet;
++    CTYPE   ctl_delay_l;
++    CTYPE   ctl_delay_r;
++    CTYPE   ctl_volume_l;
++    CTYPE   ctl_volume_r;
++    CTYPE   ctl_mono;
++    CTYPE   ctl_inverse;
++    //Synth data: ##########################################################
++    int	    buf_size;
++    STYPE   *buf[ SYNTH_OUTPUTS ];
++    int	    buf_ptr;
++};
++
++int SYNTH_HANDLER( 
++    PSYTEXX_SYNTH_PARAMETERS
++    )
++{
++    psynth_net *pnet = (psynth_net*)net;
++    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
++    int retval = 0;
++    int i;
++    int ch;
++
++    switch( command )
++    {
++	case COMMAND_GET_DATA_SIZE:
++	    retval = sizeof( SYNTH_DATA );
++	    break;
++
++	case COMMAND_GET_SYNTH_NAME:
++	    retval = atoi("Delay");
++	    break;
++
++	case COMMAND_GET_SYNTH_INFO:
++	    retval = atoi("Delay.\nMax delay is 1/64 second");
++	    break;
++
++	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
++	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++
++	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
++
++	case COMMAND_INIT:
++	    psynth_register_ctl( synth_id, "Dry", "", 0, 512, 256, 0, &data->ctl_dry, net );
++	    psynth_register_ctl( synth_id, "Wet", "", 0, 512, 256, 0, &data->ctl_wet, net );
++	    psynth_register_ctl( synth_id, "Delay L", "", 0, 256, 128, 0, &data->ctl_delay_l, net );
++	    psynth_register_ctl( synth_id, "Delay R", "", 0, 256, 160, 0, &data->ctl_delay_r, net );
++	    psynth_register_ctl( synth_id, "Volume L", "", 0, 256, 256, 0, &data->ctl_volume_l, net );
++	    psynth_register_ctl( synth_id, "Volume R", "", 0, 256, 256, 0, &data->ctl_volume_r, net );
++	    psynth_register_ctl( synth_id, "Mono", "off/on", 0, 1, 0, 1, &data->ctl_mono, net );
++	    psynth_register_ctl( synth_id, "Inverse amplitude", "off/on", 0, 1, 0, 1, &data->ctl_inverse, net );
++	    data->buf_size = pnet->sampling_freq / 64;
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		data->buf[ i ] = (STYPE*)MEM_NEW( HEAP_DYNAMIC, data->buf_size * sizeof( STYPE ) );
++	    }
++	    data->buf_ptr = 0;
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		if( data->buf[ i ] ) mem_set( data->buf[ i ], data->buf_size * sizeof( STYPE ), 0 );
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLEAN:
++	    data->buf_ptr = 0;
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		if( data->buf[ i ] ) 
++		{
++		    for( int s = 0; s < data->buf_size; s++ )
++			data->buf[ i ][ s ] = 0;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_RENDER_REPLACE:
+ 	    if( !inputs[ 0 ] || !outputs[ 0 ] ) break;
+ 	    
+ 	    if( data->ctl_mono )
+ 	        psynth_set_number_of_outputs( 1, synth_id, pnet );
+ 	    else
+-	        psynth_set_number_of_outputs( SYNTH_OUTPUTS, synth_id, pnet );
+-
+-	    {
+-		int buf_size = data->buf_size;
+-		int delay_l = ( data->buf_size * data->ctl_delay_l ) >> 8;
+-		int delay_r = ( data->buf_size * data->ctl_delay_r ) >> 8;
+-		if( delay_l >= data->buf_size ) delay_l = data->buf_size - 1;
+-		if( delay_r >= data->buf_size ) delay_r = data->buf_size - 1;
+-		int buf_ptr;
+-		int ctl_dry = data->ctl_dry;
+-		int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
+-		for( ch = 0; ch < outputs_num; ch++ )
+-		{
+-		    STYPE *in = inputs[ ch ];
+-		    STYPE *out = outputs[ ch ];
++	        psynth_set_number_of_outputs( SYNTH_OUTPUTS, synth_id, pnet );
++
++	    {
++		int buf_size = data->buf_size;
++		int delay_l = ( data->buf_size * data->ctl_delay_l ) >> 8;
++		int delay_r = ( data->buf_size * data->ctl_delay_r ) >> 8;
++		if( delay_l >= data->buf_size ) delay_l = data->buf_size - 1;
++		if( delay_r >= data->buf_size ) delay_r = data->buf_size - 1;
++		int buf_ptr;
++		int ctl_dry = data->ctl_dry;
++		int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
++		for( ch = 0; ch < outputs_num; ch++ )
++		{
++		    STYPE *in = inputs[ ch ];
++		    STYPE *out = outputs[ ch ];
+ 		    STYPE *cbuf = data->buf[ ch ];
+-		    buf_ptr = data->buf_ptr;
+-		    int ctl_wet = data->ctl_wet;
+-		    if( ch == 0 ) ctl_wet = ( ctl_wet * data->ctl_volume_l ) / 256;
+-		    if( ch == 1 ) ctl_wet = ( ctl_wet * data->ctl_volume_r ) / 256;
+-		    if( ctl_wet == 0 )
+-		    {
+-			for( i = 0; i < sample_frames; i++ )
+-			{
+-			    cbuf[ buf_ptr ] = in[ i ];
+-			    out[ i ] = 0;
+-			    buf_ptr++;
+-			    if( buf_ptr >= buf_size ) buf_ptr = 0;
+-			}
+-		    }
+-		    else
+-		    {
+-			for( i = 0; i < sample_frames; i++ )
+-			{
+-			    cbuf[ buf_ptr ] = in[ i ];
+-        		    
+-			    STYPE_CALC out_val;
+-			    int ptr;
+-			    if( ch == 0 )
+-				ptr = buf_ptr - delay_l;
+-			    else
+-				ptr = buf_ptr - delay_r;
+-			    if( ptr < 0 ) ptr += buf_size;
+-			    out_val = cbuf[ ptr ];
+-			    out_val *= ctl_wet;
+-			    out_val /= 256;
+-			    out[ i ] = out_val;
+-
+-			    buf_ptr++;
+-			    if( buf_ptr >= buf_size ) buf_ptr = 0;
+-			}
+-			if( data->ctl_inverse )
+-			{
+-			    for( i = 0; i < sample_frames; i++ )
+-				out[ i ] = -out[ i ];
+-			}
+-		    }
+-		    if( ctl_dry > 0 && ctl_dry != 256 )
+-		    {
+-			for( i = 0; i < sample_frames; i++ )
+-			{
+-			    STYPE_CALC out_val = in[ i ];
+-			    out_val *= ctl_dry;
+-			    out_val /= 256;
+-			    out[ i ] += out_val;
+-			}
+-		    }
+-		    if( ctl_dry == 256 )
+-		    {
+-			for( i = 0; i < sample_frames; i++ )
+-			    out[ i ] += in[ i ];
+-		    }
+-		}
+-		data->buf_ptr = buf_ptr;
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLOSE:
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		if( data->buf[ i ] ) mem_free( data->buf[ i ] );
+-	    }
+-	    retval = 1;
+-	    break;
+-    }
+-
+-    return retval;
+-}
++		    buf_ptr = data->buf_ptr;
++		    int ctl_wet = data->ctl_wet;
++		    if( ch == 0 ) ctl_wet = ( ctl_wet * data->ctl_volume_l ) / 256;
++		    if( ch == 1 ) ctl_wet = ( ctl_wet * data->ctl_volume_r ) / 256;
++		    if( ctl_wet == 0 )
++		    {
++			for( i = 0; i < sample_frames; i++ )
++			{
++			    cbuf[ buf_ptr ] = in[ i ];
++			    out[ i ] = 0;
++			    buf_ptr++;
++			    if( buf_ptr >= buf_size ) buf_ptr = 0;
++			}
++		    }
++		    else
++		    {
++			for( i = 0; i < sample_frames; i++ )
++			{
++			    cbuf[ buf_ptr ] = in[ i ];
++        		    
++			    STYPE_CALC out_val;
++			    int ptr;
++			    if( ch == 0 )
++				ptr = buf_ptr - delay_l;
++			    else
++				ptr = buf_ptr - delay_r;
++			    if( ptr < 0 ) ptr += buf_size;
++			    out_val = cbuf[ ptr ];
++			    out_val *= ctl_wet;
++			    out_val /= 256;
++			    out[ i ] = out_val;
++
++			    buf_ptr++;
++			    if( buf_ptr >= buf_size ) buf_ptr = 0;
++			}
++			if( data->ctl_inverse )
++			{
++			    for( i = 0; i < sample_frames; i++ )
++				out[ i ] = -out[ i ];
++			}
++		    }
++		    if( ctl_dry > 0 && ctl_dry != 256 )
++		    {
++			for( i = 0; i < sample_frames; i++ )
++			{
++			    STYPE_CALC out_val = in[ i ];
++			    out_val *= ctl_dry;
++			    out_val /= 256;
++			    out[ i ] += out_val;
++			}
++		    }
++		    if( ctl_dry == 256 )
++		    {
++			for( i = 0; i < sample_frames; i++ )
++			    out[ i ] += in[ i ];
++		    }
++		}
++		data->buf_ptr = buf_ptr;
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLOSE:
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		if( data->buf[ i ] ) mem_free( data->buf[ i ] );
++	    }
++	    retval = 1;
++	    break;
++    }
++
++    return retval;
++}
+--- a/sunvox_engine/psynth/psynths_distortion.cpp
++++ b/sunvox_engine/psynth/psynths_distortion.cpp
+@@ -4,163 +4,163 @@
+     Copyright (C) 2002 - 2008 Alex Zolotov <nightradio@gmail.com>
+ */
+ 
+-#include "psynth.h"
+-
+-//Unique names for objects in your synth:
+-#define SYNTH_DATA	psynth_distortion_data
+-#define SYNTH_HANDLER	psynth_distortion
+-//And unique parameters:
+-#define SYNTH_INPUTS	2
+-#define SYNTH_OUTPUTS	2
+-
+-struct SYNTH_DATA
+-{
+-    //Controls: ############################################################
+-    CTYPE   ctl_volume;
+-    CTYPE   ctl_type;
+-    CTYPE   ctl_power;
+-    CTYPE   ctl_bitrate;
+-    CTYPE   ctl_freq;
+-    //Synth data: ##########################################################
+-    int	    cnt;
+-    STYPE   hold_smp[ SYNTH_OUTPUTS ];
+-};
+-
+-int SYNTH_HANDLER( 
+-    PSYTEXX_SYNTH_PARAMETERS
+-    )
+-{
+-    psynth_net *pnet = (psynth_net*)net;
+-    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
+-    int retval = 0;
+-    int i;
+-    int ch;
+-    int cnt;
+-
+-    switch( command )
+-    {
+-	case COMMAND_GET_DATA_SIZE:
+-	    retval = sizeof( SYNTH_DATA );
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Distortion";
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Distortion and Amplifier";
+-	    break;
+-
+-	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+-	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
+-
+-	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
+-
+-	case COMMAND_INIT:
+-	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 128, 0, &data->ctl_volume, net );
+-	    psynth_register_ctl( synth_id, "Type", "lim/sat", 0, 1, 0, 1, &data->ctl_type, net );
+-	    psynth_register_ctl( synth_id, "Power", "", 0, 256, 0, 0, &data->ctl_power, net );
+-	    psynth_register_ctl( synth_id, "Bitrate", "bits", 1, 16, 16, 1, &data->ctl_bitrate, net );
+-	    psynth_register_ctl( synth_id, "Freq", "Hz", 0, 44100, 44100, 0, &data->ctl_freq, net );
+-	    data->cnt = 0;
+-	    for( int a = 0; a < SYNTH_OUTPUTS; a++ ) data->hold_smp[ a ] = 0;
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_RENDER_REPLACE:
++#include "psynth.h"
++
++//Unique names for objects in your synth:
++#define SYNTH_DATA	psynth_distortion_data
++#define SYNTH_HANDLER	psynth_distortion
++//And unique parameters:
++#define SYNTH_INPUTS	2
++#define SYNTH_OUTPUTS	2
++
++struct SYNTH_DATA
++{
++    //Controls: ############################################################
++    CTYPE   ctl_volume;
++    CTYPE   ctl_type;
++    CTYPE   ctl_power;
++    CTYPE   ctl_bitrate;
++    CTYPE   ctl_freq;
++    //Synth data: ##########################################################
++    int	    cnt;
++    STYPE   hold_smp[ SYNTH_OUTPUTS ];
++};
++
++int SYNTH_HANDLER( 
++    PSYTEXX_SYNTH_PARAMETERS
++    )
++{
++    psynth_net *pnet = (psynth_net*)net;
++    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
++    int retval = 0;
++    int i;
++    int ch;
++    int cnt;
++
++    switch( command )
++    {
++	case COMMAND_GET_DATA_SIZE:
++	    retval = sizeof( SYNTH_DATA );
++	    break;
++
++	case COMMAND_GET_SYNTH_NAME:
++	    retval = atoi("Distortion");
++	    break;
++
++	case COMMAND_GET_SYNTH_INFO:
++	    retval = atoi("Distortion and Amplifier");
++	    break;
++
++	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
++	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++
++	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
++
++	case COMMAND_INIT:
++	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 128, 0, &data->ctl_volume, net );
++	    psynth_register_ctl( synth_id, "Type", "lim/sat", 0, 1, 0, 1, &data->ctl_type, net );
++	    psynth_register_ctl( synth_id, "Power", "", 0, 256, 0, 0, &data->ctl_power, net );
++	    psynth_register_ctl( synth_id, "Bitrate", "bits", 1, 16, 16, 1, &data->ctl_bitrate, net );
++	    psynth_register_ctl( synth_id, "Freq", "Hz", 0, 44100, 44100, 0, &data->ctl_freq, net );
++	    data->cnt = 0;
++	    for( int a = 0; a < SYNTH_OUTPUTS; a++ ) data->hold_smp[ a ] = 0;
++	    retval = 1;
++	    break;
++
++	case COMMAND_RENDER_REPLACE:
+ 	    if( !inputs[ 0 ] || !outputs[ 0 ] ) break;
+ 	    
+-	    cnt = data->cnt;
+-	    for( ch = 0; ch < SYNTH_OUTPUTS; ch++ )
+-	    {
++	    cnt = data->cnt;
++	    for( ch = 0; ch < SYNTH_OUTPUTS; ch++ )
++	    {
+ 		STYPE *in = inputs[ ch ];
+ 		STYPE *out = outputs[ ch ];
+-		int volume = data->ctl_volume;
+-		int type = data->ctl_type;
+-		int power = data->ctl_power;
+-		int bitrate = data->ctl_bitrate;
+-		int freq = data->ctl_freq; 
+-		if( freq <= 0 ) freq = 1;
+-		int smp_len = ( pnet->sampling_freq << 8 ) / freq;
+-		cnt = data->cnt;
+-		STYPE *hold_smp = &data->hold_smp[ ch ];
+-		if( power > 255 ) power = 255;
+-		STYPE limit;
+-		STYPE max_val;
+-		INT16_TO_STYPE( limit, ( ( 256 - power ) << 7 ) );
+-		INT16_TO_STYPE( max_val, 32767 );
+-		STYPE_CALC coef = ( max_val * 256 ) / limit;
+-		if( bitrate < 16 || freq < 44100 )
+-		{
+-		    for( i = 0; i < sample_frames; i++ )
+-		    {
+-			STYPE_CALC out_val = in[ i ];
+-			if( bitrate < 16 )
+-			{
+-			    int res16;
+-			    STYPE_TO_INT16( res16, out_val );
+-			    res16 >>= 16 - bitrate;
+-			    res16 <<= 16 - bitrate;
+-			    INT16_TO_STYPE( out_val, res16 );
+-			}
+-			if( freq < 44100 )
+-			{
+-			    cnt += 256;
+-			    if( cnt > smp_len ) 
+-			    {
+-				*hold_smp = out_val;
+-				cnt -= smp_len;
+-			    }
+-			    out_val = *hold_smp;
+-			}
+-			if( power )
+-			{
+-			    if( type == 1 )
+-			    {
+-				if( out_val > limit ) out_val = limit - ( out_val - limit );
+-				if( -out_val > limit ) out_val = -limit + ( -out_val - limit );
+-			    }
+-			    if( out_val > limit ) out_val = limit;
+-			    if( -out_val > limit ) out_val = -limit;
+-			    out_val *= coef;
+-			    out_val /= 256;
+-			}
+-			out_val *= volume;
+-			out_val /= 128;
+-			out[ i ] = out_val;
+-		    }
+-		}
+-		else
+-		{
+-		    for( i = 0; i < sample_frames; i++ )
+-		    {
+-			STYPE_CALC out_val = in[ i ];
+-			if( power )
+-			{
+-			    if( type == 1 )
+-			    {
+-				if( out_val > limit ) out_val = limit - ( out_val - limit );
+-				if( -out_val > limit ) out_val = -limit + ( -out_val - limit );
+-			    }
+-			    if( out_val > limit ) out_val = limit;
+-			    if( -out_val > limit ) out_val = -limit;
+-			    out_val *= coef;
+-			    out_val /= 256;
+-			}
+-			out_val *= volume;
+-			out_val /= 128;
+-			out[ i ] = out_val;
+-		    }
+-		}
+-	    }
+-	    data->cnt = cnt;
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLOSE:
+-	    retval = 1;
+-	    break;
+-    }
+-
+-    return retval;
+-}
++		int volume = data->ctl_volume;
++		int type = data->ctl_type;
++		int power = data->ctl_power;
++		int bitrate = data->ctl_bitrate;
++		int freq = data->ctl_freq; 
++		if( freq <= 0 ) freq = 1;
++		int smp_len = ( pnet->sampling_freq << 8 ) / freq;
++		cnt = data->cnt;
++		STYPE *hold_smp = &data->hold_smp[ ch ];
++		if( power > 255 ) power = 255;
++		STYPE limit;
++		STYPE max_val;
++		INT16_TO_STYPE( limit, ( ( 256 - power ) << 7 ) );
++		INT16_TO_STYPE( max_val, 32767 );
++		STYPE_CALC coef = ( max_val * 256 ) / limit;
++		if( bitrate < 16 || freq < 44100 )
++		{
++		    for( i = 0; i < sample_frames; i++ )
++		    {
++			STYPE_CALC out_val = in[ i ];
++			if( bitrate < 16 )
++			{
++			    int res16;
++			    STYPE_TO_INT16( res16, out_val );
++			    res16 >>= 16 - bitrate;
++			    res16 <<= 16 - bitrate;
++			    INT16_TO_STYPE( out_val, res16 );
++			}
++			if( freq < 44100 )
++			{
++			    cnt += 256;
++			    if( cnt > smp_len ) 
++			    {
++				*hold_smp = out_val;
++				cnt -= smp_len;
++			    }
++			    out_val = *hold_smp;
++			}
++			if( power )
++			{
++			    if( type == 1 )
++			    {
++				if( out_val > limit ) out_val = limit - ( out_val - limit );
++				if( -out_val > limit ) out_val = -limit + ( -out_val - limit );
++			    }
++			    if( out_val > limit ) out_val = limit;
++			    if( -out_val > limit ) out_val = -limit;
++			    out_val *= coef;
++			    out_val /= 256;
++			}
++			out_val *= volume;
++			out_val /= 128;
++			out[ i ] = out_val;
++		    }
++		}
++		else
++		{
++		    for( i = 0; i < sample_frames; i++ )
++		    {
++			STYPE_CALC out_val = in[ i ];
++			if( power )
++			{
++			    if( type == 1 )
++			    {
++				if( out_val > limit ) out_val = limit - ( out_val - limit );
++				if( -out_val > limit ) out_val = -limit + ( -out_val - limit );
++			    }
++			    if( out_val > limit ) out_val = limit;
++			    if( -out_val > limit ) out_val = -limit;
++			    out_val *= coef;
++			    out_val /= 256;
++			}
++			out_val *= volume;
++			out_val /= 128;
++			out[ i ] = out_val;
++		    }
++		}
++	    }
++	    data->cnt = cnt;
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLOSE:
++	    retval = 1;
++	    break;
++    }
++
++    return retval;
++}
+--- a/sunvox_engine/psynth/psynths_echo.cpp
++++ b/sunvox_engine/psynth/psynths_echo.cpp
+@@ -4,167 +4,167 @@
+     Copyright (C) 2002 - 2008 Alex Zolotov <nightradio@gmail.com>
+ */
+ 
+-#include "psynth.h"
+-
+-//Unique names for objects in your synth:
+-#define SYNTH_DATA	psynth_echo_data
+-#define SYNTH_HANDLER	psynth_echo
+-//And unique parameters:
+-#define SYNTH_INPUTS	2
+-#define SYNTH_OUTPUTS	2
+-
+-struct SYNTH_DATA
+-{
+-    //Controls: ############################################################
+-    CTYPE   ctl_dry;
+-    CTYPE   ctl_wet;
+-    CTYPE   ctl_feedback;
+-    CTYPE   ctl_delay;
+-    CTYPE   ctl_stereo;
+-    CTYPE   ctl_pong;
+-    //Synth data: ##########################################################
+-    int	    buf_size;
+-    STYPE   *buf[ SYNTH_OUTPUTS ];
+-    int	    buf_ptr;
+-};
+-
+-int SYNTH_HANDLER( 
+-    PSYTEXX_SYNTH_PARAMETERS
+-    )
+-{
+-    psynth_net *pnet = (psynth_net*)net;
+-    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
+-    int retval = 0;
+-    int i;
+-    int ch;
+-
+-    switch( command )
+-    {
+-	case COMMAND_GET_DATA_SIZE:
+-	    retval = sizeof( SYNTH_DATA );
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Echo";
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Echo.\nMax delay is one second";
+-	    break;
+-
+-	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+-	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
+-
+-	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
+-
+-	case COMMAND_INIT:
+-	    psynth_register_ctl( synth_id, "Dry", "", 0, 256, 256, 0, &data->ctl_dry, net );
+-	    psynth_register_ctl( synth_id, "Wet", "", 0, 256, 128, 0, &data->ctl_wet, net );
+-	    psynth_register_ctl( synth_id, "Feedback", "", 0, 256, 128, 0, &data->ctl_feedback, net );
+-	    psynth_register_ctl( synth_id, "Delay", "", 0, 256, 256, 0, &data->ctl_delay, net );
+-	    psynth_register_ctl( synth_id, "Stereo", "off/on", 0, 1, 1, 1, &data->ctl_stereo, net );
+-	    data->buf_size = pnet->sampling_freq;
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		data->buf[ i ] = (STYPE*)MEM_NEW( HEAP_DYNAMIC, data->buf_size * sizeof( STYPE ) );
+-	    }
+-	    data->buf_ptr = 0;
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		if( data->buf[ i ] ) mem_set( data->buf[ i ], data->buf_size * sizeof( STYPE ), 0 );
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLEAN:
+-	    data->buf_ptr = 0;
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		if( data->buf[ i ] ) 
+-		{
+-		    for( int s = 0; s < data->buf_size; s++ )
+-			data->buf[ i ][ s ] = 0;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_RENDER_REPLACE:
++#include "psynth.h"
++
++//Unique names for objects in your synth:
++#define SYNTH_DATA	psynth_echo_data
++#define SYNTH_HANDLER	psynth_echo
++//And unique parameters:
++#define SYNTH_INPUTS	2
++#define SYNTH_OUTPUTS	2
++
++struct SYNTH_DATA
++{
++    //Controls: ############################################################
++    CTYPE   ctl_dry;
++    CTYPE   ctl_wet;
++    CTYPE   ctl_feedback;
++    CTYPE   ctl_delay;
++    CTYPE   ctl_stereo;
++    CTYPE   ctl_pong;
++    //Synth data: ##########################################################
++    int	    buf_size;
++    STYPE   *buf[ SYNTH_OUTPUTS ];
++    int	    buf_ptr;
++};
++
++int SYNTH_HANDLER( 
++    PSYTEXX_SYNTH_PARAMETERS
++    )
++{
++    psynth_net *pnet = (psynth_net*)net;
++    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
++    int retval = 0;
++    int i;
++    int ch;
++
++    switch( command )
++    {
++	case COMMAND_GET_DATA_SIZE:
++	    retval = sizeof( SYNTH_DATA );
++	    break;
++
++	case COMMAND_GET_SYNTH_NAME:
++	    retval = atoi("Echo");
++	    break;
++
++	case COMMAND_GET_SYNTH_INFO:
++	    retval = atoi("Echo.\nMax delay is one second");
++	    break;
++
++	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
++	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++
++	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
++
++	case COMMAND_INIT:
++	    psynth_register_ctl( synth_id, "Dry", "", 0, 256, 256, 0, &data->ctl_dry, net );
++	    psynth_register_ctl( synth_id, "Wet", "", 0, 256, 128, 0, &data->ctl_wet, net );
++	    psynth_register_ctl( synth_id, "Feedback", "", 0, 256, 128, 0, &data->ctl_feedback, net );
++	    psynth_register_ctl( synth_id, "Delay", "", 0, 256, 256, 0, &data->ctl_delay, net );
++	    psynth_register_ctl( synth_id, "Stereo", "off/on", 0, 1, 1, 1, &data->ctl_stereo, net );
++	    data->buf_size = pnet->sampling_freq;
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		data->buf[ i ] = (STYPE*)MEM_NEW( HEAP_DYNAMIC, data->buf_size * sizeof( STYPE ) );
++	    }
++	    data->buf_ptr = 0;
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		if( data->buf[ i ] ) mem_set( data->buf[ i ], data->buf_size * sizeof( STYPE ), 0 );
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLEAN:
++	    data->buf_ptr = 0;
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		if( data->buf[ i ] ) 
++		{
++		    for( int s = 0; s < data->buf_size; s++ )
++			data->buf[ i ][ s ] = 0;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_RENDER_REPLACE:
+ 	    if( !inputs[ 0 ] || !outputs[ 0 ] ) break;
+ 	    
+-	    {
+-		//int buf_size = ( pnet->tick_size * data->ctl_delay ) >> 8;
+-		int buf_size = ( data->buf_size * data->ctl_delay ) >> 8;
+-		if( buf_size > data->buf_size ) buf_size = data->buf_size;
+-		int buf_ptr;
+-		int ctl_stereo = data->ctl_stereo;
+-		int ctl_wet = data->ctl_wet;
+-		int ctl_dry = data->ctl_dry;
+-		int ctl_feedback = data->ctl_feedback;
+-		for( ch = 0; ch < SYNTH_OUTPUTS; ch++ )
+-		{
+-		    STYPE *in = inputs[ ch ];
+-		    STYPE *out = outputs[ ch ];
++	    {
++		//int buf_size = ( pnet->tick_size * data->ctl_delay ) >> 8;
++		int buf_size = ( data->buf_size * data->ctl_delay ) >> 8;
++		if( buf_size > data->buf_size ) buf_size = data->buf_size;
++		int buf_ptr;
++		int ctl_stereo = data->ctl_stereo;
++		int ctl_wet = data->ctl_wet;
++		int ctl_dry = data->ctl_dry;
++		int ctl_feedback = data->ctl_feedback;
++		for( ch = 0; ch < SYNTH_OUTPUTS; ch++ )
++		{
++		    STYPE *in = inputs[ ch ];
++		    STYPE *out = outputs[ ch ];
+ 		    STYPE *cbuf = data->buf[ ch ];
+-		    buf_ptr = data->buf_ptr;
+-		    for( i = 0; i < sample_frames; i++ )
+-		    {
+-			STYPE_CALC out_val = cbuf[ buf_ptr ];
+-			out_val *= ctl_wet;
+-			out_val /= 256;
+-			out[ i ] = out_val;
+-    		    
+-			out_val = cbuf[ buf_ptr ];
+-			out_val *= ctl_feedback;
+-			out_val /= 256;
++		    buf_ptr = data->buf_ptr;
++		    for( i = 0; i < sample_frames; i++ )
++		    {
++			STYPE_CALC out_val = cbuf[ buf_ptr ];
++			out_val *= ctl_wet;
++			out_val /= 256;
++			out[ i ] = out_val;
++    		    
++			out_val = cbuf[ buf_ptr ];
++			out_val *= ctl_feedback;
++			out_val /= 256;
+ 			denorm_add_white_noise( out_val );
+-			cbuf[ buf_ptr ] = out_val;
+-
+-			if( ch && ctl_stereo )
+-			{
+-			    int ptr2 = buf_ptr + buf_size / 2;
+-			    if( ptr2 >= buf_size ) ptr2 -= buf_size;
+-			    cbuf[ ptr2 ] += in[ i ];
+-			}
+-			else
+-			{
+-			    cbuf[ buf_ptr ] += in[ i ];
+-			}
+-
+-			buf_ptr++;
+-			if( buf_ptr >= buf_size ) buf_ptr = 0;
+-		    }
+-		    if( ctl_dry > 0 && ctl_dry < 256 )
+-		    {
+-			for( i = 0; i < sample_frames; i++ )
+-			{
+-			    STYPE_CALC out_val = in[ i ];
+-			    out_val *= ctl_dry;
+-			    out_val /= 256;
+-			    out[ i ] += out_val;
+-			}
+-		    }
+-		    if( ctl_dry == 256 )
+-		    {
++			cbuf[ buf_ptr ] = out_val;
++
++			if( ch && ctl_stereo )
++			{
++			    int ptr2 = buf_ptr + buf_size / 2;
++			    if( ptr2 >= buf_size ) ptr2 -= buf_size;
++			    cbuf[ ptr2 ] += in[ i ];
++			}
++			else
++			{
++			    cbuf[ buf_ptr ] += in[ i ];
++			}
++
++			buf_ptr++;
++			if( buf_ptr >= buf_size ) buf_ptr = 0;
++		    }
++		    if( ctl_dry > 0 && ctl_dry < 256 )
++		    {
++			for( i = 0; i < sample_frames; i++ )
++			{
++			    STYPE_CALC out_val = in[ i ];
++			    out_val *= ctl_dry;
++			    out_val /= 256;
++			    out[ i ] += out_val;
++			}
++		    }
++		    if( ctl_dry == 256 )
++		    {
+ 			for( i = 0; i < sample_frames; i++ )
+ 			{
+ 			    out[ i ] += in[ i ];
+ 			}
+-		    }
+-		}
+-		data->buf_ptr = buf_ptr;
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLOSE:
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		if( data->buf[ i ] ) mem_free( data->buf[ i ] );
+-	    }
+-	    retval = 1;
+-	    break;
+-    }
+-
+-    return retval;
+-}
++		    }
++		}
++		data->buf_ptr = buf_ptr;
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLOSE:
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		if( data->buf[ i ] ) mem_free( data->buf[ i ] );
++	    }
++	    retval = 1;
++	    break;
++    }
++
++    return retval;
++}
+--- a/sunvox_engine/psynth/psynths_filter.cpp
++++ b/sunvox_engine/psynth/psynths_filter.cpp
+@@ -4,22 +4,22 @@
+     Copyright (C) 2002 - 2008 Alex Zolotov <nightradio@gmail.com>
+ */
+ 
+-#include "psynth.h"
+-
+-//Unique names for objects in your synth:
+-#define SYNTH_DATA	filter_data
+-#define SYNTH_HANDLER	psynth_filter
+-//And unique parameters:
+-#define SYNTH_INPUTS	2
+-#define SYNTH_OUTPUTS	2
+-
+-struct filter_channel
+-{
+-    STYPE_CALC	d1, d2, d3;
+-};
+-
+-/*
+-uint16 g_exp_table[ 256 ] = {
++#include "psynth.h"
++
++//Unique names for objects in your synth:
++#define SYNTH_DATA	filter_data
++#define SYNTH_HANDLER	psynth_filter
++//And unique parameters:
++#define SYNTH_INPUTS	2
++#define SYNTH_OUTPUTS	2
++
++struct filter_channel
++{
++    STYPE_CALC	d1, d2, d3;
++};
++
++/*
++uint16 g_exp_table[ 256 ] = {
+ 256, 256, 257, 258, 258, 259, 260, 260, 261, 262, 263, 263, 264, 265, 265, 266, 
+ 267, 268, 268, 269, 270, 270, 271, 272, 273, 273, 274, 275, 276, 276, 277, 278, 
+ 279, 279, 280, 281, 282, 282, 283, 284, 285, 286, 286, 287, 288, 289, 289, 290, 
+@@ -35,197 +35,197 @@
+ 430, 431, 432, 434, 435, 436, 437, 438, 439, 441, 442, 443, 444, 445, 447, 448, 
+ 449, 450, 452, 453, 454, 455, 456, 458, 459, 460, 461, 463, 464, 465, 466, 468, 
+ 469, 470, 472, 473, 474, 475, 477, 478, 479, 481, 482, 483, 485, 486, 487, 488, 
+-490, 491, 492, 494, 495, 496, 498, 499, 501, 502, 503, 505, 506, 507, 509, 510,
+-};
+-*/
+-
+-enum {
+-    MODE_HQ = 0,
+-    MODE_HQ_MONO,
+-    MODE_LQ,
+-    MODE_LQ_MONO,
+-    MODES
+-};
+-
+-struct SYNTH_DATA
+-{
+-    //Controls: ############################################################
+-    CTYPE   ctl_volume;
+-    CTYPE   ctl_cutoff_freq;
+-    CTYPE   ctl_resonance;
+-    CTYPE   ctl_type;
+-    CTYPE   ctl_response;
+-    CTYPE   ctl_mode;
+-    CTYPE   ctl_impulse;
+-    CTYPE   ctl_mix;
+-    //Synth data: ##########################################################
+-    filter_channel fchan[ SYNTH_OUTPUTS ];
+-    uint16  *exp_table;
+-    int	    tick_counter;   //From 0 to tick_size
+-    CTYPE   floating_volume;
+-    CTYPE   floating_cutoff;
+-    CTYPE   floating_resonance;
+-};
+-
+-int SYNTH_HANDLER( 
+-    PSYTEXX_SYNTH_PARAMETERS
+-    )
+-{
+-    psynth_net *pnet = (psynth_net*)net;
+-    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
+-    int retval = 0;
+-
+-    switch( command )
+-    {
+-	case COMMAND_GET_DATA_SIZE:
+-	    retval = sizeof( SYNTH_DATA );
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Filter";
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"State Variable Filter\n(Chamberlin version)\nDouble Sampled\n\n\
+-References: \n\
+-http://musicdsp.org/archive.php?classid=3 \n\
+-Hal Chamberlin, \"Musical Applications of Microprocessors\"\n\
+-2nd Ed, Hayden Book Company 1985. pp 490-492.\n\n\
+-Use low \"response\" values\nfor smooth frequency, resonance\nor volume change";
+-	    break;
+-
+-	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+-	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
+-
+-	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
+-
+-	case COMMAND_INIT:
+-	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 256, 0, &data->ctl_volume, net );
+-	    psynth_register_ctl( synth_id, "Freq", "Hz", 0, 14000, 14000, 0, &data->ctl_cutoff_freq, net );
+-	    psynth_register_ctl( synth_id, "Resonance", "", 0, 1530, 0, 0, &data->ctl_resonance, net );
+-	    psynth_register_ctl( synth_id, "Type", "l/h/b/n", 0, 3, 0, 1, &data->ctl_type, net );
+-	    psynth_register_ctl( synth_id, "Response", "", 0, 256, 256, 0, &data->ctl_response, net );
+-	    psynth_register_ctl( synth_id, "Mode", "HQ/HQmono/LQ/LQmono", 0, MODE_LQ_MONO, MODE_HQ, 1, &data->ctl_mode, net );
+-	    psynth_register_ctl( synth_id, "Impulse", "Hz", 0, 14000, 0, 0, &data->ctl_impulse, net );
+-	    psynth_register_ctl( synth_id, "Mix", "", 0, 256, 256, 0, &data->ctl_mix, net );
+-	    data->floating_volume = 256 * 256;
+-	    data->floating_cutoff = 14000 * 256;
+-	    data->floating_resonance = 0 * 256;
+-	    for( int i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		data->fchan[ i ].d1 = 0;
+-		data->fchan[ i ].d2 = 0;
+-		data->fchan[ i ].d3 = 0;
+-	    }
+-	    data->tick_counter = 0;
+-	    //data->exp_table = g_exp_table;
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLEAN:
+-	case COMMAND_ALL_NOTES_OFF:
+-	    for( int i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		data->fchan[ i ].d1 = 0;
+-		data->fchan[ i ].d2 = 0;
+-		data->fchan[ i ].d3 = 0;
+-	    }
+-	    data->tick_counter = 0;
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_RENDER_REPLACE:
++490, 491, 492, 494, 495, 496, 498, 499, 501, 502, 503, 505, 506, 507, 509, 510,
++};
++*/
++
++enum {
++    MODE_HQ = 0,
++    MODE_HQ_MONO,
++    MODE_LQ,
++    MODE_LQ_MONO,
++    MODES
++};
++
++struct SYNTH_DATA
++{
++    //Controls: ############################################################
++    CTYPE   ctl_volume;
++    CTYPE   ctl_cutoff_freq;
++    CTYPE   ctl_resonance;
++    CTYPE   ctl_type;
++    CTYPE   ctl_response;
++    CTYPE   ctl_mode;
++    CTYPE   ctl_impulse;
++    CTYPE   ctl_mix;
++    //Synth data: ##########################################################
++    filter_channel fchan[ SYNTH_OUTPUTS ];
++    uint16  *exp_table;
++    int	    tick_counter;   //From 0 to tick_size
++    CTYPE   floating_volume;
++    CTYPE   floating_cutoff;
++    CTYPE   floating_resonance;
++};
++
++int SYNTH_HANDLER( 
++    PSYTEXX_SYNTH_PARAMETERS
++    )
++{
++    psynth_net *pnet = (psynth_net*)net;
++    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
++    int retval = 0;
++
++    switch( command )
++    {
++	case COMMAND_GET_DATA_SIZE:
++	    retval = sizeof( SYNTH_DATA );
++	    break;
++
++	case COMMAND_GET_SYNTH_NAME:
++	    retval = atoi("Filter");
++	    break;
++
++	case COMMAND_GET_SYNTH_INFO:
++	    retval = atoi("State Variable Filter\n(Chamberlin version)\nDouble Sampled\n\n\
++References: \n\
++http://musicdsp.org/archive.php?classid=3 \n\
++Hal Chamberlin, \"Musical Applications of Microprocessors\"\n\
++2nd Ed, Hayden Book Company 1985. pp 490-492.\n\n\
++Use low \"response\" values\nfor smooth frequency, resonance\nor volume change");
++	    break;
++
++	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
++	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++
++	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
++
++	case COMMAND_INIT:
++	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 256, 0, &data->ctl_volume, net );
++	    psynth_register_ctl( synth_id, "Freq", "Hz", 0, 14000, 14000, 0, &data->ctl_cutoff_freq, net );
++	    psynth_register_ctl( synth_id, "Resonance", "", 0, 1530, 0, 0, &data->ctl_resonance, net );
++	    psynth_register_ctl( synth_id, "Type", "l/h/b/n", 0, 3, 0, 1, &data->ctl_type, net );
++	    psynth_register_ctl( synth_id, "Response", "", 0, 256, 256, 0, &data->ctl_response, net );
++	    psynth_register_ctl( synth_id, "Mode", "HQ/HQmono/LQ/LQmono", 0, MODE_LQ_MONO, MODE_HQ, 1, &data->ctl_mode, net );
++	    psynth_register_ctl( synth_id, "Impulse", "Hz", 0, 14000, 0, 0, &data->ctl_impulse, net );
++	    psynth_register_ctl( synth_id, "Mix", "", 0, 256, 256, 0, &data->ctl_mix, net );
++	    data->floating_volume = 256 * 256;
++	    data->floating_cutoff = 14000 * 256;
++	    data->floating_resonance = 0 * 256;
++	    for( int i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		data->fchan[ i ].d1 = 0;
++		data->fchan[ i ].d2 = 0;
++		data->fchan[ i ].d3 = 0;
++	    }
++	    data->tick_counter = 0;
++	    //data->exp_table = g_exp_table;
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLEAN:
++	case COMMAND_ALL_NOTES_OFF:
++	    for( int i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		data->fchan[ i ].d1 = 0;
++		data->fchan[ i ].d2 = 0;
++		data->fchan[ i ].d3 = 0;
++	    }
++	    data->tick_counter = 0;
++	    retval = 1;
++	    break;
++
++	case COMMAND_RENDER_REPLACE:
+ 	    if( !inputs[ 0 ] || !outputs[ 0 ] ) break;
+ 	    
+-	    {
++	    {
+ 		if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_LQ_MONO )
+ 		    psynth_set_number_of_outputs( 1, synth_id, pnet );
+ 		else
+-		    psynth_set_number_of_outputs( SYNTH_OUTPUTS, synth_id, pnet );
+-	    
+-		int tick_size = pnet->sampling_freq / 200;
+-		int ptr = 0;
+-
+-		if( data->ctl_impulse )
+-		{
+-		    data->floating_cutoff = data->ctl_impulse * 256;
+-		    data->ctl_impulse = 0;
+-		}
+-
+-		while( 1 )
+-		{
+-		    int buf_size = tick_size - data->tick_counter;
+-		    if( ptr + buf_size > sample_frames ) buf_size = sample_frames - ptr;
+-
+-		    int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
+-		    for( int ch = 0; ch < outputs_num; ch++ )
+-		    {
+-			STYPE *in = inputs[ ch ];
+-			STYPE *out = outputs[ ch ];
+-
+-			//References: 
+-			// http://musicdsp.org/archive.php?classid=3
+-			// Hal Chamberlin, "Musical Applications of Microprocessors," 2nd Ed, Hayden Book Company 1985. pp 490-492.
+-
+-			int fs, c, f, q, scale;
+-
+-			fs = pnet->sampling_freq;
+-
+-			if( data->ctl_mode == MODE_HQ || data->ctl_mode == MODE_HQ_MONO )
+-			{
+-			    //HQ:
+-			    c = ( ( data->floating_cutoff / 256 ) * 32768 ) / ( fs * 2 );
+-			    f = ( 6433 * c ) / 32768;
+-
+-			    if( f >= 1024 ) f = 1023;
+-			    q = 1536 - ( data->floating_resonance / 256 );
+-			    scale = q;
+-			}
+-			if( data->ctl_mode == MODE_LQ || data->ctl_mode == MODE_LQ_MONO )
+-			{
+-			    //LQ:
+-			    c = ( ( ( data->floating_cutoff / 256 ) / 2 ) * 32768 ) / fs;
+-			    f = ( 6433 * c ) / 32768;
+-
+-			    if( f >= 1024 ) f = 1023;
+-			    q = 1536 - ( data->floating_resonance / 256 );
+-			    scale = q;
+-			}
+-
+-			filter_channel *fchan = &data->fchan[ ch ];
+-
+-			STYPE_CALC d1 = fchan->d1;
+-			STYPE_CALC d2 = fchan->d2;
+-			STYPE_CALC d3 = fchan->d3;
+-
+-			int vol = ( data->floating_volume /256 );
+-
+-			if( data->ctl_mix == 0 )
+-			{
+-			    //Filter disabled:
+-			    if( vol == 256 )
+-			    {
+-				for( int i = ptr; i < ptr + buf_size; i++ )
+-				    out[ i ] = in[ i ];
+-			    }
+-			    else
+-			    {
+-				for( int i = ptr; i < ptr + buf_size; i++ )
+-				{
+-				    STYPE_CALC inp = in[ i ];
+-				    inp *= vol;
+-				    inp /= 256;
+-    				    out[ i ] = (STYPE)inp;
+-				}
+-			    }
+-			}
+-			else
+-			{
+-			    //Filter enabled start:
+-			    vol *= data->ctl_mix;
+-			    vol /= 256;
++		    psynth_set_number_of_outputs( SYNTH_OUTPUTS, synth_id, pnet );
++	    
++		int tick_size = pnet->sampling_freq / 200;
++		int ptr = 0;
++
++		if( data->ctl_impulse )
++		{
++		    data->floating_cutoff = data->ctl_impulse * 256;
++		    data->ctl_impulse = 0;
++		}
++
++		while( 1 )
++		{
++		    int buf_size = tick_size - data->tick_counter;
++		    if( ptr + buf_size > sample_frames ) buf_size = sample_frames - ptr;
++
++		    int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
++		    for( int ch = 0; ch < outputs_num; ch++ )
++		    {
++			STYPE *in = inputs[ ch ];
++			STYPE *out = outputs[ ch ];
++
++			//References: 
++			// http://musicdsp.org/archive.php?classid=3
++			// Hal Chamberlin, "Musical Applications of Microprocessors," 2nd Ed, Hayden Book Company 1985. pp 490-492.
++
++			int fs, c, f, q, scale;
++
++			fs = pnet->sampling_freq;
++
++			if( data->ctl_mode == MODE_HQ || data->ctl_mode == MODE_HQ_MONO )
++			{
++			    //HQ:
++			    c = ( ( data->floating_cutoff / 256 ) * 32768 ) / ( fs * 2 );
++			    f = ( 6433 * c ) / 32768;
++
++			    if( f >= 1024 ) f = 1023;
++			    q = 1536 - ( data->floating_resonance / 256 );
++			    scale = q;
++			}
++			if( data->ctl_mode == MODE_LQ || data->ctl_mode == MODE_LQ_MONO )
++			{
++			    //LQ:
++			    c = ( ( ( data->floating_cutoff / 256 ) / 2 ) * 32768 ) / fs;
++			    f = ( 6433 * c ) / 32768;
++
++			    if( f >= 1024 ) f = 1023;
++			    q = 1536 - ( data->floating_resonance / 256 );
++			    scale = q;
++			}
+ 
+-			if( data->ctl_mode == MODE_HQ || data->ctl_mode == MODE_HQ_MONO )
++			filter_channel *fchan = &data->fchan[ ch ];
++
++			STYPE_CALC d1 = fchan->d1;
++			STYPE_CALC d2 = fchan->d2;
++			STYPE_CALC d3 = fchan->d3;
++
++			int vol = ( data->floating_volume /256 );
++
++			if( data->ctl_mix == 0 )
++			{
++			    //Filter disabled:
++			    if( vol == 256 )
++			    {
++				for( int i = ptr; i < ptr + buf_size; i++ )
++				    out[ i ] = in[ i ];
++			    }
++			    else
++			    {
++				for( int i = ptr; i < ptr + buf_size; i++ )
++				{
++				    STYPE_CALC inp = in[ i ];
++				    inp *= vol;
++				    inp /= 256;
++    				    out[ i ] = (STYPE)inp;
++				}
++			    }
++			}
++			else
++			{
++			    //Filter enabled start:
++			    vol *= data->ctl_mix;
++			    vol /= 256;
++
++			if( data->ctl_mode == MODE_HQ || data->ctl_mode == MODE_HQ_MONO )
+ 			switch( data->ctl_type )
+ 			{
+ 			    case 0:
+@@ -238,14 +238,14 @@
+ #ifndef STYPE_FLOATINGPOINT
+ 				    inp *= 32;
+ #endif
+-				    STYPE_CALC low = d2 + ( f * d1 ) / 1024;
+-				    STYPE_CALC high = inp - low - ( q * d1 ) / 1024;
+-				    STYPE_CALC band = ( f * high ) / 1024 + d1;
+-				    STYPE_CALC slow = low;
+-
+-				    low = low + ( f * band ) / 1024;
+-				    high = inp - low - ( q * band ) / 1024;
+-				    band = ( f * high ) / 1024 + band;
++				    STYPE_CALC low = d2 + ( f * d1 ) / 1024;
++				    STYPE_CALC high = inp - low - ( q * d1 ) / 1024;
++				    STYPE_CALC band = ( f * high ) / 1024 + d1;
++				    STYPE_CALC slow = low;
++
++				    low = low + ( f * band ) / 1024;
++				    high = inp - low - ( q * band ) / 1024;
++				    band = ( f * high ) / 1024 + band;
+ 
+ 				    STYPE_CALC outp;
+ #ifndef STYPE_FLOATINGPOINT
+@@ -275,11 +275,11 @@
+ 				    STYPE_CALC low = d2 + ( f * d1 ) / 1024;
+ 				    STYPE_CALC high = inp - low - ( q * d1 ) / 1024;
+ 				    STYPE_CALC band = ( f * high ) / 1024 + d1;
+-				    STYPE_CALC shigh = high;
++				    STYPE_CALC shigh = high;
+ 
+-  				    low = low + ( f * band ) / 1024;
+-				    high = inp - low - ( q * band ) / 1024;
+-				    band = ( f * high ) / 1024 + band;
++  				    low = low + ( f * band ) / 1024;
++				    high = inp - low - ( q * band ) / 1024;
++				    band = ( f * high ) / 1024 + band;
+ 
+ 				    STYPE_CALC outp;
+ #ifndef STYPE_FLOATINGPOINT
+@@ -307,14 +307,14 @@
+ #ifndef STYPE_FLOATINGPOINT
+ 				    inp *= 32;
+ #endif
+-				    STYPE_CALC low = d2 + ( f * d1 ) / 1024;
+-				    STYPE_CALC high = inp - low - ( q * d1 ) / 1024;
+-				    STYPE_CALC band = ( f * high ) / 1024 + d1;
+-				    STYPE_CALC sband = band;
+-
+-				    low = low + ( f * band ) / 1024;
+-				    high = inp - low - ( q * band ) / 1024;
+-				    band = ( f * high ) / 1024 + band;
++				    STYPE_CALC low = d2 + ( f * d1 ) / 1024;
++				    STYPE_CALC high = inp - low - ( q * d1 ) / 1024;
++				    STYPE_CALC band = ( f * high ) / 1024 + d1;
++				    STYPE_CALC sband = band;
++
++				    low = low + ( f * band ) / 1024;
++				    high = inp - low - ( q * band ) / 1024;
++				    band = ( f * high ) / 1024 + band;
+ 
+ 				    STYPE_CALC outp;
+ #ifndef STYPE_FLOATINGPOINT
+@@ -341,14 +341,14 @@
+ #ifndef STYPE_FLOATINGPOINT
+ 				    inp *= 32;
+ #endif
+-				    STYPE_CALC low = d2 + ( f * d1 ) / 1024;
+-				    STYPE_CALC high = inp - low - ( q * d1 ) / 1024;
+-				    STYPE_CALC band = ( f * high ) / 1024 + d1;
+-				    STYPE_CALC snotch = high + low;
+-
+-				    low = low + ( f * band ) / 1024;
+-				    high = inp - low - ( q * band ) / 1024;
+-				    band = ( f * high ) / 1024 + band;
++				    STYPE_CALC low = d2 + ( f * d1 ) / 1024;
++				    STYPE_CALC high = inp - low - ( q * d1 ) / 1024;
++				    STYPE_CALC band = ( f * high ) / 1024 + d1;
++				    STYPE_CALC snotch = high + low;
++
++				    low = low + ( f * band ) / 1024;
++				    high = inp - low - ( q * band ) / 1024;
++				    band = ( f * high ) / 1024 + band;
+ 
+ 				    STYPE_CALC outp;
+ #ifndef STYPE_FLOATINGPOINT
+@@ -489,85 +489,85 @@
+ 				break;
+ 			}
+ 
+-			    if( data->ctl_mix < 256 )
+-			    {
+-				//Mix result with source:
+-				int vol2 = ( data->floating_volume / 256 );
+-				vol2 *= ( 256 - data->ctl_mix );
+-				vol2 /= 256;
+-				for( int i = ptr; i < ptr + buf_size; i++ )
+-				{
+-				    STYPE_CALC inp = in[ i ];
+-				    inp *= vol2;
+-				    inp /= 256;
+-				    inp += out[ i ];
+-				    out[ i ] = (STYPE)inp;
+-				}
+-			    }
+-			    //...filter enabled end.
+-			}
+-
+-			fchan->d1 = d1;
+-			fchan->d2 = d2;
+-			fchan->d3 = d3;
+-		    }
+-
+-		    ptr += buf_size;
+-		    data->tick_counter += buf_size;
+-		    if( data->tick_counter >= tick_size ) 
+-		    {
+-			//Handle filter's tick:
+-			if( data->floating_cutoff / 256 > data->ctl_cutoff_freq )
+-			{
+-			    data->floating_cutoff -= data->ctl_response * 14000;
+-			    if( data->floating_cutoff / 256 < data->ctl_cutoff_freq )
+-				data->floating_cutoff = data->ctl_cutoff_freq * 256;
+-			}
+-			else
+-			if( data->floating_cutoff / 256 < data->ctl_cutoff_freq )
+-			{
+-			    data->floating_cutoff += data->ctl_response * 14000;
+-			    if( data->floating_cutoff / 256 > data->ctl_cutoff_freq )
+-				data->floating_cutoff = data->ctl_cutoff_freq * 256;
+-			}
+-			if( data->floating_resonance / 256 > data->ctl_resonance )
+-			{
+-			    data->floating_resonance -= data->ctl_response * 1530;
+-			    if( data->floating_resonance / 256 < data->ctl_resonance )
+-				data->floating_resonance = data->ctl_resonance * 256;
+-			}
+-			else
+-			if( data->floating_resonance / 256 < data->ctl_resonance )
+-			{
+-			    data->floating_resonance += data->ctl_response * 1530;
+-			    if( data->floating_resonance / 256 > data->ctl_resonance )
+-				data->floating_resonance = data->ctl_resonance * 256;
+-			}
+-			if( data->floating_volume / 256 > data->ctl_volume )
+-			{
+-			    data->floating_volume -= data->ctl_response * 256;
+-			    if( data->floating_volume / 256 < data->ctl_volume )
+-				data->floating_volume = data->ctl_volume * 256;
+-			}
+-			else
+-			if( data->floating_volume / 256 < data->ctl_volume )
+-			{
+-			    data->floating_volume += data->ctl_volume * 256;
+-			    if( data->floating_volume / 256 > data->ctl_volume )
+-				data->floating_volume = data->ctl_volume * 256;
+-			}
+-			data->tick_counter = 0;
+-		    }
+-		    if( ptr >= sample_frames ) break;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLOSE:
+-	    retval = 1;
+-	    break;
+-    }
+-
+-    return retval;
++			    if( data->ctl_mix < 256 )
++			    {
++				//Mix result with source:
++				int vol2 = ( data->floating_volume / 256 );
++				vol2 *= ( 256 - data->ctl_mix );
++				vol2 /= 256;
++				for( int i = ptr; i < ptr + buf_size; i++ )
++				{
++				    STYPE_CALC inp = in[ i ];
++				    inp *= vol2;
++				    inp /= 256;
++				    inp += out[ i ];
++				    out[ i ] = (STYPE)inp;
++				}
++			    }
++			    //...filter enabled end.
++			}
++
++			fchan->d1 = d1;
++			fchan->d2 = d2;
++			fchan->d3 = d3;
++		    }
++
++		    ptr += buf_size;
++		    data->tick_counter += buf_size;
++		    if( data->tick_counter >= tick_size ) 
++		    {
++			//Handle filter's tick:
++			if( data->floating_cutoff / 256 > data->ctl_cutoff_freq )
++			{
++			    data->floating_cutoff -= data->ctl_response * 14000;
++			    if( data->floating_cutoff / 256 < data->ctl_cutoff_freq )
++				data->floating_cutoff = data->ctl_cutoff_freq * 256;
++			}
++			else
++			if( data->floating_cutoff / 256 < data->ctl_cutoff_freq )
++			{
++			    data->floating_cutoff += data->ctl_response * 14000;
++			    if( data->floating_cutoff / 256 > data->ctl_cutoff_freq )
++				data->floating_cutoff = data->ctl_cutoff_freq * 256;
++			}
++			if( data->floating_resonance / 256 > data->ctl_resonance )
++			{
++			    data->floating_resonance -= data->ctl_response * 1530;
++			    if( data->floating_resonance / 256 < data->ctl_resonance )
++				data->floating_resonance = data->ctl_resonance * 256;
++			}
++			else
++			if( data->floating_resonance / 256 < data->ctl_resonance )
++			{
++			    data->floating_resonance += data->ctl_response * 1530;
++			    if( data->floating_resonance / 256 > data->ctl_resonance )
++				data->floating_resonance = data->ctl_resonance * 256;
++			}
++			if( data->floating_volume / 256 > data->ctl_volume )
++			{
++			    data->floating_volume -= data->ctl_response * 256;
++			    if( data->floating_volume / 256 < data->ctl_volume )
++				data->floating_volume = data->ctl_volume * 256;
++			}
++			else
++			if( data->floating_volume / 256 < data->ctl_volume )
++			{
++			    data->floating_volume += data->ctl_volume * 256;
++			    if( data->floating_volume / 256 > data->ctl_volume )
++				data->floating_volume = data->ctl_volume * 256;
++			}
++			data->tick_counter = 0;
++		    }
++		    if( ptr >= sample_frames ) break;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLOSE:
++	    retval = 1;
++	    break;
++    }
++
++    return retval;
+ }
+--- a/sunvox_engine/psynth/psynths_flanger.cpp
++++ b/sunvox_engine/psynth/psynths_flanger.cpp
+@@ -59,11 +59,11 @@
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Flanger";
++	    retval = atoi("Flanger");
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Flanger.\nMax delay is 1/64 second\n\nUse low \"response\" values\nfor smooth delay changing";
++	    retval = atoi("Flanger.\nMax delay is 1/64 second\n\nUse low \"response\" values\nfor smooth delay changing");
+ 	    break;
+ 
+ 	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+--- a/sunvox_engine/psynth/psynths_fm.cpp
++++ b/sunvox_engine/psynth/psynths_fm.cpp
+@@ -38,169 +38,169 @@
+ { \
+     resh = f / FM_SFREQ; \
+     resl = ( ( ( f % FM_SFREQ ) << 14 ) / FM_SFREQ ) << 2; /*Max sampling freq = 256 kHz*/ \
+-}
+-
+-struct gen_channel
+-{
+-    int	    playing;
+-    ulong   id;
+-    int	    vel;
+-    ulong   cptr;
+-    ulong   mptr;
+-    int	    c_env_ptr;
+-    int	    m_env_ptr;
+-    ulong   cdelta;
+-    int	    sustain;
+-    int	    note;
+-};
+-
+-enum {
+-    MODE_HQ = 0,
+-    MODE_HQ_MONO,
+-    MODE_LQ,
+-    MODE_LQ_MONO,
+-    MODES
+-};
+-
+-struct SYNTH_DATA
+-{
+-    //Controls: ############################################################
+-    CTYPE   ctl_cvolume;
+-    CTYPE   ctl_mvolume;
+-    CTYPE   ctl_pan;
+-    CTYPE   ctl_cmul;
+-    CTYPE   ctl_mmul;
+-    CTYPE   ctl_mfeedback;
+-    CTYPE   ctl_ca;
+-    CTYPE   ctl_cd;
+-    CTYPE   ctl_cs;
+-    CTYPE   ctl_cr;
+-    CTYPE   ctl_ma;
+-    CTYPE   ctl_md;
+-    CTYPE   ctl_ms;
+-    CTYPE   ctl_mr;
+-    CTYPE   ctl_mscaling;
+-    CTYPE   ctl_channels;
+-    CTYPE   ctl_mode;
+-    //Synth data: ##########################################################
+-    gen_channel   channels[ MAX_CHANNELS ];
+-    int	    search_ptr;
+-    ulong   *linear_tab;
+-    int16   *sin_tab;
+-    int16   *cvolume_table;
+-    int16   *mvolume_table;
+-    int	    cvolume_table_size;
+-    int	    mvolume_table_size;
+-    int	    tables_render_request;
+-    ulong   resample_ptr;
+-};
+-
+-void render_level( int16 *table, int x1, int y1, int x2, int y2 )
+-{
+-    int size = ( x2 - x1 );
+-    if( size == 0 ) size = 1;
+-    int delta = ( ( y2 - y1 ) << 16 ) / size;
+-    int cy = y1 << 16;
+-    for( int cx = x1; cx <= x2; cx++ )
+-    {
+-	table[ cx ] = (int16)( cy >> 16 );
+-	cy += delta;
+-    }
+-}
+-
+-void render_volume_tables( SYNTH_DATA *data )
+-{
+-    //Carrier:
+-    int x = data->ctl_ca;
+-    int y = FM_TABLE_AMP;
+-    render_level( data->cvolume_table, 0, 0, x, y );
+-    int x2 = x + data->ctl_cd;
+-    int y2 = data->ctl_cs * ( FM_TABLE_AMP / 256 );
+-    render_level( data->cvolume_table, x, y, x2, y2 );
+-    x = x2 + data->ctl_cr;
+-    y = 0;
+-    render_level( data->cvolume_table, x2, y2, x, y );
+-    data->cvolume_table_size = x;
+-
+-    //Modulator:
+-    x = data->ctl_ma;
+-    y = data->ctl_mvolume * ( FM_TABLE_AMP / 256 );
+-    render_level( data->mvolume_table, 0, 0, x, y );
+-    x2 = x + data->ctl_md;
+-    y2 = ( ( data->ctl_mvolume * data->ctl_ms ) / 256 ) * ( FM_TABLE_AMP / 256 );
+-    render_level( data->mvolume_table, x, y, x2, y2 );
+-    x = x2 + data->ctl_mr;
+-    y = 0;
+-    render_level( data->mvolume_table, x2, y2, x, y );
+-    data->mvolume_table_size = x;
+-}
+-
+-int SYNTH_HANDLER( 
+-    PSYTEXX_SYNTH_PARAMETERS
+-    )
+-{
+-    psynth_net *pnet = (psynth_net*)net;
+-    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
+-    int retval = 0;
+-    int i;
+-    int ch;
+-    ulong resample_delta;
+-    int resample_frames;
+-
+-    switch( command )
+-    {
+-	case COMMAND_GET_DATA_SIZE:
+-	    retval = sizeof( SYNTH_DATA );
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"FM";
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"FM Synthesizer.\n(Frequency Modulation)\n\"C\" - carrier\n\"M\" - modulator\nInternal sampling frequency: 44100 Hz";
+-	    break;
+-
+-	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+-	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
+-
+-	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_GENERATOR; break;
+-
+-	case COMMAND_INIT:
+-	    psynth_register_ctl( synth_id, "C.Volume", "", 0, 256, 128, 0, &data->ctl_cvolume, net );
+-	    psynth_register_ctl( synth_id, "M.Volume", "", 0, 256, 48, 0, &data->ctl_mvolume, net );
+-	    psynth_register_ctl( synth_id, "Panning", "", 0, 256, 128, 0, &data->ctl_pan, net );
+-	    psynth_register_ctl( synth_id, "C.Freq mul", "", 0, 16, 1, 0, &data->ctl_cmul, net );
+-	    psynth_register_ctl( synth_id, "M.Freq mul", "", 0, 16, 1, 0, &data->ctl_mmul, net );
+-	    psynth_register_ctl( synth_id, "M.Feedback", "", 0, 256, 0, 0, &data->ctl_mfeedback, net );
+-	    psynth_register_ctl( synth_id, "C.Attack", "", 0, 512, 32, 0, &data->ctl_ca, net );
+-	    psynth_register_ctl( synth_id, "C.Decay", "", 0, 512, 32, 0, &data->ctl_cd, net );
+-	    psynth_register_ctl( synth_id, "C.Sustain", "", 0, 256, 128, 0, &data->ctl_cs, net );
+-	    psynth_register_ctl( synth_id, "C.Release", "", 0, 512, 64, 0, &data->ctl_cr, net );
+-	    psynth_register_ctl( synth_id, "M.Attack", "", 0, 512, 32, 0, &data->ctl_ma, net );
+-	    psynth_register_ctl( synth_id, "M.Decay", "", 0, 512, 32, 0, &data->ctl_md, net );
+-	    psynth_register_ctl( synth_id, "M.Sustain", "", 0, 256, 128, 0, &data->ctl_ms, net );
+-	    psynth_register_ctl( synth_id, "M.Release", "", 0, 512, 64, 0, &data->ctl_mr, net );
+-	    psynth_register_ctl( synth_id, "M.Scaling", "", 0, 4, 0, 0, &data->ctl_mscaling, net );
+-	    psynth_register_ctl( synth_id, "Polyphony", "ch.", 1, MAX_CHANNELS, 4, 1, &data->ctl_channels, net );
+-	    psynth_register_ctl( synth_id, "Mode", "HQ/HQmono/LQ/LQmono", 0, MODES - 1, MODE_HQ, 1, &data->ctl_mode, net );
+-	    for( int c = 0; c < MAX_CHANNELS; c++ )
+-	    {
+-		data->channels[ c ].playing = 0;
+-		data->channels[ c ].cptr = 0;
+-		data->channels[ c ].mptr = 0;
+-		data->channels[ c ].c_env_ptr = 0;
+-		data->channels[ c ].m_env_ptr = 0;
+-		data->channels[ c ].sustain = 0;
+-	    }
+-	    data->search_ptr = 0;
+-	    data->linear_tab = g_linear_tab;
+-	    data->resample_ptr = 0;
+-	    data->cvolume_table = (int16*)MEM_NEW( HEAP_DYNAMIC, 1540 * sizeof( int16 ) );
+-	    data->mvolume_table = (int16*)MEM_NEW( HEAP_DYNAMIC, 1540 * sizeof( int16 ) );
+-	    data->cvolume_table_size = 0;
+-	    data->mvolume_table_size = 0;
+-	    data->tables_render_request = 1;
++}
++
++struct gen_channel
++{
++    int	    playing;
++    ulong   id;
++    int	    vel;
++    ulong   cptr;
++    ulong   mptr;
++    int	    c_env_ptr;
++    int	    m_env_ptr;
++    ulong   cdelta;
++    int	    sustain;
++    int	    note;
++};
++
++enum {
++    MODE_HQ = 0,
++    MODE_HQ_MONO,
++    MODE_LQ,
++    MODE_LQ_MONO,
++    MODES
++};
++
++struct SYNTH_DATA
++{
++    //Controls: ############################################################
++    CTYPE   ctl_cvolume;
++    CTYPE   ctl_mvolume;
++    CTYPE   ctl_pan;
++    CTYPE   ctl_cmul;
++    CTYPE   ctl_mmul;
++    CTYPE   ctl_mfeedback;
++    CTYPE   ctl_ca;
++    CTYPE   ctl_cd;
++    CTYPE   ctl_cs;
++    CTYPE   ctl_cr;
++    CTYPE   ctl_ma;
++    CTYPE   ctl_md;
++    CTYPE   ctl_ms;
++    CTYPE   ctl_mr;
++    CTYPE   ctl_mscaling;
++    CTYPE   ctl_channels;
++    CTYPE   ctl_mode;
++    //Synth data: ##########################################################
++    gen_channel   channels[ MAX_CHANNELS ];
++    int	    search_ptr;
++    ulong   *linear_tab;
++    int16   *sin_tab;
++    int16   *cvolume_table;
++    int16   *mvolume_table;
++    int	    cvolume_table_size;
++    int	    mvolume_table_size;
++    int	    tables_render_request;
++    ulong   resample_ptr;
++};
++
++void render_level( int16 *table, int x1, int y1, int x2, int y2 )
++{
++    int size = ( x2 - x1 );
++    if( size == 0 ) size = 1;
++    int delta = ( ( y2 - y1 ) << 16 ) / size;
++    int cy = y1 << 16;
++    for( int cx = x1; cx <= x2; cx++ )
++    {
++	table[ cx ] = (int16)( cy >> 16 );
++	cy += delta;
++    }
++}
++
++void render_volume_tables( SYNTH_DATA *data )
++{
++    //Carrier:
++    int x = data->ctl_ca;
++    int y = FM_TABLE_AMP;
++    render_level( data->cvolume_table, 0, 0, x, y );
++    int x2 = x + data->ctl_cd;
++    int y2 = data->ctl_cs * ( FM_TABLE_AMP / 256 );
++    render_level( data->cvolume_table, x, y, x2, y2 );
++    x = x2 + data->ctl_cr;
++    y = 0;
++    render_level( data->cvolume_table, x2, y2, x, y );
++    data->cvolume_table_size = x;
++
++    //Modulator:
++    x = data->ctl_ma;
++    y = data->ctl_mvolume * ( FM_TABLE_AMP / 256 );
++    render_level( data->mvolume_table, 0, 0, x, y );
++    x2 = x + data->ctl_md;
++    y2 = ( ( data->ctl_mvolume * data->ctl_ms ) / 256 ) * ( FM_TABLE_AMP / 256 );
++    render_level( data->mvolume_table, x, y, x2, y2 );
++    x = x2 + data->ctl_mr;
++    y = 0;
++    render_level( data->mvolume_table, x2, y2, x, y );
++    data->mvolume_table_size = x;
++}
++
++int SYNTH_HANDLER( 
++    PSYTEXX_SYNTH_PARAMETERS
++    )
++{
++    psynth_net *pnet = (psynth_net*)net;
++    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
++    int retval = 0;
++    int i;
++    int ch;
++    ulong resample_delta;
++    int resample_frames;
++
++    switch( command )
++    {
++	case COMMAND_GET_DATA_SIZE:
++	    retval = sizeof( SYNTH_DATA );
++	    break;
++
++	case COMMAND_GET_SYNTH_NAME:
++	    retval = atoi("FM");
++	    break;
++
++	case COMMAND_GET_SYNTH_INFO:
++	    retval = atoi("FM Synthesizer.\n(Frequency Modulation)\n\"C\" - carrier\n\"M\" - modulator\nInternal sampling frequency: 44100 Hz");
++	    break;
++
++	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
++	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++
++	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_GENERATOR; break;
++
++	case COMMAND_INIT:
++	    psynth_register_ctl( synth_id, "C.Volume", "", 0, 256, 128, 0, &data->ctl_cvolume, net );
++	    psynth_register_ctl( synth_id, "M.Volume", "", 0, 256, 48, 0, &data->ctl_mvolume, net );
++	    psynth_register_ctl( synth_id, "Panning", "", 0, 256, 128, 0, &data->ctl_pan, net );
++	    psynth_register_ctl( synth_id, "C.Freq mul", "", 0, 16, 1, 0, &data->ctl_cmul, net );
++	    psynth_register_ctl( synth_id, "M.Freq mul", "", 0, 16, 1, 0, &data->ctl_mmul, net );
++	    psynth_register_ctl( synth_id, "M.Feedback", "", 0, 256, 0, 0, &data->ctl_mfeedback, net );
++	    psynth_register_ctl( synth_id, "C.Attack", "", 0, 512, 32, 0, &data->ctl_ca, net );
++	    psynth_register_ctl( synth_id, "C.Decay", "", 0, 512, 32, 0, &data->ctl_cd, net );
++	    psynth_register_ctl( synth_id, "C.Sustain", "", 0, 256, 128, 0, &data->ctl_cs, net );
++	    psynth_register_ctl( synth_id, "C.Release", "", 0, 512, 64, 0, &data->ctl_cr, net );
++	    psynth_register_ctl( synth_id, "M.Attack", "", 0, 512, 32, 0, &data->ctl_ma, net );
++	    psynth_register_ctl( synth_id, "M.Decay", "", 0, 512, 32, 0, &data->ctl_md, net );
++	    psynth_register_ctl( synth_id, "M.Sustain", "", 0, 256, 128, 0, &data->ctl_ms, net );
++	    psynth_register_ctl( synth_id, "M.Release", "", 0, 512, 64, 0, &data->ctl_mr, net );
++	    psynth_register_ctl( synth_id, "M.Scaling", "", 0, 4, 0, 0, &data->ctl_mscaling, net );
++	    psynth_register_ctl( synth_id, "Polyphony", "ch.", 1, MAX_CHANNELS, 4, 1, &data->ctl_channels, net );
++	    psynth_register_ctl( synth_id, "Mode", "HQ/HQmono/LQ/LQmono", 0, MODES - 1, MODE_HQ, 1, &data->ctl_mode, net );
++	    for( int c = 0; c < MAX_CHANNELS; c++ )
++	    {
++		data->channels[ c ].playing = 0;
++		data->channels[ c ].cptr = 0;
++		data->channels[ c ].mptr = 0;
++		data->channels[ c ].c_env_ptr = 0;
++		data->channels[ c ].m_env_ptr = 0;
++		data->channels[ c ].sustain = 0;
++	    }
++	    data->search_ptr = 0;
++	    data->linear_tab = g_linear_tab;
++	    data->resample_ptr = 0;
++	    data->cvolume_table = (int16*)MEM_NEW( HEAP_DYNAMIC, 1540 * sizeof( int16 ) );
++	    data->mvolume_table = (int16*)MEM_NEW( HEAP_DYNAMIC, 1540 * sizeof( int16 ) );
++	    data->cvolume_table_size = 0;
++	    data->mvolume_table_size = 0;
++	    data->tables_render_request = 1;
+ 	    mem_off();
+ 	    data->sin_tab = (int16*)MEM_NEW( HEAP_STORAGE, FM_SINUS_SIZE * sizeof( int16 ) );
+ 	    {
+@@ -239,16 +239,16 @@
+ 	    retval = 1;
+ 	    break;
+ 
+-	case COMMAND_CLEAN:
+-	    for( int c = 0; c < MAX_CHANNELS; c++ )
+-	    {
+-		data->channels[ c ].playing = 0;
+-	    }
+-	    data->resample_ptr = 0;
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_RENDER_REPLACE:
++	case COMMAND_CLEAN:
++	    for( int c = 0; c < MAX_CHANNELS; c++ )
++	    {
++		data->channels[ c ].playing = 0;
++	    }
++	    data->resample_ptr = 0;
++	    retval = 1;
++	    break;
++
++	case COMMAND_RENDER_REPLACE:
+ 	    if( !outputs[ 0 ] ) break;
+ 	    //Check number of channels: ************************************************
+ 	    if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_LQ_MONO )
+@@ -268,69 +268,69 @@
+ #else
+ 	    resample_frames = sample_frames;
+ #endif
+-	    for( int c = 0; c < data->ctl_channels; c++ )
+-	    {
+-		if( data->channels[ c ].playing )
+-		{
+-		    gen_channel *chan = &data->channels[ c ];
+-		    ulong cdelta = chan->cdelta;
+-		    if( data->ctl_cmul > 0 )
+-			cdelta *= data->ctl_cmul;
+-		    else
+-			cdelta /= 2;
+-		    ulong mdelta;
+-		    if( data->ctl_mmul > 0 )
+-			mdelta = chan->cdelta * data->ctl_mmul;
+-		    else
+-			mdelta = chan->cdelta / 2;
+-		    ulong cptr;
+-		    ulong mptr;
+-		    int c_env_ptr;
+-		    int m_env_ptr;
+-		    int c_env_sustain_ptr = ( data->ctl_ca + data->ctl_cd ) * FM_ENV_STEP;
+-		    int m_env_sustain_ptr = ( data->ctl_ma + data->ctl_md ) * FM_ENV_STEP;
+-		    int mfeedback = data->ctl_mfeedback;
++	    for( int c = 0; c < data->ctl_channels; c++ )
++	    {
++		if( data->channels[ c ].playing )
++		{
++		    gen_channel *chan = &data->channels[ c ];
++		    ulong cdelta = chan->cdelta;
++		    if( data->ctl_cmul > 0 )
++			cdelta *= data->ctl_cmul;
++		    else
++			cdelta /= 2;
++		    ulong mdelta;
++		    if( data->ctl_mmul > 0 )
++			mdelta = chan->cdelta * data->ctl_mmul;
++		    else
++			mdelta = chan->cdelta / 2;
++		    ulong cptr;
++		    ulong mptr;
++		    int c_env_ptr;
++		    int m_env_ptr;
++		    int c_env_sustain_ptr = ( data->ctl_ca + data->ctl_cd ) * FM_ENV_STEP;
++		    int m_env_sustain_ptr = ( data->ctl_ma + data->ctl_md ) * FM_ENV_STEP;
++		    int mfeedback = data->ctl_mfeedback;
+ 		    int16 *sin_tab = data->sin_tab;
+-		    int16 *cvolume_table = data->cvolume_table;
+-		    int16 *mvolume_table = data->mvolume_table;
+-		    int cvolume_table_size = data->cvolume_table_size;
+-		    int mvolume_table_size = data->mvolume_table_size;
+-		    int ctl_mscaling = data->ctl_mscaling;
+-		    int mscaling;
+-		    for( i = 0; i < ctl_mscaling; i++ )
+-		    {
+-			if( i == 0 )
+-			    mscaling = 128 - chan->note;
+-			else
+-			    mscaling = ( mscaling * ( 128 - chan->note ) ) / 128;
+-		    }
+-		    int ctl_mode = data->ctl_mode;
+-		    int sustain;
+-		    int playing;
+-		    int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
++		    int16 *cvolume_table = data->cvolume_table;
++		    int16 *mvolume_table = data->mvolume_table;
++		    int cvolume_table_size = data->cvolume_table_size;
++		    int mvolume_table_size = data->mvolume_table_size;
++		    int ctl_mscaling = data->ctl_mscaling;
++		    int mscaling;
++		    for( i = 0; i < ctl_mscaling; i++ )
++		    {
++			if( i == 0 )
++			    mscaling = 128 - chan->note;
++			else
++			    mscaling = ( mscaling * ( 128 - chan->note ) ) / 128;
++		    }
++		    int ctl_mode = data->ctl_mode;
++		    int sustain;
++		    int playing;
++		    int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
+ 		    for( ch = 0; ch < outputs_num; ch++ )
+ 		    {
+ 			int cvol = ( data->ctl_cvolume * chan->vel ) >> 8;
+-			STYPE *in = inputs[ ch ];
+-			STYPE *out = outputs[ ch ];
+-        		cptr = chan->cptr;
+-        		mptr = chan->mptr;
+-			c_env_ptr = chan->c_env_ptr;
+-			m_env_ptr = chan->m_env_ptr;
+-			sustain = chan->sustain;
+-			playing = chan->playing;
+-			if( data->ctl_pan < 128 )
+-			{
+-			    if( ch == 1 ) { cvol *= data->ctl_pan; cvol >>= 7; }
+-			}
+-			else
+-			{
+-			    if( ch == 0 ) { cvol *= 128 - ( data->ctl_pan - 128 ); cvol >>= 7; }
+-			}
+-			for( i = 0; i < resample_frames; i++ )
+-			{
+-			    int cval;
+-			    int mvol;
++			STYPE *in = inputs[ ch ];
++			STYPE *out = outputs[ ch ];
++        		cptr = chan->cptr;
++        		mptr = chan->mptr;
++			c_env_ptr = chan->c_env_ptr;
++			m_env_ptr = chan->m_env_ptr;
++			sustain = chan->sustain;
++			playing = chan->playing;
++			if( data->ctl_pan < 128 )
++			{
++			    if( ch == 1 ) { cvol *= data->ctl_pan; cvol >>= 7; }
++			}
++			else
++			{
++			    if( ch == 0 ) { cvol *= 128 - ( data->ctl_pan - 128 ); cvol >>= 7; }
++			}
++			for( i = 0; i < resample_frames; i++ )
++			{
++			    int cval;
++			    int mvol;
+ 			    if( ctl_mode < MODE_LQ )
+ 			    {
+ 				int coef = m_env_ptr & ( FM_ENV_STEP - 1 );
+@@ -370,184 +370,184 @@
+ 					( FM_ENV_STEP - coef ) * cvolume_table[ c_env_ptr / FM_ENV_STEP ] ) / FM_ENV_STEP;
+ 				cval /= FM_TABLE_AMP;
+ 			    }
+-			    else
+-			    {
+-				cval *= cvolume_table[ c_env_ptr / FM_ENV_STEP ];
+-				cval /= FM_TABLE_AMP;
+-			    }
+-			    STYPE_CALC out_val;
+-			    INT16_TO_STYPE( out_val, cval );
+-			    if( retval ) 
+-				out[ i ] += out_val;
+-			    else
+-				out[ i ] = out_val;
+-			    cptr += cdelta;
+-			    mptr += mdelta;
+-			    c_env_ptr++;
+-			    m_env_ptr++;
+-			    if( sustain )
+-			    {
+-				if( c_env_ptr > c_env_sustain_ptr )
+-				    c_env_ptr = c_env_sustain_ptr;
+-				if( m_env_ptr > m_env_sustain_ptr )
+-				    m_env_ptr = m_env_sustain_ptr;
+-			    }
+-			    else
+-			    {
+-				if( c_env_ptr >= cvolume_table_size * FM_ENV_STEP )
+-				{
+-				    playing = 0;
+-				    break;
+-				}
+-				if( m_env_ptr >= mvolume_table_size * FM_ENV_STEP )
+-				    m_env_ptr = ( mvolume_table_size - 1 ) * FM_ENV_STEP;
+-			    }
+-			}
+-			if( playing == 0 && retval == 0 )
+-			{
+-			    for( i; i < resample_frames; i++ ) out[ i ] = 0;
+-			}
+-		    }
+-		    chan->cptr = cptr;
+-		    chan->mptr = mptr;
+-		    chan->c_env_ptr = c_env_ptr;
+-		    chan->m_env_ptr = m_env_ptr;
+-		    chan->sustain = sustain;
+-		    chan->playing = playing;
+-		    retval = 1;
+-		}
+-	    }
+-#ifndef ONLY44100
+-	    data->resample_ptr += sample_frames * resample_delta;
+-	    if( retval && resample_frames != sample_frames )
+-	    {
+-		for( ch = 0; ch < SYNTH_OUTPUTS; ch++ )
+-		{
+-		    STYPE *out = outputs[ ch ];
+-		    int rp = 0;
+-		    int rp_delta = ( resample_frames << 15 ) / sample_frames;
+-		    rp = rp_delta * sample_frames;
+-    	    	    for( i = sample_frames - 1; i >= 0; i-- )
+-		    {
+-			rp -= rp_delta;
+-			if( rp < 0 ) rp = 0;
+-			int rp2 = rp >> 15;
+-			int v = rp & 32767;
+-			if( rp2 >= resample_frames - 1 )
+-			{
+-			    out[ i ] = out[ rp2 ];
+-			}
+-			else
+-			{
+-			    STYPE_CALC res = ( v * out[ rp2 + 1 ] + (32767-v) * out[ rp2 ] ) / 32768;
+-			    out[ i ] = res;
+-			}
+-		    }
+-		}
+-	    }
+-#endif
+-	    break;
+-
+-	case COMMAND_NOTE_ON:
+-	    {
+-		int c;
+-		for( c = 0; c < data->ctl_channels; c++ )
+-		{
+-		    if( data->channels[ data->search_ptr ].playing == 0 ) break;
+-		    data->search_ptr++;
+-		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
+-		}
+-		if( c == data->ctl_channels )
+-		{
+-		    //Channel not found:
+-		    data->search_ptr++;
+-		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
+-		}
+-
+-		ulong delta_h, delta_l;
+-		int freq;
+-		GET_FREQ( freq, pnet->period_ptr / 4 );
+-		GET_DELTA( freq, delta_h, delta_l );
+-
+-		c = data->search_ptr;
+-		data->channels[ c ].playing = 1;
+-		data->channels[ c ].vel = pnet->velocity;
+-		data->channels[ c ].cdelta = delta_l | ( delta_h << 16 );
+-		data->channels[ c ].cptr = 0;
+-		data->channels[ c ].mptr = 0;
+-		data->channels[ c ].c_env_ptr = 0;
+-		data->channels[ c ].m_env_ptr = 0;
+-		data->channels[ c ].id = pnet->channel_id;
+-		data->channels[ c ].note = pnet->note;
+-		data->channels[ c ].sustain = 1;
+-		
+-		retval = c;
+-	    }
+-	    break;
+-
+-    	case COMMAND_SET_FREQ:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    ulong delta_h, delta_l;
+-		    int freq;
+-		    GET_FREQ( freq, pnet->period_ptr / 4 );
+-		    GET_DELTA( freq, delta_h, delta_l );
+-
+-		    data->channels[ c ].cdelta = delta_l | ( delta_h << 16 );
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-    	case COMMAND_SET_VELOCITY:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    data->channels[ c ].vel = pnet->velocity;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_NOTE_OFF:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    data->channels[ c ].sustain = 0;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_ALL_NOTES_OFF:
+-	    for( int c = 0; c < MAX_CHANNELS; c++ )
+-	    {
+-		data->channels[ c ].sustain = 0;
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_SET_GLOBAL_CONTROLLER:
+-	case COMMAND_SET_LOCAL_CONTROLLER:
+-	    data->tables_render_request = 1;
+-	    break;
+-
+-	case COMMAND_CLOSE:
+-	    mem_off();
+-	    mem_free( data->sin_tab );
+-	    mem_on();
+-	    mem_free( data->cvolume_table );
+-	    mem_free( data->mvolume_table );
+-	    retval = 1;
+-	    break;
+-    }
+-
+-    return retval;
+-}
++			    else
++			    {
++				cval *= cvolume_table[ c_env_ptr / FM_ENV_STEP ];
++				cval /= FM_TABLE_AMP;
++			    }
++			    STYPE_CALC out_val;
++			    INT16_TO_STYPE( out_val, cval );
++			    if( retval ) 
++				out[ i ] += out_val;
++			    else
++				out[ i ] = out_val;
++			    cptr += cdelta;
++			    mptr += mdelta;
++			    c_env_ptr++;
++			    m_env_ptr++;
++			    if( sustain )
++			    {
++				if( c_env_ptr > c_env_sustain_ptr )
++				    c_env_ptr = c_env_sustain_ptr;
++				if( m_env_ptr > m_env_sustain_ptr )
++				    m_env_ptr = m_env_sustain_ptr;
++			    }
++			    else
++			    {
++				if( c_env_ptr >= cvolume_table_size * FM_ENV_STEP )
++				{
++				    playing = 0;
++				    break;
++				}
++				if( m_env_ptr >= mvolume_table_size * FM_ENV_STEP )
++				    m_env_ptr = ( mvolume_table_size - 1 ) * FM_ENV_STEP;
++			    }
++			}
++			if( playing == 0 && retval == 0 )
++			{
++			    for( i; i < resample_frames; i++ ) out[ i ] = 0;
++			}
++		    }
++		    chan->cptr = cptr;
++		    chan->mptr = mptr;
++		    chan->c_env_ptr = c_env_ptr;
++		    chan->m_env_ptr = m_env_ptr;
++		    chan->sustain = sustain;
++		    chan->playing = playing;
++		    retval = 1;
++		}
++	    }
++#ifndef ONLY44100
++	    data->resample_ptr += sample_frames * resample_delta;
++	    if( retval && resample_frames != sample_frames )
++	    {
++		for( ch = 0; ch < SYNTH_OUTPUTS; ch++ )
++		{
++		    STYPE *out = outputs[ ch ];
++		    int rp = 0;
++		    int rp_delta = ( resample_frames << 15 ) / sample_frames;
++		    rp = rp_delta * sample_frames;
++    	    	    for( i = sample_frames - 1; i >= 0; i-- )
++		    {
++			rp -= rp_delta;
++			if( rp < 0 ) rp = 0;
++			int rp2 = rp >> 15;
++			int v = rp & 32767;
++			if( rp2 >= resample_frames - 1 )
++			{
++			    out[ i ] = out[ rp2 ];
++			}
++			else
++			{
++			    STYPE_CALC res = ( v * out[ rp2 + 1 ] + (32767-v) * out[ rp2 ] ) / 32768;
++			    out[ i ] = res;
++			}
++		    }
++		}
++	    }
++#endif
++	    break;
++
++	case COMMAND_NOTE_ON:
++	    {
++		int c;
++		for( c = 0; c < data->ctl_channels; c++ )
++		{
++		    if( data->channels[ data->search_ptr ].playing == 0 ) break;
++		    data->search_ptr++;
++		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
++		}
++		if( c == data->ctl_channels )
++		{
++		    //Channel not found:
++		    data->search_ptr++;
++		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
++		}
++
++		ulong delta_h, delta_l;
++		int freq;
++		GET_FREQ( freq, pnet->period_ptr / 4 );
++		GET_DELTA( freq, delta_h, delta_l );
++
++		c = data->search_ptr;
++		data->channels[ c ].playing = 1;
++		data->channels[ c ].vel = pnet->velocity;
++		data->channels[ c ].cdelta = delta_l | ( delta_h << 16 );
++		data->channels[ c ].cptr = 0;
++		data->channels[ c ].mptr = 0;
++		data->channels[ c ].c_env_ptr = 0;
++		data->channels[ c ].m_env_ptr = 0;
++		data->channels[ c ].id = pnet->channel_id;
++		data->channels[ c ].note = pnet->note;
++		data->channels[ c ].sustain = 1;
++		
++		retval = c;
++	    }
++	    break;
++
++    	case COMMAND_SET_FREQ:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    ulong delta_h, delta_l;
++		    int freq;
++		    GET_FREQ( freq, pnet->period_ptr / 4 );
++		    GET_DELTA( freq, delta_h, delta_l );
++
++		    data->channels[ c ].cdelta = delta_l | ( delta_h << 16 );
++		}
++	    }
++	    retval = 1;
++	    break;
++
++    	case COMMAND_SET_VELOCITY:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    data->channels[ c ].vel = pnet->velocity;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_NOTE_OFF:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    data->channels[ c ].sustain = 0;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_ALL_NOTES_OFF:
++	    for( int c = 0; c < MAX_CHANNELS; c++ )
++	    {
++		data->channels[ c ].sustain = 0;
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_SET_GLOBAL_CONTROLLER:
++	case COMMAND_SET_LOCAL_CONTROLLER:
++	    data->tables_render_request = 1;
++	    break;
++
++	case COMMAND_CLOSE:
++	    mem_off();
++	    mem_free( data->sin_tab );
++	    mem_on();
++	    mem_free( data->cvolume_table );
++	    mem_free( data->mvolume_table );
++	    retval = 1;
++	    break;
++    }
++
++    return retval;
++}
+--- a/sunvox_engine/psynth/psynths_generator.cpp
++++ b/sunvox_engine/psynth/psynths_generator.cpp
+@@ -58,24 +58,24 @@
+ 
+ struct SYNTH_DATA
+ {
+-    //Controls: ############################################################
+-    CTYPE   ctl_volume;
+-    CTYPE   ctl_type;
+-    CTYPE   ctl_pan;
+-    CTYPE   ctl_attack;
+-    CTYPE   ctl_release;
+-    CTYPE   ctl_channels;
+-    CTYPE   ctl_mode;
+-    CTYPE   ctl_sustain;
++    //Controls: ############################################################
++    CTYPE   ctl_volume;
++    CTYPE   ctl_type;
++    CTYPE   ctl_pan;
++    CTYPE   ctl_attack;
++    CTYPE   ctl_release;
++    CTYPE   ctl_channels;
++    CTYPE   ctl_mode;
++    CTYPE   ctl_sustain;
+     CTYPE   ctl_mod;
+-    //Synth data: ##########################################################
+-    gen_channel   channels[ MAX_CHANNELS ];
+-    signed char    *noise_data;
+-    signed char    dirty_wave[ 32 ];
+-    int	    search_ptr;
+-    int	    wrong_saw_generation;
+-    ulong   *linear_tab;
+-};
++    //Synth data: ##########################################################
++    gen_channel   channels[ MAX_CHANNELS ];
++    signed char    *noise_data;
++    signed char    dirty_wave[ 32 ];
++    int	    search_ptr;
++    int	    wrong_saw_generation;
++    ulong   *linear_tab;
++};
+ 
+ #define SVOX_PREC (long)16	    //sample pointer (fixed point) precision
+ #define SIGNED_SUB64( v1, v1_p, v2, v2_p ) \
+@@ -83,7 +83,7 @@
+ if( v1_p < 0 ) { v1--; v1_p += ( (long)1 << SVOX_PREC ); } }
+ #define SIGNED_ADD64( v1, v1_p, v2, v2_p ) \
+ { v1 += v2; v1_p += v2_p; \
+-if( v1_p > ( (long)1 << SVOX_PREC ) - 1 ) { v1++; v1_p -= ( (long)1 << SVOX_PREC ); } }
++if( v1_p > ( (long)1 << SVOX_PREC ) - 1 ) { v1++; v1_p -= ( (long)1 << SVOX_PREC ); } }
+ #define UNSIGNED_MUL64( v1, v1_p, v2_p ) \
+ { \
+     v1 *= ( v2_p ); \
+@@ -157,114 +157,114 @@
+     out[ i ] += val; \
+     SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+ 
+-int SYNTH_HANDLER( 
+-    PSYTEXX_SYNTH_PARAMETERS
+-    )
+-{
+-    psynth_net *pnet = (psynth_net*)net;
+-    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
+-    int retval = 0;
+-    int i;
+-    int ch;
+-
+-    switch( command )
+-    {
+-	case COMMAND_GET_DATA_SIZE:
+-	    retval = sizeof( SYNTH_DATA );
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Generator";
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Universal generator.\n\nAvailable local controllers:\n * Type\n * Pan";
+-	    break;
+-
+-	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+-	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
+-
++int SYNTH_HANDLER( 
++    PSYTEXX_SYNTH_PARAMETERS
++    )
++{
++    psynth_net *pnet = (psynth_net*)net;
++    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
++    int retval = 0;
++    int i;
++    int ch;
++
++    switch( command )
++    {
++	case COMMAND_GET_DATA_SIZE:
++	    retval = sizeof( SYNTH_DATA );
++	    break;
++
++	case COMMAND_GET_SYNTH_NAME:
++	    retval = atoi("Generator");
++	    break;
++
++	case COMMAND_GET_SYNTH_INFO:
++	    retval = atoi("Universal generator.\n\nAvailable local controllers:\n * Type\n * Pan");
++	    break;
++
++	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
++	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++
+ 	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_GENERATOR | PSYNTH_FLAG_EFFECT; break;
+ 
+ 	case COMMAND_INIT:
+-	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 128, 0, &data->ctl_volume, net );
+-	    psynth_register_ctl( synth_id, "Type", "tri/saw/rect/noise/dirty", 0, 4, 0, 1, &data->ctl_type, net );
+-	    psynth_register_ctl( synth_id, "Panning", "", 0, 256, 128, 0, &data->ctl_pan, net );
+-	    psynth_register_ctl( synth_id, "Attack", "", 0, 512, 0, 0, &data->ctl_attack, net );
+-	    psynth_register_ctl( synth_id, "Release", "", 0, 512, 0, 0, &data->ctl_release, net );
+-	    psynth_register_ctl( synth_id, "Polyphony", "ch.", 1, MAX_CHANNELS, 8, 1, &data->ctl_channels, net );
+-	    psynth_register_ctl( synth_id, "Mode", "HQ/HQmono", 0, MODES - 1, MODE_HQ, 1, &data->ctl_mode, net );
+-	    psynth_register_ctl( synth_id, "Sustain", "off/on", 0, 1, 1, 1, &data->ctl_sustain, net );
++	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 128, 0, &data->ctl_volume, net );
++	    psynth_register_ctl( synth_id, "Type", "tri/saw/rect/noise/dirty", 0, 4, 0, 1, &data->ctl_type, net );
++	    psynth_register_ctl( synth_id, "Panning", "", 0, 256, 128, 0, &data->ctl_pan, net );
++	    psynth_register_ctl( synth_id, "Attack", "", 0, 512, 0, 0, &data->ctl_attack, net );
++	    psynth_register_ctl( synth_id, "Release", "", 0, 512, 0, 0, &data->ctl_release, net );
++	    psynth_register_ctl( synth_id, "Polyphony", "ch.", 1, MAX_CHANNELS, 8, 1, &data->ctl_channels, net );
++	    psynth_register_ctl( synth_id, "Mode", "HQ/HQmono", 0, MODES - 1, MODE_HQ, 1, &data->ctl_mode, net );
++	    psynth_register_ctl( synth_id, "Sustain", "off/on", 0, 1, 1, 1, &data->ctl_sustain, net );
+ 	    psynth_register_ctl( synth_id, "P.Modulation", "", 0, 256, 0, 0, &data->ctl_mod, net );
+ 	    for( int c = 0; c < MAX_CHANNELS; c++ )
+ 	    {
+ 		data->channels[ c ].playing = 0;
+-		data->channels[ c ].ptr_l = 0;
+-		data->channels[ c ].ptr_h = 0;
+-		data->channels[ c ].env_vol = 0;
+-		data->channels[ c ].sustain = 0;
+-	    }
+-#ifdef LOWMEM
+-	    if( g_noise_data_users_counter == 0 )
+-	    {
+-		data->noise_data = (signed char*)MEM_NEW( HEAP_DYNAMIC, 32768 );
+-		for( int s = 0; s < 32768; s++ )
+-		{
+-		    data->noise_data[ s ] = (signed char)( (int)pseudo_random() - 32768 / 2 );
+-		}
+-		g_noise_data = data->noise_data;
+-	    }
+-	    else
+-	    {
+-		data->noise_data = g_noise_data;
+-	    }
+-	    g_noise_data_users_counter++;
+-#else
+-	    data->noise_data = (signed char*)MEM_NEW( HEAP_DYNAMIC, 32768 );
+-	    for( int s = 0; s < 32768; s++ )
+-	    {
+-		data->noise_data[ s ] = (signed char)( (int)pseudo_random() - 32768 / 2 );
+-	    }
+-#endif
+-	    data->dirty_wave[ 0 ] = 0;
+-	    data->dirty_wave[ 1 ] = -100;
+-	    data->dirty_wave[ 2 ] = -90;
+-	    data->dirty_wave[ 3 ] = 0;
+-	    data->dirty_wave[ 4 ] = 90;
+-	    data->dirty_wave[ 5 ] = -119;
+-	    data->dirty_wave[ 6 ] = -20;
+-	    data->dirty_wave[ 7 ] = 45;
+-	    data->dirty_wave[ 8 ] = 2;
+-	    data->dirty_wave[ 9 ] = -20;
+-	    data->dirty_wave[ 10 ] = 111;
+-	    data->dirty_wave[ 11 ] = -23;
+-	    data->dirty_wave[ 12 ] = 2;
+-	    data->dirty_wave[ 13 ] = -98;
+-	    data->dirty_wave[ 14 ] = 60;
+-	    data->dirty_wave[ 15 ] = 32;
+-	    data->dirty_wave[ 16 ] = 100;
+-	    data->dirty_wave[ 17 ] = 50;
+-	    data->dirty_wave[ 18 ] = 0;
+-	    data->dirty_wave[ 19 ] = -50;
+-	    data->dirty_wave[ 20 ] = 65;
+-	    data->dirty_wave[ 21 ] = 98;
+-	    data->dirty_wave[ 22 ] = 50;
+-	    data->dirty_wave[ 23 ] = 32;
+-	    data->dirty_wave[ 24 ] = -90;
+-	    data->dirty_wave[ 25 ] = -120;
+-	    data->dirty_wave[ 26 ] = 100;
+-	    data->dirty_wave[ 27 ] = 90;
+-	    data->dirty_wave[ 28 ] = 59;
+-	    data->dirty_wave[ 29 ] = 21;
+-	    data->dirty_wave[ 30 ] = 0;
+-	    data->dirty_wave[ 31 ] = 54;
+-	    data->search_ptr = 0;
+-	    data->wrong_saw_generation = 0;
+-	    data->linear_tab = g_linear_tab;
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_RENDER_REPLACE:
++		data->channels[ c ].ptr_l = 0;
++		data->channels[ c ].ptr_h = 0;
++		data->channels[ c ].env_vol = 0;
++		data->channels[ c ].sustain = 0;
++	    }
++#ifdef LOWMEM
++	    if( g_noise_data_users_counter == 0 )
++	    {
++		data->noise_data = (signed char*)MEM_NEW( HEAP_DYNAMIC, 32768 );
++		for( int s = 0; s < 32768; s++ )
++		{
++		    data->noise_data[ s ] = (signed char)( (int)pseudo_random() - 32768 / 2 );
++		}
++		g_noise_data = data->noise_data;
++	    }
++	    else
++	    {
++		data->noise_data = g_noise_data;
++	    }
++	    g_noise_data_users_counter++;
++#else
++	    data->noise_data = (signed char*)MEM_NEW( HEAP_DYNAMIC, 32768 );
++	    for( int s = 0; s < 32768; s++ )
++	    {
++		data->noise_data[ s ] = (signed char)( (int)pseudo_random() - 32768 / 2 );
++	    }
++#endif
++	    data->dirty_wave[ 0 ] = 0;
++	    data->dirty_wave[ 1 ] = -100;
++	    data->dirty_wave[ 2 ] = -90;
++	    data->dirty_wave[ 3 ] = 0;
++	    data->dirty_wave[ 4 ] = 90;
++	    data->dirty_wave[ 5 ] = -119;
++	    data->dirty_wave[ 6 ] = -20;
++	    data->dirty_wave[ 7 ] = 45;
++	    data->dirty_wave[ 8 ] = 2;
++	    data->dirty_wave[ 9 ] = -20;
++	    data->dirty_wave[ 10 ] = 111;
++	    data->dirty_wave[ 11 ] = -23;
++	    data->dirty_wave[ 12 ] = 2;
++	    data->dirty_wave[ 13 ] = -98;
++	    data->dirty_wave[ 14 ] = 60;
++	    data->dirty_wave[ 15 ] = 32;
++	    data->dirty_wave[ 16 ] = 100;
++	    data->dirty_wave[ 17 ] = 50;
++	    data->dirty_wave[ 18 ] = 0;
++	    data->dirty_wave[ 19 ] = -50;
++	    data->dirty_wave[ 20 ] = 65;
++	    data->dirty_wave[ 21 ] = 98;
++	    data->dirty_wave[ 22 ] = 50;
++	    data->dirty_wave[ 23 ] = 32;
++	    data->dirty_wave[ 24 ] = -90;
++	    data->dirty_wave[ 25 ] = -120;
++	    data->dirty_wave[ 26 ] = 100;
++	    data->dirty_wave[ 27 ] = 90;
++	    data->dirty_wave[ 28 ] = 59;
++	    data->dirty_wave[ 29 ] = 21;
++	    data->dirty_wave[ 30 ] = 0;
++	    data->dirty_wave[ 31 ] = 54;
++	    data->search_ptr = 0;
++	    data->wrong_saw_generation = 0;
++	    data->linear_tab = g_linear_tab;
++	    retval = 1;
++	    break;
++
++	case COMMAND_RENDER_REPLACE:
+ 	    if( !outputs[ 0 ] ) break;
+ 
+ 	    if( data->ctl_mode == MODE_HQ_MONO )
+@@ -272,30 +272,30 @@
+ 	    else
+ 		psynth_set_number_of_outputs( SYNTH_OUTPUTS, synth_id, pnet );
+ 
+-	    for( int c = 0; c < data->ctl_channels; c++ )
+-	    {
+-		if( data->channels[ c ].playing )
+-		{
+-		    int attack_len = ( pnet->sampling_freq * data->ctl_attack ) / 256;
+-		    int release_len = ( pnet->sampling_freq * data->ctl_release ) / 256;
+-		    
+-		    attack_len /= 1024;
+-		    int attack_delta = 1 << 30;
+-		    if( attack_len != 0 ) attack_delta = ( 1 << 20 ) / attack_len;
+-
+-		    release_len /= 1024;
+-		    int release_delta = 1 << 30;
+-		    if( release_len != 0 ) release_delta = ( 1 << 20 ) / release_len;
+-		    
+-		    gen_channel *chan = &data->channels[ c ];
+-		    ulong delta_h = chan->delta_h;
+-		    ulong delta_l = chan->delta_l;
+-		    int sustain = chan->sustain;
+-		    int ptr_h = 0;
+-		    int ptr_l = 0;
+-		    int playing = 0;
+-		    int sustain_enabled = data->ctl_sustain;
+-		    ulong env_vol = 0;
++	    for( int c = 0; c < data->ctl_channels; c++ )
++	    {
++		if( data->channels[ c ].playing )
++		{
++		    int attack_len = ( pnet->sampling_freq * data->ctl_attack ) / 256;
++		    int release_len = ( pnet->sampling_freq * data->ctl_release ) / 256;
++		    
++		    attack_len /= 1024;
++		    int attack_delta = 1 << 30;
++		    if( attack_len != 0 ) attack_delta = ( 1 << 20 ) / attack_len;
++
++		    release_len /= 1024;
++		    int release_delta = 1 << 30;
++		    if( release_len != 0 ) release_delta = ( 1 << 20 ) / release_len;
++		    
++		    gen_channel *chan = &data->channels[ c ];
++		    ulong delta_h = chan->delta_h;
++		    ulong delta_l = chan->delta_l;
++		    int sustain = chan->sustain;
++		    int ptr_h = 0;
++		    int ptr_l = 0;
++		    int playing = 0;
++		    int sustain_enabled = data->ctl_sustain;
++		    ulong env_vol = 0;
+ 
+ 		    int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
+ 		    for( ch = 0; ch < outputs_num; ch++ )
+@@ -426,371 +426,371 @@
+ 				else
+ 				switch( local_type )
+ 				{
+-				    case 0: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_TRIANGLE; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_TRIANGLE; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
+-				    case 1: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
+-				    case 2: for( i = 0; i < sample_frames; i++ ) { GET_VAL_RECTANGLE; LAST_PART_REPLACE2 } break;
+-				    case 3: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_NOISE; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_NOISE; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
+-				    case 4: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_DIRTY; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_DIRTY; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
+-				    case 8: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW2; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW2; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
++				    case 0: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_TRIANGLE; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_TRIANGLE; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
++				    case 1: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
++				    case 2: for( i = 0; i < sample_frames; i++ ) { GET_VAL_RECTANGLE; LAST_PART_REPLACE2 } break;
++				    case 3: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_NOISE; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_NOISE; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
++				    case 4: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_DIRTY; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_DIRTY; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
++				    case 8: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW2; LAST_PART_REPLACE2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW2; APPLY_VOLUME; LAST_PART_REPLACE2; } break;
++				}
++			    }
++			    else
++			    {
++				switch( local_type )
++				{
++				    case 0:
++				    //Triangle:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_TRIANGLE;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_TRIANGLE;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    break;
++
++				    case 1:
++				    //Saw:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_SAW;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_SAW;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    break;
++
++				    case 2:
++				    //Rectangle:
++				    for( i = 0; i < sample_frames; i++ )
++				    {
++					GET_VAL_RECTANGLE;
++					APPLY_ENV_VOLUME;
++					LAST_PART_REPLACE;
++				    }
++				    break;
++
++				    case 3:
++				    //Noise:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_NOISE;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_NOISE;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    break;
++
++				    case 4:
++				    //Dirty:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_DIRTY;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_DIRTY;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    break;
++
++				    case 8:
++				    //Saw:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_SAW2;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_SAW2;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_REPLACE; }
++				    break;
++				}
++			    }
++			}
++			else
++			{
++			    if( data->ctl_attack == 0 && data->ctl_release == 0 )
++			    {
++				if( sustain == 0 ) { playing = 0; }
++				else
++				switch( local_type )
++				{
++				    case 0: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_TRIANGLE; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_TRIANGLE; APPLY_VOLUME; LAST_PART_ADD2; } break;
++				    case 1: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW; APPLY_VOLUME; LAST_PART_ADD2; } break;
++				    case 2: for( i = 0; i < sample_frames; i++ ) { GET_VAL_RECTANGLE; LAST_PART_ADD2 } break;
++				    case 3: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_NOISE; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_NOISE; APPLY_VOLUME; LAST_PART_ADD2; } break;
++				    case 4: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_DIRTY; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_DIRTY; APPLY_VOLUME; LAST_PART_ADD2; } break;
++				    case 8: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW2; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW2; APPLY_VOLUME; LAST_PART_ADD2; } break;
+ 				}
+ 			    }
+ 			    else
+ 			    {
+-				switch( local_type )
+-				{
+-				    case 0:
+-				    //Triangle:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_TRIANGLE;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_TRIANGLE;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    break;
+-
+-				    case 1:
+-				    //Saw:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_SAW;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_SAW;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    break;
+-
+-				    case 2:
+-				    //Rectangle:
+-				    for( i = 0; i < sample_frames; i++ )
+-				    {
+-					GET_VAL_RECTANGLE;
+-					APPLY_ENV_VOLUME;
+-					LAST_PART_REPLACE;
+-				    }
+-				    break;
+-
+-				    case 3:
+-				    //Noise:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_NOISE;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_NOISE;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    break;
+-
+-				    case 4:
+-				    //Dirty:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_DIRTY;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_DIRTY;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    break;
+-
+-				    case 8:
+-				    //Saw:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_SAW2;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_SAW2;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_REPLACE; }
+-				    break;
+-				}
+-			    }
+-			}
+-			else
+-			{
+-			    if( data->ctl_attack == 0 && data->ctl_release == 0 )
+-			    {
+-				if( sustain == 0 ) { playing = 0; }
+-				else
+-				switch( local_type )
+-				{
+-				    case 0: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_TRIANGLE; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_TRIANGLE; APPLY_VOLUME; LAST_PART_ADD2; } break;
+-				    case 1: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW; APPLY_VOLUME; LAST_PART_ADD2; } break;
+-				    case 2: for( i = 0; i < sample_frames; i++ ) { GET_VAL_RECTANGLE; LAST_PART_ADD2 } break;
+-				    case 3: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_NOISE; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_NOISE; APPLY_VOLUME; LAST_PART_ADD2; } break;
+-				    case 4: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_DIRTY; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_DIRTY; APPLY_VOLUME; LAST_PART_ADD2; } break;
+-				    case 8: if( vol == 256 ) for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW2; LAST_PART_ADD2 } else for( i = 0; i < sample_frames; i++ ) { GET_VAL_SAW2; APPLY_VOLUME; LAST_PART_ADD2; } break;
+-				}
+-			    }
+-			    else
+-			    {
+-				switch( local_type )
+-				{
+-				    case 0:
+-				    //Triangle:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_TRIANGLE;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_TRIANGLE;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
+-				    break;
+-
+-				    case 1:
+-				    //Saw:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_SAW;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_SAW;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
+-				    break;
+-
+-				    case 2:
+-				    //Rectangle:
+-				    for( i = 0; i < sample_frames; i++ )
+-				    {
+-					GET_VAL_RECTANGLE;
+-					APPLY_ENV_VOLUME;
+-					LAST_PART_ADD;
+-				    }
+-				    break;
+-
+-				    case 3:
+-				    //Noise:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_NOISE;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_NOISE;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
+-				    break;
+-
+-				    case 4:	    
+-				    //Dirty:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_DIRTY;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_DIRTY;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
+-				    break;
+-
+-				    case 8:
+-				    //Saw:
+-				    if( vol == 256 )
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_SAW2;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
+-				    else
+-					for( i = 0; i < sample_frames; i++ ) {
+-					    GET_VAL_SAW2;
+-					    APPLY_VOLUME;
+-					    APPLY_ENV_VOLUME;
+-					    LAST_PART_ADD; }
++				switch( local_type )
++				{
++				    case 0:
++				    //Triangle:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_TRIANGLE;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_TRIANGLE;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
++				    break;
++
++				    case 1:
++				    //Saw:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_SAW;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_SAW;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
++				    break;
++
++				    case 2:
++				    //Rectangle:
++				    for( i = 0; i < sample_frames; i++ )
++				    {
++					GET_VAL_RECTANGLE;
++					APPLY_ENV_VOLUME;
++					LAST_PART_ADD;
++				    }
++				    break;
++
++				    case 3:
++				    //Noise:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_NOISE;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_NOISE;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
++				    break;
++
++				    case 4:	    
++				    //Dirty:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_DIRTY;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_DIRTY;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
++				    break;
++
++				    case 8:
++				    //Saw:
++				    if( vol == 256 )
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_SAW2;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
++				    else
++					for( i = 0; i < sample_frames; i++ ) {
++					    GET_VAL_SAW2;
++					    APPLY_VOLUME;
++					    APPLY_ENV_VOLUME;
++					    LAST_PART_ADD; }
+ 				    break;
+ 				}
+ 			    }
+ 			}
+ 			} //...NO MODULATION
+ 		    }
+-		    chan->ptr_h = ptr_h;
+-		    chan->ptr_l = ptr_l;
+-		    chan->delta_h = delta_h;
+-		    chan->delta_l = delta_l;
+-		    chan->env_vol = env_vol;
+-		    chan->sustain = sustain;
+-		    chan->playing = playing;
+-		    retval = 1;
+-		}
+-	    }
+-	    break;
+-
+-	case COMMAND_NOTE_ON:
+-	    {
+-		int c;
+-		for( c = 0; c < data->ctl_channels; c++ )
+-		{
+-		    if( data->channels[ data->search_ptr ].playing == 0 ) break;
+-		    data->search_ptr++;
+-		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
+-		}
+-		if( c == data->ctl_channels )
+-		{
+-		    //Channel not found:
+-		    data->search_ptr++;
+-		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
+-		}
+-
+-		ulong delta_h, delta_l;
+-		int freq;
+-		GET_FREQ( freq, pnet->period_ptr / 4 );
+-		GET_DELTA( freq, delta_h, delta_l );
+-
+-		c = data->search_ptr;
+-		data->channels[ c ].playing = 1;
+-		data->channels[ c ].vel = pnet->velocity;
+-		data->channels[ c ].delta_h = delta_h;
+-		data->channels[ c ].delta_l = delta_l;
+-		data->channels[ c ].ptr_h = 4;
+-		data->channels[ c ].ptr_l = 0;
+-		data->channels[ c ].id = pnet->channel_id;
+-		if( data->ctl_attack == 0 )
+-		    data->channels[ c ].env_vol = 1 << 30; //Maximum amplitude
+-		else
+-		    data->channels[ c ].env_vol = 0;
+-		data->channels[ c ].sustain = 1;
+-		
+-		data->channels[ c ].local_type = data->ctl_type;
+-		data->channels[ c ].local_pan = 128;
+-		retval = c;
+-	    }
+-	    break;
+-
+-    	case COMMAND_SET_FREQ:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    ulong delta_h, delta_l;
+-		    int freq;
+-		    GET_FREQ( freq, pnet->period_ptr / 4 );
+-		    GET_DELTA( freq, delta_h, delta_l );
+-
+-		    data->channels[ c ].delta_h = delta_h;
+-		    data->channels[ c ].delta_l = delta_l;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-    	case COMMAND_SET_VELOCITY:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    data->channels[ c ].vel = pnet->velocity;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_NOTE_OFF:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    data->channels[ c ].sustain = 0;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_ALL_NOTES_OFF:
+-	    for( int c = 0; c < MAX_CHANNELS; c++ )
+-	    {
+-		data->channels[ c ].sustain = 0;
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLEAN:
+-	    for( int c = 0; c < MAX_CHANNELS; c++ )
+-	    {
+-		data->channels[ c ].playing = 0;
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_SET_LOCAL_CONTROLLER:
+-	    if( pnet->ctl_num == 1 )
+-	    {
+-		if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-		{
+-		    int c = pnet->synth_channel;
+-		    if( data->channels[ c ].id == pnet->channel_id )
+-		    {
+-			//Set "TYPE" local controller of this channel:
+-			data->channels[ c ].local_type = pnet->ctl_val;
+-		    }
+-		}
+-		retval = 1;
+-	    }
+-	    if( pnet->ctl_num == 2 )
+-	    {
+-		if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-		{
+-		    int c = pnet->synth_channel;
+-		    if( data->channels[ c ].id == pnet->channel_id )
+-		    {
+-			//Set "PAN" local controller of this channel:
+-			data->channels[ c ].local_pan = pnet->ctl_val >> 7;
+-		    }
+-		}
+-		retval = 1;
+-	    }
+-	    break;
+-
+-	case COMMAND_SET_GLOBAL_CONTROLLER:
+-	    if( pnet->ctl_num == 0x98 ) 
+-		data->wrong_saw_generation = 1;
+-	    break;
+-
+-	case COMMAND_CLOSE:
+-#ifdef LOWMEM
+-	    g_noise_data_users_counter--;
+-	    if( g_noise_data_users_counter == 0 )
+-		mem_free( g_noise_data );
+-#else
+-	    if( data->noise_data ) mem_free( data->noise_data );
+-#endif
+-	    data->noise_data = 0;
+-	    retval = 1;
+-	    break;
+-    }
+-
+-    return retval;
+-}
++		    chan->ptr_h = ptr_h;
++		    chan->ptr_l = ptr_l;
++		    chan->delta_h = delta_h;
++		    chan->delta_l = delta_l;
++		    chan->env_vol = env_vol;
++		    chan->sustain = sustain;
++		    chan->playing = playing;
++		    retval = 1;
++		}
++	    }
++	    break;
++
++	case COMMAND_NOTE_ON:
++	    {
++		int c;
++		for( c = 0; c < data->ctl_channels; c++ )
++		{
++		    if( data->channels[ data->search_ptr ].playing == 0 ) break;
++		    data->search_ptr++;
++		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
++		}
++		if( c == data->ctl_channels )
++		{
++		    //Channel not found:
++		    data->search_ptr++;
++		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
++		}
++
++		ulong delta_h, delta_l;
++		int freq;
++		GET_FREQ( freq, pnet->period_ptr / 4 );
++		GET_DELTA( freq, delta_h, delta_l );
++
++		c = data->search_ptr;
++		data->channels[ c ].playing = 1;
++		data->channels[ c ].vel = pnet->velocity;
++		data->channels[ c ].delta_h = delta_h;
++		data->channels[ c ].delta_l = delta_l;
++		data->channels[ c ].ptr_h = 4;
++		data->channels[ c ].ptr_l = 0;
++		data->channels[ c ].id = pnet->channel_id;
++		if( data->ctl_attack == 0 )
++		    data->channels[ c ].env_vol = 1 << 30; //Maximum amplitude
++		else
++		    data->channels[ c ].env_vol = 0;
++		data->channels[ c ].sustain = 1;
++		
++		data->channels[ c ].local_type = data->ctl_type;
++		data->channels[ c ].local_pan = 128;
++		retval = c;
++	    }
++	    break;
++
++    	case COMMAND_SET_FREQ:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    ulong delta_h, delta_l;
++		    int freq;
++		    GET_FREQ( freq, pnet->period_ptr / 4 );
++		    GET_DELTA( freq, delta_h, delta_l );
++
++		    data->channels[ c ].delta_h = delta_h;
++		    data->channels[ c ].delta_l = delta_l;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++    	case COMMAND_SET_VELOCITY:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    data->channels[ c ].vel = pnet->velocity;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_NOTE_OFF:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    data->channels[ c ].sustain = 0;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_ALL_NOTES_OFF:
++	    for( int c = 0; c < MAX_CHANNELS; c++ )
++	    {
++		data->channels[ c ].sustain = 0;
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLEAN:
++	    for( int c = 0; c < MAX_CHANNELS; c++ )
++	    {
++		data->channels[ c ].playing = 0;
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_SET_LOCAL_CONTROLLER:
++	    if( pnet->ctl_num == 1 )
++	    {
++		if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++		{
++		    int c = pnet->synth_channel;
++		    if( data->channels[ c ].id == pnet->channel_id )
++		    {
++			//Set "TYPE" local controller of this channel:
++			data->channels[ c ].local_type = pnet->ctl_val;
++		    }
++		}
++		retval = 1;
++	    }
++	    if( pnet->ctl_num == 2 )
++	    {
++		if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++		{
++		    int c = pnet->synth_channel;
++		    if( data->channels[ c ].id == pnet->channel_id )
++		    {
++			//Set "PAN" local controller of this channel:
++			data->channels[ c ].local_pan = pnet->ctl_val >> 7;
++		    }
++		}
++		retval = 1;
++	    }
++	    break;
++
++	case COMMAND_SET_GLOBAL_CONTROLLER:
++	    if( pnet->ctl_num == 0x98 ) 
++		data->wrong_saw_generation = 1;
++	    break;
++
++	case COMMAND_CLOSE:
++#ifdef LOWMEM
++	    g_noise_data_users_counter--;
++	    if( g_noise_data_users_counter == 0 )
++		mem_free( g_noise_data );
++#else
++	    if( data->noise_data ) mem_free( data->noise_data );
++#endif
++	    data->noise_data = 0;
++	    retval = 1;
++	    break;
++    }
++
++    return retval;
++}
+--- a/sunvox_engine/psynth/psynths_kicker.cpp
++++ b/sunvox_engine/psynth/psynths_kicker.cpp
+@@ -4,17 +4,17 @@
+     Copyright (C) 2002 - 2008 Alex Zolotov <nightradio@gmail.com>
+ */
+ 
+-#include "psynth.h"
+-
+-//Unique names for objects in your synth:
+-#define SYNTH_DATA	psynth_kicker_data
+-#define SYNTH_HANDLER	psynth_kicker
+-//And unique parameters:
+-#define SYNTH_INPUTS	0
+-#define SYNTH_OUTPUTS	2
+-
+-#define MAX_CHANNELS	4
+-
++#include "psynth.h"
++
++//Unique names for objects in your synth:
++#define SYNTH_DATA	psynth_kicker_data
++#define SYNTH_HANDLER	psynth_kicker
++//And unique parameters:
++#define SYNTH_INPUTS	0
++#define SYNTH_OUTPUTS	2
++
++#define MAX_CHANNELS	4
++
+ #define GET_FREQ(res,per)  \
+ { \
+     if( per >= 0 ) \
+@@ -26,388 +26,388 @@
+ { \
+     resh = f / pnet->sampling_freq; \
+     resl = ( ( ( f % pnet->sampling_freq ) << 14 ) / pnet->sampling_freq ) << 2; /*Max sampling freq = 256 kHz*/ \
+-}
+-
+-struct gen_channel
+-{
+-    int	    playing;
+-    ulong   id;
+-    int	    vel;
+-    ulong   ptr;
+-    ulong   delta;
+-    ulong   env_vol;
+-    int	    sustain;
+-
+-    int	    accel;
+-
+-    //Local controllers:
+-    CTYPE   local_type;
+-};
+-
+-struct SYNTH_DATA
+-{
+-    //Controls: ############################################################
+-    CTYPE   ctl_volume;
+-    CTYPE   ctl_type;
+-    CTYPE   ctl_pan;
+-    CTYPE   ctl_attack;
+-    CTYPE   ctl_release;
+-    CTYPE   ctl_vol_add;
+-    CTYPE   ctl_env_accel;
+-    CTYPE   ctl_channels;
+-    CTYPE   ctl_anticlick;
+-    //Synth data: ##########################################################
+-    gen_channel   channels[ MAX_CHANNELS ];
+-    int	    search_ptr;
+-    ulong   *linear_tab;
+-};
+-
+-#define GET_VAL_TRIANGLE \
+-    STYPE_CALC val; \
+-    if( ( ( ptr >> 16 ) & 15 ) < 8 ) \
+-    { \
+-	INT16_TO_STYPE( val, (int)( -32767 + ( ( ptr & 0xFFFF ) / 8 + ( ( ( ptr >> 16 ) & 7 ) * 8192 ) ) ) ); \
+-    } \
+-    else \
+-    { \
+-	INT16_TO_STYPE( val, (int)( 32767 - ( ( ptr & 0xFFFF ) / 8 + ( ( ( ptr >> 16 ) & 7 ) * 8192 ) ) ) ); \
+-    }
+-#define GET_VAL_RECTANGLE \
+-    STYPE_CALC val = 0; \
+-    if( ( ptr >> 16 ) & 16 ) \
+-	val = max_val; \
+-    else \
+-	val = min_val;
+-#define APPLY_VOLUME \
+-    val *= vol; \
+-    val /= 256;
+-#define APPLY_ENV_VOLUME \
+-    ulong new_env_vol = ( env_vol >> 20 ) + vol_add; \
+-    if( new_env_vol > 1024 ) new_env_vol = 1024; \
+-    val *= new_env_vol; \
+-    val /= 1024;
+-#define LAST_PART_REPLACE \
+-    out[ i ] = val; \
+-    ptr += ( delta * ( env_vol >> 20 ) ) / 1024; \
+-    if( sustain ) \
+-    { \
+-	env_vol += attack_delta; \
+-	if( env_vol >= ( 1 << 30 ) ) { env_vol = ( 1 << 30 ); sustain = 0; } \
+-    } \
+-    else \
+-    { \
+-	env_vol -= release_delta; \
+-	if( ( env_vol >> 20 ) > env_accel ) \
+-	    env_vol -= release_delta; \
+-	else \
+-	    if( accel ) { accel = 0; env_vol = env_accel << 20; } \
+-	if( env_vol > ( 1 << 30 ) ) { env_vol = 0; playing = 0; while( i < sample_frames ) { out[ i ] = 0; i++; } break; } \
+-    }
+-#define LAST_PART_ADD \
+-    out[ i ] += val; \
+-    ptr += ( delta * ( env_vol >> 20 ) ) / 1024; \
+-    if( sustain ) \
+-    { \
+-	env_vol += attack_delta; \
+-	if( env_vol >= ( 1 << 30 ) ) { env_vol = ( 1 << 30 ); sustain = 0; } \
+-    } \
+-    else \
+-    { \
+-	env_vol -= release_delta; \
+-	if( ( env_vol >> 20 ) > env_accel ) \
+-	    env_vol -= release_delta; \
+-	else \
+-	    if( accel ) { accel = 0; env_vol = env_accel << 20; } \
+-	if( env_vol > ( 1 << 30 ) ) { env_vol = 0; playing = 0; break; } \
+-    }
+-
+-int SYNTH_HANDLER( 
+-    PSYTEXX_SYNTH_PARAMETERS
+-    )
+-{
+-    psynth_net *pnet = (psynth_net*)net;
+-    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
+-    int retval = 0;
+-    int i;
+-    int ch;
+-
+-    switch( command )
+-    {
+-	case COMMAND_GET_DATA_SIZE:
+-	    retval = sizeof( SYNTH_DATA );
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Kicker";
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Kicker.\n\nAvailable local controllers:\n * Type";
+-	    break;
+-
+-	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+-	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
+-
+-	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_GENERATOR; break;
+-
+-	case COMMAND_INIT:
+-	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 256, 0, &data->ctl_volume, net );
+-	    psynth_register_ctl( synth_id, "Type", "tri/rect", 0, 1, 0, 1, &data->ctl_type, net );
+-	    psynth_register_ctl( synth_id, "Panning", "", 0, 256, 128, 0, &data->ctl_pan, net );
+-	    psynth_register_ctl( synth_id, "Attack", "", 0, 512, 0, 0, &data->ctl_attack, net );
+-	    psynth_register_ctl( synth_id, "Release", "", 0, 512, 32, 0, &data->ctl_release, net );
+-	    psynth_register_ctl( synth_id, "Vol. Add", "", 0, 1024, 0, 0, &data->ctl_vol_add, net );
+-	    psynth_register_ctl( synth_id, "Env. Accel.", "", 0, 1024, 256, 0, &data->ctl_env_accel, net );
+-	    psynth_register_ctl( synth_id, "Polyphony", "ch.", 1, MAX_CHANNELS, 1, 1, &data->ctl_channels, net );
+-	    psynth_register_ctl( synth_id, "Anticlick", "off/on", 0, 1, 0, 1, &data->ctl_anticlick, net );
+-	    for( int c = 0; c < MAX_CHANNELS; c++ )
+-	    {
+-		data->channels[ c ].playing = 0;
+-		data->channels[ c ].ptr = 0;
+-		data->channels[ c ].env_vol = 0;
+-		data->channels[ c ].sustain = 0;
+-		data->channels[ c ].accel = 0;
+-	    }
+-	    data->search_ptr = 0;
+-	    data->linear_tab = g_linear_tab;
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLEAN:
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_RENDER_REPLACE:
++}
++
++struct gen_channel
++{
++    int	    playing;
++    ulong   id;
++    int	    vel;
++    ulong   ptr;
++    ulong   delta;
++    ulong   env_vol;
++    int	    sustain;
++
++    int	    accel;
++
++    //Local controllers:
++    CTYPE   local_type;
++};
++
++struct SYNTH_DATA
++{
++    //Controls: ############################################################
++    CTYPE   ctl_volume;
++    CTYPE   ctl_type;
++    CTYPE   ctl_pan;
++    CTYPE   ctl_attack;
++    CTYPE   ctl_release;
++    CTYPE   ctl_vol_add;
++    CTYPE   ctl_env_accel;
++    CTYPE   ctl_channels;
++    CTYPE   ctl_anticlick;
++    //Synth data: ##########################################################
++    gen_channel   channels[ MAX_CHANNELS ];
++    int	    search_ptr;
++    ulong   *linear_tab;
++};
++
++#define GET_VAL_TRIANGLE \
++    STYPE_CALC val; \
++    if( ( ( ptr >> 16 ) & 15 ) < 8 ) \
++    { \
++	INT16_TO_STYPE( val, (int)( -32767 + ( ( ptr & 0xFFFF ) / 8 + ( ( ( ptr >> 16 ) & 7 ) * 8192 ) ) ) ); \
++    } \
++    else \
++    { \
++	INT16_TO_STYPE( val, (int)( 32767 - ( ( ptr & 0xFFFF ) / 8 + ( ( ( ptr >> 16 ) & 7 ) * 8192 ) ) ) ); \
++    }
++#define GET_VAL_RECTANGLE \
++    STYPE_CALC val = 0; \
++    if( ( ptr >> 16 ) & 16 ) \
++	val = max_val; \
++    else \
++	val = min_val;
++#define APPLY_VOLUME \
++    val *= vol; \
++    val /= 256;
++#define APPLY_ENV_VOLUME \
++    ulong new_env_vol = ( env_vol >> 20 ) + vol_add; \
++    if( new_env_vol > 1024 ) new_env_vol = 1024; \
++    val *= new_env_vol; \
++    val /= 1024;
++#define LAST_PART_REPLACE \
++    out[ i ] = val; \
++    ptr += ( delta * ( env_vol >> 20 ) ) / 1024; \
++    if( sustain ) \
++    { \
++	env_vol += attack_delta; \
++	if( env_vol >= ( 1 << 30 ) ) { env_vol = ( 1 << 30 ); sustain = 0; } \
++    } \
++    else \
++    { \
++	env_vol -= release_delta; \
++	if( ( env_vol >> 20 ) > env_accel ) \
++	    env_vol -= release_delta; \
++	else \
++	    if( accel ) { accel = 0; env_vol = env_accel << 20; } \
++	if( env_vol > ( 1 << 30 ) ) { env_vol = 0; playing = 0; while( i < sample_frames ) { out[ i ] = 0; i++; } break; } \
++    }
++#define LAST_PART_ADD \
++    out[ i ] += val; \
++    ptr += ( delta * ( env_vol >> 20 ) ) / 1024; \
++    if( sustain ) \
++    { \
++	env_vol += attack_delta; \
++	if( env_vol >= ( 1 << 30 ) ) { env_vol = ( 1 << 30 ); sustain = 0; } \
++    } \
++    else \
++    { \
++	env_vol -= release_delta; \
++	if( ( env_vol >> 20 ) > env_accel ) \
++	    env_vol -= release_delta; \
++	else \
++	    if( accel ) { accel = 0; env_vol = env_accel << 20; } \
++	if( env_vol > ( 1 << 30 ) ) { env_vol = 0; playing = 0; break; } \
++    }
++
++int SYNTH_HANDLER( 
++    PSYTEXX_SYNTH_PARAMETERS
++    )
++{
++    psynth_net *pnet = (psynth_net*)net;
++    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
++    int retval = 0;
++    int i;
++    int ch;
++
++    switch( command )
++    {
++	case COMMAND_GET_DATA_SIZE:
++	    retval = sizeof( SYNTH_DATA );
++	    break;
++
++	case COMMAND_GET_SYNTH_NAME:
++	    retval = atoi("Kicker");
++	    break;
++
++	case COMMAND_GET_SYNTH_INFO:
++	    retval = atoi("Kicker.\n\nAvailable local controllers:\n * Type");
++	    break;
++
++	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
++	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++
++	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_GENERATOR; break;
++
++	case COMMAND_INIT:
++	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 256, 0, &data->ctl_volume, net );
++	    psynth_register_ctl( synth_id, "Type", "tri/rect", 0, 1, 0, 1, &data->ctl_type, net );
++	    psynth_register_ctl( synth_id, "Panning", "", 0, 256, 128, 0, &data->ctl_pan, net );
++	    psynth_register_ctl( synth_id, "Attack", "", 0, 512, 0, 0, &data->ctl_attack, net );
++	    psynth_register_ctl( synth_id, "Release", "", 0, 512, 32, 0, &data->ctl_release, net );
++	    psynth_register_ctl( synth_id, "Vol. Add", "", 0, 1024, 0, 0, &data->ctl_vol_add, net );
++	    psynth_register_ctl( synth_id, "Env. Accel.", "", 0, 1024, 256, 0, &data->ctl_env_accel, net );
++	    psynth_register_ctl( synth_id, "Polyphony", "ch.", 1, MAX_CHANNELS, 1, 1, &data->ctl_channels, net );
++	    psynth_register_ctl( synth_id, "Anticlick", "off/on", 0, 1, 0, 1, &data->ctl_anticlick, net );
++	    for( int c = 0; c < MAX_CHANNELS; c++ )
++	    {
++		data->channels[ c ].playing = 0;
++		data->channels[ c ].ptr = 0;
++		data->channels[ c ].env_vol = 0;
++		data->channels[ c ].sustain = 0;
++		data->channels[ c ].accel = 0;
++	    }
++	    data->search_ptr = 0;
++	    data->linear_tab = g_linear_tab;
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLEAN:
++	    retval = 1;
++	    break;
++
++	case COMMAND_RENDER_REPLACE:
+ 	    if( !outputs[ 0 ] ) break;
+-	    for( int c = 0; c < data->ctl_channels; c++ )
+-	    {
+-		if( data->channels[ c ].playing )
+-		{
+-		    int attack_len = ( pnet->sampling_freq * data->ctl_attack ) / 256;
+-		    int release_len = ( pnet->sampling_freq * data->ctl_release ) / 256;
+-		    
+-		    attack_len /= 1024;
+-		    int attack_delta = 1 << 30;
+-		    if( attack_len != 0 ) attack_delta = ( 1 << 20 ) / attack_len;
+-
+-		    release_len /= 1024;
+-		    int release_delta = 1 << 30;
+-		    if( release_len != 0 ) release_delta = ( 1 << 20 ) / release_len;
+-		    
+-		    gen_channel *chan = &data->channels[ c ];
+-		    ulong ptr = 0;
+-		    ulong env_vol = 0;
+-		    int sustain = 0;
+-		    int accel = 0;
+-		    int playing = 0;
+-		    ulong delta = chan->delta;
+-		    int vol_add = data->ctl_vol_add;
+-		    ulong env_accel = 1024 - data->ctl_env_accel;
+-		    for( ch = 0; ch < SYNTH_OUTPUTS; ch++ )
+-		    {
+-			STYPE *in = inputs[ ch ];
+-			STYPE *out = outputs[ ch ];
+-        		ptr = chan->ptr;
+-			env_vol = chan->env_vol;
+-			sustain = chan->sustain;
+-			accel = chan->accel;
+-			playing = chan->playing;
+-			int vol = ( data->ctl_volume * chan->vel ) >> 8;
+-			if( data->ctl_pan < 128 )
+-			{
+-			    if( ch == 1 ) { vol *= data->ctl_pan; vol >>= 7; }
+-			}
+-			else
+-			{
+-			    if( ch == 0 ) { vol *= 128 - ( data->ctl_pan - 128 ); vol >>= 7; }
+-			}
+-			STYPE_CALC max_val;
+-			STYPE_CALC min_val;
+-			INT16_TO_STYPE( max_val, 32767 );
+-			INT16_TO_STYPE( min_val, -32767 );
+-			max_val *= vol; max_val /= 256;
+-			min_val *= vol; min_val /= 256;
+-			int add = ch * 32768 / 2;
+-			if( retval == 0 ) 
+-			{
+-			    switch( chan->local_type )
+-			    {
+-				case 0:
+-				//Triangle:
+-				if( vol == 256 )
+-				    for( i = 0; i < sample_frames; i++ ) {
+-					GET_VAL_TRIANGLE;
+-					APPLY_ENV_VOLUME;
+-					LAST_PART_REPLACE; }
+-				else
+-				    for( i = 0; i < sample_frames; i++ ) {
+-					GET_VAL_TRIANGLE;
+-					APPLY_VOLUME;
+-					APPLY_ENV_VOLUME;
+-					LAST_PART_REPLACE; }
+-				break;
+-
+-				case 1:
+-				//Rectangle:
+-				for( i = 0; i < sample_frames; i++ )
+-				{
+-				    GET_VAL_RECTANGLE;
+-				    APPLY_ENV_VOLUME;
+-				    LAST_PART_REPLACE;
+-				}
+-				break;
+-			    }
+-			}
+-			else
+-			{
+-			    switch( chan->local_type )
+-			    {
+-				case 0:
+-				//Triangle:
+-				if( vol == 256 )
+-				    for( i = 0; i < sample_frames; i++ ) {
+-					GET_VAL_TRIANGLE;
+-					APPLY_ENV_VOLUME;
+-					LAST_PART_ADD; }
+-				else
+-				    for( i = 0; i < sample_frames; i++ ) {
+-					GET_VAL_TRIANGLE;
+-					APPLY_VOLUME;
+-					APPLY_ENV_VOLUME;
+-					LAST_PART_ADD; }
+-				break;
+-
+-				case 1:
+-				//Rectangle:
+-				for( i = 0; i < sample_frames; i++ )
+-				{
+-				    GET_VAL_RECTANGLE;
+-				    APPLY_ENV_VOLUME;
+-				    LAST_PART_ADD;
+-				}
+-				break;
+-			    }
+-			}
+-		    }
+-		    chan->ptr = ptr;
+-		    chan->delta = delta;
+-		    chan->env_vol = env_vol;
+-		    chan->sustain = sustain;
+-		    chan->accel = accel;
+-		    chan->playing = playing;
+-		    retval = 1;
+-		}
+-	    }
+-	    break;
+-
+-	case COMMAND_NOTE_ON:
+-	    {
+-		int c;
+-		for( c = 0; c < data->ctl_channels; c++ )
+-		{
+-		    if( data->channels[ data->search_ptr ].playing == 0 ) break;
+-		    data->search_ptr++;
+-		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
+-		}
+-		if( c == data->ctl_channels )
+-		{
+-		    //Channel not found:
+-		    data->search_ptr++;
+-		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
+-		}
+-
+-		ulong delta_h, delta_l;
+-		int freq;
+-		GET_FREQ( freq, pnet->period_ptr / 4 );
+-		GET_DELTA( freq, delta_h, delta_l );
+-
+-		c = data->search_ptr;
+-		data->channels[ c ].playing = 1;
+-		data->channels[ c ].vel = pnet->velocity;
+-		data->channels[ c ].delta = delta_l | ( delta_h << 16 );
+-		if( data->ctl_anticlick )
+-		    data->channels[ c ].ptr = 0 | ( 4 << 16 );
+-		else
+-		    data->channels[ c ].ptr = 0;
+-		data->channels[ c ].id = pnet->channel_id;
+-		data->channels[ c ].env_vol = 0;
+-		data->channels[ c ].sustain = 1;
+-		data->channels[ c ].accel = 1;
+-		
+-		data->channels[ c ].local_type = data->ctl_type;
+-		retval = c;
+-	    }
+-	    break;
+-
+-    	case COMMAND_SET_FREQ:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    ulong delta_h, delta_l;
+-		    int freq;
+-		    GET_FREQ( freq, pnet->period_ptr / 4 );
+-		    GET_DELTA( freq, delta_h, delta_l );
+-
+-		    data->channels[ c ].delta = delta_l | ( delta_h << 16 );
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-    	case COMMAND_SET_VELOCITY:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    data->channels[ c ].vel = pnet->velocity;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_NOTE_OFF:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    data->channels[ c ].sustain = 0;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_ALL_NOTES_OFF:
+-	    for( int c = 0; c < MAX_CHANNELS; c++ )
+-	    {
+-		data->channels[ c ].playing = 0;
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_SET_LOCAL_CONTROLLER:
+-	    if( pnet->ctl_num == 1 )
+-	    {
+-		if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-		{
+-		    int c = pnet->synth_channel;
+-		    if( data->channels[ c ].id == pnet->channel_id )
+-		    {
+-			//Set "TYPE" local controller of this channel:
+-			data->channels[ c ].local_type = pnet->ctl_val;
+-		    }
+-		}
+-		retval = 1;
+-	    }
+-	    break;
+-
+-	case COMMAND_CLOSE:
+-	    retval = 1;
+-	    break;
+-    }
+-
+-    return retval;
+-}
++	    for( int c = 0; c < data->ctl_channels; c++ )
++	    {
++		if( data->channels[ c ].playing )
++		{
++		    int attack_len = ( pnet->sampling_freq * data->ctl_attack ) / 256;
++		    int release_len = ( pnet->sampling_freq * data->ctl_release ) / 256;
++		    
++		    attack_len /= 1024;
++		    int attack_delta = 1 << 30;
++		    if( attack_len != 0 ) attack_delta = ( 1 << 20 ) / attack_len;
++
++		    release_len /= 1024;
++		    int release_delta = 1 << 30;
++		    if( release_len != 0 ) release_delta = ( 1 << 20 ) / release_len;
++		    
++		    gen_channel *chan = &data->channels[ c ];
++		    ulong ptr = 0;
++		    ulong env_vol = 0;
++		    int sustain = 0;
++		    int accel = 0;
++		    int playing = 0;
++		    ulong delta = chan->delta;
++		    int vol_add = data->ctl_vol_add;
++		    ulong env_accel = 1024 - data->ctl_env_accel;
++		    for( ch = 0; ch < SYNTH_OUTPUTS; ch++ )
++		    {
++			STYPE *in = inputs[ ch ];
++			STYPE *out = outputs[ ch ];
++        		ptr = chan->ptr;
++			env_vol = chan->env_vol;
++			sustain = chan->sustain;
++			accel = chan->accel;
++			playing = chan->playing;
++			int vol = ( data->ctl_volume * chan->vel ) >> 8;
++			if( data->ctl_pan < 128 )
++			{
++			    if( ch == 1 ) { vol *= data->ctl_pan; vol >>= 7; }
++			}
++			else
++			{
++			    if( ch == 0 ) { vol *= 128 - ( data->ctl_pan - 128 ); vol >>= 7; }
++			}
++			STYPE_CALC max_val;
++			STYPE_CALC min_val;
++			INT16_TO_STYPE( max_val, 32767 );
++			INT16_TO_STYPE( min_val, -32767 );
++			max_val *= vol; max_val /= 256;
++			min_val *= vol; min_val /= 256;
++			int add = ch * 32768 / 2;
++			if( retval == 0 ) 
++			{
++			    switch( chan->local_type )
++			    {
++				case 0:
++				//Triangle:
++				if( vol == 256 )
++				    for( i = 0; i < sample_frames; i++ ) {
++					GET_VAL_TRIANGLE;
++					APPLY_ENV_VOLUME;
++					LAST_PART_REPLACE; }
++				else
++				    for( i = 0; i < sample_frames; i++ ) {
++					GET_VAL_TRIANGLE;
++					APPLY_VOLUME;
++					APPLY_ENV_VOLUME;
++					LAST_PART_REPLACE; }
++				break;
++
++				case 1:
++				//Rectangle:
++				for( i = 0; i < sample_frames; i++ )
++				{
++				    GET_VAL_RECTANGLE;
++				    APPLY_ENV_VOLUME;
++				    LAST_PART_REPLACE;
++				}
++				break;
++			    }
++			}
++			else
++			{
++			    switch( chan->local_type )
++			    {
++				case 0:
++				//Triangle:
++				if( vol == 256 )
++				    for( i = 0; i < sample_frames; i++ ) {
++					GET_VAL_TRIANGLE;
++					APPLY_ENV_VOLUME;
++					LAST_PART_ADD; }
++				else
++				    for( i = 0; i < sample_frames; i++ ) {
++					GET_VAL_TRIANGLE;
++					APPLY_VOLUME;
++					APPLY_ENV_VOLUME;
++					LAST_PART_ADD; }
++				break;
++
++				case 1:
++				//Rectangle:
++				for( i = 0; i < sample_frames; i++ )
++				{
++				    GET_VAL_RECTANGLE;
++				    APPLY_ENV_VOLUME;
++				    LAST_PART_ADD;
++				}
++				break;
++			    }
++			}
++		    }
++		    chan->ptr = ptr;
++		    chan->delta = delta;
++		    chan->env_vol = env_vol;
++		    chan->sustain = sustain;
++		    chan->accel = accel;
++		    chan->playing = playing;
++		    retval = 1;
++		}
++	    }
++	    break;
++
++	case COMMAND_NOTE_ON:
++	    {
++		int c;
++		for( c = 0; c < data->ctl_channels; c++ )
++		{
++		    if( data->channels[ data->search_ptr ].playing == 0 ) break;
++		    data->search_ptr++;
++		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
++		}
++		if( c == data->ctl_channels )
++		{
++		    //Channel not found:
++		    data->search_ptr++;
++		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
++		}
++
++		ulong delta_h, delta_l;
++		int freq;
++		GET_FREQ( freq, pnet->period_ptr / 4 );
++		GET_DELTA( freq, delta_h, delta_l );
++
++		c = data->search_ptr;
++		data->channels[ c ].playing = 1;
++		data->channels[ c ].vel = pnet->velocity;
++		data->channels[ c ].delta = delta_l | ( delta_h << 16 );
++		if( data->ctl_anticlick )
++		    data->channels[ c ].ptr = 0 | ( 4 << 16 );
++		else
++		    data->channels[ c ].ptr = 0;
++		data->channels[ c ].id = pnet->channel_id;
++		data->channels[ c ].env_vol = 0;
++		data->channels[ c ].sustain = 1;
++		data->channels[ c ].accel = 1;
++		
++		data->channels[ c ].local_type = data->ctl_type;
++		retval = c;
++	    }
++	    break;
++
++    	case COMMAND_SET_FREQ:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    ulong delta_h, delta_l;
++		    int freq;
++		    GET_FREQ( freq, pnet->period_ptr / 4 );
++		    GET_DELTA( freq, delta_h, delta_l );
++
++		    data->channels[ c ].delta = delta_l | ( delta_h << 16 );
++		}
++	    }
++	    retval = 1;
++	    break;
++
++    	case COMMAND_SET_VELOCITY:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    data->channels[ c ].vel = pnet->velocity;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_NOTE_OFF:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    data->channels[ c ].sustain = 0;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_ALL_NOTES_OFF:
++	    for( int c = 0; c < MAX_CHANNELS; c++ )
++	    {
++		data->channels[ c ].playing = 0;
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_SET_LOCAL_CONTROLLER:
++	    if( pnet->ctl_num == 1 )
++	    {
++		if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++		{
++		    int c = pnet->synth_channel;
++		    if( data->channels[ c ].id == pnet->channel_id )
++		    {
++			//Set "TYPE" local controller of this channel:
++			data->channels[ c ].local_type = pnet->ctl_val;
++		    }
++		}
++		retval = 1;
++	    }
++	    break;
++
++	case COMMAND_CLOSE:
++	    retval = 1;
++	    break;
++    }
++
++    return retval;
++}
+--- a/sunvox_engine/psynth/psynths_lfo.cpp
++++ b/sunvox_engine/psynth/psynths_lfo.cpp
+@@ -44,11 +44,11 @@
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"LFO";
++	    retval = atoi("LFO");
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"LFO.\n(Low Frequency Oscillation)";
++	    retval = atoi("LFO.\n(Low Frequency Oscillation)");
+ 	    break;
+ 
+ 	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+--- a/sunvox_engine/psynth/psynths_loop.cpp
++++ b/sunvox_engine/psynth/psynths_loop.cpp
+@@ -4,221 +4,221 @@
+     Copyright (C) 2002 - 2008 Alex Zolotov <nightradio@gmail.com>
+ */
+ 
+-#include "psynth.h"
+-
+-//Unique names for objects in your synth:
+-#define SYNTH_DATA	psynth_loop_data
+-#define SYNTH_HANDLER	psynth_loop
+-//And unique parameters:
+-#define SYNTH_INPUTS	2
+-#define SYNTH_OUTPUTS	2
+-
+-struct SYNTH_DATA
+-{
+-    //Controls: ############################################################
+-    CTYPE   ctl_volume;
+-    CTYPE   ctl_delay;
+-    CTYPE   ctl_stereo;
+-    CTYPE   ctl_repeats;
+-    //Synth data: ##########################################################
+-    int	    rep_counter;
+-    int	    buf_size;
+-    STYPE   *buf[ SYNTH_OUTPUTS ];
+-    int	    buf_ptr;
+-};
+-
+-int SYNTH_HANDLER( 
+-    PSYTEXX_SYNTH_PARAMETERS
+-    )
+-{
+-    psynth_net *pnet = (psynth_net*)net;
+-    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
+-    int retval = 0;
+-    int i;
+-    int ch;
+-
+-    switch( command )
+-    {
+-	case COMMAND_GET_DATA_SIZE:
+-	    retval = sizeof( SYNTH_DATA );
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Loop";
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Loop.\nMax delay is 2 lines";
+-	    break;
+-
+-	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+-	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
+-
+-	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
+-
+-	case COMMAND_INIT:
+-	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 256, 0, &data->ctl_volume, net );
+-	    psynth_register_ctl( synth_id, "Delay", "", 0, 256, 256, 0, &data->ctl_delay, net );
+-	    psynth_register_ctl( synth_id, "Stereo", "off/on", 0, 1, 1, 1, &data->ctl_stereo, net );
+-	    psynth_register_ctl( synth_id, "Repeats", "", 0, 64, 0, 1, &data->ctl_repeats, net );
+-	    data->buf_size = pnet->sampling_freq / 3;
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		data->buf[ i ] = (STYPE*)MEM_NEW( HEAP_DYNAMIC, data->buf_size * sizeof( STYPE ) );
+-	    }
+-	    data->buf_ptr = 0;
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		if( data->buf[ i ] ) mem_set( data->buf[ i ], data->buf_size * sizeof( STYPE ), 0 );
+-	    }
+-	    data->rep_counter = 0;
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLEAN:
+-	    data->buf_ptr = 0;
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		if( data->buf[ i ] ) 
+-		{
+-		    for( int s = 0; s < data->buf_size; s++ )
+-			data->buf[ i ][ s ] = 0;
+-		}
+-	    }
+-	    data->rep_counter = 0;
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_RENDER_REPLACE:
++#include "psynth.h"
++
++//Unique names for objects in your synth:
++#define SYNTH_DATA	psynth_loop_data
++#define SYNTH_HANDLER	psynth_loop
++//And unique parameters:
++#define SYNTH_INPUTS	2
++#define SYNTH_OUTPUTS	2
++
++struct SYNTH_DATA
++{
++    //Controls: ############################################################
++    CTYPE   ctl_volume;
++    CTYPE   ctl_delay;
++    CTYPE   ctl_stereo;
++    CTYPE   ctl_repeats;
++    //Synth data: ##########################################################
++    int	    rep_counter;
++    int	    buf_size;
++    STYPE   *buf[ SYNTH_OUTPUTS ];
++    int	    buf_ptr;
++};
++
++int SYNTH_HANDLER( 
++    PSYTEXX_SYNTH_PARAMETERS
++    )
++{
++    psynth_net *pnet = (psynth_net*)net;
++    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
++    int retval = 0;
++    int i;
++    int ch;
++
++    switch( command )
++    {
++	case COMMAND_GET_DATA_SIZE:
++	    retval = sizeof( SYNTH_DATA );
++	    break;
++
++	case COMMAND_GET_SYNTH_NAME:
++	    retval = atoi("Loop");
++	    break;
++
++	case COMMAND_GET_SYNTH_INFO:
++	    retval = atoi("Loop.\nMax delay is 2 lines");
++	    break;
++
++	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
++	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++
++	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_EFFECT; break;
++
++	case COMMAND_INIT:
++	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 256, 0, &data->ctl_volume, net );
++	    psynth_register_ctl( synth_id, "Delay", "", 0, 256, 256, 0, &data->ctl_delay, net );
++	    psynth_register_ctl( synth_id, "Stereo", "off/on", 0, 1, 1, 1, &data->ctl_stereo, net );
++	    psynth_register_ctl( synth_id, "Repeats", "", 0, 64, 0, 1, &data->ctl_repeats, net );
++	    data->buf_size = pnet->sampling_freq / 3;
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		data->buf[ i ] = (STYPE*)MEM_NEW( HEAP_DYNAMIC, data->buf_size * sizeof( STYPE ) );
++	    }
++	    data->buf_ptr = 0;
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		if( data->buf[ i ] ) mem_set( data->buf[ i ], data->buf_size * sizeof( STYPE ), 0 );
++	    }
++	    data->rep_counter = 0;
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLEAN:
++	    data->buf_ptr = 0;
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		if( data->buf[ i ] ) 
++		{
++		    for( int s = 0; s < data->buf_size; s++ )
++			data->buf[ i ][ s ] = 0;
++		}
++	    }
++	    data->rep_counter = 0;
++	    retval = 1;
++	    break;
++
++	case COMMAND_RENDER_REPLACE:
+ 	    if( !inputs[ 0 ] || !outputs[ 0 ] ) break;
+ 	    
+-	    {
+-		if( data->ctl_stereo )
+-		    psynth_set_number_of_outputs( SYNTH_OUTPUTS, synth_id, pnet );
++	    {
++		if( data->ctl_stereo )
++		    psynth_set_number_of_outputs( SYNTH_OUTPUTS, synth_id, pnet );
+ 		else
+ 		    psynth_set_number_of_outputs( 1, synth_id, pnet );
+-
+-		int line_size = ( pnet->tick_size * pnet->ticks_per_line ) / 256;
+-		int buf_size = ( data->ctl_delay * line_size ) / 128;
+-		if( buf_size > data->buf_size ) buf_size = data->buf_size;
+-		
+-		int rep_counter;
+-		int buf_ptr;
+-
+-		int volume = data->ctl_volume;
+-
+-		if( volume == 0 ) break;
+-
+-		int anticlick_len = pnet->sampling_freq / 1000;
+-
+-		int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
+-		for( ch = 0; ch < outputs_num; ch++ )
+-		{
+-		    STYPE *in = inputs[ ch ];
+-		    STYPE *out = outputs[ ch ];
++
++		int line_size = ( pnet->tick_size * pnet->ticks_per_line ) / 256;
++		int buf_size = ( data->ctl_delay * line_size ) / 128;
++		if( buf_size > data->buf_size ) buf_size = data->buf_size;
++		
++		int rep_counter;
++		int buf_ptr;
++
++		int volume = data->ctl_volume;
++
++		if( volume == 0 ) break;
++
++		int anticlick_len = pnet->sampling_freq / 1000;
++
++		int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
++		for( ch = 0; ch < outputs_num; ch++ )
++		{
++		    STYPE *in = inputs[ ch ];
++		    STYPE *out = outputs[ ch ];
+ 		    STYPE *cbuf = data->buf[ ch ];
+-		    buf_ptr = data->buf_ptr;
+-		    rep_counter = data->rep_counter;
+-		    if( volume == 256 )
+-		    {
+-			for( i = 0; i < sample_frames; i++ )
+-			{
+-			    if( rep_counter == 0 )
+-			    {
+-				//Record:
+-				out[ i ] = in[ i ];
+-				cbuf[ buf_ptr ] = in[ i ];
+-			    }
+-			    else
+-			    {
+-				//Play:
+-				if( buf_ptr < anticlick_len )
+-				{
+-				    int c = ( buf_ptr << 8 ) / anticlick_len;
+-				    out[ i ] = ( cbuf[ buf_ptr ] * c ) / 256 + ( cbuf[ buf_size - 1 ] * (256-c) ) / 256;
+-				}
+-				else
+-				{
+-				    out[ i ] = cbuf[ buf_ptr ];
+-				}
+-			    }
+-
+-			    buf_ptr++;
+-			    if( buf_ptr >= buf_size ) 
+-			    {
+-				rep_counter++;
+-				if( rep_counter > data->ctl_repeats )
+-				{
+-				    rep_counter = 0;
+-				}
+-				buf_ptr = 0;
+-			    }
+-			}
+-		    }
+-		    else
+-		    {
+-			for( i = 0; i < sample_frames; i++ )
+-			{
+-			    STYPE_CALC out_val;
+-			    if( rep_counter == 0 )
+-			    {
+-				//Record:
+-				cbuf[ buf_ptr ] = in[ i ];
+-				out_val = in[ i ];
+-			    }
+-			    else
+-			    {
+-				//Play:
+-				if( buf_ptr < anticlick_len )
+-				{
+-				    int c = ( buf_ptr << 8 ) / anticlick_len;
+-				    out_val = ( cbuf[ buf_ptr ] * c ) / 256 + ( cbuf[ buf_size - 1 ] * (256-c) ) / 256;
+-				}
+-				else
+-				{
+-				    out_val = cbuf[ buf_ptr ];
+-				}
+-			    }
+-			    out_val *= volume;
+-			    out_val /= 256;
+-			    out[ i ] = out_val;
+-
+-			    buf_ptr++;
+-			    if( buf_ptr >= buf_size ) 
+-			    {
+-				rep_counter++;
+-				if( rep_counter > data->ctl_repeats )
+-				{
+-				    rep_counter = 0;
+-				}
+-				buf_ptr = 0;
+-			    }
+-			}
+-		    }
+-		}
+-		data->buf_ptr = buf_ptr;
+-		data->rep_counter = rep_counter;
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_SET_GLOBAL_CONTROLLER:
+-	    if( pnet->ctl_num == 3 )
+-	    {
+-		// "Repeats" controller selected:
+-		data->rep_counter = 0;
+-		data->buf_ptr = 0;
+-	    }
+-	    break;
+-
+-	case COMMAND_CLOSE:
+-	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
+-	    {
+-		if( data->buf[ i ] ) mem_free( data->buf[ i ] );
+-	    }
+-	    retval = 1;
+-	    break;
+-    }
+-
+-    return retval;
+-}
++		    buf_ptr = data->buf_ptr;
++		    rep_counter = data->rep_counter;
++		    if( volume == 256 )
++		    {
++			for( i = 0; i < sample_frames; i++ )
++			{
++			    if( rep_counter == 0 )
++			    {
++				//Record:
++				out[ i ] = in[ i ];
++				cbuf[ buf_ptr ] = in[ i ];
++			    }
++			    else
++			    {
++				//Play:
++				if( buf_ptr < anticlick_len )
++				{
++				    int c = ( buf_ptr << 8 ) / anticlick_len;
++				    out[ i ] = ( cbuf[ buf_ptr ] * c ) / 256 + ( cbuf[ buf_size - 1 ] * (256-c) ) / 256;
++				}
++				else
++				{
++				    out[ i ] = cbuf[ buf_ptr ];
++				}
++			    }
++
++			    buf_ptr++;
++			    if( buf_ptr >= buf_size ) 
++			    {
++				rep_counter++;
++				if( rep_counter > data->ctl_repeats )
++				{
++				    rep_counter = 0;
++				}
++				buf_ptr = 0;
++			    }
++			}
++		    }
++		    else
++		    {
++			for( i = 0; i < sample_frames; i++ )
++			{
++			    STYPE_CALC out_val;
++			    if( rep_counter == 0 )
++			    {
++				//Record:
++				cbuf[ buf_ptr ] = in[ i ];
++				out_val = in[ i ];
++			    }
++			    else
++			    {
++				//Play:
++				if( buf_ptr < anticlick_len )
++				{
++				    int c = ( buf_ptr << 8 ) / anticlick_len;
++				    out_val = ( cbuf[ buf_ptr ] * c ) / 256 + ( cbuf[ buf_size - 1 ] * (256-c) ) / 256;
++				}
++				else
++				{
++				    out_val = cbuf[ buf_ptr ];
++				}
++			    }
++			    out_val *= volume;
++			    out_val /= 256;
++			    out[ i ] = out_val;
++
++			    buf_ptr++;
++			    if( buf_ptr >= buf_size ) 
++			    {
++				rep_counter++;
++				if( rep_counter > data->ctl_repeats )
++				{
++				    rep_counter = 0;
++				}
++				buf_ptr = 0;
++			    }
++			}
++		    }
++		}
++		data->buf_ptr = buf_ptr;
++		data->rep_counter = rep_counter;
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_SET_GLOBAL_CONTROLLER:
++	    if( pnet->ctl_num == 3 )
++	    {
++		// "Repeats" controller selected:
++		data->rep_counter = 0;
++		data->buf_ptr = 0;
++	    }
++	    break;
++
++	case COMMAND_CLOSE:
++	    for( i = 0; i < SYNTH_OUTPUTS; i++ )
++	    {
++		if( data->buf[ i ] ) mem_free( data->buf[ i ] );
++	    }
++	    retval = 1;
++	    break;
++    }
++
++    return retval;
++}
+--- a/sunvox_engine/psynth/psynths_reverb.cpp
++++ b/sunvox_engine/psynth/psynths_reverb.cpp
+@@ -170,11 +170,11 @@
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Reverb";
++	    retval = atoi("Reverb");
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Reverb + DC Blocking Filter.\n(Based on FreeVerb)";
++	    retval = atoi("Reverb + DC Blocking Filter.\n(Based on FreeVerb)");
+ 	    break;
+ 
+ 	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+--- a/sunvox_engine/psynth/psynths_sampler.cpp
++++ b/sunvox_engine/psynth/psynths_sampler.cpp
+@@ -906,11 +906,11 @@
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Sampler";
++	    retval = atoi("Sampler");
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Sampler.\nSupported file formats: WAV, XI\n\nAvailable local controllers:\n * Pan";
++	    retval = atoi("Sampler.\nSupported file formats: WAV, XI\n\nAvailable local controllers:\n * Pan");
+ 	    break;
+ 
+ 	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+--- a/sunvox_engine/psynth/psynths_spectravoice.cpp
++++ b/sunvox_engine/psynth/psynths_spectravoice.cpp
+@@ -4,25 +4,25 @@
+     Copyright (C) 2002 - 2008 Alex Zolotov <nightradio@gmail.com>
+ */
+ 
+-#include "psynth.h"
+-#include "utils/utils.h"
+-#include "core/debug.h"
+-#include "sound/sound.h"
+-#ifdef SUNVOX_GUI
+-#include "window_manager/wmanager.h"
+-#endif
+-
+-//Unique names for objects in your synth:
+-#define SYNTH_DATA	psynth_spectravoice_data
+-#define SYNTH_HANDLER	psynth_spectravoice
+-//And unique parameters:
+-#define SYNTH_INPUTS	0
+-#define SYNTH_OUTPUTS	2
+-
+-#define MAX_CHANNELS	16
+-#define MAX_HARMONICS	16
+-#define MAX_SAMPLES	1
+-
++#include "psynth.h"
++#include "utils/utils.h"
++#include "core/debug.h"
++#include "sound/sound.h"
++#ifdef SUNVOX_GUI
++#include "window_manager/wmanager.h"
++#endif
++
++//Unique names for objects in your synth:
++#define SYNTH_DATA	psynth_spectravoice_data
++#define SYNTH_HANDLER	psynth_spectravoice
++//And unique parameters:
++#define SYNTH_INPUTS	0
++#define SYNTH_OUTPUTS	2
++
++#define MAX_CHANNELS	16
++#define MAX_HARMONICS	16
++#define MAX_SAMPLES	1
++
+ #define GET_FREQ(res,per)  \
+ { \
+     if( per >= 0 ) \
+@@ -34,58 +34,58 @@
+ { \
+     resh = f / pnet->sampling_freq; \
+     resl = ( ( ( f % pnet->sampling_freq ) << 14 ) / pnet->sampling_freq ) << 2; /*Max sampling freq = 256 kHz*/ \
+-}
+-
+-struct gen_channel
+-{
+-    int	    playing;
+-    ulong   id;
+-    int	    vel;
+-    int	    ptr_h;
+-    int	    ptr_l;
+-    ulong   delta_h;
+-    ulong   delta_l;
+-    ulong   env_vol;
+-    int	    sustain;
+-
+-    //Local controllers:
+-    CTYPE   local_pan;
+-};
+-
+-enum {
+-    MODE_HQ = 0,
+-    MODE_HQ_MONO,
+-    MODE_LQ,
+-    MODE_LQ_MONO,
+-    MODE_CUBIC,
+-    MODES
+-};
+-
+-struct SYNTH_DATA
+-{
+-    //Controls: ############################################################
+-    CTYPE   ctl_volume;
+-    CTYPE   ctl_pan;
+-    CTYPE   ctl_attack;
+-    CTYPE   ctl_release;
+-    CTYPE   ctl_channels;
+-    CTYPE   ctl_mode;
+-    CTYPE   ctl_sustain;
+-    CTYPE   ctl_sample_size;
+-    CTYPE   ctl_harm;
+-    CTYPE   ctl_freq;
+-    CTYPE   ctl_freq_vol;
+-    CTYPE   ctl_freq_band;
+-    CTYPE   ctl_freq_type;
+-    CTYPE   ctl_samples;
+-    //Synth data: ##########################################################
+-    gen_channel   channels[ MAX_CHANNELS ];
+-    int	    search_ptr;
+-    ulong   *linear_tab;
+-    uint16  *freq;
+-    uchar   *freq_vol;
+-    uchar   *freq_band;
+-    uchar   *freq_type;
++}
++
++struct gen_channel
++{
++    int	    playing;
++    ulong   id;
++    int	    vel;
++    int	    ptr_h;
++    int	    ptr_l;
++    ulong   delta_h;
++    ulong   delta_l;
++    ulong   env_vol;
++    int	    sustain;
++
++    //Local controllers:
++    CTYPE   local_pan;
++};
++
++enum {
++    MODE_HQ = 0,
++    MODE_HQ_MONO,
++    MODE_LQ,
++    MODE_LQ_MONO,
++    MODE_CUBIC,
++    MODES
++};
++
++struct SYNTH_DATA
++{
++    //Controls: ############################################################
++    CTYPE   ctl_volume;
++    CTYPE   ctl_pan;
++    CTYPE   ctl_attack;
++    CTYPE   ctl_release;
++    CTYPE   ctl_channels;
++    CTYPE   ctl_mode;
++    CTYPE   ctl_sustain;
++    CTYPE   ctl_sample_size;
++    CTYPE   ctl_harm;
++    CTYPE   ctl_freq;
++    CTYPE   ctl_freq_vol;
++    CTYPE   ctl_freq_band;
++    CTYPE   ctl_freq_type;
++    CTYPE   ctl_samples;
++    //Synth data: ##########################################################
++    gen_channel   channels[ MAX_CHANNELS ];
++    int	    search_ptr;
++    ulong   *linear_tab;
++    uint16  *freq;
++    uchar   *freq_vol;
++    uchar   *freq_band;
++    uchar   *freq_type;
+     int16   *samples[ MAX_SAMPLES ];
+     int	    sample_size;
+     int	    note_offset;
+@@ -97,87 +97,87 @@
+ if( v1_p < 0 ) { v1--; v1_p += ( (long)1 << SVOX_PREC ); } }
+ #define SIGNED_ADD64( v1, v1_p, v2, v2_p ) \
+ { v1 += v2; v1_p += v2_p; \
+-if( v1_p > ( (long)1 << SVOX_PREC ) - 1 ) { v1++; v1_p -= ( (long)1 << SVOX_PREC ); } }
+-
+-#define APPLY_VOLUME \
+-    s *= vol; \
+-    s /= 256;
+-#define APPLY_ENV_VOLUME \
+-    s *= ( env_vol >> 20 ); \
+-    s /= 1024;
+-#define ENV_CONTROL_REPLACE \
+-    if( sustain ) \
+-    { \
+-	env_vol += attack_delta; \
+-	if( env_vol >= ( 1 << 30 ) ) { env_vol = ( 1 << 30 ); if( sustain_enabled == 0 ) sustain = 0; } \
+-    } \
+-    else \
+-    { \
+-	env_vol -= release_delta; \
+-	if( env_vol > ( 1 << 30 ) ) { env_vol = 0; playing = 0; while( i < sample_frames ) { out[ i ] = 0; i++; } break; } \
+-    }
+-#define ENV_CONTROL \
+-    if( sustain ) \
+-    { \
+-	env_vol += attack_delta; \
+-	if( env_vol >= ( 1 << 30 ) ) { env_vol = ( 1 << 30 ); if( sustain_enabled == 0 ) sustain = 0; } \
+-    } \
+-    else \
+-    { \
+-	env_vol -= release_delta; \
+-	if( env_vol > ( 1 << 30 ) ) { env_vol = 0; playing = 0; break; } \
+-    }
+-
+-float g_fft_sin[ 22 ] = 
+-{
+-    (float)-5.89793E-10,
+-    (float)-1,
+-    (float)-0.707106781,
+-    (float)-0.382683432,
+-    (float)-0.195090322,
+-    (float)-0.09801714,
+-    (float)-0.049067674,
+-    (float)-0.024541229,
+-    (float)-0.012271538,
+-    (float)-0.006135885,
+-    (float)-0.003067957,
+-    (float)-0.00153398,
+-    (float)-0.00076699,
+-    (float)-0.000383495,
+-    (float)-0.000191748,
+-    (float)-9.58738E-05,
+-    (float)-4.79369E-05,
+-    (float)-2.39684E-05,
+-    (float)-1.19842E-05,
+-    (float)-5.99211E-06,
+-    (float)-2.99606E-06,
+-    (float)-1.49803E-06
+-};
+-
+-float g_fft_sin2[ 22 ] = 
+-{
+-    (float)-1,
+-    (float)-0.707106781,
+-    (float)-0.382683432,
+-    (float)-0.195090322,
+-    (float)-0.09801714,
+-    (float)-0.049067674,
+-    (float)-0.024541229,
+-    (float)-0.012271538,
+-    (float)-0.006135885,
+-    (float)-0.003067957,
+-    (float)-0.00153398,
+-    (float)-0.00076699,
+-    (float)-0.000383495,
+-    (float)-0.000191748,
+-    (float)-9.58738E-05,
+-    (float)-4.79369E-05,
+-    (float)-2.39684E-05,
+-    (float)-1.19842E-05,
+-    (float)-5.99211E-06,
+-    (float)-2.99606E-06,
+-    (float)-1.49803E-06,
+-    (float)-7.49014E-07
++if( v1_p > ( (long)1 << SVOX_PREC ) - 1 ) { v1++; v1_p -= ( (long)1 << SVOX_PREC ); } }
++
++#define APPLY_VOLUME \
++    s *= vol; \
++    s /= 256;
++#define APPLY_ENV_VOLUME \
++    s *= ( env_vol >> 20 ); \
++    s /= 1024;
++#define ENV_CONTROL_REPLACE \
++    if( sustain ) \
++    { \
++	env_vol += attack_delta; \
++	if( env_vol >= ( 1 << 30 ) ) { env_vol = ( 1 << 30 ); if( sustain_enabled == 0 ) sustain = 0; } \
++    } \
++    else \
++    { \
++	env_vol -= release_delta; \
++	if( env_vol > ( 1 << 30 ) ) { env_vol = 0; playing = 0; while( i < sample_frames ) { out[ i ] = 0; i++; } break; } \
++    }
++#define ENV_CONTROL \
++    if( sustain ) \
++    { \
++	env_vol += attack_delta; \
++	if( env_vol >= ( 1 << 30 ) ) { env_vol = ( 1 << 30 ); if( sustain_enabled == 0 ) sustain = 0; } \
++    } \
++    else \
++    { \
++	env_vol -= release_delta; \
++	if( env_vol > ( 1 << 30 ) ) { env_vol = 0; playing = 0; break; } \
++    }
++
++float g_fft_sin[ 22 ] = 
++{
++    (float)-5.89793E-10,
++    (float)-1,
++    (float)-0.707106781,
++    (float)-0.382683432,
++    (float)-0.195090322,
++    (float)-0.09801714,
++    (float)-0.049067674,
++    (float)-0.024541229,
++    (float)-0.012271538,
++    (float)-0.006135885,
++    (float)-0.003067957,
++    (float)-0.00153398,
++    (float)-0.00076699,
++    (float)-0.000383495,
++    (float)-0.000191748,
++    (float)-9.58738E-05,
++    (float)-4.79369E-05,
++    (float)-2.39684E-05,
++    (float)-1.19842E-05,
++    (float)-5.99211E-06,
++    (float)-2.99606E-06,
++    (float)-1.49803E-06
++};
++
++float g_fft_sin2[ 22 ] = 
++{
++    (float)-1,
++    (float)-0.707106781,
++    (float)-0.382683432,
++    (float)-0.195090322,
++    (float)-0.09801714,
++    (float)-0.049067674,
++    (float)-0.024541229,
++    (float)-0.012271538,
++    (float)-0.006135885,
++    (float)-0.003067957,
++    (float)-0.00153398,
++    (float)-0.00076699,
++    (float)-0.000383495,
++    (float)-0.000191748,
++    (float)-9.58738E-05,
++    (float)-4.79369E-05,
++    (float)-2.39684E-05,
++    (float)-1.19842E-05,
++    (float)-5.99211E-06,
++    (float)-2.99606E-06,
++    (float)-1.49803E-06,
++    (float)-7.49014E-07
+ };
+ 
+ int16 g_fft_rsin[ 128 ] = {
+@@ -204,21 +204,21 @@
+ void fft( int16 *result, float *fi, float *fr, int fft_size );
+ void recalc_samples( SYNTH_DATA *data, int synth_id, psynth_net *pnet );
+ 
+-#ifdef SUNVOX_GUI
+-struct spectravoice_visual_data
+-{
+-    SYNTH_DATA	*synth_data;
+-    int		synth_id;
+-    psynth_net	*pnet;
+-    WINDOWPTR	render_button;
+-};
++#ifdef SUNVOX_GUI
++struct spectravoice_visual_data
++{
++    SYNTH_DATA	*synth_data;
++    int		synth_id;
++    psynth_net	*pnet;
++    WINDOWPTR	render_button;
++};
+ int spectravoice_render_handler( void *user_data, WINDOWPTR win, window_manager *wm )
+-{
+-    spectravoice_visual_data *data = (spectravoice_visual_data*)user_data;
++{
++    spectravoice_visual_data *data = (spectravoice_visual_data*)user_data;
+     //Render samples:
+     recalc_samples( data->synth_data, data->synth_id, data->pnet );
+-    return 0;
+-}
++    return 0;
++}
+ int spectravoice_visual_handler( sundog_event *evt, window_manager *wm )
+ {
+     int retval = 0;
+@@ -249,7 +249,7 @@
+ 	    break;
+     }
+     return retval;
+-}
++}
+ #endif
+ 
+ void fft( int16 *result, float *fi, float *fr, int fft_size )
+@@ -450,34 +450,34 @@
+     mem_on();
+ }
+ 
+-int SYNTH_HANDLER( 
+-    PSYTEXX_SYNTH_PARAMETERS
+-    )
+-{
+-    psynth_net *pnet = (psynth_net*)net;
+-    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
+-    int retval = 0;
+-    int i;
+-    int ch;
+-
+-    switch( command )
+-    {
+-	case COMMAND_GET_DATA_SIZE:
+-	    retval = sizeof( SYNTH_DATA );
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"SpectraVoice";
+-	    break;
+-
+-	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"FFT Based Synth\nMin. sample size: 4096 words\nMax. sample size: 65536 words\n\nAvailable local controllers:\n * Pan";
+-	    break;
+-
+-	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
+-	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++int SYNTH_HANDLER( 
++    PSYTEXX_SYNTH_PARAMETERS
++    )
++{
++    psynth_net *pnet = (psynth_net*)net;
++    SYNTH_DATA *data = (SYNTH_DATA*)data_ptr;
++    int retval = 0;
++    int i;
++    int ch;
+ 
+-	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_GENERATOR; break;
++    switch( command )
++    {
++	case COMMAND_GET_DATA_SIZE:
++	    retval = sizeof( SYNTH_DATA );
++	    break;
++
++	case COMMAND_GET_SYNTH_NAME:
++	    retval = atoi("SpectraVoice");
++	    break;
++
++	case COMMAND_GET_SYNTH_INFO:
++	    retval = atoi("FFT Based Synth\nMin. sample size: 4096 words\nMax. sample size: 65536 words\n\nAvailable local controllers:\n * Pan");
++	    break;
++
++	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;
++	case COMMAND_GET_OUTPUTS_NUM: retval = SYNTH_OUTPUTS; break;
++
++	case COMMAND_GET_FLAGS: retval = PSYNTH_FLAG_GENERATOR; break;
+ 
+ 	case COMMAND_INIT:
+ 	    psynth_register_ctl( synth_id, "Volume", "", 0, 256, 128, 0, &data->ctl_volume, net );
+@@ -532,15 +532,15 @@
+ 	    data->search_ptr = 0;
+ 	    data->linear_tab = g_linear_tab;
+ 
+-#ifdef SUNVOX_GUI
+-	    {
+-		pnet->items[ synth_id ].visual = new_window( "Spectravoice GUI", 0, 0, 10, 10, g_wm->colors[ 5 ], 0, spectravoice_visual_handler, g_wm );
+-		spectravoice_visual_data *sv_data = (spectravoice_visual_data*)pnet->items[ synth_id ].visual->data;
+-		sv_data->synth_data = data;
+-		sv_data->synth_id = synth_id;
+-		sv_data->pnet = pnet;
+-	    }
+-#endif
++#ifdef SUNVOX_GUI
++	    {
++		pnet->items[ synth_id ].visual = new_window( "Spectravoice GUI", 0, 0, 10, 10, g_wm->colors[ 5 ], 0, spectravoice_visual_handler, g_wm );
++		spectravoice_visual_data *sv_data = (spectravoice_visual_data*)pnet->items[ synth_id ].visual->data;
++		sv_data->synth_data = data;
++		sv_data->synth_id = synth_id;
++		sv_data->pnet = pnet;
++	    }
++#endif
+ 
+ 	    retval = 1;
+ 	    break;
+@@ -551,7 +551,7 @@
+ 	    retval = 1;
+ 	    break;
+ 
+-	case COMMAND_RENDER_REPLACE:
++	case COMMAND_RENDER_REPLACE:
+ 	    if( !outputs[ 0 ] ) break;
+ 
+ 	    if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_LQ_MONO )
+@@ -559,93 +559,93 @@
+ 	    else
+ 		psynth_set_number_of_outputs( SYNTH_OUTPUTS, synth_id, pnet );
+ 
+-	    for( int c = 0; c < data->ctl_channels; c++ )
+-	    {
+-		if( data->channels[ c ].playing )
+-		{
+-		    int attack_len = ( pnet->sampling_freq * data->ctl_attack ) / 256;
+-		    int release_len = ( pnet->sampling_freq * data->ctl_release ) / 256;
+-		    
+-		    attack_len /= 1024;
+-		    int attack_delta = 1 << 30;
+-		    if( attack_len != 0 ) attack_delta = ( 1 << 20 ) / attack_len;
+-
+-		    release_len /= 1024;
+-		    int release_delta = 1 << 30;
+-		    if( release_len != 0 ) release_delta = ( 1 << 20 ) / release_len;
+-		    
+-		    gen_channel *chan = &data->channels[ c ];
+-		    ulong delta_h = chan->delta_h;
+-		    ulong delta_l = chan->delta_l;
+-		    int sustain = chan->sustain;
+-		    int ptr_h = 0;
+-		    int ptr_l = 0;
+-		    int playing = 0;
+-		    int sustain_enabled = data->ctl_sustain;
+-		    ulong env_vol = 0;
+-
+-		    int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
+-		    for( ch = 0; ch < outputs_num; ch++ )
+-		    {
+-			STYPE *in = inputs[ ch ];
+-			STYPE *out = outputs[ ch ];
+-			sustain = chan->sustain;
+-        		ptr_h = chan->ptr_h;
+-			ptr_l = chan->ptr_l;
+-			env_vol = chan->env_vol;
+-			playing = chan->playing;
+-			int vol = ( data->ctl_volume * chan->vel ) >> 8;
+-			int ctl_pan = data->ctl_pan + ( chan->local_pan - 128 );
+-			if( ctl_pan < 0 ) ctl_pan = 0;
+-			if( ctl_pan > 256 ) ctl_pan = 256;
+-			if( ctl_pan < 128 )
+-			{
+-			    if( ch == 1 ) { vol *= ctl_pan; vol >>= 7; }
+-			}
+-			else
+-			{
+-			    if( ch == 0 ) { vol *= 128 - ( ctl_pan - 128 ); vol >>= 7; }
+-			}
+-			int add = ch * 32768 / 2;
+-			
++	    for( int c = 0; c < data->ctl_channels; c++ )
++	    {
++		if( data->channels[ c ].playing )
++		{
++		    int attack_len = ( pnet->sampling_freq * data->ctl_attack ) / 256;
++		    int release_len = ( pnet->sampling_freq * data->ctl_release ) / 256;
++		    
++		    attack_len /= 1024;
++		    int attack_delta = 1 << 30;
++		    if( attack_len != 0 ) attack_delta = ( 1 << 20 ) / attack_len;
++
++		    release_len /= 1024;
++		    int release_delta = 1 << 30;
++		    if( release_len != 0 ) release_delta = ( 1 << 20 ) / release_len;
++		    
++		    gen_channel *chan = &data->channels[ c ];
++		    ulong delta_h = chan->delta_h;
++		    ulong delta_l = chan->delta_l;
++		    int sustain = chan->sustain;
++		    int ptr_h = 0;
++		    int ptr_l = 0;
++		    int playing = 0;
++		    int sustain_enabled = data->ctl_sustain;
++		    ulong env_vol = 0;
++
++		    int outputs_num = psynth_get_number_of_outputs( synth_id, pnet );
++		    for( ch = 0; ch < outputs_num; ch++ )
++		    {
++			STYPE *in = inputs[ ch ];
++			STYPE *out = outputs[ ch ];
++			sustain = chan->sustain;
++        		ptr_h = chan->ptr_h;
++			ptr_l = chan->ptr_l;
++			env_vol = chan->env_vol;
++			playing = chan->playing;
++			int vol = ( data->ctl_volume * chan->vel ) >> 8;
++			int ctl_pan = data->ctl_pan + ( chan->local_pan - 128 );
++			if( ctl_pan < 0 ) ctl_pan = 0;
++			if( ctl_pan > 256 ) ctl_pan = 256;
++			if( ctl_pan < 128 )
++			{
++			    if( ch == 1 ) { vol *= ctl_pan; vol >>= 7; }
++			}
++			else
++			{
++			    if( ch == 0 ) { vol *= 128 - ( ctl_pan - 128 ); vol >>= 7; }
++			}
++			int add = ch * 32768 / 2;
++			
+ 			int16 *smp = 0;
+ 			smp = data->samples[ 0 ];
+-			if( smp == 0 ) break;
+-			int sample_size = data->sample_size;
+-			int sample_size_mask = data->sample_size - 1;
++			if( smp == 0 ) break;
++			int sample_size = data->sample_size;
++			int sample_size_mask = data->sample_size - 1;
+ 			STYPE_CALC res;
+ 			int poff = 0;
+ 			if( ch == 1 ) poff = data->sample_size / 2;
+ 			int s;
+-			if( retval == 0 ) 
+-			{
+-			    if( data->ctl_attack == 0 && data->ctl_release == 0 )
+-			    {
+-				//No attack. No release.
+-				if( sustain_enabled == 0 ) sustain = 0;
+-				if( sustain == 0 ) { for( i = 0; i < sample_frames; i++ ) out[ i ] = 0; playing = 0; }
+-				else
+-				{
+-				    if( data->ctl_mode == MODE_LQ_MONO || data->ctl_mode == MODE_LQ )
+-				    {
+-					//Low Quality (No interpolation):
+-					for( i = 0; i < sample_frames; i++ )
++			if( retval == 0 ) 
++			{
++			    if( data->ctl_attack == 0 && data->ctl_release == 0 )
++			    {
++				//No attack. No release.
++				if( sustain_enabled == 0 ) sustain = 0;
++				if( sustain == 0 ) { for( i = 0; i < sample_frames; i++ ) out[ i ] = 0; playing = 0; }
++				else
++				{
++				    if( data->ctl_mode == MODE_LQ_MONO || data->ctl_mode == MODE_LQ )
++				    {
++					//Low Quality (No interpolation):
++					for( i = 0; i < sample_frames; i++ )
+ 					{
+ 					    s = smp[ (ptr_h+poff) & sample_size_mask ];
+ 					    APPLY_VOLUME;
+ 					    INT16_TO_STYPE( res, s );
+ 					    out[ i ] = (STYPE)res;
+-					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					}
+-				    }
+-#ifdef STYPE_FLOATINGPOINT
+-				    if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_HQ )
+-#else
+-				    else
+-#endif
+-				    {
+-					//High Quality (Linear interpolation):
+-					for( i = 0; i < sample_frames; i++ )
++					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					}
++				    }
++#ifdef STYPE_FLOATINGPOINT
++				    if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_HQ )
++#else
++				    else
++#endif
++				    {
++					//High Quality (Linear interpolation):
++					for( i = 0; i < sample_frames; i++ )
+ 					{
+ 					    s = smp[ (ptr_h+poff) & sample_size_mask ] * (32767-(ptr_l>>1));
+ 					    s += smp[ (ptr_h+poff+1) & sample_size_mask ] * (ptr_l>>1);
+@@ -653,58 +653,58 @@
+ 					    APPLY_VOLUME;
+ 					    INT16_TO_STYPE( res, s );
+ 					    out[ i ] = (STYPE)res;
+-					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					}
+-				    }
+-#ifdef STYPE_FLOATINGPOINT
+-				    if( data->ctl_mode == MODE_CUBIC )
+-				    {
+-					//High Quality (Cubic interpolation):
+-					for( i = 0; i < sample_frames; i++ )
++					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					}
++				    }
++#ifdef STYPE_FLOATINGPOINT
++				    if( data->ctl_mode == MODE_CUBIC )
++				    {
++					//High Quality (Cubic interpolation):
++					for( i = 0; i < sample_frames; i++ )
+ 					{
+ 					    STYPE_CALC y0 = smp[ (ptr_h+poff-1) & sample_size_mask ];
+ 					    STYPE_CALC y1 = smp[ (ptr_h+poff) & sample_size_mask ];
+ 					    STYPE_CALC y2 = smp[ (ptr_h+poff+1) & sample_size_mask ];
+ 					    STYPE_CALC y3 = smp[ (ptr_h+poff+2) & sample_size_mask ];
+ 					    STYPE_CALC mu = (STYPE_CALC)ptr_l / (STYPE_CALC)0x10000;
+-					    STYPE_CALC a = (3 * (y1-y2) - y0 + y3) / 2;
+-					    STYPE_CALC b = 2 * y2 + y0 - (5*y1 + y3) / 2;
+-					    STYPE_CALC c = ( y2 - y0 ) / 2;
+-					    s = (int)( (((a * mu) + b) * mu + c) * mu + y1 );
++					    STYPE_CALC a = (3 * (y1-y2) - y0 + y3) / 2;
++					    STYPE_CALC b = 2 * y2 + y0 - (5*y1 + y3) / 2;
++					    STYPE_CALC c = ( y2 - y0 ) / 2;
++					    s = (int)( (((a * mu) + b) * mu + c) * mu + y1 );
+ 					    APPLY_VOLUME;
+ 					    INT16_TO_STYPE( res, s );
+ 					    out[ i ] = (STYPE)res;
+-					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					}
+-				    }
+-#endif
+-				}
+-			    }
+-			    else
+-			    {
+-				//Attack and release enabled:
+-				if( data->ctl_mode == MODE_LQ_MONO || data->ctl_mode == MODE_LQ )
+-				{
+-				    //Low Quality (No interpolation):
+-				    for( i = 0; i < sample_frames; i++ )
++					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					}
++				    }
++#endif
++				}
++			    }
++			    else
++			    {
++				//Attack and release enabled:
++				if( data->ctl_mode == MODE_LQ_MONO || data->ctl_mode == MODE_LQ )
++				{
++				    //Low Quality (No interpolation):
++				    for( i = 0; i < sample_frames; i++ )
+ 				    {
+ 					s = smp[ (ptr_h+poff) & sample_size_mask ];
+ 					APPLY_VOLUME;
+ 					APPLY_ENV_VOLUME;
+ 					INT16_TO_STYPE( res, s );
+ 					out[ i ] = (STYPE)res;
+-					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					ENV_CONTROL_REPLACE;
+-				    }
+-				}
+-#ifdef STYPE_FLOATINGPOINT
+-				if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_HQ )
+-#else
+-				else
+-#endif
+-				{
+-				    //High Quality (Linear interpolation):
+-				    for( i = 0; i < sample_frames; i++ )
++					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					ENV_CONTROL_REPLACE;
++				    }
++				}
++#ifdef STYPE_FLOATINGPOINT
++				if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_HQ )
++#else
++				else
++#endif
++				{
++				    //High Quality (Linear interpolation):
++				    for( i = 0; i < sample_frames; i++ )
+ 				    {
+ 					s = smp[ (ptr_h+poff) & sample_size_mask ] * (32767-(ptr_l>>1));
+ 					s += smp[ (ptr_h+poff+1) & sample_size_mask ] * (ptr_l>>1);
+@@ -713,42 +713,42 @@
+ 					APPLY_ENV_VOLUME;
+ 					INT16_TO_STYPE( res, s );
+ 					out[ i ] = (STYPE)res;
+-					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					ENV_CONTROL_REPLACE;
+-				    }
+-				}
+-#ifdef STYPE_FLOATINGPOINT
+-				if( data->ctl_mode == MODE_CUBIC )
+-				{
+-				    //High Quality (Cubic interpolation):
+-				    for( i = 0; i < sample_frames; i++ )
++					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					ENV_CONTROL_REPLACE;
++				    }
++				}
++#ifdef STYPE_FLOATINGPOINT
++				if( data->ctl_mode == MODE_CUBIC )
++				{
++				    //High Quality (Cubic interpolation):
++				    for( i = 0; i < sample_frames; i++ )
+ 				    {
+ 					STYPE_CALC y0 = smp[ (ptr_h+poff-1) & sample_size_mask ];
+ 					STYPE_CALC y1 = smp[ (ptr_h+poff) & sample_size_mask ];
+ 					STYPE_CALC y2 = smp[ (ptr_h+poff+1) & sample_size_mask ];
+ 					STYPE_CALC y3 = smp[ (ptr_h+poff+2) & sample_size_mask ];
+ 					STYPE_CALC mu = (STYPE_CALC)ptr_l / (STYPE_CALC)0x10000;
+-					STYPE_CALC a = (3 * (y1-y2) - y0 + y3) / 2;
+-					STYPE_CALC b = 2 * y2 + y0 - (5*y1 + y3) / 2;
+-					STYPE_CALC c = ( y2 - y0 ) / 2;
++					STYPE_CALC a = (3 * (y1-y2) - y0 + y3) / 2;
++					STYPE_CALC b = 2 * y2 + y0 - (5*y1 + y3) / 2;
++					STYPE_CALC c = ( y2 - y0 ) / 2;
+ 					s = (int)( (((a * mu) + b) * mu + c) * mu + y1 );
+ 					APPLY_VOLUME;
+ 					APPLY_ENV_VOLUME;
+ 					INT16_TO_STYPE( res, s );
+ 					out[ i ] = (STYPE)res;
+-					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					ENV_CONTROL_REPLACE;
+-				    }
+-				}
+-#endif
+-			    }
+-			}
+-			else
+-			{
+-			    if( data->ctl_attack == 0 && data->ctl_release == 0 )
+-			    {
+-				//No attack. No release.
+-				if( sustain == 0 ) { playing = 0; }
++					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					ENV_CONTROL_REPLACE;
++				    }
++				}
++#endif
++			    }
++			}
++			else
++			{
++			    if( data->ctl_attack == 0 && data->ctl_release == 0 )
++			    {
++				//No attack. No release.
++				if( sustain == 0 ) { playing = 0; }
+ 				else
+ 				{
+ 				    if( data->ctl_mode == MODE_LQ_MONO || data->ctl_mode == MODE_LQ )
+@@ -760,8 +760,8 @@
+ 					    APPLY_VOLUME;
+ 					    INT16_TO_STYPE( res, s );
+ 					    out[ i ] += (STYPE)res;
+-					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					}
++					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					}
+ 				    }
+ #ifdef STYPE_FLOATINGPOINT
+ 				    if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_HQ )
+@@ -778,58 +778,58 @@
+ 					    APPLY_VOLUME;
+ 					    INT16_TO_STYPE( res, s );
+ 					    out[ i ] += (STYPE)res;
+-					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					}
++					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					}
+ 				    }
+ #ifdef STYPE_FLOATINGPOINT
+-				    if( data->ctl_mode == MODE_CUBIC )
+-				    {
+-					//High Quality (Cubic interpolation):
+-					for( i = 0; i < sample_frames; i++ )
++				    if( data->ctl_mode == MODE_CUBIC )
++				    {
++					//High Quality (Cubic interpolation):
++					for( i = 0; i < sample_frames; i++ )
+ 					{
+ 					    STYPE_CALC y0 = smp[ (ptr_h+poff-1) & sample_size_mask ];
+ 					    STYPE_CALC y1 = smp[ (ptr_h+poff) & sample_size_mask ];
+ 					    STYPE_CALC y2 = smp[ (ptr_h+poff+1) & sample_size_mask ];
+ 					    STYPE_CALC y3 = smp[ (ptr_h+poff+2) & sample_size_mask ];
+ 					    STYPE_CALC mu = (STYPE_CALC)ptr_l / (STYPE_CALC)0x10000;
+-					    STYPE_CALC a = (3 * (y1-y2) - y0 + y3) / 2;
+-					    STYPE_CALC b = 2 * y2 + y0 - (5*y1 + y3) / 2;
+-					    STYPE_CALC c = ( y2 - y0 ) / 2;
++					    STYPE_CALC a = (3 * (y1-y2) - y0 + y3) / 2;
++					    STYPE_CALC b = 2 * y2 + y0 - (5*y1 + y3) / 2;
++					    STYPE_CALC c = ( y2 - y0 ) / 2;
+ 					    s = (int)( (((a * mu) + b) * mu + c) * mu + y1 );
+ 					    APPLY_VOLUME;
+ 					    INT16_TO_STYPE( res, s );
+ 					    out[ i ] += (STYPE)res;
+-					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					}
++					    SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					}
+ 				    }
+ #endif
+-				}
+-			    }
+-			    else
+-			    {
+-				//Attack and release enabled:
+-				if( data->ctl_mode == MODE_LQ_MONO || data->ctl_mode == MODE_LQ )
+-				{
+-				    //Low Quality (No interpolation):
+-				    for( i = 0; i < sample_frames; i++ )
++				}
++			    }
++			    else
++			    {
++				//Attack and release enabled:
++				if( data->ctl_mode == MODE_LQ_MONO || data->ctl_mode == MODE_LQ )
++				{
++				    //Low Quality (No interpolation):
++				    for( i = 0; i < sample_frames; i++ )
+ 				    {
+ 					s = smp[ (ptr_h+poff) & sample_size_mask ];
+ 					APPLY_VOLUME;
+ 					APPLY_ENV_VOLUME;
+ 					INT16_TO_STYPE( res, s );
+ 					out[ i ] += (STYPE)res;
+-					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					ENV_CONTROL;
+-				    }
+-				}
+-#ifdef STYPE_FLOATINGPOINT				
+-				if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_HQ )
+-#else
+-				else
+-#endif
+-				{
+-				    //High Quality (Linear interpolation):
+-				    for( i = 0; i < sample_frames; i++ )
++					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					ENV_CONTROL;
++				    }
++				}
++#ifdef STYPE_FLOATINGPOINT				
++				if( data->ctl_mode == MODE_HQ_MONO || data->ctl_mode == MODE_HQ )
++#else
++				else
++#endif
++				{
++				    //High Quality (Linear interpolation):
++				    for( i = 0; i < sample_frames; i++ )
+ 				    {
+ 					s = smp[ (ptr_h+poff) & sample_size_mask ] * (32767-(ptr_l>>1));
+ 					s += smp[ (ptr_h+poff+1) & sample_size_mask ] * (ptr_l>>1);
+@@ -838,219 +838,219 @@
+ 					APPLY_ENV_VOLUME;
+ 					INT16_TO_STYPE( res, s );
+ 					out[ i ] += (STYPE)res;
+-					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					ENV_CONTROL;
+-				    }
+-				}
+-#ifdef STYPE_FLOATINGPOINT
+-				if( data->ctl_mode == MODE_CUBIC )
+-				{
+-				    //High Quality (Cubic interpolation):
+-				    for( i = 0; i < sample_frames; i++ )
++					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					ENV_CONTROL;
++				    }
++				}
++#ifdef STYPE_FLOATINGPOINT
++				if( data->ctl_mode == MODE_CUBIC )
++				{
++				    //High Quality (Cubic interpolation):
++				    for( i = 0; i < sample_frames; i++ )
+ 				    {
+ 					STYPE_CALC y0 = smp[ (ptr_h+poff-1) & sample_size_mask ];
+ 					STYPE_CALC y1 = smp[ (ptr_h+poff) & sample_size_mask ];
+ 					STYPE_CALC y2 = smp[ (ptr_h+poff+1) & sample_size_mask ];
+ 					STYPE_CALC y3 = smp[ (ptr_h+poff+2) & sample_size_mask ];
+ 					STYPE_CALC mu = (STYPE_CALC)ptr_l / (STYPE_CALC)0x10000;
+-					STYPE_CALC a = (3 * (y1-y2) - y0 + y3) / 2;
+-					STYPE_CALC b = 2 * y2 + y0 - (5*y1 + y3) / 2;
+-					STYPE_CALC c = ( y2 - y0 ) / 2;
++					STYPE_CALC a = (3 * (y1-y2) - y0 + y3) / 2;
++					STYPE_CALC b = 2 * y2 + y0 - (5*y1 + y3) / 2;
++					STYPE_CALC c = ( y2 - y0 ) / 2;
+ 					s = (int)( (((a * mu) + b) * mu + c) * mu + y1 );
+ 					APPLY_VOLUME;
+ 					APPLY_ENV_VOLUME;
+ 					INT16_TO_STYPE( res, s );
+ 					out[ i ] += (STYPE)res;
+-					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
+-					ENV_CONTROL;
+-				    }
+-				}
+-#endif
+-			    }
+-			}
+-		    }
+-		    chan->ptr_h = ptr_h;
+-		    chan->ptr_l = ptr_l;
+-		    chan->delta_h = delta_h;
+-		    chan->delta_l = delta_l;
+-		    chan->env_vol = env_vol;
+-		    chan->sustain = sustain;
+-		    chan->playing = playing;
+-		    retval = 1;
+-		}
+-	    }
+-	    break;
+-
+-	case COMMAND_NOTE_ON:
+-	    {
+-		int c;
+-		for( c = 0; c < data->ctl_channels; c++ )
+-		{
+-		    if( data->channels[ data->search_ptr ].playing == 0 ) break;
+-		    data->search_ptr++;
+-		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
+-		}
+-		if( c == data->ctl_channels )
+-		{
+-		    //Channel not found:
+-		    data->search_ptr++;
+-		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
+-		}
+-
+-		ulong delta_h, delta_l;
+-		int freq;
+-		GET_FREQ( freq, pnet->period_ptr / 4 );
+-		GET_DELTA( freq, delta_h, delta_l );
+-
+-		c = data->search_ptr;
+-		data->channels[ c ].playing = 1;
+-		data->channels[ c ].vel = pnet->velocity;
+-		data->channels[ c ].delta_h = delta_h;
+-		data->channels[ c ].delta_l = delta_l;
++					SIGNED_ADD64( ptr_h, ptr_l, delta_h, delta_l );
++					ENV_CONTROL;
++				    }
++				}
++#endif
++			    }
++			}
++		    }
++		    chan->ptr_h = ptr_h;
++		    chan->ptr_l = ptr_l;
++		    chan->delta_h = delta_h;
++		    chan->delta_l = delta_l;
++		    chan->env_vol = env_vol;
++		    chan->sustain = sustain;
++		    chan->playing = playing;
++		    retval = 1;
++		}
++	    }
++	    break;
++
++	case COMMAND_NOTE_ON:
++	    {
++		int c;
++		for( c = 0; c < data->ctl_channels; c++ )
++		{
++		    if( data->channels[ data->search_ptr ].playing == 0 ) break;
++		    data->search_ptr++;
++		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
++		}
++		if( c == data->ctl_channels )
++		{
++		    //Channel not found:
++		    data->search_ptr++;
++		    if( data->search_ptr >= data->ctl_channels ) data->search_ptr = 0;
++		}
++
++		ulong delta_h, delta_l;
++		int freq;
++		GET_FREQ( freq, pnet->period_ptr / 4 );
++		GET_DELTA( freq, delta_h, delta_l );
++
++		c = data->search_ptr;
++		data->channels[ c ].playing = 1;
++		data->channels[ c ].vel = pnet->velocity;
++		data->channels[ c ].delta_h = delta_h;
++		data->channels[ c ].delta_l = delta_l;
+ 		data->channels[ c ].ptr_h = ( data->note_offset & (data->sample_size-1) );
+ 		data->note_offset += 333;
+ 		data->channels[ c ].ptr_l = 0;
+-		data->channels[ c ].id = pnet->channel_id;
+-		data->channels[ c ].env_vol = 0;
+-		data->channels[ c ].sustain = 1;
+-		
+-		data->channels[ c ].local_pan = 128;
+-		retval = c;
+-	    }
+-	    break;
+-
+-    	case COMMAND_SET_FREQ:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    ulong delta_h, delta_l;
+-		    int freq;
+-		    GET_FREQ( freq, pnet->period_ptr / 4 );
+-		    GET_DELTA( freq, delta_h, delta_l );
+-
+-		    data->channels[ c ].delta_h = delta_h;
+-		    data->channels[ c ].delta_l = delta_l;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-    	case COMMAND_SET_VELOCITY:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    data->channels[ c ].vel = pnet->velocity;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_NOTE_OFF:
+-	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-	    {
+-		int c = pnet->synth_channel;
+-		if( data->channels[ c ].id == pnet->channel_id )
+-		{
+-		    data->channels[ c ].sustain = 0;
+-		}
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_ALL_NOTES_OFF:
+-	    for( int c = 0; c < MAX_CHANNELS; c++ )
+-	    {
+-		data->channels[ c ].sustain = 0;
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_CLEAN:
+-	    for( int c = 0; c < MAX_CHANNELS; c++ )
+-	    {
+-		data->channels[ c ].playing = 0;
+-	    }
+-	    retval = 1;
+-	    break;
+-
+-	case COMMAND_SET_GLOBAL_CONTROLLER:
+-	    if( pnet->ctl_num == 8 )
+-	    {
+-		//Harmonic number:
++		data->channels[ c ].id = pnet->channel_id;
++		data->channels[ c ].env_vol = 0;
++		data->channels[ c ].sustain = 1;
++		
++		data->channels[ c ].local_pan = 128;
++		retval = c;
++	    }
++	    break;
++
++    	case COMMAND_SET_FREQ:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    ulong delta_h, delta_l;
++		    int freq;
++		    GET_FREQ( freq, pnet->period_ptr / 4 );
++		    GET_DELTA( freq, delta_h, delta_l );
++
++		    data->channels[ c ].delta_h = delta_h;
++		    data->channels[ c ].delta_l = delta_l;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++    	case COMMAND_SET_VELOCITY:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    data->channels[ c ].vel = pnet->velocity;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_NOTE_OFF:
++	    if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++	    {
++		int c = pnet->synth_channel;
++		if( data->channels[ c ].id == pnet->channel_id )
++		{
++		    data->channels[ c ].sustain = 0;
++		}
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_ALL_NOTES_OFF:
++	    for( int c = 0; c < MAX_CHANNELS; c++ )
++	    {
++		data->channels[ c ].sustain = 0;
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_CLEAN:
++	    for( int c = 0; c < MAX_CHANNELS; c++ )
++	    {
++		data->channels[ c ].playing = 0;
++	    }
++	    retval = 1;
++	    break;
++
++	case COMMAND_SET_GLOBAL_CONTROLLER:
++	    if( pnet->ctl_num == 8 )
++	    {
++		//Harmonic number:
+ 		data->freq = (uint16*)psynth_get_chunk( synth_id, 0, pnet );
+ 		data->freq_vol = (uchar*)psynth_get_chunk( synth_id, 1, pnet );
+ 		data->freq_band = (uchar*)psynth_get_chunk( synth_id, 2, pnet );
+ 		data->freq_type = (uchar*)psynth_get_chunk( synth_id, 3, pnet );
+-		data->ctl_harm = pnet->ctl_val;
+-		data->ctl_freq = data->freq[ data->ctl_harm ];
+-		data->ctl_freq_vol = data->freq_vol[ data->ctl_harm ];
+-		data->ctl_freq_band = data->freq_band[ data->ctl_harm ];
+-		data->ctl_freq_type = data->freq_type[ data->ctl_harm ];
+-		pnet->draw_request = 1;
+-		retval = 1;
+-	    }
+-	    if( pnet->ctl_num == 9 )
+-	    {
+-		//Harmonic frequency:
++		data->ctl_harm = pnet->ctl_val;
++		data->ctl_freq = data->freq[ data->ctl_harm ];
++		data->ctl_freq_vol = data->freq_vol[ data->ctl_harm ];
++		data->ctl_freq_band = data->freq_band[ data->ctl_harm ];
++		data->ctl_freq_type = data->freq_type[ data->ctl_harm ];
++		pnet->draw_request = 1;
++		retval = 1;
++	    }
++	    if( pnet->ctl_num == 9 )
++	    {
++		//Harmonic frequency:
+ 		data->freq = (uint16*)psynth_get_chunk( synth_id, 0, pnet );
+-		data->freq[ data->ctl_harm ] = pnet->ctl_val;
+-	    }
+-	    if( pnet->ctl_num == 10 )
+-	    {
+-		//Harmonic volume:
++		data->freq[ data->ctl_harm ] = pnet->ctl_val;
++	    }
++	    if( pnet->ctl_num == 10 )
++	    {
++		//Harmonic volume:
+ 		data->freq_vol = (uchar*)psynth_get_chunk( synth_id, 1, pnet );
+-		data->freq_vol[ data->ctl_harm ] = pnet->ctl_val;
+-	    }
+-	    if( pnet->ctl_num == 11 )
+-	    {
+-		//Harmonic bandwidth:
++		data->freq_vol[ data->ctl_harm ] = pnet->ctl_val;
++	    }
++	    if( pnet->ctl_num == 11 )
++	    {
++		//Harmonic bandwidth:
+ 		data->freq_band = (uchar*)psynth_get_chunk( synth_id, 2, pnet );
+-		data->freq_band[ data->ctl_harm ] = pnet->ctl_val;
+-	    }
+-	    if( pnet->ctl_num == 12 )
+-	    {
+-		//Harmonic bandwidth type:
++		data->freq_band[ data->ctl_harm ] = pnet->ctl_val;
++	    }
++	    if( pnet->ctl_num == 12 )
++	    {
++		//Harmonic bandwidth type:
+ 		data->freq_type = (uchar*)psynth_get_chunk( synth_id, 3, pnet );
+-		data->freq_type[ data->ctl_harm ] = pnet->ctl_val;
+-	    }
+-	    break;
+-
+-	case COMMAND_SET_LOCAL_CONTROLLER:
+-	    if( pnet->ctl_num == 1 )
+-	    {
+-		if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
+-		{
+-		    int c = pnet->synth_channel;
+-		    if( data->channels[ c ].id == pnet->channel_id )
+-		    {
+-			//Set "PAN" local controller of this channel:
+-			data->channels[ c ].local_pan = pnet->ctl_val >> 7;
+-		    }
+-		}
+-		retval = 1;
+-	    }
+-	    break;
+-
+-	case COMMAND_CLOSE:
+-	    mem_off();
+-	    for( int s = 0; s < MAX_SAMPLES; s++ )
+-	    {
+-		if( data->samples[ s ] ) mem_free( data->samples[ s ] );
+-		data->samples[ s ] = 0;
+-	    }
+-	    mem_on();
+-
+-#ifdef SUNVOX_GUI
+-	    remove_window( pnet->items[ synth_id ].visual, g_wm );
+-#endif
+-
+-	    retval = 1;
+-	    break;
+-    }
+-
+-    return retval;
+-}
++		data->freq_type[ data->ctl_harm ] = pnet->ctl_val;
++	    }
++	    break;
++
++	case COMMAND_SET_LOCAL_CONTROLLER:
++	    if( pnet->ctl_num == 1 )
++	    {
++		if( pnet->synth_channel >= 0 && pnet->synth_channel < MAX_CHANNELS )
++		{
++		    int c = pnet->synth_channel;
++		    if( data->channels[ c ].id == pnet->channel_id )
++		    {
++			//Set "PAN" local controller of this channel:
++			data->channels[ c ].local_pan = pnet->ctl_val >> 7;
++		    }
++		}
++		retval = 1;
++	    }
++	    break;
++
++	case COMMAND_CLOSE:
++	    mem_off();
++	    for( int s = 0; s < MAX_SAMPLES; s++ )
++	    {
++		if( data->samples[ s ] ) mem_free( data->samples[ s ] );
++		data->samples[ s ] = 0;
++	    }
++	    mem_on();
++
++#ifdef SUNVOX_GUI
++	    remove_window( pnet->items[ synth_id ].visual, g_wm );
++#endif
++
++	    retval = 1;
++	    break;
++    }
++
++    return retval;
++}
+--- a/sunvox_engine/psynth/psynths_vocal_filter.cpp
++++ b/sunvox_engine/psynth/psynths_vocal_filter.cpp
+@@ -341,11 +341,11 @@
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_NAME:
+-	    retval = (int)"Vocal filter";
++	    retval = atoi("Vocal filter");
+ 	    break;
+ 
+ 	case COMMAND_GET_SYNTH_INFO:
+-	    retval = (int)"Vocal filter.\n(Five formants)";
++	    retval = atoi("Vocal filter.\n(Five formants)");
+ 	    break;
+ 
+ 	case COMMAND_GET_INPUTS_NUM: retval = SYNTH_INPUTS; break;

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Metsäteollisuuden Laajuus
+GenericName=Demo
+Comment=Metsäteollisuuden Laajuus - Demo shown at Assembly 2001
+Type=Application
+Exec=/usr/bin/metsateollisuudenlaajuus-by-10tonsentertainment
+Icon=metsateollisuudenlaajuus-by-10tonsentertainment
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Metsäteollisuuden Laajuus

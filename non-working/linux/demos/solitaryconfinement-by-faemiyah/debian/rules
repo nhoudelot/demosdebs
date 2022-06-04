@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --with autoreconf
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/solitaryconfinement-by-faemiyah.6.md -o debian/solitaryconfinement-by-faemiyah.6

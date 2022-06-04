@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Delirium Borntro
+GenericName=Demo
+Comment=Delirium Borntro - Demo not shown at Assembly 2000
+Type=Application
+Exec=/usr/bin/deliriumborntro-by-delirium
+Icon=deliriumborntro-by-delirium
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Delirium Borntro

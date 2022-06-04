@@ -1,0 +1,4 @@
+sf2kinvitro-by-aardbei binary: unknown-section demos
+sf2kinvitro-by-aardbei binary: script-not-executable usr/share/sf2kinvitro-by-aardbei/sf2kinvitro-by-aardbei_userinstall.pol
+sf2kinvitro-by-aardbei binary: unknown-section demos
+sf2kinvitro-by-aardbei binary: unusual-interpreter usr/share/sf2kinvitro-by-aardbei/sf2kinvitro-by-aardbei_userinstall.pol #!playonlinux-bash

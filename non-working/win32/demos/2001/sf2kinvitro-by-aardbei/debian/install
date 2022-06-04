@@ -1,0 +1,14 @@
+debian/scripts/sf2kinvitro-by-aardbei usr/bin/
+debian/scripts/sf2kinvitro-by-aardbei.conf etc/
+debian/resources/sf2kinvitro-by-aardbei.desktop usr/share/applications/
+debian/resources/sf2kinvitro-by-aardbei.png usr/share/icons/hicolor/32x32/apps/
+./sf2k_invitro.exe usr/share/sf2kinvitro-by-aardbei/./ 
+./debian/scripts/sf2kinvitro-by-aardbei_userinstall.pol usr/share/sf2kinvitro-by-aardbei/./ 
+./Objects usr/share/sf2kinvitro-by-aardbei/./ 
+./Objects/hmm.txt usr/share/sf2kinvitro-by-aardbei/./Objects/ 
+./Objects/disc.ile usr/share/sf2kinvitro-by-aardbei/./Objects/ 
+./Objects/sjaak2.ile usr/share/sf2kinvitro-by-aardbei/./Objects/ 
+./Gfx usr/share/sf2kinvitro-by-aardbei/./ 
+./fmod.dll usr/share/sf2kinvitro-by-aardbei/./ 
+./Music usr/share/sf2kinvitro-by-aardbei/./ 
+./Music/sf2k.mp3 usr/share/sf2kinvitro-by-aardbei/./Music/ 

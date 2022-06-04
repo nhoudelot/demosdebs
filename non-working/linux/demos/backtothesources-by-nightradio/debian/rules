@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+#export DEB_LDFLAGS_MAINT_APPEND  = -flto
+ifeq "$(DEB_HOST_MULTIARCH)" "x86_64-linux-gnu" 
+    export TARGET_DEFINES = -DARCH_X86 -DLINUX
+    #export DEB_CFLAGS_MAINT_APPEND  = -flto -malign-double
+    export DEB_CFLAGS_MAINT_APPEND = -std=gnu++14 -malign-double 
+endif
+ifeq "$(DEB_HOST_MULTIARCH)" "i386-linux-gnu" 
+    export TARGET_DEFINES = -DARCH_X86 -DLINUX
+    export DEB_CFLAGS_MAINT_APPEND  = -flto -malign-double
+endif
+ifeq "$(DEB_HOST_MULTIARCH)" "arm-linux-gnueabihf" 
+    export TARGET_DEFINES = -DARCH_ARM -DLINUX
+endif
+ifeq "$(DEB_HOST_MULTIARCH)" "aarch64-linux-gnu" 
+    export TARGET_DEFINES = -DARCH_ARM -DLINUX
+endif
+
+
+%:
+	dh $@ --sourcedirectory=btts/make
+
+override_dh_auto_build:
+	dh_auto_build -- linux
+
+override_dh_fixperms:
+	dh_fixperms
+	find debian -name '8bit_tales.sunvox' -exec chmod 0644 {} +

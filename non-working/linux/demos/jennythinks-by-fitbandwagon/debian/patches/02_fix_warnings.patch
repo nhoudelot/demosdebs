@@ -1,0 +1,162 @@
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -45,6 +45,7 @@
+ #endif
+ 
+ #include <math.h>
++#include <string.h>
+ #ifdef MIX_ASM
+ #include "sd_amix.h"
+ #endif
+--- a/texts.c
++++ b/texts.c
+@@ -1,5 +1,6 @@
+ 
+ #include <stdio.h>
++#include <stdlib.h>
+ #include "texts.h"
+ 
+ #define TW 207
+--- a/kokko.c
++++ b/kokko.c
+@@ -22,7 +22,7 @@
+ unsigned char kerto_taulu3[256*256];
+ int kertaa_320[256];
+ 
+-void zoom(char * dest, char * src, int w, int h, int zoox, int zooy, int rotate);
++void zoom(unsigned char * dest, char * src, int w, int h, int zoox, int zooy, int rotate);
+ 
+ void init_filter() {
+ 	int x,y,a;
+@@ -55,10 +55,10 @@
+ }
+ 
+ void filter_kokko(unsigned char * buffer, int vbl, int distance, int angle, int mode) {
+-	int x,y,a,a2;
++	int x,y;
+ 	static int first=1;
+ 	unsigned char * src, * dst;
+-	char * k;
++	unsigned char * k;
+ 
+ 	if (first) {
+ #ifndef AMIGA
+@@ -88,16 +88,15 @@
+ 			src++;
+ 		}
+ 
+-	zoom(old_screen,buffer,AW,AH,distance,distance,angle);
++	zoom(old_screen,(char *)buffer,AW,AH,distance,distance,angle);
+ 
+ }
+ 
+ 
+ 
+-void zoom(char * dest, char * src, int w, int h, int zoox, int zooy, int rotate) {
++void zoom(unsigned char * dest, char * src, int w, int h, int zoox, int zooy, int rotate) {
+ #define EI 64
+ 	int x,y;
+-	int ky;
+ 	int sx1,sy1,sx2,sy2;
+ 	int dx1,dy1,dx2,dy2;
+ 	unsigned char * dst;
+--- a/tunneli.h
++++ b/tunneli.h
+@@ -3,5 +3,6 @@
+ #define TUNNELI_H
+ 
+ void tunneli(unsigned char * dst, int vbl, int threshold);
++void init_tunneli();
+ 
+-#endif
+\ No newline at end of file
++#endif
+--- a/main.c
++++ b/main.c
+@@ -46,8 +46,6 @@
+ 	int i,c;
+ #ifdef GP32
+ 	GP_PALETTEENTRY entry;
+-#else
+-	static SDL_Color pal[256];
+ #endif
+ 
+ 	for (i=0; i<256; i++) {
+@@ -290,7 +288,7 @@
+ #endif
+ {
+ 	int modpos,quit=0,frame=0,n,i;
+-	int video_trig,vbl,vbl2,origtick;
++	int vbl,vbl2,origtick;
+ 
+ 	int osa_pos;
+ 	int clip_n;
+@@ -303,24 +301,16 @@
+ 	int e2on=0;
+ 	int e3on=0;
+ 	int e4on=0;
+-	int e5on=0;
+ 	float video_spd=0.5;
+ 	int trigger;
+ 	int volly_on=0;
+ 	int speed_up_start=0;
+ 
+-	int angle;
+-	int alkutikki,tikki,tikki2,first=1;
+-	int dt=0,dt2=0;
+-	int ovbl=0;
+-
+ 	int text_pos=0;
+ 	int text_n;
+ 	int text_x;
+ 	int text_y;
+ 
+-	int volly_pos=0;
+-
+ 	int nv=0;
+ 	int video_on=1;
+ 
+--- a/filmi.c
++++ b/filmi.c
+@@ -13,7 +13,7 @@
+ 
+ void filmi(unsigned char *d,unsigned char *s,float pos)
+ {
+-	int sy,y,n,i,wid;
++	int sy,y,wid;
+ 
+ 	sy=(int)(pos*YS)%YS;
+ 
+--- a/video.c
++++ b/video.c
+@@ -38,7 +38,6 @@
+ 	static unsigned char lookup2[256];
+ 
+ 	unsigned char * dstc;
+-	unsigned char a;
+ 
+ 	float ff;
+ 	static int ot;
+--- a/tunneli.c
++++ b/tunneli.c
+@@ -25,8 +25,6 @@
+ void init_tunneli() {
+ 	int x,y,sx,sy;
+ 	float z;
+-	float k;
+-	FILE * f;
+ 
+ 	for (y=0; y<MH; y++)
+ 		cos_table[y]=cos(y*0.01)*0.1;
+@@ -58,10 +56,7 @@
+ 
+ }
+ void tunneli(unsigned char * dst, int vbl, int threshold) {
+-	int x,y,sx,sy;
+-	float z;
+-	float k;
+-	FILE * f;
++	int x,y;
+ 	int a;
+ 	int xp;
+ 	int yp;

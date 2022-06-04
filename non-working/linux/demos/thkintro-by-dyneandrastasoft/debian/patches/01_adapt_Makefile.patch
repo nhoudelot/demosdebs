@@ -1,0 +1,115 @@
+Description: big makefile adaptation
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-11-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile.Linux
++++ b/Makefile.Linux
+@@ -4,52 +4,84 @@
+ 
+ CC = gcc
+ CPP = g++
+-INSTALL = install -c
+-PREFIX = /usr/local
+-DATADIR = $(PREFIX)/share/transhackmeeting
++
++TARGET = thkintro-by-dyneandrastasoft
++
++RM_F = rm -f
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_LIBS    := $(INSTALL) -p    -o root -g root  -m  755
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++datarootdir     := $(prefix)/share
++datadir         := $(prefix)/share/thkintro-by-dyneandrastasoft
++libdir          := $(prefix)/lib/$(DEB_HOST_MULTIARCH)
++
+ 
+ #debug flags
+ #CFLAGS = -pipe -ggdb \
+ #         -DDATADIR=\"$(DATADIR)\"
+ 
+ # very shamanic lubrifications
+-CFLAGS = -pipe -Wall -O2 -ffast-math -fomit-frame-pointer -mcpu=pentium-mmx \
+-         -fno-inline -fmove-all-movables -fno-loop-optimize -fexpensive-optimizations -fpeephole2 \
+-         -DDATADIR=\"$(DATADIR)\"
++CXXFLAGS += -pipe -Wall -fomit-frame-pointer \
++         -fno-inline -fno-loop-optimize -fexpensive-optimizations -fpeephole2 \
++         -DDATADIR=\"$(DATADIR)\" -std=gnu++98
++CFLAGS += -pipe -Wall -fomit-frame-pointer \
++         -fno-inline -fno-loop-optimize -fexpensive-optimizations -fpeephole2 \
++         -DDATADIR=\"$(DATADIR)\" -fPIC -std=gnu90
+ 
++INCLUDE = -I. $(shell pkgconf --cflags sdl libpng libmikmod)
+ 
+-
+-INCLUDE = -I. `sdl-config --cflags` \
+-          `pkg-config --cflags libpng12` \
+-          `libmikmod-config --cflags`
+-
+-LIBS = `sdl-config --libs` \
+-       `pkg-config --libs libpng12` \
+-       `libmikmod-config --libs`
++LDFLAGS += $(shell pkgconf --libs sdl libpng libmikmod) -ldl -pthread
+ 
+ OBJS = context.o thk.o gen_layer.o scroll_layer.o impl_layers.o \
+        jsync.o jutils.o layer.o linklist.o osd.o plugger.o plugin.o \
+        png_layer.o screen.o sdl_blit.o sdl_screen.o \
+-       fastmemcpy.o cpu_accel.o
++       cpu_accel.o
++
++#get DEB_BUILD_OPTIONS working
++ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
++    CFLAGS += -O0
++else
++    CFLAGS += -O2
++endif
++ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
++    INSTALL_PROGRAM += -s
++endif
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+-all: thk vertigo.so
++all: $(TARGET) vertigo.so
+ 
+-thk: $(OBJS)
+-	$(CPP) -o thk $(OBJS) $(LIBS)
++$(TARGET): $(OBJS)
++	$(CPP) $(OBJS) -o $(TARGET) $(LDFLAGS)
+ #	strip $(SOPT) thk
+ 
+ vertigo.so: vertigo.o
+ 	ld -E -z now -shared vertigo.o -o vertigo.so
+ 
+ %.o: %.cpp
+-	$(CPP) $(INCLUDE) $(CFLAGS) -c -o $@ $<
++	$(CPP) $(INCLUDE) $(CXXFLAGS) -c -o $@ $<
+ 
+ %.o: %.c
+ 	$(CC) $(INCLUDE) $(CFLAGS) -c -o $@ $<
+ 
+-install: all
+-	$(INSTALL) -s thk $(PREFIX)/bin
+-	$(INSTALL) data/* $(DATADIR)
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_DIR) $(DESTDIR)$(libdir)
++	$(INSTALL_LIBS) vertigo.so $(DESTDIR)$(libdir)
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) misfu-climax.xm $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) ant.png $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) code.png $(DESTDIR)$(datadir)
+ 
+ clean:
+-	rm -f thk *.o *.so
++	-@$(RM_F) $(TARGET) *.o *.so

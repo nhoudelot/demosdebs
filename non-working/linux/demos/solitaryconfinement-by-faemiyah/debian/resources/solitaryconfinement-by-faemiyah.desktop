@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Solitary Confinement
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2009
+Type=Application
+Exec=/usr/bin/solitaryconfinement-by-faemiyah -w
+Icon=solitaryconfinement-by-faemiyah
+Categories=AudioVideo;Game;
+Name[fr_FR]=Solitary Confinement

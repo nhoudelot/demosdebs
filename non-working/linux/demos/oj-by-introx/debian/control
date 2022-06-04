@@ -1,0 +1,39 @@
+Source: oj-by-introx
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ pandoc,
+ libfmodex-dev,
+ libsdl1.2-dev
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=14699
+
+Package: oj-by-introx
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libfmodex4,
+ oj-by-introx-data
+Description: introx Demo for Linux released in 2004
+ Introx, present "Oj!" at Dreamhack Winter 2004...
+ .
+ Programming: fredd
+             gamkiller
+ .
+ Graphics   : diox
+             Johanna
+             Ree
+	     Tomtefan
+ .
+ Music      : Funklord
+
+Package: oj-by-introx-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for oj-by-introx
+ oj-by-introx data files. a demo presented at Dreamhack Winter 2004

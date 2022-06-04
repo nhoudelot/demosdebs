@@ -1,0 +1,65 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,13 +1,40 @@
+-CFLAGS=-Os -ffast-math -Wall -march=i686 -mcpu=athlon-xp -DX86_ASM \
+-	$(shell sdl-config --cflags) -frerun-cse-after-loop
++#variables de compilation
++SHELL = /bin/sh
++CC    = gcc
++CFLAGS   += -Wall  -pipe $(shell sdl-config --cflags) -frerun-cse-after-loop -std=gnu90
++LDFLAGS  += -nostdlib -nostartfiles $(shell sdl-config --libs) -pthread -ldl -lm -lc
++TARGET   = codenoise-by-necrostudios
++#variable de nettoyage
++RM_F = rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++
++#get DEB_BUILD_OPTIONS working
++ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
++    CFLAGS += -O0
++else
++    CFLAGS += -O2
++endif
++ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
++    INSTALL_PROGRAM += -s
++endif
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+-LDFLAGS=-nostdlib -nostartfiles -ldl -lpthread 
++export
+ 
+-all: play
+-	./pack.sh play
++all: $(TARGET)
+ 
+-play: play.o synth.o dl_init.o
+-	$(CC) $(LDFLAGS) -o $@ $^
++$(TARGET): play.o synth.o dl_init.o
++	$(CC) -o $@ $^ $(LDFLAGS)
+ 
+ synth.o: synth.c synth.h
+ 	$(CC) $(CFLAGS) -c -o $@ $<
+@@ -19,7 +46,12 @@
+ 	$(CC) $(CFLAGS) -c -o $@ $<
+ 
+ clean:
+-	rm -f *.o play gzplay play.gz *~
++	-@$(RM_F) *.o $(TARGET) gzplay play.gz *~
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
+ 
+-.PHONY: clean
+ 
++.PHONY: clean

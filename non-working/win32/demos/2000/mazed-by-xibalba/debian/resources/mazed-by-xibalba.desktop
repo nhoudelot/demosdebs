@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Mazed
+GenericName=Demo
+Comment=Mazed - Demo ranked 14th at Mekka and Symposium 2000
+Type=Application
+Exec=/usr/bin/mazed-by-xibalba
+Icon=mazed-by-xibalba
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=Mazed

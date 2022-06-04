@@ -1,0 +1,9 @@
+debian/scripts/mazed-by-xibalba usr/bin/
+debian/scripts/mazed-by-xibalba.conf etc/
+debian/resources/mazed-by-xibalba.desktop usr/share/applications/
+debian/resources/mazed-by-xibalba.png usr/share/icons/hicolor/32x32/apps/
+./mazed.zip usr/share/mazed-by-xibalba/./ 
+./debian/scripts/mazed-by-xibalba_userinstall.pol usr/share/mazed-by-xibalba/./ 
+./bass.dll usr/share/mazed-by-xibalba/./ 
+./Mazed.exe usr/share/mazed-by-xibalba/./ 
+./demo.scr usr/share/mazed-by-xibalba/./ 

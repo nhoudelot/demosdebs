@@ -1,0 +1,169 @@
+--- a/src/swan_on_table.c
++++ b/src/swan_on_table.c
+@@ -288,18 +288,18 @@
+ 
+ 	for(i=0; i<flaps; i++)
+ 	{
+-		base.x = r_base*(float)dcosf(begin+(i*2+1)*angle_unit);
++		base.x = r_base*(float)dcosf(begin+((float)i*2+1)*angle_unit);
+ 		base.y = h_base;
+-		base.z = r_base*(float)dsinf(begin+(i*2+1)*angle_unit);
+-		head.x = r_head*(float)dcosf(begin+(i*2+1)*angle_unit);
++		base.z = r_base*(float)dsinf(begin+((float)i*2+1)*angle_unit);
++		head.x = r_head*(float)dcosf(begin+((float)i*2+1)*angle_unit);
+ 		head.y = h_head;
+-		head.z = r_head*(float)dsinf(begin+(i*2+1)*angle_unit);
+-		flapL.x = r_flaps*(float)dcosf(begin+i*2*angle_unit);
++		head.z = r_head*(float)dsinf(begin+((float)i*2+1)*angle_unit);
++		flapL.x = r_flaps*(float)dcosf(begin+(float)i*2*angle_unit);
+ 		flapL.y = h_flaps;
+-		flapL.z = r_flaps*(float)dsinf(begin+i*2*angle_unit);
+-		flapR.x = r_flaps*(float)dcosf(begin+(i+1)*2*angle_unit);
++		flapL.z = r_flaps*(float)dsinf(begin+(float)i*2*angle_unit);
++		flapR.x = r_flaps*(float)dcosf(begin+((float)i+1)*2*angle_unit);
+ 		flapR.y = h_flaps;
+-		flapR.z = r_flaps*(float)dsinf(begin+(i+1)*2*angle_unit);
++		flapR.z = r_flaps*(float)dsinf(begin+((float)i+1)*2*angle_unit);
+ 		Draw_Paper_Triangle(&head, &base, &flapL, &flapR);
+ 	}
+ }
+@@ -401,17 +401,17 @@
+ 		base.x = x + neck_position_data[i*2+0];
+ 		base.y = y + neck_position_data[i*2+1];
+ 		base.z = z;
+-		head.x = base.x + TRIANGLE_SIZE*(float)dsinf(angle);
+-		head.y = base.y - TRIANGLE_SIZE*(float)dcosf(angle);
++		head.x = base.x + TRIANGLE_SIZE*(float)dsinf((float)angle);
++		head.y = base.y - TRIANGLE_SIZE*(float)dcosf((float)angle);
+ 		head.z = base.z;
+ 
+-		flapL.x = base.x + TRIANGLE_SIZE*(float)dcosf(angle);
+-		flapL.y = base.y + TRIANGLE_SIZE*(float)dsinf(angle);
+-		flapL.z = base.z - (0.4f - i/80.0f)*TRIANGLE_SIZE;
++		flapL.x = base.x + TRIANGLE_SIZE*(float)dcosf((float)angle);
++		flapL.y = base.y + TRIANGLE_SIZE*(float)dsinf((float)angle);
++		flapL.z = base.z - (0.4f - (float)i/80.0f)*TRIANGLE_SIZE;
+ 
+ 		flapR.x = flapL.x;
+ 		flapR.y = flapL.y;
+-		flapR.z = base.z + (0.4f - i/80.0f)*TRIANGLE_SIZE;
++		flapR.z = base.z + (0.4f - (float)i/80.0f)*TRIANGLE_SIZE;
+ 		Draw_Paper_Triangle(&head, &base, &flapL, &flapR);
+ 	}
+ }
+@@ -438,7 +438,7 @@
+ 
+ 	for(i = 0; (i < CYLINDER_DETAIL); i++)
+ 	{
+-		float tmpi = i * CYLINDER_STEP,
++		float tmpi = (float)i * CYLINDER_STEP,
+ 		      ci = dcosf(tmpi),
+ 		      si = dsinf(tmpi),
+ 		      ci1 = dcosf(tmpi + CYLINDER_STEP),
+@@ -527,9 +527,9 @@
+ 	{
+ 		for(i=0; i<sectionsx; i++)
+ 		{
+-			temp1.x = CAGE_RADIUS*(float)dcosf(i*2*M_PI/(float)sectionsx);
+-			temp1.z = CAGE_RADIUS*(float)dsinf(i*2*M_PI/(float)sectionsx);
+-			temp1.y = j*CAGE_HEIGHT;
++			temp1.x = CAGE_RADIUS*(float)dcosf((float)i*2*M_PI/(float)sectionsx);
++			temp1.z = CAGE_RADIUS*(float)dsinf((float)i*2*M_PI/(float)sectionsx);
++			temp1.y = (float)j*CAGE_HEIGHT;
+ 			temp2.x = temp2.y = temp2.z = 0.0;
+ 			if(j==0)
+ 			{
+@@ -537,11 +537,11 @@
+ 			}
+ 			temp2.x = temp1.x;
+ 			temp2.z = temp1.z;
+-			temp2.y = (j+1)*CAGE_HEIGHT;
++			temp2.y = ((float)j+1)*CAGE_HEIGHT;
+ 			Draw_Cylinder(&temp1,&temp2,CAGE_BAR_THICKNESS,CAGE_BAR_THICKNESS);
+-			temp1.x = CAGE_RADIUS*(float)dcosf((i+1)*2*M_PI/(float)sectionsx);
+-			temp1.z = CAGE_RADIUS*(float)dsinf((i+1)*2*M_PI/(float)sectionsx);
+-			temp1.y = (j+1)*CAGE_HEIGHT;
++			temp1.x = CAGE_RADIUS*(float)dcosf(((float)i+1)*2*M_PI/(float)sectionsx);
++			temp1.z = CAGE_RADIUS*(float)dsinf(((float)i+1)*2*M_PI/(float)sectionsx);
++			temp1.y = ((float)j+1)*CAGE_HEIGHT;
+ 			Draw_Cylinder(&temp1,&temp2,CAGE_BAR_THICKNESS,CAGE_BAR_THICKNESS);
+ 			if(j==0)
+ 			{
+@@ -555,12 +555,12 @@
+ 	{
+ 		for(i=0; i<sectionsx; i++)
+ 		{
+-			temp1.x = (float)dcosf(j*(M_PI/2.0)/CAGE_DETAIL)*CAGE_RADIUS*(float)dcosf(i*2*M_PI/(float)sectionsx);
+-			temp1.z = (float)dcosf(j*(M_PI/2.0)/CAGE_DETAIL)*CAGE_RADIUS*(float)dsinf(i*2*M_PI/(float)sectionsx);
+-			temp1.y = (sectionsy+(float)dsinf(j*(M_PI/2.0)/CAGE_DETAIL))*CAGE_HEIGHT;
+-			temp2.x = (float)dcosf((j+1)*(M_PI/2.0)/CAGE_DETAIL)*CAGE_RADIUS*(float)dcosf(i*2*M_PI/(float)sectionsx);
+-			temp2.z = (float)dcosf((j+1)*(M_PI/2.0)/CAGE_DETAIL)*CAGE_RADIUS*(float)dsinf(i*2*M_PI/(float)sectionsx);
+-			temp2.y = (sectionsy+(float)dsinf((j+1)*(M_PI/2.0)/CAGE_DETAIL))*CAGE_HEIGHT;
++			temp1.x = (float)dcosf((float)j*(M_PI/2.0)/CAGE_DETAIL)*CAGE_RADIUS*(float)dcosf((float)i*2*M_PI/(float)sectionsx);
++			temp1.z = (float)dcosf((float)j*(M_PI/2.0)/CAGE_DETAIL)*CAGE_RADIUS*(float)dsinf((float)i*2*M_PI/(float)sectionsx);
++			temp1.y = (sectionsy+(float)dsinf((float)j*(M_PI/2.0)/CAGE_DETAIL))*CAGE_HEIGHT;
++			temp2.x = (float)dcosf(((float)j+1)*(M_PI/2.0)/CAGE_DETAIL)*CAGE_RADIUS*(float)dcosf((float)i*2*M_PI/(float)sectionsx);
++			temp2.z = (float)dcosf(((float)j+1)*(M_PI/2.0)/CAGE_DETAIL)*CAGE_RADIUS*(float)dsinf((float)i*2*M_PI/(float)sectionsx);
++			temp2.y = (sectionsy+(float)dsinf(((float)j+1)*(M_PI/2.0)/CAGE_DETAIL))*CAGE_HEIGHT;
+ 			Draw_Cylinder(&temp1,&temp2,CAGE_BAR_THICKNESS,CAGE_BAR_THICKNESS);
+ 		}
+ 	}
+@@ -574,15 +574,15 @@
+ 	float tableprofile[TABLE_DETAIL];
+ 	for(i=0; i<TABLE_DETAIL; i++)
+ 	{
+-		float t = (float)(2*M_PI*i/TABLE_DETAIL);
++		float t = (float)(2*M_PI*(float)i/TABLE_DETAIL);
+ 		tableprofile[i] = 0.4f+0.2f*dcosf(t) + 0.02f*dcosf(M_PI/2+t*5);
+ 	}
+ 	for(i=0; i<TABLE_DETAIL-1; i++)
+ 	{
+ 		begin.x = end.x = x;
+ 		begin.z = end.z = z;
+-		begin.y = -TABLE_HEIGHT*(1-i/(float)TABLE_DETAIL);
+-		end.y = -TABLE_HEIGHT*(1-(i+1)/(float)TABLE_DETAIL);
++		begin.y = -TABLE_HEIGHT*(1-(float)i/(float)TABLE_DETAIL);
++		end.y = -TABLE_HEIGHT*(1-((float)i+1)/(float)TABLE_DETAIL);
+ 		Draw_Cylinder(&begin, &end, TABLE_FOOT_RADIUS*tableprofile[i], TABLE_FOOT_RADIUS*tableprofile[i+1]);
+ 	}
+ }
+@@ -596,11 +596,11 @@
+ 	float tempr[BUFFER_SIZE];
+ 	for(i=0; i<5; i++)
+ 	{
+-		Draw_Table_Foot((TABLE_RADIUS + (TABLE_SIDE_RADIUS+TABLE_FLAT_PART_LEN)/2)*(float)dcosf(-0.2+i*2*M_PI/5), (TABLE_RADIUS + (TABLE_SIDE_RADIUS+TABLE_FLAT_PART_LEN)/2)*(float)dsinf(-0.2+i*2*M_PI/5));
++		Draw_Table_Foot((TABLE_RADIUS + (TABLE_SIDE_RADIUS+TABLE_FLAT_PART_LEN)/2)*(float)dcosf(-0.2+(float)i*2*M_PI/5), (TABLE_RADIUS + (TABLE_SIDE_RADIUS+TABLE_FLAT_PART_LEN)/2)*(float)dsinf(-0.2+(float)i*2*M_PI/5));
+ 	}
+ 	for(i=0; i<=TABLE_DETAIL; i++)
+ 	{
+-		float temporary = (float)(i*2*M_PI/TABLE_DETAIL);
++		float temporary = (float)((float)i*2*M_PI/TABLE_DETAIL);
+ 		tempy[i] = -2.0f + TABLE_SIDE_RADIUS*(float)dsinf(temporary);
+ 		tempr[i] = TABLE_RADIUS + TABLE_SIDE_RADIUS*(float)dcosf(temporary);
+ 		if((i<=TABLE_DETAIL/4)||(i>3*TABLE_DETAIL/4))
+@@ -692,18 +692,18 @@
+ 
+ 		if(i<8)
+ 		{
+-			base_r = INITIAL_R+SWAN_RADIUS*(float)dsinf(M_PI*i/16.0);
+-			base_h = INITIAL_H+SWAN_RADIUS*(-(float)dcosf(M_PI*i/16.0)+1);
++			base_r = INITIAL_R+SWAN_RADIUS*(float)dsinf(M_PI*(float)i/16.0);
++			base_h = INITIAL_H+SWAN_RADIUS*(-(float)dcosf(M_PI*(float)i/16.0)+1);
+ 		}
+ 		else
+ 		{
+-			base_r = INITIAL_R+0.6f*SWAN_RADIUS + 0.4f*SWAN_RADIUS*(float)dsinf(M_PI/2 + M_PI*(i-8)/10.0);
++			base_r = INITIAL_R+0.6f*SWAN_RADIUS + 0.4f*SWAN_RADIUS*(float)dsinf(M_PI/2 + M_PI*((float)i-8)/10.0);
+ 			base_h = INITIAL_H+(((float)i-8.0f)/6.0f + 1.0f)*SWAN_RADIUS;
+ 		}
+-		head_r = base_r + TRIANGLE_SIZE*(float)dsinf(i*M_PI*SWAN_LAYER_ANGLE_STEP/180);
+-		head_h = base_h - TRIANGLE_SIZE*(float)dcosf(i*M_PI*SWAN_LAYER_ANGLE_STEP/180);
+-		flaps_r = base_r + TRIANGLE_SIZE*(float)dcosf(i*M_PI*SWAN_LAYER_ANGLE_STEP/180);
+-		flaps_h = base_h + TRIANGLE_SIZE*(float)dsinf(i*M_PI*SWAN_LAYER_ANGLE_STEP/180);
++		head_r = base_r + TRIANGLE_SIZE*(float)dsinf((float)i*M_PI*SWAN_LAYER_ANGLE_STEP/180);
++		head_h = base_h - TRIANGLE_SIZE*(float)dcosf((float)i*M_PI*SWAN_LAYER_ANGLE_STEP/180);
++		flaps_r = base_r + TRIANGLE_SIZE*(float)dcosf((float)i*M_PI*SWAN_LAYER_ANGLE_STEP/180);
++		flaps_h = base_h + TRIANGLE_SIZE*(float)dsinf((float)i*M_PI*SWAN_LAYER_ANGLE_STEP/180);
+ 
+ 		for(j=0; j<3; j++)
+ 		{

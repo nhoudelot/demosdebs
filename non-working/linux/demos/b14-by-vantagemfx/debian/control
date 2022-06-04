@@ -1,0 +1,34 @@
+Source: b14-by-vantagemfx
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ libglu1-mesa-dev,
+ libfmod-dev,
+ libx11-dev,
+ libxext-dev,
+ libpng12-dev,
+ libstdc++5
+Standards-Version: 4.6.0.1
+Homepage: https://www.pouet.net/prod.php?which=16014
+
+Package: b14-by-vantagemfx
+Architecture: i386
+Depends:
+ b14-by-vantagemfx-data,
+ ${misc:Depends},
+ ${shlibs:Depends},
+ libfmod3,
+ common-install-function-ddebs(>=1.18)
+Description: Demo by Vantage & mfx, released in 2005
+ unofficial invitation to Buenzli 14, made in quite a hurry to have
+ a release at Iradium 2005.
+
+Package: b14-by-vantagemfx-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for b14-by-vantagemfx
+ b14 is a demo by Vantage & mfx, data files

@@ -1,0 +1,3 @@
+01_adapt_autotools.patch
+02_make_installable.patch
+03_fix_warnings.patch

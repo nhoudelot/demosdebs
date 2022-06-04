@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Jenny Thinks
+GenericName=Demo
+Comment=Demo by Fit & Bandwagon, released in 2004
+Type=Application
+Exec=/usr/bin/jennythinks-by-fitbandwagon
+Icon=jennythinks-by-fitbandwagon
+Categories=AudioVideo;Game;
+Name[fr_FR]=Jenny Thinks

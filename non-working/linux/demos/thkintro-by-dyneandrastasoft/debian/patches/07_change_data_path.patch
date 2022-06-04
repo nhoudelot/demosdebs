@@ -1,0 +1,25 @@
+Description: change data path in /usr/share/
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-11-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/thk.cpp
++++ b/thk.cpp
+@@ -111,7 +111,7 @@
+ 		snprintf(tmp,256,"%s/%s",DATADIR,file);
+ 		lay = create_layer(tmp);
+ 		if(!lay) {
+-			snprintf(tmp,256,"data/%s",file);
++			snprintf(tmp,256,"/usr/share/thkintro-by-dyneandrastasoft/%s",file);
+ 			lay = create_layer(tmp);
+ 			if(!lay) {
+ 				error("image not found: %s",file);
+@@ -139,7 +139,7 @@
+ 		mod = Player_Load(tmp,MIKMOD_CHANNELS,0);
+ 		if(!mod) {
+ 			func("music file not found: %s",tmp);
+-			snprintf(tmp,256,"data/%s",file);
++			snprintf(tmp,256,"/usr/share/thkintro-by-dyneandrastasoft/%s",file);
+ 			mod = Player_Load(tmp,MIKMOD_CHANNELS,0);
+ 			if(!mod) {
+ 				error("music file not found: %s",tmp);

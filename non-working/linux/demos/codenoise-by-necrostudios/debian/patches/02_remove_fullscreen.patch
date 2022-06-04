@@ -1,0 +1,16 @@
+--- a/play.c
++++ b/play.c
+@@ -303,7 +303,7 @@
+ 
+ 	fn.SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+ 
+-	video=fn.SDL_SetVideoMode(1024, 768, 32, SDL_HWSURFACE | SDL_OPENGL | SDL_FULLSCREEN);
++	video=fn.SDL_SetVideoMode(1024, 768, 32, SDL_HWSURFACE | SDL_OPENGL);
+ 	fn.SDL_ShowCursor(0);
+ 	fn.SDL_OpenAudio(&desired, NULL);
+ 	fn.SDL_PauseAudio(0);
+@@ -596,4 +596,3 @@
+ #endif
+ }
+ 
+-

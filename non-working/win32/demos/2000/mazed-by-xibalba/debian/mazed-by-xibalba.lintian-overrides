@@ -1,0 +1,4 @@
+mazed-by-xibalba binary: unknown-section demos
+mazed-by-xibalba binary: script-not-executable usr/share/mazed-by-xibalba/mazed-by-xibalba_userinstall.pol
+mazed-by-xibalba binary: unknown-section demos
+mazed-by-xibalba binary: unusual-interpreter usr/share/mazed-by-xibalba/mazed-by-xibalba_userinstall.pol #!playonlinux-bash

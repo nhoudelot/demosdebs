@@ -1,0 +1,79 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,29 +1,67 @@
+-CC = gcc
+-CFLAGS = -O2 -ffast-math `sdl-config --cflags`
+-LDFLAGS = `sdl-config --libs` -lm
++#variables de compilation
++SHELL = /bin/sh
++CC    = gcc
++AR = ar
++RANLIB = ranlib
++
++CFLAGS += -Wall -pipe $(shell sdl-config --cflags)
++LDFLAGS += $(shell sdl-config --libs) -lm
+ #LDFLAGS = `sdl-config --static-libs` -lm
+ 
+ OBJ = data.o kokko.o maf.o main.o mosaic.o tunneli.o\
+ video.o halftone.o blox.o noise.o filmi.o files1.o files2.o files3.o\
+ texts.o cool_mzx/cool_mzx.a
+ 
++TARGET   = jennythinks-by-fitbandwagon
++#variable de nettoyage
++RM_F = rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++
+ # Sound buffer size (default=1024)
+ #CFLAGS += -DBUFSIZE=8192
+ # True 8 bit display?
+ #CFLAGS += -DTRUE8BIT
+ 
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++
++
++#get DEB_BUILD_OPTIONS working
++ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
++    CFLAGS += -O0
++else
++    CFLAGS += -O2
++endif
++ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
++    INSTALL_PROGRAM += -s
++endif
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
+ export
+ 
+-jenny_thinks: $(OBJ)
+-	$(CC) -o $@ $(OBJ) $(LDFLAGS)
+-	strip $@
++all: $(TARGET)
++
++$(TARGET): $(OBJ)
++	$(CC) $(OBJ) -o $@ $(LDFLAGS)
+ 
+ %.o: %.c
+ 	$(CC) $(CFLAGS) -c $<
+ 
+ cool_mzx/cool_mzx.a:
+-	cd cool_mzx && make
++	cd cool_mzx && $(MAKE) $(shell dpkg-buildflags --export=cmdline)
+ 
+ clean:
+-	-rm *.o *~ jenny_thinks
+-	cd cool_mzx && make clean
++	-@$(RM_F) *.o *~ $(TARGET)
++	cd cool_mzx && $(MAKE) clean
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)

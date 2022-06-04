@@ -1,0 +1,4 @@
+heart-by-spiningkids binary: unknown-section demos
+heart-by-spiningkids binary: script-not-executable usr/share/heart-by-spiningkids/heart-by-spiningkids_userinstall.pol
+heart-by-spiningkids binary: unknown-section demos
+heart-by-spiningkids binary: unusual-interpreter usr/share/heart-by-spiningkids/heart-by-spiningkids_userinstall.pol #!playonlinux-bash

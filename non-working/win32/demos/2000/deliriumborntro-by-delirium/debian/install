@@ -1,0 +1,9 @@
+debian/scripts/deliriumborntro-by-delirium usr/bin/
+debian/scripts/deliriumborntro-by-delirium.conf etc/
+debian/resources/deliriumborntro-by-delirium.desktop usr/share/applications/
+debian/resources/deliriumborntro-by-delirium.png usr/share/icons/hicolor/32x32/apps/
+./BORNTRO.EXE usr/share/deliriumborntro-by-delirium/./ 
+./RES.DLR usr/share/deliriumborntro-by-delirium/./ 
+./debian/scripts/deliriumborntro-by-delirium_userinstall.pol usr/share/deliriumborntro-by-delirium/./ 
+./glide2x.dll usr/share/deliriumborntro-by-delirium/./ 
+./BASS.DLL usr/share/deliriumborntro-by-delirium/./ 

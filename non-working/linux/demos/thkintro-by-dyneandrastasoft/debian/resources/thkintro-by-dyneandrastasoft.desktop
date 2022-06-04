@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=THK intro
+GenericName=Demo
+Comment=Demo by dyne and Rastasoft, released in 2004
+Type=Application
+Exec=/usr/bin/thkintro-by-dyneandrastasoft
+Icon=thkintro-by-dyneandrastasoft
+Categories=AudioVideo;Game;
+Name[fr_FR]=THK intro

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=H.E.Art
+GenericName=Demo
+Comment=H.E.Art - Demo ranked 1st at Abort 2000
+Type=Application
+Exec=/usr/bin/heart-by-spiningkids
+Icon=heart-by-spiningkids
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=H.E.Art

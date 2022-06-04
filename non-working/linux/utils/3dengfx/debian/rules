@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+
+%:
+	dh $@  --parallel --with autotools-dev
+
+override_dh_auto_configure:
+	dh_auto_configure -- --prefix=./usr --with-gfxlib=sdl -enable-png -enable-jpeg --enable-ft

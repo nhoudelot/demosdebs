@@ -1,0 +1,7 @@
+01_adapt_Makefile.patch
+02_fix_warnings.patch
+03_SDL_include.patch
+04_adaptPNG16.patch
+05_fix_memcopy.patch
+06_cpu_accel64bit.patch
+07_change_data_path.patch

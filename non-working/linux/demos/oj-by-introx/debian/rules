@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --parallel
+
+override_dh_install:
+	dh_install
+	pandoc -s -t man -f markdown debian/oj-by-introx.6.md -o debian/oj-by-introx.6

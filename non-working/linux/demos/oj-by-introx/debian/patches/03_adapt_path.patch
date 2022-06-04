@@ -1,0 +1,18 @@
+Description: changed data path to /usr/share/
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/init.c
++++ b/src/init.c
+@@ -6,8 +6,8 @@
+ 
+ #include "main.h"
+ 
+-#define GRAPHICS "data/img/data.bmp"
+-#define LE_MUSIC "data/snd/tune.ogg"
++#define GRAPHICS "/usr/share/oj-by-introx/data/img/data.bmp"
++#define LE_MUSIC "/usr/share/oj-by-introx/data/snd/tune.ogg"
+ 
+ SDL_Surface *screen;
+ bmp graphics;

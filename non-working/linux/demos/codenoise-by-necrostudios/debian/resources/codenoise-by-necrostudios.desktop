@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=codenoise
+GenericName=Demo
+Comment=Demo by NecroStudios, released in 2004
+Type=Application
+Exec=/usr/bin/codenoise-by-necrostudios
+Icon=codenoise-by-necrostudios
+Categories=AudioVideo;Game;
+Name[fr_FR]=codenoise

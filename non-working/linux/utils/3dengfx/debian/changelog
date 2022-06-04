@@ -1,0 +1,24 @@
+3dengfx (0.5-0ddebs4) unstable; urgency=medium
+
+  * fix path to relative path in includes
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 Apr 2016 23:40:38 +0200
+
+3dengfx (0.5-0ddebs3) unstable; urgency=medium
+
+  * added mesa-common-dev in build dependency, to remove shlibdeps warnings
+  * linked also the libs correctly
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 Apr 2016 19:33:50 +0200
+
+3dengfx (0.5-0ddebs2) unstable; urgency=medium
+
+  * stripping library
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 Apr 2016 03:26:42 +0200
+
+3dengfx (0.5-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 06 Apr 2016 23:05:05 +0200

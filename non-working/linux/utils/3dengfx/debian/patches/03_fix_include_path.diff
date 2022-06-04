@@ -1,0 +1,472 @@
+--- a/src/3dengfx/3denginefx_types.hpp
++++ b/src/3dengfx/3denginefx_types.hpp
+@@ -27,7 +27,7 @@
+ #define _3DENGINEFX_TYPES_HPP_
+ 
+ #include "opengl.h"
+-#include "n3dmath2/n3dmath2_types.hpp"
++#include "../n3dmath2/n3dmath2_types.hpp"
+ 
+ enum ShadeMode {
+ 	SHADING_FLAT = GL_FLAT,
+--- a/src/3dengfx/gfxprog.hpp
++++ b/src/3dengfx/gfxprog.hpp
+@@ -27,7 +27,7 @@
+ 
+ #include <list>
+ #include "opengl.h"
+-#include "n3dmath2/n3dmath2.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
+ 
+ enum {
+ 	PROG_VERTEX	= GL_VERTEX_SHADER_ARB,
+--- a/src/3dengfx/ggen.hpp
++++ b/src/3dengfx/ggen.hpp
+@@ -29,8 +29,8 @@
+ #ifndef _GGEN_HPP_
+ #define _GGEN_HPP_
+ 
+-#include "n3dmath2/n3dmath2.hpp"
+-#include "gfx/3dgeom.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
++#include "../gfx/3dgeom.hpp"
+ 
+ // basic primitives
+ void create_plane(TriMesh *mesh, const Vector3 &normal, const Vector2 &size, int subdiv);
+--- a/src/3dengfx/light.hpp
++++ b/src/3dengfx/light.hpp
+@@ -21,9 +21,9 @@
+ #define _LIGHT_HPP_
+ 
+ #include <string>
+-#include "n3dmath2/n3dmath2.hpp"
+-#include "gfx/animation.hpp"
+-#include "gfx/color.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
++#include "../gfx/animation.hpp"
++#include "../gfx/color.hpp"
+ 
+ #define LIGHTCOL_AMBIENT	1
+ #define LIGHTCOL_DIFFUSE	2
+--- a/src/3dengfx/material.hpp
++++ b/src/3dengfx/material.hpp
+@@ -23,8 +23,8 @@
+ #include <string>
+ #include "3denginefx_types.hpp"
+ #include "textures.hpp"
+-#include "gfx/color.hpp"
+-#include "n3dmath2/n3dmath2.hpp"
++#include "../gfx/color.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
+ 
+ enum ColorComponent {
+ 	COLOR_AMBIENT,
+--- a/src/3dengfx/object.hpp
++++ b/src/3dengfx/object.hpp
+@@ -28,12 +28,12 @@
+ #define _OBJECT_HPP_
+ 
+ #include <string>
+-#include "gfx/3dgeom.hpp"
+-#include "gfx/animation.hpp"
+-#include "n3dmath2/n3dmath2.hpp"
++#include "../gfx/3dgeom.hpp"
++#include "../gfx/animation.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
+ #include "material.hpp"
+ #include "3denginefx.hpp"
+-#include "gfx/bvol.hpp"
++#include "../gfx/bvol.hpp"
+ 
+ struct RenderParams {
+ 	bool billboarded;
+--- a/src/3dengfx/psys.hpp
++++ b/src/3dengfx/psys.hpp
+@@ -28,8 +28,8 @@
+ #define _PSYS_HPP_
+ 
+ #include <list>
+-#include "gfx/3dgeom.hpp"
+-#include "n3dmath2/n3dmath2.hpp"
++#include "../gfx/3dgeom.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
+ 
+ /* fuzzy scalar values
+  * random variables defined as a range of values around a central,
+--- a/src/3dengfx/scfield.hpp
++++ b/src/3dengfx/scfield.hpp
+@@ -24,9 +24,9 @@
+  */
+ 
+ #include <vector>
+-#include "3dengfx/3denginefx_types.hpp"
+-#include "n3dmath2/n3dmath2.hpp"
+-#include "gfx/3dgeom.hpp"
++#include "../3dengfx/3denginefx_types.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
++#include "../gfx/3dgeom.hpp"
+ 
+ #ifndef _SCALAR_FIELD_HEADER_
+ #define _SCALAR_FIELD_HEADER_
+--- a/src/3dengfx/shadows.hpp
++++ b/src/3dengfx/shadows.hpp
+@@ -22,8 +22,8 @@
+ #define SHADOWS_HPP_
+ 
+ #include <vector>
+-#include "gfx/3dgeom.hpp"
+-#include "n3dmath2/n3dmath2.hpp"
++#include "../gfx/3dgeom.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
+ 
+ std::vector<Edge> *create_silhouette(const TriMesh *mesh, const Vector3 &pt);
+ void destroy_silhouette(std::vector<Edge> *edges);
+--- a/src/dsys/fx.hpp
++++ b/src/dsys/fx.hpp
+@@ -20,9 +20,9 @@
+ #ifndef _FX_HPP_
+ #define _FX_HPP_
+ 
+-#include "n3dmath2/n3dmath2.hpp"
+-#include "gfx/color.hpp"
+-#include "3dengfx/3denginefx_types.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
++#include "../gfx/color.hpp"
++#include "../3dengfx/3denginefx_types.hpp"
+ 
+ class Texture;
+ 
+--- a/src/fxwt/text.hpp
++++ b/src/fxwt/text.hpp
+@@ -26,9 +26,9 @@
+ #ifndef _TEXT_HPP_
+ #define _TEXT_HPP_
+ 
+-#include "3dengfx/textures.hpp"
+-#include "n3dmath2/n3dmath2.hpp"
+-#include "gfx/color.hpp"
++#include "../3dengfx/textures.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
++#include "../gfx/color.hpp"
+ 
+ namespace fxwt {
+ 
+--- a/src/fxwt/widget.hpp
++++ b/src/fxwt/widget.hpp
+@@ -23,10 +23,10 @@
+ 
+ #include <vector>
+ #include <string>
+-#include "n3dmath2/n3dmath2.hpp"
+-#include "3dengfx/textures.hpp"
+-#include "3dengfx/gfxprog.hpp"
+-#include "gfx/3dgeom.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
++#include "../3dengfx/textures.hpp"
++#include "../3dengfx/gfxprog.hpp"
++#include "../gfx/3dgeom.hpp"
+ 
+ namespace fxwt {
+ 
+--- a/src/gfx/3dgeom.hpp
++++ b/src/gfx/3dgeom.hpp
+@@ -31,9 +31,9 @@
+ #ifndef _3DGEOM_HPP_
+ #define _3DGEOM_HPP_
+ 
+-#include "3dengfx_config.h"
++#include "../3dengfx_config.h"
+ 
+-#include "n3dmath2/n3dmath2.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
+ #include "color.hpp"
+ 
+ typedef unsigned short Index;
+--- a/src/gfx/animation.hpp
++++ b/src/gfx/animation.hpp
+@@ -28,11 +28,11 @@
+ #ifndef _ANIMATION_HPP_
+ #define _ANIMATION_HPP_
+ 
+-#include "3dengfx_config.h"
++#include "../3dengfx_config.h"
+ 
+ #include <iostream>
+ #include <vector>
+-#include "n3dmath2/n3dmath2.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
+ #include "controller.hpp"
+ #include "timeline.hpp"
+ 
+--- a/src/gfx/base_cam.hpp
++++ b/src/gfx/base_cam.hpp
+@@ -22,7 +22,7 @@
+ 
+ #include "3dgeom.hpp"
+ #include "animation.hpp"
+-#include "n3dmath2/n3dmath2.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
+ 
+ enum ClipPlane {CLIP_NEAR, CLIP_FAR};
+ 
+--- a/src/gfx/bvol.hpp
++++ b/src/gfx/bvol.hpp
+@@ -27,8 +27,8 @@
+ #define _BVOL_HPP_
+ 
+ #include <vector>
+-#include "n3dmath2/n3dmath2.hpp"
+-#include "gfx/base_cam.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
++#include "../gfx/base_cam.hpp"
+ 
+ class BoundingVolume {
+ protected:
+--- a/src/gfx/curves.hpp
++++ b/src/gfx/curves.hpp
+@@ -29,11 +29,11 @@
+ #ifndef _CURVES_HPP_
+ #define _CURVES_HPP_
+ 
+-#include "3dengfx_config.h"
++#include "../3dengfx_config.h"
+ 
+ #include <string>
+-#include "n3dmath2/n3dmath2.hpp"
+-#include "common/linkedlist.hpp"
++#include "../n3dmath2/n3dmath2.hpp"
++#include "../common/linkedlist.hpp"
+ 
+ 
+ class Curve {
+--- a/src/gfx/img_manip.hpp
++++ b/src/gfx/img_manip.hpp
+@@ -27,8 +27,8 @@
+ 
+ #include "pbuffer.hpp"
+ #include "color.hpp"
+-#include "3dengfx/3denginefx_types.hpp"
+-#include "n3dmath2/n3dmath2_types.hpp"
++#include "../3dengfx/3denginefx_types.hpp"
++#include "../n3dmath2/n3dmath2_types.hpp"
+ 
+ enum ImgSamplingMode {SAMPLE_CLAMP, SAMPLE_WRAP, SAMPLE_MIRROR};
+ 
+--- a/src/sim/sim.hpp
++++ b/src/sim/sim.hpp
+@@ -26,8 +26,8 @@
+ #ifndef _SIM_HPP_
+ #define _SIM_HPP_
+ 
+-#include "n3dmath2/n3dmath2.hpp"
+-#include "common/timer.h"
++#include "../n3dmath2/n3dmath2.hpp"
++#include "../common/timer.h"
+ 
+ #define SIM_STD_TIMESLICE	1.0 / 30.0
+ 
+--- a/src/gfx/color.hpp
++++ b/src/gfx/color.hpp
+@@ -25,7 +25,7 @@
+ #ifndef _COLOR2_H_
+ #define _COLOR2_H_
+ 
+-#include "3dengfx_config.h"
++#include "../3dengfx_config.h"
+ #include "color_bits.h"
+ 
+ #ifdef SINGLE_PRECISION_MATH
+--- a/src/gfx/image.h
++++ b/src/gfx/image.h
+@@ -27,7 +27,7 @@
+ #ifndef IMAGE_H_
+ #define IMAGE_H_
+ 
+-#include "3dengfx_config.h"
++#include "../3dengfx_config.h"
+ 
+ /* always compile support for image formats that
+  * don't create any library dependencies.
+--- a/src/n3dmath2/n3dmath2_types.hpp
++++ b/src/n3dmath2/n3dmath2_types.hpp
+@@ -21,7 +21,7 @@
+ #ifndef _N3DMATH2_TYPES_HPP_
+ #define _N3DMATH2_TYPES_HPP_
+ 
+-#include "3dengfx_config.h"
++#include "../3dengfx_config.h"
+ 
+ 
+ #ifdef SINGLE_PRECISION_MATH
+--- a/src/fxwt/gfx_library.h
++++ b/src/fxwt/gfx_library.h
+@@ -1,7 +1,7 @@
+ #ifndef _GFX_LIBRARY_H_
+ #define _GFX_LIBRARY_H_
+ 
+-#include "3dengfx_config.h"
++#include "../3dengfx_config.h"
+ 
+ #ifndef GFX_LIBRARY
+ #error "no gfx library specified, please reconfigure"
+--- a/src/dsys/part.hpp
++++ b/src/dsys/part.hpp
+@@ -21,7 +21,7 @@
+ #ifndef _PART_HPP_
+ #define _PART_HPP_
+ 
+-#include "common/timer.h"
++#include "../common/timer.h"
+ #include "dsys.hpp"
+ 
+ namespace dsys {
+--- a/src/3dengfx/3denginefx.hpp
++++ b/src/3dengfx/3denginefx.hpp
+@@ -31,8 +31,8 @@
+ #include "3denginefx_types.hpp"
+ #include "textures.hpp"
+ #include "material.hpp"
+-#include "gfx/3dgeom.hpp"
+-#include "gfx/image.h"
++#include "../gfx/3dgeom.hpp"
++#include "../gfx/image.h"
+ #include "light.hpp"
+ 
+ class Camera;
+--- a/src/gfx/color_bits.h
++++ b/src/gfx/color_bits.h
+@@ -26,7 +26,7 @@
+ #ifndef _COLOR_BITS_H_
+ #define _COLOR_BITS_H_
+ 
+-#include "common/byteorder.h"
++#include "../common/byteorder.h"
+ 
+ /* 32bit color shift values */
+ #ifdef LITTLE_ENDIAN
+--- a/src/3dengfx/3dscene.hpp
++++ b/src/3dengfx/3dscene.hpp
+@@ -25,7 +25,7 @@
+ #include "light.hpp"
+ #include "object.hpp"
+ #include "psys.hpp"
+-#include "gfx/curves.hpp"
++#include "../gfx/curves.hpp"
+ 
+ struct ShadowVolume {
+ 	TriMesh *shadow_mesh;
+--- a/src/3dengfx/camera.hpp
++++ b/src/3dengfx/camera.hpp
+@@ -21,7 +21,7 @@
+ #define _CAMERA_HPP_
+ 
+ #include <string>
+-#include "gfx/base_cam.hpp"
++#include "../gfx/base_cam.hpp"
+ 
+ class Camera : public BaseCamera {
+ public:
+--- a/src/3dengfx/rend_curve.hpp
++++ b/src/3dengfx/rend_curve.hpp
+@@ -27,8 +27,8 @@
+ #define _REND_CURVE_HPP_
+ 
+ #include "material.hpp"
+-#include "gfx/animation.hpp"
+-#include "gfx/curves.hpp"
++#include "../gfx/animation.hpp"
++#include "../gfx/curves.hpp"
+ 
+ class RendCurve : public XFormNode {
+ private:
+--- a/src/3dengfx/textures.hpp
++++ b/src/3dengfx/textures.hpp
+@@ -21,7 +21,7 @@
+ #define _TEXTURES_HPP_
+ 
+ #include <vector>
+-#include "gfx/pbuffer.hpp"
++#include "../gfx/pbuffer.hpp"
+ #include "3denginefx_types.hpp"
+ 
+ /* ---- Texture class ----
+--- a/src/dsys/dsys.hpp
++++ b/src/dsys/dsys.hpp
+@@ -20,7 +20,7 @@
+ #ifndef _DSYS_HPP_
+ #define _DSYS_HPP_
+ 
+-#include "3dengfx/textures.hpp"
++#include "../3dengfx/textures.hpp"
+ 
+ namespace dsys {
+ 
+--- a/src/gfx/3dgeom.inl
++++ b/src/gfx/3dgeom.inl
+@@ -30,7 +30,7 @@
+ #include <cstring>
+ 
+ #ifdef USING_3DENGFX
+-#include "3dengfx/3denginefx_types.hpp"
++#include "../3dengfx/3denginefx_types.hpp"
+ 
+ SysCaps get_system_capabilities();
+ #endif	// USING_3DENGFX
+--- a/src/sim/rigid.hpp
++++ b/src/sim/rigid.hpp
+@@ -24,7 +24,7 @@
+ #include <list>
+ #include <ode/ode.h>
+ #include "sim.hpp"
+-#include "3dengfx/object.hpp"
++#include "../3dengfx/object.hpp"
+ 
+ class RigidBody : Object {
+ private:
+--- a/src/sim/spring.hpp
++++ b/src/sim/spring.hpp
+@@ -26,7 +26,7 @@
+ #ifndef _SPRING_HPP_
+ #define _SPRING_HPP_
+ 
+-#include "gfx/animation.hpp"
++#include "../gfx/animation.hpp"
+ 
+ class SpringPoint : public XFormNode {
+ public:
+--- a/src/dsys/scene_part.hpp
++++ b/src/dsys/scene_part.hpp
+@@ -27,7 +27,7 @@
+ #define _SCENE_PART_HPP_
+ 
+ #include "part.hpp"
+-#include "3dengfx/3dscene.hpp"
++#include "../3dengfx/3dscene.hpp"
+ 
+ namespace dsys {
+ 
+--- a/src/fxwt/init.hpp
++++ b/src/fxwt/init.hpp
+@@ -2,7 +2,7 @@
+ #define _FXWT_INIT_HPP_
+ 
+ #include "gfx_library.h"
+-#include "3dengfx/3denginefx_types.hpp"
++#include "../3dengfx/3denginefx_types.hpp"
+ 
+ #if GFX_LIBRARY == GTK
+ extern GtkWidget *gl_drawing_area;
+--- a/src/3dengfx/3dengfx.hpp
++++ b/src/3dengfx/3dengfx.hpp
+@@ -35,8 +35,8 @@
+ #include "sdrman.hpp"
+ #include "psys.hpp"
+ #include "scfield.hpp"
+-#include "fxwt/fxwt.hpp"
+-#include "common/timer.h"
+-#include "common/locator.h"
++#include "../fxwt/fxwt.hpp"
++#include "../common/timer.h"
++#include "../common/locator.h"
+ 
+ #endif	// _3DENGFX_HPP_

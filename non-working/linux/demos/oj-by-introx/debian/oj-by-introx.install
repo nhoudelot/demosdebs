@@ -1,0 +1,3 @@
+debian/resources/oj-by-introx.desktop usr/share/applications/
+debian/resources/oj-by-introx.png usr/share/icons/hicolor/256x256/apps/
+oj-by-introx usr/bin/

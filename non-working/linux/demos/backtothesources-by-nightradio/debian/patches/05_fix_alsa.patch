@@ -1,0 +1,11 @@
+--- a/sundog_engine/sound/code/sound_sndout_linux.h
++++ b/sundog_engine/sound/code/sound_sndout_linux.h
+@@ -249,7 +249,7 @@
+     }
+     else
+     {
+-	err = snd_pcm_open( &g_alsa_playback_handle, "plughw:0,0", SND_PCM_STREAM_PLAYBACK, 0 );
++	err = snd_pcm_open( &g_alsa_playback_handle, "default", SND_PCM_STREAM_PLAYBACK, 0 );
+     }
+     if( err < 0 ) 
+     {

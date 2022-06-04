@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=SF2K Invitro
+GenericName=Demo
+Comment=SF2K Invitro - demo ranked 3rd at Ambience 2001
+Type=Application
+Exec=/usr/bin/sf2kinvitro-by-aardbei
+Icon=sf2kinvitro-by-aardbei
+Categories=AudioVideo;Emulator;Game;
+Name[fr_FR]=SF2K Invitro

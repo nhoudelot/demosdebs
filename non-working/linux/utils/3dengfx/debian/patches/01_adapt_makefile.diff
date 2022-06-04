@@ -1,0 +1,130 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,11 +1,29 @@
++#variables de compilation
++SHELL = /bin/sh
++CC    = gcc
++CXX   = g++
++AR    = ar
++#variable de nettoyage
++RM_F = rm -f
++
+ obj :=
+ 
+-opt := -O1
+-#opt := -g
+-inc_flags := -Isrc -Ilibs -I/usr/local/include
++inc_flags := -Isrc -Ilibs -I/usr/include
+ 
+-CXXFLAGS := $(opt) -ansi -pedantic -Wall -fPIC $(inc_flags) `./3dengfx-config --cflags`
+-CFLAGS := $(opt) -std=c89 -pedantic -Wall -fPIC $(inc_flags) `./3dengfx-config --cflags`
++CXXFLAGS += $(opt) -ansi -pedantic -Wall -fPIC $(inc_flags) $(shell sdl-config --cflags) $(shell pkg-config --cflags freetype2)
++CFLAGS += $(opt) -std=c89 -pedantic -Wall -fPIC $(inc_flags) $(shell sdl-config --cflags) $(shell pkg-config --cflags freetype2)
++LDFLAGS += $(shell sdl-config --libs) $(shell pkg-config --libs freetype2) -lpng -ljpeg -lGL
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_LIBS    = $(INSTALL) -p    -o root -g root  -m  755
++
++#parallel compilation if available
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+ include src/3dengfx/Makefile-part
+ include src/gfx/Makefile-part
+@@ -16,6 +34,12 @@
+ include src/sim/Makefile-part
+ include libs/lib3ds/Makefile-part
+ 
++
++# create additional programs
++
++
++
++
+ .PHONY: all
+ all: lib3dengfx.so.0.1.0 lib3dengfx.a
+ 
+@@ -26,10 +50,11 @@
+ static: lib3dengfx.a
+ 
+ lib3dengfx.so.0.1.0: 3dengfx-config $(obj)
+-	$(CXX) -shared -Wl,-soname,lib3dengfx.so.0 -o $@ $(obj)
++	$(CXX) -shared -Wl,-soname,lib3dengfx.so.0 -o $@ $(obj) $(LDFLAGS)
++	strip --strip-unneeded lib3dengfx.so.0.1.0
+ 	@echo '---- shared library created successfully! ----'
+ 
+-lib3dengfx.a: 3dengfx-config $(obj)
++lib3dengfx.a: inst 3dengfx-config $(obj)
+ 	$(AR) rcs $@ $(obj)
+ 	@echo '---- static library created successfully! ----'
+ 
+@@ -43,17 +68,29 @@
+ 	@set -e; rm -f $@; $(CC) -MM $(CFLAGS) $< > $@.$$$$; \
+ 	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; rm -f $@.$$$$
+ 
++3dengfx-config:
++	@echo 'Creating 3dengfx-config program ...'
++	$(CC) -o 3dengfx-config inst/3dengfx_config.c -Isrc
++
++.PHONY: inst
++inst:
++	@echo 'Creating installer program ...'
++	$(CC) -o inst/inst inst/inst.c -Isrc
+ 
+ .PHONY: clean
+ clean:
+-	$(RM) $(obj) lib3dengfx.so.0.1.0 lib3dengfx.a
++	-@$(RM_F) $(obj) lib3dengfx.so.0.1.0 lib3dengfx.a 3dengfx-config inst/inst
++	rm -rf usr/
++	find . \( -name '*.d' -o -name '*.d.*' \) -exec rm '{}' ';'
++	./configure
+ 
+ .PHONY: cleandep
+ cleandep:
+-	find . \( -name '*.d' -o -name '*.d.*' \) -exec $(RM) '{}' ';'
++	find . \( -name '*.d' -o -name '*.d.*' \) -exec rm '{}' ';'
+ 
+ .PHONY: install
+ install:
++	mkdir -p usr/lib usr/bin usr/include
+ 	inst/inst
+ 
+ .PHONY: remove
+--- a/configure
++++ b/configure
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/bin/bash
+ 
+ echo 'configuring 3dengfx ...'
+ 
+@@ -113,12 +113,4 @@
+ echo '#endif	/* unix/win32 */' >>$cfg_file
+ echo '#endif	/* GFX_LIBRARY == NATIVE */' >>$cfg_file
+ 
+-echo '#endif	/* _3DENGFX_CONFIG_H_ */' >>$cfg_file
+-
+-# create additional programs
+-
+-echo 'Creating 3dengfx-config program ...'
+-cc -o 3dengfx-config inst/3dengfx_config.c -Isrc
+-
+-echo 'Creating installer program ...'
+-cc -o inst/inst inst/inst.c -Isrc
++echo '#endif	/* _3DENGFX_CONFIG_H_ */' >>$cfg_file
+\ No newline at end of file
+--- a/inst/inst.c
++++ b/inst/inst.c
+@@ -47,7 +47,7 @@
+ 
+ 		chdir(PREFIX "/lib");
+ 		symlink("lib3dengfx.so.0.1.0", "lib3dengfx.so");
+-		system("ldconfig");
++		//system("ldconfig");
+ 	} else {
+ 		/* remove */
+ 		const char **modptr = modules + 1;

@@ -1,0 +1,8 @@
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,3 +1,3 @@
+-swan_on_table_SOURCES = swan_on_table.c
++solitaryconfinement_by_faemiyah_SOURCES = swan_on_table.c
+ 
+-noinst_PROGRAMS = swan_on_table
++bin_PROGRAMS = solitaryconfinement-by-faemiyah

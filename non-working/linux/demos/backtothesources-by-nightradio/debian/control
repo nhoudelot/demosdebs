@@ -1,0 +1,30 @@
+Source: backtothesources-by-nightradio
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ pkgconf,
+ libxext-dev,
+ mesa-common-dev,
+ libglu1-mesa-dev,
+ libasound2-dev
+Standards-Version: 4.6.0.1
+Homepage: https://www.pouet.net/prod.php?which=52834
+
+Package: backtothesources-by-nightradio
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ backtothesources-by-nightradio-data,
+ libasound2-plugins
+Description: MusicDisc for Linux, released in 2009
+ MusicDisc by NightRadio, released in 2009
+
+Package: backtothesources-by-nightradio-data
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: Data for MusicDisc for Linux, released in 2009
+ MusicDisc by NightRadio, released in 2009

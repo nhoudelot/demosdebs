@@ -1,0 +1,19 @@
+Source: solitaryconfinement-by-faemiyah
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>=9),
+ pandoc,
+ libsdl1.2-dev,
+ libglew-dev
+Standards-Version: 4.1.4
+Homepage: http://www.pouet.net/prod.php?which=53670
+
+Package: solitaryconfinement-by-faemiyah
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Demo for Linux, released in 2009
+ Demo by Faemiyah, released in 2009

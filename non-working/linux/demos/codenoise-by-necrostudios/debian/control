@@ -1,0 +1,19 @@
+Source: codenoise-by-necrostudios
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0),
+ libsdl1.2-dev,
+ elfkickers,
+ pandoc
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=14111
+
+Package: codenoise-by-necrostudios
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Demo/2004/Linux
+ Demo by NecroStudios, released in 2004

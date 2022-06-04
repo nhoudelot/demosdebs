@@ -1,0 +1,75 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,24 +1,59 @@
++#variables de compilation
++SHELL = /bin/sh
++CC = gcc
+ OBJS = src/main.o src/sound.o
++TARGET = fy-by-introx
+ 
+-EXECUTABLE = fy  
+-
+-CFLAGS = -Wall -ansi -I ./include
+-COMPILE =$(CC) $(CFLAGS) -c
++CFLAGS += -Wall -pipe -ansi -I ./include -std=c89
++LDFLAGS += -L/usr/lib/i386-linux-gnu -lminifmod   $(shell sdl-config --cflags --libs) -pthread -lm
++#variable de nettoyage
++RM_F = rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    = $(INSTALL) -p    -o root -g root  -m  644
++
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++datarootdir     = $(prefix)/share
++datadir         = $(prefix)/share/fy-by-introx
++
++#get DEB_BUILD_OPTIONS working
++ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
++    CFLAGS += -O0
++else
++    CFLAGS += -O2
++endif
++ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
++    INSTALL_PROGRAM += -s
++endif
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+-CC = gcc
+-LFLAGS =`sdl-config --cflags --libs` -lm  -s -L ./lib/linux -lminifmod -lpthread
++export
+ 
+-all: $(EXECUTABLE)
++all: $(TARGET)
+ 
+-$(EXECUTABLE): $(OBJS)
+-	$(CC) -o $(EXECUTABLE) $(OBJS) $(LFLAGS)
++$(TARGET): $(OBJS)
++	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
+ 
+ main.o bmp.o: src/main.h
+ 
+ %.o: %.c
+-	$(COMPILE) -o $@ $<
++	$(CC) $(CFLAGS) -c -o $@ $<
+ 
+ clean:
+-	-rm src/$(OBJS) $(EXECUTABLE) src/*~
+-	-rm ./*~
+-	-rm src/*.o
++	-@$(RM_F) src/$(OBJS) $(TARGET) src/*~
++	-@$(RM_F)./*~
++	-@$(RM_F) src/*.o
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) tune.xm $(DESTDIR)$(datadir)

@@ -1,0 +1,74 @@
+Description: change data path
+ on system install, data path should be in /usr/share, so we have to change it in the code
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2020-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/btts/main/user_code.cpp
++++ b/btts/main/user_code.cpp
+@@ -21,22 +21,22 @@
+ sunvox_engine g_sv;
+ const UTF8_CHAR *g_tracks[] = 
+ {
+-    "data/timeless.sunvox",
+-    "data/solim.sunvox",
+-    "data/pixel_cave.sunvox",
+-    "data/space_trip.sunvox",
+-    "data/pong.sunvox",
+-    "data/8bit_tales.sunvox",
+-    "data/elochka.sunvox",
+-    "data/city_dreams.sunvox",
+-    "data/pixel_disco.sunvox",
+-    "data/space_seq.sunvox",
+-    "data/forests.sunvox",
+-    "data/window.sunvox",
+-    "data/where.sunvox",
+-    "data/circles.sunvox",
+-    "data/alchemy_masters.sunvox",
+-    "data/waterfalls.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/timeless.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/solim.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/pixel_cave.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/space_trip.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/pong.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/8bit_tales.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/elochka.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/city_dreams.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/pixel_disco.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/space_seq.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/forests.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/window.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/where.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/circles.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/alchemy_masters.sunvox",
++    "/usr/share/backtothesources-by-nightradio/data/waterfalls.sunvox",
+     0
+ };
+ const UTF8_CHAR *g_track_names[] = 
+@@ -332,7 +332,7 @@
+     int xsize;
+     int ysize;
+     int mask;
+-    g_back_texture = load_jpeg_rgb24( "data/back.jpg" );
++    g_back_texture = load_jpeg_rgb24( "/usr/share/backtothesources-by-nightradio/data/back.jpg" );
+     xsize = jpg_xsize;
+     ysize = jpg_ysize;
+     int ptr = 0;
+@@ -392,7 +392,7 @@
+         g_wave_texture );
+ 
+     //Glow:
+-    g_glow_texture = load_jpeg_rgb24( "data/glow.jpg" );
++    g_glow_texture = load_jpeg_rgb24( "/usr/share/backtothesources-by-nightradio/data/glow.jpg" );
+     xsize = jpg_xsize;
+     ysize = jpg_ysize;
+     ptr = 0;
+@@ -419,7 +419,7 @@
+     //Code
+     for( int n = 0; n < CODE_TEXTURES + 1; n++ )
+     {
+-	UTF8_CHAR code_name[] = "data/code0.jpg";
++	UTF8_CHAR code_name[] = "/usr/share/backtothesources-by-nightradio/data/code0.jpg";
+ 	code_name[ 9 ] = '0' + n;
+ 	g_code_texture[ n ] = load_jpeg_rgb24( (const UTF8_CHAR*)code_name );
+ 	xsize = jpg_xsize;

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=B.14
+GenericName=Demo
+Comment=Demo by Vantage & mfx, released in 2005
+Type=Application
+Exec=/usr/bin/b14-by-vantagemfx
+Icon=b14-by-vantagemfx
+Categories=AudioVideo;Game;
+Name[fr_FR]=B.14

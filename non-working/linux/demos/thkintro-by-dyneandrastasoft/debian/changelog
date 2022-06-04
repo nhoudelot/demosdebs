@@ -1,0 +1,22 @@
+thkintro-by-dyneandrastasoft (1.0-0ddebs3) unstable; urgency=medium
+
+  * updated to standards-version 4.1.4
+  * make it compile with SDL
+  * adapt to png 1.6
+  * removed memcopy
+  * update cpu_accel.cpp to work in 64 bits
+  * changed data path
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Nov 2019 12:51:01 +0100
+
+thkintro-by-dyneandrastasoft (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated to standards-version 3.9.7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2016 10:13:15 +0200
+
+thkintro-by-dyneandrastasoft (1.0-0ddebs1) unstable; urgency=low
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 12 Mar 2016 17:06:35 +0100

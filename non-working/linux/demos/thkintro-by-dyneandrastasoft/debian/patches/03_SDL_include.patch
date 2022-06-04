@@ -1,0 +1,16 @@
+Description: Fix SDL includes
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-11-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/layer.h
++++ b/layer.h
+@@ -28,7 +28,7 @@
+ #define __LAYER_H__
+ 
+ #include <inttypes.h>
+-#include <SDL.h>
++#include <SDL/SDL.h>
+ 
+ #include <filter.h>
+ #include <jsync.h>

@@ -1,0 +1,22 @@
+--- a/src/main.h
++++ b/src/main.h
+@@ -5,7 +5,7 @@
+ #include <strings.h>
+ #include <unistd.h>
+ #include <SDL/SDL.h>
+-#include "minifmod.h"
++#include <minifmod.h>
+ 
+ extern FMUSIC_MODULE *tune;
+ int initsound(/*char *me*/ void);
+--- a/src/main.c
++++ b/src/main.c
+@@ -20,7 +20,7 @@
+ void init(void){
+ 	SDL_Init(SDL_INIT_VIDEO);
+ 	atexit(SDL_Quit);
+-	screen = SDL_SetVideoMode(320, 200, 8, SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_HWPALETTE|SDL_FULLSCREEN);
++	screen = SDL_SetVideoMode(320, 200, 8, SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_HWPALETTE);
+ 	if(!screen) {
+ 		printf("failed to allocate memory for video!\n");
+ 		exit(1);

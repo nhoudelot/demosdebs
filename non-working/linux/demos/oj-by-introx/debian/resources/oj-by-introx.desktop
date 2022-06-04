@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Oj!
+GenericName=Demo
+Comment=Demo by introx, released in 2004
+Type=Application
+Exec=/usr/bin/oj-by-introx
+Icon=oj-by-introx
+Categories=AudioVideo;Game;
+Name[fr_FR]=Oj!

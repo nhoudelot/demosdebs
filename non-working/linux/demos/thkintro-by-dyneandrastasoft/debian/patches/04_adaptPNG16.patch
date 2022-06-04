@@ -1,0 +1,25 @@
+Description: adapt to PNG 1.6
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2019-11-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/png_layer.cpp
++++ b/png_layer.cpp
+@@ -95,7 +95,7 @@
+ 
+ 	/* initialize error message callback */
+ 
+-	if ( setjmp(core->jmpbuf) )
++	if ( setjmp(png_jmpbuf(core)))
+ 		error((char *)"error reading the PNG file.");
+ 
+ 	/* start peeking into the file */
+@@ -123,7 +123,7 @@
+ 
+ 	if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8) {
+ 		func((char *)"PNG set gray to 8bpp");
+-		png_set_gray_1_2_4_to_8(core);
++		png_set_expand_gray_1_2_4_to_8(core);
+ 	}
+ 
+ 	png_set_filler(core, 0xff, PNG_FILLER_AFTER);

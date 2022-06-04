@@ -1,0 +1,41 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,5 +1,8 @@
++AC_PREREQ([2.69])
+ AC_INIT([swan_on_table], [r0], [warma@iki.fi])
+ 
++AC_CONFIG_SRCDIR([body_curving_template.m])
++
+ AC_CANONICAL_BUILD
+ AC_CANONICAL_HOST
+ AC_CANONICAL_TARGET
+@@ -8,6 +11,7 @@
+ 
+ AC_CHECK_C99
+ AC_CHECK_CXX
++AC_PROG_CC
+ 
+ AC_PROG_INSTALL
+ AC_PROG_LN_S
+@@ -18,13 +22,19 @@
+ 
+ AC_CONDITIONAL_DEFINE([USE_LD], [yes])
+ 
+-AC_CHECK_HEADER([inttypes.h])
+-AC_CHECK_HEADER([stdint.h])
++# Checks for header files.
++AC_CHECK_HEADERS([stdint.h inttypes.h float.h stdlib.h])
++AC_ADD_CCFLAG([-flto])
++AC_ADD_LDFLAG([-flto])
++AC_ADD_LIB([-lm])
+ 
+ AC_INCORPORATE_GLEW([ENABLE_GLEW], [yes])
+ AC_INCORPORATE_OPENGL([ENABLE_OPENGL], [yes])
+ AC_INCORPORATE_SDL([1.2.7], [ENABLE_SDL], [yes])
+ 
++# Checks for library functions.
++AC_CHECK_FUNCS([pow sqrt])
++
+ AC_CONFIG_FILES([Makefile src/Makefile])
+ AC_OUTPUT
+ 

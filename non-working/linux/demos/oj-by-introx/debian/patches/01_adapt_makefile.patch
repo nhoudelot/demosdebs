@@ -1,0 +1,86 @@
+Description: update makefile
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2019-11-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -1,23 +1,64 @@
+-OBJS = src/intro.o src/main.o src/bmp.o src/init.o src/sine.o src/water.o src/math.o src/cube.o src/end.o
++#variables de compilation
++SHELL = /bin/sh
++CC    = gcc
++
++CFLAGS += -Wall -pipe -std=c90 $(shell sdl-config --cflags) -fno-aggressive-loop-optimizations
++LDFLAGS += $(shell sdl-config --libs) -lfmod-3.75 -pthread -lm
++
++OBJS = src/main.o src/intro.o src/bmp.o src/init.o src/sine.o src/water.o src/math.o src/cube.o src/end.o
++
++TARGET = oj-by-introx
++#variable de nettoyage
++RM_F = rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DATA    = $(INSTALL) -p    -o root -g root  -m  644
++
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++datarootdir     = $(prefix)/share
++datadir         = $(prefix)/share/oj-by-introx
++
++#get DEB_BUILD_OPTIONS working
++ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
++    CFLAGS += -O0
++else
++    CFLAGS += -O2
++endif
++ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
++    INSTALL_PROGRAM += -s
++endif
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
+ 
+-EXECUTABLE = demo
++export
+ 
+-CFLAGS = -Wall -ansi -DFULLSCREEN
+-COMPILE =$(CC) $(CFLAGS) -c  
++all: $(TARGET)
+ 
+-CC = gcc
+-LFLAGS =`sdl-config --cflags --libs` -s src/fmod/libfmod-3.73.so -lpthread -lm
+-
+-all: $(EXECUTABLE)
+-
+-$(EXECUTABLE): $(OBJS)
+-	$(CC) -o $(EXECUTABLE) $(OBJS) $(LFLAGS)
++$(TARGET): $(OBJS)
++	$(CC) -o $(TARGET) $(OBJS) $(LDFLAGS)
+ 
+ main.o bmp.o: src/main.h
+ 
+ %.o: %.c
+-	$(COMPILE) -o $@ $<
++	$(CC) $(CFLAGS) -c -o $@ $<
+ 
+ clean:
+-	-rm src/$(OBJS) $(EXECUTABLE) src/*~
+-	-rm ./*~
++	-@$(RM_F) $(OBJS) $(TARGET) src/*~
++	-@$(RM_F) ./*~
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)/data
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)/data/img
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)/data/snd
++	$(INSTALL_DATA) data/img/* $(DESTDIR)$(datadir)/data/img
++	$(INSTALL_DATA) data/snd/* $(DESTDIR)$(datadir)/data/snd
