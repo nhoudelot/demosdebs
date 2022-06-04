@@ -1,4 +1,4 @@
-Source: libfmod
+Source: fmod
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:

@@ -1,9 +1,10 @@
-libfmod (3.75-0ddebs9) unstable; urgency=medium
+fmod (3.75-0ddebs9) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
   * avoid use of dh_dwz when compile on buster
+  * renamed libs to a more common name
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 Apr 2022 12:25:41 +0200
 

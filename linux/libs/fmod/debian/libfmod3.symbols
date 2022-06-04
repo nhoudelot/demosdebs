@@ -1,4 +1,5 @@
 libfmod.so.3 libfmod3 #MINVER#
+* Build-Depends-Package: libfmod-dev
  ConvertFromIeeeExtended@Base 3.61
  FMUSIC_AllocSong@Base 3.4
  FMUSIC_CheckCallback@Base 3.4
