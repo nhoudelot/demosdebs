@@ -14,7 +14,8 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
- libbass
+ libbass2,
+ engagethefresse-by-stroboholics-data
 Description: Demo for Linux, released in 2010
  Demo by stroboholics, released in 2010
 
