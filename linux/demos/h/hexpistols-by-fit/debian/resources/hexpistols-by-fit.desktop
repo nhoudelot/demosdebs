@@ -5,6 +5,6 @@ GenericName=Demo
 Comment=Demo by Fit, released in 2005
 Type=Application
 Exec=/usr/bin/hexpistols-by-fit
-Icon=hexpistols-by-fit
+Icon=hexpistols-by-fit -w
 Categories=AudioVideo;Game;
 Name[fr_FR]=Hex Pistols

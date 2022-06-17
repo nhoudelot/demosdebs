@@ -5,6 +5,7 @@ hexpistols-by-fit (1.0+1-0ddebs7) unstable; urgency=medium
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * start windowed
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Apr 2022 13:09:12 +0200
 
