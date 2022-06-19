@@ -7,6 +7,7 @@ itsfullofstars-by-traction (1.0+1-0ddebs5) unstable; urgency=medium
     build
   * added libgl-dev as a build dependency, to get -lGl for the linker,
     on jammy
+  * disable flto on jammy
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Apr 2022 14:59:39 +0200
 
