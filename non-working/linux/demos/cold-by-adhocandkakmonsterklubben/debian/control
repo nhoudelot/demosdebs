@@ -15,7 +15,7 @@ Homepage: https://www.pouet.net/prod.php?which=27661
 Package: cold-by-adhocandkakmonsterklubben
 Architecture: i386
 Depends:
- cold-by-adhocandkakmonsterklubben-data (= ${source:Version}),
+ cold-by-adhocandkakmonsterklubben-data,
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
