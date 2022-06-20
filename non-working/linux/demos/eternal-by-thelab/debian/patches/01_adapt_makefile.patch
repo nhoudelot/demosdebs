@@ -1,0 +1,155 @@
+--- a/Makefile
++++ b/Makefile
+@@ -4,11 +4,13 @@
+ opt := #-O3 -mmmx -msse -mfpmath=sse
+ 
+ CXXFLAGS := -g $(opt) -ansi -pedantic -Wall -DSINGLE_PRECISION_MATH\
+-			-In3dmath2 -Icommon -Igfx -I3dengfx -Inlibase `sdl-config --cflags`
++			-In3dmath2 -Icommon -Igfx -I3dengfx -Inlibase $(shell sdl-config --cflags)
+ 
+-demo2: $(obj)
++all: $(TARGET)
++
++$(TARGET): $(obj)
+ 	$(CXX) -o $@ $(obj) src/libn3dmath2.a -lGL -lGLU -lbz2 \
+-	`sdl-config --libs` `pkg-config libpng --libs` -lvorbisfile -lvorbis -logg 
++	$(shell sdl-config --libs) $(shell pkg-config libpng --libs) -lvorbisfile -lvorbis -logg
+ 
+ %.o:
+ 	cd $(@D); make
+@@ -25,9 +27,9 @@
+ dsys:
+ 	cd src/dsys; make; cd ../..
+ 
+-.PHONY: clean
+ clean:
+ 	@echo Cleaning...
++	-@$(RM_F) $(TARGET)
+ 	cd src/common; make clean
+ 	cd src/3dengfx; make clean
+ 	cd src/gfx; make clean
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,3 +1,12 @@
++#variables de compilation
++SHELL := /bin/sh
++CC    := gcc
++CXX   := g++
++
++TARGET   := demo2
++#variable de nettoyage
++RM_F := rm -f
++
+ obj := 	demo2.o \
+ 		part_start.o \
+ 		part_volsph.o \
+@@ -10,11 +19,15 @@
+ 
+ opt := #-O3 -mmmx -msse -mfpmath=sse
+ 
++RM_F := rm -f
++
+ CXXFLAGS := -g $(opt) -ansi -pedantic -Wall -DSINGLE_PRECISION_MATH\
+-			-Icommon -Igfx -I3dengfx -Inlibase -Idsys `sdl-config --cflags`
++			-Icommon -Igfx -I3dengfx -Inlibase -Idsys $(shell sdl-config --cflags)
+ 
+ CFLAGS := $(CXXFLAGS)
+ 
++all: $(TARGET)
++
+ src_pack.o: $(obj)
+ 	$(LD) -r -o $@ $(obj)
+ 
+@@ -31,4 +44,4 @@
+ .PHONY: clean
+ clean:
+ 	@echo Cleaning...
+-	@rm -f $(obj) *.o *.d
++	-@$(RM_F) $(obj) *.o *.d
+--- a/src/common/Makefile
++++ b/src/common/Makefile
+@@ -5,6 +5,8 @@
+ CXXFLAGS := $(opt) -ansi -pedantic -Wall -DSINGLE_PRECISION_MATH
+ CFLAGS := $(opt) -ansi -pedantic -Wall
+ 
++RM_F := rm -f
++
+ #common.a: $(obj)
+ #	ar cru $@ $(obj)
+ #	ranlib $@
+@@ -24,4 +26,4 @@
+ .PHONY: clean
+ clean:
+ 	@echo Cleaning...
+-	@rm -f *.o
++	-@$(RM_F)  *.o
+--- a/src/3dengfx/Makefile
++++ b/src/3dengfx/Makefile
+@@ -4,7 +4,9 @@
+ 
+ 
+ CXXFLAGS := -g -ansi -pedantic -Wall -DSINGLE_PRECISION_MATH\
+-			-I. -I../common -I../gfx -I../nlibase `sdl-config --cflags`
++			-I. -I../common -I../gfx -I../nlibase $(shell sdl-config --cflags)
++
++RM_F := rm -f
+ 
+ 3dengfx_pack.o: $(obj)
+ 	$(LD) -r -o $@ $(obj)
+@@ -19,4 +21,4 @@
+ .PHONY: clean
+ clean:
+ 	@echo Cleaning...
+-	@rm -f *.o *.d
++	-@$(RM_F) *.o *.d
+--- a/src/dsys/Makefile
++++ b/src/dsys/Makefile
+@@ -7,6 +7,8 @@
+ 
+ CFLAGS := $(CXXFLAGS)
+ 
++RM_F := rm -f
++
+ dsys_pack.o: $(obj)
+ 	$(LD) -r -o $@ $(obj)
+ 
+@@ -23,4 +25,4 @@
+ .PHONY: clean
+ clean:
+ 	@echo Cleaning...
+-	@rm -f *.o *.d
++	-@$(RM_F) *.o *.d
+--- a/src/gfx/Makefile
++++ b/src/gfx/Makefile
+@@ -5,6 +5,8 @@
+ CXXFLAGS := -g $(opt) -ansi -pedantic -Wall -DSINGLE_PRECISION_MATH\
+ 		-I. -I../common -I../3dengfx
+ 
++RM_F := rm -f
++
+ #gfx.a: $(obj)
+ #	ar crus $@ $(obj)
+ 
+@@ -20,4 +22,4 @@
+ .PHONY: clean
+ clean:
+ 	@echo Cleaning...
+-	@rm -f *.o *.d
++	-@$(RM_F) *.o *.d
+--- a/src/nlibase/Makefile
++++ b/src/nlibase/Makefile
+@@ -4,6 +4,8 @@
+ 
+ CFLAGS := $(opt) -g -std=c89 -pedantic -Wall
+ 
++RM_F := rm -f
++
+ #nlibase.a: $(obj)
+ #	ar crus $@ $(obj)
+ 
+@@ -19,4 +21,4 @@
+ .PHONY: clean
+ clean:
+ 	@echo Cleaning...
+-	@rm -f *.o *.d
++	-@$(RM_F) *.o *.d

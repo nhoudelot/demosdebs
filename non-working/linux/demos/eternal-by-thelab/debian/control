@@ -1,0 +1,19 @@
+Source: eternal-by-thelab
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper (>= 9.0.0),
+ libbz2-dev,
+ n3dmath-dev,
+ pkg-config
+Standards-Version: 4.1.4
+Homepage: https://www.pouet.net/prod.php?which=12244
+
+Package: eternal-by-thelab
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

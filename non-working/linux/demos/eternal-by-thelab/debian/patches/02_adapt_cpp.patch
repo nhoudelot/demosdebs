@@ -1,0 +1,85 @@
+--- a/src/gfx/3dgeom.inl
++++ b/src/gfx/3dgeom.inl
+@@ -88,7 +88,7 @@
+ 		DataType *ptr = (DataType*)glMapBuffer(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
+ 		if(!ptr) {
+ 			std::cerr << "GeometryArray<T>::SyncBufferObject(): glMapBuffer failed.\n";
+-			std::cerr << "\tOpenGL error: " << GetGLErrorString(glGetError()) << "\n";
++			std::cerr << "\tOpenGL error: \n";
+ 			std::cerr << "\tbuffer_object = " << buffer_object << "\n";
+ 			return;
+ 		}
+--- a/src/part_hairy.cpp
++++ b/src/part_hairy.cpp
+@@ -17,6 +17,7 @@
+ along with the eternal demo; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
++#include <stdio.h>
+ #include <iostream>
+ #include "part_hairy.hpp"
+ 
+--- a/src/3dengfx/textures.cpp
++++ b/src/3dengfx/textures.cpp
+@@ -17,6 +17,8 @@
+ along with the eternal demo; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
++using namespace std;
++#include <cstring>
+ #include <GL/gl.h>
+ #include <cassert>
+ #include "textures.hpp"
+--- a/src/3dengfx/material.cpp
++++ b/src/3dengfx/material.cpp
+@@ -17,6 +17,8 @@
+ along with the eternal demo; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
++using namespace std;
++#include <cstring>
+ #include "opengl.h"
+ #include "material.hpp"
+ 
+--- a/src/3dengfx/texman.cpp
++++ b/src/3dengfx/texman.cpp
+@@ -17,8 +17,11 @@
+ along with the eternal demo; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
++using namespace std;
++#include <cstdlib>
+ #include <string>
+ #include <cstring>
++#include <stdio.h>
+ #include "texman.hpp"
+ #include "hashtable.hpp"
+ extern "C" {
+--- a/src/dsys/dsys.cpp
++++ b/src/dsys/dsys.cpp
+@@ -17,6 +17,7 @@
+ along with the eternal demo; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
++#include <stdlib.h>
+ #include <iostream>
+ #include "dsys.hpp"
+ #include "part.hpp"
+--- a/src/common/bstree.inl
++++ b/src/common/bstree.inl
+@@ -40,7 +40,7 @@
+ template <class T>
+ BSTree<T>::BSTree(const BSTree<T> &tree) {
+ 	elem_count = tree.elem_count;
+-	tree.Traverse(CopyInsert, PreorderTraversal);
++	tree.Traverse(CopyInsert, TRAVERSE_PREORDER);
+ }
+ 
+ template <class T>
+@@ -179,5 +179,5 @@
+ 
+ template <class T>
+ int BSTree<T>::Size() const {
+-	return ElementCount;
++	return elem_count;
+ }
