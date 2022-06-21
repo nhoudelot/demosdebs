@@ -3,6 +3,7 @@ primary-by-qaz (1.0-0ddebs7) unstable; urgency=medium
   * update to standards-version 4.6.0.1
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
+  * fixed dependency
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Apr 2022 09:15:34 +0200
 

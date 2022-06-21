@@ -13,7 +13,8 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- common-install-function-ddebs(>=1.18)
+ common-install-function-ddebs(>=1.18),
+ primary-by-qaz-data
 Description: Demo for Linux, released in 2010
  Demo by Qaz, released in 2010
 
