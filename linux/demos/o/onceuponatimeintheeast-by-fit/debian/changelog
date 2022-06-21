@@ -5,6 +5,7 @@ onceuponatimeintheeast-by-fit (1.0+1-0ddebs8) unstable; urgency=medium
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * disable lfto to work on jammy
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 27 Apr 2022 01:50:33 +0200
 
