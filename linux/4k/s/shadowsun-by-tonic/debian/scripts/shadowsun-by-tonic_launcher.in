@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=shadowsun-by-tonic
+
+APP_FULLNAME="Shadow Sun"
+APP_COPYRIGHT="tonic"
+APP_DESC="4k intro by tonic, released in 2004"
+
+APP_EXE="shadowsun-by-tonic"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/bin/
+	LD_LIBRARY_PATH=./:/usr/lib/@DEB_HOST_MULTIARCH@/sdl12-compat/ ./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

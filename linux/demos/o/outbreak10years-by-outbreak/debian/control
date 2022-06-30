@@ -15,7 +15,7 @@ Depends:
  libstdc++5,
  libjpeg62-turbo|libjpeg62,
  libpng12-0 (>= 1.2.13-4),
- libsdl1.2debian,
+ libsdl1.2-compat,
  libfmod3,
  libc6,
  outbreak10years-by-outbreak-data

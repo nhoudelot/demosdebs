@@ -4,8 +4,9 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
+ libglu1-mesa-dev,
  libsdl-mixer1.2-dev,
- libsdl1.2-dev
+ libsdl1.2-compat-dev
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=57011
 
@@ -14,6 +15,7 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ libsdl1.2-compat,
  common-install-function-ddebs(>=1.18),
  professionalmagickwrestler-by-gzrrplox-data
 Description: Demo for Linux, released in 2011

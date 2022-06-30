@@ -4,6 +4,7 @@ alieninvasion-by-nectarine (1.0-0ddebs7) unstable; urgency=medium
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
   * avoid use of dh_dwz when compile on buster
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 May 2022 17:33:36 +0200
 

@@ -1,3 +1,5 @@
 debian/resources/smegmainyoureyes-by-tufs.desktop usr/share/applications/
 debian/resources/smegmainyoureyes-by-tufs.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/smegmainyoureyes-by-tufs_launcher usr/bin/
 usr/bin/smegmainyoureyes-by-tufs usr/bin/
+

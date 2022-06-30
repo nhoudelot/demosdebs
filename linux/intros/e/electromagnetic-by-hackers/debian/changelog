@@ -4,6 +4,7 @@ electromagnetic-by-hackers (1.0-0ddebs2) unstable; urgency=medium
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
   * avoid use of dh_dwz when compile on buster
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 17 Apr 2022 12:33:43 +0200
 

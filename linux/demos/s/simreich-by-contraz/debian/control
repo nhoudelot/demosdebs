@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- libsdl1.2-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev,
  libdevil-dev,
  libfltk1.1-dev,
  libglew1.5
@@ -16,6 +16,7 @@ Architecture: i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ libsdl1.2-compat,
  common-install-function-ddebs(>=1.18),
  libglew1.5,
  simreich-by-contraz-data

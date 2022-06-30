@@ -2,9 +2,9 @@
 Version=1.0
 Name=Leeko
 GenericName=Demo
-Comment=Demo by Fit, released in 2003
+Comment=Intro by Fit, released in 2003
 Type=Application
-Exec=/usr/bin/leeko-by-fit -w
+Exec=/usr/bin/leeko-by-fit_launcher
 Icon=leeko-by-fit
 Categories=AudioVideo;Game;
 Name[fr_FR]=Leeko

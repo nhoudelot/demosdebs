@@ -12,7 +12,7 @@ Architecture: i386
 Depends:
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
- libsdl1.2debian,
+ libsdl1.2-compat,
  libc6
 Description: Linux Demo released in 2005
  Kuantum Akelerator by Hno3, released in 2005

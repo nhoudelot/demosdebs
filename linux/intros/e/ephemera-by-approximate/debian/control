@@ -14,7 +14,7 @@ Depends:
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
  libglu1-mesa|libglu1,
- libsdl1.2debian
+ libsdl1.2-compat
 Description: Intro for Linux, released in 2009
  Intro by Approximate, released in 2009
  32-bit elf using SDL (for audio, keyboard/mouse and window creation) and OpenGL

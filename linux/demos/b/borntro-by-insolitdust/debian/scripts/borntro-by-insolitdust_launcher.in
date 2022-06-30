@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=borntro-by-insolitdust
+
+APP_FULLNAME="BoRnTrO"
+APP_COPYRIGHT="Insolit Dust"
+APP_DESC="Demo by Insolit Dust, released in 2012"
+
+APP_EXE="borntro-by-insolitdust"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/bin/
+	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/@DEB_HOST_MULTIARCH@/sdl12-compat/ ./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

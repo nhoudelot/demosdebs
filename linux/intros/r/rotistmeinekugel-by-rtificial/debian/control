@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- libsdl1.2-dev,
+ libgl-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=62936
 
@@ -14,6 +15,7 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  libglew1.5,
+ libsdl1.2-compat,
  common-install-function-ddebs(>=1.18)
 Description: 40k Intro for Linux, released in 2014
  Intro by Rtificial, released in 2014

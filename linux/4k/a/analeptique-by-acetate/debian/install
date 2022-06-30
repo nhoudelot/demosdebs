@@ -1,2 +1,3 @@
 debian/resources/analeptique-by-acetate.desktop usr/share/applications/
 debian/resources/analeptique-by-acetate.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/analeptique-by-acetate_launcher usr/bin/

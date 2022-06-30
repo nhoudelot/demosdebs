@@ -6,6 +6,7 @@ yellowroseoftexas-by-fit (1.0+1-0ddebs4) unstable; urgency=medium
   * -nostdlib is used at compilation. so, starting jammy, need to link
     with glibc (-lc), to get dlopen() function (it's now included in
     glibc 2.34)
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 15 Apr 2022 20:28:30 +0200
 

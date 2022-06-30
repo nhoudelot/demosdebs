@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- libsdl1.2-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev,
  libglu1-mesa-dev
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=30788
@@ -12,6 +12,7 @@ Homepage: https://www.pouet.net/prod.php?which=30788
 Package: fieldtrip-by-lft
 Architecture: i386
 Depends:
+ libsdl1.2-compat,
  ${misc:Depends},
  ${shlibs:Depends},
  common-install-function-ddebs(>=1.18)

@@ -5,6 +5,7 @@
     debian/compat file
   * avoid use of dh_dwz when compile on buster
   * added an icon
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Apr 2022 01:38:57 +0200
 

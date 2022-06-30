@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- libsdl1.2-dev,
+ libglu1-mesa-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev,
  libsdl-mixer1.2-dev,
  libstdc++5
 Standards-Version: 4.6.0.1
@@ -13,8 +14,18 @@ Homepage: https://www.pouet.net/prod.php?which=14700
 Package: halvdemo-by-kakmonsterklubben
 Architecture: i386
 Depends:
- common-install-function-ddebs(>=1.18),
+ halvdemo-by-kakmonsterklubben-data,
+ libsdl1.2-compat,
+ common-install-function-ddebs(>=1.61),
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Intro by kakmonsterklubben released in 2004
  kakmonsterklubben intro, released in 2004
+
+Package: halvdemo-by-kakmonsterklubben-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for halvdemo-by-kakmonsterklubben
+ halvdemo-by-kakmonsterklubben data files

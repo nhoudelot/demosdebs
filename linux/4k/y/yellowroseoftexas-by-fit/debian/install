@@ -1,2 +1,3 @@
 debian/resources/yellowroseoftexas-by-fit.desktop usr/share/applications/
 debian/resources/yellowroseoftexas-by-fit.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/yellowroseoftexas-by-fit_launcher usr/bin/

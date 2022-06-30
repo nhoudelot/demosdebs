@@ -4,8 +4,10 @@ kuantumakelerator2-by-hno3 (1.0+1-0ddebs3) unstable; urgency=medium
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
   * avoid use of dh_dwz when compile on buster
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
+  * moved script in debian/scripts
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Apr 2022 15:38:00 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 Jul 2022 23:56:57 +0200
 
 kuantumakelerator2-by-hno3 (1.0+1-0ddebs2) unstable; urgency=medium
 

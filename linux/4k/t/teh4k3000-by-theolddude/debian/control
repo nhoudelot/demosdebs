@@ -3,14 +3,16 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10),
- libsdl1.2-dev
-Standards-Version: 4.5.0
+ debhelper-compat (= 12),
+ libgl-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=56988
 
 Package: teh4k3000-by-theolddude
 Architecture: i386
 Depends:
+ libsdl1.2-compat,
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.18)

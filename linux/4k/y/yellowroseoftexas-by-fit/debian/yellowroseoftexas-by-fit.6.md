@@ -3,10 +3,10 @@
 % 2018-01-28
 
 # NAME
-yellowroseoftexas-by-fit - is the command to run Yellow Rose of Texas 
+yellowroseoftexas-by-fit_launcher - is the command to run Yellow Rose of Texas 
 
 # SYNOPSIS
-yellowroseoftexas-by-fit [*options*]
+yellowroseoftexas-by-fit_launcher [*options*]
 
 # DESCRIPTION
 Yellow Rose of Texas  is a demonstration released by Fit, released in 2003

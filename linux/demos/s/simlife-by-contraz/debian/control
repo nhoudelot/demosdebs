@@ -10,7 +10,7 @@ Build-Depends:
  libnoise-dev,
  libglu1-mesa-dev,
  libfmodex-dev,
- libsdl1.2-dev
+ libsdl1.2-compat-dev|libsdl1.2-dev
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=57319
 
@@ -19,6 +19,7 @@ Architecture: i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ libsdl1.2-compat,
  common-install-function-ddebs(>=1.18),
  libfmodex4,
  simlife-by-contraz-data

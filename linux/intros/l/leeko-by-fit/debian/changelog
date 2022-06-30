@@ -5,6 +5,7 @@ leeko-by-fit (1.0+1-0ddebs5) unstable; urgency=medium
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 18 Apr 2022 01:24:54 +0200
 

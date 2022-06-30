@@ -9,7 +9,7 @@ endif
 	dh $@
 
 override_dh_shlibdeps:
-	dh_shlibdeps -- -ldebian/resources/ --ignore-missing-info
+	dh_shlibdeps -- -ldebian/resources/ --ignore-missing-info -xlibsdl1.2debian
 
 override_dh_dwz:
 	$(RUN_DHDWZ)

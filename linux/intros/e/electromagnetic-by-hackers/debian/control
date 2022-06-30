@@ -4,13 +4,15 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- libsdl1.2-dev
+ libgl-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=67450
 
 Package: electromagnetic-by-hackers
 Architecture: i386
 Depends:
+ libsdl1.2-compat,
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.61)

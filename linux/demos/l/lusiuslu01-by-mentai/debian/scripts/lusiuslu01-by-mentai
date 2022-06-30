@@ -14,7 +14,7 @@ function run()
 {
 	backuppwd=$(pwd)
 	cd /usr/lib/i386-linux-gnu/${domain}
-	LD_LIBRARY_PATH=/usr/lib/i386-linux-gnu/${domain}/lib/linuxlib/ ./${APP_EXE}
+	LD_LIBRARY_PATH=./:/usr/lib/i386-linux-gnu/sdl12-compat/:/usr/lib/i386-linux-gnu/${domain}/lib/linuxlib/ ./${APP_EXE}
 	cd $backuppwd
 }
 

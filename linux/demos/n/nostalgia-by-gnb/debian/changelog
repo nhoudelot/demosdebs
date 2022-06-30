@@ -4,8 +4,10 @@ nostalgia-by-gnb (1.0-0ddebs5) unstable; urgency=medium
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
   * avoid use of dh_dwz when compile on buster
+  * patched binary to remove fullscreen
+  * replaced libsdl1.2 by libsdl1.2-compat
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Apr 2022 23:21:27 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 30 Jun 2022 23:40:31 +0200
 
 nostalgia-by-gnb (1.0-0ddebs4) unstable; urgency=medium
 

@@ -9,7 +9,8 @@ Build-Depends:
  libxcursor-dev,
  libfontconfig1-dev,
  libxinerama-dev,
- libsdl1.2-dev,
+ libglu1-mesa-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev,
  libgl-dev,
  libfmod-dev,
  pkgconf
@@ -20,7 +21,8 @@ Package: xa005spike-by-xangle
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends}
+ ${misc:Depends},
+ libsdl1.2-compat
 Description: Demo for Linux, released in 2005
  Demo by xAngle, released in 2005
  Party release at "Backslash underground" 2005-07-09

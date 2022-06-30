@@ -3,8 +3,9 @@ valleyball-by-bluflame (1.0-0ddebs9) unstable; urgency=medium
   * update to standards-version 4.6.0.1
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
+  * replaced libsdl1.2 by libsdl1.2-compat
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 01 May 2022 19:28:24 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 30 Jun 2022 13:27:03 +0200
 
 valleyball-by-bluflame (1.0-0ddebs8) unstable; urgency=medium
 

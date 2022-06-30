@@ -2,9 +2,9 @@
 Version=1.0
 Name=Analeptique
 GenericName=Demo
-Comment=Demo by Acetate, released in 2004
+Comment=4k intro by Acetate, released in 2004
 Type=Application
-Exec=/usr/bin/analeptique-by-acetate
+Exec=/usr/bin/analeptique-by-acetate_launcher
 Icon=analeptique-by-acetate
 Categories=AudioVideo;Game;
 Name[fr_FR]=Analeptique

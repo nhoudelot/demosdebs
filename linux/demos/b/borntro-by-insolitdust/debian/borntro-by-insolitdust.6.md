@@ -3,10 +3,10 @@
 % 2018-02-05
 
 # NAME
-borntro-by-insolitdust - the command to run BoRnTrO.
+borntro-by-insolitdust_launcher - the command to run BoRnTrO.
 
 # SYNOPSIS
-borntro-by-insolitdust [*options*]
+borntro-by-insolitdust_launcher [*options*]
 
 # DESCRIPTION
 BoRnTrO is a demonstration released by Insolit Dust in 2012.

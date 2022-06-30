@@ -15,7 +15,7 @@ function run()
 	backuppwd=$(pwd)
 	ln -s /usr/lib/i386-linux-gnu/${domain}/supa /tmp/supa
 	cd /tmp
-	./${APP_EXE}  || true
+	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE}  || true
 	rm /tmp/${APP_EXE}
 	cd $backuppwd
 }

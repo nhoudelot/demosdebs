@@ -9,7 +9,7 @@ endif
 	dh $@
 
 override_dh_shlibdeps:
-	dh_shlibdeps -- -l.
+	dh_shlibdeps -- -l. -xlibsdl1.2debian
 
 override_dh_dwz:
 	$(RUN_DHDWZ)

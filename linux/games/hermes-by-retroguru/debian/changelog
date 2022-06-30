@@ -5,8 +5,10 @@ hermes-by-retroguru (1.02-0ddebs2) unstable; urgency=medium
     debian/compat file
   * avoid use of dh_dwz when compile on buster
   * fixed install script
+  * fixed dependency
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 May 2022 21:21:29 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 Jul 2022 09:58:22 +0200
 
 hermes-by-retroguru (1.02-0ddebs1) unstable; urgency=medium
 

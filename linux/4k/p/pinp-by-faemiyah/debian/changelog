@@ -5,6 +5,7 @@ pinp-by-faemiyah (1.0+git20170414-0ddebs4) unstable; urgency=medium
     debian/compat file
   * replaced deprecated build dependency libgl1-mesa-dev by libgl-dev
   * avoid use of dh_dwz when compile on buster
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Apr 2022 10:39:41 +0200
 

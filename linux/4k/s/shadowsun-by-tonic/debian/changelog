@@ -7,6 +7,7 @@ shadowsun-by-tonic (1.0+1-0ddebs4) unstable; urgency=medium
     build
   * added libgl-dev as a build dependency, to get -lGl for the linker,
     on jammy
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Apr 2022 14:22:47 +0200
 

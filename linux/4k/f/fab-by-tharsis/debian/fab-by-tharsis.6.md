@@ -10,7 +10,7 @@ fab-by-tharsis [*options*]
 
 # DESCRIPTION
 Fab  is a demonstration released by tharsis
-Demo by tharsis, released in 2004
+4k intro by tharsis, released in 2004
 
 # OPTIONS
 there is no options to this program

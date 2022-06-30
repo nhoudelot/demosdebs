@@ -5,3 +5,15 @@ export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 
 %:
 	dh $@
+
+override_dh_shlibdeps:
+	dh_shlibdeps -- -xlibsdl1.2debian
+
+override_dh_auto_configure:
+	dh_auto_configure
+	(cd debian/scripts; \
+	  for i in *.in; do\
+	  o=`basename $$i .in`;\
+	  sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+	  done )
+

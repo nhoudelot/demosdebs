@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=halvdemo-by-kakmonsterklubben
+
+APP_FULLNAME="Halvdemo"
+APP_COPYRIGHT="kakmonsterklubben"
+APP_DESC="demo by kakmonsterklubben released the 2004"
+
+APP_EXE="kakmonsterdemo"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd  /usr/lib/i386-linux-gnu/${domain}
+	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

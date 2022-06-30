@@ -3,10 +3,10 @@
 % 2018-01-22
 
 # NAME
-fortnight-by-mfx - is the command to run Fortnight 
+fortnight-by-mfx_launcher - is the command to run Fortnight 
 
 # SYNOPSIS
-fortnight-by-mfx [*options*]
+fortnight-by-mfx_launcher [*options*]
 
 # DESCRIPTION
 Fortnight is a demonstration released by mfx in 2001

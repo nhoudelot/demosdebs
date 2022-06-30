@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- libsdl1.2-dev,
+ libglu1-mesa-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev,
  libfmodex-dev,
  libpng12-0
 Standards-Version: 4.6.0.1
@@ -15,6 +16,7 @@ Architecture: i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ libsdl1.2-compat,
  libfmodex4 (>=4.10.03),
  common-install-function-ddebs(>=1.18),
  aestheticdistance-by-youthuprising-data

@@ -12,7 +12,7 @@ override_dh_strip:
 	dh_strip -Xlibfmodex-4.30.03.so
 
 override_dh_shlibdeps:
-	dh_shlibdeps -- -ldebian/resources --ignore-missing-info
+	dh_shlibdeps -- -ldebian/resources -xlibsdl1.2debian --ignore-missing-info
 
 override_dh_dwz:
 	$(RUN_DHDWZ)

@@ -2,9 +2,9 @@
 Version=1.0
 Name=Fab
 GenericName=Demo
-Comment=Demo by tharsis, released in 2004
+Comment=4K intro by tharsis, released in 2004
 Type=Application
-Exec=/usr/bin/fab-by-tharsis
+Exec=/usr/bin/fab-by-tharsis_launcher
 Icon=fab-by-tharsis
 Categories=AudioVideo;Game;
 Name[fr_FR]=Fab

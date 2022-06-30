@@ -3,10 +3,10 @@
 % 2016-02-28
 
 # NAME
-jeregrette-by-fitandbandwagon - is the command to run Je Regrette 
+jeregrette-by-fitandbandwagon_launcher - is the command to run Je Regrette 
 
 # SYNOPSIS
-jeregrette-by-fitandbandwagon [*options*]
+jeregrette-by-fitandbandwagon_launcher [*options*]
 
 # DESCRIPTION
 Je Regrette  is a demonstration released by Fit and Bandwagon

@@ -1,2 +1,3 @@
 debian/resources/shadowsun-by-tonic.desktop usr/share/applications/
 debian/resources/shadowsun-by-tonic.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/shadowsun-by-tonic_launcher usr/bin/

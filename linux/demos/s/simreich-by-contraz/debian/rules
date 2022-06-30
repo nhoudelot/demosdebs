@@ -9,7 +9,7 @@ endif
 	dh $@
 
 override_dh_shlibdeps:
-	dh_shlibdeps -XlibGLEW.so.1.5 -- --ignore-missing-info
+	dh_shlibdeps -XlibGLEW.so.1.5 -- --ignore-missing-info -xlibsdl1.2debian
 
 override_dh_fixperms:
 	dh_fixperms

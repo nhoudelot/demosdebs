@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=xa005spike-by-xangle
+
+APP_FULLNAME="xa-005: Spike"
+APP_COPYRIGHT="xAngle"
+APP_DESC="Demo by xAngle, released in 2005"
+
+APP_EXE="xa005spike-by-xangle"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/bin/
+	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/@DEB_HOST_MULTIARCH@/sdl12-compat/ ./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

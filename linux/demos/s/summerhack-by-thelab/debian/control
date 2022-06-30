@@ -5,7 +5,8 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
  libvorbis-dev,
- libsdl1.2-dev,
+ libgl-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev,
  libfreetype6-dev,
  libpng12-0,
  libjpeg62-dev|libjpeg62-turbo-dev
@@ -17,6 +18,7 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ libsdl1.2-compat,
  common-install-function-ddebs(>=1.18),
  summerhack-by-thelab-data
 Description: Demo for Linux released in 2005

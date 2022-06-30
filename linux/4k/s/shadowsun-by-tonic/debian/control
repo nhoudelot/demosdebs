@@ -6,7 +6,8 @@ Build-Depends:
  debhelper-compat (= 12),
  pkgconf,
  libgl-dev,
- libsdl1.2-dev
+ libglu1-mesa-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev
 Standards-Version: 4.6.0.1
 Homepage: https://320x200.org/2004/4k/
 
@@ -14,6 +15,7 @@ Package: shadowsun-by-tonic
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends}
+ ${misc:Depends},
+ libsdl1.2-compat
 Description: tonic 4k Intro/2004/Linux
  Intro 4k by tonic, released in 2004

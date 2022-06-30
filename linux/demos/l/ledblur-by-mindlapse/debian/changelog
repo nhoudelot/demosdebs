@@ -5,8 +5,9 @@ ledblur-by-mindlapse (1.0+1-0ddebs4) unstable; urgency=medium
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 24 Apr 2022 20:40:38 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 Jul 2022 09:46:44 +0200
 
 ledblur-by-mindlapse (1.0+1-0ddebs3) unstable; urgency=medium
 

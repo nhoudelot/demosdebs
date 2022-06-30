@@ -6,14 +6,14 @@ domain=glrez-by-rez
 
 APP_FULLNAME="glRez"
 APP_COPYRIGHT="rez"
-APP_DESC="demo by rez released the 2005"
+APP_DESC="intro by rez released in 2005"
 APP_EXE="glrez"
 
 function run()
 {
 	backuppwd=$(pwd)
 	cd /usr/lib/i386-linux-gnu/${domain}/
-	./${APP_EXE}
+	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE}
 	cd $backuppwd
 }
 

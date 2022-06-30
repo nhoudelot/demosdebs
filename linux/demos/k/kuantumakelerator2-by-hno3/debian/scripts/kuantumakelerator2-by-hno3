@@ -1,0 +1,53 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=kuantumakelerator2-by-hno3
+
+APP_FULLNAME="Kuantum Akelerator 2"
+APP_COPYRIGHT="Hno3"
+APP_DESC="demo by Hno3 released in 2005"
+APP_EXE="kuantum2-linux"
+
+function usage()
+{
+	echo "    --window				run in a window"
+	echo "    --nosound				run without sound"
+}
+
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/i386-linux-gnu/${domain}
+	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE} %1
+	cd $backuppwd
+}
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--window)
+		run --window
+		;;
+	--nosound)
+		run --nosound
+		;;
+	--help)
+		NSH_std_usage
+		usage
+		;;
+	*)
+		NSH_std_usage
+		usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

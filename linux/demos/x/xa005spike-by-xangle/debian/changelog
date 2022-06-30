@@ -5,6 +5,7 @@ xa005spike-by-xangle (1.0+2-0ddebs4) unstable; urgency=medium
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 02 May 2022 11:47:57 +0200
 

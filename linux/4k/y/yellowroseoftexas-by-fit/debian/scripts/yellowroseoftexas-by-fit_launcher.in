@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=yellowroseoftexas-by-fit
+
+APP_FULLNAME="Yellow Rose of Texas"
+APP_COPYRIGHT="Fit"
+APP_DESC="4k intro by Fit, released in 2003"
+
+APP_EXE="yellowroseoftexas-by-fit"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/bin/
+	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/@DEB_HOST_MULTIARCH@/sdl12-compat/ ./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

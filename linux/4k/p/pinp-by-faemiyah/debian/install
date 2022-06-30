@@ -1,2 +1,3 @@
 debian/resources/pinp-by-faemiyah.desktop usr/share/applications/
 debian/resources/pinp-by-faemiyah.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/pinp-by-faemiyah_launcher usr/bin/

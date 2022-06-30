@@ -5,7 +5,8 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
  pkgconf,
- libsdl1.2-dev
+ libglu1-mesa-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=13023
 
@@ -13,7 +14,8 @@ Package: jeregrette-by-fitandbandwagon
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends}
+ ${misc:Depends},
+ libsdl1.2-compat
 Description: Fit and Bandwagon 4k Intro/2004/Linux
  Intro 4k by Fit and Bandwagon, released in 2004
  Fit and Bandwagon present at Assembly'04

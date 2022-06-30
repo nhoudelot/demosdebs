@@ -11,7 +11,7 @@ Package: whatafailure-by-yeoldelaptopsposse
 Architecture: amd64
 Depends:
  libc6,
- libsdl1.2debian,
+ libsdl1.2-compat,
  freeglut3,
  ${shlibs:Depends},
  ${misc:Depends},

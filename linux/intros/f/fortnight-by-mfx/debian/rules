@@ -7,3 +7,6 @@ export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 
 %:
 	dh $@
+
+override_dh_shlibdeps:
+	dh_shlibdeps -- -xlibsdl1.2debian

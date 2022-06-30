@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas Houdelot <nicolas.houdelot@free.fr>
 Build-Depends:
  debhelper-compat (= 12),
- libsdl1.2-dev,
+ libsdl1.2-compat-dev,
  libsdl-mixer1.2-dev
 Standards-Version: 4.6.0.1
 Homepage: https://www.retroguru.com/hermes/
@@ -14,7 +14,8 @@ Architecture: amd64 i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- hermes-data,
+ libsdl1.2-compat,
+ hermes-by-retroguru-data,
  common-install-function-ddebs(>=1.75)
 Description: Game by Retroguru, released in 2017
  Hermes is a Jump'n' Run game with plenty of bad taste humour.

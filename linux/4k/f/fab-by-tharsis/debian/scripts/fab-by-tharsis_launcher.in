@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=fab-by-tharsis
+
+APP_FULLNAME="Fab"
+APP_COPYRIGHT="tharsis"
+APP_DESC="4k intro by tharsis, released in 2004"
+
+APP_EXE="fab-by-tharsis"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/bin/
+	LD_LIBRARY_PATH=./:/usr/lib/@DEB_HOST_MULTIARCH@/sdl12-compat/ ./${APP_EXE}
+	cd $backuppwd
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

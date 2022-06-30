@@ -5,6 +5,7 @@ fortnight-by-mfx (1.0+1-0ddebs4) unstable; urgency=medium
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 17 Apr 2022 14:51:17 +0200
 

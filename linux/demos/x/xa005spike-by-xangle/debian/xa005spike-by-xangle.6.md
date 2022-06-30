@@ -3,10 +3,10 @@
 % 2016-03-31
 
 # NAME
-xa005spike-by-xangle - is the command to run xa-005: Spike 
+xa005spike-by-xangle_launcher - is the command to run xa-005: Spike 
 
 # SYNOPSIS
-xa005spike-by-xangle [*options*]
+xa005spike-by-xangle_launcher [*options*]
 
 # DESCRIPTION
 xa-005: Spike  is a demonstration released by xAngle

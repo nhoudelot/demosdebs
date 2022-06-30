@@ -1,2 +1,3 @@
 debian/resources/ledblur-by-mindlapse.desktop usr/share/applications/
 debian/resources/ledblur-by-mindlapse.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/ledblur-by-mindlapse_launcher usr/bin/

@@ -3,6 +3,7 @@
   * update to standards-version 4.6.0.1
   * make use of debhelper-compat (= 12) dependency, and remove
     debian/compat file
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 19 Apr 2022 01:38:57 +0200
 

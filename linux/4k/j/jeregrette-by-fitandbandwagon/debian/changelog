@@ -7,6 +7,7 @@ jeregrette-by-fitandbandwagon (1.0+1-0ddebs4) unstable; urgency=medium
     build
   * added an icon
   * remove fullscreen on start
+  * replaced libsdl1.2 by libsdl1.2-compat to use SDL2 instead of SDL1.2
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 13 Apr 2022 22:34:15 +0200
 

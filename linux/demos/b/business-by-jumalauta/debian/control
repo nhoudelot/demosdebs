@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- libsdl1.2-dev,
+ libglu1-mesa-dev,
+ libsdl1.2-compat-dev,
  libsdl-mixer1.2-dev,
  libpng12-0,
 Standards-Version: 4.6.0.1
@@ -13,6 +14,7 @@ Homepage: https://www.pouet.net/prod.php?which=58845
 Package: business-by-jumalauta
 Architecture: i386
 Depends:
+ libsdl1.2-compat,
  business-by-jumalauta-data,
  ${shlibs:Depends},
  ${misc:Depends},

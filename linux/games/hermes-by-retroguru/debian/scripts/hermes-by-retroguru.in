@@ -18,7 +18,7 @@ function run()
     NSH_LinkUserDataFileToTMP "hiscores.dat" "hiscores.dat" 
     NSH_CreateConfigDir
 	cd /usr/lib/@DEB_HOST_MULTIARCH@/${domain}
-	./${APP_EXE} -w
+	LD_LIBRARY_PATH=./:/usr/lib/@DEB_HOST_MULTIARCH@/sdl12-compat/ ./${APP_EXE} -w
 	NSH_RemoveTmpDomainDir
 	cd $backuppwd
 }
