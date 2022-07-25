@@ -1,0 +1,58 @@
+--- a/main.c
++++ b/main.c
+@@ -627,6 +627,29 @@
+     SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
+     SDL_ShowCursor(IsFullscreen);
+ }
++
++#define DEMO_XASPECT 16.0f
++#define DEMO_YASPECT 9.0f
++static void resize_window(int x, int y, int w, int h)
++{
++    /* Prevent division by zero */
++    if (h == 0) {
++        h = 1;
++    }
++
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        x += (w - new_w) / 2;
++        w = new_w;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        y += (h - new_h) / 2;
++        h = new_h;
++    }
++    glViewport(x, y, w, h);
++}
++
+ #endif
+ 
+ #if defined(WIN32) && !defined(SDL)
+@@ -752,6 +775,7 @@
+     SDL_Window *sdlWindow;
+ 	sdlWindow = SDL_CreateWindow("kartoonikum by ExHouse & NecroStudios",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,w,h,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
+ 	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ #endif
+ 
+ #ifndef OS_X
+@@ -1118,6 +1142,17 @@
+ 		        case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 		    }
+     	}
++    	/* The window is resized */
++		if(event.type == SDL_WINDOWEVENT)
++		{
++		    if (event.window.windowID == windowID)  {
++		        if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++		            int new_w = event.window.data1;
++		            int new_h = event.window.data2;
++		            resize_window(0,0, new_w,new_h);
++		        }
++		    }
++		}
+ #endif
+ #if defined(WIN32) && !defined(SDL)
+ 		glFlush();

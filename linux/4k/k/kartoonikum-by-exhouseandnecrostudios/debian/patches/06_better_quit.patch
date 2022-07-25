@@ -1,0 +1,11 @@
+--- a/main.c
++++ b/main.c
+@@ -1132,7 +1132,7 @@
+ 
+ 		SDL_Event event;
+ 		SDL_PollEvent(&event);
+-		if (event.key.keysym.sym == SDLK_ESCAPE)
++		if (event.key.keysym.sym == SDLK_ESCAPE||event.key.keysym.sym == SDLK_q||event.type == SDL_QUIT)
+ 		{
+ end:
+ 			break;

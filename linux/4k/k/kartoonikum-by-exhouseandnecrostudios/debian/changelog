@@ -5,8 +5,10 @@ kartoonikum-by-exhouseandnecrostudios (1.0+1-0ddebs4) unstable; urgency=medium
     debian/compat file
   * preferred to use pkgconf which requires less dependencies during
     build
+  * migrate to SDL2
+  * added window resize, fullscreen with f, quit with q & window close
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Apr 2022 00:42:24 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 25 Jul 2022 14:15:54 +0200
 
 kartoonikum-by-exhouseandnecrostudios (1.0+1-0ddebs3) unstable; urgency=medium
 

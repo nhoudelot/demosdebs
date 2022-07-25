@@ -1,0 +1,34 @@
+--- a/main.c
++++ b/main.c
+@@ -620,6 +620,13 @@
+ 	                      0,
+ 	                      (void (*)(void *, Uint8 *, int))play,
+ 	                      0};
++
++static void ToggleFullscreen(SDL_Window* Window) {
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++    int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(IsFullscreen);
++}
+ #endif
+ 
+ #if defined(WIN32) && !defined(SDL)
+@@ -1106,6 +1113,11 @@
+ end:
+ 			break;
+ 		}
++		if (event.type == SDL_KEYUP) {
++		    switch (event.key.keysym.sym) {
++		        case SDLK_f: ToggleFullscreen(sdlWindow); break;
++		    }
++    	}
+ #endif
+ #if defined(WIN32) && !defined(SDL)
+ 		glFlush();
+@@ -1139,3 +1151,5 @@
+ #endif
+ #endif
+ }
++
++
