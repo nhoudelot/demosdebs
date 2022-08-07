@@ -16,7 +16,8 @@ Package: xa003midssumer-by-xangle
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends}
+ ${misc:Depends},
+ xa003midssumer-by-xangle-data
 Description: xAngle Demo/2004/Linux
  Demo by xAngle, released in 2004
 
