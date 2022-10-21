@@ -6,16 +6,19 @@ Last-Update: 2020-04-18
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Rules.mk
 +++ b/Rules.mk
-@@ -15,20 +15,21 @@
- PLATFORM = linux
- endif
+@@ -17,23 +17,24 @@
  
--PREFIX ?= /usr/local
-+PREFIX = $(DESTDIR)/usr
- BINDIR = $(PREFIX)/bin
- INCLUDEDIR = $(PREFIX)/include
--LIBDIR = $(PREFIX)/lib
-+LIBDIR = $(PREFIX)/lib/$(DEB_HOST_MULTIARCH)
+ # Override these on the command line eg. "make PREFIX=/usr"
+ # These must be absolute paths
+-PREFIX  := /usr/local
++PREFIX  := /usr
+ DESTDIR :=
+ 
+ INSTALLDIR := $(DESTDIR)$(PREFIX)
+ BINDIR     := $(INSTALLDIR)/bin
+ INCLUDEDIR := $(INSTALLDIR)/include
+-LIBDIR     := $(INSTALLDIR)/lib
++LIBDIR     := $(INSTALLDIR)/lib/$(DEB_HOST_MULTIARCH)
  
  $(ARCH) := y
 -CFLAGS-$(x86_32) += -m32 -march=i686
@@ -139,21 +142,3 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  install: all
  ifneq ($(TARGETS),)
---- a/disk-analyse/Makefile
-+++ b/disk-analyse/Makefile
-@@ -3,13 +3,13 @@
- 
- TARGET := disk-analyse
- 
--LIBS := -L../libdisk -ldisk
-+LDFLAGS += -L../libdisk -ldisk
- 
- all:
- 	$(MAKE) $(TARGET)
- 
- disk-analyse: disk-analyse.o config.o
--	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
-+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
- 
- install: all
- 	$(INSTALL_DIR) $(BINDIR)
