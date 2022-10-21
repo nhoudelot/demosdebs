@@ -1,6 +1,6 @@
 --- a/XOptions/xoptions.cpp
 +++ b/XOptions/xoptions.cpp
-@@ -177,7 +177,7 @@
+@@ -239,7 +239,7 @@
      }
      else
      {
@@ -9,7 +9,7 @@
      }
  
  #ifdef QT_DEBUG
-@@ -468,6 +468,14 @@
+@@ -521,6 +521,14 @@
      return sResult;
  }
  
@@ -23,8 +23,8 @@
 +
  void XOptions::setLastDirectory(QString sPathName)
  {
-     QFileInfo fi(sPathName);
-@@ -672,7 +680,7 @@
+     if(getValue(ID_FILE_SAVELASTDIRECTORY).toBool())
+@@ -807,7 +815,7 @@
          pComboBox->addItem("English","");
          pComboBox->addItem("System","System");
  
@@ -33,7 +33,7 @@
  
          qint32 nNumberOfRecords=listFileNames.count();
  
-@@ -697,7 +705,7 @@
+@@ -839,7 +847,7 @@
      {
          pComboBox->addItem("Default","");
  
@@ -42,7 +42,7 @@
  
          qint32 nNumberOfRecords=listFileNames.count();
  
-@@ -1210,7 +1218,7 @@
+@@ -1447,7 +1455,7 @@
                  sResult=sApplicationDirPath.section("/",0,2);
              }
  
@@ -61,11 +61,11 @@
  #ifdef QT_GUI_LIB
  #include <QApplication>
  #include <QCheckBox>
-@@ -174,6 +175,7 @@
+@@ -202,6 +203,7 @@
      static QList<QString> getAllFilesFromDirectory(QString sDirectory,QString sExtension);
      static bool checkNative();
      QString getApplicationDataPath();
 +    static QString getConfigPath();
-     static QString getTitle(QString sName,QString sVersion);
+     static QString getTitle(QString sName,QString sVersion,bool bShowOS=true);
  #ifdef QT_GUI_LIB
      void setCheckBox(QCheckBox *pCheckBox,ID id);

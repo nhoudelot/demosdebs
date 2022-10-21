@@ -1,8 +1,8 @@
 --- a/console_source/console_source.pro
 +++ b/console_source/console_source.pro
-@@ -4,6 +4,11 @@
- XCONFIG += use_dex
+@@ -5,6 +5,11 @@
  XCONFIG += use_archive
+ XCONFIG += use_pdf
  
 +QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
 +QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
@@ -14,7 +14,7 @@
  TARGET = diec
 --- a/gui_source/gui_source.pro
 +++ b/gui_source/gui_source.pro
-@@ -62,6 +62,11 @@
+@@ -73,6 +73,11 @@
      ICON = ../icons/main.icns
  }
  

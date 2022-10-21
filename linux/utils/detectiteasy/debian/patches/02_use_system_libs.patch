@@ -1,19 +1,14 @@
 --- a/XArchive/3rdparty/bzip2/bzip2.pri
 +++ b/XArchive/3rdparty/bzip2/bzip2.pri
-@@ -17,12 +17,7 @@
+@@ -8,7 +8,7 @@
+     LIBS += $$PWD/libs/bzip2-win-$${QT_ARCH}.lib
  }
  unix:!macx {
-     BITSIZE = $$system(getconf LONG_BIT)
--    if (contains(BITSIZE, 64)) {
--        LIBS +=  $$PWD/libs/lin64/libbzip2.a
--    }
--    if (contains(BITSIZE, 32)) {
--        LIBS +=  $$PWD/libs/lin32/libbzip2.a
--    }
+-    LIBS += $$PWD/libs/libbzip2-unix-$${QT_ARCH}.a
 +    LIBS += -lbz2
  }
  unix:macx {
-     LIBS +=  $$PWD/libs/mac/libbzip2.a
+     LIBS += $$PWD/libs/libbzip2-macos-$${QT_ARCH}.a
 --- a/XArchive/xarchive.pri
 +++ b/XArchive/xarchive.pri
 @@ -29,12 +29,12 @@
