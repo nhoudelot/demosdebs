@@ -20,6 +20,16 @@ Homepage: https://github.com/joncampbell123/dosbox-x
 Vcs-Git: https://github.com/joncampbell123/dosbox-x.git
 Vcs-Browser: https://github.com/joncampbell123/dosbox-x
 
+Package: fonts-nouveau-ibm
+Architecture: all
+Multi-Arch: foreign
+Section: fonts
+Depends:
+ ${misc:Depends}
+Description: IBM computer style fonts
+ TTF and Unicode version of the IBM PC font. Good for terminal programs.
+ Fonts designed by Arto Hatanpää
+
 Package: fonts-sarasa-fixed-j
 Architecture: all
 Multi-Arch: foreign
@@ -36,7 +46,7 @@ Section: fonts
 Depends:
  ${misc:Depends}
 Description: unifont mono fonts
- Fonts designed by unknown
+ Fonts designed by Roman Czyborra
 
 Package: dosboxx-data
 Architecture: all
@@ -51,6 +61,9 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ fonts-nouveau-ibm,
+ fonts-unifontfull-medium-mono,
+ fonts-sarasa-fixed-j,
  dosboxx-data
 Description: DOSBox-X emulates a legacy IBM PC and DOS environment.
  DOSBox-X is an open-source DOS emulator for running DOS games and applications.
