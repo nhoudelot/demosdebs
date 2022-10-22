@@ -1,7 +1,8 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-format
+export DEB_CFLAGS_MAINT_APPEND  = -fexceptions
 
 # dh_dwz on buster don't like when there is no .debug_info section
 ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)

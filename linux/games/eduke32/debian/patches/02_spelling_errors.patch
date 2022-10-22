@@ -5,18 +5,18 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/source/build/src/polymost.cpp
 +++ b/source/build/src/polymost.cpp
-@@ -9723,7 +9723,7 @@
+@@ -9793,7 +9793,7 @@
      if (parm->numparms != 1)
      {
-         OSD_Printf("Current texturing mode is %s\n", glfiltermodes[gltexfiltermode].name);
--        OSD_Printf("  Vaild modes are:\n");
-+        OSD_Printf("  Valid modes are:\n");
+         LOG_F(INFO, "Current texturing mode is %s", glfiltermodes[gltexfiltermode].name);
+-        LOG_F(INFO, "  Vaild modes are:");
++        LOG_F(INFO, "  Valid modes are:");
          for (m = 0; m < NUMGLFILTERMODES; m++)
-             OSD_Printf("     %d - %s\n", m, glfiltermodes[m].name);
+             LOG_F(INFO, "     %d - %s", m, glfiltermodes[m].name);
  
 --- a/source/build/src/animvpx.cpp
 +++ b/source/build/src/animvpx.cpp
-@@ -191,7 +191,7 @@
+@@ -193,7 +193,7 @@
  
  const char *animvpx_nextpic_errmsg[] = {
      "All OK",
@@ -27,7 +27,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      "decoder error, couldn't decode frame",
 --- a/source/duke3d/src/astub.cpp
 +++ b/source/duke3d/src/astub.cpp
-@@ -7715,7 +7715,7 @@
+@@ -7802,7 +7802,7 @@
              }
              else
              {
@@ -38,7 +38,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          else if (wallsprite==0)
 --- a/source/build/src/config.cpp
 +++ b/source/build/src/config.cpp
-@@ -473,7 +473,7 @@
+@@ -479,7 +479,7 @@
               "; Reverse meaning of Q and W keys in side view mode\n"
               "sideview_reversehorizrot = %d\n"
               "\n"
