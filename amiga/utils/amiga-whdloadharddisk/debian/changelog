@@ -1,3 +1,9 @@
+amiga-whdloadharddisk (1.16-0ddebs1) unstable; urgency=medium
+
+  * Updated to WHDLoad 18.5
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 29 Dec 2022 21:59:39 +0100
+
 amiga-whdloadharddisk (1.15-0ddebs2) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
