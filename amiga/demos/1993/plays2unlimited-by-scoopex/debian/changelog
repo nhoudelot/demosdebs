@@ -1,3 +1,20 @@
+plays2unlimited-by-scoopex (1:1.1a-0ddebs1) unstable; urgency=medium
+
+  * New WHDLoad Upstream update
+    version 1.1A (29.05.2022) done by StingRay:
+    - stack problem that occured on some systems fixed (issue #5660)
+
+    version 1.1 (26.05.2022) done by StingRay:
+    - patch redone
+    - patch works with 0.5 MB chip memory now
+    - blitter waits added
+    - Bplcon0 color bit fixes
+    - access fault fixed
+    - 68000 quitkey support
+    - source code included
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 30 Dec 2022 16:25:29 +0100
+
 plays2unlimited-by-scoopex (1:1.0+4-0ddebs7) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
