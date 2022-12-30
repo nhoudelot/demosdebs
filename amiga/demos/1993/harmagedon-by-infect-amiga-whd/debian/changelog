@@ -1,3 +1,16 @@
+harmagedon-by-infect-amiga-whd (1.01-0ddebs1) unstable; urgency=medium
+
+  * New WHDLoad Upstream update
+    version 1.01 (16.01.2022)
+    - freeze after Harmageddon logo fixed (issue #5476)
+    - all line drawing routines fixed (BltCon1 settings, byte writes to BltCon1)
+    - lots of Bplcon0 color bit fixes
+    - illegal copperlist entries in rotation zoomer part fixed
+    - read from $ffffffff fixed
+    - access fault in dot landscape part fixed
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 30 Dec 2022 18:13:53 +0100
+
 harmagedon-by-infect-amiga-whd (1.0-0ddebs4) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
