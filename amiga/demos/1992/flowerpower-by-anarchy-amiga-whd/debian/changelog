@@ -1,3 +1,21 @@
+flowerpower-by-anarchy-amiga-whd (1.1-0ddebs1) unstable; urgency=medium
+
+  * New WHDLoad Upstream update
+    version 1.1 (18.03.2022) done by StingRay:
+    - patch redone
+    - patch is file based now to reduce OS swaps
+    - memory requirements changed from 1 MB chip to 0.5 MB chip and 0.5 MB fast
+    - blitter waits added
+    - all line drawing routines fixed (BLTCON0 settings, byte writes to BLTCON1)
+    - Bplcon0 color bit fixes (x7)
+    - illegal copperlist entries fixed (x400)
+    - copperlist termination fixed
+    - source code included
+    - 68000 quitkey support 
+    - new install script
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 31 Dec 2022 21:37:49 +0100
+
 flowerpower-by-anarchy-amiga-whd (1.0+4-0ddebs7) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
