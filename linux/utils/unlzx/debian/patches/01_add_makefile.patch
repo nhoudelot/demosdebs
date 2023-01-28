@@ -11,7 +11,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +SHELL = /bin/sh
 +CC    = gcc
-+CFLAGS += -O3 -flto -Wall -ffast-math -std=gnu90
++CFLAGS += -O3 -Wall -ffast-math -std=gnu90
 +RM_F = rm -f
 +INSTALL = install
 +INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
@@ -27,7 +27,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: unlzx$(EXEEXT)
 +
 +unlzx$(EXEEXT): unlzx.c
-+	 $(CC) -flto -x c unlzx.c  $(CFLAGS) -o unlzx$(EXEEXT)
++	 $(CC) -x c unlzx.c  $(CFLAGS) -o unlzx$(EXEEXT)
 +
 +clean:
 +	-$(RM_F) unlzx$(EXEEXT)

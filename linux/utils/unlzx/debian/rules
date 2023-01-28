@@ -1,9 +1,11 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+ifneq "$(DEB_HOST_MULTIARCH)" "m68k-linux-gnu" 
+	export DEB_CFLAGS_MAINT_APPEND  = -flto
+	export DEB_LDFLAGS_MAINT_APPEND  = -flto
+endif
 
 %:
 	dh $@
