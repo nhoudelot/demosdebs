@@ -36,6 +36,7 @@ libbass.so.2 libbass2 #MINVER#
  BASS_ChannelSetPosition@Base 2.4.6
  BASS_ChannelSetSync@Base 2.4.6
  BASS_ChannelSlideAttribute@Base 2.4.6
+ BASS_ChannelStart@Base 2.4.17
  BASS_ChannelStop@Base 2.4.6
  BASS_ChannelUpdate@Base 2.4.6
  BASS_ErrorGetCode@Base 2.4.6
