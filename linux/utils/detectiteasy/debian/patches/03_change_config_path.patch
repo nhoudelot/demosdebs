@@ -1,15 +1,15 @@
 --- a/XOptions/xoptions.cpp
 +++ b/XOptions/xoptions.cpp
-@@ -239,7 +239,7 @@
-     }
-     else
-     {
--        pSettings=new QSettings(getApplicationDataPath()+QDir::separator()+QString("%1").arg(g_sName),QSettings::IniFormat);
-+        pSettings=new QSettings(getConfigPath()+QDir::separator()+QString("%1").arg(g_sName),QSettings::IniFormat);
+@@ -232,7 +232,7 @@
+     if (bIsNative) {
+         pSettings = new QSettings;
+     } else {
+-        pSettings = new QSettings(getApplicationDataPath() + QDir::separator() + QString("%1").arg(g_sName), QSettings::IniFormat);
++        pSettings = new QSettings(getConfigPath()+QDir::separator()+QString("%1").arg(g_sName),QSettings::IniFormat);
      }
  
  #ifdef QT_DEBUG
-@@ -521,6 +521,14 @@
+@@ -622,6 +622,14 @@
      return sResult;
  }
  
@@ -23,34 +23,34 @@
 +
  void XOptions::setLastDirectory(QString sPathName)
  {
-     if(getValue(ID_FILE_SAVELASTDIRECTORY).toBool())
-@@ -807,7 +815,7 @@
-         pComboBox->addItem("English","");
-         pComboBox->addItem("System","System");
+     if (getValue(ID_FILE_SAVELASTDIRECTORY).toBool()) {
+@@ -881,7 +889,7 @@
+         pComboBox->addItem("English", "");
+         pComboBox->addItem("System", "System");
  
--        QList<QString> listFileNames=getAllFilesFromDirectory(getApplicationLangPath(),"*.qm");
-+        QList<QString> listFileNames=getAllFilesFromDirectory("/usr/share/detectiteasy/lang","*.qm");
+-        QList<QString> listFileNames = getAllFilesFromDirectory(getApplicationLangPath(), "*.qm");
++        QList<QString> listFileNames = getAllFilesFromDirectory("/usr/share/detectiteasy/lang","*.qm");
  
-         qint32 nNumberOfRecords=listFileNames.count();
+         qint32 nNumberOfRecords = listFileNames.count();
  
-@@ -839,7 +847,7 @@
-     {
-         pComboBox->addItem("Default","");
+@@ -908,7 +916,7 @@
+     } else if (id == ID_VIEW_QSS) {
+         pComboBox->addItem("Default", "");
  
--        QList<QString> listFileNames=getAllFilesFromDirectory(getApplicationQssPath(),"*.qss");
-+        QList<QString> listFileNames=getAllFilesFromDirectory("/usr/share/detectiteasy/qss","*.qss");
+-        QList<QString> listFileNames = getAllFilesFromDirectory(getApplicationQssPath(), "*.qss");
++        QList<QString> listFileNames = getAllFilesFromDirectory("/usr/share/detectiteasy/qss","*.qss");
  
-         qint32 nNumberOfRecords=listFileNames.count();
+         qint32 nNumberOfRecords = listFileNames.count();
  
-@@ -1447,7 +1455,7 @@
-                 sResult=sApplicationDirPath.section("/",0,2);
+@@ -1612,7 +1620,7 @@
+                 sResult = sApplicationDirPath.section("/", 0, 2);
              }
  
--            sResult+=QString("/usr/lib/%1").arg(qApp->applicationName());
-+            sResult+=QString("/usr/share/detectiteasy").arg(qApp->applicationName());
+-            sResult += QString("/usr/lib/%1").arg(qApp->applicationName());
++            sResult += QString("/usr/share/detectiteasy").arg(qApp->applicationName());
          }
-     }
-     else
+     } else {
+         sResult = sApplicationDirPath;
 --- a/XOptions/xoptions.h
 +++ b/XOptions/xoptions.h
 @@ -26,6 +26,7 @@
@@ -58,14 +58,14 @@
  #include <QSysInfo>
  #include <QTranslator>
 +#include <QStandardPaths>
+ //#include <QVector>
  #ifdef QT_GUI_LIB
  #include <QApplication>
- #include <QCheckBox>
-@@ -202,6 +203,7 @@
-     static QList<QString> getAllFilesFromDirectory(QString sDirectory,QString sExtension);
-     static bool checkNative();
+@@ -243,6 +244,7 @@
+     static QList<QString> getAllFilesFromDirectory(QString sDirectory, QString sExtension);
+     static bool checkNative(QString sIniFileName);
      QString getApplicationDataPath();
 +    static QString getConfigPath();
-     static QString getTitle(QString sName,QString sVersion,bool bShowOS=true);
+     static QString getTitle(QString sName, QString sVersion, bool bShowOS = true);
  #ifdef QT_GUI_LIB
-     void setCheckBox(QCheckBox *pCheckBox,ID id);
+     void setCheckBox(QCheckBox *pCheckBox, ID id);
