@@ -35,7 +35,7 @@
    endif
  else
    # pkg-config not available. Only use explicitly enabled libraries.
-@@ -99,6 +101,8 @@
+@@ -102,6 +104,8 @@
  RTLSDR ?= yes
  BLADERF ?= yes
  
@@ -44,7 +44,7 @@
  ifeq ($(RTLSDR), yes)
    SDR_OBJ += sdr_rtlsdr.o
    DUMP1090_CPPFLAGS += -DENABLE_RTLSDR
-@@ -115,18 +119,18 @@
+@@ -118,18 +122,18 @@
  
      # FreeBSD's librtlsdr.pc includes -std=gnu89 in cflags
      # some linux librtlsdr packages return a bare -I/ with no path in --cflags
@@ -67,7 +67,7 @@
      endif
    endif
  endif
-@@ -134,22 +138,22 @@
+@@ -137,22 +141,22 @@
  ifeq ($(BLADERF), yes)
    SDR_OBJ += sdr_bladerf.o
    DUMP1090_CPPFLAGS += -DENABLE_BLADERF
