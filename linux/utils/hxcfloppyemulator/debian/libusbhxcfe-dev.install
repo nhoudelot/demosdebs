@@ -1,4 +1,4 @@
-libusbhxcfe/trunk/sources/usb_hxcfloppyemulator.h usr/include/
-libusbhxcfe/trunk/sources/variablebitrate.h usr/include/
-libusbhxcfe/trunk/sources/cpld_opcodes.h usr/include/
-libusbhxcfe/trunk/sources/ftdi_api.h usr/include/
+libusbhxcfe/sources/usb_hxcfloppyemulator.h usr/include/
+libusbhxcfe/sources/variablebitrate.h usr/include/
+libusbhxcfe/sources/cpld_opcodes.h usr/include/
+libusbhxcfe/sources/ftdi_api.h usr/include/

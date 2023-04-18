@@ -8,8 +8,8 @@ http://grimnorth.se/~noname/tmp/adflib_stdint_diff.txt
 
 Slightly modified (and removed the .depend files from the patches)
 
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/Makefile
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/Makefile
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/Makefile
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/Makefile
 @@ -15,7 +15,7 @@
  
  DEFINES= 
@@ -19,8 +19,8 @@ Slightly modified (and removed the .depend files from the patches)
  
  CC=gcc 
  DEPEND=makedepend
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_blk.h
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_blk.h
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_blk.h
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_blk.h
 @@ -25,6 +25,7 @@
   *
   */
@@ -29,8 +29,8 @@ Slightly modified (and removed the .depend files from the patches)
  
  #ifndef ADF_BLK_H
  #define ADF_BLK_H 1
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_cache.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_cache.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_cache.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_cache.c
 @@ -27,6 +27,7 @@
  
  #include<stdlib.h>
@@ -97,8 +97,8 @@ Slightly modified (and removed the .depend files from the patches)
      }
          
      dirc.recordsNb = 0;
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_defs.h
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_defs.h
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_defs.h
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_defs.h
 @@ -24,6 +24,7 @@
   *
   */
@@ -107,8 +107,8 @@ Slightly modified (and removed the .depend files from the patches)
  
  #ifndef _ADF_DEFS_H
  #define _ADF_DEFS_H 1
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_dir.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_dir.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_dir.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_dir.c
 @@ -140,7 +140,7 @@
                  }
              }
@@ -136,8 +136,8 @@ Slightly modified (and removed the .depend files from the patches)
      adfDays2Date( entryBlk->days, &(entry->year), &(entry->month), &(entry->days));
  	entry->hour = entryBlk->mins/60;
      entry->mins = entryBlk->mins%60;
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_disk.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_disk.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_disk.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_disk.c
 @@ -173,7 +173,7 @@
  	vol->dev = dev;
      vol->mounted = TRUE;
@@ -174,8 +174,8 @@ Slightly modified (and removed the .depend files from the patches)
  
      if (adfEnv.useRWAccess)
          (*adfEnv.rwhAccess)(pSect,nSect,TRUE);
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_dump.h
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_dump.h
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_dump.h
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_dump.h
 @@ -25,6 +25,7 @@
   *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   *
@@ -184,8 +184,8 @@ Slightly modified (and removed the .depend files from the patches)
  
  PREFIX     struct Device*
  adfCreateDumpDevice(char* filename, int32_t cyl, int32_t heads, int32_t sec);
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_file.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_file.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_file.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_file.c
 @@ -74,13 +74,13 @@
      }
      if (file->writeMode) {
@@ -229,8 +229,8 @@ Slightly modified (and removed the .depend files from the patches)
  
          if (dBlock->checkSum!=adfNormalSum(buf,20,sizeof(struct bOFSDataBlock)))
              (*adfEnv.wFct)("adfReadDataBlock : invalid checksum");
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_hd.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_hd.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_hd.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_hd.c
 @@ -180,9 +180,9 @@
      vol->firstBlock = 0;
  
@@ -252,8 +252,8 @@ Slightly modified (and removed the .depend files from the patches)
   vol->lastBlock, vol->rootBlock);
  */
  
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_link.h
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_link.h
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_link.h
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_link.h
 @@ -27,8 +27,9 @@
   */
  
@@ -265,8 +265,8 @@ Slightly modified (and removed the .depend files from the patches)
  	char **name, int32_t *size);
  
  
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_util.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_util.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_util.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_util.c
 @@ -49,7 +49,7 @@
  	buf[3]= (unsigned char)(val & 0x000000ff);
  }
@@ -276,8 +276,8 @@ Slightly modified (and removed the .depend files from the patches)
  {
  	buf[0]= (val & 0xff00) >>8UL;
  	buf[1]= (val & 0x00ff) ;
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_util.h
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_util.h
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_util.h
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_util.h
 @@ -32,7 +32,7 @@
  
  
@@ -287,8 +287,8 @@ Slightly modified (and removed the .depend files from the patches)
  
  PREFIX struct List* newCell(struct List* list, void* content);
  PREFIX void freeList(struct List* list);
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/hd_blk.h
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/hd_blk.h
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/hd_blk.h
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/hd_blk.h
 @@ -145,8 +145,8 @@
  /*014*/ 	int32_t 	flags;
  /*018*/ 	int32_t 	r1[2];
@@ -300,8 +300,8 @@ Slightly modified (and removed the .depend files from the patches)
  /*028*/ 	int32_t 	patchFlags;
  
  /*02c*/ 	int32_t 	type;
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/myconf
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/myconf
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/myconf
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/myconf
 @@ -3,9 +3,10 @@
  cat >myctest.c <<END
  
@@ -363,8 +363,8 @@ Slightly modified (and removed the .depend files from the patches)
 +if [ -f myctest ]; then
 +	rm myctest
 +fi
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/myconf.sh
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/myconf.sh
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/myconf.sh
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/myconf.sh
 @@ -3,9 +3,10 @@
  cat >myctest.c <<END
  
@@ -426,8 +426,8 @@ Slightly modified (and removed the .depend files from the patches)
 +if [ -f myctest ]; then
 +	rm myctest
 +fi
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Makefile
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Makefile
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Makefile
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Makefile
 @@ -13,7 +13,7 @@
  RELEASE=1
  INSTDIR=/usr/local/unadf
@@ -472,8 +472,8 @@ Slightly modified (and removed the .depend files from the patches)
  
  
 +# DO NOT DELETE
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_env.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_env.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_env.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_env.c
 @@ -95,10 +95,10 @@
  
      /* internal checking */

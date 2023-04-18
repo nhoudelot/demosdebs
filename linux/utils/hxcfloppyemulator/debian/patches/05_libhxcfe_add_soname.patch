@@ -1,9 +1,9 @@
---- a/libhxcfe/trunk/build/Makefile
-+++ b/libhxcfe/trunk/build/Makefile
-@@ -30,6 +30,7 @@
+--- a/libhxcfe/build/Makefile
++++ b/libhxcfe/build/Makefile
+@@ -29,6 +29,7 @@
+ ifeq ($(TARGET), Linux)
  CFLAGS += -fPIC -Wl,-Map,foo.map
  LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl
- LDFLAGS += -g -lc -lm  -ldl
 +LDFLAGS += -Wl,--as-needed,-soname,libhxcfe.so.2
  endif
  

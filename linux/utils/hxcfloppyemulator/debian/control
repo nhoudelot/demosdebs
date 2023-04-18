@@ -13,7 +13,7 @@ Build-Depends:
  libminizip-dev,
  rename
 Standards-Version: 4.6.0.1
-Homepage: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/HxCFloppyEmulator_software/trunk/
+Homepage: https://github.com/jfdelnero/HxCFloppyEmulator
 
 Package: libhxcfe-dev
 Section: libdevel

@@ -1,8 +1,8 @@
 Description: fix header files
 Last-Update: 2012-05-31
 
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_file.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_file.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_file.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_file.c
 @@ -31,7 +31,7 @@
  #include"adf_util.h"
  #include"adf_file.h"
@@ -12,8 +12,8 @@ Last-Update: 2012-05-31
  #include"adf_raw.h"
  #include"adf_disk.h"
  #include"adf_dir.h"
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_dir.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_dir.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_dir.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_dir.c
 @@ -32,7 +32,7 @@
  #include"adf_dir.h"
  #include"adf_str.h"
@@ -23,8 +23,8 @@ Last-Update: 2012-05-31
  #include"adf_blk.h"
  #include"adf_raw.h"
  #include"adf_disk.h"
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_raw.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_raw.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_raw.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_raw.c
 @@ -35,7 +35,7 @@
  #include "adf_disk.h"
  #include "adf_util.h"
@@ -34,8 +34,8 @@ Last-Update: 2012-05-31
  
  extern struct Env adfEnv;
  
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_bitm.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_bitm.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_bitm.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_bitm.c
 @@ -33,7 +33,7 @@
  #include"adf_err.h"
  #include"adf_disk.h"
@@ -45,8 +45,8 @@ Last-Update: 2012-05-31
  
  extern uint32_t bitMask[32];
  
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_cache.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_cache.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_cache.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_cache.c
 @@ -31,7 +31,7 @@
  #include"adf_defs.h"
  #include"adf_str.h"
@@ -56,8 +56,8 @@ Last-Update: 2012-05-31
  #include"adf_cache.h"
  #include"adf_raw.h"
  #include"adf_disk.h"
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_hd.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/adf_hd.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_hd.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_hd.c
 @@ -41,7 +41,7 @@
  #include"adf_dump.h"
  #include"adf_err.h"
@@ -67,8 +67,8 @@ Last-Update: 2012-05-31
  
  extern struct Env adfEnv;
  
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.c
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.c
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.c
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.c
 @@ -20,7 +20,6 @@
   *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   *
@@ -77,8 +77,8 @@ Last-Update: 2012-05-31
  
  #include<stdio.h>
  #include<stdlib.h>
---- a/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.h
-+++ b/libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.h
+--- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.h
++++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/Generic/adf_nativ.h
 @@ -20,7 +20,6 @@
   *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   *

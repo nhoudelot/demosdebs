@@ -1,3 +1,9 @@
+hxcfloppyemulator (2.14.4.1-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 18 Apr 2023 00:51:47 +0200
+
 hxcfloppyemulator (2.5.8.1-0ddebs1) unstable; urgency=medium
 
   * New upstream update

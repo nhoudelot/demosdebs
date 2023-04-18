@@ -3,18 +3,9 @@ Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
 Last-Update: 2020-04-20
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/HxCFloppyEmulator_software/trunk/sources/gui/cb_floppy_infos_window.cxx
-+++ b/HxCFloppyEmulator_software/trunk/sources/gui/cb_floppy_infos_window.cxx
-@@ -1096,4 +1096,4 @@
- 
- 	}
- 
--}
-\ No newline at end of file
-+}
---- a/HxCFloppyEmulator_software/trunk/sources/gui/log.cxx
-+++ b/HxCFloppyEmulator_software/trunk/sources/gui/log.cxx
-@@ -131,7 +131,7 @@
+--- a/HxCFloppyEmulator_software/sources/gui/log.cxx
++++ b/HxCFloppyEmulator_software/sources/gui/log.cxx
+@@ -118,7 +118,7 @@
  				snprintf(lineheader,sizeof(lineheader),"DEBUG  : ");
  			break;
  			default:

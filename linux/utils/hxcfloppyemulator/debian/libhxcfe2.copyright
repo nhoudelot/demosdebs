@@ -1,17 +1,17 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: hxcfloppyemulator
-Source: https://sourceforge.net/p/hxcfloppyemu/code/HEAD/tree/HxCFloppyEmulator/HxCFloppyEmulator_software/trunk/
+Source: https://github.com/jfdelnero/HxCFloppyEmulator
 
 Files: *
-Copyright: 2006-2020 Jean-François DEL NERO
+Copyright: 2006-2023 Jean-François DEL NERO
 License: GPL-3.0+
 
-Files: libhxcfe/trunk/sources/thirdpartylibs/adflib/*
+Files: libhxcfe/sources/thirdpartylibs/adflib/*
 Copyright: Laurent Clévy (laurent.clevy@club-internet.fr)
 License: GPL-2.0
 
 Files: debian/*
-Copyright: 2018-2020 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2018-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: GPL-2.0

@@ -1,11 +1,11 @@
---- a/build/Makefile
-+++ b/build/Makefile
-@@ -30,7 +30,7 @@
- 		$(MAKE) -C ../HxCFloppyEmulator_software/trunk/sources/thirdpartylibs/fltk/fltk-1.x.x/ DIRS=src
- endif
+--- a/HxCFloppyEmulator_software/build/Makefile
++++ b/HxCFloppyEmulator_software/build/Makefile
+@@ -79,7 +79,7 @@
+ FLTKLIB = /usr/lib/$(DEB_HOST_MULTIARCH)/libfltk.a /usr/lib/$(DEB_HOST_MULTIARCH)/libfltk_images.a
  
--HxCFloppyEmulator_software: libhxcfe libusbhxcfe fltk
-+HxCFloppyEmulator_software: libhxcfe libusbhxcfe
- 	$(MAKE) -C ../HxCFloppyEmulator_software/trunk/build/
+ all:
+-	$(MAKE) fltk
++	#$(MAKE) fltk
+ 	$(MAKE) DATA_FILES
+ 	$(MAKE) $(EXEC)
  
- clean_fltk:

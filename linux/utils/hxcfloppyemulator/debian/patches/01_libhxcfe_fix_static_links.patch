@@ -1,6 +1,6 @@
 took system zlib & expat, instead of local one
---- a/libhxcfe/trunk/build/Makefile
-+++ b/libhxcfe/trunk/build/Makefile
+--- a/libhxcfe/build/Makefile
++++ b/libhxcfe/build/Makefile
 @@ -16,7 +16,7 @@
  	LDFLAGS= -shared
  else
@@ -10,15 +10,16 @@ took system zlib & expat, instead of local one
  endif
  
  ifeq ($(DEBUG_ASAN), 1)
-@@ -28,6 +28,7 @@
+@@ -28,7 +28,7 @@
  
  ifeq ($(TARGET), Linux)
  CFLAGS += -fPIC -Wl,-Map,foo.map
+-LDFLAGS += -lc -lm  -ldl
 +LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl
- LDFLAGS += -g -lc -lm  -ldl
  endif
  
-@@ -115,8 +116,8 @@
+ ifeq ($(TARGET), mingw32)
+@@ -116,8 +116,8 @@
  		trackeditor.o sector_extractor.o display_track.o fluxStreamAnalyzer.o streamConvert.o script_exec.o env.o
  
  LIBS_OBJS = $(BASE) $(FS_SUPPORT) $(ADFLIBOBJ) $(ENCODING_SUPPORT) $(TRACK_FORMATS_SUPPORT) $(DISKLOADERPLUGINS) \
@@ -29,8 +30,8 @@ took system zlib & expat, instead of local one
  
  all: SCRIPT_FILE $(BASEDIR)/licensetxt.h XML_FILES BMP_FILES $(EXEC)
  
---- a/libhxcfe/trunk/sources/loaders/adz_loader/adz_loader.c
-+++ b/libhxcfe/trunk/sources/loaders/adz_loader/adz_loader.c
+--- a/libhxcfe/sources/loaders/adz_loader/adz_loader.c
++++ b/libhxcfe/sources/loaders/adz_loader/adz_loader.c
 @@ -61,7 +61,7 @@
  
  #include "loaders/common/raw_amiga.h"
@@ -40,8 +41,8 @@ took system zlib & expat, instead of local one
  
  #include "libhxcadaptor.h"
  
---- a/libhxcfe/trunk/sources/loaders/adz_loader/adz_writer.c
-+++ b/libhxcfe/trunk/sources/loaders/adz_loader/adz_writer.c
+--- a/libhxcfe/sources/loaders/adz_loader/adz_writer.c
++++ b/libhxcfe/sources/loaders/adz_loader/adz_writer.c
 @@ -31,7 +31,7 @@
  
  #include "types.h"
@@ -51,8 +52,8 @@ took system zlib & expat, instead of local one
  
  #include "internal_libhxcfe.h"
  #include "tracks/track_generator.h"
---- a/libhxcfe/trunk/sources/loaders/afi_loader/afi_loader.c
-+++ b/libhxcfe/trunk/sources/loaders/afi_loader/afi_loader.c
+--- a/libhxcfe/sources/loaders/afi_loader/afi_loader.c
++++ b/libhxcfe/sources/loaders/afi_loader/afi_loader.c
 @@ -58,7 +58,7 @@
  #include "afi_format.h"
  #include "afi_loader.h"
@@ -62,8 +63,8 @@ took system zlib & expat, instead of local one
  #include "tracks/crc.h"
  
  #include "libhxcadaptor.h"
---- a/libhxcfe/trunk/sources/loaders/afi_loader/afi_writer.c
-+++ b/libhxcfe/trunk/sources/loaders/afi_loader/afi_writer.c
+--- a/libhxcfe/sources/loaders/afi_loader/afi_writer.c
++++ b/libhxcfe/sources/loaders/afi_loader/afi_writer.c
 @@ -37,7 +37,7 @@
  #include "afi_format.h"
  #include "afi_loader.h"
@@ -73,8 +74,8 @@ took system zlib & expat, instead of local one
  
  #include "tracks/crc.h"
  
---- a/libhxcfe/trunk/sources/loaders/imz_loader/imz_loader.c
-+++ b/libhxcfe/trunk/sources/loaders/imz_loader/imz_loader.c
+--- a/libhxcfe/sources/loaders/imz_loader/imz_loader.c
++++ b/libhxcfe/sources/loaders/imz_loader/imz_loader.c
 @@ -59,8 +59,8 @@
  
  #include "imz_loader.h"
@@ -86,46 +87,46 @@ took system zlib & expat, instead of local one
  
  #include "loaders/common/raw_iso.h"
  
---- a/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_loader.c
-+++ b/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_loader.c
+--- a/libhxcfe/sources/loaders/streamhfe_loader/streamhfe_loader.c
++++ b/libhxcfe/sources/loaders/streamhfe_loader/streamhfe_loader.c
 @@ -64,7 +64,7 @@
  
  #include "tracks/luts.h"
  
--#include "thirdpartylibs/lz4/lib/lz4lib.h"
+-#include "thirdpartylibs/lz4/lib/lz4.h"
 +#include <lz4.h>
  
  #include "misc/env.h"
  #include "misc/script_exec.h"
---- a/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_writer.c
-+++ b/libhxcfe/trunk/sources/loaders/streamhfe_loader/streamhfe_writer.c
+--- a/libhxcfe/sources/loaders/streamhfe_loader/streamhfe_writer.c
++++ b/libhxcfe/sources/loaders/streamhfe_loader/streamhfe_writer.c
 @@ -62,7 +62,7 @@
  
  #include "tracks/luts.h"
  
--#include "thirdpartylibs/lz4/lib/lz4lib.h"
+-#include "thirdpartylibs/lz4/lib/lz4.h"
 +#include <lz4.h>
  
  #define SHIFTER_FREQ 25000000
  
---- a/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream_loader.c
-+++ b/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream_loader.c
+--- a/libhxcfe/sources/loaders/hxcstream_loader/hxcstream_loader.c
++++ b/libhxcfe/sources/loaders/hxcstream_loader/hxcstream_loader.c
 @@ -66,7 +66,7 @@
  
  #include "libhxcadaptor.h"
  
--#include "thirdpartylibs/lz4/lib/lz4lib.h"
+-#include "thirdpartylibs/lz4/lib/lz4.h"
 +#include <lz4.h>
  
  #include "misc/env.h"
  #include "misc/script_exec.h"
---- a/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream.c
-+++ b/libhxcfe/trunk/sources/loaders/hxcstream_loader/hxcstream.c
+--- a/libhxcfe/sources/loaders/hxcstream_loader/hxcstream.c
++++ b/libhxcfe/sources/loaders/hxcstream_loader/hxcstream.c
 @@ -53,7 +53,7 @@
  #include "libhxcfe.h"
  
  #include "tracks/std_crc32.h"
--#include "thirdpartylibs/lz4/lib/lz4lib.h"
+-#include "thirdpartylibs/lz4/lib/lz4.h"
 +#include <lz4.h>
  
  #include "floppy_loader.h"

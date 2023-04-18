@@ -26,7 +26,7 @@ override_dh_install:
 	(find debian/libhxcfe2 -type f -execdir rename 's/libhxcfe.so/libhxcfe.so.2.12.1.6/g' * {} \;)
 	(find debian/libusbhxcfe2 -type f -execdir rename 's/libusbhxcfe.so/libusbhxcfe.so.2.0.1.0/g' * {} \;)
 	mkdir -p debian/hxcfloppyemulator/usr/share/icons/hicolor/256x256/apps/
-	cp HxCFloppyEmulator_software/trunk/sources/mac/icons/hxcfloppyemulator.iconset/icon_256x256.png debian/hxcfloppyemulator/usr/share/icons/hicolor/256x256/apps/hxcfloppyemulator.png
+	cp HxCFloppyEmulator_software/sources/mac/icons/hxcfloppyemulator.iconset/icon_256x256.png debian/hxcfloppyemulator/usr/share/icons/hicolor/256x256/apps/hxcfloppyemulator.png
 
 override_dh_dwz:
 	$(RUN_DHDWZ)
