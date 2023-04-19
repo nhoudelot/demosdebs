@@ -6,7 +6,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/GNUmakefile
 +++ b/GNUmakefile
-@@ -836,6 +836,16 @@
+@@ -701,6 +701,16 @@
      editor \
  
  
@@ -23,7 +23,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($(PRETTY_OUTPUT),1)
  .SILENT:
  endif
-@@ -1037,7 +1047,6 @@
+@@ -751,7 +761,7 @@
+ $$($1_$2)$$(EXESUFFIX): $$(foreach i,$(call getdeps,$1,$2),$$(call expandobjs,$$i)) $$($1_$2_miscdeps) | $$($1_$2_orderonlydeps)
+ 	$$(LINK_STATUS)
+ 	$$(call MKDIR,"$$(obj)/$$($1_$2)")
+-	$$(RECIPE_IF) $$(LINKER) -save-temps=obj -dumpdir $$(obj)/$$($1_$2)/ -o $$@ $$^ $$(GUI_LIBS) $$($1_$2_ldflags) $$(LIBDIRS) $$(LIBS) $$(RECIPE_RESULT_LINK)
++	$$(RECIPE_IF) $$(LINKER) -o $$@ $$^ $$(GUI_LIBS) $$($1_$2_ldflags) $$(LIBDIRS) $$(LIBS) $$(RECIPE_RESULT_LINK)
+ ifeq ($$(PLATFORM),WII)
+ ifneq ($$(ELF2DOL),)
+ 	$$(ELF2DOL) $$@ $$($1_$2)$$(DOLSUFFIX)
+@@ -916,7 +926,6 @@
  
  rev: $(engine_obj)/rev.$o
  

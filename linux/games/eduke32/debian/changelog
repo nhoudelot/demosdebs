@@ -1,8 +1,14 @@
+eduke32 (1.0+20230405-10212-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 19 Apr 2023 00:33:23 +0200
+
 eduke32 (1.0+20220115-9934-494980971-0ddebs1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Oct 2022 18:07:58 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Oct 2022 18:43:19 +0200
 
 eduke32 (1.0+20200825-9250-546711155-0ddebs2) unstable; urgency=medium
 

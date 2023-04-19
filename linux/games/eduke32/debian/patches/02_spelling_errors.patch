@@ -5,7 +5,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/source/build/src/polymost.cpp
 +++ b/source/build/src/polymost.cpp
-@@ -9793,7 +9793,7 @@
+@@ -9858,7 +9858,7 @@
      if (parm->numparms != 1)
      {
          LOG_F(INFO, "Current texturing mode is %s", glfiltermodes[gltexfiltermode].name);
@@ -27,7 +27,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      "decoder error, couldn't decode frame",
 --- a/source/duke3d/src/astub.cpp
 +++ b/source/duke3d/src/astub.cpp
-@@ -7802,7 +7802,7 @@
+@@ -7767,7 +7767,7 @@
              }
              else
              {
@@ -38,7 +38,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          else if (wallsprite==0)
 --- a/source/build/src/config.cpp
 +++ b/source/build/src/config.cpp
-@@ -479,7 +479,7 @@
+@@ -483,7 +483,7 @@
               "; Reverse meaning of Q and W keys in side view mode\n"
               "sideview_reversehorizrot = %d\n"
               "\n"

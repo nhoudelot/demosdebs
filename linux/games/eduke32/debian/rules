@@ -9,8 +9,13 @@ ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
     RUN_DHDWZ=dh_dwz 
 endif
 
+export STRIP = $(DEB_HOST_GNU_TYPE)-strip
+
 %:
 	dh $@
+
+override_dh_auto_build-arch:
+	dh_auto_build -- STRIP=$(DEB_HOST_GNU_TYPE)-strip
 
 override_dh_auto_test:
 
