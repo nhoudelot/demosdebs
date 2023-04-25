@@ -1,3 +1,9 @@
+idsk (0.20-0ddebs3) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Apr 2023 16:44:33 +0200
+
 idsk (0.20-0ddebs2) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

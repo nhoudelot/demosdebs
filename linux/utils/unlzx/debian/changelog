@@ -1,3 +1,9 @@
+unlzx (1.1-0ddebs12) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Apr 2023 16:40:20 +0200
+
 unlzx (1.1-0ddebs11) unstable; urgency=medium
 
   * drop 02_fix_warning.patch that crash the executable

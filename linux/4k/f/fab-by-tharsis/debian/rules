@@ -16,3 +16,6 @@ override_dh_auto_configure:
 	  o=`basename $$i .in`;\
 	  sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
 	  done )
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

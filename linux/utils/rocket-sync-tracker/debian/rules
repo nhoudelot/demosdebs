@@ -15,3 +15,6 @@ override_dh_install:
 	find . -name ".npmignore" -delete
 	find . -name "*.vcproj" -delete
 	find . -name "*.vcxproj" -delete
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

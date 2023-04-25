@@ -13,3 +13,6 @@ override_dh_auto_build:
 	chmod -x ggpo/resources/qss/fightcade.qss
 	pyrcc5 ggpo/resources/ggpo.qrc -o ggpo/resources/ggpo_rc.py
 	cp ggpo/resources/assets/icon-128.png debian/resources/fightcade.png
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

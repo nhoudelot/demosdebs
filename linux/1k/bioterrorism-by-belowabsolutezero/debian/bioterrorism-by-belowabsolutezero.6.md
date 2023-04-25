@@ -3,7 +3,7 @@
 % 2020-04-22
 
 # NAME
-bioterrorism-by-belowabsolutezero - the command to run Bioterrorism.
+bioterrorism-by-belowabsolutezero - Bioterrorism without launcher for SDL2.0.
 
 # SYNOPSIS
 bioterrorism-by-belowabsolutezero [*options*]

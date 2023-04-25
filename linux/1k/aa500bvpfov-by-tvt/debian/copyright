@@ -31,6 +31,6 @@ License: public-domain
  For more information, please refer to <https://unlicense.org/>
 
 Files: debian/*
-Copyright: 2016-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
  /usr/share/common-licenses/GPL-3

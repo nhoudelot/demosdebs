@@ -9,3 +9,6 @@ override_dh_shlibdeps:
 override_dh_fixperms:
 	dh_fixperms
 	find debian -type f -name 'zenit.ogg' -exec chmod -x {} +
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

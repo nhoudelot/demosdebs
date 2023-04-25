@@ -19,7 +19,7 @@ Copyright: Juergen Buchmueller, Manuel Abadia, Nicola Salmoria
 License: BSD-3-Clause
 
 Files: debian/*
-Copyright: 2020-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2020-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 Files: contrib/fonts/Nouveau_IBM.ttf

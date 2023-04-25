@@ -1,3 +1,9 @@
+audiere (1.10.1-0ddebs9) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 23 Apr 2023 17:46:07 +0200
+
 audiere (1.10.1-0ddebs8) unstable; urgency=medium
 
   * removed libcdaudio & libdumb1 build dependency, as it has been removed from

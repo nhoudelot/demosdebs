@@ -11,3 +11,6 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 #override_dh_autoreconf:
 #	AUTOMAKE="automake --foreign" autoreconf -is
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

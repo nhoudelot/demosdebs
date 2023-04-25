@@ -5,3 +5,6 @@ export CLASSPATH=/usr/share/java/commons-net.jar:/usr/share/java/oro.jar:/usr/sh
 
 %:
 	dh $@ --with javahelper
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

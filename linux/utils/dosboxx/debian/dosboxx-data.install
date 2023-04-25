@@ -1,3 +1,6 @@
 usr/share/bash-completion/completions/dosbox-x
 usr/share/dosbox-x/glshaders
 usr/share/dosbox-x/languages
+usr/share/dosbox-x/wqy_12pt.bdf
+usr/share/dosbox-x/wqy_11pt.bdf
+usr/share/dosbox-x/FREECG98.BMP

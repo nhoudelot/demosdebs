@@ -10,3 +10,6 @@ export DEB_CXXFLAGS_MAINT_APPEND  = $(CPPFLAGS) -flto
 override_dh_auto_install:
 	find . -name "COPYING.txt" -delete
 	dh_auto_install
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

@@ -1,6 +1,6 @@
 Formats: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: dunelegacy
-Source: https://reassembler.blogspot.de/
+Source: https://sourceforge.net/projects/dunelegacy
 
 Files: *
 Copyright: 2009 Richard Schaller (richard.schallerATgmx.de)
@@ -8,7 +8,7 @@ License: GPL-2+
 
 Files: debian/*
 Copyright: 2009 Richard Schaller <richard.schallerATgmx.de>
-           2016-2018 Nicolas Houdelot <nicolas@demosdebs.org>
+           2016-2023 Nicolas Houdelot <nicolas@demosdebs.org>
 License: GPL-2+
 
 License: GPL-2+

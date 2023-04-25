@@ -14,3 +14,6 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 override_dh_installman:
 	$(MAKE) man DESTDIR=debian/deark
 	dh_installman
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

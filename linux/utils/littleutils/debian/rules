@@ -6,7 +6,12 @@ export DH_OPTIONS
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export PROGBASH=/bin/bash
 export PROGDASH=/bin/dash
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
+
 %:
 	dh $@
 
 override_dh_auto_install:
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

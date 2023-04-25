@@ -20,6 +20,7 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: FF7 Savegame Editor
- Do lots of stuff w/ final fantasy vii savegame for pc,psx,emulators,psp, or psn
- versions
+Description: Save editor for Final Fantasy VII
+ Do alot of things with ff7 saves, Including Convert Region or Format. Start 
+ New Game+ and more.
+ Supports PC (98 + Steam), Emulators, PS3, PSP/ PsVita and Switch versions.

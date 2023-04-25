@@ -9,3 +9,6 @@ export DEB_LDFLAGS_MAINT_APPEND  = -Wl,--allow-multiple-definition
 override_dh_auto_configure:
 	./autogen.sh
 	dh_auto_configure
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

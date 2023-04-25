@@ -1,3 +1,9 @@
+xa005spike-by-xangle (1.0+2-0ddebs5) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 01 May 2023 17:42:11 +0200
+
 xa005spike-by-xangle (1.0+2-0ddebs4) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

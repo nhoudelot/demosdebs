@@ -4,8 +4,8 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- mesa-common-dev,
- libsdl1.2-dev,
+ libgl-dev,
+ libsdl1.2-compat-dev|libsdl1.2-dev,
  pkgconf
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=56990
@@ -13,6 +13,7 @@ Homepage: https://www.pouet.net/prod.php?which=56990
 Package: stochasticlenssimulator-by-gzrrplox
 Architecture: any
 Depends:
+ libsdl1.2-compat,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: 4k Intro for Linux, released in 2011

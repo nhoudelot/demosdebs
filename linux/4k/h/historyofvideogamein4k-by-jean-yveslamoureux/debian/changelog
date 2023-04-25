@@ -1,3 +1,9 @@
+historyofvideogamein4k-by-jean-yveslamoureux (1.0-0ddebs12) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 30 Apr 2023 12:23:07 +0200
+
 historyofvideogamein4k-by-jean-yveslamoureux (1.0-0ddebs11) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

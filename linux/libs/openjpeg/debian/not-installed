@@ -1,0 +1,3 @@
+usr/lib/*/openjpeg-1.5/OpenJPEGConfig.cmake
+usr/lib/*/openjpeg-1.5/OpenJPEGTargets-none.cmake
+usr/lib/*/openjpeg-1.5/OpenJPEGTargets.cmake

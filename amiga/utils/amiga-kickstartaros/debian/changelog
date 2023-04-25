@@ -1,3 +1,9 @@
+amiga-kickstartaros (1:1.0+git20210318-0ddebs4) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 May 2023 16:40:35 +0200
+
 amiga-kickstartaros (1:1.0+git20210318-0ddebs3) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

@@ -13,3 +13,6 @@ override_dh_auto_clean:
 
 override_dh_auto_install:
 	$(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc PREFIX=$$(pwd)/debian/tmp/usr XNVIEW=$$(pwd)/debian/tmp/opt/XnView BUILDING_PACKAGE=1 install-thumbnailer install-xnview
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

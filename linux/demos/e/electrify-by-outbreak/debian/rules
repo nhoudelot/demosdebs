@@ -24,3 +24,6 @@ override_dh_fixperms:
 
 override_dh_dwz:
 	$(RUN_DHDWZ)
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

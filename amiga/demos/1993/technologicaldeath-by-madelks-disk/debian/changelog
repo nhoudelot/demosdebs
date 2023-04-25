@@ -1,3 +1,9 @@
+technologicaldeath-by-madelks-disk (1:1.0+4-0ddebs5) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 May 2023 09:52:55 +0200
+
 technologicaldeath-by-madelks-disk (1:1.0+4-0ddebs4) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

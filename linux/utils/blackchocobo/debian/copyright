@@ -8,7 +8,7 @@ License: GPL-3.0+
 
 Files: debian/*
 Copyright: 2010-2020 Chris Rizzitello <sithlord48@gmail.com>
-           2016-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
+           2016-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 Files: qhexedit/*

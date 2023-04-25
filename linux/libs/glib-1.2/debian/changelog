@@ -1,3 +1,9 @@
+glib-1.2 (10-58ddebs3) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 23 Apr 2023 17:46:06 +0200
+
 glib-1.2 (10-58ddebs2) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

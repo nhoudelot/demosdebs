@@ -6,7 +6,7 @@ export DEB_CFLAGS_MAINT_APPEND  = -flto
 export DEB_CXXFLAGS_MAINT_APPEND  = -flto
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
-CONFIGURE_EXTRA_FLAGS +=  --enable-core-inline --enable-debug=heavy --enable-sdl2
+CONFIGURE_EXTRA_FLAGS +=  --enable-core-inline --enable-avcodec --enable-sdl2 
 
 %:
 	dh $@ --buildsystem=autoconf
@@ -18,3 +18,6 @@ override_dh_auto_configure:
 override_dh_install:
 	cp contrib/icons/dosbox-x.svg debian/resources/dosboxx.svg
 	dh_install
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

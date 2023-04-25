@@ -10,3 +10,6 @@ export DEB_HOST_MULTIARCH
 
 %:
 	dh $@ 
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

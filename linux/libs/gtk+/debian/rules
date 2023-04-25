@@ -37,3 +37,6 @@ override_dh_installdirs:
 
 override_dh_installchangelogs:
 	dh_installchangelogs -a ChangeLog
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

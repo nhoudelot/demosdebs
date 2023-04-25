@@ -13,12 +13,9 @@ else
 	mkdir /tmp/cannonball
 fi
 # config.xml
-if [ -e ~/.config/cannonball/config.xml ]
+if [ ! -e ~/.config/cannonball/config.xml ]
 then
-	ln -s ~/.config/cannonball/config.xml  /tmp/cannonball/config.xml
-else
-	cp -r /usr/share/games/cannonball/dist/config.xml.init ~/.config/cannonball/config.xml
-	ln -s ~/.config/cannonball/config.xml  /tmp/cannonball/config.xml
+	cp -r /etc/cannonball/config.xml ~/.config/cannonball/config.xml
 fi
 # create local savegame if not exist
 if [ ! -e ~/.local/share/cannonball ]
@@ -49,6 +46,6 @@ else
 	touch ~/.local/share/cannonball/hiscores_continuous.xml
 	ln -s ~/.local/share/cannonball/hiscores_continuous.xml  /tmp/cannonball/hiscores_continuous.xml
 fi
-cannonball
+cannonball -cfgfile ~/.config/cannonball/config.xml
 
 exit 0

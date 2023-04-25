@@ -19,3 +19,6 @@ override_dh_auto_install:
 	sed -i -e "s/@BUTTON@/BUTTON8/g" xbox360hori_arcade_p1.cfg
 	sed -i -e "s/@BUTTON@/BUTTON8/g" xbox360hori_arcade_p2.cfg
 	dh_auto_install
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

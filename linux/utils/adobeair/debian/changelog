@@ -1,3 +1,12 @@
+adobeair (1:2.6.0.20002-0ddebs6) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Apr 2023 16:44:31 +0200
+
 adobeair (1:2.6.0.20002-0ddebs5) unstable; urgency=medium
 
   * updated to standards-version 4.5.0

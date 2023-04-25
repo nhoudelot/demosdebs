@@ -1,3 +1,9 @@
+textperiment-by-pktteamgenshiken (1.0+git20150726-0ddebs4) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 01 May 2023 11:45:20 +0200
+
 textperiment-by-pktteamgenshiken (1.0+git20150726-0ddebs3) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

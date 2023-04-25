@@ -25,3 +25,6 @@ endif
 
 override_dh_installexamples:
 	dh_installexamples -plibpng12-dev example.c pngtest.c pngtest.png
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

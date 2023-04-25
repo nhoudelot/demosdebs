@@ -1,3 +1,9 @@
+hatari-emutos (1.0.1-0ddebs3) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 May 2023 16:44:39 +0200
+
 hatari-emutos (1.0.1-0ddebs2) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

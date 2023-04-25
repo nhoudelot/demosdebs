@@ -6,3 +6,6 @@ export DEB_CXXFLAGS_MAINT_APPEND  = $(CPPFLAGS) -flto
 
 %:
 	dh $@ --buildsystem=cmake  --builddirectory=build --sourcedirectory=cmake -- -CMAKE_SKIP_RPATH
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

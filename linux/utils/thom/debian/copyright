@@ -9,6 +9,6 @@ License: GPL-2+
  /usr/share/common-licenses/GPL-2
 
 Files: debian/*
-Copyright: 2016-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
  /usr/share/common-licenses/GPL-3

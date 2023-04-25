@@ -1,3 +1,9 @@
+shader-minifier (1.1.6+git20220513-0ddebs2) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Apr 2023 16:44:34 +0200
+
 shader-minifier (1.1.6+git20220513-0ddebs1) unstable; urgency=medium
 
   * New upstream release

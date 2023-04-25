@@ -95,7 +95,7 @@ License: MIDAS_Digital_Audio_System_LICENSE
  MIDAS Digital Audio System are included.
 
 Files: debian/*
-Copyright: 2016-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

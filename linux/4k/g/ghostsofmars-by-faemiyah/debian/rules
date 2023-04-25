@@ -11,3 +11,6 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 override_dh_install:
 	mv build/ghosts_of_mars build/ghostsofmars-by-faemiyah
 	dh_install
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

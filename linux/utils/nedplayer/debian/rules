@@ -7,6 +7,5 @@ export DEB_CXXFLAGS_MAINT_APPEND  = -std=gnu++14
 %:
 	dh $@  --sourcedirectory=player
 
-override_dh_install:
-	dh_install
-	pandoc -s -t man -f markdown debian/nedplayer.1.md -o debian/nedplayer.1
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

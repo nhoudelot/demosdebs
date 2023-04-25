@@ -30,10 +30,11 @@ override_dh_auto_configure:
 	dh_auto_configure -- $(CMAKE_EXTRA_FLAGS)
 
 # http://cmake.org/gitweb?p=cmake.git;a=commitdiff;h=a2be068c
-override_dh_auto_install:
-	sed -i -e "s/FATAL_ERROR/STATUS/g" ./obj-*/CMakeFiles/Export/lib/*/openjpeg-1.5/OpenJPEGTargets-none.cmake
-	sed -i -e "s/FATAL_ERROR/STATUS/g" ./obj-*/CMakeFiles/Export/lib/*/openjpeg-1.5/OpenJPEGTargets.cmake
-	dh_auto_install
+# no need to override anymore (2023-04-24)
+#override_dh_auto_install:
+	#sed -i -e "s/FATAL_ERROR/STATUS/g" ./obj-*/CMakeFiles/Export/lib/*/openjpeg-1.5/OpenJPEGTargets-none.cmake
+	#sed -i -e "s/FATAL_ERROR/STATUS/g" ./obj-*/CMakeFiles/Export/lib/*/openjpeg-1.5/OpenJPEGTargets.cmake
+	#dh_auto_install
 
 get-orig-source:
 	uscan --verbose --rename \
@@ -43,3 +44,6 @@ get-orig-source:
 .PHONY: override_dh_auto_configure \
 	override_dh_strip \
 	get-orig-source
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

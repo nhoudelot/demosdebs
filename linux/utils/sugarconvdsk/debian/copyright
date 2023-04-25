@@ -26,6 +26,6 @@ License: MIT
  SOFTWARE.
 
 Files: debian/*
-Copyright: 2018 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2018-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
  /usr/share/common-licenses/GPL-3

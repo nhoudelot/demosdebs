@@ -1,3 +1,9 @@
+dunelegacy (0.96.4-0ddebs9) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 30 Apr 2023 23:38:26 +0200
+
 dunelegacy (0.96.4-0ddebs8) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

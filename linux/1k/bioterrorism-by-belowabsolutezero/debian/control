@@ -14,6 +14,6 @@ Architecture: i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libsdl1.2debian
+ libsdl1.2-compat
 Description: 1K intro for Linux, released in 2013
  1K intro by Below Absolute Zero, released in 2013

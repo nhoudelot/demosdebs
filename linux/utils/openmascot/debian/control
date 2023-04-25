@@ -7,8 +7,7 @@ Build-Depends:
  cmake,
  libx11-dev,
  libxext-dev,
- libsfml-dev,
- pandoc
+ libsfml-dev
 Standards-Version: 4.6.0.1
 Homepage: https://github.com/logantann/shimeji-re
 

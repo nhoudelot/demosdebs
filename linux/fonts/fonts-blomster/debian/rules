@@ -7,3 +7,6 @@ override_dh_auto_install:
 	find . -name "LICENSE.html" -delete
 	dh_auto_install
 
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

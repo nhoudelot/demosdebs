@@ -1,0 +1,13 @@
+--- a/src70/makefile
++++ b/src70/makefile
+@@ -1,8 +1,9 @@
+ #variables de compilation
+ SHELL := /bin/sh
+ CC    := gcc
++PKG_CONFIG:=pkg-config
+ CFLAGS   += -O3 -Wall -ffast-math $(shell pkg-config x11 --cflags) -std=gnu90
+-LDFLAGS += $(shell pkg-config x11 --libs)
++LDFLAGS += $(shell $(PKG_CONFIG) x11 --libs)
+ TARGET   := funzyto770
+ TARGET_ENTK   := funzy_enterkey
+ TARGET_wav2k7:= funzy_wav2k7

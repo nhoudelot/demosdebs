@@ -9,3 +9,6 @@ override_dh_install:
 	cp "Commodore-64-v6.3.TTF" "debian/fonts-commodore64/usr/share/fonts/truetype/commodore64/commodore-64.ttf"
 	cp "Commodore Angled v1.2.ttf" "debian/fonts-commodore64/usr/share/fonts/truetype/commodore64/commodore-angled.ttf"
 	cp "Commodore Rounded v1.2.ttf" "debian/fonts-commodore64/usr/share/fonts/truetype/commodore64/commodore-rounded.ttf"
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

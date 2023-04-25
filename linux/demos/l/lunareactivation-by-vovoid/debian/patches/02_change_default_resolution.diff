@@ -1,19 +1,10 @@
 --- a/demo/launcher-gtk.py
 +++ b/demo/launcher-gtk.py
-@@ -39,14 +39,14 @@
-         self.fixed.put(label1, 10, 40)
-         label1.show()
-         self.x_res = gtk.Entry()
--        self.x_res.set_text("1920")
-+        self.x_res.set_text("1280")
-         self.fixed.put(self.x_res, 180,40)
-         self.x_res.show()
-         label1 = gtk.Label("y resolution")
-         self.fixed.put(label1, 10, 70)
-         label1.show()
-         self.y_res = gtk.Entry()
--        self.y_res.set_text("1080")
-+        self.y_res.set_text("720")
-         self.fixed.put(self.y_res, 180,70)
-         self.y_res.show()
-         label1 = gtk.Label("FSAA mode")
+@@ -15,7 +15,6 @@
+ 		arg.append("-f")
+ 	arg.append("-s")
+ 	arg.append(self.x_res.get_text()+","+self.y_res.get_text())
+-	os.chdir('/usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/')
+ 	retcode = subprocess.call(arg)
+ 	sys.exit()
+     def __init__(self):

@@ -23,3 +23,6 @@ override_dh_auto_install:
 
 override_dh_auto_clean:
 	[ ! -f config.log ] || $(MAKE) x11-dist-clean
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

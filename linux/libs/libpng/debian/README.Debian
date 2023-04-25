@@ -1,6 +1,12 @@
 libpng for Debian
 -----------------
 
+since libpng1.2 is an old package
+i have removed all the files that shouldn't be installed, to prevent problems
+with libpng1.6
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 18 Mar 2016 12:55:37 +0100
+
 There have been changes in the way libpng is handled. Currently, there
 are 2 versions of libpng in Debian at a time : libpng10 and libpng12,
 formerly known as libpng2 and libpng3.

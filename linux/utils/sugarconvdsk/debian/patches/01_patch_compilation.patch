@@ -12,6 +12,14 @@
  endif()
  
  set ( CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG} )
+@@ -75,6 +77,6 @@
+ if(MSVC)
+ 	target_link_libraries ( SugarConvDsk zlibstatic)
+ else ()
+-	target_link_libraries ( SugarConvDsk  m stdc++fs libz.a)
++	target_link_libraries ( SugarConvDsk  m stdc++fs -lz )
+ endif()
+ 
 --- a/SugarConvDsk/main.cpp
 +++ b/SugarConvDsk/main.cpp
 @@ -26,7 +26,7 @@

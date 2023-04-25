@@ -4,7 +4,7 @@ libdir=${prefix}/lib/@DEB_HOST_MULTIARCH@
 includedir=${prefix}/include
 
 Name: fmodex
-Description: FMOD is a cross platform audio library and toolset
+Description: FMODex is a cross platform audio library and toolset
 Requires:
 Version: 4.44.64
 Libs: -L${libdir} -lfmodex

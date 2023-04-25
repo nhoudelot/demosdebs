@@ -8,3 +8,6 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 %:
 	dh $@ --sourcedirectory=Flawed
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

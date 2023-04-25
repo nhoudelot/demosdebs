@@ -8,3 +8,6 @@ override_dh_install:
 	mkdir -p "debian/fonts-vtksestilosa/usr/share/fonts/truetype/vtks-estilosa"
 	cp "VTKS Estilosa.ttf" "debian/fonts-vtksestilosa/usr/share/fonts/truetype/vtks-estilosa/vtks-estilosa.ttf"
 
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

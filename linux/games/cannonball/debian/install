@@ -1,4 +1,4 @@
 debian/scripts/cannonballdebian /usr/games/
 build/cannonball /usr/games/
 build/res/ usr/share/games/cannonball/
-build/config.xml /usr/share/games/cannonball/dist/
+build/config.xml /etc/cannonball/

@@ -86,3 +86,6 @@ debian/%.1: debian/%.sgml
 	docbook-to-man $< > $@
 
 .PHONY: build clean binary-indep binary-arch binary install debian-manpages
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

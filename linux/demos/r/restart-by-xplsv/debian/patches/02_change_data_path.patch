@@ -6,7 +6,7 @@ Last-Update: 2020-04-30
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/run_demo.py
 +++ b/run_demo.py
-@@ -37,7 +37,7 @@
+@@ -38,7 +38,7 @@
  			args.append(selected_num_samples)
  		
  		args.append('--script')
@@ -15,7 +15,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		#args.append('./test.lua')
  		
  		os.chdir(self.demo_dir)
-@@ -73,8 +73,8 @@
+@@ -74,8 +74,8 @@
  	
  	def __init__(self):
  		self.cwd = os.getcwd()
@@ -24,14 +24,5 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +		self.demo_dir = os.path.join(self.cwd, '/usr/share/restart-by-xplsv/')
 +		self.demo_exe = '/usr/bin/luisita'
  	
- 		self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+ 		self.window = Gtk.Window()
  		self.window.set_title("xplsv - restart")
-@@ -86,7 +86,7 @@
- 		self.window.add(self.v_box)
- 		
- 		self.image = gtk.Image()
--		self.image.set_from_file("./data/screenshot.png")
-+		self.image.set_from_file("/usr/share/restart-by-xplsv/screenshot.png")
- 		self.v_box.pack_start(self.image, True, True, 0)
- 		self.image.show()
- 		

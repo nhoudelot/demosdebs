@@ -1,3 +1,4 @@
 usr/share/applications/com.dosbox_x.DOSBox-X.desktop usr/share/applications/
 usr/share/icons/hicolor/scalable/apps/dosbox-x.svg
 usr/bin/dosbox-x
+usr/share/metainfo/com.dosbox_x.DOSBox-X.metainfo.xml

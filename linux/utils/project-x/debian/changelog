@@ -1,3 +1,9 @@
+project-x (0.91.10-0ddebs7) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Apr 2023 16:44:31 +0200
+
 project-x (0.91.10-0ddebs6) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

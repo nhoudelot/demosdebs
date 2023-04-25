@@ -2,19 +2,19 @@
 
 source /usr/share/common-install-function-ddebs/common-install-function
 
-domain=rotistmeinekugel-by-rtificial
+domain=stochasticlenssimulator-by-gzrrplox
 
-APP_FULLNAME="rot! ist meine kugel"
-APP_COPYRIGHT="Rtificial"
-APP_DESC="intro by Rtificial released in 2014"
+APP_FULLNAME="Stochastic Lens Simulator"
+APP_COPYRIGHT="Gzrrplox"
+APP_DESC="4k intro by Gzrrplox, released in 2011"
 
-APP_EXE="rtificial-rmk-linux_1920_1080"
+APP_EXE="stochasticlenssimulator-by-gzrrplox"
 
 function run()
 {
 	backuppwd=$(pwd)
-	cd /usr/lib/i386-linux-gnu/${domain}
-	LD_LIBRARY_PATH=. ./${APP_EXE}
+	cd /usr/bin/
+	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/@DEB_HOST_MULTIARCH@/sdl12-compat/ ./${APP_EXE}
 	cd $backuppwd
 }
 

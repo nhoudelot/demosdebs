@@ -23,3 +23,6 @@ override_dh_install:
 		dh_install
 		(find debian/libfmod3 -type f -execdir rename 's/libfmod-3.75.so/libfmod.so.3.75/g' * {} \;)
 
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

@@ -1,3 +1,9 @@
+disk-utilities (1:0.0+git20230411-0ddebs2) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Apr 2023 16:44:35 +0200
+
 disk-utilities (1:0.0+git20230411-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

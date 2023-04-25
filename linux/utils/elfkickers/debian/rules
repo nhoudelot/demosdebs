@@ -10,3 +10,5 @@ include /usr/share/dpkg/buildflags.mk
 %:
 	dh $@
 
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

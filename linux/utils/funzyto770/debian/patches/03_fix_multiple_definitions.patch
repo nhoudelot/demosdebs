@@ -1,0 +1,21 @@
+--- a/src70/monitor.h
++++ b/src70/monitor.h
+@@ -32,6 +32,7 @@
+ extern	int	adr[];
+ extern	long	compt;
+ extern	int	quitf;
++extern	FILE	*fl;
+ extern	FILE	*fk7;
+ extern	int	modegraph;
+ extern	long	mask;
+--- a/src70/video.c
++++ b/src70/video.c
+@@ -53,7 +53,7 @@
+ int	tch[nkey];
+ int	lkey[256];
+ int	ckey[256];
+-FILE	*fl;
++/*FILE	*fl;*/
+ FILE	*fk7;
+ int	crayx,crayy;
+ int	lasttour;

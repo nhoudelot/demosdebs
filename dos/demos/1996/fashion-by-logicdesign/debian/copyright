@@ -20,6 +20,6 @@ License: special
  for damages or failures arising from the use of this software.
 
 Files: debian/*
-Copyright: 2013-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2013-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  /usr/share/common-licenses/GPL-2

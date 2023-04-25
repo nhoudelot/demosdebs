@@ -1,3 +1,9 @@
+aa500bvpfov-by-tvt (1.0-0ddebs9) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 30 Apr 2023 02:44:10 +0200
+
 aa500bvpfov-by-tvt (1.0-0ddebs8) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

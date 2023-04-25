@@ -7,3 +7,6 @@ override_dh_install:
 	dh_install
 	pandoc -s -t man -f markdown debian/common-install-mame-config.6.md -o debian/common-install-mame-config.6
 	pandoc -s -t man -f markdown debian/common-install-resetmamectrl-config.6.md -o debian/common-install-resetmamectrl-config.6
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

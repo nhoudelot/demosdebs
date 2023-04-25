@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-format
+
 %:
 	dh $@ --buildsystem=cmake --sourcedirectory=SugarConvDsk --builddirectory=build
 
@@ -7,3 +9,6 @@ override_dh_install:
 	dh_install
 	mkdir -p "debian/sugarconvdsk/usr/bin/"
 	cp "build/SugarConvDsk" "debian/sugarconvdsk/usr/bin/sugarconvdsk"
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

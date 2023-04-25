@@ -127,6 +127,6 @@ License: FMOD_END_USER_LICENCE_AGREEMENT
  the full version, contact sales@fmod.com.
 
 Files: debian/*
-Copyright: 2016-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  /usr/share/common-licenses/GPL-2

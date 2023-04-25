@@ -12,3 +12,6 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 override_dh_install:
 	mv build/my_mistress_the_leviathan build/mymistresstheleviathan-by-faemiyah
 	dh_install
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

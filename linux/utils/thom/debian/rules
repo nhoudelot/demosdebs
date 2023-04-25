@@ -3,5 +3,16 @@
 DPKG_EXPORT_BUILDFLAGS = 1
 include /usr/share/dpkg/buildflags.mk
 
+# dh_dwz on buster don't like when there is no .debug_info section
+ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
+    RUN_DHDWZ=dh_dwz 
+endif
+
 %:
 	dh $@
+
+override_dh_dwz:
+	$(RUN_DHDWZ)
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

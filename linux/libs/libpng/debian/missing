@@ -1,0 +1,10 @@
+usr/bin/libpng-config
+usr/lib/*/libpng.a
+usr/lib/*/libpng.la
+usr/lib/*/libpng.so
+usr/lib/*/libpng.so.3
+usr/lib/*/libpng.so.3.59.0
+usr/lib/*/libpng12.la
+usr/share/man/man3/libpng.3
+usr/share/man/man3/libpngpf.3
+usr/share/man/man5/png.5

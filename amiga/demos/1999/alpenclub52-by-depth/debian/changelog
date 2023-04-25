@@ -1,3 +1,9 @@
+alpenclub52-by-depth (1:1.0+3-0ddebs7) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 May 2023 09:52:58 +0200
+
 alpenclub52-by-depth (1:1.0+3-0ddebs6) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

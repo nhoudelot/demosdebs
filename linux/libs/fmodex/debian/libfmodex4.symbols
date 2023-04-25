@@ -1,4 +1,5 @@
 libfmodex.so.4 libfmodex4 #MINVER#
+* Build-Depends-Package: libfmodex-dev
  FMOD_ChannelGroup_AddDSP@Base 4.00.37
  FMOD_ChannelGroup_AddGroup@Base 4.00.37
  FMOD_ChannelGroup_Get3DOcclusion@Base 4.10.03

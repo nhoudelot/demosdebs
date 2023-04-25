@@ -38,3 +38,6 @@ override_dh_install:
 	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodexL64)-([0-9,.]*).so/libfmodexL.so.$$2/g' * {} \;)
 	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodex)-([0-9,.]*).so/$$1.so.$$2/g' * {} \;)
 	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodexL)-([0-9,.]*).so/$$1.so.$$2/g' * {} \;)
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

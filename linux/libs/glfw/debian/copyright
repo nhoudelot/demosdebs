@@ -28,7 +28,7 @@ License: zlib/lipng
  3. This notice may not be removed or altered from any source distribution.
 
 Files: debian/*
-Copyright: 2017-2022 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2017-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
 		   2011, Mahyuddin Susanto <udienz@ubuntu.com>
            2008, Gonéri Le Bouder <goneri@rulezlan.org>
 License: GPL-2+

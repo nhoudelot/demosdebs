@@ -39,3 +39,6 @@ override_dh_clean:
 	if [ -f mp4v2/GNUmakefile ] ; then cd mp4v2 && $(MAKE) distclean ; fi
 	if [ -f faad2/Makefile ] ; then cd faad2 && $(MAKE) distclean ; fi
 	dh_clean aacgain/config.h mpeg4ip_config.h faad2/config.h mpeg4ip_config.h
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

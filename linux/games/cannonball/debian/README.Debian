@@ -1,0 +1,14 @@
+cannonball for Debian
+-------------------------------------------
+
+Differences between the Debian based distribution, and the upstream version
+
+To run this program, use : cannonballdebian
+
+user config files are in your : $HOME/.config/cannonball/
+user data files are in your : $HOME/.local/share/cannonball/
+
+removing user config files, will recreate new ones, based on /etc/cannonball/
+removing user data, will lost your data
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Apr 2023 12:04:57 +0200

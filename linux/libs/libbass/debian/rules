@@ -29,3 +29,6 @@ override_dh_auto_configure:
 override_dh_install:
 		dh_install
 		(find debian/libbass2 -type f -execdir rename 's/libbass.so/libbass.so.2.4.17/g' * {} \;)
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

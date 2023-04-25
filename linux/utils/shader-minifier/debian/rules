@@ -6,3 +6,6 @@
 override_dh_auto_build:
 	chmod +x ./compile.bash
 	./compile.bash
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

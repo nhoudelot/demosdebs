@@ -1,3 +1,9 @@
+coveredinbees-by-candela (1.0-0ddebs7) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 01 May 2023 17:42:06 +0200
+
 coveredinbees-by-candela (1.0-0ddebs6) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

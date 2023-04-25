@@ -1,3 +1,9 @@
+plays2unlimited-by-scoopex (1:1.1a-0ddebs2) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 May 2023 09:52:56 +0200
+
 plays2unlimited-by-scoopex (1:1.1a-0ddebs1) unstable; urgency=medium
 
   * New WHDLoad Upstream update

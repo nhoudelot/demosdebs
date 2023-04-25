@@ -8,3 +8,6 @@ override_dh_installinfo:
 override_dh_install:
 	zip -r -9 DH1.zip . -x 'debian*' -x '.pc*'
 	dh_install
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

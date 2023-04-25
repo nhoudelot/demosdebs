@@ -19,3 +19,6 @@ override_dh_auto_build:
 	make bin/elfling
 	make bin/prt
 	make bin/packer
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

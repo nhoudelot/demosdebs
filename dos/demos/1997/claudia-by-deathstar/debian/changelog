@@ -1,3 +1,9 @@
+claudia-by-deathstar (1:1.0+2-0ddebs6) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 08 May 2023 23:16:51 +0200
+
 claudia-by-deathstar (1:1.0+2-0ddebs5) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1
