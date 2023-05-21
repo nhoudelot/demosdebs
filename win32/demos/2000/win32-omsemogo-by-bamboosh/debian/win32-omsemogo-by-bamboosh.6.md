@@ -19,17 +19,13 @@ demo ranked 2nd at The Gathering 2000
 \--setdesktop
 :   Set to desktop mode and run (can go in fullscreen)
 
-\--setwindow
-:   Set to window mode and run (fullscreen is in a window)
-
-\--setwine [wine version]
-:   Set to another wine
-
-\--reset
-:   Reset to the default wine
-
 \--version
 :   Display version and author information
+
+# ENVIRONMENT VARIABLES
+\ APP_RES [widthxheight]
+:	start the app in a widthxheight virtual desktop  
+	ex. APP_RES=800x600 win32-omsemogo-by-bamboosh
 
 # SEE ALSO
 `wine`(1)

@@ -6,6 +6,5 @@ debian/resources/win32-fears-by-nah-kolor.png usr/share/icons/hicolor/32x32/apps
 ./Fears.mp3 usr/share/win32/apps/win32-fears-by-nah-kolor/./ 
 ./DEFAULT.DMO usr/share/win32/apps/win32-fears-by-nah-kolor/./ 
 ./FMOD.DLL usr/share/win32/apps/win32-fears-by-nah-kolor/./ 
-./debian/scripts/win32-fears-by-nah-kolor_userinstall.pol usr/share/win32/apps/win32-fears-by-nah-kolor/./ 
 ./FEARS.exe usr/share/win32/apps/win32-fears-by-nah-kolor/./ 
 ./Pw.tga usr/share/win32/apps/win32-fears-by-nah-kolor/./ 

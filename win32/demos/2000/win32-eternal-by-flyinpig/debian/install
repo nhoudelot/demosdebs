@@ -8,7 +8,6 @@ debian/resources/win32-eternal-by-flyinpig.png usr/share/icons/hicolor/32x32/app
 ./S3D.CFG usr/share/win32/apps/win32-eternal-by-flyinpig/./ 
 ./PIGPROD.SCE usr/share/win32/apps/win32-eternal-by-flyinpig/./ 
 ./INTRO.SCE usr/share/win32/apps/win32-eternal-by-flyinpig/./ 
-./debian/scripts/win32-eternal-by-flyinpig_userinstall.pol usr/share/win32/apps/win32-eternal-by-flyinpig/./ 
 ./FACE.PPM usr/share/win32/apps/win32-eternal-by-flyinpig/./ 
 ./Eternal.exe usr/share/win32/apps/win32-eternal-by-flyinpig/./ 
 ./JUNGLPIG.XM usr/share/win32/apps/win32-eternal-by-flyinpig/./ 

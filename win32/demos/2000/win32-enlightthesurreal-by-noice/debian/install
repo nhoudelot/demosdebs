@@ -8,4 +8,3 @@ debian/resources/win32-enlightthesurreal-by-noice.png usr/share/icons/hicolor/32
 ./data.dat usr/share/win32/apps/win32-enlightthesurreal-by-noice/./ 
 ./font.ttf usr/share/win32/apps/win32-enlightthesurreal-by-noice/./ 
 ./music.mp3 usr/share/win32/apps/win32-enlightthesurreal-by-noice/./ 
-./debian/scripts/win32-enlightthesurreal-by-noice_userinstall.pol usr/share/win32/apps/win32-enlightthesurreal-by-noice/./ 

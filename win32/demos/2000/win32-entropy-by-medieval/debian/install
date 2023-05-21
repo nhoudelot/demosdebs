@@ -7,7 +7,6 @@ debian/resources/win32-entropy-by-medieval.png usr/share/icons/hicolor/32x32/app
 ./ptc.dll usr/share/win32/apps/win32-entropy-by-medieval/./ 
 ./Music usr/share/win32/apps/win32-entropy-by-medieval/./ 
 ./Music/BZ-FREE3.XM usr/share/win32/apps/win32-entropy-by-medieval/./Music/ 
-./debian/scripts/win32-entropy-by-medieval_userinstall.pol usr/share/win32/apps/win32-entropy-by-medieval/./ 
 ./Models usr/share/win32/apps/win32-entropy-by-medieval/./ 
 ./Gfx usr/share/win32/apps/win32-entropy-by-medieval/./ 
 ./Entropy.exe usr/share/win32/apps/win32-entropy-by-medieval/./ 

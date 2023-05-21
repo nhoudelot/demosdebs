@@ -7,4 +7,3 @@ debian/resources/win32-systemapoc-by-astral.png usr/share/icons/hicolor/32x32/ap
 ./demo-win.exe usr/share/win32/apps/win32-systemapoc-by-astral/./ 
 ./astral.pak usr/share/win32/apps/win32-systemapoc-by-astral/./ 
 ./astral2.pak usr/share/win32/apps/win32-systemapoc-by-astral/./ 
-./debian/scripts/win32-systemapoc-by-astral_userinstall.pol usr/share/win32/apps/win32-systemapoc-by-astral/./ 

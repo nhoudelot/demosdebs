@@ -5,7 +5,6 @@ debian/resources/win32-haugyjobb-by-astral.png usr/share/icons/hicolor/32x32/app
 ./logo.vec usr/share/win32/apps/win32-haugyjobb-by-astral/./ 
 ./astral.scr usr/share/win32/apps/win32-haugyjobb-by-astral/./ 
 ./demo-win.exe usr/share/win32/apps/win32-haugyjobb-by-astral/./ 
-./debian/scripts/win32-haugyjobb-by-astral_userinstall.pol usr/share/win32/apps/win32-haugyjobb-by-astral/./ 
 ./maps usr/share/win32/apps/win32-haugyjobb-by-astral/./ 
 ./scenes usr/share/win32/apps/win32-haugyjobb-by-astral/./ 
 ./haugyjobb.mp3 usr/share/win32/apps/win32-haugyjobb-by-astral/./ 

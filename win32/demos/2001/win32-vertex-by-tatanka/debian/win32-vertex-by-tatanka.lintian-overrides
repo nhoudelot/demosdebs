@@ -1,4 +1,1 @@
 win32-vertex-by-tatanka binary: unknown-section demos
-win32-vertex-by-tatanka binary: script-not-executable usr/share/win32/apps/win32-vertex-by-tatanka/win32-vertex-by-tatanka_userinstall.pol
-win32-vertex-by-tatanka binary: unknown-section demos
-win32-vertex-by-tatanka binary: unusual-interpreter usr/share/win32/apps/win32-vertex-by-tatanka/win32-vertex-by-tatanka_userinstall.pol #!playonlinux-bash

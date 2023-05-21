@@ -4,4 +4,3 @@ debian/resources/win32-fairplaytothequeen-by-candela.png usr/share/icons/hicolor
 debian/scripts/win32-fairplaytothequeen-by-candela.conf etc/
 ./data usr/share/win32/apps/win32-fairplaytothequeen-by-candela/./
 ./queen.exe usr/share/win32/apps/win32-fairplaytothequeen-by-candela/./
-./debian/scripts/win32-fairplaytothequeen-by-candela_userinstall.pol usr/share/win32/apps/win32-fairplaytothequeen-by-candela/./

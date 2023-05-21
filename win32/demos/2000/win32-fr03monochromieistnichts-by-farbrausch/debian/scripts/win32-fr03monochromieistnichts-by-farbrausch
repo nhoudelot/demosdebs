@@ -7,6 +7,7 @@ source /etc/$domain.conf
 
 function prerun()
 {
+	NSH_SetInstallPath wine
 	NSH_CreateTmpDomainDir
 	NSH_InstallRWFileInTmp fvs32dbg.txt fvs32dbg.txt
 }
@@ -16,4 +17,4 @@ function postrun()
 	NSH_RemoveTmpDomainDir
 }
 
-source /usr/share/common-install-function-ddebs/endscript_wine
+source /usr/share/common-install-function-ddebs/endscript_wine2

@@ -4,6 +4,5 @@ debian/resources/win32-stuffiwhackedtogetherwheniwasborder-by-trauma.desktop usr
 debian/resources/win32-stuffiwhackedtogetherwheniwasborder-by-trauma.png usr/share/icons/hicolor/32x32/apps/
 ./stuff.cfl usr/share/win32/apps/win32-stuffiwhackedtogetherwheniwasborder-by-trauma/./ 
 ./whacked.mp3 usr/share/win32/apps/win32-stuffiwhackedtogetherwheniwasborder-by-trauma/./ 
-./debian/scripts/win32-stuffiwhackedtogetherwheniwasborder-by-trauma_userinstall.pol usr/share/win32/apps/win32-stuffiwhackedtogetherwheniwasborder-by-trauma/./ 
 ./stuff.exe usr/share/win32/apps/win32-stuffiwhackedtogetherwheniwasborder-by-trauma/./ 
 ./fmod.dll usr/share/win32/apps/win32-stuffiwhackedtogetherwheniwasborder-by-trauma/./ 

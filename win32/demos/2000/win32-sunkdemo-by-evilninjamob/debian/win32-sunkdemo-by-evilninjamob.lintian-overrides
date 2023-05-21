@@ -1,4 +1,1 @@
 win32-sunkdemo-by-evilninjamob binary: unknown-section demos
-win32-sunkdemo-by-evilninjamob binary: script-not-executable usr/share/win32/apps/win32-sunkdemo-by-evilninjamob/win32-sunkdemo-by-evilninjamob_userinstall.pol
-win32-sunkdemo-by-evilninjamob binary: unknown-section demos
-win32-sunkdemo-by-evilninjamob binary: unusual-interpreter usr/share/win32/apps/win32-sunkdemo-by-evilninjamob/win32-sunkdemo-by-evilninjamob_userinstall.pol #!playonlinux-bash

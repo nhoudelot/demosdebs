@@ -4,6 +4,5 @@ debian/resources/win32-volatile-by-addict.desktop usr/share/applications/
 debian/resources/win32-volatile-by-addict.png usr/share/icons/hicolor/32x32/apps/
 ./File_id.diz usr/share/win32/apps/win32-volatile-by-addict/./ 
 ./Dragon2.dll usr/share/win32/apps/win32-volatile-by-addict/./ 
-./debian/scripts/win32-volatile-by-addict_userinstall.pol usr/share/win32/apps/win32-volatile-by-addict/./ 
 ./volatile.alf usr/share/win32/apps/win32-volatile-by-addict/./ 
 ./Volatile.exe usr/share/win32/apps/win32-volatile-by-addict/./ 

@@ -3,16 +3,15 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10)
-Standards-Version: 4.5.0
+ debhelper-compat (= 12)
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=299
 
 Package: win32-haugyjobb-by-astral
 Architecture: all
 Depends:
  wine,
- playonlinux(>=4),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.76),
  ${misc:Depends}
 Description: Win32 Demo released in 2000
  Demo ranked 8th at Assembly 2000

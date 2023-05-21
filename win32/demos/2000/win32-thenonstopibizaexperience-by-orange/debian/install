@@ -7,4 +7,3 @@ debian/resources/win32-thenonstopibizaexperience-by-orange.png usr/share/icons/h
 ./Data usr/share/win32/apps/win32-thenonstopibizaexperience-by-orange/./ 
 ./fixed_info.txt usr/share/win32/apps/win32-thenonstopibizaexperience-by-orange/./ 
 ./hermes.dll usr/share/win32/apps/win32-thenonstopibizaexperience-by-orange/./ 
-./debian/scripts/win32-thenonstopibizaexperience-by-orange_userinstall.pol usr/share/win32/apps/win32-thenonstopibizaexperience-by-orange/./ 

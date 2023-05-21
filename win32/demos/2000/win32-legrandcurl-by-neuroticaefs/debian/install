@@ -7,4 +7,3 @@ debian/resources/win32-legrandcurl-by-neuroticaefs.png usr/share/icons/hicolor/3
 ./data usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 
 ./gfx usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 
 ./music.mp3 usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 
-./debian/scripts/win32-legrandcurl-by-neuroticaefs_userinstall.pol usr/share/win32/apps/win32-legrandcurl-by-neuroticaefs/./ 

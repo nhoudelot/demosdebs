@@ -1,8 +1,0 @@
-win32-leveltwo-by-peon for Debian
---------------------------
-
-* with system wine 6.0 it give the error
-  ALSA lib pulse.c:242:(pulse_connect) PulseAudio: Unable to connect: Erreur du protocole
-  so we have to use static wine of playonlinux
-
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Feb 2021 01:00:12 +0100

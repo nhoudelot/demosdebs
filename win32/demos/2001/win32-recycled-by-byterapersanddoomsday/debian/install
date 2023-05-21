@@ -3,7 +3,6 @@ debian/scripts/win32-recycled-by-byterapersanddoomsday.conf etc/
 debian/resources/win32-recycled-by-byterapersanddoomsday.desktop usr/share/applications/
 debian/resources/win32-recycled-by-byterapersanddoomsday.png usr/share/icons/hicolor/32x32/apps/
 ./ptc.dll usr/share/win32/apps/win32-recycled-by-byterapersanddoomsday/./ 
-./debian/scripts/win32-recycled-by-byterapersanddoomsday_userinstall.pol usr/share/win32/apps/win32-recycled-by-byterapersanddoomsday/./ 
 ./celebrant.mp3 usr/share/win32/apps/win32-recycled-by-byterapersanddoomsday/./ 
 ./recycled.dat usr/share/win32/apps/win32-recycled-by-byterapersanddoomsday/./ 
 ./recycled.exe usr/share/win32/apps/win32-recycled-by-byterapersanddoomsday/./ 

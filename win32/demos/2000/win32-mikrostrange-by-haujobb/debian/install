@@ -3,6 +3,5 @@ debian/scripts/win32-mikrostrange-by-haujobb.conf etc/
 debian/resources/win32-mikrostrange-by-haujobb.desktop usr/share/applications/
 debian/resources/win32-mikrostrange-by-haujobb.png usr/share/icons/hicolor/32x32/apps/
 ./data usr/share/win32/apps/win32-mikrostrange-by-haujobb/./
-./debian/scripts/win32-mikrostrange-by-haujobb_userinstall.pol usr/share/win32/apps/win32-mikrostrange-by-haujobb/./ 
 ./fscreen.exe usr/share/win32/apps/win32-mikrostrange-by-haujobb/./ 
 ./windowed.exe usr/share/win32/apps/win32-mikrostrange-by-haujobb/./ 

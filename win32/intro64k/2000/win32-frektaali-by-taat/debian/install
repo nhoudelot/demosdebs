@@ -4,4 +4,3 @@ debian/resources/win32-frektaali-by-taat.desktop usr/share/applications/
 debian/resources/win32-frektaali-by-taat.png usr/share/icons/hicolor/32x32/apps/
 ./frekta.exe usr/share/win32/apps/win32-frektaali-by-taat/./ 
 ./frekta_w.exe usr/share/win32/apps/win32-frektaali-by-taat/./ 
-./debian/scripts/win32-frektaali-by-taat_userinstall.pol usr/share/win32/apps/win32-frektaali-by-taat/./ 

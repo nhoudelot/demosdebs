@@ -2,5 +2,4 @@ debian/scripts/win32-fr-08theproduct-by-farbrausch usr/bin/
 debian/scripts/win32-fr-08theproduct-by-farbrausch.conf etc/
 debian/resources/win32-fr-08theproduct-by-farbrausch.desktop usr/share/applications/
 debian/resources/win32-fr-08theproduct-by-farbrausch.png usr/share/icons/hicolor/16x16/apps/
-./debian/scripts/win32-fr-08theproduct-by-farbrausch_userinstall.pol usr/share/win32/apps/win32-fr-08theproduct-by-farbrausch/./ 
 ./fr08v101.exe usr/share/win32/apps/win32-fr-08theproduct-by-farbrausch/./ 

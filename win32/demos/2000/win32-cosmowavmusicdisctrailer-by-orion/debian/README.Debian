@@ -1,8 +1,0 @@
-win32-cosmowavmusicdisctrailer-by-orion for Debian
--------------------------------------------
-
-* with system wine 6.0
-  ALSA lib pulse.c:242:(pulse_connect) PulseAudio: Unable to connect: Erreur du protocole
-  so we have to use static wine of playonlinux
-
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2021 11:31:12 +0100

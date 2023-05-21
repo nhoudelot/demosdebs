@@ -1,4 +1,1 @@
 win32-zoom3-by-and binary: unknown-section demos
-win32-zoom3-by-and binary: script-not-executable usr/share/win32/apps/win32-zoom3-by-and/win32-zoom3-by-and_userinstall.pol
-win32-zoom3-by-and binary: unknown-section demos
-win32-zoom3-by-and binary: unusual-interpreter usr/share/win32/apps/win32-zoom3-by-and/win32-zoom3-by-and_userinstall.pol #!playonlinux-bash

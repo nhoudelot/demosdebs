@@ -2,7 +2,6 @@ debian/scripts/win32-sunkdemo-by-evilninjamob usr/bin/
 debian/scripts/win32-sunkdemo-by-evilninjamob.conf etc/
 debian/resources/win32-sunkdemo-by-evilninjamob.desktop usr/share/applications/
 debian/resources/win32-sunkdemo-by-evilninjamob.png usr/share/icons/hicolor/32x32/apps/
-./debian/scripts/win32-sunkdemo-by-evilninjamob_userinstall.pol usr/share/win32/apps/win32-sunkdemo-by-evilninjamob/./ 
 ./data usr/share/win32/apps/win32-sunkdemo-by-evilninjamob/./ 
 ./data/wire.bmp usr/share/win32/apps/win32-sunkdemo-by-evilninjamob/./data/ 
 ./data/bg2.bmp usr/share/win32/apps/win32-sunkdemo-by-evilninjamob/./data/ 

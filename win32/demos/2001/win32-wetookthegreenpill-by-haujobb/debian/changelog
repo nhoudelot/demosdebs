@@ -1,3 +1,18 @@
+win32-wetookthegreenpill-by-haujobb (1:1.0+3-0ddebs6) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+  * changed the script to get rid of playonlinux
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 May 2023 23:38:12 +0200
+
+win32-wetookthegreenpill-by-haujobb (1:1.0+3-0ddebs5) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 May 2022 10:02:29 +0200
+
 win32-wetookthegreenpill-by-haujobb (1:1.0+3-0ddebs4) unstable; urgency=medium
 
   * Update debian/scripts/win32-wetookthegreenpill-by-haujobb to common-

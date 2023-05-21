@@ -1,4 +1,1 @@
 win32-stigma-by-emotive binary: unknown-section demos
-win32-stigma-by-emotive binary: script-not-executable usr/share/win32/apps/win32-stigma-by-emotive/win32-stigma-by-emotive_userinstall.pol
-win32-stigma-by-emotive binary: unknown-section demos
-win32-stigma-by-emotive binary: unusual-interpreter usr/share/win32/apps/win32-stigma-by-emotive/win32-stigma-by-emotive_userinstall.pol #!playonlinux-bash

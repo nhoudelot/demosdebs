@@ -3,7 +3,6 @@ debian/scripts/win32-lobotomia2000-by-moppiproductions.conf etc/
 debian/resources/win32-lobotomia2000-by-moppiproductions.desktop usr/share/applications/
 debian/resources/win32-lobotomia2000-by-moppiproductions.png usr/share/icons/hicolor/32x32/apps/
 ./intro.dmo usr/share/win32/apps/win32-lobotomia2000-by-moppiproductions/./ 
-./debian/scripts/win32-lobotomia2000-by-moppiproductions_userinstall.pol usr/share/win32/apps/win32-lobotomia2000-by-moppiproductions/./ 
 ./l_fin.mp3 usr/share/win32/apps/win32-lobotomia2000-by-moppiproductions/./ 
 ./intro.exe usr/share/win32/apps/win32-lobotomia2000-by-moppiproductions/./ 
 ./plugins usr/share/win32/apps/win32-lobotomia2000-by-moppiproductions/./ 

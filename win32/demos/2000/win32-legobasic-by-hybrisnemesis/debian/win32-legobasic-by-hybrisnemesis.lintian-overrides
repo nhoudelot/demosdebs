@@ -1,4 +1,1 @@
 win32-legobasic-by-hybrisnemesis binary: unknown-section demos
-win32-legobasic-by-hybrisnemesis binary: script-not-executable usr/share/win32/apps/win32-legobasic-by-hybrisnemesis/win32-legobasic-by-hybrisnemesis_userinstall.pol
-win32-legobasic-by-hybrisnemesis binary: unknown-section demos
-win32-legobasic-by-hybrisnemesis binary: unusual-interpreter usr/share/win32/apps/win32-legobasic-by-hybrisnemesis/win32-legobasic-by-hybrisnemesis_userinstall.pol #!playonlinux-bash

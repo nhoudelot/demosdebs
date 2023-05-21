@@ -1,4 +1,1 @@
 win32-volatile-by-addict binary: unknown-section demos
-win32-volatile-by-addict binary: script-not-executable usr/share/win32/apps/win32-volatile-by-addict/win32-volatile-by-addict_userinstall.pol
-win32-volatile-by-addict binary: unknown-section demos
-win32-volatile-by-addict binary: unusual-interpreter usr/share/win32/apps/win32-volatile-by-addict/win32-volatile-by-addict_userinstall.pol #!playonlinux-bash

@@ -1,3 +1,1 @@
 win32-fairplaytothequeen-by-candela binary: unknown-section demos
-win32-fairplaytothequeen-by-candela: script-not-executable usr/share/win32/apps/win32-fairplaytothequeen-by-candela/win32-fairplaytothequeen-by-candela_userinstall.pol
-win32-fairplaytothequeen-by-candela: unusual-interpreter usr/share/win32/apps/win32-fairplaytothequeen-by-candela/win32-fairplaytothequeen-by-candela_userinstall.pol #!playonlinux-bash

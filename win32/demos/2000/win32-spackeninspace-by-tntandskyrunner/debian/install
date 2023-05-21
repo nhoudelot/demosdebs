@@ -15,7 +15,6 @@ debian/resources/win32-spackeninspace-by-tntandskyrunner.png usr/share/icons/hic
 ./data/g10.bmp usr/share/win32/apps/win32-spackeninspace-by-tntandskyrunner/./data/ 
 ./data/g11.bmp usr/share/win32/apps/win32-spackeninspace-by-tntandskyrunner/./data/ 
 ./data/g1.bmp usr/share/win32/apps/win32-spackeninspace-by-tntandskyrunner/./data/ 
-./debian/scripts/win32-spackeninspace-by-tntandskyrunner_userinstall.pol usr/share/win32/apps/win32-spackeninspace-by-tntandskyrunner/./ 
 ./Spacken_in_Space.exe usr/share/win32/apps/win32-spackeninspace-by-tntandskyrunner/./ 
 ./glaux.dll usr/share/win32/apps/win32-spackeninspace-by-tntandskyrunner/./ 
 ./fmod.dll usr/share/win32/apps/win32-spackeninspace-by-tntandskyrunner/./ 

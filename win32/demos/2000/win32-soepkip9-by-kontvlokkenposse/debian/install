@@ -3,7 +3,6 @@ debian/scripts/win32-soepkip9-by-kontvlokkenposse.conf etc/
 debian/resources/win32-soepkip9-by-kontvlokkenposse.desktop usr/share/applications/
 debian/resources/win32-soepkip9-by-kontvlokkenposse.png usr/share/icons/hicolor/32x32/apps/
 ./KONTVLOK.PAK usr/share/win32/apps/win32-soepkip9-by-kontvlokkenposse/./ 
-./debian/scripts/win32-soepkip9-by-kontvlokkenposse_userinstall.pol usr/share/win32/apps/win32-soepkip9-by-kontvlokkenposse/./ 
 ./EEN.IMV usr/share/win32/apps/win32-soepkip9-by-kontvlokkenposse/./ 
 ./VIER.IMV usr/share/win32/apps/win32-soepkip9-by-kontvlokkenposse/./ 
 ./ZEVEN.IMV usr/share/win32/apps/win32-soepkip9-by-kontvlokkenposse/./ 

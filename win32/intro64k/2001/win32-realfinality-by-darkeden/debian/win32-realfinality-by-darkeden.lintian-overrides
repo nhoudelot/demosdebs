@@ -1,4 +1,1 @@
 win32-realfinality-by-darkeden binary: unknown-section demos
-win32-realfinality-by-darkeden binary: script-not-executable usr/share/win32/apps/win32-realfinality-by-darkeden/win32-realfinality-by-darkeden_userinstall.pol
-win32-realfinality-by-darkeden binary: unknown-section demos
-win32-realfinality-by-darkeden binary: unusual-interpreter usr/share/win32/apps/win32-realfinality-by-darkeden/win32-realfinality-by-darkeden_userinstall.pol #!playonlinux-bash

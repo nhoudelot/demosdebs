@@ -1,4 +1,1 @@
 win32-testament-by-pyrotech binary: unknown-section demos
-win32-testament-by-pyrotech binary: script-not-executable usr/share/win32/apps/win32-testament-by-pyrotech/win32-testament-by-pyrotech_userinstall.pol
-win32-testament-by-pyrotech binary: unknown-section demos
-win32-testament-by-pyrotech binary: unusual-interpreter usr/share/win32/apps/win32-testament-by-pyrotech/win32-testament-by-pyrotech_userinstall.pol #!playonlinux-bash

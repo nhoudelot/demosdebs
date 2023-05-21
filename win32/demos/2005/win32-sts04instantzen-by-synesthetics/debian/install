@@ -3,6 +3,5 @@ debian/scripts/win32-sts04instantzen-by-synesthetics.conf etc/
 debian/resources/win32-sts04instantzen-by-synesthetics.desktop usr/share/applications/
 debian/resources/win32-sts04instantzen-by-synesthetics.png usr/share/icons/hicolor/32x32/apps/
 ./libjpeg.6.dll usr/share/win32/apps/win32-sts04instantzen-by-synesthetics/./ 
-./debian/scripts/win32-sts04instantzen-by-synesthetics_userinstall.pol usr/share/win32/apps/win32-sts04instantzen-by-synesthetics/./ 
 ./datafile.dat usr/share/win32/apps/win32-sts04instantzen-by-synesthetics/./ 
 ./sts-04.exe usr/share/win32/apps/win32-sts04instantzen-by-synesthetics/./ 

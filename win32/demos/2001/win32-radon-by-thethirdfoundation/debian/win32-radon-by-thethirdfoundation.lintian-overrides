@@ -1,4 +1,1 @@
 win32-radon-by-thethirdfoundation binary: unknown-section demos
-win32-radon-by-thethirdfoundation binary: script-not-executable usr/share/win32/apps/win32-radon-by-thethirdfoundation/win32-radon-by-thethirdfoundation_userinstall.pol
-win32-radon-by-thethirdfoundation binary: unknown-section demos
-win32-radon-by-thethirdfoundation binary: unusual-interpreter usr/share/win32/apps/win32-radon-by-thethirdfoundation/win32-radon-by-thethirdfoundation_userinstall.pol #!playonlinux-bash

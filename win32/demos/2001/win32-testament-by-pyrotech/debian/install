@@ -24,7 +24,6 @@ debian/resources/win32-testament-by-pyrotech.png usr/share/icons/hicolor/32x32/a
 ./beam1c.dds usr/share/win32/apps/win32-testament-by-pyrotech/./ 
 ./logojutska.dds usr/share/win32/apps/win32-testament-by-pyrotech/./ 
 ./ceiling.dds usr/share/win32/apps/win32-testament-by-pyrotech/./ 
-./debian/scripts/win32-testament-by-pyrotech_userinstall.pol usr/share/win32/apps/win32-testament-by-pyrotech/./ 
 ./atron_1.dds usr/share/win32/apps/win32-testament-by-pyrotech/./ 
 ./lasia.dds usr/share/win32/apps/win32-testament-by-pyrotech/./ 
 ./floor.dds usr/share/win32/apps/win32-testament-by-pyrotech/./ 

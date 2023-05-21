@@ -2,7 +2,6 @@ debian/scripts/win32-enhaluaisiolla-by-damage usr/bin/
 debian/scripts/win32-enhaluaisiolla-by-damage.conf etc/
 debian/resources/win32-enhaluaisiolla-by-damage.desktop usr/share/applications/
 debian/resources/win32-enhaluaisiolla-by-damage.png usr/share/icons/hicolor/32x32/apps/
-./debian/scripts/win32-enhaluaisiolla-by-damage_userinstall.pol usr/share/win32/apps/win32-enhaluaisiolla-by-damage/./ 
 ./NOSOUND.EXE usr/share/win32/apps/win32-enhaluaisiolla-by-damage/./ 
 ./INFO.TXT usr/share/win32/apps/win32-enhaluaisiolla-by-damage/./ 
 ./DEMO.EXE usr/share/win32/apps/win32-enhaluaisiolla-by-damage/./ 

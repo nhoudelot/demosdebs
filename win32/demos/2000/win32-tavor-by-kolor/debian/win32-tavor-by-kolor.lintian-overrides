@@ -1,4 +1,1 @@
 win32-tavor-by-kolor binary: unknown-section demos
-win32-tavor-by-kolor binary: script-not-executable usr/share/win32/apps/win32-tavor-by-kolor/win32-tavor-by-kolor_userinstall.pol
-win32-tavor-by-kolor binary: unknown-section demos
-win32-tavor-by-kolor binary: unusual-interpreter usr/share/win32/apps/win32-tavor-by-kolor/win32-tavor-by-kolor_userinstall.pol #!playonlinux-bash

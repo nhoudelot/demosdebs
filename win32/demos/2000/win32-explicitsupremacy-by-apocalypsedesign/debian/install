@@ -7,7 +7,6 @@ debian/resources/win32-explicitsupremacy-by-apocalypsedesign.png usr/share/icons
 ./info.txt usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
 ./fmod.dll usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
 ./scena3 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
-./debian/scripts/win32-explicitsupremacy-by-apocalypsedesign_userinstall.pol usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
 ./scena1 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
 ./scena7 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 
 ./scena5 usr/share/win32/apps/win32-explicitsupremacy-by-apocalypsedesign/./ 

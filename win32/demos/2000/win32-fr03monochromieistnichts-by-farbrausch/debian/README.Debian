@@ -1,8 +1,7 @@
 win32-fr03monochromieistnichts-by-farbrausch for Debian
-------------------------------------------------
+------------------------------------------------------
 
-* unable to goes fullscreen
-  so we have to start in virtual desktop
-* demo has also trouble to start in selected resolution
+doesn't work with wine 8.8 : 
+0024:err:mfplat:try_create_wg_transform Failed to create transform with input major_type 9.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Feb 2021 11:27:42 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 May 2023 10:52:23 +0200

@@ -1,4 +1,1 @@
 win32-softworld-by-justforfun binary: unknown-section demos
-win32-softworld-by-justforfun binary: script-not-executable usr/share/win32/apps/win32-softworld-by-justforfun/win32-softworld-by-justforfun_userinstall.pol
-win32-softworld-by-justforfun binary: unknown-section demos
-win32-softworld-by-justforfun binary: unusual-interpreter usr/share/win32/apps/win32-softworld-by-justforfun/win32-softworld-by-justforfun_userinstall.pol #!playonlinux-bash

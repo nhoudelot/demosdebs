@@ -3,5 +3,4 @@ debian/scripts/win32-attraction-by-themoosebrothersoutbreak.conf etc/
 debian/resources/win32-attraction-by-themoosebrothersoutbreak.desktop usr/share/applications/
 debian/resources/win32-attraction-by-themoosebrothersoutbreak.png usr/share/icons/hicolor/32x32/apps/
 ./attract.nfo usr/share/win32/apps/win32-attraction-by-themoosebrothersoutbreak/./ 
-./debian/scripts/win32-attraction-by-themoosebrothersoutbreak_userinstall.pol usr/share/win32/apps/win32-attraction-by-themoosebrothersoutbreak/./ 
 ./attract.exe usr/share/win32/apps/win32-attraction-by-themoosebrothersoutbreak/./ 

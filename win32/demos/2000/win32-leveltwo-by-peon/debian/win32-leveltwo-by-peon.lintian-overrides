@@ -1,4 +1,1 @@
 win32-leveltwo-by-peon binary: unknown-section demos
-win32-leveltwo-by-peon binary: script-not-executable usr/share/win32/apps/win32-leveltwo-by-peon/win32-leveltwo-by-peon_userinstall.pol
-win32-leveltwo-by-peon binary: unknown-section demos
-win32-leveltwo-by-peon binary: unusual-interpreter usr/share/win32/apps/win32-leveltwo-by-peon/win32-leveltwo-by-peon_userinstall.pol #!playonlinux-bash

@@ -1,3 +1,1 @@
-win32-19595256-by-rgba binary: script-not-executable usr/share/win32/apps/win32-19595256-by-rgba/win32-19595256-by-rgba_userinstall.pol
-win32-19595256-by-rgba binary: unusual-interpreter usr/share/win32/apps/win32-19595256-by-rgba/win32-19595256-by-rgba_userinstall.pol #!playonlinux-bash
 win32-19595256-by-rgba binary: unknown-section demos

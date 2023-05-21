@@ -1,4 +1,1 @@
 win32-caillou-by-mandarine binary: unknown-section demos
-win32-caillou-by-mandarine binary: script-not-executable usr/share/win32/apps/win32-caillou-by-mandarine/win32-caillou-by-mandarine_userinstall.pol
-win32-caillou-by-mandarine binary: unknown-section demos
-win32-caillou-by-mandarine binary: unusual-interpreter usr/share/win32/apps/win32-caillou-by-mandarine/win32-caillou-by-mandarine_userinstall.pol #!playonlinux-bash

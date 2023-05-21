@@ -1,4 +1,1 @@
 win32-fears-by-nah-kolor binary: unknown-section demos
-win32-fears-by-nah-kolor binary: script-not-executable usr/share/win32-fears-by-nah-kolor/win32/apps/win32-fears-by-nah-kolor_userinstall.pol
-win32-fears-by-nah-kolor binary: unknown-section demos
-win32-fears-by-nah-kolor binary: unusual-interpreter usr/share/win32-fears-by-nah-kolor/win32/apps/win32-fears-by-nah-kolor_userinstall.pol #!playonlinux-bash

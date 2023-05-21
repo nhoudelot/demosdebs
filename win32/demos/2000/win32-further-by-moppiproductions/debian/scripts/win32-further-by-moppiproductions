@@ -7,7 +7,7 @@ source /etc/$domain.conf
 
 function prerun()
 {
-	sleep 1
+	winetricks vcrun6
 }
 
 function postrun()
@@ -15,4 +15,4 @@ function postrun()
 	sleep 1
 }
 
-source /usr/share/common-install-function-ddebs/endscript_wine
+source /usr/share/common-install-function-ddebs/endscript_wine2

@@ -1,11 +1,6 @@
 win32-persistent-by-wipeandukonx for Debian
 ------------------------------------
 
-* with system wine 6.0 it give the error
-  ALSA lib pulse.c:242:(pulse_connect) PulseAudio: Unable to connect: Erreur du protocole
-  so we have to use static wine of playonlinux
-* unable also to goes fullscreen or windowed
-  so we have to start in virtual desktop
 * impossible to replace bass.dll 0.8a
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Feb 2021 00:53:18 +0100

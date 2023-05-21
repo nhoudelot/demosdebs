@@ -1,9 +1,6 @@
 win32-caillou-by-mandarine for Debian
 ------------------------------
 
-* with system wine 6.0 it give the error
-  ALSA lib pulse.c:242:(pulse_connect) PulseAudio: Unable to connect: Erreur du protocole
-  so we have to use static wine of playonlinux
 * impossible to replace bass.dll 0.8
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 14 Feb 2021 23:13:15 +0100

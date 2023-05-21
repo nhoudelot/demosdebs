@@ -2,7 +2,6 @@ debian/scripts/win32-imagine-by-dizzlogic usr/bin/
 debian/scripts/win32-imagine-by-dizzlogic.conf etc/
 debian/resources/win32-imagine-by-dizzlogic.desktop usr/share/applications/
 debian/resources/win32-imagine-by-dizzlogic.png usr/share/icons/hicolor/32x32/apps/
-./debian/scripts/win32-imagine-by-dizzlogic_userinstall.pol usr/share/win32/apps/win32-imagine-by-dizzlogic/./
 ./fmod.dll usr/share/win32/apps/win32-imagine-by-dizzlogic/./
 ./data usr/share/win32/apps/win32-imagine-by-dizzlogic/./
 ./data/model2.txt usr/share/win32/apps/win32-imagine-by-dizzlogic/./data/

@@ -7,4 +7,3 @@ debian/resources/win32-leveltwo-by-peon.png usr/share/icons/hicolor/32x32/apps/
 ./L2COMPO.EXE usr/share/win32/apps/win32-leveltwo-by-peon/./
 ./L2FULLSC.EXE usr/share/win32/apps/win32-leveltwo-by-peon/./
 ./L2WINDOW.EXE usr/share/win32/apps/win32-leveltwo-by-peon/./
-./debian/scripts/win32-leveltwo-by-peon_userinstall.pol usr/share/win32/apps/win32-leveltwo-by-peon/./

@@ -3,18 +3,17 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper (>= 10)
-Standards-Version: 4.5.0
+ debhelper-compat (= 12)
+Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=9424
 
 Package: win32-fr030candytron-by-farbrausch
 Architecture: all
 Depends:
  wine,
- playonlinux(>=4),
- common-install-function-ddebs(>=1.71),
+ common-install-function-ddebs(>=1.76),
  ${misc:Depends}
 Description: Win32 Intro released in 2003
  intro ranked 2nd at Breakpoint 2003
  .
- -windows program launched using PlayOnLinux
+ -windows program launched using Wine

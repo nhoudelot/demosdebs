@@ -3,4 +3,3 @@ debian/scripts/win32-pleasethecookiething-by-aardbei.conf etc/
 debian/resources/win32-pleasethecookiething-by-aardbei.desktop usr/share/applications/
 debian/resources/win32-pleasethecookiething-by-aardbei.png usr/share/icons/hicolor/32x32/apps/
 ./PTCT.exe usr/share/win32/apps/win32-pleasethecookiething-by-aardbei/./ 
-./debian/scripts/win32-pleasethecookiething-by-aardbei_userinstall.pol usr/share/win32/apps/win32-pleasethecookiething-by-aardbei/./ 

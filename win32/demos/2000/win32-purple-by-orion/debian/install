@@ -2,6 +2,5 @@ debian/scripts/win32-purple-by-orion usr/bin/
 debian/scripts/win32-purple-by-orion.conf etc/
 debian/resources/win32-purple-by-orion.desktop usr/share/applications/
 debian/resources/win32-purple-by-orion.png usr/share/icons/hicolor/32x32/apps/
-./debian/scripts/win32-purple-by-orion_userinstall.pol usr/share/win32/apps/win32-purple-by-orion/./ 
 ./orion_purple.exe usr/share/win32/apps/win32-purple-by-orion/./ 
 ./purple.pak usr/share/win32/apps/win32-purple-by-orion/./ 

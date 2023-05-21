@@ -6,5 +6,4 @@ debian/resources/win32-omsemogo-by-bamboosh.png usr/share/icons/hicolor/32x32/ap
 ./omsemogo-1024x768.exe usr/share/win32/apps/win32-omsemogo-by-bamboosh/./ 
 ./omsemogo-640x480.exe usr/share/win32/apps/win32-omsemogo-by-bamboosh/./ 
 ./dino.obj usr/share/win32/apps/win32-omsemogo-by-bamboosh/./ 
-./debian/scripts/win32-omsemogo-by-bamboosh_userinstall.pol usr/share/win32/apps/win32-omsemogo-by-bamboosh/./ 
 ./VR-WO.IT usr/share/win32/apps/win32-omsemogo-by-bamboosh/./ 

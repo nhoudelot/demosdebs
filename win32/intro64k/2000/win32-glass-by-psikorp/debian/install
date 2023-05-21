@@ -2,5 +2,4 @@ debian/scripts/win32-glass-by-psikorp usr/bin/
 debian/scripts/win32-glass-by-psikorp.conf etc/
 debian/resources/win32-glass-by-psikorp.desktop usr/share/applications/
 debian/resources/win32-glass-by-psikorp.png usr/share/icons/hicolor/32x32/apps/
-./debian/scripts/win32-glass-by-psikorp_userinstall.pol usr/share/win32/apps/win32-glass-by-psikorp/./ 
 ./glAss.exe usr/share/win32/apps/win32-glass-by-psikorp/./ 

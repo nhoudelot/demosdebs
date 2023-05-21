@@ -2,7 +2,6 @@ debian/scripts/win32-bluemchen-by-kekse usr/bin/
 debian/scripts/win32-bluemchen-by-kekse.conf etc/
 debian/resources/win32-bluemchen-by-kekse.desktop usr/share/applications/
 debian/resources/win32-bluemchen-by-kekse.png usr/share/icons/hicolor/32x32/apps/
-./debian/scripts/win32-bluemchen-by-kekse_userinstall.pol usr/share/win32/apps/win32-bluemchen-by-kekse/./ 
 ./DemopajaPlayer.exe usr/share/win32/apps/win32-bluemchen-by-kekse/./ 
 ./NurGetraeumt.mp3 usr/share/win32/apps/win32-bluemchen-by-kekse/./ 
 ./plugins usr/share/win32/apps/win32-bluemchen-by-kekse/./ 

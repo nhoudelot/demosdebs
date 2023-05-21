@@ -6,4 +6,3 @@ debian/resources/win32-chrome-by-damage.png usr/share/icons/hicolor/32x32/apps/
 ./data usr/share/win32/apps/win32-chrome-by-damage/./ 
 ./BASS.DLL usr/share/win32/apps/win32-chrome-by-damage/./ 
 ./chrome.exe usr/share/win32/apps/win32-chrome-by-damage/./ 
-./debian/scripts/win32-chrome-by-damage_userinstall.pol usr/share/win32/apps/win32-chrome-by-damage/./ 

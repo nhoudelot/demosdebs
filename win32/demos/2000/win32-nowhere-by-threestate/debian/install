@@ -21,6 +21,5 @@ debian/resources/win32-nowhere-by-threestate.png usr/share/icons/hicolor/32x32/a
 ./kaleido.srx usr/share/win32/apps/win32-nowhere-by-threestate/./ 
 ./Zeus.dll usr/share/win32/apps/win32-nowhere-by-threestate/./ 
 ./ZeusPlay.srx usr/share/win32/apps/win32-nowhere-by-threestate/./ 
-./debian/scripts/win32-nowhere-by-threestate_userinstall.pol usr/share/win32/apps/win32-nowhere-by-threestate/./ 
 ./anim.srx usr/share/win32/apps/win32-nowhere-by-threestate/./ 
 ./credits.srx usr/share/win32/apps/win32-nowhere-by-threestate/./ 
