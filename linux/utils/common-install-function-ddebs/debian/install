@@ -6,3 +6,4 @@
 ./endscript_mamepsx usr/share/common-install-function-ddebs/./
 ./endscript_scummvm usr/share/common-install-function-ddebs/./
 ./endscript_wine usr/share/common-install-function-ddebs/./
+./endscript_wine2 usr/share/common-install-function-ddebs/./
