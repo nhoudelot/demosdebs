@@ -1,0 +1,18 @@
+#!/bin/bash -e
+
+domain=win32-sf2kinvitro-by-aardbei
+
+source /usr/share/common-install-function-ddebs/common-install-function
+source /etc/$domain.conf
+
+function prerun()
+{
+	sleep 1
+}
+
+function postrun()
+{
+	sleep 1
+}
+
+source /usr/share/common-install-function-ddebs/endscript_wine2

@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: win32-sf2kinvitro-by-aardbei
+Source: https://www.pouet.net/prod.php?which=1493
+
+Files: *
+Copyright: 2001 aardbei
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2014-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2
+
