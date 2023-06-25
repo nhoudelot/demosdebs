@@ -1,3 +1,9 @@
+origami-by-faemiyah (1.0+git20170414-0ddebs4) unstable; urgency=medium
+
+  * since Debian 12, build depend from freeglut3-dev or libglut-dev
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 05 Jul 2023 10:18:47 +0200
+
 origami-by-faemiyah (1.0+git20170414-0ddebs3) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

@@ -6,6 +6,7 @@ Build-Depends:
  debhelper-compat (= 12),
  libsdl2-dev,
  libgl-dev,
+ libglu1-mesa-dev,
  pkgconf
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=25866

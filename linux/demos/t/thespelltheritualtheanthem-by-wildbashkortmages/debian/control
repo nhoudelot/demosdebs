@@ -8,6 +8,7 @@ Build-Depends:
  liblua5.2-dev,
  libsdl2-image-dev,
  libfmodex-dev,
+ libglu1-mesa
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=66412
 

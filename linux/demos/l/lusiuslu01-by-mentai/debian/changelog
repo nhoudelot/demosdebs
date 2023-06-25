@@ -1,3 +1,11 @@
+lusiuslu01-by-mentai (1.0+1-0ddebs1) unstable; urgency=medium
+
+  * added libglut.so.3 to the source. Since it's missing in debian 12, and 
+    dh_shlibdeps complain about it.
+    added link from libglut.so.3 to libglut.so.3.12
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 25 Jun 2023 12:46:21 +0200
+
 lusiuslu01-by-mentai (1.0-0ddebs11) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

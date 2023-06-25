@@ -5,7 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
  libgl-dev,
- freeglut3-dev,
+ freeglut3-dev|libglut-dev,
  libasound2-dev,
  libvorbis-dev,
  pkgconf

@@ -8,7 +8,7 @@ Build-Depends:
  libftgl-dev,
  libfmodex-dev,
  scons,
- freeglut3-dev,
+ freeglut3-dev|libglut-dev,
  mesa-common-dev
 Standards-Version: 4.6.0.1
 Homepage: https://www.pouet.net/prod.php?which=31073

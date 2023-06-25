@@ -1,3 +1,9 @@
+mleinandsharkywedtro-by-limpninja (1.0+1-0ddebs5) unstable; urgency=medium
+
+  * since Debian 12, build depend from freeglut3-dev or libglut-dev
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 25 Jun 2023 16:22:09 +0200
+
 mleinandsharkywedtro-by-limpninja (1.0+1-0ddebs4) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

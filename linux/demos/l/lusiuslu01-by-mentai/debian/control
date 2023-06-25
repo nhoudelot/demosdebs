@@ -7,7 +7,7 @@ Build-Depends:
  libsdl1.2-compat-dev|libsdl1.2-dev,
  libpng12-0,
  libftgl-dev,
- freeglut3-dev,
+ freeglut3-dev|libglut-dev,
  libfmodex-dev,
  libglew1.5
 Standards-Version: 4.6.0.1
@@ -22,6 +22,7 @@ Depends:
  common-install-function-ddebs(>=1.18),
  libglew1.5,
  libfmodex4,
+ freeglut3|libglut3.12,
  libgd3,
  fonts-commodore64,
  lusiuslu01-by-mentai-data

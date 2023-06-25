@@ -1,3 +1,9 @@
+pinp-by-faemiyah (1.0+git20170414-0ddebs6) unstable; urgency=medium
+
+  * since Debian 12, build depend from freeglut3-dev or libglut-dev
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 04 Jul 2023 23:30:43 +0200
+
 pinp-by-faemiyah (1.0+git20170414-0ddebs5) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

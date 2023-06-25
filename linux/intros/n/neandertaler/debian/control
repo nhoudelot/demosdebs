@@ -6,7 +6,7 @@ Build-Depends:
  debhelper-compat (= 12),
  libglu1-mesa-dev,
  libgl-dev,
- freeglut3-dev,
+ freeglut3-dev|libglut-dev,
  libsdl2-mixer-dev,
  libxi-dev,
  libxmu-dev,

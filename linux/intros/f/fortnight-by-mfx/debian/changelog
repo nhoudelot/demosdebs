@@ -1,3 +1,9 @@
+fortnight-by-mfx (1.0+1-0ddebs6) unstable; urgency=medium
+
+  * fix dh_missing
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 02 Jul 2023 15:55:57 +0200
+
 fortnight-by-mfx (1.0+1-0ddebs5) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

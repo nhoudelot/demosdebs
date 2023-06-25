@@ -1,3 +1,9 @@
+antedominium-by-traction (1.0+2-0ddebs7) unstable; urgency=medium
+
+  * added libglu1-mesa-dev dependency fro Debian 12
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 02 Jul 2023 11:03:08 +0200
+
 antedominium-by-traction (1.0+2-0ddebs6) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

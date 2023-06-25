@@ -5,6 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
  mesa-common-dev,
+ libglu1-mesa-dev,
  libfmodex-dev,
  libgl-dev,
  libsdl2-dev,

@@ -1,3 +1,9 @@
+micery-by-fitandbandwagon (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * added libglu1-mesa-dev as build dependency for Debian 12
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 03 Jul 2023 00:12:38 +0200
+
 micery-by-fitandbandwagon (1.0+1-0ddebs7) unstable; urgency=medium
 
   * use xz compression until debian 13 is released
