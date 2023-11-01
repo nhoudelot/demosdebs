@@ -4,7 +4,7 @@ detectiteasy for Debian
 there is a script to compile a portable version of the program.
 but i'm not using it
 
-also, use those system libs, instead of the embedded ones
+also, I use those system libs, instead of the embedded ones
 * libqwt-qt5-dev
 * zlib
 * bzip2

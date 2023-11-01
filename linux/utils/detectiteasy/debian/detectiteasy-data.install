@@ -2,3 +2,4 @@ Detect-It-Easy/db usr/share/detectiteasy/
 signatures/crypto.db usr/share/detectiteasy/signatures/
 XStyles/qss usr/share/detectiteasy/
 lang usr/share/detectiteasy/
+XInfoDB/info usr/share/detectiteasy/

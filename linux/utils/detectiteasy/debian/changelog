@@ -1,3 +1,10 @@
+detectiteasy (3.08-0ddebs1) unstable; urgency=medium
+
+  * New Upstream Release
+    Added info/html file that where missing
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 01 Nov 2023 19:05:17 +0100
+
 detectiteasy (3.07-0ddebs2) unstable; urgency=medium
 
   * use xz compression until debian 13 is released
