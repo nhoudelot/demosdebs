@@ -20,7 +20,7 @@
        (void) fclose (fp);
 --- a/scripts/opt-png.in
 +++ b/scripts/opt-png.in
-@@ -124,7 +124,7 @@
+@@ -123,7 +123,7 @@
        pngcrush -brute -l 9 -s $TMPPNG2A $TMPPNG2
      fi
      if [ $? -ne 0 ]; then

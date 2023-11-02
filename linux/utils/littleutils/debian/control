@@ -5,19 +5,27 @@ Maintainer: Brian Lindholm <brian_lindholm@users.sourceforge.net>
 Build-Depends:
  debhelper-compat (= 12),
  libpng-dev | libpng12-dev,
+ libimlib2-dev,
  zlib1g-dev,
  pngcrush,
  libjpeg-progs,
  bzip2,
  ghostscript,
  file,
+ poppler-utils,
  p7zip,
  lzma-alone,
  lzip,
+ zstd,
  xz-utils,
  gifsicle,
  lzop,
+ pngquant,
+ rename,
  python3-minimal
+Build-Depends-Indep:
+ libcryptx-perl,
+ img2pdf
 Standards-Version: 4.6.0.1
 Homepage: http://sourceforge.net/projects/littleutils/
 
@@ -54,8 +62,10 @@ Depends:
  zlib1g,
  gifsicle,
  ghostscript,
+ img2pdf,
  libjpeg-turbo-progs | libjpeg-progs,
  pngcrush,
+ poppler-utils,
  littleutils-base
 Description: littleutils dedicated to recompressing image files
  These littleutils are dedicated to image processing and recompression:
@@ -75,8 +85,10 @@ Depends:
  ${misc:Depends},
  file,
  bzip2,
+ bzip3,
  lzip,
  lzop,
+ zstd,
  p7zip-full,
  lbzip2,
  pigz,
@@ -85,7 +97,7 @@ Depends:
  wget,
  xz-utils,
  littleutils-base,
- python:any
+ python3:any
 Description: littleutils dedicated to recompressing compressed files
  These littleutils are dedicated to compressed file recompression:
  rar2tarcat - converts .rar (or .RAR) to .tar via stdout

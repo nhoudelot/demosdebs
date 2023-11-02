@@ -1,3 +1,12 @@
+littleutils (1.2.6a-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * Added opt-pdf, pdfquant, to-zst, rar2tarcat, zip2tarcat, pdfidiff
+    and imagdiff to the package
+  * removed some lintian warnings
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 02 Nov 2023 12:27:57 +0100
+
 littleutils (1.2.5-0ddebs3) unstable; urgency=medium
 
   * use xz compression until debian 13 is released
