@@ -1,3 +1,10 @@
+libcapsimage5 (1.0-0ddebs9) unstable; urgency=medium
+
+  * added link to libCAPSImage.so.5.1 for software that need it with upper
+    case (like dtc)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 03 Nov 2023 00:52:26 +0100
+
 libcapsimage5 (1.0-0ddebs8) unstable; urgency=medium
 
   * use xz compression until debian 13 is released
