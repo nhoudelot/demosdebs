@@ -1,4 +1,2 @@
-dtc/@DIR@/dynamic/dtc usr/bin/
-./dtc/firmware_fast usr/share/kryoflux/
-./dtc/firmware_fast/firmware_kf_usb_rosalie.bin usr/share/kryoflux/firmware_fast/ 
-./dtc/firmware_kf_usb_rosalie.bin lib/firmware/
+dtc/@DIR@/bin/dtc usr/bin/
+dtc/@DIR@/share/dtc/firmware_kf_usb_rosalie.bin usr/share/dtc/

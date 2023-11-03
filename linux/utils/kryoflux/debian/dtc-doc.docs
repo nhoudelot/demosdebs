@@ -1,10 +1,7 @@
 DONATIONS.txt
-README.linux
 RELEASE.txt
-dtc/firmware_fast/firmware_fast_README.txt
 docs/kryoflux_stream_protocol.pdf
-docs/DTC_2.50_addendum.pdf
-docs/kryoflux_manual.pdf
+docs/KryoFlux_manual.pdf
 docs/kf_quickstart.pdf
 schematics/kryoflux_rosalie_rev_d3_e.pdf
 schematics/schematics_README.txt

@@ -1,3 +1,9 @@
+kryoflux (3.0+1-0ddebs1) unstable; urgency=medium
+
+  * New Release Update (with dtc3.0 this time)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 02 Nov 2023 15:29:33 +0100
+
 kryoflux (3.0-0ddebs5) unstable; urgency=medium
 
   * use xz compression until debian 13 is released
