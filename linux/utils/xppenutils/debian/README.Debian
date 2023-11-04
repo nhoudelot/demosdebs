@@ -1,7 +1,7 @@
 xppenutils for Debian
 --------------------
 
-didn't use install and uninstall script
-but made it useful to get a proprer install
+there's a debian package, but it was installing their own QT5 libs
+and lots of install process where made in the postisnt
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 20 Dec 2020 13:28:57 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 04 Nov 2023 11:45:57 +0100

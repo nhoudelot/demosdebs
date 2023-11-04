@@ -8,7 +8,7 @@ APP_FULLNAME="Business"
 APP_COPYRIGHT="XP-Pen"
 APP_DESC="XP-Pen (Official) Linux utility"
 
-APP_EXE="pentablet"
+APP_EXE="PenTablet"
 
 function NSH_cpUserDataFileToHOME()
 {
