@@ -1,6 +1,6 @@
 --- a/Common.mak
 +++ b/Common.mak
-@@ -301,6 +301,34 @@
+@@ -306,6 +306,34 @@
      endif
  endif
  
