@@ -1,0 +1,37 @@
+Source: outlineinvitation-by-desiretheundeadsceners
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ libvorbis-dev,
+ libglfw3-dev
+Standards-Version: 4.6.0.1
+Homepage: https://www.pouet.net/prod.php?which=69698
+Rules-Requires-Root: no
+
+Package: outlineinvitation-by-desiretheundeadsceners
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ outlineinvitation-by-desiretheundeadsceners-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by Desire & The Undead Sceners for Linux, released in 2017
+ Demo by Desire & The Undead Sceners, released in 2017
+
+Package: outlineinvitation-by-desiretheundeadsceners-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ fonts-varsity,
+ ${misc:Depends},
+Description: Data files for outlineinvitation-by-desiretheundeadsceners
+ outlineinvitation-by-desiretheundeadsceners data files
+
+Package: fonts-varsity
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: Varsity Regular font
+ Fonts designed by Harold Lohner

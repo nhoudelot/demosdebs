@@ -1,0 +1,44 @@
+outlineinvitation-by-desiretheundeadsceners for Debian
+-----------------------------------------------------
+
+PNG have been optimised
+
+executable seems to be compiled using Rust
+
+
+Source files:
+------------- 
+                           gl.cgu-0.rs                prof.c
+adler32.cgu-0.rs           glfw.cgu-0.rs              quarantine.c
+al_sys.cgu-0.rs            huge.c                     rand.cgu-0.rs
+alloc.cgu-0.rs             image.cgu-0.rs             rayon.cgu-0.rs
+alloc_jemalloc.cgu-0.rs    inflate.cgu-0.rs           rtree.c
+alto.cgu-0.rs              init.c                     rusttype.cgu-0.rs
+arena.c                    inotify.cgu-0.rs           scoped_threadpool.cgu-0.rs
+base.c                     jemalloc.c                 serde.cgu-0.rs
+bitmap.c                   jpeg_decoder.cgu-0.rs      serde_json.cgu-0.rs
+byteorder.cgu-0.rs         libloading.cgu-0.rs        sort.c
+chrono.cgu-0.rs            log.cgu-0.rs               spectra.cgu-0.rs
+chunk.c                    luminance.cgu-0.rs         state.c
+chunk_dss.c                lzw.cgu-0.rs               stats.c
+chunk_mmap.c               mio.cgu-0.rs               stb_truetype.cgu-0.rs
+ckh.c                      mmap.c                     std.cgu-0.rs
+collections.cgu-0.rs       mmapio.c                   std_unicode.cgu-0.rs
+color_quant.cgu-0.rs       muloti4.c                  tcache.c
+core.cgu-0.rs              mutex.c                    tempdir.cgu-0.rs
+crtstuff.c                 nalgebra.cgu-0.rs          time.cgu-0.rs
+ctl.c                      net2.cgu-0.rs              tsd.c
+deflate.cgu-0.rs           nix.cgu-0.rs               udivmodti4.c
+deque.cgu-0.rs             notify.cgu-0.rs            udivti3.c
+divti3.c                   nstime.c                   umodti3.c
+dtoa.cgu-0.rs              num_cpus.cgu-0.rs          unwind.cgu-0.rs
+dwarf.c                    outline17.cgu-0.rs         util.c
+elf.c                      pages.c                    vorbis-encoder.c
+extent.c                   panic_unwind.cgu-0.rs      vorbis.cgu-0.rs
+fileline.c                 png.cgu-0.rs               vorbis_encoder.cgu-0.rs
+filetime.cgu-0.rs          posix.c                    walkdir.cgu-0.rs
+gif.cgu-0.rs               powisf2.c                  wavefront_obj.cgu-0.rs
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 05 Nov 2023 00:06:54 +0100
+

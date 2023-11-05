@@ -1,0 +1,4 @@
+debian/scripts/outlineinvitation-by-desiretheundeadsceners usr/bin/
+./tus_dsr-outline_invite usr/lib/x86_64-linux-gnu/outlineinvitation-by-desiretheundeadsceners
+debian/resources/outlineinvitation-by-desiretheundeadsceners.desktop usr/share/applications/
+debian/resources/outlineinvitation-by-desiretheundeadsceners.png usr/share/icons/hicolor/256x256/apps/

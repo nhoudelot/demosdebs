@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Outline Invitation
+GenericName=Demo
+Comment=Demo by Desire & The Undead Sceners, released in 2017
+Type=Application
+Exec=/usr/bin/outlineinvitation-by-desiretheundeadsceners
+Icon=outlineinvitation-by-desiretheundeadsceners
+Categories=AudioVideo;
+Name[fr_FR]=Outline Invitation

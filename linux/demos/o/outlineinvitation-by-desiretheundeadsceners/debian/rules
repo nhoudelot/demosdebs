@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+
+%:
+	dh $@
+
+override_dh_install:
+	dh_install
+	find debian -type f -name '*.obj' -exec chmod 0644 {} +
