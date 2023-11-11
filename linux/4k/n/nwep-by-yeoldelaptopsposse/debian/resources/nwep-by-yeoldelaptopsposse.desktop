@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=nwep
+GenericName=Demo
+Comment=Demo by Ye Olde Laptops Posse, released in 2017
+Type=Application
+Exec=/usr/bin/nwep-by-yeoldelaptopsposse
+Icon=nwep-by-yeoldelaptopsposse
+Categories=AudioVideo;
+Name[fr_FR]=nwep

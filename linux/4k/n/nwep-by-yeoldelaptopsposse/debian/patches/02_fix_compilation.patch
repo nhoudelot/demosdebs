@@ -1,0 +1,11 @@
+--- a/nwep.c
++++ b/nwep.c
+@@ -62,7 +62,7 @@
+ #define oglUniform3f glUniform3f
+ #endif
+ 
+-#include "glext.h"
++#include <GL/glext.h>
+ 
+ #include "music/4klang.h"
+ #define INTRO_LENGTH (1000ull * MAX_SAMPLES / SAMPLE_RATE)

@@ -1,5 +1,0 @@
-version=4
-opts="mode=git, pgpmode=none, pretty=1.1.6+git%cd, \
-         repack,compression=xz" \
-         https://github.com/laurentlb/Shader_Minifier \
-         HEAD debian uupdate

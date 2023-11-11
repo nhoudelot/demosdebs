@@ -1,0 +1,11 @@
+--- a/nwep.c
++++ b/nwep.c
+@@ -446,7 +446,7 @@
+ #define FULLSCREEN SDL_FULLSCREEN
+ 	SDL_ShowCursor(0);
+ #endif
+-	SDL_SetVideoMode(XRES, YRES, 32, SDL_OPENGL | FULLSCREEN);
++	SDL_SetVideoMode(XRES, YRES, 32, SDL_OPENGL);
+ 	glViewport(0, 0, XRES, YRES);
+ 	introInit();
+ 

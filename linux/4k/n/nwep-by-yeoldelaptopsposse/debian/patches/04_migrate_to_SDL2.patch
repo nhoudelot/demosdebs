@@ -1,0 +1,53 @@
+--- a/nwep.c
++++ b/nwep.c
+@@ -409,7 +409,7 @@
+ }
+ #elif defined(__linux__)
+ /* cc -Wall -Wno-unknown-pragmas `pkg-config --cflags --libs sdl` -lGL nwep.c -o nwep */
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <pthread.h>
+ 
+ #ifndef NO_AUDIO
+@@ -446,7 +446,10 @@
+ #define FULLSCREEN SDL_FULLSCREEN
+ 	SDL_ShowCursor(0);
+ #endif
+-	SDL_SetVideoMode(XRES, YRES, 32, SDL_OPENGL);
++	SDL_Window *sdlWindow;
++	SDL_GLContext sdlGlcontext;
++	sdlWindow = SDL_CreateWindow("nwep by Ye Olde Laptops Posse & s.k.o.y.p", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, XRES, YRES,  SDL_WINDOW_OPENGL);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	glViewport(0, 0, XRES, YRES);
+ 	introInit();
+ 
+@@ -486,7 +489,7 @@
+ 		frame_start = frame_end;
+ #endif
+ 
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(sdlWindow);
+ 	}
+ 
+ #ifdef COMPACT
+@@ -496,7 +499,8 @@
+ 		"int $0x80\n" \
+ 	);
+ #else
+-	SDL_Quit();
++	SDL_GL_DeleteContext(sdlGlcontext);
++	SDL_DestroyWindow(sdlWindow);
+ 	return 0;
+ #endif
+ }
+--- a/Makefile
++++ b/Makefile
+@@ -7,7 +7,7 @@
+ # Flags
+ CFLAGS   += -Wall -pipe
+ # Libraries for linking
+-LDFLAGS  += $(shell $(PKG_CONFIG) --cflags --libs sdl gl) -lm -pthread
++LDFLAGS  += $(shell $(PKG_CONFIG) --cflags --libs sdl2 gl) -lm -pthread
+ 
+ # Final executable name
+ TARGET   := nwep-by-yeoldelaptopsposse
