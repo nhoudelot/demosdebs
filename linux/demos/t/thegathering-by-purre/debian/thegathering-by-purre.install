@@ -1,0 +1,4 @@
+debian/scripts/thegathering-by-purre usr/bin/
+./ShaderViewer usr/lib/x86_64-linux-gnu/thegathering-by-purre
+debian/resources/thegathering-by-purre.desktop usr/share/applications/
+debian/resources/thegathering-by-purre.png usr/share/icons/hicolor/256x256/apps/

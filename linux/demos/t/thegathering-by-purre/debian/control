@@ -1,0 +1,29 @@
+Source: thegathering-by-purre
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ libsdl2-dev,
+ qtbase5-dev
+Standards-Version: 4.6.0.1
+Homepage: https://www.pouet.net/prod.php?which=69753
+Rules-Requires-Root: no
+
+Package: thegathering-by-purre
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ thegathering-by-purre-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by Purre, released in 2017
+ Demo by Purre, released at The Gathering 2017
+
+Package: thegathering-by-purre-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for thegathering-by-purre
+ thegathering-by-purre data files

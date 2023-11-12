@@ -1,0 +1,11 @@
+thegathering-by-purre for Debian
+-------------------------------
+
+executable seems to be compiled for Ubuntu Jaunty (9.04)
+
+Source files:
+------------- 
+Window.cpp crtstuff.c init.c main.cpp qrc_resources.cpp
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 Nov 2023 01:49:52 +0100
+

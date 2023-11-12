@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=The Gathering
+GenericName=Demo
+Comment=Demo by Purre, released in 2017
+Type=Application
+Exec=/usr/bin/thegathering-by-purre
+Icon=thegathering-by-purre
+Categories=AudioVideo;
+Name[fr_FR]=The Gathering
