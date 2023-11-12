@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=X220
+GenericName=Demo
+Comment=Demo by Hackers, released in 2017
+Type=Application
+Exec=/usr/bin/x220-by-hackers
+Icon=x220-by-hackers
+Categories=AudioVideo;
+Name[fr_FR]=X220

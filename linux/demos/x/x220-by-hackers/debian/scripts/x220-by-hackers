@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=x220-by-hackers
+
+APP_FULLNAME="X220"
+APP_COPYRIGHT="Hackers"
+APP_DESC="Demo by Hackers, released in 2017"
+
+APP_EXE="neverspot.sh"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	./${APP_EXE}
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

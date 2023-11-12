@@ -1,0 +1,28 @@
+Source: x220-by-hackers
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ libsdl2-dev
+Standards-Version: 4.6.0.1
+Homepage: https://www.pouet.net/prod.php?which=70012
+Rules-Requires-Root: no
+
+Package: x220-by-hackers
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ x220-by-hackers-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by Hackers, released in 2017
+ Demo by Hackers, released at Skrolli Party 2017
+
+Package: x220-by-hackers-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for x220-by-hackers
+ x220-by-hackers data files
