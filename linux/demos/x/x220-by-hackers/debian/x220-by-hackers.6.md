@@ -1,6 +1,6 @@
 % x220-by-hackers(6) X220 User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Hackers
-% 2023-11-12
+% 2023-11-16
 
 # NAME
 x220-by-hackers - the command to run X220.
@@ -12,7 +12,8 @@ x220-by-hackers [*options*]
 X220 is a demonstration released by Hackers in 2017.
 
 # OPTIONS
-there is no options to this program
+\--windowed
+:   Start the demo in window mode
 
 \--help
 :   Display help for the command

@@ -14,7 +14,7 @@ function run()
 {
 	backuppwd=$(pwd)
 	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
-	./${APP_EXE}
+	./${APP_EXE} $1
 	cd $backuppwd || exit
 }
 
@@ -26,6 +26,9 @@ elif [ "$#" -lt "1" ]; then
 	run
 else
 	case "$1" in
+	--windowed)
+        run --windowed
+        ;;
 	--help)
 		NSH_std_usage
 		;;

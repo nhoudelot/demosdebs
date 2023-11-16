@@ -1,3 +1,9 @@
+x220-by-hackers (1.0-0ddebs2) unstable; urgency=medium
+
+  * added option to start the demo in window mode
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 16 Nov 2023 10:18:43 +0100
+
 x220-by-hackers (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release
