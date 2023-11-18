@@ -1,0 +1,29 @@
+Source: geometry-by-znurre
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ libsdl2-dev,
+ libqwt-qt5-dev
+Standards-Version: 4.6.0.1
+Homepage: https://www.pouet.net/prod.php?which=70288
+Rules-Requires-Root: no
+
+Package: geometry-by-znurre
+Architecture: amd64 i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ geometry-by-znurre-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by Znurre, released in 2017
+ Demo by Znurre, 3rd at Birdie 2017
+
+Package: geometry-by-znurre-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for geometry-by-znurre
+ geometry-by-znurre data files

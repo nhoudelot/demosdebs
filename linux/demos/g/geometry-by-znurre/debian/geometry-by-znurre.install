@@ -1,0 +1,4 @@
+debian/scripts/geometry-by-znurre usr/bin/
+./Geometry usr/lib/x86_64-linux-gnu/geometry-by-znurre
+debian/resources/geometry-by-znurre.desktop usr/share/applications/
+debian/resources/geometry-by-znurre.png usr/share/icons/hicolor/256x256/apps/

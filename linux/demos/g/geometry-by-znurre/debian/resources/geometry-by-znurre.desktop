@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Geometry
+GenericName=Demo
+Comment=Demo by Znurre, released in 2017
+Type=Application
+Exec=/usr/bin/geometry-by-znurre
+Icon=geometry-by-znurre
+Categories=AudioVideo;
+Name[fr_FR]=Geometry
