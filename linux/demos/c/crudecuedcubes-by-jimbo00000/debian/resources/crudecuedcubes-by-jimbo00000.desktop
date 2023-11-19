@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Crude, Cued Cubes
+GenericName=Demo
+Comment=Demo by jimbo00000, released in 2017
+Type=Application
+Exec=/usr/bin/crudecuedcubes-by-jimbo00000
+Icon=crudecuedcubes-by-jimbo00000
+Categories=AudioVideo;
+Name[fr_FR]=Crude, Cued Cubes
