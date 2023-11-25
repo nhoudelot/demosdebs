@@ -1,3 +1,9 @@
+win32-fr-08theproduct-by-farbrausch (1:1.0+4-0ddebs1) unstable; urgency=medium
+
+  * Executable have been unpacked
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 18:49:33 +0100
+
 win32-fr-08theproduct-by-farbrausch (1:1.0+3-0ddebs5) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

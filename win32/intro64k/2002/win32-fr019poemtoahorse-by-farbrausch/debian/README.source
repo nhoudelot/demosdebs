@@ -1,8 +1,14 @@
 win32-fr019poemtoahorse-by-farbrausch for Debian
 -----------------------------------------------
 
-Executable :
- * win32
- * packed with UPX
+* Executable have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Feb 2021 23:09:34 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: UPX(-)[modified]
+    Packer: kkrunchy(-)[-]
+
+* Use DirectX 8
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 20:12:44 +0100

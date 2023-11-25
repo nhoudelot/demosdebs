@@ -1,10 +1,13 @@
 win32-leveltwo-by-peon for Debian
 --------------------------
 
-Executable :
- * win32
- * compiled with Microsoft Visual Studio(6.0)
- * Use bass.dll
- * Packed with UPX 0.82
+* Executable have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Feb 2021 01:00:12 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, Console]
+    Packer: UPX(0.82)[NRV,brute]
+    Lier: LCC Linker(2.55*)[Console32,console]
+ * Use bass.dll
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 13:23:48 +0100

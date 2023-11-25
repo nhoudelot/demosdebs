@@ -1,8 +1,16 @@
 win32-zoom3-by-and for Debian
 ----------------------------
 
-Executable :
- * win32
- * packed with modified UPX
+* Executable have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 1 Mar 2021 00:10:04 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: UPX(-)[modified]
+    Compilateur: Microsoft Visual C/C++
+    Lier: Microsoft Linker(6.0)
+    Outil: Visual Studio
+
+* Use DirectX 9
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 20:59:55 +0100

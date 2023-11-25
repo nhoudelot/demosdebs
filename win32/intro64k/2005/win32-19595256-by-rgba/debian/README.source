@@ -2,9 +2,15 @@ win32-19595256-by-rgba for Debian
 ---------------------------
 
 * sources have been repackaged
-Executable :
- * win32
- * packed with kkrunchy
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 1 Mar 2021 00:24:04 +0100
+* Executable have been unpacked
+
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: kkrunchy(0.2X)[-]
+
+* Use OpenGL
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 22:41:02 +0100
 

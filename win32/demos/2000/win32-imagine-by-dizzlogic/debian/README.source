@@ -1,8 +1,14 @@
-win32-win32-imagine-by-dizzlogic for Debian
+win32-imagine-by-dizzlogic for Debian
 ------------------------------
 
-Executable :
- * win32
- * packed with UPX 0.84
+* Original have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 17 Feb 2021 15:20:42 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: UPX(0.84)[NRV,brute]
+    Compilateur: Microsoft Visual C/C++(12.00.8799)[C++]
+    Lier: Microsoft Linker(6.00.8447)
+    Outil: Visual Studio(6.0)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 13:14:35 +0100

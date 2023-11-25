@@ -1,7 +1,14 @@
 win32-realfinality-by-darkeden for Debian
 ----------------------------------------
 
-Executable :
- * win32
+* Executable have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Feb 2021 21:58:34 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: UPX(0.72)[-]
+    Compilateur: Microsoft Visual C/C++
+    Lier: Microsoft Linker(5.0)
+    Outil: Visual Studio
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 19:17:54 +0100

@@ -1,7 +1,12 @@
 win32-fr-08theproduct-by-farbrausch for Debian
 ---------------------------------------------
 
-Executable :
- * packed with UPX (modified) and kkrunchy
+* Executable have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Feb 2021 00:24:34 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: UPX(-)[modified]
+    Packer: kkrunchy(-)[-]
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 18:40:48 +0100

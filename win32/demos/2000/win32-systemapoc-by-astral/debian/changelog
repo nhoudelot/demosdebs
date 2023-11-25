@@ -1,3 +1,9 @@
+win32-systemapoc-by-astral (1:1.0+5-0ddebs1) unstable; urgency=medium
+
+  * xecutable have been unpacked
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 13:35:42 +0100
+
 win32-systemapoc-by-astral (1:1.0+4-0ddebs5) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

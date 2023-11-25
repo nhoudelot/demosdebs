@@ -1,3 +1,9 @@
+win32-leveltwo-by-peon (1:1.0+4-0ddebs1) unstable; urgency=medium
+
+  * Executable have been unpacked
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 13:25:12 +0100
+
 win32-leveltwo-by-peon (1:1.0+3-0ddebs6) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

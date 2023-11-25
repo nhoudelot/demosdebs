@@ -1,9 +1,15 @@
 win32-fr031fadedmemories-by-farbrausch for Debian
 ------------------------------------------------
 
-Executable :
- * win32
- * compiled with Microsoft Visual Studio (2003) C++
- * packed with UPX
+* Executable have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Feb 2021 23:51:07 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: UPX(-)[modified]
+    Compilateur: Microsoft Visual C/C++(13.00.9178)[C++]
+    Lier: Microsoft Linker(7.10.3077)
+    Outil: Visual Studio(2003)
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 14:30:38 +0100

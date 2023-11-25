@@ -1,8 +1,13 @@
 win32-fr030candytron-by-farbrausch for Debian
 --------------------------------------------
 
-Executable :
- * win32
- * packed with kkrunchy
+* Executable have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 1 Mar 2021 00:10:04 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: kkrunchy(-)[-]
+    
+* Use DirectX 9
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 20:50:53 +0100

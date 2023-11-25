@@ -1,8 +1,18 @@
 win32-sx7302-by-darkeden for Debian
 ----------------------------------
 
-Executable :
- * win32
- * Packed with UPX 0.72
+* Executable have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Feb 2021 22:27:34 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: UPX(0.72)[-]
+    Compilateur: Microsoft Visual C/C++
+    Lier: Microsoft Linker(5.0)
+    Outil: Visual Studio
+    
+* use OpenGL with Glu32
+* Music is a FastTracker 2 module
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 19:30:08 +0100
