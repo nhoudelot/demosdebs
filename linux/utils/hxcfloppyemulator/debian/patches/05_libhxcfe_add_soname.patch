@@ -1,10 +1,10 @@
 --- a/libhxcfe/build/Makefile
 +++ b/libhxcfe/build/Makefile
-@@ -29,6 +29,7 @@
+@@ -44,6 +44,7 @@
  ifeq ($(TARGET), Linux)
- CFLAGS += -fPIC -Wl,-Map,foo.map
- LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl
-+LDFLAGS += -Wl,--as-needed,-soname,libhxcfe.so.2
+ 	CFLAGS += -fPIC -Wl,-Map,foo.map
+ 	LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl
++	LDFLAGS += -Wl,--as-needed,-soname,libhxcfe.so.2
  endif
  
  ifeq ($(TARGET), mingw32)

@@ -1,14 +1,3 @@
---- a/libhxcfe/sources/loaders/amigadosfs_loader/amigadosfs_loader.c
-+++ b/libhxcfe/sources/loaders/amigadosfs_loader/amigadosfs_loader.c
-@@ -225,7 +225,7 @@
- 										byte_written=adfWriteFile(adffile, size, tempbuffer);
- 										if((byte_written!=size) || (adfCountFreeBlocks(adfvolume)<2) )
- 										{
--											floppycontext->hxc_printf(MSG_ERROR,"Error while writting the file %s. No more free block ?",FindFileData.filename);
-+											floppycontext->hxc_printf(MSG_ERROR,"Error while writing the file %s. No more free block ?",FindFileData.filename);
- 											adfCloseFile(adffile);
- 											hxc_fclose(ftemp);
- 											free(fullpath);
 --- a/libhxcfe/sources/thirdpartylibs/adflib/AUTHORS.txt
 +++ b/libhxcfe/sources/thirdpartylibs/adflib/AUTHORS.txt
 @@ -1,13 +1,13 @@
@@ -31,7 +20,7 @@
  See CHANGES.txt for detailed contributions.
 --- a/libhxcfe/sources/loaders/ede_loader/ede_loader.c
 +++ b/libhxcfe/sources/loaders/ede_loader/ede_loader.c
-@@ -100,7 +100,7 @@
+@@ -99,7 +99,7 @@
  					imgldr_ctx->hxcfe->hxc_printf(MSG_INFO_0,"EDE_libIsValidDiskFile : TS-10/12 DD format");
  				break;
  				default:
@@ -40,8 +29,8 @@
  					return HXCFE_BADFILE;
  				break;
  			}
-@@ -274,7 +274,7 @@
- 				break;
+@@ -298,7 +298,7 @@
+ 			break;
  
  			default:
 -				imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknow format : %x !",header_buffer[0x1FF]);
@@ -49,20 +38,9 @@
  				hxc_fclose(f);
  				return HXCFE_BADFILE;
  			break;
---- a/libhxcfe/sources/loaders/hfe_loader/hfe_loader.c
-+++ b/libhxcfe/sources/loaders/hfe_loader/hfe_loader.c
-@@ -155,7 +155,7 @@
- 			floppydisk->floppyNumberOfSide,
- 			floppydisk->floppyBitRate,
- 			floppydisk->floppySectorPerTrack,
--			floppydisk->floppyiftype<0xC?interfacemodecode[floppydisk->floppyiftype]:"Unknow!",
-+			floppydisk->floppyiftype<0xC?interfacemodecode[floppydisk->floppyiftype]:"Unknown!",
- 			(header.track_encoding&(~3))?trackencodingcode[4]:trackencodingcode[header.track_encoding&0x3]);
- 
-         trackoffsetlist=(pictrack*)malloc(sizeof(pictrack)* header.number_of_track);
 --- a/libhxcfe/sources/loaders/hfe_loader/hfev3_loader.c
 +++ b/libhxcfe/sources/loaders/hfe_loader/hfev3_loader.c
-@@ -216,7 +216,7 @@
+@@ -215,7 +215,7 @@
  			floppydisk->floppyNumberOfSide,
  			floppydisk->floppyBitRate,
  			floppydisk->floppySectorPerTrack,
@@ -70,21 +48,10 @@
 +			floppydisk->floppyiftype<0xC?interfacemodecode[floppydisk->floppyiftype]:"Unknown!",
  			(header.track_encoding&(~3))?trackencodingcode[4]:trackencodingcode[header.track_encoding&0x3]);
  
-         trackoffsetlist=(pictrack*)malloc(sizeof(pictrack)* header.number_of_track);
---- a/libhxcfe/sources/loaders/sap_loader/sap_loader.c
-+++ b/libhxcfe/sources/loaders/sap_loader/sap_loader.c
-@@ -139,7 +139,7 @@
- 		trackformat=ISOFORMAT_SD;
- 		break;
- 	default:
--		imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknow floppy format: %d !",floppyformat);
-+		imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknown floppy format: %d !",floppyformat);
- 		sap_CloseArchive(sapid);
- 		return -1;
- 		break;
+ 		trackoffsetlist=(pictrack*)malloc(sizeof(pictrack)* header.number_of_track);
 --- a/libhxcfe/sources/loaders/stx_loader/stx_loader.c
 +++ b/libhxcfe/sources/loaders/stx_loader/stx_loader.c
-@@ -707,7 +707,7 @@
+@@ -718,7 +718,7 @@
  						{
  							hxc_fread( &temp_val, sizeof(unsigned short), f );
  #ifdef PASTI_DBG
@@ -106,7 +73,7 @@
  											col=(s_col *)&td->framebuffer[(td->xsize*j) + i];
 --- a/libhxcfe/sources/stream_analyzer/fluxStreamAnalyzer.c
 +++ b/libhxcfe/sources/stream_analyzer/fluxStreamAnalyzer.c
-@@ -2503,7 +2503,7 @@
+@@ -2876,7 +2876,7 @@
  
  			/////////////////////////////////////////////////////////
  #ifdef FLUXSTREAMDBG
@@ -115,7 +82,7 @@
  
  			// print missing blocks.
  			for(block_num=0;block_num<tb->number_of_blocks;block_num++)
-@@ -2587,7 +2587,7 @@
+@@ -2960,7 +2960,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -124,7 +91,7 @@
  #endif
  										}
  										else
-@@ -2608,7 +2608,7 @@
+@@ -2981,7 +2981,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -133,7 +100,7 @@
  #endif
  										}
  										else
-@@ -2633,7 +2633,7 @@
+@@ -3006,7 +3006,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -142,7 +109,7 @@
  #endif
  										}
  										else
-@@ -2670,7 +2670,7 @@
+@@ -3043,7 +3043,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -151,7 +118,7 @@
  #endif
  										}
  										else
-@@ -2751,7 +2751,7 @@
+@@ -3124,7 +3124,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -160,7 +127,7 @@
  #endif
  										}
  										else
-@@ -2772,7 +2772,7 @@
+@@ -3145,7 +3145,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -169,7 +136,7 @@
  #endif
  										}
  										else
-@@ -3687,7 +3687,7 @@
+@@ -4073,7 +4073,7 @@
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Bitrate: %d",side->bitrate);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Number of sector: %d",side->number_of_sector);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Track encoding: %d",side->track_encoding);
@@ -178,7 +145,7 @@
  
  	nbbadbit = 0;
  
-@@ -3965,7 +3965,7 @@
+@@ -4355,7 +4355,7 @@
  					if(pl->forward_link[first_index] == 1)
  					{
  #ifdef FLUXSTREAMDBG
@@ -209,7 +176,7 @@
              file->posInDataBlk = 0;
 --- a/libhxcfe/sources/loaders/kryofluxstream_loader/kryofluxstream.c
 +++ b/libhxcfe/sources/loaders/kryofluxstream_loader/kryofluxstream.c
-@@ -200,7 +200,7 @@
+@@ -195,7 +195,7 @@
  				cur_op = kfstreambuffer[stream_ofs];
  				cur_op_len = 0;
  
@@ -220,7 +187,7 @@
  					case KF_STREAM_OP_NOP1:
 --- a/libhxcfe/sources/loaders/oricdsk_loader/oricdsk_loader.c
 +++ b/libhxcfe/sources/loaders/oricdsk_loader/oricdsk_loader.c
-@@ -378,7 +378,7 @@
+@@ -379,7 +379,7 @@
  			mfmformat=1;
  			geometrie=fileheader->number_of_sectors_geometrie;
  			floppydisk->floppySectorPerTrack=-1;
@@ -229,26 +196,26 @@
  		}
  		else
  		{
-@@ -443,7 +443,7 @@
+@@ -453,7 +453,7 @@
  				switch(geometrie)
  				{
- 				case 1:
--					imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 1:  11111..000000!");
-+					imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 1:  11111..000000!");
- 					tracksize=(((filesize-256)/fileheader->number_of_side)/fileheader->number_of_tracks);
+ 					case 1:
+-						imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 1:  11111..000000!");
++						imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 1:  11111..000000!");
+ 						tracksize=(((filesize-256)/fileheader->number_of_side)/fileheader->number_of_tracks);
  
- 					trackdata = (unsigned char *) malloc(tracksize);
-@@ -483,9 +483,9 @@
- 				break;
+ 						trackdata = (unsigned char *) malloc(tracksize);
+@@ -505,9 +505,9 @@
+ 					break;
  
- 				case 0:
--					imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 0 ?: using Geometrie 2");
-+					imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 0 ?: using Geometry 2");
- 				case 2:
--					imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 2:  01010101010...!");
-+					imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 2:  01010101010...!");
+ 					case 0:
+-						imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 0 ?: using Geometrie 2");
++						imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 0 ?: using Geometrie 2");
+ 					case 2:
+-						imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 2:  01010101010...!");
++						imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 2:  01010101010...!");
  
- 					tracksize=(((filesize-256)/fileheader->number_of_side)/fileheader->number_of_tracks);
+ 						tracksize=(((filesize-256)/fileheader->number_of_side)/fileheader->number_of_tracks);
  
 --- a/HxCFloppyEmulator_software/sources/gui/cb_usbhxcfecfg_window.cxx
 +++ b/HxCFloppyEmulator_software/sources/gui/cb_usbhxcfecfg_window.cxx
@@ -270,18 +237,18 @@
 +}
 --- a/libhxcfe/sources/loaders/apridisk_loader/apridisk_loader.c
 +++ b/libhxcfe/sources/loaders/apridisk_loader/apridisk_loader.c
-@@ -215,7 +215,7 @@
- 							break;
+@@ -230,7 +230,7 @@
+ 									break;
  
- 						default:
--							imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknow compression id (%.4x) !",data_record->compression);
-+							imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknown compression id (%.4x) !",data_record->compression);
- 							sectorconfig[number_of_sector].input_data=0;
- 							break;
- 						}
+ 									default:
+-										imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknow compression id (%.4x) !",data_record->compression);
++										imgldr_ctx->hxcfe->hxc_printf(MSG_ERROR,"Unknown compression id (%.4x) !",data_record->compression);
+ 										sectorconfig[number_of_sector].input_data = NULL;
+ 									break;
+ 								}
 --- a/libhxcfe/sources/loaders/streamhfe_loader/streamhfe_loader.c
 +++ b/libhxcfe/sources/loaders/streamhfe_loader/streamhfe_loader.c
-@@ -401,7 +401,7 @@
+@@ -406,7 +406,7 @@
  			floppydisk->floppyNumberOfSide,
  			floppydisk->floppyBitRate,
  			floppydisk->floppySectorPerTrack,
@@ -292,7 +259,7 @@
  		if(!trackoffsetlist)
 --- a/HxCFloppyEmulator_software/sources/gui/gui_strings.cxx
 +++ b/HxCFloppyEmulator_software/sources/gui/gui_strings.cxx
-@@ -212,7 +212,7 @@
+@@ -214,7 +214,7 @@
  	{ STR_RAWLOADERWINDOW_0003, "Inter side sector numbering" },
  	{ STR_RAWLOADERWINDOW_0004, "Tracks of a side grouped in the file" },
  	{ STR_RAWLOADERWINDOW_0005, "Auto GAP3" },
@@ -301,7 +268,7 @@
  	{ STR_RAWLOADERWINDOW_0007, "Format value" },
  	{ STR_RAWLOADERWINDOW_0008, "Interleave" },
  	{ STR_RAWLOADERWINDOW_0009, "Skew" },
-@@ -230,7 +230,7 @@
+@@ -232,7 +232,7 @@
  	{ STR_RAWLOADERWINDOW_0021, "Load config" },
  	{ STR_RAWLOADERWINDOW_0023, "Sector size" },
  	{ STR_RAWLOADERWINDOW_0024, "Track type" },
@@ -310,7 +277,7 @@
  	{ STR_RAWLOADERWINDOW_0026, "Number of side" },
  	{ STR_RAWLOADERWINDOW_0027, "Predefined Disk Layout" },
  
-@@ -279,4 +279,4 @@
+@@ -281,4 +281,4 @@
  		return strings_list[i].string;
  
  	return 0;

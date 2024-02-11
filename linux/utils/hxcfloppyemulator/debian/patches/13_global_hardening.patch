@@ -1,85 +1,81 @@
 --- a/libhxcfe/build/Makefile
 +++ b/libhxcfe/build/Makefile
-@@ -12,11 +12,11 @@
- DEBUG_ASAN ?= 0
+@@ -13,12 +13,12 @@
+ DEBUG_INFOS ?= 0
  
  ifeq ($(DEBUG), 1)
--	CFLAGS=-O0 $(INCLUDES) -Wall -g -DDEBUG
--	LDFLAGS= -shared
-+	CFLAGS+=-O0 $(INCLUDES) -Wall -g -DDEBUG
-+	LDFLAGS+= -shared
+-	CFLAGS = -O0 $(INCLUDES) -Wall -DDEBUG
+-	LDFLAGS = -shared
++	CFLAGS += -O0 $(INCLUDES) -Wall -DDEBUG
++	LDFLAGS += -shared
+ 	DEBUG_INFOS = 1
  else
--	CFLAGS=-O3 $(INCLUDES) -Wall
--	LDFLAGS= -shared
-+	CFLAGS+=-O3 $(INCLUDES) -Wall
-+	LDFLAGS+= -shared
+-	CFLAGS = -O3 $(INCLUDES) -Wall
+-	LDFLAGS = -shared
++	CFLAGS += -O3 $(INCLUDES) -Wall
++	LDFLAGS += -shared
  endif
  
  ifeq ($(DEBUG_ASAN), 1)
-@@ -27,7 +27,9 @@
- EXEC=libhxcfe.so
+@@ -42,7 +42,9 @@
+ endif
  
  ifeq ($(TARGET), Linux)
-+CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
- CFLAGS += -fPIC -Wl,-Map,foo.map
-+LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
- LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl
- LDFLAGS += -Wl,--as-needed,-soname,libhxcfe.so.2
++	CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
+ 	CFLAGS += -fPIC -Wl,-Map,foo.map
++	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
+ 	LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl
+ 	LDFLAGS += -Wl,--as-needed,-soname,libhxcfe.so.2
  endif
 --- a/libusbhxcfe/build/Makefile
 +++ b/libusbhxcfe/build/Makefile
-@@ -26,7 +26,9 @@
- EXEC=libusbhxcfe.so
+@@ -40,7 +40,9 @@
+ endif
  
  ifeq ($(TARGET), Linux)
-+CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
- CFLAGS += -fPIC -Wl,-Map,foo.map
-+LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
- LDFLAGS += -lc -lm  -ldl
++	CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
+ 	CFLAGS += -fPIC -Wl,-Map,foo.map
++	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
+ 	LDFLAGS += -lc -lm  -ldl
  endif
  
 --- a/HxCFloppyEmulator_cmdline/build/Makefile
 +++ b/HxCFloppyEmulator_cmdline/build/Makefile
-@@ -12,8 +12,8 @@
- 	CFLAGS=-O0 $(INCLUDES) -Wall -g -DDEBUG
- 	LDFLAGS=
+@@ -14,8 +14,8 @@
+ 	LDFLAGS =
+ 	DEBUG_INFOS = 1
  else
--	CFLAGS=-O3 $(INCLUDES) -Wall
--	LDFLAGS= -s
-+	CFLAGS+=-O3 $(INCLUDES) -Wall
-+	LDFLAGS+=
+-	CFLAGS =-O3 $(INCLUDES) -Wall
+-	LDFLAGS =
++	CFLAGS +=-O3 $(INCLUDES) -Wall
++	LDFLAGS +=
  endif
  
  ifeq ($(DEBUG_ASAN), 1)
-@@ -35,6 +35,8 @@
+@@ -48,6 +48,8 @@
  endif
  
  ifeq ($(TARGET), Linux)
-+CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
-+LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
- LDFLAGS += -lc -lm -ldl -lpthread -Wl,-rpath=. -Wl,-Map,foo.map
++	CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
++	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
+ 	LDFLAGS += -lc -lm -ldl -lpthread -Wl,-rpath=. -Wl,-Map,foo.map
  endif
  
 --- a/HxCFloppyEmulator_software/build/Makefile
 +++ b/HxCFloppyEmulator_software/build/Makefile
-@@ -13,10 +13,13 @@
- EXEC=hxcfloppyemulator
- 
- ifeq ($(DEBUG), 1)
--	CFLAGS=-O0 $(INCLUDES) -Wall -g -DDEBUG
--	LDFLAGS=
-+	CFLAGS+=-O0 $(INCLUDES) -Wall -g -DDEBUG
-+	LDFLAGS+=
+@@ -19,7 +19,10 @@
+ 	LDFLAGS =
+ 	DEBUG_INFOS = 1
  else
--	CFLAGS=-O3 $(INCLUDES) -Wall
-+	CFLAGS+=-O3 $(INCLUDES) -Wall
+-	CFLAGS = -O3 $(INCLUDES) -Wall
++	CFLAGS += -O3 $(INCLUDES) -Wall
 +	CPPFLAGS += $(CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
 +	CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
 +	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
  	LDFLAGS+= -g $(shell fltk-config --ldflags) -lpthread
  endif
  
-@@ -180,97 +183,97 @@
+@@ -199,97 +202,97 @@
  	$(RESC) $< $@
  
  main.o: $(BASEDIR)/main.cxx
