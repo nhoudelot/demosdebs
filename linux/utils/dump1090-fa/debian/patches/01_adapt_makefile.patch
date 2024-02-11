@@ -33,9 +33,9 @@
 -    LIMESDR := $(shell pkg-config --exists LimeSuite && echo "yes" || echo "no")
 +    LIMESDR := $(shell $(PKG_CONFIG) --exists LimeSuite && echo "yes" || echo "no")
    endif
- else
-   # pkg-config not available. Only use explicitly enabled libraries.
-@@ -102,6 +104,8 @@
+ 
+   ifndef SOAPYSDR
+@@ -107,6 +109,8 @@
  RTLSDR ?= yes
  BLADERF ?= yes
  
@@ -44,7 +44,7 @@
  ifeq ($(RTLSDR), yes)
    SDR_OBJ += sdr_rtlsdr.o
    DUMP1090_CPPFLAGS += -DENABLE_RTLSDR
-@@ -118,18 +122,18 @@
+@@ -123,18 +127,18 @@
  
      # FreeBSD's librtlsdr.pc includes -std=gnu89 in cflags
      # some linux librtlsdr packages return a bare -I/ with no path in --cflags
@@ -67,7 +67,7 @@
      endif
    endif
  endif
-@@ -137,22 +141,22 @@
+@@ -142,22 +146,22 @@
  ifeq ($(BLADERF), yes)
    SDR_OBJ += sdr_bladerf.o
    DUMP1090_CPPFLAGS += -DENABLE_BLADERF
@@ -95,4 +95,4 @@
 +  LIBS_SDR += $(shell $(PKG_CONFIG) --libs LimeSuite)
  endif
  
- 
+ ifeq ($(SOAPYSDR), yes)

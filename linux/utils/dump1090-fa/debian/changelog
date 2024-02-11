@@ -1,3 +1,9 @@
+dump1090-fa (9.0-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 11 Feb 2024 14:59:05 +0100
+
 dump1090-fa (8.2-0ddebs2) unstable; urgency=medium
 
   * use xz compression until debian 13 is released
