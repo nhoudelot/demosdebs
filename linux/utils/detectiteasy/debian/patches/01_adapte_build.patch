@@ -14,7 +14,7 @@
  TARGET = diec
 --- a/gui_source/gui_source.pro
 +++ b/gui_source/gui_source.pro
-@@ -81,6 +81,11 @@
+@@ -82,6 +82,11 @@
      ICON = ../icons/main.icns
  }
  

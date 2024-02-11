@@ -17,13 +17,22 @@ override_dh_auto_configure-arch:
 override_dh_auto_build-arch:
 	mkdir lang
 	lrelease gui_source/translation/die_ar.ts -qm  lang/die_ar.qm
+	lrelease gui_source/translation/die_bn.ts -qm  lang/die_bn.qm
 	lrelease gui_source/translation/die_de.ts -qm  lang/die_de.qm
 	lrelease gui_source/translation/die_es.ts -qm  lang/die_es.qm
+	lrelease gui_source/translation/die_fa.ts -qm  lang/die_fa.qm
 	lrelease gui_source/translation/die_fr.ts -qm  lang/die_fr.qm
+	lrelease gui_source/translation/die_he.ts -qm  lang/die_he.qm
+	lrelease gui_source/translation/die_id.ts -qm  lang/die_id.qm
+	lrelease gui_source/translation/die_it.ts -qm  lang/die_it.qm
 	lrelease gui_source/translation/die_ja.ts -qm  lang/die_ja.qm
+	lrelease gui_source/translation/die_ko.ts -qm  lang/die_ko.qm
 	lrelease gui_source/translation/die_pl.ts -qm  lang/die_pl.qm
 	lrelease gui_source/translation/die_pt_BR.ts -qm  lang/die_pt_BR.qm
+	lrelease gui_source/translation/die_pt_PT.ts -qm  lang/die_pt_TP.qm
 	lrelease gui_source/translation/die_ru.ts -qm  lang/die_ru.qm
+	lrelease gui_source/translation/die_tr.ts -qm  lang/die_tr.qm
+	lrelease gui_source/translation/die_uk.ts -qm  lang/die_uk.qm
 	lrelease gui_source/translation/die_vi.ts -qm  lang/die_vi.qm
 	lrelease gui_source/translation/die_zh.ts -qm  lang/die_zh.qm
 	lrelease gui_source/translation/die_zh_TW.ts -qm  lang/die_zh_TW.qm
@@ -35,6 +44,10 @@ override_dh_auto_clean-arch:
 	dh_auto_clean -Sqmake -Dbuild_libs
 	dh_auto_clean -Sqmake -Dconsole_source
 	dh_auto_clean -Sqmake -Dgui_source
+
+override_dh_install:
+	dh_install
+	find debian -type f -name '*.sg' -exec chmod 0644 {} +
 
 override_dh_builddeb:
 	dh_builddeb -- -Zxz
