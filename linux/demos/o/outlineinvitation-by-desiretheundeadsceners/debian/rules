@@ -7,3 +7,6 @@
 override_dh_install:
 	dh_install
 	find debian -type f -name '*.obj' -exec chmod 0644 {} +
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

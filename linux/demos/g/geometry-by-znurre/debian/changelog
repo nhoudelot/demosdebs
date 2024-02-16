@@ -1,3 +1,10 @@
+geometry-by-znurre (1.0-0ddebs2) unstable; urgency=medium
+
+  * use XZ compression for package, to create package compatible with 
+    debian 11 & ubuntu 20.04
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 16 Feb 2024 23:17:39 +0100
+
 geometry-by-znurre (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release
