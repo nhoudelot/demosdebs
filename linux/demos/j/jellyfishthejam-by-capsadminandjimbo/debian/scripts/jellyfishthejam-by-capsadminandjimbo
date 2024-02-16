@@ -13,9 +13,9 @@ APP_EXE="luajit jellyfish_demo.lua"
 function run()
 {
 	backuppwd=$(pwd)
-	cd /usr/share/${domain}
+	cd /usr/share/${domain} || exit
 	${APP_EXE}
-	cd $backuppwd
+	cd $backuppwd || exit
 }
 
 

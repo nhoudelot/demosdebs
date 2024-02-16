@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
     OSX     = { x86 = "",       x64 = "" },
     Windows = { x86 = "Bass.dll", x64 = "" },
 -   Linux   = { x86 = "libbass.so",    x64 = "libbass.so", arm = ""  },
-+   Linux   = { x86 = "libbass.so.2",    x64 = "libbass.so.2", arm = ""  },
++   Linux   = { x86 = "libbass.so.2",    x64 = "libbass.so.2", arm = "libbass.so.2", arm64 = "libbass.so.2"  },
     BSD     = { },
     POSIX   = { },
 -   Other   = { }, 
