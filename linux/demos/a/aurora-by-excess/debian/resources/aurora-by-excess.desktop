@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Aurora
+GenericName=Demo
+Comment=Demo by Excess, released in 2018
+Type=Application
+Exec=/usr/bin/aurora-by-excess
+Icon=aurora-by-excess
+Categories=AudioVideo;
+Name[fr_FR]=Aurora

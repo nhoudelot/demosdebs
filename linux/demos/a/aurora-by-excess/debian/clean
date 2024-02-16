@@ -1,0 +1,3 @@
+debian/install
+debian/scripts/aurora-by-excess
+obj-x86_64-linux-gnu

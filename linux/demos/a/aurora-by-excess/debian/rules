@@ -1,0 +1,49 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND+=-DSIMDE_ENABLE_OPENMP -fopenmp-simd -O3
+export DEB_CXXFLAGS_MAINT_APPEND+=-DSIMDE_ENABLE_OPENMP -fopenmp-simd -O3
+
+
+MESON_OPTS = -Dbass-sdk=/usr/include
+
+#ifeq "$(DEB_HOST_MULTIARCH)" "aarch64-linux-gnu" 
+#ifneq (,$(filter $(DEB_HOST_MULTIARCH), aarch64-linux-gnu))
+#	export DEB_CFLAGS_MAINT_APPEND = -DSDL_DISABLE_IMMINTRIN_H
+#	export DEB_CXXFLAGS_MAINT_APPEND = -DSDL_DISABLE_IMMINTRIN_H
+#	MESON_OPTS += -Ddisable_immintrin_h=true
+#endif
+
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
+    MESON_HOST_MULTIARCH = i686-linux-gnu
+else
+	MESON_HOST_MULTIARCH = $(DEB_HOST_MULTIARCH)
+endif
+
+%:
+	dh $@ --buildsystem=meson 
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(MESON_OPTS)
+	(cd debian; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' -e 's/@MESON_HOST_MULTIARCH@/$(MESON_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+		done )
+	 (cd debian/scripts; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+		done )
+
+override_dh_auto_install:
+	find . -name "LICENSE" -delete
+
+override_dh_install:
+	cp obj-$(MESON_HOST_MULTIARCH)/src/demo obj-$(MESON_HOST_MULTIARCH)/src/aurora
+	dh_install

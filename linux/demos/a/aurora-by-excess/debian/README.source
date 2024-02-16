@@ -1,0 +1,8 @@
+aurora-by-excess for Debian
+--------------------------
+
+took build from commit 99b21202d0b5a61fa3da0b32e8115d6769858acb
+just before migration to meson 1.2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 15 Feb 2024 12:03:49 +0100
+

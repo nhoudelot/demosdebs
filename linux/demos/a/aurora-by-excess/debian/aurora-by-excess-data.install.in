@@ -1,0 +1,2 @@
+obj-@MESON_HOST_MULTIARCH@/data usr/share/aurora-by-excess/
+assets usr/share/aurora-by-excess/

@@ -1,0 +1,12 @@
+--- a/src/scene/import-texture.cpp
++++ b/src/scene/import-texture.cpp
+@@ -15,7 +15,8 @@
+ using vulkan::setImageName;
+ 
+ #include <FreeImage.h>
+-#include <immintrin.h>
++#define SIMDE_ENABLE_NATIVE_ALIASES
++#include <simde/x86/avx.h>
+ 
+ static FIBITMAP *loadBitmap(string filename, VkFormat *format)
+ {

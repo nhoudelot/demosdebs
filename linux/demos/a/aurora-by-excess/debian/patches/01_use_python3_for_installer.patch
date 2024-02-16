@@ -1,0 +1,16 @@
+--- a/bin/dump_tracks.py
++++ b/bin/dump_tracks.py
+@@ -1,4 +1,4 @@
+-#!/bin/env python
++#!/bin/env python3
+ import os
+ import argparse
+ import xml.etree.ElementTree as ET
+--- a/bin/install_tracks.py
++++ b/bin/install_tracks.py
+@@ -1,4 +1,4 @@
+-#!/bin/env python
++#!/bin/env python3
+ import shutil
+ import argparse
+ from glob import glob

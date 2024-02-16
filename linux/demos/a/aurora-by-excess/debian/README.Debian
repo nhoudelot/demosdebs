@@ -1,0 +1,7 @@
+aurora-by-excess for Debian
+--------------------------
+
+could'nt find time to patch ninja install script
+so I use the install from debian packaging
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 15 Feb 2024 12:03:49 +0100

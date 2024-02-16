@@ -1,0 +1,41 @@
+Source: aurora-by-excess
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ python3,
+ meson,
+ pkg-config,
+ cmake,
+ libbass-dev,
+ libglfw3-dev,
+ libglm-dev,
+ libassimp-dev,
+ libfreeimage-dev,
+ libvulkan-dev,
+ vulkan-validationlayers,
+ glslang-tools,
+ libsimde-dev
+Standards-Version: 4.6.0.1
+Homepage: https://github.com/kusma/even-laster-engine/tree/aurora-linux
+Rules-Requires-Root: no
+
+Package: aurora-by-excess
+Architecture: any
+Depends:
+ aurora-by-excess-data,
+ libbass2,
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61)
+Description: Demo by Excess, released in 2018
+ Demo by Excess, ranked 4th pc demo at Revision 2018
+
+Package: aurora-by-excess-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for aurora-by-excess
+ aurora-by-excess data files
