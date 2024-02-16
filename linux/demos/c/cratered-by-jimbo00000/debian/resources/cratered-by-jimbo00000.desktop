@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Cratered
+GenericName=Demo
+Comment=Demo by jimbo00000, released in 2018
+Type=Application
+Exec=/usr/bin/cratered-by-jimbo00000
+Icon=cratered-by-jimbo00000
+Categories=AudioVideo;
+Name[fr_FR]=Cratered

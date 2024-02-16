@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=cratered-by-jimbo00000
+
+APP_FULLNAME="Cratered"
+APP_COPYRIGHT="jimbo00000"
+APP_DESC="Demo by jimbo00000, released in 2018"
+
+APP_EXE="luajit main_demo.lua compo"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/share/${domain}  || exit
+	${APP_EXE}
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
