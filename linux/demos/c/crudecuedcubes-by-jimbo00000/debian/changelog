@@ -1,3 +1,12 @@
+crudecuedcubes-by-jimbo00000 (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated lua patch to find arm version of libbass
+  * updated debian/scripts
+  * use XZ compression for package, to create package compatible with 
+    debian 11 & ubuntu 20.04
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 16 Feb 2024 23:01:23 +0100
+
 crudecuedcubes-by-jimbo00000 (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release

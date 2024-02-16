@@ -8,13 +8,13 @@ APP_FULLNAME="Crude, Cued Cubes"
 APP_COPYRIGHT="jimbo00000"
 APP_DESC="Demo by jimbo00000, released in 2017"
 
-APP_EXE="luajit"
+APP_EXE="luajit main_demo.lua compo"
 
 function run()
 {
 	backuppwd=$(pwd)
 	cd /usr/share/${domain} || exit
-	luajit main_demo.lua compo
+	${APP_EXE}
 	cd $backuppwd || exit
 }
 
