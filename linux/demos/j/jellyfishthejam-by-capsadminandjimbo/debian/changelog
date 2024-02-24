@@ -1,3 +1,10 @@
+jellyfishthejam-by-capsadminandjimbo (1.0+git20180531-0ddebs1) unstable; urgency=medium
+
+  * Use repository version number
+  * added debian/watch file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 24 Feb 2024 11:54:05 +0100
+
 jellyfishthejam-by-capsadminandjimbo (1.0-0ddebs5) unstable; urgency=medium
 
   * updated lua patch to find arm version of libbass

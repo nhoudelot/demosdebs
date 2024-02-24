@@ -5,27 +5,30 @@ Last-Update: 2019-12-23
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/standalone/glfw.lua
 +++ b/standalone/glfw.lua
-@@ -7,7 +7,7 @@
- if (ffi.os == "Windows") then
- 	glfw_lib = ffi.load("glfw3")
+@@ -9,7 +9,7 @@
+ elseif (ffi.os == "OSX") then
+ 	glfw_lib = ffi.load("libglfw.3.1.dylib")
  else
 -	glfw_lib = ffi.load("libglfw.so.3.1")
 +	glfw_lib = ffi.load("libglfw.so.3")
  end
  
  glfw = {
+@@ -393,4 +393,4 @@
+ 
+ --Coeus.Bindings.OpenGL.loader = glfw.glfw.GetProcAddress
+ 
+-return glfw
+\ No newline at end of file
++return glfw
 --- a/standalone/bass.lua
 +++ b/standalone/bass.lua
-@@ -2,10 +2,10 @@
+@@ -2,7 +2,7 @@
  local libs = ffi_Bass_libs or {
-    OSX     = { x86 = "",       x64 = "" },
+    OSX     = { x86 = "libbass.dylib",       x64 = "libbass.dylib" },
     Windows = { x86 = "Bass.dll", x64 = "" },
 -   Linux   = { x86 = "libbass.so",    x64 = "libbass.so", arm = ""  },
 +   Linux   = { x86 = "libbass.so.2",    x64 = "libbass.so.2", arm = "libbass.so.2", arm64 = "libbass.so.2"  },
     BSD     = { },
     POSIX   = { },
--   Other   = { }, 
-+   Other   = { },
- }
- local lib  = ffi_Bass_lib or libs[ ffi.os ][ ffi.arch ] or "Bass"
- local bass = ffi.load( lib )
+    Other   = { }, 

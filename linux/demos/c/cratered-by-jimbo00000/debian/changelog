@@ -1,3 +1,10 @@
+cratered-by-jimbo00000 (1.0+git20180609-0ddebs1) unstable; urgency=medium
+
+  * Use repository version number
+  * added debian/watch file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 24 Feb 2024 11:45:25 +0100
+
 cratered-by-jimbo00000 (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release
