@@ -1,0 +1,63 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ cmake_minimum_required(VERSION 3.1)
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+-project(primordial_soup)
++project(primordialsoup-by-faemiyah)
+ 
+ enable_language(C)
+ enable_language(CXX)
+@@ -19,7 +19,7 @@
+ 
+ include_directories("${PROJECT_SOURCE_DIR}/src")
+ 
+-add_executable(primordial_soup
++add_executable(primordialsoup-by-faemiyah
+   "src/bsd_rand.c"
+   "src/bsd_rand.h"
+   "src/glsl_program.cpp"
+@@ -32,25 +32,25 @@
+   "src/image_png.hpp"
+   "src/intro.cpp")
+ if(MSVC)
+-  target_link_libraries(primordial_soup "Imm32")
+-  target_link_libraries(primordial_soup "Version")
+-  target_link_libraries(primordial_soup "WinMM")
+-  target_link_libraries(primordial_soup "${OPENGL_gl_LIBRARY}")
+-  target_link_libraries(primordial_soup debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
+-  target_link_libraries(primordial_soup debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
+-  target_link_libraries(primordial_soup debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
+-  target_link_libraries(primordial_soup debug "${SNDFILE_LIBRARY_DEBUG}" optimized "${SNDFILE_LIBRARY}")
+-  target_link_libraries(primordial_soup debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "Imm32")
++  target_link_libraries(primordialsoup-by-faemiyah "Version")
++  target_link_libraries(primordialsoup-by-faemiyah "WinMM")
++  target_link_libraries(primordialsoup-by-faemiyah "${OPENGL_gl_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah debug "${SNDFILE_LIBRARY_DEBUG}" optimized "${SNDFILE_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
+ else()
+-  target_link_libraries(primordial_soup "${BOOST_FILESYSTEM_LIBRARY}")
+-  target_link_libraries(primordial_soup "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
+-  target_link_libraries(primordial_soup "${BOOST_SYSTEM_LIBRARY}")
+-  target_link_libraries(primordial_soup "${BOOST_THREAD_LIBRARY}")
+-  target_link_libraries(primordial_soup "${BOOST_WAVE_LIBRARY}")
+-  target_link_libraries(primordial_soup "${GLEW_LIBRARY}")
+-  target_link_libraries(primordial_soup "${PNG_LIBRARY}")
+-  target_link_libraries(primordial_soup "${SDL2_LIBRARY}")
+-  target_link_libraries(primordial_soup "${SNDFILE_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_FILESYSTEM_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_SYSTEM_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_THREAD_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_WAVE_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "${GLEW_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "${PNG_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "${SDL2_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah "${SNDFILE_LIBRARY}")
+ endif()
+ 
+ # TODO: Remove when Wave works with FreeBSD/C++11.

@@ -1,0 +1,33 @@
+--- a/src/glsl_shader.cpp
++++ b/src/glsl_shader.cpp
+@@ -63,6 +63,19 @@
+     return attempt;
+   }
+ 
++  const fs::path SHARE_PATH("/usr/share/primordialsoup-by-faemiyah");
++  attempt = SHARE_PATH / fs::path(name);
++  if(fs::exists(attempt))
++  {
++    return attempt;
++  }
++
++  attempt = fs::path("..") / SHARE_PATH / fs::path(name);
++  if(fs::exists(attempt))
++  {
++    return attempt;
++  }
++
+   return fs::path();
+ }
+ 
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -894,7 +894,7 @@
+ 
+ #if defined(SYNTH_TEST_INPUT_FILE)
+   {
+-    const fs::path REL_PATH("rel");
++    const fs::path REL_PATH("/usr/share/primordialsoup-by-faemiyah");
+     const fs::path SYNTH_TEST_INPUT_FILE_PATH(SYNTH_TEST_INPUT_FILE);
+     SDL_AudioSpec wav_spec;
+     SDL_AudioSpec* wav_found;

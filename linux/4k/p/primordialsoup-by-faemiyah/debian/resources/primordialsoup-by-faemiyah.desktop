@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Primordial Soup
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2017
+Type=Application
+Exec=/usr/bin/primordialsoup-by-faemiyah
+Icon=primordialsoup-by-faemiyah
+Categories=AudioVideo;
+Name[fr_FR]=Primordial Soup
