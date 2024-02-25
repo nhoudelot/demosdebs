@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Hairiokuilo
+GenericName=Demo
+Comment=Demo by Luminaire, released in 2017
+Type=Application
+Exec=/usr/bin/hairiokuilo-by-luminaire
+Icon=hairiokuilo-by-luminaire
+Categories=AudioVideo;
+Name[fr_FR]=Hairiokuilo

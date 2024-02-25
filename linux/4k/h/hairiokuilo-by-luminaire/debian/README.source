@@ -1,0 +1,8 @@
+hairiokuilo-by-luminaire for Debian
+----------------------------------
+
+executable has been unpacked, and renamed
+binary was also patched to remove fullscreen (SDL1.2 break display)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 25 Feb 2024 00:52:35 +0100
+

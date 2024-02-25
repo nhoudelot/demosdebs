@@ -1,0 +1,4 @@
+debian/scripts/hairiokuilo-by-luminaire usr/bin/
+./hairiokuilu-by-luminaire usr/lib/i386-linux-gnu/hairiokuilo-by-luminaire
+debian/resources/hairiokuilo-by-luminaire.desktop usr/share/applications/
+debian/resources/hairiokuilo-by-luminaire.png usr/share/icons/hicolor/256x256/apps/
