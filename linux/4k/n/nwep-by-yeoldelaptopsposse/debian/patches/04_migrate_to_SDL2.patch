@@ -42,12 +42,15 @@
  }
 --- a/Makefile
 +++ b/Makefile
-@@ -7,7 +7,7 @@
+@@ -8,9 +8,9 @@
+ SHMIN	   := shader_minifier.exe
+ 
  # Flags
- CFLAGS   += -Wall -pipe
+-CFLAGS   += -Wall -pipe -no-pie -std=c99 -Wextra -pedantic -Wno-unknown-pragmas $(shell $(PKG_CONFIG) --cflags gl sdl)
++CFLAGS   += -Wall -pipe -no-pie -std=c99 -Wextra -pedantic -Wno-unknown-pragmas $(shell $(PKG_CONFIG) --cflags gl sdl2)
  # Libraries for linking
--LDFLAGS  += $(shell $(PKG_CONFIG) --cflags --libs sdl gl) -lm -pthread
-+LDFLAGS  += $(shell $(PKG_CONFIG) --cflags --libs sdl2 gl) -lm -pthread
+-LDFLAGS  += $(shell $(PKG_CONFIG) --libs gl sdl) -lm -pthread -z noexecstack
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs gl sdl2) -lm -pthread -z noexecstack
+ NASMFLAGS   ?=-f elf32
  
  # Final executable name
- TARGET   := nwep-by-yeoldelaptopsposse

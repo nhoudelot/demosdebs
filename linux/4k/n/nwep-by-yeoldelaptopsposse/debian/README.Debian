@@ -1,7 +1,12 @@
 nwep-by-yeoldelaptopsposse for Debian
 ------------------------------------
 
-didn't compile everything
-especially the object file and glsl
+mono-runtime doesn't exists anymore on i386 ubuntu, 
+so i have to minifi the shaders before compiling the package
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 06 Nov 2023 14:38:12 +0100
+do : quilt push
+(until 04_minified_shaders.patch)
+run : make shaders
+do : quilt	refresh
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 28 Feb 2024 00:39:51 +0100

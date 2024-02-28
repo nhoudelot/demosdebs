@@ -1,18 +1,22 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,37 +1,56 @@
+@@ -1,37 +1,72 @@
 -SHMIN=mono shader_minifier.exe
 -INTRO=nwep
 +# compilers and tools
 +SHELL      := /bin/sh
-+CC	 := gcc
++CC         := gcc
++CXX        := g++
++NASM       := yasm
 +PKG_CONFIG := pkg-config
 +RM_F       := rm -f
++SHMIN	   := shader_minifier.exe
 +
 +# Flags
-+CFLAGS   += -Wall -pipe
++CFLAGS   += -Wall -pipe -no-pie -std=c99 -Wextra -pedantic -Wno-unknown-pragmas $(shell $(PKG_CONFIG) --cflags gl sdl)
 +# Libraries for linking
-+LDFLAGS  += $(shell $(PKG_CONFIG) --cflags --libs sdl gl) -lm -pthread
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs gl sdl) -lm -pthread -z noexecstack
++NASMFLAGS   ?=-f elf32
 +
 +# Final executable name
 +TARGET   := nwep-by-yeoldelaptopsposse
@@ -25,20 +29,28 @@
 +prefix	  		:= /usr
 +exec_prefix     := $(prefix)
 +bindir	 		:= $(prefix)/bin
++
++# Default target, builds the final executable
++all: $(TARGET)
++
++# only for shaders
++%.h: %.glsl
++	$(SHMIN) -o $@ --no-renaming-list Z,T,P,X,k,F,t,E,PI,main --preserve-externals $<
  
 -all: $(INTRO).sh
--
++shaders: raymarch.h out.h post.h
++# end of only for shaders
+ 
 -$(INTRO).sh: linux_header $(INTRO).gz
 -	cat linux_header $(INTRO).gz > $@
 -	chmod +x $@
 -
 -$(INTRO).gz: $(INTRO).elf
 -	cat $< | 7z a dummy -tGZip -mx=9 -si -so > $@
-+# Default target, builds the final executable
-+all: $(TARGET)
- 
+-
+-.h.glsl:
 +# Compile GLSL shaders using shader minifier
- .h.glsl:
++%.h: %.glsl
  	$(SHMIN) -o $@ --preserve-externals $<
  
 -.h.seq: timepack
@@ -54,7 +66,7 @@
 +# Build the timepack utility
  timepack: timepack.c
 -	$(CC) -std=c99 -Wall -Werror -Wextra -pedantic -lm timepack.c -o timepack
-+	$(CC) -std=c99 $(CFLAGS) -Werror -Wextra -pedantic -lm $< -o $@
++	$(CC) $(CFLAGS) -Werror -Wextra -pedantic -lm $< -o $@
  
 -# '-nostartfiles -DCOMPACT' result in a libSDL crash on my machine (making older 1k/4k also crash) :(
 -$(INTRO).elf: $(INTRO).c music/4klang.o
@@ -67,16 +79,21 @@
 -	$(CC) -m32 -O0 -g -Wall -Wno-unknown-pragmas \
 -		`pkg-config --cflags --libs sdl` -lGL \
 -		music/4klang.o $(INTRO).c -o $@
++music/4klang.o: music/4klang.asm music/4klang.inc
++	$(NASM) $(NASMFLAGS) music/4klang.asm -o music/4klang.o
+ 
+-.PHONY: clean
 +# Build the final ELF executable
 +$(TARGET): nwep.c music/4klang.o $(wildcard *.seq)
 +	$(CC) $(CFLAGS) -Wno-unknown-pragmas  $< music/4klang.o $(LDFLAGS) -o $@
  
 +# Clean up generated files
- .PHONY: clean
--
++.PHONY: clean
  clean:
 -	rm -rf $(INTRO).sh $(INTRO).gz $(INTRO).elf $(INTRO) $(INTRO).dbg
-+	-@$(RM_F) $(TARGET) timepack timeline.h
++	$(RM_F) $(TARGET) timepack timeline.h
++	$(RM_F) *.o music/*.o
++	$(RM_F) $(TARGET)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

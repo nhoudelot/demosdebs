@@ -4,3 +4,5 @@
 04_migrate_to_SDL2.patch
 05_togglefullscreen.patch
 06_better_quit.patch
+07_update_minified_shaders.patch
+08_fix_4klang.patch
