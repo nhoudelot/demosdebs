@@ -1,0 +1,12 @@
+nikak-by-yeoldelaptopsposseskoyp for Debian
+------------------------------------------
+
+mono-runtime doesn't exists anymore on i386 ubuntu, 
+so i have to minifi the shaders before compiling the package
+
+do : quilt push
+(until 04_minified_shaders.patch)
+run : make shaders
+do : quilt	refresh
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 26 Feb 2024 01:15:36 +0100

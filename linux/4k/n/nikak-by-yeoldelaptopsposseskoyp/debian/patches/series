@@ -1,0 +1,7 @@
+01_adapt_makefile.patch
+02_minified_shaders.patch
+03_use_system_glext.patch
+04_fix_4klang.patch
+05_migrate_to_SDL2.patch
+06_toggle_fullscreen.patch
+07_better_quit.patch

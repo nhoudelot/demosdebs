@@ -1,0 +1,20 @@
+Source: nikak-by-yeoldelaptopsposseskoyp
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ yasm,
+ libsdl2-dev,
+ libopengl-dev
+Standards-Version: 4.6.0.1
+Homepage: https://bitbucket.org/yolp/yo26/src/master/
+Rules-Requires-Root: no
+
+Package: nikak-by-yeoldelaptopsposseskoyp
+Architecture: amd64 i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Demo by Ye Olde Laptops Posse & s.k.o.y.p, released in 2017
+ Demo by Ye Olde Laptops Posse & s.k.o.y.p, 5th pc 4k at Evoke 2017

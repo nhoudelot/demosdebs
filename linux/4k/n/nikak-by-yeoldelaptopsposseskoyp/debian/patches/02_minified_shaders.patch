@@ -1,0 +1,296 @@
+--- /dev/null
++++ b/blur_reflection.h
+@@ -0,0 +1,29 @@
++/* File generated with Shader Minifier 1.1.4
++ * http://www.ctrl-alt-test.fr
++ */
++#ifndef BLUR_REFLECTION_H_
++# define BLUR_REFLECTION_H_
++
++const char *blur_reflection_glsl =
++ "void main()"
++ "{"
++   "vec2 v=X/Z(3);"
++   "vec4 m,c=E.xxxx;"
++   "float a=P(2,v).w,s=P(1,v).w,w,z,f,i,r=0.;"
++   "vec2 x=vec2(0.,1.1);"
++   "mat2 o=mat2(cos(2.4),sin(2.4),-sin(2.4),cos(2.4));"
++   "for(int e=0;e<200;e++)"
++     "{"
++       "vec2 n=v+r*x/Z(3);"
++       "r+=1./(r+4.);"
++       "x*=o;"
++       "m=P(2,n);"
++       "f=m.w;"
++       "i=P(1,n).w;"
++       "if(abs(a-f)<.04&&abs(s-i)<.1)"
++         "c+=vec4(m.xyz,1.);"
++     "}"
++   "gl_FragColor=vec4(c.xyz/max(1.,c.w),a);"
++ "}";
++
++#endif // BLUR_REFLECTION_H_
+--- /dev/null
++++ b/composite.h
+@@ -0,0 +1,14 @@
++/* File generated with Shader Minifier 1.1.4
++ * http://www.ctrl-alt-test.fr
++ */
++#ifndef COMPOSITE_H_
++# define COMPOSITE_H_
++
++const char *composite_glsl =
++ "void main()"
++ "{"
++   "vec4 m=T(1,X),s=T(2,X),r=T(3,X);"
++   "gl_FragColor=vec4(mix(m.xyz,mix(s.xyz,r.xyz,smoothstep(.2,.5,s.w)),.2),m.w);"
++ "}";
++
++#endif // COMPOSITE_H_
+--- /dev/null
++++ b/dof_tap.h
+@@ -0,0 +1,34 @@
++/* File generated with Shader Minifier 1.1.4
++ * http://www.ctrl-alt-test.fr
++ */
++#ifndef DOF_TAP_H_
++# define DOF_TAP_H_
++
++const char *dof_tap_glsl =
++ "void main()"
++ "{"
++   "vec2 s=X/Z(5);"
++   "float m=0.;"
++   "vec2 f=vec2(0.,1.1);"
++   "mat2 v=mat2(cos(2.4),sin(2.4),-sin(2.4),cos(2.4));"
++   "vec4 c=E.xxxx,i=E.xxxx;"
++   "float x=P(4,s).w;"
++   "for(int e=0;e<100;e++)"
++     "{"
++       "vec4 a=P(4,s+m*f/Z(5));"
++       "float I=.04,w=mix(mix(mix(mix(1.1,2.,step(16.,t)),10.,smoothstep(40.,64.,t)),4.+2.*sin((t-64.)*PI*.25),step(64.,t)),2.5,step(112.,t)),o=.03/tan(.7),n=a.w,l=abs(I*o/(n-o)*(n/w-1.))*Z(1).x/.035;"
++       "if(l>=m)"
++         "{"
++           "if(a.w>w)"
++             "i+=vec4(a.xyz,1.);"
++           "else"
++             " c+=vec4(a.xyz,1.);"
++         "}"
++       "m+=1./(m+10.);"
++       "f*=v;"
++     "}"
++   "gl_FragData[0]=vec4(c.xyz,c.w);"
++   "gl_FragData[1]=vec4(i.xyz,i.w);"
++ "}";
++
++#endif // DOF_TAP_H_
+--- /dev/null
++++ b/post.h
+@@ -0,0 +1,26 @@
++/* File generated with Shader Minifier 1.1.4
++ * http://www.ctrl-alt-test.fr
++ */
++#ifndef POST_H_
++# define POST_H_
++
++const char *post_glsl =
++ "vec4 n(vec2 w)"
++ "{"
++   "vec4 n=P(5,w),v=P(6,w);"
++   "return(n/max(.0001,n.w)*n.w+v/max(.0001,v.w)*v.w)/(n.w+v.w);"
++ "}"
++ "void main()"
++ "{"
++   "vec2 v=X/Z(1)-.5;"
++   "float w=.2+.1*fract(t)*step(64.,t)*step(t,96.);"
++   "vec3 r=vec3(n(.5+v).x,n(.5+v*(1.+.05*w)).y,n(.5+v*(1.+.1*w)).z);"
++   "r/=r+1.;"
++   "r=pow(r,vec3(1./2.2));"
++   "r-=.02*T(0,X*.3+t*vec2(623.,1107.)).y;"
++   "v=1.-2.*abs(v);"
++   "r*=min(1.,20.*v.x*v.y);"
++   "gl_FragColor=vec4(r,1.);"
++ "}";
++
++#endif // POST_H_
+--- /dev/null
++++ b/raymarch.h
+@@ -0,0 +1,178 @@
++/* File generated with Shader Minifier 1.1.4
++ * http://www.ctrl-alt-test.fr
++ */
++#ifndef RAYMARCH_H_
++# define RAYMARCH_H_
++
++const char *raymarch_glsl =
++ "vec4 v(vec2 v)"
++ "{"
++   "return T(0,v-.5);"
++ "}"
++ "vec4 m(vec3 l)"
++ "{"
++   "return.5*(v(l.yz)+v(l.zx));"
++ "}"
++ "mat3 x(float v)"
++ "{"
++   "float u=sin(v),l=cos(v);"
++   "return mat3(l,u,0.,-u,l,0.,0.,0.,1.);"
++ "}"
++ "vec3 m(vec3 v,vec3 u)"
++ "{"
++   "return mod(v,u)-u*.5;"
++ "}"
++ "float f(vec3 v)"
++ "{"
++   "return max(v.x,max(v.y,v.z));"
++ "}"
++ "float f(vec3 v,vec3 u)"
++ "{"
++   "return f(abs(v)-u);"
++ "}"
++ "float s=0.;"
++ "float p(vec3 v)"
++ "{"
++   "v=x(t*s)*v;"
++   "v.y+=t*s;"
++   "float l=f(m(v,vec3(2.)),vec3(.8));"
++   "l=max(l,-f(m(v,vec3(2.)),vec3(.6)));"
++   "l=max(l,-f(m(v,vec3(1.3)),vec3(.5)));"
++   "l=max(l,-f(m(v,vec3(.3)),vec3(.11)));"
++   "return l;"
++ "}"
++ "vec2 n(vec3 v)"
++ "{"
++   "v.y-=3.;"
++   "float l=-f(v,vec3(8.,3.,14.));"
++   "if(l<.1)"
++     "l=max(l,min(l+.4,p(x(.7)*v*2.)*.5));"
++   "return vec2(l,0.);"
++ "}"
++ "float y=0.;"
++ "vec2 e(vec3 v)"
++ "{"
++   "float l=.2+y*pow(sin(v.y+fract(t/4.)),2.);"
++   "return vec2(length(v.xz)-l,1.);"
++ "}"
++ "vec4 i,r;"
++ "vec3 z,c;"
++ "int d=1;"
++ "vec2 h(vec3 v)"
++ "{"
++   "vec2 l=n(v),u;"
++   "u=e(v);"
++   "l=l.x<u.x?l:u;"
++   "if(d!=0)"
++     "u=vec2(length(v-i.xyz)-i.w,10.),l=l.x<u.x?l:u,u=vec2(length(v-r.xyz)-r.w,20.),l=l.x<u.x?l:u;"
++   "return l;"
++ "}"
++ "vec2 e(vec3 v,vec3 u)"
++ "{"
++   "float l=0.;"
++   "vec2 m;"
++   "for(int i=0;i<64;++i)"
++     "{"
++       "m=h(v+u*l);"
++       "l+=m.x;"
++       "if(m.x<.001*l)"
++         "break;"
++     "}"
++   "return vec2(l,m.y);"
++ "}"
++ "vec3 l,g,w,a,b,I;"
++ "float o,u,D,Y;"
++ "float W(float v)"
++ "{"
++   "return u+=1.,u*=u/8.,v/(v*(1.-u)+u);"
++ "}"
++ "vec3 V(vec3 v)"
++ "{"
++   "vec3 l=normalize(g+v);"
++   "I=mix(vec3(.04),b,o);"
++   "float i=max(dot(l,g),0.),s=max(dot(w,g),0.),x=max(dot(w,v),0.),m=max(dot(w,l),0.),a=u*u*u*u,y=m*m*(a-1.)+1.;"
++   "vec3 z=I+(1.-I)*pow(1.001-i,5.);"
++   "float f=W(s)*W(x);"
++   "vec3 d=D*D*Y*Y/max(1e-10,PI*y*y)*f*z/max(1e-10,4.*s*x);"
++   "return((E.zzz-z)*(1.-o)*b/PI+d)*x;"
++ "}"
++ "vec3 V(vec3 v,float u,float x)"
++ "{"
++   "float i=1.;"
++   "const int y=8;"
++   "float f,s=1./float(y);"
++   "for(int d=1;d<y;++d)"
++     "{"
++       "f=min(u,2.)*float(d)*s;"
++       "vec3 z=l+f*v;"
++       "f=min(1.,h(z).x/(f*.2));"
++       "i=min(i,f);"
++     "}"
++   "return V(v)*max(0.,i)/x;"
++ "}"
++ "vec3 V(vec4 v,vec3 x)"
++ "{"
++   "vec3 s=reflect(g,w),m=v.xyz-l,i=dot(m,s)*s-m;"
++   "i=m+i*clamp(v.w/length(i),0.,1.);"
++   "D=u*u;"
++   "Y=clamp(v.w/(2.*length(i))+u*u,0.,1.);"
++   "return x*V(normalize(i),dot(i,i),length(i));"
++ "}"
++ "vec4 V()"
++ "{"
++   "vec2 v=e(l,-g);"
++   "l-=v.x*g;"
++   "w=normalize(5e-05*m(l*20.).xyz+vec3(h(l+E.yxx).x,h(l+E.xyx).x,h(l+E.xxy).x)-h(l).x);"
++   "d=0;"
++   "vec4 s=m(floor(l*9.));"
++   "if(v.y==0.)"
++     "a=vec3(10.,8.,1.)*step(.98,s.x),a+=vec3(2.,8.,10.)*step(.96,s.y);"
++   "b=vec3(.91,.92,.92);"
++   "o=1.;"
++   "u=mix(.4,.5,smoothstep(.4,.6,m(l*20.).x));"
++   "if(v.y==1.)"
++     "a=vec3(4.)*smoothstep(.99,.999,sin(t+l.y*4.)),b=vec3(.95,.93,.88),u=.3;"
++   "if(v.y==10.)"
++     "b=E.xxx,a=z,u=0.;"
++   "if(v.y==20.)"
++     "b=E.xxx,a=c,u=0.;"
++   "a+=V(i,z);"
++   "a+=V(r,c);"
++   "return vec4(a,v);"
++ "}"
++ "mat3 W(vec3 v,vec3 l,vec3 i)"
++ "{"
++   "return v=normalize(v-l),l=normalize(cross(i,v)),mat3(l,cross(v,l),v);"
++ "}"
++ "void main()"
++ "{"
++   "vec2 f=X/Z(1)*2.-1.;"
++   "f.x*=Z(1).x/Z(1).y;"
++   "i=v(vec2(t))*.2+vec4(7.,5.,7.,.1);"
++   "r=v(vec2(t))*.2+vec4(-7.,5.,7.,.2);"
++   "z=vec3(40.)*(1.+(1.-fract(t*.5-.125))*step(48.,t)*step(t,112.));"
++   "c=vec3(40.)*(1.+(1.-fract(t*.5+.375))*step(48.,t)*step(t,112.));"
++   "l=vec3(0.,1.,-2.)+.1*v(vec2(t*.25)).wyx;"
++   "vec3 m=vec3(0.,1.,0.)+.1*v(vec2(t*.5)).wyx;"
++   "if(t<16.)"
++     "l=vec3(7.,3.,10.-t/16.),m=l+E.zxx;"
++   "t-=16.;"
++   "if(t>0.&&t<16.)"
++     "l=vec3(-6.,1.,10.-t/16.),m=l-E.zxx;"
++   "t-=16.;"
++   "if(t>0.&&t<32.)"
++     "l=vec3(6.,1.,12.-t/16.),m=l-E.zxx;"
++   "t-=32.;"
++   "if(t>0.&&t<48.)"
++     "y=.4*smoothstep(8.,32.,t),s=.1*smoothstep(44.,48.,t);"
++   "t-=48.;"
++   "if(t>0.)"
++     "s=.01,l=vec3(-6.,1.,10.-t/16.),m=l-E.zxx;"
++   "g=-W(l,m,vec3(0.,1.,0.))*normalize(vec3(f,-1.));"
++   "gl_FragData[0]=V();"
++   "gl_FragData[1]=vec4(I,u);"
++   "g=reflect(g,w);"
++   "gl_FragData[1].xyz*=V().xyz;"
++ "}";
++
++#endif // RAYMARCH_H_

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=nikak
+GenericName=Demo
+Comment=Demo by Ye Olde Laptops Posse & s.k.o.y.p, released in 2017
+Type=Application
+Exec=/usr/bin/nikak-by-yeoldelaptopsposseskoyp
+Icon=nikak-by-yeoldelaptopsposseskoyp
+Categories=AudioVideo;
+Name[fr_FR]=nikak

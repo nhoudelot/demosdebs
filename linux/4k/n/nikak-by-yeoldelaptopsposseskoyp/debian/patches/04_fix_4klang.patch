@@ -1,0 +1,12 @@
+--- a/4klang.inc
++++ b/4klang.inc
+@@ -2,7 +2,8 @@
+    global _%1
+    _%1:
+ %endmacro
+-%define USE_SECTIONS
++%define AUTHORING
++;%define USE_SECTIONS
+ %define SAMPLE_RATE	44100
+ %define MAX_INSTRUMENTS	5
+ %define MAX_VOICES 2

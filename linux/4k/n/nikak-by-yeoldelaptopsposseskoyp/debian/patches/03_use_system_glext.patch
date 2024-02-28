@@ -1,0 +1,11 @@
+--- a/intro_c.c
++++ b/intro_c.c
+@@ -68,7 +68,7 @@
+ #define oglActiveTexture glActiveTexture
+ #endif
+ 
+-#include "glext.h"
++#include <GL/glext.h>
+ 
+ #include "4klang.h"
+ 

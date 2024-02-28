@@ -1,0 +1,28 @@
+--- a/intro_c.c
++++ b/intro_c.c
+@@ -625,6 +625,13 @@
+ static SDL_AudioSpec as = {SAMPLE_RATE, 0x8010, 2, 0, 0, 0, 0, audioPlay};
+ #endif /* AUDIO */
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++    int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(IsFullscreen);
++}
++
+ #ifndef COMPACT
+ int main() {
+ #else
+@@ -672,6 +679,11 @@
+ 		if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
+ 			|| now >= (MAX_SAMPLES * 1000ull / SAMPLE_RATE)) break;
+ 		itime = now * sizeof(SAMPLE_TYPE) * 2ull * SAMPLE_RATE / 1000;
++		if (e.type == SDL_KEYUP) {
++		    switch (e.key.keysym.sym) {
++		        case SDLK_f: ToggleFullscreen(sdlWindow); break;
++		    }
++		}
+ 		introPaint();
+ 
+ #ifdef CAPTURE

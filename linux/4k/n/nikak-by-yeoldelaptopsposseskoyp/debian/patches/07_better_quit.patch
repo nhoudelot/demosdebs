@@ -1,0 +1,10 @@
+--- a/intro_c.c
++++ b/intro_c.c
+@@ -679,6 +679,7 @@
+ 		if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
+ 			|| now >= (MAX_SAMPLES * 1000ull / SAMPLE_RATE)) break;
+ 		itime = now * sizeof(SAMPLE_TYPE) * 2ull * SAMPLE_RATE / 1000;
++		if ((e.type == SDL_QUIT) || now >= (MAX_SAMPLES * 1000ull / SAMPLE_RATE)) break;
+ 		if (e.type == SDL_KEYUP) {
+ 		    switch (e.key.keysym.sym) {
+ 		        case SDLK_f: ToggleFullscreen(sdlWindow); break;

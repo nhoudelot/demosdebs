@@ -1,0 +1,56 @@
+--- a/Makefile
++++ b/Makefile
+@@ -8,9 +8,9 @@
+ SHMIN	   := shader_minifier.exe
+ 
+ # Flags
+-CFLAGS   += -Wall -pipe -Wextra -pedantic -Werror=implicit-fallthrough -std=gnu99 -no-pie $(shell $(PKG_CONFIG) --cflags gl sdl)
++CFLAGS   += -Wall -pipe -Wextra -pedantic -Werror=implicit-fallthrough -std=gnu99 -no-pie $(shell $(PKG_CONFIG) --cflags gl sdl2)
+ # Libraries for linking
+-LDFLAGS  += $(shell $(PKG_CONFIG) --libs gl sdl) -lm -pthread -z noexecstack
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs gl sdl2) -lm -pthread -z noexecstack
+ NASMFLAGS   ?=-f elf32
+ 
+ WIDTH ?= 1280
+--- a/intro_c.c
++++ b/intro_c.c
+@@ -604,7 +604,7 @@
+ }
+ #elif defined(__linux__)
+ /* cc -Wall -Wno-unknown-pragmas `pkg-config --cflags --libs sdl` -lGL nwep.c -o nwep */
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <pthread.h>
+ 
+ #ifndef NO_AUDIO
+@@ -643,7 +643,10 @@
+ #else
+ #define FULLSCREEN 0
+ #endif
+-	SDL_SetVideoMode(XRES, YRES, 32, SDL_OPENGL | FULLSCREEN);
++	SDL_Window *sdlWindow;
++	SDL_GLContext sdlGlcontext;
++	sdlWindow = SDL_CreateWindow("Nikak by Ye Olde Laptops Posse & s.k.o.y.p", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, XRES, YRES,  SDL_WINDOW_OPENGL);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	glViewport(0, 0, XRES, YRES);
+ 	introInit();
+ 
+@@ -685,7 +688,7 @@
+ 		frame_start = frame_end;
+ #endif
+ 
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(sdlWindow);
+ 	}
+ 
+ #ifdef COMPACT
+@@ -695,7 +698,8 @@
+ 		"int $0x80\n" \
+ 	);
+ #else
+-	SDL_Quit();
++	SDL_GL_DeleteContext(sdlGlcontext);
++	SDL_DestroyWindow(sdlWindow);
+ 	return 0;
+ #endif
+ }
