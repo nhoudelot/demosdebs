@@ -1,3 +1,9 @@
+nedplayer (3.13.48-0ddebs1) unstable; urgency=medium
+
+  * New upstream version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 28 Feb 2024 23:31:11 +0100
+
 nedplayer (3.11.97-0ddebs4) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

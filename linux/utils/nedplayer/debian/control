@@ -4,8 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 12),
- pandoc,
- pkgconf,
+ pkg-config,
  libwxgtk3.0-gtk3-dev|libwxgtk3.0-dev,
  libfreetype6-dev,
  libvorbis-dev, 
@@ -16,16 +15,13 @@ Standards-Version: 4.6.0.1
 Homepage: http://deaddeer.free.fr/
 
 Package: nedplayer
+Section: utils
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- fonts-wine,
- ttf-mscorefonts-installer,
- fonts-segoe,
- nedscript-fire-tutorial
+ ${misc:Depends}
 Description: Player for Dead Deer projects
- Player for Dead Deer projects
+ Player for demoscene or games based on Dead Deer
 
 Package: fonts-segoe
 Section: fonts
@@ -42,6 +38,8 @@ Architecture: all
 Multi-Arch: foreign
 Depends:
  ${misc:Depends},
+ fonts-segoe,
+ nedplayer,
  common-install-function-ddebs
 Description: ned file example
- running nedscript fire tutorial
+ fire tutorial example included with nedplayer

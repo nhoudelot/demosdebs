@@ -4,14 +4,24 @@ nedplayer for Debian
 several sources files should be combined
 
 player_linux.tar.bz2 unpack in player/
-ned.zip unpack in /
-lib3d.zip unpack in /
-libscripts.zip unpack in /
-sound.zip unpack in /
+ned.zip unpack in ned/
+lib3d.zip unpack in lib3d/
+libscripts.zip unpack in libscripts/
+sound.zip unpack in sound/
 freetype 2.8 from ubuntu bionic in / (with patches)
 
 nedscript_fire_tutorial is the ned example, embeded with the binary release of
 the player
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 26 Jun 2020 01:37:53 +0200
+sed commands to patch Player/player.mk
+
+sed -i -e 's;/home/parallels/Desktop/Code/libscripts;../libscripts;g' Player/Player.mk
+sed -i -e 's;/home/parallels/Desktop/Code/ned;../ned;g' Player/Player.mk
+sed -i -e 's;/home/parallels/Desktop/Code/lib3d;../lib3d;g' Player/Player.mk
+sed -i -e 's;/home/parallels/Desktop/Code/freetype;../freetype;g' Player/Player.mk
+sed -i -e 's;/home/parallels/Desktop/Code/sound;../sound;g' Player/Player.mk
+sed -i -e 's;/home/parallels/Desktop/Code/Player;.;g' Player/Player.mk
+sed -i -e 's;../wx/bin/wx-config --static;wx-config;g' Player/Player.mk
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 29 Feb 2024 01:09:37 +0100
 

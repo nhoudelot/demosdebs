@@ -1,36 +1,47 @@
 --- a/lib3d/data/lzcompress.cpp
 +++ b/lib3d/data/lzcompress.cpp
-@@ -2232,7 +2232,7 @@
- }
- 
- /////////////////////////////////////////////////////////////////////////////////////////////////////////
--#if defined(WIN32)||defined(LINUX)
-+#if defined(WIN32)
- #ifdef API3D_VR
+@@ -2239,7 +2239,7 @@
+ #ifdef API3D_SDL2
  #include "../../zlib/zlib.h"
+ #else
+-#include "../zlib/zlib.h"
++#include <zlib.h>
+ #endif
+ #endif
  #else
 --- a/lib3d/data/png.cpp
 +++ b/lib3d/data/png.cpp
-@@ -39,7 +39,7 @@
- #include <memory.h>
- 
- 
--#if defined(WIN32)||defined(LINUX)
-+#if defined(WIN32)
- #ifdef API3D_VR
+@@ -46,7 +46,7 @@
+ #ifdef API3D_SDL2
  #include "../../zlib/zlib.h"
  #else
---- a/player/copypaste.hpp
-+++ b/player/copypaste.hpp
-@@ -18,7 +18,7 @@
+-#include "../zlib/zlib.h"
++#include <zlib.h>
+ #endif
+ #endif
+ #else
+--- a/ned/jpeg2000/jpeg2000.cpp
++++ b/ned/jpeg2000/jpeg2000.cpp
+@@ -56,7 +56,7 @@
+ #include "../player/file_io_zip.h"
+ #endif
  
+-#include "../../libjp2/openjpeg.h"
++#include <openjpeg.h>
+ 
+ #if defined(WIN32)||defined(API3D_SDL2)
+ #pragma warning(disable:4005)
+--- a/Player/copypaste.hpp
++++ b/Player/copypaste.hpp
+@@ -19,7 +19,7 @@
  char *signCP="DEADDEERCOPY";
  
--#if defined(WIN32)||defined(LINUX)
-+#if defined(WIN32)
- #include "../zlib/zlib.h"
+ #if defined(WIN32)||defined(LINUX)
+-#include "../zlib/zlib.h"
++#include <zlib.h>
  #else
  #include "zlib.h"
+ #endif
 @@ -910,4 +910,4 @@
  #endif
  
@@ -38,14 +49,14 @@
 -#endif
 \ No newline at end of file
 +#endif
---- a/ned/jpeg2000/jpeg2000.cpp
-+++ b/ned/jpeg2000/jpeg2000.cpp
-@@ -55,7 +55,7 @@
- #include "../player/file_io_zip.h"
+--- a/Player/script_anim.cpp
++++ b/Player/script_anim.cpp
+@@ -465,7 +465,7 @@
+ #ifdef API3D_SDL2
+ #include "../../zlib/zlib.h"
+ #else
+-#include "../zlib/zlib.h"
++#include <zlib.h>
  #endif
- 
--#include "../../libjp2/openjpeg.h"
-+#include <openjpeg-1.5/openjpeg.h>
- 
- 
- typedef unsigned char uint8;
+ #endif
+ #else
