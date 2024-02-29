@@ -1,3 +1,9 @@
+nedexamples-by-bartoshe (1.0-0ddebs4) unstable; urgency=medium
+
+  * some script and debian/control updates
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 29 Feb 2024 14:10:59 +0100
+
 nedexamples-by-bartoshe (1.0-0ddebs3) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

@@ -11,9 +11,9 @@ APP_DESC="Demo by bartoshe, released in 2017"
 function run()
 {
 	backuppwd=$(pwd)
-	cd /usr/share/${domain}
+	cd /usr/share/${domain} || exit
 	nedplayer
-	cd $backuppwd
+	cd $backuppwd || exit
 }
 
 if [ "$#" -gt "1" ]; then
