@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=mahh-by-lhb
+
+APP_FULLNAME="Mahh"
+APP_COPYRIGHT="LHB"
+APP_DESC="Demo by LHB, released in 2017"
+
+APP_EXE="metabits-linux"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	SDL12COMPAT_OPENGL_SCALING=0 LD_LIBRARY_PATH=./:/usr/lib/x86_64-linux-gnu/sdl12-compat/ ./${APP_EXE}
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

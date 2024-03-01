@@ -1,0 +1,35 @@
+Source: mahh-by-lhb
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ libsdl1.2-compat-dev|libsdl1.2-dev,
+ libgl1,
+ libsdl-image1.2-dev,
+ libsdl-mixer1.2-dev,
+ libopengl-dev,
+ libx11-dev
+Standards-Version: 4.6.0.1
+Homepage: https://www.pouet.net/prod.php?which=72481
+Rules-Requires-Root: no
+
+Package: mahh-by-lhb
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libsdl1.2-compat|libsdl1.2debian,
+ libglewNSHGLEWVERSION,
+ mahh-by-lhb-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by LHB, released in 2017
+ Demo by LHB, released in 2017
+
+Package: mahh-by-lhb-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for mahh-by-lhb
+ mahh-by-lhb data files

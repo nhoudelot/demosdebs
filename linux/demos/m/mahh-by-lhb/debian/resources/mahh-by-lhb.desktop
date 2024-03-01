@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Mähh
+GenericName=Demo
+Comment=Demo by LHB, released in 2017
+Type=Application
+Exec=/usr/bin/mahh-by-lhb
+Icon=mahh-by-lhb
+Categories=AudioVideo;
+Name[fr_FR]=Mähh

@@ -1,0 +1,5 @@
+debian/scripts/mahh-by-lhb usr/bin/
+./metabits-linux usr/lib/x86_64-linux-gnu/mahh-by-lhb
+debian/resources/mahh-by-lhb.desktop usr/share/applications/
+debian/resources/mahh-by-lhb.png usr/share/icons/hicolor/256x256/apps/
+

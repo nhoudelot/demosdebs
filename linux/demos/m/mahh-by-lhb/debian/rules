@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_shlibdeps:
+	dh_shlibdeps -- -xlibsdl1.2debian -ldebian/resources/ --ignore-missing-info
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz
