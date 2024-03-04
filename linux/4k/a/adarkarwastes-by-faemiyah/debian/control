@@ -1,0 +1,34 @@
+Source: adarkarwastes-by-faemiyah
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ cmake,
+ libopengl-dev|libglvnd-core-dev,
+ libpng-dev,
+ libsdl2-dev,
+ zlib1g-dev,
+ libglew-dev,
+ libboost-all-dev
+Standards-Version: 4.6.0.1
+Homepage: https://github.com/faemiyah/faemiyah-demoscene_2018-03_4k-intro_adarkar_wastes
+Rules-Requires-Root: no
+
+Package: adarkarwastes-by-faemiyah
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ adarkarwastes-by-faemiyah-data
+Description: Demo by Faemiyah, released in 2018
+ Demo by Faemiyah, 1st combined 4k at Instanssi 2018
+
+Package: adarkarwastes-by-faemiyah-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for adarkarwastes-by-faemiyah
+ adarkarwastes-by-faemiyah data files
+

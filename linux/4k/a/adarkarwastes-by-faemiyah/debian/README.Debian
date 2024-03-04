@@ -1,0 +1,19 @@
+adarkarwastes-by-faemiyah for Debian
+----------------------------------
+
+This is a standard version of the 4K intro, not the minimized "party" version.
+
+The source code uses the USE_LD definition and does not generate music. 
+Instead, it relies on existing WAV files and shaders.
+
+I always prefer using the most basic binary format to ensure compatibility 
+with dh_shlibdeps, allowing it to accurately identify dependencies.
+
+Forcing music generation might be possible, but exploring the ASM code
+suggests a loss of cross-platform compilation.
+
+Cross-compilation is currently limited to 64-bit architectures due to an OpenMPI
+dependency error. Therefore, the package is compiled with QEMU as a temporary 
+solution until debian resolve the issue.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 01 Mar 2024 10:47:55 +0100

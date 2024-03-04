@@ -1,0 +1,3 @@
+debian/resources/adarkarwastes-by-faemiyah.desktop usr/share/applications/
+debian/resources/adarkarwastes-by-faemiyah.png usr/share/icons/hicolor/128x128/apps/
+build/adarkarwastes-by-faemiyah usr/bin/

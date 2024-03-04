@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Adarkar Wastes
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2018
+Type=Application
+Exec=/usr/bin/adarkarwastes-by-faemiyah
+Icon=adarkarwastes-by-faemiyah
+Categories=AudioVideo;
+Name[fr_FR]=Adarkar Wastes
