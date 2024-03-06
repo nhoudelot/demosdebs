@@ -1,0 +1,4 @@
+version=4
+opts="compression=xz,repack" \
+  https://github.com/laurentlb/Shader_Minifier/tags .*/v?(\d+)\.(\d+)\.(\d+)@ARCHIVE_EXT@ \
+debian uupdate

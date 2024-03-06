@@ -1,3 +1,18 @@
+shader-minifier (1.3.6-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * Using now the binary version of share-minifier, as it's not possible
+    to compile it on linux anymore
+  * now binary dependencies are manualy setup in debian/control :(
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 06 Mar 2024 22:28:30 +0100
+
+shader-minifier (1.3.1-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 06 Mar 2024 02:20:22 +0100
+
 shader-minifier (1.1.6+git20220513-0ddebs2) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

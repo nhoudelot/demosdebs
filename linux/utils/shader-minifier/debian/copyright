@@ -3,11 +3,11 @@ Upstream-Name: shader-minifier
 Source: https://github.com/laurentlb/Shader_Minifier
 
 Files: *
-Copyright: 2013-2021 Laurent Le Brun <laurentlb@gmail.com>
+Copyright: 2013-2023 Laurent Le Brun <laurentlb@gmail.com>
 License: Apache-2.0
 
 Files: debian/*
-Copyright: 2019-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2019-2024 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3+
 
 License: GPL-3+
