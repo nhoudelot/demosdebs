@@ -1,18 +1,22 @@
 Description: migrate to SDL2
  Migrate from SDL1.2 to SDL2
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-28
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,7 +1,7 @@
- CC := gcc
- PKG_CONFIG:=pkg-config
+@@ -5,10 +5,10 @@
+ RM_F       := rm -f
+ 
+ # Flags
 -CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl) -Wall -std=gnu90 -pipe
--LDFLAGS += -flto $(shell $(PKG_CONFIG) --libs sdl) -lm
 +CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl2) -Wall -std=gnu90 -pipe
-+LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2) -lm
+ 
+ # Libraries for linking
+-LDFLAGS += -flto $(shell $(PKG_CONFIG) --libs sdl) -lm
++LDFLAGS += -flto $(shell $(PKG_CONFIG) --libs sdl2) -lm
  OBJ = data.o kirjaimet2.o kokko.o maf.o main.o mosaic.o pallot.o plasma.o\
  ratas.o stripes.o video.o cool_mzx/cool_mzx.a
  

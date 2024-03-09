@@ -2,17 +2,18 @@ Source: dump1090-fa
 Section: utils
 Priority: optional
 Maintainer: Oliver Jowett <oliver.jowett@flightaware.com>
-Build-Depends: debhelper-compat (= 10),
+Build-Depends: debhelper-compat (= 13),
   librtlsdr-dev <!custom> <rtlsdr>,
   libbladerf-dev <!custom> <bladerf>,
   libhackrf-dev <!custom> <hackrf>,
   liblimesuite-dev <!custom> <limesdr>,
   libusb-1.0-0-dev <!custom> <rtlsdr> <bladerf> <hackrf> <limesdr>,
   pkg-config, libncurses5-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.flightaware.com/
 Vcs-Git: https://github.com/flightaware/dump1090.git
 Vcs-Browser: https://github.com/flightaware/dump1090/
+Rules-Requires-Root: no
 
 Package: dump1090-fa
 Architecture: any

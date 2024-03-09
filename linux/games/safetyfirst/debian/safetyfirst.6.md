@@ -12,8 +12,6 @@ safetyfirst [*options*]
 Safety First! is a game released by JCO in 2015.
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
 

@@ -1,0 +1,10 @@
+outlineinvitation-by-desiretheundeadsceners source: source-is-missing [libglfw.so.3]
+outlineinvitation-by-desiretheundeadsceners source: source-is-missing [libogg.so.0]
+outlineinvitation-by-desiretheundeadsceners source: source-is-missing [libvorbis.so.0]
+outlineinvitation-by-desiretheundeadsceners source: source-is-missing [libvorbisfile.so.3]
+outlineinvitation-by-desiretheundeadsceners source: source-is-missing [tus_dsr-outline_invite]
+outlineinvitation-by-desiretheundeadsceners source: source-contains-prebuilt-windows-binary [OpenAL32.dll]
+outlineinvitation-by-desiretheundeadsceners source: source-contains-prebuilt-windows-binary [glfw3.dll]
+outlineinvitation-by-desiretheundeadsceners source: source-contains-prebuilt-windows-binary [outline17.exe]
+outlineinvitation-by-desiretheundeadsceners source: source-contains-prebuilt-windows-binary [wrap_oal.dll]
+

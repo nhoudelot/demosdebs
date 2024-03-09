@@ -1,3 +1,10 @@
+xppenutils (3.4.9-0ddebs2) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 14 Mar 2024 10:39:07 +0100
+
 xppenutils (3.4.9-0ddebs1) unstable; urgency=medium
 
   * New Upstream Release

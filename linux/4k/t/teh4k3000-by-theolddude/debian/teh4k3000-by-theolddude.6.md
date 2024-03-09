@@ -1,6 +1,6 @@
 % teh4k3000-by-theolddude(6) Teh 4k 3000 User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),the old dude
-% 2017-04-09
+% 2024-04-04
 
 # NAME
 teh4k3000-by-theolddude - the command to run Teh 4k 3000.
@@ -9,13 +9,15 @@ teh4k3000-by-theolddude - the command to run Teh 4k 3000.
 teh4k3000-by-theolddude [*options*]
 
 # DESCRIPTION
-Teh 4k 3000 is a demonstration released by the old dude in 2011.
+Teh 4k 3000 is a 4k intro released by the old dude in may 2011.
+Ended 3rd at Instanssi 2011
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=56988
 
 # BUGS
 No known bugs.

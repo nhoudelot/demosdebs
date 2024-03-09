@@ -1,0 +1,20 @@
+This package was debianized by: 
+
+	Federico Di Gregorio <fog@debian.org> on
+	Monday, 25th July 20:19:57 CEST 2005
+
+The original, pristine sources can be obtained from:
+	
+        http://libnoise.sourceforge.net/
+
+
+Copyright (C) 2003, 2004 Jason Bevins
+
+The library and utilities are free software, distributed under the terms of
+the GNU Lesser General Public License. On a Debian GNU/Linux system the full
+text of the LGPL can be found in /usr/share/common-licenses/LGPL.
+
+The example code located in /usr/share/doc/libnoise-dev/examples is
+distributed under the terms of the GNU General Public License. On a Debian
+GNU/Linux system the full text of the LGPL can be found in
+/usr/share/common-licenses/GPL.

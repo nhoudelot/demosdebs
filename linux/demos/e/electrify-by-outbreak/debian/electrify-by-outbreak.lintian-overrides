@@ -1,3 +1,3 @@
 electrify-by-outbreak: unknown-section demos
-electrify-by-outbreak: desktop-entry-lacks-keywords-entry usr/share/applications/electrify-by-outbreak.desktop
-electrify-by-outbreak: hardening-no-pie usr/lib/i386-linux-gnu/electrify-by-outbreak/electrify.elf
+electrify-by-outbreak: desktop-entry-lacks-keywords-entry [usr/share/applications/electrify-by-outbreak.desktop]
+electrify-by-outbreak: hardening-no-pie [usr/lib/i386-linux-gnu/electrify-by-outbreak/electrify.elf]

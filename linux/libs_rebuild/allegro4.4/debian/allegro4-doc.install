@@ -1,0 +1,25 @@
+usr/share/doc/allegro4-doc/AUTHORS
+usr/share/doc/allegro4-doc/THANKS
+usr/share/doc/allegro4-doc/CHANGES
+usr/share/doc/allegro4-doc/readme.txt
+usr/share/doc/allegro4-doc/abi.txt
+usr/share/doc/allegro4-doc/addons.txt
+usr/share/doc/allegro4-doc/ahack.txt
+usr/share/doc/allegro4-doc/allegro.txt
+usr/share/doc/allegro4-doc/api.txt
+usr/share/doc/allegro4-doc/const.txt
+usr/share/doc/allegro4-doc/dat.txt
+usr/share/doc/allegro4-doc/dat2c.txt
+usr/share/doc/allegro4-doc/dat2s.txt
+usr/share/doc/allegro4-doc/datafile.txt
+usr/share/doc/allegro4-doc/faq.txt
+usr/share/doc/allegro4-doc/grabber.txt
+usr/share/doc/allegro4-doc/help.txt
+usr/share/doc/allegro4-doc/makedoc.txt
+usr/share/doc/allegro4-doc/mistakes.txt
+usr/share/doc/allegro4-doc/packfile.txt
+usr/share/info/allegro.info
+
+usr/share/doc/allegro4-doc/html/*
+usr/share/doc/allegro4-doc/examples/source.tar.gz
+debian/compile_examples.sh usr/share/doc/allegro4-doc/examples

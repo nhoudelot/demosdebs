@@ -1,6 +1,7 @@
 Description: migrate to SDL2
  Migrate from SDL1.2 to SDL2
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-22
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -23,7 +24,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #ifdef __XBOX__
  #include <hal/xbox.h>
-@@ -56,7 +56,11 @@
+@@ -56,7 +56,12 @@
  extern int tbon, tbclos, tbpressed;
  #endif
  
@@ -32,10 +33,38 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  SDL_Surface *screen;
 +SDL_Surface* sdlSurface;
 +SDL_Texture *sdlTexture;
++SDL_AudioDeviceID device;
  int ctune = 0;
  int dragger=0, enddragger, dragx, dragy;
  int wdragger=0;
-@@ -483,12 +487,12 @@
+@@ -175,7 +180,7 @@
+   }
+ 
+   hvl_InitSubsong( tune, 0 );
+-  SDL_PauseAudio( 0 );
++  SDL_PauseAudioDevice(device, 0 );
+ 
+   ctune = n;
+   return 1;
+@@ -183,7 +188,7 @@
+ #else
+ int start_tune( int n )
+ {
+-  SDL_PauseAudio( 1 );
++  SDL_PauseAudioDevice(device, 1 );
+   if( tune ) hvl_FreeTune( tune );
+   tune = NULL;
+ 
+@@ -202,7 +207,7 @@
+     return 0;
+   }
+   hvl_InitSubsong( tune, 0 );
+-  SDL_PauseAudio( 0 );
++  SDL_PauseAudioDevice(device, 0 );
+ 
+   ctune = n;
+   return 1;
+@@ -483,12 +488,12 @@
  #endif
    
  #ifdef __SW_SURFACE__
@@ -51,7 +80,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    #endif
  #endif
  
-@@ -501,7 +505,7 @@
+@@ -501,7 +506,7 @@
        {
  #ifndef __FULLSCREEN_ONLY__
          case 'w':
@@ -60,7 +89,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #ifdef __HW_ONLY_WINDOWED__
            flags &= ~SDL_SWSURFACE;
            flags |= SDL_HWSURFACE;
-@@ -537,7 +541,11 @@
+@@ -537,7 +542,11 @@
    }
  #endif
  
@@ -73,7 +102,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    if( !screen )
    {
  #ifdef __XBOX__
-@@ -549,7 +557,6 @@
+@@ -549,7 +558,6 @@
      return 0;
    }
    
@@ -81,7 +110,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    SDL_ShowCursor( SDL_DISABLE );
    
    if( !render_init() ) return 0;
-@@ -576,7 +583,7 @@
+@@ -563,8 +571,8 @@
+ 
+   wanted.callback = (void*)do_the_music;
+   wanted.userdata = 0;
+-
+-  if( SDL_OpenAudio( &wanted, NULL ) < 0 )
++  device = SDL_OpenAudioDevice(NULL, 0, &wanted, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
++  if( device == NULL )
+   {
+ #ifdef __XBOX__
+     debugPrint("SDL says: %s\n", SDL_GetError() );
+@@ -576,7 +584,7 @@
    }
    
  #ifndef __BROKEN_SDL_TIMER__
@@ -90,7 +130,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
    hvl_InitReplayer();
-@@ -801,7 +808,7 @@
+@@ -801,14 +809,14 @@
              case 'f':
              case 'F':
              case SDLK_RETURN:	// was going to use alt-return, but since return isn't doing anything else..
@@ -99,6 +139,22 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                break;
  #endif
  
+             case 'p':
+             case 'P':
+               paused ^= 1;
+-              SDL_PauseAudio( paused );
++              SDL_PauseAudioDevice(device, paused );
+               break;
+             
+             case SDLK_UP:
+@@ -853,6 +861,6 @@
+     }
+   }
+   
+-  SDL_PauseAudio( 1 );
++  SDL_PauseAudioDevice(device, 1 );
+   return 0;
+ }
 --- a/makefile
 +++ b/makefile
 @@ -437,7 +437,7 @@

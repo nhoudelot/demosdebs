@@ -1,2 +1,2 @@
 bugymetaballs-by-lordcow binary: unknown-section demos
-bugymetaballs-by-lordcow binary: desktop-entry-lacks-keywords-entry usr/share/applications/bugymetaballs-by-lordcow.desktop
+bugymetaballs-by-lordcow binary: desktop-entry-lacks-keywords-entry [usr/share/applications/bugymetaballs-by-lordcow.desktop]

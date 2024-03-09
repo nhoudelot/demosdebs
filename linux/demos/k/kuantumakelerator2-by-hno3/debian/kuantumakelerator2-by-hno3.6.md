@@ -1,6 +1,6 @@
 % kuantumakelerator2-by-hno3(6) Kuantum Akelerator 2 User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Hno3
-% 2016-03-26
+% 2024-04-20
 
 # NAME
 kuantumakelerator2-by-hno3 - is the command to run Kuantum Akelerator 2 
@@ -9,12 +9,11 @@ kuantumakelerator2-by-hno3 - is the command to run Kuantum Akelerator 2
 kuantumakelerator2-by-hno3 [*options*]
 
 # DESCRIPTION
-Kuantum Akelerator 2  is a demonstration released by Hno3
-Demo by Hno3, released in 2005
+Kuantum Akelerator 2  is a demonstration released by Hno3 in january 2005
+
+mankeli [Code]
 
 # OPTIONS
-there is no options to this program
-
 \--window
 :   run in a window
 
@@ -24,6 +23,8 @@ there is no options to this program
 \--help
 :   Display help for the command
 
+# INFOS
+https://www.pouet.net/prod.php?which=16257
 
 # BUGS
 No known bugs.

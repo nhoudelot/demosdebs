@@ -1,3 +1,4 @@
 thespelltheritualtheanthem-by-wildbashkortmages: unknown-section demos
-thespelltheritualtheanthem-by-wildbashkortmages: embedded-library usr/lib/x86_64-linux-gnu/thespelltheritualtheanthem-by-wildbashkortmages/bashkortostan: libjsoncpp
-thespelltheritualtheanthem-by-wildbashkortmages: hardening-no-pie usr/lib/x86_64-linux-gnu/thespelltheritualtheanthem-by-wildbashkortmages/bashkortostan
+thespelltheritualtheanthem-by-wildbashkortmages: embedded-library libjsoncpp [usr/lib/x86_64-linux-gnu/thespelltheritualtheanthem-by-wildbashkortmages/bashkortostan]
+thespelltheritualtheanthem-by-wildbashkortmages: hardening-no-pie [usr/lib/x86_64-linux-gnu/thespelltheritualtheanthem-by-wildbashkortmages/bashkortostan]
+thespelltheritualtheanthem-by-wildbashkortmages: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/thespelltheritualtheanthem-by-wildbashkortmages/bashkortostan]

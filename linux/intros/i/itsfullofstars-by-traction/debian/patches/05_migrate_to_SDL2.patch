@@ -1,0 +1,100 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cpp
++++ b/main.cpp
+@@ -81,7 +81,7 @@
+ 
+ 		glColor3f(1,0,0);
+ 		font_write(-0.9f, -0.9f, "please wait...");
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(win.sdlWindow);
+ 
+ 		alku_init();
+ 		kaupunki_init();
+@@ -330,7 +330,7 @@
+ 					}
+ 				}
+ 
+-				SDL_GL_SwapBuffers();
++				SDL_GL_SwapWindow(win.sdlWindow);
+ 
+ 				if (aika >= introloppu)
+ 					done = true;
+@@ -359,6 +359,8 @@
+ 		if (musicflag==true)
+ 			sound.release();
+ 
++		SDL_GL_DeleteContext(win.sdlGlcontext);
++		SDL_DestroyWindow(win.sdlWindow);
+ 		SDL_Quit();
+ 		return 0;
+ 	}
+--- a/stuff.hpp
++++ b/stuff.hpp
+@@ -7,7 +7,7 @@
+ #ifndef OS_X
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #else
+ #include <gl.h>
+ #include <glu.h>
+--- a/win32.cpp
++++ b/win32.cpp
+@@ -1,5 +1,5 @@
+ #ifndef OS_X
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #else
+ #include <SDL.h>
+ #endif
+@@ -22,14 +22,15 @@
+ {
+ 	SDL_Init(SDL_INIT_VIDEO);
+ 
+-	int SDL_flags = SDL_OPENGL;
++	int SDL_flags = SDL_WINDOW_OPENGL;
+ #ifdef FULLSCREEN
+-	SDL_flags += SDL_FULLSCREEN;
++	SDL_flags += SDL_WINDOW_FULLSCREEN;
+ #endif
+ 	SDL_ShowCursor(0);
+ 
+-	SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_flags);
+-	SDL_WM_SetCaption("Traction::It's Full of Stars",0);
++	
++	sdlWindow = SDL_CreateWindow("Traction::It's Full of Stars",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WINDOW_WIDTH,WINDOW_HEIGHT,SDL_flags);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 
+ 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+ 
+--- a/win32.hpp
++++ b/win32.hpp
+@@ -10,6 +10,8 @@
+ 
+ bool create(bool bflag);
+ void shut();
++SDL_Window *sdlWindow;
++SDL_GLContext sdlGlcontext;
+ //		HDC getDC();
+ 
+ private:
+--- a/Makefile
++++ b/Makefile
+@@ -35,8 +35,8 @@
+ 
+ #linux Makefile setup
+ ifeq ($(PLATFORM), LINUX)
+-	LDFLAGS += -L/usr/lib/  -I./ $(shell $(PKG_CONFIG) glu sdl fmodex --libs)
+-	CFLAGS +=$(shell $(PKG_CONFIG) glu sdl fmodex --cflags) -fpermissive
++	LDFLAGS += -L/usr/lib/  -I./ $(shell $(PKG_CONFIG) glu sdl2 fmodex --libs)
++	CFLAGS +=$(shell $(PKG_CONFIG) glu sdl2 fmodex --cflags) -fpermissive
+ endif
+ 
+ .PHONY: all all-before all-after clean clean-custom

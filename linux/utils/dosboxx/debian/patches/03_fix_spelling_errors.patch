@@ -1,0 +1,17 @@
+Description: fixing some spelling errors
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2024-03-10
+Applied-Upstream: no
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/dosbox.cpp
++++ b/src/dosbox.cpp
+@@ -2455,7 +2455,7 @@
+     Pint->SetMinMax(-65536,65536);
+     Pint->Set_help("VGA BIOS size override. Override the size of the VGA BIOS (normally 32KB in compatible or 12KB in non-compatible).");
+ 
+-    Pbool = secprop->Add_bool("video bios dont duplicate cga first half rom font",Property::Changeable::WhenIdle,false);
++    Pbool = secprop->Add_bool("video bios don't duplicate cga first half rom font",Property::Changeable::WhenIdle,false);
+     Pbool->Set_help("If set, save 4KB of EGA/VGA ROM space by pointing to the copy in the ROM BIOS of the first 128 chars");
+ 
+     Pbool = secprop->Add_bool("video bios always offer 14-pixel high rom font",Property::Changeable::WhenIdle,false);

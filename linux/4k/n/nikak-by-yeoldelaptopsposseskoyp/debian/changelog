@@ -1,3 +1,10 @@
+nikak-by-yeoldelaptopsposseskoyp (1.0+git20170822-0ddebs2) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 28 Mar 2024 14:09:21 +0100
+
 nikak-by-yeoldelaptopsposseskoyp (1.0+git20170822-0ddebs1) unstable; urgency=medium
 
   * Initial release

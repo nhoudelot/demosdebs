@@ -1,0 +1,3 @@
+version=3
+opts=uversionmangle=s/(\d)\-?(RC\d*)$/$1~$2/ \
+http://sf.net/libnoise/libnoisesrc-(\d\S*)\.zip

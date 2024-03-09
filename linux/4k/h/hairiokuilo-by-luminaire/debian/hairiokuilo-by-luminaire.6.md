@@ -1,6 +1,6 @@
 % hairiokuilo-by-luminaire(6) Hairiokuilo User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Luminaire
-% 2024-02-25
+% 2024-03-26
 
 # NAME
 hairiokuilo-by-luminaire - the command to run Hairiokuilo.
@@ -9,13 +9,15 @@ hairiokuilo-by-luminaire - the command to run Hairiokuilo.
 hairiokuilo-by-luminaire [*options*]
 
 # DESCRIPTION
-Hairiokuilo is a demonstration released by Luminaire in 2017.
+Hairiokuilo is a 4k intro released by Luminaire in august 2017.
+Ended 7th combined 4k at Assembly 2017
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=71449
 
 # BUGS
 No known bugs.

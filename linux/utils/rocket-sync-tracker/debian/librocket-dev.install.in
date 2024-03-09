@@ -1,0 +1,7 @@
+lib/base.h usr/include/librocket/
+lib/device.h usr/include/librocket/
+lib/sync.h usr/include/librocket/
+lib/track.h usr/include/librocket/
+examples usr/share/rocket-sync-tracker/
+lib/librocket.a usr/lib/@DEB_HOST_MULTIARCH@/
+lib/librocket-player.a usr/lib/@DEB_HOST_MULTIARCH@/

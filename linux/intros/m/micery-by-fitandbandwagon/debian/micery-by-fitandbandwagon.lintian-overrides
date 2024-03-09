@@ -1,2 +1,2 @@
 micery-by-fitandbandwagon binary: unknown-section demos
-micery-by-fitandbandwagon binary: desktop-entry-lacks-keywords-entry usr/share/applications/micery-by-fitandbandwagon.desktop
+micery-by-fitandbandwagon binary: desktop-entry-lacks-keywords-entry [usr/share/applications/micery-by-fitandbandwagon.desktop]

@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: nightdrive-by-contraz
-Source: http://www.pouet.net/prod.php?which=61570
+Source: https://www.pouet.net/prod.php?which=61570
 
 Files: *
 Copyright: 2013 Contraz
@@ -8,7 +8,7 @@ License: public-domain
  (probably freeware)
 
 Files: debian/*
-Copyright: 2018-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2018-2024 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: GPL-3.0+

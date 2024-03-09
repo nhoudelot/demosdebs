@@ -1,0 +1,4 @@
+debian/scripts/progress3-by-kstorm usr/bin/
+./progress_3 usr/lib/x86_64-linux-gnu/progress3-by-kstorm
+debian/resources/progress3-by-kstorm.desktop usr/share/applications/
+debian/resources/progress3-by-kstorm.png usr/share/icons/hicolor/256x256/apps/

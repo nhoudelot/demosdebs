@@ -1,0 +1,7 @@
+#!/bin/sh
+# Copyright 2022 Collabora Ltd
+# SPDX-License-Identifier: Zlib
+
+set -eux
+
+/usr/libexec/installed-tests/libsdl1.2-compat/testver

@@ -1,24 +1,64 @@
 Description: make window resizable
  make window resizable with correct ratio
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-29
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -23,6 +23,9 @@
+@@ -23,6 +23,11 @@
  
  volatile int tid=0;
  
 +#define DEMO_XASPECT 4.0f
 +#define DEMO_YASPECT 3.0f
 +
++SDL_Renderer *sdlRenderer;
++
  #ifdef NOAMIKA
  SDL_Surface *scr;
  #else
-@@ -141,7 +144,8 @@
+@@ -88,6 +93,34 @@
+ #endif
+ }
+ 
++void resize_window(int w, int h) {
++    SDL_Rect newWindowSize;
++    newWindowSize.x = 0;
++    newWindowSize.y = 0;
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    } else if (w != newWindowSize.w) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (h != newWindowSize.h) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    }
++
++    SDL_Rect viewPort;
++    SDL_RenderGetViewport(sdlRenderer, &viewPort);
++    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++}
++
+ int main(int argc,char *argv[])
+ {
+ 	int quit=0,n,i,*pal,last=0,pos=0,tmp,r,g,b,*pix,origtime=-1;
+@@ -139,9 +172,9 @@
+ 
+ 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);
  	SDL_Window *sdlWindow;
- 	SDL_Renderer *sdlRenderer;
+-	SDL_Renderer *sdlRenderer;
  	SDL_Texture *sdlTexture;
 -	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
 +	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
@@ -26,7 +66,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
  	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_RGB888); //buffer video
  	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
-@@ -171,6 +175,7 @@
+@@ -171,6 +204,7 @@
  #endif
  
  	memset(buf,127,320*200);
@@ -34,40 +74,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	while(!quit)
  	{
  #ifdef NOAMIKA
-@@ -188,6 +193,36 @@
+@@ -185,6 +219,11 @@
  					case SDLK_q: quit=1; break;
  				}
  			 }
 +			if (e.window.windowID == windowID)  {
 +				if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
-+				    SDL_Rect newWindowSize;
-+				    int w = e.window.data1;
-+				    int h = e.window.data2;
-+				    newWindowSize.x=0;
-+				    newWindowSize.y=0;
-+				    float aspect = (float)w / (float)h;
-+				    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
-+					newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+					newWindowSize.x += (w - newWindowSize.w) / 2;
-+					newWindowSize.h = h;
-+				    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
-+					newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+					newWindowSize.y += (h - newWindowSize.h) / 2;
-+					newWindowSize.w = w;
-+				    } else if (w != newWindowSize.w) {
-+					newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+					newWindowSize.x += (w - newWindowSize.w) / 2;
-+					newWindowSize.h = h;
-+				    } else if (h != newWindowSize.h) {
-+					newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+					newWindowSize.y += (h - newWindowSize.h) / 2;
-+					newWindowSize.w = w;
-+				    }
-+				    SDL_Rect viewPort;
-+				    SDL_RenderGetViewport(sdlRenderer, &viewPort);
-+				    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++				    resize_window(e.window.data1,e.window.data2);
 +				}
-+			    }
++			}
  		}
  #else
  		if(!(*((char *)0xbfe001)&64))

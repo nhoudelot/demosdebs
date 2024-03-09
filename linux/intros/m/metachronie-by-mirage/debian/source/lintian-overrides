@@ -1,4 +1,4 @@
-metachronie-by-mirage source: source-is-missing debian/resources/libSDL_gfx.so.13
-metachronie-by-mirage source: source-is-missing libmodplug.so.1
-metachronie-by-mirage source: source-is-missing metachronie-linux_x86-64
+metachronie-by-mirage source: source-is-missing [debian/resources/libSDL_gfx.so.13]
+metachronie-by-mirage source: source-is-missing [libmodplug.so.1]
+metachronie-by-mirage source: source-is-missing [metachronie-linux_x86-64]
 

@@ -1,3 +1,11 @@
+elfling (1.0-0ddebs6) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+  * can now build to 64 bit
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 10 Mar 2024 23:12:03 +0100
+
 elfling (1.0-0ddebs5) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

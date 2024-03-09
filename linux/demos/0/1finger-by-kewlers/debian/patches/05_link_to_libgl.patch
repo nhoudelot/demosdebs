@@ -1,13 +1,23 @@
+Description: link to gl as libglu-dev doesn't link automatically to libgl now
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -4,8 +4,8 @@
- CXX := g++
- PKG_CONFIG := pkg-config
- CFLAGS += -Wall -pipe -Irubber1.0 $(shell $(PKG_CONFIG) --cflags glu)
+@@ -6,11 +6,11 @@
+ RM_F       := rm -f
+ 
+ # Flags
+-CFLAGS += -Wall -pipe -Irubber1.0 $(shell $(PKG_CONFIG) --cflags glu)
 -CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell $(PKG_CONFIG) --cflags glu)
--LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu) -lm
++CFLAGS += -Wall -pipe -Irubber1.0 $(shell $(PKG_CONFIG) --cflags glu gl)
 +CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell $(PKG_CONFIG) --cflags glu gl)
-+LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu gl) -lm
+ 
+ # Libraries for linking
+-LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu) -lm
++LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu gl ) -lm
  
  OBJ = test3d.o Kewlmation.o \
        rubber1.0/Rubber.o rubber1.0/Shader.o rubber1.0/Texture.o \

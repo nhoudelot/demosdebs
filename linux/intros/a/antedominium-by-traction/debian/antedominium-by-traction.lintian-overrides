@@ -1,2 +1,2 @@
 antedominium-by-traction binary: unknown-section demos
-antedominium-by-traction binary: desktop-entry-lacks-keywords-entry usr/share/applications/antedominium-by-traction.desktop
+antedominium-by-traction binary: desktop-entry-lacks-keywords-entry [usr/share/applications/antedominium-by-traction.desktop]

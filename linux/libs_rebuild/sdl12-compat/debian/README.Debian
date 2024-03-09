@@ -1,0 +1,37 @@
+libsdl1.2-compat
+================
+
+This package provides the SDL 2-based SDL 1.2 compatibility layer in a
+library in /usr/lib/${DEB_HOST_MULTIARCH}/sdl12-compat. You can force
+SDL 1.2 programs to use this by loading the library using LD_PRELOAD:
+
+LD_PRELOAD=/usr/lib/${DEB_HOST_MULTIARCH}/sdl12-compat/libSDL-1.2.so.0 \
+sdl12program
+
+On Wayland, you may want to force SDL 2 to use that instead of an X11
+compatibility layer (Xwayland); to do so, set SDL_VIDEODRIVER=wayland.
+However this will cause SDL 1.2 programs to fail if run using the SDL
+1.2 libraries, so it should only be set for specific programs you wish
+to run in this fashion.
+
+libsdl1.2-compat is under development, you will see many “FIXME”
+messages on standard error.
+
+libsdl1.2-compat-shim
+=====================
+
+This will replace libsdl1.2debian, and cause all SDL 1.2-based
+programs to use the SDL 2.0 compatibility layer. It is a runtime
+replacement only, you will not be able to build SDL 1.2 programs using
+it; libsdl1.2-dev can’t be installed with the shim.
+
+Symbols
+=======
+
+Even though neither packages are intended for development,
+libsdl1.2-compat ships a symbols file; this is intended for use with
+packages which might use the compatibility library directly (e.g. as a
+replacement for libSDL-1.2.id.so.0).
+
+
+ -- Stephen Kitt <skitt@debian.org>, Fri,  2 Apr 2021 22:30:13 +0200

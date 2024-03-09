@@ -3,15 +3,16 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl1.2-compat-dev|libsdl1.2-dev,
  libpng12-0,
  libftgl-dev,
  freeglut3-dev|libglut-dev,
  libfmodex-dev,
  libglew1.5
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=54127
+Rules-Requires-Root: no
 
 Package: lusiuslu01-by-mentai
 Architecture: i386

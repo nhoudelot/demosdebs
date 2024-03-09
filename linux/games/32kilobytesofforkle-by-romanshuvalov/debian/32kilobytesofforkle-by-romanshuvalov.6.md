@@ -12,22 +12,18 @@
 32 kilobytes of Forkle is a game released by Roman Shuvalov in 2016.
 
 # OPTIONS
-
 \--help
 :   Display help for the command
 
 # Rules
-
 Player is offered to build towers in right places and at right timing. There are two types of towers: basic to push the crystal and attacking to fight enemy towers. Towers can be built only inside visible area. Objective is to take the crystal to enemy base. 
 
 # Controls
-
 LMB - create/upgrade tower
 RMB - pan camera
 Mouse wheel - zoom camera
 
 # Additional Features
-
 Press F5 to let bot play for you and watch bot-vs-bot fight. 
 
 # BUGS

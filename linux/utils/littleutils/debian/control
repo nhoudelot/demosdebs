@@ -3,8 +3,8 @@ Section: utils
 Priority: optional
 Maintainer: Brian Lindholm <brian_lindholm@users.sourceforge.net>
 Build-Depends:
- debhelper-compat (= 12),
- libpng-dev | libpng12-dev,
+ debhelper-compat (= 13),
+ libpng-dev,
  libimlib2-dev,
  zlib1g-dev,
  pngcrush,
@@ -26,8 +26,9 @@ Build-Depends:
 Build-Depends-Indep:
  libcryptx-perl,
  img2pdf
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: http://sourceforge.net/projects/littleutils/
+Rules-Requires-Root: no
 
 Package: littleutils-base
 Architecture: any
@@ -119,7 +120,6 @@ Description: legacy littleutils that have been superseded by coreutils
  to-lzma - converts .Z, .gz, .lzo, and .bz2 files to .lzma (lzma/lzma_alone)
 
 Package: littleutils-docs
-Section: utils
 Architecture: all
 Depends: ${misc:Depends}
 Description: documentation for littleutils

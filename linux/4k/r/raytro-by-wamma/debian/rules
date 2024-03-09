@@ -1,5 +1,6 @@
 #!/usr/bin/make -f
 export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
+export DEB_CFLAGS_MAINT_APPEND  = -DXCOMPILE
 
 %:
 	dh $@

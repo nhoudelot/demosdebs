@@ -1,0 +1,194 @@
+--- a/src/main.c
++++ b/src/main.c
+@@ -110,7 +110,7 @@
+ #include <SDL/SDL.h>
+ #include <SDL/SDL_opengl.h>
+ #else
+-#include "SDL.h"
++#include <SDL2/SDL.h>
+ #include "GL/gl.h"
+ #include "GL/glext.h"
+ #endif
+@@ -154,14 +154,15 @@
+ "glUseProgram\0"
+ "glViewport\0\0"
+ "libSDL.so\0"
+-"SDL_GL_SwapBuffers\0"
++"SDL_GL_SwapWindow\0"
+ "SDL_Init\0"
+ "SDL_OpenAudio\0"
+ "SDL_PauseAudio\0"
+ "SDL_PollEvent\0"
+ "SDL_Quit\0"
+-"SDL_SetVideoMode\0"
+-"SDL_ShowCursor\0\0";
++"SDL_CreateWindow\0"
++"SDL_ShowCursor\0"
++"SDL_GL_CreateContext\0\0";
+ 
+ #define dsinf sinf
+ 
+@@ -194,12 +195,13 @@
+ #define dluLookAt gluLookAt
+ #define dluPerspective gluPerspective
+ 
+-#define DDL_GL_SwapBuffers SDL_GL_SwapBuffers
++#define DDL_GL_SwapWindow SDL_GL_SwapWindow
+ #define DDL_Init SDL_Init
+ #define DDL_OpenAudio SDL_OpenAudio
+ #define DDL_PauseAudio SDL_PauseAudio
+ #define DDL_PollEvent SDL_PollEvent
+-#define DDL_SetVideoMode SDL_SetVideoMode
++#define DDL_CreateWindow SDL_CreateWindow
++#define DDL_GL_CreateContext SDL_GL_CreateContext
+ #define DDL_ShowCursor SDL_ShowCursor
+ #define DDL_Quit SDL_Quit
+ 
+@@ -258,14 +260,15 @@
+ #define dlUseProgram ((void (*)(GLuint))dnload_pointer(285))
+ #define dlViewport ((void (*)(GLint, GLint, GLsizei, GLsizei))dnload_pointer(298))
+ 
+-#define DDL_GL_SwapBuffers ((void (*)(void))dnload_pointer(323))
++#define DDL_GL_SwapWindow ((void (*)(SDL_Window*))dnload_pointer(323))
+ #define DDL_Init ((int (*)(Uint32))dnload_pointer(333))
+-#define DDL_OpenAudio ((int (*)(SDL_AudioSpec*, SDL_AudioSpec*))dnload_pointer(352))
+-#define DDL_PauseAudio ((void (*)(int))dnload_pointer(361))
+-#define DDL_PollEvent ((int (*)(SDL_Event*))dnload_pointer(375))
+-#define DDL_Quit ((void (*)(void))dnload_pointer(390))
+-#define DDL_SetVideoMode ((SDL_Surface* (*)(int, int, int, Uint32))dnload_pointer(404))
+-#define DDL_ShowCursor ((int (*)(int))dnload_pointer(413))
++#define DDL_OpenAudio ((int (*)(SDL_AudioSpec*, SDL_AudioSpec*))dnload_pointer(351))
++#define DDL_PauseAudio ((void (*)(int))dnload_pointer(360))
++#define DDL_PollEvent ((int (*)(SDL_Event*))dnload_pointer(374))
++#define DDL_Quit ((void (*)(void))dnload_pointer(389))
++#define DDL_CreateWindow ((SDL_Window* (*)(const char*,int,int,int,int,Uint32))dnload_pointer(403))
++#define DDL_ShowCursor ((int (*)(int))dnload_pointer(412))
++#define DDL_GL_CreateContext ((void (*)(SDL_Window*))dnload_pointer(429))
+ 
+ #endif
+ /** \endcond */
+@@ -475,9 +478,9 @@
+ {
+ 	int ii;
+ #if SCREEN_F
+-	uint32_t ret = SDL_OPENGL | SDL_FULLSCREEN;
++	uint32_t ret = SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN;
+ #else
+-	uint32_t ret = SDL_OPENGL;
++	uint32_t ret = SDL_WINDOW_RESIZABLE;
+ #endif
+ 	for(ii = 1; (ii < argc); ++ii)
+ 	{
+@@ -485,15 +488,15 @@
+ 
+ 		if((strcmp("-f", cmp) == 0) || (strcmp("--fullscreen", cmp) == 0))
+ 		{
+-			ret |= SDL_FULLSCREEN;
++			ret |= SDL_WINDOW_FULLSCREEN;
+ 		}
+ 		else if((strcmp("-n", cmp) == 0) || (strcmp("--no-fullscreen", cmp) == 0))
+ 		{
+-			ret ^= SDL_FULLSCREEN;
++			ret ^= SDL_WINDOW_FULLSCREEN;
+ 		}
+ 		else if((strcmp("-w", cmp) == 0) || (strcmp("--windowed", cmp) == 0))
+ 		{
+-			ret &= ~SDL_FULLSCREEN;
++			ret &= ~SDL_WINDOW_FULLSCREEN;
+ 		}
+ #if defined(HAVE_LIBPNG)
+ 		else if((strcmp("-r", cmp) == 0) || (strcmp("--record", cmp) == 0))
+@@ -1110,6 +1113,9 @@
+ 	255 // safety value.
+ };
+ 
++static SDL_Window *sdlWindow;
++static SDL_GLContext sdlGlcontext;
++
+ /** \brief Draw the world.
+  *
+  * @param ms Milliseconds.
+@@ -1381,8 +1387,8 @@
+ #define sdl_flags SDL_OPENGL
+ #endif
+ #endif
+-		DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, sdl_flags);
+-		SDL_WM_SetCaption("Dirty Garden by Faemiyah",NULL);
++		sdlWindow = DDL_CreateWindow("Dirty Garden by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_W,SCREEN_H,sdl_flags);
++		sdlGlcontext = DDL_GL_CreateContext(sdlWindow);
+ 	}
+ 	DDL_ShowCursor(0);
+ #if defined(WIN32)
+@@ -1532,7 +1538,7 @@
+ 			draw(ticks);
+ 			sprintf(filename, "dirty_garden_%04u.png", frame_idx);
+ 			write_opengl_viewport(filename);
+-			DDL_GL_SwapBuffers();
++			DDL_GL_SwapWindow(sdlWindow);
+ 			++frame_idx;
+ 		}
+ 		DDL_Quit();
+@@ -1581,7 +1587,7 @@
+ 			}
+ 
+ 			draw((uint8_t*)audio_position - (uint8_t*)audio_buffer);
+-			DDL_GL_SwapBuffers();
++			DDL_GL_SwapWindow(sdlWindow);
+ 
+ 			// Abort on any keypress.
+ 			if(DDL_PollEvent(&event))
+@@ -1907,7 +1913,7 @@
+ 		{
+ 			break;
+ 		}
+-		DDL_GL_SwapBuffers();
++		DDL_GL_SwapWindow(sdlWindow);
+ 		draw(currtick);
+ 
+ 		// Abort on any keypress.
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -618,14 +618,14 @@
+   AC_LANG_POP([C])
+ ])
+ 
+-# Incorporate SDL.
+-# AC_INCORPORATE_SDL([version], [define on found], [obligatory])
+-AC_DEFUN([AC_INCORPORATE_SDL],
++# Incorporate SDL2.
++# AC_INCORPORATE_SDL2([version], [define on found], [obligatory])
++AC_DEFUN([AC_INCORPORATE_SDL2],
+ [
+-  AM_PATH_SDL([$1],
+-    sdl=[yes],
+-    sdl=[no])
+-  AC_INCORPORATE([SDL], [$sdl], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
++  AM_PATH_SDL2([$1],
++    sdl2=[yes],
++    sdl2=[no])
++  AC_INCORPORATE([SDL2], [$sdl2], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
+ ])
+ 
+ # Incorporate LIBMIKMOD.
+--- a/configure.ac
++++ b/configure.ac
+@@ -37,7 +37,7 @@
+ 
+ AC_INCORPORATE_LIBPNG([1.2.0], [HAVE_LIBPNG], [no])
+ AC_INCORPORATE_OPENGL([HAVE_OPENGL], [yes])
+-AC_INCORPORATE_SDL([1.2.7], [HAVE_SDL], [yes])
++AC_INCORPORATE_SDL2([2.0.0], [HAVE_SDL2], [yes])
+ AC_ADD_LIB([-lm])
+ AC_ADD_LIB([-ldl])
+ 
+--- a/src/record.c
++++ b/src/record.c
+@@ -8,7 +8,7 @@
+ #ifdef __APPLE__
+ #include <SDL/SDL_opengl.h>
+ #else
+-#include <SDL/SDL_opengl.h>
++#include <SDL2/SDL_opengl.h>
+ #endif
+ 
+ #include "record.h"

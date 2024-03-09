@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libncurses-dev,
  nasm,
  libsdl2-net-dev,
@@ -12,13 +12,14 @@ Build-Depends:
  libavformat-dev,
  libavcodec-dev,
  libswscale-dev,
- libfreetype-dev|libfreetype6-dev,
+ libfreetype-dev,
  libxkbfile-dev,
  libxrandr-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://github.com/joncampbell123/dosbox-x
 Vcs-Git: https://github.com/joncampbell123/dosbox-x.git
 Vcs-Browser: https://github.com/joncampbell123/dosbox-x
+Rules-Requires-Root: no
 
 Package: fonts-nouveau-ibm
 Architecture: all

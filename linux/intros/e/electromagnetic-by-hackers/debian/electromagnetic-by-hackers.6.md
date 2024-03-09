@@ -1,6 +1,6 @@
 % electromagnetic-by-hackers(6) Electro-Magnetic User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Hackers
-% 2020-07-06
+% 2024-03-19
 
 # NAME
 electromagnetic-by-hackers - the command to run Electro-Magnetic.
@@ -9,13 +9,18 @@ electromagnetic-by-hackers - the command to run Electro-Magnetic.
 electromagnetic-by-hackers [*options*]
 
 # DESCRIPTION
-Electro-Magnetic is a demonstration released by Hackers in 2016.
+Electro-Magnetic is a 16k intro released by Hackers in may 2016.
+It ended 3rd pc intro at Simulaatio 2016
+
+van damme [music]
+ash checksum [Visuals]
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=67450
 
 # BUGS
 No known bugs.

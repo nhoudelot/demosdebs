@@ -3,12 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl1.2-compat-dev,
  libsdl-image1.2-dev,
  libmad0-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=69271
+Rules-Requires-Root: no
 
 Package: test-by-sigflup
 Architecture: amd64
@@ -19,7 +20,7 @@ Depends:
  test-by-sigflup-data,
  common-install-function-ddebs(>=1.61)
 Description: Demo by SigFLUP, released in 2017
- Demo by SigFLUP, released in 2017
+ Released in 2017 by Test
 
 Package: test-by-sigflup-data
 Architecture: all

@@ -1,6 +1,6 @@
 % lunareactivation-by-vovoid(6) Luna : Reactivation User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),vovoid
-% 2018-01-21
+% 2024-04-20
 
 # NAME
 lunareactivation-by-vovoid - the command to run Luna : Reactivation.
@@ -9,7 +9,10 @@ lunareactivation-by-vovoid - the command to run Luna : Reactivation.
 lunareactivation-by-vovoid [*options*]
 
 # DESCRIPTION
-Luna : Reactivation is a demonstration released by vovoid in 2011.
+Luna : Reactivation is a demonstration released by vovoid in august 2011.
+Ended 3rd at Assembly 2011
+
+jaw [Code, Graphics (design, modelling), Music, Other (direction)]
 
                      L U N A  :  R E A C T I V A T I O N
 
@@ -120,10 +123,11 @@ __3rd party stuff used_________________________________________________________
 _______________________________________________________________________________
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=57448
 
 # BUGS
 No known bugs.

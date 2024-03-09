@@ -3,16 +3,18 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
- libsdl1.2-dev,
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13),
+ libsdl1.2-compat-dev|libsdl1.2-dev,
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=44
+Rules-Requires-Root: no
 
 Package: 303-by-acme
 Architecture: i386
 Depends:
  ${misc:Depends},
- ${shlibs:Depends}
+ ${shlibs:Depends},
+ libsdl1.2-compat|libsdl1.2debian
 Description: Demo : 303 by Acme
  demo ranked 1st at X 1997
  with a Linux wrapper

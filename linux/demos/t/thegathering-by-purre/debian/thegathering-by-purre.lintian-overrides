@@ -1,1 +1,3 @@
 thegathering-by-purre binary: unknown-section demos
+thegathering-by-purre: hardening-no-pie [usr/lib/x86_64-linux-gnu/thegathering-by-purre/ShaderViewer]
+thegathering-by-purre: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/thegathering-by-purre/ShaderViewer]

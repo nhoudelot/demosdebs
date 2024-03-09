@@ -3,7 +3,7 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  cmake,
  libboost-filesystem-dev,
  libboost-program-options-dev,
@@ -12,8 +12,11 @@ Build-Depends:
  libpng-dev,
  libsdl2-dev,
  libglew-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=66046
+Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2015-08_4k-intro_ghosts_of_mars
+Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2015-08_4k-intro_ghosts_of_mars.git
+Rules-Requires-Root: no
 
 Package: ghostsofmars-by-faemiyah
 Architecture: any

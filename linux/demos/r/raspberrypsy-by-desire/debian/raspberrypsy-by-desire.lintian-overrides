@@ -1,1 +1,5 @@
 raspberrypsy-by-desire binary: unknown-section demos
+raspberrypsy-by-desire: embedded-library glew [usr/lib/x86_64-linux-gnu/raspberrypsy-by-desire/dsr-rpsy-linux-64bit.lnx]
+raspberrypsy-by-desire: hardening-no-pie [usr/lib/x86_64-linux-gnu/raspberrypsy-by-desire/dsr-rpsy-linux-64bit.lnx]
+raspberrypsy-by-desire: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/raspberrypsy-by-desire/dsr-rpsy-linux-64bit.lnx]
+raspberrypsy-by-desire: desktop-entry-lacks-keywords-entry [usr/share/applications/raspberrypsy-by-desire.desktop]

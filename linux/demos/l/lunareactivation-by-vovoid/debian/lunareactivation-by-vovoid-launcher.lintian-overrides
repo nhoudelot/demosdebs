@@ -1,1 +1,2 @@
-lunareactivation-by-vovoid-launcher binary: unknown-section demos
+lunareactivation-by-vovoid-launcher: unknown-section demos
+lunareactivation-by-vovoid-launcher: desktop-entry-lacks-keywords-entry [usr/share/applications/lunareactivation-by-vovoid.desktop]

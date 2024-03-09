@@ -1,3 +1,13 @@
+stochasticlenssimulatormkii-by-gzrrplox (1.0+1-0ddebs6) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+  * migrate to SDL2
+  * added quit with Q key
+  * added fullscreen with F key
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 04 Apr 2024 01:38:24 +0200
+
 stochasticlenssimulatormkii-by-gzrrplox (1.0+1-0ddebs5) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

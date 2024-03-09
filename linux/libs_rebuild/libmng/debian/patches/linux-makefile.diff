@@ -1,0 +1,17 @@
+Description: Fix for Linux's makefile for 1.0.10
+Author: Kartik Mistry <kartik@debian.org>
+Forwarded: https://sourceforge.net/tracker/?func=detail&aid=3015139&group_id=5635&atid=105635
+Comment: (Tobias Frost) Original version forwarded, upstream 90% applied it. Residual's here.
+Last-Update: 2014-08-03
+
+--- a/makefiles/makefile.linux
++++ b/makefiles/makefile.linux
+@@ -91,7 +91,7 @@
+ 	libmng_write.o \
+ 	libmng_zlib.o
+ 
+-OBJSDLL = $(OBJS:.0=.pic.o)
++OBJSDLL = $(OBJS:.o=.pic.o)
+ 
+ .SUFFIXES:      .c .o .pic.o
+ 

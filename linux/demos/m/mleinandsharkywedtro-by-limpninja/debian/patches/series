@@ -1,5 +1,6 @@
-01_fix_errors.diff
-02_adapt_makefile.diff
+01_fix_errors.patch
+02_adapt_makefile.patch
 03_adapt_path.patch
-04_change_window_title.diff
+04_change_window_title.patch
 05_fix_magic.patch
+06_migrate_to_openmpt.patch

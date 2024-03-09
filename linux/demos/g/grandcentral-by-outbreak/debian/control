@@ -3,16 +3,17 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libaudiere-dev,
  libx11-dev,
  libpng12-dev,
  libjpeg62-dev|libjpeg62-turbo-dev,
  libxrandr-dev,
- libglu1-mesa-dev,
+ libglu-dev,
  libglew1.5
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: http://www.pouet.net/prod.php?which=50691
+Rules-Requires-Root: no
 
 Package: grandcentral-by-outbreak
 Architecture: amd64

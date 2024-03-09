@@ -2,3 +2,4 @@
 02_migrate_to_sdl2.patch
 03_better_quit.patch
 04_better_fullscreen.patch
+05_increase_freq.patch

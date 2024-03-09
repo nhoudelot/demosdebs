@@ -1,0 +1,4 @@
+usr/lib/*/libloadpng.so
+usr/lib/*/pkgconfig/loadpng.pc
+usr/include/loadpng.h
+

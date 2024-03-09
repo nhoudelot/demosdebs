@@ -1,0 +1,289 @@
+Description: migrate to openmpt
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-22
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Audio/sound.cpp
++++ b/Audio/sound.cpp
+@@ -1,16 +1,14 @@
+ #include <stdio.h>
+ #include <string.h>
++#include <fstream>
+ #include "sound.h"
+ //#include "minifmod.h"
+ static int sync = -1;
+-#ifdef FMOD
+-static FMOD_SYSTEM *system;
+-static FMOD_SOUND *fsound;
+-static FMOD_CHANNEL *channel;
+-static unsigned int fmod_sync;
+-#else
+-FMUSIC_MODULE *mod;
+-#endif
++
++openmpt::module *mod = nullptr;
++SDL_AudioSpec spec;
++SDL_AudioDeviceID device;
++
+ 
+ /*
+    god damn thygrion, you make too many varying patterns for syncing ;D
+@@ -62,102 +60,14 @@
+ 	-2
+ };
+ 
+-
+-#ifndef FMOD
+-//Since we're using MiniFMOD the song is
+-//going to be loaded from song.h' "char * data" variable
+-#include "song.h"
+-
+-typedef struct
+-{
+-	int length;
+-	int pos;
+-	void *data;
+-} MEMFILE;
+-
+-static unsigned int memopen(char *name)
+-{
+-	MEMFILE *memfile;
+-	memfile = (MEMFILE *)calloc(sizeof(MEMFILE),1);
+-
+-	memfile->length = songlength;
+-	memfile->data = calloc(memfile->length,1);
+-	memcpy(memfile->data, (void*)song, memfile->length);
+-	memfile->pos = 0;
+-
+-	return((unsigned int)memfile);
+-}
+-
+-static void memclose(unsigned int handle)
+-{
+-	MEMFILE *memfile = (MEMFILE *)handle;
+-	free(memfile->data);
+-	free(memfile);
+-}
+-
+-static int memread(void *buffer, int size, unsigned int handle)
+-{
+-	MEMFILE *memfile = (MEMFILE *)handle;
+-
+-	if (memfile->pos + size >= memfile->length)
+-	{
+-		size = memfile->length - memfile->pos;
+-	}
+-
+-	memcpy(buffer, (char *)memfile->data+memfile->pos, size);
+-	memfile->pos += size;
+-
+-	return(size);
+-}
+-
+-static void memseek(unsigned int handle, int pos, signed char mode)
+-{
+-	MEMFILE *memfile = (MEMFILE *)handle;
+-
+-	switch(mode)
+-	{
+-	case SEEK_SET:
+-		memfile->pos = pos;
+-		break;
+-	case SEEK_CUR:
+-		memfile->pos += pos;
+-		break;
+-	case SEEK_END:
+-		memfile->pos = memfile->length + pos;
+-		break;
+-	}
+-
+-	if (memfile->pos > memfile->length)
+-	{
+-		memfile->pos = memfile->length;
+-	}
+-}
+-
+-static int memtell(unsigned int handle)
+-{
+-	MEMFILE *memfile = (MEMFILE *)handle;
+-	return(memfile->pos);
+-}
+-#endif
+-
+ int sound_getOrder(void)
+ {
+-#ifdef FMOD
+-	FMOD_Channel_GetPosition(channel, &fmod_sync, FMOD_TIMEUNIT_MODORDER);
+-	return fmod_sync;
+-#else
+-	return FMUSIC_GetOrder(mod);
+-#endif
++	return mod->get_current_order();
+ }
+ 
+ int sound_getRow(void)
+ {
+-#ifdef FMOD
+-	FMOD_Channel_GetPosition(channel, &fmod_sync, FMOD_TIMEUNIT_MODROW);
+-	return fmod_sync;
+-#else
+-	return FMUSIC_GetRow(mod);
+-#endif
++	return mod->get_current_row();
+ }
+ 
+ int sound_isSync(int instrument)
+@@ -188,30 +98,51 @@
+ 
+ void sound_init(void)
+ {
+-#ifdef FMOD
+-	fsound = 0;
+-	FMOD_System_Create(&system);
+-	FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
+-	FMOD_System_CreateSound(system, "/usr/share/purple-by-youthuprising/asterisk.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
+-
+-	FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, fsound, 0, &channel);
+-#else
+-	FSOUND_File_SetCallbacks(memopen, memclose, memread, memseek, memtell);
+-	FSOUND_Init(44100, 0);
+-	mod = FMUSIC_LoadSong("music.xm", NULL);
+-
+-	FMUSIC_PlaySong(mod);
+-#endif
++	/* Initialisation of SDL */
++	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
++    		std::cout << "SDL_INIT_AUDIO fail" << std::endl;
++    }
++    SDL_zero(spec);
++    spec.freq = 48000;
++    spec.format = AUDIO_F32SYS;
++    spec.channels = 2;
++    spec.samples = 4096;
++    spec.callback = nullptr;
++
++    device = SDL_OpenAudioDevice(nullptr, 0, &spec, nullptr, 0);
++    if (device == 0) {
++    	std::cout << "SDL device not found " << std::endl;
++    }
++
++    /* Loading Module */
++    std::ifstream file("/usr/share/purple-by-youthuprising/asterisk.xm", std::ios::binary );
++	if (!file.is_open()) {
++		std::cout << "couldn't find music.xm" << std::endl;
++    }
++    mod = new openmpt::module(file);
++    const int numChannels = 2; // Stereo
++    float* audioBuffer = new float[spec.samples * numChannels];
++
++    mod->set_position_seconds(0); // Ensure song starts from the beginning
++    mod->set_repeat_count(0); // Set repeat count to 0 for playing once
++
++    int framesRead;
++    do {
++        framesRead = mod->read_interleaved_stereo(spec.freq, spec.samples, audioBuffer);
++        if (framesRead > 0) {
++            SDL_QueueAudio(device, audioBuffer, framesRead * numChannels * sizeof(float));
++        }
++    } while (framesRead > 0);
++    SDL_PauseAudioDevice(device, 0);
+ }
+ 
+ void sound_close(void)
+ {
+-#ifdef FMOD
+-	FMOD_Sound_Release(fsound);
+-	FMOD_System_Close(system);
+-	FMOD_System_Release(system);
+-#else
+-	FMUSIC_FreeSong(mod);
+-	FSOUND_Close();
+-#endif
++	if (mod != nullptr) {
++        delete mod;
++        mod = nullptr;
++    }
++    if (device != 0) {
++            SDL_CloseAudioDevice(device);
++    }
+ }
+--- a/Audio/sound.h
++++ b/Audio/sound.h
+@@ -1,11 +1,8 @@
+ #ifndef _SOUNDA_H_
+ #define _SOUNDA_H_
+ 
+-#ifdef FMOD
+-#include <fmodex/fmod.h>
+-#else
+-#include "minifmod.h"
+-#endif
++#include <libopenmpt/libopenmpt.hpp>
++#include <SDL2/SDL.h>
+ 
+ //Syncs - boldly going where no hack has gone before
+ #define LEAD    0
+--- a/Makefile
++++ b/Makefile
+@@ -8,9 +8,9 @@
+ RES  =
+ OBJ = main.o general.o Audio/sound.o Effects/iterator.o Effects/filler.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/start.o  Effects/tunnel.o Effects/cred.o $(RES)
+ LINKOBJ  = main.o general.o Audio/sound.o Effects/iterator.o font.o Effects/fuzzy.o Effects/dla.o timer.o primitives.o player.o Effects/electro.o Effects/filler.o Effects/start.o Effects/tunnel.o Effects/cred.o $(RES)
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl glu x11) -LAudio -lfmodex
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl glu x11 libopenmpt) -LAudio
+ 
+-CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) -DFMOD $(shell $(PKG_CONFIG) --cflags sdl2 gl glu x11)
++CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti $(CXXINCS) $(shell $(PKG_CONFIG) --cflags sdl2 gl glu x11 libopenmpt)
+ CFLAGS = $(INCS)
+ RM = rm -f
+ TARGET   := purple-by-youthuprising
+--- a/timer.cpp
++++ b/timer.cpp
+@@ -3,7 +3,7 @@
+ #include "timer.h"
+ 
+ static bool gtimer;
+-static float stime,ctime,ltime;
++static float stime,cetime,ltime;
+ static float tps;
+ static float deltaspeed;
+ 
+@@ -28,18 +28,18 @@
+ 
+ void timer_update() {
+ #ifdef WIN32
+-	ltime = ctime;
++	ltime = cetime;
+ 	if(gtimer) {
+ 		LONGLONG ticks;
+ 		QueryPerformanceCounter((LARGE_INTEGER*) &ticks);
+-		ctime = ((float) ticks - stime) * tps - playerRewindTime;
++		cetime = ((float) ticks - stime) * tps - playerRewindTime;
+ 	} else {
+-		ctime = (float) timeGetTime() - stime - playerRewindTime;
++		cetime = (float) timeGetTime() - stime - playerRewindTime;
+ 	}
+-	deltaspeed = (ctime - ltime);
++	deltaspeed = (cetime - ltime);
+ #else
+-	ctime = (float) SDL_GetTicks()/1000.0f - stime;
+-	deltaspeed = (ctime - ltime);
++	cetime = (float) SDL_GetTicks()/1000.0f - stime;
++	deltaspeed = (cetime - ltime);
+ #endif
+ }
+ void timer_addtime(float at) {
+@@ -48,10 +48,10 @@
+ #endif
+ }
+ float timer_gettime() {
+-	return ctime;
++	return cetime;
+ }
+ /*float timer::getms() {
+-    return ctime * 1000.0;
++    return cetime * 1000.0;
+    }*/
+ float timer_getds() {
+ 	return deltaspeed;

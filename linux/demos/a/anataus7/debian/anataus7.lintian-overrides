@@ -1,6 +1,6 @@
 anataus7 binary: unknown-section demos
-anataus7 binary: desktop-entry-lacks-keywords-entry usr/share/applications/anataus7.desktop
-anataus7 binary: embedded-library usr/bin/ana7: libjpeg
-anataus7 binary: hardening-no-pie usr/bin/ana7
-anataus7 binary: hardening-no-relro usr/bin/ana7
+anataus7 binary: desktop-entry-lacks-keywords-entry [usr/share/applications/anataus7.desktop]
+anataus7 binary: embedded-library libjpeg [usr/bin/ana7]
+anataus7 binary: hardening-no-pie [usr/bin/ana7]
+anataus7 binary: hardening-no-relro [usr/bin/ana7]
 

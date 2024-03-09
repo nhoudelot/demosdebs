@@ -1,5 +1,5 @@
-abouttime-by-approximate source: source-is-missing approximate_about_time.elf
-abouttime-by-approximate source: source-is-missing synth_src/bin/demo
-abouttime-by-approximate source: source-is-missing synth_src/bin/mapprox
-abouttime-by-approximate source: source-is-missing synth_src/libmapprox/release/Instrument.o
+abouttime-by-approximate source: source-is-missing [approximate_about_time.elf]
+abouttime-by-approximate source: source-is-missing [synth_src/bin/demo]
+abouttime-by-approximate source: source-is-missing [synth_src/bin/mapprox]
+abouttime-by-approximate source: source-is-missing [synth_src/libmapprox/release/Instrument.o]
 

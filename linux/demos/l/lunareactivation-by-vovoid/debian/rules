@@ -1,21 +1,13 @@
 #!/usr/bin/make -f
 
-# dh_dwz on buster don't like when there is no .debug_info section
-ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
-    RUN_DHDWZ=dh_dwz 
-endif
-
 %:
-	dh $@ --with python2
+	dh $@ --with python3
 
-override_dh_python2:
-	dh_python2 usr/share/lunareactivation-by-vovoid/
+override_dh_python3:
+	dh_python3 usr/share/lunareactivation-by-vovoid/
 
 override_dh_shlibdeps:
 	dh_shlibdeps -Xdemo/libGLEW.so.1.5 -- -l./demo --ignore-missing-info
-
-override_dh_dwz:
-	$(RUN_DHDWZ)
 
 override_dh_builddeb:
 	dh_builddeb -- -Zxz

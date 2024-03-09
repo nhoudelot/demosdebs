@@ -3,6 +3,7 @@ Description: fix distortion on some soundcards
 So I guess I had to setup the channel mapping to stero
 but there was still distortion. It was because rate was set to 44100 instead of 48000 that is now the minimum
 Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Applied-Upstream: no
 Last-Update: 2022-05-30
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

@@ -1,4 +1,4 @@
-glrez-by-rez source: source-is-missing debian/resources/libfmodex.so.4.00.37
-glrez-by-rez source: source-is-missing glrez
-glrez-by-rez source: source-is-missing libfmodex-4.30.03.so
+glrez-by-rez source: source-is-missing [debian/resources/libfmodex.so.4.00.37]
+glrez-by-rez source: source-is-missing [glrez]
+glrez-by-rez source: source-is-missing [libfmodex-4.30.03.so]
 

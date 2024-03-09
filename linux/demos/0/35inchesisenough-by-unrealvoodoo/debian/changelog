@@ -1,3 +1,10 @@
+35inchesisenough-by-unrealvoodoo (1.0-0ddebs8) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 13 Apr 2024 00:34:04 +0200
+
 35inchesisenough-by-unrealvoodoo (1.0-0ddebs7) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

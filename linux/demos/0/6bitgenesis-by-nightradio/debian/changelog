@@ -1,3 +1,10 @@
+6bitgenesis-by-nightradio (1.0-0ddebs5) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 06 Apr 2024 15:51:15 +0200
+
 6bitgenesis-by-nightradio (1.0-0ddebs4) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

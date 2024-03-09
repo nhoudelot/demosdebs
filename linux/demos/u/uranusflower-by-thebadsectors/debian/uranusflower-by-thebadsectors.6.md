@@ -1,6 +1,6 @@
 % uranusflower-by-thebadsectors(6) Uranus Flower User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),The Bad Sectors
-% 2019-03-07
+% 2024-04-24
 
 # NAME
 uranusflower-by-thebadsectors - the command to run Uranus Flower.
@@ -9,13 +9,17 @@ uranusflower-by-thebadsectors - the command to run Uranus Flower.
 uranusflower-by-thebadsectors [*options*]
 
 # DESCRIPTION
-Uranus Flower is a demonstration released by The Bad Sectors in 2014.
+Uranus Flower is a demo released by The Bad Sectors in march 2014.
+Ended 4th at TokyoDemoFest 2014
+
+blueghost [code, graphics, music]
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=62831
 
 # BUGS
 No known bugs.

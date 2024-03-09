@@ -1,6 +1,6 @@
 % coveredinbees-by-candela(6) Covered in Bees User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Candela
-% 2017-07-08
+% 2024-04-16
 
 # NAME
 coveredinbees-by-candela - the command to run Covered in Bees.
@@ -9,7 +9,8 @@ coveredinbees-by-candela - the command to run Covered in Bees.
 coveredinbees-by-candela [*options*]
 
 # DESCRIPTION
-Covered in Bees is a demonstration released by Candela in 2012.
+Covered in Bees is a demo released by Candela in may 2012.
+Ended 1st at Birdie 2012
 
         Covered in Bees
            by Candela (2012)
@@ -30,10 +31,11 @@ Covered in Bees is a demonstration released by Candela in 2012.
 ps. compositors can cause problems.
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=59318
 
 # BUGS
 No known bugs.

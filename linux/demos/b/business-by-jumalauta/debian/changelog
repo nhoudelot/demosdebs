@@ -1,3 +1,10 @@
+business-by-jumalauta (1.0-0ddebs9) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Apr 2024 10:23:38 +0200
+
 business-by-jumalauta (1.0-0ddebs8) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

@@ -1,6 +1,6 @@
 elfling for Debian
 ----------------
 
-packing only a few executables (only i386)
+repacked, with only a few executables
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 12 Dec 2019 00:18:20 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 10 Mar 2024 23:14:37 +0100

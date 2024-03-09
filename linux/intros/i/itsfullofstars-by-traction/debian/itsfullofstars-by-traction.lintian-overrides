@@ -1,0 +1,3 @@
+itsfullofstars-by-traction: unknown-section demos
+itsfullofstars-by-traction: desktop-entry-lacks-keywords-entry [usr/share/applications/itsfullofstars-by-traction.desktop]
+itsfullofstars-by-traction: hardening-no-pie [usr/bin/itsfullofstars-by-traction]

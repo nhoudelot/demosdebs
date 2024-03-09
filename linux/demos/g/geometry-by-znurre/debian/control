@@ -3,15 +3,15 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl2-dev,
  libqwt-qt5-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=70288
 Rules-Requires-Root: no
 
 Package: geometry-by-znurre
-Architecture: amd64 i386
+Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},

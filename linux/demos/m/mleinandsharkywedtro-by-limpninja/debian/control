@@ -3,15 +3,17 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libgraphicsmagick++1-dev,
  libftgl-dev,
- libfmodex-dev,
+ libopenmpt-dev,
+ libsdl2-dev,
  scons,
  freeglut3-dev|libglut-dev,
  mesa-common-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=31073
+Rules-Requires-Root: no
 
 Package: mleinandsharkywedtro-by-limpninja
 Architecture: any

@@ -1,5 +1,6 @@
 Description: fixing some spelling errors
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-26
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -14,6 +15,43 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          for (m = 0; m < NUMGLFILTERMODES; m++)
              LOG_F(INFO, "     %d - %s", m, glfiltermodes[m].name);
  
+@@ -10073,11 +10073,11 @@
+         { "r_pr_customaspect", "if non-zero, forces the 3D view aspect ratio", (void *) &pr_customaspect, CVAR_DOUBLE, 0, 3 },
+         { "r_pr_gpusmoothing", "toggles model animation interpolation", (void *)&pr_gpusmoothing, CVAR_BOOL, 0, 1 },
+         { "r_pr_highpalookups", "enable/disable highpalookups", (void *) &pr_highpalookups, CVAR_BOOL, 0, 1 },
+-        { "r_pr_hudangadd", "overriden HUD angadd; see r_pr_overridehud", (void *) &pr_hudangadd, CVAR_INT | CVAR_NOSAVE, -1024, 1024 },
+-        { "r_pr_hudfov", "overriden HUD fov; see r_pr_overridehud", (void *) &pr_hudfov, CVAR_INT | CVAR_NOSAVE, 0, 1023 },
+-        { "r_pr_hudxadd", "overriden HUD xadd; see r_pr_overridehud", (void *) &pr_hudxadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
+-        { "r_pr_hudyadd", "overriden HUD yadd; see r_pr_overridehud", (void *) &pr_hudyadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
+-        { "r_pr_hudzadd", "overriden HUD zadd; see r_pr_overridehud", (void *) &pr_hudzadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
++        { "r_pr_hudangadd", "overridden HUD angadd; see r_pr_overridehud", (void *) &pr_hudangadd, CVAR_INT | CVAR_NOSAVE, -1024, 1024 },
++        { "r_pr_hudfov", "overridden HUD fov; see r_pr_overridehud", (void *) &pr_hudfov, CVAR_INT | CVAR_NOSAVE, 0, 1023 },
++        { "r_pr_hudxadd", "overridden HUD xadd; see r_pr_overridehud", (void *) &pr_hudxadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
++        { "r_pr_hudyadd", "overridden HUD yadd; see r_pr_overridehud", (void *) &pr_hudyadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
++        { "r_pr_hudzadd", "overridden HUD zadd; see r_pr_overridehud", (void *) &pr_hudzadd, CVAR_FLOAT | CVAR_NOSAVE, -100, 100 },
+         { "r_pr_lighting", "enable/disable dynamic lights - restarts renderer", (void *) &pr_lighting, CVAR_INT | CVAR_RESTARTVID, 0, 2 },
+         { "r_pr_maxlightpasses", "the maximal amount of lights a single object can by affected by", (void *) &r_pr_maxlightpasses, CVAR_INT|CVAR_FUNCPTR, 0, PR_MAXPLANELIGHTS },
+         { "r_pr_maxlightpriority", "lowering that value removes less meaningful lights from the scene", (void *) &pr_maxlightpriority, CVAR_INT, 0, PR_MAXLIGHTPRIORITY },
+@@ -10087,15 +10087,15 @@
+         { "r_pr_overridemodelscale", "overrides model scale if non-zero; use it to fine-tune DEF tokens", (void *) &pr_overridemodelscale, CVAR_FLOAT | CVAR_NOSAVE, 0, 500 },
+         { "r_pr_overrideparallax", "overrides parallax mapping scale and bias values with values from the pr_parallaxscale and pr_parallaxbias cvars; use it to fine-tune DEF tokens", (void *) &pr_overrideparallax, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
+         { "r_pr_overridespecular", "overrides specular material power and factor values with values from the pr_specularpower and pr_specularfactor cvars; use it to fine-tune DEF tokens", (void *) &pr_overridespecular, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
+-        { "r_pr_parallaxbias", "overriden parallax mapping offset bias", (void *) &pr_parallaxbias, CVAR_FLOAT | CVAR_NOSAVE, -10, 10 },
+-        { "r_pr_parallaxscale", "overriden parallax mapping offset scale", (void *) &pr_parallaxscale, CVAR_FLOAT | CVAR_NOSAVE, -10, 10 },
++        { "r_pr_parallaxbias", "overridden parallax mapping offset bias", (void *) &pr_parallaxbias, CVAR_FLOAT | CVAR_NOSAVE, -10, 10 },
++        { "r_pr_parallaxscale", "overridden parallax mapping offset scale", (void *) &pr_parallaxscale, CVAR_FLOAT | CVAR_NOSAVE, -10, 10 },
+         { "r_pr_shadowcount", "maximal amount of shadow emitting lights on screen - you need to restart the renderer for it to take effect", (void *) &pr_shadowcount, CVAR_INT | CVAR_RESTARTVID, 0, 64 },
+         { "r_pr_shadowdetail", "sets the shadow map resolution - you need to restart the renderer for it to take effect", (void *) &pr_shadowdetail, CVAR_INT | CVAR_RESTARTVID, 0, 5 },
+         { "r_pr_shadowfiltering", "enable/disable shadow edges filtering - you need to restart the renderer for it to take effect", (void *) &pr_shadowfiltering, CVAR_BOOL | CVAR_RESTARTVID, 0, 1 },
+         { "r_pr_shadows", "enable/disable dynamic shadows", (void *) &pr_shadows, CVAR_BOOL, 0, 1 },
+-        { "r_pr_specularfactor", "overriden specular material factor", (void *) &pr_specularfactor, CVAR_FLOAT | CVAR_NOSAVE, -10, 1000 },
++        { "r_pr_specularfactor", "overridden specular material factor", (void *) &pr_specularfactor, CVAR_FLOAT | CVAR_NOSAVE, -10, 1000 },
+         { "r_pr_specularmapping", "enable/disable specular mapping", (void *) &pr_specularmapping, CVAR_BOOL, 0, 1 },
+-        { "r_pr_specularpower", "overriden specular material power", (void *) &pr_specularpower, CVAR_FLOAT | CVAR_NOSAVE, -10, 1000 },
++        { "r_pr_specularpower", "overridden specular material power", (void *) &pr_specularpower, CVAR_FLOAT | CVAR_NOSAVE, -10, 1000 },
+         { "r_pr_verbosity", "verbosity level of the polymer renderer", (void *) &pr_verbosity, CVAR_INT, 0, 3 },
+         { "r_pr_wireframe", "toggles wireframe mode", (void *) &pr_wireframe, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
+ #endif
 --- a/source/build/src/animvpx.cpp
 +++ b/source/build/src/animvpx.cpp
 @@ -193,7 +193,7 @@
@@ -47,3 +85,36 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
               ";   0 - WHEEL:scrolling, CTRL+WHEEL:zooming\n"
               ";   1 - CTRL+WHEEL:scrolling, WHEEL:zooming\n"
               "revertCTRL = %d\n"
+--- a/source/audiolib/src/driver_alsa.cpp
++++ b/source/audiolib/src/driver_alsa.cpp
+@@ -306,7 +306,7 @@
+     if (seq_queue < 0)
+     {
+         ALSADrv_MIDI_Shutdown();
+-        LOG_F(ERROR, "Unable to allocate ALSA queue: snd_seq_alloc_queue erorr %d", seq_queue);
++        LOG_F(ERROR, "Unable to allocate ALSA queue: snd_seq_alloc_queue error %d", seq_queue);
+         ErrorCode = ALSAErr_AllocQueue;
+         return ALSAErr_Error;
+     }
+--- a/source/duke3d/src/network.cpp
++++ b/source/duke3d/src/network.cpp
+@@ -3948,7 +3948,7 @@
+ 
+         if (newSnapshotNetIndex < DEBUG_PrevNewIndex)
+         {
+-            Net_Error_Disconnect("Error: Sectors were recieved out of order.");
++            Net_Error_Disconnect("Error: Sectors were received out of order.");
+         }
+ 
+         DEBUG_PrevNewIndex = newSnapshotNetIndex;
+--- a/source/sw/src/network.cpp
++++ b/source/sw/src/network.cpp
+@@ -1613,7 +1613,7 @@
+ 
+             // someone else has changed their name
+ 
+-            DSPRINTF(ds,"Recieved name: %s",p->PlayerName);
++            DSPRINTF(ds,"received name: %s",p->PlayerName);
+             MONO_PRINT(ds);
+ 
+             strcpy(pp->PlayerName, p->PlayerName);

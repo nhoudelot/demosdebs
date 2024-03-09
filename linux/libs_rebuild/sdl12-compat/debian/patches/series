@@ -1,0 +1,2 @@
+sdl.m4-Call-PKG_CONFIG-rather-than-hard-coding-pkg-config.patch
+debian/sdl-config-Remove-libdir-for-multiarch-co-installability.patch

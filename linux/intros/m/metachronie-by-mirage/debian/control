@@ -3,12 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl1.2-dev,
  libsdl-gfx1.2-dev,
  libmodplug-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: http://www.pouet.net/prod.php?which=60971
+Rules-Requires-Root: no
 
 Package: metachronie-by-mirage
 Architecture: amd64
@@ -17,5 +18,9 @@ Depends:
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
  libsdl-gfx1.2-5
-Description: Intro for Linux, released in 2012
- Intro by Mirage, released in 2012
+Description: Intro for Linux, released in 2013
+ Metachronie is a 8k intro released by Mirage in february 2013.
+ ended 1st at Payback 2013
+ .
+ urs [Code]
+ Topy44 [Music, Graphics]

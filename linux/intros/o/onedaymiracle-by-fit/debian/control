@@ -1,0 +1,18 @@
+Source: onedaymiracle-by-fit
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ libsdl2-dev,
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=7196
+Rules-Requires-Root: no
+
+Package: onedaymiracle-by-fit
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: intro ranked 14th at Assembly 2002
+ intro 64k ranked 14th at Assembly 2002

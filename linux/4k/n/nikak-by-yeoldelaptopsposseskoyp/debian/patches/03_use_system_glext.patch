@@ -1,3 +1,9 @@
+Description: fix includes path
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/intro_c.c
 +++ b/intro_c.c
 @@ -68,7 +68,7 @@

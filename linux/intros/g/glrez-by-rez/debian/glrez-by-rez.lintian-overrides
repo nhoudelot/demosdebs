@@ -1,9 +1,8 @@
 glrez-by-rez binary: unknown-section demos
-glrez-by-rez binary: desktop-entry-lacks-keywords-entry usr/share/applications/glrez-by-rez.desktop
-glrez-by-rez binary: shlib-with-non-pic-code usr/lib/i386-linux-gnu/glrez-by-rez/libfmodex-4.30.03.so
-glrez-by-rez binary: shlib-with-executable-stack usr/lib/i386-linux-gnu/glrez-by-rez/libfmodex-4.30.03.so
-glrez-by-rez binary: hardening-no-pie usr/lib/i386-linux-gnu/glrez-by-rez/glrez
-glrez-by-rez binary: hardening-no-relro usr/lib/i386-linux-gnu/glrez-by-rez/glrez
-glrez-by-rez binary: hardening-no-relro usr/lib/i386-linux-gnu/glrez-by-rez/libfmodex-4.30.03.so
-glrez-by-rez binary: shlib-with-executable-stack usr/lib/i386-linux-gnu/glrez-by-rez/libfmodex-4.30.03.so
+glrez-by-rez binary: desktop-entry-lacks-keywords-entry [usr/share/applications/glrez-by-rez.desktop]
+glrez-by-rez binary: shlib-with-non-pic-code [usr/lib/i386-linux-gnu/glrez-by-rez/libfmodex-4.30.03.so]
+glrez-by-rez binary: shlib-with-executable-stack [usr/lib/i386-linux-gnu/glrez-by-rez/libfmodex-4.30.03.so]
+glrez-by-rez binary: hardening-no-pie [usr/lib/i386-linux-gnu/glrez-by-rez/glrez]
+glrez-by-rez binary: hardening-no-relro [usr/lib/i386-linux-gnu/glrez-by-rez/glrez]
+glrez-by-rez binary: hardening-no-relro [usr/lib/i386-linux-gnu/glrez-by-rez/libfmodex-4.30.03.so]
 glrez-by-rez binary: package-has-unnecessary-activation-of-ldconfig-trigger

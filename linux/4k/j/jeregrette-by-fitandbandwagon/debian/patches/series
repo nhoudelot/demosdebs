@@ -1,2 +1,6 @@
 01_adapt_makefile.patch
-02_fix_warnings.patch
+02_fix_syna_buffer.patch
+03_fix_warnings.patch
+04_migrate_to_sdl2.patch
+05_better_quit.patch
+06_add_fullscreen.patch

@@ -1,0 +1,4 @@
+version=4
+opts="compression=xz,repack" \
+https://github.com/libsdl-org/@PACKAGE@/tags .*/release-@ANY_VERSION@@ARCHIVE_EXT@ \
+debian uupdate

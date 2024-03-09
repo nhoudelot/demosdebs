@@ -1,12 +1,21 @@
 Description: make window resizable
  make window resizable with correct ratio
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-28
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -28,6 +28,10 @@
+@@ -22,12 +22,18 @@
+ void stripes_osa(unsigned char *,int);
+ int readall(void);
+ 
++SDL_Renderer *sdlRenderer;
++
+ /* Jos haluat eri triggereille eri maksimiarvot niin kirjoita
+     lisää näitä MAX-definejä. Ni. */
+ #define TRIG_MAX 50
  #define TRIG_BONGG 80
  #define TRIG_BD 15
  
@@ -17,7 +26,42 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  static int trig_bongg, trig_bd, trig_sd, trig_kilaus, trig_rautaputki,
             trig_isopamaus, trig_sound1, trig_sound2, trig_isku,
             trig_loppuisku, trig_loppu, trig_melu, trig_puhe, trig_tehostus,
-@@ -85,7 +89,7 @@
+@@ -63,6 +69,34 @@
+ #endif
+ }
+ 
++void resize_window(int w, int h) {
++    SDL_Rect newWindowSize;
++    newWindowSize.x = 0;
++    newWindowSize.y = 0;
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    } else if (w != newWindowSize.w) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (h != newWindowSize.h) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    }
++
++    SDL_Rect viewPort;
++    SDL_RenderGetViewport(sdlRenderer, &viewPort);
++    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++}
++
+ int main(int argc,char **argv)
+ {
+ 	int modpos,pt_songpos,pt_patternpos,quit=0,frame=0,n,i;
+@@ -85,7 +119,7 @@
  #else
  	unsigned *screen;
  #endif
@@ -26,15 +70,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  	if(argc==2)
  		if(!strcmp(argv[1],"-w"))
-@@ -116,6 +120,7 @@
+@@ -114,8 +148,8 @@
+ 	mzx_get(musakki);
+ 
  	SDL_Window *sdlWindow;
- 	SDL_Renderer *sdlRenderer;
+-	SDL_Renderer *sdlRenderer;
  	SDL_Texture *sdlTexture;
 +	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
  	sdlWindow = SDL_CreateWindow("Chrysler by Fit & Bandwagon",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,flags);
  	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
  
-@@ -141,6 +146,8 @@
+@@ -141,6 +175,8 @@
  	origtick=SDL_GetTicks();
  	vbl2=0;
  
@@ -43,40 +89,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	/* The main loop */
  	while(!quit)
  	{
-@@ -158,6 +165,39 @@
+@@ -155,6 +191,12 @@
  					case SDLK_q: quit=1;; break;
  				}
  			}
 +			if (e.window.windowID == windowID)  {
 +				if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
-+					SDL_Rect newWindowSize;
-+					int w = e.window.data1;
-+					int h = e.window.data2;
-+					newWindowSize.x=0;
-+					newWindowSize.y=0;
-+
-+					float aspect = (float)w / (float)h;
-+					if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
-+					    newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+					    newWindowSize.x += (w - newWindowSize.w) / 2;
-+					    newWindowSize.h = h;
-+					} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
-+					    newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+					    newWindowSize.y += (h - newWindowSize.h) / 2;
-+					    newWindowSize.w = w;
-+					} else if (w != newWindowSize.w) {
-+					    newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+					    newWindowSize.x += (w - newWindowSize.w) / 2;
-+					    newWindowSize.h = h;
-+					} else if (h != newWindowSize.h) {
-+					    newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+					    newWindowSize.y += (h - newWindowSize.h) / 2;
-+					    newWindowSize.w = w;
-+					}
-+
-+					SDL_Rect viewPort;
-+					SDL_RenderGetViewport(sdlRenderer, &viewPort);
-+					SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++					resize_window(e.window.data1,e.window.data2);
 +				}
 +			}
 +

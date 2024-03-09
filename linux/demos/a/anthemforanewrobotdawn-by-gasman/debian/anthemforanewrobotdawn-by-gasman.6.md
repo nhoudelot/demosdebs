@@ -1,6 +1,6 @@
 % anthemforanewrobotdawn-by-gasman(6) Anthem for a New Robot Dawn User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Gasman
-% 2018-04-05
+% 2024-04-14
 
 # NAME
 anthemforanewrobotdawn-by-gasman - the command to run Anthem for a New Robot Dawn.
@@ -9,13 +9,17 @@ anthemforanewrobotdawn-by-gasman - the command to run Anthem for a New Robot Daw
 anthemforanewrobotdawn-by-gasman [*options*]
 
 # DESCRIPTION
-Anthem for a New Robot Dawn is a demonstration released by Gasman in 2012.
+Anthem for a New Robot Dawn is a demonstration released by Gasman in september 2012.
+Ended 5th at Sundown 2012
+
+gasman [Code, design]
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=59957
 
 # BUGS
 No known bugs.

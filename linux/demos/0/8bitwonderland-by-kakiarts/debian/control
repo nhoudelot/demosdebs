@@ -3,12 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
- libglu1-mesa-dev,
+ debhelper-compat (= 13),
+ libglu-dev,
  libsdl1.2-compat-dev|libsdl1.2-dev,
  libpng12-0
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=31657
+Rules-Requires-Root: no
 
 Package: 8bitwonderland-by-kakiarts
 Architecture: i386

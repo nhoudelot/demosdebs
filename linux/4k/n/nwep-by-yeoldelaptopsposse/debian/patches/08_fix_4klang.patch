@@ -1,3 +1,9 @@
+Description: fix 4klang
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/music/4klang.inc
 +++ b/music/4klang.inc
 @@ -2,7 +2,7 @@

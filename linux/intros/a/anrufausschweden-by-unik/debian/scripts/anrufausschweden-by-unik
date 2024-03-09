@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=anrufausschweden-by-unik
+
+APP_FULLNAME="anruf aus schweden"
+APP_COPYRIGHT="unik"
+APP_DESC="Demo by unik, released in 2004"
+
+APP_EXE="ikea"
+
+function run()
+{
+	NSH_CreateTmpDomainDir
+	cp /usr/lib/i386-linux-gnu/$domain/${APP_EXE} /tmp/$domain/
+	/tmp/$domain/${APP_EXE}
+	NSH_RemoveTmpDomainDir
+}
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

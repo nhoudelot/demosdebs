@@ -1,5 +1,6 @@
 Description: Migrate to SDL2
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2019-12-02
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -82,7 +83,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	return 0;
 --- a/musa.c
 +++ b/musa.c
-@@ -3,7 +3,7 @@
+@@ -3,13 +3,15 @@
  #include <memory.h>
  #include <math.h>
  
@@ -91,6 +92,32 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  
  #include "syna.h"
+ #include "paa.h"
+ #include "misc.h"
++#include "musa.h"
+ 
++SDL_AudioDeviceID device;
+ 
+ void pakki(void *udata, Uint8 *stream, int len)
+ {
+@@ -24,7 +26,7 @@
+ 	w.samples=BLKSIZE;
+ 	w.callback=pakki;
+ 	w.userdata=NULL;
+-	SDL_OpenAudio(&w,NULL);
++	device = SDL_OpenAudioDevice(NULL, 0, &w, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
+ 
+ 	syna_init(44100);
+ 	if(syna_load("data/hiiri.txt")==-1)
+@@ -325,7 +327,7 @@
+ 	if (r64==0)
+ 		this_part_started=0;
+ 
+-	SDL_PauseAudio(0);
++	SDL_PauseAudioDevice(device,0);
+ 
+ 	for (i=0; i<NC; i++)
+ 		if ((i!=7) && (i!=10) && (i!=11) && (i!=13))
 --- a/writer.c
 +++ b/writer.c
 @@ -3,7 +3,7 @@

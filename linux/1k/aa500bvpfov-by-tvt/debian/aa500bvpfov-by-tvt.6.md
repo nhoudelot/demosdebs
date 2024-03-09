@@ -1,6 +1,6 @@
 % aa500bvpfov-by-tvt(6) aa500bvpfov User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),tvt
-% 2016-10-15
+% 2024-03-23
 
 # NAME
 aa500bvpfov-by-tvt - is the command to run aa500bvpfov 
@@ -9,8 +9,8 @@ aa500bvpfov-by-tvt - is the command to run aa500bvpfov
 aa500bvpfov-by-tvt [*options*]
 
 # DESCRIPTION
-aa500bvpfov  is a demonstration released by tvt
-500 bytes intro by tvt, released in september 2008 at Stream 2008
+aa500bvpfov  is a demonstration released by tvt released in september 2008 
+500 bytes intro by tvt, for Stream 2008
 
 released at stream '08
  
@@ -41,8 +41,8 @@ released at stream '08
 # OPTIONS
 there is no options to this program
 
-\--help
-:   Display help for the command
+# INFOS
+https://www.pouet.net/prod.php?which=51725
 
 # BUGS
 No known bugs.

@@ -1,0 +1,81 @@
+--- a/main.c
++++ b/main.c
+@@ -23,7 +23,11 @@
+ 	int frameno = 0;
+ 	Uint32 start;
+ 
+-	screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_DOUBLEBUF | SDL_HWSURFACE);
++	SDL_Window *sdlWindow = SDL_CreateWindow("Raytro by Wamma",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WIDTH,HEIGHT,SDL_WINDOW_OPENGL);
++	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	screen = SDL_CreateRGBSurfaceWithFormat(0, WIDTH, HEIGHT, 32,SDL_PIXELFORMAT_ARGB32); //video buffer
++	SDL_Texture *sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,screen);// texture from video buffer
++
+ 	pixbuf = (Uint32*)screen->pixels;
+ 
+ 	SDL_ShowCursor(0);
+@@ -61,7 +65,10 @@
+ 		}
+ 			
+ 		render_scene(sphere_flake, SPHERE_FLAKE_COUNT, pixbuf);
+-		SDL_Flip(screen);
++		SDL_UpdateTexture(sdlTexture, NULL, screen->pixels, screen->pitch); //update texture content with the surface
++		SDL_RenderClear(sdlRenderer);
++		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++		SDL_RenderPresent(sdlRenderer);
+ 		SDL_PollEvent(&event);
+ 		++frameno;
+ 	}
+@@ -74,7 +81,10 @@
+ 		lights[0].z=sin((frameno*2) * 3.14159f / 180.0f)*20.0f;
+ 		render_scene(room, ROOM_COUNT, pixbuf);
+ 
+-		SDL_Flip(screen);
++		SDL_UpdateTexture(sdlTexture, NULL, screen->pixels, screen->pitch); //update texture content with the surface
++		SDL_RenderClear(sdlRenderer);
++		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++		SDL_RenderPresent(sdlRenderer);
+ 		SDL_PollEvent(&event);
+ 		++frameno;
+ 	}
+@@ -88,11 +98,18 @@
+ 
+ 		render_scene(wAMMA, WAMMA_COUNT, pixbuf);
+ 
+-		SDL_Flip(screen);
++		SDL_UpdateTexture(sdlTexture, NULL, screen->pixels, screen->pitch); //update texture content with the surface
++		SDL_RenderClear(sdlRenderer);
++		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++		SDL_RenderPresent(sdlRenderer);
+ 		SDL_PollEvent(&event);
+ 		++frameno;
+ 	}
+ 
++	SDL_FreeSurface(screen);
++	SDL_DestroyTexture(sdlTexture);
++	SDL_DestroyRenderer(sdlRenderer);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ 
+ #ifdef XCOMPILE
+--- a/Makefile
++++ b/Makefile
+@@ -15,7 +15,7 @@
+ bindir          := $(prefix)/bin
+ 
+ CFLAGS   += -Wall -pipe -std=gnu90 -DXCOMPILE
+-LDFLAGS  := $(shell $(PKG_CONFIG) --libs sdl) -lm -lc
++LDFLAGS  := $(shell $(PKG_CONFIG) --libs sdl2) -lm -lc
+ 
+ all: $(TARGET)
+ $(TARGET):
+--- a/common.h
++++ b/common.h
+@@ -6,7 +6,7 @@
+  * @licence GNU GPL
+  */
+ #include <math.h>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #ifndef M_PI
+ #define M_PI 3.1415926535f

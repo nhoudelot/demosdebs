@@ -1,0 +1,16 @@
+Description: add a title to the window
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cube.c
++++ b/cube.c
+@@ -45,6 +45,7 @@
+   SDL_Init(32);
+ 
+   SDL_SetVideoMode(W, H, 32, 536870919);
++  SDL_WM_SetCaption("Cube by mooz",NULL);
+   glClearColor (0, 0, 0, 0);
+   glClearDepth (1);	
+ 

@@ -1,0 +1,46 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/venkula.c
++++ b/venkula.c
+@@ -4,6 +4,7 @@
+ */
+ 
+ #include <math.h>
++#include <string.h>
+ 
+ #define XS 320
+ #define YS 240
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -45,6 +45,7 @@
+ #endif
+ 
+ #include <math.h>
++#include <string.h>
+ #ifdef MIX_ASM
+ #include "sd_amix.h"
+ #endif
+@@ -765,7 +766,7 @@
+                 sd_asm_mono32tom8u(dst32, (unsigned char *)dst, length);
+ #else
+         if (to16bit)
+-                sd_c_mono32tom16i(dst32, dst, length);
++                sd_c_mono32tom16i(dst32, (short int *) dst, length);
+         else
+                 sd_c_mono32tom8u(dst32, (unsigned char *)dst, length);
+ #endif
+--- a/flarex.c
++++ b/flarex.c
+@@ -134,7 +134,7 @@
+ 
+                 x2=x*xs>>8;
+ 		// x2=x*256/siz;
+-		ptr=&buf[intx+x+(inty+y)*320];
++		ptr=(unsigned char*)&buf[intx+x+(inty+y)*320];
+                 shapester=&flare[y2*256+x2];
+ 
+                 for(n=0;n<4;n++)

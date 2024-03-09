@@ -3,14 +3,16 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  qtbase5-dev,
  qtbase5-dev-tools,
- qt5-qmake
-Standards-Version: 4.6.0.1
+ qt5-qmake,
+ dh-sequence-nodejs
+Standards-Version: 4.6.2
 Homepage: https://github.com/rocket/rocket
 Vcs-Git: https://github.com/rocket/rocket.git
 Vcs-Browser: https://github.com/rocket/rocket
+Rules-Requires-Root: no
 
 Package: rocket-sync-tracker
 Architecture: any
@@ -25,18 +27,19 @@ Description: Tool for synchronizing music and visuals in demoscene productions
 
 Package: librocket-dev
 Section: libdevel
-Architecture: all
+Architecture: any
 Depends:
  ${misc:Depends}
 Description: headers for rocket
  Provides support for rocket files
 
-Package: node-rocket
-Section: javascript
+Package: node-jsrocket
+Section: demos
 Architecture: all
 Depends:
  nodejs,
  node-grunt-contrib-concat,
  ${misc:Depends}
+Provides: ${nodejs:Provides}
 Description: node-js headers for rocket
  Provides support for rocket files on node-js

@@ -1,4 +1,4 @@
 supa-by-mrp binary: unknown-section demos
-supa-by-mrp binary: desktop-entry-lacks-keywords-entry usr/share/applications/supa-by-mrp.desktop
-supa-by-mrp binary: hardening-no-relro usr/lib/i386-linux-gnu/supa-by-mrp/supa
-supa-by-mrp binary: hardening-no-pie usr/lib/i386-linux-gnu/supa-by-mrp/supa
+supa-by-mrp binary: desktop-entry-lacks-keywords-entry [usr/share/applications/supa-by-mrp.desktop]
+supa-by-mrp binary: hardening-no-relro [usr/lib/i386-linux-gnu/supa-by-mrp/supa]
+supa-by-mrp binary: hardening-no-pie [usr/lib/i386-linux-gnu/supa-by-mrp/supa]

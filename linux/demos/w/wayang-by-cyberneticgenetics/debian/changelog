@@ -1,3 +1,10 @@
+wayang-by-cyberneticgenetics (1.0+1-0ddebs7) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 24 Apr 2024 01:31:39 +0200
+
 wayang-by-cyberneticgenetics (1.0+1-0ddebs6) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

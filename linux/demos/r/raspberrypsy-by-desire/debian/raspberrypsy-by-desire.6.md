@@ -1,6 +1,6 @@
 % raspberrypsy-by-desire(6) Raspberry Psy User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Desire
-% 2021-10-27
+% 2024-04-22
 
 # NAME
 raspberrypsy-by-desire - the command to run Raspberry Psy.
@@ -9,13 +9,22 @@ raspberrypsy-by-desire - the command to run Raspberry Psy.
 raspberrypsy-by-desire [*options*]
 
 # DESCRIPTION
-Raspberry Psy is a demonstration released by Desire in 2016.
+Raspberry Psy is a demo released by Desire in september 2016.
+Ended 1st at Function 2016
+
+organicdreams [3D]
+optic [3D]
+maali [3D, Graphics]
+blueghost [Code]
+teo [music]
+Ramon B5 [Support]
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=68146
 
 # BUGS
 No known bugs.

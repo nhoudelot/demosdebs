@@ -10,12 +10,13 @@ Build-Depends: debhelper-compat (= 10),
  libxmu-dev,
  x11proto-core-dev,
  libglib1.2-dev (>= 1.2.9),
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Section: libs
 Homepage: https://www.gtk.org/
 
 Package: libgtk1.2
 Architecture: any
+Multi-Arch: same
 Section: libs
 Pre-Depends: dpkg (>= 1.6.8)
 Depends: libgtk1.2-common (>= ${source:Version}), ${shlibs:Depends},${misc:Depends}
@@ -29,6 +30,7 @@ Description: GIMP Toolkit set of widgets for X
 
 Package: libgtk1.2-dev
 Architecture: any
+Multi-Arch: same
 Section: libdevel
 Pre-Depends: dpkg (>= 1.6.8)
 Depends: libgtk1.2 (= ${binary:Version}), libglib1.2-dev, libx11-dev, libxext-dev, libxi-dev, pkg-config,${misc:Depends}

@@ -1,0 +1,46 @@
+#!/usr/bin/make -f
+
+%:
+	dh "$@"
+
+BUILD_TREE := build-tree
+INSTALL    := /usr/bin/install
+FV := 0.3
+SV := 0
+
+override_dh_auto_build:
+	mkdir $(BUILD_TREE)
+	cp -al $(CURDIR)/noise $(BUILD_TREE)/noise
+	cd $(BUILD_TREE)/noise && $(MAKE)
+
+override_dh_auto_clean:
+	rm -fr $(BUILD_TREE)
+	find . -name "*~" -delete
+
+override_dh_auto_install:
+	mkdir debian/libnoise0/usr/lib/$(DEB_HOST_MULTIARCH)/
+	$(INSTALL) $(BUILD_TREE)/noise/lib/libnoise.so.* \
+	  debian/libnoise0/usr/lib/$(DEB_HOST_MULTIARCH)/
+	dh_link -p libnoise0 usr/lib/$(DEB_HOST_MULTIARCH)/libnoise.so.$(FV) usr/lib/$(DEB_HOST_MULTIARCH)/libnoise.so.$(SV)
+
+	mkdir debian/libnoise-dev/usr/lib/$(DEB_HOST_MULTIARCH)/
+	$(INSTALL) $(BUILD_TREE)/noise/lib/libnoise.la \
+	  debian/libnoise-dev/usr/lib/$(DEB_HOST_MULTIARCH)/
+	$(INSTALL) $(BUILD_TREE)/noise/lib/libnoise.a \
+	  debian/libnoise-dev/usr/lib/$(DEB_HOST_MULTIARCH)/
+	dh_link -p libnoise-dev usr/lib/$(DEB_HOST_MULTIARCH)/libnoise.so.$(FV) usr/lib/$(DEB_HOST_MULTIARCH)/libnoise.so
+	$(INSTALL) $(BUILD_TREE)/noise/include/*.h \
+	  debian/libnoise-dev/usr/include/libnoise/
+	$(INSTALL) $(BUILD_TREE)/noise/include/module/*.h \
+	  debian/libnoise-dev/usr/include/libnoise/module/
+	$(INSTALL) $(BUILD_TREE)/noise/include/model/*.h \
+	  debian/libnoise-dev/usr/include/libnoise/model/
+	$(INSTALL) $(BUILD_TREE)/noise/doc/html/* \
+	  debian/libnoise-dev/usr/share/doc/libnoise-dev/html/
+	$(INSTALL) noiseutils/noiseutils.* \
+	  debian/libnoise-dev/usr/share/doc/libnoise-dev/noiseutils/
+	$(INSTALL) examples/texture*.cpp examples/worms.cpp \
+	  debian/libnoise-dev/usr/share/doc/libnoise-dev/examples/
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

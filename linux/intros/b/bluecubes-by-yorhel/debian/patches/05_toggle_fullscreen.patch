@@ -1,0 +1,33 @@
+Description: better fullscreen
+ update fullscreen function, to make go fullscreen and back, with the same key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/bluecubes.c
++++ b/bluecubes.c
+@@ -37,6 +37,13 @@
+ void playsound();
+ void closesound();
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(isFullscreen);
++}
++
+ int main(int argc, char **argv) {
+ 	SDL_Event event;
+ 	Uint32 tlast = 0,
+@@ -106,6 +113,9 @@
+ 					}
+ 				}
+ 			}
++			if(event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_f)) {
++				ToggleFullscreen(screen); break;
++			}
+ 			/* exit on input */
+ 			if(event.type == SDL_QUIT || (event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q))) {
+ 				quit = 1;

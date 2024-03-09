@@ -1,0 +1,4 @@
+usr/lib/*/liblogg.so
+usr/lib/*/pkgconfig/logg.pc
+usr/include/logg.h
+

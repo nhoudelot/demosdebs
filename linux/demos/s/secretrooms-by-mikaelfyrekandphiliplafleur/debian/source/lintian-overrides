@@ -1,10 +1,10 @@
-secretrooms-by-mikaelfyrekandphiliplafleur source: source-contains-prebuilt-windows-binary secret-rooms-32bit.exe
-secretrooms-by-mikaelfyrekandphiliplafleur source: source-contains-prebuilt-windows-binary secret-rooms-64bit.exe
-secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing secret-rooms-linux32
-secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing secret-rooms-linux64
-secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing libs/linux32/libSDL2-2.0.so.0
-secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing libs/linux64/libSDL2-2.0.so.0
-secretrooms-by-mikaelfyrekandphiliplafleur source: incomplete-creative-commons-license cc-by-nc-nd-3 (paragraph at line 5)
-secretrooms-by-mikaelfyrekandphiliplafleur source: incomplete-creative-commons-license cc-by-nc-nd-4 (paragraph at line 14)
-secretrooms-by-mikaelfyrekandphiliplafleur source: intra-source-package-circular-dependency secretrooms-by-mikaelfyrekandphiliplafleur secretrooms-by-mikaelfyrekandphiliplafleur-data
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-contains-prebuilt-windows-binary [secret-rooms-32bit.exe]
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-contains-prebuilt-windows-binary [secret-rooms-64bit.exe]
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing [secret-rooms-linux32]
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing [secret-rooms-linux64]
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing [libs/linux32/libSDL2-2.0.so.0]
+secretrooms-by-mikaelfyrekandphiliplafleur source: source-is-missing [libs/linux64/libSDL2-2.0.so.0]
+secretrooms-by-mikaelfyrekandphiliplafleur source: global-files-wildcard-not-first-paragraph-in-dep5-copyright [debian/copyright:14]
+secretrooms-by-mikaelfyrekandphiliplafleur source: incomplete-creative-commons-license cc-by-nc-nd-3 [debian/copyright:7]
+secretrooms-by-mikaelfyrekandphiliplafleur source: incomplete-creative-commons-license cc-by-nc-nd-4 [debian/copyright:16]
 

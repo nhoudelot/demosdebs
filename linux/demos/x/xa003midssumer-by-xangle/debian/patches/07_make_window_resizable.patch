@@ -1,0 +1,103 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/base/xio.cpp
++++ b/base/xio.cpp
+@@ -91,7 +91,7 @@
+ //		xs::error.add(temp.c_str());
+ //	}
+ 
+-	int flags = 0;
++	int flags = SDL_WINDOW_RESIZABLE;
+ 
+ 	if(ogl)
+ 	{
+@@ -112,6 +112,8 @@
+ 			temp += SDL_GetError();
+ 			xs::error.add(temp.c_str());
+ 		};
++		windowID = SDL_GetWindowID(sdlWindow);
++		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+ 		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
+ 		sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,sdl_screen);
+ 	
+@@ -120,6 +122,35 @@
+ #endif
+ 	}
+ 
++void Video::resize_window(int w, int h) {
++    SDL_Rect newWindowSize;
++    newWindowSize.x = 0;
++    newWindowSize.y = 0;
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    } else if (w != newWindowSize.w) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (h != newWindowSize.h) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    }
++
++    SDL_Rect viewPort;
++    SDL_RenderGetViewport(sdlRenderer, &viewPort);
++    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++}
++
++
+ void Video::update()
+ {
+ 	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
+@@ -139,6 +170,11 @@
+ 			    case SDLK_q: xs::shutdown.run(0); break;
+ 			}
+ 		    }
++		 if (event.window.windowID == windowID)  {
++			if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++			    resize_window(event.window.data1,event.window.data2);
++			}
++		}
+ 	}
+ }
+ 
+--- a/base/xio.h
++++ b/base/xio.h
+@@ -20,6 +20,10 @@
+ 
+ #include "xs.h"
+ 
++
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ // SDL and SDL_Mixer
+ #ifdef WIN32
+ 	#include <SDL/SDL.h>
+@@ -74,11 +78,13 @@
+ 	if(SDL_MUSTLOCK(sdl_screen)) SDL_UnlockSurface(sdl_screen);
+ };
+ 
+-
+ SDL_Window *sdlWindow;
+ SDL_Renderer *sdlRenderer;
+ SDL_Texture *sdlTexture;
+ SDL_Surface* sdlSurface;
++Uint32 windowID;
++
++void resize_window(int w, int h);
+ 
+ // Update buffer to screen
+ void update();

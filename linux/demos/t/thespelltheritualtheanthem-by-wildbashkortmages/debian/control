@@ -3,14 +3,15 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl2-dev,
  liblua5.2-dev,
  libsdl2-image-dev,
  libfmodex-dev,
- libglu1-mesa
-Standards-Version: 4.6.0.1
+ libglu-dev
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=66412
+Rules-Requires-Root: no
 
 Package: thespelltheritualtheanthem-by-wildbashkortmages
 Architecture: amd64

@@ -1,6 +1,6 @@
 % ephemera-by-approximate(6) ephemera User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Approximate
-% 2016-12-20
+% 2024-03-19
 
 # NAME
 ephemera-by-approximate - is the command to run ephemera 
@@ -9,7 +9,19 @@ ephemera-by-approximate - is the command to run ephemera
 ephemera-by-approximate [*options*]
 
 # DESCRIPTION
-ephemera  is a demonstration released by Approximate in 2009
+ephemera  is a 64k intro released by Approximate in september 2009
+ended 1st conbined 64/4k at	Sundown 2009
+
+Cryptic [code/design]
+velo [Graphics]
+MeteoriK [Music, Other (Synth)]
+
+# OPTIONS
+\--help
+:   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=53833
 
 32-bit elf using SDL (for audio, keyboard/mouse and window creation) and OpenGL
 Since it's not tried and tested much, any feedback is much welcome. 
@@ -30,12 +42,6 @@ upx
 Anyone wanting to chat about 64k intro/packer development/improvement on Linux, 
 feel free to contact me at my gmail address:
 cryptic.aprx
-
-# OPTIONS
-there is no options to this program
-
-\--help
-:   Display help for the command
 
 # BUGS
 No known bugs.

@@ -1,6 +1,7 @@
 Description: make window resizable
  make window resizable with correct ratio
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-27
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -41,7 +42,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  void checker_board() {
  #define C 0.2
-@@ -500,7 +521,7 @@
+@@ -499,7 +520,7 @@
  	int start_tick;
  	int cmode=0;
  	int tick;
@@ -50,7 +51,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	SDL_Event e;
  	int old_frame=-1,new_frame;
  
-@@ -540,6 +561,8 @@
+@@ -539,6 +560,8 @@
  
  	init_steer();
  
@@ -59,7 +60,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	start_tick=SDL_GetTicks();
  	while (quit!=1) {
  
-@@ -560,7 +583,19 @@
+@@ -559,7 +582,19 @@
  		}
  		frame++;
  

@@ -1,8 +1,15 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
 @@ -627,6 +627,29 @@
-     SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
-     SDL_ShowCursor(IsFullscreen);
+     SDL_SetWindowFullscreen(sdlWindow, isFullscreen ? 0 : FullscreenFlag);
+     SDL_ShowCursor(isFullscreen);
  }
 +
 +#define DEMO_XASPECT 16.0f

@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: itsfullofstars-by-traction
+Source: https://www.pouet.net/prod.php?which=24373
+
+Files: *
+Copyright: 2006 Traction
+License: public-domain
+ (probably freeware)
+
+Files: debian/*
+Copyright: 2016-2024 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-2+
+ /usr/share/common-licenses/GPL-2

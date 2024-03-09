@@ -1,5 +1,5 @@
 01_better_french.patch
 02_update_cflags.patch
-03_update_desktopfile.diff
+03_update_desktopfile.patch
 04_mix_init_fuildsynth.patch
 05_fix_sdl2_includes.patch

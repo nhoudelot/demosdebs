@@ -1,3 +1,9 @@
+Description: generate minifier version of shader
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- /dev/null
 +++ b/out.h
 @@ -0,0 +1,21 @@

@@ -1,0 +1,40 @@
+Description: Activate the XWIN driver by default
+Author: Sam Hocevar <sam+deb@zoy.org>
+--- a/allegro.cfg
++++ b/allegro.cfg
+@@ -1,3 +1,15 @@
++# Hints for Debian - READ THEM FIRST!
++#
++# Allegro is built with many drivers, some of them are not really stable
++# and may cause trouble or crash your X-Server or destroy your console.
++# For this reason, you should only choose XWIN as your "system"
++# environment (see below) - in this case you can play the games only in
++# the X11-environment, but you get more stability. Running on console
++# will fail. If you are developer or are sure that the "Linux console"
++# mode won't crash your system, you may try it on your own risk and
++# report bugs to the upstream (look for mailing lists on Allegro's main
++# homepage).
++
+ #
+ #  Configuration file for the Allegro library.
+ #
+@@ -18,7 +30,7 @@
+ #  XWIN     - XWindows
+ #  LNXC     - Linux console
+ 
+-system = 
++system = XWIN
+ 
+ 
+ 
+@@ -242,6 +254,10 @@
+ #  GPMD     - GPM repeater data (Mouse Systems protocol)
+ #  EV       - Event interfaces (EVDEV) - set mouse_device = /dev/input/eventN
+ 
++# Change this and following three settings if Allegro has problems
++# autodetecting your mouse on console, i.e. if you use GPM repeater with
++# special protocols or similar hocus pocus
++
+ mouse = 
+ 
+ 

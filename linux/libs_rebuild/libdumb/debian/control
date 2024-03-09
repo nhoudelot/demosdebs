@@ -1,0 +1,75 @@
+Source: libdumb
+Section: libs
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Tobias Hansen <thansen@debian.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ liballegro4-dev
+Standards-Version: 4.6.2
+Homepage: http://dumb.sourceforge.net/
+Vcs-Git: git://git.debian.org/pkg-games/libdumb.git
+Vcs-Browser: http://git.debian.org/?p=pkg-games/libdumb.git;a=summary
+Rules-Requires-Root: no
+
+Package: libdumb1
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Description: dynamic universal music bibliotheque
+ DUMB is a tracker library with support for IT, XM, S3M and MOD files. It
+ targets maximum accuracy to the original formats, with low-pass resonant
+ filters for the IT files, accurate timing and pitching, and three resampling
+ quality settings (aliasing, linear interpolation and cubic interpolation).
+ .
+ This package contains the libdumb1 runtime library, a standalone library
+ for module playback. If you plan to use the Allegro library with your
+ project, please consider the libaldmb1 library.
+
+Package: libdumb1-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libdumb1 (= ${binary:Version}), ${misc:Depends}
+Conflicts: libdumb0-dev
+Description: development files for libdumb1
+ DUMB is a tracker library with support for IT, XM, S3M and MOD files. It
+ targets maximum accuracy to the original formats, with low-pass resonant
+ filters for the IT files, accurate timing and pitching, and three resampling
+ quality settings (aliasing, linear interpolation and cubic interpolation).
+ .
+ This package contains the header files and static library needed to
+ compile applications that use libdumb1.
+
+Package: libaldmb1
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Description: dynamic universal music bibliotheque, Allegro version
+ DUMB is a tracker library with support for IT, XM, S3M and MOD files. It
+ targets maximum accuracy to the original formats, with low-pass resonant
+ filters for the IT files, accurate timing and pitching, and three resampling
+ quality settings (aliasing, linear interpolation and cubic interpolation).
+ .
+ This package contains the libaldmb1 runtime library, a library for module
+ playback that uses the Allegro library. If you do not plan to use Allegro
+ with your project, please consider the libdumb1 library.
+
+Package: libaldmb1-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libaldmb1 (= ${binary:Version}), libdumb1-dev, liballegro4-dev,
+         ${misc:Depends}
+Conflicts: libaldmb0-dev
+Description: development files for libaldmb1
+ DUMB is a tracker library with support for IT, XM, S3M and MOD files. It
+ targets maximum accuracy to the original formats, with low-pass resonant
+ filters for the IT files, accurate timing and pitching, and three resampling
+ quality settings (aliasing, linear interpolation and cubic interpolation).
+ .
+ This package contains the header files and static library needed to
+ compile applications that use libaldmb1.
+

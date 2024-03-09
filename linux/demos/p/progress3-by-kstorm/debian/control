@@ -1,0 +1,30 @@
+Source: progress3-by-kstorm
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ libsdl1.2-compat-dev|libsdl1.2-dev,
+ libsdl-mixer1.2-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=76620
+Rules-Requires-Root: no
+
+Package: progress3-by-kstorm
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libsdl1.2-compat,
+ progress3-by-kstorm-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by K-Storm, released in 2018
+ Demo by K-Storm, 2nd combined demo at Nova 2018
+
+Package: progress3-by-kstorm-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for progress3-by-kstorm
+ progress3-by-kstorm data files

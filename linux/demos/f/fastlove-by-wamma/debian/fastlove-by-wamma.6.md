@@ -1,15 +1,16 @@
 % fastlove-by-wamma(6) Fastlove User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),wAMMA
-% 2016-10-07
+% 2024-04-18
 
 # NAME
-fastlove-by-wamma - is the command to run Fastlove 
+fastlove-by-wamma - is the command to run Fastlove
 
 # SYNOPSIS
 fastlove-by-wamma [*options*]
 
 # DESCRIPTION
-Fastlove  is a demonstration released by wAMMA, released in 2008
+Fastlove is a demo released by wAMMA, released in june 2008
+Ended 7th at Icons 2008
 
 Super quickly made (bad) demo
 Released at Icons 2008
@@ -24,10 +25,11 @@ Marq/Fit - Additional code
 Man/Fit - Additional gfx
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=50701
 
 # BUGS
 No known bugs.

@@ -1,0 +1,68 @@
+Description: Fix some manpage issues.
+ When manpages are generated from this, 
+ certain strings are interpreted as (missing)
+ macros and the items are not displayed.
+Author: Tobias Hansen <tobias.han@gmx.de>
+
+--- a/docs/src/allegro._tx
++++ b/docs/src/allegro._tx
+@@ -6667,12 +6667,12 @@
+ @shortdesc Draws a sprite tinted with a specific color.
+    In 256-color modes, uses the global color_map table to tint the sprite
+    image to the specified color or to light it to the level specified by
+-   'color', depending on the function which was used to build the table
++   `color', depending on the function which was used to build the table
+    (create_trans_table or create_light_table), and draws the resulting image
+    to the destination bitmap. In truecolor modes, uses the blender functions
+-   to light the sprite image using the alpha level specified by 'color' (the
++   to light the sprite image using the alpha level specified by `color' (the
+    alpha level which was passed to the blender functions is ignored) and
+-   draws the resulting image to the destination bitmap. The 'color' parameter
++   draws the resulting image to the destination bitmap. The `color' parameter
+    must be in the range [0-255] whatever its actual meaning is. This must
+    only be used after you have set up the color mapping table (for 256-color
+    modes) or blender functions (for truecolor modes). Example:
+@@ -6696,7 +6696,7 @@
+ @xref bitmap_mask_color
+ @eref exshade
+ @shortdesc Draws a sprite with gouraud shading.
+-   More sophisticated version of draw_lit_sprite(): the 'color' parameter is
++   More sophisticated version of draw_lit_sprite(): the `color' parameter is
+    not constant across the sprite image anymore but interpolated between the
+    four specified corner colors. The corner values passed to this function
+    indicate the strength of the color applied on them, ranging from 0 (no
+@@ -12197,7 +12197,7 @@
+       0, 0, 0,  /* Viewer position, in this case, 0/0/0. */
+       0, 0, -1, /* Viewer direction, in this case along negative z. */
+       0, 1, 0,  /* Up vector, in this case positive y. */
+-      32,       /* The FOV, here 45°. */
++      32,       /* The FOV, here 45 degrees. */
+       (float)SCREEN_W / (float)SCREEN_H)); /* Aspect ratio. */
+   
+    /* Applying the matrix transforms the point 100/200/-300
+@@ -12384,7 +12384,7 @@
+    The fov parameter specifies the field of view (ie. width of the camera
+    focus) in binary, 256 degrees to the circle format. For typical
+    projections, a field of view in the region 32-48 will work well. 64
+-   (90°) applies no extra scaling - so something which is one unit away
++   (90 degrees) applies no extra scaling - so something which is one unit away
+    from the viewer will be directly scaled to the viewport. A bigger FOV
+    moves you closer to the viewing plane, so more objects will appear. A
+    smaller FOV moves you away from the viewing plane, which means you see a
+@@ -13365,13 +13365,13 @@
+    so you should reserve 6x that amount, just to be sure. The list of files
+    is filtered according to the file extensions in the ext parameter.
+    Passing NULL includes all files; "PCX;BMP" includes only files with
+-   .PCX or .BMP extensions. If you wish to control files by their attributes,
++   `.PCX' or `.BMP' extensions. If you wish to control files by their attributes,
+    one of the fields in the extension list can begin with a slash, followed
+    by a set of attribute characters. Any attribute written on its own, or
+    with a '+' before it, indicates to include only files which have that
+    attribute set. Any attribute with a '-' before it indicates to leave out
+-   any files with that attribute. The flag characters are 'r' (read-only),
+-   'h' (hidden), 's' (system), 'd' (directory) and 'a' (archive). For
++   any files with that attribute. The flag characters are `r' (read-only),
++   `h' (hidden), `s' (system), `d' (directory) and `a' (archive). For
+    example, an extension string of "PCX;BMP;/+r-h" will display only PCX or
+    BMP files that are read-only and not hidden. The directories are not
+    affected in the same way as the other files by the extension string: the

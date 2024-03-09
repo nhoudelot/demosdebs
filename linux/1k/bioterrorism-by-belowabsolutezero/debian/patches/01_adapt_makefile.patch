@@ -1,12 +1,13 @@
 Description: updating makefile
  updating makefile to make it more compatible with packaging
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-22
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -1,22 +1,48 @@
+@@ -1,25 +1,51 @@
  AOBJ=load.o synth.o
  COBJ=
  OBJ=$(AOBJ) $(COBJ)
@@ -32,8 +33,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +RM_F := rm -f
 +#variables d’installation
 +INSTALL := install
-+INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
 +prefix          := /usr
 +exec_prefix     := $(prefix)
 +bindir          := $(prefix)/bin
@@ -59,8 +60,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -packed: intro unpack.header
 +$(TARGET): intro unpack.header
  	cp $< t
- #	gzip -n --best -f -c $< > $<.gz
- 	7z a -tGZip -mx=9 $<.gz t
+-#	gzip -n --best -f -c $< > $<.gz
+-	7z a -tGZip -mx=9 $<.gz t
++	gzip -n --best -f -c $< > $<.gz
++#	7z a -tGZip -mx=9 $<.gz t
+ 	cat unpack.header $<.gz > $@
+ 	rm t $<.gz
+ 	chmod a+rx $@
 @@ -30,7 +56,12 @@
  	./cshader WIDTH $(WIDTH) HEIGHT $(HEIGHT) < $< > $@
  

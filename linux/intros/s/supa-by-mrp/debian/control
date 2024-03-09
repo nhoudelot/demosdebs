@@ -3,9 +3,10 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12)
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=54039
+Rules-Requires-Root: no
 
 Package: supa-by-mrp
 Architecture: i386
@@ -15,8 +16,8 @@ Depends:
  common-install-function-ddebs(>=1.18),
  libsdl1.2-compat,
  libc6,
- libglu1-mesa |libglu1
-Description: Intro for Linux, released in 2008
+ libglu1
+Description: 64k Intro for Linux, released in 2008
  Supa by mrp
  for ALTERNATIVE PARTY 2008
  .

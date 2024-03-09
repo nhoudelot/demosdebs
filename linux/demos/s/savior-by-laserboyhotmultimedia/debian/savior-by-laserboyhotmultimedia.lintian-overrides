@@ -1,3 +1,4 @@
 savior-by-laserboyhotmultimedia: unknown-section demos
-savior-by-laserboyhotmultimedia: embedded-library usr/lib/x86_64-linux-gnu/savior-by-laserboyhotmultimedia/build-linugs/demobase3: glew
-savior-by-laserboyhotmultimedia: hardening-no-pie usr/lib/x86_64-linux-gnu/savior-by-laserboyhotmultimedia/build-linugs/demobase3
+savior-by-laserboyhotmultimedia: embedded-library glew [usr/lib/x86_64-linux-gnu/savior-by-laserboyhotmultimedia/build-linugs/demobase3]
+savior-by-laserboyhotmultimedia: hardening-no-pie [usr/lib/x86_64-linux-gnu/savior-by-laserboyhotmultimedia/build-linugs/demobase3]
+savior-by-laserboyhotmultimedia: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/savior-by-laserboyhotmultimedia/build-linugs/demobase3]

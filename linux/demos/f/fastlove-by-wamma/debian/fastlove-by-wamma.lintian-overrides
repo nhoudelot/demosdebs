@@ -1,5 +1,5 @@
 fastlove-by-wamma binary: unknown-section demos
-fastlove-by-wamma binary: desktop-entry-lacks-keywords-entry usr/share/applications/fastlove-by-wamma.desktop
-fastlove-by-wamma binary: embedded-library usr/lib/i386-linux-gnu/fastlove-by-wamma/wamma-fastlove: libpng
-fastlove-by-wamma binary: embedded-library usr/lib/i386-linux-gnu/fastlove-by-wamma/wamma-fastlove: zlib
+fastlove-by-wamma binary: desktop-entry-lacks-keywords-entry [usr/share/applications/fastlove-by-wamma.desktop]
+fastlove-by-wamma binary: embedded-library [usr/lib/i386-linux-gnu/fastlove-by-wamma/wamma-fastlove: libpng]
+fastlove-by-wamma binary: embedded-library [usr/lib/i386-linux-gnu/fastlove-by-wamma/wamma-fastlove: zlib]
 

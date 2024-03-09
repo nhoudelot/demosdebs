@@ -1,0 +1,48 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Mon, 1 Jan 2024 14:14:26 +0000
+Subject: sdl.m4: Call $PKG_CONFIG rather than hard-coding pkg-config
+
+When cross-compiling, pkg.m4 will set the PKG_CONFIG variable
+to a suitable pkg-config executable, which might be a
+host-architecture-prefixed name like aarch64-linux-gnu-pkg-config. This
+ensures that we will use a suitable search path that is suitable for
+the host architecture (the machine we are compiling for) rather than
+the build architecture (the machine we are compiling on) to find
+dependency libraries like SDL. When using pkg-config as a substitute
+for sdl2-config, we will similarly need to use the
+host-architecture-prefixed pkg-config.
+
+Setting the PKG_CONFIG environment variable is also the canonical way to
+request that a different pkg-config implementation be used, if that
+becomes necessary for some reason.
+
+Co-authored-by: Helmut Grohne <helmut@subdivi.de>
+Bug-Debian: https://bugs.debian.org/1059749
+Signed-off-by: Simon McVittie <smcv@collabora.com>
+Applied-upstream: 1.2.69, commit:bc081fd95e193345a821206fa205fd13411f2e3c
+---
+ sdl.m4 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sdl.m4 b/sdl.m4
+index 30e1f21..53f7889 100644
+--- a/sdl.m4
++++ b/sdl.m4
+@@ -5,7 +5,7 @@
+ # stolen from Manish Singh
+ # Shamelessly stolen from Owen Taylor
+ 
+-# serial 2
++# serial 3
+ 
+ dnl AM_PATH_SDL([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
+ dnl Test for SDL, and define SDL_CFLAGS and SDL_LIBS
+@@ -45,7 +45,7 @@ AC_ARG_ENABLE(sdltest, [  --disable-sdltest       Do not try to compile and run
+ 
+   if test "x$sdl_pc" = xyes ; then
+     no_sdl=""
+-    SDL_CONFIG="pkg-config sdl"
++    SDL_CONFIG="$PKG_CONFIG sdl"
+   else
+     as_save_PATH="$PATH"
+     if test "x$prefix" != xNONE && test "$cross_compiling" != yes; then

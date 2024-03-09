@@ -1,0 +1,241 @@
+Source: allegro4.4
+Section: devel
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Andreas Rönnquist <gusnan@debian.org>, Tobias Hansen <thansen@debian.org>
+Homepage: http://www.liballeg.org
+Build-Depends: debhelper-compat (= 13),
+               cmake,
+               pkg-config,
+               texinfo,
+               libxext-dev,
+               libx11-dev,
+               libxpm-dev,
+               libxt-dev,
+               libxcursor-dev,
+               libasound2-dev (>= 0.9) [linux-any],
+               oss4-dev [kfreebsd-any],
+               libxxf86dga-dev,
+               libxxf86vm-dev,
+               libgl-dev,
+               libglu1-mesa-dev,
+               libpng-dev,
+               zlib1g-dev,
+               libvorbis-dev
+Standards-Version: 4.6.2
+Vcs-Browser: https://salsa.debian.org/games-team/allegro4.4
+Vcs-Git: https://salsa.debian.org/games-team/allegro4.4.git
+Rules-Requires-Root: no
+
+Package: liballegro4.4
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Breaks: liballegro4.4-plugin-alsa (<= 2:4.4.2-4)
+Replaces: liballegro4.4-plugin-alsa (<= 2:4.4.2-4)
+Description: portable library for cross-platform game and multimedia development
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: liballegro4-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         liballegro4.4 (= ${binary:Version}),
+         libxext-dev,
+         libx11-dev,
+         libxpm-dev,
+         libxxf86vm-dev,
+         libxcursor-dev
+Provides: liballegro4.2-dev, liballegro-dev
+Conflicts: liballegro-dev-common, liballegro4a, liballegro-dev, liballegro4.2-dev
+Replaces: liballegro-dev-common, liballegro4a, liballegro-dev, liballegro4.2-dev
+Description: development files for the Allegro library
+ This package contains the development headers for the Allegro library.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: allegro4-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends},
+         dpkg (>= 1.15.4) | install-info
+Conflicts: liballegro-doc (<= 2:4.3)
+Replaces: liballegro-doc (<= 2:4.3)
+Multi-Arch: foreign
+Description: documentation for the Allegro library
+ This package contains the Allegro documentation in various formats,
+ FAQs and other documentation about the Allegro library and the
+ source of the example programs.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: liballeggl4.4
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         liballegro4.4 (= ${binary:Version})
+Description: library to mix OpenGL graphics with Allegro routines
+ AllegroGL is an Allegro add-on that allows you to use OpenGL alongside
+ Allegro -- you use OpenGL for your rendering to the screen, and Allegro for
+ miscellaneous tasks like gathering input, doing timers, getting cross-platform
+ portability, loading data, and drawing your textures. So this library fills
+ the same hole that things like glut do.
+ .
+ AllegroGL also automatically exposes most, if not all, OpenGL extensions
+ available to user programs. This means you no longer have to manually load
+ them; extension management is already done for you.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: liballeggl4-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends},
+         liballeggl4.4 (= ${binary:Version}),
+         liballegro4-dev
+Replaces: liballegro4.2-dev (<< 2:4.4.2-3)
+Breaks: liballegro4.2-dev (<< 2:4.4.2-3)
+Multi-Arch: same
+Description: development files for the allegrogl library
+ This package contains the development headers for liballeggl.
+ .
+ AllegroGL is an Allegro add-on that allows you to use OpenGL alongside
+ Allegro -- you use OpenGL for your rendering to the screen, and Allegro for
+ miscellaneous tasks like gathering input, doing timers, getting cross-platform
+ portability, loading data, and drawing your textures. So this library fills
+ the same hole that things like glut do.
+ .
+ AllegroGL also automatically exposes most, if not all, OpenGL extensions
+ available to user programs. This means you no longer have to manually load
+ them; extension management is already done for you.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: libjpgalleg4.4
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: JPG loading addon for Allegro 4
+ This add-on for Allegro will allow you to load and save JPG images using
+ standard Allegro image handling functions as if they were normal bitmaps.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: libjpgalleg4-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends},
+         libjpgalleg4.4 (= ${binary:Version}),
+         liballegro4-dev
+Multi-Arch: same
+Description: development files for the JPG loading addon for Allegro 4
+ This package contains the development headers for libjpgalleg.
+ .
+ This add-on for Allegro will allow you to load and save JPG images using
+ standard Allegro image handling functions as if they were normal bitmaps.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: libloadpng4.4
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: PNG loading addon for Allegro 4
+ This add-on for Allegro will allow you to load and save PNG images using
+ standard Allegro image handling functions as if they were normal bitmaps.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: libloadpng4-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends},
+         libloadpng4.4 (= ${binary:Version}),
+         liballegro4-dev
+Multi-Arch: same
+Description: development files for the PNG loading addon for Allegro 4
+ This package contains the development headers for libloadpng.
+ .
+ This add-on for Allegro will allow you to load and save PNG images using
+ standard Allegro image handling functions as if they were normal bitmaps.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: liblogg4.4
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: OGG loading addon for Allegro 4
+ liblogg is an Allegro add-on library for playing OGG/Vorbis audio files.
+ It can load OGG/Vorbis files as Allegro SAMPLE's, or it can stream them
+ from disk to save memory.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.
+
+Package: liblogg4-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends},
+         liblogg4.4 (= ${binary:Version}),
+         liballegro4-dev,
+         libvorbis-dev
+Replaces: liballegro4.2-dev (<< 2:4.4.2-3)
+Breaks: liballegro4.2-dev (<< 2:4.4.2-3)
+Multi-Arch: same
+Description: development files for the OGG loading addon for Allegro 4
+ This package contains the development headers for liblogg.
+ .
+ liblogg is an Allegro add-on library for playing OGG/Vorbis audio files.
+ It can load OGG/Vorbis files as Allegro SAMPLE's, or it can stream them
+ from disk to save memory.
+ .
+ Allegro is a cross-platform library mainly aimed at video game and multimedia
+ programming. It handles common, low-level tasks such as creating windows,
+ accepting user input, loading data, drawing images, playing sounds, etc. and
+ generally abstracting away the underlying platform.

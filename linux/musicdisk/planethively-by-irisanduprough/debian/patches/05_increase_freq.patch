@@ -1,0 +1,18 @@
+Description: increase audio frequency to 48 Khz
+as 48 kHz is the standard for digital audio & video
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -16,7 +16,7 @@
+ #include "shapes.h"
+ #include "text.h"
+ 
+-#define FREQ 44100
++#define FREQ 48000
+ #define HIVELY_LEN FREQ/50
+ #define OUTPUT_LEN 4096
+ 

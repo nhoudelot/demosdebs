@@ -2,12 +2,13 @@ Description: better quit
  update key to the new SDL2 layout
  and even add more options to quit the app
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-29
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -174,10 +174,20 @@
+@@ -174,10 +174,17 @@
  	while(!quit)
  	{
  #ifdef NOAMIKA
@@ -15,11 +16,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +		while(SDL_PollEvent(&e))
  		{
 -			if(e.type==SDL_MOUSEBUTTONDOWN)
-+			if (e.type == SDL_MOUSEBUTTONDOWN) {
- 				quit=1;
-+			}
 +			if (e.type == SDL_QUIT) {
-+				quit=1;
+ 				quit=1;
 +			}
 +			if (e.type == SDL_KEYDOWN) {
 +				switch (e.key.keysym.sym) {

@@ -1,2 +1,2 @@
 fab-by-tharsis binary: unknown-section demos
-fab-by-tharsis binary: desktop-entry-lacks-keywords-entry usr/share/applications/fab-by-tharsis.desktop
+fab-by-tharsis binary: desktop-entry-lacks-keywords-entry [usr/share/applications/fab-by-tharsis.desktop]

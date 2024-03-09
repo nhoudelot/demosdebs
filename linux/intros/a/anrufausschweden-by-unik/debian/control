@@ -3,9 +3,10 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12)
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=13621
+Rules-Requires-Root: no
 
 Package: anrufausschweden-by-unik
 Architecture: i386
@@ -16,5 +17,5 @@ Depends:
  libc6,
  libgl1-mesa-glx | libgl1,
  libglu1-mesa | libglu1
-Description: anruf aus schweden is a Intro released in 2004
- Intro by unik, released in 2004
+Description: anruf aus schweden is a 64k Intro released in 2004
+ Intro by unik, ended 1st pc 64k at Evoke 2004

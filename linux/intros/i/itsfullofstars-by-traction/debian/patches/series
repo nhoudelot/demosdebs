@@ -1,0 +1,10 @@
+01_adapt_makefile.patch
+02_adapt_path.patch
+03_window_title.patch
+04_fix_include_path.patch
+05_migrate_to_SDL2.patch
+06_link_to_libgl.patch
+07_better_quit.patch
+08_resizable_window.patch
+09_add_fullscreen.patch
+10_libfmodex_to_openmpt.patch

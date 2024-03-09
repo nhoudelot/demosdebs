@@ -3,21 +3,22 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  cmake,
  libboost-program-options-dev,
  libglew-dev,
  libpng-dev,
- libsdl2-dev,
-Standards-Version: 4.6.0.1
+ libsdl2-dev
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=65374
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2015-04_64k-intro_junamatkailuintro
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2015-04_64k-intro_junamatkailuintro.git
+Rules-Requires-Root: no
 
 Package: junamatkailuintro-by-faemiyah
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Intro for Linux, released in 2015
+Description: 64k Intro for Linux, released in 2015
  Intro by Faemiyah, released in 2015

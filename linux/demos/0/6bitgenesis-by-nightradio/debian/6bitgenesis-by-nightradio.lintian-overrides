@@ -1,6 +1,6 @@
 6bitgenesis-by-nightradio binary: unknown-section demos
-6bitgenesis-by-nightradio binary: embedded-library usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/bin/pixilang_linux_x86_64: libpng
-6bitgenesis-by-nightradio binary: embedded-library usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/bin/pixilang_linux_x86_64: zlib
-6bitgenesis-by-nightradio binary: hardening-no-pie usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/bin/pixilang_linux_x86_64
-6bitgenesis-by-nightradio binary: hardening-no-relro usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/bin/pixilang_linux_x86_64
-6bitgenesis-by-nightradio binary: hardening-no-relro usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/lib/linux/lib_x86_64/sunvox.so
+6bitgenesis-by-nightradio binary: embedded-library libpng [usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/bin/pixilang_linux_x86_64]
+6bitgenesis-by-nightradio binary: embedded-library zlib [usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/bin/pixilang_linux_x86_64]
+6bitgenesis-by-nightradio binary: hardening-no-pie [usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/bin/pixilang_linux_x86_64]
+6bitgenesis-by-nightradio binary: hardening-no-relro [usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/bin/pixilang_linux_x86_64]
+6bitgenesis-by-nightradio binary: hardening-no-relro [usr/lib/x86_64-linux-gnu/6bitgenesis-by-nightradio/data/lib/linux/lib_x86_64/sunvox.so]

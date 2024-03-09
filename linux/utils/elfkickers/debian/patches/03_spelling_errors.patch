@@ -1,0 +1,28 @@
+Description: fixes some spelling errors
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2024-03-10
+Applied-Upstream: no
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/elftoc/elftoc.c
++++ b/elftoc/elftoc.c
+@@ -121,7 +121,7 @@
+     if (optind == argc)
+ 	fail("no input file.\n%s", helpsuffix);
+     if (optind + 1 < argc)
+-	fail("unrecognized extra argments.\n%s", helpsuffix);
++	fail("unrecognized extra arguments.\n%s", helpsuffix);
+     inputfilename = argv[optind];
+ 
+     if (width) {
+--- a/elftoc/dynamic.c
++++ b/elftoc/dynamic.c
+@@ -132,7 +132,7 @@
+ 	    if (value) {
+ 		size = dynget(DT_SYMENT);
+ 		if (size != sizeof_elf(Sym))
+-		    warn("unexepected value for DT_SYMENT: %ld instead of %d.",
++		    warn("unexpected value for DT_SYMENT: %ld instead of %d.",
+ 			 size, sizeof_elf(Sym));
+ 		symtab = getaddressoffset(value);
+ 		symsize = symcount * size;

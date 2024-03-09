@@ -1,6 +1,6 @@
 % association-by-cyberneticgenetics(6) Association User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Cybernetic Genetics
-% 2016-10-07
+% 2024-04-14
 
 # NAME
 association-by-cyberneticgenetics - is the command to run Association 
@@ -9,7 +9,8 @@ association-by-cyberneticgenetics - is the command to run Association
 association-by-cyberneticgenetics [*options*]
 
 # DESCRIPTION
-Association is a demonstration released by Cybernetic Genetics in 2008
+Association is a demonstration released by Cybernetic Genetics in july 2008
+Ended 6th at SceneCON 2008
 
 Code: Travis
 Music: Cardinal
@@ -23,6 +24,9 @@ SceneCon 2008
 
 # OPTIONS
 there is no options to this program
+
+# INFOS
+https://www.pouet.net/prod.php?which=50937
 
 # BUGS
 No known bugs.

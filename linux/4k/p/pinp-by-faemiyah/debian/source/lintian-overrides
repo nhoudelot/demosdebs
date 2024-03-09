@@ -1,3 +1,3 @@
-pinp-by-faemiyah source: source-is-missing rel/pinp_freebsd-ia32
-pinp-by-faemiyah source: source-is-missing rel/pinp_linux-ia32
+pinp-by-faemiyah source: source-is-missing [rel/pinp_freebsd-ia32]
+pinp-by-faemiyah source: source-is-missing [rel/pinp_linux-ia32]
 

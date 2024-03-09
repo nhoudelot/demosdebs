@@ -1,3 +1,3 @@
 35inchesisenough-by-unrealvoodoo binary: unknown-section demos
-35inchesisenough-by-unrealvoodoo binary: hardening-no-pie usr/lib/i386-linux-gnu/35inchesisenough-by-unrealvoodoo/three_and_a_half_inches_is_enough-linux-x86
-35inchesisenough-by-unrealvoodoo binary: hardening-no-relro usr/lib/i386-linux-gnu/35inchesisenough-by-unrealvoodoo/three_and_a_half_inches_is_enough-linux-x86
+35inchesisenough-by-unrealvoodoo binary: hardening-no-pie [usr/lib/i386-linux-gnu/35inchesisenough-by-unrealvoodoo/three_and_a_half_inches_is_enough-linux-x86]
+35inchesisenough-by-unrealvoodoo binary: hardening-no-relro [usr/lib/i386-linux-gnu/35inchesisenough-by-unrealvoodoo/three_and_a_half_inches_is_enough-linux-x86]

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=progress 3
+GenericName=Demo
+Comment=Demo by K-Storm, released in 2018
+Type=Application
+Exec=/usr/bin/progress3-by-kstorm
+Icon=progress3-by-kstorm
+Categories=AudioVideo;
+Name[fr_FR]=progress 3

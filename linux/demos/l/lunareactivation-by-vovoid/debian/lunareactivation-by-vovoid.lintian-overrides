@@ -1,13 +1,13 @@
 lunareactivation-by-vovoid: unknown-section demos
-lunareactivation-by-vovoid: binary-or-shlib-defines-rpath usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so /home/jaw/vsxu/vsxu/engine
-lunareactivation-by-vovoid: embedded-library usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so: zlib
-lunareactivation-by-vovoid: embedded-library usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so: libpng
-lunareactivation-by-vovoid: embedded-library usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so: glew
-lunareactivation-by-vovoid: embedded-library usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so: libjpeg
-lunareactivation-by-vovoid: embedded-library usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/plugins/render.text.so: ftgl
-lunareactivation-by-vovoid: embedded-library ... use --no-tag-display-limit to see all (or pipe to a file/program)
-lunareactivation-by-vovoid: shlib-with-non-pic-code usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so
-lunareactivation-by-vovoid: hardening-no-pie usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/launcher.bin
-lunareactivation-by-vovoid: hardening-no-relro usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libfmodex-4.30.03.so
-
+lunareactivation-by-vovoid: custom-library-search-path RPATH /home/jaw/vsxu/vsxu/engine [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so]
+lunareactivation-by-vovoid: embedded-library ftgl [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/plugins/render.text.so]
+lunareactivation-by-vovoid: embedded-library glew [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so]
+lunareactivation-by-vovoid: embedded-library libjpeg [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so]
+lunareactivation-by-vovoid: embedded-library libpng [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so]
+lunareactivation-by-vovoid: embedded-library zlib [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so]
+lunareactivation-by-vovoid: specific-address-in-shared-library [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libvsxu_engine_graphics.so]
+lunareactivation-by-vovoid: hardening-no-pie [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/launcher.bin]
+lunareactivation-by-vovoid: hardening-no-relro [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libfmodex-4.30.03.so]
+lunareactivation-by-vovoid: hardening-no-fortify-functions [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/libfmodex-4.30.03.so]
+lunareactivation-by-vovoid: hardening-no-fortify-functions [usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/plugins/render.glsl.so]
 

@@ -1,6 +1,6 @@
 % summertime-by-resistance(6) Summertime User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Resistance
-% 2017-03-25
+% 2024-04-23
 
 # NAME
 summertime-by-resistance - the command to run Summertime.
@@ -9,7 +9,8 @@ summertime-by-resistance - the command to run Summertime.
 summertime-by-resistance [*options*]
 
 # DESCRIPTION
-Summertime is a demonstration released by Resistance in 2010.
+Summertime is a demonstration released by Resistance in july 2010.
+Ended 3rd at Solskogen 2010
 
                ReSiStANCE iS bACK wiTH aNOTHER rELEASE fOR yOU
 
@@ -34,10 +35,11 @@ at irc.freenode.net or contact@resistance.no
                      .x( Http://www.resistance.no )x.
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=55385
 
 # BUGS
 No known bugs.

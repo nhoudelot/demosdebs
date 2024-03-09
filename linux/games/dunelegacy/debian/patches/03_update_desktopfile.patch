@@ -1,0 +1,22 @@
+Description: update and change executable path of the .desktop file
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/dunelegacy.desktop
++++ b/dunelegacy.desktop
+@@ -1,7 +1,4 @@
+-#!/usr/bin/env xdg-open
+-
+ [Desktop Entry]
+-Encoding=UTF-8
+ Version=1.0
+ Type=Application
+ Terminal=false
+@@ -11,4 +8,4 @@
+ Icon[de_DE]=dunelegacy
+ Comment=A Dune II Clone
+ Categories=Game;StrategyGame;
+-Exec=dunelegacy
++Exec=/usr/games/dunelegacy

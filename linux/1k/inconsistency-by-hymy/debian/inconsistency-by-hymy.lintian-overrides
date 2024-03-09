@@ -1,2 +1,2 @@
 inconsistency-by-hymy binary: unknown-section demos
-inconsistency-by-hymy: executable-not-elf-or-script usr/bin/inconsistency-by-hymy
+inconsistency-by-hymy: executable-not-elf-or-script [usr/bin/inconsistency-by-hymy]

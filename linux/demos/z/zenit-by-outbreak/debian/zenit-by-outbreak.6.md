@@ -1,6 +1,6 @@
 % zenit-by-outbreak(6) Zenit User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Outbreak
-% 2016-11-02
+% 2024-04-24
 
 # NAME
 zenit-by-outbreak - is the command to run Zenit 
@@ -9,14 +9,15 @@ zenit-by-outbreak - is the command to run Zenit
 zenit-by-outbreak [*options*]
 
 # DESCRIPTION
-Zenit  is a demonstration released by Outbreak
-Demo by Outbreak, released in 2009
+Zenit is a demo by Outbreak released in august 2009
+Ended 1st at compusphere 2009
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=53791
 
 # BUGS
 No known bugs.

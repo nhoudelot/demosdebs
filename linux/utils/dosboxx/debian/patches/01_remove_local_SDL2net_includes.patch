@@ -1,3 +1,10 @@
+Description: use system libs              
+ make use of sytems libs, instead of embedded ones
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-10
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/acinclude.m4
 +++ b/acinclude.m4
 @@ -27,11 +27,6 @@
@@ -14,7 +21,7 @@
      AC_PATH_PROG(SDL2_CONFIG, sdl2-config, no)
 --- a/configure.ac
 +++ b/configure.ac
-@@ -498,10 +498,10 @@
+@@ -505,10 +505,10 @@
  pwd=`realpath $srcdir`
  if [[ -z "$pwd" ]]; then pwd=`pwd`; fi
  

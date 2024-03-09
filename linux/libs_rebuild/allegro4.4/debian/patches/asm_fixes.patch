@@ -1,0 +1,55 @@
+Description: Various fixes to the assembly code
+Author: Sam Hocevar <sam+deb@zoy.org>
+--- a/src/i386/imisc.s
++++ b/src/i386/imisc.s
+@@ -43,6 +43,7 @@
+  *  Floating point vector by matrix multiplication routine.
+  */
+ FUNC(apply_matrix_f)
++.comm y,17,17
+ 
+    #define MTX    ARG1
+    #define X      ARG2
+--- a/src/misc/icolconv.s
++++ b/src/misc/icolconv.s
+@@ -23,6 +23,7 @@
+  */
+ 
+ 
++#include "allegro/platform/alunixac.h"
+ #include "src/i386/asmdefs.inc"
+ 
+ 
+@@ -37,6 +38,7 @@
+ 
+ .text
+ 
++#ifndef ALLEGRO_NO_ASM
+ 
+ #ifdef ALLEGRO_MMX
+ 
+@@ -3288,3 +3290,4 @@
+ 
+ #endif  /* ALLEGRO_NO_COLORCOPY */
+ 
++#endif  /* ALLEGRO_NO_ASM */
+--- a/src/misc/modexgfx.s
++++ b/src/misc/modexgfx.s
+@@ -1009,7 +1009,7 @@
+    _align_
+ x_latched_blit_raligned:
+    movl DEST, %edx               /* load segment selectors */
+-   movl BMP_SEG(%edx), %eax 
++   movw BMP_SEG(%edx), %ax 
+    movw %ax, %ds
+    movw %ax, %es
+    cld
+@@ -1117,7 +1117,7 @@
+    pushw %ds
+ 
+    movl DEST, %edx               /* load segment selectors */
+-   movl BMP_SEG(%edx), %eax 
++   movw BMP_SEG(%edx), %ax 
+    movw %ax, %ds
+    movw %ax, %es
+    cld

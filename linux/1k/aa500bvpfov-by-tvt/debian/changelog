@@ -1,3 +1,10 @@
+aa500bvpfov-by-tvt (1.0-0ddebs10) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Mar 2024 02:07:05 +0100
+
 aa500bvpfov-by-tvt (1.0-0ddebs9) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

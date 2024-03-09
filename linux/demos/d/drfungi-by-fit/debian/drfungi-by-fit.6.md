@@ -1,6 +1,6 @@
 % drfungi-by-fit(6) Dr Fungi User Manuals
-% Nicolas HOUDELOT (),Fit
-% 2016-03-04
+% Nicolas HOUDELOT (nicolas@demosdebs.org),Fit
+% 2024-04-18
 
 # NAME
 drfungi-by-fit - is the command to run Dr Fungi 
@@ -9,7 +9,12 @@ drfungi-by-fit - is the command to run Dr Fungi
 drfungi-by-fit [*options*]
 
 # DESCRIPTION
-Dr Fungi  is a demonstration released by Fit, released in 2002
+Dr Fungi is a demo released by Fit, released in october 2002
+Ended 1st at iQuest 2002
+
+Marq [Code]
+manu [Graphics]
+roz [Music]
 
 A quick funk production for macscene.org's iQuest 2002 compo. Haxored 
 together in less than 60 hours. Originally for Mac OS X, versions for 
@@ -31,6 +36,14 @@ http://www.kameli.net/fit/
 # OPTIONS
 -w for window mode
 
+# KEYS
+ESC
+:	to quit
+
+F
+:	toggle fullscreen
+
+# INFO
 
 # BUGS
 No known bugs.

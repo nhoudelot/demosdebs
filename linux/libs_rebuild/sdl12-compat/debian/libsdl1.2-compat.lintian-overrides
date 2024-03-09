@@ -1,0 +1,2 @@
+# done intentionally
+libsdl1.2-compat: symbols-declares-dependency-on-other-package libsdl1.2debian (>= 1.2.15) (libSDL-1.2.so.0)

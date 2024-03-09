@@ -1,6 +1,6 @@
 % canyonflight-by-cypou(6) Canyon Flight User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),cypou
-% 2016-02-27
+% 2024-03-24
 
 # NAME
 canyonflight-by-cypou - is the command to run Canyon Flight is a demonstration released by cypou
@@ -9,11 +9,13 @@ canyonflight-by-cypou - is the command to run Canyon Flight is a demonstration r
 canyonflight-by-cypou [*options*]
 
 # DESCRIPTION
-canyonflight-by-cypou is the command to run Canyon Flight a demonstration released by cypou  
-Demo by cypou,released in 2004
+canyonflight-by-cypou is a 4k intro released by cypou in 2004
 
 # OPTIONS
 there is no options to this program
+
+# INFOS
+https://320x200.org/2004/4k/
 
 # BUGS
 No known bugs.

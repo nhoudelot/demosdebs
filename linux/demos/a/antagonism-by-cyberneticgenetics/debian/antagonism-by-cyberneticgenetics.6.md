@@ -1,6 +1,6 @@
 % antagonism-by-cyberneticgenetics(6) Antagonism User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Cybernetic Genetics
-% 2018-04-08
+% 2024-04-13
 
 # NAME
 antagonism-by-cyberneticgenetics - the command to run Antagonism.
@@ -9,13 +9,17 @@ antagonism-by-cyberneticgenetics - the command to run Antagonism.
 antagonism-by-cyberneticgenetics [*options*]
 
 # DESCRIPTION
-Antagonism is a demonstration released by Cybernetic Genetics in 2012.
+Antagonism is a demonstration released by Cybernetic Genetics in december 2012.
+Ended 6th at Experience 2012
+
+Travis [Code]
+grass666 [Graphics]
 
 # OPTIONS
 there is no options to this program
 
-\--help
-:   Display help for the command
+# INFOS
+https://www.pouet.net/prod.php?which=60799
 
 # BUGS
 No known bugs.

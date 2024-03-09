@@ -1,0 +1,29 @@
+Description: better quit
+ update key to the new SDL2 layout
+ and even add more options to quit the app
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cpp
++++ b/main.cpp
+@@ -114,15 +114,12 @@
+ 			SDL_PollEvent(&event);
+ 			switch(event.type)
+ 			{
+-			case SDL_QUIT:
+-				done = true;
+-				break;
++			case SDL_QUIT:done = true;break;
+ 			case SDL_KEYDOWN:
+ 				switch (event.key.keysym.sym)
+ 				{
+-				case SDLK_ESCAPE:
+-					done = true;
+-					break;
++				case SDLK_ESCAPE: done = true;break;
++				case SDLK_q: done = true; break;
+ 				default:
+ 					break;
+ 				}

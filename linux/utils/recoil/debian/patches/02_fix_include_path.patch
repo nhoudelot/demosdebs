@@ -1,0 +1,11 @@
+--- a/file-recoil.c
++++ b/file-recoil.c
+@@ -22,7 +22,7 @@
+  */
+ 
+ #include <string.h>
+-#include <libgimp/gimp.h>
++#include <gimp-2.0/libgimp/gimp.h>
+ 
+ #include "recoil-stdio.h"
+ #include "formats.h"

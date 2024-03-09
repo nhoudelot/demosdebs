@@ -3,7 +3,7 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libgl-dev,
  libxrandr-dev,
  libvorbis-dev,
@@ -11,8 +11,9 @@ Build-Depends:
  libpng-dev,
  libgtk-3-dev,
  pkgconf
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=60799
+Rules-Requires-Root: no
 
 Package: antagonism-by-cyberneticgenetics
 Architecture: any

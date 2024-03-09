@@ -9,7 +9,7 @@ historyofvideogamein4k-by-jean-yveslamoureux - is the command to run History of 
 historyofvideogamein4k-by-jean-yveslamoureux [*options*]
 
 # DESCRIPTION
-History of video game in 4k  is a demonstration released by Jean-Yves Lamoureux
+History of video game is a 4k intro released by Jean-Yves Lamoureux
 Demo by Jean-Yves Lamoureux, released in 2004
 
 # OPTIONS
@@ -21,6 +21,9 @@ Demo by Jean-Yves Lamoureux, released in 2004
 
 \--version
 :   Display version and author information
+
+# INFOS
+https://320x200.org/2004/4k/
 
 # BUGS
 No known bugs.

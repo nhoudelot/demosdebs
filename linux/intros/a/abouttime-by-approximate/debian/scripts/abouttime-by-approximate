@@ -18,7 +18,6 @@ function run()
 	cd $backuppwd
 }
 
-
 if [ "$#" -gt "1" ]; then
 	 NSH_std_usage
 	exit 1

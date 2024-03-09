@@ -1,0 +1,15 @@
+Author: Reiner Herrmann <reiner@reiner-h.de>
+Description: Sort list of source files for reproducible build
+
+--- a/tools/CMakeLists.txt
++++ b/tools/CMakeLists.txt
+@@ -4,7 +4,9 @@
+ #
+ 
+ file(GLOB PLUGIN_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/plugins/*.c)
++list(SORT PLUGIN_SRCS)
+ file(GLOB PLUGIN_INCS ${CMAKE_CURRENT_SOURCE_DIR}/plugins/*.inc)
++list(SORT PLUGIN_INCS)
+ 
+ # XXX support plugin "scripts", i.e. linker arguments.
+ # With CMake it should just be the name of a target to link with.

@@ -1,0 +1,36 @@
+Source: libnoise
+Section: devel
+Priority: optional
+Build-Depends:
+ debhelper-compat (= 13),
+ libtool,
+ libtool-bin
+Standards-Version: 4.6.2
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Homepage: http://libnoise.sourceforge.net/
+Rules-Requires-Root: no
+
+Package: libnoise0
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Portable, coherent noise-generating library for C++
+ libnoise is a portable C++ library that is used to generate coherent noise,
+ a type of smoothly-changing noise. libnoise can generate Perlin noise,
+ ridged multifractal noise, and other types of coherent-noise. Coherent noise
+ is often used by graphics programmers to generate natural-looking textures,
+ planetary terrain, and other things.
+
+Package: libnoise-dev
+Section: libdevel
+Architecture: any
+Depends: libnoise0 (= ${binary:Version}), ${misc:Depends}
+Description: Portable, coherent noise-generating library for C++
+ libnoise is a portable C++ library that is used to generate coherent noise,
+ a type of smoothly-changing noise. libnoise can generate Perlin noise,
+ ridged multifractal noise, and other types of coherent-noise. Coherent noise
+ is often used by graphics programmers to generate natural-looking textures,
+ planetary terrain, and other things.
+ .
+ This package contains the headers and static libraries needed to build
+ programs using libnoise.

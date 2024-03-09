@@ -1,6 +1,6 @@
 % aspaceodyssey-by-mental(6) A space odyssey User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),mental-
-% 2017-01-28
+% 2024-04-14
 
 # NAME
 aspaceodyssey-by-mental - is the command to run A space odyssey 
@@ -9,14 +9,15 @@ aspaceodyssey-by-mental - is the command to run A space odyssey
 aspaceodyssey-by-mental [*options*]
 
 # DESCRIPTION
-A space odyssey  is a demonstration released by mental-
-Demo by mental-, released in 2010
+A space odyssey  is a demonstration released by mental- in may 2010
+Ended 1st at Birdie 2010
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=55040
 
 # BUGS
 No known bugs.

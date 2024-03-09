@@ -1,0 +1,6 @@
+version=4
+opts="mode=git, pgpmode=none, pretty=1.0+git%cd, \
+         repack,compression=xz" \
+         https://bitbucket.org/blackle_mori/cenotaph4soda \
+         HEAD debian uupdate
+

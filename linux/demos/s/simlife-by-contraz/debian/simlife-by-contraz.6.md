@@ -1,6 +1,6 @@
 % simlife-by-contraz(6) Sim Life User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Contraz
-% 2017-04-17
+% 2024-04-22
 
 # NAME
 simlife-by-contraz - the command to run Sim Life.
@@ -9,13 +9,15 @@ simlife-by-contraz - the command to run Sim Life.
 simlife-by-contraz [*options*]
 
 # DESCRIPTION
-Sim Life is a demonstration released by Contraz in 2011.
+Sim Life is a demo released by Contraz in july 2011.
+Ended 3rd at Solskogen 2011
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=57319
 
 # BUGS
 No known bugs.

@@ -3,18 +3,18 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  dh-python,
- python2:any | python2-dev:any | dh-sequence-python2 
-Standards-Version: 4.6.0.1
+ python3-all-dev(>= 3.6)
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=55584
+Rules-Requires-Root: no
 
 Package: restart-by-xplsv
 Architecture: all
 Depends:
- ${python:Depends},
+ ${python3:Depends},
  ${misc:Depends},
- luisita,
- python-gtk2
+ luisita
 Description: Demo for Linux, released in 2010
  Demo by xplsv, released in 2010

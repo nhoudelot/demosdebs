@@ -1,0 +1,37 @@
+Description: fixing some spelling errors
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-10
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/LibI64/Param.Lib
++++ b/LibI64/Param.Lib
+@@ -1585,7 +1585,7 @@
+     End;
+   If ParamThGFlg Then
+     Begin;
+-      Write ( 'Treshold Adjustment  = ' );
++      Write ( 'Threshold Adjustment  = ' );
+       ParamWriteReal ( ParamThDb,3 );
+       Write ( 'dB = ' );
+       ParamWriteReal ( ParamThGain,5 );
+--- a/DolbyBi64.PP
++++ b/DolbyBi64.PP
+@@ -2,7 +2,7 @@
+ 
+ { Warning. Program not complete or not tested }
+ 
+-{ This will be an experemental program }
++{ This will be an experimental program }
+ { to decode recordings made in DolbyB  }
+ 
+ { Modify to allow 2 alternative methods for DolbyC }
+@@ -416,7 +416,7 @@
+   WriteLn ( '***   Program DolbyBi64 written by R.P.Evans.                    ***' );
+   WriteLn ( '***   64Bit version. Last updated on 1st April 2018.             ***' );
+   WriteLn ( '***                                                              ***' );
+-  WriteLn ( '***   Experemental program, written for my own personal use.     ***' );
++  WriteLn ( '***   Experimental program, written for my own personal use.     ***' );
+   WriteLn ( '***                                                              ***' );
+   WriteLn ( '***   I accept absolutely no liability for use of this program   ***' );
+   WriteLn ( '***   Use is entirely at the users own risk.                     ***' );

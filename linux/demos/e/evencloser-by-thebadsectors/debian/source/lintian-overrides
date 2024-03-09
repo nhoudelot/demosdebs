@@ -1,4 +1,4 @@
-evencloser-by-thebadsectors source: source-is-missing tbs-ec-linux-32bit.lnx
-evencloser-by-thebadsectors source: source-is-missing tbs-ec-linux-64bit.lnx
-evencloser-by-thebadsectors source: source-contains-prebuilt-windows-binary tbs-ec.exe
+evencloser-by-thebadsectors source: source-is-missing [tbs-ec-linux-32bit.lnx]
+evencloser-by-thebadsectors source: source-is-missing [tbs-ec-linux-64bit.lnx]
+evencloser-by-thebadsectors source: source-contains-prebuilt-windows-binary [tbs-ec.exe]
 

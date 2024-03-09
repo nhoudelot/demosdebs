@@ -1,4 +1,4 @@
 debian/resources/anrufausschweden-by-unik.desktop usr/share/applications/
 debian/resources/anrufausschweden-by-unik.png usr/share/icons/hicolor/256x256/apps/
 ./ikea usr/lib/i386-linux-gnu/anrufausschweden-by-unik/./ 
-anrufausschweden-by-unik /usr/bin/
+debian/scripts/anrufausschweden-by-unik /usr/bin/

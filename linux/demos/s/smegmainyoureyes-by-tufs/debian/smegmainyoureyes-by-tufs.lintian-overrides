@@ -1,2 +1,2 @@
 smegmainyoureyes-by-tufs: unknown-section demos
-smegmainyoureyes-by-tufs: desktop-entry-lacks-keywords-entry usr/share/applications/smegmainyoureyes-by-tufs.desktop
+smegmainyoureyes-by-tufs: desktop-entry-lacks-keywords-entry [usr/share/applications/smegmainyoureyes-by-tufs.desktop]

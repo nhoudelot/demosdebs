@@ -1,0 +1,10 @@
+add_debian_config_hints.patch
+fix_non_executable_stack.patch
+fix_addons_shared_linkage.patch
+man_suffix.patch
+fix-manpages.patch
+asm_fixes.patch
+fix_ftbfs_nonlinux.patch
+fix_ftbfs_with_sbuild.patch
+customize_allegro-config.patch
+sort_source_files.patch

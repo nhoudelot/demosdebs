@@ -4,12 +4,13 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Uploaders: Mahyuddin Susanto <udienz@ubuntu.com>,
            James Cowgill <james410@cowgill.org.uk>
-Build-Depends: debhelper-compat (= 12), dh-exec,
+Build-Depends: debhelper-compat (= 13), dh-exec,
                libgl1-mesa-dev | libgl-dev,
                libglu1-mesa-dev | libglu-dev,
                libxrandr-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.glfw.org/
+Rules-Requires-Root: no
 
 Package: libglfw2
 Architecture: any

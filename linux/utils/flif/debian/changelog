@@ -1,3 +1,10 @@
+flif (0.3-7ddebs5) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 11 Mar 2024 01:06:46 +0100
+
 flif (0.3-7ddebs4) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

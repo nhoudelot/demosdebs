@@ -3,14 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  cmake,
  libsdl2-dev,
  libpng-dev,
  libglew-dev,
  libopengl-dev,
  libboost-all-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup.git
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup

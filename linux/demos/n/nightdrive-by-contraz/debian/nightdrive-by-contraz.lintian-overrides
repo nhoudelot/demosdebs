@@ -1,2 +1,5 @@
 nightdrive-by-contraz binary: unknown-section demos
-nightdrive-by-contraz: hardening-no-pie usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/NightDrive
+nightdrive-by-contraz: hardening-no-pie [usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/NightDrive]
+nightdrive-by-contraz: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/NightDrive]
+nightdrive-by-contraz: hardening-no-fortify-functions [usr/lib/x86_64-linux-gnu/nightdrive-by-contraz/NightDrive]
+nightdrive-by-contraz: desktop-entry-lacks-keywords-entry [usr/share/applications/nightdrive-by-contraz.desktop]

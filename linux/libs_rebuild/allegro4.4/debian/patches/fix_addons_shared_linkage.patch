@@ -1,0 +1,17 @@
+Author: Andreas Rönnquist <gusnan@gusnan.se>
+Description: Modify CMakeLists to make addon libs build as shared libraries on non-MacOSX platforms too.
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -913,11 +913,7 @@
+ option(WANT_LOGG "Enable logg" on)
+ option(WANT_JPGALLEG "Enable JPGAlleg" on)
+ 
+-if (BUILD_SHARED_LIBS)
+-    set(ADDON_LINKAGE SHARED)
+-else()
+-    set(ADDON_LINKAGE STATIC)
+-endif()
++set(ADDON_LINKAGE SHARED)
+ 
+ if(WANT_FRAMEWORKS)
+     set(ADDON_LINKAGE SHARED)

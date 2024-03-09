@@ -1,6 +1,7 @@
 Description: migrate to SDL_mixer
  Migrate from mikmod to SDL_mixer
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-27
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -97,11 +98,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
 --- a/Makefile
 +++ b/Makefile
-@@ -1,8 +1,9 @@
- SHELL = /bin/sh
--CC = gcc
-+CC := gcc
- NASM = nasm
+@@ -2,8 +2,9 @@
+ CC := gcc
+ NASM := yasm
+ NASMFLAGS   ?=-f elf32
 -CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell sdl-config --cflags) $(shell libmikmod-config --cflags) -std=gnu90
 -LDFLAGS += $(shell sdl-config --libs) $(shell libmikmod-config --libs) -lm
 +PKG_CONFIG:=pkg-config

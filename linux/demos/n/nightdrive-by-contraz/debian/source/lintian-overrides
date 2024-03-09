@@ -1,6 +1,6 @@
-nightdrive-by-contraz source: source-is-missing NightDrive
-nightdrive-by-contraz source: source-is-missing debian/resources/libGLEW.so.1.8
-nightdrive-by-contraz source: source-is-missing debian/resources/libfmodex64.so.4
-nightdrive-by-contraz source: source-is-missing debian/resources/libglfw.so.2
-nightdrive-by-contraz source: source-is-missing debian/resources/libvpx.so.1
+nightdrive-by-contraz source: source-is-missing [NightDrive]
+nightdrive-by-contraz source: source-is-missing [debian/resources/libGLEW.so.1.8]
+nightdrive-by-contraz source: source-is-missing [debian/resources/libfmodex64.so.4]
+nightdrive-by-contraz source: source-is-missing [debian/resources/libglfw.so.2]
+nightdrive-by-contraz source: source-is-missing [debian/resources/libvpx.so.1]
 

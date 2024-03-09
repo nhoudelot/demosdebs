@@ -2,3 +2,4 @@
 02_use_system_opengl.patch
 03_add_windows_title.patch
 04_migrate_to_SDL2.patch
+05_added_fullscreen.patch

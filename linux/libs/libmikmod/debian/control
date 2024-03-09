@@ -2,12 +2,13 @@ Source: libmikmod
 Section: libs
 Priority: optional
 Maintainer: Gergely Nagy <algernon@madhouse-project.org>
-Build-Depends: debhelper-compat (= 12),
+Build-Depends: debhelper-compat (= 13),
  texinfo
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://mikmod.raphnet.net/
 Vcs-Git: https://git.madhouse-project.org/debian/libmikmod.git
 Vcs-Browser: https://git.madhouse-project.org/debian/libmikmod/
+Rules-Requires-Root: no
 
 Package: libmikmod2-dev
 Section: libdevel

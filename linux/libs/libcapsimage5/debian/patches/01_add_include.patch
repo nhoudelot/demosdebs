@@ -9,9 +9,9 @@
  CC		= @CC@
  CXX		= @CXX@
  INSTALL		= @INSTALL@
-+INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_LIBS    := $(INSTALL) -p    -o root -g root  -m  755
-+INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_LIBS    := $(INSTALL) -p    -m  755
++INSTALL_DATA    := $(INSTALL) -p    -m  644
  TAR		= @TAR@
  
  CFLAGS		= @CFLAGS@ @LIB_CFLAGS@ -I@top_srcdir@/../LibIPF -I@top_srcdir@/../Codec -I@top_srcdir@/../Core -I@top_srcdir@/../Device -I@srcdir@

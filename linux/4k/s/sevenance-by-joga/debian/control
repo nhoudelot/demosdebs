@@ -3,14 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12)
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=67438
+Rules-Requires-Root: no
 
 Package: sevenance-by-joga
 Architecture: amd64
 Depends:
- ${shlibs:Depends},
  ${misc:Depends},
  libsdl2-2.0-0,
  common-install-function-ddebs(>=1.61)

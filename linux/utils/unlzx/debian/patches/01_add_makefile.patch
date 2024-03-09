@@ -1,7 +1,8 @@
 Description: updating makefile
  updated makefile to make it more compatible with packaging
 Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
-Last-Update: 2020-04-20
+Applied-Upstream: no
+Last-Update: 2024-03-14
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- /dev/null
@@ -14,9 +15,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +CFLAGS += -O3 -Wall -ffast-math -std=gnu90
 +RM_F = rm -f
 +INSTALL = install
-+INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM = $(INSTALL) -p    -o root -g root  -m  755
-+INSTALL_DATA    = $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_DIR     = $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -m  755
++INSTALL_DATA    = $(INSTALL) -p    -m  644
 +
 +prefix = /usr
 +exec_prefix = $(prefix)
@@ -35,9 +36,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +install: unlzx$(EXEEXT)
 +	 $(INSTALL_DIR)  $(DESTDIR)$(bindir)
 +	 $(INSTALL_DIR) $(DESTDIR)$(man1dir)
-+	-@$(RM_F) $(DESTDIR)$(bindir)/unlzx$(EXEEXT)
-+	-@$(RM_F) $(DESTDIR)$(man1dir)/unlzx.1
-+	$(INSTALL_PROGRAM) unlzx$(EXEEXT) $(DESTDIR)$(bindir)
++	 $(RM_F) $(DESTDIR)$(bindir)/unlzx$(EXEEXT)
++	 $(RM_F) $(DESTDIR)$(man1dir)/unlzx.1
++	 $(INSTALL_PROGRAM) unlzx$(EXEEXT) $(DESTDIR)$(bindir)
 +
 +uninstall:
-+	-$(RM_F) $(DESTDIR)$(bindir)/unlzx$(EXEEXT)
++	 $(RM_F) $(DESTDIR)$(bindir)/unlzx$(EXEEXT)

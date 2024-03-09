@@ -1,5 +1,6 @@
 Description: update python shebang
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-30
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

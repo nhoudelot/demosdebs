@@ -1,5 +1,7 @@
 uranusflower-by-thebadsectors: unknown-section demos
-uranusflower-by-thebadsectors: embedded-library usr/lib/x86_64-linux-gnu/uranusflower-by-thebadsectors/tbs-uranus-linux-64bit.lnx: glew
-uranusflower-by-thebadsectors: hardening-no-pie usr/lib/x86_64-linux-gnu/uranusflower-by-thebadsectors/tbs-uranus-linux-64bit.lnx
-uranusflower-by-thebadsectors: hardening-no-relro usr/lib/x86_64-linux-gnu/uranusflower-by-thebadsectors/tbs-uranus-linux-64bit.lnx
-
+uranusflower-by-thebadsectors: embedded-library glew [usr/lib/x86_64-linux-gnu/uranusflower-by-thebadsectors/tbs-uranus-linux-64bit.lnx]
+uranusflower-by-thebadsectors: hardening-no-pie [usr/lib/x86_64-linux-gnu/uranusflower-by-thebadsectors/tbs-uranus-linux-64bit.lnx]
+uranusflower-by-thebadsectors: hardening-no-relro [usr/lib/x86_64-linux-gnu/uranusflower-by-thebadsectors/tbs-uranus-linux-64bit.lnx]
+uranusflower-by-thebadsectors: desktop-entry-lacks-keywords-entry [usr/share/applications/uranusflower-by-thebadsectors.desktop]
+uranusflower-by-thebadsectors: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/uranusflower-by-thebadsectors/tbs-uranus-linux-64bit.lnx]
+uranusflower-by-thebadsectors: hardening-no-fortify-functions [usr/lib/x86_64-linux-gnu/uranusflower-by-thebadsectors/tbs-uranus-linux-64bit.lnx]

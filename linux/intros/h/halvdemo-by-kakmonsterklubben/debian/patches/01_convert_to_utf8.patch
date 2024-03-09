@@ -1,0 +1,36 @@
+--- a/Lista_pa_tekniker.txt
++++ b/Lista_pa_tekniker.txt
+@@ -1,8 +1,8 @@
+-Kodat på GNU/Linux (kärna 2.6.9), SDL_mixer för musik och openGL(Mesa3D) + SDL 
+-för grafik. Kompilator: Gcc. IDE: Anjuta. 
+-Musiken är gjord i Sk@letracker av fegolhuzz.
++Kodat pÃ¥ GNU/Linux (kÃ¤rna 2.6.9), SDL_mixer fÃ¶r musik och openGL(Mesa3D) + SDL 
++fÃ¶r grafik. Kompilator: Gcc. IDE: Anjuta. 
++Musiken Ã¤r gjord i Sk@letracker av fegolhuzz.
+ 
+-Kodad på en Dell Inspiron 5100, 2,4 GHz med 256 i minne och ett ATI 
+-mobility radeon 7500 som kör Slackware 10.0. Testad på Gentoo 2004.1 med "riktig" openGL :)
++Kodad pÃ¥ en Dell Inspiron 5100, 2,4 GHz med 256 i minne och ett ATI 
++mobility radeon 7500 som kÃ¶r Slackware 10.0. Testad pÃ¥ Gentoo 2004.1 med "riktig" openGL :)
+ 
+-puss på juldegen
++puss pÃ¥ juldegen
+--- a/README
++++ b/README
+@@ -3,12 +3,12 @@
+ code: p0rrit   music: fegolhuzz
+ 
+ 
+-Detta är vårt första demo, hoppas ni gillar det :)
++Detta Ã¤r vÃ¥rt fÃ¶rsta demo, hoppas ni gillar det :)
+ 
+ 
+-Kör bara "kakmonsterdemo" så startar det.
+-För att köra i ett fönster så tryck på "f"-tangenten under tiden demot körs.
++KÃ¶r bara "kakmonsterdemo" sÃ¥ startar det.
++FÃ¶r att kÃ¶ra i ett fÃ¶nster sÃ¥ tryck pÃ¥ "f"-tangenten under tiden demot kÃ¶rs.
+ 
+ 
+-puss på julkakan
++puss pÃ¥ julkakan
+ 

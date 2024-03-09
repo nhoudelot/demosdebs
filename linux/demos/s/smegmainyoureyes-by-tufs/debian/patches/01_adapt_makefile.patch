@@ -1,6 +1,7 @@
 Description: updating makefile
  updating makefile to make it more compatible with packaging
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-05-01
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -27,9 +28,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +RM_F := rm -f
 +INSTALL := install
-+INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
-+INSTALL_FILE    := $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++INSTALL_FILE    := $(INSTALL) -p    -m  644
 +
 +TARGET          := smegmainyoureyes-by-tufs
 +

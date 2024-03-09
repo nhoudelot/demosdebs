@@ -1,3 +1,9 @@
+Description: removed optional ASM
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/mixer_clipcopy.c
 +++ b/src/mixer_clipcopy.c
 @@ -34,30 +34,8 @@

@@ -1,2 +1,2 @@
 wayang-by-cyberneticgenetics: unknown-section demos
-wayang-by-cyberneticgenetics: desktop-entry-lacks-keywords-entry usr/share/applications/wayang-by-cyberneticgenetics.desktop
+wayang-by-cyberneticgenetics: desktop-entry-lacks-keywords-entry [usr/share/applications/wayang-by-cyberneticgenetics.desktop]

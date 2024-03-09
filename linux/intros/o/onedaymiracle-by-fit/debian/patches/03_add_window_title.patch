@@ -1,0 +1,17 @@
+Description: add a title to the window
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cool_gfx/gfx_sdl.c
++++ b/cool_gfx/gfx_sdl.c
+@@ -80,7 +80,7 @@
+         default: return(GFX_ERR_MODE);
+     }
+     SDL_ShowCursor(SDL_DISABLE);
+-
++    SDL_WM_SetCaption("One Day Miracle by Fit",0);
+     return(GFX_OK);
+ }
+ 

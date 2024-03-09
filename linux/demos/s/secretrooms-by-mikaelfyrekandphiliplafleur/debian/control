@@ -3,11 +3,12 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl2-dev,
- libglu1-mesa-dev
-Standards-Version: 4.6.0.1
-Homepage: http://www.pouet.net/prod.php?which=62853
+ libglu-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=62853
+Rules-Requires-Root: no
 
 Package: secretrooms-by-mikaelfyrekandphiliplafleur
 Architecture: amd64

@@ -1,6 +1,6 @@
 % fracturesandrust-by-atomimaitokahvi(6) fractures and rust User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),atomimaitokahvi
-% 2016-10-15
+% 2024-04-18
 
 # NAME
 fracturesandrust-by-atomimaitokahvi - is the command to run fractures and rust 
@@ -9,14 +9,14 @@ fracturesandrust-by-atomimaitokahvi - is the command to run fractures and rust
 fracturesandrust-by-atomimaitokahvi [*options*]
 
 # DESCRIPTION
-fractures and rust  is a demonstration released by atomimaitokahvi
-Demo by atomimaitokahvi, released in 2008
+fractures and rust is a demo released by atomimaitokahvi in october 2008
+Ended 6th at The Alternative Party 2008
 
 # OPTIONS
-there is no options to this program
+-fullscreen to go fullscreen
 
-\--help
-:   Display help for the command
+# INFOS
+https://www.pouet.net/prod.php?which=51968
 
 # BUGS
 No known bugs.

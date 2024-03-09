@@ -1,3 +1,9 @@
+Description: link to glx as libglu-dev doesn't link automatically to libgl now
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/Makefile
 +++ b/src/Makefile
 @@ -2,8 +2,8 @@

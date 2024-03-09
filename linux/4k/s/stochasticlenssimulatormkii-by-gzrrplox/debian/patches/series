@@ -1,1 +1,4 @@
 01_adapt_makefile.patch
+02_migrate_to_sdl2.patch
+03_better_quit.patch
+04_toggle_fullscreen.patch

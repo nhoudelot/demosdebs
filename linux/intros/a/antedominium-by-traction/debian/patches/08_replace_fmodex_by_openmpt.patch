@@ -1,0 +1,160 @@
+Description: migrate to openmpt
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sound.cpp
++++ b/sound.cpp
+@@ -2,23 +2,16 @@
+         Sound system via FMOD (_NOT_ MiniFMOD)
+  */
+ #include <stdio.h>
++#include <fstream>
+ #include "sound.hpp"
+ 
+-#include <fmodex/fmod.h>
+-
+-FMOD_SYSTEM *system;
+-FMOD_SOUND *fsound;
+-FMOD_CHANNEL *channel;
+-
+ int Sound::getOrder()
+ {
+-	FMOD_Channel_GetPosition(channel, &fmod_sync, FMOD_TIMEUNIT_MODORDER);
+-	return fmod_sync;
++	return mod->get_current_order();
+ }
+ int Sound::getRow()
+ {
+-	FMOD_Channel_GetPosition(channel, &fmod_sync, FMOD_TIMEUNIT_MODROW);
+-	return fmod_sync;
++	return mod->get_current_row();
+ }
+ int Sound::getTime() {
+ }
+@@ -36,31 +29,61 @@
+ 
+ bool Sound::init()
+ {
+-/*	if (!FSOUND_Init(44100, 32, FSOUND_INIT_USEDEFAULTMIDISYNTH)) { return 1; }
+-        mod = FMUSIC_LoadSong("music.xm");
+-
+-        FMUSIC_SetMasterVolume(mod, 192);
+-        FMUSIC_SetLooping(mod, 0);*/
+-	fsound = 0;
+-	FMOD_System_Create(&system);
+-	FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
+-	FMOD_System_CreateSound(system, "/usr/share/antedominium-by-traction/music.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
++	/* Initialisation of SDL */
++	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
++    		std::cout << "SDL_INIT_AUDIO fail" << std::endl;
++            return false;
++    }
++    SDL_zero(spec);
++    spec.freq = 48000;
++    spec.format = AUDIO_F32SYS;
++    spec.channels = 2;
++    spec.samples = 4096;
++    spec.callback = nullptr;
++
++    device = SDL_OpenAudioDevice(nullptr, 0, &spec, nullptr, 0);
++    if (device == 0) {
++    	std::cout << "SDL device not found " << std::endl;
++        return false;
++    }
++    
++    /* Loading Module */
++    std::ifstream file("/usr/share/antedominium-by-traction/music.xm", std::ios::binary );
++	if (!file.is_open()) {
++		std::cout << "couldn't find music.xm" << std::endl;
++        return false;
++    }
++    mod = new openmpt::module(file);
+ 
+-	return true;
++    return true; // Initialization successful
+ }
+ 
+ void Sound::play()
+ {
+-/*	FMUSIC_PlaySong(mod);*/
+-	FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, fsound, 0, &channel);
++	const int numChannels = 2; // Stereo
++    const int bufferSize = 4096; // Number of frames per channel
++    float* audioBuffer = new float[bufferSize * numChannels];
++
++    mod->set_position_seconds(0); // Ensure song starts from the beginning
++    mod->set_repeat_count(0); // Set repeat count to 0 for playing once
++
++    int framesRead;
++    do {
++        framesRead = mod->read_interleaved_stereo(48000, bufferSize, audioBuffer);
++        if (framesRead > 0) {
++            SDL_QueueAudio(device, audioBuffer, framesRead * numChannels * sizeof(float));
++        }        
++    } while (framesRead > 0);
++    SDL_PauseAudioDevice(device, 0);
+ }
+ 
+ void Sound::release()
+ {
+-/*	FMUSIC_StopSong(mod);
+-        FMUSIC_FreeSong(mod);
+-        FSOUND_Close();*/
+-	FMOD_Sound_Release(fsound);
+-	FMOD_System_Close(system);
+-	FMOD_System_Release(system);
++	if (mod != nullptr) {
++        delete mod;
++        mod = nullptr;
++    }
++    if (device != 0) {
++            SDL_CloseAudioDevice(device);
++    }
+ }
+--- a/sound.hpp
++++ b/sound.hpp
+@@ -1,6 +1,9 @@
+ #ifndef _SOUND_HPP_
+ #define _SOUND_HPP_
+ 
++#include <libopenmpt/libopenmpt.hpp>
++#include <SDL2/SDL.h>
++
+ typedef struct
+ {
+ 	int length;
+@@ -22,6 +25,10 @@
+ int getRow();
+ int getTime();
+ 
++openmpt::module *mod = nullptr;
++SDL_AudioSpec spec;
++SDL_AudioDeviceID device;
++
+ private:
+ unsigned int fmod_sync;
+ };
+--- a/Makefile
++++ b/Makefile
+@@ -25,7 +25,7 @@
+ TARGET = antedominium-by-traction
+ LDFLAGS += -lm
+ CFLAGS += -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -Wall -std=gnu90 -pipe
+-CXXFLAGS += -Wall -fno-exceptions -fno-rtti -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu++98 -fabi-version=2 -pipe
++CXXFLAGS += -Wall -fno-exceptions -fno-rtti -DWINDOW_WIDTH=$(WINDOW_WIDTH) -DWINDOW_HEIGHT=$(WINDOW_HEIGHT) -std=gnu++98 -fabi-version=2 -pipe -std=c++17
+ CCFLAGS =
+ RELEASES =
+ #variable de nettoyage
+@@ -36,8 +36,8 @@
+ endif
+ 
+ ifeq ($(PLATFORM), LINUX)
+-	LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) --libs glu gl sdl2 fmodex)
+-	CFLAGS += $(shell $(PKG_CONFIG) --cflags glu gl sdl2 fmodex)
++	LDFLAGS += -L/usr/lib/ -I./ $(shell $(PKG_CONFIG) --libs glu gl sdl2 libopenmpt)
++	CFLAGS += $(shell $(PKG_CONFIG) --cflags glu gl sdl2)
+ endif
+ 
+ #variables d'instalation

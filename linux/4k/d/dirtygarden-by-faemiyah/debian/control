@@ -3,21 +3,22 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl1.2-dev,
  libgl-dev,
  libpng-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=57451
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2011-08_4k-intro_dirty_garden
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2011-08_4k-intro_dirty_garden.git
+Rules-Requires-Root: no
 
 Package: dirtygarden-by-faemiyah
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Demo for Linux, released in 2011
+Description: 4k intro for Linux, released in 2011
  Release: Assembly 2011 4k intro compo, 8th place
  Release platform: FreeBSD-ia32
  Ports: FreeBSD, Linux, Windows

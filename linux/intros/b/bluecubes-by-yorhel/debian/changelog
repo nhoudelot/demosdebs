@@ -1,3 +1,10 @@
+bluecubes-by-yorhel (1.0+1-0ddebs9) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 16 Mar 2024 17:07:39 +0100
+
 bluecubes-by-yorhel (1.0+1-0ddebs8) unstable; urgency=medium
 
   * added libglu1-mesa-dev dependency for Debian 12

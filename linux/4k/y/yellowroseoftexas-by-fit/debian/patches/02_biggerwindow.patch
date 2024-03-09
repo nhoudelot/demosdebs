@@ -1,5 +1,6 @@
 Description: setup a bigger window, as now we have bigger desktop resolution
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-26
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

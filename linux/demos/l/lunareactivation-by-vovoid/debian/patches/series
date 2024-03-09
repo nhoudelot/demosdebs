@@ -1,2 +1,2 @@
-01_adapt_path.diff
-02_change_default_resolution.diff
+01_adapt_path.patch
+02_update_launcher_to_python3.patch

@@ -1,0 +1,56 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,31 @@
+-CFLAGS = `sdl-config --cflags`
+-LDLIBS = `sdl-config --libs`
+-all:
+-	g++ $(CFLAGS) $(LDLIBS) cube.C -o cube -lm -lGL -Wall -ansi -O3
+-	@cat ./Readme.txt
+-	cat cube.C | perl -pe 's/\s//g' | wc -c
+\ No newline at end of file
++#variables de compilation
++SHELL = /bin/sh
++CC    := gcc
++PKG_CONFIG:=pkg-config
++CFLAGS   += -std=c99 -ansi -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu gl)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
++TARGET   := cube-by-mooz
++#variable de nettoyage
++RM_F := rm -f
++#variables d'instalation
++INSTALL = install
++INSTALL_DIR     = $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM = $(INSTALL) -p    -m  755
++prefix          = /usr
++exec_prefix     = $(prefix)
++bindir          = $(prefix)/bin
++
++SOURCE          = cube.c
++
++all: $(TARGET)
++
++$(TARGET):
++	 $(CC) $(SOURCE) $(CFLAGS) $(LDFLAGS) -o $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++
++clean:
++	-$(RM_F) $(TARGET)
+--- /dev/null
++++ b/g.h
+@@ -0,0 +1,5 @@
++#include <SDL/SDL.h>
++#include <SDL/SDL_opengl.h>
++#include <math.h>
++#include <stdlib.h>
++

@@ -1,2 +1,2 @@
 fortnight-by-mfx binary: unknown-section demos
-fortnight-by-mfx binary: desktop-entry-lacks-keywords-entry usr/share/applications/fortnight-by-mfx.desktop
+fortnight-by-mfx binary: desktop-entry-lacks-keywords-entry [usr/share/applications/fortnight-by-mfx.desktop]

@@ -1,5 +1,5 @@
 8bitwonderland-by-kakiarts binary: unknown-section demos
-8bitwonderland-by-kakiarts binary: desktop-entry-lacks-keywords-entry usr/share/applications/8bitwonderland-by-kakiarts.desktop
-8bitwonderland-by-kakiarts binary: hardening-no-pie usr/lib/i386-linux-gnu/8bitwonderland-by-kakiarts/8bit-linux-x86
-8bitwonderland-by-kakiarts binary: hardening-no-relro usr/lib/i386-linux-gnu/8bitwonderland-by-kakiarts/8bit-linux-x86
+8bitwonderland-by-kakiarts binary: desktop-entry-lacks-keywords-entry [usr/share/applications/8bitwonderland-by-kakiarts.desktop]
+8bitwonderland-by-kakiarts binary: hardening-no-pie [usr/lib/i386-linux-gnu/8bitwonderland-by-kakiarts/8bit-linux-x86]
+8bitwonderland-by-kakiarts binary: hardening-no-relro [usr/lib/i386-linux-gnu/8bitwonderland-by-kakiarts/8bit-linux-x86]
 

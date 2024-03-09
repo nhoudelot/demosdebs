@@ -3,14 +3,15 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libcapsimage5-dev,
  libusb-1.0-0-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.kryoflux.com/?page=download
+Rules-Requires-Root: no
 
 Package: dtc
-Architecture: amd64 i386
+Architecture: amd64 arm64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -21,7 +22,6 @@ Description: software to control the kryoflux hardware
 
 Package: dtc-doc
 Architecture: all
-Section: utils
 Depends:
  ${misc:Depends}
 Description: Documentations for dtc

@@ -3,12 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  pkgconf,
  libgl-dev,
  libsdl1.2-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://320x200.org/2004/4k/
+Rules-Requires-Root: no
 
 Package: cube-by-mooz
 Architecture: any

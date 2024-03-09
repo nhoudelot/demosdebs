@@ -1,0 +1,19 @@
+Description: link to gl as libglu-dev doesn't link automatically to libgl now
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -35,8 +35,8 @@
+ 
+ #linux Makefile setup
+ ifeq ($(PLATFORM), LINUX)
+-	LDFLAGS += -L/usr/lib/  -I./ $(shell $(PKG_CONFIG) glu sdl2 fmodex --libs)
+-	CFLAGS +=$(shell $(PKG_CONFIG) glu sdl2 fmodex --cflags) -fpermissive
++	LDFLAGS += -L/usr/lib/  -I./ $(shell $(PKG_CONFIG) glu gl sdl2 fmodex --libs)
++	CFLAGS +=$(shell $(PKG_CONFIG) glu gl sdl2 fmodex --cflags) -fpermissive
+ endif
+ 
+ .PHONY: all all-before all-after clean clean-custom

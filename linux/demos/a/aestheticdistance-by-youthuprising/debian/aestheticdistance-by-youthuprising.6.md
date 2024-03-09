@@ -1,6 +1,6 @@
 % aestheticdistance-by-youthuprising(6) Aesthetic Distance User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Youth Uprising
-% 2016-09-11
+% 2024-04-13
 
 # NAME
 aestheticdistance-by-youthuprising - is the command to run Aesthetic Distance 
@@ -9,8 +9,12 @@ aestheticdistance-by-youthuprising - is the command to run Aesthetic Distance
 aestheticdistance-by-youthuprising [*options*]
 
 # DESCRIPTION
-Aesthetic Distance  is a demonstration released by Youth Uprising, released 
-in 2007
+Aesthetic Distance is a demo by Youth Uprising, released in december 2007
+Ended 11th at the Ultimate Meeting 2007
+
+waffle [Code]
+maali [Code]
+ferris [Code, Music]
 
 Aesthetic Distance - A demo by Youth Uprising.
    Produced November through December 2007.
@@ -133,11 +137,11 @@ Aesthetic Distance - A demo by Youth Uprising.
 -Eof: Copyright 2007 Youth Uprising
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
 
+# INFOS
+https://www.pouet.net/prod.php?which=34513
 
 # BUGS
 No known bugs.

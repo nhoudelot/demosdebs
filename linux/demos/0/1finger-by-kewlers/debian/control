@@ -4,14 +4,14 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  libbass-dev,
- mesa-common-dev,
- libglu1-mesa-dev,
+ libglu-dev,
  libgl-dev,
  freeglut3-dev|libglut-dev,
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  pkgconf
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=61227
+Rules-Requires-Root: no
 
 Package: 1finger-by-kewlers
 Architecture: any

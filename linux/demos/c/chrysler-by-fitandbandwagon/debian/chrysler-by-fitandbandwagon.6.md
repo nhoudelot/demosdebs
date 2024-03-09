@@ -1,6 +1,6 @@
 % chrysler-by-fitandbandwagon(6) Chrystler User Manuals
-% Nicolas HOUDELOT (),Fit and BandWagon
-% 2016-03-04
+% Nicolas HOUDELOT (nicolas@demosdebs.org),Fit and BandWagon
+% 2024-04-15
 
 # NAME
 chrysler-by-fitandbandwagon - is the command to run Chrystler 
@@ -9,7 +9,13 @@ chrysler-by-fitandbandwagon - is the command to run Chrystler
 chrysler-by-fitandbandwagon [*options*]
 
 # DESCRIPTION
-Chrysler  is a demonstration released by Fit and BandWagon, released in 2004
+Chrysler  is a demo released by Fit and BandWagon, released in may 2004
+Ended 1st at Motorola Inside 2004
+
+Pete [Add. code]
+Marq [Code]
+neckfreak [Code, Graphics]
+roz [Music]
 
 Fit & Bandwagon present at MI'04
 
@@ -36,9 +42,8 @@ http://www.anioni.com/pseudotoad/
 # OPTIONS
 -w for window mode
 
-\--help
-:   Display help for the command
-
+# INFOS
+Homepage: https://www.pouet.net/prod.php?which=12391
 
 # BUGS
 No known bugs.

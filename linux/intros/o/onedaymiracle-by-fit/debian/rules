@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+#this package don't work with flto
+
+%:
+	dh $@
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

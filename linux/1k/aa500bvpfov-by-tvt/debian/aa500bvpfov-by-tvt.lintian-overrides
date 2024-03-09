@@ -1,3 +1,3 @@
 aa500bvpfov-by-tvt binary: unknown-section demos
-aa500bvpfov-by-tvt: executable-not-elf-or-script usr/bin/aa500bvpfov-by-tvt
-aa500bvpfov-by-tvt: desktop-command-not-in-package usr/share/applications/aa500bvpfov-by-tvt.desktop bash
+aa500bvpfov-by-tvt: executable-not-elf-or-script [usr/bin/aa500bvpfov-by-tvt]
+aa500bvpfov-by-tvt: desktop-command-not-in-package bash [usr/share/applications/aa500bvpfov-by-tvt.desktop]

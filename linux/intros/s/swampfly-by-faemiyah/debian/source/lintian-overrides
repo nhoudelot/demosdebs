@@ -1,13 +1,9 @@
-swampfly-by-faemiyah source: source-contains-unsafe-symlink compile
-swampfly-by-faemiyah source: source-is-missing rel/swamp_fly_freebsd-ia32
-swampfly-by-faemiyah source: source-is-missing rel/swamp_fly_linux-amd64
-swampfly-by-faemiyah source: source-is-missing rel/swamp_fly_linux-ia32
-swampfly-by-faemiyah source: source-is-missing rel/swamp_fly_linux-mipsel
-swampfly-by-faemiyah source: absolute-symbolic-link-target-in-source compile -> /usr/share/automake-1.15/compile
-swampfly-by-faemiyah source: configure-generated-file-in-source config.log
-swampfly-by-faemiyah source: configure-generated-file-in-source config.status
-swampfly-by-faemiyah source: source-contains-prebuilt-windows-binary rel/SDL.dll
-swampfly-by-faemiyah source: source-contains-prebuilt-windows-binary rel/glew32.dll
-swampfly-by-faemiyah source: source-contains-prebuilt-windows-binary rel/swamp_fly_windows-ia32_fullscreen.exe
-swampfly-by-faemiyah source: source-contains-prebuilt-windows-binary rel/swamp_fly_windows-ia32_windowed.exe
+swampfly-by-faemiyah source: source-is-missing [rel/swamp_fly_freebsd-ia32]
+swampfly-by-faemiyah source: source-is-missing [rel/swamp_fly_linux-amd64]
+swampfly-by-faemiyah source: source-is-missing [rel/swamp_fly_linux-ia32]
+swampfly-by-faemiyah source: source-is-missing [rel/swamp_fly_linux-mipsel]
+swampfly-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/SDL.dll]
+swampfly-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/glew32.dll]
+swampfly-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/swamp_fly_windows-ia32_fullscreen.exe]
+swampfly-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/swamp_fly_windows-ia32_windowed.exe]
 

@@ -1,2 +1,2 @@
 1finger-by-kewlers binary: unknown-section demos
-1finger-by-kewlers binary: desktop-entry-lacks-keywords-entry usr/share/applications/1finger-by-kewlers.desktop
+1finger-by-kewlers binary: desktop-entry-lacks-keywords-entry [usr/share/applications/1finger-by-kewlers.desktop]

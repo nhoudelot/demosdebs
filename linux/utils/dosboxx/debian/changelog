@@ -1,3 +1,18 @@
+dosboxx (2024.03.01-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * debian/rules : remove hardening crashed compilation on nuble, back to 
+    default
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 10 Mar 2024 16:40:14 +0100
+
+dosboxx (2023.10.06-0ddebs2) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 10 Mar 2024 15:37:32 +0100
+
 dosboxx (2023.10.06-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

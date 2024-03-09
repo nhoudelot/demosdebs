@@ -1,0 +1,4 @@
+raspberrypsy-by-desire source: source-is-missing [dsr-rpsy-linux-32bit.lnx]
+raspberrypsy-by-desire source: source-is-missing [dsr-rpsy-linux-64bit.lnx]
+raspberrypsy-by-desire source: source-is-missing [dsr-rpsy-raspberrypi.lnx]
+raspberrypsy-by-desire source: source-contains-prebuilt-windows-binary [dsr-rpsy.exe]

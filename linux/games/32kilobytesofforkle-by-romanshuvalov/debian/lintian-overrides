@@ -1,0 +1,4 @@
+32kilobytesofforkle-by-romanshuvalov: hardening-no-pie [usr/lib/i386-linux-gnu/32kilobytesofforkle-by-romanshuvalov/f32k_linux]
+32kilobytesofforkle-by-romanshuvalov: desktop-entry-lacks-keywords-entry [usr/share/applications/32kilobytesofforkle-by-romanshuvalov.desktop]
+32kilobytesofforkle-by-romanshuvalov: hardening-no-bindnow [usr/lib/i386-linux-gnu/32kilobytesofforkle-by-romanshuvalov/f32k_linux]
+

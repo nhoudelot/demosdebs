@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libfltk1.3-dev,
  libxext-dev,
  libxfixes-dev,
@@ -12,8 +12,9 @@ Build-Depends:
  libexpat1-dev,
  libminizip-dev,
  rename
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://github.com/jfdelnero/HxCFloppyEmulator
+Rules-Requires-Root: no
 
 Package: libhxcfe-dev
 Section: libdevel

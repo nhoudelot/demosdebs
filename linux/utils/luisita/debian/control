@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsoil-dev,
  libbass-dev,
  liblua5.1-0-dev,
@@ -11,10 +11,11 @@ Build-Depends:
  libglew-dev,
  libopengl-dev|libglvnd-core-dev,
  pkgconf
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://github.com/sole/luisita
 Vcs-Git: https://github.com/sole/luisita.git
 Vcs-Browser: https://github.com/sole/luisita
+Rules-Requires-Root: no
 
 Package: luisita
 Architecture: any

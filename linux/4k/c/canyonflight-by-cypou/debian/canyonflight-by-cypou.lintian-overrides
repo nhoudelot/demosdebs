@@ -1,2 +1,2 @@
 canyonflight-by-cypou binary: unknown-section demos
-canyonflight-by-cypou binary: desktop-entry-lacks-keywords-entry usr/share/applications/canyonflight-by-cypou.desktop
+canyonflight-by-cypou binary: desktop-entry-lacks-keywords-entry [usr/share/applications/canyonflight-by-cypou.desktop]

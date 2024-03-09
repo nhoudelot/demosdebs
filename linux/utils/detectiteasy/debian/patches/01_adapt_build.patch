@@ -1,0 +1,43 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Last-Update: 2024-03-10
+Applied-Upstream: no
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/console_source/console_source.pro
++++ b/console_source/console_source.pro
+@@ -5,6 +5,11 @@
+ XCONFIG += use_archive
+ XCONFIG += use_pdf
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++
+ CONFIG += c++11
+ 
+ TARGET = diec
+--- a/gui_source/gui_source.pro
++++ b/gui_source/gui_source.pro
+@@ -82,6 +82,11 @@
+     ICON = ../icons/main.icns
+ }
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++
+ DISTFILES += \
+     ../CMakeLists.txt \
+     ../README.md \
+--- a/die_source.pro
++++ b/die_source.pro
+@@ -9,5 +9,4 @@
+ }
+ 
+ target.path = $PWD
+-target.commands = bash -x "$$PWD/install.sh $$PREFIX"
+ INSTALLS += target

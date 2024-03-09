@@ -1,2 +1,1 @@
-kuantumakelerator2-by-hno3 source: source-is-missing kuantum2-linux
-kuantumakelerator2-by-hno3 source: package-depends-on-hardcoded-libc kuantumakelerator2-by-hno3 depends
+kuantumakelerator2-by-hno3 source: source-is-missing [kuantum2-linux]

@@ -1,3 +1,10 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging and crossbuilding
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/makefile.lnx
 +++ b/makefile.lnx
 @@ -20,6 +20,28 @@
@@ -8,8 +15,8 @@
 +RM_F := rm -f
 +#variables d’installation
 +INSTALL := install
-+INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DIR     := $(INSTALL) -p -d -m 755
++INSTALL_PROGRAM := $(INSTALL) -p    -m 755
 +
 +prefix          := /usr
 +exec_prefix     := $(prefix)

@@ -1,0 +1,14 @@
+--- a/README
++++ b/README
+@@ -10,9 +10,9 @@
+         ||     ||   ||           ||
+ -----------------------------------------------------------------------
+ 
+-en demo hacka sammen på xenox av andré og morbuz, grafikk fra kerb og 
++en demo hacka sammen pÃ¥ xenox av andrÃ© og morbuz, grafikk fra kerb og
+ proteque, musikk fra hapungo. 
+-kjører på linux og windows, du trenger opengl drivere og sdlstuff for å 
++kjÃ¸rer pÃ¥ linux og windows, du trenger opengl drivere og sdlstuff for Ã¥
+ se greia.
+ 
+ ;;-_-;;

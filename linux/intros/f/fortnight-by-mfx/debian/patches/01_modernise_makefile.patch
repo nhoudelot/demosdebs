@@ -1,16 +1,18 @@
 Description: updating makefile
  updating makefile to make it more compatible with packaging
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-27
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,30 +1,47 @@
+@@ -1,30 +1,48 @@
 -CFLAGS = -g -O1 -fforce-mem -fforce-addr -fomit-frame-pointer -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 -Wall -Wno-parentheses -ffast-math `sdl-config --cflags` `libmikmod-config --cflags`
 +SHELL = /bin/sh
-+CC = gcc
-+NASM = nasm
++CC := gcc
++NASM := yasm
++NASMFLAGS   ?=-f elf32
 +CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell sdl-config --cflags) $(shell libmikmod-config --cflags) -std=gnu90
 +LDFLAGS += $(shell sdl-config --libs) $(shell libmikmod-config --libs) -lm
 +RM_F = rm -f
@@ -18,10 +20,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +TARGET=fortnight-by-mfx
 +
 +INSTALL = install
-+INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_FILE    := $(INSTALL) -p    -o root -g root  -m  644
-+INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
-+INSTALL_DATA    := $(INSTALL) -p    -o root -g root  -m  644
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_FILE    := $(INSTALL) -p    -m  644
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++INSTALL_DATA    := $(INSTALL) -p    -m  644
 +
 +PREFIX = /usr
 +EXEC_PREFIX     := $(PREFIX)
@@ -62,7 +64,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  datat.o: datat.asm
 -	nasm -f elf datat.asm
-+	$(NASM) -f elf datat.asm
++	$(NASM) $(NASMFLAGS) datat.asm
  
  main.o: *.c Makefile
 -	gcc-3.0 -mcpu=k6 -frename-registers -fregmove -fmove-all-movables $(CFLAGS) -c main.c

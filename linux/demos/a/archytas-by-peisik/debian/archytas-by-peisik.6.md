@@ -1,6 +1,6 @@
 % archytas-by-peisik(6) Archytas User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Peisik
-% 2017-06-23
+% 2024-04-14
 
 # NAME
 archytas-by-peisik - the command to run Archytas.
@@ -9,7 +9,11 @@ archytas-by-peisik - the command to run Archytas.
 archytas-by-peisik [*options*]
 
 # DESCRIPTION
-Archytas is a demonstration released by Peisik in 2011.
+Archytas is a demonstration released by Peisik in october 2011.
+Ended 6th at The Alternative Party 2011
+
+atomim [Code]
+cce [Code, music]
 
 ARCHYTAS
   by Peisik 
@@ -46,10 +50,11 @@ contact:
   peisik.untergrund.net
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=58031
 
 # BUGS
 No known bugs.

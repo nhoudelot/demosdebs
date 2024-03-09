@@ -1,6 +1,6 @@
 % secretrooms-by-mikaelfyrekandphiliplafleur(6) Secret Rooms User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Mikael Fyrek and Philip Lafleur
-% 2019-11-08
+% 2024-04-22
 
 # NAME
 secretrooms-by-mikaelfyrekandphiliplafleur - the command to run Secret Rooms.
@@ -9,15 +9,16 @@ secretrooms-by-mikaelfyrekandphiliplafleur - the command to run Secret Rooms.
 secretrooms-by-mikaelfyrekandphiliplafleur [*options*]
 
 # DESCRIPTION
-Secret Rooms is a demonstration released by Mikael Fyrek and Philip Lafleur in 2014.
+Secret Rooms is a demo released by Mikael Fyrek and Philip Lafleur in march 2014.
+Ended 1st at NVScene 2014
+
+eleven [code, graphics]
 
 # OPTIONS
-
 \--help
 :   Display help for the command
 
 # Keyboard controls:
-
 esc
 :  Quit
 
@@ -44,6 +45,9 @@ pgup
 
 pgdn
 :    Seek +30s
+
+# INFOS
+https://www.pouet.net/prod.php?which=62853
 
 # BUGS
 No known bugs.

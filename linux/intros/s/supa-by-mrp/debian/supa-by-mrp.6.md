@@ -1,6 +1,6 @@
 % supa-by-mrp(6) supa User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),mrp
-% 2018-01-22
+% 2024-03-23
 
 # NAME
 supa-by-mrp - is the command to run supa 
@@ -9,20 +9,17 @@ supa-by-mrp - is the command to run supa
 supa-by-mrp [*options*]
 
 # DESCRIPTION
-supa  is a demonstration released by mrp
-Supa 
-by mrp
-for ALTERNATIVE PARTY 2008
+supa  is a 64k intro released by mrp in october 2009
+Ended 3rd at The Alternative Party 2009
 
-Supercomputer compo 
-64k intro
-~59.1kb
+mrp- [Code, music]
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=54039
 
 # BUGS
 No known bugs.

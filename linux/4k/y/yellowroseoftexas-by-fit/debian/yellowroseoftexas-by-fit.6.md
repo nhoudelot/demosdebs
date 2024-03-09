@@ -1,6 +1,6 @@
 % yellowroseoftexas-by-fit(6) Yellow Rose of Texas User Manuals
 % Nicolas HOUDELOT ((nicolas@demosdebs.org),Fit
-% 2018-01-28
+% 2024-04-05
 
 # NAME
 yellowroseoftexas-by-fit_launcher - is the command to run Yellow Rose of Texas 
@@ -9,7 +9,8 @@ yellowroseoftexas-by-fit_launcher - is the command to run Yellow Rose of Texas
 yellowroseoftexas-by-fit_launcher [*options*]
 
 # DESCRIPTION
-Yellow Rose of Texas  is a demonstration released by Fit, released in 2003
+Yellow Rose of Texas  is a 4k intro released by Fit in august 2003
+Ended 1st at Assembly 2003
 
 Fit + Bandwagon present  : Yellow Rose of Texas
                            4k Linux intro for Assembly'03
@@ -31,6 +32,9 @@ Connect                  : http://www.kameli.net/fit/
 
 # OPTIONS
 there is no options to this program
+
+# INFOS
+https://www.pouet.net/prod.php?which=10562
 
 # BUGS
 No known bugs.

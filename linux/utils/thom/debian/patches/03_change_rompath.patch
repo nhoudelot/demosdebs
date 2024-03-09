@@ -1,3 +1,9 @@
+Description: change rom path
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/hardware.c
 +++ b/src/hardware.c
 @@ -564,14 +564,14 @@

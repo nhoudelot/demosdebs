@@ -3,20 +3,21 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  mesa-common-dev,
- libglu1-mesa-dev,
- libfmodex-dev,
+ libglu-dev,
+ libopenmpt-dev,
  libgl-dev,
  libsdl2-dev,
  pkgconf
-Standards-Version: 4.6.0.1
-Homepage:https://www.pouet.net/prod.php?which=24476
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=24476
+Rules-Requires-Root: no
 
 Package: antedominium-by-traction
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Intro released by Traction
- Intro by Traction, released in 2006
+Description: Intro released by Traction in 2006
+ Ended 3rd pc 64k at Breakpoint 2006

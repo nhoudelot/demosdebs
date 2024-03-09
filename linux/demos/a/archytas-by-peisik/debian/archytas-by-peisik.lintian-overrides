@@ -1,3 +1,3 @@
 archytas-by-peisik binary: unknown-section demos
-archytas-by-peisik binary: desktop-entry-lacks-keywords-entry usr/share/applications/archytas-by-peisik.desktop
-archytas-by-peisik binary: hardening-no-pie usr/lib/i386-linux-gnu/archytas-by-peisik/archytas_720p_windowed
+archytas-by-peisik binary: desktop-entry-lacks-keywords-entry [usr/share/applications/archytas-by-peisik.desktop]
+archytas-by-peisik binary: hardening-no-pie [usr/lib/i386-linux-gnu/archytas-by-peisik/archytas_720p_windowed]

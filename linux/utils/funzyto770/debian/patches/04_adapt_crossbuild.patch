@@ -1,3 +1,10 @@
+Description: adapt to crossbuild
+ updating build to make it compatible with crossbuilding a package
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src70/makefile
 +++ b/src70/makefile
 @@ -1,8 +1,9 @@

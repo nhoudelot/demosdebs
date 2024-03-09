@@ -1,9 +1,9 @@
-jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary standalone/bass.dll
-jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary standalone/glfw3.dll
-jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary standalone/lua.dll
-jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary standalone/luajit.exe
-jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary standalone/socket/core.dll
-jellyfishthejam-by-capsadminandjimbo source: source-is-missing standalone/libbass.so
-jellyfishthejam-by-capsadminandjimbo source: source-is-missing standalone/libglfw.so.3.1
-jellyfishthejam-by-capsadminandjimbo source: source-is-missing standalone/luajit
+jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary [standalone/bass.dll]
+jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary [standalone/glfw3.dll]
+jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary [standalone/lua.dll]
+jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary [standalone/luajit.exe]
+jellyfishthejam-by-capsadminandjimbo source: source-contains-prebuilt-windows-binary [standalone/socket/core.dll]
+jellyfishthejam-by-capsadminandjimbo source: source-is-missing [standalone/libbass.so]
+jellyfishthejam-by-capsadminandjimbo source: source-is-missing [standalone/libglfw.so.3.1]
+jellyfishthejam-by-capsadminandjimbo source: source-is-missing [standalone/luajit]
 

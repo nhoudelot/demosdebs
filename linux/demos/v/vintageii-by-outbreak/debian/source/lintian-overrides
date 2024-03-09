@@ -1,6 +1,5 @@
-vintageii-by-outbreak source: source-is-missing vintageII.elf
-vintageii-by-outbreak source: package-depends-on-hardcoded-libc vintageii-by-outbreak depends
-vintageii-by-outbreak source: source-contains-prebuilt-windows-binary audiere.dll
-vintageii-by-outbreak source: source-contains-prebuilt-windows-binary vintageII.exe
-vintageii-by-outbreak source: source-contains-prebuilt-windows-binary vintageII_log.exe
+vintageii-by-outbreak source: source-is-missing [vintageII.elf]
+vintageii-by-outbreak source: source-contains-prebuilt-windows-binary [audiere.dll]
+vintageii-by-outbreak source: source-contains-prebuilt-windows-binary [vintageII.exe]
+vintageii-by-outbreak source: source-contains-prebuilt-windows-binary [vintageII_log.exe]
 

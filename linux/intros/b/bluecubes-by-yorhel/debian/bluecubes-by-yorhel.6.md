@@ -1,6 +1,6 @@
 % bluecubes-by-yorhel(6) Blue Cubes User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),YorHel
-% 2016-05-06
+% 2024-03-19
 
 # NAME
 bluecubes-by-yorhel - is the command to run Blue Cubes 
@@ -9,11 +9,10 @@ bluecubes-by-yorhel - is the command to run Blue Cubes
 bluecubes-by-yorhel [*options*]
 
 # DESCRIPTION
-Blue Cubes  is a demonstration released by YorHel
-Demo by YorHel, released in 2006
+Blue Cubes  is a 64k intro released by YorHel released in august 2006
+It ended 4th combined 64k at  Evoke 2006
 
 # OPTIONS
-
 \-1
 :   for 800x600
 
@@ -25,6 +24,15 @@ Demo by YorHel, released in 2006
 
 \-w
 :   for window mode
+
+# KEYS
+ESC / Q
+:	to quit
+F
+:	toggle fullscreen
+
+# INFOS
+https://www.pouet.net/prod.php?which=25866
 
 # BUGS
 No known bugs.

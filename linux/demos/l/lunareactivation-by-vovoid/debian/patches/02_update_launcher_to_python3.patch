@@ -1,0 +1,146 @@
+Description: migrate launcher to python3
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/demo/launcher-gtk.py
++++ b/demo/launcher-gtk.py
+@@ -1,70 +1,88 @@
+-#!/usr/bin/env python
+-import pygtk
+-pygtk.require('2.0')
+-import gtk
++#!/usr/bin/env python3
++import gi
++gi.require_version('Gtk', '3.0')
++from gi.repository import Gtk
+ import subprocess
+ import os
+ import sys
+-class launcher:
++
++class Launcher:
++    resolutions = [
++		"1920x1080 (16/9)",
++		"800x450 (16/9)",
++        "1280x720 (16/9)",
++        "1600x900 (16/9)",
++        "2560x1440 (16/9)",
++        "3840x2160 (16/9)",
++        "1600x1200 (4/3)",
++        "1280x1024 (4/3)",
++        "1024x768 (4/3)",
++        "800x600 (4/3)",
++        "640x480 (4/3)"
++    ]
++
+     def run_button(self, widget):
+-	os.environ['__GL_SYNC_TO_VBLANK'] = '1'
+-	os.environ['__GL_FSAA_MODE'] = self.fsaa.get_text()
+-	os.environ['LD_LIBRARY_PATH'] = './'
+-	arg = ["./launcher.bin"];
+-	if self.fullscreen_checkbutton.get_active():
+-		arg.append("-f")
+-	arg.append("-s")
+-	arg.append(self.x_res.get_text()+","+self.y_res.get_text())
+-	os.chdir('/usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/')
+-	retcode = subprocess.call(arg)
+-	sys.exit()
++        os.environ['__GL_SYNC_TO_VBLANK'] = '1'
++        os.environ['__GL_FSAA_MODE'] = self.fsaa.get_text()
++        os.environ['LD_LIBRARY_PATH'] = './'
++        arg = ["./launcher.bin"]
++        if self.fullscreen_checkbutton.get_active():
++            arg.append("-f")
++        arg.append("-s")
++        selected_resolution = self.resolution_combo.get_active_text()
++        resolution_parts = selected_resolution.split(' ')[0].split('x')
++        arg.append(resolution_parts[0] + "," + resolution_parts[1])
++        os.chdir('/usr/lib/i386-linux-gnu/lunareactivation-by-vovoid/demo/')
++        retcode = subprocess.call(arg)
++        sys.exit()
++
+     def __init__(self):
+         self.x = 50
+         self.y = 50
+-        window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+-        window.set_title("Vovoid Luna:Reactivation Launcher")
+-        window.connect("destroy", lambda w: gtk.main_quit())
++        window = Gtk.Window(title="Vovoid Luna:Reactivation Launcher")
++        window.connect("destroy", Gtk.main_quit)
+         window.set_border_width(10)
+-        window.resize(450,200)
+-        self.fixed = gtk.Fixed()
++        window.set_default_size(450, 200)
++
++        self.fixed = Gtk.Fixed()
+         window.add(self.fixed)
+-        self.fixed.show()
+-        self.fullscreen_checkbutton = gtk.CheckButton()
+-        self.fixed.put(self.fullscreen_checkbutton, 180,10)
++
++        self.fullscreen_checkbutton = Gtk.CheckButton(label="Run fullscreen")
++        self.fixed.put(self.fullscreen_checkbutton, 180, 10)
+         self.fullscreen_checkbutton.show()
+-        label1 = gtk.Label("run fullscreen")
+-        self.fixed.put(label1, 10, 10)
+-        label1.show()
+-        label1 = gtk.Label("x resolution")
++
++        label1 = Gtk.Label(label="Resolution")
+         self.fixed.put(label1, 10, 40)
+         label1.show()
+-        self.x_res = gtk.Entry()
+-        self.x_res.set_text("1920")
+-        self.fixed.put(self.x_res, 180,40)
+-        self.x_res.show()
+-        label1 = gtk.Label("y resolution")
+-        self.fixed.put(label1, 10, 70)
+-        label1.show()
+-        self.y_res = gtk.Entry()
+-        self.y_res.set_text("1080")
+-        self.fixed.put(self.y_res, 180,70)
+-        self.y_res.show()
+-        label1 = gtk.Label("FSAA mode")
+-        self.fixed.put(label1, 10, 100)
+-        label1.show()
+-        self.fsaa = gtk.Entry()
++
++        self.resolution_combo = Gtk.ComboBoxText()
++        for resolution in self.resolutions:
++            self.resolution_combo.append_text(resolution)
++        self.resolution_combo.set_active(0)  # Set the first resolution as default
++        self.fixed.put(self.resolution_combo, 180, 40)
++        self.resolution_combo.show()
++
++        label2 = Gtk.Label(label="FSAA mode")
++        self.fixed.put(label2, 10, 70)
++        label2.show()
++
++        self.fsaa = Gtk.Entry()
+         self.fsaa.set_text("5")
+-        self.fixed.put(self.fsaa, 180,100)
++        self.fixed.put(self.fsaa, 180, 70)
+         self.fsaa.show()
+-        run_button = gtk.Button("run demo")
+-        self.fixed.put(run_button, 10, 130)
++
++        run_button = Gtk.Button(label="Run demo")
++        self.fixed.put(run_button, 10, 100)
+         run_button.show()
+         run_button.connect("clicked", self.run_button)
+-        window.show()
++
++        window.show_all()
++
+ def main():
+-    gtk.main()
++    Gtk.main()
+     return 0
+ 
+ if __name__ == "__main__":
+-    launcher()
++    Launcher()
+     main()
++

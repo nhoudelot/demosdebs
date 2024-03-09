@@ -1,3 +1,3 @@
 abouttime-by-approximate binary: unknown-section demos
-abouttime-by-approximate binary: statically-linked-binary usr/lib/i386-linux-gnu/abouttime-by-approximate/approximate_about_time.elf
-abouttime-by-approximate binary: desktop-entry-lacks-keywords-entry usr/share/applications/abouttime-by-approximate.desktop
+abouttime-by-approximate binary: statically-linked-binary [usr/lib/i386-linux-gnu/abouttime-by-approximate/approximate_about_time.elf]
+abouttime-by-approximate binary: desktop-entry-lacks-keywords-entry [usr/share/applications/abouttime-by-approximate.desktop]

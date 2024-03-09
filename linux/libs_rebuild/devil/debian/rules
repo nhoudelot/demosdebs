@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+
+DEB_CFLAGS_MAINT_APPEND = -DGLX_GLXEXT_LEGACY
+DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed -lm -lXpm -lXcursor -lpthread -ldl -lXxf86vm
+
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+DEBUG_FLAGS = --disable-release
+endif
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		--enable-static=yes --enable-shared=yes \
+		$(DEBUG_FLAGS) \
+		--enable-IL=yes --enable-ILU=yes --enable-ILUT=yes
+
+override_dh_auto_install:
+	dh_auto_install
+	rm debian/tmp/usr/share/info/DevIL_manual.info
+	rm -f debian/tmp/usr/share/info/dir
+	for file in debian/tmp/usr/lib/*/*.la; do \
+	sed -i "/dependency_libs/ s/'.*'/''/" $$file ; \
+	done
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

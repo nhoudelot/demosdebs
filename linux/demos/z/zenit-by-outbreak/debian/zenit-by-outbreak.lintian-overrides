@@ -1,3 +1,3 @@
 zenit-by-outbreak: unknown-section demos
-zenit-by-outbreak: desktop-entry-lacks-keywords-entry usr/share/applications/zenit-by-outbreak.desktop
-zenit-by-outbreak: hardening-no-pie usr/lib/i386-linux-gnu/zenit-by-outbreak/zenit.elf
+zenit-by-outbreak: desktop-entry-lacks-keywords-entry [usr/share/applications/zenit-by-outbreak.desktop]
+zenit-by-outbreak: hardening-no-pie [usr/lib/i386-linux-gnu/zenit-by-outbreak/zenit.elf]

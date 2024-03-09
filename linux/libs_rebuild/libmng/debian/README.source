@@ -1,0 +1,10 @@
+libmng for Debian
+-----------------
+
+Upstream includes one non-free file: /contrib/msvc/mngview/sRGB.icm
+Therefore the source is repacked to be DFSG free.
+
+As since devscripts' uscan (>2.13.5) can remove files automatically there is
+no get-orig-source target in d/rules needed.
+
+ -- Tobias Frost <tobi@debian.org>  Sun, 03 Aug 2014 10:18:53 +0000

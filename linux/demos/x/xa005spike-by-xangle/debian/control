@@ -3,19 +3,21 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libfltk1.3-dev,
  libxft-dev,
  libxcursor-dev,
- libfontconfig1-dev,
+ libfontconfig-dev,
  libxinerama-dev,
- libglu1-mesa-dev,
+ libglu-dev,
+ libsdl-mixer1.2-dev,
  libsdl1.2-compat-dev|libsdl1.2-dev,
  libgl-dev,
  libfmod-dev,
  pkgconf
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=17997
+Rules-Requires-Root: no
 
 Package: xa005spike-by-xangle
 Architecture: any

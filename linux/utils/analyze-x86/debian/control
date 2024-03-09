@@ -3,11 +3,12 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12)
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
 Homepage: https://github.com/alexxy/analyze-x86
 Vcs-Git: https://github.com/staticfloat/analyze-x86.git
 Vcs-Browser: https://github.com/alexxy/analyze-x86
+Rules-Requires-Root: no
 
 Package: analyze-x86
 Architecture: any

@@ -1,0 +1,17 @@
+Description: fix syna bug
+SDL2 need a buffer to be defined with memset()
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/syna.c
++++ b/syna.c
+@@ -165,6 +165,7 @@
+ 				/* Get instrument number and wave form */
+ 				tmp=atoi(&key[1]);
+ 				echo[tmp]=malloc(ekolen*sizeof(float));
++				memset(echo[tmp],0,ekolen*sizeof(float));
+ 				tnp=strtok(NULL,",");
+ 				if(!strcmp(tnp,"kantti"))
+ 					wave=0;

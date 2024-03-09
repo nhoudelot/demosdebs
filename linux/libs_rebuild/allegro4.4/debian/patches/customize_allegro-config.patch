@@ -1,0 +1,34 @@
+Description: Customize allegro-config for the situation in Debian
+ We don't ship the debug or profile library, so
+ remove the corresponding options from allegro-config.
+Author: Tobias Hansen <thansen@debian.org>
+Bug-Debian: http://bugs.debian.org/410072
+
+--- a/misc/allegro-config.in
++++ b/misc/allegro-config.in
+@@ -57,8 +57,6 @@
+ 
+ Libraries:
+ 	release
+-	debug
+-	profile
+ EOF
+    exit $1
+ }
+@@ -145,16 +143,6 @@
+ 	 lib_type=alleg
+       ;;
+ 
+-      debug)
+-	 allegro_cflags=-DDEBUGMODE $allegro_cflags
+-	 allegro_cppflags=-DDEBUGMODE $allegro_cppflags
+-	 lib_type=alleg-debug
+-      ;;
+-
+-      profile)
+-	 lib_type=alleg-profile
+-      ;;
+-
+       *)
+ 	 usage 1 1>&2
+       ;;

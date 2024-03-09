@@ -1,6 +1,6 @@
 % fortnight-by-mfx(6) Fortnight User Manuals
 % Nicolas HOUDELOT (),mfx
-% 2018-01-22
+% 2024-03-19
 
 # NAME
 fortnight-by-mfx_launcher - is the command to run Fortnight 
@@ -9,7 +9,19 @@ fortnight-by-mfx_launcher - is the command to run Fortnight
 fortnight-by-mfx_launcher [*options*]
 
 # DESCRIPTION
-Fortnight is a demonstration released by mfx in 2001
+Fortnight is a 64 intro released by mfx in december 2001
+Ended 6th combined 64k at The Party 2001
+
+216 [Code]
+uncle-x [Graphics (design)]
+nosfe [Graphics (video)]
+dixan [Music]
+
+# OPTIONS
+\-w 
+:    for window mode
+
+# INFOS
 
 mfx goes open-source(*):
 'fortnight'
@@ -49,9 +61,6 @@ to the finest standards and an excellent starting point for newbies to
 learn what it is all about. in no way it is done tired in 4am with quickly
 copypasted old crap and halfway optimized actually slowing it down or 
 anything like that. enjoy.
-
-# OPTIONS
- -w for window mode
 
 # BUGS
 No known bugs.

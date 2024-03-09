@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
   	libfontconfig1-dev,
   	libnss3-dev,
   	libxml2-dev,
@@ -11,8 +11,9 @@ Build-Depends:
   	libxslt1-dev,
   	libgtk2.0-dev,
   	kdelibs5-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://helpx.adobe.com/air/kb/archived-air-sdk-version.html
+Rules-Requires-Root: no
 
 Package: adobeair
 Architecture: i386

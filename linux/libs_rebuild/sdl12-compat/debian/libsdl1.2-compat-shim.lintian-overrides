@@ -1,0 +1,6 @@
+# Thank you Mario, but our shared library is in another package!
+libsdl1.2-compat-shim: empty-shared-library-symbols
+libsdl1.2-compat-shim: empty-shlibs
+libsdl1.2-compat-shim: package-has-unnecessary-activation-of-ldconfig-trigger
+libsdl1.2-compat-shim: surplus-shared-library-symbols libSDL-1.2 0
+libsdl1.2-compat-shim: ldconfig-escape usr/lib/*/libSDL-1.2.so.* -> usr/lib/*/sdl12-compat/libSDL-1.2.so.*

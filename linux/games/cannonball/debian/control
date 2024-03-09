@@ -6,10 +6,11 @@ Build-Depends:
  cmake(>=2.6.2),
  libsdl2-dev,
  libboost-dev (>=1.54),
- debhelper-compat (= 12)
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
 Homepage: https://reassembler.blogspot.de/
 Vcs-Browser: https://github.com/djyt/cannonball.git
+Rules-Requires-Root: no
 
 Package: cannonball
 Architecture: any

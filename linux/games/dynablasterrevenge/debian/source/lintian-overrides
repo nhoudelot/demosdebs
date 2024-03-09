@@ -1,0 +1,3 @@
+dynablasterrevenge source: source-contains-prebuilt-windows-binary [client/lib/SDL.dll]
+dynablasterrevenge source: source-contains-prebuilt-windows-binary [client/lib64/SDL2.dll]
+

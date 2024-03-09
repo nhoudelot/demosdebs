@@ -1,0 +1,43 @@
+Description: better fullscreen
+ update fullscreen function, to make go fullscreen and back, with the same key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/base/xio.cpp
++++ b/base/xio.cpp
+@@ -68,6 +68,14 @@
+ 	}
+ }
+ 
++void Video::ToggleFullscreen(SDL_Window* Window) {
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(isFullscreen);
++}
++
++
+ void Video::init()
+ {
+ 	// Init SDL
+@@ -168,6 +176,7 @@
+ 			switch (event.key.keysym.sym) {
+ 			    case SDLK_ESCAPE: xs::shutdown.run(0); break;
+ 			    case SDLK_q: xs::shutdown.run(0); break;
++			    case SDLK_f: this->ToggleFullscreen(sdlWindow); break;
+ 			}
+ 		    }
+ 		 if (event.window.windowID == windowID)  {
+--- a/base/xio.h
++++ b/base/xio.h
+@@ -96,7 +96,7 @@
+ inline int getHeight() {
+ 	return sdl_screen->h;
+ };
+-
++void ToggleFullscreen(SDL_Window* Window);
+ 
+ // Direct screen access
+ surface *getScreen() {

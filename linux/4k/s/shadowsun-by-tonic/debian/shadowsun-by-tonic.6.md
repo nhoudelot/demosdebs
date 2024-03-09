@@ -9,11 +9,13 @@ shadowsun-by-tonic - is the command to run Shadow Sun
 shadowsun-by-tonic [*options*]
 
 # DESCRIPTION
-Shadow Sun  is a demonstration released by tonic
-Demo by tonic, released in 2004
+Shadow Sun  is a demonstration released by tonic released in 2004
 
 # OPTIONS
 there is no options to this program
+
+# INFOS
+https://320x200.org/2004/4k/
 
 # BUGS
 No known bugs.

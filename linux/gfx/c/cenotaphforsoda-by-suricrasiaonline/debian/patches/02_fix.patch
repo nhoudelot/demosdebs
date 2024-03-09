@@ -1,0 +1,34 @@
+Description: fix main function and replace ASM by C
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main/main.c
++++ b/main/main.c
+@@ -30,7 +30,7 @@
+ static unsigned char fbdata[4 * CANVAS_HEIGHT * CANVAS_WIDTH];
+ 
+ __attribute__((force_align_arg_pointer))
+-void _start() {
++void main() {
+   //initialize the window
+   Display* dpy = XOpenDisplay(NULL);
+ 
+@@ -269,14 +269,8 @@
+ 
+     //wait for escape key, then exit without glib :3
+     if(xev.type == KeyPress && xev.xkey.keycode == 0x09) {
+-      //blackle mori no likey AT&T
+-      asm volatile(".intel_syntax noprefix");
+-      asm volatile("push 60");
+-      asm volatile("pop rax");
+-      asm volatile("xor edi, edi");
+-      asm volatile("syscall");
+-      asm volatile(".att_syntax prefix");
+-      __builtin_unreachable();
++      // exit the program
++      exit(0);
+     }
+   }
+ }

@@ -3,11 +3,12 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  dh-python,
  python|python-all|python-all-dev (>= 2.6.6-3~),
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=59957
+Rules-Requires-Root: no
 
 Package: anthemforanewrobotdawn-by-gasman
 Architecture: all

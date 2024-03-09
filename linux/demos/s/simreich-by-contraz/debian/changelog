@@ -1,3 +1,10 @@
+simreich-by-contraz (1.0-0ddebs11) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Apr 2024 22:50:41 +0200
+
 simreich-by-contraz (1.0-0ddebs10) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

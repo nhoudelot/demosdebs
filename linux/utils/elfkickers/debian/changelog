@@ -1,3 +1,10 @@
+elfkickers (3.1+git20210517-0ddebs4) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 10 Mar 2024 22:27:23 +0100
+
 elfkickers (3.1+git20210517-0ddebs3) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

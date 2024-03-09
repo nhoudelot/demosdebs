@@ -2,12 +2,13 @@ Description: better quit
  update key to the new SDL2 layout
  and even add more options to quit the app
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-22
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -805,15 +805,13 @@
+@@ -806,15 +806,13 @@
            switch( event.key.keysym.sym )
            {
  #ifndef __FULLSCREEN_ONLY__
@@ -23,9 +24,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -            case 'P':
 +            case SDLK_p:
                paused ^= 1;
-               SDL_PauseAudio( paused );
+               SDL_PauseAudioDevice(device, paused );
                break;
-@@ -834,7 +832,11 @@
+@@ -835,7 +833,11 @@
  //              else
                done = 1;
                break;

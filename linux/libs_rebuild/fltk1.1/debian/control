@@ -1,0 +1,86 @@
+Source: fltk1.1
+Maintainer: Aaron M. Ucko <ucko@debian.org>
+Section: libs
+Priority: optional
+Build-Depends: debhelper-compat (= 13),
+               libgl-dev,
+               libglu1-mesa-dev,
+               libjpeg-dev,
+               libpng-dev,
+               libx11-dev,
+               libxext-dev,
+               libxft-dev,
+               libxinerama-dev,
+               pkgconf,
+               zlib1g-dev | libz-dev
+Build-Depends-Arch: libasound2-dev [linux-any]
+Standards-Version: 4.6.2
+Vcs-Browser: https://salsa.debian.org/ucko/fltk1.1
+Vcs-Git: https://salsa.debian.org/ucko/fltk1.1.git
+Homepage: https://www.fltk.org/
+Rules-Requires-Root: no
+
+Package: libfltk1.1-dev
+Architecture: any
+Section: libdevel
+Depends: libfltk1.1 (= ${binary:Version}),
+         libx11-dev,
+         ${misc:Depends}
+Recommends: libgl-dev
+Suggests: fltk1.1-doc,
+          fluid,
+          libglu1-mesa-dev | libglu-dev,
+          libjpeg-dev,
+          libpng-dev,
+          libxext-dev,
+          libxft-dev,
+          libxinerama-dev,
+          zlib1g-dev | libz-dev
+Conflicts: libfltk-dev
+Provides: libfltk-dev
+Replaces: libfltk-dev
+Description: Fast Light Toolkit - development files
+ This package provides the files necessary for compiling programs
+ that depend on FLTK.
+ .
+ The Fast Light Toolkit (FLTK) is a cross-platform graphical user interface
+ toolkit originally based on libForms.
+
+Package: libfltk1.1
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Description: Fast Light Toolkit - shared libraries
+ This package contains the files necessary for running programs
+ dynamically linked with FLTK.
+ .
+ The Fast Light Toolkit (FLTK) is a cross-platform graphical user interface
+ toolkit originally based on libForms.
+
+Package: fltk1.1-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Description: Fast Light Toolkit - documentation
+ This package provides documentation for FLTK, including a chapter on
+ its user interface designer (fluid).
+ .
+ The Fast Light Toolkit (FLTK) is a cross-platform graphical user interface
+ toolkit originally based on libForms.
+
+Package: fltk1.1-games
+Architecture: any
+Section: games
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Fast Light Toolkit - example games: checkers, sudoku
+ This package contains the example games that accompany FLTK.
+ Specifically, it contains the following two programs:
+  - flblocks:   clear groups of adjacent blocks before they fill the screen;
+  - flcheckers: classic board game, also known as draughts;
+  - flsudoku:   Sudoku puzzle (place numbers in a grid).
+ .
+ The Fast Light Toolkit (FLTK) is a cross-platform graphical user interface
+ toolkit originally based on libForms.

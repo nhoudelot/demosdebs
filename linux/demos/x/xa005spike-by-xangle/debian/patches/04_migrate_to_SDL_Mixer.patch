@@ -1,0 +1,171 @@
+--- a/Makefile
++++ b/Makefile
+@@ -22,8 +22,8 @@
+ 
+ # Detect OS --------------------------------------------------------------------
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "linux")),)
+-	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl glu gl zlib libpng) -lfmod-3.75 $(GUILIB)
+-	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl glu gl zlib libpng) $(GUIOPT)
++	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl SDL_mixer glu gl zlib libpng) $(GUILIB)
++	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl SDL_mixer glu gl zlib libpng) $(GUIOPT)
+ endif
+ 
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "Apple")),)
+--- a/ds/io/music.cpp
++++ b/ds/io/music.cpp
+@@ -21,97 +21,78 @@
+ 
+ namespace DS
+ {
+-F_CALLBACKAPI void* cbopen(const char* pName)
+-{
+-	return (void*)pName;         // :D
+-}
+-
+-void F_CALLBACKAPI cbclose(void* pHandle) {
+-}
+-
+-int F_CALLBACKAPI cbread(void* pBuffer, int size, void* pHandle)
+-{
+-	return ((MemFile*)pHandle)->Read(pBuffer, size);
+-}
+-
+-int F_CALLBACKAPI cbseek(void* pHandle, int pos, signed char mode)
+-{
+-	((MemFile*)pHandle)->Seek(pos, mode);
+-	return 0;
+-}
+-
+-int F_CALLBACKAPI cbtell(void* pHandle)
+-{
+-	return ((MemFile*)pHandle)->Tell();
+-}
+ 
+ Music::Music(DataReader* pDataReader)
+ {
+ 	m_pDataReader = pDataReader;
+-	m_pSong = 0;
++	m_pMusic = NULL;
+ 	m_volume = 255;
+ 	m_bHasInit = false;
+ 	m_bHasLoad = false;
+-//#ifndef WIN32
+-	FSOUND_File_SetCallbacks(cbopen,
+-	                         cbclose,
+-	                         cbread,
+-	                         cbseek,
+-	                         cbtell);
+-//#endif
+ }
+ 
+ Music::~Music()
+ {
+-	if(m_pSong)
+-		FMUSIC_FreeSong(m_pSong);
++	if(m_pMusic)
++		Mix_FreeMusic(m_pMusic);
+ }
+ 
+ void Music::Init(int samplerate)
+ {
+ 	static char* fn = "[Music::Init]";
+-	if(!FSOUND_Init(samplerate, 32, 0))
+-		cout << fn << " Failed to init sound." << endl;
+-	else
+-		m_bHasInit = true;
++    if (SDL_Init(SDL_INIT_AUDIO) < 0)
++    {
++        cout << fn << " Failed to initialize SDL: " << SDL_GetError() << endl;
++        return;
++    }
++
++    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) < 0)
++    {
++        cout << fn << " Failed to open audio: " << Mix_GetError() << endl;
++        return;
++    }
++
++    m_bHasInit = true;
+ }
+ 
+ void Music::Load(const char* pFile)
+ {
+ 	static char* fn = "[Music::Load]";
+-	if(m_bHasInit)
+-	{
+-//			#ifdef WIN32
+-//			m_pSong = FMUSIC_LoadSong(((string)"../data/" + pFile).c_str());
+-//			m_pSong = FMUSIC_LoadSong("ps.xm");
+-//			#else
+-		m_pSong = FMUSIC_LoadSong((char*)m_pDataReader->GetFile(pFile));
+-//			#endif
+-		FSOUND_SetVolume(FSOUND_ALL, m_volume);
+-		if(!m_pSong)
+-			cout << fn << " Failed to load music." << endl;
+-		FMUSIC_SetLooping(m_pSong, false);
+-		m_bHasLoad = true;
+-	}
++    if (m_bHasInit)
++    {
++        m_pMusic = Mix_LoadMUS((char*)m_pDataReader->GetFile(pFile));
++        if (!m_pMusic)
++        {
++            cout << fn << " Failed to load music: " << Mix_GetError() << endl;
++            return;
++        }
++
++        m_bHasLoad = true;
++    }
+ }
+ 
+ void Music::Play()
+ {
+-	if(m_bHasLoad)
+-		if(!FMUSIC_PlaySong(m_pSong))
+-			cout << "[Music::Play] Failed to play music." << endl;
++	if (m_bHasLoad)
++    {
++        if (Mix_PlayMusic(m_pMusic, -1) == -1)
++        {
++            cout << "[Music::Play] Failed to play music: " << Mix_GetError() << endl;
++            return;
++        }
++    }
+ }
+ 
+ void Music::Stop()
+ {
+ 	if(m_bHasLoad)
+-		FSOUND_StopSound(FSOUND_ALL);
++		Mix_HaltMusic();
+ }
+ 
+ void Music::SetVolume(int volume)
+ {
+ 	m_volume = volume;
+-	FSOUND_SetVolume(FSOUND_ALL, m_volume);
++	Mix_VolumeMusic(volume);
+ }
+ 
+ int Music::GetVolume()
+--- a/ds/io/music.h
++++ b/ds/io/music.h
+@@ -19,7 +19,8 @@
+ #define MUSIC_H
+ 
+ #include "../common.h"
+-#include <fmod.h>
++#include <SDL/SDL.h>
++#include <SDL/SDL_mixer.h>
+ #include "datareader.h"
+ 
+ namespace DS
+@@ -39,7 +40,7 @@
+ bool m_bHasLoad;
+ int m_volume;
+ DataReader* m_pDataReader;
+-FMUSIC_MODULE* m_pSong;
++Mix_Music* m_pMusic;
+ };
+ }
+ 

@@ -3,9 +3,10 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12)
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=51667
+Rules-Requires-Root: no
 
 Package: abouttime-by-approximate
 Architecture: i386
@@ -14,4 +15,4 @@ Depends:
  ${misc:Depends},
  common-install-function-ddebs(>=1.18)
 Description: 64k intro for Linux, released in 2008
- 64k intro by Approximate, released in 2008
+ 64k intro by Approximate, ended 2nd combined demo at Sundown 2008

@@ -1,0 +1,13 @@
+# We don't include symbols files, because on the one hand
+# private symbols are exported and not easily distinguishable
+# from public ones. They have a leading underscore, but there
+# are also public ones with a leading underscore.
+# On the other hand, symbols files are not needed, because
+# the API is frozen anyway. Quote from Peter Wang:
+# "Anyway, 4.4 is on life support.
+#  The API is essentially frozen forever."
+# (http://sourceforge.net/mailarchive/message.php?msg_id=29119754)
+liballegro4.4 binary: no-symbols-control-file
+
+# We keep the package name to be consistent with past Allegro packages.
+liballegro4.4 binary: package-name-doesnt-match-sonames

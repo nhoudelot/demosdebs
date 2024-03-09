@@ -1,3 +1,9 @@
+Description: change manual category to games
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/reicast/linux/man/reicast-joyconfig.1
 +++ b/reicast/linux/man/reicast-joyconfig.1
 @@ -1,6 +1,6 @@

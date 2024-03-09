@@ -3,11 +3,11 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  yasm,
  libgl-dev,
  libsdl2-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=69746
 Rules-Requires-Root: no
 
@@ -17,4 +17,4 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: 4k Intro by Ye Olde Laptops Posse, released in 2017
- Demo by Ye Olde Laptops Posse, released at Revision 2017
+ 4k Intro by Ye Olde Laptops Posse, released at Revision 2017

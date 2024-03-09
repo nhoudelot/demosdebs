@@ -2,12 +2,12 @@ Source: aacgain
 Section: utils
 Priority: optional
 Maintainer: Christian Marillat <marillat@deb-multimedia.org>
-Homepage: http://altosdesign.com/aacgain/
-Standards-Version: 4.6.0.1
 Build-Depends:
- debhelper-compat (= 12),
- libmp3lame-dev,
- ccache
+ debhelper-compat (= 13),
+ libmp3lame-dev
+Standards-Version: 4.6.2
+Homepage: http://altosdesign.com/aacgain/
+Rules-Requires-Root: no
 
 Package: aacgain
 Architecture: any

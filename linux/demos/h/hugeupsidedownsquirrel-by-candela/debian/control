@@ -3,11 +3,12 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl1.2-compat-dev|libsdl1.2-dev,
- libglu1-mesa-dev
-Standards-Version: 4.6.0.1
+ libglu-dev
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=57122
+Rules-Requires-Root: no
 
 Package: hugeupsidedownsquirrel-by-candela
 Architecture: amd64

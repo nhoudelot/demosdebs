@@ -1,3 +1,3 @@
-35inchesisenough-by-unrealvoodoo source: source-is-missing pc/three_and_a_half_inches_is_enough-linux-x86
-35inchesisenough-by-unrealvoodoo source: source-contains-prebuilt-windows-binary pc/SDL.dll
-35inchesisenough-by-unrealvoodoo source: source-contains-prebuilt-windows-binary pc/three_and_a_half_inches_is_enough-win32-x86.exe
+35inchesisenough-by-unrealvoodoo source: source-is-missing [pc/three_and_a_half_inches_is_enough-linux-x86]
+35inchesisenough-by-unrealvoodoo source: source-contains-prebuilt-windows-binary [pc/SDL.dll]
+35inchesisenough-by-unrealvoodoo source: source-contains-prebuilt-windows-binary [pc/three_and_a_half_inches_is_enough-win32-x86.exe]

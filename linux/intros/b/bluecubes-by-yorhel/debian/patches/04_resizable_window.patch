@@ -1,12 +1,23 @@
 Description: make window resizable
  make window resizable with correct ratio
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-27
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/bluecubes.c
 +++ b/bluecubes.c
-@@ -38,7 +38,7 @@
+@@ -14,6 +14,9 @@
+ #define PI 3.1415926535897f
+ #define startpos 0//30000
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ SDL_Window *screen;
+ float ar; /* aspect ratio, width/height */
+ Uint32 w, h;
+@@ -38,7 +41,7 @@
  	SDL_Event event;
  	Uint32 tlast = 0,
  	       tcurrent, st, argn = 0;
@@ -15,7 +26,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	char fr = 0;
  
  	while(++argn < argc) {
-@@ -89,9 +89,27 @@
+@@ -89,9 +92,21 @@
  
  	st = SDL_GetTicks();
  	playsound();
@@ -29,15 +40,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +			{
 +				if (event.window.windowID == windowID)  {
 +					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
-+						w = event.window.data1;
-+						h = event.window.data2;
-+						ar = (float) w / (float) h;
-+
-+						glViewport(0, 0, w, h);
-+						glMatrixMode(GL_PROJECTION);
-+						glLoadIdentity();
-+						gluPerspective(45.0f, ar, 0.1f, 100.0f);
-+						glMatrixMode(GL_MODELVIEW);
++						 int new_w = event.window.data1;
++             			 int new_h = event.window.data2;
++              			 resize_window(0,0, new_w,new_h);
 +					}
 +				}
 +			}
@@ -45,3 +50,29 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  			if(event.type == SDL_QUIT || (event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q))) {
  				quit = 1;
  				continue;
+@@ -116,6 +131,25 @@
+ 	return 0;
+ }
+ 
++void resize_window(int x, int y, int w, int h)
++{
++    /* Prevent division by zero */
++    if (h == 0) h = 1;
++
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        x += (w - new_w) / 2;
++        w = new_w;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        y += (h - new_h) / 2;
++        h = new_h;
++    }
++    glViewport(x, y, w, h);
++}
++
++
+ void NextFrame() {
+ 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+ 	glLoadIdentity();

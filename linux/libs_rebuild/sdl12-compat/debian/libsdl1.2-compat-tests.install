@@ -1,0 +1,9 @@
+obj-*/*.bmp                             usr/libexec/installed-tests/libsdl1.2-compat
+obj-*/*.dat                             usr/libexec/installed-tests/libsdl1.2-compat
+obj-*/*.wav                             usr/libexec/installed-tests/libsdl1.2-compat
+obj-*/*.xbm                             usr/libexec/installed-tests/libsdl1.2-compat
+obj-*/checkkeys                         usr/libexec/installed-tests/libsdl1.2-compat
+obj-*/graywin                           usr/libexec/installed-tests/libsdl1.2-compat
+obj-*/loopwave                          usr/libexec/installed-tests/libsdl1.2-compat
+obj-*/test*                             usr/libexec/installed-tests/libsdl1.2-compat
+obj-*/utf8.txt                          usr/libexec/installed-tests/libsdl1.2-compat

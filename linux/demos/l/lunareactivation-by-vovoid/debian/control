@@ -3,29 +3,30 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
- libglu1-mesa-dev,
+ debhelper-compat (= 13),
+ libglu-dev,
  libx11-dev,
  libxrandr-dev,
  libglfw-dev,
  libfmodex-dev,
- libfreetype6-dev,
+ libfreetype-dev,
  libglew1.5,
  dh-python,
- python|python-all|python-all-dev (>= 2.6.6-3~)
-Standards-Version: 4.6.0.1
+ python3-all-dev(>= 3.6)
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=57448
+Rules-Requires-Root: no
 
 Package: lunareactivation-by-vovoid-launcher
 Architecture: all
 Multi-Arch: foreign
 Depends:
- ${python:Depends},
+ ${python3:Depends},
  ${misc:Depends},
- python-gtk2,
  common-install-function-ddebs(>=1.18)
-Description: Demo launcher for Linux, released in 2011
- Launcher for vovoid, released in 2011
+Description: luna reactivation launcher for Linux, released in 2011
+ Do not install it to install the demo, install lunareactivation-by-vovoid 
+ instead.
 
 Package: lunareactivation-by-vovoid
 Architecture: i386

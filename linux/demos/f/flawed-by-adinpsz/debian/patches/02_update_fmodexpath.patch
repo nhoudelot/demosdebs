@@ -1,6 +1,7 @@
 Description: migrate to fmodex
  Migrate from fmod to fmodex
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-29
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

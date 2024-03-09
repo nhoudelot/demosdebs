@@ -1,12 +1,13 @@
 Description: better fullscreen
  update fullscreen function, to make go fullscreen and back, with the same key
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-22
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -111,6 +111,14 @@
+@@ -112,6 +112,14 @@
  
  int clicked, clickx, clicky;
  
@@ -21,7 +22,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  void do_the_music( void *dummy, int8 *stream, int length )
  {
    int16 *out;
-@@ -807,7 +815,7 @@
+@@ -808,7 +816,7 @@
  #ifndef __FULLSCREEN_ONLY__
              case SDLK_f:
              case SDLK_RETURN:	// was going to use alt-return, but since return isn't doing anything else..

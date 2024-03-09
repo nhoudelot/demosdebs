@@ -3,17 +3,17 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
- libglu1-mesa-dev,
+ debhelper-compat (= 13),
+ libglu-dev,
  libpng12-dev,
  libxrandr-dev,
  libx11-dev,
- libglu1-mesa-dev,
  libjpeg62-dev|libjpeg62-turbo-dev,
  libaudiere,
  libglew1.5
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=53577
+Rules-Requires-Root: no
 
 Package: stress-by-outbreakandchimeramusic
 Architecture: i386

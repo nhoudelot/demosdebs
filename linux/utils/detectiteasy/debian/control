@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  pkgconf,
  qtbase5-dev,
  qtbase5-dev-tools,
@@ -16,8 +16,9 @@ Build-Depends:
  libbz2-dev,
  zlib1g-dev,
  libssl-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://github.com/horsicq/DIE-engine
+Rules-Requires-Root: no
 
 Package: detectiteasy
 Architecture: any

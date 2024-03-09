@@ -1,0 +1,300 @@
+--- a/src/SDLWindow.cpp
++++ b/src/SDLWindow.cpp
+@@ -12,17 +12,22 @@
+ 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+ 	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, bpp);
+ 
+-	screen = SDL_SetVideoMode(resolutionX, resolutionY, bpp, SDL_OPENGL);
++	sdlWindow = SDL_CreateWindow(caption,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,resolutionX,resolutionY,SDL_WINDOW_OPENGL);
++	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	screen = SDL_CreateRGBSurfaceWithFormat(0, resolutionX, resolutionY, bpp,SDL_PIXELFORMAT_RGB565); //buffer video
++	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,screen);
+ 
+ 	if (!screen)
+ 		cerr << "Couldn't set video mode: " << SDL_GetError() << endl;
+ 
+-	SDL_WM_SetCaption(caption, "");
+ }
+ 
+ SDLWindow::~SDLWindow()
+ {
+ 	SDL_FreeSurface(screen);
++	SDL_DestroyTexture(sdlTexture);
++	SDL_DestroyRenderer(sdlRenderer);
++	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+ }
+ 
+--- a/src/SDLWindow.h
++++ b/src/SDLWindow.h
+@@ -1,7 +1,7 @@
+ #ifndef SDLWINDOW_H_INCLUDED
+ #define SDLWINDOW_H_INCLUDED
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ class SDLWindow
+ {
+@@ -12,6 +12,12 @@
+ ~SDLWindow();
+ 
+ SDL_Surface *screen;
++SDL_Window *sdlWindow;
++SDL_Renderer *sdlRenderer;
++SDL_Texture *sdlTexture;
++SDL_Surface *sdlSurface;
+ };
+ 
++SDLWindow *mainWin;
++
+ #endif
+--- a/src/CelScene.cpp
++++ b/src/CelScene.cpp
+@@ -1,10 +1,11 @@
+ #include <iostream>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ #include <math.h>
+ #include "Texture.h"
+ #include "CelScene.h"
++#include "SDLWindow.h"
+ 
+ #include "../models/spikeThingie2.h"
+ 
+@@ -197,7 +198,10 @@
+ 		unsetOrtho();
+ 	}
+ 
+-	SDL_GL_SwapBuffers();
++	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
++	SDL_RenderClear(mainWin->sdlRenderer);
++	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
++	SDL_RenderPresent(mainWin->sdlRenderer);
+ }
+ 
+ void CelScene::init()
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -12,7 +12,7 @@
+ 
+ int main(int argc, char *argv[])
+ {
+-	SDLWindow *mainWin = new SDLWindow("Xenox-demo lm@o", 640, 480, 16);
++	mainWin = new SDLWindow("Xenox-demo lm@o", 640, 480, 16);
+ 	SDL_ShowCursor(SDL_DISABLE);
+ 
+ 	// load all scenes and show a progressbar
+--- a/src/FunkyBackground.cpp
++++ b/src/FunkyBackground.cpp
+@@ -1,10 +1,11 @@
+ #include <iostream>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ #include <math.h>
+ #include "Texture.h"
+ #include "FunkyBackground.h"
++#include "SDLWindow.h"
+ 
+ /* FunkyBackground::getFunky()-routine is from Dr.Fungi goes Africa by Fit */
+ 
+@@ -45,7 +46,10 @@
+ 	glTranslatef(0.0, 0.0,-2.5);
+ 	getFunky((float)getTime()/1000.0, 9, 0);
+ 
+-	SDL_GL_SwapBuffers();
++	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
++	SDL_RenderClear(mainWin->sdlRenderer);
++	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
++	SDL_RenderPresent(mainWin->sdlRenderer);
+ }
+ 
+ void FunkyBackground::init()
+--- a/src/Greetings.cpp
++++ b/src/Greetings.cpp
+@@ -1,10 +1,11 @@
+ #include <iostream>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ #include <math.h>
+ #include "Texture.h"
+ #include "Greetings.h"
++#include "SDLWindow.h"
+ 
+ using std::cout;
+ using std::endl;
+@@ -301,7 +302,10 @@
+ 		unsetOrtho();
+ 	}
+ 
+-	SDL_GL_SwapBuffers();
++	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
++	SDL_RenderClear(mainWin->sdlRenderer);
++	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
++	SDL_RenderPresent(mainWin->sdlRenderer);
+ }
+ 
+ void Greetings::init()
+--- a/src/LoaderBar.cpp
++++ b/src/LoaderBar.cpp
+@@ -1,9 +1,10 @@
+ #include <iostream>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ #include <math.h>
+ #include "LoaderBar.h"
++#include "SDLWindow.h"
+ 
+ using std::cout;
+ using std::endl;
+@@ -25,7 +26,10 @@
+ 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+ 	glLoadIdentity();
+ 
+-	SDL_GL_SwapBuffers();
++	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
++	SDL_RenderClear(mainWin->sdlRenderer);
++	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
++	SDL_RenderPresent(mainWin->sdlRenderer);
+ }
+ 
+ void LoaderBar::render(int percent)
+@@ -56,7 +60,10 @@
+ 	glEnd();
+ 	unsetOrtho();
+ 
+-	SDL_GL_SwapBuffers();
++	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
++	SDL_RenderClear(mainWin->sdlRenderer);
++	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
++	SDL_RenderPresent(mainWin->sdlRenderer);
+ }
+ 
+ void LoaderBar::init()
+--- a/src/Heightfield.cpp
++++ b/src/Heightfield.cpp
+@@ -1,10 +1,11 @@
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ #include <math.h>
+ #include "Vector3d.h"
+ #include "Heightfield.h"
++#include "SDLWindow.h"
+ 
+ #include "../models/spikeThingie.h"
+ 
+@@ -238,7 +239,10 @@
+ 		unsetOrtho();
+ 	}
+ 
+-	SDL_GL_SwapBuffers();
++	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
++	SDL_RenderClear(mainWin->sdlRenderer);
++	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
++	SDL_RenderPresent(mainWin->sdlRenderer);
+ }
+ 
+ void Heightfield::init()
+--- a/src/Metaballs.cpp
++++ b/src/Metaballs.cpp
+@@ -1,10 +1,11 @@
+ #include <iostream>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ #include <math.h>
+ #include "Vector3d.h"
+ #include "Texture.h"
++#include "SDLWindow.h"
+ 
+ #include "Metaballs.h"
+ #include "PNGImage.h"
+@@ -502,7 +503,10 @@
+ 		unsetOrtho();
+ 	}
+ 
+-	SDL_GL_SwapBuffers();
++	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
++	SDL_RenderClear(mainWin->sdlRenderer);
++	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
++	SDL_RenderPresent(mainWin->sdlRenderer);
+ }
+ 
+ void Metaballs::init()
+--- a/Makefile
++++ b/Makefile
+@@ -7,8 +7,8 @@
+ 
+ CXX := g++
+ PKG_CONFIG:=pkg-config
+-CXXFLAGS += -Wall -std=c++98 $(shell $(PKG_CONFIG) SDL_mixer sdl libpng glu gl --cflags)
+-LDFLAGS += $(shell $(PKG_CONFIG) SDL_mixer sdl libpng glu gl --libs)
++CXXFLAGS += -Wall -std=c++98 $(shell $(PKG_CONFIG) SDL2_mixer sdl2 libpng glu gl --cflags)
++LDFLAGS += $(shell $(PKG_CONFIG) SDL2_mixer sdl2 libpng glu gl --libs) -Wl,--allow-multiple-definition
+ 
+ RM_F := rm -f
+ INSTALL := install
+--- a/src/Bitmapfont.cpp
++++ b/src/Bitmapfont.cpp
+@@ -1,4 +1,4 @@
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ #include <iostream>
+--- a/src/Bitmapfont.h
++++ b/src/Bitmapfont.h
+@@ -1,7 +1,7 @@
+ #ifndef BITMAP_H_INCLUDED
+ #define BITMAP_H_INCLUDED
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <iostream>
+ #include "Texture.h"
+ 
+--- a/src/CylinderScene.cpp
++++ b/src/CylinderScene.cpp
+@@ -1,5 +1,5 @@
+ #include <iostream>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ #include <math.h>
+--- a/src/Music.h
++++ b/src/Music.h
+@@ -1,8 +1,8 @@
+ #ifndef MUSIC_H_INCLUDED
+ #define MUSIC_H_INCLUDED
+ 
+-#include <SDL/SDL.h>
+-#include <SDL/SDL_mixer.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ class Music
+ {
+--- a/src/Scene.h
++++ b/src/Scene.h
+@@ -1,7 +1,7 @@
+ #ifndef SCENE_H_INCLUDED
+ #define SCENE_H_INCLUDED
+ 
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ class Scene
+ {

@@ -3,12 +3,13 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  pkgconf,
- libglu1-mesa-dev,
- libsdl1.2-compat-dev|libsdl1.2-dev
-Standards-Version: 4.6.0.1
+ libglu-dev,
+ libsdl2-dev
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=13023
+Rules-Requires-Root: no
 
 Package: jeregrette-by-fitandbandwagon
 Architecture: any

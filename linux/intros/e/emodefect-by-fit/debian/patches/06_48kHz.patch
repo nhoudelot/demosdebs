@@ -1,0 +1,103 @@
+Description: increase audio frequency to 48 Khz 
+as 48 kHz is now the standard for digital audio & video
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cool_mzx/sd_dsp16.h
++++ b/cool_mzx/sd_dsp16.h
+@@ -8,7 +8,7 @@
+ 
+ #include "sd_main.h"
+ 
+-#define DSP16_MAXRATE 44100
++#define DSP16_MAXRATE 48000
+ 
+ int sd_dsp16_init ();
+ 
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -157,11 +157,11 @@
+ 		break;
+ 	case '1':
+ 		laite=1;
+-		if(sd_dsp16_init(22050,0,0)==SD_ERR)
++		if(sd_dsp16_init(24000,0,0)==SD_ERR)
+ 			return(0);
+ 		break;
+ 	case '2': laite=2;
+-		if(sd_dsp16_init(44100,0,0)==SD_ERR)
++		if(sd_dsp16_init(48000,0,0)==SD_ERR)
+ 			return(0);
+ 		break;
+ 	default: return(0);
+@@ -225,15 +225,15 @@
+ 			off+=luku;
+ 		}
+ 
+-		while(off+22050/screenHz<=len)
++		while(off+24000/screenHz<=len)
+ 		{
+ 			pt_play();
+ 			update_sample_trig_times();
+-			sd_mix_mono(&stream[off],22050/screenHz,0);
+-			off+=22050/screenHz;
++			sd_mix_mono(&stream[off],24000/screenHz,0);
++			off+=24000/screenHz;
+ 		}
+ 
+-		if(off==len+22050/screenHz)
++		if(off==len+24000/screenHz)
+ 			luku=0;
+ 		else
+ 		{
+@@ -241,7 +241,7 @@
+ 			pt_play();
+ 			update_sample_trig_times();
+ 			sd_mix_mono(&stream[off],luku,0);
+-			luku=off+22050/screenHz-len;
++			luku=off+24000/screenHz-len;
+ 		}
+ 	}
+ 	if(laite==2)
+@@ -254,15 +254,15 @@
+ 			off+=luku;
+ 		}
+ 
+-		while(off+44100/screenHz<=len)
++		while(off+48000/screenHz<=len)
+ 		{
+ 			pt_play();
+ 			update_sample_trig_times();
+-			sd_mix_mono(&oso[off],44100/screenHz,1);
+-			off+=44100/screenHz;
++			sd_mix_mono(&oso[off],48000/screenHz,1);
++			off+=48000/screenHz;
+ 		}
+ 
+-		if(off==len+44100/screenHz)
++		if(off==len+48000/screenHz)
+ 			luku=0;
+ 		else
+ 		{
+@@ -270,7 +270,7 @@
+ 			pt_play();
+ 			update_sample_trig_times();
+ 			sd_mix_mono(&oso[off],luku,1);
+-			luku=off+44100/screenHz-len;
++			luku=off+48000/screenHz-len;
+ 		}
+ 	}
+ }
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -82,7 +82,7 @@
+ };
+ 
+ int sd_mix_interpolation=0;
+-int sd_mix_rate=44100;
++int sd_mix_rate=48000;
+ 
+ struct SAMPLEINFOBLOCK mix_samples[SD_MAXSAMPLES];
+ 

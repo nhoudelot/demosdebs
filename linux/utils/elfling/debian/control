@@ -3,17 +3,20 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libc6-dev,
  nasm,
  libsdl1.2-dev,
- libgl1-mesa-dev
-Standards-Version: 4.6.0.1
+ libgl-dev
+Standards-Version: 4.6.2
 Homepage: https://github.com/google/elfling
+Rules-Requires-Root: no
 
 Package: elfling
-Architecture: i386
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Architecture: amd64 i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
 Description: Crinkler-like for the Linux Scene
  This is an attempt at writing something Crinkler-like for the Linux Scene. It
  provides a context-modeling compressing linker that will transform a .o file

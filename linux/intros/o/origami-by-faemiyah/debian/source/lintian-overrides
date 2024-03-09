@@ -1,0 +1,13 @@
+origami-by-faemiyah source: source-is-missing [rel/origami-freebsd-ia32]
+origami-by-faemiyah source: source-is-missing [rel/origami-linux-amd64]
+origami-by-faemiyah source: source-is-missing [rel/origami-linux-ia32]
+origami-by-faemiyah source: source-is-missing [rel/origami-linux-ppc32]
+origami-by-faemiyah source: source-is-missing [rel/origami-linux-ppc64]
+origami-by-faemiyah source: source-is-missing [src/origami_unpacked]
+origami-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/SDL.dll]
+origami-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/msvcr71.dll]
+origami-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/origami-windows-ia32.exe]
+origami-by-faemiyah source: source-contains-prebuilt-windows-binary [src/Release/SDL.dll]
+origami-by-faemiyah source: source-contains-prebuilt-windows-binary [src/Release/origami.exe]
+origami-by-faemiyah source: source-contains-prebuilt-windows-binary [src/Release/upx.exe]
+

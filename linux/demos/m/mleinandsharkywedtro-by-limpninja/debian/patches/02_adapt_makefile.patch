@@ -1,0 +1,75 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -1,9 +1,44 @@
+-all:	
+-	scons
++#variables de compilation
++SHELL := /bin/sh
++CC    := gcc
++TARGET   := mleinandsharkywedtro-by-limpninja
++#variable de nettoyage
++RM_F := rm -f
++#variables d'instalation
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++INSTALL_LIBS    := $(INSTALL) -p    -m  755
++INSTALL_DATA    := $(INSTALL) -p    -m  644
++INSTALL_DATAR   := cp -r
++INSTALL_SCRIPT  := $(INSTALL) -p    -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++datarootdir     := $(prefix)/share
++datadir         := $(prefix)/share/mleinandsharkywedtro-by-limpninja
++
++#compilation en paralelle si disponible
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++endif
++
++all:
++	scons  --jobs $(NUMJOBS)
+ 
+ clean:
+ 	scons -c
+ 
+ check-syntax:
+-	gcc  -fsyntax-only -march=athlon64 -msse3 -fmessage-length=0 ${CHK_SOURCES} -Wall -Wformat=2 -ICGLA/ -Ifmodapi40618linux/api/inc -I/usr/include/freetype2
++	$(CC)  -fsyntax-only -march=athlon64 -msse3 -fmessage-length=0 ${CHK_SOURCES} -Wall -Wformat=2 -ICGLA/ -Ifmodapi40618linux/api/inc -I/usr/include/freetype2
+ 
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	#data
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) DISCODEL.XM $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) *.png $(DESTDIR)$(datadir)
++	$(INSTALL_DATA) *.jpg $(DESTDIR)$(datadir)
+--- a/SConstruct
++++ b/SConstruct
+@@ -19,7 +19,7 @@
+     incpath = ["/usr/include/fmodex/","/usr/include/freetype2"]
+     libs += ["Magick++","Magick", 'GLU','GL' ]
+ 
+-env = Environment( ENV = os.environ, CXXFLAGS=["-O3","-g3"], LINKFLAGS=["-O3","-g3"], CPPPATH=["CGLA/"]+incpath )
++env = Environment( ENV = os.environ, CXXFLAGS=["-O3","-g3","-flto","-pipe","-std=gnu++11","-fabi-version=8"], LINKFLAGS=["-O3","-g3","-flto"], CPPPATH=["CGLA/"]+incpath )
+ if crosscompile:
+     env['CXX'] = 'i586-mingw32msvc-g++'
+ 
+@@ -30,5 +30,4 @@
+ libs += ["fmodex","ftgl"]
+ libs += ["glut",cgla]
+ 
+-env.Program("view",["view.cpp","plant.cpp","texture.cpp","sound.cpp","util.cpp","perlin.cpp","backdrop.cpp","fontrenderer.cpp","capture.cpp","textoverlay.cpp"],LIBS=libs, LIBPATH=libpath ) 
+-
++env.Program("mleinandsharkywedtro-by-limpninja",["view.cpp","plant.cpp","texture.cpp","sound.cpp","util.cpp","perlin.cpp","backdrop.cpp","fontrenderer.cpp","capture.cpp","textoverlay.cpp"],LIBS=libs, LIBPATH=libpath )

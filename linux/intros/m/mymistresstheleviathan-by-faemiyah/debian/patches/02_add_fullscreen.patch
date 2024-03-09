@@ -1,0 +1,35 @@
+Description: added fullscreen
+ added fullscreen function, to go fullscreen and back, with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -3058,6 +3058,14 @@
+   }
+ }
+ 
++
++void ToggleFullscreen(SDL_Window* Window) {
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(isFullscreen);
++}
++
+ /// Set frame jump.
+ ///
+ /// \param seconds Seconds to jump.
+@@ -3362,6 +3370,10 @@
+               gstate.terminate();
+               break;
+ 
++            case SDLK_f:
++              ToggleFullscreen(g_sdl_window); break;
++              break;
++
+             default:
+               //std::cout << event.key.keysym.sym << std::endl;
+               break;

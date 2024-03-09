@@ -1,0 +1,4 @@
+version=3
+opts=dversionmangle=s/\+dfsg\d*$//,uversionmangle=s/_/./g;s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha|b|a)[\-\.]?\d*)$/$1~$2/ \
+http://qa.debian.org/watch/sf.php/dumb/dumb-(\d[^t]*)\.(?:tgz|tbz2|txz|tar\.(?:gz|bz2|xz)|jar)
+# Bart Martens <bartm@debian.org>  Tue, 15 Jan 2013 19:19:04 +0000

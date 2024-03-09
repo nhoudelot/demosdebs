@@ -1,3 +1,9 @@
+Description: link to gl as libglu-dev doesn't link automatically to libgl now
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -64,9 +64,9 @@
@@ -12,4 +18,4 @@
 +LDFLAGS  += $(shell $(PKG_CONFIG) glu gl x11 alsa xxf86vm libjpeg --libs)
  RM_F = rm -f
  INSTALL = install
- INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
+ INSTALL_DIR     = $(INSTALL) -p -d -m  755

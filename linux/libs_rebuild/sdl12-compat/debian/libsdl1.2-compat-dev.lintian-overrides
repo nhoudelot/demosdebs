@@ -1,0 +1,2 @@
+# this archive intentionally left blank
+libsdl1.2-compat-dev: no-code-sections [usr/lib/*/libSDLmain.a]

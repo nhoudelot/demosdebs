@@ -1,12 +1,13 @@
 Description: updating makefile
  updating makefile to make it more compatible with packaging
 Author: Nicolas HOUDELOT (nicolas@demosdebs.org
+Applied-Upstream: no
 Last-Update: 2020-04-27
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,35 @@
 +#variables de compilation
 +SHELL := /bin/sh
 +CC    := gcc
@@ -17,8 +18,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +RM_F := rm -f
 +#variables d'instalation
 +INSTALL := install
-+INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
 +
 +TARGET:=bluecubes-by-yorhel
 +
@@ -40,4 +41,5 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
 +
 +clean:
-+	-$(RM_F) $(TARGET)
++	$(RM_F) $(TARGET)
++	$(RM_F) data.h

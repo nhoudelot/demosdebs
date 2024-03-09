@@ -2,6 +2,7 @@ Description: adapt makefile for packaging
  declare an installable binary
  rename binary
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2019-11-08
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

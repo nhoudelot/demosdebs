@@ -3,18 +3,19 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  qtbase5-dev,
  qtbase5-dev-tools,
  libqt5x11extras5-dev,
  libusb-1.0-0-dev,
- libgl1-mesa-dev,
+ libgl-dev,
  libxrandr-dev,
  libxinerama-dev,
  libx11-dev,
  libxtst-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.xp-pen.fr/download/index
+Rules-Requires-Root: no
 
 Package: xppenutils
 Architecture: amd64

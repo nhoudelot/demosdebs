@@ -1,2 +1,2 @@
-303-by-acme source: source-is-missing vir303
-303-by-acme source: source-contains-prebuilt-windows-binary 303.EXE
+303-by-acme source: source-is-missing [vir303]
+303-by-acme source: source-contains-prebuilt-windows-binary [303.EXE]

@@ -1,3 +1,11 @@
+antedominium-by-traction (1.0+2-0ddebs8) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+  * Migrate from libfmodex to openmpt
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 16 Mar 2024 16:57:07 +0100
+
 antedominium-by-traction (1.0+2-0ddebs7) unstable; urgency=medium
 
   * added libglu1-mesa-dev dependency fro Debian 12

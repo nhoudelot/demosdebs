@@ -2,6 +2,7 @@ Description: better quit
  update key to the new SDL2 layout
  and even add more options to quit the app
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-26
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

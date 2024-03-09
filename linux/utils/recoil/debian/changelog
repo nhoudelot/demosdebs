@@ -1,3 +1,12 @@
+recoil (6.4.2-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+  * updated debian/watch
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 12 Mar 2024 10:32:07 +0100
+
 recoil (5.0.0-1.1ddebs5) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

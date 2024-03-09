@@ -1,0 +1,4 @@
+usr/lib/*/libjpgalleg.so
+usr/lib/*/pkgconfig/jpgalleg.pc
+usr/include/jpgalleg.h
+

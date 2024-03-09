@@ -1,0 +1,59 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging and crossbuilding
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -1,3 +1,15 @@
++# compilers and tools
++SHELL      := /bin/sh
++CC         ?= gcc
++CXX        ?= g++
++NASM       ?= nasm
++PKG_CONFIG := pkg-config
++RM_F       := rm -f
++
++# Flags
++CFLAGS   += -Wall -pipe
++CXXFLAGS += -Wall -pipe
++
+ # default target
+ all:
+ 
+@@ -49,10 +61,11 @@
+ examples/%$X: LDLIBS += $(OPENGL_LIBS) $(SDL_LIBS)
+ 
+ clean:
+-	$(RM) $(LIB_OBJS) lib/librocket.a lib/librocket-player.a
+-	$(RM) examples/example_bass$X examples/example_bass-player$X
++	$(RM_F) $(LIB_OBJS) lib/librocket.a lib/librocket-player.a
++	$(RM_F) examples/example_bass$X examples/example_bass-player$X
+ 	if test -e editor/Makefile; then $(MAKE) -C editor clean; fi;
+-	$(RM) editor/editor editor/Makefile
++	$(RM_F) editor/editor editor/Makefile
++	$(RM_F) lib/device.player.o lib/track.player.o editor/.qmake.stash
+ 
+ lib/librocket.a: $(LIB_OBJS)
+ 	$(AR) $(ARFLAGS) $@ $^
+@@ -74,3 +87,4 @@
+ 
+ editor: editor/Makefile
+ 	$(MAKE) -C editor
++
+--- a/editor/editor.pro
++++ b/editor/editor.pro
+@@ -2,6 +2,11 @@
+ TARGET = editor
+ DEPENDPATH += .
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++
+ QT = core gui xml network widgets
+ 
+ qtHaveModule(websockets): QT += websockets

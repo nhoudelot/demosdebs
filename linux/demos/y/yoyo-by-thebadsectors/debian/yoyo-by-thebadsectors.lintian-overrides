@@ -1,7 +1,8 @@
 yoyo-by-thebadsectors: unknown-section demos
-yoyo-by-thebadsectors: desktop-entry-lacks-keywords-entry usr/share/applications/yoyo-by-thebadsectors.desktop
-yoyo-by-thebadsectors: embedded-library usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx: glew
-yoyo-by-thebadsectors: embedded-library usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx: tinyxml
-yoyo-by-thebadsectors: hardening-no-pie usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx
-yoyo-by-thebadsectors: hardening-no-relro usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx
-
+yoyo-by-thebadsectors: desktop-entry-lacks-keywords-entry [usr/share/applications/yoyo-by-thebadsectors.desktop]
+yoyo-by-thebadsectors: hardening-no-pie [usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx]
+yoyo-by-thebadsectors: hardening-no-relro [usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx]
+yoyo-by-thebadsectors: embedded-library glew [usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx]
+yoyo-by-thebadsectors: embedded-library tinyxml [usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx]
+yoyo-by-thebadsectors: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx]
+yoyo-by-thebadsectors: hardening-no-fortify-functions [usr/lib/x86_64-linux-gnu/yoyo-by-thebadsectors/tbs-yoyo-linux-64bit.lnx]

@@ -1,3 +1,9 @@
+Description: convert to utf8
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/GestDsk.cpp
 +++ b/src/GestDsk.cpp
 @@ -12,7 +12,7 @@

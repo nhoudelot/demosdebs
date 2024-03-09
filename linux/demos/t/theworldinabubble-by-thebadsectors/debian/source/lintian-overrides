@@ -1,3 +1,3 @@
-theworldinabubble-by-thebadsectors: source-is-missing tbs-bubble-linux-32bit.lnx
-theworldinabubble-by-thebadsectors: source-is-missing tbs-bubble-linux-64bit.lnx
-theworldinabubble-by-thebadsectors: source-contains-prebuilt-windows-binary tbs-bubble.exe
+theworldinabubble-by-thebadsectors: source-is-missing [tbs-bubble-linux-32bit.lnx]
+theworldinabubble-by-thebadsectors: source-is-missing [tbs-bubble-linux-64bit.lnx]
+theworldinabubble-by-thebadsectors: source-contains-prebuilt-windows-binary [tbs-bubble.exe]

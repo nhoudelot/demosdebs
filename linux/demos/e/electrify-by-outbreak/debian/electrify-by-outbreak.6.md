@@ -1,6 +1,6 @@
 % electrify-by-outbreak(6) Electrify User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Outbreak
-% 2018-01-25
+% 2024-04-18
 
 # NAME
 electrify-by-outbreak - the command to run Electrify.
@@ -9,7 +9,8 @@ electrify-by-outbreak - the command to run Electrify.
 electrify-by-outbreak [*options*]
 
 # DESCRIPTION
-Electrify is a demonstration released by Outbreak in 2010.
+Electrify is a demo released by Outbreak in december 2010.
+Ended 3rd at compusphere 2010
 
 Once a year the members of Outbreak gathers to produce a multimeda 
 demonstration for the demo competition at Compusphere. The year 2010 was no
@@ -41,10 +42,11 @@ The demo has no greetings for aesthetic reasons but outbreak like to say hi to:
 See you at compusphere next year!
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=56349
 
 # BUGS
 No known bugs.

@@ -3,18 +3,19 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  pkgconf,
  libgl-dev,
-  libglu1-mesa-dev,
- libsdl1.2-compat-dev
-Standards-Version: 4.6.0.1
+ libglu-dev,
+ libsdl1.2-compat-dev | libsdl1.2-dev
+Standards-Version: 4.6.2
 Homepage: https://320x200.org/2004/4k/
+Rules-Requires-Root: no
 
 Package: fab-by-tharsis
 Architecture: any
 Depends:
- libsdl1.2-compat,
+ libsdl1.2-compat|libsdl1.2debian,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: tharsis 4k Intro/2004/Linux

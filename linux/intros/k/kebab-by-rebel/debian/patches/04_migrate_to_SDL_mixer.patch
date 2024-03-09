@@ -1,6 +1,7 @@
 Description: migrate to SDL_mixer
  Migrate from fmod to SDL_mixer
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-27
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

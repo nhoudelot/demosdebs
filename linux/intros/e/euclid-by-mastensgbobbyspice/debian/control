@@ -3,14 +3,15 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libgl-dev,
  freeglut3-dev|libglut-dev,
  libasound2-dev,
  libvorbis-dev,
  pkgconf
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=61281
+Rules-Requires-Root: no
 
 Package: euclid-by-mastensgbobbyspice
 Architecture: any

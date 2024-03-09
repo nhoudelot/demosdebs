@@ -1,2 +1,2 @@
 vip2: unknown-section demos
-vip2: desktop-entry-lacks-keywords-entry usr/share/applications/vip2.desktop
+vip2: desktop-entry-lacks-keywords-entry [usr/share/applications/vip2.desktop]

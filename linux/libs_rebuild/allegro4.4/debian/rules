@@ -1,0 +1,88 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+# export DH_VERBOSE=1
+
+include /usr/share/dpkg/pkg-info.mk
+
+include /usr/share/dpkg/architecture.mk
+
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS) $(CPPFLAGS)
+CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS) $(CPPFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
+export CXX = $(DEB_HOST_GNU_TYPE)-g++
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
+
+
+# Use this variable to allow options passed to cmake to be overridable.
+# WANT_EXAMPLES and WANT_TESTS are set to ON only to check if they build
+# successfully, as their source is shipped in the doc package.
+DEB_CMAKE_OPTIONS ?= -DCMAKE_VERBOSE_MAKEFILE=ON \
+		-DCMAKE_INSTALL_PREFIX="/usr" \
+		-DLIB_SUFFIX="/$(DEB_HOST_MULTIARCH)" \
+		-DCMAKE_SKIP_RPATH:BOOL=ON \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DWANT_MODULES=ON \
+		-DWANT_ALSA=ON \
+		-DWANT_JACK=OFF \
+		-DWANT_SGIAUDIO=OFF \
+		-DWANT_LINUX_CONSOLE=OFF \
+		-DWANT_ALLEGROGL=ON \
+		-DWANT_LOADPNG=ON \
+		-DWANT_LOGG=ON \
+		-DWANT_JPGALLEG=ON \
+		-DWANT_TOOLS=ON \
+		-DWANT_EXAMPLES=ON \
+		-DWANT_TESTS=ON
+
+# kFreeBSD specific flags, use OSS only on kfreebsd
+ifeq (,$(filter-out kfreebsd,$(DEB_HOST_ARCH_OS)))
+DEB_CMAKE_OPTIONS += -DWANT_OSS=ON
+else
+DEB_CMAKE_OPTIONS += -DWANT_OSS=OFF
+endif
+
+DOC_DIR ?= usr/share/doc/allegro4-doc/
+DOC_INFO_DIR ?= usr/share/info/
+DOC_HTML_DIR ?= usr/share/doc/allegro4-doc/html/
+DOC_EXAMPLES_DIR ?= usr/share/doc/allegro4-doc/examples/
+
+%:
+	dh $@ --builddirectory=build
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(DEB_CMAKE_OPTIONS)
+
+override_dh_auto_install:
+	$(MAKE) --directory=build install DESTDIR=$(CURDIR)/debian/tmp CC=$(DEB_HOST_GNU_TYPE)-gcc
+# Move docs to proper location - fixes FSSTND-dir-in-usr
+	mkdir -p $(CURDIR)/debian/tmp/$(DOC_DIR)
+	mkdir -p $(CURDIR)/debian/tmp/$(DOC_INFO_DIR)
+	mkdir -p $(CURDIR)/debian/tmp/$(DOC_HTML_DIR)
+	mkdir -p $(CURDIR)/debian/tmp/$(DOC_EXAMPLES_DIR)
+	mv $(CURDIR)/debian/tmp/usr/doc/allegro-4.4.3/* $(CURDIR)/debian/tmp/$(DOC_DIR)
+	mv $(CURDIR)/debian/tmp/usr/info/allegro.info $(CURDIR)/debian/tmp/$(DOC_INFO_DIR)
+	cp build/docs/html/* $(CURDIR)/debian/tmp/$(DOC_HTML_DIR)
+	cp $(CURDIR)/docs/txt/changes.txt $(CURDIR)/CHANGES
+# Create examples source tar.gz
+	rm -rf build/tmp; mkdir build/tmp
+	cp examples/*.c examples/*.h examples/*.dat examples/*.pcx examples/*.txt examples/*.ini tests/*.c build/tmp/
+# Glob expansions are sorted in a locale-sensitive manner; set the
+# locale to make the order reproducible.
+	cd build/tmp && (LC_ALL=C; export LC_ALL; GZIP="-9n" tar zcvf source.tar.gz --mtime="$(SOURCE_DATE_EPOCH)" --mode=go=rX,u+rw,a-s *)
+	cp build/tmp/source.tar.gz $(CURDIR)/debian/tmp/$(DOC_EXAMPLES_DIR)
+	rm ${CURDIR}/debian/tmp/usr/doc/allegro-4.4.3/* -rf
+	rm ${CURDIR}/debian/tmp/usr/doc/allegro-4.4.3 -rf
+	rm ${CURDIR}/debian/tmp/usr/share/doc/allegro4-doc/license.txt -rf
+
+override_dh_makeshlibs:
+	dh_makeshlibs -Xalleg-alsadigi.so -Xalleg-alsamidi.so -Xalleg-dga2.so
+
+override_dh_installchangelogs:
+	dh_installchangelogs -k CHANGES
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

@@ -1,6 +1,7 @@
 Description: updating makefile
  updated makefile to make it more compatible with packaging
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)	
+Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Applied-Upstream: no
 Last-Update: 2020-04-19
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -9,31 +10,50 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 @@ -12,8 +12,10 @@
  endif
  
- CITO = cito
--CC = gcc 
+ FUT = fut
+-CC = gcc
 -CFLAGS = -O2 -Wall
-+CC := gcc
++CC ?= gcc
 +PKG_CONFIG := pkg-config
 +CFLAGS += -Wall -pipe
 +LDFLAGS +=
  INSTALL = install
  INSTALL_PROGRAM = $(INSTALL)
  INSTALL_DATA = $(INSTALL) -m 644
-@@ -21,7 +23,7 @@
+@@ -21,15 +23,15 @@
  all: recoil2png $(if $(CAN_INSTALL_MAGICK),imagemagick/recoil.so) recoil-mime.xml
  
  recoil2png: recoil2png.c pngsave.c pngsave.h recoil-stdio.c recoil-stdio.h recoil.c recoil.h
 -	$(CC) $(CFLAGS) recoil2png.c pngsave.c recoil-stdio.c recoil.c -lpng -lz -o $@
-+	$(CC) $(CFLAGS) recoil2png.c pngsave.c recoil-stdio.c recoil.c -o $@ $(shell $(PKG_CONFIG) --libs libpng) $(LDFLAGS)
++	$(CC) -o $@  $(CFLAGS) $(shell $(PKG_CONFIG) --cflags libpng) recoil2png.c pngsave.c recoil-stdio.c recoil.c $(shell $(PKG_CONFIG) --libs libpng) $(LDFLAGS)
+ 
+ file-recoil: file-recoil.c recoil-stdio.c recoil-stdio.h recoil.c recoil.h formats.h
+-	$(CC) $(CFLAGS) `gimptool-2.0 --cflags` file-recoil.c recoil-stdio.c recoil.c -o $@ `gimptool-2.0 --libs`
++	$(CC) -o $@ $(CFLAGS) $(shell gimptool-2.0 --cflags) file-recoil.c recoil-stdio.c recoil.c $(shell gimptool-2.0 --libs)
  
  ifdef CAN_INSTALL_MAGICK
  imagemagick/recoil.so: imagemagick/recoilmagick.c recoil.c recoil.h formats.h
-@@ -43,7 +45,7 @@
- 	$(CITO) -o $*.c $<
+ ifdef MAGICK_INCLUDE_PATH
+-	$(CC) $(CFLAGS) $(MAGICK_CFLAGS) -I$(MAGICK_INCLUDE_PATH) imagemagick/recoilmagick.c recoil.c -shared $(MAGICK_LDFLAGS) -ldl $(MAGICK_LIBS) -o $@
++	$(CC) -o $@ $(CFLAGS) $(MAGICK_CFLAGS) -I$(MAGICK_INCLUDE_PATH) imagemagick/recoilmagick.c recoil.c -shared $(MAGICK_LDFLAGS) -ldl $(MAGICK_LIBS)
+ else
+ 	@echo "\nDetected ImageMagick version $(MAGICK_VERSION) on your system."
+ 	@echo "To build RECOIL coder for ImageMagick,"
+@@ -46,7 +48,7 @@
+ 	$(FUT) -o $*.c $<
  
  benchmark: benchmark.c recoil-stdio.c recoil-stdio.h recoil.c recoil.h
 -	$(CC) $(CFLAGS) benchmark.c recoil-stdio.c recoil.c -o $@
-+	$(CC) $(CFLAGS) benchmark.c recoil-stdio.c recoil.c -o $@ $(LDFLAGS)
++	$(CC) -o $@ $(CFLAGS) benchmark.c recoil-stdio.c recoil.c  $(LDFLAGS)
  
  clean:
- 	rm -f recoil2png imagemagick/recoil.so imagemagick/coder.xml.new formats.h recoil-mime.xml benchmark Xrecoil.usr
+ 	rm -f recoil2png file-recoil imagemagick/recoil.so imagemagick/coder.xml.new formats.h recoil-mime.xml benchmark Xrecoil.usr
+@@ -123,7 +125,7 @@
+ 	done
+ 
+ Xrecoil.usr: Xrecoil.c formats.h recoil-stdio.c recoil-stdio.h recoil.c recoil.h
+-	$(CC) $(CFLAGS) Xrecoil.c recoil-stdio.c recoil.c -shared -fPIC -o $@
++	$(CC) -o $@ $(CFLAGS) Xrecoil.c recoil-stdio.c recoil.c -shared -fPIC
+ 
+ install-xnview: Xrecoil.usr
+ 	mkdir -p $(XNVIEW)/Plugins

@@ -1,6 +1,7 @@
 Description: create makefile & g.h
  create makefile to make it compile with packaging
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-22
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -26,8 +27,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +RM_F ?= rm -f
 +#variables d'instalation
 +INSTALL := install
-+INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
 +prefix          := /usr
 +exec_prefix     := $(prefix)
 +bindir          := $(prefix)/bin

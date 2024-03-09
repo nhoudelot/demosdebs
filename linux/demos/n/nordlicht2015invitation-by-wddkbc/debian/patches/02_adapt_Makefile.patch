@@ -1,6 +1,7 @@
 Description: updating makefile
  updated makefile to make it more compatible with packaging
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2019-12-21
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -22,8 +23,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -$(OUTFILE): k.i.t.t.o scn-cubewall.o scn-end.o scn-forever.o scn-ink.o scn-lazor.o scn-outstorm.o scn-park.o scn-pictures.o scn-rocket.o main.o
 +#variables d’installation
 +INSTALL := install
-+INSTALL_DIR     := $(INSTALL) -p -d -o root -g root  -m  755
-+INSTALL_PROGRAM := $(INSTALL) -p    -o root -g root  -m  755
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
 +INSTALL_DATAR   := cp -r
 +prefix          := /usr
 +exec_prefix     := $(prefix)

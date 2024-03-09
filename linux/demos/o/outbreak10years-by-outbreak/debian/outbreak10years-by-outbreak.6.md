@@ -1,6 +1,6 @@
 % outbreak10years-by-outbreak(6) Outbreak 10 years! User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Outbreak
-% 2016-03-31
+% 2024-04-21
 
 # NAME
 outbreak10years-by-outbreak - is the command to run Outbreak 10 years! 
@@ -9,15 +9,16 @@ outbreak10years-by-outbreak - is the command to run Outbreak 10 years!
 outbreak10years-by-outbreak [*options*]
 
 # DESCRIPTION
-Outbreak 10 years!  is a demonstration released by Outbreak
-Demo by Outbreak, released in 2005
+Outbreak 10 years! is a demo released by Outbreak in june 2005
+Ended 1st at compusphere 2005
+
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
 
+# INFOS
+https://www.pouet.net/prod.php?which=17704
 
 # BUGS
 No known bugs.

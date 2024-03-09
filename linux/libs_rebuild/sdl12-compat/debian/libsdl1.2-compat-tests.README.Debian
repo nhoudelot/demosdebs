@@ -1,0 +1,5 @@
+Some of the tests in this package will only work when the current
+working directory is the directory containing the tests, for example:
+
+    cd /usr/libexec/installed-tests/libsdl1.2-compat
+    ./testalpha

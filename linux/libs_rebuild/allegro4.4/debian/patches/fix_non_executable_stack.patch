@@ -1,0 +1,17 @@
+Description: Fixes assembly files so that the stack isn't marked executable
+Author: Sam Hocevar <sam+deb@zoy.org>
+--- a/src/i386/asmdefs.inc
++++ b/src/i386/asmdefs.inc
+@@ -80,7 +80,11 @@
+  */
+ #define IRQ_STACKS      8
+ 
+-
++/* Tell GCC our stack is not executable
++ */
++#ifdef __ELF__
++.section .note.GNU-stack,"",%progbits
++#endif
+ 
+ #endif   /* ifndef ALLEGRO_ASMDEFS_INC */
+ 

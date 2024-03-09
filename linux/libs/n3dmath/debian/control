@@ -2,10 +2,11 @@ Source: n3dmath
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12)
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
 Section: libdevel
 Homepage: https://thelab.demoscene.gr/nuclear/
+Rules-Requires-Root: no
 
 Package: n3dmath-dev
 Architecture: any

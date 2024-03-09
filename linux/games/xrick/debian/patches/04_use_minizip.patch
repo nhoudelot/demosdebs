@@ -1,3 +1,9 @@
+Description: use minizip includes instead of unzip includes
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/data.c
 +++ b/src/data.c
 @@ -17,7 +17,7 @@

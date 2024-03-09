@@ -1,0 +1,93 @@
+Description: make window resizable
+ make window resizable with correct ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cool_gfx/gfx_sdl.c
++++ b/cool_gfx/gfx_sdl.c
+@@ -14,6 +14,9 @@
+ 
+ #include <SDL2/SDL.h>
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ static SDL_Surface *screen;
+ 
+ static int  doubled,x_size,y_size;
+@@ -22,6 +25,8 @@
+ static SDL_Renderer *sdlRenderer;
+ static SDL_Texture *sdlTexture;
+ 
++Uint32 windowID;
++
+ int gfx_init(int mode,int special)
+ {
+     switch(mode)
+@@ -42,7 +47,7 @@
+ 	x_size=x;
+ 	y_size=y;
+ 
+-	sdlWindow = SDL_CreateWindow("One Day Miracle by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,x*2,y*2,0);
++	sdlWindow = SDL_CreateWindow("One Day Miracle by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,x*2,y*2,SDL_WINDOW_RESIZABLE);
+ 	if(!sdlWindow)
+ 	    return(GFX_ERR_MODE);
+ 	screen = SDL_CreateRGBSurfaceWithFormat(0, x*2, y*2, 32,SDL_PIXELFORMAT_RGB888); //video buffer
+@@ -50,6 +55,8 @@
+ 
+     sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
+     sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,screen); // texture with format from video buffer
++    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
++    windowID = SDL_GetWindowID(sdlWindow);
+     SDL_ShowCursor(SDL_DISABLE);
+     return(GFX_OK);
+ }
+@@ -86,6 +93,34 @@
+     return(GFX_OK);
+ }
+ 
++void resize_window(int w, int h) {
++    SDL_Rect newWindowSize;
++    newWindowSize.x = 0;
++    newWindowSize.y = 0;
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    } else if (w != newWindowSize.w) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (h != newWindowSize.h) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    }
++
++    SDL_Rect viewPort;
++    SDL_RenderGetViewport(sdlRenderer, &viewPort);
++    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++}
++
+ int gfx_exitevent(void)
+ {
+ 	SDL_Event e;
+@@ -100,6 +135,11 @@
+ 			case SDLK_q: return(1); break;
+ 		    }
+ 		}
++		if (e.window.windowID == windowID)  {
++			if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
++			    resize_window(e.window.data1,e.window.data2);
++			}
++		}
+ 	    }
+ 	return(0);
+ }

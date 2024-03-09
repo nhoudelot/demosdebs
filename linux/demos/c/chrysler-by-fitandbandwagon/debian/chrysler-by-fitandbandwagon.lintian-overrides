@@ -1,2 +1,2 @@
 chrysler-by-fitandbandwagon: unknown-section demos
-chrysler-by-fitandbandwagon: desktop-entry-lacks-keywords-entry usr/share/applications/chrysler-by-fitandbandwagon.desktop
+chrysler-by-fitandbandwagon: desktop-entry-lacks-keywords-entry [usr/share/applications/chrysler-by-fitandbandwagon.desktop]

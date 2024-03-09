@@ -1,3 +1,10 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging & crossbuilding
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2024-03-10
+Applied-Upstream: no
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -9,27 +9,29 @@

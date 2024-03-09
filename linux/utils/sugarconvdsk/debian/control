@@ -3,14 +3,17 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  cmake (>=3.1.3),
  zlib1g-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://github.com/Tom1975/SugarConvDsk
+Rules-Requires-Root: no
 
 Package: sugarconvdsk
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
 Description: Convert any Amstrad CPC dump file format to other format
  Tool to convert any Amstrad CPC dump file format to another format

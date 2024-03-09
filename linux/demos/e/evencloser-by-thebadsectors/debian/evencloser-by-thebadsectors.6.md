@@ -1,6 +1,6 @@
 % evencloser-by-thebadsectors(6) Even Closer User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),The Bad Sectors
-% 2016-12-24
+% 2024-04-18
 
 # NAME
 evencloser-by-thebadsectors - is the command to run Even Closer 
@@ -9,14 +9,15 @@ evencloser-by-thebadsectors - is the command to run Even Closer
 evencloser-by-thebadsectors [*options*]
 
 # DESCRIPTION
-Even Closer  is a demonstration released by The Bad Sectors
-Demo by The Bad Sectors, released in 2009
+Even Closer is a demo released by The Bad Sectors released in september 2009
+Ended 4th at Function 2009
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=53907
 
 # BUGS
 No known bugs.

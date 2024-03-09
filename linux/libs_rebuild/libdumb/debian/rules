@@ -1,0 +1,71 @@
+#!/usr/bin/make -f
+# debian/rules for libdumb - uses debhelper.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+CFLAGS  := $(shell dpkg-buildflags --get CFLAGS)
+LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
+export CXX = $(DEB_HOST_GNU_TYPE)-g++
+
+# Compilation options
+export CONFIG_FLAGS="--prefix=/usr"
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_clean:
+	$(MAKE) veryclean CC=$(DEB_HOST_GNU_TYPE)-gcc
+	rm -f `find -name '*.a'` make/dumbask make/config.txt
+	rm -Rf obj/unix/release/ lib/unix/
+	rm -f libdumb.so.1.0.0 libaldmb.so.1.0.0 libdumb.a libaldmb.a
+	dh_auto_clean
+
+override_dh_auto_build:
+	echo 'include make/unix.inc' > make/config.txt
+	echo 'ALL_TARGETS := core core-examples core-headers' >> make/config.txt
+	echo 'ALL_TARGETS += allegro allegro-examples allegro-headers' >> make/config.txt
+	echo 'PREFIX := /usr' >> make/config.txt
+	mkdir -p obj/unix/release/
+	mkdir -p lib/unix/
+	$(MAKE) lib/unix/libdumb.a CC=$(DEB_HOST_GNU_TYPE)-gcc
+	$(MAKE) lib/unix/libaldmb.a CC=$(DEB_HOST_GNU_TYPE)-gcc
+	cp lib/unix/libdumb.a .
+	cp lib/unix/libaldmb.a .
+	$(MAKE) clean
+	$(MAKE) lib/unix/libdumb.a CFLAGS_EXTRA=-fPIC CC=$(DEB_HOST_GNU_TYPE)-gcc
+	$(MAKE) lib/unix/libaldmb.a CFLAGS_EXTRA=-fPIC CC=$(DEB_HOST_GNU_TYPE)-gcc
+	$(CC) $(CFLAGS) $(LDFLAGS) -Wl,-soname,libdumb.so.1 -shared `sed -ne '/^CORE_MODULES :=/,/c$$/p' < Makefile | sed -e 's,\\\\,,' -e 's,.*/\\(.*\\)\\.c,obj/unix/release/\\1.o,' | tail -n +2` -o libdumb.so.1.0.0 -lm -lc
+	ln -s libdumb.so.1.0.0 libdumb.so
+	$(CC) $(CFLAGS) $(LDFLAGS) -Wl,-soname,libaldmb.so.1 -shared `sed -ne '/^ALLEGRO_MODULES :=/,/c$$/p' < Makefile | sed -e 's,\\\\,,' -e 's,.*/\\(.*\\)\\.c,obj/unix/release/\\1.o,' | tail -n +2` -o libaldmb.so.1.0.0 -L. -ldumb `allegro-config --libs` -lm -lc
+	rm -f libdumb.so
+
+override_dh_auto_install:
+	dh_install -plibdumb1 libdumb.so.1.0.0 usr/lib/$(DEB_HOST_MULTIARCH)
+	dh_install -plibaldmb1 libaldmb.so.1.0.0 usr/lib/$(DEB_HOST_MULTIARCH)
+	dh_install -plibdumb1-dev libdumb.a usr/lib/$(DEB_HOST_MULTIARCH)
+	dh_install -plibaldmb1-dev libaldmb.a usr/lib/$(DEB_HOST_MULTIARCH)
+	dh_install -plibdumb1-dev include/dumb.h usr/include
+	dh_install -plibaldmb1-dev include/aldumb.h usr/include
+
+override_dh_link:
+	dh_link -plibdumb1 usr/lib/$(DEB_HOST_MULTIARCH)/libdumb.so.1.0.0 usr/lib/$(DEB_HOST_MULTIARCH)/libdumb.so.1
+	dh_link -plibdumb1-dev usr/lib/$(DEB_HOST_MULTIARCH)/libdumb.so.1 usr/lib/$(DEB_HOST_MULTIARCH)/libdumb.so
+	dh_link -plibaldmb1 usr/lib/$(DEB_HOST_MULTIARCH)/libaldmb.so.1.0.0 usr/lib/$(DEB_HOST_MULTIARCH)/libaldmb.so.1
+	dh_link -plibaldmb1-dev usr/lib/$(DEB_HOST_MULTIARCH)/libaldmb.so.1 usr/lib/$(DEB_HOST_MULTIARCH)/libaldmb.so
+
+override_dh_installdocs:
+	dh_installdocs -plibdumb1
+	dh_installdocs -plibaldmb1
+	dh_installdocs -plibdumb1-dev --link-doc=libdumb1
+	dh_installdocs -plibaldmb1-dev --link-doc=libdumb1
+
+override_dh_installchangelogs:
+	dh_installchangelogs release.txt
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

@@ -1,0 +1,236 @@
+libSDL-1.2.so.0 libsdl1.2debian (>= 1.2.15)
+| libsdl1.2-compat-shim #MINVER#
+* Build-Depends-Package: libsdl1.2-compat-dev
+ SDL_AddTimer@Base 1.2.15
+ SDL_AllocRW@Base 1.2.15
+ SDL_AudioDriverName@Base 1.2.15
+ SDL_AudioInit@Base 1.2.15
+ SDL_AudioQuit@Base 1.2.15
+ SDL_BuildAudioCVT@Base 1.2.15
+ SDL_CDClose@Base 1.2.15
+ SDL_CDEject@Base 1.2.15
+ SDL_CDName@Base 1.2.15
+ SDL_CDNumDrives@Base 1.2.15
+ SDL_CDOpen@Base 1.2.15
+ SDL_CDPause@Base 1.2.15
+ SDL_CDPlay@Base 1.2.15
+ SDL_CDPlayTracks@Base 1.2.15
+ SDL_CDResume@Base 1.2.15
+ SDL_CDStatus@Base 1.2.15
+ SDL_CDStop@Base 1.2.15
+ SDL_ClearError@Base 1.2.15
+ SDL_CloseAudio@Base 1.2.15
+ SDL_CondBroadcast@Base 1.2.15
+ SDL_CondSignal@Base 1.2.15
+ SDL_CondWait@Base 1.2.15
+ SDL_CondWaitTimeout@Base 1.2.15
+ SDL_ConvertAudio@Base 1.2.15
+ SDL_ConvertSurface@Base 1.2.15
+ SDL_CreateCond@Base 1.2.15
+ SDL_CreateCursor@Base 1.2.15
+ SDL_CreateMutex@Base 1.2.15
+ SDL_CreateRGBSurface@Base 1.2.15
+ SDL_CreateRGBSurfaceFrom@Base 1.2.15
+ SDL_CreateSemaphore@Base 1.2.15
+ SDL_CreateThread@Base 1.2.15
+ SDL_CreateYUVOverlay@Base 1.2.15
+ SDL_Delay@Base 1.2.15
+ SDL_DestroyCond@Base 1.2.15
+ SDL_DestroyMutex@Base 1.2.15
+ SDL_DestroySemaphore@Base 1.2.15
+ SDL_DisplayFormat@Base 1.2.15
+ SDL_DisplayFormatAlpha@Base 1.2.15
+ SDL_DisplayYUVOverlay@Base 1.2.15
+ SDL_EnableKeyRepeat@Base 1.2.15
+ SDL_EnableUNICODE@Base 1.2.15
+ SDL_Error@Base 1.2.15
+ SDL_EventState@Base 1.2.15
+ SDL_FillRect@Base 1.2.15
+ SDL_Flip@Base 1.2.15
+ SDL_FreeCursor@Base 1.2.15
+ SDL_FreeRW@Base 1.2.15
+ SDL_FreeSurface@Base 1.2.15
+ SDL_FreeWAV@Base 1.2.15
+ SDL_FreeYUVOverlay@Base 1.2.15
+ SDL_GL_DisableContext@Base 1.2.52 1
+ SDL_GL_EnableContext_Thread@Base 1.2.52 1
+ SDL_GL_GetAttribute@Base 1.2.15
+ SDL_GL_GetProcAddress@Base 1.2.15
+ SDL_GL_LoadLibrary@Base 1.2.15
+ SDL_GL_Lock@Base 1.2.15
+ SDL_GL_SetAttribute@Base 1.2.15
+ SDL_GL_SwapBuffers@Base 1.2.15
+ SDL_GL_Unlock@Base 1.2.15
+ SDL_GL_UpdateRects@Base 1.2.15
+ SDL_GetAppState@Base 1.2.15
+ SDL_GetAudioStatus@Base 1.2.15
+ SDL_GetClipRect@Base 1.2.15
+ SDL_GetCursor@Base 1.2.15
+ SDL_GetError@Base 1.2.15
+ SDL_GetEventFilter@Base 1.2.15
+ SDL_GetGammaRamp@Base 1.2.15
+ SDL_GetKeyName@Base 1.2.15
+ SDL_GetKeyRepeat@Base 1.2.15
+ SDL_GetKeyState@Base 1.2.15
+ SDL_GetModState@Base 1.2.15
+ SDL_GetMouseState@Base 1.2.15
+ SDL_GetRGB@Base 1.2.15
+ SDL_GetRGBA@Base 1.2.15
+ SDL_GetRelativeMouseState@Base 1.2.15
+ SDL_GetThreadID@Base 1.2.15
+ SDL_GetTicks@Base 1.2.15
+ SDL_GetVideoInfo@Base 1.2.15
+ SDL_GetVideoSurface@Base 1.2.15
+ SDL_GetWMInfo@Base 1.2.15
+ SDL_Has3DNow@Base 1.2.15
+ SDL_Has3DNowExt@Base 1.2.15
+ SDL_HasAltiVec@Base 1.2.15
+ SDL_HasMMX@Base 1.2.15
+ SDL_HasMMXExt@Base 1.2.15
+ SDL_HasRDTSC@Base 1.2.15
+ SDL_HasSSE2@Base 1.2.15
+ SDL_HasSSE@Base 1.2.15
+ SDL_Init@Base 1.2.15
+ SDL_InitSubSystem@Base 1.2.15
+ SDL_JoystickClose@Base 1.2.15
+ SDL_JoystickEventState@Base 1.2.15
+ SDL_JoystickGetAxis@Base 1.2.15
+ SDL_JoystickGetBall@Base 1.2.15
+ SDL_JoystickGetButton@Base 1.2.15
+ SDL_JoystickGetHat@Base 1.2.15
+ SDL_JoystickIndex@Base 1.2.15
+ SDL_JoystickName@Base 1.2.15
+ SDL_JoystickNumAxes@Base 1.2.15
+ SDL_JoystickNumBalls@Base 1.2.15
+ SDL_JoystickNumButtons@Base 1.2.15
+ SDL_JoystickNumHats@Base 1.2.15
+ SDL_JoystickOpen@Base 1.2.15
+ SDL_JoystickOpened@Base 1.2.15
+ SDL_JoystickUpdate@Base 1.2.15
+ SDL_KillThread@Base 1.2.15
+ SDL_Linked_Version@Base 1.2.15
+ SDL_ListModes@Base 1.2.15
+ SDL_LoadBMP_RW@Base 1.2.15
+ SDL_LoadFunction@Base 1.2.15
+ SDL_LoadObject@Base 1.2.15
+ SDL_LoadWAV_RW@Base 1.2.15
+ SDL_LockAudio@Base 1.2.15
+ SDL_LockSurface@Base 1.2.15
+ SDL_LockYUVOverlay@Base 1.2.15
+ SDL_LowerBlit@Base 1.2.15
+ SDL_MapRGB@Base 1.2.15
+ SDL_MapRGBA@Base 1.2.15
+ SDL_MixAudio@Base 1.2.15
+ SDL_NumJoysticks@Base 1.2.15
+ SDL_OpenAudio@Base 1.2.15
+ SDL_PauseAudio@Base 1.2.15
+ SDL_PeepEvents@Base 1.2.15
+ SDL_PollEvent@Base 1.2.15
+ SDL_PumpEvents@Base 1.2.15
+ SDL_PushEvent@Base 1.2.15
+ SDL_Quit@Base 1.2.15
+ SDL_QuitSubSystem@Base 1.2.15
+ SDL_RWFromConstMem@Base 1.2.15
+ SDL_RWFromFP@Base 1.2.15
+ SDL_RWFromFile@Base 1.2.15
+ SDL_RWFromMem@Base 1.2.15
+ SDL_ReadBE16@Base 1.2.15
+ SDL_ReadBE32@Base 1.2.15
+ SDL_ReadBE64@Base 1.2.15
+ SDL_ReadLE16@Base 1.2.15
+ SDL_ReadLE32@Base 1.2.15
+ SDL_ReadLE64@Base 1.2.15
+ SDL_RemoveTimer@Base 1.2.15
+ SDL_SaveBMP_RW@Base 1.2.15
+ SDL_SemPost@Base 1.2.15
+ SDL_SemTryWait@Base 1.2.15
+ SDL_SemValue@Base 1.2.15
+ SDL_SemWait@Base 1.2.15
+ SDL_SemWaitTimeout@Base 1.2.15
+ SDL_SetAlpha@Base 1.2.15
+ SDL_SetClipRect@Base 1.2.15
+ SDL_SetColorKey@Base 1.2.15
+ SDL_SetColors@Base 1.2.15
+ SDL_SetCursor@Base 1.2.15
+ SDL_SetError@Base 1.2.15
+ SDL_SetEventFilter@Base 1.2.15
+ SDL_SetGamma@Base 1.2.15
+ SDL_SetGammaRamp@Base 1.2.15
+ SDL_SetModState@Base 1.2.15
+ SDL_SetPalette@Base 1.2.15
+ SDL_SetTimer@Base 1.2.15
+ SDL_SetVideoMode@Base 1.2.15
+ SDL_ShowCursor@Base 1.2.15
+ SDL_SoftStretch@Base 1.2.15
+ SDL_ThreadID@Base 1.2.15
+ SDL_UnloadObject@Base 1.2.15
+ SDL_UnlockAudio@Base 1.2.15
+ SDL_UnlockSurface@Base 1.2.15
+ SDL_UnlockYUVOverlay@Base 1.2.15
+ SDL_UpdateRect@Base 1.2.15
+ SDL_UpdateRects@Base 1.2.15
+ SDL_UpperBlit@Base 1.2.15
+ SDL_VideoDriverName@Base 1.2.15
+ SDL_VideoInit@Base 1.2.15
+ SDL_VideoModeOK@Base 1.2.15
+ SDL_VideoQuit@Base 1.2.15
+ SDL_WM_GetCaption@Base 1.2.15
+ SDL_WM_GrabInput@Base 1.2.15
+ SDL_WM_IconifyWindow@Base 1.2.15
+ SDL_WM_SetCaption@Base 1.2.15
+ SDL_WM_SetIcon@Base 1.2.15
+ SDL_WM_ToggleFullScreen@Base 1.2.15
+ SDL_WaitEvent@Base 1.2.15
+ SDL_WaitThread@Base 1.2.15
+ SDL_WarpMouse@Base 1.2.15
+ SDL_WasInit@Base 1.2.15
+ SDL_WriteBE16@Base 1.2.15
+ SDL_WriteBE32@Base 1.2.15
+ SDL_WriteBE64@Base 1.2.15
+ SDL_WriteLE16@Base 1.2.15
+ SDL_WriteLE32@Base 1.2.15
+ SDL_WriteLE64@Base 1.2.15
+ SDL_calloc@Base 1.2.52 1
+ SDL_free@Base 1.2.52 1
+ SDL_getenv@Base 1.2.52 1
+ SDL_iconv@Base 1.2.15
+ SDL_iconv_close@Base 1.2.52 1
+ SDL_iconv_open@Base 1.2.52 1
+ SDL_iconv_string@Base 1.2.15
+ SDL_lltoa@Base 1.2.15
+ SDL_ltoa@Base 1.2.15
+ SDL_malloc@Base 1.2.52 1
+ SDL_memcmp@Base 1.2.52 1
+ SDL_memcpy@Base 1.2.52 1
+ SDL_memset@Base 1.2.52 1
+ SDL_mutexP@Base 1.2.15
+ SDL_mutexV@Base 1.2.15
+ SDL_putenv@Base 1.2.52 1
+ SDL_qsort@Base 1.2.52 1
+ SDL_realloc@Base 1.2.52 1
+ SDL_revcpy@Base 1.2.52 1
+ SDL_snprintf@Base 1.2.52 1
+ SDL_sscanf@Base 1.2.52 1
+ SDL_strcasecmp@Base 1.2.52 1
+ SDL_strchr@Base 1.2.52 1
+ SDL_strcmp@Base 1.2.52 1
+ SDL_strdup@Base 1.2.52 1
+ SDL_strlcat@Base 1.2.15
+ SDL_strlcpy@Base 1.2.15
+ SDL_strlen@Base 1.2.52 1
+ SDL_strlwr@Base 1.2.15
+ SDL_strncasecmp@Base 1.2.52 1
+ SDL_strncmp@Base 1.2.52 1
+ SDL_strrchr@Base 1.2.52 1
+ SDL_strrev@Base 1.2.15
+ SDL_strstr@Base 1.2.52 1
+ SDL_strtod@Base 1.2.52 1
+ SDL_strtol@Base 1.2.52 1
+ SDL_strtoll@Base 1.2.52 1
+ SDL_strtoul@Base 1.2.52 1
+ SDL_strtoull@Base 1.2.52 1
+ SDL_strupr@Base 1.2.15
+ SDL_ulltoa@Base 1.2.15
+ SDL_ultoa@Base 1.2.15
+ SDL_vsnprintf@Base 1.2.52 1
+ X11_KeyToUnicode@Base 1.2.52 1

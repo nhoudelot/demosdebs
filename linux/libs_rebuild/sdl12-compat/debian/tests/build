@@ -1,0 +1,76 @@
+#!/bin/sh
+# Copyright 2022 Collabora Ltd
+# SPDX-License-Identifier: Zlib
+
+set -eux
+
+if [ -n "${DEB_HOST_GNU_TYPE:-}" ]; then
+    CROSS_COMPILE="$DEB_HOST_GNU_TYPE-"
+else
+    CROSS_COMPILE=
+fi
+
+export PKG_CONFIG="${CROSS_COMPILE}pkg-config"
+
+cd "$AUTOPKGTEST_TMP"
+cat <<EOF > use-sdl.c
+#undef NDEBUG
+#include <assert.h>
+
+#include <SDL.h>
+
+int main(void)
+{
+    const SDL_version *linked;
+    Uint32 flags;
+
+    flags = SDL_WasInit(SDL_INIT_EVERYTHING);
+    assert(flags == 0);
+
+    linked = SDL_Linked_Version();
+
+    assert(SDL_COMPILEDVERSION >= SDL_VERSIONNUM(1, 2, 0));
+    assert(linked->major == 1);
+
+    return 0;
+}
+EOF
+
+for tool in pkg-config pc-compat sdl-config; do
+    for cc in "${CROSS_COMPILE}gcc" clang; do
+        cflags=
+
+        case "$cc" in
+        (clang)
+            cflags="$cflags ${DEB_HOST_GNU_TYPE:+--target="${DEB_HOST_GNU_TYPE}"}"
+            ;;
+        esac
+
+        exe="use-${tool}-${cc}"
+
+        case "$tool" in
+        (pkg-config)
+            # Deliberately word-splitting cflags, pcflags, pkg-config output
+            # shellcheck disable=SC2046,SC2086
+            "$cc" $cflags -o "${exe}" use-sdl.c $("$PKG_CONFIG" --cflags --libs sdl)
+            ;;
+        (pc-compat)
+            # Deliberately word-splitting cflags, pcflags, pkg-config output
+            # shellcheck disable=SC2046,SC2086
+            "$cc" $cflags -o "${exe}" use-sdl.c $("$PKG_CONFIG" --cflags --libs sdl12_compat)
+            ;;
+        (sdl-config)
+            # shellcheck disable=SC2046,SC2086
+            "$cc" $cflags -o "${exe}" use-sdl.c $(sdl-config --cflags --libs)
+            ;;
+        (*)
+            exit 1
+            ;;
+        esac
+
+        echo "build (with $tool, $cc): OK"
+        [ -x "${exe}" ]
+        ./"${exe}"
+        echo "run (with $tool, $cc): OK"
+    done
+done

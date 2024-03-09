@@ -2,7 +2,8 @@ Description: change to a bigger resolution, remove fullscreen
  the app was made at a time when screens were not so big
  and the app start only in fullscreen
  that could be annoying, so we start in windowed mode
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-30
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

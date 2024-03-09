@@ -1,3 +1,10 @@
+pinp-by-faemiyah (1.0+git20170414-0ddebs7) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Mar 2024 11:04:03 +0100
+
 pinp-by-faemiyah (1.0+git20170414-0ddebs6) unstable; urgency=medium
 
   * since Debian 12, build depend from freeglut3-dev or libglut-dev

@@ -1,8 +1,0 @@
-js/package.json usr/lib/nodejs/rocket/
-js/src/jsRocket.js usr/lib/nodejs/rocket/lib/
-js/src/syncdata.js usr/lib/nodejs/rocket/lib/
-js/src/syncdevice.js usr/lib/nodejs/rocket/lib/
-js/src/syncdeviceclient.js usr/lib/nodejs/rocket/lib/
-js/src/syncdeviceplayer.js usr/lib/nodejs/rocket/lib/
-js/src/synctrack.js usr/lib/nodejs/rocket/lib/
-./js/example usr/share/rocket-sync-tracker/js/

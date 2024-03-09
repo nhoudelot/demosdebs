@@ -1,3 +1,9 @@
+Description: fix Magick++ include path
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/texture.h
 +++ b/texture.h
 @@ -5,7 +5,7 @@

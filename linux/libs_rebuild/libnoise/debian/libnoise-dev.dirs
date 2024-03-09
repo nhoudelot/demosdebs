@@ -1,0 +1,7 @@
+usr/lib
+usr/include/libnoise
+usr/include/libnoise/module
+usr/include/libnoise/model
+usr/share/doc/libnoise-dev/html
+usr/share/doc/libnoise-dev/examples
+usr/share/doc/libnoise-dev/noiseutils

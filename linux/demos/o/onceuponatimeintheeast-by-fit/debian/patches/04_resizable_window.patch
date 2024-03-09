@@ -1,24 +1,64 @@
 Description: make window resizable
  make window resizable with correct ratio
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-30
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -48,6 +48,9 @@
+@@ -48,6 +48,11 @@
  
  #endif
  
 +#define DEMO_XASPECT 4.0f
 +#define DEMO_YASPECT 3.0f
 +
++SDL_Renderer *sdlRenderer;
++
  // From png's RGBA to SDL's ARGB
  void fixrgba(PNG *s,char to16)
  {
-@@ -287,11 +290,13 @@
+@@ -92,6 +97,34 @@
+ #endif
+ }
+ 
++void resize_window(int w, int h) {
++    SDL_Rect newWindowSize;
++    newWindowSize.x = 0;
++    newWindowSize.y = 0;
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    } else if (w != newWindowSize.w) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (h != newWindowSize.h) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    }
++
++    SDL_Rect viewPort;
++    SDL_RenderGetViewport(sdlRenderer, &viewPort);
++    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++}
++
+ /* LSB <-> MSB 32-bit */
+ void swap(int *d,int units)
+ {
+@@ -285,13 +318,14 @@
+ 
+ #ifdef DOUBLEPIX
  	SDL_Window *sdlWindow;
- 	SDL_Renderer *sdlRenderer;
+-	SDL_Renderer *sdlRenderer;
  	SDL_Texture *sdlTexture;
 -	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_SWSURFACE+fullscreen);
 +	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
@@ -31,7 +71,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #else
  
    #ifdef HICOLOR
-@@ -718,6 +723,40 @@
+@@ -718,6 +752,14 @@
  					case SDLK_SPACE: fast_forward = 0; break;
  				}
  			}
@@ -39,33 +79,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +			{
 +				if (e.window.windowID == windowID)  {
 +					if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
-+						SDL_Rect newWindowSize;
-+						int w = e.window.data1;
-+						int h = e.window.data2;
-+						newWindowSize.x=0;
-+						newWindowSize.y=0;
-+
-+						float aspect = (float)w / (float)h;
-+						if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
-+						    newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+						    newWindowSize.x += (w - newWindowSize.w) / 2;
-+						    newWindowSize.h = h;
-+						} else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
-+						    newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+						    newWindowSize.y += (h - newWindowSize.h) / 2;
-+						    newWindowSize.w = w;
-+						} else if (w != newWindowSize.w) {
-+						    newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+						    newWindowSize.x += (w - newWindowSize.w) / 2;
-+						    newWindowSize.h = h;
-+						} else if (h != newWindowSize.h) {
-+						    newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+						    newWindowSize.y += (h - newWindowSize.h) / 2;
-+						    newWindowSize.w = w;
-+						}
-+						SDL_Rect viewPort;
-+						SDL_RenderGetViewport(sdlRenderer, &viewPort);
-+						SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++						resize_window(e.window.data1,e.window.data2);
 +					}
 +				}
 +			}

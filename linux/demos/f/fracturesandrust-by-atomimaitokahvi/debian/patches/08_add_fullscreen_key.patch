@@ -1,26 +1,13 @@
 Description: better fullscreen
  update fullscreen function, to make go fullscreen and back, with the same key
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-29
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -39,6 +39,13 @@
- #define DEMO_XASPECT 4.0f
- #define DEMO_YASPECT 3.0f
- 
-+void ToggleFullscreen(SDL_Window* Window) {
-+	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
-+	int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
-+	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
-+	SDL_ShowCursor(IsFullscreen);
-+}
-+
- 
- int
- main(int argc, char *argv[])
-@@ -201,6 +208,7 @@
+@@ -201,6 +201,7 @@
  				switch (event.key.keysym.sym) {
  					case SDLK_ESCAPE:goto terminate; break;
  					case SDLK_q: goto terminate; break;
@@ -28,11 +15,24 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  				}
  			}
  			if (event.window.windowID == windowID)  {
-@@ -254,6 +262,7 @@
- 	return 0;
+@@ -256,6 +257,12 @@
+     SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
+ }
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(isFullscreen);
++}
+ 
+ void
+ write_pnm(Uint8 *pixels)
+@@ -493,6 +500,7 @@
+ 	}
  }
  
 +
  void
- write_pnm(Uint8 *pixels)
+ nothing(im_t *buf)
  {

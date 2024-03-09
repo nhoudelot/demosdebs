@@ -1,3 +1,10 @@
+thespelltheritualtheanthem-by-wildbashkortmages (1.0-0ddebs6) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 24 Apr 2024 00:29:21 +0200
+
 thespelltheritualtheanthem-by-wildbashkortmages (1.0-0ddebs5) unstable; urgency=medium
 
   * add build dependecy to libglu1-mesa for debian 12

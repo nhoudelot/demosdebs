@@ -1,0 +1,287 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -1,65 +1,68 @@
+ # Possible platforms: linux/irix/osx/win32
++SHELL = /bin/sh
+ PLATFORM = linux
+ # Endianness: LITTLE/BIG (x86,Alpha/MIPS,PPC,SPARC etc.)
+ ENDIAN = LITTLE
+ 
+-MAKE = make
+ RANLIB = ranlib
+-EXE = miracle
+-
+-ifeq ($(PLATFORM),osx)
+-INC = -I./vecsys -I/usr/local/include/SDL
+-SDL = `/usr/local/bin/sdl-config --libs`
+-CC = cc
+-endif
+-
+-ifeq ($(PLATFORM),win32)
+-INC = -I./vecsys -I/usr/include/SDL
+-SDL = -lSDL
+-CC = gcc
+-EXE = miracle.exe
+-endif
++TARGET = onedaymiracle-by-fit
+ 
+ ifeq ($(PLATFORM),linux)
+ INC = -I./vecsys -I/usr/include/SDL
+-SDL = `sdl-config --libs`
+-CC = gcc
++SDL = $(shell $(PKG_CONFIG) --libs sdl)
++CC := gcc
++PKG_CONFIG:=pkg-config
+ endif
+ 
+-ifeq ($(PLATFORM),irix)
+-INC = -I./vecsys -I/usr/local/include/SDL
+-SDL = `sdl-config --libs`
+-CC = gcc
+-MAKE = gmake
+-RANLIB = echo
+-endif
+-
+-LIB = -lm
+-OPT = -O2 -ffast-math -D$(ENDIAN)
++LDFLAGS += -lm
++CFLAGS += -Wall -D$(ENDIAN) $(shell $(PKG_CONFIG) --cflags sdl) -std=gnu90 -pipe
+ COOL = cool_mzx/cool_mzx.a cool_gfx/cool_gfx.a
+ OBJ = main.o venkula.o data.o maf.o feidi.o panorama.o suumi.o halftone.o \
+       flarex.o ranta.o
+ 
+-export CC
+-export RANLIB
++RM_F = rm -f
++INSTALL = install
++INSTALL_FILE    = $(INSTALL) -p    -m  644
++INSTALL_PROGRAM = $(INSTALL) -p    -m  755
++INSTALL_SCRIPT  = $(INSTALL) -p    -m  755
++INSTALL_DIR     = $(INSTALL) -p -d -m  755
++PREFIX          = /usr
++EXEC_PREFIX     = $(PREFIX)
++BINDIR          = $(EXEC_PREFIX)/bin
++SHAREDIR        = $(EXEC_PREFIX)/share
++TARGETSHAREDIR  = $(EXEC_PREFIX)/share/onedaymiracle-by-fit
++
++ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
++ MAKEFLAGS += -j$(NUMJOBS)
++endif
++
++export
+ 
+-miracle: $(OBJ) vecsys/vecsys.a $(COOL)
+-	$(CC) -o $@ $(OBJ) vecsys/vecsys.a $(COOL) $(SDL) $(LIB)
++all: $(TARGET)
++
++$(TARGET): $(OBJ) vecsys/vecsys.a $(COOL)
++	$(CC) -o $@ $(OBJ) vecsys/vecsys.a $(COOL) $(SDL) $(LDFLAGS)
+ 
+ vecsys/vecsys.a:
+-	cd vecsys && $(MAKE)
++	cd vecsys && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
+ 
+ cool_mzx/cool_mzx.a:
+-	cd cool_mzx && $(MAKE)
++	cd cool_mzx && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
+ 
+ cool_gfx/cool_gfx.a:
+-	cd cool_gfx && $(MAKE)
++	cd cool_gfx  && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
+ 
+ %.o: %.c
+-	$(CC) $(OPT) $(INC) -c $<
++	$(CC) $(CFLAGS) $(INC) -c $<
+ 
+ clean:
+-	rm *.o $(EXE)
++	-@$(RM_F) *.o $(TARGET)
+ 	cd vecsys && $(MAKE) clean
+ 	cd cool_mzx && $(MAKE) clean
+ 	cd cool_gfx && $(MAKE) clean
++
++install: $(TARGET)$(EXEEXT)
++	$(INSTALL_DIR) $(DESTDIR)$(BINDIR)
++	-@$(RM_F) $(DESTDIR)$(BINDIR)/$(TARGET)$(EXEEXT)
++	$(INSTALL_PROGRAM) $(TARGET)$(EXEEXT) $(DESTDIR)$(BINDIR)
+--- a/cool_gfx/Makefile
++++ b/cool_gfx/Makefile
+@@ -1,11 +1,13 @@
+ # Select platform (i386linux/anylinux/solaris/irix/hpsux/dos/w32/sdl)
+-TARGET=sdl
++TARGET:=sdl
++PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
+ 
+ # Usual parameters for x86-GCC
+ ASM=nasm
+-COPT=-O2 -ffast-math
++CFLAGS+= -Wall -std=gnu90 -pipe
+ AR=ar
+ OWNOBJ=blit32a.o
++RM_F=rm -f
+ 
+ # i386 Linux specific
+ ifeq ($(TARGET),i386linux)
+@@ -14,7 +16,7 @@
+ ifeq ($(GTARGET),x11)
+ CDEF=-DLINUX -DX11
+ OWNOBJ+= gfx_x.o
+-KOE=-L/usr/X11R6/lib -lX11 
++KOE=-L/usr/X11R6/lib -lX11
+ # Uncomment for Shm
+ CDEF+=-DX_SHM
+ KOE+=-lXext
+@@ -42,6 +44,7 @@
+ # Uncomment for DGA
+ # CDEF+=-DX_DGA
+ # KOE+=-lXxf86vm -lXxf86dga -lXext
++RM = rm -f
+ endif
+ 
+ # Solaris specific
+@@ -55,27 +58,6 @@
+ KOE+=-lXext
+ endif
+ 
+-# IRIX specific
+-ifeq ($(TARGET),irix)
+-ASM=
+-CDEF=-DLINUX -DX11
+-OWNOBJ=gfx_x.o blit32c.o
+-KOE=-L/usr/lib/X11 -lX11
+-# Uncomment for Shm
+-CDEF+=-DX_SHM
+-KOE+=-lXext
+-endif
+-
+-# HP-SUX specific
+-ifeq ($(TARGET),hpsux)
+-ASM=
+-CDEF=-DLINUX -DX11 -I/usr/include/X11R6
+-OWNOBJ=gfx_x.o blit32c.o
+-KOE=-L/usr/lib/X11 -lX11
+-# Uncomment for Shm
+-CDEF+=-DX_SHM
+-KOE+=-lXext
+-endif
+ 
+ # DJGPP specific
+ ifeq ($(TARGET),dos)
+@@ -96,44 +78,37 @@
+ RM=rm
+ endif
+ 
+-# W32 specific
+-ifeq ($(TARGET),w32)
+-CDEF=-DW32
+-ASMOPT=-f win32 -dUNDERSCORE
+-RM=del
+-endif
+ 
+ cool_gfx.a: blit32.o $(OWNOBJ)
+-	$(AR) rc cool_gfx.a blit32.o $(OWNOBJ)
+-	$(RANLIB) cool_gfx.a
++	$(AR) rc $(PLUGIN) cool_gfx.a blit32.o $(OWNOBJ)
++	$(RANLIB) $(PLUGIN) cool_gfx.a
+ 
+ gfx_x.o: gfx_x.c gfx_x.h
+-	$(CC) $(COPT) -c gfx_x.c $(CDEF)
++	$(CC) $(CFLAGS) -c gfx_x.c $(CDEF)
+ 
+ gfx_svga.o: gfx_svga.c gfx_svga.h blit32.o
+-	$(CC) $(COPT) -c gfx_svga.c $(CDEF)
++	$(CC) $(CFLAGS) -c gfx_svga.c $(CDEF)
+ 
+ gfx_sdl.o: gfx_sdl.c gfx_sdl.h
+-	$(CC) $(COPT) -c gfx_sdl.c $(CDEF)
++	$(CC) $(CFLAGS) -c gfx_sdl.c $(CDEF)
+ 
+ gfx_dos.o: vesa.o gfx_dos.c gfx_dos.h
+-	$(CC) $(COPT) -c gfx_dos.c $(CDEF)
++	$(CC) $(CFLAGS) -c gfx_dos.c $(CDEF)
+ 
+ tweak.o: tweak.c tweak.h
+-	$(CC) $(COPT) -c tweak.c $(CDEF)
++	$(CC) $(CFLAGS) -c tweak.c $(CDEF)
+ 
+ vesa.o: vesa.c vesa.h
+-	$(CC) $(COPT) -c vesa.c $(CDEF)
++	$(CC) $(CFLAGS) -c vesa.c $(CDEF)
+ 
+ blit32.o: blit32.c blit32.h
+-	$(CC) $(COPT) -c blit32.c $(CDEF)
++	$(CC) $(CFLAGS) -c blit32.c $(CDEF)
+ 
+ blit32c.o: blit32c.c
+-	$(CC) $(COPT) -c blit32c.c $(CDEF)
++	$(CC) $(CFLAGS) -c blit32c.c $(CDEF)
+ 
+ blit32a.o: blit32a.asm
+ 	$(ASM) $(ASMOPT) blit32a.asm
+ 
+ clean:
+-	$(RM) *.o
+-	$(RM) *.a
++	-@$(RM_F) *.o *.a
+--- a/cool_mzx/Makefile
++++ b/cool_mzx/Makefile
+@@ -1,14 +1,18 @@
+ # A very pathetic makefile...
+ 
+-COPT += -funsigned-char -O2 -ffast-math
++PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
++CFLAGS += -funsigned-char -Wall -std=gnu90 -pipe
++
+ INC = -I/usr/local/include
+ 
++RM_F = rm -f
++
+ lib: obj
+-	ar rc cool_mzx.a pt*.o cool*.o sd*.o
+-	$(RANLIB) cool_mzx.a
++	ar rc $(PLUGIN) cool_mzx.a pt*.o cool*.o sd*.o
++	$(RANLIB) $(PLUGIN) cool_mzx.a
+ 
+ obj:
+-	$(CC) $(COPT) $(INC) -c *.c
++	$(CC) $(CFLAGS) $(INC) -c *.c
+ 
+ clean:
+-	rm *.o *.a
++	-@$(RM_F) *.o *.a
+--- a/vecsys/Makefile
++++ b/vecsys/Makefile
+@@ -1,17 +1,20 @@
+ INCLUDE =
+-CFLAGS = -O2 -ffast-math -funsigned-char
++CFLAGS += -Wall -pipe -std=gnu90 -funsigned-char
+ OBJ = radix.o vec_cam.o vec_file.o vec_lsrc.o vec_math.o vec_matr.o \
+-      vec_mem.o vec_pal.o vec_poly.o vecsys.o 
++      vec_mem.o vec_pal.o vec_poly.o vecsys.o
+ INC = promote.h radix.h vec_3ds.h vec_cam.h vec_def.h vec_file.h vec_kf.h \
+       vec_lsrc.h vec_math.h vec_matr.h vec_mem.h vec_mtrl.h vec_pal.h \
+-      vec_poly.h vec_spl.h vec_type.h vecsys.h 
++      vec_poly.h vec_spl.h vec_type.h vecsys.h
++RM_F = rm -f
++CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
++PLUGIN := --plugin=$(shell gcc --print-file-name=liblto_plugin.so)
+ 
+ vecsys.a: $(OBJ)
+-	ar rc $@ $(OBJ)
++	ar rc $(PLUGIN) $@ $(OBJ)
+ 	$(RANLIB) vecsys.a
+ 
+ %.o: %.c $(INC)
+ 	$(CC) $(INCLUDE) $(CFLAGS) -c $<
+ 
+ clean:
+-	rm vecsys.a *.o
++	-@$(RM_F) vecsys.a *.o

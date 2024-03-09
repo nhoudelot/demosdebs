@@ -1,1 +1,6 @@
 test-by-sigflup binary: unknown-section demos
+test-by-sigflup: hardening-no-pie [usr/lib/x86_64-linux-gnu/test-by-sigflup/test]
+test-by-sigflup: desktop-entry-lacks-keywords-entry [usr/share/applications/test-by-sigflup.desktop]
+test-by-sigflup: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/test-by-sigflup/test]
+test-by-sigflup: hardening-no-fortify-functions [usr/lib/x86_64-linux-gnu/test-by-sigflup/test]
+

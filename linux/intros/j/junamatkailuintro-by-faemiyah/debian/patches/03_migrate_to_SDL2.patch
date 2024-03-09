@@ -1,6 +1,7 @@
 Description: migrate to SDL2
  Migrate from SDL1.2 to SDL2
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-27
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -64,19 +65,25 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #define DNLOAD_MAIN SDL_main
  #else
  #define DNLOAD_MAIN main
-@@ -183,6 +183,12 @@
- #define dnload_SDL_PauseAudio SDL_PauseAudio
+@@ -180,10 +180,16 @@
+ #define dnload_srandom srandom
+ #define dnload_glGenTextures glGenTextures
+ #define dnload_tanf tanf
+-#define dnload_SDL_PauseAudio SDL_PauseAudio
++#define dnload_SDL_PauseAudioDevice SDL_PauseAudioDevice
  #define dnload_glUniform1f glUniform1f
  #define dnload_SDL_Quit SDL_Quit
+-#define dnload_SDL_OpenAudio SDL_OpenAudio
 +#define dnload_SDL_CreateWindow SDL_CreateWindow
 +#define dnload_SDL_GL_CreateContext SDL_GL_CreateContext
 +#define dnload_SDL_GL_SwapWindow SDL_GL_SwapWindow
 +#define dnload_SDL_GL_DeleteContext SDL_GL_DeleteContext
 +#define dnload_SDL_DestroyWindow SDL_DestroyWindow
 +#define dnload_SDL_ShowCursor SDL_ShowCursor
- #define dnload_SDL_OpenAudio SDL_OpenAudio
++#define dnload_SDL_OpenAudioDevice SDL_OpenAudioDevice
  #define dnload_glCreateShader glCreateShader
  #define dnload_glUniform1i glUniform1i
+ #define dnload_glGenRenderbuffers glGenRenderbuffers
 @@ -692,7 +698,7 @@
                const uint32_t* hashval = chain_zero + bkt;
                do {
@@ -94,7 +101,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 +static SDL_Window *sdlWindow;
 +static SDL_GLContext sdlGlcontext;
-+
++static SDL_AudioDeviceID device;
 +
  #endif
  
@@ -127,7 +134,20 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    dnload_SDL_ShowCursor(g_flag_developer);
  #if defined(USE_LD)
    {
-@@ -4510,6 +4515,8 @@
+@@ -4259,8 +4264,10 @@
+   if(!g_flag_developer)
+ #endif
+   {
+-    dnload_SDL_OpenAudio(&audio_spec, NULL);
+-    dnload_SDL_PauseAudio(0);
++    //dnload_SDL_OpenAudio(&audio_spec, NULL);
++    device = dnload_SDL_OpenAudioDevice(NULL, 0, &audio_spec, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
++    //dnload_SDL_PauseAudio(0);
++    dnload_SDL_PauseAudioDevice(device,0);
+   }
+ 
+   // Scope will ensure destruction of threading.
+@@ -4510,6 +4517,8 @@
  #if defined(DNLOAD_GLESV2)
    egl_quit(g_egl_display);
  #endif

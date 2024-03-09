@@ -1,0 +1,124 @@
+Description: make window resizable
+ make window resizable with correct ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cpp
++++ b/main.cpp
+@@ -24,8 +24,14 @@
+ Window win;
+ int OPENGL_XRES=WINDOW_WIDTH;
+ int OPENGL_YRES=WINDOW_HEIGHT;
++int OPENGL_X=0;
++int OPENGL_Y=0;
+ bool OPENGL_FULLSCREEN;
+ 
++Uint32 windowID;
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ Vector clearcolor;
+ 
+ Texture *flare;
+@@ -46,6 +52,31 @@
+ 
+ bool HRT=true;
+ 
++void resize_window(int x, int y, int w, int h)
++{
++    /* Prevent division by zero */
++    if (h == 0) h = 1;
++
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        x += (w - new_w) / 2;
++        w = new_w;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        y += (h - new_h) / 2;
++        h = new_h;
++    }
++
++	OPENGL_X = x;
++	OPENGL_Y = y;
++    OPENGL_XRES = w;
++	OPENGL_YRES = h;
++    glViewport(x, y, w, h);
++
++}
++
++
+ int main(int argc, char **argv)
+ {
+ 	bool done = false;
+@@ -71,7 +102,7 @@
+ 		clearcolor = Vector(0, 0, 0);
+ 		glClearColor(clearcolor.x, clearcolor.y, clearcolor.z, 1);
+ 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+-		glViewport(0, 0, OPENGL_XRES, OPENGL_YRES);
++		glViewport(OPENGL_X, OPENGL_Y, OPENGL_XRES, OPENGL_YRES);
+ 		glMatrixMode(GL_PROJECTION);
+ 		glLoadIdentity();
+ 		gluPerspective(45.0f, OPENGL_XRES/(float)OPENGL_YRES, 0.01f, 1000.0f);
+@@ -106,6 +137,7 @@
+ 
+ 		kello.start();
+ 		SDL_Event event;
++		Uint32 windowID = SDL_GetWindowID(win.sdlWindow);
+ 		while(!done)
+ 		{
+ #if defined(OS_X) && defined(FULLSCREEN)
+@@ -123,6 +155,12 @@
+ 				default:
+ 					break;
+ 				}
++			case SDL_WINDOWEVENT:
++				if (event.window.windowID == windowID)  {
++					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						resize_window(0,0, event.window.data1,event.window.data2);
++						}
++					}
+ 			default:
+ 				break;
+ 			}
+@@ -137,7 +175,7 @@
+ 				glLineWidth(1.0f);
+ 				glDepthMask(1);
+ 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+-				glViewport(0, 0, OPENGL_XRES, OPENGL_YRES);
++				glViewport(OPENGL_X,OPENGL_Y, OPENGL_XRES, OPENGL_YRES);
+ 
+ /*				float kerroin = 1.0f;
+                                 if (GetAsyncKeyState(VK_SHIFT))
+@@ -152,7 +190,7 @@
+ 
+ 				glMatrixMode(GL_PROJECTION);
+ 				glLoadIdentity();
+-				gluPerspective(45.0f, OPENGL_XRES/(float)OPENGL_YRES, 0.01f, 1000.0f);
++				gluPerspective(45.0f, DEMO_XASPECT/(float)DEMO_YASPECT, 0.01f, 1000.0f);
+ 				glMatrixMode(GL_MODELVIEW);
+ 				glLoadIdentity();
+ 				const int introloppu = 298000;
+@@ -271,7 +309,7 @@
+ 					}
+ 					glDisable(GL_BLEND);
+ 
+-					glViewport(0, 0, OPENGL_XRES, OPENGL_YRES);//(), dmsGetWindowHeight());
++					glViewport(OPENGL_X,OPENGL_Y, OPENGL_XRES, OPENGL_YRES);//(), dmsGetWindowHeight());
+ 					glColor3f(1,1,1);
+ 					glBindTexture(GL_TEXTURE_2D, render2->ID);
+ 					glBegin(GL_QUADS);
+--- a/win32.cpp
++++ b/win32.cpp
+@@ -22,7 +22,7 @@
+ {
+ 	SDL_Init(SDL_INIT_VIDEO);
+ 
+-	int SDL_flags = SDL_WINDOW_OPENGL;
++	int SDL_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
+ #ifdef FULLSCREEN
+ 	SDL_flags += SDL_WINDOW_FULLSCREEN;
+ #endif

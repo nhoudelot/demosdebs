@@ -1,6 +1,7 @@
 Description: migrate to PNG 1.6
  Migrate from PNG 1.2 to PNG 1.6
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-28
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

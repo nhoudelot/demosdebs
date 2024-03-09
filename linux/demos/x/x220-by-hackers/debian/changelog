@@ -1,3 +1,10 @@
+x220-by-hackers (1.0-0ddebs3) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 24 Apr 2024 11:33:38 +0200
+
 x220-by-hackers (1.0-0ddebs2) unstable; urgency=medium
 
   * added option to start the demo in window mode

@@ -1,0 +1,17 @@
+Description: add window title
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/view.cpp
++++ b/view.cpp
+@@ -412,7 +412,7 @@
+ 	glutInit( &argc, argv );
+ 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
+ 	glutInitWindowSize( 720, 576 );
+-	glutCreateWindow("view");
++	glutCreateWindow("mlein and sharky- wedtro");
+ 	capture = new Capture( 720, 576 );
+ 
+ 	frend = new FontRenderer( "/usr/share/fonts/truetype/blomster/blomster.ttf" );

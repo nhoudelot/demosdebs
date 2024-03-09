@@ -1,6 +1,6 @@
 % restart-by-xplsv(6) Restart User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),xplsv
-% 2017-03-31
+% 2024-04-22
 
 # NAME
 restart-by-xplsv - the command to run Restart.
@@ -9,13 +9,18 @@ restart-by-xplsv - the command to run Restart.
 restart-by-xplsv [*options*]
 
 # DESCRIPTION
-Restart is a demonstration released by xplsv in 2010.
+Restart is a demo released by xplsv in august 2010.
+Ended 10 at Assembly 2010
+
+ÃƒÂƒÃ‚ÂƒÃƒÂ‚Ã‚Âƒ [Code]
+mrdoob [Music]
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=55584
 
 # BUGS
 No known bugs.

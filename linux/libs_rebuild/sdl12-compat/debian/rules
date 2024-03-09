@@ -1,0 +1,41 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+# export DH_VERBOSE=1
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+include /usr/share/dpkg/default.mk
+
+%:
+	dh $@ -Scmake
+
+override_dh_auto_configure:
+	dh_auto_configure
+	(cd debian; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+		done )
+
+override_dh_strip:
+	dh_strip -plibsdl1.2-compat-shim --no-automatic-dbgsym
+	dh_strip --remaining-packages
+
+override_dh_makeshlibs:
+	dh_makeshlibs -plibsdl1.2-compat -n
+	dh_makeshlibs --remaining-packages
+	ln -fns sdl12-compat/libSDL-1.2.so.$(DEB_VERSION_UPSTREAM) debian/libsdl1.2-compat-shim/usr/lib/$(DEB_HOST_MULTIARCH)/
+	ln -fns sdl12-compat/libSDL-1.2.so.0 debian/libsdl1.2-compat-shim/usr/lib/$(DEB_HOST_MULTIARCH)/
+
+override_dh_shlibdeps:
+	dh_shlibdeps -lusr/lib/$(DEB_HOST_MULTIARCH)/sdl12-compat
+
+# debhelper >= 13.4 makes all of /usr/libexec executable, which is not
+# quite right for installed-tests
+override_dh_fixperms:
+	dh_fixperms -Xusr/libexec/installed-tests
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

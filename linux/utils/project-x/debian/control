@@ -3,15 +3,16 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  default-jdk,
  javahelper (>= 0.25),
  ant,
  ant-optional,
  liboro-java,
  libcommons-net-java
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://sourceforge.net/projects/project-x
+Rules-Requires-Root: no
 
 Package: project-x
 Architecture: all

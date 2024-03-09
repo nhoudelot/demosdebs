@@ -1,0 +1,70 @@
+Description: make window resizable
+ make window resizable with correct ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -23,12 +23,32 @@
+ 
+ #define XS 640
+ #define YS 480
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
+ 
+ extern char piisi[];
+ 
+ void run_fx(void);
+ float musasynk(int ins,float tid);
+ 
++
++void resize_window(int x, int y, int w, int h)
++{
++    if (h == 0) h = 1;
++
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        x += (w - new_w) / 2;
++        w = new_w;
++    } else {
++        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        y += (h - new_h) / 2;
++        h = new_h;
++    }
++    glViewport(x, y, w, h);
++}
++
+ void pakki(void *udata, Uint8 *stream, int len)
+ {
+ 	syna_play((short *)stream,len/4);
+@@ -98,8 +118,9 @@
+ 	//SDL_SetVideoMode(xs,ys,32,SDL_DOUBLEBUF|SDL_OPENGL|SDL_FULLSCREEN);
+ 	SDL_Window *sdlWindow;
+ 	SDL_GLContext sdlGlcontext;
+-	sdlWindow = SDL_CreateWindow("Leeko by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,xs,ys,SDL_WINDOW_OPENGL|flagga);
++	sdlWindow = SDL_CreateWindow("Leeko by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,xs,ys,SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL|flagga);
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ #endif
+ 
+ 	SDL_ShowCursor(0);
+@@ -130,6 +151,16 @@
+ 		SDL_GL_SwapWindow(sdlWindow);
+ 		while(SDL_PollEvent(&e)>0)
+ 		{
++			if(e.type == SDL_WINDOWEVENT)
++			{
++				if (e.window.windowID == windowID)  {
++				    if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
++				        int new_w = e.window.data1;
++				        int new_h = e.window.data2;
++				        resize_window(0,0, new_w,new_h);
++				    }
++				}
++			}
+ 			if(e.type==SDL_MOUSEBUTTONDOWN)
+ 				quit=1;
+ 			if(e.type==SDL_QUIT)

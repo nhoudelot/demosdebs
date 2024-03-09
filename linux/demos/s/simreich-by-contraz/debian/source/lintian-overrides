@@ -1,4 +1,4 @@
-simreich-by-contraz source: source-is-missing SimReich
-simreich-by-contraz source: source-is-missing libGLEW.so.1.5
-simreich-by-contraz source: source-is-missing libfmodex.so
+simreich-by-contraz source: source-is-missing [SimReich]
+simreich-by-contraz source: source-is-missing [libGLEW.so.1.5]
+simreich-by-contraz source: source-is-missing [libfmodex.so]
 

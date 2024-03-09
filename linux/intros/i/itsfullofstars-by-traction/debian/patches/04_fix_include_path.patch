@@ -1,0 +1,17 @@
+Description: fix includes path
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/stuff.hpp
++++ b/stuff.hpp
+@@ -14,7 +14,7 @@
+ #include <SDL.h>
+ #endif
+ 
+-#include "Glext.h"
++#include <GL/glext.h>
+ #include "win32.hpp"
+ #include "vector.hpp"
+ #include "matrix.hpp"

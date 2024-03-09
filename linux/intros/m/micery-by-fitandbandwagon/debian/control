@@ -3,13 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  pkgconf,
  libgl-dev,
  libsdl2-dev,
- libglu1-mesa-dev
-Standards-Version: 4.6.0.1
+ libglu-dev
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=11369
+Rules-Requires-Root: no
 
 Package: micery-by-fitandbandwagon
 Architecture: any

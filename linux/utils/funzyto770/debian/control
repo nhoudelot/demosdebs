@@ -3,11 +3,12 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libx11-dev,
- pkg-config
-Standards-Version: 4.6.0.1
+ pkgconf
+Standards-Version: 4.6.2
 Homepage: https://www.sylvain-huet.com/hacks/
+Rules-Requires-Root: no
 
 Package: funzyto770
 Architecture: any

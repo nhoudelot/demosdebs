@@ -1,0 +1,100 @@
+libnoise (1.0.0+repack-1build1+0ddebs4) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 10 Mar 2024 00:41:47 +0100
+
+libnoise (1.0.0+repack-1build1+0ddebs3) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Apr 2023 00:28:18 +0200
+
+libnoise (1.0.0+repack-1build1+0ddebs2) unstable; urgency=medium
+
+  * convert to multi arch
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 30 Apr 2022 17:07:50 +0200
+
+libnoise (1.0.0+repack-1build1+0ddebs1) unstable; urgency=medium
+
+  * rebuilt for i386 version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 01 May 2020 02:41:34 +0200
+
+libnoise (1.0.0+repack-1build1) focal; urgency=medium
+
+  * No-change rebuild for libgcc-s1 package name change.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sun, 22 Mar 2020 16:46:16 +0100
+
+libnoise (1.0.0+repack-1) unstable; urgency=medium
+
+  * QA upload.
+  * Orphaned package on request from maintainer.
+  * Added homepage info in d/control.
+  * Updated Standards-Version from 3.9.4 to 3.9.8.
+  * Added first draft d/watch file.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Thu, 15 Sep 2016 20:12:12 +0000
+
+libnoise (1.0.0+repack-0+nmu1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Build-depend on libtool-bin. Closes: #761766.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 09 Oct 2014 10:40:30 +0000
+
+libnoise (1.0.0+repack-0+nmu1) unstable; urgency=low
+
+  * Non-maintainer upload fo remove build-dependency on dbs (closes: #576065);
+    upload this NMU to DELAYED/10 queue.
+  * Switch to the '3.0 (quilt)' source format.
+  * Repack original tarballs (there are three of them: main, noiseutils,
+    and examples) from zip into tar.bz2.
+  * Use debhelper v9 and its tiny rules format.
+  * Bump Standards-Version to 3.9.4.
+  * Remove an article from short package description (lintian).
+  * Fix binary packages' sections to match override file.
+
+ -- Robert Luberda <robert@debian.org>  Sun, 22 Sep 2013 17:21:09 +0200
+
+libnoise (1.0.0+nmu1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix "FTBFS: undefined reference to `main'". Applied patch by Nobuhiro
+    Iwamatsu. (Closes: #526547)
+
+ -- Bastian Venthur <venthur@debian.org>  Tue, 23 Feb 2010 16:54:00 +0100
+
+libnoise (1.0.0) unstable; urgency=low
+
+  * New upstream release (fixes: #445765)
+
+ -- Federico Di Gregorio <fog@debian.org>  Wed, 21 Nov 2007 10:56:44 +0100
+
+libnoise (0.9.0+1.0.0-RC1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Federico Di Gregorio <fog@debian.org>  Sat, 02 Sep 2006 20:57:07 +0200
+
+libnoise (0.9.0-3) unstable; urgency=low
+
+  * Added to Build-depends: dbs, libtool (Closes: #321979).
+
+ -- Federico Di Gregorio <fog@debian.org>  Mon, 22 Aug 2005 01:49:29 +0200
+
+libnoise (0.9.0-2) unstable; urgency=low
+
+  * Update debian/copyright to include licensing information for the example
+    code (GPL instead of LGPL.)
+
+ -- Federico Di Gregorio <fog@debian.org>  Fri,  5 Aug 2005 23:31:33 +0200
+
+libnoise (0.9.0-1) unstable; urgency=low
+
+  * Initial release (Closes: #313610)
+
+ -- Federico Di Gregorio <fog@debian.org>  Mon, 25 Jul 2005 20:22:58 +0200

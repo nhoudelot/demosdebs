@@ -1,3 +1,10 @@
+Description: change data path
+ Relocate non-binary architecture-specific files to /usr/share to ensure correct installation
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
 @@ -273,7 +273,7 @@

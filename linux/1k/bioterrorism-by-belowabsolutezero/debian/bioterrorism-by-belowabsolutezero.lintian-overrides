@@ -1,2 +1,2 @@
 bioterrorism-by-belowabsolutezero binary: unknown-section demos
-bioterrorism-by-belowabsolutezero: executable-not-elf-or-script usr/bin/bioterrorism-by-belowabsolutezero
+bioterrorism-by-belowabsolutezero: executable-not-elf-or-script [usr/bin/bioterrorism-by-belowabsolutezero]

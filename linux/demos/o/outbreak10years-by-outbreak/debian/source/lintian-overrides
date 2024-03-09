@@ -1,2 +1,1 @@
-outbreak10years-by-outbreak source: source-is-missing i686/tenyears
-outbreak10years-by-outbreak source: package-depends-on-hardcoded-libc outbreak10years-by-outbreak depends
+outbreak10years-by-outbreak source: [source-is-missing i686/tenyears]

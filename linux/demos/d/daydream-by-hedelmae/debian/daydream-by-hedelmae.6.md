@@ -1,6 +1,6 @@
 % daydream-by-hedelmae(6) Daydream User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Hedelmae
-% 2018-01-25
+% 2024-04-18
 
 # NAME
 daydream-by-hedelmae - is the command to run Daydream 
@@ -9,7 +9,11 @@ daydream-by-hedelmae - is the command to run Daydream
 daydream-by-hedelmae [*options*]
 
 # DESCRIPTION
-Daydream  is a demonstration released by Hedelmae, released in 2008
+Daydream is a demo released by Hedelmae, released in august 2008
+Ended 2nd at Assembly 2008
+
+fragment [Code, graphics]
+lphst [Music]
 
 DAYDREAM - a GP2X demo for Assembly 2008 real wild demo competition.
 
@@ -35,10 +39,11 @@ DAYDREAM - a GP2X demo for Assembly 2008 real wild demo competition.
   mode, which is rescaleable.  
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=51131
 
 # BUGS
 No known bugs.

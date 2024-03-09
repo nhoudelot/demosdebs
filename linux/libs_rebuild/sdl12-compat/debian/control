@@ -1,0 +1,109 @@
+Source: sdl12-compat
+Priority: optional
+Maintainer: Debian SDL package maintainers <pkg-sdl-maintainers@lists.alioth.debian.org>
+Uploaders:
+ Simon McVittie <smcv@debian.org>,
+ Stephen Kitt <skitt@debian.org>,
+Build-Depends:
+ cmake,
+ debhelper-compat (= 12),
+ libglu1-mesa-dev,
+ libsdl2-dev,
+ libx11-dev,
+Standards-Version: 4.6.0
+Section: libs
+Homepage: https://github.com/libsdl-org/sdl12-compat
+Vcs-Git: https://salsa.debian.org/sdl-team/sdl12-compat.git
+Vcs-Browser: https://salsa.debian.org/sdl-team/sdl12-compat
+Rules-Requires-Root: no
+
+Package: libsdl1.2-compat
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends:
+ libsdl2-2.0-0,
+ ${misc:Depends},
+ ${shlibs:Depends},
+Pre-Depends:
+ ${misc:Pre-Depends},
+Description: SDL 1.2 binary compatibility library wrapping SDL 2.0
+ libsdl1.2-compat provides a binary compatible API for programs built
+ against SDL 1.2, but using SDL 2.0.
+ .
+ If you are writing new code, please target SDL 2.0 directly instead
+ of using this layer.
+ .
+ This package only provides the library, in a private location, so
+ that it can be co-installed with libsdl1.2debian. It is intended for
+ packages with a specific use for the compatibility layer (which
+ provides some extra symbols not present in libsdl1.2debian).
+ To replace libsdl1.2debian entirely, and use the compatibility layer
+ with all SDL 1.2 programs, install libsdl1.2-compat-shim.
+
+Package: libsdl1.2-compat-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libsdl1.2-compat-shim (= ${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Pre-Depends:
+ ${misc:Pre-Depends},
+Conflicts:
+ libsdl-dev,
+ libsdl1.2-dev,
+Provides:
+ libsdl-dev,
+ libsdl1.2-dev (= 1.2.15-1),
+Replaces:
+ libsdl-dev,
+ libsdl1.2-dev,
+Description: SDL 1.2 binary compatibility library - development files
+ libsdl1.2-compat provides a binary compatible API for programs built
+ against SDL 1.2, but using SDL 2.0.
+ .
+ If you are writing new code, please target SDL 2.0 directly instead
+ of using this layer.
+ .
+ This package provides development files.
+
+Package: libsdl1.2-compat-shim
+Architecture: any
+Multi-Arch: same
+Depends:
+ libsdl1.2-compat (= ${binary:Version}),
+ ${misc:Depends},
+Conflicts:
+ libsdl1.2debian,
+Replaces:
+ libsdl1.2debian,
+Provides:
+ libsdl1.2debian (= 1.2.15-1),
+Description: libsdl1.2debian replacement using SDL 2.0
+ libsdl1.2-compat provides a binary compatible API for programs built
+ against SDL 1.2, but using SDL 2.0.
+ .
+ If you are writing new code, please target SDL 2.0 directly instead
+ of using this layer.
+ .
+ This package replaces libsdl1.2debian with the SDL 2.0 compatibility
+ layer, so that all SDL 1.2 program will use it.
+
+Package: libsdl1.2-compat-tests
+Section: misc
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Pre-Depends:
+ ${misc:Pre-Depends},
+Description: SDL 1.2 binary compatibility library - tests
+ libsdl1.2-compat provides a binary compatible API for programs built
+ against SDL 1.2, but using SDL 2.0.
+ .
+ If you are writing new code, please target SDL 2.0 directly instead
+ of using this layer.
+ .
+ This package provides manual test programs.

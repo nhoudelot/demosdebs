@@ -1,0 +1,14 @@
+Description: added shebang to the launch script
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/neverspot.sh
++++ b/neverspot.sh
+@@ -1 +1,3 @@
+-./build/bin/neverspot $@
+\ No newline at end of file
++#!/bin/bash
++
++./build/bin/neverspot $@

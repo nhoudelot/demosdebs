@@ -1,0 +1,88 @@
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ CFLAGS += -Wall -pipe -fno-inline -fno-loop-optimize -fexpensive-optimizations -fpeephole2 -std=gnu90
+ LDFLAGS += -lc -ldl -lSDL -pthread -lm
+ #SOPT = -R .comment -R .note -R .note.ABI-tag -R .fini -R .gnu.version
+-OBJ = syna_tiny.o tinymain.o osa.o minigl.o
++OBJ = syna_tiny.o bigmain.o osa.o minigl.o
+ NASM := nasm
+ 
+ # FULL = FULLSCREEN for fullscreen mode, something else for window
+@@ -29,7 +29,7 @@
+ 
+ all: $(TARGET)
+ 
+-$(TARGET): $(OBJ)
++$(TARGET): $(OBJ
+ 	$(CC) -nostdlib $(CFLAGS) $(OBJ) -o $(TARGET) $(LDFLAGS)
+ 
+ syna_tiny.o: syna_tiny.asm
+--- /dev/null
++++ b/bigmain.c
+@@ -0,0 +1,65 @@
++#include <SDL2/SDL.h>
++
++#define OSOTE 44100
++#define STRUKT_SIZE 10000
++
++int quit = 0;
++
++void syna_init() {
++    // Implement syna_init if needed
++}
++
++void osa(int ticks) {
++    // Implement osa if needed
++}
++
++void syna_play() {
++    // Implement syna_play if needed
++}
++
++int main() {
++    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
++
++    SDL_AudioSpec spec;
++    spec.freq = OSOTE;
++    spec.format = AUDIO_S16SYS;
++    spec.channels = 1;
++    spec.samples = 1024;
++    spec.callback = syna_play;
++    spec.userdata = NULL;
++
++    SDL_OpenAudio(&spec, NULL);
++
++    SDL_Window* window = SDL_CreateWindow("SDL2 Window",
++                                          SDL_WINDOWPOS_UNDEFINED,
++                                          SDL_WINDOWPOS_UNDEFINED,
++                                          800, 600,
++                                          SDL_WINDOW_OPENGL);
++
++    SDL_GLContext context = SDL_GL_CreateContext(window);
++
++    // Initialize any other modules like ml_init
++
++    SDL_ShowCursor(SDL_DISABLE);
++    SDL_PauseAudio(0);
++    Uint32 orig_ticks = SDL_GetTicks();
++
++    Uint32 current_ticks;
++    while (!quit) {
++        current_ticks = SDL_GetTicks();
++        osa(current_ticks - orig_ticks);
++        orig_ticks = current_ticks;
++
++        SDL_GL_SwapWindow(window);
++
++        SDL_Event event;
++        while (SDL_PollEvent(&event)) {
++            if (event.type == SDL_QUIT)
++                quit = 1;
++        }
++    }
++
++    SDL_Quit();
++    return 0;
++}
++

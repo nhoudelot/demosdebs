@@ -1,6 +1,6 @@
 % yetanotherchristmasdemo-by-tufs(6) Yet Another Christmas Demo User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Tufs
-% 2016-10-25
+% 2024-04-24
 
 # NAME
 yetanotherchristmasdemo-by-tufs - is the command to run Yet Another Christmas Demo 
@@ -9,8 +9,7 @@ yetanotherchristmasdemo-by-tufs - is the command to run Yet Another Christmas De
 yetanotherchristmasdemo-by-tufs [*options*]
 
 # DESCRIPTION
-Yet Another Christmas Demo  is a demonstration released by Tufs, released in 
-2008
+Yet Another Christmas Demo is a demo by Tufs, released in december 2008
 
 
         __/\____________/\__.______/\____________/\_________         
@@ -64,10 +63,11 @@ ZEROCOOL CAN KICK YOU ASS ANYTIME
 snart er det jul... tenk på det da dere!
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=52218
 
 # BUGS
 No known bugs.

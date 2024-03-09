@@ -1,3 +1,13 @@
+leeko-by-fit (1.0+1-0ddebs7) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+  * update to SDL2
+  * window is now resaizable
+  * added F to toggle fullscreen
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 20 Mar 2024 13:43:39 +0100
+
 leeko-by-fit (1.0+1-0ddebs6) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

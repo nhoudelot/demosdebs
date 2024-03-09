@@ -17,7 +17,12 @@ export CXX = $(DEB_HOST_GNU_TYPE)-g++
 override_dh_auto_build:
 	make bin/bin2h
 	make bin/elfling
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
+	make bin/prt_64
+	
+else
 	make bin/prt
+endif
 	make bin/packer
 
 override_dh_builddeb:

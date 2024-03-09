@@ -1,8 +1,17 @@
+Description: adapt to crossbuild
+ updating build to make it compatible with crossbuilding a package
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-10
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,10 +1,13 @@
+@@ -1,71 +1,80 @@
 +CXX:=$(CXX)
 +CC:=$(CC)
++NASM       := nasm
++RM_F       := rm -f
 +
  all: bin/prt bin/prt2
  
@@ -14,8 +23,15 @@
 +	$(CC) -std=c99 bin2h.c -o bin/bin2h
  
  header32.h: header.asm bin/bin2h
- 	nasm header.asm -f bin -o bin/header32.bin
-@@ -17,52 +20,52 @@
+-	nasm header.asm -f bin -o bin/header32.bin
++	$(NASM) header.asm -f bin -o bin/header32.bin
+ 	bin/bin2h bin/header32.bin header32.h header32
+ 	ls -al bin/header32.bin
+ 
+ header64.h: header64.asm bin/bin2h
+-	nasm header64.asm -f bin -o bin/header64.bin
++	$(NASM) header64.asm -f bin -o bin/header64.bin
+ 	bin/bin2h bin/header64.bin header64.h header64
  	ls -al bin/header64.bin
  
  bin/elfling: elfling.cpp header32.h header64.h pack.cpp unpack.cpp pack.h
@@ -48,7 +64,7 @@
  
  bin/prt_64: bin/prt_64.o
 -	gcc bin/prt_64.o -s  -nostartfiles -o bin/prt_64
-+	$(CC) bin/prt_64.o -s  -nostartfiles -o bin/prt_64
++	$(CC) bin/prt_64.o -s  -nostartfiles -o bin/prt
  
  bin/prt2_64: bin/prt_64.o bin/elfling
  	bin/elfling bin/prt_64.o -obin/prt2_64  -llibc.so.6 #-fnosh
@@ -77,10 +93,17 @@
 -	gcc -std=c++11 -g unpack.cpp -c -o bin/unpack.o -m32
 -	gcc -std=c++11 -O3 -g pack.cpp -c -o bin/pack.o -m32
 -	g++ -std=c++11 -g bin/packer.o bin/pack.o bin/unpack.o -o bin/packer -m32
-+	$(CXX) -std=c++11 -g packer.cpp -c -o bin/packer.o -m32
-+	$(CC) -std=c++11 -g unpack.cpp -c -o bin/unpack.o -m32
-+	$(CC) -std=c++11 -O3 -g pack.cpp -c -o bin/pack.o -m32
-+	$(CXX) -std=c++11 -g bin/packer.o bin/pack.o bin/unpack.o -o bin/packer -m32
++	$(CXX) -std=c++11 -g packer.cpp -c -o bin/packer.o
++	$(CC) -std=c++11 -g unpack.cpp -c -o bin/unpack.o
++	$(CC) -std=c++11 -O3 -g pack.cpp -c -o bin/pack.o
++	$(CXX) -std=c++11 -g bin/packer.o bin/pack.o bin/unpack.o -o bin/packer
  
  packtest: bin/packer bin/prt
  	bin/packer bin/prt
+ 	bin/packer bin/prt.pack
+ 	diff bin/prt bin/prt.unpack
+ 
++clean:
++	$(RM_F) -r bin/
++	$(RM_F) header32.h
++	$(RM_F) header64.h

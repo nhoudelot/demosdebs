@@ -2,4 +2,6 @@
 02_fix_warnings.patch
 03_convert_to_SDL2.patch
 04_resizable_window.patch
-05_link_to_libgl.patch
+05_toggle_fullscreen.patch
+06_link_to_libgl.patch
+07_48kHz.patch

@@ -3,20 +3,21 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  mesa-common-dev,
- libglu1-mesa-dev,
+ libglu-dev,
  libgl-dev,
  libsdl2-dev,
  pkgconf,
- libfmodex-dev
-Standards-Version: 4.6.0.1
+ libopenmpt-dev
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=19434
+Rules-Requires-Root: no
 
 Package: ssri-by-traction
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Intro for Linux, released in 2005 by Traction
+Description: 64k Intro for Linux, released in 2005 by Traction
  Intro by Traction, released in 2005

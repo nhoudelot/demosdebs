@@ -1,5 +1,6 @@
 Description: add alsa support
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-05-01
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -866,4 +867,4 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +LDFLAGS  += $(shell $(PKG_CONFIG) glu x11 alsa xxf86vm libjpeg --libs)
  RM_F = rm -f
  INSTALL = install
- INSTALL_DIR     = $(INSTALL) -p -d -o root -g root  -m  755
+ INSTALL_DIR     = $(INSTALL) -p -d -m  755

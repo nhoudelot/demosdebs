@@ -1,6 +1,7 @@
 Description: migrate to SDL2
  fullscreen seems to still problematic
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2019-12-02
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -59,7 +60,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    void (DNLOADAPIENTRY *glBindFramebuffer)(GLenum, GLuint);
    void (DNLOADAPIENTRY *glDrawArrays)(GLenum, GLint, GLsizei);
    void (DNLOADAPIENTRY *glClearColor)(GLclampf, GLclampf, GLclampf, GLclampf);
-@@ -109,7 +109,7 @@
+@@ -109,15 +109,15 @@
    void (DNLOADAPIENTRY *glUniformMatrix3fv)(GLint, GLsizei, GLboolean, const GLfloat*);
    void (DNLOADAPIENTRY *glViewport)(GLint, GLint, GLsizei, GLsizei);
    void (DNLOADAPIENTRY *glTexImage2DMultisample)(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLboolean);
@@ -68,6 +69,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    void (DNLOADAPIENTRY *glGenFramebuffers)(GLsizei, GLuint*);
    int (*SDL_Init)(Uint32);
    void (DNLOADAPIENTRY *glTexParameteri)(GLenum, GLenum, GLint);
+-  void (*SDL_PauseAudio)(int);
++  void (*SDL_PauseAudioDevice)(SDL_AudioDeviceID,int);
+   void (DNLOADAPIENTRY *glUniform1f)(GLint, GLfloat);
+   void (*SDL_Quit)(void);
+   float (*acosf)(float);
+-  int (*SDL_OpenAudio)(SDL_AudioSpec*, SDL_AudioSpec*);
++  SDL_AudioDeviceID (*SDL_OpenAudioDevice)(const char *, int ,const SDL_AudioSpec *,SDL_AudioSpec *, int);
+   GLuint (DNLOADAPIENTRY *glCreateShader)(GLenum);
+   float (*powf)(float, float);
+   void (DNLOADAPIENTRY *glUniform1i)(GLint, GLint);
 @@ -140,7 +140,7 @@
    (void (DNLOADAPIENTRY *)(GLuint, GLsizei, const GLchar*const*, const GLint*))0xc609c385,
    (GLint (DNLOADAPIENTRY *)(GLuint, const GLchar*))0x25c12218,
@@ -77,7 +88,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    (void (DNLOADAPIENTRY *)(GLenum, GLuint))0xa0fdff6b,
    (void (DNLOADAPIENTRY *)(GLenum, GLint, GLsizei))0xcb871c63,
    (void (DNLOADAPIENTRY *)(GLclampf, GLclampf, GLclampf, GLclampf))0x8c118fbb,
-@@ -160,7 +160,7 @@
+@@ -160,21 +160,24 @@
    (void (DNLOADAPIENTRY *)(GLint, GLsizei, GLboolean, const GLfloat*))0x50a8d153,
    (void (DNLOADAPIENTRY *)(GLint, GLint, GLsizei, GLsizei))0xecca892b,
    (void (DNLOADAPIENTRY *)(GLenum, GLsizei, GLenum, GLsizei, GLsizei, GLboolean))0x732f22f8,
@@ -86,16 +97,26 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    (void (DNLOADAPIENTRY *)(GLsizei, GLuint*))0xb1503371,
    (int (*)(Uint32))0x70d6574,
    (void (DNLOADAPIENTRY *)(GLenum, GLenum, GLint))0xdefef0c2,
-@@ -175,6 +175,8 @@
+-  (void (*)(int))0x29f14a4,
++  (void (*)(SDL_AudioDeviceID, int))0x29f14a4,
+   (void (DNLOADAPIENTRY *)(GLint, GLfloat))0x4fe976c4,
+   (void (*)(void))0x7eb657f3,
+   (float (*)(float))0xf1ce8ee0,
+-  (int (*)(SDL_AudioSpec*, SDL_AudioSpec*))0x46fd70c8,
++  (SDL_AudioDeviceID (*)(const char*, int, const SDL_AudioSpec*, SDL_AudioSpec*, int))0x46fd70c8,
+   (GLuint (DNLOADAPIENTRY *)(GLenum))0x6b4ffac6,
+   (float (*)(float, float))0x921b2a2e,
+   (void (DNLOADAPIENTRY *)(GLint, GLint))0x4fe976c7,
    NULL
  };
  
 +SDL_Window *window;
++SDL_AudioDeviceID device;
 +
  /** \brief Perform init.
   *
   * \param screen_w Screen width definition.
-@@ -185,8 +187,8 @@
+@@ -185,8 +188,8 @@
  {
  #if defined(USE_LD)
    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -106,7 +127,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
    {
      GLenum err = glewInit();
-@@ -212,7 +214,7 @@
+@@ -212,7 +215,7 @@
    g_sym.glShaderSource = glShaderSource;
    g_sym.glGetUniformLocation = glGetUniformLocation;
    g_sym.glRects = glRects;
@@ -115,7 +136,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    g_sym.glBindFramebuffer = glBindFramebuffer;
    g_sym.glDrawArrays = glDrawArrays;
    g_sym.glClearColor = glClearColor;
-@@ -232,7 +234,7 @@
+@@ -232,15 +235,15 @@
    g_sym.glUniformMatrix3fv = glUniformMatrix3fv;
    g_sym.glViewport = glViewport;
    g_sym.glTexImage2DMultisample = glTexImage2DMultisample;
@@ -124,6 +145,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    g_sym.glGenFramebuffers = glGenFramebuffers;
    g_sym.SDL_Init = SDL_Init;
    g_sym.glTexParameteri = glTexParameteri;
+-  g_sym.SDL_PauseAudio = SDL_PauseAudio;
++  g_sym.SDL_PauseAudioDevice = SDL_PauseAudioDevice;
+   g_sym.glUniform1f = glUniform1f;
+   g_sym.SDL_Quit = SDL_Quit;
+   g_sym.acosf = acosf;
+-  g_sym.SDL_OpenAudio = SDL_OpenAudio;
++  g_sym.SDL_OpenAudioDevice = SDL_OpenAudioDevice;
+   g_sym.glCreateShader = glCreateShader;
+   g_sym.powf = powf;
+   g_sym.glUniform1i = glUniform1i;
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
 @@ -464,7 +464,7 @@
@@ -216,6 +247,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          x1 = sinf(temp1) * cosf(temp2);
          x2 = sinf(g_moelli_spike_ll[kk * 3 + 0]) * cosf(g_moelli_spike_ll[kk * 3 + 1]);
          y1 = sinf(temp1) * sinf(temp2);
+@@ -3573,7 +3573,7 @@
+     unsigned frame_idx = 0;
+ 
+     // audio
+-    SDL_PauseAudio(1);
++    SDL_PauseAudioDevice(device,1);
+ 
+     write_audio_callback(g_audio_buffer, (unsigned)INTRO_LENGTH);
+ 
 @@ -3595,7 +3595,7 @@
  
        draw(ticks);
@@ -225,9 +265,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        ++frame_idx;
      }
  
-@@ -3611,9 +3611,9 @@
-     g_sym.SDL_OpenAudio(&audio_spec, NULL);
-     g_sym.SDL_PauseAudio(0);
+@@ -3608,12 +3608,12 @@
+   if(!g_flag_developer)
+ #endif
+   {
+-    g_sym.SDL_OpenAudio(&audio_spec, NULL);
+-    g_sym.SDL_PauseAudio(0);
++    device = g_sym.SDL_OpenAudioDevice(NULL, 0, &audio_spec, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
++     SDL_PauseAudioDevice(device,0);
    }
 -  
 +

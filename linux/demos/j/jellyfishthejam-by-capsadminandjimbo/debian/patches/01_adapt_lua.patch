@@ -1,5 +1,6 @@
 Description: updated link to libs
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2019-12-23
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

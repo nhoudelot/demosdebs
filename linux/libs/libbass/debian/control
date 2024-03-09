@@ -2,11 +2,12 @@ Source: libbass
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  rename
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Section: libs
 Homepage: https://www.un4seen.com/
+Rules-Requires-Root: no
 
 Package: libbass
 Architecture: i386 amd64 armhf arm64

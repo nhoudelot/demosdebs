@@ -1,7 +1,7 @@
-rotistmeinekugel-by-rtificial source: source-is-missing debian/resources/libGLEW.so.1.6
-rotistmeinekugel-by-rtificial source: source-is-missing rtificial-rmk-linux_1920_1080
-rotistmeinekugel-by-rtificial source: source-contains-prebuilt-windows-binary SDL.dll
-rotistmeinekugel-by-rtificial source: source-contains-prebuilt-windows-binary glew32.dll
-rotistmeinekugel-by-rtificial source: source-contains-prebuilt-windows-binary rtificial-rmk-win_1280_720.exe
-rotistmeinekugel-by-rtificial source: source-contains-prebuilt-windows-binary rtificial-rmk-win_1920_1080.exe
+rotistmeinekugel-by-rtificial source: source-is-missing [debian/resources/libGLEW.so.1.6]
+rotistmeinekugel-by-rtificial source: source-is-missing [rtificial-rmk-linux_1920_1080]
+rotistmeinekugel-by-rtificial source: source-contains-prebuilt-windows-binary [SDL.dll]
+rotistmeinekugel-by-rtificial source: source-contains-prebuilt-windows-binary [glew32.dll]
+rotistmeinekugel-by-rtificial source: source-contains-prebuilt-windows-binary [rtificial-rmk-win_1280_720.exe]
+rotistmeinekugel-by-rtificial source: source-contains-prebuilt-windows-binary [rtificial-rmk-win_1920_1080.exe]
 

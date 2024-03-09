@@ -1,8 +1,8 @@
-pixelflakes-by-youthuprising source: source-is-missing debian/resources/libGLEW.so.1.10
-pixelflakes-by-youthuprising source: source-is-missing linux/PixelFlakes_YUP_Linux
-pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary win32/PixelFlakes_YUP.exe
-pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary win32/SDL2.dll
-pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary win32/bass.dll
-pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary win32/msvcp110.dll
-pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary win32/msvcr110.dll
+pixelflakes-by-youthuprising source: source-is-missing [debian/resources/libGLEW.so.1.10]
+pixelflakes-by-youthuprising source: source-is-missing [linux/PixelFlakes_YUP_Linux]
+pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary [win32/PixelFlakes_YUP.exe]
+pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary [win32/SDL2.dll]
+pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary [win32/bass.dll]
+pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary [win32/msvcp110.dll]
+pixelflakes-by-youthuprising source: source-contains-prebuilt-windows-binary [win32/msvcr110.dll]
 

@@ -1,0 +1,200 @@
+--- a/ds/io/music.cpp
++++ b/ds/io/music.cpp
+@@ -21,59 +21,48 @@
+ 
+ namespace DS
+ {
+-F_CALLBACKAPI void* cbopen(const char* pName)
+-{
+-	return (void*)pName;         // :D
+-}
+-
+-void F_CALLBACKAPI cbclose(void* pHandle) {
+-}
+-
+-int F_CALLBACKAPI cbread(void* pBuffer, int size, void* pHandle)
+-{
+-	return ((MemFile*)pHandle)->Read(pBuffer, size);
+-}
+-
+-int F_CALLBACKAPI cbseek(void* pHandle, int pos, signed char mode)
+-{
+-	((MemFile*)pHandle)->Seek(pos, mode);
+-	return 0;
+-}
+-
+-int F_CALLBACKAPI cbtell(void* pHandle)
+-{
+-	return ((MemFile*)pHandle)->Tell();
+-}
+ 
+ Music::Music(DataReader* pDataReader)
+ {
+ 	m_pDataReader = pDataReader;
+-	m_pSong = 0;
+ 	m_volume = 255;
+ 	m_bHasInit = false;
+ 	m_bHasLoad = false;
+-//#ifndef WIN32
+-	FSOUND_File_SetCallbacks(cbopen,
+-	                         cbclose,
+-	                         cbread,
+-	                         cbseek,
+-	                         cbtell);
+-//#endif
++
+ }
+ 
+ Music::~Music()
+ {
+-	if(m_pSong)
+-		FMUSIC_FreeSong(m_pSong);
++	if (m_pModule)
++    {
++        m_pModule = nullptr;
++    }
+ }
+ 
+ void Music::Init(int samplerate)
+ {
+ 	static char* fn = "[Music::Init]";
+-	if(!FSOUND_Init(samplerate, 32, 0))
+-		cout << fn << " Failed to init sound." << endl;
+-	else
++
++	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
++        std::cout << "SDL_INIT_AUDIO fail" << std::endl;
++        m_bHasInit = false;
++    } else {
++		m_bHasInit = true;
++	}
++    SDL_zero(spec);
++    spec.freq = 48000;
++    spec.format = AUDIO_F32SYS;
++    spec.channels = 2;
++    spec.samples = 4096;
++    spec.callback = nullptr;
++
++    device = SDL_OpenAudioDevice(nullptr, 0, &spec, nullptr, 0);
++    if (device == 0) {
++        std::cout << "SDL device not found " << std::endl;
++        m_bHasInit = false;
++    } else {
+ 		m_bHasInit = true;
++	}
+ }
+ 
+ void Music::Load(const char* pFile)
+@@ -81,37 +70,51 @@
+ 	static char* fn = "[Music::Load]";
+ 	if(m_bHasInit)
+ 	{
+-//			#ifdef WIN32
+-//			m_pSong = FMUSIC_LoadSong(((string)"../data/" + pFile).c_str());
+-//			m_pSong = FMUSIC_LoadSong("ps.xm");
+-//			#else
+-		m_pSong = FMUSIC_LoadSong((char*)m_pDataReader->GetFile(pFile));
+-//			#endif
+-		FSOUND_SetVolume(FSOUND_ALL, m_volume);
+-		if(!m_pSong)
+-			cout << fn << " Failed to load music." << endl;
+-		FMUSIC_SetLooping(m_pSong, false);
+-		m_bHasLoad = true;
++        /* Loading Module */
++		std::ifstream file((char*)m_pDataReader->GetFile(pFile), std::ios::binary );
++		if (!file.is_open()) {
++		    std::cout << "couldn't find music.xm" << std::endl;
++		    m_bHasLoad = false;
++		} else {
++			m_pModule = new openmpt::module(file);
++			m_bHasLoad = true;
++		}
+ 	}
+ }
+ 
+ void Music::Play()
+ {
+-	if(m_bHasLoad)
+-		if(!FMUSIC_PlaySong(m_pSong))
+-			cout << "[Music::Play] Failed to play music." << endl;
++	if (m_bHasLoad)
++    {
++    	const int numChannels = 2; // Stereo
++		const int bufferSize = 4096; // Number of frames per channel
++		float* audioBuffer = new float[bufferSize * numChannels];
++
++		m_pModule->set_position_seconds(0); // Ensure song starts from the beginning
++		m_pModule->set_repeat_count(0); // Set repeat count to 0 for playing once
++
++		int framesRead;
++		do {
++			framesRead = m_pModule->read_interleaved_stereo(48000, bufferSize, audioBuffer);
++			if (framesRead > 0) {
++			    SDL_QueueAudio(device, audioBuffer, framesRead * numChannels * sizeof(float));
++			}
++		} while (framesRead > 0);
++		SDL_PauseAudioDevice(device, 0);
++    }
+ }
+ 
+ void Music::Stop()
+ {
+-	if(m_bHasLoad)
+-		FSOUND_StopSound(FSOUND_ALL);
++	if (m_bHasLoad)
++    {
++       SDL_PauseAudioDevice(device, 1);
++    }
+ }
+ 
+ void Music::SetVolume(int volume)
+ {
+ 	m_volume = volume;
+-	FSOUND_SetVolume(FSOUND_ALL, m_volume);
+ }
+ 
+ int Music::GetVolume()
+--- a/ds/io/music.h
++++ b/ds/io/music.h
+@@ -19,7 +19,9 @@
+ #define MUSIC_H
+ 
+ #include "../common.h"
+-#include <fmod.h>
++#include <fstream>
++#include <libopenmpt/libopenmpt.hpp>
++#include <SDL2/SDL.h>
+ #include "datareader.h"
+ 
+ namespace DS
+@@ -39,7 +41,7 @@
+ bool m_bHasLoad;
+ int m_volume;
+ DataReader* m_pDataReader;
+-FMUSIC_MODULE* m_pSong;
++openmpt::module *m_pModule = nullptr;
+ };
+ }
+ 
+--- a/Makefile
++++ b/Makefile
+@@ -11,7 +11,7 @@
+ 
+ # Compile flags ----------------------------------------------------------------
+ CFLAGS += -Wall -pipe -DNOFILE -std=gnu90
+-CXXFLAGS += -Wall -pipe -DNOFILE -std=gnu++98 -fabi-version=2
++CXXFLAGS += -Wall -pipe -DNOFILE -std=c++17
+ #FLAGS = -Wall -g -DDEVEL -DFILE_USAGE_LOG
+ TARGET   = xa005spike-by-xangle
+ #variable de nettoyage
+@@ -22,8 +22,8 @@
+ 
+ # Detect OS --------------------------------------------------------------------
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "linux")),)
+-	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl glu gl zlib libpng) -lfmod-3.75 $(GUILIB)
+-	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl glu gl zlib libpng) $(GUIOPT)
++	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl glu gl zlib libpng libopenmpt) -lfmod-3.75 $(GUILIB)
++	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl glu gl zlib libpng libopenmpt) $(GUIOPT)
+ endif
+ 
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "Apple")),)

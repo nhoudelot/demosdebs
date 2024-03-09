@@ -1,5 +1,6 @@
 Description: changed filename to make a difference with the server
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2019-11-11
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

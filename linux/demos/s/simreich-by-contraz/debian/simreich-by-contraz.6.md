@@ -1,6 +1,6 @@
 % simreich-by-contraz(6) Sim Reich User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Contraz
-% 2017-03-25
+% 2024-04-22
 
 # NAME
 simreich-by-contraz - the command to run Sim Reich.
@@ -9,7 +9,8 @@ simreich-by-contraz - the command to run Sim Reich.
 simreich-by-contraz [*options*]
 
 # DESCRIPTION
-Sim Reich is a demonstration released by Contraz in 2010.
+Sim Reich is a demo released by Contraz in july 2010.
+Ended 1st at Solskogen 2010
                             --- "Sim Reich" ---
 		    
 
@@ -53,10 +54,11 @@ Sim Reich is a demonstration released by Contraz in 2010.
 
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=55394
 
 # BUGS
 No known bugs.

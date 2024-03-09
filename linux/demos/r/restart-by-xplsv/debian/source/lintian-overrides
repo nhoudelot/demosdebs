@@ -1,2 +1,2 @@
-restart-by-xplsv source: source-is-missing data/libbass.so
-restart-by-xplsv source: source-is-missing data/luisita
+restart-by-xplsv source: source-is-missing [data/libbass.so]
+restart-by-xplsv source: source-is-missing [data/luisita]

@@ -1,3 +1,9 @@
+Description: adapt classpath and desktop icon
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/MANIFEST.MF
 +++ b/MANIFEST.MF
 @@ -1,4 +1,4 @@

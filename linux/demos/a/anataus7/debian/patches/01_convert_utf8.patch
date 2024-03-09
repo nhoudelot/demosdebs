@@ -1,0 +1,37 @@
+Description: convert to UTF-8
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/ana7.txt
++++ b/ana7.txt
+@@ -15,16 +15,16 @@
+     Shout http://www.kameli.net/fit/
+     Yell marq@iki.fi
+ 
+-    Finally, here's some cool ÃÄÄşşÄ, sorry, ASCII art to you:
+-    (thanks to áOMá, the best Linux crew!)
++    Finally, here's some cool â”œâ”€â”€â– â– â”€, sorry, ASCII art to you:
++    (thanks to ÃŸOMÃŸ, the best Linux crew!)
+ 
+-         ³
+-      ÚÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+-      ³                                    ³     ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+-      ³             ANATAUS 7              ³     ³                    ³
+-      ³        the perfect world.          ³     ³      presented     ³
+-      ³                                    ÃÄÄşşÄ´live at  ASSEMBLY'2k³
+-      ÀÄÄÄÄÄÄÄÄÄÄÂÂÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ     ³       held in      ³
+-                 ³³³                             ³  Helsonki - SUAMI  ³
+-                 İİİ                             ³     The 3 to 6     ³
+- ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÁÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    august  2000    ³
++             â”‚
++      â”Œâ”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
++      â”‚                                    â”‚     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
++      â”‚             ANATAUS 7              â”‚     â”‚                    â”‚
++      â”‚        the perfect world.          â”‚     â”‚      presented     â”‚
++      â”‚                                    â”œâ”€â”€â– â– â”€â”¤live at  ASSEMBLY'2kâ”‚
++      â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”¬â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜     â”‚       held in      â”‚
++                 â”‚â”‚â”‚                             â”‚  Helsonki - SUAMI  â”‚
++                 â–Œâ–Œâ–Œ                             â”‚     The 3 to 6     â”‚
++ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”´â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    august  2000    â”‚

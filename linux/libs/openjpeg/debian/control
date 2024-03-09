@@ -7,7 +7,7 @@ Uploaders:
  , Mathieu Malaterre <malat@debian.org>
 Homepage: https://www.openjpeg.org
 Build-Depends:
- debhelper-compat (= 12)
+ debhelper-compat (= 13)
  , cmake (>= 2.8.0)
  , libxerces2-java
  , libtiff-dev
@@ -17,10 +17,11 @@ Build-Depends:
  , libfcgi-dev
  , libcurl4-gnutls-dev | libcurl-ssl-dev
  , doxygen
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Section: libs
 Vcs-Browser: https://anonscm.debian.org/gitweb/?p=pkg-phototools/openjpeg.git
 Vcs-Git: git://anonscm.debian.org/pkg-phototools/openjpeg.git
+Rules-Requires-Root: no
 
 Package: libopenjpeg-dev
 Section: libdevel

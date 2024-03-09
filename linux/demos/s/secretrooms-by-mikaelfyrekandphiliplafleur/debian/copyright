@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: secretrooms-by-mikaelfyrekandphiliplafleur
-Source: http://www.pouet.net/prod.php?which=62853
+Source: https://www.pouet.net/prod.php?which=62853
 
 Files: *
 Copyright: 2014 Mikael Fyrek
@@ -21,7 +21,7 @@ License: CC-BY-NC-ND-4
  http://creativecommons.org/licenses/by-nc-nd/4.0/
 
 Files: debian/*
-Copyright: 2019-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2019-2024 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: GPL-3.0+

@@ -1,4 +1,4 @@
-01_adapt_to_debian.patch
+01_set_default_compilation_to_linux.patch
 02_move_rom_directory.patch
 03_spelling_errors.patch
 04_sdl2_path.patch

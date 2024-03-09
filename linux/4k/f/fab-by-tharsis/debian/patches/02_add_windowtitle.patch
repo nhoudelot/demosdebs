@@ -1,5 +1,6 @@
 Description: add a title to the window
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-25
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

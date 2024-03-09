@@ -1,2 +1,2 @@
-aestheticdistance-by-youthuprising source: source-is-missing demo.linux32
-aestheticdistance-by-youthuprising source: source-is-missing libfmodex.so.4.10.03
+aestheticdistance-by-youthuprising source: source-is-missing [demo.linux32]
+aestheticdistance-by-youthuprising source: source-is-missing [libfmodex.so.4.10.03]

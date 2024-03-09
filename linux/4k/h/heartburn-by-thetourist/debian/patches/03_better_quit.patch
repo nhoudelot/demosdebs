@@ -1,0 +1,44 @@
+Description: better quit
+ update key to the new SDL2 layout
+ and even add more options to quit the app
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/source/heartburn.c
++++ b/source/heartburn.c
+@@ -183,6 +183,7 @@
+ static int transitionStart = 0x4000000;
+ static int lcPos;
+ 
++char quit = 0;
+ 
+ #ifdef __linux__
+ 
+@@ -598,7 +599,7 @@
+ 	SDL_PauseAudio( 0 );
+ #endif
+ 	SDL_Event event;
+-	do {
++	while(!quit) {
+ 		int d = SDL_GetTicks( ) - timeCurrent;
+ 
+ #ifdef HAS_MUSIC
+@@ -646,8 +647,14 @@
+ 		display( );
+ 
+ 		SDL_GL_SwapWindow(sdlWindow);
+-		SDL_PollEvent( &event );
+-	} while ( event.type != SDL_KEYUP || event.key.keysym.sym != 27 );
++		while(SDL_PollEvent(&event)) {
++			/* exit on input */
++			if(event.type == SDL_QUIT || (event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q))) {
++				quit = 1;
++				continue;
++			}
++		}
++	}
+ 
+ 	SDL_Quit( );
+ 	SDL_GL_DeleteContext(sdlGlcontext);

@@ -23,8 +23,8 @@ in some places, so I didn't include a win32 build.
 # OPTIONS
 there is no options to this program
 
-\--help
-:   Display help for the command
+# INFOS
+https://www.pouet.net/prod.php?which=49797
 
 # BUGS
 No known bugs.

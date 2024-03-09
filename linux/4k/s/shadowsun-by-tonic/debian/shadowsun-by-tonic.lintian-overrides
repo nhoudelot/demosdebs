@@ -1,2 +1,2 @@
 shadowsun-by-tonic binary: unknown-section demos
-shadowsun-by-tonic binary: desktop-entry-lacks-keywords-entry usr/share/applications/shadowsun-by-tonic.desktop
+shadowsun-by-tonic binary: desktop-entry-lacks-keywords-entry [usr/share/applications/shadowsun-by-tonic.desktop]

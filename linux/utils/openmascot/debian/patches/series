@@ -1,2 +1,3 @@
 01_adapt_cmakelists.patch
 02_adapt_img_path.patch
+03_fix_code.patch

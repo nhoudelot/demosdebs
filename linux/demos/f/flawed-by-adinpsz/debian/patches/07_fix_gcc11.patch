@@ -1,3 +1,9 @@
+Description: fix GCC-11 compilation
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Flawed/Makefile
 +++ b/Flawed/Makefile
 @@ -13,8 +13,8 @@

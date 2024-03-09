@@ -1,3 +1,10 @@
+geometry-by-znurre (1.0-0ddebs3) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Apr 2024 23:47:03 +0200
+
 geometry-by-znurre (1.0-0ddebs2) unstable; urgency=medium
 
   * use XZ compression for package, to create package compatible with 

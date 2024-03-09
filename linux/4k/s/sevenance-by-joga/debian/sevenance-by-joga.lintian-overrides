@@ -1,4 +1,1 @@
 sevenance-by-joga binary: unknown-section demos
-sevenance-by-joga: program-not-linked-against-libc usr/lib/x86_64-linux-gnu/sevenance-by-joga/sevenance-1920x1080
-sevenance-by-joga: hardening-no-pie usr/lib/x86_64-linux-gnu/sevenance-by-joga/sevenance-1920x1080
-sevenance-by-joga: hardening-no-relro usr/lib/x86_64-linux-gnu/sevenance-by-joga/sevenance-1920x1080

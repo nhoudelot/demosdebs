@@ -10,6 +10,11 @@ override_dh_autoreconf:
 
 override_dh_auto_configure:
 	dh_auto_configure -- --disable-nasm
+	(cd debian; \
+	  for i in *.in; do\
+	  o=`basename $$i .in`;\
+	  sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+	  done )
 
 override_dh_builddeb:
 	dh_builddeb -- -Zxz

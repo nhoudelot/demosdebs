@@ -1,0 +1,3 @@
+010_extra_flags.diff -p1
+100_CVE-2006-3668.diff
+110-hardening.diff

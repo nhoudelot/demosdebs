@@ -1,0 +1,29 @@
+Description: fixing several errors
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/mascot.h
++++ b/src/mascot.h
+@@ -5,6 +5,8 @@
+ #include <SFML/Graphics.hpp>
+ 
+ #include <cmath>
++using namespace std;
++#include <array>
+ 
+ class Mascot {
+ 	//actually, not implemented to make more than 1 mascot.
+--- a/src/system.cpp
++++ b/src/system.cpp
+@@ -6,6 +6,9 @@
+ #include <X11/Xproto.h>
+ #include <X11/extensions/shape.h>
+ #include <regex>
++using namespace std;
++#include <array>
++#include <cstring>
+ 
+ // Window params
+ bool defaultProp(Window window) {

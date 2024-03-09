@@ -1,0 +1,5 @@
+helloworld-by-krekola: unknown-section demos
+helloworld-by-krekola: desktop-entry-lacks-keywords-entry [usr/share/applications/helloworld-by-krekola.desktop]
+helloworld-by-krekola: hardening-no-pie [usr/lib/i386-linux-gnu/helloworld-by-krekola/fs_k-hello_world]
+helloworld-by-krekola: hardening-no-relro [usr/lib/i386-linux-gnu/helloworld-by-krekola/fs_k-hello_world]
+

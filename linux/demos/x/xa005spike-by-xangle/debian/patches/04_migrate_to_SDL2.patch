@@ -1,0 +1,50 @@
+--- a/ds/io/video.cpp
++++ b/ds/io/video.cpp
+@@ -38,17 +38,16 @@
+ 
+ 	// Set video flags
+ 	int flags = SDL_HWSURFACE;
+-	flags |= SDL_OPENGL;
++	flags |= SDL_WINDOW_OPENGL;
+ 
+ 	if(m_fullscreen)
+-		flags |= SDL_FULLSCREEN;
++		flags |= SDL_WINDOW_FULLSCREEN;
+ 
+-	// Get screen pointer
+-	if(!(m_pScreen = SDL_SetVideoMode(m_Width, m_Height, 32, flags)))
++	if(!(sdlWindow = SDL_CreateWindow(m_Title.c_str(),SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,m_Width,m_Height,flags))) {
+ 		throw Exception(fn, (string)"Mode set failed: " + SDL_GetError() + ".");
+-
+-	// Set window title
+-	SDL_WM_SetCaption(m_Title.c_str(), NULL);
++	};
++	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,m_pScreen);
+ 
+ 	// Hide cursor
+ 	SDL_ShowCursor(0);
+@@ -56,6 +55,9 @@
+ 
+ void Video::Update()
+ {
+-	SDL_GL_SwapBuffers();
++	SDL_UpdateTexture(sdlTexture, NULL, m_pScreen->pixels, m_pScreen->pitch);
++	SDL_RenderClear(sdlRenderer);
++	SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++	SDL_RenderPresent(sdlRenderer);
+ }
+ }
+--- a/Makefile
++++ b/Makefile
+@@ -22,8 +22,8 @@
+ 
+ # Detect OS --------------------------------------------------------------------
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "linux")),)
+-	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl glu gl zlib libpng) -lfmod-3.75 $(GUILIB)
+-	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl glu gl zlib libpng) $(GUIOPT)
++	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 glu gl zlib libpng) -lfmod-3.75 $(GUILIB)
++	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl2 glu gl zlib libpng) $(GUIOPT)
+ endif
+ 
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "Apple")),)

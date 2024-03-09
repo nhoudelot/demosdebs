@@ -1,6 +1,6 @@
 % hexpistols-by-fit(6) Hex Pistols User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Fit
-% 2016-03-31
+% 2024-04-19
 
 # NAME
 hexpistols-by-fit - is the command to run Hex Pistols 
@@ -9,18 +9,27 @@ hexpistols-by-fit - is the command to run Hex Pistols
 hexpistols-by-fit [*options*]
 
 # DESCRIPTION
-Hex Pistols  is a demonstration released by Fit
-Demo by Fit, released in 2005
+Hex Pistols is a demo released by Fit in may 2005
+Ended 1st at Motorola Inside 2005
+
+Marq [Code, Graphics]
+roz [Music]
 
 # OPTIONS
-there is no options to this program
-
 \-w
 :   For window mode
 
 \--help
 :   Display help for the command
 
+# KEYS
+F
+:    toggle fullscreen
+ESC
+:    quit
+
+# INFOS
+https://www.pouet.net/prod.php?which=17311
 
 # BUGS
 No known bugs.

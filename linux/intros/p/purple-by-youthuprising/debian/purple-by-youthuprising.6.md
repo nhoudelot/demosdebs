@@ -1,6 +1,6 @@
 % purple-by-youthuprising(6) Purple User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Youth Uprising
-% 2019-12-14
+% 2024-03-21
 
 # NAME
 purple-by-youthuprising - the command to run Purple.
@@ -9,20 +9,21 @@ purple-by-youthuprising - the command to run Purple.
 purple-by-youthuprising [*options*]
 
 # DESCRIPTION
-Purple is a demonstration released by Youth Uprising in 2007.
+Purple is a 40k intro released by Youth Uprising in february 2007.
+Ended 2nd at Icons 2007
 
 # OPTIONS
-
-\--help
-:   Display help for the command
+there is no options
 
 #KEYS
-
-ESC or q
+ESC or Q
 : to quit
 
-f
+F
 : to go fullscreen
+
+# INFOS
+https://www.pouet.net/prod.php?which=29742
 
 # BUGS
 No known bugs.

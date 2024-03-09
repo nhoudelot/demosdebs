@@ -1,5 +1,6 @@
 Description: old homepage is down, using the github one
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2019-11-11
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

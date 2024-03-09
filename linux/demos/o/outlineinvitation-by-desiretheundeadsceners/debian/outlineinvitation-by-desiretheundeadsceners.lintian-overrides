@@ -1,1 +1,4 @@
 outlineinvitation-by-desiretheundeadsceners binary: unknown-section demos
+outlineinvitation-by-desiretheundeadsceners: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/outlineinvitation-by-desiretheundeadsceners/tus_dsr-outline_invite]
+outlineinvitation-by-desiretheundeadsceners: hardening-no-fortify-functions [usr/lib/x86_64-linux-gnu/outlineinvitation-by-desiretheundeadsceners/tus_dsr-outline_invite]
+outlineinvitation-by-desiretheundeadsceners: desktop-entry-lacks-keywords-entry [usr/share/applications/outlineinvitation-by-desiretheundeadsceners.desktop]

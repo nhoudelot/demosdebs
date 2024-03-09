@@ -1,3 +1,12 @@
+fortnight-by-mfx (1.0+1-0ddebs7) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+  * use YASM instead of NASM
+  * now compile to 64 bit
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 17 Mar 2024 17:07:28 +0100
+
 fortnight-by-mfx (1.0+1-0ddebs6) unstable; urgency=medium
 
   * fix dh_missing

@@ -1,0 +1,18 @@
+Description: increase audio frequency to 48 Khz 
+as 48 kHz is now the standard for digital audio & video
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/bluecubes.c
++++ b/bluecubes.c
+@@ -345,7 +345,7 @@
+ /***************************************************
+ ******************** synth ************************/
+ 
+-#define AFREQ 44100
++#define AFREQ 48000
+ #define AMAX 32767
+ unsigned int acnt = startpos/1000 * AFREQ;
+ SDL_AudioDeviceID device;

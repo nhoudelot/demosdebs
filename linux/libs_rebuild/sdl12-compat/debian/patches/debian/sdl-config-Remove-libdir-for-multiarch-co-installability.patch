@@ -1,0 +1,42 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Wed, 2 Mar 2022 14:41:36 +0000
+Subject: sdl-config: Remove ${libdir} for multiarch co-installability
+
+This makes the -dev package multiarch co-installable, allowing compilation
+of SDL programs for more than one architecture on the same system.
+
+This is not an upstreamable change, since it relies on a Debian-specific
+assumption (that we are installing the library into a directory on the
+linker's default search path).
+
+Forwarded: not-needed
+---
+ sdl-config.in | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/sdl-config.in b/sdl-config.in
+index ce332b3..e0020f4 100755
+--- a/sdl-config.in
++++ b/sdl-config.in
+@@ -10,7 +10,6 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+ exec_prefix=${prefix}
+ exec_prefix_set=no
+-libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+ includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+ 
+ @ENABLE_STATIC_FALSE@usage="\
+@@ -53,11 +52,11 @@ while test $# -gt 0; do
+       echo -I${includedir}/SDL @SDL_CFLAGS@
+       ;;
+ @ENABLE_SHARED_TRUE@    --libs)
+-@ENABLE_SHARED_TRUE@      echo -L${libdir} @SDL_RLD_FLAGS@ @SDL_LIBS@
++@ENABLE_SHARED_TRUE@      echo @SDL_RLD_FLAGS@ @SDL_LIBS@
+ @ENABLE_SHARED_TRUE@      ;;
+ @ENABLE_STATIC_TRUE@@ENABLE_SHARED_TRUE@    --static-libs)
+ @ENABLE_STATIC_TRUE@@ENABLE_SHARED_FALSE@    --libs|--static-libs)
+-@ENABLE_STATIC_TRUE@      echo -L${libdir} @SDL_LIBS@ @SDL_STATIC_LIBS@
++@ENABLE_STATIC_TRUE@      echo @SDL_LIBS@ @SDL_STATIC_LIBS@
+ @ENABLE_STATIC_TRUE@      ;;
+     *)
+       echo "${usage}" 1>&2

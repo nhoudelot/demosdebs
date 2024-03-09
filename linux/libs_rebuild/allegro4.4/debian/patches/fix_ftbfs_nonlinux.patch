@@ -1,0 +1,17 @@
+Description: fix to build on non-Linux arches
+ Define ESTRPIPE on non-Linux systems that don't have it.
+Author: Steven Chamberlain <steven@pyro.eu.org>
+
+--- a/src/unix/alsa9.c
++++ b/src/unix/alsa9.c
+@@ -36,6 +36,10 @@
+    #include <math.h>
+ #endif
+ 
++/* Linux-kernel specific errnos */
++#ifndef ESTRPIPE
++#define ESTRPIPE 86
++#endif
+ 
+ #ifndef SND_PCM_FORMAT_S16_NE
+    #ifdef ALLEGRO_BIG_ENDIAN

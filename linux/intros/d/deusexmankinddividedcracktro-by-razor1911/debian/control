@@ -3,7 +3,7 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libxrandr-dev,
  libxxf86vm-dev,
  libasound2-dev,
@@ -11,8 +11,9 @@ Build-Depends:
  libgl-dev,
  libxcursor-dev,
  libxinerama-dev 
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=68539
+Rules-Requires-Root: no
 
 Package: deusexmankinddividedcracktro-by-razor1911
 Architecture: amd64
@@ -20,7 +21,7 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.61)
-Description: Cracktro by Razor 1911, released in 2016
+Description: Cracktro by Razor 1911, released in november 2016
  XT-95 Checker Cracktro
  Type ... : .............Cracktro
  Date ... : .......... 2016-11-21

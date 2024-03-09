@@ -3,7 +3,7 @@ Section: libs
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libvorbis-dev,
  libcdaudio-dev,
  libflac-dev,
@@ -12,7 +12,8 @@ Build-Depends:
  libpulse-dev,
  pkgconf
 Homepage: https://github.com/poikilos/Audiere
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
 
 Package: libaudiere-1.10.1
 Architecture: any

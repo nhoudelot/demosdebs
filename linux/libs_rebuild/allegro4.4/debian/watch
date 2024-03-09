@@ -1,0 +1,2 @@
+version=4
+https://github.com/liballeg/allegro5/releases/ download/(?:4.[\d\.]+)\/allegro-(4\.\d?[02468]\.\d[\.\d]*)\.tar\.gz

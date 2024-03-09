@@ -1,4 +1,6 @@
 nostalgia-by-gnb: unknown-section demos
-nostalgia-by-gnb: hardening-no-pie usr/lib/x86_64-linux-gnu/nostalgia-by-gnb/Nostalgia.release
-nostalgia-by-gnb: hardening-no-relro usr/lib/x86_64-linux-gnu/nostalgia-by-gnb/Nostalgia.release
-
+nostalgia-by-gnb: hardening-no-pie [usr/lib/x86_64-linux-gnu/nostalgia-by-gnb/Nostalgia.release]
+nostalgia-by-gnb: hardening-no-relro [usr/lib/x86_64-linux-gnu/nostalgia-by-gnb/Nostalgia.release]
+nostalgia-by-gnb: hardening-no-bindnow [usr/lib/x86_64-linux-gnu/nostalgia-by-gnb/Nostalgia.release]
+nostalgia-by-gnb: hardening-no-fortify-functions [usr/lib/x86_64-linux-gnu/nostalgia-by-gnb/Nostalgia.release]
+nostalgia-by-gnb: desktop-entry-lacks-keywords-entry [usr/share/applications/nostalgia-by-gnb.desktop]

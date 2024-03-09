@@ -1,0 +1,12 @@
+Tests: build
+Depends:
+ build-essential,
+ clang:native,
+ libsdl1.2-compat-dev,
+ pkg-config,
+Restrictions: superficial, allow-stderr
+
+Tests: smoke
+Depends:
+ libsdl1.2-compat-tests,
+Restrictions: superficial, allow-stderr

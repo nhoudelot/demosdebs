@@ -1,3 +1,9 @@
+Description: migrate from mikmod to sdlmixer
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/source/sound.c
 +++ b/source/sound.c
 @@ -78,9 +78,9 @@

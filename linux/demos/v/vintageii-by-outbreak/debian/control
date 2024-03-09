@@ -3,9 +3,10 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13),
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=50831
+Rules-Requires-Root: no
 
 Package: vintageii-by-outbreak
 Architecture: i386
@@ -14,12 +15,11 @@ Depends:
  ${misc:Depends},
  common-install-function-ddebs(>=1.18),
  libglew1.5,
- libglu1-mesa|libglu1,
+ libglu1,
  libpng12-0 (>= 1.2.13-4),
  libaudiere,
  libxrandr2,
  libjpeg62-turbo|libjpeg62,
- libc6,
  vintageii-by-outbreak-data
 Description: Demo for Linux, released in 2008
  Demo by outbreak, released in 2008

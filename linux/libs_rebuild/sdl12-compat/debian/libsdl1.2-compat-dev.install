@@ -1,0 +1,7 @@
+usr/bin/sdl-config
+usr/include/SDL
+usr/lib/*/libSDL-1.2.so
+usr/lib/*/libSDL.so
+usr/lib/*/libSDLmain.a
+usr/lib/*/pkgconfig/sdl12_compat.pc
+usr/share/aclocal/sdl.m4

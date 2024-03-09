@@ -1,3 +1,9 @@
+Description: use Compilation definition to use or not MIX_INIT_FLUIDSYNTH
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/FileClasses/music/DirectoryPlayer.cpp
 +++ b/src/FileClasses/music/DirectoryPlayer.cpp
 @@ -61,7 +61,13 @@

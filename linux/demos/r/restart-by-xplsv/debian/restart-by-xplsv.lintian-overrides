@@ -1,2 +1,2 @@
 restart-by-xplsv: unknown-section demos
-restart-by-xplsv: desktop-entry-lacks-keywords-entry usr/share/applications/restart-by-xplsv.desktop
+restart-by-xplsv: desktop-entry-lacks-keywords-entry [usr/share/applications/restart-by-xplsv.desktop]

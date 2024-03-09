@@ -3,17 +3,18 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
- pandoc,
+ debhelper-compat (= 13),
  pkgconf,
- libglx-dev|libglvnd-dev,
- libopengl-dev|libglvnd-core-dev,
+ libglx-dev,
+ libopengl-dev,
  libglu1-mesa-dev,
  librtaudio-dev,
  libx11-dev,
- libgtk2.0-dev
-Standards-Version: 4.6.0.1
+ libgtk2.0-dev,
+ libsimde-dev
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=67607
+Rules-Requires-Root: no
 
 Package: dassanseffortseur-by-enib
 Architecture: any

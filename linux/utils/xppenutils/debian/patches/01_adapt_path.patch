@@ -1,3 +1,9 @@
+Description: update desktop shortcut
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/App/usr/share/applications/xppentablet.desktop
 +++ b/App/usr/share/applications/xppentablet.desktop
 @@ -1,11 +1,13 @@

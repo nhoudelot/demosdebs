@@ -1,3 +1,9 @@
+Description: migrate to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/main/sdl2/input.hpp
 +++ b/src/main/sdl2/input.hpp
 @@ -10,7 +10,7 @@

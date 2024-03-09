@@ -1,3 +1,9 @@
+Description: fix includes
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/utility.h
 +++ b/src/utility.h
 @@ -11,6 +11,7 @@

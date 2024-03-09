@@ -1,6 +1,6 @@
 % strata-by-luminaire(6) Strata User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Luminaire
-% 2019-12-20
+% 2024-04-04
 
 # NAME
 strata-by-luminaire - the command to run Strata.
@@ -9,13 +9,19 @@ strata-by-luminaire - the command to run Strata.
 strata-by-luminaire [*options*]
 
 # DESCRIPTION
-Strata is a demonstration released by Luminaire in 2015.
+Strata is a 4k intro released by Luminaire in august 2015.
+Ended 5th at Assembly 2015
+
+cyndis [code, graphics]
+Jontte [code, graphics]
+jnalanko [music]
 
 # OPTIONS
-there is no options to this program
-
 \--help
 :   Display help for the command
+
+# INFOS
+https://www.pouet.net/prod.php?which=66090
 
 # BUGS
 No known bugs.

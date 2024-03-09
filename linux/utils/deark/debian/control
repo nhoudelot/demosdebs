@@ -3,12 +3,13 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  help2man
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://entropymine.com/deark/
 Vcs-Git: https://github.com/jsummers/deark.git
 Vcs-Browser: https://github.com/jsummers/deark
+Rules-Requires-Root: no
 
 Package: deark
 Architecture: any
@@ -38,7 +39,7 @@ Description: Command line utility that can convert old image files
  ICO / CUR (Windows icon/cursor)
  ILBM
  JPEG
- JPEG 2000
+ JPEG_2000
  MacPaint
  Mac icon (icns)
  Microsoft Paint

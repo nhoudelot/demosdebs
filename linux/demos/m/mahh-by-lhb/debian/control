@@ -3,14 +3,14 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl1.2-compat-dev|libsdl1.2-dev,
  libgl1,
  libsdl-image1.2-dev,
  libsdl-mixer1.2-dev,
  libopengl-dev,
  libx11-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=72481
 Rules-Requires-Root: no
 

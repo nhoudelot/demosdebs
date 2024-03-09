@@ -1,0 +1,13 @@
+--- libdumb-0.9.3.orig/Makefile
++++ libdumb-0.9.3/Makefile
+@@ -231,8 +231,8 @@
+ endif
+ endif
+ 
+-CFLAGS_RELEASE := -Iinclude $(WFLAGS) $(OFLAGS)
+-CFLAGS_DEBUG := -Iinclude $(WFLAGS) $(DBGFLAGS)
++CFLAGS_RELEASE := -Iinclude $(WFLAGS) $(OFLAGS) $(CFLAGS_EXTRA)
++CFLAGS_DEBUG := -Iinclude $(WFLAGS) $(DBGFLAGS) $(CFLAGS_EXTRA)
+ 
+ LDFLAGS := -s
+ 

@@ -1,0 +1,29 @@
+Description: use SIMDeverywhere to compileon any architecture
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/simd.hpp
++++ b/src/simd.hpp
+@@ -15,9 +15,10 @@
+ #ifndef SIMD_HPP
+ #define SIMD_HPP
+ 
+-#include <xmmintrin.h>
+-#include <emmintrin.h>
+-#include <smmintrin.h>
++#define SIMDE_ENABLE_NATIVE_ALIASES
++#include <simde/x86/sse.h>
++#include <simde/x86/sse2.h>
++#include <simde/x86/sse4.1.h>
+ 
+ #define eSimdSelect(v, i0, i1, i2, i3)              _mm_shuffle_ps(v, v, _MM_SHUFFLE(i0, i1, i2, i3))
+ #define eSimdShuffle(v0, v1, i00, i01, i10, i11)    _mm_shuffle_ps(v0, v1, _MM_SHUFFLE(i00, i01, i10, i11))
+@@ -90,4 +91,4 @@
+ 
+ void eSimdSetArithmeticFlags(eInt flags);
+ 
+-#endif
+\ No newline at end of file
++#endif

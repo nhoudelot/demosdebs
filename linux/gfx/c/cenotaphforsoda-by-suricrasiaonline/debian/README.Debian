@@ -1,0 +1,13 @@
+cenotaphforsoda-by-suricrasiaonline for Debian
+---------------------------------------------
+
+I  used only the Makefile in main/
+as it's easier, and I only need it to compile
+
+also, didn't compile it until having the 4k part version, to have the 
+dependencies.
+
+it's also a 64 bit version, not a 32 bit, like the party version
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 07 Mar 2024 01:22:52 +0100

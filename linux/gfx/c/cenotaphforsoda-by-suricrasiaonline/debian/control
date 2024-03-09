@@ -1,0 +1,26 @@
+Source: cenotaphforsoda-by-suricrasiaonline
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ shader-minifier,
+ libgl-dev,
+ libglu-dev,
+ libxrandr-dev,
+ libcairo2-dev,
+ pkgconf
+Standards-Version: 4.6.2
+Homepage: https://bitbucket.org/blackle_mori/cenotaph4soda/src/master/
+Rules-Requires-Root: no
+
+Package: cenotaphforsoda-by-suricrasiaonline
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ fonts-freefont-ttf,
+ t1-cyrillic,
+ common-install-function-ddebs(>=1.61)
+Description: Procedural gfx by Suricrasia Online, released in 2018
+ procedural graphics

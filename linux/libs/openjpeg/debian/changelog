@@ -1,3 +1,10 @@
+openjpeg (1:1.5.2-3.2debbs4) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 09 Mar 2024 14:40:01 +0100
+
 openjpeg (1:1.5.2-3.2debbs3) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

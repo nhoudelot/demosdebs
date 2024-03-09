@@ -1,5 +1,5 @@
 anrufausschweden-by-unik binary: unknown-section demos
-anrufausschweden-by-unik binary: desktop-entry-lacks-keywords-entry usr/share/applications/anrufausschweden-by-unik.desktop
-anrufausschweden-by-unik binary: binary-or-shlib-defines-rpath usr/lib/i386-linux-gnu/anrufausschweden-by-unik/ikea /usr/lib
-anrufausschweden-by-unik binary: hardening-no-pie usr/lib/i386-linux-gnu/anrufausschweden-by-unik/ikea
-anrufausschweden-by-unik binary: hardening-no-relro usr/lib/i386-linux-gnu/anrufausschweden-by-unik/ikea
+anrufausschweden-by-unik binary: desktop-entry-lacks-keywords-entry [usr/share/applications/anrufausschweden-by-unik.desktop]
+anrufausschweden-by-unik binary: custom-library-search-path RPATH /usr/lib [usr/lib/i386-linux-gnu/anrufausschweden-by-unik/ikea]
+anrufausschweden-by-unik binary: hardening-no-pie [usr/lib/i386-linux-gnu/anrufausschweden-by-unik/ikea]
+anrufausschweden-by-unik binary: hardening-no-relro [usr/lib/i386-linux-gnu/anrufausschweden-by-unik/ikea]

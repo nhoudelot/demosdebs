@@ -1,19 +1,27 @@
 Description: updating makefile
  updating makefile to make it more compatible with packaging
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-28
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,27 +1,34 @@
+@@ -1,27 +1,52 @@
 -CC = gcc
 -CFLAGS = -O2 -ffast-math `sdl-config --cflags`
 -#LDFLAGS = `sdl-config --libs` -lm
 -LDFLAGS = `sdl-config --static-libs` -lm
-+CC := gcc
-+PKG_CONFIG:=pkg-config
++# compilers and tools
++SHELL      := /bin/sh
++CC         ?= gcc
++PKG_CONFIG := pkg-config
++RM_F       := rm -f
++
++# Flags
 +CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl) -Wall -std=gnu90 -pipe
++
++# Libraries for linking
 +LDFLAGS += -flto $(shell $(PKG_CONFIG) --libs sdl) -lm
  OBJ = data.o kirjaimet2.o kokko.o maf.o main.o mosaic.o pallot.o plasma.o\
  ratas.o stripes.o video.o cool_mzx/cool_mzx.a
@@ -22,20 +30,26 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -#CFLAGS += -DBUFSIZE=8192
 -# True 8 bit display?
 -#CFLAGS += -DTRUE8BIT
-+RM_F = rm -f
-+
+ 
+-export
++# Final executable name
 +TARGET          = chrysler-by-fitandbandwagon
 +
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
-+endif
- 
- export
++# Install variables
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++INSTALL_DATA    := $(INSTALL) -p    -m  644
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++datarootdir     := $(prefix)/share
++datadir         := $(prefix)/share/chrysler-by-fitandbandwagon
++
++all: $(TARGET)
  
 -chrysler: $(OBJ)
-+all: $(TARGET)
-+
 +$(TARGET): $(OBJ)
  	$(CC) -o $@ $(OBJ) $(LDFLAGS)
 -	strip $@
@@ -50,10 +64,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  clean:
 -	-rm *.o *~ chrysler
 -	cd cool_mzx && make clean
-+	-@$(RM_F) *.o
-+	-@$(RM_F) *~
-+	-@$(RM_F) $(TARGET)
++	$(RM_F) *.o
++	$(RM_F) *~
++	$(RM_F) $(TARGET)
 +	cd cool_mzx && $(MAKE) clean
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
 --- a/cool_mzx/Makefile
 +++ b/cool_mzx/Makefile
 @@ -1,13 +1,24 @@

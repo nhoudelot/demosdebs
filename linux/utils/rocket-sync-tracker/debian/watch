@@ -1,5 +1,6 @@
 version=4
-opts="compression=xz,repack" \
-  https://github.com/rocket/rocket/tags .*/v?@ANY_VERSION@@ARCHIVE_EXT@ \
-debian uupdate
+opts="mode=git, pgpmode=none, pretty=0.11.0+git%cd, \
+         repack,compression=xz" \
+         https://github.com/rocket/rocket \
+         HEAD debian uupdate
 

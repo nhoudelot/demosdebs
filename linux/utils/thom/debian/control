@@ -3,16 +3,19 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libgtk1.2-dev,
  libx11-dev,
  libxext-dev,
  libpulse-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://sourceforge.net/projects/thom/
+Rules-Requires-Root: no
 
 Package: thom
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
 Description: Thomson TO7/70 emulator
  Emulator for the Thomson TO7/70

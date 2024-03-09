@@ -3,18 +3,19 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libsdl2-dev,
  libgl-dev,
- libglu1-mesa-dev,
+ libglu-dev,
  pkgconf
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=25866
+Rules-Requires-Root: no
 
 Package: bluecubes-by-yorhel
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: YorHel Intro/2006/Linux
+Description: Intro for Linux, released in 2006
  Intro by YorHel, released in 2006

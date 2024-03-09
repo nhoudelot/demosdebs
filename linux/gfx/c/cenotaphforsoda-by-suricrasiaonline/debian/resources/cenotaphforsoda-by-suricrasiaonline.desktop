@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Cenotaph for Soda
+GenericName=Demo
+Comment=Demo by Suricrasia Online, released in 2018
+Type=Application
+Exec=/usr/bin/cenotaphforsoda-by-suricrasiaonline
+Icon=cenotaphforsoda-by-suricrasiaonline
+Categories=AudioVideo;
+Name[fr_FR]=Cenotaph for Soda

@@ -1,0 +1,98 @@
+#!/usr/bin/make -f
+# Sample debian/rules that uses debhelper.
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+
+ARCH = $(shell dpkg-architecture -qDEB_BUILD_ARCH)
+
+CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS := $(shell dpkg-buildflags --get CFLAGS)
+CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS)
+LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+ifeq ($(ARCH),alpha)
+  CFLAGS := $(patsubst -O%,-O0,$(CFLAGS))
+  CXXFLAGS := $(patsubst -O%,-O0,$(CXXFLAGS))
+endif
+
+CFLAGS += -Wall -funroll-loops -fno-exceptions
+CXXFLAGS += -Wall -funroll-loops -fno-exceptions
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+configure-stamp:
+	dh_testdir
+	dh_autoreconf
+	rm -rf build
+	mkdir -p build
+	cd build && ../configure --prefix=/usr --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE) \
+		CPPFLAGS="$(CPPFLAGS)" \
+		CFLAGS="$(CFLAGS)" \
+		CXXFLAGS="$(CXXFLAGS)" \
+		LDFLAGS="$(LDFLAGS)"
+	touch configure-stamp
+
+build: configure-stamp build-stamp build-arch build-indep
+build-arch: build-stamp
+build-indep: build-stamp
+build-stamp: configure-stamp
+	dh_testdir
+	$(MAKE) -C build
+	touch build-stamp
+
+clean:
+	dh_testdir
+	rm -f build-stamp configure-stamp
+	rm -rf build
+	[ ! -f Makefile ] || $(MAKE) distclean || echo "ignored"
+	dh_autoreconf_clean
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_prep
+
+	mkdir -p $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig
+
+	$(MAKE) -C build install \
+		DESTDIR=$(CURDIR)/debian/tmp
+
+	#Multiarch fixes
+	mv debian/tmp/usr/lib/libmng* debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
+	mv $(CURDIR)/debian/tmp/usr/lib/pkgconfig/libmng.pc \
+		debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
+
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_install --sourcedir=debian/tmp -plibmng-dev -plibmng2
+	dh_installman
+	dh_installdocs
+	dh_installexamples
+	dh_installinfo
+	dh_installchangelogs CHANGES
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build build-indep build-arch clean binary-indep binary-arch binary install
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

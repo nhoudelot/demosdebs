@@ -1,6 +1,6 @@
 % vip2(6) VIP 2 User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Popsy Team
-% 2016-02-14
+% 2024-04-24
 
 # NAME
 vip2 - Demo ranked 1st at the Takeover 2000
@@ -9,12 +9,14 @@ vip2 - Demo ranked 1st at the Takeover 2000
 vip2 [*options*]
 
 # DESCRIPTION
+VIP2 is a demo by  Popsy Team released in june 2000
+Ended 1st at Takeover 2000
+
 VIP2 by Popsy Team <u2popsy@free.fr> - http://www.popsyteam.org/vip2  
 Linux port (v1.2) by Sesse/Excess <sgunderson@bigfoot.com>  
 http://www.sesse.net/vip2-linux/
 
 # OPTIONS
-
 \-windowed
 :   Set window mode (default)
 
@@ -33,6 +35,9 @@ http://www.sesse.net/vip2-linux/
 \-16
 \-32
 :   Set bit depth (-32 default)
+
+# INFOS
+https://www.pouet.net/prod.php?which=10
 
 # BUGS
 No known bugs.

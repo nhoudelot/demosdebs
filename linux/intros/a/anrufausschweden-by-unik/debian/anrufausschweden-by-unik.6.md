@@ -1,6 +1,6 @@
 % anrufausschweden-by-unik(6) anruf aus schweden User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),unik
-% 2018-01-23
+% 2024-03-19
 
 # NAME
 anrufausschweden-by-unik - is the command to run anruf aus schweden 
@@ -9,13 +9,19 @@ anrufausschweden-by-unik - is the command to run anruf aus schweden
 anrufausschweden-by-unik [*options*]
 
 # DESCRIPTION
-anruf aus schweden is a demonstration released by unik in 2004
+anruf aus schweden is a 64k intro released by unik in 2004
+It ended 1st pc 64k at Evoke 2004
 
 This demo use oss sound output, so on pulseaudio system, you better install
 osspd before running it
 
+# OPTIONS
+\--help
+:   Display help for the command
 
-evoke2oo4, 1st placed 64k
+# INFOS
+https://www.pouet.net/prod.php?which=13621
+
 "anruf aus schweden"
 by unik
 
@@ -40,11 +46,6 @@ limpninja litewerx lunix mandarine madwizards marshals mattcurrent melondezign
 mfx mindforce moppi nesnausk! nuance prone purple replay soopadoopa spaceballs 
 spinningkids stockholmsyndrome sunflower suburban syndrome threestate 
 tokyodawnrecords tpb tpolm vantage
-
-www.unik.de
-
-# OPTIONS
-there is no options to this program
 
 # BUGS
 No known bugs.

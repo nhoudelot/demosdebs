@@ -1,3 +1,10 @@
+4ksrc-pack1 (1.0+1-0ddebs7) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 23 Mar 2024 13:53:31 +0100
+
 4ksrc-pack1 (1.0+1-0ddebs6) unstable; urgency=medium
 
   * since Debian 12, build depend from freeglut3-dev or libglut-dev

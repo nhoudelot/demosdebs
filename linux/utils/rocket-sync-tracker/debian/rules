@@ -2,11 +2,13 @@
 
 # see FEATURE AREAS in dpkg-buildflags(1)
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
+export QMAKE = $(DEB_HOST_GNU_TYPE)-qmake
 
 export QT_SELECT := qt5
 
 %:
-	dh $@
+	dh $@ --buildsystem=makefile --with nodejs
 
 override_dh_install:
 	cp editor/editor editor/rocket
@@ -15,6 +17,15 @@ override_dh_install:
 	find . -name ".npmignore" -delete
 	find . -name "*.vcproj" -delete
 	find . -name "*.vcxproj" -delete
+	dh_install
+
+override_dh_auto_configure:
+	dh_auto_configure
+	(cd debian; \
+	  for i in *.in; do\
+	  o=`basename $$i .in`;\
+	  sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+	  done )
 
 override_dh_builddeb:
 	dh_builddeb -- -Zxz

@@ -1,2 +1,2 @@
 flawed-by-adinpsz: unknown-section demos
-flawed-by-adinpsz: desktop-entry-lacks-keywords-entry usr/share/applications/flawed-by-adinpsz.desktop
+flawed-by-adinpsz: desktop-entry-lacks-keywords-entry [usr/share/applications/flawed-by-adinpsz.desktop]

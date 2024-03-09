@@ -1,0 +1,18 @@
+Description: change binary name
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,6 +1,7 @@
+ # Process this file with automake to produce Makefile.in
+ 
+-origami_SOURCES = origami.c
++SRC = origami.c
+ 
+-noinst_PROGRAMS = origami
++bin_PROGRAMS = origami-by-faemiyah
+ 
++origami_by_faemiyah_SOURCES = $(SRC)

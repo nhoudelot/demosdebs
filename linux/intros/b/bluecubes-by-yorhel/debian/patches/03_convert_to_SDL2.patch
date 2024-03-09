@@ -1,6 +1,7 @@
 Description: migrate to SDL2
  Migrate from SDL1.2 to SDL2
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-27
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -82,7 +83,38 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	SDL_Quit();
  	return 0;
  }
-@@ -349,6 +352,3 @@
+@@ -301,6 +304,7 @@
+ #define AFREQ 44100
+ #define AMAX 32767
+ unsigned int acnt = startpos/1000 * AFREQ;
++SDL_AudioDeviceID device;
+ 
+ void wtfsynth(void *, Uint8 *, int);
+ 
+@@ -312,7 +316,8 @@
+ 	fmt.samples = 4096;
+ 	fmt.callback = wtfsynth;
+ 	fmt.userdata = NULL;
+-	if(SDL_OpenAudio(&fmt, NULL) < 0) {
++	device = SDL_OpenAudioDevice(NULL, 0, &fmt, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
++	if(device == NULL) {
+ 		printf("Unable to open audio: %s\n", SDL_GetError());
+ 		return 1;
+ 	}
+@@ -321,10 +326,10 @@
+ }
+ 
+ void playsound() {
+-	SDL_PauseAudio(0);
++	SDL_PauseAudioDevice(device,0);
+ }
+ void closesound() {
+-	SDL_CloseAudio();
++	SDL_CloseAudioDevice(device);
+ }
+ 
+ void wtfsynth(void *unused, Uint8 *stream, int len) {
+@@ -349,6 +354,3 @@
  	}
  }
  

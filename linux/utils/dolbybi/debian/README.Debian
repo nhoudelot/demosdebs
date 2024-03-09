@@ -1,6 +1,7 @@
 dolbybi for Debian
 -----------------
 
+had to create a Makefile
 added docs folder from the binary package
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 17 Aug 2017 17:23:54 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 10 Mar 2024 15:16:18 +0100

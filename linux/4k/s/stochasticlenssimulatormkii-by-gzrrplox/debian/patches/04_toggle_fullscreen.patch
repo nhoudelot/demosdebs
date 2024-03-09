@@ -1,0 +1,48 @@
+Description: added fullscreen key
+ added fullscreen function, to go fullscreen and back, with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-04-04
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -61,6 +61,8 @@
+ Sint16 samples[sample_batch * sample_buffers];
+ 
+ 
++SDL_Window *sdlWindow;
++
+ ////////////////////////////////////////////////////////////////////////////////
+ // Uninteresting OpenGL utilities
+ ////////////////////////////////////////////////////////////////////////////////
+@@ -232,6 +234,12 @@
+ #endif
+ }
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(isFullscreen);
++}
+ 
+ static int do_stuff() {
+ 	SDL_Event ev;
+@@ -241,6 +249,7 @@
+ 		if (ev.type == SDL_KEYDOWN) {
+ 			if(ev.key.keysym.sym == SDLK_ESCAPE) return 0;
+ 			if(ev.key.keysym.sym == SDLK_q) return 0;
++			if(ev.key.keysym.sym == SDLK_f) ToggleFullscreen(sdlWindow);
+ 		}
+ 		if (ev.type == SDL_QUIT) return 0;
+ 	}
+@@ -266,7 +275,7 @@
+ 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
+ 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+ 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+-	SDL_Window *sdlWindow = SDL_CreateWindow("Stochastic Lens Simulator MKII by Gzrrplox",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,window_w,window_h,SDL_WINDOW_OPENGL);
++	sdlWindow = SDL_CreateWindow("Stochastic Lens Simulator MKII by Gzrrplox",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,window_w,window_h,SDL_WINDOW_OPENGL);
+ 	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_ShowCursor(0);
+ 

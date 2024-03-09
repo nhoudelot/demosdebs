@@ -1,3 +1,10 @@
+mp3gain (1.6.2-0ddebs6) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 11 Mar 2024 20:44:21 +0100
+
 mp3gain (1.6.2-0ddebs5) unstable; urgency=medium
 
   * use xz compression until debian 13 is released
