@@ -10,6 +10,6 @@ License: public-domain
 # If you want to use GPL v2 or later for the /debian/* files use
 # the following clauses, or change it to suit. Delete these two lines
 Files: debian/*
-Copyright: 2014-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2014-2024 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  /usr/share/common-licenses/GPL-2

@@ -1,3 +1,10 @@
+s-by-skarla (1:1.0+6-0ddebs10) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Apr 2024 14:06:27 +0200
+
 s-by-skarla (1:1.0+6-0ddebs9) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

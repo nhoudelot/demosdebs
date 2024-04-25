@@ -1,3 +1,10 @@
+odyssey-by-alcatraz (1:1.1+5-0ddebs9) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Apr 2024 12:23:01 +0200
+
 odyssey-by-alcatraz (1:1.1+5-0ddebs8) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

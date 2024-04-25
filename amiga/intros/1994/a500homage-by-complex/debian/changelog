@@ -1,3 +1,10 @@
+a500homage-by-complex (1:1.0+4-0ddebs9) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Apr 2024 14:06:25 +0200
+
 a500homage-by-complex (1:1.0+4-0ddebs8) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

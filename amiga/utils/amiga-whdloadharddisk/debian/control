@@ -2,9 +2,10 @@ Source: amiga-whdloadharddisk
 Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Build-Depends: debhelper-compat (= 12)
-Standards-Version: 4.6.0.1
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
 Homepage: https://en.wikipedia.org/wiki/Whdload
+Rules-Requires-Root: no
 
 Package: amiga-whdloadharddisk
 Architecture: all

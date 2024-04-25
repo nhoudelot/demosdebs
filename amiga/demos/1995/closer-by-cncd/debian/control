@@ -3,10 +3,11 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  zip
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=1136
+Rules-Requires-Root: no
 
 Package: closer-by-cncd
 Architecture: all
