@@ -3,9 +3,10 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12)
-Standards-Version: 4.6.0.1
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=1604
+Rules-Requires-Root: no
 
 Package: claudia-by-deathstar
 Architecture: all

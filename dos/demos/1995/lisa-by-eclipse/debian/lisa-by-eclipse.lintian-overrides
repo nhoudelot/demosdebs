@@ -1,2 +1,2 @@
 lisa-by-eclipse binary: unknown-section demos
-lisa-by-eclipse binary: symlink-target-in-tmp symlink usr/share/lisa-by-eclipse/LISA.EXE point to /tmp/lisa-by-eclipse/LISA.EXE
+lisa-by-eclipse: symlink-target-in-tmp /tmp/lisa-by-eclipse/LISA.EXE [usr/share/lisa-by-eclipse/LISA.EXE]

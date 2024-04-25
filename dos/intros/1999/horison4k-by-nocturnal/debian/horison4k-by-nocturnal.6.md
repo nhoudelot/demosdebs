@@ -9,7 +9,7 @@ horison4k-by-nocturnal - the command to run horison 4k.
 horison4k-by-nocturnal [*options*]
 
 # DESCRIPTION
-horison 4k is a demonstration released by Nocturnal in 1999.
+horison 4k is an intro released by Nocturnal in 1999.
 horison4k-by-nocturnal is the launcher that use Dosbox-x to run it.
 4k intro ranked 11th at The Gathering 1999
 

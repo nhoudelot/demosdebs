@@ -1,2 +1,2 @@
 lemuseum-by-jff binary: unknown-section demos
-lemuseum-by-jff: symlink-target-in-tmp symlink usr/share/lemuseum-by-jff/JFF-MUSE.EXE point to /tmp/lemuseum-by-jff/JFF-MUSE.EXE
+lemuseum-by-jff: symlink-target-in-tmp /tmp/lemuseum-by-jff/JFF-MUSE.EXE [usr/share/lemuseum-by-jff/JFF-MUSE.EXE]

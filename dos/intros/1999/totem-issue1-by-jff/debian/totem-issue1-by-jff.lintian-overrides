@@ -1,2 +1,2 @@
 totem-issue1-by-jff binary: unknown-section demos
-totem-issue1-by-jff: symlink-target-in-tmp symlink usr/share/totem-issue1-by-jff/TOTEM.EXE point to /tmp/totem-issue1-by-jff/TOTEM.EXE
+totem-issue1-by-jff: symlink-target-in-tmp /tmp/totem-issue1-by-jff/TOTEM.EXE [usr/share/totem-issue1-by-jff/TOTEM.EXE]

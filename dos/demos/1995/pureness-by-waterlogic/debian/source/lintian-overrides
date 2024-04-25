@@ -1,2 +1,2 @@
 pureness-by-waterlogic source: source-contains-unsafe-symlink
-pureness-by-waterlogic source: source-contains-prebuilt-windows-binary PURENESS.EXE
+pureness-by-waterlogic source: source-contains-prebuilt-windows-binary [PURENESS.EXE]

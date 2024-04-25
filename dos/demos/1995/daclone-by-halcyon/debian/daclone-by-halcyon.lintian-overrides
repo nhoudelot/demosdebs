@@ -1,2 +1,2 @@
 daclone-by-halcyon binary: unknown-section demos
-daclone-by-halcyon binary: symlink-target-in-tmp symlink usr/share/daclone-by-halcyon/KUVA.DAT point to /tmp/daclone-by-halcyon/KUVA.DAT
+daclone-by-halcyon: symlink-target-in-tmp /tmp/daclone-by-halcyon/KUVA.DAT [usr/share/daclone-by-halcyon/KUVA.DAT]

@@ -1,2 +1,2 @@
-secretultradry-by-broncs source: source-contains-prebuilt-windows-binary CWSDPMI.EXE
-secretultradry-by-broncs source: source-contains-prebuilt-windows-binary SUD.EXE
+secretultradry-by-broncs source: source-contains-prebuilt-windows-binary [CWSDPMI.EXE]
+secretultradry-by-broncs source: source-contains-prebuilt-windows-binary [SUD.EXE]

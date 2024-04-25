@@ -1,2 +1,2 @@
 vip-by-popsyteam binary: unknown-section demos
-vip-by-popsyteam: symlink-target-in-tmp symlink usr/share/vip-by-popsyteam/VIP.EXE point to /tmp/vip-by-popsyteam/VIP.EXE
+vip-by-popsyteam: symlink-target-in-tmp /tmp/vip-by-popsyteam/VIP.EXE [usr/share/vip-by-popsyteam/VIP.EXE]

@@ -1,2 +1,2 @@
 bomb-by-dentifrice source: source-contains-unsafe-symlink
-bomb-by-dentifrice source: source-contains-prebuilt-windows-binary DEN-BOMB.EXE
+bomb-by-dentifrice source: source-contains-prebuilt-windows-binary [DEN-BOMB.EXE]

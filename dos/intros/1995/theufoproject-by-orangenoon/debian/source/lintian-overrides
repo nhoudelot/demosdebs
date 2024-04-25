@@ -1,2 +1,2 @@
-theufoproject-by-orangenoon source: source-contains-prebuilt-windows-binary UFO.EXE
-theufoproject-by-orangenoon source: source-contains-prebuilt-windows-binary UFO.UFO.init
+theufoproject-by-orangenoon source: source-contains-prebuilt-windows-binary [UFO.EXE]
+theufoproject-by-orangenoon source: source-contains-prebuilt-windows-binary [UFO.UFO.init]

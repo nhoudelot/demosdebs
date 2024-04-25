@@ -1,2 +1,2 @@
 harpers-friend-by-proxima binary: unknown-section demos
-harpers-friend-by-proxima: symlink-target-in-tmp symlink usr/share/harpers-friend-by-proxima/DEMO.EXE point to /tmp/harpers-friend-by-proxima/DEMO.EXE
+harpers-friend-by-proxima: symlink-target-in-tmp /tmp/harpers-friend-by-proxima/DEMO.EXE [usr/share/harpers-friend-by-proxima/DEMO.EXE]

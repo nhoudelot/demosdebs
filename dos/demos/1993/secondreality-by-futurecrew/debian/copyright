@@ -31,7 +31,7 @@ License: UNLICENSE
  .For more information, please refer to <http://unlicense.org/>
 
 Files: debian/*
-Copyright: 2013-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2013-2024 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
  /usr/share/common-licenses/GPL-3
 

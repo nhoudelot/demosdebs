@@ -1,2 +1,2 @@
 bomb-by-dentifrice binary: unknown-section demos
-bomb-by-dentifrice: symlink-target-in-tmp symlink usr/share/bomb-by-dentifrice/REMDYSUX.TMP point to /tmp/bomb-by-dentifrice/REMDYSUX.TMP
+bomb-by-dentifrice: symlink-target-in-tmp /tmp/bomb-by-dentifrice/REMDYSUX.TMP [usr/share/bomb-by-dentifrice/REMDYSUX.TMP]

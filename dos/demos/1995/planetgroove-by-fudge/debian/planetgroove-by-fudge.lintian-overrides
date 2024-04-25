@@ -1,2 +1,2 @@
 planetgroove-by-fudge binary: unknown-section demos
-planetgroove-by-fudge binary: symlink-target-in-tmp symlink usr/share/planetgroove-by-fudge/GROOVE.EXE point to /tmp/planetgroove-by-fudge/GROOVE.EXE
+planetgroove-by-fudge: symlink-target-in-tmp /tmp/planetgroove-by-fudge/GROOVE.EXE [usr/share/planetgroove-by-fudge/GROOVE.EXE]

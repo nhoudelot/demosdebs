@@ -1,2 +1,2 @@
 gasoline-by-recreation binary: unknown-section demos
-gasoline-by-recreation: symlink-target-in-tmp symlink usr/share/gasoline-by-recreation/GASOLINE.EXE point to /tmp/gasoline-by-recreation/GASOLINE.EXE
+gasoline-by-recreation: symlink-target-in-tmp /tmp/gasoline-by-recreation/GASOLINE.EXE [usr/share/gasoline-by-recreation/GASOLINE.EXE]

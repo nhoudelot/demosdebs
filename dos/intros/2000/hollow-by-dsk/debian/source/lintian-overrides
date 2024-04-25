@@ -1,2 +1,2 @@
-hollow-by-dsk source: source-contains-prebuilt-windows-binary HOLLOW.EXE
-hollow-by-dsk source: source-contains-prebuilt-windows-binary Sb/HOLLOWSB.EXE
+hollow-by-dsk source: source-contains-prebuilt-windows-binary [HOLLOW.EXE]
+hollow-by-dsk source: source-contains-prebuilt-windows-binary [Sb/HOLLOWSB.EXE]

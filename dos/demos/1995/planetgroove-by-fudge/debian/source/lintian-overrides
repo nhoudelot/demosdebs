@@ -1,2 +1,2 @@
 planetgroove-by-fudge source: absolute-symbolic-link-target-in-source GROOVE.EXE -> /tmp/planetgroove-by-fudge/GROOVE.EXE
-planetgroove-by-fudge source: source-contains-prebuilt-windows-binary GROOVE.EXE.init
+planetgroove-by-fudge source: source-contains-prebuilt-windows-binary [GROOVE.EXE.init]

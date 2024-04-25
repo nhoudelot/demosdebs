@@ -1,2 +1,2 @@
 funtro3-by-universe binary: unknown-section demos
-funtro3-by-universe: symlink-target-in-tmp symlink usr/share/funtro3-by-universe/MUSIC2.S3M point to /tmp/funtro3-by-universe/MUSIC2.S3M
+funtro3-by-universe: symlink-target-in-tmp /tmp/funtro3-by-universe/MUSIC2.S3M [usr/share/funtro3-by-universe/MUSIC2.S3M]

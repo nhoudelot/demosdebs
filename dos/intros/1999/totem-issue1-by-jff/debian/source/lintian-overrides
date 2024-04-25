@@ -1,1 +1,1 @@
-totem-issue1-by-jff source: source-contains-prebuilt-windows-binary TOTEM.EXE.init
+totem-issue1-by-jff source: source-contains-prebuilt-windows-binary [TOTEM.EXE.init]

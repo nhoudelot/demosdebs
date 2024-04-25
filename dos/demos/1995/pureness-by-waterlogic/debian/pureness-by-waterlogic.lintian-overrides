@@ -1,2 +1,2 @@
 pureness-by-waterlogic binary: unknown-section demos
-pureness-by-waterlogic binary: symlink-target-in-tmp symlink usr/share/pureness-by-waterlogic/WATERLOG.IC! point to /tmp/pureness-by-waterlogic/WATERLOG.IC!
+pureness-by-waterlogic: symlink-target-in-tmp /tmp/pureness-by-waterlogic/WATERLOG.IC! [usr/share/pureness-by-waterlogic/WATERLOG.IC!]

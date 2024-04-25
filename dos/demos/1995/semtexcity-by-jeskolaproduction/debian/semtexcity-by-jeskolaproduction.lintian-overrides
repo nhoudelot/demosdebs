@@ -1,2 +1,2 @@
 semtexcity-by-jeskolaproduction binary: unknown-section demos
-semtexcity-by-jeskolaproduction binary: symlink-target-in-tmp symlink usr/share/semtexcity-by-jeskolaproduction/SEMTEX.MOD point to /tmp/semtexcity-by-jeskolaproduction/SEMTEX.MOD
+semtexcity-by-jeskolaproduction: symlink-target-in-tmp /tmp/semtexcity-by-jeskolaproduction/SEMTEX.MOD [usr/share/semtexcity-by-jeskolaproduction/SEMTEX.MOD]

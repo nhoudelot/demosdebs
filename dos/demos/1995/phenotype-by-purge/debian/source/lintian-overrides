@@ -1,2 +1,2 @@
 phenotype-by-purge source: source-contains-unsafe-symlink
-phenotype-by-purge source: source-contains-prebuilt-windows-binary PHENOTYP.EXE
+phenotype-by-purge source: source-contains-prebuilt-windows-binary [PHENOTYP.EXE]
