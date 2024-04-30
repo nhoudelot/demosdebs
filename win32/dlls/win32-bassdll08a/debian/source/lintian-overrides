@@ -1,0 +1,7 @@
+win32-bassdll08a source: source-contains-prebuilt-ms-help-file [bass.chm]
+win32-bassdll08a source: source-contains-prebuilt-windows-binary [bass.dll]
+win32-bassdll08a source: source-contains-prebuilt-windows-binary [c/3dtest.exe]
+win32-bassdll08a source: source-contains-prebuilt-windows-binary [c/BASStest.exe]
+win32-bassdll08a source: source-contains-prebuilt-windows-binary [c/contest.exe]
+win32-bassdll08a source: source-contains-prebuilt-windows-binary [c/dsptest.exe]
+win32-bassdll08a source: source-contains-prebuilt-windows-binary [mo3.exe]

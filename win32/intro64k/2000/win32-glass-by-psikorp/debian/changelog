@@ -1,3 +1,10 @@
+win32-glass-by-psikorp (1:1.0+4-0ddebs6) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 30 Apr 2024 20:29:32 +0200
+
 win32-glass-by-psikorp (1:1.0+4-0ddebs5) unstable; urgency=medium
 
   * update to standards-version 4.6.0.1

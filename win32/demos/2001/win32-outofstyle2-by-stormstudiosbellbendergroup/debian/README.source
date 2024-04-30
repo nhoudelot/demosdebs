@@ -1,10 +1,14 @@
 win32-outofstyle2-by-stormstudiosbellbendergroup for Debian
 ----------------------------------------------------
 
-Executable :
- * win32
- * compiled with Microsoft Visual Studio (6.0 SP5) C++
- * use bass.dll 0.8a
- * packed with UPX 1.01
+* Executable have been unpacked
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 21 Feb 2021 23:44:19 +0100
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
+    Packer: UPX(1.01)[NRV,brute]
+    Compilateur: Microsoft Visual C/C++(12.00.8447)[C++]
+    Lier: Microsoft Linker(6.00.8447)
+    Outil: Visual Studio(6.0)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 14:06:06 +0100

@@ -7,7 +7,7 @@ Copyright: 1999 Ian Luck
 License: Bass_License
 
 Files: debian/*
-Copyright: 2021-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2021-2024 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: Bass_License
@@ -63,7 +63,7 @@ License: Bass_License
  .
  Visit the BASS website for the latest pricing:
  .
- http://www.un4seen.com/music/
+ https://www.un4seen.com/music/
 
 License: GPL-3.0+
  This program is free software: you can redistribute it and/or modify

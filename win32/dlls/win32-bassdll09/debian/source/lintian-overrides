@@ -1,0 +1,7 @@
+win32-bassdll09 source: source-contains-prebuilt-ms-help-file [BASS.CHM]
+win32-bassdll09 source: source-contains-prebuilt-windows-binary [BASS.DLL]
+win32-bassdll09 source: source-contains-prebuilt-windows-binary [C/3DTEST.EXE]
+win32-bassdll09 source: source-contains-prebuilt-windows-binary [C/BASSTEST.EXE]
+win32-bassdll09 source: source-contains-prebuilt-windows-binary [C/CONTEST.EXE]
+win32-bassdll09 source: source-contains-prebuilt-windows-binary [C/DSPTEST.EXE]
+win32-bassdll09 source: source-contains-prebuilt-windows-binary [MO3.EXE]

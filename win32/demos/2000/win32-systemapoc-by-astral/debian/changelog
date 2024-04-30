@@ -1,3 +1,10 @@
+win32-systemapoc-by-astral (1:1.0+5-0ddebs2) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 30 Apr 2024 16:52:49 +0200
+
 win32-systemapoc-by-astral (1:1.0+5-0ddebs1) unstable; urgency=medium
 
   * xecutable have been unpacked

@@ -1,3 +1,10 @@
+win32-soepkip9-by-kontvlokkenposse (1:1.0+3-0ddebs7) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 30 Apr 2024 16:52:46 +0200
+
 win32-soepkip9-by-kontvlokkenposse (1:1.0+3-0ddebs6) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

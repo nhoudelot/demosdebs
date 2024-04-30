@@ -1,3 +1,10 @@
+win32-zoom3-by-and (1:1.02+2-0ddebs2) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 30 Apr 2024 20:29:32 +0200
+
 win32-zoom3-by-and (1:1.02+2-0ddebs1) unstable; urgency=medium
 
   * Executable have been unpacked
