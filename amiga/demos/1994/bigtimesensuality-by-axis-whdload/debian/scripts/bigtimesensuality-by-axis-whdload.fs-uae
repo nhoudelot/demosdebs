@@ -12,7 +12,7 @@ kickstart_ext_file = aros-amiga-m68k-ext.bin
 
 
 [fs-uae]
-amiga_model = A4000/040
+amiga_model = A1200
 hard_drive_0 = /usr/share/amiga/whdloadharddisk/whdloadharddisk.hdf
 hard_drive_1 = /tmp/bigtimesensuality-by-axis-whdload/
 hard_drive_2 = ~/.local/share/whdload/
