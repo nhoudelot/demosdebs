@@ -54,37 +54,37 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      OSSAudioDriver *mp3;
  #endif
  
--bool m_Fullscreen = TRUE;
-+bool m_Fullscreen = FALSE;
- U32 m_Resx = 640;
- U32 m_Resy = 480; // resolution choisie
- bool m_TrueColor = TRUE; // est-ce ke l'on veux du 32 bit
-@@ -59,6 +59,11 @@
-             m_Resy = 864;
-             continue;
-         }
+-bool	m_Fullscreen = TRUE	;
++bool	m_Fullscreen = FALSE;
+ U32	m_Resx = 640			;
+ U32	m_Resy = 480			;	// resolution choisie
+ bool	m_TrueColor = TRUE	;	// est-ce ke l'on veux du 32 bit
+@@ -60,6 +60,11 @@
+ 			m_Resy = 864;
+ 			continue;
+ 		}
 +        if (strcmp(argv[i], "-1280x720") == 0) {
 +            m_Resx = 1280;
 +            m_Resy = 720;
 +            continue;
 +        }
-         if (strcmp(argv[i], "-1280x960") == 0) {
-             m_Resx = 1280;
-             m_Resy = 960;
-@@ -74,11 +79,26 @@
-             m_Resy = 1050;
-             continue;
-         }
+ 		if (strcmp(argv[i], "-1280x960") == 0) {
+ 			m_Resx = 1280;
+ 			m_Resy = 960;
+@@ -75,11 +80,26 @@
+ 			m_Resy = 1050;
+ 			continue;
+ 		}
 +        if (strcmp(argv[i], "-1440x900") == 0) {
 +            m_Resx = 1440;
 +            m_Resy = 900;
 +            continue;
 +        }
-         if (strcmp(argv[i], "-1600x1200") == 0) {
-             m_Resx = 1600;
-             m_Resy = 1200;
-             continue;
-         }
+ 		if (strcmp(argv[i], "-1600x1200") == 0) {
+ 			m_Resx = 1600;
+ 			m_Resy = 1200;
+ 			continue;
+ 		}
 +        if (strcmp(argv[i], "-1920x1080") == 0) {
 +            m_Resx = 1920;
 +            m_Resy = 1080;
@@ -95,25 +95,24 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +            m_Resy = 2160;
 +            continue;
 +        }
-         if (strcmp(argv[i], "-16") == 0) {
-             depth = 16;
-             continue;
-@@ -117,7 +137,7 @@
-         }
-         fprintf(stderr, "Allowed switches:\n\n"
-                 "-help - this screen\n"
--                "-640x480, -800x600, -1024x768, -1152x864, -1280x960, -1280x1024, -1400x1050, -1600x1200 - set resolution\n"
-+                "-640x480, -800x600, -1024x768, -1152x864, 1280x720, -1280x960, -1280x1024, -1400x1050, 1440x900, -1600x1200, -1920x1080, -3840x2160 - set resolution\n"
-                 "-16, -32 - set bit depth\n"
-                 "-z16, -z24, -z32 - set Z-buffer depth\n"
-                 "-windowed, -fullscreen - set window mode\n");
-@@ -242,8 +262,7 @@
-             ;
-     glLoadIdentity()
-             ;
--
--    glViewport(0, 0, m_Resx, m_Resy);
-+    glw->resize(0, 0, m_Resx, m_Resy);
-     //	glOrtho(0, Xres-1, 0, Yres-1, 1.f/LointainZClipping, 1.f/ProcheZClipping )        ;       // enleve la projection
-     glOrtho(0, m_Resx - 1, 0, m_Resy - 1, 1.f / ProcheZClipping, 1.f / LointainZClipping); // enleve la projection
-     glMatrixMode(GL_MODELVIEW);
+ 		if (strcmp(argv[i], "-16") == 0) {
+ 			depth = 16;
+ 			continue;
+@@ -118,7 +138,7 @@
+ 		}
+ 		fprintf(stderr, "Allowed switches:\n\n"
+ 				"-help - this screen\n"
+-				"-640x480, -800x600, -1024x768, -1152x864, -1280x960, -1280x1024, -1400x1050, -1600x1200 - set resolution\n"
++				"-640x480, -800x600, -1024x768, -1152x864, 1280x720, -1280x960, -1280x1024, -1400x1050, 1440x900, -1600x1200, -1920x1080, -3840x2160 - set resolution\n"
+ 				"-16, -32 - set bit depth\n"
+ 				"-z16, -z24, -z32 - set Z-buffer depth\n"
+ 				"-windowed, -fullscreen - set window mode\n");
+@@ -244,7 +264,7 @@
+         glLoadIdentity()
+ 					                                    ;
+ 
+-	glViewport(0, 0, m_Resx, m_Resy);
++	glw->resize(0, 0, m_Resx, m_Resy);
+ //	glOrtho(0, Xres-1, 0, Yres-1, 1.f/LointainZClipping, 1.f/ProcheZClipping )        ;       // enleve la projection
+ 	glOrtho(0, m_Resx-1, 0, m_Resy-1, 1.f/ProcheZClipping, 1.f/LointainZClipping )  ;       // enleve la projection
+ 	glMatrixMode(GL_MODELVIEW);
