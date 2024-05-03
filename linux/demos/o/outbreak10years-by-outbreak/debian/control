@@ -18,6 +18,7 @@ Depends:
  libpng12-0 (>= 1.2.13-4),
  libsdl1.2-compat,
  libfmod3,
+ libglu1,
  libc6,
  outbreak10years-by-outbreak-data
 Description: Linux Demo by Outbreak, 2005
