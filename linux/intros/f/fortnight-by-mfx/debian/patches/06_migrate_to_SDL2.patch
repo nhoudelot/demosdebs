@@ -61,7 +61,15 @@
  
  	for (i=0; i<16384; i++) numbs[i]=1+(rand()*(1./RAND_MAX));
  
-@@ -409,7 +420,7 @@
+@@ -344,7 +355,6 @@
+ 		printf("SDL_Init: %s\n", SDL_GetError());
+ 		exit(1);
+ 	}
+-
+ // open 44.1KHz, signed 16bit, system byte order,
+ //      stereo audio, using 1024 byte chunks
+ 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
+@@ -409,7 +419,7 @@
  		}
  
  		j=rand();
@@ -70,7 +78,7 @@
  /*    for (i=0; i<640*480; i++) {
        ovl->pixels[0][i]=64;//74+((j=j*35345243+1)>>25);
      }*/
-@@ -419,7 +430,7 @@
+@@ -419,7 +429,7 @@
  			signed char *p3;
  			static int flipflop=0;
  			for (y=0; y<120; y++) {
@@ -79,7 +87,7 @@
  					p1[0]=((p1[0]-128)*28*128+p3[0]*2*p0[0]+512>>12)+128;
  					p1[1]=((p1[1]-128)*28*128+p3[1]*2*p0[1]+512>>12)+128;
  					p1[2]=((p1[2]-128)*28*128+p3[2]*2*p0[2]+512>>12)+128;
-@@ -458,10 +469,10 @@
+@@ -458,10 +468,10 @@
        }*/
  		}
  		gounter=0;
@@ -94,7 +102,7 @@
  		if (effu&4) {
  			short buf[64000], *s;
  			int x, y;
-@@ -470,7 +481,7 @@
+@@ -470,7 +480,7 @@
  			teesumu(buf, timex*.03);
  			for (x=0; x<1024; x++) tab[x]=sqrt(x*63.9);
  			for (y=0; y<360; y++) {
@@ -103,7 +111,7 @@
  				s=buf+(y>>1)*160;
  				for (x=0; x<160; x++, s++) {
  					int c=*s>>4;
-@@ -480,12 +491,16 @@
+@@ -480,12 +490,16 @@
  				}
  			}
  		}
@@ -123,7 +131,7 @@
  	}
  
  	//SDL_CloseAudio();
-@@ -493,6 +508,10 @@
+@@ -493,6 +507,10 @@
  	Mix_PauseMusic();
  	Mix_FreeMusic(musique);
  	Mix_CloseAudio();
@@ -134,3 +142,16 @@
  
  	return 0;
  }
+--- a/Makefile
++++ b/Makefile
+@@ -3,8 +3,8 @@
+ NASM := yasm
+ NASMFLAGS   ?=-f elf32
+ PKG_CONFIG:=pkg-config
+-CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell $(PKG_CONFIG) sdl SDL_mixer --cflags) -std=gnu90
+-LDFLAGS += $(shell $(PKG_CONFIG) sdl SDL_mixer --libs) -lm
++CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell $(PKG_CONFIG) sdl2 SDL2_mixer --cflags) -std=gnu90
++LDFLAGS += $(shell $(PKG_CONFIG) sdl2 SDL2_mixer --libs) -lm
+ RM_F = rm -f
+ 
+ TARGET=fortnight-by-mfx
