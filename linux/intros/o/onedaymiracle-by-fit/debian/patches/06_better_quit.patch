@@ -8,7 +8,7 @@ Last-Update: 2020-04-30
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/cool_gfx/gfx_sdl.c
 +++ b/cool_gfx/gfx_sdl.c
-@@ -88,24 +88,20 @@
+@@ -90,24 +90,20 @@
  
  int gfx_exitevent(void)
  {
