@@ -7,42 +7,33 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -23,6 +23,11 @@
+@@ -23,6 +23,9 @@
  
  volatile int tid=0;
  
 +#define DEMO_XASPECT 4.0f
 +#define DEMO_YASPECT 3.0f
 +
-+SDL_Renderer *sdlRenderer;
-+
  #ifdef NOAMIKA
  SDL_Surface *scr;
  #else
-@@ -88,6 +93,34 @@
+@@ -88,6 +91,27 @@
  #endif
  }
  
-+void resize_window(int w, int h) {
++void resize_window(SDL_Renderer *sdlRenderer, int w, int h) {
 +    SDL_Rect newWindowSize;
 +    newWindowSize.x = 0;
 +    newWindowSize.y = 0;
++
 +    float aspect = (float)w / (float)h;
 +    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
 +        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.x = (w - newWindowSize.w) / 2;
 +        newWindowSize.h = h;
-+    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++    } else {
 +        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+        newWindowSize.y += (h - newWindowSize.h) / 2;
-+        newWindowSize.w = w;
-+    } else if (w != newWindowSize.w) {
-+        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+        newWindowSize.x += (w - newWindowSize.w) / 2;
-+        newWindowSize.h = h;
-+    } else if (h != newWindowSize.h) {
-+        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.y = (h - newWindowSize.h) / 2;
 +        newWindowSize.w = w;
 +    }
 +
@@ -54,19 +45,36 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  int main(int argc,char *argv[])
  {
  	int quit=0,n,i,*pal,last=0,pos=0,tmp,r,g,b,*pix,origtime=-1;
-@@ -139,9 +172,9 @@
+@@ -106,7 +130,7 @@
+ 	DRAWING *james,*afro;
+ #ifdef NOAMIKA
+ 	SDL_Event e;
+-	int fullscreen=SDL_WINDOW_FULLSCREEN;
++	int fullscreen=SDL_WINDOW_FULLSCREEN|SDL_WINDOW_RESIZABLE;
+ #endif
+ 
+ 	int o_intro=-1,o_ring1=-1,o_stara=-1,o_kale=-1,o_tytsi=-1,o_greet=-1,
+@@ -133,9 +157,9 @@
+ #ifdef NOAMIKA
+ 	if(argc>=2)
+ 		if(!strcmp(argv[1],"-w"))
+-			fullscreen=0;
++			fullscreen=SDL_WINDOW_RESIZABLE;
+ 	if(argv[0][strlen(argv[0])-1]=='w') // Windowed (hex_pistols_window etc.)
+-		fullscreen=0;
++		fullscreen=SDL_WINDOW_RESIZABLE;
  
  	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);
  	SDL_Window *sdlWindow;
--	SDL_Renderer *sdlRenderer;
+@@ -143,6 +167,7 @@
  	SDL_Texture *sdlTexture;
--	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
+ 	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
+ 	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
 +	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-+	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_RESIZABLE | fullscreen);
- 	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
  	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_RGB888); //buffer video
  	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
-@@ -171,6 +204,7 @@
+ 
+@@ -171,6 +196,7 @@
  #endif
  
  	memset(buf,127,320*200);
@@ -74,13 +82,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	while(!quit)
  	{
  #ifdef NOAMIKA
-@@ -185,6 +219,11 @@
+@@ -185,6 +211,11 @@
  					case SDLK_q: quit=1; break;
  				}
  			 }
 +			if (e.window.windowID == windowID)  {
 +				if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
-+				    resize_window(e.window.data1,e.window.data2);
++				    resize_window(sdlRenderer,e.window.data1,e.window.data2);
 +				}
 +			}
  		}

@@ -7,7 +7,7 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -121,6 +121,13 @@
+@@ -112,6 +112,13 @@
      SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
  }
  
@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  int main(int argc,char *argv[])
  {
  	int quit=0,n,i,*pal,last=0,pos=0,tmp,r,g,b,*pix,origtime=-1;
-@@ -217,6 +224,7 @@
+@@ -209,6 +216,7 @@
  				switch (e.key.keysym.sym) {
  					case SDLK_ESCAPE: quit=1; break;
  					case SDLK_q: quit=1; break;

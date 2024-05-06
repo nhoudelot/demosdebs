@@ -1,3 +1,10 @@
+hexpistols-by-fit (1.0+1-0ddebs10) unstable; urgency=medium
+
+  * fixes more warnings
+  * added VSync
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 06 May 2024 23:36:07 +0200
+
 hexpistols-by-fit (1.0+1-0ddebs9) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

@@ -11,3 +11,23 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  void kaleido(unsigned char *s,int xs,int ys)
  {
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -45,6 +45,7 @@
+ #endif
+ 
+ #include <math.h>
++#include <string.h>
+ #ifdef MIX_ASM
+ #include "sd_amix.h"
+ #endif
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -43,6 +43,7 @@
+  */
+ 
+ #include "sd_main.h"
++#include <string.h>
+ 
+ #define pt_maxchannels 32
+ #define pt_periodmin 27
