@@ -1,3 +1,11 @@
+fracturesandrust-by-atomimaitokahvi (1.0+1-0ddebs10) unstable; urgency=medium
+
+  * fixed the migration to SDL2. The converted frames were never cleared,
+    causing a significant memory leak
+  * added VSYNC
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 06 May 2024 23:11:50 +0200
+
 fracturesandrust-by-atomimaitokahvi (1.0+1-0ddebs9) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

@@ -7,7 +7,15 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -201,6 +201,7 @@
+@@ -23,6 +23,7 @@
+ void kyrpele(im_t *);
+ void nothing(im_t *);
+ void resize_window(SDL_Renderer *sdlRenderer,int w, int h);
++void ToggleFullscreen(SDL_Window* Window);
+ 
+ /* data and variables */
+ extern im_t *pics[SCRIPT_MAX_PICS];
+@@ -201,6 +202,7 @@
  				switch (event.key.keysym.sym) {
  					case SDLK_ESCAPE:goto terminate; break;
  					case SDLK_q: goto terminate; break;
@@ -15,7 +23,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  				}
  			}
  			if (event.window.windowID == windowID)  {
-@@ -256,6 +257,12 @@
+@@ -248,6 +250,13 @@
      SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
  }
  
@@ -25,10 +33,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
 +    SDL_ShowCursor(isFullscreen);
 +}
- 
++
  void
  write_pnm(Uint8 *pixels)
-@@ -493,6 +500,7 @@
+ {
+@@ -484,6 +493,7 @@
  	}
  }
  
