@@ -8,7 +8,7 @@ Last-Update: 2020-04-22
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -806,15 +806,13 @@
+@@ -804,15 +804,13 @@
            switch( event.key.keysym.sym )
            {
  #ifndef __FULLSCREEN_ONLY__
@@ -26,7 +26,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                paused ^= 1;
                SDL_PauseAudioDevice(device, paused );
                break;
-@@ -835,7 +833,11 @@
+@@ -833,7 +831,11 @@
  //              else
                done = 1;
                break;

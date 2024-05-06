@@ -1,3 +1,13 @@
+planethively-by-irisanduprough (1.0+git20170506-0ddebs7) unstable; urgency=medium
+
+  * added explicit VSync
+  * updated fullscreen
+  * added resize (but disabled it, unable to select song when resized)
+  * fixed the migration to SDL2. The converted frames were never cleared,
+    causing a significant memory leak
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 07 May 2024 01:32:18 +0200
+
 planethively-by-irisanduprough (1.0+git20170506-0ddebs6) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
