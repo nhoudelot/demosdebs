@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Fiat Homo
+GenericName=Demo
+Comment=Demo by Traction, released in 2005
+Type=Application
+Exec=/usr/bin/fiathomo-by-traction
+Icon=fiathomo-by-traction
+Categories=AudioVideo;
+Name[fr_FR]=Fiat Homo

@@ -1,0 +1,8 @@
+01_adapt_makefile.patch
+02_use_systemlib.patch
+03_adapt_path.patch
+04_migrate_to_sdl2.patch
+05_better_quit.patch
+06_resizable_window.patch
+07_add_fullscreen.patch
+08_migrate_to_openmpt.patch

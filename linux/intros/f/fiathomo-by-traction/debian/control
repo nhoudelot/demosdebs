@@ -1,0 +1,24 @@
+Source: fiathomo-by-traction
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ pkgconf,
+ libgl-dev,
+ libopengl-dev,
+ libglu-dev,
+ libopenmpt-dev,
+ libsdl2-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=18342
+Rules-Requires-Root: no
+
+Package: fiathomo-by-traction
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61)
+Description: 64k intro by Traction, released in 2005
+ Linux intro by Traction, released at Assembly 2005

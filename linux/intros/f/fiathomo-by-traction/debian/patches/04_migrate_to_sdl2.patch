@@ -1,0 +1,115 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/win32.cpp
++++ b/src/win32.cpp
+@@ -1,6 +1,5 @@
+ /* Window setup */
+ 
+-#include <SDL/SDL.h>
+ #include "win32.hpp"
+ 
+ extern int OPENGL_XRES;
+@@ -20,15 +19,15 @@
+ 	SDL_Init(SDL_INIT_VIDEO);
+ 
+ #ifdef FULLSCREEN
+-    int SDL_flags = SDL_OPENGL|SDL_FULLSCREEN;
++    int SDL_flags = SDL_WINDOW_FULLSCREEN;
+ #else
+-	int SDL_flags = SDL_OPENGL;
++	int SDL_flags = SDL_WINDOW_OPENGL;
+ #endif
+ 
+ 	SDL_ShowCursor(0);
+ 
+-	SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_flags);
+-	SDL_WM_SetCaption("Fiat Homo",0);
++	sdlWindow = SDL_CreateWindow("Fiat Homo by Traction",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WINDOW_WIDTH,WINDOW_HEIGHT,SDL_flags);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 
+ 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+ 
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -40,8 +40,8 @@
+ 
+ #linux Makefile setup
+ ifeq ($(PLATFORM), LINUX)
+-LDFLAGS += $(shell $(PKG_CONFIG) gl glu sdl fmodex --libs)
+-CFLAGS += $(shell $(PKG_CONFIG) gl glu sdl fmodex --cflags)
++LDFLAGS += $(shell $(PKG_CONFIG) gl glu sdl2 fmodex --libs)
++CFLAGS += $(shell $(PKG_CONFIG) gl glu sdl2 fmodex --cflags)
+ endif
+ 
+ #windows Makefile setup
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -5,7 +5,7 @@
+ 
+ #include <stdlib.h>
+ #include <string.h>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #ifndef OS_X
+ #include <GL/gl.h>
+@@ -140,7 +140,7 @@
+ 		while(!done)
+ 		{
+ #ifdef OS_X
+-			SDL_WarpMouse(1024,768); //OS X fix
++			SDL_WarpMouseGlobal(1024,768); //OS X fix
+ #endif
+ 			glClearColor(clearcolor.x, clearcolor.y, clearcolor.z, 1);
+ 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+@@ -197,11 +197,11 @@
+ 				ihminen(laskePos(originalaika, efekti13ajat));
+ 			if (testaaPos(originalaika, efekti14ajat))
+ 				galaksi(laskePos(originalaika, efekti14ajat));
+-			SDL_GL_SwapBuffers();
++			SDL_GL_SwapWindow(win.sdlWindow);
+ 			if (originalaika >= introloppu)
+ 				done = true;
+ 		}
+-		SDL_WarpMouse(600,400);
++		SDL_WarpMouseGlobal(600,400);
+ 		//call each effect's release function
+ 		alku_free();
+ 		bigbang_free();
+--- a/src/win32.hpp
++++ b/src/win32.hpp
+@@ -1,6 +1,8 @@
+ #ifndef _WIN32_HPP_
+ #define _WIN32_HPP_
+ 
++#include <SDL2/SDL.h>
++
+ class Window
+ {
+ 	public:
+@@ -9,6 +11,9 @@
+ 
+ 		bool create(bool bflag);
+ 		void shut();
++		
++		SDL_Window *sdlWindow;
++		SDL_GLContext sdlGlcontext;
+ 
+ //		HDC getDC();
+ 
+--- a/src/font.cpp
++++ b/src/font.cpp
+@@ -3,7 +3,7 @@
+ #include "data.h"
+ #include "font_data.hpp"
+ #include <string.h>
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ using namespace std;
+ 
+ GLuint fontbase;

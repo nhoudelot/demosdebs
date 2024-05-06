@@ -1,0 +1,4 @@
+fiathomo-by-traction source: source-is-missing [src/libfmodex.so.4.00.37]
+fiathomo-by-traction source: source-contains-prebuilt-windows-binary [src/SDL.dll]
+fiathomo-by-traction source: source-contains-prebuilt-windows-binary [src/fmodex.dll]
+

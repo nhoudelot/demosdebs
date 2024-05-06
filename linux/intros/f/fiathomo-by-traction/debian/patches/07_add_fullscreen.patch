@@ -1,0 +1,31 @@
+Description: added fullscreen key
+ added fullscreen function, to go fullscreen and back, with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -60,6 +60,13 @@
+ bool musicflag=true;
+ bool spookyflag=false;
+ 
++void ToggleFullscreen(SDL_Window* Window) {
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(isFullscreen);
++}
++
+ void resize_window(int x, int y, int w, int h)
+ {
+     /* Prevent division by zero */
+@@ -184,6 +191,7 @@
+ 					{
+ 						case SDLK_ESCAPE: done = true;break;
+ 						case SDLK_q: done = true; break;
++						case SDLK_f: ToggleFullscreen(win.sdlWindow); break;
+ 					}
+ 				case SDL_WINDOWEVENT:
+ 				if (event.window.windowID == windowID)  {

@@ -1,0 +1,18 @@
+Description: change data path
+ Relocate non-binary architecture-specific files to /usr/share to ensure correct installation
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/sound.cpp
++++ b/src/sound.cpp
+@@ -27,7 +27,7 @@
+ 	fsound = 0;
+ 	FMOD_System_Create(&system);
+ 	FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
+-	FMOD_System_CreateSound(system, "music.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
++	FMOD_System_CreateSound(system, "/usr/share/fiathomo-by-traction/music.xm", FMOD_SOFTWARE | FMOD_CREATESTREAM, 0, &fsound);
+ 		
+ 	return true;
+ }

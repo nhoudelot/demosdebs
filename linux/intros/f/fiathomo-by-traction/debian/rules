@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
+# program doesn't run with flto
+export DEB_CFLAGS_MAINT_APPEND  = -fno-lto
+
+%:
+	dh $@  --sourcedirectory=src
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

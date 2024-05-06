@@ -1,0 +1,93 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -47,13 +47,42 @@
+ Window win;
+ int OPENGL_XRES;
+ int OPENGL_YRES;
++int OPENGL_X=0;
++int OPENGL_Y=0;
+ bool OPENGL_FULLSCREEN;
++Uint32 windowID;
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
+ Vector clearcolor;
+ int originalaika; //globaali, että näkyisi muuallekin.. 
+ bool smoothflag=true;
+ bool runflag=false;
+ bool musicflag=true;
+ bool spookyflag=false;
++
++void resize_window(int x, int y, int w, int h)
++{
++    /* Prevent division by zero */
++    if (h == 0) h = 1;
++
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        x += (w - new_w) / 2;
++        w = new_w;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        y += (h - new_h) / 2;
++        h = new_h;
++    }
++
++	OPENGL_X = x;
++	OPENGL_Y = y;
++    OPENGL_XRES = w;
++	OPENGL_YRES = h;
++    glViewport(x, y, w, h);
++
++}
+ int main(int argc, char **argv)
+ {
+     for(int i=1; i<argc; i++)
+@@ -92,7 +121,7 @@
+ 		}
+ 
+ 		glDepthMask(1);
+-		glViewport(0, 0, OPENGL_XRES, OPENGL_YRES);
++		glViewport(OPENGL_X, OPENGL_Y, OPENGL_XRES, OPENGL_YRES);
+ 		glMatrixMode(GL_PROJECTION);
+ 		glLoadIdentity();
+ 		gluPerspective(45.0f, OPENGL_XRES/(float)OPENGL_YRES, 0.5f, 14000.0f);
+@@ -137,6 +166,7 @@
+ 		if (musicflag==true)
+ 			sound.play();
+ 		int alkuaika = SDL_GetTicks();
++		Uint32 windowID = SDL_GetWindowID(win.sdlWindow);
+ 		while(!done)
+ 		{
+ #ifdef OS_X
+@@ -155,6 +185,12 @@
+ 						case SDLK_ESCAPE: done = true;break;
+ 						case SDLK_q: done = true; break;
+ 					}
++				case SDL_WINDOWEVENT:
++				if (event.window.windowID == windowID)  {
++					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						resize_window(0,0, event.window.data1,event.window.data2);
++						}
++					}
+ 			}
+ 			originalaika = SDL_GetTicks()-alkuaika;
+ 			//dna loppuu 100 sekunnin kohdalla
+--- a/src/win32.cpp
++++ b/src/win32.cpp
+@@ -21,7 +21,7 @@
+ #ifdef FULLSCREEN
+     int SDL_flags = SDL_WINDOW_FULLSCREEN;
+ #else
+-	int SDL_flags = SDL_WINDOW_OPENGL;
++	int SDL_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
+ #endif
+ 
+ 	SDL_ShowCursor(0);
