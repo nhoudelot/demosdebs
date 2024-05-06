@@ -1,3 +1,9 @@
+onceuponatimeintheeast-by-fit (1.0+1-0ddebs11) unstable; urgency=medium
+
+  * added explicit VSync and updated resize
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 07 May 2024 00:35:05 +0200
+
 onceuponatimeintheeast-by-fit (1.0+1-0ddebs10) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
