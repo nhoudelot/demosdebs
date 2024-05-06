@@ -266,7 +266,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
 --- a/cool_mzx/pt.c
 +++ b/cool_mzx/pt.c
-@@ -325,11 +325,11 @@
+@@ -43,6 +43,8 @@
+  */
+ 
+ #include "sd_main.h"
++#include <string.h>
++#include <math.h>
+ 
+ #define pt_maxchannels 32
+ #define pt_periodmin 27
+@@ -325,11 +327,11 @@
  // levyltä, ei muistialuetta saa vapauttaa ja käyttää uudestaan,
  // jos tässä on nolla!!!
  
@@ -280,7 +289,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  {"2CHN", "4CHN", "M.K.", "M!K!", "FLT4", "FLT8", "OCTA", "6CHN", "8CHN",
   "10CH", "12CH", "14CH", "16CH", "18CH", "20CH", "22CH",
   "24CH", "26CH", "28CH", "30CH", "32CH", "STOP" };
-@@ -501,14 +501,14 @@
+@@ -501,14 +503,14 @@
  
  			if (pt_loope[i] > 2)
  			{

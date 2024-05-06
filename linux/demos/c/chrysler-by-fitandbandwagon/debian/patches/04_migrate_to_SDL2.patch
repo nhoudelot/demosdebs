@@ -96,7 +96,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	SDL_Renderer *sdlRenderer;
 +	SDL_Texture *sdlTexture;
 +	sdlWindow = SDL_CreateWindow("Chrysler by Fit & Bandwagon",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,flags);
-+	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
 +
  #ifdef TRUE8BIT
 -	s=SDL_SetVideoMode(640,480,8,flags);
