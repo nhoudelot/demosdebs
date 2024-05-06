@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Vapors
+GenericName=Demo
+Comment=Demo by sndels, released in 2017
+Type=Application
+Exec=/usr/bin/vapors-by-sndels
+Icon=vapors-by-sndels
+Categories=AudioVideo;
+Name[fr_FR]=vapors-by-sndels

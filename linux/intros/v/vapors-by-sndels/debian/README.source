@@ -1,0 +1,22 @@
+vapors-by-sndels for Debian
+--------------------------
+
+executable seems to be compiled for Ubuntu Xenial (16.04)
+
+Ubuntu Linux(16.04.4,ABI: 2.6.32)[AMD64, 64 bits, EXEC]
+GCC(5.4.0)
+
+Source files:
+------------- 
+glx_context.c     posix_thread.c    vulkan.c
+audioStream.cpp   gpuProfiler.cpp   posix_time.c      window.c
+context.c         init.c            quad.cpp          x11_init.c
+crtstuff.c        input.c           scene.cpp         x11_monitor.c
+device.c          linux_joystick.c  shaderProgram.cpp x11_window.c
+egl_context.c     main.cpp          texture.cpp       xkb_unicode.c
+frameBuffer.cpp   monitor.c         timer.cpp
+gl3w.c            osmesa_context.c  track.c
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 13 Feb 2024 23:43:26 +0100
+

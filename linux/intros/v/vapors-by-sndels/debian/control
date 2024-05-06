@@ -1,0 +1,34 @@
+Source: vapors-by-sndels
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ libbass-dev,
+ libx11-dev,
+ libxrandr-dev,
+ libxinerama-dev,
+ libxcursor-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=81239
+Rules-Requires-Root: no
+
+Package: vapors-by-sndels
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libbass2,
+ vapors-by-sndels-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by sndels, released in 2017
+ Demo by sndels, 2nd in combined demo at Graffathon 2017
+ Released in 2017
+
+Package: vapors-by-sndels-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for vapors-by-sndels
+ vapors-by-sndels data files

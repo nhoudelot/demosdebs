@@ -2,20 +2,20 @@
 
 source /usr/share/common-install-function-ddebs/common-install-function
 
-domain=jeregrette-by-fitandbandwagon
+domain=vapors-by-sndels
 
-APP_FULLNAME="Je Regrette"
-APP_COPYRIGHT="Fit and Bandwagon"
-APP_DESC="4k intro by Fit and Bandwagon released in 2004"
+APP_FULLNAME="Vapors"
+APP_COPYRIGHT="sndels"
+APP_DESC="Demo by sndels, released in 2017"
 
-APP_EXE="jeregrette-by-fitandbandwagon -w"
+APP_EXE="sndels_vapor"
 
 function run()
 {
 	backuppwd=$(pwd)
-	cd /usr/bin/
-	LD_LIBRARY_PATH=./:/usr/lib/@DEB_HOST_MULTIARCH@/sdl12-compat/ ./${APP_EXE}
-	cd $backuppwd
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	./${APP_EXE}
+	cd $backuppwd || exit
 }
 
 
