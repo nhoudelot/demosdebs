@@ -22,7 +22,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  void Video::init()
  {
  	// Init SDL
-@@ -168,6 +176,7 @@
+@@ -160,6 +168,7 @@
  			switch (event.key.keysym.sym) {
  			    case SDLK_ESCAPE: xs::shutdown.run(0); break;
  			    case SDLK_q: xs::shutdown.run(0); break;

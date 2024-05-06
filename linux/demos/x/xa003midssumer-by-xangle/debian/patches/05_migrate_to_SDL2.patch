@@ -211,7 +211,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +			temp += SDL_GetError();
 +			xs::error.add(temp.c_str());
 +		};
-+		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
 +		sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,sdl_screen);
 +	
  #ifdef DEBUG

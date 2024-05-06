@@ -22,33 +22,26 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		};
 +		windowID = SDL_GetWindowID(sdlWindow);
 +		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
- 		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
+ 		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
  		sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,sdl_screen);
  	
-@@ -120,6 +122,35 @@
+@@ -120,6 +122,27 @@
  #endif
  	}
  
-+void Video::resize_window(int w, int h) {
++void Video::resize_window(SDL_Renderer *sdlRenderer, int w, int h) {
 +    SDL_Rect newWindowSize;
 +    newWindowSize.x = 0;
 +    newWindowSize.y = 0;
++
 +    float aspect = (float)w / (float)h;
 +    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
 +        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.x = (w - newWindowSize.w) / 2;
 +        newWindowSize.h = h;
-+    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++    } else {
 +        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+        newWindowSize.y += (h - newWindowSize.h) / 2;
-+        newWindowSize.w = w;
-+    } else if (w != newWindowSize.w) {
-+        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+        newWindowSize.x += (w - newWindowSize.w) / 2;
-+        newWindowSize.h = h;
-+    } else if (h != newWindowSize.h) {
-+        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.y = (h - newWindowSize.h) / 2;
 +        newWindowSize.w = w;
 +    }
 +
@@ -57,17 +50,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
 +}
 +
-+
  void Video::update()
  {
  	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
-@@ -139,6 +170,11 @@
+@@ -139,6 +162,11 @@
  			    case SDLK_q: xs::shutdown.run(0); break;
  			}
  		    }
 +		 if (event.window.windowID == windowID)  {
 +			if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
-+			    resize_window(event.window.data1,event.window.data2);
++			    resize_window(sdlRenderer,event.window.data1,event.window.data2);
 +			}
 +		}
  	}
@@ -97,7 +89,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  SDL_Surface* sdlSurface;
 +Uint32 windowID;
 +
-+void resize_window(int w, int h);
++void resize_window(SDL_Renderer *sdlRenderer, int w, int h);
  
  // Update buffer to screen
  void update();

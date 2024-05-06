@@ -1,3 +1,10 @@
+xa003midssumer-by-xangle (1.0+1-0ddebs9) unstable; urgency=medium
+
+  * added explicit VSync
+  * updated resize
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 07 May 2024 00:02:16 +0200
+
 xa003midssumer-by-xangle (1.0+1-0ddebs8) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
