@@ -1,14 +1,19 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-08
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/SDLWindow.cpp
 +++ b/src/SDLWindow.cpp
-@@ -12,17 +12,22 @@
+@@ -12,17 +12,17 @@
  	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
  	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, bpp);
  
 -	screen = SDL_SetVideoMode(resolutionX, resolutionY, bpp, SDL_OPENGL);
-+	sdlWindow = SDL_CreateWindow(caption,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,resolutionX,resolutionY,SDL_WINDOW_OPENGL);
-+	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
-+	screen = SDL_CreateRGBSurfaceWithFormat(0, resolutionX, resolutionY, bpp,SDL_PIXELFORMAT_RGB565); //buffer video
-+	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,screen);
++	screen = SDL_CreateWindow(caption,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,resolutionX,resolutionY,SDL_WINDOW_OPENGL);
++	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(screen);
  
  	if (!screen)
  		cerr << "Couldn't set video mode: " << SDL_GetError() << endl;
@@ -18,10 +23,8 @@
  
  SDLWindow::~SDLWindow()
  {
- 	SDL_FreeSurface(screen);
-+	SDL_DestroyTexture(sdlTexture);
-+	SDL_DestroyRenderer(sdlRenderer);
-+	SDL_DestroyWindow(sdlWindow);
+-	SDL_FreeSurface(screen);
++	SDL_DestroyWindow(screen);
  	SDL_Quit();
  }
  
@@ -36,14 +39,12 @@
  
  class SDLWindow
  {
-@@ -12,6 +12,12 @@
+@@ -11,7 +11,9 @@
+ SDLWindow(char *caption, int resolutionX, int resolutionY, int bpp);
  ~SDLWindow();
  
- SDL_Surface *screen;
-+SDL_Window *sdlWindow;
-+SDL_Renderer *sdlRenderer;
-+SDL_Texture *sdlTexture;
-+SDL_Surface *sdlSurface;
+-SDL_Surface *screen;
++SDL_Window *screen;
  };
  
 +SDLWindow *mainWin;
@@ -51,7 +52,7 @@
  #endif
 --- a/src/CelScene.cpp
 +++ b/src/CelScene.cpp
-@@ -1,10 +1,11 @@
+@@ -1,17 +1,18 @@
  #include <iostream>
 -#include <SDL/SDL.h>
 +#include <SDL2/SDL.h>
@@ -64,15 +65,20 @@
  
  #include "../models/spikeThingie2.h"
  
-@@ -197,7 +198,10 @@
+ using std::cout;
+ using std::endl;
+ 
+-CelScene::CelScene(SDL_Surface *sdlsurf)
++CelScene::CelScene(SDL_Window *sdlsurf)
+ {
+ 	surface = sdlsurf;
+ 
+@@ -197,7 +198,7 @@
  		unsetOrtho();
  	}
  
 -	SDL_GL_SwapBuffers();
-+	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
-+	SDL_RenderClear(mainWin->sdlRenderer);
-+	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
-+	SDL_RenderPresent(mainWin->sdlRenderer);
++	SDL_GL_SwapWindow(mainWin->screen);
  }
  
  void CelScene::init()
@@ -89,7 +95,7 @@
  	// load all scenes and show a progressbar
 --- a/src/FunkyBackground.cpp
 +++ b/src/FunkyBackground.cpp
-@@ -1,10 +1,11 @@
+@@ -1,17 +1,18 @@
  #include <iostream>
 -#include <SDL/SDL.h>
 +#include <SDL2/SDL.h>
@@ -102,21 +108,26 @@
  
  /* FunkyBackground::getFunky()-routine is from Dr.Fungi goes Africa by Fit */
  
-@@ -45,7 +46,10 @@
+ using std::cout;
+ using std::endl;
+ 
+-FunkyBackground::FunkyBackground(SDL_Surface *sdlsurf)
++FunkyBackground::FunkyBackground(SDL_Window *sdlsurf)
+ {
+ 	surface = sdlsurf;
+ 
+@@ -45,7 +46,7 @@
  	glTranslatef(0.0, 0.0,-2.5);
  	getFunky((float)getTime()/1000.0, 9, 0);
  
 -	SDL_GL_SwapBuffers();
-+	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
-+	SDL_RenderClear(mainWin->sdlRenderer);
-+	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
-+	SDL_RenderPresent(mainWin->sdlRenderer);
++	SDL_GL_SwapWindow(mainWin->screen);
  }
  
  void FunkyBackground::init()
 --- a/src/Greetings.cpp
 +++ b/src/Greetings.cpp
-@@ -1,10 +1,11 @@
+@@ -1,17 +1,18 @@
  #include <iostream>
 -#include <SDL/SDL.h>
 +#include <SDL2/SDL.h>
@@ -129,21 +140,26 @@
  
  using std::cout;
  using std::endl;
-@@ -301,7 +302,10 @@
+ 
+ void drawCube(float size);
+ 
+-Greetings::Greetings(SDL_Surface *sdlsurf)
++Greetings::Greetings(SDL_Window *sdlsurf)
+ {
+ 	surface = sdlsurf;
+ 
+@@ -301,7 +302,7 @@
  		unsetOrtho();
  	}
  
 -	SDL_GL_SwapBuffers();
-+	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
-+	SDL_RenderClear(mainWin->sdlRenderer);
-+	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
-+	SDL_RenderPresent(mainWin->sdlRenderer);
++	SDL_GL_SwapWindow(mainWin->screen);
  }
  
  void Greetings::init()
 --- a/src/LoaderBar.cpp
 +++ b/src/LoaderBar.cpp
-@@ -1,9 +1,10 @@
+@@ -1,14 +1,15 @@
  #include <iostream>
 -#include <SDL/SDL.h>
 +#include <SDL2/SDL.h>
@@ -155,33 +171,33 @@
  
  using std::cout;
  using std::endl;
-@@ -25,7 +26,10 @@
+ 
+-LoaderBar::LoaderBar(SDL_Surface *sdlsurf)
++LoaderBar::LoaderBar(SDL_Window *sdlsurf)
+ {
+ 	glPushAttrib(GL_ALL_ATTRIB_BITS);
+ 	surface = sdlsurf;
+@@ -25,7 +26,7 @@
  	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
  	glLoadIdentity();
  
 -	SDL_GL_SwapBuffers();
-+	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
-+	SDL_RenderClear(mainWin->sdlRenderer);
-+	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
-+	SDL_RenderPresent(mainWin->sdlRenderer);
++	SDL_GL_SwapWindow(mainWin->screen);
  }
  
  void LoaderBar::render(int percent)
-@@ -56,7 +60,10 @@
+@@ -56,7 +57,7 @@
  	glEnd();
  	unsetOrtho();
  
 -	SDL_GL_SwapBuffers();
-+	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
-+	SDL_RenderClear(mainWin->sdlRenderer);
-+	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
-+	SDL_RenderPresent(mainWin->sdlRenderer);
++	SDL_GL_SwapWindow(mainWin->screen);
  }
  
  void LoaderBar::init()
 --- a/src/Heightfield.cpp
 +++ b/src/Heightfield.cpp
-@@ -1,10 +1,11 @@
+@@ -1,17 +1,18 @@
  
 -#include <SDL/SDL.h>
 +#include <SDL2/SDL.h>
@@ -194,15 +210,20 @@
  
  #include "../models/spikeThingie.h"
  
-@@ -238,7 +239,10 @@
+ using std::cout;
+ using std::endl;
+ 
+-Heightfield::Heightfield(SDL_Surface *sdlsurf)
++Heightfield::Heightfield(SDL_Window *sdlsurf)
+ {
+ 	surface = sdlsurf;
+ 
+@@ -238,7 +239,7 @@
  		unsetOrtho();
  	}
  
 -	SDL_GL_SwapBuffers();
-+	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
-+	SDL_RenderClear(mainWin->sdlRenderer);
-+	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
-+	SDL_RenderPresent(mainWin->sdlRenderer);
++	SDL_GL_SwapWindow(mainWin->screen);
  }
  
  void Heightfield::init()
@@ -221,15 +242,21 @@
  
  #include "Metaballs.h"
  #include "PNGImage.h"
-@@ -502,7 +503,10 @@
+@@ -302,7 +303,7 @@
+ 	{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
+ };
+ 
+-Metaballs::Metaballs(SDL_Surface *sdlsurf)
++Metaballs::Metaballs(SDL_Window *sdlsurf)
+ {
+ 	surface = sdlsurf;
+ 
+@@ -502,7 +503,7 @@
  		unsetOrtho();
  	}
  
 -	SDL_GL_SwapBuffers();
-+	SDL_UpdateTexture(mainWin->sdlTexture, NULL, mainWin->screen->pixels, mainWin->screen->pitch); //update texture content with the surface
-+	SDL_RenderClear(mainWin->sdlRenderer);
-+	SDL_RenderCopy(mainWin->sdlRenderer, mainWin->sdlTexture, NULL, NULL);
-+	SDL_RenderPresent(mainWin->sdlRenderer);
++	SDL_GL_SwapWindow(mainWin->screen);
  }
  
  void Metaballs::init()
@@ -254,6 +281,24 @@
  #include <GL/gl.h>
  #include <GL/glu.h>
  #include <iostream>
+@@ -20,7 +20,7 @@
+ 	delete fontMap;
+ }
+ 
+-void Bitmapfont::drawCharacter(SDL_Surface * surface, int x, int y, char c)
++void Bitmapfont::drawCharacter(SDL_Window * surface, int x, int y, char c)
+ {
+ 	float s, t; // used for temperarily storage of vertex-coordinates
+ 
+@@ -39,7 +39,7 @@
+ 	glEnd();
+ }
+ 
+-void Bitmapfont::drawString(SDL_Surface *surface, int x, int y, string s)
++void Bitmapfont::drawString(SDL_Window *surface, int x, int y, string s)
+ {
+ 	int ix = x;
+ 	for (int i = 0; i < (int)s.length(); i++) {
 --- a/src/Bitmapfont.h
 +++ b/src/Bitmapfont.h
 @@ -1,7 +1,7 @@
@@ -265,6 +310,17 @@
  #include <iostream>
  #include "Texture.h"
  
+@@ -14,8 +14,8 @@
+ Bitmapfont(const char* filename, char* chars, int char_width, int char_height);
+ ~Bitmapfont();
+ 
+-void drawCharacter(SDL_Surface *surface, int x, int y, char c);
+-void drawString(SDL_Surface *surface, int x, int y, string s);
++void drawCharacter(SDL_Window *surface, int x, int y, char c);
++void drawString(SDL_Window *surface, int x, int y, string s);
+ 
+ private:
+ Texture *fontMap;
 --- a/src/CylinderScene.cpp
 +++ b/src/CylinderScene.cpp
 @@ -1,5 +1,5 @@
@@ -274,6 +330,15 @@
  #include <GL/gl.h>
  #include <GL/glu.h>
  #include <math.h>
+@@ -9,7 +9,7 @@
+ using std::cout;
+ using std::endl;
+ 
+-CylinderScene::CylinderScene(SDL_Surface *sdlsurf)
++CylinderScene::CylinderScene(SDL_Window *sdlsurf)
+ {
+ 	// initialize all 30 circles
+ 	for (int i = 0; i < 30; i++) {
 --- a/src/Music.h
 +++ b/src/Music.h
 @@ -1,8 +1,8 @@
@@ -298,3 +363,89 @@
  
  class Scene
  {
+@@ -16,7 +16,7 @@
+ virtual void render();
+ 
+ protected:
+-SDL_Surface *surface;
++SDL_Window *surface;
+ SDL_Event event;
+ int done;                           // set to non-zero when scene is done
+ unsigned int startTime;             // set to current time when scene starts
+--- a/src/CelScene.h
++++ b/src/CelScene.h
+@@ -9,7 +9,7 @@
+ class CelScene : public Scene
+ {
+ public:
+-CelScene(SDL_Surface *sdlsurf);
++CelScene(SDL_Window *sdlsurf);
+ ~CelScene();
+ 
+ void render();
+--- a/src/LoaderBar.h
++++ b/src/LoaderBar.h
+@@ -8,7 +8,7 @@
+ class LoaderBar : public Scene
+ {
+ public:
+-LoaderBar(SDL_Surface *sdlsurf);
++LoaderBar(SDL_Window *sdlsurf);
+ ~LoaderBar();
+ 
+ void render();
+--- a/src/Metaballs.h
++++ b/src/Metaballs.h
+@@ -11,7 +11,7 @@
+ class Metaballs : public Scene
+ {
+ public:
+-Metaballs(SDL_Surface *sdlsurf);
++Metaballs(SDL_Window *sdlsurf);
+ ~Metaballs();
+ 
+ void render();
+--- a/src/Greetings.h
++++ b/src/Greetings.h
+@@ -8,7 +8,7 @@
+ class Greetings : public Scene
+ {
+ public:
+-Greetings(SDL_Surface *sdlsurf);
++Greetings(SDL_Window *sdlsurf);
+ ~Greetings();
+ 
+ void render();
+--- a/src/Heightfield.h
++++ b/src/Heightfield.h
+@@ -9,7 +9,7 @@
+ class Heightfield : public Scene
+ {
+ public:
+-Heightfield(SDL_Surface *sdlsurf);
++Heightfield(SDL_Window *sdlsurf);
+ ~Heightfield();
+ 
+ void render();
+--- a/src/FunkyBackground.h
++++ b/src/FunkyBackground.h
+@@ -8,7 +8,7 @@
+ class FunkyBackground : public Scene
+ {
+ public:
+-FunkyBackground(SDL_Surface *sdlsurf);
++FunkyBackground(SDL_Window *sdlsurf);
+ ~FunkyBackground();
+ 
+ void render();
+--- a/src/CylinderScene.h
++++ b/src/CylinderScene.h
+@@ -14,7 +14,7 @@
+ class CylinderScene : public Scene
+ {
+ public:
+-CylinderScene(SDL_Surface *sdlsurf);
++CylinderScene(SDL_Window *sdlsurf);
+ ~CylinderScene();
+ 
+ void render();

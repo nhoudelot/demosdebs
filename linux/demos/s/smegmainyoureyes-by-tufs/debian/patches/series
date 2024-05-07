@@ -5,3 +5,4 @@
 05_migrate_to_png16.patch
 06_link_to_libgl.patch
 07_to_utf8.patch
+08_migrate_to_SDL2.patch

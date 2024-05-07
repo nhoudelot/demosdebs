@@ -1,0 +1,35 @@
+--- a/src/Scene.cpp
++++ b/src/Scene.cpp
+@@ -64,6 +64,12 @@
+     gluPerspective(45.0f, DEMO_XASPECT/DEMO_YASPECT, 0.1f, 100.0f);
+ }
+ 
++void Scene::ToggleFullscreen(SDL_Window* Window) {
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(isFullscreen);
++}
+ 
+ int Scene::run(int milliseconds)
+ {
+@@ -86,6 +92,9 @@
+ 			case SDL_QUIT:
+ 				done = getTime();
+ 				break;
++			case SDLK_f:
++				 Scene::ToggleFullscreen(mainWin->screen);
++				break;
+ 			default:
+ 				break;
+ 			}
+--- a/src/Scene.h
++++ b/src/Scene.h
+@@ -15,6 +15,7 @@
+ virtual int run(int milliseconds);
+ virtual void render();
+ virtual void resize_window(int x, int y, int w, int h);
++virtual void ToggleFullscreen(SDL_Window* Window);
+ 
+ protected:
+ SDL_Window *surface;

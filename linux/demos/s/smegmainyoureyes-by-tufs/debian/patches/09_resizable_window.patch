@@ -1,0 +1,88 @@
+--- a/src/SDLWindow.cpp
++++ b/src/SDLWindow.cpp
+@@ -12,8 +12,9 @@
+ 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+ 	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, bpp);
+ 
+-	screen = SDL_CreateWindow(caption,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,resolutionX,resolutionY,SDL_WINDOW_OPENGL);
++	screen = SDL_CreateWindow(caption,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,resolutionX,resolutionY,SDL_WINDOW_RESIZABLE|SDL_WINDOW_OPENGL);
+ 	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(screen);
++	windowID = SDL_GetWindowID(screen);
+ 
+ 	if (!screen)
+ 		cerr << "Couldn't set video mode: " << SDL_GetError() << endl;
+--- a/src/Scene.cpp
++++ b/src/Scene.cpp
+@@ -2,6 +2,10 @@
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ #include "Scene.h"
++#include "SDLWindow.h"
++
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
+ 
+ Scene::Scene()
+ {
+@@ -41,6 +45,26 @@
+ 	glPopAttrib();
+ }
+ 
++void Scene::resize_window(int x, int y, int w, int h)
++{
++    /* Prevent division by zero */
++    if (h == 0) h = 1;
++
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        x += (w - new_w) / 2;
++        w = new_w;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        y += (h - new_h) / 2;
++        h = new_h;
++    }
++    glViewport(x, y, w, h);
++    gluPerspective(45.0f, DEMO_XASPECT/DEMO_YASPECT, 0.1f, 100.0f);
++}
++
++
+ int Scene::run(int milliseconds)
+ {
+ 	// generic mainloop, run until esc is pressed or the window is closed
+@@ -65,6 +89,14 @@
+ 			default:
+ 				break;
+ 			}
++			if(event.type == SDL_WINDOWEVENT)
++			{
++				if (event.window.windowID == mainWin->windowID)  {
++				    if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++		                Scene::resize_window(0,0,event.window.data1,event.window.data2);
++				    }
++				}
++			}
+ 		}
+ 		render();
+ 		framesDrawn++;
+--- a/src/SDLWindow.h
++++ b/src/SDLWindow.h
+@@ -12,6 +12,7 @@
+ ~SDLWindow();
+ 
+ SDL_Window *screen;
++Uint32 windowID;
+ };
+ 
+ SDLWindow *mainWin;
+--- a/src/Scene.h
++++ b/src/Scene.h
+@@ -14,6 +14,7 @@
+ virtual void deinit();
+ virtual int run(int milliseconds);
+ virtual void render();
++virtual void resize_window(int x, int y, int w, int h);
+ 
+ protected:
+ SDL_Window *surface;

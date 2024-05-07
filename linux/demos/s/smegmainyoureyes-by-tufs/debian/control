@@ -4,11 +4,11 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- libsdl1.2-compat-dev|libsdl1.2-dev,
+ libsdl2-dev,
  libglu-dev,
  libpng-dev,
  libgl-dev,
- libsdl-mixer1.2-dev,
+ libsdl2-mixer-dev,
  pkgconf,
 Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=52142
@@ -18,7 +18,6 @@ Package: smegmainyoureyes-by-tufs
 Architecture: any
 Depends:
  smegmainyoureyes-by-tufs-data,
- libsdl1.2-compat,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: demo ranked 1st at Xenox 2004
