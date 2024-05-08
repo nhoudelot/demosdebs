@@ -6,7 +6,7 @@ Build-Depends:
  debhelper-compat (= 13),
  yasm,
  libsdl-mixer1.2-dev,
- libsdl1.2-compat-dev|libsdl1.2-dev,
+ libsdl1.2-dev,
  pkgconf
 Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=4788

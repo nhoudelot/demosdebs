@@ -96,3 +96,116 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -
 -
 -
+--- a/sumu.c
++++ b/sumu.c
+@@ -43,16 +43,22 @@
+ }
+ int xnoise(int x, int y, int z) {
+ 	int xx,yy,zz,x2,y2,z2;
+-	xx=x&1023; yy=y&1023; zz=z&1023;
+-	xx=xx*xx*(1536-xx)>>19;
+-	yy=yy*yy*(1536-yy)>>19;
+-	zz=zz*zz*(1536-zz)>>19;
+-	x2=1024-xx; y2=1024-yy; z2=1024-zz;
+-	x>>=10; y>>=10; z>>=10;
+-	return ((ixnoise(x,y,z  )*x2+ixnoise(x+1,y,z  )*xx)*y2
+-	        +(ixnoise(x,y+1,z  )*x2+ixnoise(x+1,y+1,z  )*xx)*yy>>15)*z2
+-	       +((ixnoise(x,y,z+1)*x2+ixnoise(x+1,y,z+1)*xx)*y2
+-	         +(ixnoise(x,y+1,z+1)*x2+ixnoise(x+1,y+1,z+1)*xx)*yy>>15)*zz>>15;
++	xx=x&1023;
++	yy=y&1023;
++	zz=z&1023;
++	xx=(xx*xx*(1536-xx))>>19;
++	yy=(yy*yy*(1536-yy))>>19;
++	zz=(zz*zz*(1536-zz))>>19;
++	x2=1024-xx;
++	y2=1024-yy;
++	z2=1024-zz;
++	x>>=10;
++	y>>=10;
++	z>>=10;
++	return ((((ixnoise(x,y,z)*x2+ixnoise(x+ 1,y,z)*xx)*y2
++		+(ixnoise(x,y+1,z)*x2+ixnoise(x+1,y+1,z)*xx)*yy)>>15)*z2
++		+(((ixnoise(x,y,z+1)*x2+ixnoise(x+1,y,z+1)*xx)*y2
++			+(ixnoise(x,y+1,z+1)*x2+ixnoise(x+1,y+1,z+1)*xx)*yy)>>15)*zz)>>15;
+ }
+ 
+ 
+@@ -67,12 +73,15 @@
+ static float parti[32768*4];
+ float emmental(float *p, float k, float s, float z) {
+ 	float x=
+-		xnoise((p[0]+7566.8766)*k, (p[1]+2334.675)*k, (p[2]+6547.9257)*k)*4*(1/2048.0)-1;
++		xnoise((p[0]+7566.8766f)*k,(p[1]+2334.675f)*k,(p[2]+6547.9257f)*k)*4*(1.0f/2048.0f)-1.0f;
+ 	s*=k;
+-	x=1-x*x*z; if (x<-1) x=-1;
+-	if (s<1000.0) x+=1000.0/s-1;
+-	if (s>2000.0) x+=(s-2000.0)*0.0005;
+-	if (x<0) x=0; if (x>1) x=1; return x;
++	x=1-x*x*z;
++	if (x<-1) x=-1;
++	if (s<1000.0f) x+=1000.0f/s-1.0f;
++	if (s>2000.0f) x+=(s-2000.0f)*0.0005f;
++	if (x<0) x=0;
++	if (x>1) x=1;
++	return x;
+ }
+ void presumu() {
+ 	float *p, r, s;
+@@ -81,7 +90,7 @@
+ 	for (i=0; i<1024; i++) j=rand()&1023, k=nbuf[i], nbuf[i]=nbuf[j], nbuf[j]=k;
+ 
+ 	for (p=parti; p<parti+sizeof(parti)/sizeof(parti[0]); p+=4) {
+-		if ((p-parti&1023)==0) printf("."), fflush(stdout);
++		if (((p-parti)&1023)==0)printf("."),fflush(stdout);
+ 		do {
+ 			do {
+ 				s=rand()*(1./RAND_MAX); s=64*exp(-s*8);
+@@ -148,11 +157,25 @@
+ 			y2=lrint((yy+p[3]*2)*zz); if (y2<0) continue;
+ 			y3=lrint((yy-p[3]*2)*zz); if (y3>239) continue;
+ 			x=lrint(xx*zz); y=lrint(yy*zz);
+-			if (x <0) x =0; if (y <0) y =0; if (x >159) x =159; if (y >239) y =239;
+-			if (x3<0) x3=0; if (y3<0) y3=0; if (x2>159) x2=159; if (y2>239) y2=239;
+-			y*=160; y2*=160; y3*=160;
+-			tmp[y3+x3]++;  tmp[y2+x3]--;  tmp[y3+x2]--;  tmp[y2+x2]++;
+-			tmp[y +x ]+=3; tmp[y2+x ]-=3; tmp[y +x2]-=3; tmp[y2+x2]+=3;
++			if (x <0) x =0;
++			if (y <0) y =0;
++			if (x >159) x =159;
++			if (y >239) y =239;
++			if (x3<0) x3=0;
++			if (y3<0) y3=0;
++			if (x2>159) x2=159;
++			if (y2>239) y2=239;
++			y*=160;
++			y2*=160;
++			y3*=160;
++			tmp[y3+x3]++;
++			tmp[y2+x3]--;
++			tmp[y3+x2]--;
++			tmp[y2+x2]++;
++			tmp[y +x ]+=3;
++			tmp[y2+x ]-=3;
++			tmp[y +x2]-=3;
++			tmp[y2+x2]+=3;
+ 		}
+ 	}
+ 
+--- a/vox.c
++++ b/vox.c
+@@ -119,10 +119,10 @@
+ 			if (vp[1].maxv>vp[0].maxv) vp[0].maxv=vp[1].maxv;
+ 		}
+ 	for (vp=vbuf, yy=0; yy<ys>>5; yy++, vp++) for (xx=0; xx<xs>>5; xx++, vp++) {
+-			if (vp[xs+32>>5].min<vp[0].min) vp[0].min=vp[xs+32>>5].min;
+-			if (vp[xs+32>>5].max>vp[0].max) vp[0].max=vp[xs+32>>5].max;
+-			if (vp[xs+32>>5].minv<vp[0].minv) vp[0].minv=vp[xs+32>>5].minv;
+-			if (vp[xs+32>>5].maxv>vp[0].maxv) vp[0].maxv=vp[xs+32>>5].maxv;
++			if (vp[(xs + 32) >> 5].min < vp[0].min) vp[0].min = vp[(xs + 32) >> 5].min;
++			if (vp[(xs + 32) >> 5].max > vp[0].max) vp[0].max = vp[(xs + 32) >> 5].max;
++			if (vp[(xs + 32) >> 5].minv < vp[0].minv) vp[0].minv = vp[(xs + 32) >> 5].minv;
++			if (vp[(xs + 32) >> 5].maxv > vp[0].maxv) vp[0].maxv = vp[(xs + 32) >> 5].maxv;
+ 		}
+ 	for (yy=0; yy<ys>>5; yy++) for (xx=0; xx<xs>>5; xx++) {
+ 			vp=vbuf+yy*(xs+32>>5)+xx;
