@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Cassini
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2018
+Type=Application
+Exec=/usr/bin/cassini-by-faemiyah
+Icon=cassini-by-faemiyah
+Categories=AudioVideo;
+Name[fr_FR]=Cassini

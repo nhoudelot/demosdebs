@@ -1,0 +1,81 @@
+Description: updating CMakeLists
+ rename executable & fix custom-library-search-path RUNPATH
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-10
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ cmake_minimum_required(VERSION 3.1)
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+-project(cassini)
++project(cassini-by-faemiyah)
+ 
+ enable_language(C)
+ enable_language(CXX)
+@@ -14,13 +14,13 @@
+ find_png()
+ find_sdl2()
+ 
+-output_flags("DEBUG" on)
++set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
+ 
+ add_definitions(-DUSE_LD)
+ 
+ include_directories("${PROJECT_SOURCE_DIR}/src")
+ 
+-add_executable(cassini
++add_executable(cassini-by-faemiyah
+   "src/bsd_rand.c"
+   "src/bsd_rand.h"
+   "src/clouds.frag.glsl.hpp"
+@@ -104,25 +104,27 @@
+   "src/verbatim_vec2.hpp"
+   "src/verbatim_vec3.hpp")
+ if(MSVC)
+-  target_link_libraries(cassini "Imm32")
+-  target_link_libraries(cassini "Version")
+-  target_link_libraries(cassini "WinMM")
+-  target_link_libraries(cassini "${OPENGL_gl_LIBRARY}")
+-  target_link_libraries(cassini debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
+-  target_link_libraries(cassini debug "${FREETYPE_LIBRARY_DEBUG}" optimized "${FREETYPE_LIBRARY}")
+-  target_link_libraries(cassini debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
+-  target_link_libraries(cassini debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
+-  target_link_libraries(cassini debug "${SNDFILE_LIBRARY_DEBUG}" optimized "${SNDFILE_LIBRARY}")
+-  target_link_libraries(cassini debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "Imm32")
++  target_link_libraries(cassini-by-faemiyah "Version")
++  target_link_libraries(cassini-by-faemiyah "WinMM")
++  target_link_libraries(cassini-by-faemiyah "${OPENGL_gl_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah debug "${FREETYPE_LIBRARY_DEBUG}" optimized "${FREETYPE_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah debug "${SNDFILE_LIBRARY_DEBUG}" optimized "${SNDFILE_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
+ else()
+-  target_link_libraries(cassini "${BOOST_FILESYSTEM_LIBRARY}")
+-  target_link_libraries(cassini "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
+-  target_link_libraries(cassini "${BOOST_SYSTEM_LIBRARY}")
+-  target_link_libraries(cassini "${BOOST_THREAD_LIBRARY}")
+-  target_link_libraries(cassini "${BOOST_WAVE_LIBRARY}")
+-  target_link_libraries(cassini "${GLEW_LIBRARY}")
+-  target_link_libraries(cassini "${FREETYPE_LIBRARY}")
+-  target_link_libraries(cassini "${PNG_LIBRARY}")
+-  target_link_libraries(cassini "${SDL2_LIBRARY}")
+-  target_link_libraries(cassini "${SNDFILE_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${BOOST_FILESYSTEM_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${BOOST_SYSTEM_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${BOOST_THREAD_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${BOOST_WAVE_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${GLEW_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${FREETYPE_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${PNG_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${SDL2_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah "${SNDFILE_LIBRARY}")
+ endif()
++
++set_target_properties(cassini-by-faemiyah PROPERTIES SKIP_BUILD_RPATH TRUE)

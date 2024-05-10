@@ -1,0 +1,34 @@
+Source: cassini-by-faemiyah
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake,
+ libsdl2-dev,
+ libfreetype-dev,
+ libboost-all-dev,
+ libglew-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=77364
+Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2018-08_40k-intro_cassini
+Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2018-08_40k-intro_cassini.git
+Rules-Requires-Root: no
+
+Package: cassini-by-faemiyah
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ cassini-by-faemiyah-data,
+ common-install-function-ddebs(>=1.61)
+Description: 40k intro by Faemiyah, released in 2018
+ 40k intro by Faemiyah, released in 2018
+
+Package: cassini-by-faemiyah-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for cassini-by-faemiyah
+ cassini-by-faemiyah data files

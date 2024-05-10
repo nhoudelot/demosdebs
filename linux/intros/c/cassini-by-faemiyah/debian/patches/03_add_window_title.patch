@@ -1,0 +1,17 @@
+Description: add title to the windows
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-10
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -1819,7 +1819,7 @@
+ {
+   dnload();
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-  g_sdl_window = dnload_SDL_CreateWindow(NULL, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
++  g_sdl_window = dnload_SDL_CreateWindow("Cassini by Faemiyah", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+       static_cast<int>(screen_w), static_cast<int>(screen_h),
+       SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
+   dnload_SDL_GL_CreateContext(g_sdl_window);

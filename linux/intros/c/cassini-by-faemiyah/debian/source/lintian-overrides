@@ -1,0 +1,4 @@
+cassini-by-faemiyah source: source-is-missing [rel/cassini_freebsd-amd64]
+cassini-by-faemiyah source: source-is-missing [rel/cassini_freebsd-ia32]
+cassini-by-faemiyah source: source-is-missing [rel/cassini_linux-amd64]
+cassini-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/cassini_windows-ia32.exe]
