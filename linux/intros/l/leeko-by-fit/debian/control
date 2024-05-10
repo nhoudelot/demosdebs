@@ -14,7 +14,6 @@ Rules-Requires-Root: no
 Package: leeko-by-fit
 Architecture: any
 Depends:
- libsdl1.2-compat,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: intro ranked 3rd at Assembly 2003

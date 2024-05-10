@@ -1,9 +1,16 @@
+leeko-by-fit (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * remove launch script (desktop icon didn't work since SDL2 migration)
+  * use desktop resolution at fullscreen start
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 11 May 2024 00:38:11 +0200
+
 leeko-by-fit (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
   * use debhelper compatibility v13
   * update to SDL2
-  * window is now resaizable
+  * window is now resizable
   * added F to toggle fullscreen
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 20 Mar 2024 13:43:39 +0100
