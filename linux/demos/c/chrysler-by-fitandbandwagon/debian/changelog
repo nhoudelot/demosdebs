@@ -1,3 +1,10 @@
+chrysler-by-fitandbandwagon (1.0+1-0ddebs12) unstable; urgency=medium
+
+  * Fix implicit-function-declaration
+  * use full desktop resolution when start fullscreen
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 May 2024 19:24:16 +0200
+
 chrysler-by-fitandbandwagon (1.0+1-0ddebs11) unstable; urgency=medium
 
   * added explicit VSync 

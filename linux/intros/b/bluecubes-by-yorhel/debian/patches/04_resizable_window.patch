@@ -17,16 +17,22 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  SDL_Window *screen;
  float ar; /* aspect ratio, width/height */
  Uint32 w, h;
-@@ -38,7 +41,7 @@
+@@ -34,11 +37,13 @@
+ void playsound();
+ void closesound();
+ 
++void resize_window(int x, int y, int w, int h);
++
+ int main(int argc, char **argv) {
  	SDL_Event event;
  	Uint32 tlast = 0,
  	       tcurrent, st, argn = 0;
--	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
-+	Uint32 flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
+-	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
++	Uint32 flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
  	char fr = 0;
  
  	while(++argn < argc) {
-@@ -89,9 +92,21 @@
+@@ -89,9 +94,21 @@
  
  	st = SDL_GetTicks();
  	playsound();
@@ -50,7 +56,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  			if(event.type == SDL_QUIT || (event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q))) {
  				quit = 1;
  				continue;
-@@ -116,6 +131,25 @@
+@@ -116,6 +133,25 @@
  	return 0;
  }
  

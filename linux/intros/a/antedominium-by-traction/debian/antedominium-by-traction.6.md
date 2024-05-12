@@ -1,6 +1,6 @@
 % antedominium-by-traction(6) Ante Dominium User Manuals
 % Nicolas HOUDELOT (nicolas@demosdebs.org),Traction
-% 2024-03-19
+% 2024-03-22
 
 # NAME
 antedominium-by-traction - is the command to run Ante Dominium 
@@ -16,7 +16,14 @@ Preacher [Code]
 griip [Music]
 
 # OPTIONS
-there is no options to this program
+\-w 
+:    for window mode
+
+# KEYS
+F
+:    toggle fullscreen
+ESC / Q
+:    quit
 
 # INFOS
 https://www.pouet.net/prod.php?which=24476

@@ -28,8 +28,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  int main(int argc,char *argv[])
  {
--	int quit=0,flags=SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
-+	int quit=0,flags=SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
+-	int quit=0,flags=SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
++	int quit=0,flags=SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
  	SDL_Event e;
  	double mp=0,oldtimer=0.0,oldtimer2=0.0,oldtimer3=0.0,d;
  

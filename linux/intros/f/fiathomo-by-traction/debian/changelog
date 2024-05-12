@@ -1,3 +1,9 @@
+fiathomo-by-traction (1.0-0ddebs2) unstable; urgency=medium
+
+  * use full desktop resolution when start fullscreen
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 13 May 2024 10:29:41 +0200
+
 fiathomo-by-traction (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release

@@ -5,3 +5,4 @@
 05_better_quit.patch
 06_resizable_window.patch
 07_add_fullscreen_key.patch
+08_fix_implicit-function-declaration.patch

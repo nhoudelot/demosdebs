@@ -1,3 +1,9 @@
+xa003midssumer-by-xangle (1.0+1-0ddebs10) unstable; urgency=medium
+
+  * use full desktop resolution when start fullscreen
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 13 May 2024 13:31:34 +0200
+
 xa003midssumer-by-xangle (1.0+1-0ddebs9) unstable; urgency=medium
 
   * added explicit VSync

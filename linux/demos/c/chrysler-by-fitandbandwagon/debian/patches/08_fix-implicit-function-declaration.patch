@@ -1,0 +1,17 @@
+Description: Fix implicit-function-declaration
+In dpkg version 1.22.6, the compiler flag -Werror=implicit-function-declaration was enabled by default for all architectures
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-12
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cool_mzx/sd_main.h
++++ b/cool_mzx/sd_main.h
+@@ -32,6 +32,7 @@
+ 
+ #define SD_USE_DSP16
+ #include "sd_dsp16.h"
++#include "sd_mix.h"
+ //#define SD_USE_DSP8
+ //#include "sd_dsp8.h"
+ 

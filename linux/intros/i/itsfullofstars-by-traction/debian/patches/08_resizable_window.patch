@@ -120,5 +120,5 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	int SDL_flags = SDL_WINDOW_OPENGL;
 +	int SDL_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
  #ifdef FULLSCREEN
- 	SDL_flags += SDL_WINDOW_FULLSCREEN;
+ 	SDL_flags += SDL_WINDOW_FULLSCREEN_DESKTOP;
  #endif

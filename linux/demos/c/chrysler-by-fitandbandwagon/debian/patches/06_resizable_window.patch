@@ -50,8 +50,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #else
  	unsigned *screen;
  #endif
--	int flags=SDL_WINDOW_FULLSCREEN;
-+	int flags=SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN;
+-	int flags=SDL_WINDOW_FULLSCREEN_DESKTOP;
++	int flags=SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN_DESKTOP;
  
  	if(argc==2)
  		if(!strcmp(argv[1],"-w"))

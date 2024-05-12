@@ -70,7 +70,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	for (i=1; i<argc; i++)
  	{
 -		if (!strcmp("-fullscreen",argv[i])) flags|=SDL_FULLSCREEN;
-+		if (!strcmp("-fullscreen",argv[i])) flags|=SDL_WINDOW_FULLSCREEN;
++		if (!strcmp("-fullscreen",argv[i])) flags|=SDL_WINDOW_FULLSCREEN_DESKTOP;
  		else if (!strcmp("-render",argv[i])) renderonly=1;
  		else script_path = argv[i];
  	}

@@ -7,7 +7,7 @@ Last-Update: 2024-03-19
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/bluecubes.c
 +++ b/bluecubes.c
-@@ -345,7 +345,7 @@
+@@ -347,7 +347,7 @@
  /***************************************************
  ******************** synth ************************/
  

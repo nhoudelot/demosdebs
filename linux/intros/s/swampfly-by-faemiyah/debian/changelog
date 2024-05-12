@@ -1,3 +1,9 @@
+swampfly-by-faemiyah (1.0+git20170414-0deebs6) unstable; urgency=medium
+
+  * use full desktop resolution when start fullscreen
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 13 May 2024 00:33:10 +0200
+
 swampfly-by-faemiyah (1.0+git20170414-0deebs5) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

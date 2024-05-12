@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: heartburn-by-thetourist
-Source: http://www.pouet.net/prod.php?which=61809
+Source: https://www.pouet.net/prod.php?which=61809
 
 Files: *
 Copyright: 2013 The Tourist

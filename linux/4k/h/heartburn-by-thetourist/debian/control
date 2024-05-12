@@ -9,7 +9,7 @@ Build-Depends:
  libsdl2-dev,
  pkgconf
 Standards-Version: 4.6.2
-Homepage: http://www.pouet.net/prod.php?which=61809
+Homepage: https://www.pouet.net/prod.php?which=61809
 Rules-Requires-Root: no
 
 Package: heartburn-by-thetourist

@@ -91,12 +91,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        if((strcmp("-f", cmp) == 0) || (strcmp("--fullscreen", cmp) == 0))
        {
 -        sdl_flags |= SDL_FULLSCREEN;
-+        sdl_flags |= SDL_WINDOW_FULLSCREEN;
++        sdl_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
        }
        else if((strcmp("-w", cmp) == 0) || (strcmp("--windowed", cmp) == 0))
        {
 -        sdl_flags &= ~SDL_FULLSCREEN;
-+        sdl_flags &= ~SDL_WINDOW_FULLSCREEN;
++        sdl_flags &= ~SDL_WINDOW_FULLSCREEN_DESKTOP;
        }
  #if defined(HAVE_LIBPNG)
        else if((strcmp("-r", cmp) == 0) || (strcmp("--record", cmp) == 0))
@@ -105,7 +105,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #else
  #if defined(SCREEN_F)
 -#define sdl_flags (SDL_OPENGL | SDL_FULLSCREEN)
-+#define sdl_flags (SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN)
++#define sdl_flags (SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP)
  #else
 -#define sdl_flags SDL_OPENGL;
 +#define sdl_flags SDL_WINDOW_OPENGL;

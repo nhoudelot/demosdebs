@@ -7,9 +7,9 @@ Last-Update: 2024-03-20
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/bluecubes.c
 +++ b/bluecubes.c
-@@ -37,6 +37,13 @@
- void playsound();
- void closesound();
+@@ -39,6 +39,13 @@
+ 
+ void resize_window(int x, int y, int w, int h);
  
 +void ToggleFullscreen(SDL_Window* Window) {
 +    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  int main(int argc, char **argv) {
  	SDL_Event event;
  	Uint32 tlast = 0,
-@@ -106,6 +113,9 @@
+@@ -108,6 +115,9 @@
  					}
  				}
  			}

@@ -195,7 +195,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  	if(fullscreen) {
 -		flags |= SDL_FULLSCREEN;
-+		flags |= SDL_WINDOW_FULLSCREEN;
++		flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
  		SDL_ShowCursor(0);
  	}
  

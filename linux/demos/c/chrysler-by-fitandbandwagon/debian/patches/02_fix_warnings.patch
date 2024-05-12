@@ -266,16 +266,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
 --- a/cool_mzx/pt.c
 +++ b/cool_mzx/pt.c
-@@ -43,6 +43,8 @@
+@@ -43,6 +43,9 @@
   */
  
  #include "sd_main.h"
 +#include <string.h>
 +#include <math.h>
++#include <stdlib.h>
  
  #define pt_maxchannels 32
  #define pt_periodmin 27
-@@ -325,11 +327,11 @@
+@@ -325,11 +328,11 @@
  // levyltä, ei muistialuetta saa vapauttaa ja käyttää uudestaan,
  // jos tässä on nolla!!!
  
@@ -289,7 +290,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  {"2CHN", "4CHN", "M.K.", "M!K!", "FLT4", "FLT8", "OCTA", "6CHN", "8CHN",
   "10CH", "12CH", "14CH", "16CH", "18CH", "20CH", "22CH",
   "24CH", "26CH", "28CH", "30CH", "32CH", "STOP" };
-@@ -501,14 +503,14 @@
+@@ -501,14 +504,14 @@
  
  			if (pt_loope[i] > 2)
  			{
@@ -306,3 +307,19 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  				             pt_loops[i],
  				             pt_loops[i] + pt_loope[i],
  				             LOOP_OFF);
+--- a/plasma.h
++++ b/plasma.h
+@@ -1 +1,2 @@
+ void plasma(unsigned char * buffer, int vbl);
++void init_plasma();
+--- a/cool_mzx/sd_ns.h
++++ b/cool_mzx/sd_ns.h
+@@ -14,7 +14,7 @@
+ 
+ #include "sd_main.h"
+ 
+-
++int sd_ns_init ();
+ 
+ 
+ #endif

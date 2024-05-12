@@ -46,8 +46,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	int start_tick;
  	int cmode=0;
  	int tick;
--	int flags=SDL_WINDOW_OPENGL+SDL_WINDOW_FULLSCREEN,width=WIDTH,height=HEIGHT;
-+	int flags=SDL_WINDOW_RESIZABLE+SDL_WINDOW_OPENGL+SDL_WINDOW_FULLSCREEN,width=WIDTH,height=HEIGHT;
+-	int flags=SDL_WINDOW_OPENGL+SDL_WINDOW_FULLSCREEN_DESKTOP,width=WIDTH,height=HEIGHT;
++	int flags=SDL_WINDOW_RESIZABLE+SDL_WINDOW_OPENGL+SDL_WINDOW_FULLSCREEN_DESKTOP,width=WIDTH,height=HEIGHT;
  	SDL_Event e;
  	int old_frame=-1,new_frame;
  

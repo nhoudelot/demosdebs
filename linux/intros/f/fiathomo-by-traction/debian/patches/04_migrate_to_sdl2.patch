@@ -19,7 +19,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #ifdef FULLSCREEN
 -    int SDL_flags = SDL_OPENGL|SDL_FULLSCREEN;
-+    int SDL_flags = SDL_WINDOW_FULLSCREEN;
++    int SDL_flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
  #else
 -	int SDL_flags = SDL_OPENGL;
 +	int SDL_flags = SDL_WINDOW_OPENGL;

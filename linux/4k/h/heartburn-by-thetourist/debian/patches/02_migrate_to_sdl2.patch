@@ -32,7 +32,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #  define S_HEIGHT 720
  # endif
 -# define S_FLAGS SDL_FULLSCREEN|SDL_OPENGL
-+# define S_FLAGS SDL_WINDOW_FULLSCREEN|SDL_WINDOW_OPENGL
++# define S_FLAGS SDL_WINDOW_FULLSCREEN_DESKTOP|SDL_WINDOW_OPENGL
  #else
  # ifndef S_WIDTH
  #  define S_WIDTH 1280

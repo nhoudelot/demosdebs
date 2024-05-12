@@ -49,8 +49,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	DRAWING *james,*afro;
  #ifdef NOAMIKA
  	SDL_Event e;
--	int fullscreen=SDL_WINDOW_FULLSCREEN;
-+	int fullscreen=SDL_WINDOW_FULLSCREEN|SDL_WINDOW_RESIZABLE;
+-	int fullscreen=SDL_WINDOW_FULLSCREEN_DESKTOP;
++	int fullscreen=SDL_WINDOW_FULLSCREEN_DESKTOP|SDL_WINDOW_RESIZABLE;
  #endif
  
  	int o_intro=-1,o_ring1=-1,o_stara=-1,o_kale=-1,o_tytsi=-1,o_greet=-1,

@@ -35,7 +35,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	Uint32 tlast = 0,
  	       tcurrent, st, argn = 0;
 -	Uint32 flags = SDL_OPENGL | SDL_HWPALETTE | SDL_FULLSCREEN;
-+	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
++	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
  	char fr = 0;
  
  	while(++argn < argc) {
@@ -44,7 +44,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  			}
  		} if(argv[argn][0] == '-' && argv[argn][1] == 'w')
 -			flags ^= SDL_FULLSCREEN;
-+			flags ^= SDL_WINDOW_FULLSCREEN;
++			flags ^= SDL_WINDOW_FULLSCREEN_DESKTOP;
  	}
  
  

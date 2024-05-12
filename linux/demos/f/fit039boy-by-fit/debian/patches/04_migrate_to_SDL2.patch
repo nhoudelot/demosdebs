@@ -58,7 +58,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	char charz[100];
  	SDL_Event e;
 -	int xs=XS,ys=YS,fs=SDL_FULLSCREEN,fsaa=1,sound=1,
-+	int xs=XS,ys=YS,fs=SDL_WINDOW_FULLSCREEN,fsaa=1,sound=1,
++	int xs=XS,ys=YS,fs=SDL_WINDOW_FULLSCREEN_DESKTOP,fsaa=1,sound=1,
  	    text=0,pink=0; // All sorts of demo parameters
  	float br=1,bg=1,bb=1;
  

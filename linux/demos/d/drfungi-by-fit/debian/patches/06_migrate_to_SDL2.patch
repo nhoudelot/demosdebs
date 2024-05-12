@@ -35,13 +35,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  int main(int argc,char *argv[])
  {
 -	int quit=0,flags=SDL_OPENGL|SDL_HWSURFACE|SDL_FULLSCREEN;
-+	int quit=0,flags=SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
++	int quit=0,flags=SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
  	SDL_Event e;
  	double mp=0,oldtimer=0.0,oldtimer2=0.0,oldtimer3=0.0,d;
  
  	if(argc==2 && !strcmp(argv[1],"-w"))
 -		flags-=SDL_FULLSCREEN;
-+		flags-=SDL_WINDOW_FULLSCREEN;
++		flags-=SDL_WINDOW_FULLSCREEN_DESKTOP;
  
  	SDL_Init(SDL_INIT_VIDEO);
 -	SDL_SetVideoMode(XS,YS,32,flags);
