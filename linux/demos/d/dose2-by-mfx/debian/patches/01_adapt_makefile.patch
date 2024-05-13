@@ -1,0 +1,68 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging and crossbuilding
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,27 @@
+-CC = gcc
+-CFLAGS = -O2 -ffast-math `$(SDLPREFIX)sdl-config --cflags`
++# compilers and tools
++SHELL      := /bin/sh
++CC         ?= gcc
++PKG_CONFIG := pkg-config
++RM_F       := rm -f
++CFLAGS 	   += -std=gnu90 -ffast-math -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl)
++# Libraries for linking
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl) -lm
++
++# Final executable name
++TARGET   := dose2-by-mfx
++
++# Install variables
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++INSTALL_DATA    := $(INSTALL) -p    -m  644
++INSTALL_DATAR   := cp -r
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++datarootdir     := $(prefix)/share
++datadir         := $(prefix)/share/dose2-by-mfx
+ 
+ # -- These are for Mac OS X only, remove for other targets
+ #SDLPREFIX = /usr/local/bin/
+@@ -7,13 +29,23 @@
+ # --
+ 
+ # Endianness of the system. Leave commented for MSB systems (PPC/MIPS/etc.)
+-#CFLAGS += -DINTEL
++CFLAGS += -DINTEL
+ 
+ objs = alue.o argb.o blob.o demo.o layer.o line.o main.o obu2d.o ogdecode.o palette.o schaibe.o taso.o
+ 
+-dose2: $(objs)
+-	gcc -o dose2 $(objs) `$(SDLPREFIX)sdl-config --libs` -lm
+-	strip dose2
++all: $(TARGET)
++
++$(TARGET): $(objs)
++	$(CC) -o $(TARGET) $(objs) $(LDFLAGS)
++	#strip dose2
+ 
+ clean:
+-	rm *.o dose2
++	 $(RM_F) *.o $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	#data
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATAR) data/* $(DESTDIR)$(datadir)

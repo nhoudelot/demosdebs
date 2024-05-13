@@ -1,0 +1,105 @@
+Description: change data path
+ Relocate non-binary architecture-specific files to /usr/share to ensure correct installation
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -19,7 +19,7 @@
+ 
+ #define HEAPSIZE 10000000
+ 
+-char *moduleName="data/italo160.ogg";
++char *moduleName="/usr/share/dose2-by-mfx/italo160.ogg";
+ volatile unsigned frame;
+ float fsin2(float);
+ int stopnow=0;
+--- a/demo.c
++++ b/demo.c
+@@ -50,47 +50,47 @@
+   orange  =new_col(1, 1, 1.0, 0);
+   glass   =new_col(0, 0, 0, 0);
+ 
+-  son     =obu2d_lue2("data/son.vec");
+-  luigi   =obu2d_lue2("data/luigi.vec");
+-  waitress=obu2d_lue2("data/weitross.vec");
+-  bitch   =obu2d_lue2("data/biaaccth.vec");
+-  onepiss =obu2d_lue2("data/onepiss.vec");
+-  tupiss  =obu2d_lue2("data/tupiss.vec");
+-  mfx     =obu2d_lue2("data/mfxlogo.vec");
++  son     =obu2d_lue2("/usr/share/dose2-by-mfx/son.vec");
++  luigi   =obu2d_lue2("/usr/share/dose2-by-mfx/luigi.vec");
++  waitress=obu2d_lue2("/usr/share/dose2-by-mfx/weitross.vec");
++  bitch   =obu2d_lue2("/usr/share/dose2-by-mfx/biaaccth.vec");
++  onepiss =obu2d_lue2("/usr/share/dose2-by-mfx/onepiss.vec");
++  tupiss  =obu2d_lue2("/usr/share/dose2-by-mfx/tupiss.vec");
++  mfx     =obu2d_lue2("/usr/share/dose2-by-mfx/mfxlogo.vec");
+ //  mfx     =obu2d_lue2("t13.vec");
+-  hotel   =obu2d_lue2("data/hotel.vec");
+-  fok    =obu2d_lue2("data/fok.vec");
+-  knife   =obu2d_lue2("data/knaiv.vec");
+-  spoon   =obu2d_lue2("data/spuun.vec");
++  hotel   =obu2d_lue2("/usr/share/dose2-by-mfx/hotel.vec");
++  fok    =obu2d_lue2("/usr/share/dose2-by-mfx/fok.vec");
++  knife   =obu2d_lue2("/usr/share/dose2-by-mfx/knaiv.vec");
++  spoon   =obu2d_lue2("/usr/share/dose2-by-mfx/spuun.vec");
+ //  table   =obu2d_lue2("teibl.vec");
+-  sheets  =obu2d_lue2("data/shits.vec");
+-  malta   =obu2d_lue2("data/malta.vec");
+-  u2      =obu2d_lue2("data/u2.vec");
+-  u3      =obu2d_lue2("data/u3.vec");
+-  u4      =obu2d_lue2("data/u4.vec");
+-  u5      =obu2d_lue2("data/u5.vec");
+-  u6      =obu2d_lue2("data/u6.vec");
+-  u7      =obu2d_lue2("data/u7.vec");
+-  u8      =obu2d_lue2("data/u8.vec");
+-  u9      =obu2d_lue2("data/u9.vec");
+-  u10     =obu2d_lue2("data/u10.vec");
+-  u11     =obu2d_lue2("data/u11.vec");
+-  phone   =obu2d_lue2("data/phoyn.vec");
+-  manager =obu2d_lue2("data/manitsor.vec");
+-  resto   =obu2d_lue2("data/resto.vec");
+-  bed     =obu2d_lue2("data/bed.vec");
+-  dstairs =obu2d_lue2("data/dstairs.vec");
+-  plate   =obu2d_lue2("data/pleit.vec");
+-  toilet  =obu2d_lue2("data/toilet.vec");
+-  table   =obu2d_lue2("data/teibl2.vec");
+-  d2      =obu2d_lue2("data/2.vec");
+-  dose    =obu2d_lue2("data/dose.vec");
+-  italy   =obu2d_lue2("data/italy.vec");
+-  man1    =obu2d_lue2("data/man1.vec");
+-  man2    =obu2d_lue2("data/man2.vec");
++  sheets  =obu2d_lue2("/usr/share/dose2-by-mfx/shits.vec");
++  malta   =obu2d_lue2("/usr/share/dose2-by-mfx/malta.vec");
++  u2      =obu2d_lue2("/usr/share/dose2-by-mfx/u2.vec");
++  u3      =obu2d_lue2("/usr/share/dose2-by-mfx/u3.vec");
++  u4      =obu2d_lue2("/usr/share/dose2-by-mfx/u4.vec");
++  u5      =obu2d_lue2("/usr/share/dose2-by-mfx/u5.vec");
++  u6      =obu2d_lue2("/usr/share/dose2-by-mfx/u6.vec");
++  u7      =obu2d_lue2("/usr/share/dose2-by-mfx/u7.vec");
++  u8      =obu2d_lue2("/usr/share/dose2-by-mfx/u8.vec");
++  u9      =obu2d_lue2("/usr/share/dose2-by-mfx/u9.vec");
++  u10     =obu2d_lue2("/usr/share/dose2-by-mfx/u10.vec");
++  u11     =obu2d_lue2("/usr/share/dose2-by-mfx/u11.vec");
++  phone   =obu2d_lue2("/usr/share/dose2-by-mfx/phoyn.vec");
++  manager =obu2d_lue2("/usr/share/dose2-by-mfx/manitsor.vec");
++  resto   =obu2d_lue2("/usr/share/dose2-by-mfx/resto.vec");
++  bed     =obu2d_lue2("/usr/share/dose2-by-mfx/bed.vec");
++  dstairs =obu2d_lue2("/usr/share/dose2-by-mfx/dstairs.vec");
++  plate   =obu2d_lue2("/usr/share/dose2-by-mfx/pleit.vec");
++  toilet  =obu2d_lue2("/usr/share/dose2-by-mfx/toilet.vec");
++  table   =obu2d_lue2("/usr/share/dose2-by-mfx/teibl2.vec");
++  d2      =obu2d_lue2("/usr/share/dose2-by-mfx/2.vec");
++  dose    =obu2d_lue2("/usr/share/dose2-by-mfx/dose.vec");
++  italy   =obu2d_lue2("/usr/share/dose2-by-mfx/italy.vec");
++  man1    =obu2d_lue2("/usr/share/dose2-by-mfx/man1.vec");
++  man2    =obu2d_lue2("/usr/share/dose2-by-mfx/man2.vec");
+   for (i=0; i<277; i++) {
+     char s[399];
+-    sprintf(s, "data/j%04i.vec", (i&~1)+2);
++    sprintf(s, "/usr/share/dose2-by-mfx/j%04i.vec", (i&~1)+2);
+     anim1[i]=obu2d_lue2(s);
+   }
+ 

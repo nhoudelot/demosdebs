@@ -1,0 +1,3 @@
+debian/resources/dose2-by-mfx.desktop usr/share/applications/
+debian/resources/dose2-by-mfx.png usr/share/icons/hicolor/256x256/apps/
+/usr/bin/dose2-by-mfx

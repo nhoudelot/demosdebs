@@ -1,0 +1,13 @@
+dose2-by-mfx (1.0-0ddebs2) unstable; urgency=medium
+
+  * use full desktop resolution when start fullscreen
+  * explicit VSync
+  * Fix implicit-function-declaration
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 15 May 2024 00:43:57 +0200
+
+dose2-by-mfx (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 05 May 2024 22:41:56 +0200

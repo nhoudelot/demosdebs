@@ -1,0 +1,30 @@
+Source: dose2-by-mfx
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ pkgconf,
+ libsdl2-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=3289
+Rules-Requires-Root: no
+
+Package: dose2-by-mfx
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ dose2-by-mfx-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by mfx, released in 2001
+ mfx demo released in august 2001
+
+Package: dose2-by-mfx-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for dose2-by-mfx
+ dose2-by-mfx data files
+

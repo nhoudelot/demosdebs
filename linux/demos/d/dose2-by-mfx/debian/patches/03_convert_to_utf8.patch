@@ -1,0 +1,14 @@
+Description: convert to utf8
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/README
++++ b/README
+@@ -70,4 +70,4 @@
+ -girl i house ya!-
+ 
+ 
+-kiitos paskasta, syˆk‰‰ rahaa.
++kiitos paskasta, sy√∂k√§√§ rahaa.

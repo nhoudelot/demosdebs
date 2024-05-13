@@ -1,0 +1,87 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -17,6 +17,9 @@
+ #include <SDL/SDL_main.h>
+ #endif
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
+ #define HEAPSIZE 10000000
+ 
+ char *moduleName="/usr/share/dose2-by-mfx/italo160.ogg";
+@@ -94,6 +97,34 @@
+ 
+ }
+ 
++void resize_window(SDL_Renderer *sdlRenderer,int w, int h) {
++    SDL_Rect newWindowSize;
++    newWindowSize.x = 0;
++    newWindowSize.y = 0;
++    newWindowSize.x = 0;
++    newWindowSize.y = 0;
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    } else if (w != newWindowSize.w) {
++        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        newWindowSize.x += (w - newWindowSize.w) / 2;
++        newWindowSize.h = h;
++    } else if (h != newWindowSize.h) {
++        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        newWindowSize.y += (h - newWindowSize.h) / 2;
++        newWindowSize.w = w;
++    }
++    SDL_Rect viewPort;
++    SDL_RenderGetViewport(sdlRenderer, &viewPort);
++    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
++}
+ 
+ void fla(int a) {}
+ int main(int argc, char *argv[]) {
+@@ -168,13 +199,15 @@
+ #endif
+ 
+   if(fullscreen)
+-    sdlWindow = SDL_CreateWindow("dose 2 by mfx",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_OPENGL|SDL_WINDOW_FULLSCREEN_DESKTOP);
++    sdlWindow = SDL_CreateWindow("dose 2 by mfx",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE|SDL_WINDOW_FULLSCREEN_DESKTOP);
+   else
+   {
+-    sdlWindow = SDL_CreateWindow("dose 2 by mfx",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_OPENGL);
++    sdlWindow = SDL_CreateWindow("dose 2 by mfx",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
+   }
+ 
+   sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
++  SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
++  Uint32 windowID = SDL_GetWindowID(sdlWindow);
+   screen = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 8,SDL_PIXELFORMAT_INDEX8); //video buffer
+   sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,screen); // texture with format from video buffer
+   fprintf(stderr, "d2\n");
+@@ -205,6 +238,14 @@
+     while (SDL_PollEvent(&eve))
+     {
+       if(eve.type == SDL_QUIT || (eve.type == SDL_KEYUP && (eve.key.keysym.sym == SDLK_ESCAPE || eve.key.keysym.sym == SDLK_q))) { stopnow++;}
++      if(eve.type == SDL_WINDOWEVENT)
++      {
++		  if (eve.window.windowID == windowID)  {
++			if (eve.window.event == SDL_WINDOWEVENT_RESIZED)  {
++				resize_window(sdlRenderer,eve.window.data1,eve.window.data2);
++			}
++		  }
++	  }
+ #ifdef OSX
+       /* On Mac it's normal to exit with mouse press */
+       if(eve.type==SDL_MOUSEBUTTONDOWN) stopnow++;

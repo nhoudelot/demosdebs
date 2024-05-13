@@ -1,0 +1,45 @@
+--- a/alue.c
++++ b/alue.c
+@@ -5,6 +5,7 @@
+ #include "m2d.h"
+ #include "taso.h"
+ #include "alue.h"
++#include "fread.h"
+ 
+ Alue *alue_lue(FILE *f) {
+   Alue *a=getmem(sizeof(Alue));
+--- /dev/null
++++ b/fread.h
+@@ -0,0 +1 @@
++void fix_fread(void *dest,int dummy,int count,FILE *f);
+--- a/main.c
++++ b/main.c
+@@ -8,6 +8,7 @@
+ #include "line.h"
+ #include "m2d.h"
+ #include "layer.h"
++#include "fread.h"
+ #include "demo.h"
+ #include "ogdecode.h"
+ #include <math.h>
+--- a/obu2d.c
++++ b/obu2d.c
+@@ -10,7 +10,7 @@
+ #include "taso.h"
+ #include "layer.h"
+ #include "obu2d.h"
+-
++#include "fread.h"
+ 
+ struct _Obu2d {
+   int tc;
+--- a/taso.c
++++ b/taso.c
+@@ -7,6 +7,7 @@
+ #include "line.h"
+ #include "alue.h"
+ #include "taso.h"
++#include "fread.h"
+ 
+ Taso *taso_lue(FILE *f) {
+   int i;

@@ -1,0 +1,8 @@
+01_adapt_makefile.patch
+02_add_data_path.patch
+03_convert_to_utf8.patch
+04_migrate_to_sdl2.patch
+05_better_quit.patch
+06_resizable_window.patch
+07_toggle_fullscreen.patch
+08_fix_implicit-function-declaration.patch

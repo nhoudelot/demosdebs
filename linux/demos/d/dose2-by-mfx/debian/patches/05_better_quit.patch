@@ -1,0 +1,19 @@
+Description: better quit
+ update key to the new SDL2 layout
+ and even add more options to quit the app
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -204,7 +204,7 @@
+ 
+     while (SDL_PollEvent(&eve))
+     {
+-      if (eve.type==SDL_KEYDOWN||eve.type==SDL_QUIT) stopnow++;
++      if(eve.type == SDL_QUIT || (eve.type == SDL_KEYUP && (eve.key.keysym.sym == SDLK_ESCAPE || eve.key.keysym.sym == SDLK_q))) { stopnow++;}
+ #ifdef OSX
+       /* On Mac it's normal to exit with mouse press */
+       if(eve.type==SDL_MOUSEBUTTONDOWN) stopnow++;

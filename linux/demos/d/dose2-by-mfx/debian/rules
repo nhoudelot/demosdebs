@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -flto
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
+
+%:
+	dh $@
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz
+
+override_dh_install:
+	dh_install
+	find debian -type f -name '*.vec' -exec chmod 0644 {} +
+	find debian -type f -name '*.ogg' -exec chmod 0644 {} +

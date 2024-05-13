@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=dose 2
+GenericName=Demo
+Comment=Demo by mfx, released in 2001
+Type=Application
+Exec=/usr/bin/dose2-by-mfx
+Icon=dose2-by-mfx
+Categories=AudioVideo;
+Name[fr_FR]=dose 2
