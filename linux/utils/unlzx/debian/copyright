@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: unlzx
-Source: http://xavprods.free.fr/lzx/
+Source: https://xavprods.free.fr/lzx/
 
 Files: *
 Copyright: 1995 Jonathan Forbes

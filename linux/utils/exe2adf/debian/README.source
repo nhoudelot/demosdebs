@@ -2,6 +2,7 @@ exe2adf for Debian
 ------------------
 
 sources have been repackaged, avoiding windows and osx binary
+binary have also been unpacked
 
 executable seems to be compiled for Red Hat 6.2.1
 

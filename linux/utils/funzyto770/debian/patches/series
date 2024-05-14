@@ -2,3 +2,4 @@
 02_fix_warnings.patch
 03_fix_multiple_definitions.patch
 04_adapt_crossbuild.patch
+05_fix_implicit-function-declaration.patch

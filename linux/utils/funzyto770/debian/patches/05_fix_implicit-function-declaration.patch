@@ -1,0 +1,17 @@
+Description: Fix implicit-function-declaration
+In dpkg version 1.22.6, the compiler flag -Werror=implicit-function-declaration was enabled by default for all architectures 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src70/emuto7.c
++++ b/src70/emuto7.c
+@@ -19,6 +19,7 @@
+ #include "monitor.h"
+ #include "emuto7.h"
+ #include "video.h"
++#include <string.h>
+ 
+ long	pc;
+ long	xr,yr,ur,sr;

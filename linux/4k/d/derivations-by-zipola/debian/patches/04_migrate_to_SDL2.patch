@@ -1,6 +1,7 @@
 Description: migrate to SDL2
  Migrate from SDL1.2 to SDL2
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
 Last-Update: 2020-04-24
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -11,9 +12,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Try -Os -O1 -O2 -O3
  PKG_CONFIG:=pkg-config
 -CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl gl )
--LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl ) -lm
-+CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl2 gl)
-+LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl) -lm
+-LDFLAGS += -Wl,--allow-multiple-definition $(shell $(PKG_CONFIG) --libs sdl gl ) -lm
++CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl2 gl )
++LDFLAGS += -Wl,--allow-multiple-definition $(shell $(PKG_CONFIG) --libs sdl2 gl ) -lm
  TARGET := derivations-by-zipola
  
  #variables d’installation
@@ -36,7 +37,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	SDL_DestroyWindow(sdlWindow);
  	SDL_Quit();
  
- 	asm ("movl $1,%eax\n"
+ 	exit(0);
 --- a/gfx.c
 +++ b/gfx.c
 @@ -5,8 +5,8 @@
@@ -50,17 +51,22 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #include "gfx.h"
  
-@@ -236,8 +236,8 @@
+@@ -234,11 +234,10 @@
+  */
+ void init_gfx()
  {
- 	SDL_ShowCursor(SDL_DISABLE);
- 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+-	SDL_ShowCursor(SDL_DISABLE);
+-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 -	SDL_WM_SetCaption("derivations", NULL);
 -	SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL );
+-	//SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL);
++	SDL_ShowCursor(SDL_ENABLE );
++	SDL_GL_SetSwapInterval(1);
 +	sdlWindow = SDL_CreateWindow("derivations",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL);
 +	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
- 	//SDL_SetVideoMode(1024, 768, 24, SDL_OPENGL);
  
  	glEnable(GL_DEPTH_TEST);
+ 	glHint(GL_LINE_SMOOTH_HINT,GL_NICEST);
 --- a/letters.c
 +++ b/letters.c
 @@ -4,8 +4,8 @@
@@ -106,6 +112,25 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +#include <SDL2/SDL.h>
  #include <math.h>
  #include <stdint.h>
+ 
+@@ -15,6 +15,7 @@
+ 
+ static uint16_t sound[SOUND_SIZE];
+ int sound_position = 0;
++SDL_AudioDeviceID device;
+ 
+ /*
+  * Fill the sound.
+@@ -112,8 +113,8 @@
+ 
+ 	generate_sound();
+ 
+-	SDL_OpenAudio(&desired, &obtained);
++	device = SDL_OpenAudioDevice(NULL, 0, &desired, &obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);
+ 
+-	SDL_PauseAudio(0);
++	SDL_PauseAudioDevice(device,0);
+ }
  
 --- a/gfx.h
 +++ b/gfx.h

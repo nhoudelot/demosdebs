@@ -1,3 +1,9 @@
+onedaymiracle-by-fit (1.0+1-0ddebs9) unstable; urgency=medium
+
+  * fix implicit-function-declaration
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 16 May 2024 21:21:45 +0200
+
 onedaymiracle-by-fit (1.0+1-0ddebs8) unstable; urgency=medium
 
   * added explicit VSync

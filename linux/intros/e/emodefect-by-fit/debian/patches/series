@@ -5,3 +5,4 @@
 05_better_quit.patch
 06_48kHz.patch
 07_add_fullscreen.patch
+08_fix_implicit-function-declaration.patch

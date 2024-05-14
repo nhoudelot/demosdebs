@@ -1,0 +1,18 @@
+Description: Fix implicit-function-declaration
+In dpkg version 1.22.6, the compiler flag -Werror=implicit-function-declaration was enabled by default for all architectures 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/unlzx.c
++++ b/unlzx.c
+@@ -20,6 +20,8 @@
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <unistd.h>
++#include <sys/stat.h>
+ 
+ /* ---------------------------------------------------------------------- */
+ 

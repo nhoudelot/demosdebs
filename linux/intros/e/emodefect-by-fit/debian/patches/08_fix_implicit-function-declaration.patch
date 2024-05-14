@@ -1,0 +1,38 @@
+Description: Fix implicit-function-declaration
+In dpkg version 1.22.6, the compiler flag -Werror=implicit-function-declaration was enabled by default for all architectures 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -12,6 +12,7 @@
+ #include "cool_mzx.h"
+ #include "sd_main.h"
+ #include "pt.h"
++#include "sd_mix.h"
+ #include <SDL2/SDL.h>
+ 
+ extern int pt_curperiod[32],           // kanavan nykyinen periodi
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -44,6 +44,7 @@
+ 
+ #include "sd_main.h"
+ #include <stdlib.h>
++#include <string.h>
+ 
+ #define pt_maxchannels 32
+ #define pt_periodmin 27
+--- a/cool_mzx/sd_ns.h
++++ b/cool_mzx/sd_ns.h
+@@ -14,7 +14,7 @@
+ 
+ #include "sd_main.h"
+ 
+-
++int sd_ns_init ();
+ 
+ 
+ #endif

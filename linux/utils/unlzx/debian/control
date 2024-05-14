@@ -5,7 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13)
 Standards-Version: 4.6.2
-Homepage: http://xavprods.free.fr/lzx/
+Homepage: https://xavprods.free.fr/lzx/
 Rules-Requires-Root: no
 
 Package: unlzx

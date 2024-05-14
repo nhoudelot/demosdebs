@@ -1,0 +1,18 @@
+Description: change ASM code to exit, by exit(0);
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-25
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/derivations.c
++++ b/derivations.c
+@@ -26,8 +26,6 @@
+ 
+ 	SDL_Quit();
+ 
+-	asm ("movl $1,%eax\n"
+-	     "xor %ebx,%ebx\n"
+-	     "int $128\n");
++	exit(0);
+ }
+ 
