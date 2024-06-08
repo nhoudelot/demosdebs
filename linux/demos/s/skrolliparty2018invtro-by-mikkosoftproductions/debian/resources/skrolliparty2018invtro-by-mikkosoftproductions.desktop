@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Skrolli Party 2018 invtro
+GenericName=Demo
+Comment=Demo by Mikkosoft Productions, released in 2018
+Type=Application
+Exec=/usr/bin/skrolliparty2018invtro-by-mikkosoftproductions
+Icon=skrolliparty2018invtro-by-mikkosoftproductions
+Categories=AudioVideo;
+Name[fr_FR]=Skrolli Party 2018 invtro

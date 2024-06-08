@@ -1,0 +1,32 @@
+Source: skrolliparty2018invtro-by-mikkosoftproductions
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ libopenal-dev,
+ libsigc++-2.0-dev,
+ libgl-dev,
+ libx11-dev,
+ libxrandr-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=76785
+Rules-Requires-Root: no
+
+Package: skrolliparty2018invtro-by-mikkosoftproductions
+Architecture: amd64 i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ skrolliparty2018invtro-by-mikkosoftproductions-data,
+ common-install-function-ddebs(>=1.61)
+Description: Invitation demo by Mikkosoft Productions, released in 2018
+ Invitation demo by Mikkosoft Productions, released in 2018
+
+Package: skrolliparty2018invtro-by-mikkosoftproductions-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for skrolliparty2018invtro-by-mikkosoftproductions
+ skrolliparty2018invtro-by-mikkosoftproductions data files

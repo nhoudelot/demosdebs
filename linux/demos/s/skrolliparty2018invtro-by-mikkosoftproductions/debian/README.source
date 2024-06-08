@@ -1,0 +1,11 @@
+skrolliparty2018invtro-by-mikkosoftproductions for Debian
+--------------------------------------------------------
+
+executable seems to be compiled for Debian 9 stretch
+
+GCC: (Debian 6.3.0-18+deb9u1) 6.3.0 20170516
+
+sources have been repackaged with both 64 & 32 bits version of the demo
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Jun 2024 17:11:12 +0200
+
