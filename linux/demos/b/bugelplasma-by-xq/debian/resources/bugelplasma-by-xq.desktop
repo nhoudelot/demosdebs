@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Bugelplasma
+GenericName=Demo
+Comment=Demo by xq, released in 2018
+Type=Application
+Exec=/usr/bin/bugelplasma-by-xq
+Icon=bugelplasma-by-xq
+Categories=AudioVideo;
+Name[fr_FR]=Bugelplasma

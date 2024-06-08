@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	dh_install
+	find debian -type f -name 'buegelperle' -exec chmod 0755 {} +
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

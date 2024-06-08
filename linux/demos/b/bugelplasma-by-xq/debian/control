@@ -1,0 +1,29 @@
+Source: bugelplasma-by-xq
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ libsdl2-dev,
+ libsdl2-mixer-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=77103
+Rules-Requires-Root: no
+
+Package: bugelplasma-by-xq
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ bugelplasma-by-xq-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by xq, released in 2018
+ Demo by xq, released in 2018
+
+Package: bugelplasma-by-xq-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for bugelplasma-by-xq
+ bugelplasma-by-xq data files

@@ -1,0 +1,4 @@
+debian/scripts/bugelplasma-by-xq usr/bin/
+./buegelperle usr/lib/x86_64-linux-gnu/bugelplasma-by-xq
+debian/resources/bugelplasma-by-xq.desktop usr/share/applications/
+debian/resources/bugelplasma-by-xq.png usr/share/icons/hicolor/256x256/apps/
