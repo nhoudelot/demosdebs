@@ -1,0 +1,4 @@
+debian/scripts/bythepond-by-tkln usr/bin/
+./by_the_pond_by_tkln usr/lib/x86_64-linux-gnu/bythepond-by-tkln
+debian/resources/bythepond-by-tkln.desktop usr/share/applications/
+debian/resources/bythepond-by-tkln.png usr/share/icons/hicolor/256x256/apps

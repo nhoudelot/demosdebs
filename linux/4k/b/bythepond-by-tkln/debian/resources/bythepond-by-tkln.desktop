@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=By the Pond
+GenericName=Demo
+Comment=Demo by tkln, released in 2018
+Type=Application
+Exec=/usr/bin/bythepond-by-tkln
+Icon=bythepond-by-tkln
+Categories=AudioVideo;
+Name[fr_FR]=By the Pond
