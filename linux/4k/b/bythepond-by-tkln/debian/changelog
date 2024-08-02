@@ -1,3 +1,9 @@
+bythepond-by-tkln (1.0-0ddebs2) unstable; urgency=medium
+
+  * added README.Debian to warn about issues on Ubuntu 24.04 & Debian 13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 02 Aug 2024 00:37:07 +0200
+
 bythepond-by-tkln (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release

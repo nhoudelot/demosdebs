@@ -1,0 +1,10 @@
+bythepond-by-tkln for Debian
+---------------------------
+
+Since Ubuntu 24.04 & Debian 13, libsdl1.2debian is sdl12-compat.
+This provide a compatibility layer from SDL1.2 to SDL2
+
+Sadly this program is very slow compared when it run on original SDL1.2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 02 Aug 2024 00:36:10 +0200
+

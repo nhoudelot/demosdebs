@@ -13,7 +13,7 @@ APP_EXE="by_the_pond_by_tkln"
 function run()
 {
 	backuppwd=$(pwd)
-	cd /usr/lib/86_64-linux-gnu/${domain} || exit
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
 	./${APP_EXE}
 	cd $backuppwd || exit
 }
