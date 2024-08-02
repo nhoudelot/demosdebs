@@ -1,0 +1,20 @@
+Description: Set the environment variable SDL12COMPAT_OPENGL_SCALING to 0 to avoid black screen
+Since ubuntu 24.04 & Debian 13, libsdl12-debian is in reality sdl12-compat
+To avoid a black screen, an environnent variable has to be set
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-08-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.c
++++ b/src/main.c
+@@ -1341,6 +1341,9 @@
+ void main()
+ {
+ #endif
++// For systems that use sdl12-compat as a compatibility layer to SDL2
++// Set the environment variable SDL12COMPAT_OPENGL_SCALING to 0 to avoid black screen
++setenv("SDL12COMPAT_OPENGL_SCALING", "0", 1);
+ #if defined(USE_LD)
+ 	uint32_t starttick;
+ #endif

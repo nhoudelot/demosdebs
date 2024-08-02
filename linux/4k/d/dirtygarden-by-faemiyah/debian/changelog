@@ -1,3 +1,10 @@
+dirtygarden-by-faemiyah (1.0+git20170414-0ddebs5) unstable; urgency=medium
+
+  * Set the environment variable SDL12COMPAT_OPENGL_SCALING to 0 to avoid black 
+    screen on Ubuntu 24.04 & Debian 13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 03 Aug 2024 00:54:20 +0200
+
 dirtygarden-by-faemiyah (1.0+git20170414-0ddebs4) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

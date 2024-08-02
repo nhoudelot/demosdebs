@@ -2,3 +2,4 @@
 02_fix_warnings.patch
 03_make_installable.patch
 04_remove_fullscreen.patch
+05_setenv_for_sdl12compat.patch
