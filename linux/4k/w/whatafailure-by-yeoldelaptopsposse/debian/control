@@ -13,7 +13,7 @@ Architecture: amd64
 Depends:
  libc6,
  libsdl1.2-compat,
- freeglut3,
+ freeglut3|libglut3.12,
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.18)
