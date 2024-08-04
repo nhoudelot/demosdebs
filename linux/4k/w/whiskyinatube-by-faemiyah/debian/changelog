@@ -1,3 +1,10 @@
+whiskyinatube-by-faemiyah (1.0+git20170414-0ddebs9) unstable; urgency=medium
+
+  * Revert to correct sample calculation, now that pipewire is by default on 
+    Ubuntu 24.04
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Aug 2024 01:23:40 +0200
+
 whiskyinatube-by-faemiyah (1.0+git20170414-0ddebs8) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
