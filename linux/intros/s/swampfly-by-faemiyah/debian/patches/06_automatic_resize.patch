@@ -78,8 +78,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    {
  #if defined(USE_LD)
  #if defined(SCREEN_F)
--    uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
-+    uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE| SDL_WINDOW_FULLSCREEN;
+-    uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
++    uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN_DESKTOP;
  #else
 -    uint32_t sdl_flags = SDL_WINDOW_OPENGL;
 +    uint32_t sdl_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
