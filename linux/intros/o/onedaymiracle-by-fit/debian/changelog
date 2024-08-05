@@ -1,3 +1,9 @@
+onedaymiracle-by-fit (1.0+1-0ddebs10) unstable; urgency=medium
+
+  * disable flto
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Aug 2024 18:39:34 +0200
+
 onedaymiracle-by-fit (1.0+1-0ddebs9) unstable; urgency=medium
 
   * fix implicit-function-declaration
