@@ -5,3 +5,4 @@
 05_better_quit.patch
 06_add_fullscreen_key.patch
 07_add_resizable_window.patch
+08_fix_audio_noble.patch

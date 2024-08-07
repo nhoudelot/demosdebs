@@ -1,3 +1,10 @@
+association-by-cyberneticgenetics (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * fix for Ubuntu 24.04, mix to 48khz instead of 22.05 khz (because of 
+    pipewire ?)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 07 Aug 2024 17:31:39 +0200
+
 association-by-cyberneticgenetics (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
