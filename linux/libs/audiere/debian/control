@@ -19,6 +19,7 @@ Package: libaudiere-1.10.1
 Architecture: any
 Multi-Arch: same
 Depends:
+ NSHPIPEWIREALSA,
  ${shlibs:Depends},
  ${misc:Depends}
 Replaces: libaudiere-1.9.4

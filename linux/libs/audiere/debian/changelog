@@ -1,3 +1,12 @@
+audiere (1.10.1-0ddebs11) unstable; urgency=medium
+
+  * added dependency to pipewire-alsa for Ubuntu 24.04 & Debian 12
+    (but also an unnecessary dependency to libasound2 had to be added in order
+    to my automatic setup to work, it will be remove when Ubuntu 26.04 & Debian
+    13 are released)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 08 Aug 2024 11:17:00 +0200
+
 audiere (1.10.1-0ddebs10) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
