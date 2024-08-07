@@ -1,0 +1,17 @@
+Description: mix to 48khz instead of 22.05 khz (because of pipewire ?)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-08-07
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -61,7 +61,7 @@
+ 	glOrtho(0.0,800.0,600.0,0.0,-10.0,600.0);
+ 	if ((movie = load_model("/usr/share/association-by-cyberneticgenetics/model.TVF")) == NULL) printf("Error!\n");
+ 
+-	Mix_OpenAudio(22050, AUDIO_S16, 2, 4096);
++	Mix_OpenAudio(48000, AUDIO_S16, 2, 4096);
+ 	music = Mix_LoadMUS("/usr/share/association-by-cyberneticgenetics/the.monotonic.ogg");
+ 	Mix_PlayMusic(music, 0);
+ 
