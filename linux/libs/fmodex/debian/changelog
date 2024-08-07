@@ -1,3 +1,12 @@
+fmodex (4.44.64+1-0ddebs6) unstable; urgency=medium
+
+  * added dependency to pipewire-alsa for Ubuntu 24.04 & Debian 12
+    (but also an unnecessary dependency to libasound2 had to be added in order
+    to my automatic setup to work, it will be remove when Ubuntu 26.04 & Debian
+    13 are released)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 07 Aug 2024 12:08:24 +0200
+
 fmodex (4.44.64+1-0ddebs5) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

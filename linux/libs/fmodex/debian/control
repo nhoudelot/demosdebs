@@ -38,6 +38,7 @@ Architecture: i386 amd64
 Multi-Arch: same
 Replaces: libfmodex (<<4.44.64-0ddebs3~)
 Depends:
+ NSHPIPEWIREALSA,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: FMOD Ex library Package development
