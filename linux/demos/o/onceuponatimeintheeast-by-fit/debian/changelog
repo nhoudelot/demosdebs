@@ -1,3 +1,9 @@
+onceuponatimeintheeast-by-fit (1.0+1-0ddebs12) unstable; urgency=medium
+
+  * use desktop resolution when fullscreen by default
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 13 Aug 2024 10:14:59 +0200
+
 onceuponatimeintheeast-by-fit (1.0+1-0ddebs11) unstable; urgency=medium
 
   * added explicit VSync and updated resize

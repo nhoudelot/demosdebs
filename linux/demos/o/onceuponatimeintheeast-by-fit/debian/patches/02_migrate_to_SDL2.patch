@@ -2,7 +2,7 @@ Description: migrate to SDL2
  Migrate from SDL1.2 to SDL2
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
-Last-Update: 2020-04-30
+Last-Update: 2024-08-13
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
@@ -83,7 +83,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	int fast_forward_prevticks=0; // nopeuden rajoitusta varten
  
 -	int quit=0,n,m,i,x,y,fullscreen=SDL_FULLSCREEN,
-+	int quit=0,n,m,i,x,y,fullscreen=SDL_WINDOW_FULLSCREEN,
++	int quit=0,n,m,i,x,y,fullscreen=SDL_WINDOW_FULLSCREEN_DESKTOP,
  	    feistart=-1,feidistart=-1;
  	unsigned tid=0;
  	int now_ticks=0;
