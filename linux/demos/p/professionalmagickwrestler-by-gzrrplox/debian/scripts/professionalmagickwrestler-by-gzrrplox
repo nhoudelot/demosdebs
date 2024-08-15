@@ -14,7 +14,7 @@ function run()
 {
 	backuppwd=$(pwd)
 	cd /usr/lib/x86_64-linux-gnu/${domain}
-	LD_LIBRARY_PATH=./:/usr/lib/x86_64-linux-gnu/sdl12-compat/ ./${APP_EXE}
+	SDL12COMPAT_OPENGL_SCALING=0 LD_LIBRARY_PATH=./:/usr/lib/x86_64-linux-gnu/sdl12-compat/ ./${APP_EXE}
 	cd $backuppwd
 }
 

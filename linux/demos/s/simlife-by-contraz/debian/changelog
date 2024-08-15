@@ -1,3 +1,9 @@
+simlife-by-contraz (1.0-0ddebs11) unstable; urgency=medium
+
+  * added SDL12COMPAT_OPENGL_SCALING=0 to avoid black screen
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 15 Aug 2024 17:37:35 +0200
+
 simlife-by-contraz (1.0-0ddebs10) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
