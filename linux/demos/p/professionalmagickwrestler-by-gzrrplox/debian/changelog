@@ -1,3 +1,9 @@
+professionalmagickwrestler-by-gzrrplox (1.0-0ddebs9) unstable; urgency=medium
+
+  * added SDL12COMPAT_OPENGL_SCALING=0 to avoid black screen with sdl12-compat
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 15 Aug 2024 17:19:18 +0200
+
 professionalmagickwrestler-by-gzrrplox (1.0-0ddebs8) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

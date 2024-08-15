@@ -14,7 +14,7 @@ function run()
 {
 	backuppwd=$(pwd)
 	cd /usr/lib/i386-linux-gnu/${domain}
-	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE}
+	SDL12COMPAT_OPENGL_SCALING=0 SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE}
 	cd $backuppwd
 }
 
