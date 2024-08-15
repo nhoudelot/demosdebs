@@ -1,3 +1,9 @@
+drfungigoesafrica-by-fit (1.0+1-0ddebs9) unstable; urgency=medium
+
+  * compile with block size of 1024 to reduce sound problems (pipewire)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 10 Aug 2024 02:06:25 +0200
+
 drfungigoesafrica-by-fit (1.0+1-0ddebs8) unstable; urgency=medium
 
   * Fix implicit-function-declaration

@@ -1,0 +1,17 @@
+Description: compile with block size of 1024 to reduce sound problems (pipewire)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-08-10
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ SHELL := /bin/sh
+ CC := gcc
+ PKG_CONFIG:=pkg-config
+-CFLAGS += -Wall -std=gnu90 -pipe
++CFLAGS += -Wall -std=gnu90 -pipe -DBLKSIZE=1024
+ INC := $(shell $(PKG_CONFIG) sdl2 libjpeg gl --cflags)
+ LDFLAGS += $(shell $(PKG_CONFIG) sdl2 libjpeg gl --libs) -lm
+ OBJ := main.o piraali.o piraali2.o jpeg.o tausta.o font.o stara.o rays.o \

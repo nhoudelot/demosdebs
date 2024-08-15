@@ -7,3 +7,4 @@
 07_resizable_window.patch
 08_add_fullscreen_key.patch
 09_fix_implicit-function-declaration.patch
+10_fix_sound.patch
