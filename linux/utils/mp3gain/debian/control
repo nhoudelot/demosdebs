@@ -7,7 +7,7 @@ Build-Depends:
  debhelper-compat (= 13),
  docbook-to-man,
  libmpg123-dev
-Homepage: http://mp3gain.sourceforge.net/
+Homepage: https://mp3gain.sourceforge.net/
 Standards-Version: 4.6.2
 Vcs-Browser: https://sourceforge.net/p/mp3gain/code/ci/master/tree/
 

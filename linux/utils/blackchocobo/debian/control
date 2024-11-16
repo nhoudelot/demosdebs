@@ -4,16 +4,17 @@ Priority: optional
 Maintainer: Chris Rizzitello <sithlord48@gmail.com>
 Build-Depends:
  cmake,
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  qtbase5-dev,
  qtbase5-dev-tools,
  qttools5-dev,
  qttools5-dev-tools,
  qtdeclarative5-dev
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.2
 Homepage: https://www.blackchocobo.com
 Vcs-Git: https://github.com/sithlord48/blackchocobo.git
 Vcs-Browser: https://github.com/sithlord48/blackchocobo
+Rules-Requires-Root: no
 
 Package: blackchocobo
 Architecture: any
@@ -21,6 +22,6 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Save editor for Final Fantasy VII
- Do alot of things with ff7 saves, Including Convert Region or Format. Start 
+ Do a lot of things with ff7 saves, Including Convert Region or Format. Start 
  New Game+ and more.
  Supports PC (98 + Steam), Emulators, PS3, PSP/ PsVita and Switch versions.

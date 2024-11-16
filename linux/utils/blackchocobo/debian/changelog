@@ -1,3 +1,10 @@
+blackchocobo (1.10.0-0ddebs5) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 10 Mar 2024 11:33:53 +0100
+
 blackchocobo (1.10.0-0ddebs4) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

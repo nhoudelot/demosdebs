@@ -5,7 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13)
 Standards-Version: 4.6.2
-Homepage: http://example.com/no-uri-given
+Homepage: https://example.com/no-uri-given
 Rules-Requires-Root: no
 
 Package: mame-xbox360ctrl

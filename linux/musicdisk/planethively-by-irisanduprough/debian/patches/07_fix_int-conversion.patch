@@ -1,0 +1,18 @@
+Description: Fix using pointers as integers and vice versa (int-conversion)
+GCC 14 no longer treats integer types and pointer types as equivalent in assignments 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-11-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -447,7 +447,7 @@
+   int i, flags;  
+   int done, needrender;
+   SDL_AudioSpec wanted;
+-  void *timer;
++  SDL_TimerID timer;
+ 
+ #ifndef __FIXED_RES__
+   int j, k;

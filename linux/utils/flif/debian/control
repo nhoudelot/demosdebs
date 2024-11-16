@@ -15,7 +15,7 @@ Build-Conflicts: graphicsmagick-imagemagick-compat
 Standards-Version: 4.6.2
 Vcs-Git: https://salsa.debian.org/debian-phototools-team/flif.git
 Vcs-Browser: https://salsa.debian.org/debian-phototools-team/flif
-Homepage: http://flif.info/
+Homepage: https://flif.info/
 Rules-Requires-Root: no
 
 Package: libflif0

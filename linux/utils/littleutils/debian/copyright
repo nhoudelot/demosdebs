@@ -1,6 +1,6 @@
-Format: http://dep.debian.net/deps/dep5
+Format: https://dep.debian.net/deps/dep5
 Upstream-Name: littleutils
-Source: http://sourceforge.net/projects/littleutils/
+Source: https://sourceforge.net/projects/littleutils/
 
 Files: * debian/*
 Copyright: 2004-2017 Brian Lindholm

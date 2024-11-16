@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: libcapsimage5
-Source: http://www.softpres.org/?id=download
+Source: https://www.softpres.org/?id=download
 
 Files: *
 Copyright: 2004 Software Preservation Society

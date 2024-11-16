@@ -33,7 +33,7 @@ Architecture: any
 Multi-Arch: same
 Section: libdevel
 Pre-Depends: dpkg (>= 1.6.8)
-Depends: libgtk1.2 (= ${binary:Version}), libglib1.2-dev, libx11-dev, libxext-dev, libxi-dev, pkg-config,${misc:Depends}
+Depends: libgtk1.2 (= ${binary:Version}), libglib1.2-dev, libx11-dev, libxext-dev, libxi-dev, pkgconf, ${misc:Depends}
 Suggests: libgtk1.2-doc
 Conflicts: libgtk1 (<< 1:1.0.4), libgtk-dev, libgtk1.1.5-dev, libgtk1.1.6-dev, libgtk1.1.7-dev, libgtk1.1.8-dev, libgtk1.1.9-dev, libgtk1.1.11-dev, libgtk1.1.12-dev, libgtk1.1.13-dev, libgtk1.1.14-dev, libgtk1.1.15-dev, libgtk1.1.16-dev, libgtk1.2 (<< 1.2.10-4)
 Provides: libgtk-dev, libgtk1.1-dev

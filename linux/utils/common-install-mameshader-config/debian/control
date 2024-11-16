@@ -6,7 +6,7 @@ Build-Depends:
  debhelper-compat (= 13),
  pandoc
 Standards-Version: 4.6.2
-Homepage: http://example.com/no-uri-given
+Homepage: https://example.com/no-uri-given
 Rules-Requires-Root: no
 
 Package: common-install-mameshader-config

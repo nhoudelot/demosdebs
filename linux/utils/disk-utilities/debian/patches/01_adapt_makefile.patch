@@ -7,7 +7,7 @@ Applied-Upstream: no
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Rules.mk
 +++ b/Rules.mk
-@@ -17,23 +17,24 @@
+@@ -17,24 +17,25 @@
  
  # Override these on the command line eg. "make PREFIX=/usr"
  # These must be absolute paths
@@ -20,6 +20,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  INCLUDEDIR := $(INSTALLDIR)/include
 -LIBDIR     := $(INSTALLDIR)/lib
 +LIBDIR     := $(INSTALLDIR)/lib/$(DEB_HOST_MULTIARCH)
+ LDRUNPATH  :=
  
  $(ARCH) := y
 -CFLAGS-$(x86_32) += -m32 -march=i686

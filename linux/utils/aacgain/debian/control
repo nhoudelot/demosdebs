@@ -6,7 +6,7 @@ Build-Depends:
  debhelper-compat (= 13),
  libmp3lame-dev
 Standards-Version: 4.6.2
-Homepage: http://altosdesign.com/aacgain/
+Homepage: https://altosdesign.com/aacgain/
 Rules-Requires-Root: no
 
 Package: aacgain

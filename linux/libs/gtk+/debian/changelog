@@ -1,3 +1,10 @@
+gtk+ (1.2.10-93ddebs5) unstable; urgency=medium
+
+  * added patch to fix incompatible pointer type from Fedora
+    now compile with gcc14
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 16 Nov 2024 02:41:09 +0100
+
 gtk+ (1.2.10-93ddebs4) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
