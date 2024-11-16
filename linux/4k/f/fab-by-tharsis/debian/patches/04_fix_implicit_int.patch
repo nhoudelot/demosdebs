@@ -1,0 +1,133 @@
+Description: Fix Implicit int types 
+GCC 14 no longer treats types as int when their type are not declared
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-04
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -30,7 +30,7 @@
+ 	return m*((D)rand()/RAND_MAX)-m/2;
+ }
+ 
+-polygon(I N, D F, D o, D a)
++void polygon(I N, D F, D o, D a)
+ {
+ 	I i=N+1;
+ 	D f=0;
+@@ -45,7 +45,7 @@
+ 	glEnd();
+ }
+ 
+-strip(I i, I n, D k, Strip *s)
++void strip(I i, I n, D k, Strip *s)
+ {
+ 	D x2=.5*k, y2= .5*k;
+ 
+@@ -65,7 +65,7 @@
+ 	glEnd();
+ }
+ 
+-quads(I n, D df1, D df2, D da)
++void quads(I n, D df1, D df2, D da)
+ {
+ 	D a=.1,
+ 	  f1=0, f2=0,
+@@ -91,9 +91,9 @@
+ 	glEnd();
+ }
+ 
+-spiral()
++void spiral()
+ {
+-	static i=1;
++	static int i=1;
+ 	static D
+ 	        r1=.01, r2=.015, a=0,
+ 	        da=-.0005, dr1=.002, dr2=.0022;
+@@ -113,7 +113,7 @@
+ 	i++;
+ }
+ 
+-ellipses(D f)
++void ellipses(D f)
+ {
+ 	I i;
+ 	D d[][5]={
+@@ -121,7 +121,7 @@
+ 		1,  1, 1, 2.3, 1.6,
+ 		0, 0, 0, 0,   1.5,
+ 		1,  1, 0, -.3, 1.3
+-	}, *p=d;
++	}, *p=(double *)d;
+ 	S (2);
+ 	T (1.1,1.1,0);
+ 	C (0,0,0);
+@@ -138,9 +138,9 @@
+ 	}
+ }
+ 
+-koe(D b, I n)
++void koe(D b, I n)
+ {
+-	static j[9];
++	static int j[9];
+ 	static Strip v[9][290], *s;
+ 	I i=j[n];
+ 	s=v[n];
+@@ -170,7 +170,7 @@
+ 	j[n]=i;
+ }
+ 
+-genbox()
++void genbox()
+ {
+ 	I m,i=2;
+ 
+@@ -183,10 +183,10 @@
+ 	}
+ }
+ 
+-cube()
++void cube()
+ {
+ 	static D v[99][7];
+-	static i=0, n, j=0, d;
++	static int i=0, n, j=0, d;
+ 
+ 	if (!i) {i=j=0; d=8; n = 10+rand()/(RAND_MAX/64); }
+ 	if (i<n) {
+@@ -222,7 +222,7 @@
+ 	if(i==512) d=-d;
+ }
+ 
+-cube2(D n, I i)
++void cube2(D n, I i)
+ {
+ 	T (0,0,-5+n/64.);
+ 	S (5);
+@@ -293,11 +293,12 @@
+ 	return r;
+ }
+ 
+-aud(I u, short *s, I l)
++void aud(void *u, unsigned char *s, I l)
+ {
++	short int *samples = (short int *)s;
+ 	for (l/=2; l--; t++) {
+ 		a = .3-.3*cos(t*2e-7)-.05*cos(t*4e-4);
+-		*s++ = (1<<17) * atan (play()) / P2;
++		*samples++ = (1<<17) * atan (play()) / P2;
+ 		num=2-!(t&0x100000);
+ 	}
+ }
+@@ -319,7 +320,7 @@
+ 	.freq=44100,.format=AUDIO_S16,.channels=1,.samples=4096,.callback=aud
+ };
+ 
+-main (I q, char **p)
++int main (I q, char **p)
+ {
+ 	SDL_Event e;
+ 	Job *j;

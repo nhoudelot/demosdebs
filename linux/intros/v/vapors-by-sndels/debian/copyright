@@ -1,10 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: vapors-by-sndels
-Upstream-Contact: <preferred name and address to reach the upstream project>
 Source: https://www.pouet.net/prod.php?which=81239
 
 Files: *
-Copyright: 2017 Santeri  Salmijärvi
+Copyright: 2017 Santeri Salmijärvi
 License: public-domain
  (probably freeware)
 

@@ -1,9 +1,10 @@
 chrysler-by-fitandbandwagon (1.0+1-0ddebs12) unstable; urgency=medium
 
-  * Fix implicit-function-declaration
   * use full desktop resolution when start fullscreen
+  * Fix implicit-function-declaration
+  * Fix incompatible pointer types
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 May 2024 19:24:16 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Jan 2025 10:34:30 +0100
 
 chrysler-by-fitandbandwagon (1.0+1-0ddebs11) unstable; urgency=medium
 

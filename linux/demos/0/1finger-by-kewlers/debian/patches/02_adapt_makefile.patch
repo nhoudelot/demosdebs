@@ -20,7 +20,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +RM_F       := rm -f
 +
 +# Flags
-+CFLAGS += -Wall -pipe -Irubber1.0 $(shell $(PKG_CONFIG) --cflags glu)
++CFLAGS += -Wall -pipe -Irubber1.0 -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu)
 +CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell $(PKG_CONFIG) --cflags glu)
 +
 +# Libraries for linking

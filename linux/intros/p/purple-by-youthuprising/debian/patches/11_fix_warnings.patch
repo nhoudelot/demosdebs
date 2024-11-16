@@ -1,0 +1,19 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-12
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cpp
++++ b/main.cpp
+@@ -21,8 +21,8 @@
+ bool keys[256];
+ bool active = true;
+ 
+-char *apptitle = "\"Purple\" - (C) 2007 Youth Uprising";
+-char *fontname = "Georgia";
++const char *apptitle = "\"Purple\" - (C) 2007 Youth Uprising";
++const char *fontname = "Georgia";
+ 
+ static void drawBorders(float time)
+ {

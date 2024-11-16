@@ -27,7 +27,7 @@ Build-Depends-Indep:
  libcryptx-perl,
  img2pdf
 Standards-Version: 4.6.2
-Homepage: http://sourceforge.net/projects/littleutils/
+Homepage: https://sourceforge.net/projects/littleutils/
 Rules-Requires-Root: no
 
 Package: littleutils-base

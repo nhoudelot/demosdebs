@@ -19,3 +19,40 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  LIBS += -lSDL2
  
  DEPENDPATH += \
+@@ -68,10 +62,6 @@
+ INCLUDEPATH += src/sound
+ INCLUDEPATH += ../shared
+ INCLUDEPATH += ../server/src
+-INCLUDEPATH += $$(QTDIR)/include/QtCore
+-INCLUDEPATH += $$(QTDIR)/include/QtGui
+-INCLUDEPATH += $$(QTDIR)/include/QtNetwork
+-INCLUDEPATH += $$(QTDIR)/include/QtOpenGL
+ 
+ HEADERS += \
+     ../ai/astarmap.h \
+--- a/client/src/framework/gldevice.cpp
++++ b/client/src/framework/gldevice.cpp
+@@ -25,7 +25,7 @@
+ 
+ 
+ #ifdef Q_OS_LINUX
+-#include "GL/glx.h"
++#include <GL/glx.h>
+ #endif
+ 
+ #ifdef QT_VERSION
+--- a/server/server.pro
++++ b/server/server.pro
+@@ -14,12 +14,9 @@
+ 
+ INCLUDEPATH += .
+ INCLUDEPATH += ../shared
+-INCLUDEPATH += $$(QTDIR)/include/QtCore
+-INCLUDEPATH += $$(QTDIR)/include/QtNetwork
+ 
+ contains(DEFINES, USE_GUI) {
+    QT += widgets
+-   INCLUDEPATH += $$(QTDIR)/include/QtWidgets
+ }
+ 
+ win32 {

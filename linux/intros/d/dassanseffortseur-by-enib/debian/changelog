@@ -1,3 +1,10 @@
+dassanseffortseur-by-enib (1.0-0ddebs5) unstable; urgency=medium
+
+  * Migrated to RTAudio 6 (keept compatibiliy to compile on old 
+    distributions)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 10 Jan 2025 00:51:40 +0100
+
 dassanseffortseur-by-enib (1.0-0ddebs4) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

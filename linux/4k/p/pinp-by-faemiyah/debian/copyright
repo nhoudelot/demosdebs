@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: pinp-by-faemiyah
-Source: httpss://github.com/faemiyah/faemiyah-demoscene_2004-08_4k-intro_pinp
+Source: https://github.com/faemiyah/faemiyah-demoscene_2004-08_4k-intro_pinp
 
 Files: *
 Copyright: 2004 Faemiyah

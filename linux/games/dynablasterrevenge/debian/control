@@ -8,7 +8,8 @@ Build-Depends:
  qtbase5-dev-tools,
  qt5-qmake,
  libqt5opengl5-dev,
- libsdl2-dev
+ libsdl2-dev,
+ libglx-dev
 Standards-Version: 4.6.2
 Homepage: https://github.com/varnholt/dynablaster_revenge
 Vcs-Browser: https://github.com/varnholt/dynablaster_revenge

@@ -1,5 +1,6 @@
 Description: Fix implicit-function-declaration
 In dpkg version 1.22.6, the compiler flag -Werror=implicit-function-declaration was enabled by default for all architectures 
+also GCC 14 no longer allows implicitly casting all pointer types to all other pointer types
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
 Last-Update: 2024-05-14
@@ -15,6 +16,24 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include "pt.h"
  
  
+@@ -144,7 +145,7 @@
+ 	}
+ }
+ 
+-Uint32 timeri(Uint32 interval)
++Uint32 timeri(Uint32 interval, void *param)
+ {
+ 	static int i, sanbale;
+ 
+@@ -211,7 +212,7 @@
+ {
+ 	static int ny=0,luku=0,off,samples_left_before_tick=0, pttime;
+ 
+-	short   *oso=stream;
++	short   *oso=(short *)stream;
+ 	int pala;
+ 
+ 	if(laite==2)
 --- a/cool_mzx/pt.c
 +++ b/cool_mzx/pt.c
 @@ -43,6 +43,8 @@

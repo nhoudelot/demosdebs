@@ -59,7 +59,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  cool_mzx/cool_mzx.a:
 -	cd cool_mzx && make
-+	cd cool_mzx && $(MAKE) $(shell dpkg-buildflags --export=cmdline) CC=$(DEB_HOST_GNU_TYPE)-gcc
++	cd cool_mzx && $(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc
  
  clean:
 -	cd cool_mzx && make clean

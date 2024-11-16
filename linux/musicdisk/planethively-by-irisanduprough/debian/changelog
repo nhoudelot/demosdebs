@@ -1,3 +1,11 @@
+planethively-by-irisanduprough (1.0+git20170506-0ddebs8) unstable; urgency=medium
+
+  * Fix using pointers as integers and vice versa (int-conversion)
+    GCC 14 no longer treats integer types and pointer types as equivalent in 
+    assignments. now compile on trusty
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 16 Nov 2024 23:57:20 +0100
+
 planethively-by-irisanduprough (1.0+git20170506-0ddebs7) unstable; urgency=medium
 
   * added explicit VSync

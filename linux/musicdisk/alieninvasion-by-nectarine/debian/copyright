@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: alieninvasion-by-nectarine
-Source: http://www.pouet.net/prod.php?which=56430
+Source: https://www.pouet.net/prod.php?which=56430
 
 Files: *
 Copyright: 2010 Nectarine

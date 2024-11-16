@@ -2,3 +2,4 @@
 02_use_system_includes.patch
 03_link_to_libgl.patch
 04_fix_simd.patch
+05_fix_rtaudio.patch

@@ -1,0 +1,57 @@
+Description: add rtdsc equivalent for arm64 and riscv
+ so it can compile on other architectures
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/client/src/tools/profiling.cpp
++++ b/client/src/tools/profiling.cpp
+@@ -1,5 +1,6 @@
+ #include "stdafx.h"
+ #include "profiling.h"
++#include <cstdint>
+ 
+ double getCpuTick()
+ {
+@@ -12,16 +13,30 @@
+ #endif
+ 
+ #ifdef _LINUX_
+-   unsigned int a, d;
+-   asm volatile
+-   (
+-       "rdtsc"        // read timestamp counter (64bit) into edx:eax (2x 32bit registers)
+-       : "=a" (a)     // store eax to "a"
+-       , "=d" (d)     // store edx to "d"
+-   );
+-   // combine two 32bit integers into 64bit long
+-   long long count= ((long long)a) | (((long long)d) << 32);
+-   t= count;
++	#if defined(__x86_64__) || defined(__i386__)
++       unsigned int a, d;
++	   asm volatile
++	    (
++	        "rdtsc"        // read timestamp counter (64bit) into edx:eax (2x 32bit registers)
++	        : "=a" (a)     // store eax to "a"
++	        , "=d" (d)     // store edx to "d"
++	    );
++	    // combine two 32bit integers into 64bit long
++	    long long count= ((long long)a) | (((long long)d) << 32);
++	    t= count;
++    #elif defined(__aarch64__)
++        // Use ARM system timer (CNTVCT_EL0) for high-resolution ticks
++        long long count = 0;
++        asm volatile("mrs %0, cntvct_el0" : "=r" (count));
++        t = static_cast<double>(count);
++    #elif defined(__riscv)
++        // Use RISC-V rdtime instruction for high-resolution ticks
++        long long count = 0;
++        asm volatile("rdtime %0" : "=r" (count));
++        t = static_cast<double>(count);
++    #else
++        #error "Unsupported architecture"
++    #endif
+ #endif
+ 
+    return t;

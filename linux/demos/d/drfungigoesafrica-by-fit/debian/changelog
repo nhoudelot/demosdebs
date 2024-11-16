@@ -1,3 +1,10 @@
+drfungigoesafrica-by-fit (1.0+1-0ddebs10) unstable; urgency=medium
+
+  * Fix implicit types error on trixie
+  * Fix incompatible pointer types 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Jan 2025 14:08:47 +0100
+
 drfungigoesafrica-by-fit (1.0+1-0ddebs9) unstable; urgency=medium
 
   * compile with block size of 1024 to reduce sound problems (pipewire)

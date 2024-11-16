@@ -7,3 +7,4 @@
 07_better_quit.patch
 08_resizable_window.patch
 09_add_fullscreen_key.patch
+10_fix_incompatible_pointer_type.patch

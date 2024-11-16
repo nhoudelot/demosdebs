@@ -3,9 +3,10 @@
 # see FEATURE AREAS in dpkg-buildflags(1)
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export MAKEFLAGS += -j$($(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS))))
-export DEB_CXXFLAGS_MAINT_APPEND  = -std=c++11 -flto
+export DEB_CXXFLAGS_MAINT_APPEND  = -std=c++11 -flto -Wno-narrowing
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
 export QT_SELECT := qt5
+export QMAKE = $(DEB_HOST_GNU_TYPE)-qmake
 
 %:
 	dh $@

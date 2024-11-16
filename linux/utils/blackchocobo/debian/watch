@@ -1,0 +1,4 @@
+version=4
+opts="compression=xz,repack" \
+  https://github.com/sithlord48/blackchocobo/tags .*/v?@ANY_VERSION@@ARCHIVE_EXT@ \
+debian uupdate

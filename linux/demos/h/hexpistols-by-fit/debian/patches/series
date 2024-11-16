@@ -6,3 +6,4 @@
 06_resizable_window.patch
 07_add_fullscreen_key.patch
 08_fix_implicit-function-declaration.patch
+09_fix_incompatible_pointer_type.patch

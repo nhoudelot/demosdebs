@@ -3,3 +3,4 @@
 03_adapt_to_png16.patch
 04_remove_fullscreen.patch
 05_link_to_libglx-dev.patch
+06_fix_implicit_declaration.patch

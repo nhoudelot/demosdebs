@@ -10,14 +10,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  RM_F       := rm -f
  
  # Flags
--CFLAGS += -Wall -pipe -Irubber1.0 $(shell $(PKG_CONFIG) --cflags glu)
+-CFLAGS += -Wall -pipe -Irubber1.0 -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu)
 -CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell $(PKG_CONFIG) --cflags glu)
-+CFLAGS += -Wall -pipe -Irubber1.0 $(shell $(PKG_CONFIG) --cflags glu gl)
++CFLAGS += -Wall -pipe -Irubber1.0 -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu gl)
 +CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell $(PKG_CONFIG) --cflags glu gl)
  
  # Libraries for linking
 -LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu) -lm
-+LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu gl ) -lm
++LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu gl) -lm
  
  OBJ = test3d.o Kewlmation.o \
        rubber1.0/Rubber.o rubber1.0/Shader.o rubber1.0/Texture.o \

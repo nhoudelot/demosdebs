@@ -15,8 +15,7 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- dose2-by-mfx-data,
- common-install-function-ddebs(>=1.61)
+ dose2-by-mfx-data
 Description: Demo by mfx, released in 2001
  mfx demo released in august 2001
 

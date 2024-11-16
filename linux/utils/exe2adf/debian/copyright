@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: exe2adf
-Source: http://www.exe2adf.com/
+Source: https://www.exe2adf.com/
 
 Files: *
 Copyright: 2015-2017 Reality

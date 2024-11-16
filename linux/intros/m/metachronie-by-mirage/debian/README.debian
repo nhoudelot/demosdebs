@@ -1,0 +1,8 @@
+metachronie-by-mirage for Debian
+-------------------------------
+
+Doesn't work anymore on Ubuntu 24.04 because sdl1.2 is now sdl1.2compat
+(maybe because libsdl-gfx1.2 compatibility layer isn't working properly ?) 
+
+Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 05 Aug 2024 11:58:13 +0200
+

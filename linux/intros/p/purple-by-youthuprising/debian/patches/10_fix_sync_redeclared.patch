@@ -1,0 +1,30 @@
+Description: renamed sync variable to syncaudio 
+didn't want to compile on armhf & arm64, so I renamed sync variable to syncaudio, so it won't confuse with the one in /usr/aarch64-linux-gnu/include/unistd.h
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-12
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Audio/sound.cpp
++++ b/Audio/sound.cpp
+@@ -3,7 +3,7 @@
+ #include <fstream>
+ #include "sound.h"
+ //#include "minifmod.h"
+-static int sync = -1;
++static int syncaudio = -1;
+ 
+ openmpt::module *mod = nullptr;
+ SDL_AudioSpec spec;
+@@ -80,9 +80,9 @@
+ 
+ 			for(ins = 0, i = 0; soundSync[i] != -2; i++)
+ 			{
+-				if ((ins == ins_pos) && (sound_getRow() == soundSync[i]) && (sync != soundSync[i]))
++				if ((ins == ins_pos) && (sound_getRow() == soundSync[i]) && (syncaudio != soundSync[i]))
+ 				{
+-					sync = soundSync[i];
++					syncaudio = soundSync[i];
+ 					return 1;
+ 				}
+ 				else if (soundSync[i] == -1) { ins++; }

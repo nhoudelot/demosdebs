@@ -1,0 +1,18 @@
+Description: Fix incompatible pointer types
+GCC 14 no longer allows implicitly casting all pointer types to all other pointer types
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-15
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -134,7 +134,7 @@
+ 		aikaa_siita_kun_viimeksi_tavattu[sanbale]++;
+ }
+ 
+-Uint32 timeri(Uint32 interval)
++Uint32 timeri(Uint32 interval, void *param)
+ {
+ 	static int i, sanbale;
+ 

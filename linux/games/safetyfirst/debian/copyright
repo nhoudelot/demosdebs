@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: safetyfirst
-Source: http://www.jco.de/
+Source: https://www.jco.de/
 
 Files: *
 Copyright: 2015 Jan Obergfell-Bourmer

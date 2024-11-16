@@ -12,7 +12,7 @@ Build-Depends:
  libglu-dev,
  libglew1.5
 Standards-Version: 4.6.2
-Homepage: http://www.pouet.net/prod.php?which=50691
+Homepage: https://www.pouet.net/prod.php?which=50691
 Rules-Requires-Root: no
 
 Package: grandcentral-by-outbreak

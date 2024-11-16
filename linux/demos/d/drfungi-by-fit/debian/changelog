@@ -1,3 +1,9 @@
+drfungi-by-fit (1.0+1-0ddebs9) unstable; urgency=medium
+
+  * Fix incompatible pointer types
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Jan 2025 13:47:44 +0100
+
 drfungi-by-fit (1.0+1-0ddebs8) unstable; urgency=medium
 
   * use full desktop resolution when start fullscreen

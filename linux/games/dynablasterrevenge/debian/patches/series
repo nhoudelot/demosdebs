@@ -1,5 +1,7 @@
 01_use_system_lib.patch
-03_new_binary_filename.patch
-04_move_configfile_to_home.patch
-05_change_data_path.patch
-06_change_homepage.patch
+02_new_binary_filename.patch
+03_move_configfile_to_home.patch
+04_change_data_path.patch
+05_change_homepage.patch
+06_fix_gcc14_crossbuild_compilation.patch
+07_add_rdtsc_equivalent.patch

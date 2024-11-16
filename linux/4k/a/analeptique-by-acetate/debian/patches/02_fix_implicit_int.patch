@@ -1,0 +1,55 @@
+Description: Fix Implicit int types 
+GCC 14 is gnu23 by default and no longer treats types as int when their type are not declared
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-04
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/analeptique.c
++++ b/analeptique.c
+@@ -22,33 +22,33 @@
+ 0x8000000,0,0x100800c,0x31009812,0x2bb9d592,0x19248c5e,0x9248452,0x32391992,0,0,
+ 0,0,0,0},g2[]={0x39c3c0f0,0x29442108,0x2b4b92e4,0x2a4e5394,0x2c405014,0x2d405014,
+ 0x2b4053d4,0x23405254,0x254e5294,0x2d4b9264,0x29442108,0x39c3c0f0,0,0,0,0,0x40000000,
+-0xcd99a9b5,0x554d5aab,0x54d0ca99,0x958d89b1,128,128};A(Y *v,Y *p,Y d){Y i,j,k,a,b,c=
++0xcd99a9b5,0x554d5aab,0x54d0ca99,0x958d89b1,128,128};Y A(Y *v,Y *p,Y d){Y i,j,k,a,b,c=
+ 0xffffff;f(i=0;i<m;i++)v[i]=0;f(i=0;i<768;i++){a=i>>5;b=i&31;if((p[a]>>b)&1)f(j=0;j<
+-8;j++)f(k=0;k<8;k++)v[(a*8+32+j)*w+b*8+k]=c;if(!b)c-=d;}}B(Y *v,Y *b,Z z,Z a,Y l){Y 
++8;j++)f(k=0;k<8;k++)v[(a*8+32+j)*w+b*8+k]=c;if(!b)c-=d;}}Y B(Y *v,Y *b,Z z,Z a,Y l){Y
+ i,j,r=0,s=0;Z x=z*cos(a),y=z*sin(a),p,q,t=128*(1-x+y),u=128*(1-x-y);if(l){if(z>1.)r=
+ 128-128/z;_ s=128-128*z;t=u=0;}f (i=0;i<w;i++){p=t;q=u;f(j=0;j<w;j++){t+=x;u+=y;if(l
+ &&(t>=w||u>=w))v[o(i+r)*w+o(j+r)]=0;_ v[o(i+r)*w+o(j+r)]=b[o((Y)u+s)*w+o((Y)t+s)];}
+-t=p-y;u=q+x;}}C (Y *v,Y i,Y *p){v[i]=*p;v[(i+1)&n]=p[1];v[(i-1)&n]=p[1];v[(i+w)&n]=
+-p[2];v[(i-w)&n]=p[2];}D(Y *v,Y *t,Z c){Y i;f(i=0;i<m;i++){Y u=(Y)(c*o(v[i])+(1-c)*
+-o(t[i]));v[i]=(u<<16)|(u<<8)|u;}}E (Y *v){Y x,y,q,h[]={0xffffff,0x989898,0xa0a0a0};
++t=p-y;u=q+x;}}Y C (Y *v,Y i,Y *p){v[i]=*p;v[(i+1)&n]=p[1];v[(i-1)&n]=p[1];v[(i+w)&n]=
++p[2];v[(i-w)&n]=p[2];}Y D(Y *v,Y *t,Z c){Y i;f(i=0;i<m;i++){Y u=(Y)(c*o(v[i])+(1-c)*
++o(t[i]));v[i]=(u<<16)|(u<<8)|u;}}Y E (Y *v){Y x,y,q,h[]={0xffffff,0x989898,0xa0a0a0};
+ M(v,48,m*4);f(y=0;y<w;y++){srand(y<<((T>>4)&15));f(x=0;x<w;x++){q=rand();if(!(q&63))
+-C(v,y*w+x,h);_ if(!(q&15))v[y*w+x]=0xc0c0c0;}}}F(Y *v,Y *c,Y d){Y i,j;f(i=0;i<2*w;
++C(v,y*w+x,h);_ if(!(q&15))v[y*w+x]=0xc0c0c0;}}}Y F(Y *v,Y *c,Y d){Y i,j;f(i=0;i<2*w;
+ i++)if(d)v[i]&=*c;_ v[i]^=*c;*c^=0x515151;j=2*w;do{f(i=j;i<j+2*w;i++)if(d)v[i]&=*c;
+-_ v[i]^=*c;*c^=0x747474;j+=2*w;}while(j<m);*c^=0x555555;}G(Y *v,Y a,Z t){Y i,h[]={0,
++_ v[i]^=*c;*c^=0x747474;j+=2*w;}while(j<m);*c^=0x555555;}Y G(Y *v,Y a,Z t){Y i,h[]={0,
+ 0x202020,0x101010};Z c=cos(t),s=sin(t),k=a*c,R=k-a*s,Q=k+a*s;f(i=0;i<a*2;i++){Y P=
+ 32896,u=(a-i)*c,x=i*c,y=i*s;C(v,x-Q+(Y)(k-(R+y)*s)*w+P,h);C(v,x-Q+(Y)(-k-(R+y)*s)*w
+ +P,h);C(v,x-R+(Y)(k+(Q-y)*s)*w+P,h);C(v,x-R+(Y)(-k+(Q-y)*s)*w+P,h);C(v,(Y)(u-R*s)*w
+ +P-Q,h);C(v,(Y)(u-Q*s)*w+P+R,h);C(v,(Y)(u+Q*s)*w+P-R,h);C(v,(Y)(u+R*s)*w+P+Q,h);C(v
+ ,-R-y+(Y)(k+(Q-x)*s)*w+P,h);C(v,Q-y+(Y)(k+(R-x)*s)*w+P,h);C(v,Q-y+(Y)(-k+(R-x)*s)*w
+-+P,h);C(v,-R-y+(Y)(-k+(Q-x)*s)*w+P,h);}}H(Y *v,Y d){Y b[m];N(b,v,d*w*4);N(v,&v[d*w],
+-(w-d)*w*4);N(&v[(w-d)*w],b,d*w*4);}I(Y *v,Y d,Y e){Y i,j,h[]={0xffaaaa,0xaaffaa,
+++P,h);C(v,-R-y+(Y)(-k+(Q-x)*s)*w+P,h);}}Y H(Y *v,Y d){Y b[m];N(b,v,d*w*4);N(v,&v[d*w],
++(w-d)*w*4);N(&v[(w-d)*w],b,d*w*4);}Y I(Y *v,Y d,Y e){Y i,j,h[]={0xffaaaa,0xaaffaa,
+ 0xaaaaff};f(i=0;i<3;i++)f(j=2*i*w;j<(2*i+2)*w;j++){if(e)v[(j+d*w)&n]&=h[i];_ v[(j
+-+d*w)&n]|=h[i];v[(j+e*(d+21)*2*w)&n]&=h[i];}}J(Y *v,Y c){Y i,j;f(i=0;i<w;i++){M(v,
+-48,12*4);M(v+12,208,28*4);M(v+192,208,8*4);f(j=200;j<w;j++)v[j]=c;v+=w;}}K(Y *v,Z 
+++d*w)&n]|=h[i];v[(j+e*(d+21)*2*w)&n]&=h[i];}}Y J(Y *v,Y c){Y i,j;f(i=0;i<w;i++){M(v,
++48,12*4);M(v+12,208,28*4);M(v+192,208,8*4);f(j=200;j<w;j++)v[j]=c;v+=w;}}Y K(Y *v,Z
+ *s,Y a){Y d,b[w],y,h,t;Z l;srand(T<<2|3);h=r(63);srand(h<<2);t=r(31);f(y=0;y<w;y++)
+ {if(a)l=(T+y)/100.;_ l=y;srand(T+d);if(t<h)t++;d=(*s-t*cos(l/s[1]))*sin(l/(cos(y/s[2]
+ )/(r(3)+s[3])*s[4]+s[5]))+r(3)-1;if(d<0)d+=w;N(b,&v[y*w],(w-d)*4);N(&v[y*w],&v[y*w+w
+--d],d*4);N(&v[y*w+d],b,(w-d)*4);}}L(Y*v){Y i;f(i=0;i<m;i++){if(v[i]<=0xefefef)v[i]+=
++-d],d*4);N(&v[y*w+d],b,(w-d)*4);}}Y L(Y*v){Y i;f(i=0;i<m;i++){if(v[i]<=0xefefef)v[i]+=
+ 0x101010;_ v[i]=0xffffff;}}Y main(Y e,char**h){Y *v,b[m],b0[m],b1[m],b2[m],r1[m],r2[m]
+ ,P[]={1,6,4,12,252,188,60,272,2096,2288,1536,512,240},k=*P,i,j,s=32,d=1,y=0,c=8,fi=64
+ ,R=0,x=0,u=0xffffff,BR=3000,U,V=0;X p=0,q=0;Z t=0,Q[]={48,18,2,4,.8,10,22,8,1,8,1.2,18}

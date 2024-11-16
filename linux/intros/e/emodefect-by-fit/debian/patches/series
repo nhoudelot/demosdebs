@@ -6,3 +6,4 @@
 06_48kHz.patch
 07_add_fullscreen.patch
 08_fix_implicit-function-declaration.patch
+09_fix_incompatible_pointer_type.patch

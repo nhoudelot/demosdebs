@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: uranusflower-by-thebadsectors
-Source: http://www.pouet.net/prod.php?which=62831
+Source: https://www.pouet.net/prod.php?which=62831
 
 Files: *
 Copyright: 2014 The Bad Sectors

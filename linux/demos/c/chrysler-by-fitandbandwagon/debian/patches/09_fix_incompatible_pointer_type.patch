@@ -1,0 +1,47 @@
+Description: Fix incompatible pointer types
+GCC 14 no longer allows implicitly casting all pointer types to all other pointer types
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -133,7 +133,7 @@
+ 		aikaa_siita_kun_viimeksi_tavattu[sanbale]++;
+ }
+ 
+-Uint32 timeri(Uint32 interval)
++Uint32 timeri(Uint32 interval, void *param)
+ {
+ 	static int i, sanbale;
+ 
+@@ -259,7 +259,7 @@
+ 		{
+ 			pt_play();
+ 			update_sample_trig_times();
+-			sd_mix_mono(&oso[off],44100/screenHz,1);
++			sd_mix_mono((unsigned char *)&oso[off],44100/screenHz,1);
+ 			off+=44100/screenHz;
+ 		}
+ 
+@@ -270,7 +270,7 @@
+ 			luku=len-off;
+ 			pt_play();
+ 			update_sample_trig_times();
+-			sd_mix_mono(&oso[off],luku,1);
++			sd_mix_mono((unsigned char *)&oso[off],luku,1);
+ 			luku=off+44100/screenHz-len;
+ 		}
+ 	}
+--- a/video.c
++++ b/video.c
+@@ -116,7 +116,7 @@
+ 
+ 	for (y=0; y<AH; y++)
+ 		for (x=0; x<(AW/8); x++) {
+-			ip1=bitti_muunnos+video[src]*8;
++			ip1=(int *)(bitti_muunnos+video[src]*8);
+ 			*dst++ = *ip1++;
+ 			*dst++ = *ip1++;
+ 			src++;

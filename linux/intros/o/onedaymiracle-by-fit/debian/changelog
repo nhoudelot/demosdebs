@@ -1,3 +1,9 @@
+onedaymiracle-by-fit (1.0+1-0ddebs11) unstable; urgency=medium
+
+  * Fix incompatible pointer types
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Jan 2025 23:33:30 +0100
+
 onedaymiracle-by-fit (1.0+1-0ddebs10) unstable; urgency=medium
 
   * disable flto

@@ -7,7 +7,17 @@ Last-Update: 2024-03-13
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/makefile.lnx
 +++ b/makefile.lnx
-@@ -20,6 +20,28 @@
+@@ -14,12 +14,32 @@
+ # ------ compiler flags ------ 
+ 
+ #CC = gcc
+-CC=gcc
++CC := gcc
+ #-std=c99
++PKG_CONFIG:=pkg-config
++CFLAGS :=$(shell dpkg-buildflags --get CFLAGS)
++
+ 
  WFLAGS = -Wall -W 
  #-Werror
  
@@ -28,15 +38,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +    CFLAGS += -std=gnu90
 +    CXXFLAGS += -fabi-compat-version=2
 +endif
-+#compilation en paralelle si disponible
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
-+endif
  
  ifdef PGCC
     OFLAGS = -mcpu=pentium -O6 -ffast-math
-@@ -27,7 +49,7 @@
+@@ -27,7 +47,7 @@
  ifdef PENTIUMONLY
     OFLAGS = -march=native -O2 -funroll-loops -ffast-math
  else
@@ -45,7 +50,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  endif
  endif
  #OFLAGS = -march=native -O2 -funroll-loops -ffast-math
-@@ -51,14 +73,13 @@
+@@ -51,14 +71,13 @@
  
  # -- optimised build --
  CFLAGS = $(WFLAGS) $(OFLAGS) -fomit-frame-pointer
@@ -57,14 +62,26 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 -CFLAGS += `gtk-config --cflags` -std=c99
 -LIB = `gtk-config --libs` -lpulse-simple
-+CFLAGS += $(shell pkg-config x11 --cflags) $(shell gtk-config --cflags) -std=c99
-+LIB = $(shell pkg-config x11 --libs)  -lXext  $(shell gtk-config --libs) -lpulse-simple
++CFLAGS += $(shell $(PKG_CONFIG) x11 --cflags) $(shell gtk-config --cflags) -std=c99
++LIB = $(shell $(PKG_CONFIG) x11 --libs)  -lXext  $(shell gtk-config --libs) -lpulse-simple
  
  
  # ------ plateform-dependant objects and executables ------
 --- a/makefile.all
 +++ b/makefile.all
-@@ -111,7 +111,9 @@
+@@ -86,8 +86,11 @@
+ 
+ COMMON_OBJ_LIST = $(basename $(notdir $(THOM_SRC_FILES) $(THOM_SRC_MC68XX_FILES)))
+ 
++include /usr/share/dpkg/buildflags.mk
+ include $(MAKEFILE_INC)
+ 
++CFLAGS += -Wno-implicit-function-declaration
++
+ OBJ = $(addprefix $(OBJ_DIR)/, $(addsuffix .o , $(OBJ_LIST)))
+ 
+ CLEAN_FILES = $(OBJ) $(EXE_NAME)
+@@ -111,7 +114,9 @@
  
  install: $(EXE_NAME)
  ifdef UNIX_TOOLS
@@ -75,7 +92,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  else
  	move $(EXE_NAME) $(subst /,\,$(HOME)/emu/thom)
  endif
-@@ -119,11 +121,11 @@
+@@ -119,11 +124,11 @@
  compress: $(EXE_NAME)
  	upx $(EXE_NAME)
  

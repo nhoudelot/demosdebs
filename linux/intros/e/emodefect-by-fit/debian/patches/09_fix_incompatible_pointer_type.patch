@@ -1,0 +1,77 @@
+Description: Fix incompatible pointer types
+GCC 14 no longer allows implicitly casting all pointer types to all other pointer types
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -132,7 +132,7 @@
+ 		aikaa_siita_kun_viimeksi_tavattu[sanbale]++;
+ }
+ 
+-Uint32 timeri(Uint32 interval)
++Uint32 timeri(Uint32 interval, void *param)
+ {
+ 	if(!laite)
+ 	{
+@@ -213,8 +213,8 @@
+ {
+ 	static int luku=0,off;
+ 
+-	short   *oso=stream;
+-	aanibuf=stream;
++	short   *oso=(short *)stream;
++	aanibuf=(short int *)stream;
+ 	aanilen=len;
+ 
+ 	if(laite==1)
+@@ -259,7 +259,7 @@
+ 		{
+ 			pt_play();
+ 			update_sample_trig_times();
+-			sd_mix_mono(&oso[off],48000/screenHz,1);
++			sd_mix_mono((unsigned char *)&oso[off],48000/screenHz,1);
+ 			off+=48000/screenHz;
+ 		}
+ 
+@@ -270,7 +270,7 @@
+ 			luku=len-off;
+ 			pt_play();
+ 			update_sample_trig_times();
+-			sd_mix_mono(&oso[off],luku,1);
++			sd_mix_mono((unsigned char *)&oso[off],luku,1);
+ 			luku=off+48000/screenHz-len;
+ 		}
+ 	}
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -743,7 +743,7 @@
+ 		{
+ #ifdef MIX_ASM
+ 			if (sd_mix_interpolation)
+-				sd_asm_imixmono(chan, dst32, length, lvol);
++				sd_asm_imixmono(chan,  (unsigned char *)dst32, length, lvol);
+ 			else
+ 				sd_asm_mixmono(chan, dst32, length, lvol);
+ #else
+@@ -761,14 +761,14 @@
+ 
+ #ifdef MIX_ASM
+ 	if (to16bit)
+-		sd_asm_mono32tom16i(dst32, dst, length);
++		sd_asm_mono32tom16i(dst32, (signed short *)dst, length);
+ 	else
+-		sd_asm_mono32tom8u(dst32, (unsigned char *)dst, length);
++		sd_asm_mono32tom8u(dst32, dst, length);
+ #else
+ 	if (to16bit)
+-		sd_c_mono32tom16i(dst32, dst, length);
++		sd_c_mono32tom16i(dst32, (signed short *)dst, length);
+ 	else
+-		sd_c_mono32tom8u(dst32, (unsigned char *)dst, length);
++		sd_c_mono32tom8u(dst32, dst, length);
+ #endif
+ 
+ } /* sd_mix_mono */

@@ -9,7 +9,7 @@ Build-Depends:
  zlib1g-dev,
  mawk
 Standards-Version: 4.6.2
-Homepage: http://libpng.org/pub/png/libpng.html
+Homepage: https://libpng.org/pub/png/libpng.html
 Rules-Requires-Root: no
 
 Package: libpng12-0

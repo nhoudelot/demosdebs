@@ -1,0 +1,31 @@
+Description: use ARB equivalent everywhere
+ for some reason it didn't want to cross-compile, and complain on double definition
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/client/src/framework/gldevice.cpp
++++ b/client/src/framework/gldevice.cpp
+@@ -51,8 +51,8 @@
+ 
+ // vertex buffer objects
+ PFNGLGENBUFFERSARBPROC    glGenBuffers = NULL;
+-PFNGLBINDBUFFERPROC       glBindBuffer = NULL;
+-PFNGLBUFFERDATAPROC       glBufferData = NULL;
++PFNGLBINDBUFFERARBPROC    glBindBuffer = NULL;
++PFNGLBUFFERDATAARBPROC    glBufferData = NULL;
+ PFNGLDELETEBUFFERSARBPROC glDeleteBuffers = NULL;
+ PFNGLMAPBUFFERPROC        glMapBuffer = NULL;
+ PFNGLUNMAPBUFFERPROC      glUnmapBuffer= NULL;
+@@ -389,8 +389,8 @@
+ #ifndef Q_OS_MAC
+    // vertex buffer objects
+    glGenBuffers =    (PFNGLGENBUFFERSARBPROC)    getProcAddress("glGenBuffersARB");
+-   glBindBuffer =    (PFNGLBINDBUFFERPROC)    getProcAddress("glBindBufferARB");
+-   glBufferData =    (PFNGLBUFFERDATAPROC)    getProcAddress("glBufferDataARB");
++   glBindBuffer =    (PFNGLBINDBUFFERARBPROC)    getProcAddress("glBindBufferARB");
++   glBufferData =    (PFNGLBUFFERDATAARBPROC)    getProcAddress("glBufferDataARB");
+    glDeleteBuffers = (PFNGLDELETEBUFFERSARBPROC) getProcAddress("glDeleteBuffersARB");
+    glMapBuffer =     (PFNGLMAPBUFFERPROC)        getProcAddress("glMapBufferARB");
+    glUnmapBuffer =   (PFNGLUNMAPBUFFERPROC)      getProcAddress("glUnmapBufferARB");

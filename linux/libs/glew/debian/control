@@ -2,9 +2,17 @@ Source: glew
 Priority: optional
 Section: libs
 Maintainer: Joost Yervante Damad <andete@debian.org>
-Build-Depends: debhelper-compat (= 12), libgl-dev | libgl-dev, libglu1-mesa-dev | libglu-dev, libx11-dev, docbook-to-man, libxmu-dev, libxi-dev
-Standards-Version: 4.6.0.1
-Homepage: http://glew.sourceforge.net/
+Build-Depends: 
+ debhelper-compat (= 13),
+ libgl-dev | libgl-dev,
+ libglu1-mesa-dev | libglu-dev,
+ libx11-dev,
+ docbook-to-man,
+ libxmu-dev,
+ libxi-dev
+Standards-Version: 4.6.2
+Homepage: https://glew.sourceforge.net/
+Rules-Requires-Root: no
 
 Package: libglew1.5
 Architecture: any

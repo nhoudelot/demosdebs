@@ -1,3 +1,9 @@
+emodefect-by-fit (1.0-0ddebs13) unstable; urgency=medium
+
+  * Fix incompatible pointer types
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Jan 2025 19:27:26 +0100
+
 emodefect-by-fit (1.0-0ddebs12) unstable; urgency=medium
 
   * Fix implicit-function-declaration

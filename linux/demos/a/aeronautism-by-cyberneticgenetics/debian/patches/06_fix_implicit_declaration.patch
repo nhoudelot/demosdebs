@@ -1,0 +1,14 @@
+Description: Fix implicit-function-declaration
+In dpkg version 1.22.6, the compiler flag -Werror=implicit-function-declaration was enabled by default for all architectures 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/cg_music.h
++++ b/src/cg_music.h
+@@ -14,3 +14,4 @@
+ void InitMusic(char *musicfilename);
+ void PlayingMusic(snd_pcm_t *handle);
+ void FreeMusic();
++void SyncPlay();

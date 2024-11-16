@@ -1,0 +1,76 @@
+Description: migrate to RTAudio 6
+ RtAudioError disappear, replaced by RtAudioErrorType.
+using #define to keep compiling on old distributions
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-10
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -864,15 +864,58 @@
+   parameters.firstChannel = 0;
+   unsigned int sampleRate = 44100;
+   unsigned int bufferFrames = TF_FRAMESIZE;
++
+   try {
+-    dac.openStream( &parameters, NULL, RTAUDIO_SINT16,
+-                    sampleRate, &bufferFrames, &audioCallback, (void *)&player);
+-    dac.startStream();
+-  }
+-  catch ( RtAudioError& e ) {
+-    e.printMessage();
+-    exit( 0 );
++	dac.openStream( &parameters, NULL, RTAUDIO_SINT16,
++	                sampleRate, &bufferFrames, &audioCallback, (void *)&player);
++	dac.startStream();
+   }
++#if RTAUDIO_VERSION_MAJOR <= 5
++	catch ( RtAudioError& e ) {
++		 e.printMessage();
++		 exit( 0 );
++	}
++#endif
++#if RTAUDIO_VERSION_MAJOR >= 6
++	catch ( RtAudioErrorType& e ) {
++		switch (e) {
++			case RTAUDIO_UNKNOWN_ERROR:
++				std::cerr << "Error: Unspecified error type." << std::endl;
++				break;
++			case RTAUDIO_NO_DEVICES_FOUND:
++				std::cerr << "Error: No devices found." << std::endl;
++				break;
++			case RTAUDIO_INVALID_DEVICE:
++				std::cerr << "Error: Invalid device ID was specified." << std::endl;
++				break;
++			case RTAUDIO_DEVICE_DISCONNECT:
++				std::cerr << "Error: Device in use was disconnected." << std::endl;
++				break;
++			case RTAUDIO_MEMORY_ERROR:
++				std::cerr << "Error: Memory allocation error." << std::endl;
++				break;
++			case RTAUDIO_INVALID_PARAMETER:
++				std::cerr << "Error: Invalid parameter." << std::endl;
++				break;
++			case RTAUDIO_INVALID_USE:
++				std::cerr << "Error: Invalid usage." << std::endl;
++				break;
++			case RTAUDIO_DRIVER_ERROR:
++				std::cerr << "Error: System driver error occurred." << std::endl;
++				break;
++			case RTAUDIO_SYSTEM_ERROR:
++				std::cerr << "Error: System error occurred." << std::endl;
++				break;
++			case RTAUDIO_THREAD_ERROR:
++				std::cerr << "Error: Thread error occurred." << std::endl;
++				break;
++			default:
++				std::cerr << "Error: Unknown error occurred." << std::endl;
++				break;
++			}
++	 exit( 0 );
++	}
++#endif
+ 
+   unsigned int current_seq = 0;
+ 

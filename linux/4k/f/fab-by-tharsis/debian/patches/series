@@ -1,3 +1,4 @@
 01_adapt_makefile.patch
 02_add_windowtitle.patch
 03_fix_warnings.patch
+04_fix_implicit_int.patch

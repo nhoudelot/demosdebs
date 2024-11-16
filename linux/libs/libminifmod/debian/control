@@ -6,7 +6,7 @@ Build-Depends:
  nasm
 Standards-Version: 4.6.2
 Section: libs
-Homepage: http://www.fmod.org/files/minifmod160_gcc.zip
+Homepage: https://www.fmod.org/files/minifmod160_gcc.zip
 Rules-Requires-Root: no
 
 Package: libminifmod-dev

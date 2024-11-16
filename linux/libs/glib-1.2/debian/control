@@ -4,7 +4,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends: debhelper-compat (= 10)
 Standards-Version: 4.6.2
 Section: libs
-Homepage: http://www.gtk.org/
+Homepage: https://www.gtk.org/
 Rules-Requires-Root: no
 
 Package: libglib1.2ldbl

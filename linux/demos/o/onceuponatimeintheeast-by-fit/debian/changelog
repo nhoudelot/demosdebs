@@ -1,3 +1,9 @@
+onceuponatimeintheeast-by-fit (1.0+1-0ddebs13) unstable; urgency=medium
+
+  * Fix incompatible pointer types error on trixie
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 15 Jan 2025 22:58:41 +0100
+
 onceuponatimeintheeast-by-fit (1.0+1-0ddebs12) unstable; urgency=medium
 
   * use desktop resolution when fullscreen by default

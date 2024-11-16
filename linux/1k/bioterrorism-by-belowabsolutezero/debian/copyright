@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: bioterrorism-by-belowabsolutezero
-Source: http://www.pouet.net/prod.php?which=61749
+Source: https://www.pouet.net/prod.php?which=61749
 
 Files: *
 Copyright: 2013 Below Absolute Zero

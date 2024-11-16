@@ -7,3 +7,5 @@
 07_resizable_window.patch
 08_add_fullscreen_key.patch
 09_replace_fmodex_by_openmpt.patch
+10_fix_sync_redeclared.patch
+11_fix_warnings.patch

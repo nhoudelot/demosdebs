@@ -3,3 +3,4 @@
 03_better_quit.patch
 05_better_fullscreen.patch
 06_increase_freq.patch
+07_fix_int-conversion.patch
