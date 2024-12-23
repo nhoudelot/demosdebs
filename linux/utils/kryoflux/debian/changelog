@@ -1,3 +1,9 @@
+kryoflux (3.50-0ddebs1) unstable; urgency=medium
+
+  * New Release Update
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 23 Dec 2024 02:33:18 +0100
+
 kryoflux (3.0+1-0ddebs2) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

@@ -1,8 +1,7 @@
-DONATIONS.txt
 RELEASE.txt
-docs/kryoflux_stream_protocol.pdf
-docs/KryoFlux_manual.pdf
-docs/kf_quickstart.pdf
+docs/KryoFlux_Stream_Protocol.pdf
+docs/KryoFlux_Manual.pdf
+docs/KryoFlux_QuickStart.pdf
 schematics/kryoflux_rosalie_rev_d3_e.pdf
 schematics/schematics_README.txt
 schematics/kryoflux_rosalie_rev_d2.pdf

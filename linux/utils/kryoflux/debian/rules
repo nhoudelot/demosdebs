@@ -33,3 +33,7 @@ override_dh_installudev:
 
 override_dh_builddeb:
 	dh_builddeb -- -Zxz
+	
+override_dh_installdocs:
+	dh_installdocs
+	(find debian -type f -name 'docs/*.pdf' -execdir rename 's/_/ /g' {}  \;)

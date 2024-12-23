@@ -4,8 +4,10 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- libcapsimage5-dev,
- libusb-1.0-0-dev
+ libcapsimage5-dev,libcapsimage5,
+ libusb-1.0-0-dev,
+ libfmt-dev,libfmt9,
+ rename
 Standards-Version: 4.6.2
 Homepage: https://www.kryoflux.com/?page=download
 Rules-Requires-Root: no
