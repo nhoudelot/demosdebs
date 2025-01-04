@@ -1,0 +1,31 @@
+Description: added fullscreen key
+ added fullscreen function, to go fullscreen and back, with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-09
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/organica.c
++++ b/src/organica.c
+@@ -1859,6 +1859,13 @@
+     dlViewport(x, y, w, h);
+ }
+ 
++static void ToggleFullscreen(SDL_Window* Window) {
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
++    SDL_ShowCursor(SDL_static_cast(int, isFullscreen));
++}
++
+ #ifdef DISCARD_LIBC
+ void *environ, *__progname;
+ /** Small main function.
+@@ -2140,6 +2147,7 @@
+ 				switch (event.key.keysym.sym) {
+ 					case SDLK_ESCAPE: quit++; break;
+ 					case SDLK_q: quit++; break;
++					case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 					default: break;
+ 				}
+ 			}

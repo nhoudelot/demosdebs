@@ -1,0 +1,112 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-09
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/organica.c
++++ b/src/organica.c
+@@ -193,6 +193,7 @@
+ #define dlPushMatrix glPushMatrix
+ #define dlRotatef glRotatef
+ #define dlTranslatef glTranslatef
++#define dlViewport glViewport
+ 
+ #endif
+ 
+@@ -250,7 +251,7 @@
+ #ifdef DNLOAD_LIBSDL
+ 
+ /** SDL symbol table. */
+-static void *sdlsym[10];
++static void *sdlsym[11];
+ #define DDL_GetTicks ((Uint32 (*)())(sdlsym[0]))
+ #define DDL_GL_SwapWindow ((void (*)(SDL_Window*))(sdlsym[1]))
+ #define DDL_Init ((int (*)(Uint32))(sdlsym[2]))
+@@ -261,6 +262,7 @@
+ #define DDL_CreateWindow ((SDL_Window* (*)(const char*,int,int,int,int,Uint32))(sdlsym[7]))
+ #define DDL_ShowCursor ((int (*)(int))(sdlsym[8]))
+ #define DDL_GL_CreateContext ((SDL_GLContext* (*)(SDL_Window*))(sdlsym[9]))
++#define DDL_GetWindowID ((Uint32 (*)(SDL_Window))(sdlsym[0]))(sdlsym[10]))
+ 
+ /** SDL symbol name table. */
+ static const char sdlsymname[] =
+@@ -275,6 +277,7 @@
+ "SDL_CreateWindow\0"
+ "SDL_GL_CreateContext\0"
+ "SDL_ShowCursor\0"
++"SDL_GetWindowID\0"
+ "\0";
+ 
+ #else
+@@ -289,6 +292,7 @@
+ #define DDL_GL_CreateContext SDL_GL_CreateContext
+ #define DDL_ShowCursor SDL_ShowCursor
+ #define DDL_Quit SDL_Quit
++#define DDL_GetWindowID SDL_GetWindowID
+ 
+ #endif
+ 
+@@ -1834,6 +1838,27 @@
+ static SDL_Window *sdlWindow;
+ static SDL_GLContext sdlGlcontext;
+ 
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
++static void resize_window(int x, int y, int w, int h)
++{
++    /* Prevent division by zero */
++    if (h == 0) h = 1;
++
++    float aspect = (float)w / (float)h;
++    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
++        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
++        x += (w - new_w) / 2;
++        w = new_w;
++    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
++        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
++        y += (h - new_h) / 2;
++        h = new_h;
++    }
++    dlViewport(x, y, w, h);
++}
++
+ #ifdef DISCARD_LIBC
+ void *environ, *__progname;
+ /** Small main function.
+@@ -1884,7 +1909,7 @@
+ 	DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, SDL_OPENGL | SCREEN_F);
+ #else
+ 	{
+-		uint32_t sdl_flags = SDL_WINDOW_OPENGL;
++		uint32_t sdl_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
+ #if defined(SCREEN_F)
+ 		sdl_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+ #endif
+@@ -2103,6 +2128,8 @@
+ 		// C89.
+ 		uint32_t tick_pos;
+ 
++		Uint32 windowID = DDL_GetWindowID(sdlWindow);
++
+ 		SDL_Event event;
+ 		while(SDL_PollEvent(&event))
+ 	    {
+@@ -2116,6 +2143,15 @@
+ 					default: break;
+ 				}
+ 			}
++			if(event.type == SDL_WINDOWEVENT) {
++				if (event.window.windowID == windowID)  {
++					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++						int new_w = event.window.data1;
++						int new_h = event.window.data2;
++						resize_window(0,0, new_w,new_h);
++					}
++				}
++			}
+ 		}
+ 		// Get tick pos and act accordingly. The value is shifted right by 4, that
+ 		// means we get a maximum of 125 frames per second. It is more than

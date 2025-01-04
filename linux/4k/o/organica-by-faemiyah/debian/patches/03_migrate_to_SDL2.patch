@@ -1,0 +1,181 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-09
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -446,16 +446,6 @@
+ 	fi
+ ])
+ 
+-dnl Incorporate SDL.
+-dnl AC_INCORPORATE_SDL([version], [define on found], [obligatory])a
+-AC_DEFUN([AC_INCORPORATE_SDL],
+-[
+-	AM_PATH_SDL([$1],
+-		sdl=[yes],
+-		sdl=[no])
+-	AC_INCORPORATE([SDL], [$sdl], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
+-])
+-
+ dnl Incorporate OpenGL.
+ dnl This means both libGL and libGLU.
+ dnl AC_INCORPORATE_OPENGL([define on found], [obligatory])
+@@ -504,6 +494,16 @@
+ 	AC_INCORPORATE([GLUT], [$glut], [], [], [$1], [$2])
+ ])
+ 
++dnl Incorporate SDL2.
++dnl AC_INCORPORATE_SDL2([version], [define on found], [obligatory])
++AC_DEFUN([AC_INCORPORATE_SDL2],
++[
++  AM_PATH_SDL2([$1],
++    sdl2=[yes],
++    sdl2=[no])
++  AC_INCORPORATE([SDL2], [$sdl2], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
++])
++
+ dnl Require C standard.
+ dnl AC_INCORPORATE_C99([define on found], [obligatory])
+ AC_DEFUN([AC_REQUEST_C99],
+--- a/configure.ac
++++ b/configure.ac
+@@ -27,7 +27,7 @@
+ AC_INCORPORATE_LIBPNG([1.2.0], [HAVE_LIBPNG], [no])
+ AC_INCORPORATE_OPENGL([HAVE_OPENGL], [yes])
+ AC_INCORPORATE_GLUT([USE_FREEGLUT], [yes])
+-AC_INCORPORATE_SDL([1.2.7], [HAVE_SDL], [yes])
++AC_INCORPORATE_SDL2([2.0.0], [HAVE_SDL2], [yes])
+ 
+ AC_CONFIG_FILES([Makefile src/Makefile])
+ AC_CONFIG_HEADERS([src/config.h:src/config.h.in])
+--- a/src/organica.c
++++ b/src/organica.c
+@@ -28,9 +28,9 @@
+ #include "stdint.h" // MSVC2003, ohwell.
+ 
+ // SDL brings all the enum stuff and everything we need for operation.
+-#ifdef HAVE_SDL_SDL_H
+-#include <SDL/SDL.h>
+-#include <SDL/SDL_opengl.h>
++#ifdef HAVE_SDL2_SDL_H
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_opengl.h>
+ #else
+ #include <SDL.h>
+ #include <SDL_opengl.h>
+@@ -250,40 +250,43 @@
+ #ifdef DNLOAD_LIBSDL
+ 
+ /** SDL symbol table. */
+-static void *sdlsym[9];
++static void *sdlsym[10];
+ #define DDL_GetTicks ((Uint32 (*)())(sdlsym[0]))
+-#define DDL_GL_SwapBuffers ((void (*)())(sdlsym[1]))
++#define DDL_GL_SwapWindow ((void (*)(SDL_Window*))(sdlsym[1]))
+ #define DDL_Init ((int (*)(Uint32))(sdlsym[2]))
+ #define DDL_OpenAudio ((int (*)(SDL_AudioSpec*, SDL_AudioSpec*))(sdlsym[3]))
+ #define DDL_PauseAudio ((void (*)(int))(sdlsym[4]))
+ #define DDL_PollEvent ((int (*)(SDL_Event*))(sdlsym[5]))
+ #define DDL_Quit ((void (*)())(sdlsym[6]))
+-#define DDL_SetVideoMode ((SDL_Surface* (*)(int, int, int, Uint32))(sdlsym[7]))
++#define DDL_CreateWindow ((SDL_Window* (*)(const char*,int,int,int,int,Uint32))(sdlsym[7]))
+ #define DDL_ShowCursor ((int (*)(int))(sdlsym[8]))
++#define DDL_GL_CreateContext ((SDL_GLContext* (*)(SDL_Window*))(sdlsym[9]))
+ 
+ /** SDL symbol name table. */
+ static const char sdlsymname[] =
+ "libSDL.so\0"
+ "SDL_GetTicks\0"
+-"SDL_GL_SwapBuffers\0"
++"SDL_GL_SwapWindow\0"
+ "SDL_Init\0"
+ "SDL_OpenAudio\0"
+ "SDL_PauseAudio\0"
+ "SDL_PollEvent\0"
+ "SDL_Quit\0"
+-"SDL_SetVideoMode\0"
++"SDL_CreateWindow\0"
++"SDL_GL_CreateContext\0"
+ "SDL_ShowCursor\0"
+ "\0";
+ 
+ #else
+ 
+ #define DDL_GetTicks SDL_GetTicks
+-#define DDL_GL_SwapBuffers SDL_GL_SwapBuffers
++#define DDL_GL_SwapWindow SDL_GL_SwapWindow
+ #define DDL_Init SDL_Init
+ #define DDL_OpenAudio SDL_OpenAudio
+ #define DDL_PauseAudio SDL_PauseAudio
+ #define DDL_PollEvent SDL_PollEvent
+-#define DDL_SetVideoMode SDL_SetVideoMode
++#define DDL_CreateWindow SDL_CreateWindow
++#define DDL_GL_CreateContext SDL_GL_CreateContext
+ #define DDL_ShowCursor SDL_ShowCursor
+ #define DDL_Quit SDL_Quit
+ 
+@@ -1828,6 +1831,9 @@
+ // Main ######################################################################
+ //############################################################################
+ 
++static SDL_Window *sdlWindow;
++static SDL_GLContext sdlGlcontext;
++
+ #ifdef DISCARD_LIBC
+ void *environ, *__progname;
+ /** Small main function.
+@@ -1878,9 +1884,9 @@
+ 	DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, SDL_OPENGL | SCREEN_F);
+ #else
+ 	{
+-		uint32_t sdl_flags = SDL_OPENGL;
++		uint32_t sdl_flags = SDL_WINDOW_OPENGL;
+ #if defined(SCREEN_F)
+-		sdl_flags |= SDL_FULLSCREEN;
++		sdl_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+ #endif
+ 		for(int ii = 1; (ii < argc); ++ii)
+ 		{
+@@ -1888,11 +1894,11 @@
+ 
+ 			if((strcmp("-f", cmp) == 0) || (strcmp("--fullscreen", cmp) == 0))
+ 			{
+-				sdl_flags |= SDL_FULLSCREEN;
++				sdl_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 			}
+ 			else if((strcmp("-w", cmp) == 0) || (strcmp("--windowed", cmp) == 0))
+ 			{
+-				sdl_flags &= ~SDL_FULLSCREEN;
++				sdl_flags &= ~SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 			}
+ 			else if((strcmp("-r", cmp) == 0) || (strcmp("--record", cmp) == 0))
+ 			{
+@@ -1910,12 +1916,13 @@
+ 		}
+ 		if(flag_record)
+ 		{
+-			DDL_SetVideoMode(960, 720, 32, sdl_flags);
++			sdlWindow = DDL_CreateWindow("Organica by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,960,720,sdl_flags);
+ 		}
+ 		else
+ 		{
+-			DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, sdl_flags);
++			sdlWindow = DDL_CreateWindow("Organica by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_W,SCREEN_H,sdl_flags);
+ 		}
++		sdlGlcontext = DDL_GL_CreateContext(sdlWindow);
+ 	}
+ #endif
+ 	DDL_ShowCursor(0);
+@@ -2159,7 +2166,7 @@
+ #endif
+ 
+ 		//effect_interference(tick_pos);
+-		DDL_GL_SwapBuffers();
++		DDL_GL_SwapWindow(sdlWindow);
+ 	}
+ 
+ 	DDL_Quit();

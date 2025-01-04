@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Organica
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2007
+Type=Application
+Exec=/usr/bin/organica-by-faemiyah
+Icon=organica-by-faemiyah
+Categories=AudioVideo;
+Name[fr_FR]=Organica

@@ -1,0 +1,13 @@
+organica-by-faemiyah (1.0+git20170414-0ddebs2) unstable; urgency=medium
+
+  * Fix incompatible pointer types for GCC 14
+    now compile for trusty
+  * also fixes some warnings
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 04 Jan 2025 16:54:04 +0100
+
+organica-by-faemiyah (1.0+git20170414-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 09 May 2024 16:58:04 +0200

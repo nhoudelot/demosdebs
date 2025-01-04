@@ -1,0 +1,63 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-09
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/record.c
++++ b/src/record.c
+@@ -63,7 +63,7 @@
+ 
+ 	// Set image info.
+ 	png_init_io(png_struct_ptr, fptr);
+-	png_set_compression_level(png_struct_ptr, Z_BEST_COMPRESSION);
++	png_set_compression_level(png_struct_ptr, PNG_Z_DEFAULT_COMPRESSION);
+ 	png_set_IHDR(png_struct_ptr, png_info_ptr,
+ 			width, height,
+ 			8, PNG_COLOR_TYPE_RGB,
+--- a/src/organica.c
++++ b/src/organica.c
+@@ -22,27 +22,27 @@
+ // Include ###################################################################
+ //############################################################################
+ 
+-#include "math.h"
++#include <math.h>
+ 
+ #include "limits.h"
+ #include "stdint.h" // MSVC2003, ohwell.
+ 
+ // SDL brings all the enum stuff and everything we need for operation.
+ #ifdef HAVE_SDL_SDL_H
+-#include "SDL/SDL.h"
+-#include "SDL/SDL_opengl.h"
++#include <SDL/SDL.h>
++#include <SDL/SDL_opengl.h>
+ #else
+-#include "SDL.h"
+-#include "SDL_opengl.h"
++#include <SDL.h>
++#include <SDL_opengl.h>
+ #endif
+ 
+ // glut definitions are not included in SDL definitions.
+ #if defined(WIN32) 
+-#include "glut.h"
++#include <glut.h>
+ #elif defined(__APPLE__)
+-#include "glut.h"
++#include <glut.h>
+ #else
+-#include "GL/glut.h"
++#include <GL/glut.h>
+ #endif
+ 
+ //############################################################################
+@@ -2051,6 +2051,7 @@
+ 									 *(op++) += in;
+ 									 break;
+ 									 */
++								default: break;
+ 							};
+ 						}
+ 

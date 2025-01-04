@@ -1,0 +1,44 @@
+Description: better quit
+ update key to the new SDL2 layout
+ and even add more options to quit the app
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-09
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/organica.c
++++ b/src/organica.c
+@@ -2097,18 +2097,26 @@
+ 	uint32_t tick_progress = 0;
+ #endif
+ 
+-	while(1)
+-	{
++	int quit = 0;
++    while(!quit)
++    {
+ 		// C89.
+ 		uint32_t tick_pos;
+ 
+-		// Abort on any keypress.
+ 		SDL_Event event;
+-		if(DDL_PollEvent(&event) && (event.type == SDL_KEYDOWN))
+-		{
+-			break;
++		while(SDL_PollEvent(&event))
++	    {
++			if (event.type == SDL_QUIT) {
++			quit++;
++			}
++			if (event.type == SDL_KEYUP) {
++				switch (event.key.keysym.sym) {
++					case SDLK_ESCAPE: quit++; break;
++					case SDLK_q: quit++; break;
++					default: break;
++				}
++			}
+ 		}
+-
+ 		// Get tick pos and act accordingly. The value is shifted right by 4, that
+ 		// means we get a maximum of 125 frames per second. It is more than
+ 		// enough.

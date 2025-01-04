@@ -1,0 +1,8 @@
+organica-by-faemiyah source: source-is-missing [rel/organica-freebsd-ia32]
+organica-by-faemiyah source: source-is-missing [rel/organica-linux-amd64]
+organica-by-faemiyah source: source-is-missing [rel/organica-linux-ia32]
+organica-by-faemiyah source: source-is-missing [rel/organica-linux-ppc32]
+organica-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/SDL.dll]
+organica-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/glut32.dll]
+organica-by-faemiyah source: source-contains-prebuilt-windows-binary [rel/organica-windows-ia32.exe]
+

@@ -1,0 +1,28 @@
+Description: update autotools scripts
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-05-09
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/configure.ac
++++ b/configure.ac
+@@ -22,6 +22,7 @@
+ AC_CHECK_HEADER([stdint.h])
+ AC_CHECK_HEADER([inttypes.h])
+ AC_CHECK_HEADER([stdint.h])
++AC_CHECK_LIB([m], [sincosf], [], [AC_MSG_ERROR([Math library not found])])
+ 
+ AC_INCORPORATE_LIBPNG([1.2.0], [HAVE_LIBPNG], [no])
+ AC_INCORPORATE_OPENGL([HAVE_OPENGL], [yes])
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,6 +1,6 @@
+-organica_SOURCES = organica.c
++organica_by_faemiyah_SOURCES = organica.c
+ if HAVE_LIBPNG
+-organica_SOURCES += record.c
++organica_by_faemiyah_SOURCES += record.c
+ endif
+ 
+-noinst_PROGRAMS = organica
++bin_PROGRAMS = organica-by-faemiyah

@@ -1,0 +1,7 @@
+01_fix_warnings.patch
+02_update_autotools.patch
+03_migrate_to_SDL2.patch
+04_better_quit.patch
+05_resizable_window.patch
+06_toggle_fullscreen.patch
+07_fix_gcc14.patch
