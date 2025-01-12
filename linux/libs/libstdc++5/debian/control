@@ -1,0 +1,24 @@
+Source: libstdc++5
+Section: libs
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+Standards-Version: 4.6.2
+
+Package: libstdc++5
+Architecture: amd64 i386
+Multi-Arch: same
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: The GNU Standard C++ Library v3
+ This package contains an additional runtime library for C++ programs
+ built with the GNU compiler.
+ .
+ This package contains an old version of libstdc++ intended solely for
+ compatibility with proprietary binaries that cannot be recompiled.
+ .
+ As libstdc++5 is not maintained anymore
+ I provide a binary version from bookworm 
