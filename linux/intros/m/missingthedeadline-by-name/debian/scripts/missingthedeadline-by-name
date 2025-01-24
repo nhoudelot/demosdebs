@@ -2,17 +2,19 @@
 
 source /usr/share/common-install-function-ddebs/common-install-function
 
-domain=nedscript-fire-tutorial
+domain=missingthedeadline-by-name
 
-APP_FULLNAME="Ned Script Fire script"
-APP_COPYRIGHT="bartoshe"
-APP_DESC="demo script for ned player"
+APP_FULLNAME=" missing the deadline"
+APP_COPYRIGHT="name"
+APP_DESC="Demo by name, released in 2018"
+
+APP_EXE="deadline"
 
 function run()
 {
 	backuppwd=$(pwd)
-	cd /usr/share/${domain} || exit
-	nedplayer
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	./${APP_EXE}
 	cd $backuppwd || exit
 }
 

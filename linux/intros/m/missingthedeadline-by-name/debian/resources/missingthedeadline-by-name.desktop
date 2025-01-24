@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name= missing the deadline
+GenericName=Demo
+Comment=Demo by name, released in 2018
+Type=Application
+Exec=/usr/bin/missingthedeadline-by-name
+Icon=missingthedeadline-by-name
+Categories=AudioVideo;
+Name[fr_FR]= missing the deadline

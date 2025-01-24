@@ -1,0 +1,33 @@
+Source: missingthedeadline-by-name
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libopenmpt-dev,
+ libglu-dev,
+ libxrandr-dev,
+ libxi-dev,
+ libasound2-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=77431
+
+Package: missingthedeadline-by-name
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ missingthedeadline-by-name-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by name, released in 2018
+ <Insert long description, indented with spaces.>
+
+Package: missingthedeadline-by-name-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for missingthedeadline-by-name
+ missingthedeadline-by-name data files

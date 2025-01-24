@@ -1,0 +1,4 @@
+debian/scripts/missingthedeadline-by-name usr/bin/
+./deadline usr/lib/x86_64-linux-gnu/missingthedeadline-by-name
+debian/resources/missingthedeadline-by-name.desktop usr/share/applications/
+debian/resources/missingthedeadline-by-name.png usr/share/icons/hicolor/256x256/apps/
