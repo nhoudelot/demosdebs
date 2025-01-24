@@ -1,3 +1,9 @@
+detectiteasy (3.10-0ddebs1) unstable; urgency=medium
+
+  * New Upstream Release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 24 Jan 2025 01:35:58 +0100
+
 detectiteasy (3.09-0ddebs2) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

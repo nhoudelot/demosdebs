@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  TARGET = diec
 --- a/gui_source/gui_source.pro
 +++ b/gui_source/gui_source.pro
-@@ -82,6 +82,11 @@
+@@ -83,6 +83,11 @@
      ICON = ../icons/main.icns
  }
  

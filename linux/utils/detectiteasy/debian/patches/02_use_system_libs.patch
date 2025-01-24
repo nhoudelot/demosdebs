@@ -18,7 +18,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      LIBS += $$PWD/libs/libbzip2-macos-$${QT_ARCH}.a
 --- a/XArchive/xarchive.pri
 +++ b/XArchive/xarchive.pri
-@@ -39,12 +39,12 @@
+@@ -59,12 +59,12 @@
  
  !contains(XCONFIG, zlib) {
      XCONFIG += zlib

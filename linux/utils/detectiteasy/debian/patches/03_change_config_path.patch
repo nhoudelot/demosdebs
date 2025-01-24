@@ -7,7 +7,7 @@ Last-Update: 2024-03-10
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/XOptions/xoptions.cpp
 +++ b/XOptions/xoptions.cpp
-@@ -242,7 +242,7 @@
+@@ -256,7 +256,7 @@
      if (bIsNative) {
          pSettings = new QSettings;
      } else {
@@ -16,7 +16,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      }
  
  #ifdef QT_DEBUG
-@@ -506,6 +506,14 @@
+@@ -539,6 +539,14 @@
      return sResult;
  }
  
@@ -31,7 +31,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  void XOptions::setLastDirectory(const QString &sPathName)
  {
      QString _sPathName = sPathName;
-@@ -804,7 +812,7 @@
+@@ -974,7 +982,7 @@
          pComboBox->addItem("English", "");
          pComboBox->addItem("System", "System");
  
@@ -40,7 +40,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
          qint32 nNumberOfRecords = listFileNames.count();
  
-@@ -831,7 +839,7 @@
+@@ -1001,7 +1009,7 @@
      } else if (id == ID_VIEW_QSS) {
          pComboBox->addItem("Default", "");
  
@@ -49,7 +49,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
          qint32 nNumberOfRecords = listFileNames.count();
  
-@@ -1576,7 +1584,7 @@
+@@ -1799,7 +1807,7 @@
                  sResult = sApplicationDirPath.section("/", 0, 2);
              }
  
@@ -68,11 +68,33 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #if (QT_VERSION_MAJOR < 5)  // TODO Check
  #include <QRegExp>
  #else
-@@ -282,6 +283,7 @@
+@@ -377,6 +378,7 @@
      static QList<QString> getAllFilesFromDirectory(const QString &sDirectory, const QString &sExtension);
      static bool checkNative(const QString &sIniFileName);
      QString getApplicationDataPath();
 +    static QString getConfigPath();
      static QString getTitle(const QString &sName, const QString &sVersion, bool bShowOS = true);
      bool isWritable();
- #ifdef QT_GUI_LIB
+     static void adjustApplicationInitAttributes();
+--- a/gui_source/dialogabout.cpp
++++ b/gui_source/dialogabout.cpp
+@@ -71,7 +71,7 @@
+                             "text-decoration: underline; color:#ff0000;\">http://www.capstone-engine.org</span></a></p>")
+                             .arg(QString::number(CS_VERSION_MAJOR), QString::number(CS_VERSION_MINOR), QString::number(CS_VERSION_EXTRA));
+ 
+-    _data.sLogoPath = ":/images/about.png";
++    _data.sLogoPath = "/usr/share/detectiteasy/images/about.png";
+     _data.sUpdatesLink = "https://github.com/horsicq/DIE-engine/releases";
+     _data.sThanksLink = "https://github.com/horsicq/DIE-engine/blob/master/THANKS.md";
+ 
+--- a/gui_source/main_gui.cpp
++++ b/gui_source/main_gui.cpp
+@@ -58,7 +58,7 @@
+ #endif
+ 
+ #ifndef Q_OS_WIN
+-    QApplication::setWindowIcon(QIcon(":/images/main.png"));
++    QApplication::setWindowIcon(QIcon("/usr/share/detectiteasy/images/main.png"));
+ #endif
+ 
+     XOptions xOptions;
