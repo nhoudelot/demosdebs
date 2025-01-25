@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=modsvolume2-by-resistancedesire
+
+APP_FULLNAME="MoDS Volume 2"
+APP_COPYRIGHT="Resistance & Desire"
+APP_DESC="Demo by Resistance & Desire, released in 2018"
+
+APP_EXE="MoDS_Vol2"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	./${APP_EXE}
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

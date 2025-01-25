@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=MoDS Volume 2
+GenericName=Demo
+Comment=Demo by Resistance & Desire, released in 2018
+Type=Application
+Exec=/usr/bin/modsvolume2-by-resistancedesire
+Icon=modsvolume2-by-resistancedesire
+Categories=AudioVideo;
+Name[fr_FR]=MoDS Volume 2

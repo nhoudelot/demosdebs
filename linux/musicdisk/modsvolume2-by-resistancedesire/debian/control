@@ -1,0 +1,31 @@
+Source: modsvolume2-by-resistancedesire
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ libsdl2-dev,
+ libopenmpt-dev,
+ debhelper-compat (= 13),
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=78482
+
+Package: modsvolume2-by-resistancedesire
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ libopenmpt0|libopenmpt0t64,
+ ${shlibs:Depends},
+ ${misc:Depends},
+ modsvolume2-by-resistancedesire-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Resistance & Desire, released in 2018
+ <Insert long description, indented with spaces.>
+
+Package: modsvolume2-by-resistancedesire-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for modsvolume2-by-resistancedesire
+ modsvolume2-by-resistancedesire data files

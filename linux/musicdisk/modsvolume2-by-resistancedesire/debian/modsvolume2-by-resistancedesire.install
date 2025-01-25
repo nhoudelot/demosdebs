@@ -1,0 +1,4 @@
+debian/scripts/modsvolume2-by-resistancedesire usr/bin/
+./MoDS_Vol2 usr/lib/x86_64-linux-gnu/modsvolume2-by-resistancedesire
+debian/resources/modsvolume2-by-resistancedesire.desktop usr/share/applications/
+debian/resources/modsvolume2-by-resistancedesire.png usr/share/icons/hicolor/256x256/apps/
