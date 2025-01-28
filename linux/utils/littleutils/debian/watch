@@ -1,4 +1,0 @@
-version=4
-opts="compression=xz,repack"
-http://sf.net/littleutils/littleutils-@ANY_VERSION@@ARCHIVE_EXT@ \
-debian uupdate

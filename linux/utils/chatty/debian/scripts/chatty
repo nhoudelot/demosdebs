@@ -1,8 +1,0 @@
-#! /bin/sh
-set -e
-
-# Include the wrappers utility script
-. /usr/lib/java-wrappers/java-wrappers.sh
-
-run_java -jar /usr/share/chatty/chatty.jar "$@"
-

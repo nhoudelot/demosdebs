@@ -1,9 +1,0 @@
-#!/bin/sh
-
-set -e
-
-rm -rf "/var/opt/Adobe AIR" "/opt/Adobe AIR" "/etc/opt/Adobe/certificates/AIR"
-
-#DEBHELPER#
-
-exit 0
