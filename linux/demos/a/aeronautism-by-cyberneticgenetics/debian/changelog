@@ -1,3 +1,11 @@
+aeronautism-by-cyberneticgenetics (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * debian/control
+    using mesa-common-dev instead of libgl-dev, libglx-dev and libx11-dev as 
+    build dependency
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Jan 2025 01:58:16 +0100
+
 aeronautism-by-cyberneticgenetics (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Fix implicit-function-declaration error on trixie

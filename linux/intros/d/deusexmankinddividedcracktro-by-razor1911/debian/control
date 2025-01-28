@@ -7,8 +7,7 @@ Build-Depends:
  libxrandr-dev,
  libxxf86vm-dev,
  libasound2-dev,
- libx11-dev,
- libgl-dev,
+ mesa-common-dev,
  libxcursor-dev,
  libxinerama-dev 
 Standards-Version: 4.6.2

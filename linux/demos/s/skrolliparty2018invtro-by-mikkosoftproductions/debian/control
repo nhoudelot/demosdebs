@@ -6,8 +6,7 @@ Build-Depends:
  debhelper-compat (= 13),
  libopenal-dev,
  libsigc++-2.0-dev,
- libgl-dev,
- libx11-dev,
+ mesa-common-dev,
  libxrandr-dev
 Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=76785

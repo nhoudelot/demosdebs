@@ -1,3 +1,10 @@
+skrolliparty2018invtro-by-mikkosoftproductions (1.0-0ddebs2) unstable; urgency=medium
+
+  * debian/control
+    using mesa-common-dev instead of libgl-dev and libx11-dev as build dependency
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 29 Jan 2025 23:28:18 +0100
+
 skrolliparty2018invtro-by-mikkosoftproductions (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release
