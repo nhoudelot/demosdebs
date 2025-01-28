@@ -1,0 +1,37 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=nedscript-fire-tutorial
+
+APP_FULLNAME="Ned Script Fire script"
+APP_COPYRIGHT="bartoshe"
+APP_DESC="demo script for ned player"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/share/${domain} || exit
+	nedplayer
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

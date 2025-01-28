@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -std=gnu11
+export DEB_CXXFLAGS_MAINT_APPEND  = -std=gnu++14
+#export DEB_LDFLAGS_MAINT_APPEND  = -flto
+
+%:
+	dh $@  --sourcedirectory=Player
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

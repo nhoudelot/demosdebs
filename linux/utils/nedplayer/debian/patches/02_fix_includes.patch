@@ -1,3 +1,10 @@
+Description: use system libs              
+ make use of sytems libs, instead of embedded ones
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/lib3d/data/lzcompress.cpp
 +++ b/lib3d/data/lzcompress.cpp
 @@ -2239,7 +2239,7 @@
@@ -12,6 +19,17 @@
 --- a/lib3d/data/png.cpp
 +++ b/lib3d/data/png.cpp
 @@ -46,7 +46,7 @@
+ #ifdef API3D_SDL2
+ #include "../../zlib/zlib.h"
+ #else
+-#include "../zlib/zlib.h"
++#include <zlib.h>
+ #endif
+ #endif
+ #else
+--- a/Player/script_anim.cpp
++++ b/Player/script_anim.cpp
+@@ -465,7 +465,7 @@
  #ifdef API3D_SDL2
  #include "../../zlib/zlib.h"
  #else
@@ -49,14 +67,3 @@
 -#endif
 \ No newline at end of file
 +#endif
---- a/Player/script_anim.cpp
-+++ b/Player/script_anim.cpp
-@@ -465,7 +465,7 @@
- #ifdef API3D_SDL2
- #include "../../zlib/zlib.h"
- #else
--#include "../zlib/zlib.h"
-+#include <zlib.h>
- #endif
- #endif
- #else

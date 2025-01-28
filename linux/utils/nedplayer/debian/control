@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  pkg-config,
  libwxgtk3.0-gtk3-dev|libwxgtk3.0-dev,
  libfreetype6-dev,
@@ -11,8 +11,9 @@ Build-Depends:
  libogg-dev,
  libopenal-dev,
  libopenjpeg-dev
-Standards-Version: 4.6.0.1
-Homepage: http://deaddeer.free.fr/
+Standards-Version: 4.6.2
+Homepage: https://deaddeer.free.fr/
+Rules-Requires-Root: no
 
 Package: nedplayer
 Section: utils
