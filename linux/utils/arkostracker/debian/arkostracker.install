@@ -1,0 +1,12 @@
+debian/resources/ArkosTracker3.desktop usr/share/applications/
+cpack/ArkosTracker3.png usr/share/icons/hicolor/256x256/apps/
+build/source/MainSoftware_artefacts/None/ArkosTracker3 usr/bin/
+build/source/commandLineTools/songToAkg/SongToAkg_artefacts/None/SongToAkg usr/bin/
+build/source/commandLineTools/songToAkm/SongToAkm_artefacts/None/SongToAkm usr/bin/
+build/source/commandLineTools/songToAky/SongToAky_artefacts/None/SongToAky usr/bin/
+build/source/commandLineTools/songToEvents/SongToEvents_artefacts/None/SongToEvents usr/bin/
+build/source/commandLineTools/songToRaw/SongToRaw_artefacts/None/SongToRaw usr/bin/
+build/source/commandLineTools/songToSfx/SongToSoundEffects_artefacts/None/SongToSoundEffects usr/bin/
+build/source/commandLineTools/songToVgm/SongToVgm_artefacts/None/SongToVgm usr/bin/
+build/source/commandLineTools/songToWav/SongToWav_artefacts/None/SongToWav usr/bin/
+build/source/commandLineTools/songToYm/SongToYm_artefacts/None/SongToYm usr/bin/

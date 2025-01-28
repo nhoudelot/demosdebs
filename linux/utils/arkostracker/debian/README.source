@@ -1,0 +1,19 @@
+arkostracker for Debian
+----------------------
+
+took the last stable version
+
+git clone  --branch 3.2.3 https://bitbucket.org/JulienNevo/arkostracker3.git
+
+look at CMakeLists.txt
+# Gets JUCE from GIT, via CPM.
+CPMAddPackage(
+        NAME JUCE
+        GITHUB_REPOSITORY juce-framework/JUCE
+        GIT_TAG 7.0.12)
+
+git clone --branch 7.0.12 https://github.com/juce-framework/JUCE.git
+
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Jan 2025 12:00:43 +0100
+

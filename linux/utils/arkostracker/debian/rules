@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+# See debhelper(7) (uncomment to enable).
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
+export DEB_CPPFLAGS_MAINT_APPEND  = -Wno-dangling-reference -Wno-date-time
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+include /usr/share/dpkg/buildtools.mk
+include /usr/share/dpkg/architecture.mk
+
+ifneq ($(strip $(filter $(DEB_HOST_ARCH), armel powerpc powerpcspe m68k mips mipsel sh4 riscv64)),)
+	DEB_CPPFLAGS_MAINT_APPEND += -DDEBIAN_JUCERPROJECT_LIBS='"atomic"'
+	DEB_LDFLAGS_MAINT_APPEND += -latomic
+endif
+
+
+%:
+	dh $@ --buildsystem=cmake --builddirectory=build
+
+override_dh_install:
+	dh_install
+	find debian -type f -name '*.aks' -exec chmod 0644 {} +
+	find debian -name ".gitignore" -delete

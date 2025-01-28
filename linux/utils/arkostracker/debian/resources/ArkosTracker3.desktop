@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=Arkos Tracker
+GenericName=utilities
+Type=Application
+Exec=/usr/bin/ArkosTracker3
+Icon=ArkosTracker3
+Categories=Audio;AudioVideo;Music;Utility
+StartupWMClass=Arkos Tracker
+Comment=Soundchip music tracker for Amstrad CPC, Spectrum, MSX, Atari
+Keywords=audio;music;soundchip;tracker;amstrad;cpc;spectrum;msx;atari
+Terminal=false

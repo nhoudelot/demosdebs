@@ -1,0 +1,40 @@
+Source: arkostracker
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake,
+ pkgconf,
+ mesa-common-dev,
+ libasound2-dev,
+ libfreetype-dev,
+ libcurl4-openssl-dev,
+ libxrandr-dev,
+ libxinerama-dev,
+ libxext-dev,
+ libxcursor-dev,
+ libxcomposite-dev
+Standards-Version: 4.6.2
+Homepage: https://julien-nevo.com/at3test/
+
+Package: arkostracker
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ arkostracker-data
+Description: Music software specialised on retro-computers
+ Music software specialised on retro-computers such Amstrad CPC, ZX Spectrum, 
+ Atari ST and so on, which all share the same soundchip, the AY-3-8912 and 
+ YM-2149F
+
+Package: arkostracker-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for arkostracker
+ arkostracker data files
