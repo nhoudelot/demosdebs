@@ -1,0 +1,24 @@
+Source: cherrycherrysquarewave-by-funnycurlycatcodefactory
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libsdl1.2-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=80567
+
+Package: cherrycherrysquarewave-by-funnycurlycatcodefactory
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ libsdl1.2debian,
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Funny Curly Cat Code Factory, released in 2019
+ Tools used: Lubuntu 18.04, Spacemacs, Clang and zopfli.
+ Depends on SDL1.2 and OpenGL.
+ .
+ Please  enjoy the pretty flowers

@@ -1,0 +1,4 @@
+debian/scripts/cherrycherrysquarewave-by-funnycurlycatcodefactory usr/bin/
+./ccsq_fixed_audio usr/lib/x86_64-linux-gnu/cherrycherrysquarewave-by-funnycurlycatcodefactory
+debian/resources/cherrycherrysquarewave-by-funnycurlycatcodefactory.desktop usr/share/applications/
+debian/resources/cherrycherrysquarewave-by-funnycurlycatcodefactory.png usr/share/icons/hicolor/256x256/apps/
