@@ -1,0 +1,25 @@
+Source: internationalshipping-by-suricrasiaonline
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ pkgconf,
+ libgtk-3-dev,
+ libfftw3-dev,
+ shader-minifier,
+ libglu-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=81049
+
+Package: internationalshipping-by-suricrasiaonline
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Suricrasia Online, released in 2019
+ International Shipping is a 4k gfx demo for 64-bit linux, specifically
+ targeting Ubuntu 18.10.

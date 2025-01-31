@@ -1,0 +1,34 @@
+Description: convert ASM to C for building on other arch
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-01-31
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/shipping.c
++++ b/shipping.c
+@@ -32,14 +32,8 @@
+ #define TIME_RENDER
+ // #define GEN_BOATS
+ 
+-inline void quit_asm() {
+-	asm volatile(".intel_syntax noprefix");
+-	asm volatile("xor edi, edi");
+-	asm volatile("push 231"); //exit_group
+-	asm volatile("pop rax");
+-	asm volatile("syscall");
+-	asm volatile(".att_syntax prefix");
+-	__builtin_unreachable();
++static void quit_asm() {
++	exit(0);
+ }
+ 
+ // uint32_t randomstate = 0x6b873edd;
+@@ -225,7 +219,7 @@
+ }
+ 
+ void _start() {
+-	asm volatile("sub $8, %rsp\n");
++	char buffer[8];
+ #ifdef TIME_RENDER
+ 	gtimer = g_timer_new();
+ #endif

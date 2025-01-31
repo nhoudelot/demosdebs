@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=International Shipping
+GenericName=Demo
+Comment=Demo by Suricrasia Online, released in 2019
+Type=Application
+Exec=/usr/bin/internationalshipping-by-suricrasiaonline
+Icon=internationalshipping-by-suricrasiaonline
+Categories=AudioVideo;
+Name[fr_FR]=International Shipping
