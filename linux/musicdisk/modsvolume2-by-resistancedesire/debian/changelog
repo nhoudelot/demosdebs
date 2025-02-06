@@ -1,3 +1,9 @@
+modsvolume2-by-resistancedesire (1.0-0ddebs2) unstable; urgency=medium
+
+  * updated debian/copyright & debian/control
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 06 Feb 2025 01:15:50 +0100
+
 modsvolume2-by-resistancedesire (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release.

@@ -19,8 +19,8 @@ Depends:
  ${misc:Depends},
  modsvolume2-by-resistancedesire-data,
  common-install-function-ddebs(>=1.61),
-Description: Demo by Resistance & Desire, released in 2018
- <Insert long description, indented with spaces.>
+Description: Music disk by Resistance & Desire, released in 2018
+ 2nd wild demo at Deadline (Berlin) 2018
 
 Package: modsvolume2-by-resistancedesire-data
 Architecture: all

@@ -9,7 +9,7 @@ modsvolume2-by-resistancedesire - the command to run MoDS Volume 2.
 modsvolume2-by-resistancedesire [*options*]
 
 # DESCRIPTION
-MoDS Volume 2 is a demo released by Resistance & Desire in october 2018.
+MoDS Volume 2 is a music disk released by Resistance & Desire in october 2018.
 2nd wild demo at Deadline (Berlin) 2018
 
 # OPTIONS
