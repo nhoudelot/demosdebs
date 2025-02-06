@@ -1,12 +1,13 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Source: https://www.pouet.net/prod.php?which=77431
-Upstream-Name: missingthedeadline-by-name
+Upstream-Name: missing the deadline
 
 Files:
  *
 Copyright:
  2018 name
-License: GPL-3.0+
+License: public-domain
+ (probably freeware)
 
 Files:
  debian/*

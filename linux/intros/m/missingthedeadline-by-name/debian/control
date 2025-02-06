@@ -22,7 +22,8 @@ Depends:
  missingthedeadline-by-name-data,
  common-install-function-ddebs(>=1.61),
 Description: Demo by name, released in 2018
- <Insert long description, indented with spaces.>
+ missing the deadline is an intro released by name in august 2018.
+ ended 19th fast demo at Assembly 2018
 
 Package: missingthedeadline-by-name-data
 Architecture: all
