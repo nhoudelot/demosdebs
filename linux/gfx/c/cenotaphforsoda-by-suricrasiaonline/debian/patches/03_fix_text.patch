@@ -1,0 +1,54 @@
+Description: fix text display
+fixed to make it work on more recent version of cairo
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-02-08
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main/main.c
++++ b/main/main.c
+@@ -105,21 +105,21 @@
+     { 
+       .text = "rip lol",
+       .font = "FreeSerif",
+-      .matrix = {.xx = 50, .xy = -10, .yy = -50, .yx = 21, .x0 = 0, .y0 = 0},
++      .matrix = {.xx = 50, .xy = 21, .yy = -50, .yx = -10, .x0 = 0, .y0 = 0},
+       .origin_x = 190,
+       .origin_y = 550,
+     },
+     { 
+       .text = "you were",
+       .font = "FreeSerif",
+-      .matrix = {.xx = 35, .xy = -6, .yy = -35, .yx = 16, .x0 = 0, .y0 = 0},
++      .matrix = {.xx = 35, .xy = 16, .yy = -35, .yx = -6, .x0 = 0, .y0 = 0},
+       .origin_x = 642,
+       .origin_y = 780,
+     },
+     { 
+       .text = "so tastey",
+       .font = "FreeSerif",
+-      .matrix = {.xx = 35, .xy = -6, .yy = -35, .yx = 16, .x0 = 0, .y0 = 0},
++      .matrix = {.xx = 35, .xy = 16, .yy = -35, .yx = -6, .x0 = 0, .y0 = 0},
+       .origin_x = 647,
+       .origin_y = 750,
+     },
+@@ -167,12 +167,16 @@
+     }
+   };
+ 
+-  cairoCtx->backend->set_source_rgba(cairoCtx, 0.5, 0.5, 0.5, 1.0);
++  cairo_set_source_rgba(cairoCtx, 0.5, 0.5, 0.5, 1.0);
+   for (int i = 0; i < 9; i++) {
+     // printf("%f, %f, %s\n", texts[i].origin_x, texts[i].origin_y, texts[i].text);
+     cairo_select_font_face(cairoCtx, texts[i].font, CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+-    cairoCtx->backend->set_font_matrix(cairoCtx, &texts[i].matrix);
+-    cairoCtx->backend->move_to(cairoCtx, texts[i].origin_x, texts[i].origin_y);
++    cairo_matrix_t font_matrix;
++    cairo_matrix_init(&font_matrix, texts[i].matrix.xx, texts[i].matrix.xy,
++                                  texts[i].matrix.yx, texts[i].matrix.yy,
++                                  texts[i].matrix.x0, texts[i].matrix.y0);
++    cairo_set_font_matrix(cairoCtx, &font_matrix);
++    cairo_move_to(cairoCtx, texts[i].origin_x, texts[i].origin_y);
+     cairo_show_text(cairoCtx, texts[i].text);
+   }
+ 

@@ -11,7 +11,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  __attribute__((force_align_arg_pointer))
 -void _start() {
-+void main() {
++int main() {
    //initialize the window
    Display* dpy = XOpenDisplay(NULL);
  

@@ -1,3 +1,9 @@
+cenotaphforsoda-by-suricrasiaonline (1.0+git20180404-0ddebs3) unstable; urgency=medium
+
+  * fix text
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Feb 2025 00:21:13 +0100
+
 cenotaphforsoda-by-suricrasiaonline (1.0+git20180404-0ddebs2) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
