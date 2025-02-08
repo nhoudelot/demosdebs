@@ -23,12 +23,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
  // uint32_t randomstate = 0x6b873edd;
-@@ -225,7 +219,7 @@
+@@ -224,8 +218,8 @@
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
  }
  
- void _start() {
+-void _start() {
 -	asm volatile("sub $8, %rsp\n");
-+	char buffer[8];
++int main() {
++
  #ifdef TIME_RENDER
  	gtimer = g_timer_new();
  #endif

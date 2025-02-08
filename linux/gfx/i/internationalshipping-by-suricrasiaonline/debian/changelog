@@ -1,3 +1,11 @@
+internationalshipping-by-suricrasiaonline (1.0+git20190425-0ddebs2) unstable; urgency=medium
+
+  * rename executable
+  * fix crash
+  * now package cross-compile
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Feb 2025 15:20:13 +0100
+
 internationalshipping-by-suricrasiaonline (1.0+git20190425-0ddebs1) unstable; urgency=medium
 
   * Initial release.

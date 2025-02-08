@@ -21,11 +21,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
  # not using `pkg-config --libs` here because it will include too many libs
 -CFLAGS := `pkg-config --cflags gtk+-3.0` -lglib-2.0 -lm -lGL -lgtk-3 -lgdk-3 -lgobject-2.0 -lfftw3f -no-pie -fno-plt -O1 -std=gnu11 -nostartfiles -Wall -Wextra
-+CFLAGS := $(shell $(PKG_CONFIG) --cflags gtk+-3.0) -no-pie -fno-plt -O1 -std=gnu11 -nostartfiles -Wall -Wextra
++CFLAGS := $(shell $(PKG_CONFIG) --cflags gtk+-3.0) -no-pie -fno-plt -O1 -std=gnu11 -Wall -Wextra
 +LDFLAGS := $(shell $(PKG_CONFIG) --libs gtk+-3.0 gdk-3.0 fftw3f gl) -lglib-2.0 -lm -lgobject-2.0
 +
 +# Final executable name
-+TARGET   := internationalshipping
++TARGET   := internationalshipping-by-suricrasiaonline
 +
 +# Install variables
 +INSTALL := install
