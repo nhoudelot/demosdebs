@@ -21,5 +21,5 @@ Depends:
  ${misc:Depends},
  common-install-function-ddebs(>=1.61),
 Description: Demo by Suricrasia Online, released in 2019
- International Shipping is a 4k gfx demo for 64-bit linux, specifically
+ International Shipping is a 4k gfx demo for 64-bit Linux, specifically
  targeting Ubuntu 18.10.

@@ -1,3 +1,10 @@
+internationalshipping-by-suricrasiaonline (1.0+git20190425-0ddebs3) unstable; urgency=medium
+
+  * I didn't use the shader_minifier from the dependency
+  * debian can now override CFLAGS & LDFLAGS
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 10 Feb 2025 00:39:52 +0100
+
 internationalshipping-by-suricrasiaonline (1.0+git20190425-0ddebs2) unstable; urgency=medium
 
   * rename executable
