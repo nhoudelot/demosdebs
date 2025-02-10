@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
+export CC = $(DEB_HOST_GNU_TYPE)-gcc
+
+%:
+	dh $@
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

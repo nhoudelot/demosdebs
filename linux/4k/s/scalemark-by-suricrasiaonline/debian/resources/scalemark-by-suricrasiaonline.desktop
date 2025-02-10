@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=scaleMARK
+GenericName=Demo
+Comment=4k Intro by Suricrasia Online, released in 2019
+Type=Application
+Exec=/usr/bin/scalemark-by-suricrasiaonline
+Icon=scalemark-by-suricrasiaonline
+Categories=AudioVideo;
+Name[fr_FR]=scaleMARK

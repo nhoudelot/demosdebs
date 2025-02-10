@@ -1,0 +1,26 @@
+Source: scalemark-by-suricrasiaonline
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ xxd,
+ pkgconf,
+ libglu-dev,
+ libsdl2-dev,
+ libopus-dev,
+ libspectre-dev,
+ shader-minifier:native,
+ debhelper-compat (= 13),
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=81471
+
+Package: scalemark-by-suricrasiaonline
+Architecture: amd64 i386
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61),
+Description: 4k intro by Suricrasia Online, released in 2019
+ scaleMARK is a 4k into for 64-bit Linux, specifically targeting Ubuntu 18.10
