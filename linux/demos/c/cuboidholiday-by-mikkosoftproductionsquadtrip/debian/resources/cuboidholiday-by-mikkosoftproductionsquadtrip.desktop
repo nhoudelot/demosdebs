@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Cuboid Holiday
+GenericName=Demo
+Comment=Demo by Mikkosoft Productions & Quadtrip, released in 2019
+Type=Application
+Exec=/usr/bin/cuboidholiday-by-mikkosoftproductionsquadtrip
+Icon=cuboidholiday-by-mikkosoftproductionsquadtrip
+Categories=AudioVideo;
+Name[fr_FR]=Cuboid Holiday

@@ -1,0 +1,39 @@
+Source: cuboidholiday-by-mikkosoftproductionsquadtrip
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ libxrandr-dev,
+ libgl-dev,
+ libx11-dev,
+ libopenal-dev,
+ debhelper-compat (= 13),
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=81478
+
+Package: cuboidholiday-by-mikkosoftproductionsquadtrip
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ cuboidholiday-by-mikkosoftproductionsquadtrip-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Mikkosoft Productions & Quadtrip, released in 2019
+ Cuboid Holiday by Mikkosoft + Quadtrip
+ For Graffathon 2019 - made in true hackathon style!
+ Take the edge off with us and travel a while in the lands of Cubes
+ code by tdb + visy
+ music by pumpuli
+ island voxel model by lilo
+ all the rest of the voxel modeling by visy
+ modeled in MagicaVoxel by ephtracy
+
+Package: cuboidholiday-by-mikkosoftproductionsquadtrip-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for cuboidholiday-by-mikkosoftproductionsquadtrip
+ cuboidholiday-by-mikkosoftproductionsquadtrip data files

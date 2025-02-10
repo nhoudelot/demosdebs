@@ -1,0 +1,4 @@
+debian/scripts/cuboidholiday-by-mikkosoftproductionsquadtrip usr/bin/
+./graffathon2019 usr/lib/x86_64-linux-gnu/cuboidholiday-by-mikkosoftproductionsquadtrip
+debian/resources/cuboidholiday-by-mikkosoftproductionsquadtrip.desktop usr/share/applications/
+debian/resources/cuboidholiday-by-mikkosoftproductionsquadtrip.png usr/share/icons/hicolor/256x256/apps/
