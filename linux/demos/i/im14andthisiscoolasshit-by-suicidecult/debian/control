@@ -1,0 +1,43 @@
+Source: im14andthisiscoolasshit-by-suicidecult
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ pkgconf,
+ liballegro-audio5-dev,
+ liballegro-ttf5-dev,
+ liballegro-image5-dev,
+ liballegro-acodec5-dev,
+ liballegro5-dev,
+ debhelper-compat (= 13),
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=81781
+
+Package: im14andthisiscoolasshit-by-suicidecult
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61),
+ fonts-snowstorm,
+ im14andthisiscoolasshit-by-suicidecult-data,
+Description: Demo by Suicide Cult, released in 2019
+ I'm 14 and this is cool as SHIT
+ by suicide cult
+ .
+ code & design: Happy Pony Land
+ music: modus0perandi
+ .
+ Presented at Edison 2019
+ .
+ font: Snowstorm by Denis Sherbak
+
+Package: im14andthisiscoolasshit-by-suicidecult-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for im14andthisiscoolasshit-by-suicidecult
+ package data files

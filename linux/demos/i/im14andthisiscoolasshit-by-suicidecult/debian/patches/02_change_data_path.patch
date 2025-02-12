@@ -1,0 +1,43 @@
+Description: change data path
+ Relocate non-binary architecture-specific files to /usr/share to ensure correct installation
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-02-12
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/gfx.c
++++ b/gfx.c
+@@ -71,7 +71,7 @@
+   if (al_init_acodec_addon() == 0) BAIL_OUT("Failed to initialize Allegro (acodec)!");
+   if (al_reserve_samples(5) == 0)  BAIL_OUT("Failed to initialize Allegro (samples)!");
+ 
+-  music = al_load_audio_stream("rymdsyra.ogg", 4, 4096);
++  music = al_load_audio_stream("/usr/share/im14andthisiscoolasshit-by-suicidecult/rymdsyra.ogg", 4, 4096);
+ 
+   if (music == NULL) BAIL_OUT("Failed to load music!");
+ 
+@@ -155,8 +155,11 @@
+ 
+   DEBUG_PRINTF("Reloading fonts at %d and %d px...\n", font_h, font_big_h);
+   
+-  font = al_load_ttf_font(MAIN_FONTFILE, font_h, 0);
+-  font_big = al_load_ttf_font(MAIN_FONTFILE, font_big_h, 0);
++  char font_path[256];
++  snprintf(font_path, sizeof(font_path), "/usr/share/fonts/truetype/Snowstorm/%s", MAIN_FONTFILE);
++
++  font = al_load_ttf_font(font_path, font_h, 0);
++  font_big = al_load_ttf_font(font_path, font_big_h, 0);
+ 
+   return !(font == NULL || font_big == NULL);
+ }
+--- a/demo.h
++++ b/demo.h
+@@ -38,7 +38,7 @@
+ 
+ #define FPS 50
+ 
+-#define MAIN_FONTFILE "snowstorm.otf"
++#define MAIN_FONTFILE "Snowstorm.ttf"
+ 
+ #define MEBIBYTE (1024.0f * 1024.0f)
+ 

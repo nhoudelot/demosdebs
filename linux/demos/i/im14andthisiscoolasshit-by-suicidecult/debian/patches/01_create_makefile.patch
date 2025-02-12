@@ -1,0 +1,49 @@
+Description:creating makefile
+ creating makefile to make it more compatible with packaging and crossbuilding
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-02-12
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,39 @@
++# compilers and tools
++SHELL      := /bin/sh
++CC         ?= gcc
++PKG_CONFIG := pkg-config
++RM_F       := rm -f
++
++# Flags
++CFLAGS   += -Wall -pipe $(shell $(PKG_CONFIG) --cflags allegro_acodec-5 allegro_audio-5 allegro_ttf-5 allegro_primitives-5 allegro_image-5 allegro_font-5 allegro-5) -Wswitch -Wreturn-type -Wmissing-prototypes -Wunused-variable -Wimplicit-function-declaration -Wextra
++# Libraries for linking
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs allegro_acodec-5 allegro_audio-5 allegro_ttf-5 allegro_primitives-5 allegro_image-5 allegro_font-5 allegro-5) -lm
++
++# Final executable name
++TARGET   := im14andthisiscoolasshit-by-suicidecult
++
++# Install variables
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++# Default target, builds the final executable
++all: $(TARGET)
++
++# Build the final ELF executable
++$(TARGET): gfx.c geometry.c trans.c mem.c scenes.c palette.c random.c demo.c
++	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
++
++clean:
++	$(RM_F) $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++
++

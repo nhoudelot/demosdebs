@@ -1,0 +1,17 @@
+Source: fonts-snowstorm
+Section: fonts
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ rename,
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
+
+Package: fonts-snowstorm
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Font by Denis Sherbak, released in 2015
+ Constructivist inspired typefaces
