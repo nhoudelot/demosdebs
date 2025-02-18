@@ -1,0 +1,14 @@
+Description: remove custom library search path 
+ by skiping building of rpath, we remove the custom library search path and fix lintian error binary-or-shlib-defines-rpath
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-02-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -52,3 +52,4 @@
+   target_link_libraries(adarkarwastes-by-faemiyah "${SDL2_LIBRARY}")
+   target_link_libraries(adarkarwastes-by-faemiyah "${SNDFILE_LIBRARY}")
+ endif()
++set_target_properties(adarkarwastes-by-faemiyah PROPERTIES SKIP_BUILD_RPATH TRUE)

@@ -4,13 +4,16 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- cmake,
+ cmake(>=3.1),
  libopengl-dev,
  libpng-dev,
  libsdl2-dev,
  zlib1g-dev,
  libglew-dev,
- libboost-all-dev
+ libboost-filesystem-dev,
+ libboost-program-options-dev,
+ libboost-thread-dev,
+ libboost-wave-dev
 Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=75218
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2018-03_4k-intro_adarkar_wastes

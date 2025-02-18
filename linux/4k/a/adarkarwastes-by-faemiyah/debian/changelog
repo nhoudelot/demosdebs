@@ -1,3 +1,10 @@
+adarkarwastes-by-faemiyah (1.0+git20180525-0ddebs3) unstable; urgency=medium
+
+  * debian/control : fix dependencies to allow cross-building
+    can now compile on more architectures
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 18 Feb 2025 02:31:14 +0100
+
 adarkarwastes-by-faemiyah (1.0+git20180525-0ddebs2) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
