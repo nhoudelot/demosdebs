@@ -4,12 +4,15 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- cmake,
+ cmake(>=3.1),
  libsdl2-dev,
  libpng-dev,
  libglew-dev,
  libopengl-dev,
- libboost-all-dev
+ libboost-filesystem-dev,
+ libboost-program-options-dev,
+ libboost-thread-dev,
+ libboost-wave-dev
 Standards-Version: 4.6.2
 Homepage: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup.git
@@ -22,8 +25,8 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  primordialsoup-by-faemiyah-data
-Description: 4k Demo by Faemiyah, released in 2017
- 4k Demo by Faemiyah, 1st at combined 4k eleased at Assembly 2017
+Description: 4k intro by Faemiyah, released in 2017
+ 4k intro by Faemiyah, 1st at combined 4k eleased at Assembly 2017
 
 Package: primordialsoup-by-faemiyah-data
 Architecture: all

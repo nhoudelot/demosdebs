@@ -1,9 +1,10 @@
 #!/usr/bin/make -f
 
 # see FEATURE AREAS in dpkg-buildflags(1)
-#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-export DEB_CPPFLAGS_MAINT_APPEND  = -DUSE_LD
+export DEB_CXXFLAGS_MAINT_APPEND  = -flto -DUSE_LD
+export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 %:
 	dh $@ --buildsystem=cmake --builddirectory=build

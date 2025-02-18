@@ -1,0 +1,14 @@
+Description: remove custom library search path 
+ by skiping building of rpath, we remove the custom library search path and fix lintian error binary-or-shlib-defines-rpath
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-02-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -57,3 +57,4 @@
+ if(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+   set_property(SOURCE "src/glsl_wave.cpp" APPEND_STRING PROPERTY COMPILE_FLAGS "-std=c++03")
+ endif()
++set_target_properties(primordialsoup-by-faemiyah PROPERTIES SKIP_BUILD_RPATH TRUE)
