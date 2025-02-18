@@ -1,3 +1,10 @@
+cassini-by-faemiyah (1.0+git20190703-0ddebs2) unstable; urgency=medium
+
+  * debian/control : fix dependencies to allow cross-building
+    can now compile on more architectures
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 17 Feb 2025 22:56:50 +0100
+
 cassini-by-faemiyah (1.0+git20190703-0ddebs1) unstable; urgency=medium
 
   * Initial release
