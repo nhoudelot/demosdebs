@@ -1,0 +1,15 @@
+regiondemagallanes-by-faemiyah for Debian
+----------------------------------------
+
+This is a standard version of the 4K intro, not the minimized "party" version.
+
+The source code uses the USE_LD definition and does not generate music. 
+Instead, it relies on existing WAV files and shaders.
+
+I always prefer using the most basic binary format to ensure compatibility 
+with dh_shlibdeps, allowing it to accurately identify dependencies.
+
+Forcing music generation might be possible, but exploring the ASM code
+suggests a loss of cross-platform compilation.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 17 Feb 2025 12:56:16 +0100

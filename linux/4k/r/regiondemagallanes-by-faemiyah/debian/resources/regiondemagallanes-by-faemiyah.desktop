@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Región de Magallanes
+GenericName=Demo
+Comment=Demo by Faemiyah, released in 2019
+Type=Application
+Exec=/usr/bin/regiondemagallanes-by-faemiyah
+Icon=regiondemagallanes-by-faemiyah
+Categories=AudioVideo;
+Name[fr_FR]=Región de Magallanes

@@ -1,0 +1,3 @@
+01_rename_executable.patch
+02_avoid_custom_rpath.patch
+03_add_new_data_path.patch

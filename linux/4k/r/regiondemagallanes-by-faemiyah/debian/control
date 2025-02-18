@@ -1,0 +1,38 @@
+Source: regiondemagallanes-by-faemiyah
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake(>=3.1),
+ libboost-filesystem-dev,
+ libboost-program-options-dev,
+ libboost-thread-dev,
+ libboost-wave-dev,
+ libsdl2-dev,
+ libpng-dev,
+ libglew-dev,
+ libopengl-dev
+Standards-Version: 4.6.2
+Homepage: https://github.com/faemiyah/faemiyah-demoscene_2019-08_4k-intro_region_de_magallanes
+
+Package: regiondemagallanes-by-faemiyah
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61),
+ regiondemagallanes-by-faemiyah-data
+Description: 4k intro by Faemiyah, released in 2019
+ 4k intro by Faemiyah, 4th at Assembly 2019
+
+Package: regiondemagallanes-by-faemiyah-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for regiondemagallanes-by-faemiyah
+ regiondemagallanes-by-faemiyah data files
+
