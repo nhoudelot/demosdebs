@@ -1,0 +1,46 @@
+Source: ozymandias-by-fcccf
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ cli-common-dev(>= 0.4.0),
+ libmono-cil-dev,
+ mono-devel,
+ libxxf86vm-dev,
+ libxrandr-dev,
+ libxinerama-dev,
+ libgl-dev,
+ libxcursor-dev,
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=82453
+
+Package: ozymandias-by-fcccf
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${cli:Depends},
+ ${shlibs:Depends},
+ ${misc:Depends},
+ ozymandias-by-fcccf-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by FCCCF, released in 2019
+ FCCCF presents Ozymandias at Assembly Summer 2019
+ .
+ This demo was meant to be bigger, bolder and more beautiful than the
+ previous one, Lepus Minor. But then time went quickly, They got into
+ trouble with the code and only the main idea survived and the rest 90%
+ of the glorious plan got axed.
+ .
+ The demo was inspired by the poem Ozymandias by Percy Shelley, the 
+ videogame Journey by Thatgamecompany and the song The Old Ways by
+ Loreena McKennit.
+
+Package: ozymandias-by-fcccf-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for ozymandias-by-fcccf
+ ozymandias-by-fcccf data files

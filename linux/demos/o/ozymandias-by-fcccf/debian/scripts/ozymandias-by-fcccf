@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=ozymandias-by-fcccf
+
+APP_FULLNAME="Ozymandias"
+APP_COPYRIGHT="FCCCF"
+APP_DESC="Demo by FCCCF, released in 2019"
+
+APP_EXE="fcccf_ozymandias_linux.exe"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	exec /usr/bin/cli ./${APP_EXE}
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

@@ -1,0 +1,11 @@
+./fcccf_ozymandias_linux.exe usr/lib/x86_64-linux-gnu/ozymandias-by-fcccf
+debian/resources/ozymandias-by-fcccf.desktop usr/share/applications/
+debian/resources/ozymandias-by-fcccf.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/ozymandias-by-fcccf usr/bin/
+./MuffinSpace.dll usr/lib/x86_64-linux-gnu/ozymandias-by-fcccf/./ 
+./NAudio.dll usr/lib/x86_64-linux-gnu/ozymandias-by-fcccf/./ 
+./NAudio.Vorbis.dll usr/lib/x86_64-linux-gnu/ozymandias-by-fcccf/./ 
+./NVorbis.dll usr/lib/x86_64-linux-gnu/ozymandias-by-fcccf/./ 
+./OpenTK.dll usr/lib/x86_64-linux-gnu/ozymandias-by-fcccf/./ 
+
+

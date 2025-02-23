@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with=cli
+
+override_dh_clideps:
+	dh_clideps --exclude-moduleref=ole32.dll  --exclude-moduleref=ole32.Dll \
+			--exclude-moduleref=msacm32.dll --exclude-moduleref=Msacm32.dll \
+			--exclude-moduleref=dsound.dll --exclude-moduleref=mfreadwrite.dll \
+			--exclude-moduleref=mfplat.dll --exclude-moduleref=msdmo.dll \
+			--exclude-moduleref=mf.dll --exclude-moduleref=openal32.dll \
+			--exclude-moduleref=SDL2.dll --exclude-moduleref=hid.dll \
+			--exclude-moduleref=libGLES.dll --exclude-moduleref=libEGL.dll \
+			--exclude-moduleref=libGLESv2.dll --exclude-moduleref=GLESv1_CM \
+			--exclude-moduleref=libdrm --exclude-moduleref=gbm \
+			--exclude-moduleref=libudev --exclude-moduleref=libinput \
+			--exclude-moduleref=libkms --exclude-moduleref=dl \
+			--exclude-moduleref=libXi --exclude-moduleref=libXxf86vm \
+			--exclude-moduleref=/System/Library/Frameworks/IOKit.framework/Versions/Current/IOKit --exclude-moduleref=libinput \
+			--exclude-moduleref=libudev --exclude-moduleref=libdl.dylib \
+			--exclude-moduleref=/usr/lib/libobjc.dylib --exclude-moduleref=/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL \
+			--exclude-moduleref=/System/Library/Frameworks/Carbon.framework/Versions/Current/Carbon --exclude-moduleref=/System/Library/Frameworks/ApplicationServices.framework/Versions/Current/ApplicationServices \
+			--exclude-moduleref=/System/Library/Frameworks/CoreVideo.framework/Versions/Current/CoreVideo 
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

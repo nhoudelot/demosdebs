@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Ozymandias
+GenericName=Demo
+Comment=Demo by FCCCF, released in 2019
+Type=Application
+Exec=/usr/bin/ozymandias-by-fcccf
+Icon=ozymandias-by-fcccf
+Categories=AudioVideo;
+Name[fr_FR]=Ozymandias
