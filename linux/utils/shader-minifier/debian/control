@@ -3,6 +3,9 @@ Section: utils
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
+ cli-common-dev,
+ libmono-cil-dev,
+ mono-devel,
  debhelper-compat (= 13) 
 Standards-Version: 4.6.2
 Homepage: https://github.com/laurentlb/Shader_Minifier
@@ -13,13 +16,8 @@ Rules-Requires-Root: no
 Package: shader-minifier
 Architecture: all
 Depends:
- mono-runtime (>= 3.0~),
- libmono-corlib4.5-cil (>= 5.18.0.240),
- libmono-system-configuration4.0-cil (>= 4.0.0~alpha1),
- libmono-system-core4.0-cil (>= 5.18.0.240),
- libmono-system-numerics4.0-cil (>= 5.16.0.220),
- libmono-system-xml-linq4.0-cil (>= 5.16.0.220),
- libmono-system4.0-cil (>= 5.18.0.240),
+ ${cli:Depends},
+ ${shlibs:Depends},
  ${misc:Depends}
 Description: Minify and obfuscate GLSL or HLSL code
  Minify and obfuscate GLSL or HLSL code
