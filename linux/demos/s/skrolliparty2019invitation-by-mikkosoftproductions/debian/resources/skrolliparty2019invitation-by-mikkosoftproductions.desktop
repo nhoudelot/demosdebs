@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Skrolli Party 2019 Invitation
+GenericName=Demo
+Comment=Demo by Mikkosoft Productions, released in 2019
+Type=Application
+Exec=/usr/bin/skrolliparty2019invitation-by-mikkosoftproductions
+Icon=skrolliparty2019invitation-by-mikkosoftproductions
+Categories=AudioVideo;
+Name[fr_FR]=Skrolli Party 2019 Invitation

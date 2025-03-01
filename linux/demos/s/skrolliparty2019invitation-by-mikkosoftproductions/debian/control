@@ -1,0 +1,32 @@
+Source: skrolliparty2019invitation-by-mikkosoftproductions
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ libopenal-dev,
+ libxrandr-dev,
+ mesa-common-dev,
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=82455
+
+Package: skrolliparty2019invitation-by-mikkosoftproductions
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ skrolliparty2019invitation-by-mikkosoftproductions-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Mikkosoft Productions, released in 2019
+ The demo was developed on and performance is tuned for RTX 2070. Intel
+ hardware may not be able to display all the effects..
+
+Package: skrolliparty2019invitation-by-mikkosoftproductions-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for skrolliparty2019invitation-by-mikkosoftproductions
+ skrolliparty2019invitation-by-mikkosoftproductions data files

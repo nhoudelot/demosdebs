@@ -1,0 +1,4 @@
+debian/scripts/skrolliparty2019invitation-by-mikkosoftproductions usr/bin/
+./skrolliparty3 usr/lib/x86_64-linux-gnu/skrolliparty2019invitation-by-mikkosoftproductions
+debian/resources/skrolliparty2019invitation-by-mikkosoftproductions.desktop usr/share/applications/
+debian/resources/skrolliparty2019invitation-by-mikkosoftproductions.png usr/share/icons/hicolor/256x256/apps/
