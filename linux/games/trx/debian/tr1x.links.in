@@ -1,0 +1,5 @@
+usr/share/games/tr1x/shaders usr/lib/@DEB_HOST_MULTIARCH@/tr1x/shaders
+usr/share/games/tr1x/cfg usr/lib/@DEB_HOST_MULTIARCH@/tr1x/cfg
+usr/share/games/tr1x/data usr/lib/@DEB_HOST_MULTIARCH@/tr1x/data
+usr/share/games/tr1x/music usr/lib/@DEB_HOST_MULTIARCH@/tr1x/music
+usr/share/games/tr1x/fmv usr/lib/@DEB_HOST_MULTIARCH@/tr1x/fmv

@@ -1,0 +1,61 @@
+Source: trx
+Section: games
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ python3,
+ meson,
+ uthash-dev,
+ pkgconf,
+ libavcodec-dev,
+ libavformat-dev,
+ libsdl2-dev,
+ libglew-dev,
+ libswscale-dev,
+ git,
+ debhelper-compat (= 13),
+Standards-Version: 4.6.2
+Homepage: https://github.com/LostArtefacts/TRX
+
+Package: tr1x
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ tr1x-data
+Description: Reimplementation of Tomb Raider 1 by LostArtefacts
+ Released in 1996, Tomb Raider is a groundbreaking action-adventure game
+ featuring Lara Croft, a fearless archaeologist on a quest for ancient and
+ mysterious artifacts. Armed with her iconic dual pistols, she explores perilous
+ tombs, solves complex puzzles, and faces deadly enemies, embarking on an
+ adventure that has left a lasting mark on video game history.
+
+Package: tr1x-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for tr1x
+ tr1x free data files
+
+Package: tr2x
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.18),
+ tr2x-data
+Description: Reimplementation of Tomb Raider 2 by LostArtefacts
+ Released in xxx, Tomb Raider 2
+
+Package: tr2x-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for tr2x
+ tr2x free data files

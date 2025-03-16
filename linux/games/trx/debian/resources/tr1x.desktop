@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=tr1x
+GenericName=Game
+Comment=Game by LostArtefacts, released in 2025
+Type=Application
+Exec=/usr/games/tr1x
+Icon=tr1x
+Categories=Game;
+Name[fr_FR]=tr1x

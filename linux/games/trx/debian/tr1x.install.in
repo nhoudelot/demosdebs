@@ -1,0 +1,4 @@
+debian/resources/tr1x.desktop usr/share/applications/
+debian/resources/tr1x.png usr/share/icons/hicolor/256x256/apps/
+build1/tr1x usr/lib/@DEB_HOST_MULTIARCH@/tr1x
+debian/scripts/tr1x usr/games

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=tr2x
+GenericName=Game
+Comment=Game by LostArtefacts, released in 2025
+Type=Application
+Exec=/usr/games/tr2x
+Icon=tr2x
+Categories=Game;
+Name[fr_FR]=tr2x
