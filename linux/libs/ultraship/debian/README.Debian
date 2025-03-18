@@ -1,0 +1,7 @@
+ultraship for Debian
+-------------------
+
+compilation don't create a shared library
+so this package only create libultraship-dev binary package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 18 Mar 2025 00:50:45 +0100

@@ -1,0 +1,22 @@
+Source: ultraship
+Section: libs
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake,
+ libsdl2-dev,
+ libglew-dev
+Standards-Version: 4.6.2
+Homepage: https://github.com/Kenix3/libultraship
+
+Package: libultraship-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends}
+Description: reimplementations of libultra (n64 sdk) functions
+ library meant to provide reimplementations of libultra (n64 sdk) functions
+ that run on modern hardware
