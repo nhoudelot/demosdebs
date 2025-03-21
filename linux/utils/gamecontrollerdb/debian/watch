@@ -1,0 +1,5 @@
+version=4
+opts="mode=git, pgpmode=none, pretty=1.0+git%cd, \
+         repack,compression=xz" \
+         https://github.com/mdqinc/SDL_GameControllerDB \
+         HEAD debian uupdate

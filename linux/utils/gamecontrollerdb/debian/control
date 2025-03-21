@@ -1,0 +1,18 @@
+Source: gamecontrollerdb
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+Standards-Version: 4.6.2
+Homepage: https://github.com/mdqinc/SDL_GameControllerDB
+
+Package: gamecontrollerdb
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Database of game controller mappings to be used with SDL2 and SDL3
+ Community sourced database of game controller mappings to be used with SDL2 and
+ SDL3 Game Controller functionality
