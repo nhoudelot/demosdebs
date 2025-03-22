@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Hacklab.fi advertisement
+GenericName=Demo
+Comment=Demo by Hackers, released in 2019
+Type=Application
+Exec=/usr/bin/hacklabfiadvertisement-by-hackers
+Icon=hacklabfiadvertisement-by-hackers
+Categories=AudioVideo;
+Name[fr_FR]=Hacklab.fi advertisement

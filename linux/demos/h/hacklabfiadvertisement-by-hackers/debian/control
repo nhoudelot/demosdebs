@@ -1,0 +1,29 @@
+Source: hacklabfiadvertisement-by-hackers
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ libsdl2-dev,
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=82492
+
+Package: hacklabfiadvertisement-by-hackers
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ hacklabfiadvertisement-by-hackers-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Hackers, released in 2019
+ Realtime version of Hacklab.fi Advertisement for Assembly 2019
+
+Package: hacklabfiadvertisement-by-hackers-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for hacklabfiadvertisement-by-hackers
+ hacklabfiadvertisement-by-hackers data files

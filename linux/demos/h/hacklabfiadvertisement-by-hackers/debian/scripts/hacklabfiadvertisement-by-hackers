@@ -1,0 +1,41 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=hacklabfiadvertisement-by-hackers
+
+APP_FULLNAME="Hacklab.fi advertisement"
+APP_COPYRIGHT="Hackers"
+APP_DESC="Demo by Hackers, released in 2019"
+
+APP_EXE="henny -G oldbloom.so simuline.so tirppa.so videosaver.so sequencer.so timecontrol.so tonemapper.so music.so particplosion.so do_particle.so do_waves.so do_backdrop.so do_ball.so text.so"
+
+function run()
+{
+	NSH_CreateTmpDomainDir
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	./${APP_EXE}
+	NSH_RemoveTmpDomainDir
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
