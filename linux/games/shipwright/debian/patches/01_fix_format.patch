@@ -1,0 +1,45 @@
+--- a/soh/soh/SohModals.cpp
++++ b/soh/soh/SohModals.cpp
+@@ -26,8 +26,8 @@
+             ImGui::OpenPopup(curModal.title_.c_str());
+         }
+         if (ImGui::BeginPopupModal(curModal.title_.c_str(), NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings)) {
+-            ImGui::Text(curModal.message_.c_str());
+-            if (ImGui::Button(curModal.button1_.c_str())) {
++            ImGui::TextUnformatted(curModal.message_.c_str());
++            if (ImGui::Button(static_cast<const char*>(curModal.button1_.c_str()))) {
+                 if (curModal.button1callback_ != nullptr) {
+                     curModal.button1callback_();
+                 }
+@@ -36,7 +36,7 @@
+             }
+             ImGui::SameLine();
+             if (curModal.button2_ != "") {
+-                if (ImGui::Button(curModal.button2_.c_str())) {
++                if (ImGui::Button(static_cast<const char*>(curModal.button2_.c_str()))) {
+                     if (curModal.button2callback_ != nullptr) {
+                         curModal.button2callback_();
+                     }
+@@ -51,4 +51,4 @@
+ 
+ void SohModalWindow::RegisterPopup(std::string title, std::string message, std::string button1, std::string button2, std::function<void()> button1callback, std::function<void()> button2callback) {
+     modals.push_back({ title, message, button1, button2, button1callback, button2callback });
+-}
+\ No newline at end of file
++}
+--- a/soh/soh/Enhancements/randomizer/randomizer_item_tracker.cpp
++++ b/soh/soh/Enhancements/randomizer/randomizer_item_tracker.cpp
+@@ -524,11 +524,11 @@
+         ImGui::SetCursorScreenPos(
+             ImVec2(p.x + (iconSize / 2) - (ImGui::CalcTextSize((currentString + maxString).c_str()).x / 2), p.y - 14));
+         ImGui::PushStyleColor(ImGuiCol_Text, currentColor);
+-        ImGui::Text(currentString.c_str());
++        ImGui::TextUnformatted(currentString.c_str());
+         ImGui::PopStyleColor();
+         ImGui::SameLine(0, 0.0f);
+         ImGui::PushStyleColor(ImGuiCol_Text, maxColor);
+-        ImGui::Text(maxString.c_str());
++        ImGui::TextUnformatted(maxString.c_str());
+         ImGui::PopStyleColor();
+     } else {
+         ImGui::SetCursorScreenPos(ImVec2(p.x, p.y - 14));

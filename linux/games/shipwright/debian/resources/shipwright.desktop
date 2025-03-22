@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Ship of Harkinian
+GenericName=Game
+Comment=Game by HarbourMasters, released in 2024
+Type=Application
+Exec=/usr/games/shipwright
+Icon=shipwright
+Categories=Game;

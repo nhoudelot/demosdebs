@@ -1,0 +1,7 @@
+shipwright for Debian
+--------------------
+
+git clone --recurse-submodules  --depth 1 --branch 8.0.6 https://github.com/HarbourMasters/Shipwright.git
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 20 Mar 2025 11:26:25 +0100
+

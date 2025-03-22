@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -13,6 +13,8 @@
+ add_compile_options($<$<CXX_COMPILER_ID:MSVC>:/MP>)
+ add_compile_options($<$<CXX_COMPILER_ID:MSVC>:/utf-8>)
+ 
++set(CMAKE_SKIP_INSTALL_RULES ON)
++
+ if (CMAKE_SYSTEM_NAME MATCHES "Windows|Linux")
+     if(NOT DEFINED BUILD_CROWD_CONTROL)
+         set(BUILD_CROWD_CONTROL ON)

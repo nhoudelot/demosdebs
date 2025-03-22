@@ -1,0 +1,11 @@
+--- a/libultraship/extern/StormLib/CMakeLists.txt
++++ b/libultraship/extern/StormLib/CMakeLists.txt
+@@ -9,7 +9,7 @@
+ include(CMakeDependentOption)
+ 
+ option(BUILD_SHARED_LIBS "Compile shared libraries" OFF)
+-option(STORM_SKIP_INSTALL "Skip installing files" OFF)
++option(STORM_SKIP_INSTALL "Skip installing files" ON)
+ option(STORM_USE_BUNDLED_LIBRARIES
+     "Force use of bundled dependencies instead of system libraries."
+     OFF

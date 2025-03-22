@@ -1,0 +1,48 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=shipwright
+
+APP_FULLNAME="Shipwright"
+APP_COPYRIGHT="HarbourMasters"
+APP_DESC="Game by HarbourMasters, released in 2024"
+
+APP_EXE="soh.elf"
+
+function run()
+{
+    NSH_CreateTmpDomainDir
+    NSH_CreateConfigDir
+    NSH_LinkConfig "imgui.ini" "imgui.ini"
+    NSH_LinkConfig "shipofharkinian.json" "shipofharkinian.json"
+	NSH_CreateUserDataDir
+    NSH_LinkUserDataDirToTMP "Save" "Save"
+    NSH_LinkUserDataFileToTMP "oot.otr" "oot.otr"
+    NSH_CreateDirInTmp "logs"
+	backuppwd=$(pwd)
+	cd /usr/lib/@DEB_HOST_MULTIARCH@/${domain}
+	./${APP_EXE}
+	cd $backuppwd
+    NSH_RemoveTmpDomainDir
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
