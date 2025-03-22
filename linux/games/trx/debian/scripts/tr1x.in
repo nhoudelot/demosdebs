@@ -2,7 +2,7 @@
 
 source /usr/share/common-install-function-ddebs/common-install-function
 
-domain=trx
+domain=tr1x
 
 APP_FULLNAME="tr1x"
 APP_COPYRIGHT="LostArtefacts"
@@ -11,10 +11,16 @@ APP_EXE="tr1x"
 
 function run()
 {
+	NSH_SetInstallPath game
+    NSH_CreateTmpDomainDir
+    NSH_CreateConfigDir
+    NSH_LinkConfig "TR1X.json5" "TR1X.json5"
+    NSH_LinkConfig "TR1X_console_history.json5" "TR1X_console_history.json5"
 	backuppwd=$(pwd)
 	cd /usr/lib/@DEB_HOST_MULTIARCH@/tr1x
 	./${APP_EXE}
 	cd $backuppwd
+    NSH_RemoveTmpDomainDir
 }
 
 
