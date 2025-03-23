@@ -1,3 +1,9 @@
+summerhack-by-thelab (1.0-0ddebs12) unstable; urgency=medium
+
+  * set to fullscreen and in fullHD as now sdl-compat keep aspect ratio
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 23 Mar 2025 17:12:38 +0100
+
 summerhack-by-thelab (1.0-0ddebs11) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
