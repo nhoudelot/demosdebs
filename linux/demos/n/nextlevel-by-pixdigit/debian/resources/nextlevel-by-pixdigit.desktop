@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Next Level
+GenericName=Demo
+Comment=Demo by Pixdigit, released in 2019
+Type=Application
+Exec=/usr/bin/nextlevel-by-pixdigit
+Icon=nextlevel-by-pixdigit
+Categories=AudioVideo;
+Name[fr_FR]=Next Level

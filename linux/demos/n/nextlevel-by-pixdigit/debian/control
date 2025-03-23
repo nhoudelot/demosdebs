@@ -1,0 +1,35 @@
+Source: nextlevel-by-pixdigit
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ mesa-common-dev,
+ libxrandr-dev,
+ libxcursor-dev,
+ libxinerama-dev,
+ libpulse-dev,
+ libxi-dev,
+ libasound2-dev
+Standards-Version: 4.6.2
+Homepage:https://www.pouet.net/prod.php?which=82674
+
+Package: nextlevel-by-pixdigit
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ nextlevel-by-pixdigit-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Pixdigit, released in 2019
+ <Insert long description, indented with spaces.>
+
+Package: nextlevel-by-pixdigit-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for nextlevel-by-pixdigit
+ nextlevel-by-pixdigit data files

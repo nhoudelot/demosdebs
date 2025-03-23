@@ -1,0 +1,4 @@
+debian/scripts/nextlevel-by-pixdigit usr/bin/
+./nextlevel_lin.x86_64 usr/lib/x86_64-linux-gnu/nextlevel-by-pixdigit
+debian/resources/nextlevel-by-pixdigit.desktop usr/share/applications/
+debian/resources/nextlevel-by-pixdigit.png usr/share/icons/hicolor/256x256/apps/

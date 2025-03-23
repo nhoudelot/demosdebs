@@ -1,0 +1,52 @@
+nextlevel-by-pixdigit for Debian
+-------------------------------
+
+executable seems to be compiled for Ubuntu Trusty (14.04) using Godot 3.1
+
+GCC((Ubuntu 8.1.0-5ubuntu1~14.04) 8.1.0)
+
+Source files:
+------------- 
+cow-stdexcept.o
+cp-demangle.o
+crtstuff.c
+eh_alloc.o
+eh_globals.o
+eh_personality.o
+eh_terminate.o
+eh_throw.o
+functexcept.o
+new_handler.o
+new_opnt.o
+stdexcept.o
+string-inst.o
+thirdparty/libvpx/vp8/common/x86/dequantize_mmx.asm
+thirdparty/libvpx/vp8/common/x86/idctllm_mmx.asm
+thirdparty/libvpx/vp8/common/x86/idctllm_sse2.asm
+thirdparty/libvpx/vp8/common/x86/iwalsh_mmx.asm
+thirdparty/libvpx/vp8/common/x86/iwalsh_sse2.asm
+thirdparty/libvpx/vp8/common/x86/loopfilter_block_sse2_x86_64.asm
+thirdparty/libvpx/vp8/common/x86/loopfilter_sse2.asm
+thirdparty/libvpx/vp8/common/x86/recon_mmx.asm
+thirdparty/libvpx/vp8/common/x86/recon_sse2.asm
+thirdparty/libvpx/vp8/common/x86/subpixel_mmx.asm
+thirdparty/libvpx/vp8/common/x86/subpixel_sse2.asm
+thirdparty/libvpx/vp8/common/x86/subpixel_ssse3.asm
+thirdparty/libvpx/vp8/common/x86/vp8_loopfilter_mmx.asm
+thirdparty/libvpx/vpx_dsp/x86/intrapred_sse2.asm
+thirdparty/libvpx/vpx_dsp/x86/intrapred_ssse3.asm
+thirdparty/libvpx/vpx_dsp/x86/inv_wht_sse2.asm
+thirdparty/libvpx/vpx_dsp/x86/vpx_convolve_copy_sse2.asm
+thirdparty/libvpx/vpx_dsp/x86/vpx_subpixel_8t_sse2.asm
+thirdparty/libvpx/vpx_dsp/x86/vpx_subpixel_8t_ssse3.asm
+thirdparty/libvpx/vpx_dsp/x86/vpx_subpixel_bilinear_sse2.asm
+thirdparty/libvpx/vpx_dsp/x86/vpx_subpixel_bilinear_ssse3.asm
+thirdparty/libvpx/vpx_ports/emms.asm
+unwind-c.o
+unwind-dw2-fde-dip.o
+unwind-dw2.o
+vterminate.o
+warning-nop.oS
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Mar 2025 16:21:57 +0100
+
