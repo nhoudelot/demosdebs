@@ -11,7 +11,7 @@ Package: strata-by-luminaire
 Architecture: i386
 Depends:
  ${shlibs:Depends},
- libsdl1.2debian,
+ libsdl1.2-compat|libsdl1.2debian,
  ${misc:Depends},
  common-install-function-ddebs(>=1.18)
 Description: 4k Intro for Linux, released in 2015
