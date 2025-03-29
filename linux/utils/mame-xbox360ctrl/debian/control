@@ -12,7 +12,7 @@ Package: mame-xbox360ctrl
 Architecture: all
 Depends:
  ${misc:Depends},
- mame(>=0.177),
+ mame(>=0.252),
  common-install-mameshader-config(>=1.2)
 Description: mame ctrl file for Xbox 360 controller
  ctrl file for Xbox 360 controller
