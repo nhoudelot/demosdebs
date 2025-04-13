@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Hanna-Kaisan tietokonekerho
+GenericName=Demo
+Comment=Demo by Hanna-Kaisa's Computer Club, released in 2019
+Type=Application
+Exec=/usr/bin/hktietokonekerho-by-hkcomputerclub
+Icon=hktietokonekerho-by-hkcomputerclub
+Categories=AudioVideo;

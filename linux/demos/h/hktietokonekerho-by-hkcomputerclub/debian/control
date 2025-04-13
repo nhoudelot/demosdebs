@@ -1,0 +1,34 @@
+Source: hktietokonekerho-by-hkcomputerclub
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ pkgconf,
+ libsdl2-dev,
+ libsdl2-image-dev,
+ libsdl2-ttf-dev,
+ portaudio19-dev,
+ libopenmpt-dev,
+Standards-Version: 4.6.2
+Homepage:https://www.pouet.net/prod.php?which=83117
+
+Package: hktietokonekerho-by-hkcomputerclub
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ fonts-dejavu-core,
+ hktietokonekerho-by-hkcomputerclub-data
+Description: Demo by Hanna-Kaisa's Computer Club, released in 2019
+ Ranked 1st combined demo/intro at Skrolli Party 2019
+
+Package: hktietokonekerho-by-hkcomputerclub-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for hktietokonekerho-by-hkcomputerclub
+ hktietokonekerho-by-hkcomputerclub data files

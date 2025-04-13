@@ -1,0 +1,12 @@
+Description: should compile with gnu++17 for openmpt
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-04-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/makefile
++++ b/makefile
+@@ -1,2 +1,2 @@
+ hk: hk.cpp
+-	g++ hk.cpp -lpthread -lopenmpt -lportaudiocpp -lSDL2 -lSDL2_image -lSDL2_ttf -std=gnu++11 -o hk
++	g++ hk.cpp -lpthread -lopenmpt -lportaudiocpp -lSDL2 -lSDL2_image -lSDL2_ttf -std=gnu++17 -o hk

@@ -1,0 +1,48 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging and crossbuilding
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-04-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/makefile
++++ b/makefile
+@@ -1,2 +1,36 @@
+-hk: hk.cpp
+-	g++ hk.cpp -lpthread -lopenmpt -lportaudiocpp -lSDL2 -lSDL2_image -lSDL2_ttf -std=gnu++17 -o hk
++# compilers and tools
++SHELL      := /bin/sh
++CXX        ?= g++
++PKG_CONFIG := pkg-config
++RM_F       := rm -f
++
++# Flags
++CXXFLAGS += -Wall -pipe -std=gnu++17 $(shell $(PKG_CONFIG) --cflags portaudiocpp libopenmpt sdl2 SDL2_image SDL2_ttf)
++# Libraries for linking
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs libopenmpt portaudiocpp sdl2 SDL2_image SDL2_ttf)
++
++# Final executable name
++TARGET   := hktietokonekerho-by-hkcomputerclub
++
++# Install variables
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++# Default target, builds the final executable
++all: $(TARGET)
++
++$(TARGET): hk.cpp
++	$(CXX) hk.cpp $(LDFLAGS) $(CXXFLAGS) -o $(TARGET)
++
++clean:
++	$(RM_F) $(TARGET)
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)

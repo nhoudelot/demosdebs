@@ -1,0 +1,3 @@
+debian/resources/hktietokonekerho-by-hkcomputerclub.desktop usr/share/applications/
+debian/resources/hktietokonekerho-by-hkcomputerclub.png usr/share/icons/hicolor/256x256/apps/
+usr/bin/hktietokonekerho-by-hkcomputerclub

@@ -1,0 +1,222 @@
+Description: change data path
+ Relocate non-binary architecture-specific files to /usr/share to ensure correct installation
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-04-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/hk.cpp
++++ b/hk.cpp
+@@ -223,17 +223,17 @@
+ bool musafeidaus = false;
+ int nextmusa = 0; //Jos feidataan kappaletta ja uusi on valittu, laitetaan valinta talteen tänne feidauksen ajaksi
+ 
+-ifstream kappale1("hk1.it", ios::binary);
+-ifstream kappale2("hk-think.it", ios::binary);
+-ifstream kappale3("hk-intro.it", ios::binary);
+-ifstream kappale4("hk-outro.it", ios::binary);
+-ifstream kappale5("hk-trial.it", ios::binary);
+-ifstream kappale6("hk-scare.it", ios::binary);
+-ifstream kappale7("hk-inter.it", ios::binary);
+-ifstream kappale8("hk-conclusion.it", ios::binary);
+-ifstream kappale9("logo.it", ios::binary);
+-ifstream kappale10("hk-corridor.it", ios::binary);
+-ifstream kappale11("hk2.it", ios::binary);
++ifstream kappale1("/usr/share/hktietokonekerho-by-hkcomputerclub/hk1.it", ios::binary);
++ifstream kappale2("/usr/share/hktietokonekerho-by-hkcomputerclub/hk-think.it", ios::binary);
++ifstream kappale3("/usr/share/hktietokonekerho-by-hkcomputerclub/hk-intro.it", ios::binary);
++ifstream kappale4("/usr/share/hktietokonekerho-by-hkcomputerclub/hk-outro.it", ios::binary);
++ifstream kappale5("/usr/share/hktietokonekerho-by-hkcomputerclub/hk-trial.it", ios::binary);
++ifstream kappale6("/usr/share/hktietokonekerho-by-hkcomputerclub/hk-scare.it", ios::binary);
++ifstream kappale7("/usr/share/hktietokonekerho-by-hkcomputerclub/hk-inter.it", ios::binary);
++ifstream kappale8("/usr/share/hktietokonekerho-by-hkcomputerclub/hk-conclusion.it", ios::binary);
++ifstream kappale9("/usr/share/hktietokonekerho-by-hkcomputerclub/logo.it", ios::binary);
++ifstream kappale10("/usr/share/hktietokonekerho-by-hkcomputerclub/hk-corridor.it", ios::binary);
++ifstream kappale11("/usr/share/hktietokonekerho-by-hkcomputerclub/hk2.it", ios::binary);
+ openmpt::module hkmain(kappale1);
+ openmpt::module tuumaus(kappale2);
+ openmpt::module hkalku(kappale3);
+@@ -1459,135 +1459,135 @@
+ 
+ bool lataamedia() {
+   bool toimiiko = true;
+-  if(!kissateks.tiedostonlataus("animpng/hk.png")) {
++  if(!kissateks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/hk.png")) {
+     cerr << "png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!kissakteks.tiedostonlataus("animpng/hkk.png")) {
++  if(!kissakteks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/hkk.png")) {
+     cerr << "png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!koirateks1.tiedostonlataus("animpng/te-frames.png")) {
++  if(!koirateks1.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/te-frames.png")) {
+     cerr << "png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!koirateks2.tiedostonlataus("animpng/val-frames.png")) {
++  if(!koirateks2.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/val-frames.png")) {
+     cerr << "png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!naatateks.tiedostonlataus("animpng/ma-frames.png")) {
++  if(!naatateks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/ma-frames.png")) {
+     cerr << "png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!mayrateks.tiedostonlataus("animpng/bad-frames.png")) {
++  if(!mayrateks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/bad-frames.png")) {
+     cerr << "png load fail" << endl;
+     toimiiko = false;
+   }
+-    if(!dropsteks.tiedostonlataus("animpng/sweat2.png")) {
++    if(!dropsteks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/sweat2.png")) {
+     cerr << "png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!koti.tiedostonlataus("animpng/koti.png")) {
++  if(!koti.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/koti.png")) {
+     cerr << "png koti load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!rappu.tiedostonlataus("animpng/rappu.png")) {
++  if(!rappu.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/rappu.png")) {
+     cerr << "png rappu load fail" << endl;
+     toimiiko = false;
+   }
+-    if(!wc.tiedostonlataus("animpng/wc.png")) {
++    if(!wc.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/wc.png")) {
+     cerr << "png wc load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!wcoateks.tiedostonlataus("animpng/wcoa.png")) {
++  if(!wcoateks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/wcoa.png")) {
+     cerr << "png wcoa load fail" << endl;
+     toimiiko = false; 
+   }
+-  if(!wcokteks.tiedostonlataus("animpng/wcok.png")) {
++  if(!wcokteks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/wcok.png")) {
+     cerr << "png wcok load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!roateks.tiedostonlataus("animpng/roa.png")) {
++  if(!roateks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/roa.png")) {
+     cerr << "png roa load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!loppu.tiedostonlataus("animpng/loppu.png")) {
++  if(!loppu.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/loppu.png")) {
+     cerr << "png loppu load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!poytateks.tiedostonlataus("animpng/poyta.png")) {
++  if(!poytateks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/poyta.png")) {
+     cerr << "png pöytä load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!kpoytateks.tiedostonlataus("animpng/poyta2.png")) {
++  if(!kpoytateks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/poyta2.png")) {
+     cerr << "png kpöytä load fail" << endl;
+     toimiiko = false;
+   }
+-    if(!poyta3teks.tiedostonlataus("animpng/poyta3.png")) {
++    if(!poyta3teks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/poyta3.png")) {
+     cerr << "png pöytä3 load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!rvteks.tiedostonlataus("animpng/rv.png")) {
++  if(!rvteks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/rv.png")) {
+     cerr << "png rv load fail" << endl;
+     toimiiko = false;
+     }
+-  if(!tuoliteks.tiedostonlataus("animpng/tuoli.png")) {
++  if(!tuoliteks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/tuoli.png")) {
+     cerr << "png tuoli load fail" << endl;
+     toimiiko = false;
+     }
+-  if(!tuoli2teks.tiedostonlataus("animpng/tuoli2.png")) {
++  if(!tuoli2teks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/tuoli2.png")) {
+     cerr << "png tuoli2 load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!kaideteks.tiedostonlataus("animpng/kaide.png")) {
++  if(!kaideteks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/kaide.png")) {
+     cerr << "png tuoli kaide fail" << endl;
+     toimiiko = false;
+     }
+-  if(!ruokateks.tiedostonlataus("animpng/ruoka5.png")) {
++  if(!ruokateks.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/ruoka5.png")) {
+     cerr << "png ruoka load fail" << endl;
+     toimiiko = false;
+     }
+-  if(!pimee.tiedostonlataus("animpng/pimee.png")) {
++  if(!pimee.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/pimee.png")) {
+     cerr << "pimee.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!logo.tiedostonlataus("animpng/logo.png")) {
++  if(!logo.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/logo.png")) {
+     cerr << "logo.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!postlogo.tiedostonlataus("animpng/postlogo.png")) {
++  if(!postlogo.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/postlogo.png")) {
+     cerr << "postlogo.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!alkukuva.tiedostonlataus("animpng/alkukuva.png")) {
++  if(!alkukuva.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/alkukuva.png")) {
+     cerr << "alkukuva.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!alkukuva_en.tiedostonlataus("animpng/alkukuva-en.png")) {
++  if(!alkukuva_en.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/alkukuva-en.png")) {
+     cerr << "alkukuva-en.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!kadet.tiedostonlataus("animpng/kadet.png")) {
++  if(!kadet.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/kadet.png")) {
+     cerr << "kadet.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!sydan.tiedostonlataus("animpng/sydan.png")) {
++  if(!sydan.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/sydan.png")) {
+     cerr << "sydan.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!s_tausta.tiedostonlataus("animpng/s_tausta.png")) {
++  if(!s_tausta.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/s_tausta.png")) {
+     cerr << "s_tausta.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!kosoitin.tiedostonlataus("animpng/osoitin.png")) {
++  if(!kosoitin.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/osoitin.png")) {
+     cerr << "osoitin.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!kosoitin90.tiedostonlataus("animpng/osoitin90.png")) {
++  if(!kosoitin90.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/osoitin90.png")) {
+     cerr << "osoitin90.png load fail" << endl;
+     toimiiko = false;
+   }
+-  if(!kupkulma.tiedostonlataus("animpng/kupkulma.png")) {
++  if(!kupkulma.tiedostonlataus("/usr/share/hktietokonekerho-by-hkcomputerclub/animpng/kupkulma.png")) {
+     cerr << "kupkulma.png load fail" << endl;
+     toimiiko = false;
+   }
+@@ -4064,10 +4064,10 @@
+       SDL_Event tapahtuma;
+ 
+       cout << "Attempting to load fonts" << endl;
+-      fontti = TTF_OpenFont("./DejaVuSansMono-Bold.ttf", 15);  //Parameters: path to the font, font size. Jos polku on väärin, tulee segmentation fault
+-      irc_fontti = TTF_OpenFont("./DejaVuSansMono.ttf", 15);
+-      irc_fontti_b = TTF_OpenFont("./DejaVuSansMono-Bold.ttf", 15);
+-      loppufontti = TTF_OpenFont("./DejaVuSansMono-Bold.ttf", 25);
++      fontti = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf", 15);  //Parameters: path to the font, font size. Jos polku on väärin, tulee segmentation fault
++      irc_fontti = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", 15);
++      irc_fontti_b = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf", 15);
++      loppufontti = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf", 25);
+       cout << "Fonts loaded" << endl;
+ 
+       SDL_Surface* kello1 = TTF_RenderText_Solid(irc_fontti, "18:41", {255, 255, 255});
