@@ -1,0 +1,4 @@
+debian/scripts/lahdekoodius-by-mikkosoftproductions usr/bin/
+./lähdekoodius usr/lib/x86_64-linux-gnu/lahdekoodius-by-mikkosoftproductions
+debian/resources/lahdekoodius-by-mikkosoftproductions.desktop usr/share/applications/
+debian/resources/lahdekoodius-by-mikkosoftproductions.png usr/share/icons/hicolor/256x256/apps/

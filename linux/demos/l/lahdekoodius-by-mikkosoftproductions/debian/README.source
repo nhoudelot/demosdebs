@@ -1,0 +1,9 @@
+lahdekoodius-by-mikkosoftproductions for Debian
+----------------------------------------------
+
+executable seems to be compiled for Debian 11 bullseye
+
+GCC: (Debian 9.2.1-8) 9.2.1 20190909
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 13 Apr 2025 02:16:57 +0200
+

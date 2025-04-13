@@ -1,0 +1,31 @@
+Source: lahdekoodius-by-mikkosoftproductions
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ mesa-common-dev,
+ libxrandr-dev,
+ libopenal-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=83105
+
+Package: lahdekoodius-by-mikkosoftproductions
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ lahdekoodius-by-mikkosoftproductions-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Mikkosoft Productions, released in 2019
+ Ranked 2nd combined demo/intro at Skrolli Party 2019
+
+Package: lahdekoodius-by-mikkosoftproductions-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for lahdekoodius-by-mikkosoftproductions
+ lahdekoodius-by-mikkosoftproductions data files

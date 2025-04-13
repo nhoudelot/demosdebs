@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Lähdekoodius
+GenericName=Demo
+Comment=Demo by Mikkosoft Productions, released in 2019
+Type=Application
+Exec=/usr/bin/lahdekoodius-by-mikkosoftproductions
+Icon=lahdekoodius-by-mikkosoftproductions
+Categories=AudioVideo;
