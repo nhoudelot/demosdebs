@@ -1,0 +1,33 @@
+Source: sadeaskeltaja-by-jnalanko
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ mesa-common-dev,
+ libsdl2-dev,
+ libsdl2-mixer-dev,
+ sox
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=83155
+
+Package: sadeaskeltaja-by-jnalanko
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ sadeaskeltaja-by-jnalanko-data,
+ common-install-function-ddebs(>=1.61)
+Description: Demo by jnalanko, released in 2019
+ Renked 3rd combined demo/intro at Skrolli Party 2019
+
+Package: sadeaskeltaja-by-jnalanko-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ sox
+Description: Data files for sadeaskeltaja-by-jnalanko
+ sadeaskeltaja-by-jnalanko data files

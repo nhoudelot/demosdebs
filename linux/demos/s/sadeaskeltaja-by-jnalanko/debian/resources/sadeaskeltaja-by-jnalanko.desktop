@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Sädeaskeltaja
+GenericName=Demo
+Comment=Demo by jnalanko, released in 2019
+Type=Application
+Exec=/usr/bin/sadeaskeltaja-by-jnalanko
+Icon=sadeaskeltaja-by-jnalanko
+Categories=AudioVideo;

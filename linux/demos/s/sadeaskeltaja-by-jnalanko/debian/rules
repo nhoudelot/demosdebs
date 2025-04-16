@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	sox skrolli_party_biisi.wav skrolli_party_biisi.flac
+	dh_install
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

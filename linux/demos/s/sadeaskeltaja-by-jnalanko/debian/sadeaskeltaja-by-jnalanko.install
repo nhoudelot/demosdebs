@@ -1,0 +1,4 @@
+debian/scripts/sadeaskeltaja-by-jnalanko usr/bin/
+./sadeaskeltaja usr/lib/x86_64-linux-gnu/sadeaskeltaja-by-jnalanko
+debian/resources/sadeaskeltaja-by-jnalanko.desktop usr/share/applications/
+debian/resources/sadeaskeltaja-by-jnalanko.png usr/share/icons/hicolor/256x256/apps/

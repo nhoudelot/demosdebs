@@ -1,0 +1,11 @@
+sadeaskeltaja-by-jnalanko for Debian
+-----------------------------------
+
+had to remove lib/ directory
+
+executable seems to be compiled for Ubuntu Bionic (18.04)
+
+GCC: (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 15 Apr 2025 01:38:43 +0200
+
