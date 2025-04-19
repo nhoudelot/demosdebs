@@ -11,7 +11,8 @@ Build-Depends:
  libboost-program-options-dev,
  libboost-thread-dev,
  libboost-wave-dev,
- libglew-dev
+ libglew-dev,
+ sox
 Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=77364
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2018-08_40k-intro_cassini
@@ -33,5 +34,6 @@ Architecture: all
 Multi-Arch: foreign
 Depends:
  ${misc:Depends},
+ sox
 Description: Data files for cassini-by-faemiyah
  cassini-by-faemiyah data files

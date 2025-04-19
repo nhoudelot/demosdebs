@@ -13,7 +13,8 @@ Build-Depends:
  libsdl2-dev,
  libpng-dev,
  libglew-dev,
- libopengl-dev
+ libopengl-dev,
+ sox
 Standards-Version: 4.6.2
 Homepage: https://github.com/faemiyah/faemiyah-demoscene_2019-08_4k-intro_region_de_magallanes
 
@@ -33,6 +34,7 @@ Architecture: all
 Multi-Arch: foreign
 Depends:
  ${misc:Depends},
+ sox
 Description: Data files for regiondemagallanes-by-faemiyah
  regiondemagallanes-by-faemiyah data files
 

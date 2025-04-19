@@ -1,4 +1,4 @@
-./res/music/creo_dimension.wav usr/share/vapors-by-sndels/./res/music/ 
+./res/music/creo_dimension.flac usr/share/vapors-by-sndels/./res/music/ 
 ./res/shader/basic_vert.glsl usr/share/vapors-by-sndels/./res/shader/ 
 ./res/shader/camera.glsl usr/share/vapors-by-sndels/./res/shader/ 
 ./res/shader/chromatic_aberration_frag.glsl usr/share/vapors-by-sndels/./res/shader/ 

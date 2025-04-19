@@ -5,7 +5,8 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  libsdl1.2-compat-dev|libsdl1.2-dev,
- libsdl-mixer1.2-dev
+ libsdl-mixer1.2-dev,
+ sox
 Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=76620
 Rules-Requires-Root: no
@@ -25,6 +26,7 @@ Package: progress3-by-kstorm-data
 Architecture: all
 Multi-Arch: foreign
 Depends:
- ${misc:Depends}
+ ${misc:Depends},
+ sox
 Description: Data files for progress3-by-kstorm
  progress3-by-kstorm data files

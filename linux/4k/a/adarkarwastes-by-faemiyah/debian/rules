@@ -10,5 +10,9 @@ export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 %:
 	dh $@ --buildsystem=cmake --sourcedirectory=. --builddirectory=build
 
+override_dh_install:
+	sox rel/adarkar_wastes.wav rel/adarkar_wastes.flac
+	dh_install
+
 override_dh_builddeb:
 	dh_builddeb -- -Zxz

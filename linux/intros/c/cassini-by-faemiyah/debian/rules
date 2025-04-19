@@ -10,5 +10,9 @@ export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 %:
 	dh $@  --builddirectory=build
 
+override_dh_install:
+	sox rel/cassini.wav rel/cassini.flac
+	dh_install
+
 override_dh_builddeb:
 	dh_builddeb -- -Zxz

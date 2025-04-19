@@ -1,3 +1,10 @@
+regiondemagallanes-by-faemiyah (1.0+git20240828-0ddebs2) unstable; urgency=medium
+
+  * Wav file is now compressed to FLAC to reduce the overall size of the
+    data package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 19 Apr 2025 02:02:25 +0200
+
 regiondemagallanes-by-faemiyah (1.0+git20240828-0ddebs1) unstable; urgency=medium
 
   * Initial release.

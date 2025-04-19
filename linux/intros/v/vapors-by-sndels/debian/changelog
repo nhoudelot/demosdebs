@@ -1,3 +1,10 @@
+vapors-by-sndels (1.0-0ddebs3) unstable; urgency=medium
+
+  * Wav file is now compressed to FLAC to reduce the overall size of the
+    data package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 19 Apr 2025 00:26:19 +0200
+
 vapors-by-sndels (1.0-0ddebs2) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

@@ -1,7 +1,7 @@
 debian/scripts/vapors-by-sndels usr/bin/
 ./sndels_vapor usr/lib/x86_64-linux-gnu/vapors-by-sndels
 debian/resources/vapors-by-sndels.desktop usr/share/applications/
-debian/resources/vapors-by-sndels.png usr/share/icons/hicolor/128x128/apps/
+debian/resources/vapors-by-sndels.png usr/share/icons/hicolor/256x256/apps/
 ./sync_activeScene.track usr/lib/x86_64-linux-gnu/vapors-by-sndels/./ 
 ./sync_Tone-3AuScanlines.track usr/lib/x86_64-linux-gnu/vapors-by-sndels/./ 
 ./sync_Tone-3AuSBloom.track usr/lib/x86_64-linux-gnu/vapors-by-sndels/./ 

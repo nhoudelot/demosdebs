@@ -12,7 +12,8 @@ Build-Depends:
  libboost-filesystem-dev,
  libboost-program-options-dev,
  libboost-thread-dev,
- libboost-wave-dev
+ libboost-wave-dev,
+ sox
 Standards-Version: 4.6.2
 Homepage: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup.git
@@ -26,13 +27,14 @@ Depends:
  ${misc:Depends},
  primordialsoup-by-faemiyah-data
 Description: 4k intro by Faemiyah, released in 2017
- 4k intro by Faemiyah, 1st at combined 4k eleased at Assembly 2017
+ 4k intro by Faemiyah, 1st combined 4k at Assembly 2017
 
 Package: primordialsoup-by-faemiyah-data
 Architecture: all
 Multi-Arch: foreign
 Depends:
  ${misc:Depends},
+ sox
 Description: Data files for primordialsoup-by-faemiyah
  primordialsoup-by-faemiyah data files
 

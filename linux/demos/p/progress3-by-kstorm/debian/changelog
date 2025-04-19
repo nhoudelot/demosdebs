@@ -1,3 +1,10 @@
+progress3-by-kstorm (1.0-0ddebs3) unstable; urgency=medium
+
+  * Wav file is now compressed to FLAC to reduce the overall size of the
+    data package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 19 Apr 2025 00:18:09 +0200
+
 progress3-by-kstorm (1.0-0ddebs2) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

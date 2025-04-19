@@ -4,5 +4,6 @@
 	dh $@
 
 override_dh_install:
+	sox res/music/creo_dimension.wav res/music/creo_dimension.flac
 	dh_install
 	find debian -type f -name 'sndels_vapor' -exec chmod 0755 {} +

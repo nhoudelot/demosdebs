@@ -8,5 +8,9 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 %:
 	dh $@ --buildsystem=cmake --builddirectory=build
 
+override_dh_install:
+	sox rel/region_de_magallanes.wav rel/region_de_magallanes.flac
+	dh_install
+
 override_dh_builddeb:
 	dh_builddeb -- -Zxz

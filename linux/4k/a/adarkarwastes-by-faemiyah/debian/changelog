@@ -1,3 +1,10 @@
+adarkarwastes-by-faemiyah (1.0+git20180525-0ddebs4) unstable; urgency=medium
+
+  * Wav file is now compressed to FLAC to reduce the overall size of the
+    data package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 19 Apr 2025 00:36:59 +0200
+
 adarkarwastes-by-faemiyah (1.0+git20180525-0ddebs3) unstable; urgency=medium
 
   * debian/control : fix dependencies to allow cross-building
