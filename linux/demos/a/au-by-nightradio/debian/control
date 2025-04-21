@@ -1,0 +1,19 @@
+Source: au-by-nightradio
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=86013
+
+Package: au-by-nightradio
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ pixilang,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by NightRadio, released in 2020
+ <Insert long description, indented with spaces.>

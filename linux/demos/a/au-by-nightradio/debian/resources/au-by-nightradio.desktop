@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Au
+GenericName=Demo
+Comment=Demo by NightRadio, released in 2020
+Type=Application
+Exec=/usr/bin/au-by-nightradio
+Icon=au-by-nightradio
+Categories=AudioVideo;
+Name[fr_FR]=Au

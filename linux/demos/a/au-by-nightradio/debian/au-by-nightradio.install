@@ -1,0 +1,16 @@
+debian/scripts/au-by-nightradio usr/bin/
+debian/resources/au-by-nightradio.desktop usr/share/applications/
+debian/resources/au-by-nightradio.png usr/share/icons/hicolor/256x256/apps/
+./pixilang_config.ini usr/share/au-by-nightradio/./ 
+./data/02x.jpg usr/share/au-by-nightradio/./data/ 
+./data/music.sunvox usr/share/au-by-nightradio/./data/ 
+./data/demo.pixi usr/share/au-by-nightradio/./data/ 
+./data/02.jpg usr/share/au-by-nightradio/./data/ 
+./data/01.png usr/share/au-by-nightradio/./data/ 
+./data/mjpeg.pixi usr/share/au-by-nightradio/./data/ 
+./data/halo01.png usr/share/au-by-nightradio/./data/ 
+./data/halo02.png usr/share/au-by-nightradio/./data/ 
+./data/ffmpeg_video_export.pixi usr/share/au-by-nightradio/./data/ 
+./data/riff.pixi usr/share/au-by-nightradio/./data/ 
+./data/font.png usr/share/au-by-nightradio/./data/ 
+./boot.pixi usr/share/au-by-nightradio/./ 

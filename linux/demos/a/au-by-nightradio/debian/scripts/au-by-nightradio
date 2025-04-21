@@ -1,0 +1,37 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=au-by-nightradio
+
+APP_FULLNAME="Au"
+APP_COPYRIGHT="NightRadio"
+APP_DESC="Demo by NightRadio, released in 2020"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/share/${domain} || exit
+	pixilang -cfg "windowname=\"Au by NightRadio\"|fullscreen|nocursor|maxfps=1000" boot.pixi
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0
