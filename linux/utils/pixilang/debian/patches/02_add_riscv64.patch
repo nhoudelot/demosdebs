@@ -1,0 +1,26 @@
+Description: adapt to build a RISCV binary
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-04-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- /dev/null
++++ b/pixilang3/make/MAKE_LINUX_RISCV64
+@@ -0,0 +1,4 @@
++
++MAKE_OPTIONS="TARGET_OS=linux_x11_opengles TARGET_ARCH=riscv64 COLOR_TYPE=COLOR32BITS MAKE_WITH_SDL=2 STYPE=PS_STYPE_FLOAT32"
++make -j8 $MAKE_OPTIONS
++make install $MAKE_OPTIONS
+--- a/lib_sundog/sundog.h
++++ b/lib_sundog/sundog.h
+@@ -88,6 +88,10 @@
+         #define ARCH_ARM64
+ 	#define ARM_VFP
+     #endif
++    #if defined(__riscv) && (__riscv_xlen == 64)
++    #define ARCH_NAME "riscv64"
++    #define ARCH_RISCV64
++	#endif
+     #ifdef __mips__
+ 	#define ARCH_NAME "mips"
+ 	#define ARCH_MIPS

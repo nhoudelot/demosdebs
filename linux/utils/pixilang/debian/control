@@ -1,0 +1,30 @@
+Source: pixilang
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libsdl2-dev,
+ libglu-dev,
+ libasound2-dev,
+ libjack-dev,
+ libpng-dev,
+ zlib1g-dev
+Standards-Version: 4.6.2
+Homepage: https://warmplace.ru/soft/pixilang/
+
+Package: pixilang
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Pixel-oriented programming language for small graphics/sound
+ Originally created by Alexander Zolotov (NightRadio) and Mik Razuvaev (Goglus)
+ for non-programmers and artists. It is cross-platform and open source (MIT).
+ .
+ Pixilang programs are stored in text files (UTF-8 encoding) with extensions
+ txt or pixi. So you can use your favorite text editor to create/edit these
+ files. Pixilang has no built-in editor
+
