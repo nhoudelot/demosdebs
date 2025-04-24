@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=particlesimthingy-by-mehu
+
+APP_FULLNAME="Particle sim thingy"
+APP_COPYRIGHT="Mehu"
+APP_DESC="Demo by Mehu, released in 2020"
+
+APP_EXE="mehustin"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	LD_LIBRARY_PATH=. ./${APP_EXE} -b 70 -r 16 -f -w 1920 -h 1080 
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

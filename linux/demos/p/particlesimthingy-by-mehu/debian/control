@@ -1,0 +1,29 @@
+Source: particlesimthingy-by-mehu
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libsdl2-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=90148
+
+Package: particlesimthingy-by-mehu
+Architecture: amd64 i386
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ particlesimthingy-by-mehu-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Mehu, released in 2020
+ Ranked 6th at the Assembly 2020 Winter One Scene competition
+
+Package: particlesimthingy-by-mehu-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for particlesimthingy-by-mehu
+ particlesimthingy-by-mehu data files

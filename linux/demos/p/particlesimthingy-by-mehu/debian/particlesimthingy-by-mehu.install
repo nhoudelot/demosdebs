@@ -1,0 +1,5 @@
+debian/scripts/particlesimthingy-by-mehu usr/bin/
+./mehustin usr/lib/x86_64-linux-gnu/particlesimthingy-by-mehu
+debian/resources/particlesimthingy-by-mehu.desktop usr/share/applications/
+debian/resources/particlesimthingy-by-mehu.png usr/share/icons/hicolor/256x256/apps/
+./libdemo.so usr/lib/x86_64-linux-gnu/particlesimthingy-by-mehu

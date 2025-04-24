@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Particle sim thingy
+GenericName=Demo
+Comment=Demo by Mehu, released in 2020
+Type=Application
+Exec=/usr/bin/particlesimthingy-by-mehu
+Icon=particlesimthingy-by-mehu
+Categories=AudioVideo;
+Name[fr_FR]=Particle sim thingy
