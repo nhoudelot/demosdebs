@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Storage Room
+GenericName=Demo
+Comment=Demo by Suricrasia Online, released in 2020
+Type=Application
+Exec=/usr/bin/storageroom-by-suricrasiaonline
+Icon=storageroom-by-suricrasiaonline
+Categories=AudioVideo;
+Name[fr_FR]=Storage Room

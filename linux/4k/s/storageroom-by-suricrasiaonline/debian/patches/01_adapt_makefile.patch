@@ -1,0 +1,137 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging and crossbuilding
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-05-08
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -22,29 +22,36 @@
+ # ~$ dpkg-query --showformat='${Version}' --show mesa-common-dev:amd64
+ # 18.3.6-2+deb10u1
+ 
+-PROJNAME := storage_room
++# compilers and tools
++SHELL      := /bin/sh
++CC         ?= gcc
++CXX        ?= g++
++PKG_CONFIG := pkg-config
++RM_F       := rm -f
++
++PROJNAME := storageroom-by-suricrasiaonline
+ 
+ #huge greets to donnerbrenn!
+-CFLAGS = -Os -s -march=nocona -std=gnu11
++CFLAGS += -std=gnu11
+ 
+ CFLAGS += -fno-plt
+-CFLAGS += -fno-stack-protector -fno-stack-check
+-CFLAGS += -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions
++#CFLAGS += -fno-stack-protector -fno-stack-check
++#CFLAGS += -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions
+ CFLAGS += -funsafe-math-optimizations -ffast-math
+ CFLAGS += -fomit-frame-pointer
+ CFLAGS += -ffunction-sections -fdata-sections
+ CFLAGS += -fmerge-all-constants
+-CFLAGS += -fno-PIC -fno-PIE
++#CFLAGS += -fno-PIC -fno-PIE
+ CFLAGS += -malign-data=cacheline
+ CFLAGS += -mno-fancy-math-387 -mno-ieee-fp
+ CFLAGS += -Wall
+ CFLAGS += -Wextra
+-CFLAGS += -no-pie
++#CFLAGS += -no-pie
+ # #use with gcc7+:
+ CFLAGS += -flto
+ 
+ CFLAGS += -nostartfiles -nodefaultlibs
+-CFLAGS += `pkg-config --cflags gtk+-3.0`
++CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk+-3.0)
+ CFLAGS += -lc
+ CFLAGS += -lGL
+ CFLAGS += -lglib-2.0
+@@ -52,18 +59,27 @@
+ CFLAGS += -lgtk-3
+ CFLAGS += -lgdk-3
+ 
+-CFLAGS += -Wl,--build-id=none
+-CFLAGS += -Wl,-z,norelro
+-CFLAGS += -Wl,-z,nocombreloc
+-CFLAGS += -Wl,--gc-sections
+-CFLAGS += -Wl,-z,nodynamic-undefined-weak
+-CFLAGS += -Wl,--no-ld-generated-unwind-info
+-CFLAGS += -Wl,--no-eh-frame-hdr
+-CFLAGS += -Wl,-z,noseparate-code
+-CFLAGS += -Wl,--hash-style=sysv
+-CFLAGS += -Wl,--whole-archive
+-CFLAGS += -Wl,--print-gc-sections
+-CFLAGS += -T linker.ld
++#CFLAGS += -Wl,--build-id=none
++#CFLAGS += -Wl,-z,norelro
++#CFLAGS += -Wl,-z,nocombreloc
++#CFLAGS += -Wl,--gc-sections
++#CFLAGS += -Wl,-z,nodynamic-undefined-weak
++#CFLAGS += -Wl,--no-ld-generated-unwind-info
++#CFLAGS += -Wl,--no-eh-frame-hdr
++#CFLAGS += -Wl,-z,noseparate-code
++#CFLAGS += -Wl,--hash-style=sysv
++#CFLAGS += -Wl,--whole-archive
++#CFLAGS += -Wl,--print-gc-sections
++#CFLAGS += -T linker.ld
++
++# Install variables
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
+ 
+ .PHONY: clean check_size
+ 
+@@ -73,19 +89,13 @@
+ 	-rm $@
+ 	zip $@ $^
+ 
+-packer : vondehi/vondehi.asm 
+-	cd vondehi; nasm -fbin -o vondehi -DWANT_ARGV -DNO_CHEATING vondehi.asm
+-
+ shader.h : shader.frag Makefile
+-	mono ./shader_minifier.exe shader.frag -o shader.h
++	mono /usr/bin/shader_minifier.exe shader.frag -o shader.h
+ 
+-$(PROJNAME).elf : $(PROJNAME).c shader.h linker.ld Makefile
+-	gcc -o $@ $< $(CFLAGS)
+-
+-$(PROJNAME)_unpacked : $(PROJNAME).elf
+-	mv $< $@
++$(PROJNAME).elf : storage_room.c shader.h linker.ld Makefile
++	$(CC) -o $@ $< $(CFLAGS)
+ 
+-$(PROJNAME) : $(PROJNAME)_opt.elf.packed
++$(PROJNAME) : $(PROJNAME).elf
+ 	mv $< $@
+ 
+ #all the rest of these rules just takes a compiled elf file and generates a packed version of it with vondehi
+@@ -108,12 +118,13 @@
+ 	lzma --format=lzma -9 --extreme --lzma1=preset=9,lc=0,lp=0,pb=0,nice=183 --keep --stdout storage_room_opt.elf > storage_room_opt.elf.xz
+ 	./nicer.py $< -o $@
+ 
+-%.packed : %.xz packer Makefile
+-	cat ./vondehi/vondehi $< > $@
+-	chmod +x $@
+-
+ clean :
+ 	-rm *.elf *.xz shader.h $(PROJNAME) $(PROJNAME)_unpacked
+ 
+ check_size :
+-	./sizelimit_check.sh
+\ No newline at end of file
++	./sizelimit_check.sh
++
++install: $(PROJNAME)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++#	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(PROJNAME) $(DESTDIR)$(bindir)

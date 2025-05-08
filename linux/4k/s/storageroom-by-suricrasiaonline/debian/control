@@ -1,0 +1,24 @@
+Source: storageroom-by-suricrasiaonline
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ pkgconf,
+ shader-minifier:native,
+ libgtk-3-dev,
+ libglu-dev
+Standards-Version: 4.6.2
+Homepage: https://suricrasia.online/demoscene/storage_room.html
+
+Package: storageroom-by-suricrasiaonline
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: Executable graphics demo by Suricrasia Online, released in 2020
+ storage_room is a 2 kilobyte executable graphics ("exegfx") demo by blackle
+ of Suricrasia Online, created for the demoscene using OpenGL and GTK.
+ The demo requires a minimum display resolution of 1920x1080
