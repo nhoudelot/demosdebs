@@ -1,0 +1,11 @@
+zipline-by-thebadsectors for Debian
+----------------------------------
+
+Executables has been unpacked (from UPX)
+
+executables seems to be compiled for Debian 9 stretch
+
+GCC((Debian 6.3.0-18+deb9u1) 6.3.0 20170516)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 28 Apr 2025 00:38:55 +0200
+

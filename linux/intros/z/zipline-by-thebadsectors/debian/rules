@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
+    EXE=tbs-zipline-linux-64bit.lnx
+endif
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
+    EXE=tbs-zipline-linux-32bit.lnx
+endif
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure
+	(cd debian; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed -e 's/@EXE@/${EXE}/g' -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+		done )
+	(cd debian/scripts; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed -e 's/@EXE@/${EXE}/g' -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+	done )
+
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

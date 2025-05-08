@@ -1,0 +1,33 @@
+Source: zipline-by-thebadsectors
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libsdl2-dev
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=85913
+
+Package: zipline-by-thebadsectors
+Architecture: amd64 i386
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ zipline-by-thebadsectors-data,
+ common-install-function-ddebs(>=1.61)
+Description: small OpenGL demo by The Bad Sectors, released in 2020
+ Short real-time demo by Blueghost of The Bad Sectors, created for the Just For
+ Fun 30 Seconds Demo Compo. Rendered using OpenGL 2.0.
+ .
+ The demo runs on systems with 64MB memory and supports fallback rendering
+ on very old GPUs via texture combiners.
+
+Package: zipline-by-thebadsectors-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Data files for zipline-by-thebadsectors
+ zipline-by-thebadsectors data files

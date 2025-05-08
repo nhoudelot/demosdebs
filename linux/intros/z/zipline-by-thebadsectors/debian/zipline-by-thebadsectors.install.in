@@ -1,0 +1,4 @@
+debian/scripts/zipline-by-thebadsectors usr/bin/
+./@EXE@ usr/lib/@DEB_HOST_MULTIARCH@/zipline-by-thebadsectors
+debian/resources/zipline-by-thebadsectors.desktop usr/share/applications/
+debian/resources/zipline-by-thebadsectors.png usr/share/icons/hicolor/256x256/apps/
