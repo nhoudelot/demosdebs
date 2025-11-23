@@ -1,3 +1,10 @@
+arkostracker (3.2.7-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * adapt to cross-compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 23 Nov 2025 00:09:36 +0100
+
 arkostracker (3.2.2-0ddebs1) unstable; urgency=medium
 
   * Initial release.

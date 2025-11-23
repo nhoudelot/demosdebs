@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -21,8 +21,8 @@
+@@ -30,8 +30,8 @@
  # Gets JUCE from GIT, via CPM.
  CPMAddPackage(
          NAME JUCE
@@ -11,7 +11,7 @@
  
  add_subdirectory(binaryResources)
  add_subdirectory(source)
-@@ -94,4 +94,4 @@
+@@ -106,4 +106,4 @@
  #target_compile_options(ThirdParty PRIVATE ${NO_WARNING_FLAGS})     # This actually doesn't work. Fallback on pragmas...
  
  # Packaging via CPack.
