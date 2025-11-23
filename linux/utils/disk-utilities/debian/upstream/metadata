@@ -1,0 +1,7 @@
+# Metadata about the upstream project.
+# See https://wiki.debian.org/UpstreamMetadata
+
+Bug-Database: https://github.com/keirf/Disk-Utilities/issues
+Bug-Submit: https://github.com/keirf/Disk-Utilities/issues/new
+Repository-Browse: https://github.com/keirf/Disk-Utilities
+Repository: https://github.com/keirf/Disk-Utilities.git
