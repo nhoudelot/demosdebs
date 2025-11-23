@@ -1,3 +1,9 @@
+dump1090-fa (10.2-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 23 Nov 2025 22:47:24 +0100
+
 dump1090-fa (9.0-0ddebs3) unstable; urgency=medium
 
   * Fix compilation with GCC 14
