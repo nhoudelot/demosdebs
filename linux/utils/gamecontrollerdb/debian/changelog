@@ -1,3 +1,9 @@
+gamecontrollerdb (1.0+git20251118-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 24 Nov 2025 00:48:01 +0100
+
 gamecontrollerdb (1.0+git20250320-0ddebs1) unstable; urgency=medium
 
   * Initial release.
