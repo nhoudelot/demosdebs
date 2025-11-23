@@ -3,6 +3,7 @@
 # https://wiki.debian.org/HardeningWalkthrough
 export DEB_BUILD_MAINT_OPTIONS  = hardening=+all
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 
 TMP = $(CURDIR)/debian/tmp
 
