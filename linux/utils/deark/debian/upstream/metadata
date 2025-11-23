@@ -1,0 +1,8 @@
+# Metadata about the upstream project.
+# See https://wiki.debian.org/UpstreamMetadata
+
+Bug-Database: https://github.com/jsummers/deark/issues
+Bug-Submit: https://github.com/jsummers/deark/issues/new
+Repository-Browse: https://github.com/jsummers/deark
+Repository: https://github.com/jsummers/deark.git
+

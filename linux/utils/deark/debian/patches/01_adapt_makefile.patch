@@ -7,7 +7,7 @@ Applied-Upstream: no
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -22,6 +22,18 @@
+@@ -25,6 +25,18 @@
  
  INCLUDES:=-Isrc
  
@@ -26,7 +26,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($(OS),Windows_NT)
  EXE_EXT:=.exe
  else
-@@ -100,11 +112,11 @@
+@@ -104,11 +116,11 @@
  
  DEARK1_A:=$(OBJDIR)/src/deark1.a
  $(DEARK1_A): $(OFILES_DEARK1)
@@ -40,7 +40,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  MODS_AB_A:=$(OBJDIR)/modules/mods-ab.a
  MODS_CH_A:=$(OBJDIR)/modules/mods-ch.a
-@@ -112,15 +124,15 @@
+@@ -116,15 +128,15 @@
  MODS_PQ_A:=$(OBJDIR)/modules/mods-pq.a
  MODS_RZ_A:=$(OBJDIR)/modules/mods-rz.a
  $(MODS_AB_A): $(OFILES_MODS_AB)
@@ -61,7 +61,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # I'm sorry if your linker doesn't like this library order, but the link
  # command was getting so long that I've decided to start using helper
-@@ -144,7 +156,9 @@
+@@ -148,7 +160,9 @@
  INSTALL_TARGET:=$(DEARK_INSTALLDIR)/$(DEARK_EXE_BASENAME)
  install: $(INSTALL_TARGET)
  $(INSTALL_TARGET): $(DEARK_EXE)
@@ -72,7 +72,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # Quick & dirty man page generation. (experimental/temporary)
  # Note that this assumes DEARK_EXE does not have an absolute path.
-@@ -156,7 +170,7 @@
+@@ -160,7 +174,7 @@
  	install $(DEARK_MAN) /usr/share/man/man1
  
  clean:
@@ -81,7 +81,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  ifeq ($(MAKECMDGOALS),dep)
  
-@@ -167,4 +181,3 @@
+@@ -171,4 +185,3 @@
  	$(CC) $(CFLAGS) $(INCLUDES) -MM -MT '$$(OBJDIR)/$*.o' -MF $@ $<
  
  endif
