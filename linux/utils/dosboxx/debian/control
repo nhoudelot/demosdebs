@@ -40,15 +40,6 @@ Depends:
 Description: sarasa fonts
  Fonts designed by unknown
 
-Package: fonts-unifontfull-medium-mono
-Architecture: all
-Multi-Arch: foreign
-Section: fonts
-Depends:
- ${misc:Depends}
-Description: unifont mono fonts
- Fonts designed by Roman Czyborra
-
 Package: dosboxx-data
 Architecture: all
 Multi-Arch: foreign
@@ -63,7 +54,7 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  fonts-nouveau-ibm,
- fonts-unifontfull-medium-mono,
+ fonts-unifontex,
  fonts-sarasa-fixed-j,
  dosboxx-data
 Description: DOSBox-X emulates a legacy IBM PC and DOS environment

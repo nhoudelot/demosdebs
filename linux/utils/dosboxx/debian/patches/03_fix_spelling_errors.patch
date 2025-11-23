@@ -6,7 +6,7 @@ Applied-Upstream: no
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/dosbox.cpp
 +++ b/src/dosbox.cpp
-@@ -2455,7 +2455,7 @@
+@@ -2668,7 +2668,7 @@
      Pint->SetMinMax(-65536,65536);
      Pint->Set_help("VGA BIOS size override. Override the size of the VGA BIOS (normally 32KB in compatible or 12KB in non-compatible).");
  

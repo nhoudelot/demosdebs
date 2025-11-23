@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      AC_PATH_PROG(SDL2_CONFIG, sdl2-config, no)
 --- a/configure.ac
 +++ b/configure.ac
-@@ -505,10 +505,10 @@
+@@ -560,10 +560,10 @@
  pwd=`realpath $srcdir`
  if [[ -z "$pwd" ]]; then pwd=`pwd`; fi
  
