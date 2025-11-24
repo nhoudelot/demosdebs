@@ -1,21 +1,21 @@
 took system zlib & expat, instead of local one
 --- a/libhxcfe/build/Makefile
 +++ b/libhxcfe/build/Makefile
-@@ -43,7 +43,7 @@
+@@ -45,7 +45,7 @@
  
  ifeq ($(TARGET), Linux)
  	CFLAGS += -fPIC -Wl,-Map,foo.map
 -	LDFLAGS += -lc -lm  -ldl
-+	LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl
++	LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl -lspng
  endif
  
  ifeq ($(TARGET), mingw32)
-@@ -134,8 +134,8 @@
+@@ -153,8 +153,8 @@
  		trackeditor.o sector_extractor.o display_track.o fluxStreamAnalyzer.o streamConvert.o script_exec.o env.o
  
  LIBS_OBJS = $(BASE) $(FS_SUPPORT) $(ADFLIBOBJ) $(ENCODING_SUPPORT) $(TRACK_FORMATS_SUPPORT) $(DISKLOADERPLUGINS) \
 -			$(DISKWRITERPLUGINS) $(XDMSLIBOBJ) $(ZLIBOBJ) $(MINIZIPOBJ) $(LZ4OBJ) \
--			$(XML_DISK) $(XML_PARSER_EXPAT) $(FATIOLIB)
+-			$(XML_DISK) $(XML_PARSER_EXPAT) $(FATIOLIB) $(LIBSPNG)
 +			$(DISKWRITERPLUGINS) $(XDMSLIBOBJ) \
 +			$(XML_DISK) $(FATIOLIB)
  
@@ -122,3 +122,14 @@ took system zlib & expat, instead of local one
  
  #include "floppy_loader.h"
  #include "floppy_utils.h"
+--- a/libhxcfe/sources/loaders/bmp_loader/bmp_writer.c
++++ b/libhxcfe/sources/loaders/bmp_loader/bmp_writer.c
+@@ -43,7 +43,7 @@
+ #include "misc/env.h"
+ 
+ #define SPNG_STATIC 1
+-#include "thirdpartylibs/libspng/spng.h"
++#include "spng.h"
+ 
+ static int32_t progress_callback( uint32_t current, uint32_t total, void * td, void * user )
+ {

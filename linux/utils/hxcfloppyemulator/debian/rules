@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 export DEB_CFLAGS_MAINT_APPEND  = -flto
-export DEB_CPPFLAGS_MAINT_APPEND  = -flto
+export DEB_CPPFLAGS_MAINT_APPEND  = -flto 
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
@@ -22,6 +22,3 @@ override_dh_install:
 	(find debian/libusbhxcfe2 -type f -execdir rename 's/libusbhxcfe.so/libusbhxcfe.so.2.0.1.0/g' * {} \;)
 	mkdir -p debian/hxcfloppyemulator/usr/share/icons/hicolor/256x256/apps/
 	cp HxCFloppyEmulator_software/sources/mac/icons/hxcfloppyemulator.iconset/icon_256x256.png debian/hxcfloppyemulator/usr/share/icons/hicolor/256x256/apps/hxcfloppyemulator.png
-
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

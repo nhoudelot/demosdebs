@@ -24,7 +24,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  FLTK1_4 ?= 0
  DEBUG ?= 0
  DEBUG_ASAN ?= 0
-@@ -21,7 +20,7 @@
+@@ -23,7 +22,7 @@
  	DEBUG_INFOS = 1
  else
  	CFLAGS = -O3 $(INCLUDES) -Wall
@@ -33,18 +33,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  endif
  
  ifeq ($(DEBUG_ASAN), 1)
-@@ -53,10 +52,6 @@
- 	LDFLAGS += -lc -lm -ldl -lpthread -Wl,-rpath=.  -Wl,-Map,foo.map
- endif
- 
--ifeq ($(TARGET), Linux)
--	LDFLAGS += -lc -lm -ldl -lpthread -Wl,-rpath=.  -Wl,-Map,foo.map
--endif
--
- ifeq ($(findstring CYGWIN,$(shell uname)),CYGWIN)
- 	LIBHXCFE = libhxcfe.dll
- 	LIBUSBHXCFE = libusbhxcfe.dll
-@@ -90,7 +85,7 @@
+@@ -98,7 +97,7 @@
  	LIBHXCFE = libhxcfe.dylib
  	LIBUSBHXCFE = libusbhxcfe.dylib
  else
@@ -52,8 +41,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	LDFLAGS += $(shell fltk-config --ldflags)
  endif
  
- FTDIFLOPPYEMU=usb_hxcfloppyemulator.o variablebitrate.o
-@@ -101,7 +96,7 @@
+ ifeq ($(TARGET), Emscripten)
+@@ -130,7 +129,7 @@
  	filesystem_generator_window.o cb_edittool_window.o edittool_window.o floppy_streamer_window.o cb_floppy_streamer_window.o fl_dnd_box.o
  
  MICROINTRO = microintro.o lzw.o pack.o rle.o hxcmod.o
@@ -62,7 +51,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  all:
  	$(MAKE) fltk
-@@ -186,11 +181,11 @@
+@@ -221,19 +220,19 @@
  	cd $(BASEDIR)/gui/microintro/data/ && ../converttools/bmptob8/bmptoh nao_gabber_astro.mod -DATA
  	cd $(BASEDIR)/gui/microintro/data/ && ../converttools/bmptob8/bmptoh ../../../../COPYING_FULL -DATA
  
@@ -71,11 +60,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	$(CPP) -o $@    $^ $(LDFLAGS)
  	cp $@ ../../build
  
+-DosDiskBrowser.exe: win32_hxcfloppy_res.o main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(FLTKLIB) $(LIBHXCFE) $(LIBUSBHXCFE) ../../build/libhxcadaptor.a
++DosDiskBrowser.exe: win32_hxcfloppy_res.o main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(LIBHXCFE) $(LIBUSBHXCFE) ../../build/libhxcadaptor.a
+ 	$(CPP) -o $@    $^ $(LDFLAGS)
+ 	cp $@ ../../build
+ 
 -hxcfloppyemulator: main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(FLTKLIB) $(LIBHXCFE) $(LIBUSBHXCFE) ../../build/libhxcadaptor.a
 +hxcfloppyemulator: main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(LIBHXCFE) $(LIBUSBHXCFE) ../../build/libhxcadaptor.a
  	$(CPP) -o $@    $^ $(LDFLAGS)
  	cp $@ ../../build
  
+-hxcfloppyemulator.html: main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(FLTKLIB) $(LIBHXCFE) $(LIBUSBHXCFE) ../../build/libhxcadaptor.a
++hxcfloppyemulator.html: main.o utils.o $(GUI) $(MICROINTRO) loader.o soft_cfg_file.o fileselector.o $(LIBHXCFE) $(LIBUSBHXCFE) ../../build/libhxcadaptor.a
+ 	$(CPP) -o $@    $^ $(LDFLAGS)
+ 	mkdir -p ../../build/wasm/
+ 	cp $@ *.html *.js *.wasm ../sources/gui/wasm/*.js ../sources/gui/wasm/*.html ../../build/wasm/
 --- a/HxCFloppyEmulator_cmdline/build/Makefile
 +++ b/HxCFloppyEmulator_cmdline/build/Makefile
 @@ -1,5 +1,5 @@
@@ -96,15 +95,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  TARGET := $(shell uname)
  
-@@ -36,7 +36,7 @@
- 	LDFLAGS += -lc -lm -ldl
- 	CC = cc
- endif
--
-+
- ifeq ($(TARGET), Linux)
- 	CFLAGS += -fPIC -Wl,-Map,foo.map
- 	LDFLAGS += -lc -lm -ldl
 --- a/libhxcfe/build/Makefile
 +++ b/libhxcfe/build/Makefile
 @@ -1,7 +1,7 @@

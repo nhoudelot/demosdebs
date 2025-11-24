@@ -20,7 +20,7 @@
  See CHANGES.txt for detailed contributions.
 --- a/libhxcfe/sources/loaders/ede_loader/ede_loader.c
 +++ b/libhxcfe/sources/loaders/ede_loader/ede_loader.c
-@@ -99,7 +99,7 @@
+@@ -102,7 +102,7 @@
  					imgldr_ctx->hxcfe->hxc_printf(MSG_INFO_0,"EDE_libIsValidDiskFile : TS-10/12 DD format");
  				break;
  				default:
@@ -29,7 +29,7 @@
  					return HXCFE_BADFILE;
  				break;
  			}
-@@ -298,7 +298,7 @@
+@@ -321,7 +321,7 @@
  			break;
  
  			default:
@@ -40,7 +40,7 @@
  			break;
 --- a/libhxcfe/sources/loaders/hfe_loader/hfev3_loader.c
 +++ b/libhxcfe/sources/loaders/hfe_loader/hfev3_loader.c
-@@ -215,7 +215,7 @@
+@@ -220,7 +220,7 @@
  			floppydisk->floppyNumberOfSide,
  			floppydisk->floppyBitRate,
  			floppydisk->floppySectorPerTrack,
@@ -51,7 +51,7 @@
  		trackoffsetlist=(pictrack*)malloc(sizeof(pictrack)* header.number_of_track);
 --- a/libhxcfe/sources/loaders/stx_loader/stx_loader.c
 +++ b/libhxcfe/sources/loaders/stx_loader/stx_loader.c
-@@ -718,7 +718,7 @@
+@@ -715,7 +715,7 @@
  						{
  							hxc_fread( &temp_val, sizeof(unsigned short), f );
  #ifdef PASTI_DBG
@@ -62,7 +62,7 @@
  
 --- a/libhxcfe/sources/tracks/display_track.c
 +++ b/libhxcfe/sources/tracks/display_track.c
-@@ -789,7 +789,7 @@
+@@ -1571,7 +1571,7 @@
  								{
  									if(sc->startdataindex == sc->startsectorindex)
  									{
@@ -70,10 +70,10 @@
 +										// Unknown size (no header) : blue
  										for(j=50;j<(td->ysize-10);j++)
  										{
- 											col=(s_col *)&td->framebuffer[(td->xsize*j) + i];
+ 											col=(s_col *)&td->layers[LAYER_IDENTIFICATION][(td->xsize*j) + i];
 --- a/libhxcfe/sources/stream_analyzer/fluxStreamAnalyzer.c
 +++ b/libhxcfe/sources/stream_analyzer/fluxStreamAnalyzer.c
-@@ -2876,7 +2876,7 @@
+@@ -2881,7 +2881,7 @@
  
  			/////////////////////////////////////////////////////////
  #ifdef FLUXSTREAMDBG
@@ -82,7 +82,7 @@
  
  			// print missing blocks.
  			for(block_num=0;block_num<tb->number_of_blocks;block_num++)
-@@ -2960,7 +2960,7 @@
+@@ -2965,7 +2965,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -91,7 +91,7 @@
  #endif
  										}
  										else
-@@ -2981,7 +2981,7 @@
+@@ -2986,7 +2986,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -100,7 +100,7 @@
  #endif
  										}
  										else
-@@ -3006,7 +3006,7 @@
+@@ -3011,7 +3011,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -109,7 +109,7 @@
  #endif
  										}
  										else
-@@ -3043,7 +3043,7 @@
+@@ -3048,7 +3048,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -118,7 +118,7 @@
  #endif
  										}
  										else
-@@ -3124,7 +3124,7 @@
+@@ -3129,7 +3129,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -127,7 +127,7 @@
  #endif
  										}
  										else
-@@ -3145,7 +3145,7 @@
+@@ -3150,7 +3150,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -136,7 +136,7 @@
  #endif
  										}
  										else
-@@ -4073,7 +4073,7 @@
+@@ -4078,7 +4078,7 @@
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Bitrate: %d",side->bitrate);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Number of sector: %d",side->number_of_sector);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Track encoding: %d",side->track_encoding);
@@ -145,7 +145,7 @@
  
  	nbbadbit = 0;
  
-@@ -4355,7 +4355,7 @@
+@@ -4360,7 +4360,7 @@
  					if(pl->forward_link[first_index] == 1)
  					{
  #ifdef FLUXSTREAMDBG
@@ -248,7 +248,7 @@
  								}
 --- a/libhxcfe/sources/loaders/streamhfe_loader/streamhfe_loader.c
 +++ b/libhxcfe/sources/loaders/streamhfe_loader/streamhfe_loader.c
-@@ -406,7 +406,7 @@
+@@ -407,7 +407,7 @@
  			floppydisk->floppyNumberOfSide,
  			floppydisk->floppyBitRate,
  			floppydisk->floppySectorPerTrack,

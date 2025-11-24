@@ -1,7 +1,7 @@
 --- a/libhxcfe/build/Makefile
 +++ b/libhxcfe/build/Makefile
-@@ -13,12 +13,12 @@
- DEBUG_INFOS ?= 0
+@@ -15,12 +15,12 @@
+ EM_PTHREAD ?= 1
  
  ifeq ($(DEBUG), 1)
 -	CFLAGS = -O0 $(INCLUDES) -Wall -DDEBUG
@@ -17,19 +17,19 @@
  endif
  
  ifeq ($(DEBUG_ASAN), 1)
-@@ -42,7 +42,9 @@
+@@ -44,7 +44,9 @@
  endif
  
  ifeq ($(TARGET), Linux)
 +	CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
  	CFLAGS += -fPIC -Wl,-Map,foo.map
 +	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
- 	LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl
+ 	LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl -lspng
  	LDFLAGS += -Wl,--as-needed,-soname,libhxcfe.so.2
  endif
 --- a/libusbhxcfe/build/Makefile
 +++ b/libusbhxcfe/build/Makefile
-@@ -40,7 +40,9 @@
+@@ -42,7 +42,9 @@
  endif
  
  ifeq ($(TARGET), Linux)
@@ -41,7 +41,7 @@
  
 --- a/HxCFloppyEmulator_cmdline/build/Makefile
 +++ b/HxCFloppyEmulator_cmdline/build/Makefile
-@@ -14,8 +14,8 @@
+@@ -16,8 +16,8 @@
  	LDFLAGS =
  	DEBUG_INFOS = 1
  else
@@ -52,7 +52,7 @@
  endif
  
  ifeq ($(DEBUG_ASAN), 1)
-@@ -48,6 +48,8 @@
+@@ -50,6 +50,8 @@
  endif
  
  ifeq ($(TARGET), Linux)
@@ -63,7 +63,7 @@
  
 --- a/HxCFloppyEmulator_software/build/Makefile
 +++ b/HxCFloppyEmulator_software/build/Makefile
-@@ -19,7 +19,10 @@
+@@ -21,7 +21,10 @@
  	LDFLAGS =
  	DEBUG_INFOS = 1
  else
@@ -75,7 +75,7 @@
  	LDFLAGS+= -g $(shell fltk-config --ldflags) -lpthread
  endif
  
-@@ -199,97 +202,97 @@
+@@ -247,97 +250,97 @@
  	$(RESC) $< $@
  
  main.o: $(BASEDIR)/main.cxx
