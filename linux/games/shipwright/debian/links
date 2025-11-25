@@ -1,0 +1,10 @@
+#!/usr/bin/dh-exec
+
+usr/share/games/shipwright/assets usr/lib/${DEB_HOST_MULTIARCH}/shipwright/assets
+usr/share/games/shipwright/soh.otr usr/lib/${DEB_HOST_MULTIARCH}/shipwright/soh.otr
+tmp/shipwright/Save usr/lib/${DEB_HOST_MULTIARCH}/shipwright/Save
+tmp/shipwright/logs usr/lib/${DEB_HOST_MULTIARCH}/shipwright/logs
+tmp/shipwright/imgui.ini usr/lib/${DEB_HOST_MULTIARCH}/shipwright/imgui.ini
+tmp/shipwright/shipofharkinian.json usr/lib/${DEB_HOST_MULTIARCH}/shipwright/shipofharkinian.json
+tmp/shipwright/oot.otr usr/lib/${DEB_HOST_MULTIARCH}/shipwright/oot.otr
+usr/share/gamecontrollerdb/gamecontrollerdb.txt usr/lib/${DEB_HOST_MULTIARCH}/shipwright/gamecontrollerdb.txt

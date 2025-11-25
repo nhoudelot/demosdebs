@@ -1,0 +1,6 @@
+#!/usr/bin/dh-exec
+
+debian/scripts/hermes-by-retroguru usr/games/
+debian/resources/hermes-by-retroguru.desktop usr/share/applications/
+icon.png => usr/share/icons/hicolor/96x96/apps/hermes-by-retroguru.png
+./${EXE} usr/lib/${DEB_HOST_MULTIARCH}/hermes/./ 

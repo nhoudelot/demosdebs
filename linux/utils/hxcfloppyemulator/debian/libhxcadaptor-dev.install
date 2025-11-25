@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec
+
+libhxcadaptor/sources/libhxcadaptor.h usr/include/
+libhxcadaptor/build/libhxcadaptor.a /usr/lib/${DEB_HOST_MULTIARCH}/

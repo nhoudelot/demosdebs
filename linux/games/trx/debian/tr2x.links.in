@@ -1,7 +1,0 @@
-usr/share/games/tr2x/shaders usr/lib/@DEB_HOST_MULTIARCH@/tr2x/shaders
-usr/share/games/tr2x/cfg usr/lib/@DEB_HOST_MULTIARCH@/tr2x/cfg
-usr/share/games/tr2x/data usr/lib/@DEB_HOST_MULTIARCH@/tr2x/data
-usr/share/games/tr2x/music usr/lib/@DEB_HOST_MULTIARCH@/tr2x/music
-usr/share/games/tr2x/fmv usr/lib/@DEB_HOST_MULTIARCH@/tr2x/fmv
-tmp/tr2x/TR2X.json5 usr/share/games/tr2x/cfg/TR2X.json5
-tmp/tr2x/TR2X_console_history.json5 usr/share/games/tr2x/cfg/TR2X_console_history.json5

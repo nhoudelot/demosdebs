@@ -1,0 +1,6 @@
+#!/usr/bin/dh-exec
+
+debian/resources/aurora-by-excess.desktop usr/share/applications/
+debian/resources/aurora-by-excess.png usr/share/icons/hicolor/128x128/apps/
+debian/scripts/aurora-by-excess usr/bin/
+obj-${MESON_HOST_MULTIARCH}/src/demo => usr/lib/${DEB_HOST_MULTIARCH}/aurora

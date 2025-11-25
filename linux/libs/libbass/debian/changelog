@@ -1,3 +1,9 @@
+libbass (2.4.18-0ddebs2) unstable; urgency=medium
+
+  * use of dh-exec to reduce complexity of debian/ files
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 27 Nov 2025 01:09:20 +0100
+
 libbass (2.4.18-0ddebs1) unstable; urgency=medium
 
   * upstream update

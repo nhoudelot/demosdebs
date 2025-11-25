@@ -1,3 +1,9 @@
+libstdc++5 (1:3.3.6-15-0ddebs2) unstable; urgency=medium
+
+  * use of dh-exec to reduce complexity of debian/ files
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 27 Nov 2025 01:26:34 +0100
+
 libstdc++5 (1:3.3.6-15-0ddebs1) unstable; urgency=medium
 
   * Initial release.

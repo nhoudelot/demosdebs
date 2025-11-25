@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec
+
+build/libusbhxcfe.so => usr/lib/${DEB_HOST_MULTIARCH}/libusbhxcfe.so.2.0.1.0

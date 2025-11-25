@@ -1,3 +1,9 @@
+pixilang (3.8.5b-0ddebs2) unstable; urgency=medium
+
+  * use of dh-exec to reduce complexity of debian/ files
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Nov 2025 14:33:54 +0100
+
 pixilang (3.8.5b-0ddebs1) unstable; urgency=medium
 
   * Initial release.

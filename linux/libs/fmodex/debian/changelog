@@ -1,3 +1,9 @@
+fmodex (4.44.64+1-0ddebs7) unstable; urgency=medium
+
+  * use of dh-exec to reduce complexity of debian/ files
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 27 Nov 2025 00:44:01 +0100
+
 fmodex (4.44.64+1-0ddebs6) unstable; urgency=medium
 
   * added dependency to pipewire-alsa for Ubuntu 24.04 & Debian 12

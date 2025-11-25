@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec
+
+build/libhxcfe.so => usr/lib/${DEB_HOST_MULTIARCH}/libhxcfe.so.${HXCFVERSION}

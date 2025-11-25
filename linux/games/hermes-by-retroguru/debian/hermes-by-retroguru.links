@@ -1,0 +1,5 @@
+#!/usr/bin/dh-exec
+
+usr/share/games/hermes/data usr/lib/${DEB_HOST_MULTIARCH}/hermes/data
+usr/share/games/hermes/hiscores.dat usr/lib/${DEB_HOST_MULTIARCH}/hermes/hiscores.dat
+tmp/hermes/hiscores.dat usr/share/games/hermes/hiscores.dat

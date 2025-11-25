@@ -1,2 +1,4 @@
+#!/usr/bin/dh-exec
+
 include/libultraship usr/include/
-build/src/libultraship.a usr/lib/x86_64-linux-gnu/
+build/src/libultraship.a usr/lib/${DEB_HOST_MULTIARCH}/

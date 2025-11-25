@@ -1,3 +1,0 @@
-dtc/@DIR@/bin/dtc usr/bin/
-dtc/@DIR@/lib/libCAPSImage.so.5.2 usr/lib/@DEB_HOST_MULTIARCH@/
-dtc/@DIR@/share/dtc/firmware_kf_usb_rosalie.bin usr/share/dtc/

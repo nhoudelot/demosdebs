@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+export EXE
+
 ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
     EXE=dsr-rpsy-linux-64bit.lnx
 endif
@@ -15,11 +17,6 @@ endif
 
 override_dh_auto_configure:
 	dh_auto_configure
-	(cd debian; \
-	  for i in *.in; do\
-	  o=`basename $$i .in`;\
-	  sed -e 's/@EXE@/${EXE}/g' -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
-	  done )
 	(cd debian/scripts; \
 	  for i in *.in; do\
 	  o=`basename $$i .in`;\
@@ -28,6 +25,3 @@ override_dh_auto_configure:
 
 override_dh_shlibdeps:
 	dh_shlibdeps -- -xlibsdl1.2debian
-
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

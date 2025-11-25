@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec
+
+usr/lib/${DEB_HOST_MULTIARCH}/libbass.so.${BASSVERSION} usr/lib/${DEB_HOST_MULTIARCH}/libbass.so
+usr/lib/${DEB_HOST_MULTIARCH}/libbass.so.${BASSVERSION} usr/lib/${DEB_HOST_MULTIARCH}/libbass.so.2

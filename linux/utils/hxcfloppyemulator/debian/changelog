@@ -1,3 +1,9 @@
+hxcfloppyemulator (2.16.13.1-0ddebs2) unstable; urgency=medium
+
+  * use of dh-exec to reduce complexity of debian/ files
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Nov 2025 00:52:05 +0100
+
 hxcfloppyemulator (2.16.13.1-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

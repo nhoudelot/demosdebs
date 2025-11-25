@@ -1,2 +1,5 @@
+#!/usr/bin/dh-exec
+
 debian/resources/hxcfloppyemulator.desktop usr/share/applications/
 build/hxcfloppyemulator usr/bin/
+HxCFloppyEmulator_software/sources/mac/icons/hxcfloppyemulator.iconset/icon_256x256.png => debian/hxcfloppyemulator/usr/share/icons/hicolor/256x256/apps/hxcfloppyemulator.png

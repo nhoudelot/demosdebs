@@ -1,9 +1,3 @@
-debian/libusbhxcfe2.install
-debian/libusbhxcfe2.links
-debian/libusbhxcfe-dev.links
-debian/libhxcfe2.install
-debian/libhxcfe2.links
-debian/libhxcfe-dev.links
 libhxcfe/trunk/sources/thirdpartylibs/zlib/contrib/dotzlib/DotZLib.build
 libhxcfe/trunk/sources/thirdpartylibs/adflib/Lib/.depend.bak
 libhxcfe/trunk/sources/thirdpartylibs/adflib/Demo/.depend.bak

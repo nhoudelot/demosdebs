@@ -4,21 +4,7 @@ export DEB_CFLAGS_MAINT_APPEND  = -flto
 export DEB_CPPFLAGS_MAINT_APPEND  = -flto 
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export HXCFVERSION := $(shell dpkg-parsechangelog -S Version | cut -d- -f1)
 
 %:
 	dh $@ --no-parallel --sourcedirectory=build
-
-override_dh_auto_configure:
-	dh_auto_configure
-	(cd debian; \
-	 for i in *.in; do\
-	 o=`basename $$i .in`;\
-	 sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
-	 done )
-
-override_dh_install:
-	dh_install
-	(find debian/libhxcfe2 -type f -execdir rename 's/libhxcfe.so/libhxcfe.so.2.12.1.6/g' * {} \;)
-	(find debian/libusbhxcfe2 -type f -execdir rename 's/libusbhxcfe.so/libusbhxcfe.so.2.0.1.0/g' * {} \;)
-	mkdir -p debian/hxcfloppyemulator/usr/share/icons/hicolor/256x256/apps/
-	cp HxCFloppyEmulator_software/sources/mac/icons/hxcfloppyemulator.iconset/icon_256x256.png debian/hxcfloppyemulator/usr/share/icons/hicolor/256x256/apps/hxcfloppyemulator.png

@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec
+
+${DEB_HOST_MULTIARCH}/libbass.so => usr/lib/${DEB_HOST_MULTIARCH}/libbass.so.${BASSVERSION}

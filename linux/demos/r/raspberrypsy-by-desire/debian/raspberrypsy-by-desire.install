@@ -1,0 +1,6 @@
+#!/usr/bin/dh-exec
+
+debian/scripts/raspberrypsy-by-desire usr/bin/
+debian/resources/raspberrypsy-by-desire.desktop usr/share/applications/
+debian/resources/raspberrypsy-by-desire.png usr/share/icons/hicolor/256x256/apps/
+./${EXE} usr/lib/${DEB_HOST_MULTIARCH}/raspberrypsy-by-desire/./ 

@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
+ dh-exec (>=0.3),
  python3,
  meson (>=0.58),
  pkgconf,
@@ -25,10 +26,8 @@ Package: aurora-by-excess
 Architecture: any
 Depends:
  aurora-by-excess-data,
- libbass2,
  ${shlibs:Depends},
- ${misc:Depends},
- common-install-function-ddebs(>=1.61)
+ ${misc:Depends}
 Description: Demo by Excess, released in 2018
  Demo by Excess, ranked 4th pc demo at Revision 2018
 

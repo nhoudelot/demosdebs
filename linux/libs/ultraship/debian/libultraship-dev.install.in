@@ -1,2 +1,0 @@
-include/libultraship usr/include/
-build/src/libultraship.a usr/lib/@DEB_HOST_MULTIARCH@/

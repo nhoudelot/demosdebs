@@ -1,3 +1,10 @@
+kryoflux (3.50-0ddebs2) unstable; urgency=medium
+
+  * use of dh-exec to reduce complexity of debian/ files
+  * use of profiles to select binary dependencie by distribution 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 26 Nov 2025 00:21:17 +0100
+
 kryoflux (3.50-0ddebs1) unstable; urgency=medium
 
   * New Release Update

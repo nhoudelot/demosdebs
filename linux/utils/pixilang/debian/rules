@@ -5,6 +5,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 #export DEB_CXXFLAGS_MAINT_APPEND  = -flto
 #export DEB_LDFLAGS_MAINT_APPEND  = -flto
 export CC = $(DEB_HOST_GNU_TYPE)-gcc
+export DIR
 
 ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
     DIR=linux_x86_64
@@ -34,11 +35,6 @@ override_dh_auto_configure:
 	dh_auto_configure
 	chmod +x pixilang3/make/MAKE_LINUX_RISCV64
 	mkdir pixilang3/bin/linux_riscv64
-	sed 's/@DIR@/$(DIR)/g' \
-	debian/install.in > debian/install
 
 override_dh_auto_build:
 	cd ./pixilang3/make/ && ./$(MAKESCRIPT)
-
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

@@ -1,4 +1,0 @@
-debian/scripts/skrolliparty2018invtro-by-mikkosoftproductions usr/bin/
-debian/resources/skrolliparty2018invtro-by-mikkosoftproductions.desktop usr/share/applications/
-debian/resources/skrolliparty2018invtro-by-mikkosoftproductions.png usr/share/icons/hicolor/256x256/apps/
-./@DEB_HOST_MULTIARCH@/skrolliparty2 usr/lib/@DEB_HOST_MULTIARCH@/skrolliparty2018invtro-by-mikkosoftproductions/

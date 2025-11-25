@@ -19,6 +19,8 @@ MESON_OPTS = -Dbass-sdk=/usr/include
 #	MESON_OPTS += -Ddisable_immintrin_h=true
 #endif
 
+export MESON_HOST_MULTIARCH
+
 ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
     MESON_HOST_MULTIARCH = i686-linux-gnu
 else
@@ -30,11 +32,6 @@ endif
 
 override_dh_auto_configure:
 	dh_auto_configure -- $(MESON_OPTS)
-	(cd debian; \
-		for i in *.in; do\
-		o=`basename $$i .in`;\
-		sed -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' -e 's/@MESON_HOST_MULTIARCH@/$(MESON_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
-		done )
 	 (cd debian/scripts; \
 		for i in *.in; do\
 		o=`basename $$i .in`;\
@@ -43,7 +40,3 @@ override_dh_auto_configure:
 
 override_dh_auto_install:
 	find . -name "LICENSE" -delete
-
-override_dh_install:
-	cp obj-$(MESON_HOST_MULTIARCH)/src/demo obj-$(MESON_HOST_MULTIARCH)/src/aurora
-	dh_install

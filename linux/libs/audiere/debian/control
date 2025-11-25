@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
+ dh-exec (>=0.3),
  libvorbis-dev,
  libcdaudio-dev,
  libflac-dev,

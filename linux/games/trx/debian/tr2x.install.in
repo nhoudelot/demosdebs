@@ -1,4 +1,0 @@
-debian/resources/tr2x.desktop usr/share/applications/
-debian/resources/tr2x.png usr/share/icons/hicolor/256x256/apps/
-build2/tr2x usr/lib/@DEB_HOST_MULTIARCH@/tr2x
-debian/scripts/tr2x usr/games

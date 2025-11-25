@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
+ dh-exec (>=0.3),
  libgl-dev,
  libsdl1.2-compat-dev|libsdl1.2-dev
 Standards-Version: 4.6.2

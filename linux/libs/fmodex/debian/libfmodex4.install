@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec
+
+api/lib/libfmodex${EXT}-4.44.64.so usr/lib/${DEB_HOST_MULTIARCH}
+api/lib/libfmodexL${EXT}-4.44.64.so usr/lib/${DEB_HOST_MULTIARCH}

@@ -1,3 +1,9 @@
+hermes-by-retroguru (1.02-0ddebs5) unstable; urgency=medium
+
+  * use of dh-exec to reduce complexity of debian/ files
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 27 Nov 2025 14:38:19 +0100
+
 hermes-by-retroguru (1.02-0ddebs4) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

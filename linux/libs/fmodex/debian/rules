@@ -3,6 +3,8 @@
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
+export EXT
+
 
 ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
     EXT=64
@@ -11,26 +13,10 @@ ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
     EXT=
 endif
 
-# dh_dwz on buster don't like when there is no .debug_info section
-ifneq ($(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release),buster)
-	RUN_DHDWZ=dh_dwz 
-endif
-
 %:
 	dh $@
 
 override_dh_strip:
-
-override_dh_dwz:
-	$(RUN_DHDWZ)
-
-override_dh_auto_configure:
-	dh_auto_configure
-	(cd debian; \
-		for i in *.in; do\
-		o=`basename $$i .in`;\
-		sed 's/@EXT@/$(EXT)/g;s/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
-		done )
 
 override_dh_install:
 	dh_install
@@ -39,5 +25,10 @@ override_dh_install:
 	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodex)-([0-9,.]*).so/$$1.so.$$2/g' * {} \;)
 	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodexL)-([0-9,.]*).so/$$1.so.$$2/g' * {} \;)
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz
+override_dh_auto_configure:
+	dh_auto_configure
+	(cd debian; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+		done )

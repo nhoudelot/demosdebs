@@ -1,3 +1,9 @@
+skrolliparty2018invtro-by-mikkosoftproductions (1.0-0ddebs3) unstable; urgency=medium
+
+  * use of dh-exec to reduce complexity of debian/ files
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 28 Nov 2025 10:01:50 +0100
+
 skrolliparty2018invtro-by-mikkosoftproductions (1.0-0ddebs2) unstable; urgency=medium
 
   * debian/control

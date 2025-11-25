@@ -2,10 +2,11 @@ Source: libcapsimage5
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 13)
+ debhelper-compat (= 13),
+ dh-exec (>=0.3)
 Standards-Version: 4.6.2
 Section: libs
-Homepage: https://www.softpres.org/?id=download
+Homepage: http://www.softpres.org/?id=download
 Rules-Requires-Root: no
 
 Package: libcapsimage5-dev

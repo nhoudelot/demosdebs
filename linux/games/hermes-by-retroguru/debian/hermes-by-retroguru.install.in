@@ -1,4 +1,0 @@
-debian/scripts/hermes-by-retroguru usr/games/
-debian/resources/hermes-by-retroguru.desktop usr/share/applications/
-./hermes-by-retroguru.png usr/share/icons/hicolor/96x96/apps/
-./@EXE@ usr/lib/@DEB_HOST_MULTIARCH@/hermes/./ 

@@ -1,3 +1,9 @@
+zipline-by-thebadsectors (1.0-0ddebs2) unstable; urgency=medium
+
+  * use of dh-exec to reduce complexity of debian/ files
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 27 Nov 2025 22:52:51 +0100
+
 zipline-by-thebadsectors (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release.

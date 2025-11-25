@@ -3,6 +3,8 @@
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
+export DIR
+
 ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
 	DIR=x86_64
 endif
@@ -17,22 +19,11 @@ override_dh_auto_install:
 	find . -name "LICENCE.txt" -delete
 	dh_auto_install
 
-override_dh_auto_configure:
-	dh_auto_configure
-	(cd debian; \
-	 for i in *.in; do\
-	 o=`basename $$i .in`;\
-	 sed -e 's/@DIR@/$(DIR)/g' -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
-	 done )
-
 override_dh_shlibdeps:
 	dh_shlibdeps -- --ignore-missing-info
 
 override_dh_installudev:
 	dh_installudev --name=kryoflux --priority=80
-
-override_dh_builddeb:
-	dh_builddeb -- -Zxz
 	
 override_dh_installdocs:
 	dh_installdocs

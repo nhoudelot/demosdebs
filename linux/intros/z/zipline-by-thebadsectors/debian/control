@@ -5,6 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
+ dh-exec (>=0.3),
  libsdl2-dev
 Standards-Version: 4.6.2
 Homepage: https://www.pouet.net/prod.php?which=85913
