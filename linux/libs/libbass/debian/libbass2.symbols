@@ -20,6 +20,7 @@ libbass.so.2 libbass2 #MINVER#
  BASS_ChannelLock@Base 2.4.6
  BASS_ChannelPause@Base 2.4.6
  BASS_ChannelPlay@Base 2.4.6
+ BASS_ChannelRef@Base 2.4.18
  BASS_ChannelRemoveDSP@Base 2.4.6
  BASS_ChannelRemoveFX@Base 2.4.6
  BASS_ChannelRemoveLink@Base 2.4.6
@@ -30,6 +31,7 @@ libbass.so.2 libbass2 #MINVER#
  BASS_ChannelSetAttribute@Base 2.4.6
  BASS_ChannelSetAttributeEx@Base 2.4.11
  BASS_ChannelSetDSP@Base 2.4.6
+ BASS_ChannelSetDSPEx@Base 2.4.18
  BASS_ChannelSetDevice@Base 2.4.6
  BASS_ChannelSetFX@Base 2.4.6
  BASS_ChannelSetLink@Base 2.4.6
@@ -40,8 +42,10 @@ libbass.so.2 libbass2 #MINVER#
  BASS_ChannelStop@Base 2.4.6
  BASS_ChannelUpdate@Base 2.4.6
  BASS_ErrorGetCode@Base 2.4.6
+ BASS_FXFree@Base 2.4.18
  BASS_FXGetParameters@Base 2.4.6
  BASS_FXReset@Base 2.4.6
+ BASS_FXSetBypass@Base 2.4.18
  BASS_FXSetParameters@Base 2.4.6
  BASS_FXSetPriority@Base 2.4.12
  BASS_Free@Base 2.4.6
@@ -92,6 +96,7 @@ libbass.so.2 libbass2 #MINVER#
  BASS_SetVolume@Base 2.4.6
  BASS_Start@Base 2.4.6
  BASS_Stop@Base 2.4.6
+ BASS_StreamCancel@Base 2.4.18
  BASS_StreamCreate@Base 2.4.6
  BASS_StreamCreateFile@Base 2.4.6
  BASS_StreamCreateFileUser@Base 2.4.6

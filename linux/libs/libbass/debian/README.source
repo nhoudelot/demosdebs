@@ -1,7 +1,11 @@
 libbass for Debian
 ------------------
 
-source have been assembled from un4seen archive
-* linux and arm version
+sources have been assembled from un4seen archive
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 28 Jul 2021 09:45:24 +0200
+patched the library with : patchelf --set-soname libbass.so.2 libbass.so.2.4.17
+so it has a soname
+
+and then I could create a symbols file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Now 2025 00:11:32 +0100
