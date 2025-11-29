@@ -4,38 +4,14 @@ Applied-Upstream: no
 Last-Update: 2025-03-16
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/src/tr1/meson.build
-+++ b/src/tr1/meson.build
-@@ -288,12 +288,12 @@
- ]
- 
- executable(
--  'TR1X',
-+  'tr1x',
-   sources,
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -663,7 +663,7 @@
    dependencies: dependencies,
    link_args: link_args,
    win_subsystem: 'windows',
 -  install: true,
 +  install: false,
+   install_tag: 'common',
+   c_args: ['-I.'],
  )
- 
- if host_machine.system() == 'darwin'
---- a/src/tr2/meson.build
-+++ b/src/tr2/meson.build
-@@ -297,13 +297,13 @@
- ]
- 
- executable(
--  'TR2X',
-+  'tr2x',
-   sources,
-   name_prefix: '',
-   link_args: link_args,
-   dependencies: dependencies,
-   win_subsystem: 'windows',
--  install: true,
-+  install: false,
- )
- 
- if host_machine.system() == 'darwin'

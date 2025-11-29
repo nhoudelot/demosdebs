@@ -1,3 +1,9 @@
+trx (1.0.3-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Nov 2025 01:11:40 +0100
+
 trx (0.9.2-0ddebs3) unstable; urgency=medium
 
   * use of dh-exec to reduce complexity of debian/ files

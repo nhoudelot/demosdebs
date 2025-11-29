@@ -1,6 +1,7 @@
-data/tr2/ship/shaders usr/share/games/tr2x
+data/common/ship/shaders usr/share/games/tr2x
+data/common/ship/cfg usr/share/games/tr2x
+data/common/ship/scripting usr/share/games/tr2x
 data/tr2/ship/cfg usr/share/games/tr2x
-data/tr2/ship/data usr/share/games/tr2x
-data/tr2/ship/music usr/share/games/tr2x
+data/tr2/ship/data/injections usr/share/games/tr2x/data
 debian/TR2X.json5.init usr/share/games/tr2x
 debian/TR2X_console_history.json5.init usr/share/games/tr2x
