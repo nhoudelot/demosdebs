@@ -7,12 +7,10 @@ MESON_OPTS = -Dstaticdeps=false
 	dh $@ --buildsystem=meson
 
 override_dh_auto_build:
-	dh_auto_build -Bbuild1 -Dsrc/tr1
-	dh_auto_build -Bbuild2 -Dsrc/tr2
+	dh_auto_build -Bbuild -Dsrc
 
 override_dh_auto_configure:
-	dh_auto_configure -Bbuild1 -Dsrc/tr1 -- $(MESON_OPTS)
-	dh_auto_configure -Bbuild2 -Dsrc/tr2 -- $(MESON_OPTS)
+	dh_auto_configure -Bbuild -Dsrc -- $(MESON_OPTS)
 	(cd debian/scripts; \
 	  for i in *.in; do\
 	  o=`basename $$i .in`;\
