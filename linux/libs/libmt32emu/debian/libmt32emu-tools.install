@@ -1,0 +1,5 @@
+usr/bin/*
+usr/share/icons/*
+usr/share/applications/*
+usr/share/doc/munt/mt32emu-qt usr/share/doc/
+usr/share/doc/munt/smf2wav usr/share/doc/

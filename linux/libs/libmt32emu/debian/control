@@ -1,0 +1,35 @@
+Source: libmt32emu
+Section: libs
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake,
+ libglib2.0-dev,
+ qtbase5-dev,
+ qt5-qmake
+Standards-Version: 4.6.2
+Homepage: https://github.com/munt/munt
+
+Package: libmt32emu-dev
+Section: libdevel
+Architecture: any
+Depends:
+ ${misc:Depends},
+Description: Roland MT-32 emulation library
+ C/C++ library which allows to emulate (approximately) the Roland MT-32, CM-32L 
+ and LAPC-I synthesiser modules.
+
+Package: libmt32emu-tools
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: tools for libmt32emu
+ mt32emu_qt : Synthesiser application. Facilitates both realtime synthesis and 
+ conversion of pre-recorded SMF files to WAVE making use of the mt32emu library
+ and the Qt framework.
+ smf2wav : console application intended to facilitate conversion a pre-recorded 
+ Standard MIDI file (SMF) to a WAVE file using the mt32emu library for audio
+ rendering
