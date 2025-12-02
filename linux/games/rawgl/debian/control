@@ -6,7 +6,8 @@ Build-Depends:
  debhelper-compat (= 13),
  libsdl2-dev,
  libsdl2-mixer-dev,
- pkgconf
+ pkgconf,
+ libmt32emu-dev
 Standards-Version: 4.6.2
 Homepage: https://github.com/cyxx/rawgl
 Vcs-Git: https://github.com/cyxx/rawgl.git

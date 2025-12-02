@@ -6,9 +6,9 @@ Last-Update: 2024-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/mixer.cpp
 +++ b/mixer.cpp
-@@ -208,7 +208,12 @@
- 		}
+@@ -212,7 +212,12 @@
  		_sfx = 0;
+ 		_mt32 = 0;
  
 -		Mix_Init(MIX_INIT_OGG | MIX_INIT_FLUIDSYNTH);
 +		#ifdef MIX_INIT_FLUIDSYNTH

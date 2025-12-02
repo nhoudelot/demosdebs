@@ -20,7 +20,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 -CXXFLAGS := -g -O -MMD -Wall -Wpedantic $(SDL_CFLAGS) $(DEFINES)
 +CXXFLAGS += -Wall -pipe -MMD -Wuninitialized $(shell $(PKG_CONFIG) sdl2 SDL2_mixer gl zlib --cflags) $(DEFINES)
-+LDFLAGS  += $(shell $(PKG_CONFIG) sdl2 SDL2_mixer gl zlib --libs)
++LDFLAGS  += $(shell $(PKG_CONFIG) sdl2 SDL2_mixer gl zlib --libs) -Bstatic -lmt32emu
 +TARGET   = rawgl
 +#variable de nettoyage
 +RM_F = rm -f
@@ -35,12 +35,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  SRCS = aifcplayer.cpp bitmap.cpp file.cpp engine.cpp graphics_gl.cpp graphics_soft.cpp \
  	script.cpp mixer.cpp pak.cpp resource.cpp resource_nth.cpp \
-@@ -14,10 +27,25 @@
- OBJS = $(SRCS:.cpp=.o)
- DEPS = $(SRCS:.cpp=.d)
+@@ -17,7 +30,25 @@
+ rawgl: $(OBJS)
+ 	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(SDL_LIBS) -lz -lmt32emu
  
--rawgl: $(OBJS)
--	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(SDL_LIBS) -lz
 +#parallel compilation if available
 +ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -58,7 +56,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 +	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
 +	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
- 
++
  clean:
 -	rm -f $(OBJS) $(DEPS)
 +	-@$(RM_F) $(OBJS) $(DEPS) $(TARGET)
