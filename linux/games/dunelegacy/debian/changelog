@@ -1,3 +1,11 @@
+dunelegacy (0.99.2-0ddebs1) unstable; urgency=medium
+
+  * New upstream update
+  * data package is installed in /usr/share/games/dunelegacy instead of
+    /usr/share/DuneLegacy
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 06 Dec 2025 15:17:49 +0100
+
 dunelegacy (0.96.4-0ddebs10) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

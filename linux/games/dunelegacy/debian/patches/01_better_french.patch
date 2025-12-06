@@ -93,66 +93,66 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: include/GUI/ObjectInterfaces/PalaceInterface.h:47
  msgid "READY"
-@@ -136,19 +136,19 @@
+@@ -144,19 +144,19 @@
  
- #: include/GUI/ObjectInterfaces/RefineryAndSiloInterface.h:69
+ #: include/GUI/ObjectInterfaces/RefineryAndSiloInterface.h:70
  msgid "Capacity"
 -msgstr "capac"
 +msgstr "Capacité"
  
- #: include/GUI/ObjectInterfaces/RefineryAndSiloInterface.h:70
+ #: include/GUI/ObjectInterfaces/RefineryAndSiloInterface.h:71
  msgid "Stored"
 -msgstr "stockées"
 +msgstr "En Stock"
  
- #: include/GUI/ObjectInterfaces/WindTrapInterface.h:69
+ #: include/GUI/ObjectInterfaces/WindTrapInterface.h:70
  msgid "Required"
 -msgstr "nécess."
 +msgstr "Requis"
  
- #: include/GUI/ObjectInterfaces/WindTrapInterface.h:70
+ #: include/GUI/ObjectInterfaces/WindTrapInterface.h:71
  msgid "Produced"
 -msgstr "produit"
 +msgstr "Produit"
  
  #: src/Choam.cpp:109
  msgid "New Starport prices"
-@@ -1303,7 +1303,7 @@
+@@ -1312,7 +1312,7 @@
  
- #: src/Game.cpp:582
+ #: src/Game.cpp:527
  msgid "You Have Failed Your Mission."
 -msgstr "Vous avez échoué dans votre mission."
 +msgstr "Vous avez échoué votre mission."
  
- #: src/Game.cpp:823
+ #: src/Game.cpp:764
  msgid "@DUNE.ENG|226#Harvester"
-@@ -1339,19 +1339,19 @@
+@@ -1348,19 +1348,19 @@
  
- #: src/Game.cpp:845
+ #: src/Game.cpp:786
  msgid "@DUNE.ENG|125#empty"
 -msgstr "@DUNE.FRE|125"
 +msgstr "@DUNE.FRE|125#vide"
  
- #: src/Game.cpp:2018 src/Game.cpp:2030 src/GUI/dune/GameOptionsWindow.cpp:127
+ #: src/Game.cpp:1969 src/Game.cpp:1981 src/GUI/dune/GameOptionsWindow.cpp:127
  msgid "Game speed"
 -msgstr "Vitesse de jeu"
-+msgstr "Vitesse de la partie"
++msgstr "Vitesse du jeu"
  
- #: src/Game.cpp:2235
+ #: src/Game.cpp:2206
  msgid "Game resumed!"
 -msgstr "Jeu reprend!"
-+msgstr "Reprise de la partie!"
++msgstr "Reprise du jeu!"
  
- #: src/Game.cpp:2238
+ #: src/Game.cpp:2209
  msgid "Game paused!"
 -msgstr "Jeu pause!"
-+msgstr "Partie en pause!"
++msgstr "Jeu en pause!"
  
- #: src/Game.cpp:2270 src/Game.cpp:2291
+ #: src/Game.cpp:2245 src/Game.cpp:2266
  msgid "@DUNE.ENG|135#Cannot place slab here."
-@@ -1364,11 +1364,11 @@
+@@ -1373,11 +1373,11 @@
  
- #: src/Game.cpp:2484
+ #: src/Game.cpp:2462
  msgid "Screenshot saved"
 -msgstr "Screenshot sauvegardées"
 +msgstr "Captures d'écran enregistrées"
@@ -164,7 +164,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/GUI/dune/BuilderList.cpp:67
  msgid "SOLD OUT"
-@@ -1388,7 +1388,7 @@
+@@ -1397,7 +1397,7 @@
  
  #: src/GUI/dune/BuilderList.cpp:70
  msgid "ON HOLD"
@@ -173,7 +173,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/GUI/dune/BuilderList.cpp:71
  msgid ""
-@@ -1396,15 +1396,15 @@
+@@ -1405,15 +1405,15 @@
  "REACHED"
  msgstr ""
  "LIMITE\n"
@@ -192,7 +192,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/GUI/dune/GameOptionsWindow.cpp:46
  msgid "If checked the complete map is unhidden at the beginning of the game."
-@@ -1476,7 +1476,7 @@
+@@ -1485,7 +1485,7 @@
  
  #: src/GUI/dune/GameOptionsWindow.cpp:103
  msgid "Instant Build"
@@ -201,7 +201,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/GUI/dune/GameOptionsWindow.cpp:104
  msgid "If checked the building of structures and units does not take any time."
-@@ -1492,11 +1492,11 @@
+@@ -1501,11 +1501,11 @@
  
  #: src/GUI/dune/GameOptionsWindow.cpp:115
  msgid "Only One Palace per House"
@@ -215,231 +215,180 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/GUI/dune/GameOptionsWindow.cpp:143
  #: src/GUI/dune/InGameSettingsMenu.cpp:86 src/MapEditor/ChoamWindow.cpp:131
-@@ -1513,20 +1513,20 @@
- 
- #: src/GUI/dune/InGameMenu.cpp:58 src/GUI/dune/InGameMenu.cpp:193
- msgid "Save Game"
--msgstr "Sauvegarder jeu"
-+msgstr "Sauvegarder la partie"
- 
- #: src/GUI/dune/InGameMenu.cpp:65 src/GUI/dune/InGameMenu.cpp:201
- #: src/Menu/CustomGameMenu.cpp:230 src/Menu/SinglePlayerMenu.cpp:153
- msgid "Load Game"
--msgstr "Charger jeu"
-+msgstr "Charger partie"
- 
- #: src/GUI/dune/InGameMenu.cpp:74
- msgid "Game Settings"
--msgstr "Paramétres de jeu"
-+msgstr "Paramètres de partie"
- 
- #: src/GUI/dune/InGameMenu.cpp:83
- msgid "Restart Game"
--msgstr "Recommencer le jeu"
-+msgstr "Recommencer la partie"
- 
- #: src/GUI/dune/InGameMenu.cpp:92
- msgid "Quit to Menu"
-@@ -1534,11 +1534,11 @@
- 
- #: src/GUI/dune/InGameMenu.cpp:161 src/GUI/dune/InGameMenu.cpp:218
- msgid "Do you really want to quit this game?"
--msgstr "Voulez-vous vraiment quitter ce jeu?"
-+msgstr "Voulez-vous vraiment quitter cette partie ?"
- 
- #: src/GUI/dune/InGameMenu.cpp:206
- msgid "Do you really want to restart this game?"
--msgstr "Voulez-vous vraiment à redémarrer ce jeu?"
-+msgstr "Voulez-vous vraiment redémarrer cette partie ?"
- 
- #: src/GUI/dune/InGameMenu.cpp:207 src/GUI/dune/InGameMenu.cpp:219
- #: src/GUI/dune/LoadSaveWindow.cpp:155 src/MapEditor/LoadMapWindow.cpp:155
-@@ -1562,12 +1562,12 @@
- 
- #: src/GUI/dune/LoadSaveWindow.cpp:89
- msgid "Save"
--msgstr "Sauvegarder"
-+msgstr "Enregistrer"
- 
- #: src/GUI/dune/LoadSaveWindow.cpp:154 src/MapEditor/LoadMapWindow.cpp:154
+@@ -1576,7 +1576,7 @@
+ #: src/GUI/dune/LoadSaveWindow.cpp:154 src/MapEditor/LoadMapWindow.cpp:153
  #, c-format
  msgid "Do you really want to delete '%s' ?"
 -msgstr ""
 +msgstr "Voulez-vous vraiment effacer '%s' ?"
  
- #: src/GUI/dune/LoadSaveWindow.cpp:221
+ #: src/GUI/dune/LoadSaveWindow.cpp:219
  msgid ""
-@@ -1577,7 +1577,7 @@
- #: src/GUI/dune/WaitingForOtherPlayers.cpp:44
+@@ -1586,7 +1586,7 @@
+ #: src/GUI/dune/WaitingForOtherPlayers.cpp:41
  #: src/MapEditor/ReinforcementsWindow.cpp:99 src/MapEditor/TeamsWindow.cpp:91
  msgid "Remove"
 -msgstr ""
 +msgstr "Enlever"
  
- #: src/GUI/dune/WaitingForOtherPlayers.cpp:67
+ #: src/GUI/dune/WaitingForOtherPlayers.cpp:64
  msgid "Waiting for other players... "
-@@ -1591,7 +1591,7 @@
- #: src/House.cpp:525
+@@ -1600,7 +1600,7 @@
+ #: src/House.cpp:540
  #, c-format
  msgid "House '%s' has been defeated."
 -msgstr "Maison '%s' a été défait."
 +msgstr "Maison '%s' a été vaincue."
  
- #: src/MapEditor/ChoamWindow.cpp:58 src/MapEditor/MapEditorInterface.cpp:150
+ #: src/MapEditor/ChoamWindow.cpp:58 src/MapEditor/MapEditorInterface.cpp:151
  msgid "Choam"
-@@ -1606,7 +1606,7 @@
- #: src/MapEditor/LoadMapWindow.cpp:56 src/MapEditor/MapEditorInterface.cpp:108
- #: src/MapEditor/NewMapWindow.cpp:210
+@@ -1615,7 +1615,7 @@
+ #: src/MapEditor/LoadMapWindow.cpp:55 src/MapEditor/MapEditorInterface.cpp:109
+ #: src/MapEditor/NewMapWindow.cpp:211
  msgid "Load Map"
 -msgstr ""
 +msgstr "Charger la carte"
  
- #: src/MapEditor/LoadMapWindow.cpp:68 src/Menu/CustomGameMenu.cpp:75
+ #: src/MapEditor/LoadMapWindow.cpp:67 src/Menu/CustomGameMenu.cpp:74
  msgid "SP User Maps"
-@@ -1619,12 +1619,12 @@
- #: src/MapEditor/LoadMapWindow.cpp:93 src/Menu/CustomGameMenu.cpp:115
- #: src/Menu/CustomGamePlayers.cpp:85
- msgid "Choose map"
--msgstr "choisir la carte"
-+msgstr "Choisir la carte"
- 
- #: src/MapEditor/LoadMapWindow.cpp:100 src/Menu/CustomGameMenu.cpp:122
- #: src/Menu/CustomGamePlayers.cpp:139
+@@ -1633,7 +1633,7 @@
+ #: src/MapEditor/LoadMapWindow.cpp:99 src/Menu/CustomGameMenu.cpp:121
+ #: src/Menu/CustomGamePlayers.cpp:135
  msgid "Size"
 -msgstr "Dimen."
 +msgstr "Taille"
  
- #: src/MapEditor/LoadMapWindow.cpp:103 src/Menu/CustomGameMenu.cpp:124
- #: src/Menu/CustomGamePlayers.cpp:141
-@@ -1647,39 +1647,39 @@
+ #: src/MapEditor/LoadMapWindow.cpp:102 src/Menu/CustomGameMenu.cpp:123
+ #: src/Menu/CustomGamePlayers.cpp:137
+@@ -1656,39 +1656,39 @@
  
- #: src/MapEditor/LoadMapWindow.cpp:248 src/Menu/CustomGameMenu.cpp:273
+ #: src/MapEditor/LoadMapWindow.cpp:247 src/Menu/CustomGameMenu.cpp:268
  msgid "No map available"
 -msgstr "Carte pas dispo."
 +msgstr "Carte non disponible"
  
- #: src/MapEditor/MapEditor.cpp:112 src/MapEditor/MapEditorInterface.cpp:101
- #: src/MapEditor/NewMapWindow.cpp:56
+ #: src/MapEditor/MapEditor.cpp:111 src/MapEditor/MapEditorInterface.cpp:102
+ #: src/MapEditor/NewMapWindow.cpp:57
  msgid "New Map"
 -msgstr ""
 +msgstr "Nouvelle carte"
  
- #: src/MapEditor/MapEditorInterface.cpp:94
+ #: src/MapEditor/MapEditorInterface.cpp:95
  msgid "Leave Mapeditor"
 -msgstr ""
 +msgstr "Quitter l'éditeur de carte"
  
- #: src/MapEditor/MapEditorInterface.cpp:115
+ #: src/MapEditor/MapEditorInterface.cpp:116
  #: src/MapEditor/MapEditorInterface.cpp:909
  msgid "Save Map"
 -msgstr ""
 +msgstr "Enregistrer la carte"
  
- #: src/MapEditor/MapEditorInterface.cpp:122
+ #: src/MapEditor/MapEditorInterface.cpp:123
  msgid "Undo"
 -msgstr ""
-+msgstr "Défaire"
++msgstr "Annuler"
  
- #: src/MapEditor/MapEditorInterface.cpp:129
+ #: src/MapEditor/MapEditorInterface.cpp:130
  msgid "Redo"
 -msgstr ""
 +msgstr "Refaire"
  
- #: src/MapEditor/MapEditorInterface.cpp:136
+ #: src/MapEditor/MapEditorInterface.cpp:137
  #: src/MapEditor/PlayerSettingsWindow.cpp:53
  msgid "Player Settings"
 -msgstr ""
-+msgstr "Configuration des joueurs"
++msgstr "Configuration du joueur"
  
- #: src/MapEditor/MapEditorInterface.cpp:143
+ #: src/MapEditor/MapEditorInterface.cpp:144
  #: src/MapEditor/MapSettingsWindow.cpp:55
  msgid "Map Settings"
 -msgstr ""
 +msgstr "Configuration de la carte"
  
- #: src/MapEditor/MapEditorInterface.cpp:157
+ #: src/MapEditor/MapEditorInterface.cpp:158
  #: src/MapEditor/ReinforcementsWindow.cpp:54
-@@ -1688,7 +1688,7 @@
+@@ -1697,7 +1697,7 @@
  
- #: src/MapEditor/MapEditorInterface.cpp:164 src/MapEditor/TeamsWindow.cpp:53
+ #: src/MapEditor/MapEditorInterface.cpp:165 src/MapEditor/TeamsWindow.cpp:53
  msgid "Teams"
 -msgstr ""
 +msgstr "Équipes"
  
- #: src/MapEditor/MapEditorInterface.cpp:173
- #: src/MapEditor/MapEditorInterface.cpp:182
-@@ -1696,47 +1696,47 @@
- #: src/MapEditor/MapEditorInterface.cpp:200
- #: src/MapEditor/MapEditorInterface.cpp:209 src/MapEditor/NewMapWindow.cpp:157
+ #: src/MapEditor/MapEditorInterface.cpp:174
+ #: src/MapEditor/MapEditorInterface.cpp:183
+@@ -1705,47 +1705,47 @@
+ #: src/MapEditor/MapEditorInterface.cpp:201
+ #: src/MapEditor/MapEditorInterface.cpp:210 src/MapEditor/NewMapWindow.cpp:158
  msgid "Mirror mode"
 -msgstr ""
 +msgstr "Mode miroir"
  
- #: src/MapEditor/MapEditorInterface.cpp:173 src/MapEditor/NewMapWindow.cpp:160
+ #: src/MapEditor/MapEditorInterface.cpp:174 src/MapEditor/NewMapWindow.cpp:161
  msgid "Off"
 -msgstr ""
 +msgstr "Désactivé"
  
- #: src/MapEditor/MapEditorInterface.cpp:182 src/MapEditor/NewMapWindow.cpp:161
+ #: src/MapEditor/MapEditorInterface.cpp:183 src/MapEditor/NewMapWindow.cpp:162
  msgid "Horizontal"
 -msgstr ""
 +msgstr "Horizontal"
  
- #: src/MapEditor/MapEditorInterface.cpp:191 src/MapEditor/NewMapWindow.cpp:162
+ #: src/MapEditor/MapEditorInterface.cpp:192 src/MapEditor/NewMapWindow.cpp:163
  msgid "Vertical"
 -msgstr ""
 +msgstr "Vertical"
  
- #: src/MapEditor/MapEditorInterface.cpp:200 src/MapEditor/NewMapWindow.cpp:163
+ #: src/MapEditor/MapEditorInterface.cpp:201 src/MapEditor/NewMapWindow.cpp:164
  msgid "Horizontal and vertical"
 -msgstr ""
 +msgstr "Horizontal et vertical"
  
- #: src/MapEditor/MapEditorInterface.cpp:209 src/MapEditor/NewMapWindow.cpp:164
+ #: src/MapEditor/MapEditorInterface.cpp:210 src/MapEditor/NewMapWindow.cpp:165
  msgid "Inverse"
 -msgstr ""
 +msgstr "Inverser"
  
- #: src/MapEditor/MapEditorInterface.cpp:350
+ #: src/MapEditor/MapEditorInterface.cpp:351
  msgid "Set starting screen"
 -msgstr ""
-+msgstr "Écran de démarrage"
++msgstr "Définir l'écran de démarrage"
  
- #: src/MapEditor/MapEditorInterface.cpp:679
+ #: src/MapEditor/MapEditorInterface.cpp:680
  msgid "Health"
 -msgstr ""
 +msgstr "Santé"
  
- #: src/MapEditor/MapEditorInterface.cpp:692
+ #: src/MapEditor/MapEditorInterface.cpp:693
  msgid "Attack mode"
 -msgstr ""
 +msgstr "Mode d'attaque"
  
- #: src/MapEditor/MapEditorInterface.cpp:709
+ #: src/MapEditor/MapEditorInterface.cpp:710
  msgid "Rotate left"
 -msgstr ""
-+msgstr "Rotation gauche"
++msgstr "Rotation à gauche"
  
- #: src/MapEditor/MapEditorInterface.cpp:716
+ #: src/MapEditor/MapEditorInterface.cpp:717
  msgid "Rotate right"
 -msgstr ""
-+msgstr "Rotation droite"
++msgstr "Rotation à droite"
  
  #: src/MapEditor/MapEditorInterface.cpp:745
  #: src/MapEditor/ReinforcementsWindow.cpp:109 src/MapEditor/TeamsWindow.cpp:101
-@@ -1746,41 +1746,41 @@
+@@ -1755,41 +1755,41 @@
  
  #: src/MapEditor/MapEditorInterface.cpp:869
  msgid "Do you really want to quit and lose unsaved changes to this map?"
 -msgstr ""
 +msgstr "Voulez-vous vraiment quitter et perdre tout les changement de cette carte ?"
  
- #: src/MapEditor/MapEditorInterface.cpp:885 src/Menu/CustomGameMenu.cpp:70
+ #: src/MapEditor/MapEditorInterface.cpp:885 src/Menu/CustomGameMenu.cpp:69
  msgid "SP Maps"
 -msgstr "SP cartes"
 +msgstr "Cartes SP"
  
- #: src/MapEditor/MapEditorInterface.cpp:889 src/Menu/CustomGameMenu.cpp:80
+ #: src/MapEditor/MapEditorInterface.cpp:889 src/Menu/CustomGameMenu.cpp:79
  msgid "MP Maps"
 -msgstr "MP cartes"
 +msgstr "Cartes MP"
@@ -452,7 +401,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #: src/MapEditor/MapSettingsWindow.cpp:91
  msgid "Picture on losing"
 -msgstr ""
-+msgstr "Image de perte"
++msgstr "Image de défaite"
  
  #: src/MapEditor/MapSettingsWindow.cpp:117
  msgid "Picture for briefing"
@@ -462,68 +411,73 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #: src/MapEditor/MapSettingsWindow.cpp:149
  msgid "Conditions for finishing the game"
 -msgstr ""
-+msgstr "conditions pour finir la partie"
++msgstr "Conditions pour finir le jeu"
  
  #: src/MapEditor/MapSettingsWindow.cpp:154
  #: src/MapEditor/MapSettingsWindow.cpp:192
  msgid "Timeout reached"
 -msgstr ""
-+msgstr "Temps imparti atteins"
++msgstr "Temps imparti atteinds"
  
  #: src/MapEditor/MapSettingsWindow.cpp:165
  #: src/MapEditor/MapSettingsWindow.cpp:199
  msgid "Spice quota reached"
 -msgstr ""
-+msgstr "Quota d'épice atteins"
++msgstr "Quota d'épice atteinds"
  
  #: src/MapEditor/MapSettingsWindow.cpp:172
  msgid "Player has no units/structures left"
-@@ -1846,23 +1846,23 @@
+@@ -1855,27 +1855,27 @@
  
- #: src/MapEditor/NewMapWindow.cpp:68
+ #: src/MapEditor/NewMapWindow.cpp:69
  msgid "Empty Map"
 -msgstr ""
 +msgstr "Carte vide"
  
- #: src/MapEditor/NewMapWindow.cpp:72
+ #: src/MapEditor/NewMapWindow.cpp:73
  msgid "Random Map"
 -msgstr ""
 +msgstr "Carte aléatoire"
  
- #: src/MapEditor/NewMapWindow.cpp:76
+ #: src/MapEditor/NewMapWindow.cpp:77
  msgid "Dune2-compatible  Map"
 -msgstr ""
 +msgstr "Carte compatible Dune2"
  
- #: src/MapEditor/NewMapWindow.cpp:88
+ #: src/MapEditor/NewMapWindow.cpp:89
  msgid "Map Width:"
 -msgstr ""
-+msgstr "Largeur de carte"
++msgstr "Largeur de carte:"
  
- #: src/MapEditor/NewMapWindow.cpp:96
+ #: src/MapEditor/NewMapWindow.cpp:97
  msgid "Map Height:"
 -msgstr ""
-+msgstr "Hauteur de carte"
++msgstr "Hauteur de carte:"
  
- #: src/MapEditor/NewMapWindow.cpp:106
+ #: src/MapEditor/NewMapWindow.cpp:107
  msgid "Map Scale:"
-@@ -1886,11 +1886,11 @@
+-msgstr ""
++msgstr "Échelle de carte:"
  
- #: src/MapEditor/NewMapWindow.cpp:130
+ #: src/MapEditor/NewMapWindow.cpp:110
+ msgid "Tiny (21x21)"
+@@ -1895,11 +1895,11 @@
+ 
+ #: src/MapEditor/NewMapWindow.cpp:131
  msgid "Rock:"
 -msgstr ""
 +msgstr "Rocher:"
  
- #: src/MapEditor/NewMapWindow.cpp:142
+ #: src/MapEditor/NewMapWindow.cpp:143
  msgid "Spice:"
 -msgstr ""
 +msgstr "Épice:"
  
- #: src/MapEditor/NewMapWindow.cpp:218
+ #: src/MapEditor/NewMapWindow.cpp:219
  msgid "Create"
-@@ -1918,25 +1918,25 @@
+@@ -1927,25 +1927,25 @@
  #: src/MapEditor/PlayerSettingsWindow.cpp:109
- #: src/Menu/CustomGamePlayers.cpp:236 src/Menu/CustomGamePlayers.cpp:243
+ #: src/Menu/CustomGamePlayers.cpp:232 src/Menu/CustomGamePlayers.cpp:239
  msgid "Team"
 -msgstr "L'équipe"
 +msgstr "Équipe"
@@ -552,7 +506,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/MapEditor/ReinforcementsWindow.cpp:63
  msgid ""
-@@ -1954,7 +1954,7 @@
+@@ -1963,7 +1963,7 @@
  
  #: src/MapEditor/ReinforcementsWindow.cpp:93 src/MapEditor/TeamsWindow.cpp:85
  msgid "Add"
@@ -561,7 +515,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/MapEditor/ReinforcementsWindow.cpp:117
  #: src/MapEditor/ReinforcementsWindow.cpp:348 src/MapEditor/TeamsWindow.cpp:110
-@@ -1973,11 +1973,11 @@
+@@ -1982,11 +1982,11 @@
  
  #: src/MapEditor/ReinforcementsWindow.cpp:158
  msgid "Time"
@@ -575,7 +529,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/MapEditor/ReinforcementsWindow.cpp:258 src/MapEditor/TeamsWindow.cpp:251
  msgid "Dune2-compatible maps support only up to 16 entries!"
-@@ -1985,11 +1985,11 @@
+@@ -1994,11 +1994,11 @@
  
  #: src/MapEditor/TeamsWindow.cpp:117
  msgid "Team Behavior"
@@ -589,7 +543,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/MapEditor/TeamsWindow.cpp:140
  msgid "Foot (Infantry, Troopers)"
-@@ -2017,7 +2017,7 @@
+@@ -2026,7 +2026,7 @@
  
  #: src/MapEditor/TeamsWindow.cpp:149
  msgid "Units"
@@ -598,7 +552,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/MapEditor/TeamsWindow.cpp:156
  msgid "to"
-@@ -2031,7 +2031,7 @@
+@@ -2040,7 +2040,7 @@
  #: src/Menu/CampaignStatsMenu.cpp:60 src/Menu/CustomGameStatsMenu.cpp:171
  #, c-format
  msgid "@DUNE.ENG|22#Time: %d:%02d"
@@ -607,25 +561,25 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/Menu/CampaignStatsMenu.cpp:65
  msgid "@DUNE.ENG|23#You have attained the rank"
-@@ -2117,7 +2117,7 @@
+@@ -2126,7 +2126,7 @@
  
- #: src/Menu/CustomGameMenu.cpp:56
+ #: src/Menu/CustomGameMenu.cpp:55
  msgid "Custom Game"
 -msgstr "Jeu personnalisé"
 +msgstr "Partie personnalisé"
  
- #: src/Menu/CustomGameMenu.cpp:99
+ #: src/Menu/CustomGameMenu.cpp:98
  msgid "Multiple players per house"
-@@ -2125,7 +2125,7 @@
+@@ -2134,7 +2134,7 @@
  
- #: src/Menu/CustomGameMenu.cpp:102
+ #: src/Menu/CustomGameMenu.cpp:101
  msgid "Game Options..."
 -msgstr ""
 +msgstr "Options de la partie..."
  
- #: src/Menu/CustomGameMenu.cpp:139 src/Menu/CustomGamePlayers.cpp:156
- #: src/Menu/MultiPlayerMenu.cpp:98 src/Menu/OptionsMenu.cpp:222
-@@ -2154,7 +2154,7 @@
+ #: src/Menu/CustomGameMenu.cpp:138 src/Menu/CustomGamePlayers.cpp:152
+ #: src/Menu/MultiPlayerMenu.cpp:98 src/Menu/OptionsMenu.cpp:224
+@@ -2163,7 +2163,7 @@
  "At least 2 houses must be controlled\n"
  "by a human player or an AI player!"
  msgstr ""
@@ -634,17 +588,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  "par un joueur humain ou un joueurs AI!"
  
  #: src/Menu/CustomGamePlayers.cpp:683
-@@ -2167,19 +2167,19 @@
+@@ -2176,15 +2176,15 @@
  
  #: src/Menu/CustomGameStatsMenu.cpp:63
- msgid "Built Object"
+ msgid "Built Objects"
 -msgstr ""
 +msgstr "Construire objet"
  
  #: src/Menu/CustomGameStatsMenu.cpp:68
  msgid "Destroyed"
 -msgstr ""
-+msgstr "Détruit"
++msgstr "Détruit"s
  
  #: src/Menu/CustomGameStatsMenu.cpp:72
  msgid "Harvested Spice"
@@ -653,12 +607,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/Menu/MainMenu.cpp:65
  msgid "SINGLE PLAYER"
--msgstr "JEU SOLO"
-+msgstr "PARTIE SOLO"
- 
- #: src/Menu/MainMenu.cpp:72
- msgid "MULTIPLAYER"
-@@ -2187,7 +2187,7 @@
+@@ -2196,7 +2196,7 @@
  
  #: src/Menu/MainMenu.cpp:79
  msgid "MAP EDITOR"
@@ -667,7 +616,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/Menu/MainMenu.cpp:85
  msgid "OPTIONS"
-@@ -2195,7 +2195,7 @@
+@@ -2204,7 +2204,7 @@
  
  #: src/Menu/MainMenu.cpp:91
  msgid "ABOUT"
@@ -676,7 +625,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/Menu/MainMenu.cpp:97
  msgid "QUIT"
-@@ -2219,23 +2219,23 @@
+@@ -2228,23 +2228,23 @@
  
  #: src/Menu/MultiPlayerMenu.cpp:41
  msgid "Connect"
@@ -696,114 +645,109 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #: src/Menu/MultiPlayerMenu.cpp:72
  msgid "LAN Games"
 -msgstr "LAN-Jeux"
-+msgstr "Parties LAN"
++msgstr "Jeux LAN"
  
  #: src/Menu/MultiPlayerMenu.cpp:77
  msgid "Internet Games"
 -msgstr "Internet-Jeux"
-+msgstr "Parties Internet"
++msgstr "Jeux Internet"
  
  #: src/Menu/MultiPlayerMenu.cpp:104
  msgid "Join"
-@@ -2243,11 +2243,11 @@
+@@ -2252,11 +2252,11 @@
  
- #: src/Menu/MultiPlayerMenu.cpp:161 src/Menu/MultiPlayerMenu.cpp:184
+ #: src/Menu/MultiPlayerMenu.cpp:156 src/Menu/MultiPlayerMenu.cpp:179
  msgid "Connecting..."
 -msgstr ""
 +msgstr "Connection en cours..."
  
- #: src/Menu/MultiPlayerMenu.cpp:374
+ #: src/Menu/MultiPlayerMenu.cpp:370
  msgid "The game host quit the game!"
 -msgstr ""
-+msgstr "L'hôte de la partie à quitté la partie!"
++msgstr "L'hôte du jeu a quitté la partie!"
+ 
+ #: src/Menu/MultiPlayerMenu.cpp:374
+ msgid "The server timed out!"
+@@ -2264,23 +2264,23 @@
  
  #: src/Menu/MultiPlayerMenu.cpp:378
- msgid "The server timed out!"
-@@ -2255,23 +2255,23 @@
- 
- #: src/Menu/MultiPlayerMenu.cpp:382
  msgid "A player with the same name as yours already exists!"
 -msgstr ""
 +msgstr "Un joueur avec le même nom que le votre existe déjà!"
  
- #: src/Menu/MultiPlayerMenu.cpp:386
+ #: src/Menu/MultiPlayerMenu.cpp:382
  msgid "There is no free player slot in this game left!"
 -msgstr ""
 +msgstr "Il ne reste pas de slot libre dans cette partie"
  
- #: src/Menu/MultiPlayerMenu.cpp:390
+ #: src/Menu/MultiPlayerMenu.cpp:386
  msgid "The connection to the game host was lost!"
 -msgstr ""
-+msgstr "La connexion à la partie à été perdue!"
++msgstr "La connexion à l'hote du jeu à été perdue!"
  
- #: src/Menu/OptionsMenu.cpp:68
+ #: src/Menu/OptionsMenu.cpp:65
  msgid "Player Name"
 -msgstr "Nom de joueur"
 +msgstr "Nom du joueur"
  
- #: src/Menu/OptionsMenu.cpp:81
+ #: src/Menu/OptionsMenu.cpp:78
  msgid "Default Game Options"
 -msgstr ""
-+msgstr "Partie par défaut"
++msgstr "Options de Jeu par défaut"
  
- #: src/Menu/OptionsMenu.cpp:82
+ #: src/Menu/OptionsMenu.cpp:79
  msgid "Change..."
-@@ -2287,11 +2287,11 @@
+@@ -2300,7 +2300,7 @@
  
- #: src/Menu/OptionsMenu.cpp:122
- msgid "Play Intro"
--msgstr "Voir l'Introduction"
-+msgstr "Voir l'Intro"
- 
- #: src/Menu/OptionsMenu.cpp:133
+ #: src/Menu/OptionsMenu.cpp:130
  msgid "Video Resolution"
 -msgstr "Définition d'écran"
 +msgstr "Résolution de l'écran"
  
- #: src/Menu/OptionsMenu.cpp:168
+ #: src/Menu/OptionsMenu.cpp:170
  msgid "Full Screen"
-@@ -2303,11 +2303,11 @@
+@@ -2312,11 +2312,11 @@
  
- #: src/Menu/OptionsMenu.cpp:183
+ #: src/Menu/OptionsMenu.cpp:185
  msgid "Play SFX"
 -msgstr "Jouer son effet"
 +msgstr "Jouer les effets"
  
- #: src/Menu/OptionsMenu.cpp:187
+ #: src/Menu/OptionsMenu.cpp:189
  msgid "Play Music"
 -msgstr "Jouer musique"
 +msgstr "Jouer la musique"
  
- #: src/Menu/OptionsMenu.cpp:198
+ #: src/Menu/OptionsMenu.cpp:200
  msgid "Port"
-@@ -2315,7 +2315,7 @@
+@@ -2324,7 +2324,7 @@
  
- #: src/Menu/OptionsMenu.cpp:211
+ #: src/Menu/OptionsMenu.cpp:213
  msgid "MetaServer"
 -msgstr ""
 +msgstr "Metaserveur"
  
- #: src/Menu/OptionsMenu.cpp:228
+ #: src/Menu/OptionsMenu.cpp:230
  msgid "Accept"
-@@ -2323,7 +2323,7 @@
+@@ -2332,7 +2332,7 @@
  
- #: src/Menu/OptionsMenu.cpp:282
+ #: src/Menu/OptionsMenu.cpp:284
  msgid "Please enter a Player Name."
 -msgstr ""
 +msgstr "Veuillez entrer un nom de joueur."
  
- #: src/Menu/OptionsMenu.cpp:288
+ #: src/Menu/OptionsMenu.cpp:290
  #, c-format
-@@ -2334,7 +2334,7 @@
+@@ -2343,7 +2343,7 @@
  
- #: src/Menu/OptionsMenu.cpp:294
+ #: src/Menu/OptionsMenu.cpp:296
  msgid "Please enter a MetaServer."
 -msgstr ""
 +msgstr "Entrer un metaserveur"
  
  #: src/Menu/SinglePlayerMenu.cpp:70
  msgid "CAMPAIGN"
-@@ -2342,7 +2342,7 @@
+@@ -2351,7 +2351,7 @@
  
  #: src/Menu/SinglePlayerMenu.cpp:77
  msgid "CUSTOM GAME"
@@ -812,7 +756,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/Menu/SinglePlayerMenu.cpp:83
  msgid "SKIRMISH"
-@@ -2350,7 +2350,7 @@
+@@ -2359,7 +2359,7 @@
  
  #: src/Menu/SinglePlayerMenu.cpp:89
  msgid "LOAD GAME"
@@ -821,64 +765,69 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #: src/Menu/SinglePlayerMenu.cpp:95
  msgid "LOAD REPLAY"
-@@ -2637,19 +2637,19 @@
+@@ -2646,19 +2646,19 @@
  
- #: src/sand.cpp:534
+ #: src/sand.cpp:532
  msgid "top edge"
 -msgstr ""
 +msgstr "bord haut"
  
- #: src/sand.cpp:535
+ #: src/sand.cpp:533
  msgid "right edge"
 -msgstr ""
 +msgstr "bord droit"
  
- #: src/sand.cpp:536
+ #: src/sand.cpp:534
  msgid "bottom edge"
 -msgstr ""
-+msgstr "bord bas "
++msgstr "bord bas"
  
- #: src/sand.cpp:537
+ #: src/sand.cpp:535
  msgid "left edge"
 -msgstr ""
 +msgstr "bord gauche"
  
- #: src/sand.cpp:538
+ #: src/sand.cpp:536
  msgid "random"
-@@ -2657,11 +2657,11 @@
+@@ -2666,11 +2666,11 @@
  
- #: src/sand.cpp:539
+ #: src/sand.cpp:537
  msgid "middle"
 -msgstr ""
 +msgstr "milieu"
  
- #: src/sand.cpp:540
+ #: src/sand.cpp:538
  msgid "enemy base"
 -msgstr ""
 +msgstr "base enemie"
  
- #: src/sand.cpp:541
+ #: src/sand.cpp:539
  msgid "home base"
-@@ -2677,7 +2677,7 @@
+@@ -2682,11 +2682,11 @@
  
- #: src/structures/Palace.cpp:156
+ #: src/structures/BuilderBase.cpp:340
+ msgid "@DUNE.ENG|51#Construction is complete"
+-msgstr "@DUNE.FRE|51"
++msgstr "@DUNE.FRE|51#Construction complète"
+ 
+ #: src/structures/Palace.cpp:155
  msgid "@DUNE.ENG|81#Missile is approaching"
 -msgstr "@DUNE.FRE|81"
 +msgstr "@DUNE.FRE|81#Missile en approche"
  
- #: src/structures/Palace.cpp:171
+ #: src/structures/Palace.cpp:170
  msgid "Palace is ready"
-@@ -2689,11 +2689,11 @@
+@@ -2698,11 +2698,11 @@
  
- #: src/structures/Palace.cpp:264
+ #: src/structures/Palace.cpp:263
  msgid "@DUNE.ENG|79#Saboteur is approaching"
 -msgstr "@DUNE.FRE|79"
 +msgstr "@DUNE.FRE|79#Saboteur en approche"
  
- #: src/structures/StarPort.cpp:102
+ #: src/structures/StarPort.cpp:101
  msgid "This unit is sold out"
 -msgstr ""
-+msgstr "Cette unité est en rupture de stock"
++msgstr "Cette unité n'est plus en vente"
  
- #: src/structures/StarPort.cpp:255
+ #: src/structures/StarPort.cpp:263
  msgid "@DUNE.ENG|80#Frigate has arrived"

@@ -1,0 +1,333 @@
+Description: fix SDL2 include paths
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-12-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/include/FileClasses/Vocfile.h
++++ b/include/FileClasses/Vocfile.h
+@@ -19,7 +19,7 @@
+ #define VOCFILE_H
+ 
+ #include <misc/SDL2pp.h>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ /**
+     Try to load a VOC from the RWop. Returns a pointer to Mix_Chunk.
+--- a/include/FileClasses/adl/sound_adlib.h
++++ b/include/FileClasses/adl/sound_adlib.h
+@@ -44,7 +44,7 @@
+ 
+ #include <misc/SDL2pp.h>
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ #include <inttypes.h>
+ #include <vector>
+ 
+--- a/include/FileClasses/SFXManager.h
++++ b/include/FileClasses/SFXManager.h
+@@ -18,7 +18,7 @@
+ #ifndef SFXMANAGER_H
+ #define SFXMANAGER_H
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ #include <DataTypes.h>
+ #include <misc/sound_util.h>
+ 
+--- a/include/FileClasses/music/ADLPlayer.h
++++ b/include/FileClasses/music/ADLPlayer.h
+@@ -22,7 +22,7 @@
+ #include <FileClasses/music/MusicPlayer.h>
+ 
+ #include <vector>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ // Forward declarations
+ class SoundAdlibPC;
+--- a/include/FileClasses/music/DirectoryPlayer.h
++++ b/include/FileClasses/music/DirectoryPlayer.h
+@@ -23,7 +23,7 @@
+ 
+ #include <vector>
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ class DirectoryPlayer : public MusicPlayer {
+ public:
+--- a/include/FileClasses/music/MusicPlayer.h
++++ b/include/FileClasses/music/MusicPlayer.h
+@@ -21,7 +21,7 @@
+ 
+ #include <Definitions.h>
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ //! \enum MUSICTYPE
+ /*! Types of music available in the game*/
+--- a/include/FileClasses/music/XMIPlayer.h
++++ b/include/FileClasses/music/XMIPlayer.h
+@@ -25,7 +25,7 @@
+ 
+ #include <vector>
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ // Forward declarations
+ class CadlPlayer;
+--- a/include/SoundPlayer.h
++++ b/include/SoundPlayer.h
+@@ -20,7 +20,7 @@
+ 
+ #include <FileClasses/SFXManager.h>
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ // forward declaration
+ class Coord;
+--- a/include/misc/sound_util.h
++++ b/include/misc/sound_util.h
+@@ -20,7 +20,7 @@
+ 
+ #include <misc/SDL2pp.h>
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ sdl2::mix_chunk_ptr create_chunk();
+ sdl2::mix_chunk_ptr concat2Chunks(Mix_Chunk* sound1, Mix_Chunk* sound2);
+--- a/include/CutScenes/CutSceneSoundTrigger.h
++++ b/include/CutScenes/CutSceneSoundTrigger.h
+@@ -18,7 +18,7 @@
+ #ifndef CUTSCENESOUNDTRIGGER_H
+ #define CUTSCENESOUNDTRIGGER_H
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ #include <SoundPlayer.h>
+ 
+--- a/include/CutScenes/Finale.h
++++ b/include/CutScenes/Finale.h
+@@ -18,7 +18,7 @@
+ #ifndef FINALE_H
+ #define FINALE_H
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ #include <misc/sound_util.h>
+ 
+ #include <CutScenes/CutScene.h>
+--- a/include/CutScenes/Intro.h
++++ b/include/CutScenes/Intro.h
+@@ -20,7 +20,7 @@
+ 
+ #include <array>
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ #include <misc/sound_util.h>
+ #include <misc/SDL2pp.h>
+--- a/src/FileClasses/IndexedTextFile.cpp
++++ b/src/FileClasses/IndexedTextFile.cpp
+@@ -20,7 +20,7 @@
+ #include <misc/string_util.h>
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdio.h>
+ #include <string>
+ #include <algorithm>
+--- a/src/FileClasses/Wsafile.cpp
++++ b/src/FileClasses/Wsafile.cpp
+@@ -21,7 +21,7 @@
+ 
+ #include <Definitions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <algorithm>
+--- a/src/misc/IFileStream.cpp
++++ b/src/misc/IFileStream.cpp
+@@ -19,7 +19,7 @@
+ 
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ 
+ #ifdef _WIN32
+     #include <windows.h>
+--- a/src/misc/OFileStream.cpp
++++ b/src/misc/OFileStream.cpp
+@@ -19,7 +19,7 @@
+ 
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ 
+ #ifdef _WIN32
+     #include <windows.h>
+--- a/src/misc/md5.cpp
++++ b/src/misc/md5.cpp
+@@ -33,7 +33,7 @@
+ #include <string.h>
+ #include <stdio.h>
+ 
+-#include <SDL_rwops.h>
++#include <SDL2/SDL_rwops.h>
+ 
+ /*
+  * 32-bit integer manipulation macros (little endian)
+--- a/src/misc/sound_util.cpp
++++ b/src/misc/sound_util.cpp
+@@ -9,7 +9,7 @@
+ 
+ #include <globals.h>
+ 
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ sdl2::mix_chunk_ptr create_chunk()
+ {
+--- a/src/FileClasses/Icnfile.cpp
++++ b/src/FileClasses/Icnfile.cpp
+@@ -22,7 +22,7 @@
+ 
+ #include <Definitions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+--- a/src/FileClasses/MentatTextFile.cpp
++++ b/src/FileClasses/MentatTextFile.cpp
+@@ -20,7 +20,7 @@
+ #include <misc/string_util.h>
+ #include <misc/exceptions.h>
+ 
+-#include <SDL_endian.h>
++#include <SDL2/SDL_endian.h>
+ #include <stdio.h>
+ #include <string>
+ #include <algorithm>
+--- a/src/FileClasses/Vocfile.cpp
++++ b/src/FileClasses/Vocfile.cpp
+@@ -23,7 +23,7 @@
+ #include <FileClasses/Vocfile.h>
+ 
+ #include <string>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL_mixer.h>
+ #include <stdlib.h>
+ #include <algorithm>
+ #include <cstdio>
+--- a/src/FileClasses/adl/sound_adlib.cpp
++++ b/src/FileClasses/adl/sound_adlib.cpp
+@@ -54,8 +54,8 @@
+ 
+ #include <memory>
+ 
+-#include <SDL_mixer.h>
+-#include <SDL_endian.h>
++#include <SDL2/SDL_mixer.h>
++#include <SDL2/SDL_endian.h>
+ 
+ 
+ #include <FileClasses/adl/wemuopl.h>
+--- a/include/misc/SDL2pp.h
++++ b/include/misc/SDL2pp.h
+@@ -22,10 +22,10 @@
+ #include <assert.h>
+ #include <misc/exceptions.h>
+ #include <misc/unique_or_nonowning_ptr.h>
+-#include <SDL.h>
+-#include <SDL_endian.h>
+-#include <SDL_rwops.h>
+-#include <SDL_mixer.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_endian.h>
++#include <SDL2/SDL_rwops.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ namespace sdl2
+ {
+--- a/include/CursorManager.h
++++ b/include/CursorManager.h
+@@ -18,7 +18,7 @@
+ #ifndef CURSORMANAGER_H
+ #define CURSORMANAGER_H
+ 
+-#include <SDL.h>
++#include <SDL2/SDL.h>
+ #include <vector>
+ 
+ class CursorManager {
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -57,7 +57,7 @@
+ 
+ #include <CutScenes/Intro.h>
+ 
+-#include <SDL_ttf.h>
++#include <SDL2/SDL_ttf.h>
+ 
+ #include <iostream>
+ #include <typeinfo>
+--- a/src/misc/FileSystem.cpp
++++ b/src/misc/FileSystem.cpp
+@@ -24,7 +24,7 @@
+ #include <algorithm>
+ #include <ctype.h>
+ 
+-#include <SDL_filesystem.h>
++#include <SDL2/SDL_filesystem.h>
+ 
+ #ifdef _WIN32
+ #include <io.h>
+--- a/include/FileClasses/TTFFont.h
++++ b/include/FileClasses/TTFFont.h
+@@ -21,7 +21,7 @@
+ #include "Font.h"
+ #include <misc/SDL2pp.h>
+ 
+-#include <SDL_ttf.h>
++#include <SDL2/SDL_ttf.h>
+ 
+ #include <vector>
+ 
+--- a/src/units/Harvester.cpp
++++ b/src/units/Harvester.cpp
+@@ -36,7 +36,7 @@
+ 
+ #include <algorithm>
+ #include <map>
+-#include <SDL_log.h>
++#include <SDL2/SDL_log.h>
+ 
+ /* how often is the same sandframe redrawn */
+ #define HARVESTERDELAY 30
+--- a/src/SpatialGrid.cpp
++++ b/src/SpatialGrid.cpp
+@@ -3,7 +3,7 @@
+ #include <ObjectBase.h>
+ #include <globals.h>
+ 
+-#include <SDL_log.h>
++#include <SDL2/SDL_log.h>
+ 
+ #include <algorithm>
+ #include <stdexcept>
