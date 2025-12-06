@@ -7,7 +7,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/GNUmakefile
 +++ b/GNUmakefile
-@@ -717,6 +717,16 @@
+@@ -730,6 +730,16 @@
      editor \
  
  
@@ -24,7 +24,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($(PRETTY_OUTPUT),1)
  .SILENT:
  endif
-@@ -767,7 +777,7 @@
+@@ -780,7 +790,7 @@
  $$($1_$2)$$(EXESUFFIX): $$(foreach i,$(call getdeps,$1,$2),$$(call expandobjs,$$i)) $$($1_$2_miscdeps) | $$($1_$2_orderonlydeps)
  	$$(LINK_STATUS)
  	$$(call MKDIR,"$$(obj)/$$($1_$2)_dump")
@@ -33,7 +33,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($$(PLATFORM),WII)
  ifneq ($$(ELF2DOL),)
  	$$(ELF2DOL) $$@ $$($1_$2)$$(DOLSUFFIX)
-@@ -932,7 +942,6 @@
+@@ -945,7 +955,6 @@
  
  rev: $(engine_obj)/rev.$o
  

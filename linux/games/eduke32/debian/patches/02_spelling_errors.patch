@@ -6,7 +6,7 @@ Last-Update: 2020-04-26
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/source/build/src/polymost.cpp
 +++ b/source/build/src/polymost.cpp
-@@ -9904,7 +9904,7 @@
+@@ -9924,7 +9924,7 @@
      if (parm->numparms != 1)
      {
          LOG_F(INFO, "Current texturing mode is %s", glfiltermodes[gltexfiltermode].name);
@@ -15,7 +15,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          for (m = 0; m < NUMGLFILTERMODES; m++)
              LOG_F(INFO, "     %d - %s", m, glfiltermodes[m].name);
  
-@@ -10073,11 +10073,11 @@
+@@ -10093,11 +10093,11 @@
          { "r_pr_customaspect", "if non-zero, forces the 3D view aspect ratio", (void *) &pr_customaspect, CVAR_DOUBLE, 0, 3 },
          { "r_pr_gpusmoothing", "toggles model animation interpolation", (void *)&pr_gpusmoothing, CVAR_BOOL, 0, 1 },
          { "r_pr_highpalookups", "enable/disable highpalookups", (void *) &pr_highpalookups, CVAR_BOOL, 0, 1 },
@@ -32,7 +32,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          { "r_pr_lighting", "enable/disable dynamic lights - restarts renderer", (void *) &pr_lighting, CVAR_INT | CVAR_RESTARTVID, 0, 2 },
          { "r_pr_maxlightpasses", "the maximal amount of lights a single object can by affected by", (void *) &r_pr_maxlightpasses, CVAR_INT|CVAR_FUNCPTR, 0, PR_MAXPLANELIGHTS },
          { "r_pr_maxlightpriority", "lowering that value removes less meaningful lights from the scene", (void *) &pr_maxlightpriority, CVAR_INT, 0, PR_MAXLIGHTPRIORITY },
-@@ -10087,15 +10087,15 @@
+@@ -10107,15 +10107,15 @@
          { "r_pr_overridemodelscale", "overrides model scale if non-zero; use it to fine-tune DEF tokens", (void *) &pr_overridemodelscale, CVAR_FLOAT | CVAR_NOSAVE, 0, 500 },
          { "r_pr_overrideparallax", "overrides parallax mapping scale and bias values with values from the pr_parallaxscale and pr_parallaxbias cvars; use it to fine-tune DEF tokens", (void *) &pr_overrideparallax, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
          { "r_pr_overridespecular", "overrides specular material power and factor values with values from the pr_specularpower and pr_specularfactor cvars; use it to fine-tune DEF tokens", (void *) &pr_overridespecular, CVAR_BOOL | CVAR_NOSAVE, 0, 1 },
@@ -65,7 +65,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      "decoder error, couldn't decode frame",
 --- a/source/duke3d/src/astub.cpp
 +++ b/source/duke3d/src/astub.cpp
-@@ -7762,7 +7762,7 @@
+@@ -7764,7 +7764,7 @@
              }
              else
              {

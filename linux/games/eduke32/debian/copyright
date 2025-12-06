@@ -3,11 +3,11 @@ Upstream-Name: eduke32
 Source: https://www.eduke32.com/
 
 Files: *
-Copyright: 2016 eduke32
+Copyright: 2016-2025 eduke32
 License: GPL-2+
 
 Files: debian/*
-Copyright: 2016-2024 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2025 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
 
 License: GPL-2+
