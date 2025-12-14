@@ -9,7 +9,10 @@ Build-Depends:
  libcppunit-dev,
  libsdl2-ttf-dev,
  libcurl4-gnutls-dev,
- cmake
+ cmake,
+ libminiupnpc-dev,
+ libdiscord-rpc-dev,
+ pkgconf
 Standards-Version: 4.6.2
 Homepage: https://sourceforge.net/projects/dunelegacy
 Rules-Requires-Root: no

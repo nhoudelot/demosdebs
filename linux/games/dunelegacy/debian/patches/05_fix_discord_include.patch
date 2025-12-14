@@ -1,0 +1,12 @@
+--- a/src/misc/DiscordManager.cpp
++++ b/src/misc/DiscordManager.cpp
+@@ -19,7 +19,8 @@
+ #include <SDL2/SDL_log.h>
+ #include <SDL2/SDL_timer.h>
+ 
+-#include <discord_rpc.h>
++#include <DiscordRPC/discord_rpc.h>
++#include <ctime>
+ #include <curl/curl.h>
+ #include <thread>
+ 

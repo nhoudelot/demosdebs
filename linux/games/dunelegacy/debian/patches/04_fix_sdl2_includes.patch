@@ -278,7 +278,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  class CursorManager {
 --- a/src/main.cpp
 +++ b/src/main.cpp
-@@ -57,7 +57,7 @@
+@@ -59,7 +59,7 @@
  
  #include <CutScenes/Intro.h>
  

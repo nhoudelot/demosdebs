@@ -8,7 +8,32 @@ Last-Update: 2025-12-06
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -493,7 +493,7 @@
+@@ -369,7 +369,15 @@
+ endif()
+ 
+ # Find miniupnpc for UPnP support
+-find_package(miniupnpc CONFIG REQUIRED)
++#find_package(miniupnpc CONFIG REQUIRED)
++find_package(PkgConfig)
++if(PKG_CONFIG_FOUND)
++  pkg_check_modules(MINIUPNPC miniupnpc)
++  if(MINIUPNPC_FOUND)
++    target_include_directories(dunelegacy PRIVATE ${MINIUPNPC_INCLUDE_DIRS})
++    target_link_libraries(dunelegacy PRIVATE ${MINIUPNPC_LIBRARIES})
++  endif()
++endif()
+ 
+ # Find discord-rpc for Discord Rich Presence
+ find_library(DISCORD_RPC_LIBRARY discord-rpc PATHS ${CMAKE_PREFIX_PATH}/lib)
+@@ -383,7 +391,6 @@
+         $<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
+         $<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>
+         CURL::libcurl
+-        miniupnpc::miniupnpc
+         ${DISCORD_RPC_LIBRARY}
+ )
+ 
+@@ -503,7 +510,7 @@
      # Linux: use FHS structure
      install(
          DIRECTORY ${DATA_DIR}/
@@ -17,7 +42,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          FILES_MATCHING PATTERN "*.*"
      )
  endif()
-@@ -535,8 +535,8 @@
+@@ -545,8 +552,8 @@
          # Linux: use FHS structure with share/DuneLegacy
          target_compile_definitions(dunelegacy
              PRIVATE
