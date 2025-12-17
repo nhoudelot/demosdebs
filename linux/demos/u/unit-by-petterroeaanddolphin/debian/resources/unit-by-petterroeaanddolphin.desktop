@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Unit
+GenericName=Demo
+Comment=Demo by petterroea and dolphin, released in 2020
+Type=Application
+Exec=/usr/bin/unit-by-petterroeaanddolphin
+Icon=unit-by-petterroeaanddolphin
+Categories=AudioVideo;
+Name[fr_FR]=Unit

@@ -1,0 +1,4 @@
+debian/scripts/unit-by-petterroeaanddolphin usr/bin/
+./project usr/lib/x86_64-linux-gnu/unit-by-petterroeaanddolphin
+debian/resources/unit-by-petterroeaanddolphin.desktop usr/share/applications/
+debian/resources/unit-by-petterroeaanddolphin.png usr/share/icons/hicolor/256x256/apps/

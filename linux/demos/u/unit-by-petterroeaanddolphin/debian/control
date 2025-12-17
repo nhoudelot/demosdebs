@@ -1,0 +1,34 @@
+Source: unit-by-petterroeaanddolphin
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libsdl2-dev,
+ libsdl2-image-dev,
+ libglew-dev,
+ libopenal-dev,
+ sox
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=86296
+
+Package: unit-by-petterroeaanddolphin
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ unit-by-petterroeaanddolphin-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by petterroea and dolphin, released in 2020
+ Demo by petterroea and dolphin, 5th at Solskogen 2020
+
+Package: unit-by-petterroeaanddolphin-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ sox
+Description: Data files for unit-by-petterroeaanddolphin
+ unit-by-petterroeaanddolphin data files
