@@ -1,0 +1,29 @@
+Source: enamelpin-by-suricrasiaonline
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ pkgconf,
+ shader-minifier:native,
+ nasm,
+ libgtk-3-dev,
+ libglu-dev,
+ pax-utils,
+ python3-minimal
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=86206
+
+Package: enamelpin-by-suricrasiaonline
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: 4k executable graphics by Suricrasia Online, released in 2020
+ 4k executable graphics demo designed for 64-bit Linux systems.
+ Enamel Pin was awarded first place at Solskogen 2020 in the 4k procedural
+ graphics category.
+
+

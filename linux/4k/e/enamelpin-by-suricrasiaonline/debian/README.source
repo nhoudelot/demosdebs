@@ -1,0 +1,7 @@
+enamelpin-by-suricrasiaonline for Debian
+---------------------------------------
+
+git clone --recurse-submodules  --depth 1  https://github.com/Suricrasia-Online/Enamel-Pin
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 08 May 2025 13:31:25 +0200
+

@@ -1,0 +1,125 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging and crossbuilding
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-05-08
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -22,29 +22,46 @@
+ # ~$ dpkg-query --showformat='${Version}' --show mesa-common-dev:amd64
+ # 18.3.6-2+deb10u1
+ 
+-PROJNAME := enamel_pin
++# compilers and tools
++SHELL      := /bin/sh
++CC         ?= gcc
++NASM       ?= nasm
++PKG_CONFIG := pkg-config
++RM_F       := rm -f
++
++# Install variables
++INSTALL := install
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++
++prefix          := /usr
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++
++PROJNAME := enamelpin-by-suricrasiaonline
+ 
+ #huge greets to donnerbrenn!
+-CFLAGS = -Os -s -march=nocona -std=gnu11
++#CFLAGS = -Os -s -march=nocona -std=gnu11
+ 
+-CFLAGS += -fno-plt
+-CFLAGS += -fno-stack-protector -fno-stack-check
+-CFLAGS += -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions
+-CFLAGS += -funsafe-math-optimizations -ffast-math
+-CFLAGS += -fomit-frame-pointer
+-CFLAGS += -ffunction-sections -fdata-sections
+-CFLAGS += -fmerge-all-constants
+-CFLAGS += -fno-PIC -fno-PIE
+-CFLAGS += -malign-data=cacheline
+-CFLAGS += -mno-fancy-math-387 -mno-ieee-fp
++#CFLAGS += -fno-plt
++#CFLAGS += -fno-stack-protector -fno-stack-check
++#CFLAGS += -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions
++#CFLAGS += -funsafe-math-optimizations -ffast-math
++#CFLAGS += -fomit-frame-pointer
++#CFLAGS += -ffunction-sections -fdata-sections
++#CFLAGS += -fmerge-all-constants
++#CFLAGS += -fno-PIC -fno-PIE
++#CFLAGS += -malign-data=cacheline
++#CFLAGS += -mno-fancy-math-387 -mno-ieee-fp
+ CFLAGS += -Wall
+ CFLAGS += -Wextra
+-CFLAGS += -no-pie
++CFLAGS += -std=gnu11
++#CFLAGS += -no-pie
+ 
+ CFLAGS += -nostartfiles -nodefaultlibs
+-CFLAGS += `pkg-config --cflags gtk+-3.0`
++CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk+-3.0)
+ 
+-LDFLAGS = -lc -lGL -lglib-2.0 -lgobject-2.0 -lgtk-3 -lgdk-3
++LDFLAGS += -lc -lGL -lglib-2.0 -lgobject-2.0 -lgtk-3 -lgdk-3
+ 
+ .PHONY: clean check_size noelfver
+ 
+@@ -55,24 +72,24 @@
+ 	zip $@ $^
+ 
+ packer : vondehi/vondehi.asm 
+-	cd vondehi; nasm -fbin -o vondehi -DWANT_ARGV -DNO_CHEATING vondehi.asm
++	cd vondehi; $(NASM) -fbin -o vondehi -DWANT_ARGV -DNO_CHEATING vondehi.asm
+ 
+ noelfver : noelfver/noelfver.c
+ 	make -C noelfver/
+ 
+ shader.h : shader.frag Makefile
+-	mono ./shader_minifier.exe --no-renaming-list ss,main shader.frag -o shader.h
++	mono /usr/bin/shader_minifier.exe --no-renaming-list ss,main shader.frag -o shader.h
+ 
+-$(PROJNAME).o : $(PROJNAME).c shader.h Makefile
+-	gcc -c -o $@ $< $(CFLAGS)
++$(PROJNAME).o : enamel_pin.c shader.h Makefile
++	$(CC) -c -o $@ $< $(CFLAGS)
+ 
+ $(PROJNAME).elf.smol : $(PROJNAME).o
+ 	python3 ./smol/smold.py --smolrt "$(PWD)/smol/rt" --smolld "$(PWD)/smol/ld" -fuse-interp $(LDFLAGS) $< $@
+ 
+-$(PROJNAME)_unpacked : $(PROJNAME).c shader.h Makefile
+-	gcc -o $@ $< $(CFLAGS) $(LDFLAGS)
++$(PROJNAME)_unpacked : enamel_pin.c shader.h Makefile
++	$(CC) -o $@ $< $(CFLAGS) $(LDFLAGS)
+ 
+-$(PROJNAME) : $(PROJNAME).elf.smol.packed
++$(PROJNAME) : $(PROJNAME)_unpacked
+ 	mv $< $@
+ 
+ %.xz : % Makefile
+@@ -87,4 +104,8 @@
+ 	-rm *.elf *.xz shader.h $(PROJNAME) $(PROJNAME)_unpacked
+ 
+ check_size :
+-	./sizelimit_check.sh
+\ No newline at end of file
++	./sizelimit_check.sh
++
++install: $(TARGET)
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) $(PROJNAME) $(DESTDIR)$(bindir)
+--- a/sizelimit_check.sh
++++ b/sizelimit_check.sh
+@@ -8,5 +8,5 @@
+ 	fi
+ }
+ 
+-wc -c enamel_pin
+-check_size "enamel_pin"
+\ No newline at end of file
++wc -c enamelpin-by-suricrasiaonline
++check_size "enamelpin-by-suricrasiaonline"
