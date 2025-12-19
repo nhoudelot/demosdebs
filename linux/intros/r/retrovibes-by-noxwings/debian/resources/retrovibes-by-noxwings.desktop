@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Retro-Vibes
+GenericName=Demo
+Comment=Intro by NoxWings, released in 2020
+Type=Application
+Exec=/usr/bin/retrovibes-by-noxwings
+Icon=retrovibes-by-noxwings
+Categories=AudioVideo;

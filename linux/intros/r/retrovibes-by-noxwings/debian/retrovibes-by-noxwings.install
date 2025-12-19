@@ -1,0 +1,6 @@
+debian/scripts/retrovibes-by-noxwings usr/bin/
+./retro-vibes.out usr/lib/x86_64-linux-gnu/retrovibes-by-noxwings
+debian/resources/retrovibes-by-noxwings.desktop usr/share/applications/
+debian/resources/retrovibes-by-noxwings.png usr/share/icons/hicolor/256x256/apps/
+debian/resources/banner.png usr/lib/x86_64-linux-gnu/retrovibes-by-noxwings
+

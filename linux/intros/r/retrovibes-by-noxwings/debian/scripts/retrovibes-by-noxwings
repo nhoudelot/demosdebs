@@ -1,0 +1,223 @@
+#!/usr/bin/env python3
+import sys
+import locale
+import subprocess
+import json
+import os
+from PyQt6.QtWidgets import (
+    QApplication, QWidget, QLabel, QComboBox, QLineEdit,
+    QPushButton, QFormLayout, QVBoxLayout, QMessageBox, QCheckBox, QFrame
+)
+from PyQt6.QtGui import QFont, QPixmap, QGuiApplication
+from PyQt6.QtCore import Qt
+
+# ================================
+#  CONFIG PATH
+# ================================
+CONFIG_DIR = os.path.join(os.path.expanduser("~"), ".config", "retrovibes-by-noxwings")
+CONFIG_FILE = os.path.join(CONFIG_DIR, "settings.json")
+
+# ================================
+#  LOAD / SAVE CONFIG
+# ================================
+def load_settings():
+    if not os.path.exists(CONFIG_FILE):
+        return {}
+
+    try:
+        with open(CONFIG_FILE, "r") as f:
+            return json.load(f)
+    except:
+        return {}
+
+
+def save_settings(settings):
+    os.makedirs(CONFIG_DIR, exist_ok=True)
+    with open(CONFIG_FILE, "w") as f:
+        json.dump(settings, f, indent=4)
+
+# =========================
+# Detect available resolutions
+# =========================
+import subprocess
+import re
+
+import subprocess
+import re
+from PyQt6.QtGui import QGuiApplication
+
+def get_available_resolutions():
+    resolutions = set()
+
+    # 1) Tentative via Qt6 (Méthode la plus propre)
+    try:
+        screens = QGuiApplication.screens()
+        for screen in screens:
+            # videoModes() est disponible depuis Qt 6.7
+            if hasattr(screen, "videoModes"):
+                for mode in screen.videoModes():
+                    w, h = mode.size().width(), mode.size().height()
+                    resolutions.add(f"{w}x{h}")
+            
+            # Fallback interne Qt : On prend au moins la résolution actuelle
+            geom = screen.size() # .size() est souvent plus précis que availableGeometry() pour le matériel
+            resolutions.add(f"{geom.width()}x{geom.height()}")
+    except Exception as e:
+        print(f"Erreur Qt: {e}")
+
+    # 2) Fallback xrandr (Si on est sous X11 ou si Qt6 < 6.7)
+    if not resolutions or len(resolutions) <= 1:
+        try:
+            out = subprocess.check_output(["xrandr"], text=True, stderr=subprocess.STDOUT)
+            # On cherche TOUTES les résolutions (plus la ligne "connected")
+            matches = re.findall(r"(\d{3,5}x\d{3,5})", out)
+            resolutions.update(matches)
+        except Exception:
+            pass
+
+    # 3) Sécurité minimale
+    if not resolutions:
+        resolutions.add("640x480")
+
+    # 4) Tri unique et final (Décroissant pour un Launcher)
+    return sorted(
+        list(resolutions), 
+        key=lambda r: (int(r.split('x')[0]), int(r.split('x')[1])), 
+        reverse=True
+    )
+
+class Launcher(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.settings = load_settings()
+
+        self.setWindowTitle("Retro-Vibes Launcher")
+        self.setFixedSize(500, 650)
+
+        font = QFont()
+        font.setPointSize(12)
+        self.setFont(font)
+
+        main_layout = QVBoxLayout()
+        main_layout.setContentsMargins(15, 10, 15, 10)
+        main_layout.setSpacing(20)
+
+        # -------------------------
+        #   BANNIÈRE PNG
+        # -------------------------
+        self.banner_label = QLabel()
+        pix = QPixmap("/usr/lib/x86_64-linux-gnu/retrovibes-by-noxwings/banner.png")
+        if not pix.isNull():
+            pix = pix.scaledToWidth(480, Qt.TransformationMode.SmoothTransformation)
+            self.banner_label.setPixmap(pix)
+            self.banner_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        main_layout.addWidget(self.banner_label)
+
+        # -------------------------
+        #   OPTIONS
+        # -------------------------
+        form = QFormLayout()
+        form.setSpacing(12)
+
+        def make_combo(items, key, default):
+            box = QComboBox()
+            box.addItems(items)
+            box.setMinimumHeight(30)
+            
+            box.setCurrentText(self.settings.get(key, default))
+            box.currentTextChanged.connect(lambda v: self.update_setting(key, v))
+            
+            return box
+
+
+        # Resolutions (system detected)
+        resolutions = get_available_resolutions()
+        self.window_box = make_combo(resolutions, "window", resolutions[0])
+        form.addRow("Window size:", self.window_box)
+
+        # Display mode
+        self.fullscreen_box = make_combo(
+            ["windowed", "fullscreen"],
+            "display_mode",
+            "windowed"
+        )
+        form.addRow("Display mode:", self.fullscreen_box)
+
+        main_layout.addLayout(form)
+
+        # -------------------------
+        #   Séparateur visuel
+        # -------------------------
+        separator = QFrame()
+        separator.setFrameShape(QFrame.Shape.HLine)
+        separator.setFrameShadow(QFrame.Shadow.Sunken)
+        separator.setStyleSheet("color: gray; margin-top: 10px; margin-bottom: 10px;")
+        main_layout.addWidget(separator)
+
+        # -------------------------
+        #   BOUTON LANCER JEU — isolé
+        # -------------------------
+        launch_layout = QVBoxLayout()
+        launch_layout.setContentsMargins(0, 10, 0, 0)
+        launch_layout.setSpacing(10)
+
+        self.launch_button = QPushButton("🎮 Launch Intro")
+        self.launch_button.setMinimumHeight(50)
+        self.launch_button.setStyleSheet("""
+            QPushButton {
+                font-size: 18px;
+                font-weight: bold;
+            }
+        """)
+        self.launch_button.clicked.connect(self.launch_demo)
+
+        launch_layout.addWidget(self.launch_button, alignment=Qt.AlignmentFlag.AlignCenter)
+        main_layout.addLayout(launch_layout)
+
+        self.setLayout(main_layout)
+
+ 	# ================================
+    #  SAVE SETTING WHEN CHANGED
+    # ================================
+    def update_setting(self, key, value):
+        self.settings[key] = value
+        save_settings(self.settings)
+
+
+    # ================================
+    #  LAUNCH GAME
+    # ================================
+
+    def launch_demo(self):
+        window = self.settings.get("window", "640x400")
+        width, height = map(int, window.split("x"))
+        fullscreen = self.settings.get("display_mode")
+
+        cmd = [
+            "/usr/lib/x86_64-linux-gnu/retrovibes-by-noxwings/retro-vibes.out",
+        ]
+
+        cmd.append(str(width))
+        cmd.append(str(height))
+        cmd.append("1.0")
+
+        if fullscreen == "fullscreen":
+            cmd.append("true")
+
+        # Affiche la commande exécutée
+        #QMessageBox.information(self, "Launching", "Command:\n" + " ".join(cmd))
+
+        try:
+            subprocess.Popen(cmd, close_fds=True) 
+            self.close()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to launch:\n{e}")
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    launcher = Launcher()
+    launcher.show()
+    sys.exit(app.exec())
+

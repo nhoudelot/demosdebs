@@ -1,0 +1,26 @@
+Source: retrovibes-by-noxwings
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: https://github.com/NoxWings/retro-vibes-executable
+
+Package: retrovibes-by-noxwings
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ libsdl2-2.0-0,
+ python3:any,
+ python3-pyqt6,
+ ${misc:Depends}
+Description: Intro by NoxWings, released in 2020
+ Retro Vibes is a 21-kilobyte Linux 64-bit demo.
+ .
+ The demo uses OpenGL 3.3 for rendering and SDL2 for window and audio
+ context management. All visuals are created using techniques such as
+ raymarching and signed distance fields, and the music is generated in real
+ time using a minimalist synthesizer. The audio was composed with LMMS and
+ converted into an embedded format for the demo.

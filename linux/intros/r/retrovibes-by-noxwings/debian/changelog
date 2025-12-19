@@ -1,0 +1,11 @@
+retrovibes-by-noxwings (1.0-0ddebs2) unstable; urgency=medium
+
+  * Added a launcher in python to select resolution
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Dec 2025 00:33:52 +0100
+
+retrovibes-by-noxwings (1.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 10 May 2025 13:06:46 +0200

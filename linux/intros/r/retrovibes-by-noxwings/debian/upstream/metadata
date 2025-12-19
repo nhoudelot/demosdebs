@@ -1,0 +1,10 @@
+Name: Retro Vibes
+Reference:
+  - type: pouet
+    url: https://www.pouet.net/prod.php?which=86467
+  - type: demozoo
+    url: http://demozoo.org/productions/281326/
+Bug-Database: https://github.com/NoxWings/retro-vibes-executable/issues
+Bug-Submit: https://github.com/NoxWings/retro-vibes-executable/issues/new
+Repository-Browse: https://github.com/NoxWings/retro-vibes-executable
+Repository: https://github.com/NoxWings/retro-vibes-executable.git
