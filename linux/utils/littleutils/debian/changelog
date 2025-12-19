@@ -1,0 +1,211 @@
+littleutils (1.2.8-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 24 Nov 2025 09:51:55 +0100
+
+littleutils (1.2.6a-0ddebs2) unstable; urgency=medium
+
+  * Updated to standards-version 4.6.2
+  * use debhelper compatibility v13
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 11 Mar 2024 14:43:43 +0100
+
+littleutils (1.2.6a-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * Added opt-pdf, pdfquant, to-zst, rar2tarcat, zip2tarcat, pdfidiff
+    and imagdiff to the package
+  * removed some lintian warnings
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 02 Nov 2023 12:27:57 +0100
+
+littleutils (1.2.5-0ddebs3) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 22 Apr 2023 16:44:34 +0200
+
+littleutils (1.2.5-0ddebs2) unstable; urgency=medium
+
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 06 Apr 2022 20:49:12 +0200
+
+littleutils (1.2.5-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Dec 2021 16:45:50 +0100
+
+littleutils (1.2.4-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 22 Apr 2021 10:48:13 +0200
+
+littleutils (1.2.3-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 15 Mar 2021 23:03:18 +0100
+
+littleutils (1.2.2-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 03 Nov 2020 01:32:20 +0100
+
+littleutils (1.2.1-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 01 Sep 2020 23:24:38 +0200
+
+littleutils (1.2.0-0ddebs2) unstable; urgency=medium
+
+  * adapt to cross-building
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Jul 2020 09:20:40 +0200
+
+littleutils (1.2.0-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+  * updated to standards-version 4.5.0
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 19 Apr 2020 16:35:48 +0200
+
+littleutils (1.0.43-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 Dec 2019 20:43:46 +0100
+
+littleutils (1.0.42-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Jul 2019 17:35:18 +0200
+
+littleutils (1.0.41-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 02 May 2019 18:59:15 +0200
+
+littleutils (1.0.39-0ddebs1) unstable; urgency=medium
+
+  * New upstream release 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 28 Nov 2018 21:48:16 +0100
+
+littleutils (1.0.37-0ddebs2) unstable; urgency=medium
+
+  * Fixed spelling errors
+  * Fided lintian errors
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 31 Jan 2018 11:07:46 +0100
+
+littleutils (1.0.37-0ddebs1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 01 Apr 2017 19:31:45 +0200
+
+littleutils (1.0.36-0ddebs1) unstable; urgency=medium
+
+  * Updated debian/control with some missing build dependencies
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 29 Oct 2016 12:25:31 +0200
+
+littleutils (1.0.36-1) unstable; urgency=low
+
+  * New upstream release (1.0.36).
+  * Added wget to requirements for littleutils-recompressors.
+  * Moved to-lzma from littleutils-recompressors to littleutils-legacy.
+  * Updated debian/control to allow "libpng-dev | libpng12-dev" rather than
+    just "libpng12-dev".
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Fri, 15 Jul 2016 20:00:00 -0400
+
+littleutils (1.0.35-1) unstable; urgency=low
+
+  * New upstream release (1.0.35).
+  * Extra checks to ensure proper recompressor behavior regardless of
+    installation environment.  Change to lbzip2 for parallel engine inside
+    to-bzip2.
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Mon, 29 Feb 2016 20:00:00 -0400
+
+littleutils (1.0.34-1) unstable; urgency=low
+
+  * New upstream release (1.0.34).
+  * Added pigz, pbzip2, and plzip to requirements for
+    littleutils-recompressors.
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Fri, 14 Nov 2015 20:00:00 -0400
+
+littleutils (1.0.33-2) unstable; urgency=low
+
+  * Added python-rarfile to requirements for littleutils-recompressors.
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Fri, 27 Mar 2015 20:00:00 -0400
+
+littleutils (1.0.33-1) unstable; urgency=low
+
+  * New upstream release (1.0.33).
+  * Updated littleutils-recompressors.install and control to include new
+    rar2tarcat utility.
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Fri, 27 Mar 2015 08:00:00 -0400
+
+littleutils (1.0.32-3) unstable; urgency=medium
+
+  * Updated debian/control to allow "libjpeg-progs | libjpeg-turbo-progs"
+    rather than just "libjpeg-progs".
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Fri, 03 Nov 2014 08:00:00 -0400
+
+littleutils (1.0.32-2) unstable; urgency=low
+
+  * Fixed incorrect ghostscript package name and supplied .gz version of
+    debian tarball in addition to .xz.  Special thanks to Sourceforge user
+    Pitoziq for reporting the error.
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Fri, 18 Oct 2014 08:00:00 -0400
+
+littleutils (1.0.32-1) unstable; urgency=low
+
+  * New upstream release (1.0.32).
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Fri, 08 Aug 2014 08:00:00 -0400
+
+littleutils (1.0.31-1) unstable; urgency=low
+
+  * New upstream release (1.0.31).
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Sun, 07 Feb 2014 08:00:00 -0400
+
+littleutils (1.0.30-1) unstable; urgency=low
+
+  * New upstream release (1.0.30).
+  * Updated control and littleutils-imageutils.install to add new opt-pdf
+    utility to littleutils-imageutils package.
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Sun, 12 Dec 2013 08:00:00 -0400
+
+littleutils (1.0.29-1) unstable; urgency=low
+
+  * New upstream release (1.0.29).
+  * Updated littleutils-base.install to support new -p option in repeats.
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Wed, 26 Jun 2013 08:00:00 -0400
+
+littleutils (1.0.26-1) unstable; urgency=low
+
+  * Initial release.  I'm convinced this first Debian packaging effort is
+    clumsier than necessary, but it seems to work okay.
+
+ -- Brian Lindholm <brian_lindholm@users.sourceforge.net>  Sat, 23 Jun 2012 08:00:00 -0400
