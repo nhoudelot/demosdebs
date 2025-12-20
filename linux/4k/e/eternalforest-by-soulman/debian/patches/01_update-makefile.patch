@@ -1,0 +1,69 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging and crossbuilding (use GCC instead of clang)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-12-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ 
+-CC = clang
+-CFLAGS = -fno-plt -fno-unwind-tables -Wall -Werror -Oz
++CC = gcc
++CFLAGS = -fno-plt -fno-unwind-tables -Wall
+ CFLAGS += $(shell pkg-config --cflags gtk+-3.0)
+ 
+ LIBS = -lGL -lgtk-3 -lgdk-3 -lgobject-2.0
+@@ -8,7 +8,7 @@
+ 
+ XZ = xz -c -9e --format=lzma --lzma1=preset=9,lc=0,lp=0,pb=0
+ SSTRIP = ./ELFkickers/bin/sstrip
+-SHADER_MINIFIER = ./Shader_Minifier/shader_minifier.exe
++SHADER_MINIFIER = /usr/bin/shader_minifier.exe
+ 
+ EXE = bin/main-4k
+ DEBUG_EXE = bin/main-debug
+@@ -19,7 +19,6 @@
+ 	./$(EXE)
+ 
+ debug: $(DEBUG_EXE)
+-	./$(DEBUG_EXE)
+ 
+ clean:
+ 	rm -rf bin/ obj/ gen/
+@@ -34,7 +33,7 @@
+ 	@mkdir -p gen
+ 	unifdef -x2 -DNDEBUG -o $@ $<
+ 
+-gen/shaders.h: gen/fshader.glsl $(SHADER_MINIFIER)
++gen/shaders.h: gen/fshader.glsl
+ 	@mkdir -p gen
+ 	TERM=xterm mono $(SHADER_MINIFIER) --preserve-externals $< -o $@
+ 
+@@ -46,14 +45,13 @@
+ 	@mkdir -p obj
+ 	$(CC) -c $(CFLAGS) -DDEBUG -o $@ $<
+ 
+-bin/%: obj/%.o $(SSTRIP)
++bin/%: obj/%.o
+ 	@mkdir -p bin
+ 	#$(CC) -o $@ $^ $(LIBS)
+ 	ld \
+ 		-z norelro \
+ 		-z nodelete \
+ 		-z noseparate-code \
+-		-O1 \
+ 		--orphan-handling=discard \
+ 		--as-needed \
+ 		--no-demangle \
+@@ -67,7 +65,7 @@
+ 		-o $@ \
+ 		$< \
+ 		$(LIBS)
+-	$(SSTRIP) $@
++#	$(SSTRIP) $@
+ 
+ bin/%-debug: obj/%-debug.o
+ 	@mkdir -p bin

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Eternal Forest
+GenericName=Demo
+Comment=Demo by Soulman, released in 2020
+Type=Application
+Exec=/usr/bin/eternalforest-by-soulman
+Icon=eternalforest-by-soulman
+Categories=AudioVideo;
+Name[fr_FR]=Eternal Forest

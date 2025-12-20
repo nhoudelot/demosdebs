@@ -1,0 +1,7 @@
+eternalforest-by-soulman for Debian
+----------------------------------
+
+* make debug is used to produce an executable with clear libraries dependencies
+* clang has been patched, to use GCC instead for crossbuilding
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Dec 2025 10:25:58 +0100

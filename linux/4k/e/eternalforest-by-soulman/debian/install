@@ -1,0 +1,6 @@
+#!/usr/bin/dh-exec
+
+debian/resources/eternalforest-by-soulman.desktop usr/share/applications/
+debian/resources/eternalforest-by-soulman.png usr/share/icons/hicolor/256x256/apps/
+bin/main-debug => usr/bin/eternalforest-by-soulman
+fshader.glsl =>  usr/share/eternalforest-by-soulman/fshader-debug.glsl
