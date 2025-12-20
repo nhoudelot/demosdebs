@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=AmiRun
+GenericName=Game
+Comment=Game by The Solaris Agency, released in 2020
+Type=Application
+Exec=/usr/bin/amirun-by-thesolarisagency
+Icon=amirun-by-thesolarisagency
+Categories=Game;
+Name[fr_FR]=AmiRun

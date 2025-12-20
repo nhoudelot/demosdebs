@@ -1,0 +1,38 @@
+Source: amirun-by-thesolarisagency
+Section: games
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libx11-dev,
+ libgl-dev,
+ libasound2-dev,
+ libxrandr-dev,
+ libxcursor-dev,
+ libxinerama-dev,
+ libxi-dev,
+ libpulse-dev
+Standards-Version: 4.6.2
+Homepage: https://suicide-rabbits.de/de/projekt/amirun-the-quest-for-the-party
+
+Package: amirun-by-thesolarisagency
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ amirun-by-thesolarisagency-data,
+ common-install-function-ddebs(>=1.61),
+Description: Game by The Solaris Agency, released in 2020
+ Your mission is, you have to go to Cologne as soon as possible because the
+ Evoke is happening there, but in the nearby devlab a bad accident happens and
+ suddenly chaos breaks out. So help him on the dangerousjourney to his
+ destination.
+
+Package: amirun-by-thesolarisagency-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for amirun-by-thesolarisagency
+ amirun-by-thesolarisagency data files

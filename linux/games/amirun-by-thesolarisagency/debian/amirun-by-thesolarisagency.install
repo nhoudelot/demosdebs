@@ -1,0 +1,4 @@
+debian/scripts/amirun-by-thesolarisagency usr/bin/
+./AmiRun_v1.1.5_Linux.x86_64 usr/lib/x86_64-linux-gnu/amirun-by-thesolarisagency
+debian/resources/amirun-by-thesolarisagency.desktop usr/share/applications/
+debian/resources/amirun-by-thesolarisagency.png usr/share/icons/hicolor/256x256/apps/
