@@ -1,0 +1,6 @@
+#!/usr/bin/dh-exec
+
+debian/scripts/mahoshojoninaritai-by-secondworld usr/bin/
+./${EXE} usr/lib/${DEB_HOST_MULTIARCH}/mahoshojoninaritai-by-secondworld
+debian/resources/mahoshojoninaritai-by-secondworld.desktop usr/share/applications/
+debian/resources/mahoshojoninaritai-by-secondworld.png usr/share/icons/hicolor/256x256/apps/

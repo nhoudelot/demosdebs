@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Maho shojo ni naritai
+GenericName=Demo
+Comment=Demo by Second World, released in 2020
+Type=Application
+Exec=/usr/bin/mahoshojoninaritai-by-secondworld
+Icon=mahoshojoninaritai-by-secondworld
+Categories=AudioVideo;
+Name[fr_FR]=Maho shojo ni naritai

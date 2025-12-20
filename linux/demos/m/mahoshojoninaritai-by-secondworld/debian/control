@@ -1,0 +1,30 @@
+Source: mahoshojoninaritai-by-secondworld
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libx11-dev,
+ libasound2-dev,
+ dh-exec (>=0.3)
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=87473
+
+Package: mahoshojoninaritai-by-secondworld
+Architecture: amd64 i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ mahoshojoninaritai-by-secondworld-data,
+ common-install-function-ddebs(>=1.61),
+Description: Demo by Second World, released in 2020
+ Ranked 2nd at Demosplash 2020
+
+Package: mahoshojoninaritai-by-secondworld-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Description: Data files for mahoshojoninaritai-by-secondworld
+ mahoshojoninaritai-by-secondworld data files
