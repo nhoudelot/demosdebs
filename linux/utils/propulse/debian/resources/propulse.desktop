@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Propulse
+GenericName=utilities
+Comment=crossplatform tracker using an Impulse/Schism Tracker style user interface
+Type=Application
+Exec=/usr/bin/propulse
+Icon=propulse
+Categories=Audio;Music

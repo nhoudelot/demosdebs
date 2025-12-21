@@ -1,0 +1,6 @@
+#!/usr/bin/dh-exec
+
+debian/resources/propulse.desktop usr/share/applications/
+debian/resources/propulse.png usr/share/icons/hicolor/32x32/apps/
+Propulse => usr/bin/propulse
+data usr/share/propulse

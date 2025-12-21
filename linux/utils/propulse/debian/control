@@ -1,0 +1,24 @@
+Source: propulse
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ lcl-utils,
+ lazarus,
+ libbass-dev,
+ libsdl2-dev,
+ libsoxr-dev,
+ dh-exec (>=0.3)
+Standards-Version: 4.6.2
+Homepage: https://github.com/hukkax/Propulse
+
+Package: propulse
+Architecture: amd64 i386
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Tracker with an Impulse/Schism Tracker style user interface.
+ Crossplatform tracker for making Amiga ProTracker compatible tracker modules 
+ using an Impulse/Schism Tracker style user interface.

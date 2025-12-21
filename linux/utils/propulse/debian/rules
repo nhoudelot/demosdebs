@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+export HOME=$(CURDIR)/debian/tmp
+export LAZARUS_CONFIG=$(HOME)/.lazarus
+
+
+%:
+	dh $@
+
+
+override_dh_auto_build:
+	mkdir -p $(LAZARUS_CONFIG)
+	lazbuild \
+	  --lazarusdir=$(LAZARUSDIR) \
+	  --primary-config-path=$(LAZARUS_CONFIG) \
+	  --build-mode=Release \
+	  --build-all src/Propulse.lpi

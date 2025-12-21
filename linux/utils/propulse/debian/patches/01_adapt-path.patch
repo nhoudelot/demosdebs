@@ -1,0 +1,18 @@
+Description: change data path
+ Relocate non-binary architecture-specific files to /usr/share to ensure correct installation
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-12-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/mainwindow.pas
++++ b/src/mainwindow.pas
+@@ -1461,7 +1461,7 @@
+ 	// Init application directories
+ 	//
+ 	AppPath := IncludeTrailingPathDelimiter(ProgramDirectory);
+-	DataPath := AppPath + 'data/';
++	DataPath := '/usr/share/propulse/data/';
+ 	ConfigPath := GetAppConfigDir(False);
+ 	if ConfigPath = '' then ConfigPath := DataPath;
+ 	ConfigPath := IncludeTrailingPathDelimiter(ConfigPath);
