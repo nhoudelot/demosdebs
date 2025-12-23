@@ -1,0 +1,32 @@
+Source: nevoke2021invitation-by-potcfdk
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libx11-dev,
+ libogg-dev,
+ libvorbis-dev,
+ libflac-dev,
+ libfreetype-dev,
+ libopenal-dev,
+ libgl-dev,
+ libxrandr-dev,
+ dh-exec (>=0.3)
+Standards-Version: 4.6.2
+Homepage: https://www.pouet.net/prod.php?which=89522
+
+Package: nevoke2021invitation-by-potcfdk
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libflac8 <jammy>,
+ libflac12 <bookworm>,
+ libflac12t64 <noble>,
+ libflac14 <resolute> <trixie> <forky>,
+ common-install-function-ddebs(>=1.61),
+Description: Intro Invitation by PotcFdk, released in 2021
+ Intro Invitation for Névoke online demoparty 2021
+

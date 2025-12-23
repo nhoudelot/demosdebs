@@ -1,0 +1,4 @@
+debian/scripts/nevoke2021invitation-by-potcfdk usr/bin/
+./nevoke-linux-x64 usr/lib/x86_64-linux-gnu/nevoke2021invitation-by-potcfdk
+debian/resources/nevoke2021invitation-by-potcfdk.desktop usr/share/applications/
+debian/resources/nevoke2021invitation-by-potcfdk.png usr/share/icons/hicolor/256x256/apps/

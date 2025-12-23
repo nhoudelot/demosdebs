@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Névoke 2021 Invitation
+GenericName=Demo
+Comment=Intro Invit by PotcFdk, released in 2021
+Type=Application
+Exec=/usr/bin/nevoke2021invitation-by-potcfdk
+Icon=nevoke2021invitation-by-potcfdk
+Categories=AudioVideo;

@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec
+
+usr/lib/x86_64-linux-gnu/libFLAC.so.${NSHVERFLACLIB} usr/lib/x86_64-linux-gnu/nevoke2021invitation-by-potcfdk/libFLAC.so.8
+

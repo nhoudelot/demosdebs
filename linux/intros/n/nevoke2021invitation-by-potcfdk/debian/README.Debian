@@ -1,0 +1,6 @@
+nevoke2021invitation-by-potcfdk for Debian
+-----------------------------------------
+
+depend of libFLAC.so.8, so I had to trick dh_helper to compile this source package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 23 Dec 2025 01:14:37 +0100

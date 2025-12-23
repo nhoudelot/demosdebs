@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=nevoke2021invitation-by-potcfdk
+
+APP_FULLNAME="Nevoke 2021 Invitation"
+APP_COPYRIGHT="PotcFdk"
+APP_DESC="Demo by PotcFdk, released in 2021"
+
+APP_EXE="nevoke-linux-x64"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	LD_LIBRARY_PATH=. ./${APP_EXE}
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

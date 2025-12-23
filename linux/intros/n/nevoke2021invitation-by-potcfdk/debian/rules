@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+
+export NSHVERFLACLIB
+
+CODENAME := $(shell sed -n 's/^VERSION_CODENAME=//p' /etc/os-release)
+
+ifeq ($(CODENAME),jammy)
+    NSHVERFLACLIB = 8
+else ifeq ($(CODENAME),noble)
+    NSHVERFLACLIB = 12
+else ifeq ($(CODENAME),resolute)
+    NSHVERFLACLIB = 14
+else ifeq ($(CODENAME),bookworm)
+    NSHVERFLACLIB = 10
+else ifeq ($(CODENAME),trixie)
+    NSHVERFLACLIB = 14
+endif
+
+%:
+	dh $@
+
+override_dh_shlibdeps:
+	dh_shlibdeps -- -ldebian/resources/ --ignore-missing-info
