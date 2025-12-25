@@ -1,0 +1,17 @@
+Description: change pak user path, to a more suited place
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-12-25
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/misc/fnkdat.cpp
++++ b/src/misc/fnkdat.cpp
+@@ -452,7 +452,7 @@
+                return -1;
+ 
+             strncpy(buffer, pwent->pw_dir, len);
+-            FNKDAT_S(strncat(buffer, "/.config/" PACKAGE, len));
++            FNKDAT_S(strncat(buffer, "/.local/share/games/" PACKAGE, len));
+          } else {
+             FNKDAT_S(strncpy(buffer, xdg_config, len));
+             FNKDAT_S(strncat(buffer, "/" PACKAGE, len));

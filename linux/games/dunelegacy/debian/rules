@@ -9,5 +9,3 @@ export DEB_LDFLAGS_MAINT_APPEND  = -flto
 %:
 	dh $@  --buildsystem=cmake --builddirectory=build
 
-#override_dh_autoreconf:
-#	AUTOMAKE="automake --foreign" autoreconf -is

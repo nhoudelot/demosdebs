@@ -1,3 +1,16 @@
+dunelegacy (0.99.5-0ddebs2) unstable; urgency=medium
+
+  * fixed compilation for distributions with miniupnpc < 2.2.8
+  * moved user pak files to a better place : ~.local/share/games/dunelegacy 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Dec 2025 12:52:41 +0100
+
+dunelegacy (0.99.5-0ddebs1) unstable; urgency=medium
+
+  * New Release update
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 25 Dec 2025 02:23:13 +0100
+
 dunelegacy (0.99.4-0ddebs1) unstable; urgency=medium
 
   * New Release update

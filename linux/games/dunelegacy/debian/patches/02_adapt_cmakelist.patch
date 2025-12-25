@@ -8,7 +8,7 @@ Last-Update: 2025-12-06
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -369,7 +369,15 @@
+@@ -370,7 +370,15 @@
  endif()
  
  # Find miniupnpc for UPnP support
@@ -25,7 +25,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # Find discord-rpc for Discord Rich Presence
  find_library(DISCORD_RPC_LIBRARY discord-rpc PATHS ${CMAKE_PREFIX_PATH}/lib)
-@@ -383,7 +391,6 @@
+@@ -384,7 +392,6 @@
          $<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
          $<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>
          CURL::libcurl
@@ -33,7 +33,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          ${DISCORD_RPC_LIBRARY}
  )
  
-@@ -503,7 +510,7 @@
+@@ -504,7 +511,7 @@
      # Linux: use FHS structure
      install(
          DIRECTORY ${DATA_DIR}/
@@ -42,7 +42,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          FILES_MATCHING PATTERN "*.*"
      )
  endif()
-@@ -545,8 +552,8 @@
+@@ -546,8 +553,8 @@
          # Linux: use FHS structure with share/DuneLegacy
          target_compile_definitions(dunelegacy
              PRIVATE

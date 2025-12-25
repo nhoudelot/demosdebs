@@ -3,3 +3,5 @@
 03_update_desktopfile.patch
 04_fix_sdl2_includes.patch
 05_fix_discord_include.patch
+06_fix-upnp-previous228.patch
+07_change-user-data-dir.patch

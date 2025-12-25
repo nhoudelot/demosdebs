@@ -1,0 +1,23 @@
+Description: UPNP_GetValidIGD() from miniupnpc changed between 2.2.7 and 2.2.8
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-12-25
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/Network/UPnPManager.cpp
++++ b/src/Network/UPnPManager.cpp
+@@ -68,9 +68,14 @@
+     
+     // Find a valid IGD (Internet Gateway Device)
+     char wanAddress[64] = {0};
++    #if (MINIUPNPC_API_VERSION >= 18)
+     int result = UPNP_GetValidIGD(deviceList, &data->urls, &data->igdData, 
+                                    data->lanAddress, sizeof(data->lanAddress),
+                                    wanAddress, sizeof(wanAddress));
++	#else
++	int result = UPNP_GetValidIGD(deviceList, &data->urls, &data->igdData,
++                                   data->lanAddress, sizeof(data->lanAddress));
++	#endif
+     
+     freeUPNPDevlist(deviceList);
+     

@@ -1,3 +1,9 @@
+Description: fix discord RPC includes path
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-12-25
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/misc/DiscordManager.cpp
 +++ b/src/misc/DiscordManager.cpp
 @@ -19,7 +19,8 @@
