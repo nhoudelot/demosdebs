@@ -1,3 +1,9 @@
+win32-heroes-by-fairlight (1:1.0+3-0ddebs8) unstable; urgency=medium
+
+  * using d7vk in addition to wine
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 18 Jan 2026 14:58:44 +0100
+
 win32-heroes-by-fairlight (1:1.0+3-0ddebs7) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

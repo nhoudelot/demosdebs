@@ -12,9 +12,11 @@ Package: win32-moralhardcandy-by-blasphemy
 Architecture: all
 Depends:
  wine,
+ win32-d7vk,
  common-install-function-ddebs(>=1.76),
  ${misc:Depends}
 Description: Win32 Demo released in 1999
  Demo released at summer encounter 1999
  .
- -windows program launched using PlayOnLinux
+ -windows program launched using wine and d7vk
+

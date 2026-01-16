@@ -12,9 +12,10 @@ Package: win32-entropy-by-medieval
 Architecture: all
 Depends:
  wine,
+ win32-d7vk,
  common-install-function-ddebs(>=1.76),
  ${misc:Depends}
 Description: Win32 Demo released in 2000
  Demo ranked 7th at The Party 2000
  .
- -windows program launched using PlayOnLinux
+ -windows program launched using wine and d7vk

@@ -5,5 +5,6 @@ Executable :
  * win32
  * compiled with Microsoft Visual Studio(6.0) C++
  * packed with UPX 3.08 (unpacked)
+ * use DirectX 7
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Feb 2021 00:53:18 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 16 Jan 2026 13:57:12 +0100

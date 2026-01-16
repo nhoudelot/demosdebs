@@ -12,9 +12,10 @@ Package: win32-explicitsupremacy-by-apocalypsedesign
 Architecture: all
 Depends:
  wine,
+ win32-d7vk,
  common-install-function-ddebs(>=1.76),
  ${misc:Depends}
 Description: Windows Demo released in 2000
  Demo ranked 15th at Assembly 2000
  .
- -windows program launched using PlayOnLinux
+ -windows program launched using wine and d7vk
