@@ -10,6 +10,7 @@ PE32
     Compilateur: Microsoft Visual C/C++(13.00.9178)[C++]
     Lier: Microsoft Linker(7.10.3077)
     Outil: Visual Studio(2003)
+* Using DirectX 9
 
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 14:30:38 +0100

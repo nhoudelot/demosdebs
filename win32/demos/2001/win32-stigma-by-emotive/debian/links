@@ -4,3 +4,5 @@ tmp/win32-stigma-by-emotive/Scape1.map usr/share/win32/apps/win32-stigma-by-emot
 tmp/win32-stigma-by-emotive/Stekels.msh usr/share/win32/apps/win32-stigma-by-emotive/Data/Stekels.msh
 tmp/win32-stigma-by-emotive/Scape2.map usr/share/win32/apps/win32-stigma-by-emotive/Data/Scape2.map
 usr/share/win32/dlls/bass08a/bass.dll usr/share/win32/apps/win32-stigma-by-emotive/Bass.dll
+usr/share/win32/dlls/dxvk/x32/d3d8.dll usr/share/win32/apps/win32-stigma-by-emotive/d3d8.dll
+usr/share/win32/dlls/dxvk/x32/d3d9.dll usr/share/win32/apps/win32-stigma-by-emotive/d3d9.dll

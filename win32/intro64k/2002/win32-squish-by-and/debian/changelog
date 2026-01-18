@@ -1,3 +1,9 @@
+win32-squish-by-and (1:1.0+4-0ddebs7) unstable; urgency=medium
+
+  * using dxvk in addition to wine
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 19 Jan 2026 22:38:39 +0100
+
 win32-squish-by-and (1:1.0+4-0ddebs6) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

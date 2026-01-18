@@ -7,6 +7,6 @@ win32-fr-011ms2001invitation-by-farbrausch for Debian
 PE32
     Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
     Packer: UPX(-)[modified]
-
+* Use DirectX 8
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 19:18:26 +0100

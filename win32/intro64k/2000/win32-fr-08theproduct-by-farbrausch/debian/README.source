@@ -9,4 +9,6 @@ PE32
     Packer: UPX(-)[modified]
     Packer: kkrunchy(-)[-]
 
+* use DirectX 8
+
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 18:40:48 +0100

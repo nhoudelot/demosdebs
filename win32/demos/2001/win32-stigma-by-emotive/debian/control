@@ -12,10 +12,11 @@ Package: win32-stigma-by-emotive
 Architecture: all
 Depends:
  wine,
+ win32-dxvk,
  common-install-function-ddebs(>=1.76),
  win32-bassdll08a,
  ${misc:Depends}
 Description: Win32 Demo released in 2001
  demo ranked 1st at Ambience 2001
  .
- -windows program launched using PlayOnLinux
+ -windows program launched using wine and dxvk

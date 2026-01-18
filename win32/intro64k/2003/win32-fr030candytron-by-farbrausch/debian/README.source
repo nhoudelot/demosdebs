@@ -7,7 +7,7 @@ win32-fr030candytron-by-farbrausch for Debian
 PE32
     Le système d'exploitation: Windows(95)[I386, 32 bits, GUI]
     Packer: kkrunchy(-)[-]
-    
+
 * Use DirectX 9
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 20:50:53 +0100

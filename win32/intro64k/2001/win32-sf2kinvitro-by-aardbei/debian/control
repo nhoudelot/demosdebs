@@ -12,9 +12,10 @@ Package: win32-sf2kinvitro-by-aardbei
 Architecture: all
 Depends:
  wine,
+ win32-dxvk,
  common-install-function-ddebs(>=1.76),
  ${misc:Depends}
 Description: Intro for windows, released in 2001
  Intro ranked 3rd at Ambience 2001
  .
- -windows program launched using Wine
+ -windows program launched using wine and dxvk

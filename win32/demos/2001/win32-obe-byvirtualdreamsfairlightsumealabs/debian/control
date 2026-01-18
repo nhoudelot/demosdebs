@@ -12,9 +12,10 @@ Package: win32-obe-byvirtualdreamsfairlightsumealabs
 Architecture: all
 Depends:
  wine,
+ win32-dxvk,
  common-install-function-ddebs(>=1.76),
  ${misc:Depends}
 Description: Win32 Demo released in 2001
  Demo ranked 10th at Assembly 2001
  .
- -windows program launched using PlayOnLinux
+ -windows program launched using wine and dxvk
