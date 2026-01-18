@@ -1,0 +1,17 @@
+Source: win32-dxvk
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: https://github.com/doitsujin/dxvk
+Rules-Requires-Root: no
+
+Package: win32-dxvk
+Architecture: all
+Depends:
+ ${misc:Depends}
+Description: Translation layer for Direct3D 8/9/10/11
+ A Vulkan-based translation layer for Direct3D 8/9/10/11 which allows running 3D
+ applications on Linux using Wine.
