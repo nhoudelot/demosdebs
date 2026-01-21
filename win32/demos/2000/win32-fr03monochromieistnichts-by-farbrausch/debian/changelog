@@ -1,3 +1,9 @@
+win32-fr03monochromieistnichts-by-farbrausch (1:1.0+3-0ddebs8) unstable; urgency=medium
+
+  * fix gstreamer dependencie
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 17 Jan 2026 01:45:21 +0100
+
 win32-fr03monochromieistnichts-by-farbrausch (1:1.0+3-0ddebs7) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2
