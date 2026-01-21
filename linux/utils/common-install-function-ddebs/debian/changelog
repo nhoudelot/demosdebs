@@ -1,3 +1,29 @@
+common-install-function-ddebs (1.80-0ddebs1) unstable; urgency=medium
+
+  * if winehq repository is used to get latest wine version, we prefere it
+    so replace wine path by NSH_WINEEXE, who select this version by default
+    and fall back to the distribution one, if not found
+  * removed playonlinux unused wine functions
+  * added ddraw.dll native by default, that will work only if a ddraw.dll is
+    available in the current running executable folder (like for d7vk)
+  * added also d3d8, d3d9, d3d10core, d3d11 and dxgi native by default, that 
+    will work only if links to those dlls are available in the current 
+    running executable folder
+  * cleaned up the use of CDROM with wine. Now use cdemu-client as backend
+  * removed NSH_WINE_MountCD, NSH_WINE_UMmountCD, NSH_WINE_MountIso and
+    NSH_WINE_UMmountIso, replaced by NSH_WINE_MountDISC and
+    NSH_WINE_UnMountDISC
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 22 Jan 2026 00:11:22 +0100
+
+common-install-function-ddebs (1.79-0ddebs1) unstable; urgency=medium
+
+  * NSH_MAME_run_exe() : added -noreadconfig, hashpath, bgfx_path & ctrlrpath
+  * by default, Playstation start with dualsockpads in every port
+  * added lot's of debug
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 25 Mar 2025 23:40:51 +0100
+
 common-install-function-ddebs (1.78-0ddebs1) unstable; urgency=medium
 
   * added NSH_LinkUserDataDirToTMP()
