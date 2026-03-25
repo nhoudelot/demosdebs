@@ -1,0 +1,164 @@
+Description: Fix SDL2 threading: move rendering to main thread
+ SDL2 requires all rendering calls (SDL_RenderPresent, SDL_UpdateTexture,
+ SDL_RenderCopy) to happen on the main thread. The previous code used
+ SDL_AddTimer which executes the callback on a separate thread, causing
+ the black screen and fullscreen toggle glitch.
+ .
+ Replace SDL_AddTimer with main-loop timing using SDL_GetTicks().
+ Demo() becomes a regular void function; Video->Update() is called from
+ the main loop after each Demo() call.
+ .
+ Also fix Init_IDLogo(): add UpdatePalette() after the SetColour() loop so
+ the palette is actually applied to Video_Memory before the fade-in starts.
+ .
+ Also fix Close_Audio(): the FadeOut loop now calls Video->Update() so the
+ visual fade-out is rendered.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cc	2026-04-19 02:54:15.000350009 +0200
++++ b/main.cc	2026-04-19 02:54:51.783421611 +0200
+@@ -8,7 +8,6 @@
+ #include "idscroller.h"
+ #include "timerlib.h"
+ 
+-SDL_TimerID MyTimer;                                    //ID of my timer
+ VgaXMode *Video;
+ IDScroller *Font = NULL;
+ unsigned char *DBuf;
+@@ -37,7 +36,7 @@
+ 	Font->CreateLongString("THIS IS THE FIRST INSOLIT DUST PRODUCTION! THIS SIMPLE BORNTRO AS THE PURPOSE OF PROMOTING THE BIRTH OF A NEW OLDSCHOOL GROUP! ALL GRAPHICS YOU SEE IS IN 320X240 PIXELS AT 256 COLORS. FOR SOURCECODE OF THIS BORNTRO AND MANY OTHER EFFECT PLEASE VISIT INSOLITDUST.SOURCEFORGE.NET! AND REMEMBER, 320X240X256 COLORS ARE ENOUGH FOR EVERYTHING... 3D HARDWARE SUCKS!! P.S. THE MUSIC IS 'THE NADA ONE' BY ANDREAS VIKLUND FROM MODARCHIVE.COM. ESC TO QUIT...");
+ }
+ 
+-Uint32 Demo(Uint32 interval, void *flagp)
++void Demo(void)
+ {
+ 	static unsigned long long Counter = 0;
+ 
+@@ -121,9 +120,7 @@
+ 		{
+ 			Video->ClearToColor(255);
+ 
+-			Video->Update();
+-
+-			return interval;
++			return;
+ 		}
+ 
+ 		if (Counter > 46)
+@@ -133,9 +130,7 @@
+ 		{
+ 			Video->ClearToColor(255);
+ 
+-			Video->Update();
+-
+-			return interval;
++			return;
+ 		}
+ 
+ 		if (Counter > 216)
+@@ -145,9 +140,7 @@
+ 		{
+ 			Video->ClearToColor(255);
+ 
+-			Video->Update();
+-
+-			return interval;
++			return;
+ 		}
+ 
+ 		if (Counter > 566)
+@@ -160,9 +153,7 @@
+ 		{
+ 			Video->ClearToColor(255);
+ 
+-			Video->Update();
+-
+-			return interval;
++			return;
+ 		}
+ 
+ 		if (Counter > 591)
+@@ -171,20 +162,25 @@
+ 
+ 		break;
+ 	}
+-
+-	Video->Update();
+-
+-	return interval;
+ }
+ 
+ void MainLoop(void)
+ {
+ 	char done = 0;
+ 	SDL_Event event;
++	Uint32 last_frame = SDL_GetTicks();
++	const Uint32 FRAME_INTERVAL = 40;
+ 
+ 	while (!done)
+ 	{
+-		usleep(15000);
++		Uint32 now = SDL_GetTicks();
++
++		if (now - last_frame >= FRAME_INTERVAL)
++		{
++			Demo();
++			Video->Update();
++			last_frame += FRAME_INTERVAL;
++		}
+ 
+ 		while (SDL_PollEvent(&event))
+ 		{
+@@ -199,6 +195,8 @@
+ 				}
+ 			}
+ 		}
++
++		SDL_Delay(1);
+ 	}
+ }
+ 
+@@ -211,7 +209,11 @@
+ 	{
+ 		Mix_FadeOutMusic(500);
+ 
+-		while (Video->FadeOut(2) == 0);
++		while (Video->FadeOut(2) == 0)
++		{
++			Video->Update();
++			SDL_Delay(40);
++		}
+ 	}
+ 
+ 	if (module)
+@@ -253,6 +255,8 @@
+ 		tmppal++;
+ 	}
+ 
++	Video->UpdatePalette();
++
+ 	Video->Blit(IDLogo->GetImage(), 320 * 240);
+ 
+ 	delete IDLogo;
+@@ -260,8 +264,6 @@
+ 
+ int main(int argc, char *argv[])
+ {
+-	int flags=0;
+-
+ 	if (argc > 1)
+ 	{
+ 		if (!strcmp("-h", argv[1]) || !strcmp("-help", argv[1]) ||
+@@ -306,8 +308,6 @@
+ 
+ 	Video->Update();
+ 
+-	MyTimer = SDL_AddTimer(40, Demo,  &flags);
+-
+ 	MainLoop();
+ 
+ 	printf("\n\r");

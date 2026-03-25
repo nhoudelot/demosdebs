@@ -14,9 +14,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -LIBS = /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut -lGLU -lGL -lm
 +# compilers and tools
 +SHELL = /bin/sh
-+CC := gcc
-+CXX := g++
-+PKG_CONFIG := pkg-config
++CC ?= gcc
++CXX ?= g++
++PKG_CONFIG ?= pkg-config
 +RM_F       := rm -f
 +
 +# Flags

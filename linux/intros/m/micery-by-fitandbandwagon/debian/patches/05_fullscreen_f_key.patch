@@ -20,16 +20,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  
  int main(int argc, char * argv[]) {
-@@ -559,8 +565,10 @@
- 				quit=1;
- 			if (e.type==SDL_KEYUP) {
- 				keydown=0;
--				if (e.key.keysym.sym==SDLK_LSHIFT)
--					shiftdown=0;
-+				switch (e.key.keysym.sym) {
-+					case SDLK_f: ToggleFullscreen(sdlWindow); break;
-+					case SDLK_LSHIFT: shiftdown=0; break;
-+				}
- 			}
- 
- 			/* The quit events. Mac demos should exit with mousebutton. */
+@@ -567,6 +573,9 @@
+ 				if (e.type==SDL_KEYDOWN) {
+ 				keydown=e.key.keysym.sym;
+ 				switch (keydown) {
++					case SDLK_f:
++						ToggleFullscreen(sdlWindow);
++						break;
+ 					case SDLK_ESCAPE:
+ 						if (quit==2)
+ 							quit=1;

@@ -1,0 +1,185 @@
+Description: fixing several various warnings 
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-13
+--- a/dump.c
++++ b/dump.c
+@@ -174,6 +174,7 @@
+ 			m->next=s->materials;
+ 			s->materials=m;
+ 			strncpy(m->name,(char *)data,sizeof(m->name));
++			m->name[sizeof(m->name)-1] = '\0';
+ 			while(*data++);
+ 
+ 			m->ambient[3]=m->diffuse[3]=m->specular[3];
+@@ -202,6 +203,7 @@
+ 			o->pivot=NULL;
+ 
+ 			strncpy(o->name,(char *) data,sizeof(o->name));
++			o->name[sizeof(o->name)-1] = '\0';
+ 			while(*data++);
+ 
+ 			o->type=TYPE_OBJECT;
+@@ -223,6 +225,7 @@
+ 			p->next=o->parts;
+ 			o->parts=p;
+ 			strncpy(p->name,(char *)data,sizeof(p->name));
++			p->name[sizeof(p->name)-1] = '\0';
+ 			while(*data++);
+ 
+ 			m=s->materials; /* Find material */
+@@ -298,8 +301,9 @@
+ float getfloat(unsigned char **p)
+ {
+ 	int i=getint(p,4);
+-	float *f=&i;
+-	return(*f);
++	float f;
++	memcpy(&f, &i, sizeof(f));
++	return f;
+ }
+ unsigned getint(unsigned char **p,int len)
+ {
+--- a/cool_mzx/pt.h
++++ b/cool_mzx/pt.h
+@@ -12,7 +12,7 @@
+ #ifndef PT_H
+ #define PT_H
+ 
+-extern unsigned char  *pt_errorstr; // tässä sitten lukee jotain tai ei lue...
++extern const char *pt_errorstr; // tässä sitten lukee jotain tai ei lue...
+ 
+ void pt_init ();
+ int  pt_takemod (unsigned char *src);
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -327,11 +327,11 @@
+ // levyltä, ei muistialuetta saa vapauttaa ja käyttää uudestaan,
+ // jos tässä on nolla!!!
+ 
+-unsigned char  *pt_errorstr;    // tässä sitten lukee jotain tai ei lue...
++const char *pt_errorstr;    // tässä sitten lukee jotain tai ei lue...
+ 
+ unsigned char pt_modid[5];
+ 
+-unsigned char  *pt_modid_table[] =
++const char *pt_modid_table[] =
+ {"2CHN", "4CHN", "M.K.", "M!K!", "FLT4", "FLT8", "OCTA", "6CHN", "8CHN",
+  "10CH", "12CH", "14CH", "16CH", "18CH", "20CH", "22CH",
+  "24CH", "26CH", "28CH", "30CH", "32CH", "STOP" };
+@@ -465,7 +465,7 @@
+ 
+ 	// onkohan tämä for-lause vai while? :)
+ 	for (i=0; (strncmp(pt_modid_table[i], "STOP", 4)) &&
+-	     (strncmp(pt_modid, pt_modid_table[i], 4)); i++)
++	     (strncmp((const char *)pt_modid, pt_modid_table[i], 4)); i++)
+ 		/*printf("Trying id %d...\n", i)*/;
+ 	pt_channels = pt_modid_channels_table[i];
+ 
+@@ -503,14 +503,14 @@
+ 
+ 			if (pt_loope[i] > 2)
+ 			{
+-				sd_getsample(i, &rb_src[rb_ofs], pt_slen[i],
++				sd_getsample(i, (char *)&rb_src[rb_ofs], pt_slen[i],
+ 				             pt_loops[i],
+ 				             pt_loops[i] + pt_loope[i],
+ 				             LOOP_NORMAL);
+ 			}
+ 			else
+ 			{
+-				sd_getsample(i, &rb_src[rb_ofs], pt_slen[i],
++				sd_getsample(i, (char *)&rb_src[rb_ofs], pt_slen[i],
+ 				             pt_loops[i],
+ 				             pt_loops[i] + pt_loope[i],
+ 				             LOOP_OFF);
+@@ -764,7 +764,8 @@
+ 				i = pt_curvol[c] +
+ 				    pt_tremolotable[pt_trmc[c]]*pt_trmd[c] / 127;
+ 				pt_trmc[c] = (pt_trmc[c]+pt_trms[c]) & 63;
+-				if (i<0) i=0; if (i>64) i=64;
++				if (i<0) i=0;
++				if (i>64) i=64;
+ 				sd_setvolume(i);
+ 				break;
+ 			case 0xA00: dovolslideandbehappy:
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -52,7 +52,7 @@
+ #include "sd_main.h"
+ #include "sd_mix.h"
+ 
+-typedef struct SAMPLEINFOBLOCK {
++struct SAMPLEINFOBLOCK {
+ 	signed char *data;
+ 	unsigned int
+ 	        size,
+@@ -62,7 +62,7 @@
+ 	        sample16bit;
+ };
+ 
+-typedef struct CHANNELINFOBLOCK {
++struct CHANNELINFOBLOCK {
+ 	signed char *sampledata;
+ 	unsigned int
+ 	        sample,
+@@ -100,7 +100,7 @@
+ /* "Ottaa" samplen. Muistia ei varata tässä, joten olis ihan kiva,
+    että se tila pysyisi varattuna. */
+ {
+-	mix_samples[snum].data = src;
++	mix_samples[snum].data = (signed char *)src;
+ 	mix_samples[snum].size = len;
+ 	mix_samples[snum].loopstart = loopstart;
+ 	mix_samples[snum].loopend = loopend;
+@@ -208,7 +208,7 @@
+ 	c->loopend = 0;
+ 	c->looptype = LOOP_OFF;
+ 	c->panning = PAN_MIDDLE;
+-	c->sampledata = (char *)0; /* NULL */
++	c->sampledata = NULL; /* NULL */
+ 	c->sample = 0;
+ 	c->sample16bit = 0;
+ 	c->newoffset = 1;
+@@ -220,7 +220,7 @@
+ 	s->loopstart = 0;
+ 	s->loopend = 0;
+ 	s->looptype = LOOP_OFF;
+-	s->data = (char *)0; /* NULL */
++	s->data = NULL; /* NULL */
+ } /* sd_mix_initchannel */
+ 
+ void sd_mix_init (int rate)
+@@ -661,7 +661,6 @@
+ 	signed int *dst32;
+ 	signed int i, c, lvol, rvol;
+ 	signed short *dst;
+-	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+ 
+ 	/* Kopioidaan kanavat */
+@@ -675,7 +674,6 @@
+ 	for (c=0; c<mix_activechannels; c++)
+ 	{
+ 		chan = &mix_realchannels[c];
+-		sample = chan->sampledata;
+ 		dst32 = mix_buffer32;
+ 
+ 		lvol = (chan->volume*(255-chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+@@ -721,7 +719,6 @@
+ 	signed int *dst32;
+ 	signed int i, c, lvol;
+ 	unsigned char *dst;
+-	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+ 
+ 	/* Kopioidaan kanavat */
+@@ -735,7 +732,6 @@
+ 	for (c=0; c<mix_activechannels; c++)
+ 	{
+ 		chan = &mix_realchannels[c];
+-		sample = chan->sampledata;
+ 		dst32 = mix_buffer32;
+ 
+ 		lvol = (chan->volume*255*mix_mainvolume)/(128*SD_MAXMAINVOLUME);

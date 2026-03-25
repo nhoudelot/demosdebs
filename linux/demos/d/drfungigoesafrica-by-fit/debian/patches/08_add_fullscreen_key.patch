@@ -15,7 +15,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  extern unsigned int pt_songpos;
  
-@@ -501,6 +502,7 @@
+@@ -504,6 +505,7 @@
  				switch (e.key.keysym.sym) {
  					case SDLK_ESCAPE: quit=1; break;
  					case SDLK_q: quit=1; break;
@@ -23,13 +23,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  				}
  			}
  			if(e.type == SDL_WINDOWEVENT)
-@@ -543,6 +545,13 @@
+@@ -546,6 +548,13 @@
  	glViewport(x, y, w, h);
  }
  
 +void ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
-+    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
 +    SDL_ShowCursor(isFullscreen);
 +}

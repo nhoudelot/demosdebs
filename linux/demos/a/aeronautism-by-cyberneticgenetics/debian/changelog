@@ -1,3 +1,14 @@
+aeronautism-by-cyberneticgenetics (1.0+1-0ddebs9) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fix 64 bits portability issue
+  * ported from X11/GLX to SDL2
+  * added fullscreen with F key and resizable window
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 18 Apr 2026 18:12:39 +0200
+
 aeronautism-by-cyberneticgenetics (1.0+1-0ddebs8) unstable; urgency=medium
 
   * debian/control

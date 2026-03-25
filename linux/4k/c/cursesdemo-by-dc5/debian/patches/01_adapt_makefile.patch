@@ -13,30 +13,30 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 \ No newline at end of file
 +#variables de compilation
 +SHELL = /bin/sh
-+CC    := gcc
++CC    ?= gcc
 +CFLAGS   +=-Wall -std=gnu90 -pipe
 +LDFLAGS  +=-lcurses -ltermcap -lm
++TARGET=cursesdemo-by-dc5
++RM_F := rm -f
 +
 +INSTALL = install
 +INSTALL_DIR     = $(INSTALL) -p -d -m  755
 +INSTALL_PROGRAM = $(INSTALL) -p    -m  755
-+RM_F := rm -f
-+
-+TARGET=cursesdemo-by-dc5
-+
 +prefix = /usr
 +exec_prefix = $(prefix)
 +bindir = $(exec_prefix)/bin
 +
++SOURCE          = demo.c
++
 +all: $(TARGET)
 +
-+clean:
-+	-@$(RM_F) $(TARGET)
-+
-+$(TARGET): demo.c
-+	$(CC) $(CFLAGS) demo.c -o $(TARGET) $(LDFLAGS)
++$(TARGET): $(SOURCE)
++	$(CC) $(CFLAGS) $(SOURCE) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 +	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
 +	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++
++clean:
++	-@$(RM_F) $(TARGET)

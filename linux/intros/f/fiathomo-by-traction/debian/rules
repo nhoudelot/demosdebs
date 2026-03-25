@@ -8,5 +8,3 @@ export DEB_CFLAGS_MAINT_APPEND  = -fno-lto
 %:
 	dh $@  --sourcedirectory=src
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

@@ -9,7 +9,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +++ b/Makefile
 @@ -3,9 +3,9 @@
  CC         ?= gcc
- PKG_CONFIG := pkg-config
+ PKG_CONFIG ?= pkg-config
  RM_F       := rm -f
 -CFLAGS 	   += -std=gnu90 -ffast-math -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl)
 +CFLAGS 	   += -std=gnu90 -ffast-math -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl2)
@@ -41,26 +41,27 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    SDL_Color colors[256];
    static int graffa[160*480];
    static SDL_AudioSpec aanispex;
-@@ -164,13 +168,15 @@
+@@ -164,13 +168,16 @@
  #endif
  
    if(fullscreen)
 -    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE|SDL_FULLSCREEN);//|SDL_DOUBLEBUF);
-+    sdlWindow = SDL_CreateWindow("dose 2 by mfx",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_OPENGL|SDL_WINDOW_FULLSCREEN_DESKTOP);
++    sdlWindow = SDL_CreateWindow("dose 2 by mfx",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_FULLSCREEN_DESKTOP);
    else
    {
 -    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE);//|SDL_DOUBLEBUF);
 -    SDL_WM_SetCaption("dose 2 by mfx",NULL);
-+    sdlWindow = SDL_CreateWindow("dose 2 by mfx",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,SDL_WINDOW_OPENGL);
++    sdlWindow = SDL_CreateWindow("dose 2 by mfx",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,0);
    }
  
 +  sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
-+  screen = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 8,SDL_PIXELFORMAT_INDEX8); //video buffer
-+  sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,screen); // texture with format from video buffer
++  screen = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 8, SDL_PIXELFORMAT_INDEX8);
++  sdlTempSurface = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32, SDL_PIXELFORMAT_BGRA32);
++  sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_BGRA32, SDL_TEXTUREACCESS_STREAMING, 640, 480);
    fprintf(stderr, "d2\n");
  //  screen=SDL_SetVideoMode(640, 480, 8, 0);
    SDL_ShowCursor(0);
-@@ -251,19 +257,25 @@
+@@ -251,19 +258,24 @@
        char *p=teepal1();
        static SDL_Color pp[256];
        for (i=0; i<256; i++) pp[i].r=p[i*3], pp[i].g=p[i*3+1], pp[i].b=p[i*3+2];
@@ -73,12 +74,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -    SDL_Flip(screen);
 -
 -
-+    sdlTempSurface = SDL_ConvertSurfaceFormat(screen,SDL_PIXELFORMAT_BGRA32,0);
-+    SDL_UpdateTexture(sdlTexture, NULL, sdlTempSurface->pixels, sdlTempSurface->pitch); //update texture content with the surface
-+	SDL_RenderClear(sdlRenderer);
-+	SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
-+	SDL_RenderPresent(sdlRenderer);
-+	SDL_FreeSurface(sdlTempSurface);
++    SDL_BlitSurface(screen, NULL, sdlTempSurface, NULL);
++    SDL_UpdateTexture(sdlTexture, NULL, sdlTempSurface->pixels, sdlTempSurface->pitch);
++    SDL_RenderClear(sdlRenderer);
++    SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++    SDL_RenderPresent(sdlRenderer);
      release();
    }
  

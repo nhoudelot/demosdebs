@@ -1,0 +1,61 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/dump.c
++++ b/dump.c
+@@ -106,7 +106,7 @@
+ {
+ 	FILE *fp;
+ 	unsigned char *data;
+-	int len;
++	long len;
+ 
+ 	fp=fopen(name,"rb");
+ 	if(fp==NULL)
+@@ -118,7 +118,7 @@
+ 	data=malloc(len);
+ 	if(data==NULL)
+ 		return(-1);
+-	if(fread(data,1,len,fp) != (size_t)len)
++	if((long)fread(data,1,len,fp) != len)
+ 	{
+ 		fclose(fp);
+ 		free(data);
+@@ -255,8 +255,8 @@
+ 				pts=*data++;
+ 				f->num=pts;
+ 
+-				f->index=malloc(pts*sizeof(float));
+-				f->normal=malloc(pts*sizeof(float));
++				f->index=malloc(pts*sizeof(int));
++				f->normal=malloc(pts*sizeof(int));
+ 
+ 				for(n=0; n<pts; n++)
+ 					f->index[n]=getint(&data,2);
+--- a/main.c
++++ b/main.c
+@@ -471,7 +471,7 @@
+ 
+ void render_steer(int tick, int cameramode) {
+ 
+-	static int old_t=0;
++	static Uint32 old_t=0;
+ 	float dt;
+ 
+ 	dt=(float)(tick-old_t)/1000.0;
+@@ -516,9 +516,9 @@
+ 	int quit=0;
+ 	int frame=0;
+ 	int keydown;
+-	int start_tick;
++	Uint32 start_tick;
+ 	int cmode=0;
+-	int tick;
++	Uint32 tick;
+ 	int flags=SDL_WINDOW_RESIZABLE+SDL_WINDOW_OPENGL+SDL_WINDOW_FULLSCREEN_DESKTOP,width=WIDTH,height=HEIGHT;
+ 	SDL_Event e;
+ 	int old_frame=-1,new_frame;

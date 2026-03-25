@@ -3,5 +3,3 @@
 %:
 	dh $@ --with cli
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

@@ -16,7 +16,7 @@ Build-Depends:
  libxext-dev,
  libxcursor-dev,
  libxcomposite-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://julien-nevo.com/at3test/
 
 Package: arkostracker

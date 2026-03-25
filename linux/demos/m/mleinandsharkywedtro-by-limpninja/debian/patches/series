@@ -4,3 +4,5 @@
 04_change_window_title.patch
 05_fix_magic.patch
 06_migrate_to_openmpt.patch
+07_fix-warnings.patch
+08_migrate_to_sdl2_window.patch

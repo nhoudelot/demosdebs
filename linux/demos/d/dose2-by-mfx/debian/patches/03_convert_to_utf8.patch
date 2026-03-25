@@ -12,3 +12,80 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 -kiitos paskasta, syökää rahaa.
 +kiitos paskasta, syÃ¶kÃ¤Ã¤ rahaa.
+--- a/demo.c
++++ b/demo.c
+@@ -276,7 +276,7 @@
+ 
+ 
+ 
+-  /*Alla hyv„ diskospiraali „l„ sie l„„pi sit„*/
++  /*Alla hyvÂ„ diskospiraali Â„lÂ„ sie lÂ„Â„pi sitÂ„*/
+ 
+ 
+ 
+@@ -291,7 +291,7 @@
+                  //);
+                //blob_draw(b, new_layer(cols3));
+ 
+-               //jarnon h„r”spiraali alla...
++               //jarnon hÂ„rÂ”spiraali alla...
+ 
+ 
+   if (btw(t, 8*32, 16*32) || btw(t, 44*32, 52*32) ) {
+@@ -451,7 +451,7 @@
+ 
+ 
+   //ALLA OLEVA ON KUNNOSSA!!!!!!!!!!!
+-  //t„h„n on tarkoitus pist„„ jorailup„tki„
++  //tÂ„hÂ„n on tarkoitus pistÂ„Â„ jorailupÂ„tkiÂ„
+   if (btw(t, 12.0*32, 24.0*32)) {
+ 
+     //float syn=fmod(t-11.5*32, 128);
+@@ -487,7 +487,7 @@
+       }
+     }
+   }
+-                  //jorailup„tk„ part 2 & 3
++                  //jorailupÂ„tkÂ„ part 2 & 3
+             /*
+                   if (t>=32.0*32 && t<36.0*32 || t>=44*32 && t<52*32) {
+ 
+@@ -516,7 +516,7 @@
+ 
+ 
+ 
+-  //Aminaatiotesti hu†noo goodii
++  //Aminaatiotesti huÂ†noo goodii
+   if (btw(t, 44*32, 52*32) || btw(t, 32*32, 36*32)) {
+     float t2=t*4;
+     int syn=fmod(t2, 267);
+@@ -543,7 +543,7 @@
+ 
+ 
+   //diskospiraali loppu ny
+-  //N„ „ blobit tekee vitun  akeita roll-over effuja. „l„ sie n„it„k„„ l„„pi
++  //NÂ„ Â„ blobit tekee vitun  akeita roll-over effuja. Â„lÂ„ sie nÂ„itÂ„kÂ„Â„ lÂ„Â„pi
+ 
+   if (t<4.0*32 || t>=32*32 && t<36*32 /*|| t>=44*32 && t<52*32 || t>60*32*/) {
+     Blob *b=new_blob(-1);
+@@ -588,9 +588,9 @@
+ 
+   //kuvat spiikkeihin:
+ 
+-  // Eka spiikkiosuus. ravintolasta saa vain yhden leiv„n
++  // Eka spiikkiosuus. ravintolasta saa vain yhden leivÂ„n
+ 
+-  //EKA SPIIKKIOSUUS VALMIS. ŽLŽ KOSKE!!!!!!!!!!!!!!!!!!!!!!!
++  //EKA SPIIKKIOSUUS VALMIS. ÂŽLÂŽ KOSKE!!!!!!!!!!!!!!!!!!!!!!!
+ 
+   if (btw(t, 24*32, 32*32)) {
+ 
+@@ -712,7 +712,7 @@
+ 
+   // Toka spiikkiosuus. ravintolasta saa vain veitsen ja lusikan
+ 
+-  //TOKA SPIIKKIOSUUS VALMIS. ŽLŽ KOSKE!!!!!!!!!!!!!!!!!!!!!!!
++  //TOKA SPIIKKIOSUUS VALMIS. ÂŽLÂŽ KOSKE!!!!!!!!!!!!!!!!!!!!!!!
+ 
+   if (btw(t, 36*32, 44*32)) {
+ 

@@ -1,3 +1,14 @@
+fiathomo-by-traction (1.0-0ddebs3) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fixed warnings at compilation
+  * fixed textures display on 64 bit system, that lead to fixing 32 -> 64 bit
+    conversion
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 14 Apr 2026 01:21:03 +0200
+
 fiathomo-by-traction (1.0-0ddebs2) unstable; urgency=medium
 
   * use full desktop resolution when start fullscreen

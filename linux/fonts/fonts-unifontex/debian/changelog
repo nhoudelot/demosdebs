@@ -1,0 +1,13 @@
+fonts-unifontex (16.0-0ddebs2) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 29 Mar 2026 16:32:14 +0200
+
+fonts-unifontex (16.0-0ddebs1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 23 Nov 2025 14:26:32 +0100

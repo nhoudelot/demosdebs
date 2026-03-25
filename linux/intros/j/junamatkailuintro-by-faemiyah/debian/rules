@@ -10,5 +10,3 @@ override_dh_install:
 	mv build/junamatkailuintro build/junamatkailuintro-by-faemiyah
 	dh_install
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

@@ -155,28 +155,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    return 0;
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -16,7 +16,7 @@
- find_glew(TRUE)
- find_opengl(TRUE)
- find_png(TRUE)
--find_sdl(TRUE)
+@@ -13,7 +13,7 @@
+ find_package(GLEW REQUIRED)
+ find_package(OpenGL REQUIRED)
+ find_package(PNG REQUIRED)
+-find_package(SDL REQUIRED)
 +find_package(SDL2 REQUIRED)
  
- add_definitions(-DUSE_LD)
+ output_flags("DEBUG" on)
  
-@@ -45,13 +45,13 @@
-   target_link_libraries(whisky_in_a_tube ${OPENGL_gl_LIBRARY})
-   target_link_libraries(whisky_in_a_tube debug ${GLEW_LIBRARY_DEBUG})
-   target_link_libraries(whisky_in_a_tube debug ${PNG_LIBRARY_DEBUG})
--  target_link_libraries(whisky_in_a_tube debug ${SDL_LIBRARY_DEBUG})
-+  target_link_libraries(whisky_in_a_tube debug ${SDL2_LIBRARIES_DEBUG})
- else()
-   target_link_libraries(whisky_in_a_tube ${BOOST_PROGRAM_OPTIONS_LIBRARY})
- endif()
- target_link_libraries(whisky_in_a_tube general ${GLEW_LIBRARY})
- target_link_libraries(whisky_in_a_tube general ${PNG_LIBRARY})
--target_link_libraries(whisky_in_a_tube general ${SDL_LIBRARY})
-+target_link_libraries(whisky_in_a_tube general ${SDL2_LIBRARIES})
+@@ -43,7 +43,7 @@
+ 	OpenGL::GL
+ 	GLEW::GLEW
+ 	PNG::PNG
+-	SDL::SDL
++	SDL2::SDL2
+ )
  
  # remove the CMake generated '-Wl,-rpath'
- set_target_properties(whisky_in_a_tube PROPERTIES SKIP_BUILD_RPATH 1)

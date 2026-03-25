@@ -11,5 +11,3 @@ override_dh_install:
 	mkdir -p "debian/nightdrive-by-contraz/usr/share/icons/hicolor/128x128/apps/"
 	cp "NightDrive.png" "debian/nightdrive-by-contraz/usr/share/icons/hicolor/128x128/apps/nightdrive-by-contraz.png"
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

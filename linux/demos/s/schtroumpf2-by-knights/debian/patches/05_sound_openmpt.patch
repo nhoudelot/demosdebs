@@ -1,0 +1,366 @@
+Description: replace embedded mikmod with libopenmpt for XM playback
+ Replace the old embedded libmikmod (SDL1 callback-based) with libopenmpt,
+ which provides accurate XM playback and exposes pattern/row position
+ via openmpt_module_get_current_order/row, preserving music synchronisation.
+ SDL_OpenAudioDevice (SDL2) is used instead of the deprecated SDL_OpenAudio.
+ Also remove SDL_INIT_NOPARACHUTE (dropped in SDL2) and add SDL_INIT_AUDIO.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-25
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/configure.ac
++++ b/configure.ac
+@@ -40,6 +40,8 @@
+ AC_C_INLINE
+ AC_TYPE_SIZE_T
+ 
++LIBS="-lm $LIBS"
++
+ # Checks for library functions.
+ AC_FUNC_MALLOC
+ AC_FUNC_REALLOC
+@@ -48,10 +50,13 @@
+ # Add compiler-specific optimization flags
+ 
+ 
+-AC_INCORPORATE_LIBMIKMOD([1.2.7], [USE_MIKMOD], [yes])
+-AC_ADD_CCFLAG([-DUSE_MIKMOD])
+-MUSICDIR="mikmod"
+-MUSICLIB="mikmod/libmikmod.a"
++AC_CHECK_HEADER([libopenmpt/libopenmpt.h], [],
++    [AC_MSG_ERROR([libopenmpt headers not found. Install libopenmpt-dev.])])
++AC_CHECK_LIB([openmpt], [openmpt_module_create_from_memory2],
++    [LIBS="-lopenmpt $LIBS"],
++    [AC_MSG_ERROR([libopenmpt not found. Install libopenmpt-dev.])])
++MUSICDIR=""
++MUSICLIB=""
+ AC_SUBST(MUSICDIR)
+ AC_SUBST(MUSICLIB)
+ 
+@@ -64,7 +69,7 @@
+ AC_ADD_CCFLAG([-ffast-math])
+ AC_ADD_CCFLAG([-std=gnu90])
+ #AC_ADD_LIB([$(srcdir)/mikmod/libmikmod.a])
+-AC_ADD_LDFLAG([-lm])
++
+ #AC_ADD_LIB([-lminifmod])
+ 
+ AC_SUBST(NFLAGS)
+--- a/src/introsystem.c
++++ b/src/introsystem.c
+@@ -51,7 +51,7 @@
+ void OpenSystem()
+ {
+ #ifdef USE_SDL	
+-        if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE ) < 0 ) {
++        if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0 ) {
+                 fprintf(stderr,"Couldn't initialize SDL: %s\n",SDL_GetError());
+                         exit( 1 );
+         }
+@@ -724,7 +724,7 @@
+ 	SDL_Surface* image;
+ 	
+ 	if (bmp->bpp==1) {
+-	        image = SDL_CreateRGBSurface(SDL_SWSURFACE,bmp->width,bmp->height,8,0xf000,0xf00,0x0f0,0x00f);
++	        image = SDL_CreateRGBSurface(0,bmp->width,bmp->height,8,0,0,0,0);
+ 	} else { 
+         	image = SDL_CreateRGBSurface(SDL_SWSURFACE,bmp->width,bmp->height,32,0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
+ 	}
+@@ -766,222 +766,82 @@
+ }
+ 
+ /***************************************************************************/
+-#ifdef USE_MIKMOD
++#include <libopenmpt/libopenmpt.h>
+ 
+-#define USE_RWOPS
+-#include "mikmod/mikmod.h"
++static openmpt_module *openmpt_mod = NULL;
++static SDL_AudioDeviceID audio_dev = 0;
+ 
+-MODULE *module;
+-SDL_RWops *op;
+-void * module_data;
+-size_t module_size;
+-
+-#define FREQ 44100
+-#define BUFFERSIZE 2048
+-#define SAMPLESIZE 16
+-#define INTERPOLATION 1
+-
+-void SDLMikMod_FillAudio(void *udata, Uint8 *stream, int len)
+-{
+-        if (Player_Active()) {
+-                VC_WriteBytes((Sint8 *)stream, len);
+-        } else {
+-                VC_SilenceBytes((Sint8 *)stream, len);
+-        }
+-}
++#define OPENMPT_FREQ     48000
++#define OPENMPT_CHANNELS 2
++#define OPENMPT_SAMPLES  4096
+ 
+-void OpenMusic(void * pModule, size_t size)
++static void fill_audio(void *userdata, Uint8 *stream, int len)
+ {
+-        SDL_AudioSpec wanted;
+-        SDL_AudioSpec fmt;
+-
+-        wanted.freq = FREQ;
+-        /* PORT: UNTESTED on non-x86 cpu */
+-
+-        /* 16bits or 8 bits ?*/
+-        if ( SAMPLESIZE == 16) {
+-
+-               	wanted.format = AUDIO_U16SYS;
+-
+-                md_mode = DMODE_16BITS;
+-        } else {
+-                wanted.format = AUDIO_U8;
+-                md_mode = 0;
+-        }
+-        wanted.channels = 2;
+-
+-        wanted.samples = BUFFERSIZE;
+-        wanted.callback = SDLMikMod_FillAudio;
+-        wanted.userdata = NULL;
+-
+-        SDL_OpenAudio(&wanted, &fmt);
+-
+-        if ((fmt.format&0xFF)==8) {
+-                md_mode -= DMODE_16BITS;
+-        }
+-
+-        if (fmt.channels == 2) {
+-                md_mode += DMODE_STEREO;
+-        }
+-
+-        if (INTERPOLATION) {
+-                md_mode += DMODE_INTERP;
+-        }
+-
+-        md_mixfreq = FREQ;
+-        md_device   = 0;
+-        md_volume   = 128;
+-        md_musicvolume = 128;
+-        md_sndfxvolume = 128;
+-        md_pansep   = 128;
+-        md_reverb   = 0;
+-
+-        MikMod_RegisterAllLoaders();
+-        MikMod_RegisterAllDrivers();
+-
+-        MikMod_Init(NULL);
+-
+-        SDL_PauseAudio(0);
+-
+-        module_data = pModule;
+-        module_size = size;	
+-
+-        op = SDL_RWFromMem(module_data, module_size);
+-        module = Player_LoadRW(op, 32, 0);
+-        Player_Start(module);
+-	
+-	//Player_SetVolume(0);
+-	
+-        if (!module) {
+-                fputs("error loading module!",stderr);
+-		exit(1);
+-                return;
+-        }
+-}
+-
+-void CloseMusic()
+-{
+-        Player_Stop();
+-        SDL_PauseAudio(1);
+-	SDL_CloseAudio();
+-	MikMod_Exit();
++	size_t frames = len / (OPENMPT_CHANNELS * sizeof(float));
++	(void)userdata;
++	if (openmpt_mod)
++		openmpt_module_read_interleaved_float_stereo(
++			openmpt_mod, OPENMPT_FREQ, frames, (float *)stream);
++	else
++		SDL_memset(stream, 0, len);
+ }
+ 
+-int GetMusicPosition()
++void OpenMusic(void *pModule, size_t size)
+ {
+-        int pattern, row;
+-        pattern = module->sngpos;
+-        row = module->patpos;
+-        return 256*pattern+row;
+-}
+-
+-void SetMusicPosition(int pattern)
+-{
+-        Player_SetPosition(pattern);
+-}
+-
+-
+-#else
+-#include <minifmod.h>
+-
+-FMUSIC_MODULE *module;
+-void * module_data;
+-size_t module_size;
++	SDL_AudioSpec want, have;
+ 
+-int GetMusicPosition()
+-{
+-        int pattern, row;
+-        pattern = FMUSIC_GetOrder(module);
+-        row = FMUSIC_GetRow(module);
+-        return 256*pattern+row;
+-}
+-
+-/*
+-void SetMusicPosition(int pattern)
+-{
+-        module->nextorder = pattern;
+-        module->nextrow = 0;
+-}
+-*/
+-
+-typedef struct {
+-        int length;
+-        int pos;
+-        void *data;
+-} MEMFILE;
+-
+-MEMFILE fmod_MemFile;
+-
+-static unsigned int fmod_memopen(char *name)
+-{
+-        char str[80];
+-
+-        fmod_MemFile.length = module_size;
+-        fmod_MemFile.data = module_data;
+-        fmod_MemFile.pos = 0;
+-
+-        return 1;
+-}
+-
+-static void fmod_memclose(unsigned int handle)
+-{
+-}
+-
+-static int fmod_memread(void *buffer, int size, unsigned int handle)
+-{
+-        if (fmod_MemFile.pos + size >= fmod_MemFile.length)
+-                size = fmod_MemFile.length - fmod_MemFile.pos;
+-
+-        memcpy(buffer, (char *)fmod_MemFile.data+fmod_MemFile.pos, size);
+-        fmod_MemFile.pos += size;
+-
+-        return(size);
+-}
+-
+-static void fmod_memseek(unsigned int handle, int pos, signed char mode)
+-{
+-        if (mode == SEEK_SET)
+-                fmod_MemFile.pos = pos;
+-        else if (mode == SEEK_CUR)
+-                fmod_MemFile.pos += pos;
+-        else if (mode == SEEK_END)
+-                fmod_MemFile.pos = fmod_MemFile.length + pos;
+-
+-        if (fmod_MemFile.pos > fmod_MemFile.length)
+-                fmod_MemFile.pos = fmod_MemFile.length;
+-}
++	openmpt_mod = openmpt_module_create_from_memory2(
++		pModule, size, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
++	if (!openmpt_mod) {
++		fputs("error loading module!\n", stderr);
++		exit(1);
++	}
+ 
+-static int fmod_memtell(unsigned int handle)
+-{
+-        return(fmod_MemFile.pos);
++	SDL_zero(want);
++	want.freq     = OPENMPT_FREQ;
++	want.format   = AUDIO_F32SYS;
++	want.channels = OPENMPT_CHANNELS;
++	want.samples  = OPENMPT_SAMPLES;
++	want.callback = fill_audio;
++
++	audio_dev = SDL_OpenAudioDevice(NULL, 0, &want, &have, 0);
++	if (!audio_dev) {
++		fprintf(stderr, "SDL_OpenAudioDevice: %s\n", SDL_GetError());
++		exit(1);
++	}
++	SDL_PauseAudioDevice(audio_dev, 0);
+ }
+ 
+-void OpenMusic(void * pModule, size_t size)
++void CloseMusic(void)
+ {
+-        module_data = pModule;
+-        module_size = size;	
+-
+-        FSOUND_File_SetCallbacks(fmod_memopen, fmod_memclose, fmod_memread, fmod_memseek, fmod_memtell);
+-        if (!FSOUND_Init(44100,0)) {
+-                fputs("error opening sound device !",stderr);
++	if (audio_dev) {
++		SDL_PauseAudioDevice(audio_dev, 1);
++		SDL_CloseAudioDevice(audio_dev);
++		audio_dev = 0;
+ 	}
+-        module = FMUSIC_LoadSong(NULL, NULL);
+-        if (!module) {
+-                fputs("error loading module!",stderr);
+-                FSOUND_Close();
+-                return;
+-        }
+-	if (!FMUSIC_PlaySong(module)) {
+-                fputs("error starting module!",stderr);
+-                FSOUND_Close();
++	if (openmpt_mod) {
++		openmpt_module_destroy(openmpt_mod);
++		openmpt_mod = NULL;
+ 	}
+ }
+ 
+-void CloseMusic()
++int GetMusicPosition(void)
+ {
+-        FMUSIC_StopSong(module);
+-        FMUSIC_FreeSong(module);
+-        FSOUND_Close();
++	int pos;
++	if (!openmpt_mod || !audio_dev)
++		return 0;
++	SDL_LockAudioDevice(audio_dev);
++	pos = 256 * openmpt_module_get_current_order(openmpt_mod)
++	          + openmpt_module_get_current_row(openmpt_mod);
++	SDL_UnlockAudioDevice(audio_dev);
++	return pos;
+ }
+ 
+-#endif
++void SetMusicPosition(int pattern)
++{
++	if (!openmpt_mod || !audio_dev)
++		return;
++	SDL_LockAudioDevice(audio_dev);
++	openmpt_module_set_position_order_row(openmpt_mod, pattern, 0);
++	SDL_UnlockAudioDevice(audio_dev);
++}
+--- a/src/introsystem.h
++++ b/src/introsystem.h
+@@ -30,10 +30,6 @@
+ #include "bitmap.h"
+ #include "data.h"
+ 
+-#ifdef USE_MIKMOD
+-#else
+-#include <minifmod.h>
+-#endif
+ 
+ #define PI   	3.141592653589793
+ #define TWOPI	(2.0*PI)

@@ -1,0 +1,15 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: fonts-unifontex
+Source: https://github.com/stgiga/UnifontEX/
+
+Files: *
+Copyright: 2023-2025 Roman Cyzborra, Paul Hardy, stgiga
+License: GPL-2+
+ On Debian systems, the complete text of the GNU General Public License
+ version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+Files: debian/*
+Copyright: 2025-2026 Nicolas HOUDELOT <nicolas@demosdebs.org>
+License: GPL-3+
+ On Debian systems, the complete text of the GNU General Public License
+ version 3 can be found in "/usr/share/common-licenses/GPL-3".

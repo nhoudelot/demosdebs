@@ -1,0 +1,118 @@
+Description: make window resizable and fullscreen at desktop resolution
+ make window resizable with correct aspect ratio
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -305,6 +305,8 @@
+ static SDL_Window *sdlWindow;
+ static SDL_GLContext sdlGlcontext;
+ static SDL_AudioDeviceID device;
++static int g_window_w = 0;
++static int g_window_h = 0;
+ 
+ #endif
+ 
+@@ -3151,10 +3153,10 @@
+ }
+ 
+ void ToggleFullscreen(SDL_Window* Window) {
+-    int FullscreenFlag = SDL_WINDOW_FULLSCREEN;
+-    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
+-    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
+-    SDL_ShowCursor(isFullscreen);
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & SDL_WINDOW_FULLSCREEN_DESKTOP;
++    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN_DESKTOP);
++    SDL_ShowCursor(isFullscreen ? 1 : 0);
++    SDL_GetWindowSize(Window, &g_window_w, &g_window_h);
+ }
+ 
+ void GlobalContainer::fillState(State *op) const
+@@ -4015,6 +4017,35 @@
+ 
+     FrameBuffer::bindDefaultBuffer(globals->getScreenWidth(), globals->getScreenHeight());
+     dnload_glDisable(GL_DEPTH_TEST);
++#if defined(USE_LD)
++    if((g_window_w > 0) && (g_window_h > 0) &&
++       ((g_window_w != static_cast<int>(globals->getScreenWidth())) ||
++        (g_window_h != static_cast<int>(globals->getScreenHeight()))))
++    {
++      float fbo_aspect = static_cast<float>(globals->getScreenWidth()) /
++                         static_cast<float>(globals->getScreenHeight());
++      float win_aspect = static_cast<float>(g_window_w) / static_cast<float>(g_window_h);
++      int vp_x, vp_y, vp_w, vp_h;
++      if(win_aspect > fbo_aspect)
++      {
++        vp_h = g_window_h;
++        vp_w = static_cast<int>(static_cast<float>(g_window_h) * fbo_aspect + 0.5f);
++        vp_x = (g_window_w - vp_w) / 2;
++        vp_y = 0;
++      }
++      else
++      {
++        vp_w = g_window_w;
++        vp_h = static_cast<int>(static_cast<float>(g_window_w) / fbo_aspect + 0.5f);
++        vp_x = 0;
++        vp_y = (g_window_h - vp_h) / 2;
++      }
++      glViewport(0, 0, g_window_w, g_window_h);
++      glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
++      glClear(GL_COLOR_BUFFER_BIT);
++      glViewport(vp_x, vp_y, vp_w, vp_h);
++    }
++#endif
+   }
+ 
+   if((-1666.0f >= pos) && (-2060.0f <= pos))
+@@ -4154,8 +4185,26 @@
+ #endif
+ #else
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-  sdlWindow = dnload_SDL_CreateWindow("junamatkailuintro by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,static_cast<int>(screen_w),static_cast<int>(screen_h),SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++  {
++    unsigned win_w = screen_w;
++    unsigned win_h = screen_h;
++    if(flag_fullscreen)
++    {
++      SDL_DisplayMode dm;
++      if(0 == SDL_GetDesktopDisplayMode(0, &dm))
++      {
++        win_w = static_cast<unsigned>(dm.w);
++        win_h = static_cast<unsigned>(dm.h);
++      }
++    }
++    sdlWindow = dnload_SDL_CreateWindow("junamatkailuintro by Faemiyah",
++        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++        static_cast<int>(win_w), static_cast<int>(win_h),
++        SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
++        (flag_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
++  }
+   sdlGlcontext = dnload_SDL_GL_CreateContext(sdlWindow);
++  SDL_GetWindowSize(sdlWindow, &g_window_w, &g_window_h);
+   dnload_SDL_ShowCursor(g_flag_developer);
+ #if defined(USE_LD)
+   {
+@@ -4432,6 +4481,14 @@
+             mouse_look_y += event.motion.yrel;
+           }
+         }
++        else if(SDL_WINDOWEVENT == event.type)
++        {
++          if((SDL_WINDOWEVENT_RESIZED == event.window.event) ||
++             (SDL_WINDOWEVENT_SIZE_CHANGED == event.window.event))
++          {
++            SDL_GetWindowSize(sdlWindow, &g_window_w, &g_window_h);
++          }
++        }
+       }
+ 
+       if(g_flag_developer)
+@@ -4542,4 +4599,3 @@
+ //######################################
+ // End #################################
+ //######################################
+-

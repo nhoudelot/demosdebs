@@ -20,24 +20,24 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
 +INLINE void ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
-+    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
 +    SDL_ShowCursor(isFullscreen);
 +}
  
  #ifdef __linux__
  
-@@ -595,6 +600,8 @@
- 	sdlWindow = SDL_CreateWindow("Heartburn by The Tourist",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,S_WIDTH,S_HEIGHT,S_FLAGS);
- 	SDL_GL_CreateContext(sdlWindow);
+@@ -596,6 +601,8 @@
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_GL_SetSwapInterval(1);
  
 +	Uint32 windowID = SDL_GetWindowID(sdlWindow);
 +
  #ifdef HAS_MUSIC
  	Clinkster_GenerateMusic();
  	SDL_AudioSpec fmt;
-@@ -680,6 +687,11 @@
+@@ -681,6 +688,11 @@
  				    }
  				}
  			}

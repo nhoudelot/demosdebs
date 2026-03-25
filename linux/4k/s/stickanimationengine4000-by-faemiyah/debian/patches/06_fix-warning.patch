@@ -1,0 +1,25 @@
+Description: fixing simple warning
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-08
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/synth.h
++++ b/src/synth.h
+@@ -1,5 +1,6 @@
+ #include "notetable.h"
+ #include "sys/types.h"
++#include <stdint.h>
+ 
+ // Total song length
+ #define SONGLEN ((11 * 4) + 1) // ~80 sec tj
+@@ -407,7 +408,7 @@
+ 		    add = ((a + extra) << (n / 12)) << 8;
+ 
+ 		    // cutoff slide
+-		    if (f > 4000 && ((int)op & 4)) {
++		    if (f > 4000 && ((uintptr_t)op & 4)) {
+ 			f--;
+ 		    }
+ 

@@ -15,7 +15,7 @@ Build-Depends:
  libfreetype-dev,
  libxkbfile-dev,
  libxrandr-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/joncampbell123/dosbox-x
 Vcs-Git: https://github.com/joncampbell123/dosbox-x.git
 Vcs-Browser: https://github.com/joncampbell123/dosbox-x

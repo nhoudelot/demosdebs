@@ -24,6 +24,3 @@ else
 	make bin/prt
 endif
 	make bin/packer
-
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

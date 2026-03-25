@@ -48,6 +48,3 @@ override_dh_auto_clean-arch:
 override_dh_install:
 	dh_install
 	find debian -type f -name '*.sg' -exec chmod 0644 {} +
-
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

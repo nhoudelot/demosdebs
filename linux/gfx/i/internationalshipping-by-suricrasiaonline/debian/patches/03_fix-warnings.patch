@@ -1,0 +1,40 @@
+Description: fixing several warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/shipping.c
++++ b/shipping.c
+@@ -1,5 +1,6 @@
+ #define GL_GLEXT_PROTOTYPES why
+ 
++#include<string.h>
+ #include<stdio.h>
+ #include<stdbool.h>
+ #include<stdlib.h>
+@@ -46,8 +47,10 @@
+ 	randomstate = randomstate ^ (randomstate >> 17u);
+ 	randomstate = randomstate ^ (randomstate << 5u);
+ 	randomstate *= 1685821657u;
+-	uint32_t intermediate = ( (randomstate & 0x007FFFFFu) | 0x3F800000u );
+-	return *((float*)(&intermediate)) - 1.0;
++	uint32_t intermediate = (randomstate & 0x007FFFFFu) | 0x3F800000u;
++	float result;
++	memcpy(&result, &intermediate, sizeof(result));
++	return result - 1.0f;
+ }
+ 
+ float rand_gauss() {
+@@ -232,9 +235,7 @@
+ 	printf("%p\n", randomstate);
+ #endif
+ 
+-	typedef void (*voidWithOneParam)(int*);
+-	voidWithOneParam gtk_init_one_param = (voidWithOneParam)gtk_init;
+-	(*gtk_init_one_param)(NULL);
++	gtk_init(NULL, NULL);
+ 
+ 	GtkWidget *win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+ 	GtkWidget *glarea = gtk_gl_area_new();

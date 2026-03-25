@@ -1,0 +1,128 @@
+Description: fix 64-bit portability issues
+ - convert.c: ftell() returns long, not int; update format specifiers to %ld
+ - introsystem.c: add (size_t) cast in malloc, (int) cast for strlen,
+   use size_t for OpenMusic size parameter and module_size variables
+ - introsystem.h: update OpenMusic declaration to use size_t
+ - perlin.c: fix swapped s->width/s->height in FillNoise loop bounds
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2026-04-25
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/data/src/convert.c
++++ b/src/data/src/convert.c
+@@ -224,7 +224,7 @@
+         FILE *f;
+         FILE *m;
+         unsigned char *buffer;
+-        int lenght;
++        long lenght;
+         int i;
+         char **p;
+ 
+@@ -249,11 +249,11 @@
+ 	buffer = (unsigned char*) malloc(lenght);
+ 	
+         fseek(m,0,SEEK_SET);
+-        printf("module size: %d\n",lenght);
++        printf("module size: %ld\n",lenght);
+ 
+         fread(buffer,1,lenght,m);
+ 
+-        fprintf(f,"unsigned char data_module[%d]= {\n",lenght);
++        fprintf(f,"unsigned char data_module[%ld]= {\n",lenght);
+ 
+         fprintf(f,"%d",buffer[0]);
+         for(i=1;i<lenght;i++) {
+@@ -280,7 +280,7 @@
+                 fprintf(f,	"extern struct RLEBitmap bmp_%s;\n",*p);
+         }
+ 
+-        fprintf(f,	"extern unsigned char data_module[%d];\n",lenght);
++        fprintf(f,	"extern unsigned char data_module[%ld];\n",lenght);
+ 
+         fclose(f);
+ 
+--- a/src/introsystem.c
++++ b/src/introsystem.c
+@@ -279,7 +279,7 @@
+         s->width = width;
+         s->height= height;
+         s->bpp = bpp;
+-        s->pixels = (Uint8*) malloc(width*height*bpp);
++        s->pixels = (Uint8*) malloc((size_t)width*height*bpp);
+ 	FillSurface(s,0);
+ 	//printf("Creating surface (%dx%d)\n",width, height);
+ 	
+@@ -582,7 +582,7 @@
+ 	int width;
+ 
+ 	p = str;
+-	width = 32*strlen(str);
++	width = 32*(int)strlen(str);
+ 	if (place==TEXT_CENTER) {
+ 		x -= width/2;
+ 	} else if (place==TEXT_RIGHT) {
+@@ -766,7 +766,7 @@
+ MODULE *module;
+ SDL_RWops *op;
+ void * module_data;
+-int module_size;
++size_t module_size;
+ 
+ #define FREQ 44100
+ #define BUFFERSIZE 2048
+@@ -782,7 +782,7 @@
+         }
+ }
+ 
+-void OpenMusic(void * pModule, int size)
++void OpenMusic(void * pModule, size_t size)
+ {
+         SDL_AudioSpec wanted;
+         SDL_AudioSpec fmt;
+@@ -880,7 +880,7 @@
+ 
+ FMUSIC_MODULE *module;
+ void * module_data;
+-int module_size;
++size_t module_size;
+ 
+ int GetMusicPosition()
+ {
+@@ -950,7 +950,7 @@
+         return(fmod_MemFile.pos);
+ }
+ 
+-void OpenMusic(void * pModule, int size)
++void OpenMusic(void * pModule, size_t size)
+ {
+         module_data = pModule;
+         module_size = size;	
+--- a/src/introsystem.h
++++ b/src/introsystem.h
+@@ -196,7 +196,7 @@
+ 
+ /* XM Player */
+ 
+-void OpenMusic(void * pModule, int size);
++void OpenMusic(void * pModule, size_t size);
+ void CloseMusic();
+ int GetMusicPosition();
+ void SetMusicPosition(int pattern);
+--- a/src/perlin.c
++++ b/src/perlin.c
+@@ -72,11 +72,11 @@
+ 		multiplier[i] = pow(persistence,i-1);
+ 	}
+ 
+-        for(y=0; y<s->width; y++) {
++        for(y=0; y<s->height; y++) {
+ 
+                 Uint8 *dst = (Uint8*)(s->pixels)+y*s->width;
+ 
+-                for(x=0; x<s->height; x++) {
++                for(x=0; x<s->width; x++) {
+                         Uint8 c;
+                         float n=0;
+ 

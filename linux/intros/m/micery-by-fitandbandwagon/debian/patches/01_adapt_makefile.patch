@@ -14,8 +14,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # compiler
 -CC = gcc
-+CC := gcc
-+PKG_CONFIG:=pkg-config
++CC ?= gcc
++PKG_CONFIG ?= pkg-config
  
  # version control system
  CI = ci

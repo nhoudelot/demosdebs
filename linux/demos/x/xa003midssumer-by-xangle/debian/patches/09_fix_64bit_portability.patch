@@ -1,0 +1,294 @@
+Description: fix 64-bit portability issues
+ Replace long with Uint32 for all time values (Timer::getTime, Timer::delay,
+ xdm time variables, all scene/gfx draw() signatures). On LP64 (Linux 64-bit),
+ long is 64 bits but time values are milliseconds that fit in Uint32, making
+ long unnecessarily wide and inconsistent with SDL types.
+ .
+ Fix signed/unsigned comparison: replace (unsigned)++current_scene+1 > size()
+ with (size_t)++current_scene >= size() for correct semantics on LP64.
+ .
+ Fix implicit narrowing: scene[scene.size()] uses size_t as int map key;
+ explicit cast added.
+ .
+ Fix undefined behaviour in loadPNG: row_pointers was allocated with malloc()
+ but freed with delete[]. Replaced with proper free() for each row and the
+ pointer array. Also frees the individual rows that were previously leaked.
+ .
+ Fix undefined behaviour in pixel construction: (int)(ptr[0]<<16) shifts a
+ promoted-to-int u8 value which may overflow into the sign bit if the byte
+ value has bit 7 set (e.g. ptr[0]=255 gives 0xFF000000 as int = UB).
+ Cast to u32 before shifting.
+ .
+ Fix pixel index arithmetic in getPixel/setPixel and loadPNG: x + y*w computed
+ as int can theoretically overflow for large surfaces. Use size_t indexing.
+ .
+ Replace unsigned int loop variable with size_t when iterating over
+ std::string::length() in loadOne.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-30
+--- a/base/xdm.cpp
++++ b/base/xdm.cpp
+@@ -37,7 +37,7 @@
+ 
+ void Manager::add(Scenebase *sc)
+ {
+-	scene[scene.size()] = sc;
++	scene[(int)scene.size()] = sc;
+ }
+ 
+ void Manager::runall()
+@@ -75,7 +75,7 @@
+ 			total_fps = 0;
+ 			fpscount = 0;
+ #endif
+-			if((unsigned)++current_scene+1 > scene.size()) {
++			if((size_t)++current_scene >= scene.size()) {
+ 				#ifdef DEBUG
+ 				std::cout << "DEBUG | Oh no! we ran out of scenes to play :(" << endl;
+ 				std::cout << "DEBUG | Total demo running time: " << (int)((xio->timer->getTime()-demotime)/1000) << " seconds." << endl;
+--- a/base/xdm.h
++++ b/base/xdm.h
+@@ -30,7 +30,7 @@
+ // (Scene) Manager ---------------------------------------------------------
+ class Scenebase {
+ public:
+-virtual int draw(long time, float move)=0;
++virtual int draw(Uint32 time, float move)=0;
+ protected:
+ xio::surface *texture(const char *name) {
+ 	return xio->texture->get(name);
+@@ -53,7 +53,7 @@
+ private:
+ void update();
+ 
+-long scenestart, frametime, fpsupdate, demotime;
++Uint32 scenestart, frametime, fpsupdate, demotime;
+ float move;
+ int frames;
+ #ifdef DEBUG
+--- a/base/xio.cpp
++++ b/base/xio.cpp
+@@ -179,14 +179,15 @@
+ 
+ void Video::getPixel(xio::surface *surface, rgb *pixel, int x, int y)
+ {
+-	pixel->r = ((u32*)surface->pixels)[x + y*surface->w]>>16;
+-	pixel->g = ((u32*)surface->pixels)[x + y*surface->w]>>8;
+-	pixel->b = ((u32*)surface->pixels)[x + y*surface->w];
++	size_t idx = (size_t)x + (size_t)y * surface->w;
++	pixel->r = ((u32*)surface->pixels)[idx]>>16;
++	pixel->g = ((u32*)surface->pixels)[idx]>>8;
++	pixel->b = ((u32*)surface->pixels)[idx];
+ }
+ 
+ void Video::setPixel(xio::surface *surface, int x, int y, u8 r, u8 g, u8 b)
+ {
+-	((u32*)surface->pixels)[x + y*surface->w] = ((u32)(r<<16)) + ((u32)(g<<8)) + (u32)b;
++	((u32*)surface->pixels)[(size_t)x + (size_t)y * surface->w] = ((u32)r<<16) | ((u32)g<<8) | (u32)b;
+ }
+ 
+ xio::surface *Video::createSurface(int w, int h)
+@@ -584,23 +585,23 @@
+ #endif
+ }
+ 
+-long Timer::getTime()
++Uint32 Timer::getTime()
+ {
+ 	#ifdef unix
+ 	gettimeofday(&tm,NULL);
+ 
+ 	// Return in form of milliseconds
+-	return (long)(((double)tm.tv_sec - starttime
++	return (Uint32)(((double)tm.tv_sec - starttime
+ 	               + ((double)tm.tv_usec)/1000000.0f)*1000);
+ 	#endif
+ 	#ifdef WIN32
+-	return (long)(timeGetTime() - starttime);
++	return (Uint32)(timeGetTime() - starttime);
+ 	#endif
+ }
+ 
+-void Timer::delay(long delaytime)
++void Timer::delay(Uint32 delaytime)
+ {
+-	long time = getTime();
++	Uint32 time = getTime();
+ 	while(getTime() - time < delaytime) {}
+ }
+ 
+@@ -693,13 +694,15 @@
+ 		png_byte* row = row_pointers[y];
+ 		for (x=0; x<width; x++) {
+ 			png_byte* ptr = &(row[x*3]);
+-			((u32*)ts->pixels)[x + y*ts->w] =
+-				((int)(ptr[0]<<16)) + ((int)(ptr[1]<<8)) + (int)ptr[2];
++			((u32*)ts->pixels)[(size_t)x + (size_t)y * ts->w] =
++				((u32)ptr[0]<<16) | ((u32)ptr[1]<<8) | (u32)ptr[2];
+ 		}
+ 	}
+ 
+ 	// Free temporary memory
+-	delete [] row_pointers;
++	for (y=0; y<height; y++)
++		free(row_pointers[y]);
++	free(row_pointers);
+ 	return ts;
+ }
+ 
+@@ -713,7 +716,7 @@
+ 	// hm.. well it works
+ 	char na[255];
+ 	for(int i = 0; i < 255; i++) na[i] = 0;
+-	for(unsigned int i = 0; i < name.length(); i++)
++	for(size_t i = 0; i < name.length(); i++)
+ 	{
+ 		if(name[i] == '.')
+ 			break;
+--- a/base/xio.h
++++ b/base/xio.h
+@@ -177,8 +177,8 @@
+ class Timer {
+ public:
+ Timer();
+-long getTime();
+-void delay(long time);
++Uint32 getTime();
++void delay(Uint32 ms);
+ private:
+ double starttime;
+ #ifdef unix
+--- a/gfx/gfx_plasma.cpp
++++ b/gfx/gfx_plasma.cpp
+@@ -70,7 +70,7 @@
+ 	pb = new xio::u8[256];
+ }
+ 
+-void Plasma::draw(long time, int dx, int dy, float alpha)
++void Plasma::draw(Uint32 time, int dx, int dy, float alpha)
+ {
+ 	for(int i = 0; i < 256; i++)
+ 	{
+--- a/gfx/gfx_plasma.h
++++ b/gfx/gfx_plasma.h
+@@ -27,7 +27,7 @@
+ ~Plasma() {
+ 	delete [] pr; delete [] pg; delete [] pb;
+ };
+-void draw(long time, int dx, int dy, float alpha);
++void draw(Uint32 time, int dx, int dy, float alpha);
+ void init(xio::Manager *i, xio::surface *target);
+ private:
+ xio::Manager *xio;
+--- a/scene/scene_dance.cpp
++++ b/scene/scene_dance.cpp
+@@ -56,7 +56,7 @@
+ 			spart[i][j] = true;
+ }
+ 
+-int Dance::draw(long time, float move)
++int Dance::draw(Uint32 time, float move)
+ {
+ 	static float xmove = 0, ymove = 0;
+ 	EVENT(0, END)
+--- a/scene/scene_dance.h
++++ b/scene/scene_dance.h
+@@ -30,7 +30,7 @@
+ Dance(xio::Manager *i);
+ virtual ~Dance() {
+ };
+-int draw(long time, float move);
++int draw(Uint32 time, float move);
+ private:
+ gfx::Anim gfx_anim;
+ gfx::Sort gfx_sort;
+--- a/scene/scene_end.cpp
++++ b/scene/scene_end.cpp
+@@ -99,7 +99,7 @@
+ 	textc++;
+ }
+ 
+-int End::draw(long time, float move)
++int End::draw(Uint32 time, float move)
+ {
+ 	// Clear screen
+ 	xio->video->fillScreenAll(0);        //0x004400);
+--- a/scene/scene_end.h
++++ b/scene/scene_end.h
+@@ -30,7 +30,7 @@
+ End(xio::Manager *i);
+ virtual ~End() {
+ };
+-int draw(long time, float move);
++int draw(Uint32 time, float move);
+ private:
+ void addText(const char *text);
+ int textc;
+--- a/scene/scene_greets.cpp
++++ b/scene/scene_greets.cpp
+@@ -105,7 +105,7 @@
+ 	   }*/
+ }
+ 
+-int Greets::draw(long time, float move)
++int Greets::draw(Uint32 time, float move)
+ {
+ 	// Moveout dance and movein the city
+ 	static float moveout = 0;
+--- a/scene/scene_greets.h
++++ b/scene/scene_greets.h
+@@ -27,7 +27,7 @@
+ Greets(xio::Manager *i);
+ virtual ~Greets() {
+ };
+-int draw(long time, float move);
++int draw(Uint32 time, float move);
+ private:
+ void drawCord(int x1, int y1, int x2, int y2);
+ gfx::Anim gfx_anim;
+--- a/scene/scene_intro.cpp
++++ b/scene/scene_intro.cpp
+@@ -87,7 +87,7 @@
+ 	text_xa003 = gfx_font.preDraw("xa-003:");
+ }
+ 
+-int Intro::draw(long time, float move)
++int Intro::draw(Uint32 time, float move)
+ {
+ 	// Clear screen
+ 	EVENT(0, END)
+--- a/scene/scene_intro.h
++++ b/scene/scene_intro.h
+@@ -30,7 +30,7 @@
+ Intro(xio::Manager *i);
+ virtual ~Intro() {
+ };
+-int draw(long time, float move);
++int draw(Uint32 time, float move);
+ private:
+ gfx::Font gfx_font;
+ xio::surface *text_xa003, *text_ppres;
+--- a/scene/scene_rollingcube.cpp
++++ b/scene/scene_rollingcube.cpp
+@@ -46,7 +46,7 @@
+ 	nsurface = xio->video->createSurface(640/4, 480/4);
+ }
+ 
+-int RollingCube::draw(long time, float move)
++int RollingCube::draw(Uint32 time, float move)
+ {
+ 	static float cafade = 0;
+ 	// Shift scene_intro to the left
+--- a/scene/scene_rollingcube.h
++++ b/scene/scene_rollingcube.h
+@@ -29,7 +29,7 @@
+ RollingCube(xio::Manager *i);
+ virtual ~RollingCube() {
+ };
+-int draw(long time, float move);
++int draw(Uint32 time, float move);
+ private:
+ void drawBorder(int dx, int dy, int width, int height);
+ gfx::Plasma gfx_plasma;

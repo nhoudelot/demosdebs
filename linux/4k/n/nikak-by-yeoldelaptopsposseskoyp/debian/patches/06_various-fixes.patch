@@ -1,0 +1,28 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/intro_c.c
++++ b/intro_c.c
+@@ -614,13 +614,12 @@
+ static int audio_cursor = 0;
+ 
+ static void audioPlay(void *userdata, Uint8 *stream, int len) {
+-	short *p = (short*)stream;
+-	int i;
+-	len /= sizeof(short);
+-	for (i = 0; i < len; ++i) {
+-		audio_cursor = (audio_cursor + 1) % (MAX_SAMPLES * 2);
+-		p[i] = sound_buffer[audio_cursor] * 32767.f;
+-	}
++    float *p = (float*)stream;
++    len /= sizeof(float);
++    for (int i = 0; i < len; ++i) {
++        audio_cursor = (audio_cursor + 1) % (MAX_SAMPLES * 2);
++        p[i] = sound_buffer[audio_cursor];
++    }
+ }
+ 
+ static SDL_AudioSpec as = {

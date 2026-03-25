@@ -3,5 +3,7 @@
 03_use_system_glext.patch
 04_fix_4klang.patch
 05_migrate_to_SDL2.patch
-06_toggle_fullscreen.patch
-07_better_quit.patch
+06_various-fixes.patch
+07_toggle-fullscreen.patch
+08_better-quit.patch
+09_resizable-window.patch

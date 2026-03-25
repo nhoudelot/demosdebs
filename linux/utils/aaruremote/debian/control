@@ -1,0 +1,22 @@
+Source: aaruremote
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake,
+ libudev-dev
+Standards-Version: 4.7.3
+Homepage: https://github.com/aaru-dps/aaruremote
+
+Package: aaruremote
+Architecture: any
+Depends:
+ adduser,
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Slim application designed to receive commands from aaru instance
+ slim miniature application designed to receive device commands from a remote
+ Aaru instance, sends it to a local device, and returns the data to the 
+ instance.

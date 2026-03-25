@@ -1,3 +1,26 @@
+libvpx (1.5.0-2ddebs3) unstable; urgency=medium
+
+  * Fixed & Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 18:43:18 +0100
+
+libvpx (1.5.0-2ddebs2) unstable; urgency=medium
+
+  * use xz compression until debian 13 is released
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 23 Apr 2023 17:46:06 +0200
+
+libvpx (1.5.0-2ddebs1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * update to standards-version 4.6.0.1
+  * make use of debhelper-compat (= 12) dependency, and remove
+    debian/compat file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 Apr 2022 14:55:18 +0200
+
 libvpx (1.5.0-2ubuntu1) xenial; urgency=medium
 
   * Update to PHP7.0 build-dependencies (LP: #1566423).

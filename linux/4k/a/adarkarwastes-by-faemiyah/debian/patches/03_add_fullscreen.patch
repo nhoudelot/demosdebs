@@ -21,6 +21,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  //######################################
  // intro / _start ######################
  //######################################
+@@ -861,7 +868,7 @@
+ {
+   dnload();
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-  g_sdl_window = dnload_SDL_CreateWindow(NULL, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
++  g_sdl_window = dnload_SDL_CreateWindow("Adarkar Wastes by Faemiyah", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+       static_cast<int>(screen_w), static_cast<int>(screen_h),
+       SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
+   dnload_SDL_GL_CreateContext(g_sdl_window);
 @@ -1172,6 +1179,10 @@
              time_delta = -1;
              break;

@@ -6,7 +6,7 @@ Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
  libsdl1.2-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=80567
 
 Package: cherrycherrysquarewave-by-funnycurlycatcodefactory
@@ -17,7 +17,7 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
  common-install-function-ddebs(>=1.61),
-Description: Demo by Funny Curly Cat Code Factory, released in 2019
+Description: 4k intro by Funny Curly Cat Code Factory, released in 2019
  Tools used: Lubuntu 18.04, Spacemacs, Clang and zopfli.
  Depends on SDL1.2 and OpenGL.
  .

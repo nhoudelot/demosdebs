@@ -1,0 +1,92 @@
+Description: Fix implicit int types & Fix type checking on pointer types 
+GCC 14 no longer treats types as int when their type are not declared
+GCC 14 no longer allows implicitly casting all pointer types to all other pointer types.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-11-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/dwitvs/dwitvs.c
++++ b/dwitvs/dwitvs.c
+@@ -21,7 +21,7 @@
+ FL an = 0, d;
+ UI lg[120000];
+ 
+-gm (I x, I y)
++int gm (I x, I y)
+ {
+   I lri, lgi, lbi, rri, rgi, rbi, clr, clg, clb, crr, crg, crb;
+   I ra, ga, ba, cr, cg, cb;
+@@ -63,7 +63,7 @@
+   }
+ }
+ 
+-gf (I x, I y, FL s, I r, I gc, I b)
++int gf (I x, I y, FL s, I r, I gc, I b)
+ {
+   I dx, dy;
+ 
+@@ -88,14 +88,14 @@
+     }
+ }
+ 
+-rg ()
++int rg ()
+ {
+   F (y = 0; y < 37; y++)
+     F (x = 0; x < 50; x++)
+       gm (x, y);
+ }
+ 
+-fd (UI a)
++int fd (UI a)
+ {
+   UI i, c;
+ 
+@@ -108,7 +108,7 @@
+   }
+ }
+ 
+-bl (UI *b, I w, I h)
++int bl (UI *b, I w, I h)
+ {
+   UI i, c;
+ 
+@@ -118,7 +118,7 @@
+   }
+ }
+ 
+-re (I x1, I y1, I x2, I y2)
++int re (I x1, I y1, I x2, I y2)
+ {
+   I i, j;
+ 
+@@ -129,7 +129,7 @@
+   lg[x1+y1*w] = lg[x2-1+y1*w] = lg[x1+y2*w-w] = lg[x2-1+y2*w-w] = 0;
+ }
+ 
+-main (I ar, char **av)
++void main (I ar, char **av)
+ {
+   I z, p, o;
+   UI c, fl = 1;
+--- a/jylam/main.c
++++ b/jylam/main.c
+@@ -88,7 +88,7 @@
+    };
+ char tt[]="        THIS IS THE END OF THIS FOUR KILOBYTE COMPO CODED BY JYLAM            IN LESS THAN FOUR K IT FEATURES THREE DIMENTIONNAL TEXTURED VOXEL        PARTICLE SYSTEM       TEXTURE SCALING SINUS PLASMA      NOISE      RASTERS      ZOOM      SINUS BARS AND THIS SINUS SCROLL WITH FOT      THAT S ALL YOU CAN NOW PRESS ESC                          NOW I SAID OK WE WILL NOW END     ";
+ SDL_Surface * b; 
+-void clbc(void *ut, char *st, int le)
++void clbc(void *ut, unsigned char *st, int le)
+ {
+ sj++;
+ sm++;
+@@ -107,7 +107,7 @@
+ 
+ 
+ }
+-main()
++void main()
+ {
+ 
+ 

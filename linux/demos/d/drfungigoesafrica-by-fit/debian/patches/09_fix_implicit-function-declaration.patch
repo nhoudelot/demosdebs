@@ -25,26 +25,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  {
  	static int i, sanbale;
  
-@@ -211,7 +212,7 @@
+@@ -209,7 +210,7 @@
  {
- 	static int ny=0,luku=0,off,samples_left_before_tick=0, pttime;
+ 	static int off,samples_left_before_tick=0, pttime;
  
 -	short   *oso=stream;
 +	short   *oso=(short *)stream;
  	int pala;
  
  	if(laite==2)
---- a/cool_mzx/pt.c
-+++ b/cool_mzx/pt.c
-@@ -43,6 +43,8 @@
-  */
- 
- #include "sd_main.h"
-+#include <stdlib.h>
-+#include <string.h>
- 
- #define pt_maxchannels 32
- #define pt_periodmin 27
 --- a/cool_mzx/sd_ns.h
 +++ b/cool_mzx/sd_ns.h
 @@ -14,7 +14,7 @@
@@ -56,3 +45,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  
  #endif
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -43,6 +43,8 @@
+  */
+ 
+ #include "sd_main.h"
++#include <stdlib.h>
++#include <string.h>
+ 
+ #define pt_maxchannels 32
+ #define pt_periodmin 27

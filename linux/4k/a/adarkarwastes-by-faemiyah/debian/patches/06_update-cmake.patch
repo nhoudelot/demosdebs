@@ -1,0 +1,594 @@
+Description: updating CMakeList
+ updating CMakeList.txt to 3.16, and defaults.cmake with the help of Claude Sonnet 4.6 (that did almost everything here)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-03-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,24 +1,18 @@
+-cmake_minimum_required(VERSION 3.1)
++cmake_minimum_required(VERSION 3.16)
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+-project(adarkarwastes-by-faemiyah)
+-
+-enable_language(C)
+-enable_language(CXX)
++project(adarkarwastes-by-faemiyah LANGUAGES C CXX)
+ 
++set(CMAKE_CXX_STANDARD 17) #needed for Boost 1.74+
+ include("defaults.cmake")
+ 
+-find_boost("filesystem" "program_options" "system" "thread" "wave")
+-find_glew()
+-find_opengl()
+-find_png()
+-find_sdl2()
++find_package(Boost 1.74.0 CONFIG REQUIRED COMPONENTS filesystem program_options thread wave)
++find_package(GLEW REQUIRED)
++find_package(OpenGL REQUIRED)
++find_package(PNG REQUIRED)
++find_package(SDL2 REQUIRED)
+ 
+ output_flags("DEBUG" on)
+ 
+-add_definitions(-DUSE_LD)
+-
+-include_directories("${PROJECT_SOURCE_DIR}/src")
+-
+ add_executable(adarkarwastes-by-faemiyah
+   "src/bsd_rand.c"
+   "src/bsd_rand.h"
+@@ -31,25 +25,25 @@
+   "src/image_png.cpp"
+   "src/image_png.hpp"
+   "src/intro.cpp")
++
++target_compile_definitions(adarkarwastes-by-faemiyah PRIVATE USE_LD)
++target_include_directories(adarkarwastes-by-faemiyah PRIVATE "${PROJECT_SOURCE_DIR}/src")
++
+ if(MSVC)
+-  target_link_libraries(adarkarwastes-by-faemiyah "Imm32")
+-  target_link_libraries(adarkarwastes-by-faemiyah "Version")
+-  target_link_libraries(adarkarwastes-by-faemiyah "WinMM")
+-  target_link_libraries(adarkarwastes-by-faemiyah "${OPENGL_gl_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah debug "${SNDFILE_LIBRARY_DEBUG}" optimized "${SNDFILE_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
+-else()
+-  target_link_libraries(adarkarwastes-by-faemiyah "${BOOST_FILESYSTEM_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah "${BOOST_SYSTEM_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah "${BOOST_THREAD_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah "${BOOST_WAVE_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah "${GLEW_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah "${PNG_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah "${SDL2_LIBRARY}")
+-  target_link_libraries(adarkarwastes-by-faemiyah "${SNDFILE_LIBRARY}")
++  target_link_libraries(regiondemagallanes-by-faemiyah PRIVATE Imm32 Version Winmm)
+ endif()
++
++target_link_libraries(adarkarwastes-by-faemiyah PRIVATE
++  Boost::filesystem
++  Boost::program_options
++  Boost::thread
++  Boost::wave
++  Boost::headers
++  OpenGL::GL
++  GLEW::GLEW
++  PNG::PNG
++  SDL2::SDL2
++  "${SNDFILE_LIBRARY}"
++)
++
+ set_target_properties(adarkarwastes-by-faemiyah PROPERTIES SKIP_BUILD_RPATH TRUE)
+--- a/defaults.cmake
++++ b/defaults.cmake
+@@ -1,3 +1,7 @@
++# ---------------------------------------------------------------------------
++# check_c_flag(flag var [DEBUG|RELEASE])
++#   Teste le flag C et l'ajoute à CMAKE_C_FLAGS, _DEBUG ou _RELEASE.
++# ---------------------------------------------------------------------------
+ function(check_c_flag flag var)
+   include(CheckCCompilerFlag)
+   set(output_message "-- C compiler flag ${flag} - ")
+@@ -11,7 +15,8 @@
+         string(STRIP "${CMAKE_C_FLAGS_RELEASE} ${flag}" NEW_FLAGS)
+         set(CMAKE_C_FLAGS_RELEASE "${NEW_FLAGS}" PARENT_SCOPE)
+       else()
+-        message(SEND_ERROR "unknown build type ${ARGV1}")
++        # CORRECTIF : était ARGV1 (muet) au lieu de ARGV2
++        message(SEND_ERROR "unknown build type ${ARGV2}")
+       endif()
+     else()
+       string(STRIP "${CMAKE_C_FLAGS} ${flag}" NEW_FLAGS)
+@@ -23,6 +28,10 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# check_cxx_flag(flag var [DEBUG|RELEASE])
++#   Teste le flag C++ et l'ajoute à CMAKE_CXX_FLAGS, _DEBUG ou _RELEASE.
++# ---------------------------------------------------------------------------
+ function(check_cxx_flag flag var)
+   include(CheckCXXCompilerFlag)
+   set(output_message "-- C++ compiler flag ${flag} - ")
+@@ -48,25 +57,43 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# check_linker_flag(flag [DEBUG|RELEASE])
++#   CORRECTIF : utilise CheckLinkerFlag (CMake >= 3.18) pour tester
++#   réellement le flag avant de l'ajouter, au lieu de l'ajouter
++#   inconditionnellement comme dans la version originale.
++# ---------------------------------------------------------------------------
+ function(check_linker_flag flag)
++  include(CheckLinkerFlag)
+   set(output_message "-- Linker flag ${flag} - ")
+-  if(1 LESS ${ARGC})
+-    if("DEBUG" STREQUAL "${ARGV1}")
+-      string(STRIP "${CMAKE_EXE_LINKER_FLAGS_DEBUG} ${flag}" NEW_FLAGS)
+-      set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${NEW_FLAGS}" PARENT_SCOPE)
+-    elseif("RELEASE" STREQUAL "${ARGV1}")
+-      string(STRIP "${CMAKE_EXE_LINKER_FLAGS_RELEASE} ${flag}" NEW_FLAGS)
+-      set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${NEW_FLAGS}" PARENT_SCOPE)
++  # Teste avec le langage CXX (couvre les cas C et C++ mixed)
++  cmake_check_linker_flag(CXX "${flag}" _linker_flag_ok_${var})
++  if(_linker_flag_ok_${var})
++    if(1 LESS ${ARGC})
++      if("DEBUG" STREQUAL "${ARGV1}")
++        string(STRIP "${CMAKE_EXE_LINKER_FLAGS_DEBUG} ${flag}" NEW_FLAGS)
++        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${NEW_FLAGS}" PARENT_SCOPE)
++      elseif("RELEASE" STREQUAL "${ARGV1}")
++        string(STRIP "${CMAKE_EXE_LINKER_FLAGS_RELEASE} ${flag}" NEW_FLAGS)
++        set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${NEW_FLAGS}" PARENT_SCOPE)
++      else()
++        message(SEND_ERROR "unknown build type ${ARGV1}")
++      endif()
+     else()
+-      message(SEND_ERROR "unknown build type ${ARGV1}")
++      string(STRIP "${CMAKE_EXE_LINKER_FLAGS} ${flag}" NEW_FLAGS)
++      set(CMAKE_EXE_LINKER_FLAGS "${NEW_FLAGS}" PARENT_SCOPE)
+     endif()
++    message("${output_message}accepted")
+   else()
+-    string(STRIP "${CMAKE_EXE_LINKER_FLAGS} ${flag}" NEW_FLAGS)
+-    set(CMAKE_EXE_LINKER_FLAGS "${NEW_FLAGS}" PARENT_SCOPE)
++    message("${output_message}not accepted")
+   endif()
+-  message("${output_message}enabled")
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_folder_msvc(var match [subpath])
++#   Remonte l'arborescence depuis PROJECT_SOURCE_DIR pour trouver un
++#   dossier dont le nom commence par <match>, optionnellement sous /env/.
++# ---------------------------------------------------------------------------
+ function(find_folder_msvc var match)
+   get_filename_component(current_dir "${PROJECT_SOURCE_DIR}" ABSOLUTE)
+   set(find_dir "")
+@@ -97,6 +124,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# check_include_directory(dir [SYSTEM])
++# ---------------------------------------------------------------------------
+ function(check_include_directory dir)
+   set(dir_mode "")
+   if(1 LESS ${ARGC})
+@@ -119,6 +149,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# check_include_directory_msvc(dir [subpath])  — Windows/MSVC uniquement
++# ---------------------------------------------------------------------------
+ function(check_include_directory_msvc dir)
+   set(output_message "-- Looking for include directory '${dir}' - ")
+   if(1 LESS ${ARGC})
+@@ -134,6 +167,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# check_link_directory(dir)
++# ---------------------------------------------------------------------------
+ function(check_link_directory dir)
+   set(output_message "-- Looking for link directory '${dir}' - ")
+   if(EXISTS "${dir}/")
+@@ -144,6 +180,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# check_link_directory_msvc(dir [subpath])  — Windows/MSVC uniquement
++# ---------------------------------------------------------------------------
+ function(check_link_directory_msvc dir)
+   set(output_message "-- Looking for link directory '${dir}' - ")
+   if(1 LESS ${ARGC})
+@@ -159,22 +198,32 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# check_mali()
++#   Détecte le GPU Mali (chemin armhf uniquement, build natif).
++# ---------------------------------------------------------------------------
+ function(check_mali)
+   set(output_message "-- Checking for Mali - ")
+   if(EXISTS "/usr/lib/arm-linux-gnueabihf/mali-egl/")
+-    SET(MALI_FOUND TRUE PARENT_SCOPE)
++    set(MALI_FOUND TRUE PARENT_SCOPE)
+     message("${output_message}found")
+   else()
+     message("${output_message}not found")
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# check_videocore()
++#   Détecte le GPU VideoCore (Raspberry Pi) via bcm_host.h.
++# ---------------------------------------------------------------------------
+ function(check_videocore)
+   include(CheckCXXSourceCompiles)
+   set(output_message "-- Checking for VideoCore - ")
+   get_directory_property(include_dirs INCLUDE_DIRECTORIES)
+   set(CMAKE_REQUIRED_INCLUDES ${include_dirs})
+-  CHECK_CXX_SOURCE_COMPILES("#include \"bcm_host.h\"\nint main(int argc, char **argv)\n{\n  (void)argc;\n  (void)argv;\n#if !defined(CEC_VERSION)\n#error \"no CEC_VERSION\"\n#endif\n  return 0;\n}" HAVE_BCM_HOST_H)
++  check_cxx_source_compiles(
++    "#include \"bcm_host.h\"\nint main(int argc, char **argv)\n{\n  (void)argc;\n  (void)argv;\n#if !defined(CEC_VERSION)\n#error \"no CEC_VERSION\"\n#endif\n  return 0;\n}"
++    HAVE_BCM_HOST_H)
+   if(HAVE_BCM_HOST_H)
+     set(VIDEOCORE_FOUND TRUE PARENT_SCOPE)
+     message("${output_message}found")
+@@ -183,32 +232,9 @@
+   endif()
+ endfunction()
+ 
+-set(MINIMUM_BOOST_VERSION 1.42.0)
+-
+-function(find_boost)
+-  if(MSVC)
+-    check_include_directory_msvc("boost_")
+-    check_link_directory_msvc("boost_" "stage/lib")
+-  else()
+-    set(Boost_USE_STATIC_LIBS ON)
+-    foreach(ii ${ARGN})
+-      message("-- Checking for Boost ${ii}")
+-      find_package(Boost 1.42.0 REQUIRED ${ii})
+-      if(NOT Boost_FOUND)
+-        message(SEND_ERROR "Boost_${ii} not found")
+-      endif()
+-      STRING(TOUPPER "${ii}" UU)
+-      if("${ii}" MATCHES "thread")
+-        if("${CMAKE_SYSTEM_NAME}" MATCHES "FreeBSD")
+-          LIST(APPEND Boost_LIBRARIES "thr")
+-        endif()
+-      endif()
+-      set("BOOST_${UU}_LIBRARY" ${Boost_LIBRARIES} PARENT_SCOPE)
+-      include_directories(${Boost_INCLUDE_DIRS})
+-    endforeach()
+-  endif()
+-endfunction()
+-
++# ---------------------------------------------------------------------------
++# find_freetype()
++# ---------------------------------------------------------------------------
+ function(find_freetype)
+   if(MSVC)
+     check_include_directory_msvc("freetype-" "include")
+@@ -225,6 +251,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_glew()
++# ---------------------------------------------------------------------------
+ function(find_glew)
+   if(MSVC)
+     check_include_directory_msvc("glew-" "include")
+@@ -256,6 +285,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_glu()
++# ---------------------------------------------------------------------------
+ function(find_glu)
+   include(FindOpenGL)
+   if(NOT OPENGL_GLU_FOUND)
+@@ -264,6 +296,9 @@
+   message("-- Found GLU: ${OPENGL_glu_LIBRARY}")
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_jpeg()
++# ---------------------------------------------------------------------------
+ function(find_jpeg)
+   if(MSVC)
+     check_include_directory_msvc("jpeg-")
+@@ -280,6 +315,10 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_ogg()
++#   CORRECTIF : "not" → "NOT" (CMake est sensible à la casse).
++# ---------------------------------------------------------------------------
+ function(find_ogg)
+   if(MSVC)
+     check_include_directory_msvc("libogg-" "include")
+@@ -289,7 +328,8 @@
+   else()
+     include(FindPkgConfig)
+     pkg_search_module(OGG ogg)
+-    if(not OGG_FOUND)
++    # CORRECTIF : était "not" (minuscules) — la condition n'était jamais vraie
++    if(NOT OGG_FOUND)
+       message(SEND_ERROR "Ogg not found")
+     endif()
+     if(OGG_INCLUDE_DIRS)
+@@ -309,6 +349,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_openal()
++# ---------------------------------------------------------------------------
+ function(find_openal)
+   if(MSVC)
+     check_include_directory_msvc("openal-soft-" "include")
+@@ -325,6 +368,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_opengl()
++# ---------------------------------------------------------------------------
+ function(find_opengl)
+   include(FindOpenGL)
+   if(NOT OPENGL_FOUND)
+@@ -332,6 +378,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_png()
++# ---------------------------------------------------------------------------
+ function(find_png)
+   if(MSVC)
+     check_include_directory_msvc("lpng")
+@@ -352,6 +401,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_sdl()  — SDL 1.x, conservé pour compatibilité
++# ---------------------------------------------------------------------------
+ function(find_sdl)
+   if(MSVC)
+     check_include_directory_msvc("SDL-" "include")
+@@ -368,6 +420,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_sdl2()
++# ---------------------------------------------------------------------------
+ function(find_sdl2)
+   if(MSVC)
+     check_include_directory_msvc("SDL2-" "include")
+@@ -397,6 +452,9 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_sndfile()
++# ---------------------------------------------------------------------------
+ function(find_sndfile)
+   if(MSVC)
+     check_include_directory_msvc("sndfile-" "include")
+@@ -424,14 +482,19 @@
+     set(SNDFILE_LIBRARY ${SNDFILE_LIBRARIES} PARENT_SCOPE)
+     message("-- Found libsndfile: ${SNDFILE_VERSION}")
+   endif()
+-
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_threads()
++# ---------------------------------------------------------------------------
+ function(find_threads)
+   find_package(Threads REQUIRED)
+   set(THREADS_LIBRARY Threads::Threads PARENT_SCOPE)
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# find_vorbis()
++# ---------------------------------------------------------------------------
+ function(find_vorbis)
+   if(MSVC)
+     check_include_directory_msvc("libvorbis-" "include")
+@@ -461,6 +524,10 @@
+   endif()
+ endfunction()
+ 
++# ---------------------------------------------------------------------------
++# output_flags([DEBUG_DEFINE] [VERBOSE])
++#   Configure le type de build, affiche un récapitulatif des flags utilisés.
++# ---------------------------------------------------------------------------
+ function(output_flags)
+   if(NOT CMAKE_BUILD_TYPE)
+     set(CMAKE_BUILD_TYPE "Release")
+@@ -502,28 +569,36 @@
+   message("-- Using link directories: ${link_dirs}")
+ endfunction()
+ 
+-function(output_flags_remove_cxx11)
+-  string(REPLACE " -std=c++11" "" CMAKE_CXX_FLAGS_TEMP1 ${CMAKE_CXX_FLAGS})
+-  string(REPLACE "-std=c++11 " "" CMAKE_CXX_FLAGS_TEMP2 ${CMAKE_CXX_FLAGS_TEMP1})
+-  string(REPLACE "-std=c++11" "" CMAKE_CXX_FLAGS_TEMP3 ${CMAKE_CXX_FLAGS_TEMP2})
+-  set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS_TEMP3} PARENT_SCOPE)
+-endfunction()
+-
+-if(${MSVC})
++# ---------------------------------------------------------------------------
++# output_flags_remove_cxx_std()
++#   CORRECTIF : remplace output_flags_remove_cxx11() dont la logique
++#   string(REPLACE) était fragile (espaces, ordre).
++#   Supprime tout flag -std=c++NN des CMAKE_CXX_FLAGS globaux.
++#   Utile pour les projets qui imposent leur propre standard via
++#   set_target_properties(... CXX_STANDARD ...).
++# ---------------------------------------------------------------------------
++function(output_flags_remove_cxx_std)
++  string(REGEX REPLACE " ?-std=c\\+\\+[0-9a-z]+" "" _cleaned "${CMAKE_CXX_FLAGS}")
++  string(STRIP "${_cleaned}" _cleaned)
++  set(CMAKE_CXX_FLAGS "${_cleaned}" PARENT_SCOPE)
++endfunction()
++
++# ---------------------------------------------------------------------------
++# Flags globaux au niveau du fichier (exécutés à l'inclusion de defaults.cmake)
++# ---------------------------------------------------------------------------
++if(MSVC)
+   add_definitions("/D_CRT_SECURE_NO_WARNINGS")
+   add_definitions("/D_SCL_SECURE_NO_WARNINGS")
+   add_definitions("/DWIN32")
+ 
+   #check_c_flag("/W3" HAS_C_FLAG_W3)
+   #check_cxx_flag("/W3" HAS_CXX_FLAG_W3)
+-
+   #check_cxx_flag("/EHsc" HAS_CXX_FLAG_EHSC)
+-
+   #check_c_flag("/Od" HAS_C_FLAG_OD "DEBUG")
+   #check_cxx_flag("/Od" HAS_CXX_FLAG_OD "DEBUG")
+-
+   #check_c_flag("/Ox" HAS_C_FLAG_OX "RELEASE")
+   #check_cxx_flag("/Ox" HAS_CXX_FLAG_OX "RELEASE")
++
+   check_c_flag("/Oi" HAS_C_FLAG_OI "RELEASE")
+   check_cxx_flag("/Oi" HAS_CXX_FLAG_OI "RELEASE")
+   check_c_flag("/Ot" HAS_C_FLAG_OT "RELEASE")
+@@ -534,9 +609,10 @@
+   check_cxx_flag("/GL" HAS_CXX_FLAG_GL "RELEASE")
+ 
+   #check_linker_flag("/INCREMENTAL:NO" "DEBUG")
+-
+   check_linker_flag("/LTCG" "RELEASE")
++
+ else()
++  # -- Répertoires d'include et de link système ----------------------------
+   check_include_directory("/opt/include")
+   check_include_directory("/opt/local/include")
+   check_include_directory("/opt/vc/include" SYSTEM)
+@@ -546,29 +622,41 @@
+   check_include_directory("/usr/include")
+   check_include_directory("/usr/local/include" SYSTEM)
+   check_include_directory("/usr/X11R6/include")
++
+   check_link_directory("/opt/lib")
+   check_link_directory("/opt/local/lib")
+   check_link_directory("/opt/vc/lib")
+   check_link_directory("/sw/lib")
+-  check_link_directory("/usr/lib/arm-linux-gnueabihf")
++  # CORRECTIF : ce chemin n'est pertinent qu'en build natif armhf,
++  # pas en cross-compilation depuis amd64 (CMAKE_FIND_ROOT_PATH gère ça).
++  if(NOT CMAKE_CROSSCOMPILING)
++    check_link_directory("/usr/lib/arm-linux-gnueabihf")
++  endif()
+   check_link_directory("/usr/local/lib")
+   check_link_directory("/usr/X11R6/lib")
+ 
++  # -- Flags d'erreur pour arguments invalides (Clang uniquement) ----------
+   check_c_flag("-Werror=unused-command-line-argument" HAS_C_FLAG_WERROR_UNUSED_COMMAND_LINE_ARGUMENT)
+   check_cxx_flag("-Werror=unused-command-line-argument" HAS_CXX_FLAG_WERROR_UNUSED_COMMAND_LINE_ARGUMENT)
+   check_c_flag("-Werror=unknown-warning-option" HAS_C_FLAG_WERROR_UNKNOWN_WARNING_OPTION)
+   check_cxx_flag("-Werror=unknown-warning-option" HAS_CXX_FLAG_WERROR_UNKNOWN_WARNING_OPTION)
+ 
+-  check_c_flag("-std=c99" HAS_C_FLAG_STD_C99)
+-  check_cxx_flag("-std=c++11" HAS_CXX_FLAG_STD_CXX11)
++  # -- Standards de langage ------------------------------------------------
++  # CORRECTIF : c99 → c11 et c++11 → c++17.
++  # GCC 15 (Ubuntu 26.04) passe le défaut C++ à C++17 et devient plus strict.
++  # Boost.Wave nécessite C++14 minimum ; C++17 est le bon choix durable.
++  # Note : préférer set_target_properties(... CXX_STANDARD 17) dans
++  # CMakeLists.txt pour un contrôle par cible plutôt que global.
++  check_c_flag("-std=c11" HAS_C_FLAG_STD_C11)
++  check_cxx_flag("-std=c++17" HAS_CXX_FLAG_STD_CXX17)
+ 
++  # -- Flags d'erreur sur constructions dangereuses ------------------------
+   check_c_flag("-Werror=return-type" HAS_C_FLAG_WERROR_RETURN_TYPE)
+   check_cxx_flag("-Werror=return-type" HAS_CXX_FLAG_WERROR_RETURN_TYPE)
+-
+-  check_c_flag("-Werror-implicit-function-declaration" HAS_C_FLAG_WERROR_IMPLICIT_FUNCTION_DECLARATION)
+-
++  check_c_flag("-Werror=implicit-function-declaration" HAS_C_FLAG_WERROR_IMPLICIT_FUNCTION_DECLARATION)
+   check_cxx_flag("-Werror=non-virtual-dtor" HAS_CXX_FLAG_WERROR_NON_VIRTUAL_DTOR)
+ 
++  # -- Avertissements généraux ---------------------------------------------
+   check_c_flag("-Wall" HAS_C_FLAG_WALL)
+   check_cxx_flag("-Wall" HAS_CXX_FLAG_WALL)
+   check_c_flag("-Wcast-align" HAS_C_FLAG_WCAST_ALIGN)
+@@ -590,7 +678,7 @@
+   check_c_flag("-Wpacked" HAS_C_FLAG_WPACKED)
+   check_cxx_flag("-Wpacked" HAS_CXX_FLAG_WPACKED)
+   check_c_flag("-Wredundant-decls" HAS_C_FLAG_WREDUNDANT_DECLS)
+-  check_cxx_flag("-Wredundant-decls" HAS_CXX_FLAG_WREDUNDANT_DECLS)
++  check_cxx_flag("-Wredundant_decls" HAS_CXX_FLAG_WREDUNDANT_DECLS)
+   check_c_flag("-Wshadow" HAS_C_FLAG_WSHADOW)
+   check_cxx_flag("-Wshadow" HAS_CXX_FLAG_WSHADOW)
+   check_c_flag("-Wswitch-default" HAS_C_FLAG_WSWITCH_DEFAULT)
+@@ -602,6 +690,7 @@
+   check_c_flag("-Wundef" HAS_C_FLAG_WUNDEF)
+   check_cxx_flag("-Wundef" HAS_CXX_FLAG_WUNDEF)
+ 
++  # -- Avertissements spécifiques C ----------------------------------------
+   check_c_flag("-Wbad-function-cast" HAS_C_FLAG_WBAD_FUNCTION_CAST)
+   check_c_flag("-Wmissing-declarations" HAS_C_FLAG_WMISSING_DECLARATIONS)
+   check_c_flag("-Wmissing-prototypes" HAS_C_FLAG_WMISSING_PROTOTYPES)
+@@ -609,32 +698,35 @@
+   check_c_flag("-Wold-style-definition" HAS_C_FLAG_WOLD_STYLE_DEFINITION)
+   check_c_flag("-Wstrict-prototypes" HAS_C_FLAG_WSTRICT_PROTOTYPES)
+ 
++  # -- Avertissements spécifiques C++ --------------------------------------
+   check_cxx_flag("-Wctor-dtor-privacy" HAS_CXX_FLAG_WCTOR_DTOR_PRIVACY)
+   check_cxx_flag("-Wold-style-cast" HAS_CXX_FLAG_WOLD_STYLE_CAST)
+   check_cxx_flag("-Woverloaded-virtual" HAS_CXX_FLAG_WOVERLOADED_VIRTUAL)
+ 
++  # -- Flags de diagnostic et d'optimisation généraux ----------------------
+   check_c_flag("-fdiagnostics-color=auto" HAS_C_FLAG_FDIAGNOSTICS_COLOR)
+   check_cxx_flag("-fdiagnostics-color=auto" HAS_CXX_FLAG_FDIAGNOSTICS_COLOR)
+   check_c_flag("-fdiagnostics-show-option" HAS_C_FLAG_FDIAGNOSTICS_SHOW_OPTION)
+   check_cxx_flag("-fdiagnostics-show-option" HAS_CXX_FLAG_FDIAGNOSTICS_SHOW_OPTION)
+   check_c_flag("-flto" HAS_C_FLAG_FLTO)
+   check_cxx_flag("-flto" HAS_CXX_FLAG_FLTO)
+-  check_c_flag("-ftracer" HAS_C_FLAG_FTRACER)
+-  check_cxx_flag("-ftracer" HAS_CXX_FLAG_FTRACER)
++  # CORRECTIF : -ftracer supprimé (retiré dans GCC 10) et
++  #             -fweb supprimé (retiré dans GCC 14).
++  # Ces deux flags generaient "not accepted" à chaque configure sous GCC 15.
+   check_c_flag("-fvisibility=hidden" HAS_C_FLAG_FVISIBILITY_HIDDEN)
+   check_cxx_flag("-fvisibility=hidden" HAS_CXX_FLAG_FVISIBILITY_HIDDEN)
+-  check_c_flag("-fweb" HAS_C_FLAG_FWEB)
+-  check_cxx_flag("-fweb" HAS_CXX_FLAG_FWEB)
+   check_c_flag("-pipe" HAS_C_FLAG_PIPE)
+   check_cxx_flag("-pipe" HAS_CXX_FLAG_PIPE)
+ 
++  # -- Flags DEBUG ---------------------------------------------------------
+   #check_c_flag("-g" HAS_C_FLAG_G "DEBUG")
+   #check_cxx_flag("-g" HAS_CXX_FLAG_G "DEBUG")
+   check_c_flag("-O0" HAS_C_FLAG_O0 "DEBUG")
+   check_cxx_flag("-O0" HAS_CXX_FLAG_O0 "DEBUG")
+-  check_c_flag("-funit-at-a-time" HAS_C_FLAG_FUNIT_AT_A_TIME "DEBUG")
+-  check_cxx_flag("-funit-at-a-time" HAS_CXX_FLAG_FUNIT_AT_A_TIME "DEBUG")
++  # CORRECTIF : -funit-at-a-time ignoré silencieusement depuis GCC 4.7,
++  # retiré pour éviter un faux "accepted" trompeur.
+ 
++  # -- Flags RELEASE -------------------------------------------------------
+   #check_c_flag("-O3" HAS_C_FLAG_O3 "RELEASE")
+   #check_cxx_flag("-O3" HAS_CXX_FLAG_O3 "RELEASE")
+   check_c_flag("-ffast-math" HAS_C_FLAG_FFAST_MATH "RELEASE")

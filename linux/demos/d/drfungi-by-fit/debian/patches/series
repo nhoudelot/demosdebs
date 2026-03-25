@@ -8,3 +8,4 @@
 08_resizable_window.patch
 09_add_fullscreen_key.patch
 10_fix_incompatible_pointer_type.patch
+11_fix_64bit_portability.patch

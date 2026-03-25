@@ -1,0 +1,89 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/lista.cpp
++++ b/lista.cpp
+@@ -1,4 +1,5 @@
+ #include <stdio.h>
++#include <cstdlib>
+ #include "lista.hpp"
+ 
+ //#define LISTDEBUG
+@@ -131,7 +132,7 @@
+ #endif
+ 		if (current->payload != 0)      //poistetaan lasti jos sitä on
+ 		{
+-			delete current->payload;
++			free(current->payload);
+ 		}
+ 		delete current; //tuhotaan solmu
+ 
+@@ -159,7 +160,7 @@
+ 		temp->previous = 0;                                     //josta tehdään listan ensimmäinen alkio
+ 		if (start->payload != 0)
+ 		{
+-			delete start->payload;
++			free(start->payload);
+ 		}
+ 		delete start; //poistetaan start-osoittimen osoittama alkio
+ 		start = temp; //ja laitetaan se osoittamaan listan toiseen alkioon, joka on nyt ensimmäinen
+@@ -181,7 +182,7 @@
+ 
+ 	if (current->payload != 0)
+ 	{
+-		delete current->payload;
++		free(current->payload);
+ 	}
+ 	delete current;
+ 	current = temp; //current on joko seuraava tai edellinen (jos seuraavaa ei ollut)
+@@ -209,7 +210,7 @@
+ #endif
+ 			if (end->payload != 0) //jos lista osoittaa johonkin
+ 			{
+-				delete end->payload;
++				free(end->payload);
+ 			}
+ 			delete end;     //poistetaan viimeinen alkio
+ 			end = 0;        //nollataan nämä, muuten ne osoittavat jonnekin jota ei ole enää olemassa
+@@ -227,7 +228,7 @@
+ 			//tuhotaan viimeisen solmun lasti
+ 			if (end->payload != 0)
+ 			{
+-				delete end->payload;
++				free(end->payload);
+ 			}
+ 			//jos current osoittaa loppuun, vaihdetaan se osoittamaan uuteen loppuun (muuten ryskis)
+ 			if (current == end)
+@@ -326,14 +327,15 @@
+ bool Lista::goToNode(int number)
+ {
+ 	/* paskaa koodia! */
+-	bool value;
+-	goToStart();
++	if (!goToStart())
++		return false;
+ 
+ 	for (int i=0; i<number; i++)
+ 	{
+-		value = goForward();
++		if (!goForward())
++			return false;
+ 	}
+-	return value;
++	return true;
+ }
+ int Lista::getCurrentNodeNumber()
+ {
+@@ -366,7 +368,7 @@
+ {
+ 	if (current->payload) //tuhotaan vanha
+ 	{
+-		delete current->payload;
++		free(current->payload);
+ 	}
+ 	current->payload = ptr;
+ }

@@ -9,7 +9,7 @@ Build-Depends:
  qt5-qmake,
  dh-sequence-nodejs,
  dh-exec (>=0.3)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/rocket/rocket
 Vcs-Git: https://github.com/rocket/rocket.git
 Vcs-Browser: https://github.com/rocket/rocket

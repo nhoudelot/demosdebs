@@ -1,3 +1,11 @@
+im14andthisiscoolasshit-by-suicidecult (1.0-0ddebs2) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 22 Apr 2026 00:32:22 +0200
+
 im14andthisiscoolasshit-by-suicidecult (1.0-0ddebs1) unstable; urgency=medium
 
   * Initial release.

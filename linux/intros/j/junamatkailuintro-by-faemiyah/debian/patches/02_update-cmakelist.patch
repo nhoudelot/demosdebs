@@ -1,0 +1,83 @@
+Description: skip building of rpath
+ fix lintian error binary-or-shlib-defines-rpath
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,9 +1,6 @@
+-cmake_minimum_required(VERSION 2.8)
++cmake_minimum_required(VERSION 3.16)
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+-project(junamatkailuintro)
+-
+-enable_language(C)
+-enable_language(CXX)
++project(junamatkailuintro  LANGUAGES C CXX)
+ 
+ cmake_policy(SET CMP0011 NEW)
+ if(${MSVC})
+@@ -12,9 +9,9 @@
+ 
+ include("defaults.cmake")
+ 
+-find_boost_program_options(TRUE)
+-find_png(TRUE)
+-find_sdl(TRUE)
++find_package(Boost 1.74.0 CONFIG REQUIRED COMPONENTS program_options)
++find_package(PNG REQUIRED)
++find_package(SDL REQUIRED)
+ 
+ check_videocore()
+ if(VIDEOCORE_FOUND)
+@@ -23,16 +20,12 @@
+   set(EGL_LIBRARY "EGL")
+   set(OPENGL_gl_LIBRARY "GLESv2")
+ else()
+-  find_opengl(TRUE)
+-  find_glew(TRUE)
++  find_package(OpenGL REQUIRED)
++  find_package(GLEW REQUIRED)
+ endif()
+ 
+-add_definitions(-DUSE_LD)
+-
+ output_flags("DEBUG" on)
+ 
+-include_directories("${PROJECT_SOURCE_DIR}/src")
+-
+ set(SOURCE_FILES
+   "src/bsd_rand.c"
+   "src/bsd_rand.h"
+@@ -90,6 +83,9 @@
+     add_executable(junamatkailuintro ${SOURCE_FILES})
+ endif (APPLE)
+ 
++target_include_directories(junamatkailuintro PRIVATE "${PROJECT_SOURCE_DIR}/src")
++target_compile_definitions(junamatkailuintro PRIVATE USE_LD)
++
+ if(NOT ${MSVC})
+   add_custom_command(
+     OUTPUT dnload.h
+@@ -110,9 +106,15 @@
+     target_link_libraries(junamatkailuintro ${EGL_LIBRARY})
+     target_link_libraries(junamatkailuintro ${OPENGL_gl_LIBRARY})
+   else()
+-    target_link_libraries(junamatkailuintro ${GLEW_LIBRARY})
++  	target_link_libraries(junamatkailuintro PRIVATE GLEW::GLEW)
+   endif()
+-  target_link_libraries(junamatkailuintro ${BOOST_PROGRAM_OPTIONS_LIBRARY})
+-  target_link_libraries(junamatkailuintro ${PNG_LIBRARY})
+-  target_link_libraries(junamatkailuintro ${SDL_LIBRARY})
++  target_link_libraries(junamatkailuintro
++  PRIVATE
++    Boost::program_options
++    OpenGL::GL
++    PNG::PNG
++    SDL::SDL
++  )
++  # remove the CMake generated '-Wl,-rpath'
++  set_target_properties(junamatkailuintro PROPERTIES SKIP_BUILD_RPATH 1)
+ endif()

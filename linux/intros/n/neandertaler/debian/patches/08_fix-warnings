@@ -1,0 +1,81 @@
+--- a/main.cc
++++ b/main.cc
+@@ -249,7 +249,11 @@
+     fseeko(f,0,SEEK_END);
+     len=ftello(f);
+     fseeko(f,0,SEEK_SET);
+-    fread(dest,1,(size_t)len,f);
++    if (fread(dest,1,(size_t)len,f) != (size_t)len)
++    {
++        printf("Short read on file %s\n",name);
++        exit(EXIT_FAILURE);
++    }
+     fclose(f);
+ }
+ 
+--- a/neandertaler_mainloop.cc
++++ b/neandertaler_mainloop.cc
+@@ -191,12 +191,12 @@
+ }
+ 
+ 
+-Object *allocateObject(int numverts, int numfaces, int numsides) {
++Object *allocateObject(unsigned int numverts, unsigned int numfaces, unsigned int numsides) {
+ 	Object *o = new Object;
+ 	
+-	o->numfaces=numfaces;
+-	o->numverts=numverts;
+-	o->numsides=numsides;
++	o->numfaces=(int)numfaces;
++	o->numverts=(int)numverts;
++	o->numsides=(int)numsides;
+ 
+ 	o->faces = new GLuint [numfaces*numsides];
+ 	o->vertices = new Vector [numverts];
+@@ -215,7 +215,7 @@
+ 
+ 	Object *o = allocateObject(xsteps*(ysteps+1), xsteps*ysteps*2+ysteps*2, 3);
+ 
+-	for (y=0; y<ysteps+1; y++)
++	for (y=0; y<ysteps+1; y++) {
+ 		for (int x=0; x<xsteps; x++) {
+ 			Vector *p = &(o->vertices[y*xsteps+x]);
+ 			MapCoord *m = &(o->mapping[y*xsteps+x]);
+@@ -230,8 +230,9 @@
+ 			m->u = (1.0/xsteps*x);
+ 			m->v = (1.0/ysteps*y);
+ 		}
++	}
+ 
+-		unsigned int * faces = o->faces;
++	unsigned int * faces = o->faces;
+ 
+ 		o->numfaces=0;
+ 		for (y=0; y<ysteps; y++) {
+@@ -249,8 +250,6 @@
+ 			}
+ 		}
+ 
+-		Colors		 * colors = o->colors;
+-		unsigned int   cnt = 0;
+ 		for (int i=0; i<o->numfaces; i++) {
+ 			
+ //				colors[cnt].r = 1.0/o->numfaces*i;
+@@ -598,7 +597,7 @@
+     glTexImage2D (GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
+ 	
+ 
+-	delete rgba;
++	delete[] rgba;
+ }
+ 
+ void loadRAW32(unsigned char *memseg, int width, int height, int id) {
+@@ -615,7 +614,7 @@
+ 	while (str[i]!='\0') {
+ 		if (str[i]!=' ') {
+ 			int j = 0;
+-			int newpos;
++			int newpos = pos;
+ 			while (letters[j]!=str[i]) j++;
+ 			for (int y=0; y<font_height; y++) {
+ 				newpos=pos;

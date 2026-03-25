@@ -1,0 +1,204 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+--- a/main.c
++++ b/main.c
+@@ -66,7 +66,8 @@
+ 
+ int main(int argc, char *argv[])
+ {
+-	int i,quit=0,xs=XS,ys=YS,flagga=0,aa=1,param=0;
++	int i,quit=0,xs=XS,ys=YS,aa=1,param=0;
++	Uint32 flagga=0;
+ 	SDL_AudioSpec w;
+ 	SDL_Event e;
+ 
+@@ -95,7 +96,7 @@
+ 	{
+ 		if(!strcmp(argv[i],"-w"))
+ 		{
+-			flagga-=SDL_WINDOW_FULLSCREEN;
++			flagga &= ~(Uint32)SDL_WINDOW_FULLSCREEN;
+ 			param++;
+ 		}
+ 		if(!strcmp(argv[i],"-a"))
+@@ -105,8 +106,8 @@
+ 		}
+ 	}
+ 
+-	if(argv[0][strlen(argv[0]-1)]=='w')
+-		flagga-=SDL_WINDOW_FULLSCREEN;
++	if(argv[0][strlen(argv[0])-1]=='w')
++		flagga &= ~(Uint32)SDL_WINDOW_FULLSCREEN;
+ 
+ 	if(argc>=param+3)
+ 	{
+@@ -118,9 +119,9 @@
+ 	if(aa && !getenv("__GL_FSAA_MODE"))
+ 		putenv("__GL_FSAA_MODE=4");
+ 
+-	flagga+=SDL_WINDOW_FULLSCREEN_DESKTOP;
++	flagga |= (Uint32)SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 	if(argv[0][strlen(argv[0])-1]=='w')
+-		flagga-=SDL_WINDOW_FULLSCREEN_DESKTOP;
++		flagga &= ~(Uint32)SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 
+ #ifdef MAC
+ 	SDL_SetVideoMode(xs,ys,32,flagga);
+--- a/wavefront.c
++++ b/wavefront.c
+@@ -9,7 +9,7 @@
+ 
+ int load_scene(SCENE *s,char *name)
+ {
+-	long size;
++	size_t size;
+ 	char *scn;
+ 	FILE    *fp;
+ 
+@@ -17,7 +17,7 @@
+ 	if(fp==NULL)
+ 		return(-1);
+ 	fseek(fp,0,SEEK_END);
+-	size=ftell(fp);
++	size=(size_t)ftell(fp);
+ 	fseek(fp,0,SEEK_SET);
+ 
+ 	scn=malloc(size+1);
+@@ -36,7 +36,7 @@
+ 
+ int get_scene(SCENE *s,char *scn,char *mtl)
+ {
+-	long size;
++	size_t size;
+ 	int quit=0,v=0,vn=0,vi=0,vni=0,
+ 	    fn,done,n;
+ 	char    *row,key[1000],mfile[1000],*tmp;
+@@ -89,7 +89,7 @@
+ 						return(-1);
+ 
+ 					fseek(fp,0,SEEK_END);
+-					size=ftell(fp);
++					size=(size_t)ftell(fp);
+ 					fseek(fp,0,SEEK_SET);
+ 
+ 					mtl=malloc(size+1);
+--- a/syna.c
++++ b/syna.c
+@@ -109,14 +109,14 @@
+ int syna_load(char *tune)
+ {
+ 	FILE    *f;
+-	long length;
++	size_t length;
+ 
+ 	/* Read the file and call syna_get */
+ 	f=fopen(tune,"rb");
+ 	if(f==NULL)
+ 		return(-1);
+ 	fseek(f,0,SEEK_END);
+-	length=ftell(f);
++	length=(size_t)ftell(f);
+ 	fseek(f,0,SEEK_SET);
+ 	module=malloc(length+1);
+ 	fread(module,1,length,f);
+--- a/data2c.c
++++ b/data2c.c
+@@ -1,7 +1,8 @@
++#include <stdlib.h>
+ 
+ #include <stdio.h>
+ 
+-main(int argc,char *argv[])
++int main(int argc,char *argv[])
+ {
+ 	int c,row=0,first=1;
+ 
+@@ -29,4 +30,6 @@
+ 	while(c!=EOF);
+ 
+ 	printf("};\n");
++	return(EXIT_SUCCESS);
+ }
++
+--- a/dump.c
++++ b/dump.c
+@@ -114,7 +114,7 @@
+ {
+ 	FILE *fp;
+ 	unsigned char *data;
+-	int len;
++	long len;
+ 
+ 	fp=fopen(name,"rb");
+ 	if(fp==NULL)
+@@ -254,8 +254,8 @@
+ 				pts=*data++;
+ 				f->num=pts;
+ 
+-				f->index=malloc(pts*sizeof(float));
+-				f->normal=malloc(pts*sizeof(float));
++				f->index=malloc(pts*sizeof(int));
++				f->normal=malloc(pts*sizeof(int));
+ 
+ 				for(n=0; n<pts; n++)
+ 					f->index[n]=getint(&data,2);
+@@ -292,12 +292,13 @@
+ 	return(0);
+ }
+ 
+-void writefloat(FILE *fp,float f)
++static void writefloat(FILE *fp,float f)
+ {
+-	int *p=&f;
+-	writeint(fp,*p,4);
++	unsigned int i;
++	memcpy(&i,&f,sizeof(i));
++	writeint(fp,i,4);
+ }
+-void writeint(FILE *fp,unsigned c,int len)
++static void writeint(FILE *fp,unsigned c,int len)
+ {
+ 	int n;
+ 
+@@ -305,13 +306,14 @@
+ 		fputc((c>>n*8)&0xff,fp);
+ }
+ 
+-float getfloat(unsigned char **p)
++static float getfloat(unsigned char **p)
+ {
+-	int i=getint(p,4);
+-	float *f=&i;
+-	return(*f);
++	unsigned int i=getint(p,4);
++	float f;
++	memcpy(&f,&i,sizeof(f));
++	return(f);
+ }
+-unsigned getint(unsigned char **p,int len)
++static unsigned getint(unsigned char **p,int len)
+ {
+ 	int n;
+ 	unsigned i=0;
+--- a/dudes.c
++++ b/dudes.c
+@@ -15,7 +15,7 @@
+ 
+ static void valosotku(void);
+ 
+-void dudes_init()
++void dudes_init(void)
+ {
+ 	get_dump(&lego,walkerdata);
+ 	get_dump(&serf,serfdata);
+@@ -64,7 +64,7 @@
+ 	glPopMatrix();
+ }
+ 
+-void valosotku(void)
++static void valosotku(void)
+ {
+ 	GLfloat vari[4] = {1,1,1,1};
+ 	GLfloat musta[4] = {0.3,0.3,0.3,1};

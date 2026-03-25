@@ -103,9 +103,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +WINDOW_HEIGHT = 600
 +
 +#compiler we're using
-+CC := gcc
-+CXX := g++
-+PKG_CONFIG := pkg-config
++CC ?= gcc
++CXX ?= g++
++PKG_CONFIG ?= pkg-config
 +
 +OBJ = changer.o filter.o hermitecurve.o lista.o matrix.o path.o stuff.o texture.o win32.o complex.o floater.o liikkuva.o main.o molekyylidata.o primitives.o sync.o timer.o config.o font.o line.o matikka.o object3d.o sound.o tausta.o vector.o alku.o curves.o field.o newton.o rossler.o cell.o dla.o iterator.o platon.o runko.o converge.o fibotree.o lorentz.o pot2d.o
 +

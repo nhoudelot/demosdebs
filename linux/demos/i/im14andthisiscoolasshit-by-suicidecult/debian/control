@@ -11,7 +11,7 @@ Build-Depends:
  liballegro-acodec5-dev,
  liballegro5-dev,
  debhelper-compat (= 13),
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=81781
 
 Package: im14andthisiscoolasshit-by-suicidecult

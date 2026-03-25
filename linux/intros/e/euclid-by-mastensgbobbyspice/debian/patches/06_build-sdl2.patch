@@ -1,0 +1,38 @@
+Description: update autotools to build with SDL2
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/configure.ac
++++ b/configure.ac
+@@ -15,9 +15,8 @@
+ 
+ # Checks for libraries.
+ AC_INCORPORATE_OPENGL([HAVE_OPENGL], [yes])
+-AC_INCORPORATE_ALSA([1.0.16], [HAVE_ALSA], [yes])
+-AC_INCORPORATE_PKGCONFIG([vorbisfile], [HAVE_VORBISFILE], [yes])
+-AC_INCORPORATE_GLUT([HAVE_GLUT], [yes])
++AC_INCORPORATE_PKGCONFIG([sdl2], [HAVE_SDL2], [yes])
++AC_INCORPORATE_PKGCONFIG([SDL2_mixer], [HAVE_SDL2_MIXER], [yes])
+ AC_ADD_LIB([-lm])
+ 
+ AC_COMPILE_MODE
+@@ -27,7 +26,6 @@
+ #AC_ADD_CCFLAG([-Wextra])
+ #AC_ADD_CCFLAG([-pedantic])
+ AC_ADD_CCFLAG([-std=c99])
+-AC_ADD_CCFLAG([-pthread])
+ 
+ # Checks for header files.
+ AC_CHECK_HEADERS([stdint.h stdlib.h sys/time.h])
+@@ -38,7 +36,7 @@
+ 
+ # Checks for library functions.
+ AC_CHECK_DECLS([malloc])
+-AC_CHECK_FUNCS([gettimeofday memset pow putenv strerror])
++AC_CHECK_FUNCS([gettimeofday memset pow strerror])
+ 
+ AC_CONFIG_FILES([Makefile])
+ AC_OUTPUT

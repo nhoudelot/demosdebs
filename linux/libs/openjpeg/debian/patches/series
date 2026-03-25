@@ -1,3 +1,4 @@
 defaulttmpfile.patch
 javavers.patch
 getopt.patch
+update_cmake_min.patch

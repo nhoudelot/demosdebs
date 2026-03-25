@@ -1,0 +1,71 @@
+Description: Fix delete/delete[] mismatches (64-bit portability)
+ Arrays allocated with new[] must be freed with delete[]. Using plain
+ delete on an array pointer is undefined behaviour and can cause heap
+ corruption, especially visible on 64-bit architectures where allocator
+ metadata layout differs from 32-bit.
+ .
+ Affected arrays in idscroller.cc: LongString, tmp, linea.
+ Affected arrays in flubber.h: Buffer, lut, zbuffer.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/idscroller.cc	2026-04-19 03:04:15.515552268 +0200
++++ b/idscroller.cc	2026-04-19 03:05:39.949011712 +0200
+@@ -68,7 +68,7 @@
+ 		delete Font;
+ 
+ 		if (LongString != NULL)
+-			delete LongString;
++			delete[] LongString;
+ 	}
+ }
+ 
+@@ -147,7 +147,7 @@
+ 	char *linea;
+ 
+ 	if (LongString != NULL)
+-		delete LongString;
++		delete[] LongString;
+ 
+ 	tmp = new unsigned char [FontW * FontH];
+ 	Width = FontW * reallen;
+@@ -182,8 +182,8 @@
+ 		}
+ 	}
+ 
+-	delete tmp;
+-	delete linea;
++	delete[] tmp;
++	delete[] linea;
+ }
+ 
+ char IDScroller :: Show(short Col)
+@@ -307,5 +307,5 @@
+ 			}
+ 	}
+ 
+-	delete tmp;
++	delete[] tmp;
+ }
+--- a/flubber.h	2026-04-19 03:04:15.516681751 +0200
++++ b/flubber.h	2026-04-19 03:05:46.259095880 +0200
+@@ -186,13 +186,13 @@
+ void DeInit_Flubber(void)
+ {
+ 	if (Buffer != NULL)
+-		delete Buffer;
++		delete[] Buffer;
+ 
+ 	if (lut != NULL)
+-		delete lut;
++		delete[] lut;
+ 
+ 	if (zbuffer != NULL)
+-		delete zbuffer;
++		delete[] zbuffer;
+ }
+ 
+ static void transmemcpy(unsigned char *dst, unsigned char *src,

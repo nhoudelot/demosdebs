@@ -9,7 +9,7 @@ Build-Depends:
  pkgconf,
  libsdl2-mixer-dev,
  libsdl2-image-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=17115
 Rules-Requires-Root: no
 

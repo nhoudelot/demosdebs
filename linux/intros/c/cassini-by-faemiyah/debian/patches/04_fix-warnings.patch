@@ -1,0 +1,35 @@
+Description: fixing vec2 vec3 warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-12
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/verbatim_vec2.hpp
++++ b/src/verbatim_vec2.hpp
+@@ -35,6 +35,11 @@
+       m_data[1] = op;
+     }
+ 
++	/// Copy constructor.
++    ///
++    /// \param op Source vector.
++    vec2(const vec2 &op) = default;
++
+   public:
+     /// Accessor.
+     ///
+--- a/src/verbatim_vec3.hpp
++++ b/src/verbatim_vec3.hpp
+@@ -38,6 +38,11 @@
+       m_data[2] = op;
+     }
+ 
++    /// Copy constructor.
++    ///
++    /// \param op Source vector.
++    vec3(const vec3 &op) = default;
++
+   public:
+     /// Accessor.
+     ///

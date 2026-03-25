@@ -1,3 +1,13 @@
+lavos-by-faemiyah (1.0+git20170414-0ddebs7) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fullscreen use desktop resolution
+  * make window resizable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 16 Apr 2026 12:03:01 +0200
+
 lavos-by-faemiyah (1.0+git20170414-0ddebs6) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

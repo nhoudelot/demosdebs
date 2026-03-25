@@ -1,7 +1,8 @@
-Description: fixing several simple warnings 
+Description: fixing several warnings 
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by Claude Sonnet 4.6
 Applied-Upstream: no
-Last-Update: 2020-04-27
+Last-Update: 2026-04-14
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
@@ -12,7 +13,23 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <time.h>
  #include <stdlib.h>
  #include <stdio.h>
-@@ -238,8 +237,8 @@
+@@ -81,7 +80,6 @@
+ } Dot;
+ Dot dots[32768];
+ static inline void prekalc_clouds() {
+-	int i;
+ 	Dot *d;
+ 	for (d=dots; d<dots+32768; d++) {
+ 		do {
+@@ -164,7 +162,6 @@
+ 
+ 
+ Movie *readmovie(char *datah) {
+-	int xr, yr, zr, cnt;
+ 	unsigned char pakres;
+ 	Movie *m=malloc(sizeof(Movie));
+ 	Blk **nxt=&m->root;
+@@ -238,8 +235,8 @@
  		tab[i]=j<0 ? 0 : j>255 ? 255 : j;
  	}
  	for (y=0; y<ys; y++) {
@@ -23,7 +40,34 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		for (x=0; x<xs; x+=4) {
  			*dp++=tab[*sp++]; *dp++=tab[*sp++]; *dp++=tab[*sp++]; *dp++=tab[*sp++];
  		}
-@@ -463,9 +462,9 @@
+@@ -278,16 +275,12 @@
+ 	int i, j;
+ 	float t;
+ 	float numbs[16384];
+-	static char buffer[200000];
+ 	static char U[320*240], V[320*240];
+-	FILE *fp;
+ //  OggVorbis_File oggi;
+-	int bufsiz;
++//	int bufsiz;
+ 	unsigned time0, timex;
+ 	SDL_Surface *screen;
+ 	SDL_Overlay *ovl;
+-	SDL_Color colors[256];
+-	static int graffa[320*200];
+ 	int effu=argc>1 ? atoi(argv[1]) : 0;
+ 
+ 	MODULE *module;
+@@ -395,7 +388,7 @@
+ 	md_musicvolume=42;
+ 
+ 	while (!stopnow) {
+-		float aikaero=.02;
++//		float aikaero=.02;
+ 		SDL_Event eve;
+ 		SDL_Rect rectum;
+ 		timex=SDL_GetTicks()-time0;
+@@ -463,9 +456,9 @@
  		}
  		gounter=0;
  		if (!effu) desing(ovl->pixels[0], ovl->pitches[0], 320, 240, /*module->sngpos+fmod(*/ timex*(1./1000/60*125/16*6/6.5) /*, 1)*/);
@@ -35,7 +79,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		if (effu&4) {
  			short buf[64000], *s;
  			int x, y;
-@@ -474,7 +473,7 @@
+@@ -474,7 +467,7 @@
  			teesumu(buf, timex*.03);
  			for (x=0; x<1024; x++) tab[x]=sqrt(x*63.9);
  			for (y=0; y<360; y++) {
@@ -161,6 +205,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		do {
  			do {
  				s=rand()*(1./RAND_MAX); s=64*exp(-s*8);
+@@ -114,9 +123,9 @@
+ 	m->l.z=-pos->x*vk.x-pos->y*vk.y-pos->z*vk.z;
+ }
+ void teesumu(short *buf, float t) {
+-	int x, y, x2, y2, x3, y3, i, j, k;
++	int x, y, x2, y2, x3, y3, i;
+ 	static int tmp[240*160];
+-	float r, f, s, xx, yy, zz;
++	float r, xx, yy, zz;
+ 	float *p, *pe;
+ 	Vector pos, dir, yvec;
+ 	Matrix cam;
 @@ -148,11 +157,25 @@
  			y2=lrint((yy+p[3]*2)*zz); if (y2<0) continue;
  			y3=lrint((yy-p[3]*2)*zz); if (y3>239) continue;
@@ -194,7 +250,32 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/vox.c
 +++ b/vox.c
-@@ -119,10 +119,10 @@
+@@ -1,24 +1,3 @@
+-
+-
+-
+-static void hajo_x(unsigned char *b, int p, int xs, int ys) {
+-	int x, y;
+-	unsigned char *b2=malloc(xs*ys>>1);
+-	for (y=0; y<ys; y++) for (x=0; x+x+1<xs; x++) {
+-			unsigned char *d=b+y*p+x*2;
+-			b2[y*(xs>>1)+x]=d[0]+d[1]>>1;
+-		}
+-	if (xs>3) hajo_x(b2, xs>>1, xs>>1, ys);
+-	for (y=0; y<ys; y++) for (x=0; x+x+1<xs; x++) {
+-			unsigned char *d=b+y*p+x*2;
+-			unsigned char s=b2[y*(xs>>1)+x];
+-			int a=d[0], b=d[1];
+-			d[0]=a;
+-			d[1]=s;
+-		}
+-	free(b2);
+-}
+-
+ typedef struct {
+ 	float xk, yk, zk, d;
+ 	float a2, b2, c2, d2;
+@@ -119,10 +98,10 @@
  			if (vp[1].maxv>vp[0].maxv) vp[0].maxv=vp[1].maxv;
  		}
  	for (vp=vbuf, yy=0; yy<ys>>5; yy++, vp++) for (xx=0; xx<xs>>5; xx++, vp++) {

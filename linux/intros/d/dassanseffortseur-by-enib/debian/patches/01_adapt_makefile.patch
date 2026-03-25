@@ -12,8 +12,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -
 +TARGET:=dassanseffortseur-by-enib
 +SHELL := /bin/sh
-+CXX   := g++
-+PKG_CONFIG := pkg-config
++CXX   ?= g++
++PKG_CONFIG ?= pkg-config
  EXTRA_INCLUDE=
 -#LIBS= -L. -lsfml-graphics -lsfml-window -lsfml-system -lrtaudio_static -lpulse -lpulse-simple -lpthread -lGL `pkg-config --libs gtk+-2.0`
 -LIBS= -L. -lX11 -lrtaudio_static -lpulse -lpulse-simple -lpthread -lGL `pkg-config --libs gtk+-2.0` -lGLU

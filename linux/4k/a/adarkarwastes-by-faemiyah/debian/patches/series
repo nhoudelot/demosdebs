@@ -1,4 +1,6 @@
 01_rename_executable.patch
 02_adapt_data_path.patch
 03_add_fullscreen.patch
-04_avoid_custom_rpath.patch
+04_add-windows-resizable.patch
+05_avoid-custom-rpath.patch
+06_update-cmake.patch

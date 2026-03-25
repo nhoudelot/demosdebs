@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://bitbucket.org/jimbo00000/cratered/src/master/
 Vcs-Browser: https://bitbucket.org/jimbo00000/cratered
 Vcs-Git: https://bitbucket.org/jimbo00000/cratered.git

@@ -1,0 +1,324 @@
+Description: port to SDL2
+ Port to SDL2, so it will be Wayland Native
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cc
++++ b/main.cc
+@@ -1,18 +1,16 @@
+ /*
+-    The wrapper for neandertaler_mainloop.cc. Uses GLUT for opening the
+-    screen and MikMod + a child process for sound. Rather ugly C++ code,
+-    since it's mostly ripped from my old C sources.
++    The wrapper for neandertaler_mainloop.cc. Uses SDL2 for window/context/input,
++    SDL2_mixer for sound. Converted from GLUT.
+ 
+-    -Marq 2001
++    -Marq 2001 / SDL2 port
+ */
+ 
+-#include <GL/glut.h>
+-#include <GL/glu.h>
+-
+-#ifdef SOUND
+ #include <SDL2/SDL.h>
++#include <SDL2/SDL_opengl.h>
++#ifdef SOUND
+ #include <SDL2/SDL_mixer.h>
+ #endif
++#include <GL/glu.h>
+ 
+ #include <signal.h>
+ #include <stdlib.h>
+@@ -39,17 +37,37 @@
+                 slider3_raw[64*64],
+                 slider4_raw[64*64],
+                 slider5_raw[64*64];
+-                
++
+ extern void init();
+ extern int mainloop();
+ 
+-void piirra(void);  //  Draw callback
+-void akti(void);    //  Idle callback
+-void nappi(unsigned char b,int x,int y);    //  Keyboard callback
+-
+ void updatetimer(void); //  Updates the currentTime, row and pattern
+ void loadfile(const char *name,void *dest); // Simply loads a file
+ 
++static SDL_Window   *window   = NULL;
++static SDL_GLContext glctx    = NULL;
++static int           is_fullscreen = 0;
++
++// Adjust viewport and projection when window is resized
++static void reshape(int w, int h)
++{
++    if (h == 0) h = 1;
++    glViewport(0, 0, w, h);
++    glMatrixMode(GL_PROJECTION);
++    glLoadIdentity();
++    gluPerspective(45.0f, (float)w/(float)h, 0.1f, 100.0f);
++    glMatrixMode(GL_MODELVIEW);
++    glLoadIdentity();
++}
++
++// Toggle between windowed and borderless-fullscreen
++static void toggle_fullscreen(void)
++{
++    is_fullscreen = !is_fullscreen;
++    SDL_SetWindowFullscreen(window,
++        is_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
++}
++
+ int main(int argc,char *argv[])
+ {
+     char datapath[]="/usr/share/neandertaler/";
+@@ -66,102 +84,127 @@
+     loadfile("data/slider5.raw",slider5_raw);
+ 
+ #ifdef SOUND
+-    /*  Load the module and set up sound.
+-        Partially from some intro by Smoke/ECFH. */
++    Mix_Music *musique = NULL;
++#endif
+ 
++    // Initialize SDL2 (video always; audio only if SOUND)
++#ifdef SOUND
+ #ifdef BSDENV
+     setenv("MM_FRAGSIZE","16",0);    // Smaller latency, smoother demo
+ #endif
+-
+-    // start SDL with audio support
+-    if(SDL_Init(SDL_INIT_AUDIO)==-1) {
++    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1) {
+         printf("SDL_Init: %s\n", SDL_GetError());
+         exit(1);
+     }
+     // open 44.1KHz, signed 16bit, system byte order,
+     //      stereo audio, using 1024 byte chunks
+-    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
+-    {
++    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) {
+         printf("%s", Mix_GetError());
+         exit(1);
+     }
+-    Mix_Music *musique;
+-    if(!(musique = Mix_LoadMUS("data/far_away.xm"))) {
++    if (!(musique = Mix_LoadMUS("data/far_away.xm"))) {
+         fprintf(stderr, "failed to load far_away.xm:\n");
+         exit(1);
+     }
+-
+-    Mix_PlayMusic(musique,1);
++    Mix_PlayMusic(musique, 1);
++#else
++    if (SDL_Init(SDL_INIT_VIDEO) == -1) {
++        printf("SDL_Init: %s\n", SDL_GetError());
++        exit(1);
++    }
+ #endif
+ 
+-    //  Initialize GLUT
+-    glutInit(&argc,argv);
+-    glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA|GLUT_DEPTH);
+-    glutInitWindowSize(WIDTH,HEIGHT);
+-
+-// New GLUT (>=3.7) has fullscreen, older ones don't
+-#ifndef OLDGLUT
+-    glutCreateWindow("Nean der taler by Macaw & Prat (hit space for fullscreen)");
++    // Request a double-buffered OpenGL context with depth buffer
++    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
++    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   16);
++    SDL_GL_SetAttribute(SDL_GL_RED_SIZE,      8);
++    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,    8);
++    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,     8);
++
++    window = SDL_CreateWindow(
++        "Nean der taler by Macaw & Prat  (F or Space = fullscreen, ESC = quit)",
++        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++        WIDTH, HEIGHT,
++        SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
++    if (!window) {
++        printf("SDL_CreateWindow: %s\n", SDL_GetError());
++        exit(1);
++    }
+ 
+-    if(argc>=2)
+-        if(!strcmp(argv[1],"-f"))
+-            glutFullScreen();
+-#else
+-    glutCreateWindow("Nean der taler by Macaw & Prat");
+-#endif
++    glctx = SDL_GL_CreateContext(window);
++    if (!glctx) {
++        printf("SDL_GL_CreateContext: %s\n", SDL_GetError());
++        exit(1);
++    }
++    SDL_GL_SetSwapInterval(0);   // no vsync: keep original behaviour
++    SDL_ShowCursor(SDL_DISABLE);
+ 
+-    glutSetCursor(GLUT_CURSOR_NONE);
+-    glutDisplayFunc(piirra);
+-    glutIdleFunc(akti);
+-    glutKeyboardFunc(nappi);
++    if (argc >= 2 && !strcmp(argv[1], "-f"))
++        toggle_fullscreen();
+ 
+     //  Initialize GL
+     glEnable(GL_TEXTURE_2D);
+-    glViewport(0,0,WIDTH,HEIGHT);
+-    glMatrixMode(GL_PROJECTION);
+-    glLoadIdentity();
+-    gluPerspective(45.0f,(float)WIDTH/(float)HEIGHT,0.1f,100.0f);
+-    glMatrixMode(GL_MODELVIEW);
+-    glLoadIdentity();
++    reshape(WIDTH, HEIGHT);
+     glClearColor(0, 0, 0, 0);
+ 
+     //  Initialize the demo engine
+     init();
+ 
+-    //  Here we go! GLUT eventloop
+-    glutMainLoop();
+-}
+-
+-void piirra(void)
+-{
+-    //  Update the currentTime, row and pattern variables
+-    updatetimer();
+-
+-    //  Call the mainloop and swap screens
+-    mainloop();
+-    glutSwapBuffers();
+-}
+-
+-void akti(void)
+-{
+-    glutPostRedisplay();
+-}
+-
+-void nappi(unsigned char b,int x,int y)
+-{
+-// GLUT <3.7 doesn't support fullscreen
+-#ifndef OLDGLUT
+-    if(b==' ')
+-        glutFullScreen();
++    //  Here we go! SDL2 event loop
++    int quit = 0;
++    SDL_Event ev;
++    while (!quit) {
++        while (SDL_PollEvent(&ev)) {
++            switch (ev.type) {
++            case SDL_QUIT:
++                quit = 1;
++                break;
++
++            case SDL_KEYDOWN:
++                switch (ev.key.keysym.sym) {
++                case SDLK_ESCAPE:           // ESC: exit
++#ifdef SOUND
++                    kill(child, SIGTERM);
+ #endif
++                    quit = 1;
++                    break;
++                case SDLK_f:                // F or Space: toggle fullscreen
++                case SDLK_SPACE:
++                    toggle_fullscreen();
++                    break;
++                default:
++                    break;
++                }
++                break;
++
++            case SDL_WINDOWEVENT:
++                if (ev.window.event == SDL_WINDOWEVENT_RESIZED ||
++                    ev.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++                    reshape(ev.window.data1, ev.window.data2);
++                break;
++
++            default:
++                break;
++            }
++        }
++
++        //  Update the currentTime, row and pattern variables
++        updatetimer();
++
++        //  Call the mainloop and swap screens
++        mainloop();
++        SDL_GL_SwapWindow(window);
++    }
+ 
+-    if(b==27) // If ESC pressed, kill child (if any) and exit
+-    {
++    // Cleanup
++    SDL_GL_DeleteContext(glctx);
++    SDL_DestroyWindow(window);
+ #ifdef SOUND
+-        kill(child,SIGTERM);
++    Mix_FreeMusic(musique);
++    Mix_CloseAudio();
+ #endif
+-        exit(EXIT_SUCCESS);
+-    }
++    SDL_Quit();
++    return 0;
+ }
+ 
+ void updatetimer(void)
+--- a/Makefile
++++ b/Makefile
+@@ -8,15 +8,13 @@
+ PLATFORM = LINUX
+ # YES for sound, NO or whatever for no sound
+ SOUND = YES
+-# YES for a crappy old version, something else for >=3.7
+-OLDGLUT = NO
+ 
+ # General defines
+ CXX ?= g++
+ PKG_CONFIG ?= pkg-config
+-CXXFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags glu gl) -std=gnu++98 -fabi-version=2
++CXXFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags glu gl sdl2) -std=gnu++98
+ DEF =
+-GL = -lglut $(shell $(PKG_CONFIG) --libs glu gl)
++GL = $(shell $(PKG_CONFIG) --libs glu gl sdl2)
+ LDFLAGS += -lm
+ RM_F = rm -f
+ 
+@@ -34,9 +32,8 @@
+ 
+ export
+ 
+-# Linux (or XFree) specific
++# Linux specific
+ ifeq ($(PLATFORM),LINUX)
+-	X = $(shell $(PKG_CONFIG) x11 xext xmu xi --libs)
+ 	LIBS += -ldl
+ 	DEF += -DBSDENV
+ 	ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+@@ -48,19 +45,14 @@
+ # If sound enabled
+ ifeq ($(SOUND),YES)
+ DEF += -DSOUND
+-LDFLAGS += $(shell $(PKG_CONFIG) SDL2_mixer --libs)
+ CXXFLAGS += $(shell $(PKG_CONFIG) SDL2_mixer --cflags)
+-endif
+-
+-# If old GLUT version
+-ifeq ($(OLDGLUT),YES)
+-DEF += -DOLDGLUT
++LDFLAGS  += $(shell $(PKG_CONFIG) SDL2_mixer --libs)
+ endif
+ 
+ all: $(TARGET)
+ 
+ $(TARGET): neandertaler_mainloop.o main.cc
+-	$(CXX) $(CXXFLAGS) main.cc neandertaler_mainloop.o -o $(TARGET) $(DEF) $(GL) $(X) $(LDFLAGS)
++	$(CXX) $(CXXFLAGS) main.cc neandertaler_mainloop.o -o $(TARGET) $(DEF) $(GL) $(LDFLAGS)
+ 
+ neandertaler_mainloop.o: neandertaler_mainloop.cc
+ 	$(CXX) $(CXXFLAGS) -c neandertaler_mainloop.cc $(DEF)

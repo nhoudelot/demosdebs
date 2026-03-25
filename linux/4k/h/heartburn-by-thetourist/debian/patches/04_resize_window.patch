@@ -67,7 +67,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #ifdef __linux__
  
-@@ -648,6 +670,16 @@
+@@ -649,6 +671,16 @@
  
  		SDL_GL_SwapWindow(sdlWindow);
  		while(SDL_PollEvent(&event)) {

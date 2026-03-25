@@ -7,21 +7,101 @@ Last-Update: 2024-03-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/nwep.c
 +++ b/nwep.c
-@@ -430,6 +430,13 @@
- static SDL_AudioSpec as = {SAMPLE_RATE, 0x8010, 2, 0, 0, 0, 0, audioPlay};
+@@ -278,12 +278,13 @@
+ 	oglFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex, 0);
+ }
+ 
+-static void paint(int prog, int src_tex, int dst_fb, float time) {
++static void paint(int prog, int src_tex, int dst_fb, float time,
++                  float outW, float outH) {
+ 	oglUseProgram(prog);
+ 	glBindTexture(GL_TEXTURE_2D, src_tex);
+ 	oglBindFramebuffer(GL_FRAMEBUFFER, dst_fb);
+ 	oglUniform1i(oglGetUniformLocation(prog, "B"), 0);
+-	oglUniform3f(oglGetUniformLocation(prog, "V"), (float)XRES, (float)YRES, time);
++	oglUniform3f(oglGetUniformLocation(prog, "V"), outW, outH, time);
+ 	oglUniform3f(oglGetUniformLocation(prog, "C"), TV[0], TV[1], TV[2]);
+ 	oglUniform3f(oglGetUniformLocation(prog, "A"), TV[3], TV[4], TV[5]);
+ 	oglUniform3f(oglGetUniformLocation(prog, "D"), TV[6], TV[7], TV[8]);
+@@ -318,10 +319,16 @@
+ 	//initFbTex(tex[FbTex_Dof], fb[FbTex_Dof]);
+ }
+ 
++static int vpX, vpY, vpW, vpH;
++
+ static __forceinline void introPaint(float time) {
+ 	timelineUpdate(time);
+-	paint(p_ray, 0, fb[FbTex_Ray], time);
+-	paint(p_dof, tex[FbTex_Ray], 0, time);
++	/* passe raymarch : rendu dans le framebuffer interne XRES x YRES */
++    glViewport(0, 0, XRES, YRES);
++    paint(p_ray, 0, fb[FbTex_Ray], time, (float)XRES, (float)YRES);
++    /* passe post : blit vers l'écran dans le viewport zoomé */
++    glViewport(vpX, vpY, vpW, vpH);
++    paint(p_dof, tex[FbTex_Ray], 0, time, (float)vpW, (float)vpH);
+ }
+ 
+ #ifdef _WIN32
+@@ -435,6 +442,29 @@
+ };
  #endif /* AUDIO */
  
-+void ToggleFullscreen(SDL_Window* Window) {
-+    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
-+    int IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
-+    SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
-+    SDL_ShowCursor(IsFullscreen);
++static void SetViewport(SDL_Window *window) {
++    int drawW, drawH;
++    SDL_GL_GetDrawableSize(window, &drawW, &drawH);
++
++    if (drawW * YRES > drawH * XRES) {
++        vpH = drawH;
++        vpW = drawH * XRES / YRES;
++    } else {
++        vpW = drawW;
++        vpH = drawW * YRES / XRES;
++    }
++    vpX = (drawW - vpW) / 2;
++    vpY = (drawH - vpH) / 2;
++}
++
++void ToggleFullscreen(SDL_Window *window) {
++    Uint32 flag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    int isFS = SDL_GetWindowFlags(window) & flag;
++    SDL_SetWindowFullscreen(window, isFS ? 0 : flag);
++    SDL_ShowCursor(isFS);
++    SetViewport(window);
 +}
 +
  #ifndef COMPACT
  int main() {
  #else
-@@ -473,6 +480,11 @@
+@@ -455,8 +485,26 @@
+ 	SDL_GLContext sdlGlcontext;
+ 	sdlWindow = SDL_CreateWindow("nwep by Ye Olde Laptops Posse & s.k.o.y.p", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, XRES, YRES,  SDL_WINDOW_OPENGL);
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+-	glViewport(0, 0, XRES, YRES);
+-	introInit();
++
++    /* Taille réelle du drawable, HiDPI inclus */
++    int drawW, drawH;
++    SDL_GL_GetDrawableSize(sdlWindow, &drawW, &drawH);
++
++    /* Viewport centré, ratio XRES/YRES préservé */
++    int vpW, vpH, vpX, vpY;
++    if (drawW * YRES > drawH * XRES) {
++        vpH = drawH;
++        vpW = drawH * XRES / YRES;
++    } else {
++        vpW = drawW;
++        vpH = drawW * YRES / XRES;
++    }
++    vpX = (drawW - vpW) / 2;
++    vpY = (drawH - vpH) / 2;
++
++    //glViewport(vpX, vpY, vpW, vpH);
++    SetViewport(sdlWindow);
++    introInit();
+ 
+ #ifndef CAPTURE
+ #ifndef NO_AUDIO
+@@ -478,6 +526,11 @@
  		SDL_Event e;
  		SDL_PollEvent(&e);
  		if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) || now >= INTRO_LENGTH) break;

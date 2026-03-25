@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,7 +7,7 @@
+ # For this purpose you can define a CMake var: OPENJPEG_NAMESPACE to whatever you like
+ # e.g.:
+ # SET(OPENJPEG_NAMESPACE "GDCMOPENJPEG")
+-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
++CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
+ 
+ IF(COMMAND CMAKE_POLICY)
+   CMAKE_POLICY(SET CMP0003 NEW)

@@ -7,7 +7,7 @@ Last-Update: 2025-01-04
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/organica.c
 +++ b/src/organica.c
-@@ -1984,7 +1984,7 @@
+@@ -1982,7 +1982,7 @@
  		int d_2 = 0;
  
  		for (v = 0; v < (VOICES_NORMAL + VOICES_CHORD); v++) {
@@ -15,8 +15,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +			sample_t *op = (sample_t *) audio_data_buffer;
  
  			for (i = SONGSTART; i < SONGLEN; i++) {
- 				signed short *instr;
-@@ -2181,7 +2181,7 @@
+ 				const signed short *instr;
+@@ -2179,7 +2179,7 @@
  					while(audio_position - audio_data_buffer < real_audio_pos)
  					{
  						int16_t stmp[1024];

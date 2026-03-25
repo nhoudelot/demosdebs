@@ -1,0 +1,221 @@
+Description: fix 64-bit portability warnings
+ - replace int with size_t in loops comparing against vector::size()
+ - add explicit cast for clouds.size() vs int comparison
+ - add explicit cast for narrowing size_t to int in texture dimensions
+ - use (size_t) cast in malloc/fread to avoid int arithmetic overflow
+ - replace deprecated std::bind2nd and std::ptr_fun (removed in C++17) with lambdas
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/backdrop.cpp
++++ b/backdrop.cpp
+@@ -106,7 +106,7 @@
+ 	cloudtexture.bind();
+ 	glEnable(GL_BLEND);
+ 	glBegin(GL_QUADS);
+-	for( int i=0; i<clouds.size(); i++)
++	for( size_t i=0; i<clouds.size(); i++)
+ 	{
+ 		clouds[i].draw();
+ 	}
+@@ -124,11 +124,11 @@
+ 	if (bkgFactor<0.2)
+ 		bkgFactor=0.0;
+ 
+-	for( int i=0; i<clouds.size(); i++)
++	for( size_t i=0; i<clouds.size(); i++)
+ 	{
+ 		clouds[i].update( time, delta );
+ 	}
+-	if (clouds.size() < maxcloudcount)
++	if ((int)clouds.size() < maxcloudcount)
+ 	{
+ 		printf("f=%f\n", frand() );
+ 		clouds.push_back( Cloud(0) );
+--- a/textoverlay.h
++++ b/textoverlay.h
+@@ -74,7 +74,7 @@
+ 
+ void draw( float time )
+ {
+-	for( int i=0; i<overlays.size(); i++)
++	for( size_t i=0; i<overlays.size(); i++)
+ 	{
+ 		overlays[i].draw( &frenderer, time);
+ 	}
+--- a/view.cpp
++++ b/view.cpp
+@@ -133,26 +133,26 @@
+ 
+ ~Planet()
+ {
+-	for (int i=0; i<plants.size(); i++)
++	for (size_t i=0; i<plants.size(); i++)
+ 		delete( plants[i] );
+ };
+ 
+ void update( float time, float delta )
+ {
+ 	now = time;
+-	for (int i=0; i<plants.size(); i++)
++	for (size_t i=0; i<plants.size(); i++)
+ 		plants[i]->update(time,delta);
+ }
+ 
+ void draw()
+ {
+-	int i;
++	size_t i;
+ 	glPushMatrix();
+ 	glRotatef( now * 3.0,0,0,1 );
+ 	glScalef(0.4,0.4,1.0);
+ 	for (i=0; i<plants.size(); i++)
+ 	{
+-		glRotatef( 360/plants.size(),0,0,1 );
++		glRotatef( 360.0f/plants.size(),0,0,1 );
+ 		double cheat = 0.3;
+ //         if (i==1)
+ //           cheat = 0.3;
+@@ -177,7 +177,7 @@
+ 
+ 	glPushMatrix();
+ 	double stelsize = 0.3;
+-	glRotatef( 90/plants.size(),0,0,1 );
++	glRotatef( 90.0f/plants.size(),0,0,1 );
+ 	glTranslatef(0,-0.2,0);
+ 	stel.bind();
+ 	glBegin(GL_QUADS);
+--- a/CGLA/ArithVec.h
++++ b/CGLA/ArithVec.h
+@@ -246,28 +246,28 @@
+ 		           /// Assignment multiplication with scalar.
+ 		           const V& operator *=(T k)
+ 			{
+-				std::transform(data, &data[N], data, std::bind2nd(std::multiplies<T>(), k));
++				std::transform(data, &data[N], data, [k](T x) { return x * k; });
+ 				return static_cast<const V&>(*this);
+ 			}
+ 
+ 		           /// Assignment division with scalar.
+ 		           const V& operator /=(T k)
+ 			{
+-				std::transform(data, &data[N], data, std::bind2nd(std::divides<T>(), k));
++				std::transform(data, &data[N], data, [k](T x) { return x / k; });
+ 				return static_cast<const V&>(*this);
+ 			}
+ 
+ 		           /// Assignment addition with scalar. Adds scalar to each coordinate.
+ 		           const V& operator +=(T k)
+ 			{
+-				std::transform(data, &data[N], data, std::bind2nd(std::plus<T>(), k));
++				std::transform(data, &data[N], data, [k](T x) { return x + k; });
+ 				return static_cast<const V&>(*this);
+ 			}
+ 
+ 		           /// Assignment subtraction with scalar. Subtracts scalar from each coord.
+ 		           const V& operator -=(T k)
+ 			{
+-				std::transform(data, &data[N], data, std::bind2nd(std::minus<T>(), k));
++				std::transform(data, &data[N], data, [k](T x) { return x - k; });
+ 				return static_cast<const V&>(*this);
+ 			}
+ 
+@@ -358,7 +358,7 @@
+ 		           const V operator * (T k) const
+ 			{
+ 				V v_new;
+-				std::transform(data, &data[N], v_new.get(), std::bind2nd(std::multiplies<T>(), k));
++				std::transform(data, &data[N], v_new.get(), [k](T x) { return x * k; });
+ 				return v_new;
+ 			}
+ 
+@@ -367,7 +367,7 @@
+ 		           const V operator / (T k) const
+ 			{
+ 				V v_new;
+-				std::transform(data, &data[N], v_new.get(), std::bind2nd(std::divides<T>(), k));
++				std::transform(data, &data[N], v_new.get(), [k](T x) { return x / k; });
+ 				return v_new;
+ 			}
+ 
+--- a/CGLA/ArithMatFloat.h
++++ b/CGLA/ArithMatFloat.h
+@@ -156,7 +156,7 @@
+ const MT operator * (ScalarType k) const
+ {
+ 	MT v_new;
+-	std::transform(data, &data[ROWS], &v_new[0], std::bind2nd(std::multiplies<HVT>(), k));
++	std::transform(data, &data[ROWS], &v_new[0], [k](HVT x) { return x * k; });
+ 	return v_new;
+ }
+ 
+@@ -164,21 +164,21 @@
+ const MT operator / (ScalarType k) const
+ {
+ 	MT v_new;
+-	std::transform(data, &data[ROWS], &v_new[0], std::bind2nd(std::divides<HVT>(), k));
++	std::transform(data, &data[ROWS], &v_new[0], [k](HVT x) { return x / k; });
+ 	return v_new;
+ }
+ 
+ /// Assignment multiplication of matrix by scalar.
+ const MT& operator *=(ScalarType k)
+ {
+-	std::transform(data, &data[ROWS], data, std::bind2nd(std::multiplies<HVT>(), k));
++	std::transform(data, &data[ROWS], data, [k](HVT x) { return x * k; });
+ 	return static_cast<const MT&>(*this);
+ }
+ 
+ /// Assignment division of matrix by scalar.
+ const MT& operator /=(ScalarType k)
+ {
+-	std::transform(data, &data[ROWS], data, std::bind2nd(std::divides<HVT>(), k));
++	std::transform(data, &data[ROWS], data, [k](HVT x) { return x / k; });
+ 	return static_cast<const MT&>(*this);
+ }
+ 
+--- a/texture.h
++++ b/texture.h
+@@ -30,9 +30,9 @@
+ {
+ 	Magick::InitializeMagick(NULL);
+ 	Magick::Image mimage( fn );
+-	width = mimage.size().width();
+-	height = mimage.size().height();
+-	image = (unsigned char*)malloc( width*height*4 );
++	width = (int)mimage.size().width();
++	height = (int)mimage.size().height();
++	image = (unsigned char*)malloc( (size_t)width*height*4 );
+ 
+ 	mimage.write( 0, 0, width, height, "RGBA", Magick::CharPixel, (void*)image );
+ }
+@@ -40,22 +40,22 @@
+ void loadppm( std::string fn )
+ {
+ 	FILE * fp = fopen( fn.c_str(), "rb");
+-	int res;
++	size_t res;
+ 	char header[100];
+ 	fgets( header, sizeof(header), fp ); // should be P6
+ 	fgets( header, sizeof(header), fp );
+ 	sscanf( header, "%d %d", &width, &height );
+ 	fgets( header, sizeof(header), fp );
+ 	sscanf( header, "%d", &max );
+-	image = (unsigned char*)malloc( width* height * 4 );
+-	res=fread( image, 1, width*height*3, fp );
++	image = (unsigned char*)malloc( (size_t)width*height*4 );
++	res=fread( image, 1, (size_t)width*height*3, fp );
+ 	for(int x=0; x<width*height; x++)
+ 	{
+ 		image[x*4+0] = image[x*3+0];
+ 		image[x*4+1] = image[x*3+1];
+ 		image[x*4+2] = image[x*3+2];
+ 	}
+-	if (res != width*height*3 )
++	if (res != (size_t)width*height*3 )
+ 	{
+ 		perror("fread texture failed:");
+ 		exit(1);

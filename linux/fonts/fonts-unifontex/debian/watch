@@ -1,0 +1,4 @@
+version=4
+opts="compression=xz,repack,pgpmode=auto,filenamemangle=s/.+\/v?(\d[\d.]*)\.tar\.gz/UnifontEX-$1.tar.gz/" \
+  https://github.com/stgiga/UnifontEX/tags .*/v?@ANY_VERSION@@ARCHIVE_EXT@ \
+debian uupdate

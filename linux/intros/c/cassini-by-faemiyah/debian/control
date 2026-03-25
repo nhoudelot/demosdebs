@@ -13,7 +13,7 @@ Build-Depends:
  libboost-wave-dev,
  libglew-dev,
  sox
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=77364
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2018-08_40k-intro_cassini
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2018-08_40k-intro_cassini.git

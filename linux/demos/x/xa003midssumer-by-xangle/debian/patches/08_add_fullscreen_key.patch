@@ -7,13 +7,13 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/base/xio.cpp
 +++ b/base/xio.cpp
-@@ -68,6 +68,14 @@
+@@ -67,6 +67,14 @@
  	}
  }
  
 +void Video::ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
-+    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
 +    SDL_ShowCursor(isFullscreen);
 +}
@@ -22,7 +22,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  void Video::init()
  {
  	// Init SDL
-@@ -160,6 +168,7 @@
+@@ -158,6 +166,7 @@
  			switch (event.key.keysym.sym) {
  			    case SDLK_ESCAPE: xs::shutdown.run(0); break;
  			    case SDLK_q: xs::shutdown.run(0); break;
@@ -34,7 +34,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +++ b/base/xio.h
 @@ -96,7 +96,7 @@
  inline int getHeight() {
- 	return sdl_screen->h;
+ 	return sdl_back->h;
  };
 -
 +void ToggleFullscreen(SDL_Window* Window);

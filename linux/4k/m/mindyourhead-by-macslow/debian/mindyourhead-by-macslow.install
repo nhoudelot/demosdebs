@@ -1,0 +1,4 @@
+debian/scripts/mindyourhead-by-macslow usr/bin/
+./mind-your-head_by_MacSlow-fullscreen-1920x1080 usr/lib/x86_64-linux-gnu/mindyourhead-by-macslow
+debian/resources/mindyourhead-by-macslow.desktop usr/share/applications/
+debian/resources/mindyourhead-by-macslow.png usr/share/icons/hicolor/256x256/apps/

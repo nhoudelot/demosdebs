@@ -18,5 +18,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include "gfx.h"
 +#include "letters.h"
  
- float randf()
- {
+ SDL_Window *sdlWindow;
+ SDL_GLContext sdlGlcontext;
+--- a/seq.h
++++ b/seq.h
+@@ -18,7 +18,7 @@
+  * Declaration of the event array.
+  * See seq.c for the actual definition.
+  */
+-struct Event events[EVENTS];
++extern struct Event events[EVENTS];
+ 
+ void sequencer_loop();
+ //void init_seq();

@@ -45,5 +45,3 @@ get-orig-source:
 	override_dh_strip \
 	get-orig-source
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

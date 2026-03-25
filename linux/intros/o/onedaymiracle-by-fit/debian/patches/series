@@ -7,4 +7,7 @@
 07_resizable_window.patch
 08_add_fullscreen_key.patch
 09_fix_implicit-function-declaration.patch
-09_fix_incompatible_pointer_type.patch
+10_fix_incompatible_pointer_type.patch
+11_fix-64bit-portability.patch
+12_fix-warnings.patch
+13_fix-c23.patch

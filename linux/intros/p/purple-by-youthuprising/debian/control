@@ -5,12 +5,11 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  pkgconf,
- libgl-dev,
+ mesa-common-dev,
  libglu-dev,
  libsdl2-dev,
  libopenmpt-dev,
- libx11-dev,
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=29742
 Rules-Requires-Root: no
 

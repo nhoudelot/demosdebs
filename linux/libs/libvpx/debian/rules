@@ -154,7 +154,7 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_install -s
+	dh_install -a
 	mkdir -p debian/libvpx3/usr/lib/$(DEB_HOST_MULTIARCH)
 	cp -a builddir/vpx-vp8-*/lib/libvpx.so.* debian/libvpx3/usr/lib/$(DEB_HOST_MULTIARCH)
 ifeq ($(BUILD_NEON), Yes)
@@ -163,20 +163,19 @@ ifeq ($(BUILD_NEON), Yes)
 endif
 	mkdir -p debian/libvpx-dev/usr/lib/$(DEB_HOST_MULTIARCH)
 	cp -a builddir/vpx-vp8-*/lib/libvpx.so builddir/vpx-vp8-*/lib/libvpx.a debian/libvpx-dev/usr/lib/$(DEB_HOST_MULTIARCH)
-	dh_installdocs -s -A README AUTHORS
-	dh_installchangelogs -s CHANGELOG
-	dh_link -s
-	dh_strip -s --dbg-package=libvpx3-dbg
-	# Make sure not to conflict with past SONAMEs:
+	dh_installdocs -a -A README AUTHORS
+	dh_installchangelogs -a CHANGELOG
+	dh_link -a
+	dh_strip -a
 	rm -rf debian/libvpx3-dbg/usr/lib/debug/usr/bin
-	dh_compress -s
-	dh_fixperms -s
+	dh_compress -a
+	dh_fixperms -a
 	dh_makeshlibs -plibvpx3 -V 'libvpx3 (>= 1.5.0)' -- -c4
-	dh_installdeb -s
-	dh_shlibdeps -s
-	dh_gencontrol -s
-	dh_md5sums -s
-	dh_builddeb -s
+	dh_installdeb -a
+	dh_shlibdeps -a
+	dh_gencontrol -a
+	dh_md5sums -a
+	dh_builddeb -a
 
 binary: binary-indep binary-arch
 

@@ -6,3 +6,4 @@
 06_automatic_resize.patch
 07_need_libgl_dependency.patch
 08_replace_fmodex_by_openmpt.patch
+09_fix-warnings.patch

@@ -6,11 +6,25 @@ Last-Update: 2024-05-09
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/configure.ac
 +++ b/configure.ac
-@@ -22,6 +22,7 @@
+@@ -4,10 +4,10 @@
+ AC_CANONICAL_HOST
+ AC_CANONICAL_TARGET
+ 
+-AM_INIT_AUTOMAKE([dist-bzip2])
++AM_INIT_AUTOMAKE([1.16 dist-bzip2])
+ 
++AC_PROG_CC
+ AC_PROG_CPP
+-AC_PROG_CXX
+ AC_PROG_INSTALL
+ AC_PROG_LN_S
+ AC_PROG_MAKE_SET
+@@ -21,7 +21,7 @@
+ 
  AC_CHECK_HEADER([stdint.h])
  AC_CHECK_HEADER([inttypes.h])
- AC_CHECK_HEADER([stdint.h])
-+AC_CHECK_LIB([m], [sincosf], [], [AC_MSG_ERROR([Math library not found])])
+-AC_CHECK_HEADER([stdint.h])
++AC_CHECK_LIB([m], [sinf], [], [AC_MSG_ERROR([Math library not found])])
  
  AC_INCORPORATE_LIBPNG([1.2.0], [HAVE_LIBPNG], [no])
  AC_INCORPORATE_OPENGL([HAVE_OPENGL], [yes])

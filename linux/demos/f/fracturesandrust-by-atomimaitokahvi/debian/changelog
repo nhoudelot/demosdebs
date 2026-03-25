@@ -1,3 +1,13 @@
+fracturesandrust-by-atomimaitokahvi (1.0+1-0ddebs12) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fix 64 bit protabilities issues
+  * updated SDL2 migration
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 21 Apr 2026 11:37:32 +0200
+
 fracturesandrust-by-atomimaitokahvi (1.0+1-0ddebs11) unstable; urgency=medium
 
   * use full desktop resolution when start fullscreen

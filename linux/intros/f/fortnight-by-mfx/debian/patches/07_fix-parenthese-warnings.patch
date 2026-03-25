@@ -1,0 +1,117 @@
+Description: Fix parenthese warnings
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-15
+--- a/desing.c
++++ b/desing.c
+@@ -231,18 +231,18 @@
+ 
+ 
+ 	switch (xrand(6, phi)) {
+-	case 0: rend((char *)buf, pitch, xs, ys, tsot, 5); break;
+-	case 5: rend((char *)buf, pitch, xs, ys, tsot, 5); break;
+-	case 1: getframe((char *)buf, pitch, mov, xs, ys, phi*16384*2); break;
+-	case 2: duunaa_sumu((char *)buf, pitch, xs, ys, phi*(256+phi)); break;
+-	case 3: duunaa_sumu((char *)buf, pitch, xs, ys, phi*(386+phi*1.5)); break;
++	case 0: rend((char*)buf, pitch, xs, ys, tsot, 5); break;
++	case 5: rend((char*)buf, pitch, xs, ys, tsot, 5); break;
++	case 1: getframe((char*)buf, pitch, mov, xs, ys, phi*16384*2); break;
++	case 2: duunaa_sumu((char*)buf, pitch, xs, ys, phi*(256+phi)); break;
++	case 3: duunaa_sumu((char*)buf, pitch, xs, ys, phi*(386+phi*1.5)); break;
+ 	case 4: {
+ 		unsigned char *buf2=malloc(pitch*ys), *d=buf, *s=buf2;
+ 		if (xrand(2, phi)==0)
+-			duunaa_sumu((char *)buf, pitch, xs, ys, phi*1.5*(512-phi*2.5));
++			duunaa_sumu((char*)buf, pitch, xs, ys, phi*1.5*(512-phi*2.5));
+ 		else
+-			getframe((char *)buf, pitch, mov, xs, ys, phi*16384*2);
+-		duunaa_sumu((unsigned char *)buf2, pitch, xs, ys, phi*(512-phi*2.5));
++			getframe((char*)buf, pitch, mov, xs, ys, phi*16384*2);
++		duunaa_sumu((char*)buf2, pitch, xs, ys, phi*(512-phi*2.5));
+ 		for (; d<buf+ys*pitch; s+=4, d+=4) d[0]=d[0]*s[0]>>8,d[1]=d[1]*s[1]>>8,d[2]=d[2]*s[2]>>8,d[3]=d[3]*s[3]>>8;
+ 		free(buf2);
+ 	} break;
+--- a/vox.c
++++ b/vox.c
+@@ -23,7 +23,7 @@
+ }
+ 
+ static inline float tsox_gv2(Tso *t, int lkm, int x, int y, int z) {
+-	float v=0, vv, a; int i;
++	float v=0, vv; int i;
+ 	unsigned ia;
+ 	for (i=0; i<lkm; i++, t++) {
+ 		ia=(x*t->a3+y*t->b3+t->c3)*z+t->d3;
+@@ -63,8 +63,8 @@
+ 
+ static void rend(char *buf, int pit, int xs, int ys, Tso *t, int cnt) {
+ 	Tso *tt;
+-	int x, y, zz, xx, yy, c, i, zf;
+-	float xf, yf, v, z0, z1, z;
++	int x, y, xx, yy, c, i;
++	float v;
+ 	float xk=xper/(float)xs;
+ 	float yk=yper/(float)ys;
+ 	static struct {
+--- a/main.c
++++ b/main.c
+@@ -17,10 +17,10 @@
+ }
+ 
+ static inline float inoise(int x, int y, int z) {
+-	int a=x*453415497+y*692345763^z*473546769;
+-	int b=y*213452313+z*685246969^x*743457661;
+-	int c=z*915876951+x*456766761^y*421345463;
+-	int d=a*584278733+b*543588311^c*943566311;
++	int a=(x*453415497+y*692345763)^(z*473546769);
++	int b=(y*213452313+z*685246969)^(x*743457661);
++	int c=(z*915876951+x*456766761)^(y*421345463);
++	int d=(a*584278733+b*543588311)^(c*943566311);
+ 	return (d>>10&65535)*(1/65536.);
+ }
+ static inline float noise(float x, float y, float z) {
+@@ -104,7 +104,7 @@
+ 		foofoo(dick, narf, narf, zort, mou);
+ 		for (jack=0; jack<zort; jack++) {
+ 			for (ron=0; ron<narf; ron++) foo[jack*2*eenie+ron*2]=dick[jack*narf+ron];
+-			for (ron=0; ron<narf-1; ron++) foo[jack*2*eenie+ron*2+1]=dick[jack*narf+ron]+dick[jack*narf+ron+1]>>1;
++			for (ron=0; ron<narf-1; ron++) foo[jack*2*eenie+ron*2+1]=(dick[jack*narf+ron]+dick[jack*narf+ron+1])>>1;
+ 		}
+ 		for (jack=0; jack<zort-1; jack++) {
+ 			for (ron=0; ron<narf; ron++) foo[(jack*2+1)*eenie+ron*2]=dick[jack*narf+ron]+dick[(jack+1)*narf+ron]>>1;
+@@ -136,9 +136,9 @@
+ 			baghdad=(jack-zort)*32+(0-narf)*96+narf*128;
+ 			for (ron=0; ron<bar; ron++) {
+ 				unsigned char *george=dick+(teheran>>8)*narf+(baghdad>>8);
+-				foo[jack*eenie+ron]=foo[jack*eenie+ron]*mou
+-				                     +((george[0]*(256-(teheran&255))+george[1]*(teheran&255))*(256-(baghdad&255))
+-				                       +(george[narf]*(256-(teheran&255))+foo[jack*eenie+ron]*(teheran&255))*(baghdad&255)+32768>>16)*(256-mou)+128>>8;
++				foo[jack*eenie+ron]=(foo[jack*eenie+ron]*mou
++				                     +(((george[0]*(256-(teheran&255))+george[1]*(teheran&255))*(256-(baghdad&255))
++				                       +(george[narf]*(256-(teheran&255))+foo[jack*eenie+ron]*(teheran&255))*(baghdad&255)+32768)>>16)*(256-mou)+128)>>8;
+ 				teheran-=32; baghdad+=96;
+ 			}
+ 		}
+@@ -170,9 +170,9 @@
+ 		Blk *b;
+ 		if ((pakres=*datah++)==255) break;
+ 		b=malloc(sizeof(Blk)); b->tr=pakres/36%7; b->yr=pakres/6%6; b->xr=pakres%6;
+-		b->data=malloc(1<<b->xr+b->yr+b->tr);
+-		memcpy(b->data, datah, 1<<b->xr+b->yr+b->tr);
+-		datah+=1<<b->xr+b->yr+b->tr;
++		b->data=malloc(1<<(b->xr+b->yr+b->tr));
++		memcpy(b->data, datah, 1<<(b->xr+b->yr+b->tr));
++		datah+=1<<(b->xr+b->yr+b->tr);
+ //    fread(b->data, 1, 1<<b->xr+b->yr+b->tr, f);
+ 		b->next=0;
+ 		*nxt=b; nxt=&b->next;
+@@ -188,7 +188,7 @@
+ }
+ 
+ static inline void drawblk(char *buf, int pitch, Blk *b, int xs, int ys, int fno) {
+-	char *kuv=b->data+(fno<<b->tr>>12<<b->xr+b->yr);
++	char *kuv=b->data+(fno<<b->tr>>12<<(b->xr+b->yr));
+ 	int xsi=(256<<b->xr)/xs, ysi=(256<<b->yr)/ys, x, y;
+ //  if (b->xr!=4 || b->yr!=4 || b->tr!=4) exit(1);
+ 	for (y=0; y<ys; y++) {

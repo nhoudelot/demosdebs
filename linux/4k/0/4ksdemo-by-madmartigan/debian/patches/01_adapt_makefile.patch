@@ -15,16 +15,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,38 @@
+@@ -0,0 +1,31 @@
 +#variables de compilation
 +SHELL = /bin/sh
-+CXX   := g++
-+PKG_CONFIG := pkg-config
++CXX   ?= g++
++PKG_CONFIG ?= pkg-config
 +CXXFLAGS += -Wall -pipe -ansi -pedantic -std=gnu++98 -fabi-version=2 $(shell $(PKG_CONFIG) --cflags sdl glu)
 +LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
 +TARGET   := 4ksdemo-by-madmartigan
 +#variable de nettoyage
-+RM_F ?= rm -f
++RM_F := rm -f
 +#variables d'instalation
 +INSTALL := install
 +INSTALL_DIR     := $(INSTALL) -p -d -m  755
@@ -35,16 +35,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +SOURCE          = main.cpp
 +
-+#get DEB_BUILD_MAINT_OPTIONS working
-+ifneq (,$(filter noopt,$(DEB_BUILD_MAINT_OPTIONS)))
-+    CFLAGS += -O0
-+endif
-+
-+export
-+
 +all: $(TARGET)
 +
-+$(TARGET):
++$(TARGET): $(SOURCE)
 +	 $(CXX) $(SOURCE) $(CXXFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)

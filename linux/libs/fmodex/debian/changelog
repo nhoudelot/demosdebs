@@ -1,3 +1,9 @@
+fmodex (4.44.64+1-0ddebs8) unstable; urgency=medium
+
+  * Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 02:10:56 +0100
+
 fmodex (4.44.64+1-0ddebs7) unstable; urgency=medium
 
   * use of dh-exec to reduce complexity of debian/ files

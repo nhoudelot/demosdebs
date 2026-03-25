@@ -43,7 +43,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  AC_DEFUN([AC_REQUEST_C99],
 --- a/configure.ac
 +++ b/configure.ac
-@@ -27,7 +27,7 @@
+@@ -26,7 +26,7 @@
  AC_INCORPORATE_LIBPNG([1.2.0], [HAVE_LIBPNG], [no])
  AC_INCORPORATE_OPENGL([HAVE_OPENGL], [yes])
  AC_INCORPORATE_GLUT([USE_FREEGLUT], [yes])
@@ -118,7 +118,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #define DDL_ShowCursor SDL_ShowCursor
  #define DDL_Quit SDL_Quit
  
-@@ -1828,6 +1831,9 @@
+@@ -1084,7 +1087,7 @@
+ static SDL_AudioSpec audio_spec =
+ {
+ 	44100,
+-  AUDIO_S16,
++  AUDIO_S16SYS,
+ 	1,
+ 	0,
+ 	1024,
+@@ -1825,6 +1828,9 @@
  // Main ######################################################################
  //############################################################################
  
@@ -128,7 +137,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #ifdef DISCARD_LIBC
  void *environ, *__progname;
  /** Small main function.
-@@ -1878,9 +1884,9 @@
+@@ -1875,9 +1881,9 @@
  	DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, SDL_OPENGL | SCREEN_F);
  #else
  	{
@@ -140,7 +149,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  		for(int ii = 1; (ii < argc); ++ii)
  		{
-@@ -1888,11 +1894,11 @@
+@@ -1885,11 +1891,11 @@
  
  			if((strcmp("-f", cmp) == 0) || (strcmp("--fullscreen", cmp) == 0))
  			{
@@ -154,7 +163,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  			}
  			else if((strcmp("-r", cmp) == 0) || (strcmp("--record", cmp) == 0))
  			{
-@@ -1910,12 +1916,13 @@
+@@ -1907,12 +1913,14 @@
  		}
  		if(flag_record)
  		{
@@ -167,10 +176,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +			sdlWindow = DDL_CreateWindow("Organica by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_W,SCREEN_H,sdl_flags);
  		}
 +		sdlGlcontext = DDL_GL_CreateContext(sdlWindow);
++		SDL_GL_SetSwapInterval(1);
  	}
  #endif
  	DDL_ShowCursor(0);
-@@ -2159,7 +2166,7 @@
+@@ -2156,7 +2164,7 @@
  #endif
  
  		//effect_interference(tick_pos);

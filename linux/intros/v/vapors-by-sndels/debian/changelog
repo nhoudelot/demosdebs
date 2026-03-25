@@ -1,3 +1,11 @@
+vapors-by-sndels (1.0-0ddebs4) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 18 Apr 2026 02:26:51 +0200
+
 vapors-by-sndels (1.0-0ddebs3) unstable; urgency=medium
 
   * Wav file is now compressed to FLAC to reduce the overall size of the

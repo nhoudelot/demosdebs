@@ -14,7 +14,7 @@ Build-Depends:
  libboost-thread-dev,
  libboost-wave-dev,
  sox
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup.git
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup

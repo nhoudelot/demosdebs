@@ -1,0 +1,133 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+--- a/src/origami.c
++++ b/src/origami.c
+@@ -3824,7 +3824,7 @@
+  */
+ void simd_bug_preventer(float op1, float op2)
+ {
+-	static long double simd_bug_counter = 0.0;
++	static volatile double simd_bug_counter = 0.0;
+ 	simd_bug_counter += op1;
+ 	simd_bug_counter += op2;
+ 	simd_bug_counter = sqrt(fabs(simd_bug_counter) + fabs(op1) + fabs(op2));
+@@ -6314,7 +6314,7 @@
+ 	int i;
+ 
+ 	// Varataan tämä mainjuttu
+-	audio_precalc = (Sint16 *)malloc(MUSIC_PRECALC_TIME * 2 * 44100 *
++	audio_precalc = (Sint16 *)malloc((size_t)MUSIC_PRECALC_TIME * 2 * 44100 *
+ 			sizeof(Sint16));
+ 
+ 	master_mix = new_mixer(16);
+@@ -7114,8 +7114,9 @@
+ 		SDL_SysWMinfo i;
+ 		if (SDL_GetWMInfo(&i)) {
+ 			HWND hdl=i.window;
+-			HICON c=LoadIcon(GetWindowLong(hdl,GWL_HINSTANCE),MAKEINTRESOURCE(ICON1));
+-			SetClassLong(hdl,GCL_HICON,(LONG)c);
++			HICON c=LoadIcon((HINSTANCE)GetWindowLongPtr(hdl,GWLP_HINSTANCE),
++					MAKEINTRESOURCE(ICON1));
++			SetClassLongPtr(hdl,GCLP_HICON,(LONG_PTR)c);
+ 		}
+ 	}
+ #endif
+@@ -7240,8 +7241,9 @@
+ #ifdef RECORDING_MODE
+ 			// If recording is on, screens must be saved here, before the flips.
+ 			{
++				/* Same size_t promotion issue: cast first factor. */
+ 				uint8_t *pxdata =
+-					(uint8_t*)malloc(sizeof(uint8_t) * screen_w * screen_h * 3);
++					(uint8_t*)malloc((size_t)screen_w * screen_h * 3);
+ 				glReadPixels(0, 0, screen_w, screen_h, GL_RGB, GL_UNSIGNED_BYTE,
+ 						pxdata);
+ 				char filename[8 + 5 + 4 + 1];
+--- a/src/filter2.h
++++ b/src/filter2.h
+@@ -20,12 +20,16 @@
+     float f, q;
+ } Filter2;
+ 
+-Filter *filters2[10];
++/* Was Filter* — wrong element type; causes aliasing and wrong sizeof on
++ * 64-bit platforms where struct layout may differ. */
++Filter2 *filters2[10];
+ int n_filters2 = 0;
+ 
+-Filter *new_filter2(float cutoff, float resonance)
++Filter2 *new_filter2(float cutoff, float resonance)
+ {
+-    Filter *fil = malloc(sizeof(Filter));
++    /* Was malloc(sizeof(Filter)): allocated the wrong size and stored the
++     * result in the wrong global array (filters/n_filters). */
++    Filter2 *fil = malloc(sizeof(Filter2));
+     make_conns(fil, 3, 1);
+ 
+     fil->cutoff = cutoff;
+@@ -36,7 +40,7 @@
+     fil->f = cutoff;
+     fil->q = resonance;
+ 
+-    filters[n_filters++] = fil;
++    filters2[n_filters2++] = fil;
+     return fil;
+ }
+ 
+--- a/src/overdrive.h
++++ b/src/overdrive.h
+@@ -28,7 +28,7 @@
+ 
+ void process_overdrive(Overdrive *od)
+ {
+-    OUT(od, 1) = IN(od, 1);
++    OUT(od, 0) = IN(od, 0);
+ }
+ 
+ #endif
+--- a/src/syn_types.h
++++ b/src/syn_types.h
+@@ -13,7 +13,7 @@
+ #define IN(b, n) (*(((block *)b)->in.sources[n]))
+ #define OUT(b, n) (((block *)b)->out.outs[n])
+ 
+-float zero_const = 0.0f;
++static const float zero_const = 0.0f;
+ 
+ typedef struct {
+     int n_outs;
+--- a/src/multiplier.h
++++ b/src/multiplier.h
+@@ -30,7 +30,7 @@
+ void process_multiplier(Multiplier *mul)
+ {
+     int i;
+-    float out = 1;
++    float out = 1.0f;
+     for (i=0; i<mul->n_inputs; i++){
+ 	out *= IN(mul, i);
+     }
+--- a/src/sequencer.h
++++ b/src/sequencer.h
+@@ -37,7 +37,8 @@
+     16.0f,
+     32.0f,
+     64.0f,
+-    128.0f
++    128.0f,
++    256.0f
+ };
+ 
+ typedef struct {
+@@ -88,7 +89,7 @@
+ 	// tracks
+ 	for (i=0; i<seq->n_tracks; i++){
+ 	    unsigned char row = seq->patterns[pa_pos++];
+-	    char note = row & 0x0f;
++	    unsigned char note = row & 0x0f;
+ 	    float oct = pows[row >> 4];
+ 
+ 	    if (note == 0){

@@ -8,7 +8,7 @@ Build-Depends:
  libx11-dev,
  libasound2-dev,
  dh-exec (>=0.3)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=87473
 
 Package: mahoshojoninaritai-by-secondworld

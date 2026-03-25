@@ -1,6 +1,7 @@
 Description: added fullscreen key
  added fullscreen function, to go fullscreen and back, with F key
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
 Applied-Upstream: no
 Last-Update: 2024-04-04
 ---
@@ -16,12 +17,54 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ////////////////////////////////////////////////////////////////////////////////
  // Uninteresting OpenGL utilities
  ////////////////////////////////////////////////////////////////////////////////
-@@ -232,6 +234,12 @@
+@@ -228,10 +230,53 @@
+ 	draw_part(fbo_y, image_w, image_h, fbo_xtex, filter_prog);
+ 
+ 	// Draw downsampled image on screen
+-	draw_part(0, window_w, window_h, fbo_ytex, display_prog);
++	int cur_w, cur_h;
++	SDL_GL_GetDrawableSize(sdlWindow, &cur_w, &cur_h);
++
++	// Calcul du ratio
++	float src_ratio = float(image_w) / float(image_h);
++	float dst_ratio = float(cur_w)   / float(cur_h);
++
++	int dst_w, dst_h, dst_x, dst_y;
++
++	if (dst_ratio > src_ratio) {
++		// Écran plus large que l'image → bandes noires à gauche/droite
++		dst_h = cur_h;
++		dst_w = int(cur_h * src_ratio);
++		dst_x = (cur_w - dst_w) / 2;
++		dst_y = 0;
++	} else {
++		// Écran plus haut que l'image → bandes noires en haut/bas
++		dst_w = cur_w;
++		dst_h = int(cur_w / src_ratio);
++		dst_x = 0;
++		dst_y = (cur_h - dst_h) / 2;
++	}
++
++	// Effacer l'écran (bandes noires)
++	glBindFramebuffer(GL_FRAMEBUFFER, 0);
++	glViewport(0, 0, cur_w, cur_h);
++	glClearColor(0, 0, 0, 1);
++	glClear(GL_COLOR_BUFFER_BIT);
++
++	// Blit avec zoom et ratio correct
++	glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo_y);
++	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
++	glBlitFramebuffer(
++		0,       0,       image_w, image_h,
++		dst_x,   dst_y,   dst_x + dst_w, dst_y + dst_h,
++		GL_COLOR_BUFFER_BIT,
++		GL_LINEAR
++	);
  #endif
  }
  
 +void ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
 +    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
 +    SDL_ShowCursor(isFullscreen);
@@ -29,7 +72,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  static int do_stuff() {
  	SDL_Event ev;
-@@ -241,6 +249,7 @@
+@@ -241,6 +286,7 @@
  		if (ev.type == SDL_KEYDOWN) {
  			if(ev.key.keysym.sym == SDLK_ESCAPE) return 0;
  			if(ev.key.keysym.sym == SDLK_q) return 0;
@@ -37,7 +80,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		}
  		if (ev.type == SDL_QUIT) return 0;
  	}
-@@ -266,7 +275,7 @@
+@@ -266,7 +312,7 @@
  	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
  	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
  	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);

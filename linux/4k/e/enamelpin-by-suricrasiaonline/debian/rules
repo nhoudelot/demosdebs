@@ -6,5 +6,3 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 %:
 	dh $@ --no-parallel
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

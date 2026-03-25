@@ -1,3 +1,12 @@
+internationalshipping-by-suricrasiaonline (1.0+git20190425-0ddebs4) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fix warnings at compilation
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 11 Apr 2026 19:34:16 +0200
+
 internationalshipping-by-suricrasiaonline (1.0+git20190425-0ddebs3) unstable; urgency=medium
 
   * I didn't use the shader_minifier from the dependency

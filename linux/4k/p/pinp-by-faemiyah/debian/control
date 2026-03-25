@@ -9,7 +9,7 @@ Build-Depends:
  pkgconf,
  libsdl1.2-dev,
  freeglut3-dev|libglut-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=13065
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2004-08_4k-intro_pinp
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2004-08_4k-intro_pinp.git

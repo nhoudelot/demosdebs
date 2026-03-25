@@ -1,8 +1,9 @@
 Description: make window resizable
  make window resizable with correct ratio
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
 Applied-Upstream: no
-Last-Update: 2020-04-29
+Last-Update: 2026-04-21
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
@@ -34,15 +35,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	renderonly=0;
  
  	for (i=1; i<argc; i++)
-@@ -125,6 +129,7 @@
- 	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
- 	surface = SDL_CreateRGBSurfaceWithFormat(0, SCREEN_WIDTH, SCREEN_HEIGHT, 24,SDL_PIXELFORMAT_RGB24); //buffer video
- 	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,surface); // on crée une texture a partir du buffer video
-+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
- 
- 	spec.freq = 44100;
- 	spec.format = AUDIO_S16LSB;
-@@ -149,6 +154,8 @@
+@@ -155,6 +159,8 @@
  
  	script_advance(metaframes);
  
@@ -51,11 +44,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	while (1)
  	{
  		/* update metaframe counter (100hz) */
-@@ -196,6 +203,11 @@
+@@ -200,6 +206,11 @@
  					case SDLK_q: goto terminate; break;
  				}
  			}
-+			if (event.window.windowID == windowID)  {
++			if (event.type == SDL_WINDOWEVENT && event.window.windowID == windowID)  {
 +				if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
 +					resize_window(sdlRenderer,event.window.data1,event.window.data2);
 +				}
@@ -63,7 +56,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		}
  
  		if (!renderonly)
-@@ -215,6 +227,28 @@
+@@ -219,6 +230,26 @@
  }
  
  void
@@ -83,8 +76,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +        newWindowSize.w = w;
 +    }
 +
-+    SDL_Rect viewPort;
-+    SDL_RenderGetViewport(sdlRenderer, &viewPort);
 +    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
 +}
 +

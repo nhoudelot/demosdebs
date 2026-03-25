@@ -22,11 +22,16 @@ Build-Depends:
  lzop,
  pngquant,
  rename,
- python3-minimal
+ dh-python,
+ python3-all-dev (>= 3.6),
+ pngtools,
+ netpbm,
+ bzip3,
+ optipng
 Build-Depends-Indep:
  libcryptx-perl,
  img2pdf
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://sourceforge.net/projects/littleutils/
 Rules-Requires-Root: no
 
@@ -35,6 +40,7 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ ${python3:Depends},
  perl
 Description: various little utilities for script-writers and developers
  The basic littleutils include the following utilities:
@@ -60,12 +66,14 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ ${python3:Depends},
  zlib1g,
  gifsicle,
  ghostscript,
  img2pdf,
  libjpeg-turbo-progs | libjpeg-progs,
  pngcrush,
+ optipng,
  poppler-utils,
  littleutils-base
 Description: littleutils dedicated to recompressing image files

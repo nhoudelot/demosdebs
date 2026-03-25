@@ -196,16 +196,7 @@
  		}
  		else
  		{
-@@ -453,7 +453,7 @@
- 				switch(geometrie)
- 				{
- 					case 1:
--						imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometrie 1:  11111..000000!");
-+						imgldr_ctx->hxcfe->hxc_printf(MSG_DEBUG,"Geometry 1:  11111..000000!");
- 						tracksize=(((filesize-256)/fileheader->number_of_side)/fileheader->number_of_tracks);
- 
- 						trackdata = (unsigned char *) malloc(tracksize);
-@@ -505,9 +505,9 @@
+@@ -512,9 +512,9 @@
  					break;
  
  					case 0:

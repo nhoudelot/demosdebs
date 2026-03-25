@@ -13,14 +13,6 @@ CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 %:
 	dh $@
 
-override_dh_auto_configure:
-	dh_auto_configure -- $(CONFIGURE_EXTRA_FLAGS)
-	(cd debian; \
-	  for i in *.in; do\
-	  o=`basename $$i .in`;\
-	  sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
-	  done )
-
 override_dh_auto_install:
 	find . -name "COPYING" -delete
 	dh_auto_install

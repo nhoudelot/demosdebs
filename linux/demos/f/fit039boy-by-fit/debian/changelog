@@ -1,3 +1,13 @@
+fit039boy-by-fit (1.0+1-0ddebs9) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * updated SDL2 migration
+  * fix some 64 bits portability issue
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 20 Apr 2026 16:15:49 +0200
+
 fit039boy-by-fit (1.0+1-0ddebs8) unstable; urgency=medium
 
   * use full desktop resolution when start fullscreen

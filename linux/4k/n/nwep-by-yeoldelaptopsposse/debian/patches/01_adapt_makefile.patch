@@ -12,10 +12,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -INTRO=nwep
 +# compilers and tools
 +SHELL      := /bin/sh
-+CC         := gcc
-+CXX        := g++
++CC         ?= gcc
++CXX        ?= g++
 +NASM       := yasm
-+PKG_CONFIG := pkg-config
++PKG_CONFIG ?= pkg-config
 +RM_F       := rm -f
 +SHMIN	   := shader_minifier.exe
 +

@@ -1,0 +1,286 @@
+--- a/gtk/gtkcalendar.c
++++ b/gtk/gtkcalendar.c
+@@ -45,7 +45,7 @@
+ typedef	 unsigned   int	    N_int;
+ typedef	 unsigned   long    N_long;
+ typedef	 signed	    long    Z_long;
+-typedef enum { false = FALSE , true = TRUE } boolean;
++typedef enum { cal_false = FALSE , cal_true = TRUE } cal_boolean;
+ 
+ #define and	    &&	    /* logical (boolean) operators: lower case */
+ #define or	    ||
+@@ -68,7 +68,7 @@
+ 				N_int year2, N_int mm2, N_int dd2);
+ static N_int   weeks_in_year(N_int year);
+ 
+-static boolean 
++static cal_boolean
+ leap(N_int year)
+ {
+   return((((year % 4) == 0) and ((year % 100) != 0)) or ((year % 400) == 0));
+@@ -94,13 +94,13 @@
+   return(52 + ((day_of_week(year,1,1)==4) or (day_of_week(year,12,31)==4)));
+ }
+ 
+-static boolean 
++static cal_boolean
+ check_date(N_int year, N_int mm, N_int dd)
+ {
+-  if (year < 1) return(false);
+-  if ((mm < 1) or (mm > 12)) return(false);
+-  if ((dd < 1) or (dd > month_length[leap(year)][mm])) return(false);
+-  return(true);
++  if (year < 1) return(cal_false);
++  if ((mm < 1) or (mm > 12)) return(cal_false);
++  if ((dd < 1) or (dd > month_length[leap(year)][mm])) return(cal_false);
++  return(cal_true);
+ }
+ 
+ static N_int 
+@@ -123,7 +123,7 @@
+ static Z_long 
+ calc_days(N_int year, N_int mm, N_int dd)
+ {
+-  boolean lp;
++  cal_boolean lp;
+   
+   if (year < 1) return(0L);
+   if ((mm < 1) or (mm > 12)) return(0L);
+@@ -133,7 +133,7 @@
+ 
+ #ifndef G_DISABLE_CHECKS
+ 
+-static boolean 
++static cal_boolean
+ week_of_year(N_int *week, N_int *year, N_int mm, N_int dd)
+ {
+   if (check_date(*year,mm,dd))
+@@ -146,9 +146,9 @@
+ 	  *week = 1;
+ 	  (*year)++;
+ 	}
+-      return(true);
++      return(cal_true);
+     }
+-  return(false);
++  return(cal_false);
+ }
+ 
+ #endif /* !G_DISABLE_CHECKS */
+--- a/gtk/gtkitemfactory.c
++++ b/gtk/gtkitemfactory.c
+@@ -254,12 +254,12 @@
+ 
+   if (data->callback_type == 1)
+     {
+-      GtkItemFactoryCallback1 func1 = data->func;
++      GtkItemFactoryCallback1 func1 = (GtkItemFactoryCallback1) data->func;
+       func1 (data->func_data, data->callback_action, widget);
+     }
+   else if (data->callback_type == 2)
+     {
+-      GtkItemFactoryCallback2 func2 = data->func;
++      GtkItemFactoryCallback2 func2 = (GtkItemFactoryCallback2) data->func;
+       func2 (widget, data->func_data, data->callback_action);
+     }
+ }
+@@ -1214,7 +1214,7 @@
+ 
+       entry.path = path;
+       entry.accelerator = entries[i].accelerator;
+-      entry.callback = entries[i].callback;
++      entry.callback = (GtkItemFactoryCallback) entries[i].callback;
+       entry.callback_action = 0;
+       if (gtk_pattern_match_string (&pspec_separator, path))
+ 	entry.item_type = "<Separator>";
+--- a/gtk/gtktooltips.c
++++ b/gtk/gtktooltips.c
+@@ -198,11 +198,12 @@
+ 
+       gtk_signal_connect (GTK_OBJECT (tooltips->tip_window),
+ 			  "destroy",
+-			  gtk_widget_destroyed,
++			  GTK_SIGNAL_FUNC (gtk_widget_destroyed),
+ 			  &tooltips->tip_window);
+     }
+ }
+ 
++
+ static void
+ gtk_tooltips_layout_text (GtkTooltips *tooltips, GtkTooltipsData *data)
+ {
+--- a/gtk/testgtk.c
++++ b/gtk/testgtk.c
+@@ -2369,34 +2369,34 @@
+ 
+ static GtkItemFactoryEntry menu_items[] =
+ {
+-  { "/_File",            NULL,         0,                     0, "<Branch>" },
+-  { "/File/tearoff1",    NULL,         gtk_ifactory_cb,       0, "<Tearoff>" },
+-  { "/File/_New",        "<control>N", gtk_ifactory_cb,       0 },
+-  { "/File/_Open",       "<control>O", gtk_ifactory_cb,       0 },
+-  { "/File/_Save",       "<control>S", gtk_ifactory_cb,       0 },
+-  { "/File/Save _As...", NULL,         gtk_ifactory_cb,       0 },
+-  { "/File/sep1",        NULL,         gtk_ifactory_cb,       0, "<Separator>" },
+-  { "/File/_Quit",       "<control>Q", gtk_ifactory_cb,       0 },
+-
+-  { "/_Preferences",     		NULL, 0,               0, "<Branch>" },
+-  { "/_Preferences/_Color", 		NULL, 0,               0, "<Branch>" },
+-  { "/_Preferences/Color/_Red",      	NULL, gtk_ifactory_cb, 0, "<RadioItem>" },
+-  { "/_Preferences/Color/_Green",   	NULL, gtk_ifactory_cb, 0, "/Preferences/Color/Red" },
+-  { "/_Preferences/Color/_Blue",        NULL, gtk_ifactory_cb, 0, "/Preferences/Color/Red" },
+-  { "/_Preferences/_Shape", 		NULL, 0,               0, "<Branch>" },
+-  { "/_Preferences/Shape/_Square",      NULL, gtk_ifactory_cb, 0, "<RadioItem>" },
+-  { "/_Preferences/Shape/_Rectangle",   NULL, gtk_ifactory_cb, 0, "/Preferences/Shape/Square" },
+-  { "/_Preferences/Shape/_Oval",        NULL, gtk_ifactory_cb, 0, "/Preferences/Shape/Rectangle" },
+-  { "/_Preferences/Shape/_Rectangle",   NULL, gtk_ifactory_cb, 0, "/Preferences/Shape/Square" },
+-  { "/_Preferences/Shape/_Oval",        NULL, gtk_ifactory_cb, 0, "/Preferences/Shape/Rectangle" },
++  { "/_File",            NULL,         0,                                              0, "<Branch>" },
++  { "/File/tearoff1",    NULL,         (GtkItemFactoryCallback) gtk_ifactory_cb,       0, "<Tearoff>" },
++  { "/File/_New",        "<control>N", (GtkItemFactoryCallback) gtk_ifactory_cb,       0 },
++  { "/File/_Open",       "<control>O", (GtkItemFactoryCallback) gtk_ifactory_cb,       0 },
++  { "/File/_Save",       "<control>S", (GtkItemFactoryCallback) gtk_ifactory_cb,       0 },
++  { "/File/Save _As...", NULL,         (GtkItemFactoryCallback) gtk_ifactory_cb,       0 },
++  { "/File/sep1",        NULL,         (GtkItemFactoryCallback) gtk_ifactory_cb,       0, "<Separator>" },
++  { "/File/_Quit",       "<control>Q", (GtkItemFactoryCallback) gtk_ifactory_cb,       0 },
++
++  { "/_Preferences",                    NULL, 0,                                        0, "<Branch>" },
++  { "/_Preferences/_Color",             NULL, 0,                                        0, "<Branch>" },
++  { "/_Preferences/Color/_Red",         NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0, "<RadioItem>" },
++  { "/_Preferences/Color/_Green",       NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0, "/Preferences/Color/Red" },
++  { "/_Preferences/Color/_Blue",        NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0, "/Preferences/Color/Red" },
++  { "/_Preferences/_Shape",             NULL, 0,                                        0, "<Branch>" },
++  { "/_Preferences/Shape/_Square",      NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0, "<RadioItem>" },
++  { "/_Preferences/Shape/_Rectangle",   NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0, "/Preferences/Shape/Square" },
++  { "/_Preferences/Shape/_Oval",        NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0, "/Preferences/Shape/Rectangle" },
++  { "/_Preferences/Shape/_Rectangle",   NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0, "/Preferences/Shape/Square" },
++  { "/_Preferences/Shape/_Oval",        NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0, "/Preferences/Shape/Rectangle" },
+ 
+   /* For testing deletion of menus */
+-  { "/_Preferences/Should_NotAppear",          NULL, 0,               0, "<Branch>" },
+-  { "/Preferences/ShouldNotAppear/SubItem1",   NULL, gtk_ifactory_cb, 0 },
+-  { "/Preferences/ShouldNotAppear/SubItem2",   NULL, gtk_ifactory_cb, 0 },
++  { "/_Preferences/Should_NotAppear",          NULL, 0,                                        0, "<Branch>" },
++  { "/Preferences/ShouldNotAppear/SubItem1",   NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0 },
++  { "/Preferences/ShouldNotAppear/SubItem2",   NULL, (GtkItemFactoryCallback) gtk_ifactory_cb, 0 },
+ 
+-  { "/_Help",            NULL,         0,                     0, "<LastBranch>" },
+-  { "/Help/_About",      NULL,         gtk_ifactory_cb,       0 },
++  { "/_Help",            NULL,         0,                                              0, "<LastBranch>" },
++  { "/Help/_About",      NULL,         (GtkItemFactoryCallback) gtk_ifactory_cb,       0 },
+ };
+ 
+ 
+@@ -3423,10 +3423,10 @@
+ 
+   static OptionMenuItem items[] =
+   {
+-    { "Single",   list_toggle_sel_mode },
+-    { "Browse",   list_toggle_sel_mode },
+-    { "Multiple", list_toggle_sel_mode },
+-    { "Extended", list_toggle_sel_mode }
++    { "Single",   GTK_SIGNAL_FUNC(list_toggle_sel_mode) },
++    { "Browse",   GTK_SIGNAL_FUNC(list_toggle_sel_mode) },
++    { "Multiple", GTK_SIGNAL_FUNC(list_toggle_sel_mode) },
++    { "Extended", GTK_SIGNAL_FUNC(list_toggle_sel_mode) }
+   };
+ 
+   if (!window)
+@@ -3914,10 +3914,10 @@
+ 
+   static OptionMenuItem items[] =
+   {
+-    { "Single",   clist_toggle_sel_mode },
+-    { "Browse",   clist_toggle_sel_mode },
+-    { "Multiple", clist_toggle_sel_mode },
+-    { "Extended", clist_toggle_sel_mode }
++    { "Single",   GTK_SIGNAL_FUNC (clist_toggle_sel_mode) },
++    { "Browse",   GTK_SIGNAL_FUNC (clist_toggle_sel_mode) },
++    { "Multiple", GTK_SIGNAL_FUNC (clist_toggle_sel_mode) },
++    { "Extended", GTK_SIGNAL_FUNC (clist_toggle_sel_mode) }
+   };
+ 
+   char text[TESTGTK_CLIST_COLUMNS][50];
+@@ -4701,32 +4701,32 @@
+ 
+   static OptionMenuItem items1[] =
+   {
+-    { "No lines", ctree_toggle_line_style },
+-    { "Solid",    ctree_toggle_line_style },
+-    { "Dotted",   ctree_toggle_line_style },
+-    { "Tabbed",   ctree_toggle_line_style }
++    { "No lines", GTK_SIGNAL_FUNC (ctree_toggle_line_style) },
++    { "Solid",    GTK_SIGNAL_FUNC (ctree_toggle_line_style) },
++    { "Dotted",   GTK_SIGNAL_FUNC (ctree_toggle_line_style) },
++    { "Tabbed",   GTK_SIGNAL_FUNC (ctree_toggle_line_style) }
+   };
+ 
+   static OptionMenuItem items2[] =
+   {
+-    { "None",     ctree_toggle_expander_style },
+-    { "Square",   ctree_toggle_expander_style },
+-    { "Triangle", ctree_toggle_expander_style },
+-    { "Circular", ctree_toggle_expander_style }
++    { "None",     GTK_SIGNAL_FUNC (ctree_toggle_expander_style) },
++    { "Square",   GTK_SIGNAL_FUNC (ctree_toggle_expander_style) },
++    { "Triangle", GTK_SIGNAL_FUNC (ctree_toggle_expander_style) },
++    { "Circular", GTK_SIGNAL_FUNC (ctree_toggle_expander_style) }
+   };
+ 
+   static OptionMenuItem items3[] =
+   {
+-    { "Left",  ctree_toggle_justify },
+-    { "Right", ctree_toggle_justify }
++    { "Left",  GTK_SIGNAL_FUNC (ctree_toggle_justify) },
++    { "Right", GTK_SIGNAL_FUNC (ctree_toggle_justify) }
+   };
+ 
+   static OptionMenuItem items4[] =
+   {
+-    { "Single",   ctree_toggle_sel_mode },
+-    { "Browse",   ctree_toggle_sel_mode },
+-    { "Multiple", ctree_toggle_sel_mode },
+-    { "Extended", ctree_toggle_sel_mode }
++    { "Single",   GTK_SIGNAL_FUNC (ctree_toggle_sel_mode) },
++    { "Browse",   GTK_SIGNAL_FUNC (ctree_toggle_sel_mode) },
++    { "Multiple", GTK_SIGNAL_FUNC (ctree_toggle_sel_mode) },
++    { "Extended", GTK_SIGNAL_FUNC (ctree_toggle_sel_mode) }
+   };
+ 
+   if (!window)
+@@ -5973,9 +5973,9 @@
+ 
+   static OptionMenuItem items[] =
+   {
+-    { "Standard",   standard_notebook },
+-    { "No tabs",    notabs_notebook },
+-    { "Scrollable", scrollable_notebook }
++    { "Standard",   GTK_SIGNAL_FUNC (standard_notebook) },
++    { "No tabs",    GTK_SIGNAL_FUNC (notabs_notebook) },
++    { "Scrollable", GTK_SIGNAL_FUNC (scrollable_notebook) }
+   };
+ 
+   if (!window)
+@@ -6917,16 +6917,16 @@
+ 
+   static OptionMenuItem items1[] =
+   {
+-    { "Left-Right", progressbar_toggle_orientation },
+-    { "Right-Left", progressbar_toggle_orientation },
+-    { "Bottom-Top", progressbar_toggle_orientation },
+-    { "Top-Bottom", progressbar_toggle_orientation }
++    { "Left-Right", GTK_SIGNAL_FUNC (progressbar_toggle_orientation) },
++    { "Right-Left", GTK_SIGNAL_FUNC (progressbar_toggle_orientation) },
++    { "Bottom-Top", GTK_SIGNAL_FUNC (progressbar_toggle_orientation) },
++    { "Top-Bottom", GTK_SIGNAL_FUNC (progressbar_toggle_orientation) }
+   };
+ 
+   static OptionMenuItem items2[] =
+   {
+-    { "Continuous", progressbar_toggle_bar_style },
+-    { "Discrete",   progressbar_toggle_bar_style }
++    { "Continuous", GTK_SIGNAL_FUNC (progressbar_toggle_bar_style) },
++    { "Discrete",   GTK_SIGNAL_FUNC (progressbar_toggle_bar_style) }
+   };
+ 
+   if (!pdata)

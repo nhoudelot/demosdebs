@@ -12,8 +12,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -LDLIBS = `sdl-config --libs`
 +#variables de compilation
 +SHELL = /bin/sh
-+CC    := gcc
-+PKG_CONFIG:=pkg-config
++CC    ?= gcc
++PKG_CONFIG ?=pkg-config
 +CFLAGS   +=  -std=c99 -Wall -pipe -fstrict-aliasing $(shell $(PKG_CONFIG) --cflags sdl glu)
 +LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
 +TARGET   = analeptique-by-acetate
@@ -38,7 +38,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +all: $(TARGET)
 +
-+$(TARGET):
++$(TARGET): $(SOURCE)
 +	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
 +
 +install: $(TARGET)

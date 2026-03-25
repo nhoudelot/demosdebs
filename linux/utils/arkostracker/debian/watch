@@ -1,4 +1,7 @@
 version=4
-opts="mode=git,pgpmode=auto,repack,compression=xz,filenamemangle=s/.+\/v?(\d[\d.]*)\.tar\.gz/arkostracker3-$1.tar.gz/" \
-	https://bitbucket.org/JulienNevo/arkostracker3.git refs/tags/(\d+).(\d+).(\d+) \
-debian uupdate
+opts="mode=git, pgpmode=auto, \
+      repack, compression=xz, \
+      filenamemangle=s/.+@ANY_VERSION@@ARCHIVE_EXT@/arkostracker3-$1@ARCHIVE_EXT@/" \
+  https://bitbucket.org/JulienNevo/arkostracker3.git \
+  refs/tags/@ANY_VERSION@ \
+  debian uupdate

@@ -6,13 +6,11 @@ Build-Depends:
  debhelper-compat (= 13),
  pkgconf,
  libpng-dev,
- mesa-common-dev,
- libasound2-dev,
- libxrandr-dev,
+ libsdl2-dev,
+ libsdl2-mixer-dev,
  libglew-dev,
- libvorbis-dev,
  libgtk-3-dev,
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=59386
 Rules-Requires-Root: no
 

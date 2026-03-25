@@ -1,0 +1,82 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,24 +1,18 @@
+-cmake_minimum_required(VERSION 3.1)
++cmake_minimum_required(VERSION 3.16)
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+-project(primordialsoup-by-faemiyah)
+-
+-enable_language(C)
+-enable_language(CXX)
++project(primordialsoup-by-faemiyah LANGUAGES C CXX)
+ 
++set(CMAKE_CXX_STANDARD 17) #needed for Boost 1.74+
+ include("defaults.cmake")
+ 
+-find_boost("filesystem" "program_options" "system" "thread" "wave")
+-find_glew()
+-find_opengl()
+-find_png()
+-find_sdl2()
++find_package(Boost 1.74.0 CONFIG REQUIRED COMPONENTS filesystem program_options thread wave)
++find_package(GLEW REQUIRED)
++find_package(OpenGL REQUIRED)
++find_package(PNG REQUIRED)
++find_package(SDL2 REQUIRED)
+ 
+ output_flags("DEBUG" on)
+ 
+-add_definitions(-DUSE_LD)
+-
+-include_directories("${PROJECT_SOURCE_DIR}/src")
+-
+ add_executable(primordialsoup-by-faemiyah
+   "src/bsd_rand.c"
+   "src/bsd_rand.h"
+@@ -31,28 +25,27 @@
+   "src/image_png.cpp"
+   "src/image_png.hpp"
+   "src/intro.cpp")
++
++target_include_directories(primordialsoup-by-faemiyah PRIVATE "${PROJECT_SOURCE_DIR}/src")
++target_compile_definitions(primordialsoup-by-faemiyah PRIVATE USE_LD)
++
+ if(MSVC)
+-  target_link_libraries(primordialsoup-by-faemiyah "Imm32")
+-  target_link_libraries(primordialsoup-by-faemiyah "Version")
+-  target_link_libraries(primordialsoup-by-faemiyah "WinMM")
+-  target_link_libraries(primordialsoup-by-faemiyah "${OPENGL_gl_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah debug "${SNDFILE_LIBRARY_DEBUG}" optimized "${SNDFILE_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
+-else()
+-  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_FILESYSTEM_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_SYSTEM_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_THREAD_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah "${BOOST_WAVE_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah "${GLEW_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah "${PNG_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah "${SDL2_LIBRARY}")
+-  target_link_libraries(primordialsoup-by-faemiyah "${SNDFILE_LIBRARY}")
++  target_link_libraries(primordialsoup-by-faemiyah PRIVATE Imm32 Version Winmm)
+ endif()
+ 
++target_link_libraries(primordialsoup-by-faemiyah
++PRIVATE
++  Boost::filesystem
++  Boost::program_options
++  Boost::thread
++  Boost::wave
++  OpenGL::GL
++  GLEW::GLEW
++  PNG::PNG
++  SDL2::SDL2
++  "${SNDFILE_LIBRARY}"
++)
++
+ # TODO: Remove when Wave works with FreeBSD/C++11.
+ if(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+   set_property(SOURCE "src/glsl_wave.cpp" APPEND_STRING PROPERTY COMPILE_FLAGS "-std=c++03")

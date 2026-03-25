@@ -8,8 +8,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -3,7 +3,7 @@
- CC	:= gcc
- PKG_CONFIG:=pkg-config
+ CC	?= gcc
+ PKG_CONFIG ?= pkg-config
  
 -CFLAGS	+= -Wall -pipe -I/usr/include $(shell $(PKG_CONFIG) sdl vorbisfile --cflags)
 +CFLAGS	+= -Wall -pipe -I/usr/include $(shell $(PKG_CONFIG) sdl2 vorbisfile --cflags)
@@ -74,7 +74,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		else if (!strcmp("-render",argv[i])) renderonly=1;
  		else script_path = argv[i];
  	}
-@@ -118,13 +118,13 @@
+@@ -118,16 +118,22 @@
  		return 1;
  	}
  
@@ -89,29 +89,37 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	SDL_Renderer *sdlRenderer;
 +	SDL_Texture *sdlTexture;
 +	sdlWindow = SDL_CreateWindow("Fractures and Rust by atomimaitokahvi",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_WIDTH,SCREEN_HEIGHT,flags);
++	if (sdlWindow == NULL) { SDL_Quit(); return 1; }
++ 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 +	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
-+	surface = SDL_CreateRGBSurfaceWithFormat(0, SCREEN_WIDTH, SCREEN_HEIGHT, 24,SDL_PIXELFORMAT_RGB24); //buffer video
-+	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,surface); // on crée une texture a partir du buffer video
++	if (sdlRenderer == NULL) { SDL_DestroyWindow(sdlWindow); SDL_Quit(); return 1; }
++	surface = SDL_CreateRGBSurfaceWithFormat(0, SCREEN_WIDTH, SCREEN_HEIGHT, 24, SDL_PIXELFORMAT_RGB24);
++	if (surface == NULL) { SDL_DestroyRenderer(sdlRenderer); SDL_DestroyWindow(sdlWindow); SDL_Quit(); return 1; }
++	sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STREAMING, SCREEN_WIDTH, SCREEN_HEIGHT);
++	if (sdlTexture == NULL) { SDL_FreeSurface(surface); SDL_DestroyRenderer(sdlRenderer); SDL_DestroyWindow(sdlWindow); SDL_Quit(); return 1; }
++	SDL_SetTextureScaleMode(sdlTexture, SDL_ScaleModeLinear);
  
  	spec.freq = 44100;
- 	spec.format = AUDIO_S16LSB;
-@@ -175,7 +175,14 @@
+-	spec.format = AUDIO_S16LSB;
++	spec.format = AUDIO_U16SYS;
+ 	spec.channels = 2;
+ 	spec.samples = 4096;
+ 	spec.callback = audio_callback;
+@@ -175,7 +181,12 @@
  		render(surface);
  		if (renderonly) write_pnm(surface->pixels);
  		SDL_UnlockSurface(surface);
 -		if (!renderonly) SDL_Flip(surface);
 +		if (!renderonly) {
-+			SDL_Surface *sdlTempSurface = SDL_ConvertSurfaceFormat(surface,SDL_PIXELFORMAT_RGBA32,0);
-+			SDL_UpdateTexture(sdlTexture, NULL, sdlTempSurface->pixels, sdlTempSurface->pitch);
++			SDL_UpdateTexture(sdlTexture, NULL, surface->pixels, surface->pitch);
 +			SDL_RenderClear(sdlRenderer);
 +			SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
 +			SDL_RenderPresent(sdlRenderer);
-+			SDL_FreeSurface(sdlTempSurface);
 +		}
  
  		/* check for program termination */
  		while (SDL_PollEvent(&event))
-@@ -190,6 +197,10 @@
+@@ -190,6 +201,10 @@
  	}
  
  terminate:

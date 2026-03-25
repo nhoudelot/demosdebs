@@ -1,3 +1,10 @@
+libpng (1.2.59-0ddebs6) unstable; urgency=medium
+
+  * Removed xz compression of the package
+  * added patch from fedora 44
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 18:32:41 +0100
+
 libpng (1.2.59-0ddebs5) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

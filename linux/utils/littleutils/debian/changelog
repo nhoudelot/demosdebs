@@ -1,3 +1,12 @@
+littleutils (1.4.0-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Mar 2026 11:23:22 +0100
+
 littleutils (1.2.8-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

@@ -1,0 +1,125 @@
+Description: Fix 64-bit portability issues
+ - main.c fixrgba(): cast unsigned char to unsigned before left-shifting by 24
+   to avoid signed integer overflow (undefined behaviour) that compilers may
+   misoptimise on 64-bit targets (arm64, riscv64).
+ - main.c: cast fread() return value (size_t) to int before storing in int
+   variable, and use (size_t) cast for sizeof comparison.
+ - png_wrap.c: use unsigned int for the row loop counter to match
+   png_uint_32, and cast fread()/png_uint_32 assignments explicitly.
+ - overlay.c: use Uint32 for prevticks to match SDL_GetTicks(), and cast
+   signed OVERLAY fields to unsigned int before comparing with the unsigned
+   return of mzx_position().
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-25
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -69,8 +69,8 @@
+ 	u=(unsigned *)s->data;
+ 	for(i=0; i<s->x*s->y; i++)
+ 	{
+-		col=(s->data[i*4+3]<<24)+(s->data[i*4+0]<<16)+
+-		     (s->data[i*4+1]<<8)+(s->data[i*4+2]<<0);
++		col=((unsigned)s->data[i*4+3]<<24)+((unsigned)s->data[i*4+0]<<16)+
++		     ((unsigned)s->data[i*4+1]<<8)+(s->data[i*4+2]<<0);
+ 		u[i]=col;
+ 	}
+ 
+@@ -257,7 +257,7 @@
+ 	f=fopen(DATADIR "gun.bare","rb");
+ 	if(f==NULL)
+ 		return(1);
+-	i=fread(gun,1,10000,f);
++	i=(int)fread(gun,1,10000,f);
+ 	fclose(f);
+ 
+ #ifndef MSB // The format was originally designed for Amiga
+@@ -275,7 +275,7 @@
+ #endif
+ 	if(f==NULL)
+ 		return(1);
+-	i=fread(biisi,1,1000000,f);
++	i=(int)fread(biisi,1,1000000,f);
+ 	fclose(f);
+ 
+ 	for(n=1; n<argc; n++)
+@@ -601,7 +601,7 @@
+ 					}
+ 				}
+   #else
+-				for(n=0; n<XRES*YRES*sizeof(buftype); n++,a++,b++)
++				for(n=0; (size_t)n<XRES*YRES*sizeof(buftype); n++,a++,b++)
+ 				{
+ 					if(*a<*b)
+ 						(*a)++;
+--- a/overlay.c
++++ b/overlay.c
+@@ -61,10 +61,10 @@
+ #ifndef HICOLOR
+ 	buftype alffa;
+ #endif
+-	static int prevticks=0;
++	static Uint32 prevticks=0;
+ 	OVERLAY *ov=ovl;
+ 
+-	diffi=SDL_GetTicks()-prevticks;
++	diffi=(int)(SDL_GetTicks()-prevticks);
+ 
+ 	// Go through the overlays and check if they need to be shown
+ 	while(ov->piccy!=NULL)
+@@ -72,9 +72,9 @@
+ 		o=(buftype *)ov->piccy->data;
+ 		p=pic;
+ 
+-		if(ov->appear<=mzx_position())
++		if((unsigned int)ov->appear<=mzx_position())
+ 		{
+-			if(ov->disappear<=mzx_position())
++			if((unsigned int)ov->disappear<=mzx_position())
+ 				ov->outcount+=diffi;
+ 
+ 			ov->incount+=diffi;
+--- a/png_wrap.c
++++ b/png_wrap.c
+@@ -12,7 +12,8 @@
+ {
+ 	FILE    *fp;
+ 	unsigned char hdr[8];
+-	int n,depth,color,dummy,idx;
++	unsigned int n;
++	int depth,color,dummy,idx;
+ 
+ 	png_structp png_ptr;
+ 	png_infop info_ptr;
+@@ -23,7 +24,7 @@
+ 	fp=fopen(name,"rb");
+ 	if(fp==NULL)
+ 		return(-1);
+-	n=fread(hdr,1,8,fp);
++	n=(unsigned int)fread(hdr,1,8,fp);
+ 	if(png_sig_cmp(hdr,0,8))
+ 		return(-1);
+ 
+@@ -34,8 +35,8 @@
+ 	png_read_png(png_ptr,info_ptr,0,NULL);
+ 
+ 	png_get_IHDR(png_ptr,info_ptr, &x,&y,&depth,&color, &dummy,&dummy,&dummy);
+-	png->x=x;
+-	png->y=y;
++	png->x=(int)x;
++	png->y=(int)y;
+ 	rows=png_get_rows(png_ptr,info_ptr);
+ 
+ 	fclose(fp);
+@@ -58,7 +59,7 @@
+ 	if(color==PNG_COLOR_TYPE_PALETTE)
+ 	{
+ 		png_get_PLTE(png_ptr,info_ptr,&pal,&idx);
+-		for(n=0; n<idx; n++)
++		for(n=0; n<(unsigned int)idx; n++)
+ 		{
+ 			png->pal[n*3]=pal[n].red;
+ 			png->pal[n*3+1]=pal[n].green;

@@ -10,7 +10,7 @@ Build-Depends:
  libglu-dev,
  libopenmpt-dev,
  libsdl2-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=18342
 Rules-Requires-Root: no
 

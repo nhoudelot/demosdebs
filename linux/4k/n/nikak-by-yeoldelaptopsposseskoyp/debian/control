@@ -7,7 +7,7 @@ Build-Depends:
  yasm,
  libsdl2-dev,
  libopengl-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://bitbucket.org/yolp/yo26/src/master/
 Rules-Requires-Root: no
 

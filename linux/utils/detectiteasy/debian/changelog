@@ -1,3 +1,11 @@
+detectiteasy (3.10-0ddebs2) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 Mar 2026 13:04:54 +0100
+
 detectiteasy (3.10-0ddebs1) unstable; urgency=medium
 
   * New Upstream Release

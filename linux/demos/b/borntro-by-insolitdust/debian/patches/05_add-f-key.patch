@@ -1,0 +1,18 @@
+Description: Add f key to toggle fullscreen
+ Add F key to toggle fullscreen via SDL_WINDOW_FULLSCREEN_DESKTOP.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cc
++++ b/main.cc
+@@ -195,6 +195,7 @@
+ 				switch (event.key.keysym.sym) {
+ 					case SDLK_ESCAPE: done = 1; break;
+ 					case SDLK_q: done = 1; break;
++					case SDLK_f: Video->ToggleFullscreen(); break;
+ 				}
+ 			}
+ 		}

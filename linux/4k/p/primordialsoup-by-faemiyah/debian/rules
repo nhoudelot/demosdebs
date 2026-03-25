@@ -13,5 +13,3 @@ override_dh_install:
 	sox rel/primordial_soup.wav rel/primordial_soup.flac
 	dh_install
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

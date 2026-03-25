@@ -1,3 +1,7 @@
 01_change_or_add_resolutions.patch
 02_update_autotools.patch
 03_change_binaryname.patch
+04_fix-warnings.patch
+05_fix-64bit-portability.patch
+06_sdl2-port.patch
+07_fullscreen-resize.patch

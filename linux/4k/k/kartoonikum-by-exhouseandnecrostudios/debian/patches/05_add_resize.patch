@@ -7,7 +7,7 @@ Last-Update: 2024-03-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -627,6 +627,29 @@
+@@ -623,6 +623,29 @@
      SDL_SetWindowFullscreen(sdlWindow, isFullscreen ? 0 : FullscreenFlag);
      SDL_ShowCursor(isFullscreen);
  }
@@ -37,15 +37,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
  #if defined(WIN32) && !defined(SDL)
-@@ -752,6 +775,7 @@
+@@ -748,6 +771,7 @@
      SDL_Window *sdlWindow;
  	sdlWindow = SDL_CreateWindow("kartoonikum by ExHouse & NecroStudios",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,w,h,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
- 	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
+ 	SDL_GLContext *sdlContext = SDL_GL_CreateContext(sdlWindow);
 +	Uint32 windowID = SDL_GetWindowID(sdlWindow);
  #endif
  
  #ifndef OS_X
-@@ -1118,6 +1142,17 @@
+@@ -1114,6 +1138,17 @@
  		        case SDLK_f: ToggleFullscreen(sdlWindow); break;
  		    }
      	}
@@ -53,7 +53,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +		if(event.type == SDL_WINDOWEVENT)
 +		{
 +		    if (event.window.windowID == windowID)  {
-+		        if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++		        if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)  {
 +		            int new_w = event.window.data1;
 +		            int new_h = event.window.data2;
 +		            resize_window(0,0, new_w,new_h);

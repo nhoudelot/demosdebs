@@ -1,0 +1,83 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/pointcloud.c
++++ b/src/pointcloud.c
+@@ -42,12 +42,12 @@
+ 	glGenBuffers(PC_VBONUM, pc.vbo);
+ 
+ 	glBindBuffer(GL_ARRAY_BUFFER, pc.vbo[0]);
+-	glBufferData(GL_ARRAY_BUFFER, sizeof(GL_FLOAT) * numofpc * 3, pc.destiny, GL_DYNAMIC_DRAW);
++	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * numofpc * 3, pc.destiny, GL_DYNAMIC_DRAW);
+ 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+ 	glEnableVertexAttribArray(0);
+ 
+ 	glBindBuffer(GL_ARRAY_BUFFER, pc.vbo[1]);
+-	glBufferData(GL_ARRAY_BUFFER, sizeof(GL_FLOAT) * numofpc, pc.percentages, GL_DYNAMIC_DRAW);
++	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * numofpc, pc.percentages, GL_DYNAMIC_DRAW);
+ 	glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 0, 0);
+ 	glEnableVertexAttribArray(1);
+ 
+--- a/src/antagonism.c
++++ b/src/antagonism.c
+@@ -248,7 +248,7 @@
+ void playAntagonism(){
+ 	double time;
+ 	char *cbnames[] = {"color1", "color2", "depth"};
+-	GLuint loc;
++	GLint loc;
+ 	time = getTimeInterval();
+ 
+ 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+--- a/src/shader.c
++++ b/src/shader.c
+@@ -37,19 +37,19 @@
+ 	char *content = NULL;
+ 	GLuint ret;
+ 
+-	int count=0;
++	long count=0;
+ 
+ 	sourcefile = fopen(fn,"rt");
+ 
+ 	if (sourcefile != NULL) {
+ 
+ 		fseek(sourcefile, 0, SEEK_END);
+-		count = ftell(sourcefile);
++		count = ftell(sourcefile);   /* ftell returns long */
+ 		rewind(sourcefile);
+ 
+ 		if (count > 0) {
+ 			content = (char *)malloc(sizeof(char) * (count+1));
+-			count = fread(content, sizeof(char), count, sourcefile);
++			count = (long)fread(content, sizeof(char), (size_t)count, sourcefile);
+ 			content[count] = '\0';
+ 		}
+ 		fclose(sourcefile);
+--- a/src/hardscene.c
++++ b/src/hardscene.c
+@@ -70,11 +70,18 @@
+ 
+ void wavycube(double time, unsigned char *surface, float *eye){
+ 	int i,j;
++	float surf_val;
+ 
+ 	for(i = 0; i < BC_SEGMENTS; i++) {
+ 		for(j = 0; j < BC_SEGMENTS; j++) {
+-			surface[i * BC_SEGMENTS + j] = (sin((float)i)*(fabs(sin(time*8.0)*4.0)) + 127.0)/5.0 *
+-			                               (sin((float)j)*(fabs(sin(time*8.0)*4.0)) + 127.0)/5.0;
++			/* The formula always produces values in [605,686].
++			 * Cast via unsigned int for well-defined modulo-256 truncation
++			 * (C99 §6.3.1.4), reproducing the original visual effect that
++			 * relied on implementation-defined float→uchar wrap-around.
++			 * Result range: [93,174] = [605%256, 686%256]. */
++			surf_val = (sin((float)i)*(fabs(sin(time*8.0)*4.0)) + 127.0f)/5.0f *
++			           (sin((float)j)*(fabs(sin(time*8.0)*4.0)) + 127.0f)/5.0f;
++			surface[i * BC_SEGMENTS + j] = (unsigned char)(unsigned int)surf_val;
+ 		}
+ 	}
+ 

@@ -1,3 +1,13 @@
+micery-by-fitandbandwagon (1.0+1-0ddebs11) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fix more warnings
+  * fix 64 bits portability
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Apr 2026 02:17:13 +0200
+
 micery-by-fitandbandwagon (1.0+1-0ddebs10) unstable; urgency=medium
 
   * use full desktop resolution when start fullscreen

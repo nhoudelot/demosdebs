@@ -25,3 +25,4 @@ fix_malloc.patch
 0005-Fix-clang-compilation.patch
 0007-Fix-Out-of-bounds-memory-access-in-MP4v2-2.0.0.patch
 gcc10.patch
+fix-lrintf-gcc15.patch

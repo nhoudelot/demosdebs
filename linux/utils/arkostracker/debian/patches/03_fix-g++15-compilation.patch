@@ -1,0 +1,25 @@
+--- a/JUCE/modules/juce_events/messages/juce_Initialisation.h
++++ b/JUCE/modules/juce_events/messages/juce_Initialisation.h
+@@ -137,7 +137,7 @@
+     juce::JUCEApplicationBase* juce_CreateApplication() { return new AppClass(); }
+ 
+   #define JUCE_MAIN_FUNCTION_DEFINITION \
+-    extern "C" JUCE_MAIN_FUNCTION \
++    JUCE_MAIN_FUNCTION \
+     { \
+        juce::JUCEApplicationBase::createInstance = &juce_CreateApplication; \
+        return juce::JUCEApplicationBase::main (JUCE_MAIN_FUNCTION_ARGS); \
+--- a/source/Main.cpp
++++ b/source/Main.cpp
+@@ -191,8 +191,8 @@
+     std::unique_ptr<MainDocumentWindow> mainWindow{};                 // The main window of the application.
+ };
+ 
++}   // namespace arkostracker
++
+ //==============================================================================
+ // This macro generates the main() routine that launches the app.
+-START_JUCE_APPLICATION (ArkosTracker3Application)                // NOLINT(*)
+-
+-}   // namespace arkostracker
++START_JUCE_APPLICATION (arkostracker::ArkosTracker3Application)                // NOLINT(*)

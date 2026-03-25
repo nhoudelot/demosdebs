@@ -1,0 +1,71 @@
+Description: Fix black screens for beat 0/2/4 (Core Profile texture 0)
+ In OpenGL Core Profile, texture name 0 is not a valid texture object.
+ The original GLX code did not explicitly request a core profile context
+ (GLX_CONTEXT_PROFILE_MASK_ARB was absent), so the driver could hand out
+ a Compatibility Profile context where texture 0 is the well-defined
+ "default texture" (returns (0,0,0,0) when sampled).
+ .
+ The SDL2 port explicitly requests SDL_GL_CONTEXT_PROFILE_CORE.  In core
+ profile, binding texture name 0 to a sampler is undefined behaviour.
+ Many drivers return (0,0,0,1) — alpha=1 — which the post.fs shader
+ interprets as a fully-opaque logo, covering the entire scene with a
+ black rectangle for approximately half the hard-scene duration
+ (every time beat == 0, 2 or 4, i.e. roughly every 0.87 s).
+ .
+ Fix: create a 1x1 RGBA(0,0,0,0) "notex" texture in initAntagonism()
+ and use it as the "no overlay" placeholder wherever texture 0 was bound.
+ The alpha=0 value is still interpreted as "no logo" by the shader, but
+ the texture object is now valid in both Compatibility and Core profiles.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/antagonism.c
++++ b/src/antagonism.c
+@@ -47,6 +47,7 @@
+ GLuint travis;
+ GLuint shamen;
+ GLuint endtitle;
++GLuint notex; /* 1x1 transparent placeholder (core profile: texture 0 is invalid) */
+ /* OpenGL related initialization */
+ void initOpenGL(){
+ 
+@@ -107,6 +108,21 @@
+ 	shamen   = loadPNGTexture("/usr/share/antagonism-by-cyberneticgenetics/data/shamen.png");
+ 	endtitle = loadPNGTexture("/usr/share/antagonism-by-cyberneticgenetics/data/endpic.png");
+ 
++	/* In OpenGL Core Profile texture name 0 is not a valid object.
++	   Binding it to a sampler produces undefined behaviour (many drivers
++	   return alpha=1, which the post shader interprets as a fully-opaque
++	   black logo, hiding the whole scene).  Use a real 1x1 RGBA(0,0,0,0)
++	   texture as a "no overlay" placeholder instead. */
++	{
++		GLubyte transparent[4] = {0, 0, 0, 0};
++		glGenTextures(1, &notex);
++		glBindTexture(GL_TEXTURE_2D, notex);
++		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0,
++		             GL_RGBA, GL_UNSIGNED_BYTE, transparent);
++		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
++		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
++	}
++
+ 	pointcloud = createPC(PC_NUM, 0.0);
+ 
+ 	/* Let's the play begin */
+@@ -301,7 +317,7 @@
+ 		glBindTexture(GL_TEXTURE_2D, endtitle);
+ 		break;
+ 	default:
+-		glBindTexture(GL_TEXTURE_2D, 0);
++		glBindTexture(GL_TEXTURE_2D, notex);
+ 	}
+ 	loc = glGetUniformLocation(renderer.screen_prg, "logo");
+ 	glUniform1i(loc, renderer.colorbuffernum+1);
+@@ -323,4 +339,5 @@
+ 	freePC(pointcloud);
+ 	deleteProgram(pc_prg, 2, pc_shaders);
+ 	deleteProgram(bigc_prg, 2, bigc_shaders);
++	glDeleteTextures(1, &notex);
+ }

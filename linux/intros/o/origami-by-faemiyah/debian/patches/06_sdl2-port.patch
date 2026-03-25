@@ -1,0 +1,248 @@
+Description: migrate to SDL2
+ Migrate from SDL1.2 to SDL2
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+--- a/src/origami.c
++++ b/src/origami.c
+@@ -378,7 +378,9 @@
+ #define TEXTURE_PLAYGROUND_SIZE	(1024 * 768) // Would require 512Mb
+ #define DEF_SCREEN_W		800
+ #define DEF_SCREEN_H		600
+-#define SDL_GFX_FLAGS		(SDL_HWSURFACE | SDL_OPENGL | SDL_DOUBLEBUF)
++/* SDL2: SDL_HWSURFACE and SDL_DOUBLEBUF are gone; OpenGL windows always
++ * use SDL_WINDOW_OPENGL.  SDL_DOUBLEBUF is implicit for OpenGL. */
++#define SDL_GFX_FLAGS		SDL_WINDOW_OPENGL
+ #define DEF_FRACTAL_W		512
+ #define DEF_FRACTAL_H		384
+ 
+@@ -390,8 +392,13 @@
+ 		screen_b = 32;
+ Sint16 *audio_precalc; // jynk jynk
+ Uint8 debug_flag = 0;
+-Uint32 display_flags = SDL_GFX_FLAGS,
+-			 texture_playground[TEXTURE_PLAYGROUND_SIZE];
++/* SDL2: window flags now use SDL_WindowFlags (same underlying Uint32).
++ * Separated from texture_playground to allow the correct type. */
++SDL_WindowFlags display_flags = SDL_GFX_FLAGS;
++Uint32 texture_playground[TEXTURE_PLAYGROUND_SIZE];
++/* SDL2: global window and GL context replace local SDL_Surface *screen. */
++SDL_Window   *sdl_window = NULL;
++SDL_GLContext sdl_glctx  = NULL;
+ // Liukuluvut
+ float camera_position[6];
+ 
+@@ -5888,7 +5895,7 @@
+ 	progress_bar_background();
+ 
+ 	// Ruudulle
+-	SDL_GL_SwapBuffers();
++	SDL_GL_SwapWindow(sdl_window);
+ }
+ 
+ /*
+@@ -5920,7 +5927,7 @@
+ 	shapedb_draw_elements(&shape_use, 0, 0, GL_QUADS);
+ 
+ 	// Ruudulle
+-	SDL_GL_SwapBuffers();
++	SDL_GL_SwapWindow(sdl_window);
+ 
+ 	// Kuuntele eventit ja quit pyydett채ess채
+ 	if(SDL_PollEvent(&event))
+@@ -6423,7 +6430,7 @@
+ 
+ 	// Sitten initialisoidaan 채채nilaite, ensin parametrit
+ 	spec.freq = SRATE;
+-	spec.format = AUDIO_S16LSB;
++	spec.format = AUDIO_S16SYS;
+ 	spec.channels = 2;
+ 	spec.callback = audio_callback;
+ 	spec.userdata = NULL;
+@@ -6493,7 +6500,7 @@
+ 	// Flagit
+ 	debug_flag = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_debug));
+ 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_fs)))
+-		display_flags |= SDL_FULLSCREEN;
++		display_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 
+ 	// Lopeta GTK
+ 	preloader_run = 0;
+@@ -6701,7 +6708,7 @@
+ 
+ 				debug_flag = IsDlgButtonChecked(dlg,MAKEINTRESOURCE(DEBUGCHK));
+ 				if (IsDlgButtonChecked(dlg,MAKEINTRESOURCE(FULLCHK)))
+-					display_flags |= SDL_FULLSCREEN;
++					display_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 
+ 				combo = GetDlgItem(dlg,MAKEINTRESOURCE(SRESCOMBO));
+ 				i = SendMessage(combo, CB_GETCURSEL, 0,0);
+@@ -6855,7 +6862,6 @@
+ {
+ 	int advance;
+ 	int sel_res, sel_fractal_res, sel_fullscreen, sel_debugkeys;
+-	SDL_Surface *screen;
+ 	SDL_Event event;
+ 
+ 	// Arvot
+@@ -6865,8 +6871,10 @@
+ 	sel_res = 4;
+ 	sel_fractal_res = 2;
+ 
+-	screen = SDL_SetVideoMode(848, 480, screen_b, SDL_GFX_FLAGS);
+-	SDL_WM_SetCaption("Origami options", NULL);
++	sdl_window = SDL_CreateWindow("Origami by Faemiyah",
++			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++			848, 480, SDL_WINDOW_OPENGL);
++	sdl_glctx = SDL_GL_CreateContext(sdl_window);
+ 
+ 	blend_mode(1);
+ 	camera_ortho(4.0f);
+@@ -6884,7 +6892,7 @@
+ 				sel_fractal_res);
+ 
+ 		// Ruudulle
+-		SDL_GL_SwapBuffers();
++		SDL_GL_SwapWindow(sdl_window);
+ 
+ 		// Kuuntele eventit
+ 		if(SDL_PollEvent(&event))
+@@ -6950,12 +6958,15 @@
+ 	fractal_w = resolutions[sel_fractal_res * 2];
+ 	fractal_h = resolutions[sel_fractal_res * 2 + 1];
+ 	if(sel_fullscreen)
+-		display_flags |= SDL_FULLSCREEN;
++		display_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 	if(sel_debugkeys)
+ 		debug_flag = TRUE;
+ 
+ 	// Vapauta t채m채 pinta ennen kuin jatkamme
+-	SDL_FreeSurface(screen);
++	SDL_GL_DeleteContext(sdl_glctx);
++	SDL_DestroyWindow(sdl_window);
++	sdl_window = NULL;
++	sdl_glctx  = NULL;
+ }
+ 
+ #endif // GTK
+@@ -6981,7 +6992,10 @@
+ 	if(icon == NULL)
+ 		icon = IMG_Load(path_icon + 7);
+ 	if(icon != NULL)
+-		SDL_WM_SetIcon(icon, NULL);
++		{
++		SDL_SetWindowIcon(sdl_window, icon);
++		SDL_FreeSurface(icon);
++	}
+ }
+ 
+ #endif
+@@ -7039,7 +7053,7 @@
+ 			// Fullscreen?
+ 			if((strcmp(args[i], "-f") == 0) ||
+ 					(strcmp(args[i], "--fullscreen") == 0))
+-				display_flags |= SDL_FULLSCREEN;
++				display_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 			if((strcmp(args[i], "-d") == 0) ||
+ 					(strcmp(args[i], "--debugkeys") == 0))
+ 				debug_flag = 1;
+@@ -7080,19 +7094,27 @@
+ 	// SDL
+ 	SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+ #ifndef FLAG_NOSTDLIB
+-#ifndef WIN32 // Jos ei win32 ja SDL-image p채채ll채,
+-#ifdef FLAG_ENABLE_SDL_IMAGE // Laitetaan 16x16 -kuvake
++	/* SDL2: create window first, then set the icon (reversed from SDL1). */
++	sdl_window = SDL_CreateWindow("Origami",
++			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++			screen_w, screen_h, display_flags);
++	sdl_glctx = SDL_GL_CreateContext(sdl_window);
++#ifndef WIN32
++#ifdef FLAG_ENABLE_SDL_IMAGE
+ 	sdl_set_icon();
+ #endif
+ #endif
+-	screen = SDL_SetVideoMode(screen_w, screen_h, screen_b, display_flags);
+-	if(display_flags & SDL_FULLSCREEN)
++	if(display_flags & SDL_WINDOW_FULLSCREEN_DESKTOP)
+ 		SDL_ShowCursor(SDL_DISABLE);
+-	SDL_WM_SetCaption("Origami", NULL);
+ #else
+ #ifdef FLAG_FULLSCREEN
+-	screen = SDL_SetVideoMode(screen_w, screen_h, screen_b,
+-			SDL_GFX_FLAGS | SDL_FULLSCREEN);
++	/* FLAG_NOSTDLIB + FLAG_FULLSCREEN: fullscreen handled at window creation.
++	 * TODO: use SDL_WINDOW_FULLSCREEN_DESKTOP when fullscreen is enabled. */
++	sdl_window = SDL_CreateWindow("Origami by Faemiyah",
++			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++			screen_w, screen_h, SDL_WINDOW_OPENGL);
++	sdl_glctx = SDL_GL_CreateContext(sdl_window);
++	SDL_GL_SetSwapInterval(1);
+ 	SDL_ShowCursor(SDL_DISABLE);
+ #endif
+ #endif
+@@ -7112,8 +7134,12 @@
+ #include <SDL_syswm.h>
+ #define ICON1 135
+ 		SDL_SysWMinfo i;
+-		if (SDL_GetWMInfo(&i)) {
+-			HWND hdl=i.window;
++		SDL_VERSION(&i.version);
++		/* SDL2: use SDL_GetWindowWMInfo(window, &info) instead of
++		 * SDL_GetWMInfo(&info).  The window handle is at
++		 * info.info.win.window, not info.window. */
++		if (SDL_GetWindowWMInfo(sdl_window, &i)) {
++			HWND hdl = i.info.win.window;
+ 			HICON c=LoadIcon((HINSTANCE)GetWindowLongPtr(hdl,GWLP_HINSTANCE),
+ 					MAKEINTRESOURCE(ICON1));
+ 			SetClassLongPtr(hdl,GCLP_HICON,(LONG_PTR)c);
+@@ -7256,7 +7282,7 @@
+ #endif
+ 
+ 			// Actual flip.
+-			SDL_GL_SwapBuffers();
++			SDL_GL_SwapWindow(sdl_window);
+ 		}
+ 
+ 		// Kuuntele eventit
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -245,8 +245,8 @@
+ ##############################################################################
+ 
+ # Wrapperi SDL:lle, jos ei pakollinen, $2 = [no]
+-# AC_CHECK_SDL([MINIMUM_VERSION])
+-AC_DEFUN([AC_CHECK_SDL],
++# AC_CHECK_SDL2([MINIMUM_VERSION])
++AC_DEFUN([AC_CHECK_SDL2],
+ [
+   if test x$2 == xno ; then
+     # Jos SDL:狎 ei haluta
+@@ -254,13 +254,13 @@
+       [sdl],
+       AS_HELP_STRING(
+         [--disable-sdl],
+-	[Do not include support for SDL]),
++	[Do not include support for SDL2]),
+       sdl=[no],
+       sdl=[yes])
+   fi
+ 
+   if test x$sdl != xno ; then
+-    AM_PATH_SDL($1, sdl=[yes], sdl=[no])
++    AM_PATH_SDL2($1, sdl=[yes], sdl=[no])
+     AC_MSG_CHECKING([if SDL is ok])
+     if test x$sdl == xyes ; then
+       AC_MSG_RESULT([$sdl])
+--- a/configure.ac
++++ b/configure.ac
+@@ -33,7 +33,7 @@
+ 
+ AC_CHECK_GL([no])
+ AC_CHECK_GTK([2.4.10], [no])
+-AC_CHECK_SDL([1.2.4])
++AC_CHECK_SDL2([2.0.0])
+ AC_CHECK_SDL_IMAGE([no])
+ AC_ADD_CCFLAG([-std=gnu90])
+ AC_ADD_LIB([-lm])

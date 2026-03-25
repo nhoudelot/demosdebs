@@ -1,0 +1,92 @@
+Description: updating CMakeLists
+ updating CMakeLists to 3.16
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,16 +1,13 @@
+-cmake_minimum_required(VERSION 2.8)
++cmake_minimum_required(VERSION 3.16)
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+-project(my_mistress_the_leviathan)
+-
+-enable_language(C)
+-enable_language(CXX)
++project(my_mistress_the_leviathan LANGUAGES C CXX)
+ 
+ include("defaults.cmake")
+ 
+-find_boost_program_options(TRUE)
+-find_freetype(TRUE STATIC)
+-find_png(TRUE)
+-find_sdl2(TRUE)
++find_package(Boost 1.74.0 CONFIG REQUIRED COMPONENTS program_options)
++find_package(Freetype REQUIRED)
++find_package(PNG REQUIRED)
++find_package(SDL2 REQUIRED)
+ 
+ check_mali()
+ check_videocore()
+@@ -24,16 +21,12 @@
+   set(EGL_LIBRARY "EGL")
+   set(OPENGL_gl_LIBRARY "GLESv2")
+ else()
+-  find_opengl(TRUE)
+-  find_glew(TRUE)
++  find_package(OpenGL REQUIRED)
++  find_package(GLEW REQUIRED)
+ endif()
+ 
+ output_flags("DEBUG" on)
+ 
+-add_definitions(-DUSE_LD)
+-
+-include_directories("${PROJECT_SOURCE_DIR}/src" "${PROJECT_SOURCE_DIR}/src/synth")
+-
+ add_executable(my_mistress_the_leviathan
+   "src/bsd_rand.c"
+   "src/bsd_rand.h"
+@@ -125,14 +118,12 @@
+   "src/synth/utils.hpp"
+   "src/synth/voice.hpp"
+   )
++
++target_compile_definitions(my_mistress_the_leviathan PRIVATE USE_LD)
++target_include_directories(my_mistress_the_leviathan PRIVATE "${PROJECT_SOURCE_DIR}/src")
++
+ if(MSVC)
+-  target_link_libraries(my_mistress_the_leviathan "WINMM")
+-  target_link_libraries(my_mistress_the_leviathan "${OPENGL_gl_LIBRARY}")
+-  target_link_libraries(my_mistress_the_leviathan debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
+-  target_link_libraries(my_mistress_the_leviathan debug "${FREETYPE_LIBRARY_DEBUG}" optimized "${FREETYPE_LIBRARY}")
+-  target_link_libraries(my_mistress_the_leviathan debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
+-  target_link_libraries(my_mistress_the_leviathan debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
+-  target_link_libraries(my_mistress_the_leviathan debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
++  target_link_libraries(my_mistress_the_leviathan PRIVATE WinMM)
+ else()
+   if(MALI_FOUND)
+     target_link_libraries(my_mistress_the_leviathan "${EGL_LIBRARY}")
+@@ -142,10 +133,15 @@
+     target_link_libraries(my_mistress_the_leviathan "${EGL_LIBRARY}")
+     target_link_libraries(my_mistress_the_leviathan "${OPENGL_gl_LIBRARY}")
+   else()
+-    target_link_libraries(my_mistress_the_leviathan "${GLEW_LIBRARY}")
++    target_link_libraries(my_mistress_the_leviathan PRIVATE GLEW::GLEW)
+   endif()
+-  target_link_libraries(my_mistress_the_leviathan "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
+-  target_link_libraries(my_mistress_the_leviathan "${FREETYPE_LIBRARY}")
+-  target_link_libraries(my_mistress_the_leviathan "${PNG_LIBRARY}")
+-  target_link_libraries(my_mistress_the_leviathan "${SDL2_LIBRARY}")
++  target_link_libraries(my_mistress_the_leviathan
++  PRIVATE
++    Boost::program_options
++    OpenGL::GL
++    Freetype::Freetype
++    PNG::PNG
++    SDL2::SDL2
++  )
++  set_target_properties(my_mistress_the_leviathan PROPERTIES SKIP_BUILD_RPATH TRUE)
+ endif()

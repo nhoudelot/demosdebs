@@ -30,18 +30,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  {
 -	int quit=0,flags=SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
 +	int quit=0,flags=SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 	int win_w=XS,win_h=YS;
  	SDL_Event e;
  	double mp=0,oldtimer=0.0,oldtimer2=0.0,oldtimer3=0.0,d;
- 
-@@ -56,6 +61,7 @@
- 	while(mzx_position()<0 || mzx_position()>100) // Skip bug...
+@@ -60,6 +65,7 @@
+ 	while(mzx_position()>100) // Skip bug...
  		;
  	get_time(); /* Start the timer */
 +	Uint32 windowID = SDL_GetWindowID(sdlWindow);
  	while(!quit)
  	{
  		mp=mzx_position();
-@@ -187,6 +193,16 @@
+@@ -192,6 +198,16 @@
  					case SDLK_q: quit++; break;
  				}
  			}
@@ -58,7 +58,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		}
  	}
  
-@@ -196,6 +212,26 @@
+@@ -201,6 +217,26 @@
  	return(0);
  }
  
@@ -82,6 +82,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	glViewport(x, y, w, h);
 +}
 +
- init()
+ int init(void)
  {
  	double dx,dy;

@@ -1,3 +1,12 @@
+gamecontrollerdb (1.0+git20260327-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Mar 2026 01:16:25 +0100
+
 gamecontrollerdb (1.0+git20251118-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

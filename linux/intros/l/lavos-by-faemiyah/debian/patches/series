@@ -3,3 +3,5 @@
 03_add_windows_title.patch
 04_migrate_to_SDL2.patch
 05_added_fullscreen.patch
+06_fix-warnings.patch
+07_fullscreen-resizable.patch

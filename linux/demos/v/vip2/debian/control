@@ -8,11 +8,9 @@ Build-Depends:
  libopengl-dev,
  libgl-dev,
  libjpeg-dev,
- libxxf86vm-dev,
- libxext-dev,
- libasound2-dev,
+ libsdl2-dev,
  pkgconf
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.sesse.net/vip2-linux/
 Rules-Requires-Root: no
 

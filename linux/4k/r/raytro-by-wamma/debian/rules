@@ -5,5 +5,3 @@ export DEB_CFLAGS_MAINT_APPEND  = -DXCOMPILE
 %:
 	dh $@
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

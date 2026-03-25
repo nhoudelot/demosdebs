@@ -7,21 +7,21 @@ Last-Update: 2020-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,28 +1,45 @@
+@@ -1,28 +1,39 @@
  # Derivations by zipola
  # Compiles and links the executable.
 -CC = gcc
 +SHELL := /bin/sh
-+CC    := gcc
++CC    ?= gcc
  # Try -Os -O1 -O2 -O3
 -CFLAGS = -nostdlib -ffast-math -fomit-frame-pointer -fshort-double -fno-inline -fno-strict-aliasing -fpeephole2 -fexpensive-optimizations -Os
 -LINKER = ld
 -LDFLAGS = -dynamic-linker /lib/ld-linux.so.2
 -LDLIBS = /usr/lib/libSDL.so /usr/lib/libGL.so
 -TARGET = derivations
-+PKG_CONFIG:=pkg-config
++PKG_CONFIG ?= pkg-config
 +CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl gl )
-+LDFLAGS += -Wl,--allow-multiple-definition $(shell $(PKG_CONFIG) --libs sdl gl ) -lm
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl ) -lm
 +TARGET := derivations-by-zipola
 +
 +#variables d’installation
@@ -32,15 +32,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +prefix          := /usr
 +exec_prefix     := $(prefix)
 +bindir          := $(prefix)/bin
-+
-+#compilation en paralelle si disponible
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
-+endif
  
 -all: $(TARGET)
-+export
++RM_F := $(RM) -f
  
 -derivations: derivations.o gfx.o snd.o seq.o letters.o
 +all: $(TARGET)
@@ -70,7 +64,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  derivations.o: derivations.c
  	$(CC) $(CFLAGS) -c $<
-@@ -47,3 +64,9 @@
+@@ -47,3 +58,9 @@
  
  clean:
  	$(RM) *.o *~

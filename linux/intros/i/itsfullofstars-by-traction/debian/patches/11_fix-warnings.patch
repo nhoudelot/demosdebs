@@ -1,0 +1,164 @@
+Description: fixing various warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-15
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/primitives.cpp
++++ b/primitives.cpp
+@@ -1,5 +1,4 @@
+ #include "primitives.hpp"
+-#pragma warning (disable : 4305)
+ /*
+    void tetrahedron();
+    void octahedron();
+--- a/matikka.cpp
++++ b/matikka.cpp
+@@ -83,7 +83,7 @@
+ 
+ int randInt()
+ {
+-	static unsigned int a = 1583458089, m = 2147483647, q = 1, r = 564025558;
++	static unsigned int a = 1583458089, q = 1, r = 564025558;
+ 	SEED = a*(SEED % q) - r*(SEED / q);
+ 	return SEED;
+ }
+--- a/stuff.cpp
++++ b/stuff.cpp
+@@ -109,13 +109,11 @@
+ 		render2->data[i] = (unsigned long)alpha;
+ 
+ 	}
+-	int offs = 0;
+ 
+ 	for (y=0; y<64; y++)
+ 	{
+ 		for (x=0; x<64; x++)
+ 		{
+-			unsigned int col = 0;
+ 			const float dist = (float)sqrt((x-32)*(x-32)+(y-32)*(y-32));
+ 			const float maxdist = 32;
+ 
+--- a/Effects/dla.cpp
++++ b/Effects/dla.cpp
+@@ -26,8 +26,10 @@
+ 			glColor4f(colors[i].x, colors[i].y, colors[i].z, alpha*alphas[i]*frac);
+ 		else
+ 			glColor4f(colors[i].x, colors[i].y, colors[i].z, alpha*alphas[i]);
+-		glVertex3fv((float *)&(this->points[i]*hengitys));
+-		glVertex3fv((float *)&(this->points2[i]*hengitys));
++		Vector p1 = this->points[i]  * hengitys;
++		Vector p2 = this->points2[i] * hengitys;
++		glVertex3fv((float *)&p1);
++		glVertex3fv((float *)&p2);
+ 	}
+ 	glEnd();
+ 
+@@ -56,8 +58,6 @@
+ 		}
+ 	}
+ 
+-	const float scale = 4;
+-
+ 	for (z=0; z<dim; z++)
+ 	{
+ 		for (y=0; y<dim; y++)
+--- a/Effects/hila.cpp
++++ b/Effects/hila.cpp
+@@ -90,8 +90,6 @@
+ 					Vector c3 = (p1+p3)*0.5f;
+ 					Vector c4 = (p1+p4)*0.5f;
+ 
+-					const float brightness = 0.4f;
+-
+ 					glVertex3fv((float *)&p1);
+ 					glVertex3fv((float *)&p2);
+ 					if (y != yres-1)
+--- a/Effects/kasvi.cpp
++++ b/Effects/kasvi.cpp
+@@ -47,7 +47,6 @@
+ 		{
+ 			glPushMatrix();
+ 
+-			const float t = calcPosFloat(aika, flower->starttime, flower->endtime);
+ 			const float a = calcSaturate(aika, flower->starttime, flower->endtime, 1);
+ 			Vector c = flower->color;
+ 			Vector p = flower->pos;
+--- a/Effects/kaupunki.cpp
++++ b/Effects/kaupunki.cpp
+@@ -63,8 +63,6 @@
+ 		}
+ 	}
+ 
+-	const float scale = 4;
+-
+ 	for (z=0; z<zdim; z++)
+ 	{
+ 		for (y=0; y<ydim; y++)
+--- a/Effects/lento.cpp
++++ b/Effects/lento.cpp
+@@ -39,7 +39,6 @@
+ 	const float ambientvalo[] = {0.1f,0.1f,0.1f,1};
+ 	const float specularvalo[] = {1,1,1, 1};
+ 	const float diffusevalo[] = {1,1,1, 0.2f};
+-	const float valoposition[] = {0, 0, 0, 1.0f };
+ 
+ 	glLightfv(GL_LIGHT1, GL_AMBIENT, ambientvalo);
+ 	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffusevalo);
+@@ -105,7 +104,6 @@
+ 		const float ambientmat[] = {0, 0, 0, 0};
+ 		const float diffusemat[] = {c.x, c.y, c.z, 0.25f*alpha};
+ 		const float specularmat[] = {c.x, c.y, c.z, 1.55f*alpha};
+-		const float emissionmat[] = {0, 0, 0, 1};
+ 		float shininessmat = 1.0f;
+ 
+ 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambientmat);
+--- a/Effects/loppu.cpp
++++ b/Effects/loppu.cpp
+@@ -7,7 +7,6 @@
+ 
+ 	glLoadIdentity();
+ 
+-	const float kohta = aika*2;
+ 	Vector campos = Vector(0, 0, -7.0f+aika*4.5f);
+ 	Vector camtarget = Vector(0, 0, aika);
+ 
+@@ -20,7 +19,6 @@
+ 
+ 	const float zoom = 0.01f+(float)pow(sin(calcPosFloat(aika, 0.1f, 0.7f)*0.5f*3.141592f), 3.0f)*0.6f;
+ 	const float size = 50;
+-	const float z = 20.0f;
+ 	Vector p = Vector(0, -2, -aika*7*(0.4f+zoom));
+ 	Vector p1 = p+Vector(-size, 0, -size);
+ 	Vector p2 = p+Vector(size, 0, -size);
+--- a/Effects/runko.cpp
++++ b/Effects/runko.cpp
+@@ -2,8 +2,6 @@
+ 
+ void runko(float aika)
+ {
+-	const float alpha = calcSaturate(aika, 0, 1, 6);
+-
+ 	glLoadIdentity();
+ 
+ 	Vector campos = Vector(0, 0, -7.0f);
+--- a/Effects/universumi.cpp
++++ b/Effects/universumi.cpp
+@@ -41,7 +41,6 @@
+ 
+ 	for (j=0; j<spiralcount; j++)
+ 	{
+-		const float spirallength = 7;
+ 		const float spiralradius = 0.5f+j*0.01f*aika;
+ 		const float spiraltwist = 3.4f;
+ 		Vector sc = Vector(0.9f, 0.4f, 0.3f);
+@@ -125,8 +124,6 @@
+ 		{
+ 			Vector p1 = randomBoxVector(1);
+ 
+-			const float maxd = 1.0f;
+-
+ 			float l = 0.05f + 0.12f*randFloat();
+ 			Vector p2;
+ 			switch(rand()%3)

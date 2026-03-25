@@ -1,0 +1,51 @@
+Description: Fix 64-bit portability issues
+ - staraz_init() returned long* but pal[] is int[]; on LP64 long is 8 bytes
+   causing a pointer type mismatch and potential memory corruption
+ - Use Uint32* instead of int* for SDL pixel buffer (SDL_MapRGB returns Uint32)
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-21
+--- a/main.c
++++ b/main.c
+@@ -100,7 +100,8 @@
+ 
+ int main(int argc,char *argv[])
+ {
+-	int quit=0,n,i,*pal,last=0,pos=0,tmp,r,g,b,*pix,origtime=-1;
++	int quit=0,n,i,*pal,last=0,pos=0,tmp,r,g,b,origtime=-1;
++	Uint32 *pix;
+ 	FILE *f;
+ 	static unsigned char palli[100];
+ 	static unsigned char puh[320*256],buf[320*256],*dest;
+@@ -475,7 +476,7 @@
+ 
+ #ifdef NOAMIKA
+ 		SDL_LockSurface(scr);
+-		pix=scr->pixels;
++		pix=(Uint32 *)scr->pixels;
+ 		for(n=0; n<200; n++)
+ 		{
+ 			tmp=(20+n)*1280;
+--- a/staraz.c
++++ b/staraz.c
+@@ -29,7 +29,7 @@
+ 	*yy=-(*yy*100>>14)+200*2;
+ }
+ 
+-long *staraz_init(void)
++int *staraz_init(void)
+ {
+ 	c1=cgm_load("/usr/share/hexpistols-by-fit/stara.cgm");
+ 	c2=cgm_load("/usr/share/hexpistols-by-fit/stara2.cgm");
+--- a/staraz.h
++++ b/staraz.h
+@@ -2,7 +2,7 @@
+ #ifndef STARAZ_H
+ #define STARAZ_H
+ 
+-long *staraz_init(void);
++int *staraz_init(void);
+ void staraz(unsigned char *buf,int tid);
+ 
+ #endif

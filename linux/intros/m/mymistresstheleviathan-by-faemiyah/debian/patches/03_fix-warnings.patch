@@ -1,0 +1,286 @@
+Description: fixing various warnings 
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/verbatim_vec2.hpp
++++ b/src/verbatim_vec2.hpp
+@@ -24,6 +24,8 @@
+       m_data[1] = py;
+     }
+ 
++  vec2(const vec2&) = default;
++
+   public:
+     /// Accessor.
+     ///
+@@ -80,7 +82,7 @@
+     ///
+     /// \param rhs Right-hand-side operand.
+     /// \return This vector.
+-    vec2 operator-=(const vec2 &rhs)
++    vec2& operator-=(const vec2 &rhs)
+     {
+       m_data[0] -= rhs[0];
+       m_data[1] -= rhs[1];
+--- a/src/verbatim_vec3.hpp
++++ b/src/verbatim_vec3.hpp
+@@ -36,6 +36,8 @@
+       m_data[2] = op;
+     }
+ 
++  vec3(const vec3&) = default;
++
+   public:
+     /// Accessor.
+     ///
+@@ -130,7 +132,7 @@
+     ///
+     /// \param rhs Right-hand-side operand.
+     /// \return This vector.
+-    vec3 operator-=(const vec3 &rhs)
++    vec3& operator-=(const vec3 &rhs)
+     {
+       m_data[0] -= rhs[0];
+       m_data[1] -= rhs[1];
+--- a/src/intro_maze.hpp
++++ b/src/intro_maze.hpp
+@@ -60,15 +60,15 @@
+ // Primitives ##########################
+ //######################################
+ 
+-static void mesh_generate_aqueduct_circle(LogicalMesh &input, float radius, float width, float height, float detail, int type) {
++static void mesh_generate_aqueduct_circle(LogicalMesh &input, float radius, float width, float height, int detail, int type) {
+   vec3 origin = vec3(0, 0, 0);
+   vec3 up = vec3(0, 1, 0);
+ 
+-	float singlearc = static_cast<float>(2 * M_PI) / detail;
++	float singlearc = static_cast<float>(2 * M_PI) / static_cast<float>(detail);
+ 
+   for (int ii = 0; ii < detail; ii++) {
+-		float ratio1 = static_cast<float>(2 * M_PI*(static_cast<float>(ii) / detail));
+-		float ratio2 = static_cast<float>(2 * M_PI*(static_cast<float>(ii + 1) / detail));
++		float ratio1 = static_cast<float>(2 * M_PI*(static_cast<float>(ii) / static_cast<float>(detail)));
++		float ratio2 = static_cast<float>(2 * M_PI*(static_cast<float>(ii + 1) / static_cast<float>(detail)));
+     //printf("%f %f\n", ratio1, ratio2);
+ 		float dir_x1 = static_cast<float>(dnload_cosf(ratio1));
+ 		float dir_z1 = static_cast<float>(dnload_sinf(ratio1));
+--- a/src/synth/compressor.hpp
++++ b/src/synth/compressor.hpp
+@@ -11,8 +11,8 @@
+ 
+ class Compressor {
+     sample_t threshold = 0.5;
+-    sample_t attack = 0.99;
+-    sample_t release = 1.001;
++    sample_t attack = 0.99f;
++    sample_t release = 1.001f;
+ 
+     sample_t amp = 1.0;
+ 
+--- a/src/synth/controller.cpp
++++ b/src/synth/controller.cpp
+@@ -35,7 +35,7 @@
+ 	range_divisor_upper = float(max_midi_value - midi_midpoint);
+     }
+ 
+-    update(0, _initial_midi);
++    update(0, static_cast<int>(_initial_midi));
+ }
+ 
+ void Controller::update(unsigned long long timestamp, int midi_value) {
+@@ -46,10 +46,13 @@
+ 	case TYPE_LINEAR:
+ 	    if (midi_value > midi_midpoint) {
+ 		midi_value -= midi_midpoint;
+-		value = value_midpoint + (value_max - value_midpoint) * midi_value / range_divisor_upper;
++		value = value_midpoint + (value_max - value_midpoint) * static_cast<sample_t>(midi_value) / range_divisor_upper;
+ 	    } else {
+-		value = value_min + (value_midpoint - value_min) * midi_value / range_divisor_lower;
++		value = value_min + (value_midpoint - value_min) * static_cast<sample_t>(midi_value) / range_divisor_lower;
+ 	    }
++	    break;
++	default:
++	    break;
+ 	}
+     }
+ }
+--- a/src/synth/compiled_song.hpp
++++ b/src/synth/compiled_song.hpp
+@@ -124,7 +124,7 @@
+ const InstrumentData instruments[] = {
+   { // saw.patch
+    4, // num_oscs
+-   { 0.99399, 1.0, 1.0071, 0.5 }, // osc_pitches
++   { 0.99399f, 1.0, 1.0071f, 0.5 }, // osc_pitches
+    { 0, 0, 0, 0 }, // osc_shape
+    0.500000f, // filter_cutoff
+    0.999700f, // filter_decay
+@@ -184,7 +184,7 @@
+   },
+   { // pad1.patch
+    2, // num_oscs
+-   { 1.0, 2.007 }, // osc_pitches
++   { 1.0, 2.007f }, // osc_pitches
+    { 0, 0 }, // osc_shape
+    0.001000f, // filter_cutoff
+    1.000220f, // filter_decay
+@@ -214,7 +214,7 @@
+   },
+   { // bass2.patch
+    4, // num_oscs
+-   { 0.5, 1.005, 1.493, 0.5 }, // osc_pitches
++   { 0.5, 1.005f, 1.493f, 0.5 }, // osc_pitches
+    { 0, 0, 0, 0 }, // osc_shape
+    0.300000f, // filter_cutoff
+    0.990047f, // filter_decay
+@@ -244,7 +244,7 @@
+   },
+   { // ding.patch
+    4, // num_oscs
+-   { 1.0, 1.004, 1.996, 2.006 }, // osc_pitches
++   { 1.0, 1.004f, 1.996f, 2.006f }, // osc_pitches
+    { 0, 0, 0, 0 }, // osc_shape
+    0.660000f, // filter_cutoff
+    0.999800f, // filter_decay
+--- a/src/synth/delay.hpp
++++ b/src/synth/delay.hpp
+@@ -18,10 +18,10 @@
+ 
+ public:
+     size_t delay[2];
+-    sample_t feedback = 0.3;
++    sample_t feedback = 0.3f;
+ 
+-    sample_t dry_gain = 0.5;
+-    sample_t wet_gain = 0.5;
++    sample_t dry_gain = 0.5f;
++    sample_t wet_gain = 0.5f;
+ 
+     sample_t out[2];
+ 
+--- a/src/synth/ghostsyn.cpp
++++ b/src/synth/ghostsyn.cpp
+@@ -27,12 +27,12 @@
+ 	ctrl_set.resize(RT_NUM_TYPES);
+ 	ctrl_set[RT_FILTER_CUTOFF] = Controller(Controller::TYPE_LINEAR,
+ 						Controller::RANGE_8BIT,
+-						0.1, 1.0,
+-						63, 0.55,
++						0.1f, 1.0,
++						63, 0.55f,
+ 						63);
+ 	ctrl_set[RT_PITCH_BEND] = Controller(Controller::TYPE_LINEAR,
+ 					     Controller::RANGE_14BIT,
+-					     0.94387, 1.05946,
++					     0.94387f, 1.05946f,
+ 					     8192, 1.0,
+ 					     8192);
+     }
+@@ -213,6 +213,8 @@
+ 	    }
+ 	}
+ 	break;
++	default:
++	break;
+     }
+ }
+ 
+@@ -286,8 +288,8 @@
+ 						 static_cast<sample_t>(1.0));
+ 	}
+ 
+-	sample_count -= frames_to_render;
+-	offset += frames_to_render;
++	sample_count -= static_cast<uint32_t>(frames_to_render);
++	offset += static_cast<uint32_t>(frames_to_render);
+     }
+ }
+ 
+@@ -306,6 +308,6 @@
+ 				   static_cast<sample_t>(1.0));
+ 	}
+ 
+-	frame_count -= frames_to_render;
++	frame_count -= static_cast<uint32_t>(frames_to_render);
+     }
+ }
+--- a/src/synth/globalconfig.hpp
++++ b/src/synth/globalconfig.hpp
+@@ -5,7 +5,7 @@
+ 
+ namespace GlobalConfig {
+     static const unsigned int max_oscs_per_voice = 4;
+-    static const sample_t envelope_min = 1e-6;
++    static const sample_t envelope_min = 1e-6f;
+ };
+ 
+ #endif // _GLOBAL_CONFIG_H_
+--- a/src/synth/delay.cpp
++++ b/src/synth/delay.cpp
+@@ -56,7 +56,7 @@
+ 								   other * delay_length_max] * feedback +
+ 							    input[i]);
+ 	    out[i] = (dry_gain * input[i] +
+-		      wet_gain * buffer[buffer_pos[i] + i * delay_length_max]) + 0.00000001;
++		      wet_gain * buffer[buffer_pos[i] + i * delay_length_max]) + 0.00000001f;
+ 	    if (++buffer_pos[i] >= delay[i]) {
+ 		buffer_pos[i] = 0;
+ 	    }
+--- a/src/synth/dcfilter.cpp
++++ b/src/synth/dcfilter.cpp
+@@ -8,7 +8,7 @@
+ 
+ void DCFilter::run(sample_t input[2]) {
+     for (unsigned int i = 0; i < 2; ++i) {
+-	out[i] = input[i] - x[i] + 0.995 * y[i];
++	out[i] = input[i] - x[i] + 0.995f * y[i];
+ 	x[i] = input[i];
+ 	y[i] = out[i];
+     }
+--- a/src/synth/voice.cpp
++++ b/src/synth/voice.cpp
+@@ -78,10 +78,11 @@
+ 					       params[Instrument::PARAM_PITCH_FLOOR]);
+ 
+     for (size_t i = 0; i < osc_pitches.size(); ++i) {
+-	osc_increments[i] = ((notetable[note + 1]) *
+-			     osc_pitches[i] *
+-			     (1 << octave) / 128 *
+-			     params[Instrument::PARAM_PITCH]);
++	osc_increments[i] = static_cast<int32_t>(
++		static_cast<float>(notetable[note + 1]) *
++		osc_pitches[i] *
++		static_cast<float>(1 << octave) / 128.0f *
++		params[Instrument::PARAM_PITCH]);
+ 	// * rt_controls[RT_PITCH_BEND].get_value());
+     }
+ 
+@@ -128,10 +129,10 @@
+ 	    }
+ 	}
+     }
+-    return osc_out * params[Instrument::PARAM_AMP_INIT];
++    return static_cast<sample_t>(osc_out) * params[Instrument::PARAM_AMP_INIT];
+ }
+ 
+-void Voice::run(const Vector<Controller> &rt_controls, sample_t *out,
++void Voice::run(const Vector<Controller> &rt_controls, sample_t *out_buf,
+ 		size_t frame_count) {
+     const sample_t scale = params[Instrument::PARAM_VOLUME] / OVERSAMPLE_FACTOR / (sample_t(1LL << 32));
+     for (size_t frame = 0; frame < frame_count; ++frame) {
+@@ -156,9 +157,9 @@
+ 	}
+ 	sum *= scale;
+ 	if (fade_ctr > 0) {
+-	    sum *= (fade_ctr / 300.0);
++	    sum *= (static_cast<sample_t>(fade_ctr) / 300.0f);
+ 	}
+-	*(out++) += sum;
+-	*(out++) += sum;
++	*(out_buf++) += sum;
++	*(out_buf++) += sum;
+     }
+ }

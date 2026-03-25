@@ -2,3 +2,10 @@
 02_fix_glXCreateContextAttribsARB.patch
 03_update_png16.patch
 04_change_data_path.patch
+05_fix-c23.patch
+06_fix-64bit-portability.patch
+07_port-sdl2.patch
+08_fullscreen-resize.patch
+09_fix-stutter.patch
+10_fix-black-screens.patch
+11_fix-pointsize.patch

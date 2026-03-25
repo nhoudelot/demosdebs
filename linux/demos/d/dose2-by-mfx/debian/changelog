@@ -1,3 +1,12 @@
+dose2-by-mfx (1.0-0ddebs3) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fix some 64 bit portability issues
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 20 Apr 2026 00:18:45 +0200
+
 dose2-by-mfx (1.0-0ddebs2) unstable; urgency=medium
 
   * use full desktop resolution when start fullscreen

@@ -6,3 +6,6 @@
 06_resizable_window.patch
 07_add_fullscreen.patch
 08_migrate_to_openmpt.patch
+09_convert-to-utf8.patch
+10_fix-gcc15.patch
+11_fix-64bit.patch

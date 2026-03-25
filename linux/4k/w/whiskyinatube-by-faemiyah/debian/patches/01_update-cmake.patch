@@ -1,0 +1,74 @@
+Description: skip building of rpath
+ fix lintian error binary-or-shlib-defines-rpath
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,9 +1,6 @@
+-cmake_minimum_required(VERSION 2.8)
++cmake_minimum_required(VERSION 3.16)
+ set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+-project(whisky_in_a_tube)
+-
+-enable_language(C)
+-enable_language(CXX)
++project(whisky_in_a_tube LANGUAGES C CXX)
+ 
+ cmake_policy(SET CMP0011 NEW)
+ if(${MSVC})
+@@ -12,18 +9,14 @@
+ 
+ include("defaults.cmake")
+ 
+-find_boost_program_options(TRUE)
+-find_glew(TRUE)
+-find_opengl(TRUE)
+-find_png(TRUE)
+-find_sdl(TRUE)
+-
+-add_definitions(-DUSE_LD)
++find_package(Boost 1.74.0 CONFIG REQUIRED COMPONENTS program_options)
++find_package(GLEW REQUIRED)
++find_package(OpenGL REQUIRED)
++find_package(PNG REQUIRED)
++find_package(SDL REQUIRED)
+ 
+ output_flags("DEBUG" on)
+ 
+-include_directories("${PROJECT_SOURCE_DIR}/src")
+-
+ set(SOURCE_FILES
+   "src/bsd_rand.c"
+   "src/bsd_rand.h"
+@@ -41,14 +34,17 @@
+ endif (APPLE)
+ 
+ add_executable(whisky_in_a_tube ${SOURCE_FILES})
+-if(${MSVC})
+-  target_link_libraries(whisky_in_a_tube ${OPENGL_gl_LIBRARY})
+-  target_link_libraries(whisky_in_a_tube debug ${GLEW_LIBRARY_DEBUG})
+-  target_link_libraries(whisky_in_a_tube debug ${PNG_LIBRARY_DEBUG})
+-  target_link_libraries(whisky_in_a_tube debug ${SDL_LIBRARY_DEBUG})
+-else()
+-  target_link_libraries(whisky_in_a_tube ${BOOST_PROGRAM_OPTIONS_LIBRARY})
+-endif()
+-target_link_libraries(whisky_in_a_tube general ${GLEW_LIBRARY})
+-target_link_libraries(whisky_in_a_tube general ${PNG_LIBRARY})
+-target_link_libraries(whisky_in_a_tube general ${SDL_LIBRARY})
++
++target_compile_definitions(whisky_in_a_tube PRIVATE USE_LD)
++target_include_directories(whisky_in_a_tube PRIVATE "${PROJECT_SOURCE_DIR}/src")
++
++target_link_libraries(whisky_in_a_tube PRIVATE
++	Boost::program_options
++	OpenGL::GL
++	GLEW::GLEW
++	PNG::PNG
++	SDL::SDL
++)
++
++# remove the CMake generated '-Wl,-rpath'
++set_target_properties(whisky_in_a_tube PROPERTIES SKIP_BUILD_RPATH 1)

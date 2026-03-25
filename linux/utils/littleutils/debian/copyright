@@ -1,6 +1,6 @@
-Format: https://dep.debian.net/deps/dep5
-Upstream-Name: littleutils
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Source: https://sourceforge.net/projects/littleutils/
+Upstream-Name: littleutils
 
 Files: * debian/*
 Copyright: 2004-2017 Brian Lindholm

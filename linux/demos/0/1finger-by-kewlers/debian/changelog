@@ -1,3 +1,12 @@
+1finger-by-kewlers (1.0+3-0ddebs10) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * migrated from Glut to SDL2
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 18 Apr 2026 17:12:00 +0200
+
 1finger-by-kewlers (1.0+3-0ddebs9) unstable; urgency=medium
 
   * fixed c standard to gnu90, as it was the default by the time of the demo

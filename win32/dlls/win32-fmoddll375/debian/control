@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://web.archive.org/web/20051231045410/http://www.fmod.org/
 Rules-Requires-Root: no
 

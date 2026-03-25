@@ -1,3 +1,13 @@
+leeko-by-fit (1.0+1-0ddebs9) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : removed xz compression of the package
+  * fixed some 64 bit portability issues
+  * fixed warnings 
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 16 Apr 2026 12:34:22 +0200
+
 leeko-by-fit (1.0+1-0ddebs8) unstable; urgency=medium
 
   * remove launch script (desktop icon didn't work since SDL2 migration)

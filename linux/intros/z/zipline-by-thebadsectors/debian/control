@@ -7,7 +7,7 @@ Build-Depends:
  debhelper-compat (= 13),
  dh-exec (>=0.3),
  libsdl2-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=85913
 
 Package: zipline-by-thebadsectors

@@ -11,7 +11,7 @@ Build-Depends:
  libsdl2-ttf-dev,
  portaudio19-dev,
  libopenmpt-dev,
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage:https://www.pouet.net/prod.php?which=83117
 
 Package: hktietokonekerho-by-hkcomputerclub

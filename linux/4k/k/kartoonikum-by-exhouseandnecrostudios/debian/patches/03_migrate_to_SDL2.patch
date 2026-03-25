@@ -16,7 +16,25 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
  #ifndef OS_X
-@@ -742,8 +742,9 @@
+@@ -42,8 +42,6 @@
+ 	void (*SDL_CloseAudio)(void);
+ 	void (*SDL_PauseAudio)(int);
+ 	int (*SDL_ShowCursor)(int);
+-	void*   (*SDL_SetVideoMode)(int, int, int, Uint32);
+-	int (*SDL_GL_SwapBuffers)(void);
+ 	int (*SDL_PollEvent)(SDL_Event*);
+ 	void (*SDL_Delay)(int);
+ 	unsigned int (*SDL_GetTicks)(void);
+@@ -74,8 +72,6 @@
+ #define SDL_CloseAudio fn.SDL_CloseAudio
+ #define SDL_PauseAudio fn.SDL_PauseAudio
+ #define SDL_ShowCursor fn.SDL_ShowCursor
+-#define SDL_SetVideoMode fn.SDL_SetVideoMode
+-#define SDL_GL_SwapBuffers fn.SDL_GL_SwapBuffers
+ #define SDL_PollEvent fn.SDL_PollEvent
+ #define SDL_Delay fn.SDL_Delay
+ #define SDL_GetTicks fn.SDL_GetTicks
+@@ -742,8 +738,9 @@
  	SDL_Init(SDL_INIT_AUDIO|SDL_INIT_VIDEO); //not necessary in Linux
  #endif
  #ifdef SDL
@@ -24,11 +42,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	SDL_WM_SetCaption("kartoonikum by ExHouse & NecroStudios",NULL);
 +    SDL_Window *sdlWindow;
 +	sdlWindow = SDL_CreateWindow("kartoonikum by ExHouse & NecroStudios",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,w,h,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
-+	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
++	SDL_GLContext *sdlContext = SDL_GL_CreateContext(sdlWindow);
  #endif
  
  #ifndef OS_X
-@@ -1095,7 +1096,7 @@
+@@ -1095,7 +1092,7 @@
  
  		glPopMatrix();
  #ifdef SDL
@@ -37,11 +55,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		SDL_Delay(25);
  
  		SDL_Event event;
-@@ -1117,6 +1118,8 @@
+@@ -1117,6 +1114,8 @@
  	}
  
  #ifdef SDL
-+	SDL_DestroyRenderer(sdlRenderer);
++	SDL_GL_DeleteContext(sdlContext);
 +	SDL_DestroyWindow(sdlWindow);
  	SDL_Quit();
  #endif

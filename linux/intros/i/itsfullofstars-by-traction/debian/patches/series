@@ -8,3 +8,5 @@
 08_resizable_window.patch
 09_add_fullscreen.patch
 10_libfmodex_to_openmpt.patch
+11_fix-warnings.patch
+12_fix-64bit.patch

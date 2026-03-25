@@ -5,5 +5,3 @@ export DEB_CPPFLAGS_MAINT_APPEND = -DUSE_LD
 %:
 	dh $@
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

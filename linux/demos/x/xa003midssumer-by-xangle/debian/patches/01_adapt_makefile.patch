@@ -14,8 +14,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +SHELL = /bin/sh
 +PROJECT = xa003midssumer-by-xangle
 +EXE = $(PROJECT)
-+CXX := g++
-+PKG_CONFIG:=pkg-config
++CXX ?= g++
++PKG_CONFIG ?= pkg-config
  
  # Compile flags ----------------------------------------------------------------
 -#FLAGS = -g -Wall

@@ -18,8 +18,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -LIB = `sdl-config --libs` -ljpeg -lGL -lm
 -OBJ = main.o piraali.o piraali2.o jpeg.o tausta.o font.o stara.o rays.o \
 +SHELL := /bin/sh
-+CC := gcc
-+PKG_CONFIG:=pkg-config
++CC ?= gcc
++PKG_CONFIG ?= pkg-config
 +CFLAGS += -Wall -std=gnu90 -pipe
 +INC := $(shell $(PKG_CONFIG) sdl libjpeg gl --cflags)
 +LDFLAGS += $(shell $(PKG_CONFIG) sdl libjpeg gl --libs) -lm

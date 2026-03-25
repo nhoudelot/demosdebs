@@ -8,7 +8,7 @@ Last-Update: 2024-03-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/nwep.c
 +++ b/nwep.c
-@@ -480,6 +480,7 @@
+@@ -525,6 +525,7 @@
  		SDL_Event e;
  		SDL_PollEvent(&e);
  		if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) || now >= INTRO_LENGTH) break;

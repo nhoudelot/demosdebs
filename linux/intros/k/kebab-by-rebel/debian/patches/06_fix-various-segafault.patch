@@ -1,0 +1,102 @@
+Description: fix various segfault
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/kebab.c
++++ b/kebab.c
+@@ -239,6 +239,8 @@
+ 
+ void draw(int x,int y,int attr,int fg, int bg, char data)
+ {
++	if(x < 0 || x >= COLUMNS || y < 0 || y >= LINES)
++		return;
+ 	screen[x][y].attr = attr;
+ 	screen[x][y].fg = fg;
+ 	screen[x][y].bg = bg;
+@@ -247,6 +249,8 @@
+ 
+ void local_draw(struct framebuffer_point (*local)[LINES], int x,int y,int attr,int fg, int bg, char data)
+ {
++	if(x < 0 || x >= COLUMNS || y < 0 || y >= LINES)
++		return;
+ 	local[x][y].attr = attr;
+ 	local[x][y].fg = fg;
+ 	local[x][y].bg = bg;
+@@ -288,13 +292,13 @@
+ 		else if(s[i] != '\n')
+ 		{
+ 
+-			screen[col+x][line+y].data = s[i];
+-			screen[col+x][line+y].attr = attr;
+-			screen[col+x][line+y].fg = fg;
+-			screen[col+x][line+y].bg = bg;
+-
+-//if(s[i] == ' ')
+-//screen[col+x][line+y].bg = 50000;
++			if(col+x >= 0 && col+x < COLUMNS && line+y >= 0 && line+y < LINES)
++			{
++				screen[col+x][line+y].data = s[i];
++				screen[col+x][line+y].attr = attr;
++				screen[col+x][line+y].fg = fg;
++				screen[col+x][line+y].bg = bg;
++			}
+ 
+ 			col++;
+ 		}
+@@ -1474,7 +1478,6 @@
+ 
+ 		if(i == height)
+ 		{
+-			plane[x][y] = 31337;
+ 			explode = 1;
+ 
+ 			for(x=0; x<COLUMNS; x++)
+@@ -1496,7 +1499,8 @@
+ 					if(plane[x][y] == 1)
+ 					{
+ 						plane[x][y] = 0;
+-						plane[x][y-1] = 1;
++						if(y > 0)
++							plane[x][y-1] = 1;
+ 					}
+ 
+ 
+@@ -1686,9 +1690,7 @@
+ 	int start, chars;
+ 
+ 
+-	for(x=0; x<COLUMNS; x++)
+-		for(y=0; y<LINES; y++)
+-			plane[x][y] = 0;
++	memset(plane, 0, sizeof(plane));
+ 
+ 	y = 8;
+ 	x = 2;
+@@ -1726,9 +1728,9 @@
+ //draw(x-(chars*15),y,BRIGHT,plane[x][y],plane[x][y],' ');
+ //draw(x-(chars*15+40),y,BRIGHT,RED,BLACK,plane[x][y]);
+ 
+-					for(e=0; plane[x][y] != table[e]; e++);
++					for(e=0; e<67 && plane[x][y] != table[e]; e++);
+ 
+-					if(plane[x][y] != ' ') mutta(x-(chars*15+40),y-5,BRIGHT,WHITE,WHITE,letters[e]);
++					if(plane[x][y] != ' ' && e < 67) mutta(x-(chars*15+40),y-5,BRIGHT,WHITE,WHITE,letters[e]);
+ 					plane[x][y] = 0;
+ 					x+=10;
+ 
+@@ -1833,9 +1835,10 @@
+ //draw(c,y+4,BRIGHT,10-plane[40][y],10-plane[40][y],' ');
+ //draw(c,y+1+4,BRIGHT,10-plane[40][y],10-plane[40][y],' ');
+ 
+-							col = 10-plane[x][y]+my_wormx;
++							col = 10-plane[x][y]+(int)my_wormx;
++							col = col % 8; /* clamp to valid ANSI range 0-7 */
+ //col = (int)(col + (i*7))%8;
+-							if(col == BLUE) col = (col - 4)%8;
++							if(col == BLUE) col = (col - 4 + 8) % 8;
+ 
+ 							if(col == BLUE) col+=3;
+ 

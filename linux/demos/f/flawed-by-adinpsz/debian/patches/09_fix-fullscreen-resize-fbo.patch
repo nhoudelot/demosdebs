@@ -1,0 +1,141 @@
+Description: Fix fullscreen toggle, window resize, and FBO at fixed resolution
+ - Add toggleFullscreen() to Window using SDL_WINDOW_FULLSCREEN_DESKTOP (touche F)
+ - Fix Window destructor to properly release SDL GL context and window
+ - Fix Window::resize() to call SDL_SetWindowSize()
+ - Remove duplicate uninitialised sdlWindow member from GLWindow
+ - Add SDL event loop for SDL_QUIT and F key fullscreen toggle
+ - Store FBO dimensions from settings so they stay fixed on resize/fullscreen
+ - Fix gluPerspective aspect ratio (was integer division 1024/1024 = 1)
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Flawed/Sources/NEngine/GLWindow.hpp
++++ b/Flawed/Sources/NEngine/GLWindow.hpp
+@@ -13,10 +13,6 @@
+ 
+     void clear();
+     void refresh();
+-
+-private:
+-    
+-    SDL_Window *sdlWindow;
+ };
+ 
+ #endif
+--- a/Flawed/Sources/NEngine/Window.cpp
++++ b/Flawed/Sources/NEngine/Window.cpp
+@@ -49,10 +49,22 @@
+ 
+ void Window :: resize(unsigned int width, unsigned int height)
+ {
+-	
+-//	pWindow = SDL_CreateWindow("",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,pWindow->flags);
+ 	if ( sdlWindow == NULL )
+ 	{
+ 		throw WindowCreationException("Fail to resize");
+ 	}
++	SDL_SetWindowSize(sdlWindow, (int)width, (int)height);
++}
++
++void Window :: toggleFullscreen()
++{
++	Uint32 flags = SDL_GetWindowFlags(sdlWindow);
++	if ( (flags & SDL_WINDOW_FULLSCREEN_DESKTOP) != 0 )
++	{
++		SDL_SetWindowFullscreen(sdlWindow, 0);
++	}
++	else
++	{
++		SDL_SetWindowFullscreen(sdlWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
++	}
+ }
+--- a/Flawed/Sources/NEngine/Window.hpp
++++ b/Flawed/Sources/NEngine/Window.hpp
+@@ -42,6 +42,7 @@
+ void refresh();
+ 
+ virtual void resize(unsigned int width, unsigned int height);
++void toggleFullscreen();
+ };
+ 
+ #endif
+--- a/Flawed/Sources/main.cpp
++++ b/Flawed/Sources/main.cpp
+@@ -1,7 +1,7 @@
+ #include <iostream>
+ 
+ #include <GL/glew.h>
+-// #include <SDL2/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include "NEngine/Engine.hpp"
+ #include "NEngine/Window.hpp"
+@@ -58,7 +58,9 @@
+ 	{
+ 		Settings setting("data/settings.ini");
+ 		srand(setting.getSetting("seed",42));
+-		Engine e(EAPI_SDL | EAPI_OpenGL, setting.getSetting("hres",640),setting.getSetting("vres",480),"DemoD");
++		unsigned int fboWidth  = setting.getSetting("hres", 1024);
++		unsigned int fboHeight = setting.getSetting("vres", 768);
++		Engine e(EAPI_SDL | EAPI_OpenGL, fboWidth, fboHeight, "DemoD");
+ 
+ 		if ( e.checkExtension("GL_ARB_framebuffer_object") == false || e.checkExtension("GL_ARB_framebuffer_sRGB") == false )
+ 		{
+@@ -129,8 +131,8 @@
+ 		glEnable(GL_TEXTURE_2D);
+ 		glDisable(GL_CULL_FACE);
+ 
+-		Texture textureBucket(e.getWindow()->getWidth(),e.getWindow()->getHeight());
+-		Texture textureHBlurBucket(e.getWindow()->getWidth(),e.getWindow()->getHeight());
++		Texture textureBucket(fboWidth, fboHeight);
++		Texture textureHBlurBucket(fboWidth, fboHeight);
+ /*
+         std::cout << "Render buffer preparation (R2T)" << std::endl;
+         RenderBuffer renderBuffer;
+@@ -147,8 +149,19 @@
+ 		m.play();
+ 
+ 		std::cout << "Start !" << std::endl;
++		bool sdlQuit = false;
+ 		do
+ 		{
++			SDL_Event sdlEvent;
++			while (SDL_PollEvent(&sdlEvent))
++			{
++				if (sdlEvent.type == SDL_QUIT)
++					sdlQuit = true;
++				if (sdlEvent.type == SDL_KEYDOWN && sdlEvent.key.keysym.scancode == SDL_SCANCODE_F)
++					e.getWindow()->toggleFullscreen();
++			}
++			if (sdlQuit) break;
++
+ 			static Impulsor imp(1000);
+ 
+ 			im.getDirectionsPressed();
+@@ -162,12 +175,12 @@
+ 			frameBuffer.attach(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureBucket.getID());
+ 			frameBuffer.bind(GL_FRAMEBUFFER);
+ 			{
+-				glViewport(0, 0, e.getWindow()->getWidth(),e.getWindow()->getHeight());
++				glViewport(0, 0, fboWidth, fboHeight);
+ 				glMatrixMode(GL_PROJECTION);
+ 				glLoadIdentity();                                   //And reset it
+ 
+ 				// Set orthographic projection
+-				gluPerspective(45.0f,1024/1024,0.1f,120.0f);
++				gluPerspective(45.0f, (float)fboWidth / (float)fboHeight, 0.1f, 120.0f);
+ 				glMatrixMode(GL_MODELVIEW);
+ 
+ 
+@@ -247,7 +260,7 @@
+ 
+ 			e.waitFrame();
+ 
+-		} while(!im.needEscape() && !sm.update(c,&m,e.getTime()) );
++		} while(!sdlQuit && !im.needEscape() && !sm.update(c,&m,e.getTime()) );
+ 		std::cout << "End !" << std::endl;
+ 
+ 		delete pVBlurShader;

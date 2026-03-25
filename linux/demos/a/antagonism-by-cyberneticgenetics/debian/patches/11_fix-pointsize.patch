@@ -1,0 +1,30 @@
+Description: Fix point cloud particle size in OpenGL Core Profile
+ In OpenGL Core Profile, writing gl_PointSize in a vertex shader has no
+ effect unless GL_PROGRAM_POINT_SIZE is explicitly enabled.  Without it,
+ the rasteriser uses the API-level fixed point size (default 1.0), so all
+ particles appear as single pixels regardless of the pointsize uniform.
+ .
+ In the original Compatibility Profile context (the GLX code did not
+ request SDL_GL_CONTEXT_PROFILE_CORE), GL_VERTEX_PROGRAM_POINT_SIZE was
+ often enabled by default by drivers, hiding the issue.  The SDL2 port
+ requests Core Profile explicitly, making the enable mandatory.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/antagonism.c
++++ b/src/antagonism.c
+@@ -55,6 +55,11 @@
+ 	glEnable(GL_DEPTH_TEST);
+ 	glEnable(GL_BLEND);
+ 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
++	/* In Core Profile the vertex shader's gl_PointSize writes are only
++	   honoured when GL_PROGRAM_POINT_SIZE is enabled.  Without it the
++	   fixed default (1.0) is used regardless of the pointsize uniform,
++	   making all point-cloud particles appear as single pixels. */
++	glEnable(GL_PROGRAM_POINT_SIZE);
+ 
+ 	perspectiveMatrix(pmatrix, 35.0, ASPECT, 0.1, 1500.0);
+ }

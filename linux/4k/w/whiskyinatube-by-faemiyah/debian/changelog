@@ -1,3 +1,13 @@
+whiskyinatube-by-faemiyah (1.0+git20170414-0ddebs10) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * update fullscreen to use desktop resolution 
+  * window is now resizable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 11 Apr 2026 17:19:47 +0200
+
 whiskyinatube-by-faemiyah (1.0+git20170414-0ddebs9) unstable; urgency=medium
 
   * Revert to correct sample calculation, now that pipewire is by default on 

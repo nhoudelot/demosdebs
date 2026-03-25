@@ -10,7 +10,7 @@ Build-Depends:
  libfftw3-dev,
  shader-minifier:native,
  libglu-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=81049
 
 Package: internationalshipping-by-suricrasiaonline

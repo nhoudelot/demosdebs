@@ -10,7 +10,7 @@ Build-Depends:
  ant-optional,
  liboro-java,
  libcommons-net-java
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://sourceforge.net/projects/project-x
 Rules-Requires-Root: no
 

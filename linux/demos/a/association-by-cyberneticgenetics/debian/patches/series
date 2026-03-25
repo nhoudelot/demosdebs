@@ -6,3 +6,5 @@
 06_add_fullscreen_key.patch
 07_add_resizable_window.patch
 08_fix_audio_noble.patch
+09_fix-warnings.patch
+10_fix-64bit-portability.patch

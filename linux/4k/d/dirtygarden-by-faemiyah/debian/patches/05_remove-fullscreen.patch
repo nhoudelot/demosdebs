@@ -1,0 +1,27 @@
+Description: remove fullscreen
+ the app start only in fullscreen
+ that could be annoying, so we start in windowed mode
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.c
++++ b/src/main.c
+@@ -56,7 +56,7 @@
+ #define SCREEN_B 32
+ 
+ /** Fullscreen on or off. */
+-#define SCREEN_F 1
++#define SCREEN_F 0
+ 
+ /** Delay between frames (milliseconds). */
+ #define FRAME_TICKS 16
+@@ -1378,6 +1378,7 @@
+ #endif
+ #endif
+ 		DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, sdl_flags);
++		SDL_WM_SetCaption("Dirty Garden by Faemiyah",NULL);
+ 	}
+ 	DDL_ShowCursor(0);
+ #if defined(WIN32)

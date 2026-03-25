@@ -1,0 +1,180 @@
+Description: Eliminate glMapBuffer pipeline stalls (stuttering fix)
+ glMapBuffer forces the CPU to wait until the GPU has finished reading the
+ buffer before it can be mapped.  With 6 consecutive map/unmap cycles on the
+ same BigCube VBO per frame, plus one GL_READ_WRITE map on the 774 KB point
+ cloud percentages buffer, the main loop stalled up to 7 times every frame —
+ enough to push render time well past the 16.6 ms vsync window and cause
+ visible stuttering.
+ .
+ The fix uses buffer orphaning: glBufferData(target, size, NULL, hint) tells
+ the driver to allocate a fresh backing store for the buffer object.  The GPU
+ keeps the previous backing store for any in-flight draw calls while the CPU
+ writes to the new one without any synchronisation stall.  A single
+ glBufferSubData then uploads the new data.
+ .
+ bigcube.c / bigcube.h:
+   updateBigCube() no longer makes any OpenGL call; it only updates the
+   already-maintained CPU array bc->vertices.  A new flushBigCube() performs
+   the orphan + upload in one GL call pair.
+ .
+ antagonism.c:
+   Call flushBigCube() once after the 6 updateBigCube() calls so the whole
+   VBO is uploaded in a single transfer instead of 6 separate map/unmap pairs.
+ .
+ pointcloud.c:
+   updatePC() now computes into the CPU array pc.percentages (which was
+   already malloc'd and kept alive), then orphans and uploads.  Removes the
+   GL_READ_WRITE flag which forced an unnecessary 774 KB readback from GPU
+   memory on every frame.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/bigcube.h
++++ b/src/bigcube.h
+@@ -19,3 +19,4 @@
+ void freeBigCube(BigCube bc);
+ void drawBigCube(BigCube bc);
+ void updateBigCube(unsigned char *buffer, BigCube *bc, int face);
++void flushBigCube(BigCube *bc);
+--- a/src/bigcube.c
++++ b/src/bigcube.c
+@@ -94,55 +94,40 @@
+ 	glDrawElements(GL_TRIANGLES, bc.indnum, GL_UNSIGNED_INT, 0);
+ }
+ 
++/* Update the CPU-side vertex array for one face.
++ * No OpenGL call here: call flushBigCube() once after all faces are updated
++ * to upload everything in a single stall-free transfer. */
+ void updateBigCube(unsigned char *buffer, BigCube *bc, int face){
+-	GLfloat *verts;
+-	int i,x,y;
+-	int coord;
++	int i, x, y, coord;
+ 	float dir, base;
+ 
+-	glBindBuffer(GL_ARRAY_BUFFER, bc->vbo[0]);
+-	verts = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+-	for(i = 0; i < bc->segments*bc->segments; i++) {
++	switch(face) {
++	case BCFRONTFACE:  coord = 2; dir = -1.0f; base = 1.0f; break;
++	case BCBACKFACE:   coord = 2; dir =  1.0f; base = 0.0f; break;
++	case BCTOPFACE:    coord = 1; dir =  1.0f; base = 0.0f; break;
++	case BCBOTTOMFACE: coord = 1; dir = -1.0f; base = 1.0f; break;
++	case BCLEFTFACE:   coord = 0; dir = -1.0f; base = 1.0f; break;
++	case BCRIGHTFACE:  coord = 0; dir =  1.0f; base = 0.0f; break;
++	default: return;
++	}
+ 
++	for(i = 0; i < bc->segments * bc->segments; i++) {
+ 		x = i % bc->segments;
+ 		y = i / bc->segments;
+-
+-		/* Which coordinate should we change? Which direction? */
+-		switch(face) {
+-		case BCFRONTFACE:
+-			coord = 2;
+-			dir   = -1.0;
+-			base  = 1.0;
+-			break;
+-		case BCBACKFACE:
+-			coord = 2;
+-			dir   = 1.0;
+-			base  = 0.0;
+-			break;
+-		case BCTOPFACE:
+-			coord = 1;
+-			dir   = 1.0;
+-			base  = 0.0;
+-			break;
+-		case BCBOTTOMFACE:
+-			coord = 1;
+-			dir   = -1.0;
+-			base  = 1.0;
+-			break;
+-		case BCLEFTFACE:
+-			coord = 0;
+-			dir   = -1.0;
+-			base  = 1.0;
+-			break;
+-		case BCRIGHTFACE:
+-			coord = 0;
+-			dir   = 1.0;
+-			base  = 0.0;
+-			break;
+-		}
+-
+-		verts[ (face  * bc->segments * bc->segments * 3) + ((bc->segments * x * 3) + (y * 3)) + coord ] = base + (float)buffer[i] / 127.0 * dir;
++		bc->vertices[ (face * bc->segments * bc->segments * 3) +
++		              (bc->segments * x * 3) + (y * 3) + coord ] =
++		    base + (float)buffer[i] / 127.0f * dir;
+ 	}
+-	glUnmapBuffer(GL_ARRAY_BUFFER);
++}
++
++/* Upload the whole CPU vertex array to the GPU using buffer orphaning:
++ * glBufferData(NULL) discards the old backing store so the GPU can keep
++ * using it for in-flight draw calls while we write to the fresh one.
++ * This eliminates the pipeline stall that glMapBuffer would cause. */
++void flushBigCube(BigCube *bc){
++	GLsizeiptr size = sizeof(GLfloat) * bc->vernum;
++	glBindBuffer(GL_ARRAY_BUFFER, bc->vbo[0]);
++	glBufferData(GL_ARRAY_BUFFER, size, NULL,          GL_DYNAMIC_DRAW);
++	glBufferSubData(GL_ARRAY_BUFFER, 0, size, bc->vertices);
+ 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+ }
+--- a/src/antagonism.c
++++ b/src/antagonism.c
+@@ -215,6 +215,8 @@
+ 	updateBigCube(surface, &bigcube, BCBOTTOMFACE);
+ 	updateBigCube(surface, &bigcube, BCLEFTFACE);
+ 	updateBigCube(surface, &bigcube, BCFRONTFACE);
++	/* Single stall-free GPU upload for all 6 faces */
++	flushBigCube(&bigcube);
+ 
+ 	/* Draw all the big cubes */
+ 	for(i = 0; i < BIGCNUM; i++) {
+--- a/src/pointcloud.c
++++ b/src/pointcloud.c
+@@ -65,23 +65,30 @@
+ 	free(pc.vbo);
+ }
+ 
++/* Update particle ages on the CPU array, then upload with buffer orphaning.
++ * The original code used glMapBuffer(GL_READ_WRITE) which (a) forces a full
++ * GPU/CPU sync stall and (b) triggers an unnecessary readback of 774 KB from
++ * GPU memory even though only writes are performed.
++ * Buffer orphaning (glBufferData NULL + glBufferSubData) lets the GPU keep
++ * the previous backing store for in-flight draws while we fill the new one,
++ * with no synchronisation stall. */
+ void updatePC(PointCloud pc, double time, int reborn){
+ 	int i;
++	float *perc = pc.percentages; /* CPU array — always valid */
+ 
+-	glBindBuffer(GL_ARRAY_BUFFER, pc.vbo[1]);
+-	pc.percentages = glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE);
+-
+-	/* Calculate new positions */
+ 	for(i = 0; i < pc.pcnum; i++) {
+-		pc.percentages[i] = (time - pc.birth[i]) / PC_DEATHTIME;
+-		/* Dead particle. Need reborn */
+-		if( (pc.percentages[i] + pc.rand[i]) > 1.0 && reborn) {
++		perc[i] = (float)((time - pc.birth[i]) / PC_DEATHTIME);
++		/* Dead particle: reborn at current time */
++		if( (perc[i] + pc.rand[i]) > 1.0f && reborn) {
+ 			pc.birth[i] = time;
+-			pc.percentages[i] = 0.0;
++			perc[i] = 0.0f;
+ 		}
+ 	}
+ 
+-	glUnmapBuffer(GL_ARRAY_BUFFER);
++	/* Upload — orphan first to avoid stall */
++	glBindBuffer(GL_ARRAY_BUFFER, pc.vbo[1]);
++	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * pc.pcnum, NULL,  GL_DYNAMIC_DRAW);
++	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * pc.pcnum, perc);
+ 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+ }
+ 

@@ -79,8 +79,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	SDL_Event e;
  	double mp=0,oldtimer=0.0,oldtimer2=0.0,oldtimer3=0.0,d;
  
-@@ -187,7 +187,7 @@
- init()
+@@ -52,7 +52,7 @@
+ 	glEnable(GL_TEXTURE_2D);
+ 
+ 	mzx_start(50);
+-	while(mzx_position()<0 || mzx_position()>100) // Skip bug...
++	while(mzx_position()>100) // Skip bug...
+ 		;
+ 	get_time(); /* Start the timer */
+ 	while(!quit)
+@@ -184,10 +184,10 @@
+ 	return(0);
+ }
+ 
+-init()
++int init(void)
  {
  	double dx,dy;
 -	int x,y,n,i;
@@ -88,6 +101,41 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	GLenum tyyppo;
  	unsigned char   *data,tmp;
  	static unsigned char ympara[256*256*4];
+@@ -196,7 +196,7 @@
+ 		        "/usr/share/drfungi-by-fit/data/miehet.jpg"};
+ 	FILE    *fp;
+ 
+-	glGenTextures(TEXTURES,gl_names);
++	glGenTextures(TEXTURES,(GLuint*)gl_names);
+ 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+ 
+ 	for(n=0; n<TEXTURES; n++)
+@@ -272,7 +272,7 @@
+ void alku(double tid,GLint tegsture)
+ {
+ 	int n;
+-	double tc1,tc2,tmp,d;
++	double tc1,tc2,d;
+ 
+ 	glEnable(GL_BLEND);
+ 	glEnable(GL_TEXTURE_2D);
+@@ -312,6 +312,7 @@
+ void tausta(double d)
+ {
+ 	double tmp,kerri=0.8;
++	(void)d;
+ 	static double efektsi=0,kukkane=0,suunta=1;
+ 	int n,pos=mzx_position()/100,mp=mzx_position();
+ 	static int uvat=0,
+@@ -439,7 +440,7 @@
+ #define LEVEYS 0.2
+ void piraali(double tid)
+ {
+-	double d,dp,r=0,dx,dy,phase;
++	double d,r=0,dx,dy,phase;
+ 	int n;
+ 
+ 	glPushMatrix();
 --- a/cool_mzx/cool_mzx.c
 +++ b/cool_mzx/cool_mzx.c
 @@ -11,6 +11,8 @@
@@ -129,6 +177,20 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #define pt_maxchannels 32
  #define pt_periodmin 27
+@@ -325,11 +328,11 @@
+ // levyltä, ei muistialuetta saa vapauttaa ja käyttää uudestaan,
+ // jos tässä on nolla!!!
+ 
+-unsigned char  *pt_errorstr;    // tässä sitten lukee jotain tai ei lue...
++const char  *pt_errorstr;    // tässä sitten lukee jotain tai ei lue...
+ 
+ unsigned char pt_modid[5];
+ 
+-unsigned char  *pt_modid_table[] =
++const char  *pt_modid_table[] =
+ {"2CHN", "4CHN", "M.K.", "M!K!", "FLT4", "FLT8", "OCTA", "6CHN", "8CHN",
+  "10CH", "12CH", "14CH", "16CH", "18CH", "20CH", "22CH",
+  "24CH", "26CH", "28CH", "30CH", "32CH", "STOP" };
 @@ -344,7 +347,7 @@
  // alustetaan ne muuttujat
  {
@@ -165,3 +227,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #ifndef SD_NS_H
  #define SD_NS_H
+--- a/mcubes.c
++++ b/mcubes.c
+@@ -305,9 +305,6 @@
+ 
+ 	int i,j,k;
+ 	float rott=time;
+-	static float scale=0.0f;
+-	scale=time;
+-
+ 	/* Enable a single OpenGL light. */
+ 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+ 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);

@@ -2,4 +2,7 @@
 02_added_windowed_option.patch
 03_remove_warnings_c.patch
 04_replace_mikmod_by_sdlmixer.patch
-05_adapt_path.patch
+05_remove-dead-code.patch
+06_adapt_path.patch
+07_fix-parenthese-warnings.patch
+08_fix-64bit-compat.patch

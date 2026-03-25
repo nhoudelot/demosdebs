@@ -7,7 +7,7 @@ Last-Update: 2024-05-09
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/organica.c
 +++ b/src/organica.c
-@@ -1859,6 +1859,13 @@
+@@ -1856,6 +1856,13 @@
      dlViewport(x, y, w, h);
  }
  
@@ -21,7 +21,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #ifdef DISCARD_LIBC
  void *environ, *__progname;
  /** Small main function.
-@@ -2140,6 +2147,7 @@
+@@ -1920,7 +1927,7 @@
+ 			}
+ 			else if((strcmp("-w", cmp) == 0) || (strcmp("--windowed", cmp) == 0))
+ 			{
+-				sdl_flags &= ~SDL_WINDOW_FULLSCREEN_DESKTOP;
++				sdl_flags &= (uint32_t)~SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 			}
+ 			else if((strcmp("-r", cmp) == 0) || (strcmp("--record", cmp) == 0))
+ 			{
+@@ -2138,6 +2145,7 @@
  				switch (event.key.keysym.sym) {
  					case SDLK_ESCAPE: quit++; break;
  					case SDLK_q: quit++; break;

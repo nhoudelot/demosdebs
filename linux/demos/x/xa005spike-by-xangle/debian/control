@@ -10,12 +10,11 @@ Build-Depends:
  libfontconfig-dev,
  libxinerama-dev,
  libglu-dev,
- libsdl-mixer1.2-dev,
- libsdl1.2-compat-dev|libsdl1.2-dev,
+ libsdl2-dev,
+ libopenmpt-dev,
  libgl-dev,
- libfmod-dev,
  pkgconf
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=17997
 Rules-Requires-Root: no
 
@@ -23,8 +22,7 @@ Package: xa005spike-by-xangle
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libsdl1.2-compat
+ ${misc:Depends}
 Description: Demo for Linux, released in 2005
  Demo by xAngle, released in 2005
  Party release at "Backslash underground" 2005-07-09

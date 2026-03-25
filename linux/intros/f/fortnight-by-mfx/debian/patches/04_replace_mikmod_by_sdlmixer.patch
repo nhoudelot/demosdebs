@@ -16,8 +16,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <math.h>
  
  
-@@ -289,8 +289,6 @@
- 	static int graffa[320*200];
+@@ -283,8 +283,6 @@
+ 	SDL_Overlay *ovl;
  	int effu=argc>1 ? atoi(argv[1]) : 0;
  
 -	MODULE *module;
@@ -25,7 +25,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  /*  {
      FILE *fp=fopen("pakked.dat", "r");
      mov=readmovie(fp);
-@@ -341,24 +339,25 @@
+@@ -335,24 +333,25 @@
  	SDL_EventState(SDL_QUIT, SDL_ENABLE);
  	fprintf(stderr, "d5\n");
  
@@ -66,7 +66,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	}
  	fprintf(stderr, "d5\n");
  	{
-@@ -389,9 +388,7 @@
+@@ -383,9 +382,7 @@
  	desing_precalc();
  	fprintf(stderr, "d5\n");
  	time0=SDL_GetTicks();
@@ -76,8 +76,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	Mix_PlayMusic(musique,1);
  
  	while (!stopnow) {
- 		float aikaero=.02;
-@@ -489,15 +486,13 @@
+ //		float aikaero=.02;
+@@ -483,15 +480,13 @@
  
  		rectum.x=0; rectum.y=0; rectum.w=640; rectum.h=480;
  		SDL_DisplayYUVOverlay(ovl, &rectum);
@@ -98,14 +98,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
 --- a/Makefile
 +++ b/Makefile
-@@ -2,8 +2,9 @@
- CC := gcc
+@@ -4,7 +4,7 @@
  NASM := yasm
  NASMFLAGS   ?=-f elf32
--CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell sdl-config --cflags) $(shell libmikmod-config --cflags) -std=gnu90
+ CFLAGS += -O3 -Wall -ffast-math $(shell $(PKG_CONFIG) sdl SDL_mixer --cflags) -std=gnu90
 -LDFLAGS += $(shell sdl-config --libs) $(shell libmikmod-config --libs) -lm
-+PKG_CONFIG:=pkg-config
-+CFLAGS += -O3 -Wall -ffast-math -fforce-addr -fstrength-reduce -fno-expensive-optimizations -fschedule-insns2 $(shell $(PKG_CONFIG) sdl SDL_mixer --cflags) -std=gnu90
 +LDFLAGS += $(shell $(PKG_CONFIG) sdl SDL_mixer --libs) -lm
  RM_F = rm -f
  

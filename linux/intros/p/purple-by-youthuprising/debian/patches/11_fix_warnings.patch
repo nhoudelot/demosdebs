@@ -17,3 +17,34 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  static void drawBorders(float time)
  {
+--- a/Effects/cred.cpp
++++ b/Effects/cred.cpp
+@@ -11,7 +11,6 @@
+ }
+ 
+ void cred(float time) {
+-	float time2;
+ 	glBlendFunc(GL_SRC_ALPHA,GL_ONE);//_MINUS_SRC_ALPHA);
+ 	glEnable(GL_BLEND);
+ 	glDisable(GL_DEPTH_TEST);
+--- a/Effects/electro.cpp
++++ b/Effects/electro.cpp
+@@ -20,9 +20,7 @@
+ float *elealpha;
+ 
+ void initelectro() {
+-	int i,x,y;
+-	int gi = 0;
+-	float gx,gy;
++	int i;
+ 	ban = new float[ballnum];
+ 	bx = new float[ballnum];
+ 	by = new float[ballnum];
+@@ -69,7 +67,6 @@
+ 	float ox,oy,oz;
+ 	float tx,ty,tz,ta,ta2;
+ 	float xd,yd,zd,d;
+-	float r,g,b;
+ 	glLoadIdentity();
+ 	glDisable(GL_DEPTH_TEST);
+ 	glBlendFunc(GL_SRC_ALPHA,GL_ONE);//_MINUS_SRC_ALPHA);

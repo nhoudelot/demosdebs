@@ -1,7 +1,7 @@
 Description: fixing several simple warnings 
-Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
 Applied-Upstream: no
-Last-Update: 2024-05-09
+Last-Update: 2026-04-03
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/record.c
@@ -53,7 +53,98 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
  //############################################################################
-@@ -2051,6 +2051,7 @@
+@@ -835,9 +835,6 @@
+ 	uint8_t camera_block;
+ } timeshare_block_t;
+ 
+-/** Function to execute. */
+-static void (*timeshare_func)(uint32_t);
+-
+ /** Timeshare  data. */
+ static const timeshare_block_t timeshare_data[] =
+ {
+@@ -1020,7 +1017,7 @@
+ 		int ii = 6;
+ 
+ 		do {
+-			unsigned idx = ii - 1;
++			unsigned idx = (unsigned)(ii - 1);
+ 
+ 			gludata[idx] = (1.0f - pos) * (double)lookat1[idx] +
+ 				pos * (double)lookat2[idx];
+@@ -1076,7 +1073,7 @@
+ 		*((int16_t*)stream) = aval;
+ #endif
+ 
+-		darkness_float += fabsf(aval) * darkness_mul;
++		darkness_float += fabsf((float)aval) * darkness_mul;
+ 
+ 		stream += 2;
+ 		audio_position += 2;
+@@ -1292,7 +1289,7 @@
+ 				gl_sphere(sph, molecule_color,
+ 						(float)MOLECULE_BALL_SIZE *
+ 						(.3f + 0.2f *
+-						 fabs(dsinf(ticks_float * 0.0006f + ii))));
++						 fabsf(dsinf(ticks_float * 0.0006f + (float)ii))));
+ 			} while(--ii);
+ 		}
+ 
+@@ -1392,7 +1389,7 @@
+ 					rfloat_signed(rscale) * scale - molecule_light.pos[0]
+ 				};
+ 				float	radius =
+-					(1.0f + MUSH_BALL_RETRACT * dsinf(ticks_float * 0.01f + ii)) *
++					(1.0f + MUSH_BALL_RETRACT * dsinf(ticks_float * 0.01f + (float)ii)) *
+ 					MUSH_BALL_SIZE;
+ 
+ 				gl_sphere(vertex, (uint8_t*)(&mush_color), radius);
+@@ -1948,8 +1945,8 @@
+ 			sample_t *op = audio_data_buffer;
+ 
+ 			for (i = SONGSTART; i < SONGLEN; i++) {
+-				signed short *instr;
+-				uint8_t *pattern;
++				const signed short *instr;
++				const uint8_t *pattern;
+ 				int q, f;
+ 				int filtertype;
+ 				int cflag = (v < VOICES_CHORD);
+@@ -1995,7 +1992,7 @@
+ 						}
+ 
+ 						// cutoff slide
+-						if (f > 4000 && ((int)op & 4)) {
++						if (f > 4000 && ((uintptr_t)op & 4)) {
+ 							f--;
+ 						}
+ 
+@@ -2013,7 +2010,7 @@
+ 						}
+ 						int in = osc1 >> 20;
+ 						if (instr[0] & SQUARE) {
+-							in &= (-(1 << 32 - 1) >> 19);
++							in &= ~((1u << 19) - 1u);
+ 						} else {
+ 							in + osc2 >> 20;
+ 						}
+@@ -2038,19 +2035,20 @@
+ 						if (note != pp) {
+ 							switch (filtertype) {
+ 								case FILTER_LP:
+-									*(op) += lp;
++									*(op) = (sample_t)(*(op) + lp);
+ 									break;
+ 								case FILTER_HP:
+-									*(op) += hp;
++									*(op) = (sample_t)(*(op) + hp);
+ 									break;
+ 								case FILTER_BP:
+-									*(op) += bp;
++									*(op) = (sample_t)(*(op) + bp);
+ 									break;
+ 									/*
+ 										 case FILTER_BYPASS:
  									 *(op++) += in;
  									 break;
  									 */

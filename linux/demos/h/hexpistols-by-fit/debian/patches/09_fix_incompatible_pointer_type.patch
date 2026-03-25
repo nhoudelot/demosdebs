@@ -7,7 +7,7 @@ Last-Update: 2025-01-15
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/cool_mzx/cool_mzx.c
 +++ b/cool_mzx/cool_mzx.c
-@@ -134,7 +134,7 @@
+@@ -135,7 +135,7 @@
  		aikaa_siita_kun_viimeksi_tavattu[sanbale]++;
  }
  

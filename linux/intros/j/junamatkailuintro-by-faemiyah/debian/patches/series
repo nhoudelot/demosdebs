@@ -1,4 +1,5 @@
 01_remove_bsdrand.patch
-02_remove_rpath.patch
+02_update-cmakelist.patch
 03_migrate_to_SDL2.patch
 04_add_fullscreen.patch
+05_resizable-window.patch

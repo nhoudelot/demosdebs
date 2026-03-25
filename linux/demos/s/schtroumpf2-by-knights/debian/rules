@@ -1,14 +1,8 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-export DEB_LDFLAGS_MAINT_APPEND  = -Wl,--allow-multiple-definition
 
 %:
-	dh $@
+	dh $@ --with autoreconf
 
-override_dh_auto_configure:
-	./autogen.sh
-	dh_auto_configure
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

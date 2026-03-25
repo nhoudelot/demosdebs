@@ -1,0 +1,23 @@
+Description: fixing various warnings 
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -286,6 +286,12 @@
+ 	SDL_GL_DeleteContext(sdlGlcontext);
+ 	SDL_DestroyWindow(sdlWindow);
+ 	SDL_Quit();
+-	free(movie);
++	if (movie) {
++		int i;
++		for (i = 0; i < movie->max_frame; i++)
++			free(movie->frames[i].vectors);
++		free(movie->frames);
++		free(movie);
++	}
+ 	return(0);
+ }

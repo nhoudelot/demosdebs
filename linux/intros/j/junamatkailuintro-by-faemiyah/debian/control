@@ -9,7 +9,7 @@ Build-Depends:
  libglew-dev,
  libpng-dev,
  libsdl2-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=65374
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2015-04_64k-intro_junamatkailuintro
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2015-04_64k-intro_junamatkailuintro.git

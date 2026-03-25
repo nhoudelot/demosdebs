@@ -8,7 +8,7 @@ Build-Depends:
  docbook-to-man,
  libmpg123-dev
 Homepage: https://mp3gain.sourceforge.net/
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Vcs-Browser: https://sourceforge.net/p/mp3gain/code/ci/master/tree/
 
 Package: mp3gain

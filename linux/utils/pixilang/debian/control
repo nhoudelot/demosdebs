@@ -12,7 +12,7 @@ Build-Depends:
  libjack-dev,
  libpng-dev,
  zlib1g-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://warmplace.ru/soft/pixilang/
 
 Package: pixilang
@@ -21,6 +21,7 @@ Multi-Arch: foreign
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ sensible-utils
 Description: Pixel-oriented programming language for small graphics/sound
  Originally created by Alexander Zolotov (NightRadio) and Mik Razuvaev (Goglus)
  for non-programmers and artists. It is cross-platform and open source (MIT).

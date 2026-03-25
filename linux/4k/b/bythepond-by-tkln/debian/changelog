@@ -1,3 +1,11 @@
+bythepond-by-tkln (1.0-0ddebs3) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 30 Mar 2026 02:22:15 +0200
+
 bythepond-by-tkln (1.0-0ddebs2) unstable; urgency=medium
 
   * added README.Debian to warn about issues on Ubuntu 24.04 & Debian 13

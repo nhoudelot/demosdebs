@@ -22,7 +22,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  exit $res
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -1,11 +1,28 @@
+@@ -1,11 +1,29 @@
 -CC = {CC}
 -CFLAGS = -Wall -O2 -g
 -LDFLAGS =
@@ -30,6 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -RELDIR = amigadepacker-{VERSION}
 +#variables de compilation
 +SHELL := /bin/sh
++CC    ?= gcc
 +CFLAGS += -Wall -ffast-math -std=gnu90 -pipe
 +LDFLAGS +=
 +MODULES := main.o decrunch.o ppdepack.o mmcmp.o s404_dec.o unsqsh.o compat.o
@@ -58,7 +59,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  main.o:	main.c decrunch.h version.h
  	$(CC) $(CFLAGS) -c $<
-@@ -28,21 +45,16 @@
+@@ -28,21 +46,16 @@
  unsqsh.o:	unsqsh.c unsqsh.h decrunch.h compat.h
  	$(CC) $(CFLAGS) -c $<
  

@@ -1,3 +1,11 @@
+pinp-by-faemiyah (1.0+git20170414-0ddebs8) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 03 Apr 2026 23:29:38 +0200
+
 pinp-by-faemiyah (1.0+git20170414-0ddebs7) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

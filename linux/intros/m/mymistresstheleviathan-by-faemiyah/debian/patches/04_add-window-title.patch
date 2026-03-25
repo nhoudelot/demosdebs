@@ -1,0 +1,17 @@
+Description: Added window title
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -3107,7 +3107,7 @@
+   dnload_SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+ #endif
+ #endif
+-  g_sdl_window = dnload_SDL_CreateWindow(NULL, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
++  g_sdl_window = dnload_SDL_CreateWindow("My Mistress the Leviathan by Faemiyah", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+       static_cast<int>(screen_w), static_cast<int>(screen_h),
+       DEFAULT_SDL_WINDOW_FLAGS | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
+ #if defined(DNLOAD_GLESV2) && defined(DNLOAD_VIDEOCORE)

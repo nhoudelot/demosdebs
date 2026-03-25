@@ -6,3 +6,4 @@
 06_automatic_resize.patch
 07_link_to_libgl.patch
 08_libfmodex_to_openmpt.patch
+09_fix-64bit-portability.patch

@@ -1,0 +1,124 @@
+Description: Fix GLSL 4.10 Core Profile compatibility by renaming gl_FragColor
+ In GLSL 4.10 (Core Profile), gl_FragColor is a reserved built-in name 
+ from the legacy OpenGL 2.x Compatibility Profile. It has been removed 
+ in Core Profile and cannot be used as a user-defined output variable, 
+ even when declared with the 'out' qualifier.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-22
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/shaders/bigcube.fs
++++ b/shaders/bigcube.fs
+@@ -2,8 +2,8 @@
+ 
+ precision highp float;
+ in vec3 color;
+-out vec4 gl_FragColor;
++out vec4 fragColor;
+ 
+ void main(void){
+-   gl_FragColor = vec4(color, 1.0);
++   fragColor = vec4(color, 1.0);
+ }
+--- a/shaders/door.fs
++++ b/shaders/door.fs
+@@ -1,10 +1,10 @@
+ #version 410
+ 
+-out vec4 gl_FragColor;
++out vec4 fragColor;
+ 
+ void main(void){
+    vec4 acolor = vec4(0.9058, 0.9137, 0.5921, 1.0);
+    vec4 bcolor = vec4(0.9686, 0.9764, 0.9882, 1.0);
+    vec4 mixcolor = mix(acolor, bcolor, sin(gl_FragCoord.x)/5.0);
+-   gl_FragColor = mixcolor;
++   fragColor = mixcolor;
+ }
+--- a/shaders/explosion.fs
++++ b/shaders/explosion.fs
+@@ -1,6 +1,6 @@
+ #version 410
+ in vec2 texcoord;
+-out vec4 gl_FragColor;
++out vec4 fragColor;
+ const float PI = 3.1416;
+ 
+ void main(void){
+@@ -8,5 +8,5 @@
+    float inter = cos(f.x) * cos(f.y);
+    vec3 acolor = vec3( 0.317, 0.4, 0.305);
+    vec3 bcolor = vec3( 0.294, 0.313, 0.325);
+-   gl_FragColor = vec4(mix(bcolor, acolor, inter),1.0);
++   fragColor = vec4(mix(bcolor, acolor, inter),1.0);
+ }
+--- a/shaders/face.fs
++++ b/shaders/face.fs
+@@ -1,8 +1,8 @@
+ #version 410
+ 
+ in float depth;
+-out vec4 gl_FragColor;
++out vec4 fragColor;
+ 
+ void main(void){
+-   gl_FragColor = vec4(depth);
++   fragColor = vec4(depth);
+ }
+--- a/shaders/frme.fs
++++ b/shaders/frme.fs
+@@ -1,10 +1,10 @@
+ #version 410
+ 
+-out vec4 gl_FragColor;
++out vec4 fragColor;
+ 
+ void main(void){
+    vec4 acolor = vec4(0.9058, 0.9137, 0.5921, 1.0);
+    vec4 bcolor = vec4(0.9686, 0.9764, 0.9882, 1.0);
+    vec4 mixcolor = mix(acolor, bcolor, sin(gl_FragCoord.x)/5.0);
+-   gl_FragColor = mixcolor;
++   fragColor = mixcolor;
+ }
+--- a/shaders/knock.fs
++++ b/shaders/knock.fs
+@@ -1,7 +1,7 @@
+ #version 410
+ 
+-out vec4 gl_FragColor;
++out vec4 fragColor;
+ 
+ void main(void){
+-   gl_FragColor = vec4(1.0);
++   fragColor = vec4(1.0);
+ }
+--- a/shaders/letter.fs
++++ b/shaders/letter.fs
+@@ -2,8 +2,8 @@
+ 
+ precision highp float;
+ in vec3 color;
+-out vec4 gl_FragColor;
++out vec4 fragColor;
+ 
+ void main(void){
+-   gl_FragColor = vec4(color, 1.0);
++   fragColor = vec4(color, 1.0);
+ }
+--- a/shaders/outline.fs
++++ b/shaders/outline.fs
+@@ -1,10 +1,10 @@
+ #version 410
+ 
+-out vec4 gl_FragColor;
++out vec4 fragColor;
+ 
+ void main(void){
+    vec4 acolor = vec4(0.9058, 0.9137, 0.5921, 1.0);
+    vec4 bcolor = vec4(0.9686, 0.9764, 0.9882, 1.0);
+    vec4 mixcolor = mix(acolor, bcolor, sin(gl_FragCoord.x)/5.0);
+-   gl_FragColor = mixcolor;
++   fragColor = mixcolor;
+ }

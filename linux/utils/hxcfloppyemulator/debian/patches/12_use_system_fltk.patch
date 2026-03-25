@@ -1,11 +1,11 @@
 --- a/HxCFloppyEmulator_software/build/Makefile
 +++ b/HxCFloppyEmulator_software/build/Makefile
-@@ -132,7 +132,7 @@
- FLTKLIB = /usr/lib/$(DEB_HOST_MULTIARCH)/libfltk.a /usr/lib/$(DEB_HOST_MULTIARCH)/libfltk_images.a
+@@ -145,7 +145,7 @@
+ FLTKLIBS = $(FLTKLIB) /usr/lib/$(DEB_HOST_MULTIARCH)/libfltk_images.a
  
  all:
--	$(MAKE) fltk
-+	#$(MAKE) fltk
+-	$(MAKE) $(FLTKLIB)
++	#$(MAKE) $(FLTKLIB)
  	$(MAKE) DATA_FILES
  	$(MAKE) $(EXEC)
  

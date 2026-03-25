@@ -15,7 +15,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +# compilers and tools
 +SHELL      := /bin/sh
 +CC         ?= gcc
-+PKG_CONFIG := pkg-config
++PKG_CONFIG ?= pkg-config
 +RM_F       := rm -f
 +
 +# Flags

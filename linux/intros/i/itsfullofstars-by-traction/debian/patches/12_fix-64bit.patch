@@ -1,0 +1,68 @@
+Description: fix compilation on 64 bit systems
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-15
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/texture.cpp
++++ b/texture.cpp
+@@ -1,13 +1,13 @@
+ #include "stuff.hpp"
+ #include "texture.hpp"
+ 
+-Texture::Texture(int pwidth, int pheight, unsigned long *pdata)
++Texture::Texture(int pwidth, int pheight, uint32_t *pdata)
+ {
+ 	int i;
+ 	width = pwidth;
+ 	height = pheight;
+ 
+-	data = new unsigned long[width*height];
++	data = new uint32_t[width*height];
+ 	for (i=0; i<width*height; i++)
+ 	{
+ 		data[i] = pdata[i];
+@@ -20,7 +20,7 @@
+ 	width = pwidth;
+ 	height = pheight;
+ 
+-	data = new unsigned long[width*height];
++	data = new uint32_t[width*height];
+ 	for (i=0; i<width*height; i++)
+ 	{
+ 		data[i] = 0xFF000000;
+--- a/texture.hpp
++++ b/texture.hpp
+@@ -4,14 +4,14 @@
+ class Texture
+ {
+ public:
+-Texture(int pwidth, int pheight, unsigned long *pdata);
++Texture(int pwidth, int pheight, uint32_t *pdata);
+ Texture(int pwidth, int pheight);
+ ~Texture();
+ void upload();
+ int width;
+ int height;
+ unsigned int ID;
+-unsigned long *data;
++uint32_t *data;
+ };
+ 
+ 
+--- a/stuff.cpp
++++ b/stuff.cpp
+@@ -104,9 +104,9 @@
+ 
+ 	for (i=0; i<512*512; i++)
+ 	{
+-		render0->data[i] = (unsigned long)alpha;
+-		render1->data[i] = (unsigned long)alpha;
+-		render2->data[i] = (unsigned long)alpha;
++		render0->data[i] = (uint32_t)alpha;
++		render1->data[i] = (uint32_t)alpha;
++		render2->data[i] = (uint32_t)alpha;
+ 
+ 	}
+ 

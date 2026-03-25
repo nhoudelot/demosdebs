@@ -14,7 +14,7 @@ Build-Depends:
  libminizip-dev,
  libspng-dev,
  rename
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/jfdelnero/HxCFloppyEmulator
 Rules-Requires-Root: no
 

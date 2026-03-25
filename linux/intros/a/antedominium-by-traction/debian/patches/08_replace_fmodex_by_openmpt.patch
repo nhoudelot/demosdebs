@@ -6,7 +6,7 @@ Last-Update: 2024-03-16
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sound.cpp
 +++ b/sound.cpp
-@@ -2,23 +2,16 @@
+@@ -2,25 +2,19 @@
          Sound system via FMOD (_NOT_ MiniFMOD)
   */
  #include <stdio.h>
@@ -32,8 +32,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	return mod->get_current_row();
  }
  int Sound::getTime() {
++	return (int)mod->get_position_seconds();
  }
-@@ -36,31 +29,61 @@
+ 
+ Sound::Sound()
+@@ -36,31 +30,61 @@
  
  bool Sound::init()
  {

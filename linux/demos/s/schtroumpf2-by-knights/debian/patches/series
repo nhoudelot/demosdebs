@@ -1,2 +1,8 @@
 01_remove_fullscreen.patch
 02_fix_warnings.patch
+03_fix_64bit_portability.patch
+04_migrate_to_SDL2.patch
+05_sound_openmpt.patch
+06_fix-warnings.patch
+07_fullscreen.patch
+08_aspect_ratio.patch

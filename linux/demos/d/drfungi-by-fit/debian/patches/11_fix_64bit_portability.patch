@@ -1,0 +1,19 @@
+Description: Fix 64-bit portability in JPEG loader
+ Use size_t for row_stride to avoid 32-bit integer overflow
+ when computing the malloc size on 64-bit systems.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-20
+
+--- a/jpeg.c
++++ b/jpeg.c
+@@ -12,7 +12,7 @@
+ 	JSAMPARRAY buffer;
+ 	struct  jpeg_decompress_struct cinfo;
+ 	struct  jpeg_error_mgr jerr;
+-	int row_stride;
++	size_t row_stride;
+ 	unsigned char   *pixels;
+ 
+ 	if((f=fopen(path,"rb"))==NULL)

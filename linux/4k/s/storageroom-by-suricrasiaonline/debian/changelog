@@ -1,4 +1,12 @@
-storageroom-by-suricrasiaonline (1.0-0ddebs1) unstable; urgency=medium
+storageroom-by-suricrasiaonline (1.0+git20200610-0ddebs2) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 08 Apr 2026 23:16:58 +0200
+
+storageroom-by-suricrasiaonline (1.0+git20200610-0ddebs1) unstable; urgency=medium
 
   * Initial release.
 

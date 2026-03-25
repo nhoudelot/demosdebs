@@ -1,0 +1,264 @@
+Description: fix remaining compilation warnings with GCC 15
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/kokko.c
++++ b/kokko.c
+@@ -51,7 +51,7 @@
+ }
+ 
+ void filter_kokko(unsigned char * buffer, int vbl, int distance, int angle, int mode) {
+-	int x,y,a,a2;
++	int x,y;
+ 	static int first=1;
+ 	unsigned char * src, * dst;
+ 	char * k;
+@@ -105,7 +105,6 @@
+ void zoom(char * dest, char * src, int w, int h, int zoox, int zooy, int rotate) {
+ #define EI 64
+ 	int x,y;
+-	int ky;
+ 	int sx1,sy1,sx2,sy2;
+ 	int dx1,dy1,dx2,dy2;
+ 	unsigned char * dst;
+--- a/video.c
++++ b/video.c
+@@ -31,17 +31,16 @@
+ unsigned char * make_bitti_muunnos();
+ 
+ void draw_video(unsigned char * buffer, int vbl, int no, int loop, int start, int dt) {
+-	int x,y,xx;
++	int x,y;
+ 
+ //    static int o_vbl=0;
+-	static int loaded=0;
+-	int * ip1, * ip2;
++	int * ip1;
+ 
+ 	int * dst;
+ 	int src;
+ 
+ 	static unsigned char * bitti_muunnos;
+-	unsigned char * video;
++	unsigned char * video = NULL;
+ 
+ 	//  int dt;
+ 
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -78,9 +78,7 @@
+ 
+ volatile unsigned int ticksfromstart = 0;
+ 
+-static int laite=0,piippu[2],jacaja,screenHz;
+-
+-static unsigned char audio[40000];
++static int laite=0,jacaja,screenHz;
+ 
+ void mix_newhand(void *udata, Uint8 *stream, int len);
+ 
+@@ -116,7 +114,6 @@
+ static void update_sample_trig_times()
+ {
+ 	static int i, sanbale;
+-
+ 	if (!pt_vbcount)     // ollaanko rivin alussa
+ 		for (i=0; i<pt_channels; i++)
+ 		{
+@@ -135,8 +132,6 @@
+ 
+ Uint32 timeri(Uint32 interval, void *param)
+ {
+-	static int i, sanbale;
+-
+ 	if(!laite)
+ 	{
+ 		pt_play();
+@@ -152,7 +147,7 @@
+ 	char pag[100];
+ 
+ 	puts("");
+-	scanf("%s",pag);
++	if (scanf("%s",pag) < 1) pag[0] = '0';
+ 
+ 	switch(pag[0])
+ 	{
+@@ -194,8 +189,6 @@
+ /*      Aloittaa soiton ja käynnistää timerin taajuudella freq  */
+ void mzx_start(int freq)
+ {
+-	int tavut,n,pois=0;
+-
+ 	tix = SDL_GetTicks();
+ 	//vbiInit(&vbiproc0, &vbiproc1, &vbiproc2);
+ 
+@@ -213,7 +206,7 @@
+ /*	SIGCHLD-handleri	*/
+ void mix_newhand(void *udata, Uint8 *stream, int len)
+ {
+-	static int ny=0,luku=0,off;
++	static int luku=0,off;
+ 
+ 	short	*oso=(short *) stream;
+ 
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -347,7 +347,7 @@
+ // alustetaan ne muuttujat
+ {
+ 
+-	int c, i, j;
++	int c, i;
+ 
+ 	for (c=0; c<32; c++)
+ 	{
+@@ -466,7 +466,7 @@
+ 
+ 	// onkohan tämä for-lause vai while? :)
+ 	for (i=0; (strncmp(pt_modid_table[i], "STOP", 4)) &&
+-	     (strncmp(pt_modid, pt_modid_table[i], 4)); i++)
++	     (strncmp((const char *)pt_modid, pt_modid_table[i], 4)); i++)
+ 		/*printf("Trying id %d...\n", i)*/;
+ 	pt_channels = pt_modid_channels_table[i];
+ 
+@@ -536,8 +536,7 @@
+ 
+ void pt_play (void)
+ {
+-	int c, i, oldvbtempo, cmdprm;
+-	long l;
++	int c, i, cmdprm;
+ 	unsigned char *row; // osoitin riville
+ 	unsigned char sm, nt, cmd, prm;
+ 
+@@ -766,7 +765,8 @@
+ 				i = pt_curvol[c] +
+ 				    pt_tremolotable[pt_trmc[c]]*pt_trmd[c] / 127;
+ 				pt_trmc[c] = (pt_trmc[c]+pt_trms[c]) & 63;
+-				if (i<0) i=0; if (i>64) i=64;
++				if (i<0) i=0;
++				if (i>64) i=64;
+ 				sd_setvolume(i);
+ 				break;
+ 			case 0xA00: dovolslideandbehappy:
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -52,7 +52,7 @@
+ #include "sd_mix.h"
+ #include <string.h>
+ 
+-typedef struct SAMPLEINFOBLOCK {
++struct SAMPLEINFOBLOCK {
+ 	signed char *data;
+ 	unsigned int
+ 	        size,
+@@ -62,7 +62,7 @@
+ 	        sample16bit;
+ };
+ 
+-typedef struct CHANNELINFOBLOCK {
++struct CHANNELINFOBLOCK {
+ 	signed char *sampledata;
+ 	unsigned int
+ 	        sample,
+@@ -225,7 +225,7 @@
+ 
+ void sd_mix_init (int rate)
+ {
+-	int i,n,m;
++	int i;
+ 
+ 	sd_mix_rate = rate;
+ 	for (i=0; i<SD_MAXCHANNELS; i++)
+@@ -660,9 +660,7 @@
+ {
+ 	signed int *dst32;
+ 	signed int i, c, lvol, rvol;
+-	signed int left, right;
+ 	signed short *dst;
+-	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+ 
+ 	/* Kopioidaan kanavat */
+@@ -676,7 +674,6 @@
+ 	for (c=0; c<mix_activechannels; c++)
+ 	{
+ 		chan = &mix_realchannels[c];
+-		sample = chan->sampledata;
+ 		dst32 = mix_buffer32;
+ 
+ 		lvol = (chan->volume*(255-chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+@@ -721,10 +718,8 @@
+ void sd_mix_mono (unsigned char *dest, int length, int to16bit)
+ {
+ 	signed int *dst32;
+-	signed int i, c, lvol, rvol;
+-	signed int left, right;
++	signed int i, c, lvol;
+ 	unsigned char *dst;
+-	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+ 
+ 	/* Kopioidaan kanavat */
+@@ -738,7 +733,6 @@
+ 	for (c=0; c<mix_activechannels; c++)
+ 	{
+ 		chan = &mix_realchannels[c];
+-		sample = chan->sampledata;
+ 		dst32 = mix_buffer32;
+ 
+ 		lvol = (chan->volume*255*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+--- a/main.c
++++ b/main.c
+@@ -32,10 +32,8 @@
+ #define DEMO_YASPECT 3.0f
+ 
+ 
+-static int trig_bongg, trig_bd, trig_sd, trig_kilaus, trig_rautaputki,
+-           trig_isopamaus, trig_sound1, trig_sound2, trig_isku,
+-           trig_loppuisku, trig_loppu, trig_melu, trig_puhe, trig_tehostus,
+-           trig_suvanto, trig_electric;
++static int trig_bd, trig_sd,
++           trig_melu;
+ 
+ #ifndef TRUE8BIT
+ static unsigned lockup[256];
+@@ -44,7 +42,6 @@
+ void burnpalette(SDL_Surface *s,int kerroin, int nollakohta)
+ {
+ 	int i,c;
+-	static SDL_Color pal[256];
+ 
+ 	for (i=0; i<256; i++) {
+ 
+@@ -97,8 +94,8 @@
+ 
+ int main(int argc,char **argv)
+ {
+-	int modpos,pt_songpos,pt_patternpos,quit=0,frame=0,n,i;
+-	int video_trig,vbl,vbl2,origtick;
++	int modpos,pt_patternpos,quit=0,frame=0,n,i;
++	int video_trig=0,vbl,vbl2,origtick;
+ 
+ 	int t1=0;
+ 	int t2=0;
+@@ -106,7 +103,7 @@
+ 	int t4=0;
+ 	int t5=0;
+ 	int angle;
+-	int alkutikki,tikki,tikki2,first=1;
++	int alkutikki=0,tikki=0,tikki2=0,first=1;
+ 	int dt=0,dt2=0;
+ 	int ovbl=0;
+ 
+@@ -205,7 +202,6 @@
+ 		vbl2=vbl;
+ 
+ 		modpos=mzx_position();
+-		pt_songpos=modpos/100;;
+ 		pt_patternpos=modpos%100;
+ 
+ 		dt=(vbl-ovbl)*30/50;

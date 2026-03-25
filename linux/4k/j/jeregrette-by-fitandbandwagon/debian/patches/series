@@ -4,3 +4,4 @@
 04_migrate_to_sdl2.patch
 05_better_quit.patch
 06_add_fullscreen.patch
+07_fix-64bit-portability.patch

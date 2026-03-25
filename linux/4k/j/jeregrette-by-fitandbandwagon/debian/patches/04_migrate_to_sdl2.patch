@@ -56,7 +56,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 -	SDL_SetVideoMode(640,480,32,flags);
 -	SDL_WM_SetCaption("Je Regrette",0);
-+	SDL_Window *sdlWindow = SDL_CreateWindow("Je Regrette",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,flags);
++	SDL_Window *sdlWindow = SDL_CreateWindow("Je regrette by Fit & Bandwagon",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,flags);
 +	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
  	SDL_ShowCursor(0);
  
@@ -87,8 +87,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +++ b/Makefile
 @@ -2,8 +2,8 @@
  SHELL = /bin/sh
- CC    := gcc
- PKG_CONFIG:=pkg-config
+ CC    ?= gcc
+ PKG_CONFIG ?= pkg-config
 -CFLAGS   += -Wall -pipe -std=gnu90 $(shell $(PKG_CONFIG) --cflags sdl gl)
 -LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl gl) -lm
 +CFLAGS   += -Wall -pipe -std=gnu90 $(shell $(PKG_CONFIG) --cflags sdl2 gl) -DBLKSIZE=4096

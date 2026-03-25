@@ -18,6 +18,15 @@ function run()
 	cd $backuppwd || exit
 }
 
+function run_window()
+{
+	backuppwd=$(pwd)
+	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
+	LD_LIBRARY_PATH=. ./${APP_EXE} -b 70 -r 16 -w 1920 -h 1080 
+	cd $backuppwd || exit
+}
+
+
 
 if [ "$#" -gt "1" ]; then
 	 NSH_std_usage
@@ -28,6 +37,9 @@ else
 	case "$1" in
 	--help)
 		NSH_std_usage
+		;;
+	--window)
+		run_window
 		;;
 	*)
 		NSH_std_usage

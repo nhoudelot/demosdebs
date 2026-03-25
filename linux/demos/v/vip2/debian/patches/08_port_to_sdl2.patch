@@ -1,0 +1,731 @@
+Description: port window and audio to SDL2
+ Replace the X11/GLX window (glwindow.cpp) and the OSS/ALSA audio drivers
+ (linux_oss.cpp, linux_alsa.cpp) with SDL2 equivalents.
+ .
+ SDL2 handles window creation, OpenGL context, event loop and audio output,
+ removing the dependencies on libX11, libXxf86vm, libXext and libasound2.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-27
+--- a/Include/Vip2Headers.h
++++ b/Include/Vip2Headers.h
+@@ -1,7 +1,7 @@
+     				 /*---------------------------------------------------------+
+ 					  |				      vip2Headers.h							|
+ 					  |															|
+-					  |	   tout les headers nécessaires a la demo ( po po po )	|
++					  |	   tout les headers nï¿½cessaires a la demo ( po po po )	|
+ 					  |															|
+ 					  | 	U2^PoPsy TeAm 2000									|
+ 					  +--------------------------------------------------------*/
+@@ -9,7 +9,7 @@
+ #ifndef _VIP2HEADERS_H_
+ #define _VIP2HEADERS_H_
+ 
+-#define FRAMEPERSECOND	30.	// nombre de frame jouées par secondes kan on play une scene U3D 
++#define FRAMEPERSECOND	30.	// nombre de frame jouï¿½es par secondes kan on play une scene U3D
+ 
+ #define DEFAULT_SCREEN_X	640		// coord X par defaut de l'ecran
+ #define DEFAULT_SCREEN_Y	480		// coord Y par defaut de l'ecran
+@@ -17,8 +17,7 @@
+ #include "U3D3.h"
+ 
+ #include "mp3.h"
+-#include "linux_oss.h"
+-#include "linux_alsa.h"
++#include "linux_sdl2.h"
+ #include "Utils.h"
+ #include "Scheduler.h"
+ #include "Synchronisater.h"
+@@ -112,14 +111,9 @@
+ #define FINAL_TIME_END 197.836f
+ 
+ 
+-extern Udouble			LaunchTime	;	// le temps ou la demo a démarré
++extern Udouble			LaunchTime	;	// le temps ou la demo a dï¿½marrï¿½
+ extern USynchronisater*	AllSynchro	;	// toute les synchros de la demo
+-#if DEMOLIB_USE_ALSA
+-    extern ALSAAudioDriver *mp3;
+-#else
+-    extern OSSAudioDriver *mp3;
+-#endif
+-
++extern SDL2AudioDriver *mp3;
+ 
+ //-------- Interface
+ #include <math.h>
+--- a/Include/glwindow.h
++++ b/Include/glwindow.h
+@@ -1,16 +1,7 @@
+ #ifndef _GLWINDOW_H
+ #define _GLWINDOW_H
+ 
+-#ifdef WIN32
+-#include <windows.h>
+-#endif
+-
+-#ifdef __linux__
+-#include <GL/glx.h>
+-#include <X11/extensions/xf86vmode.h>
+-#include <X11/keysym.h>
+-#endif
+-
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+ 
+@@ -25,25 +16,11 @@
+ 	bool is_done();
+ 
+ 	friend class PBuffer_RTT;
+-	
++
+ protected:
+-#ifdef WIN32
+-	HDC hDC;
+-	HGLRC hRC;
+-	HWND hWnd;
+-	HINSTANCE hInstance;
+-#endif
+-#ifdef __linux__
+-	Display *dpy;
+-	int screen;
+-	Window win;
+-	GLXContext ctx;
+-	XSetWindowAttributes attr;
+-	Bool fs;
+-	XF86VidModeModeInfo deskMode;
+-#endif						    
+-	
+-	char *title;
++	SDL_Window *window;
++	SDL_GLContext ctx;
++
+ 	bool fullscreen;
+ 	int x, y;
+ 	unsigned int width, height;
+--- /dev/null
++++ b/Include/linux_sdl2.h
+@@ -0,0 +1,36 @@
++/*
++ * SDL2 audio driver: uses SDL_QueueAudio (push model, SDL >= 2.0.4).
++ */
++#ifndef _LINUX_SDL2_H
++#define _LINUX_SDL2_H 1
++
++#include "mp3.h"
++#include <SDL2/SDL.h>
++#include <sys/time.h>
++
++class SDL2AudioDriver {
++public:
++	SDL2AudioDriver(MP3AudioProvider *prv);
++	~SDL2AudioDriver();
++
++	bool run();
++	float get_time();
++
++private:
++	SDL_AudioDeviceID dev_id;
++
++	char outbuf[65536];
++	int in_outbuf;
++
++	int bytes_written;
++	bool eof;
++	struct timeval eof_time;
++
++	/* Interpolation horloge-mur entre les mises Ã  jour du quantum audio. */
++	float last_audio_base;
++	struct timeval last_wall_time;
++
++	MP3AudioProvider *prov;
++};
++
++#endif /* !defined(_LINUX_SDL2_H) */
+--- a/Makefile
++++ b/Makefile
+@@ -26,7 +26,7 @@
+ 	Sources/Synchronisater.o Sources/utils.o		  \
+ 	Sources/XGrezilles.o Sources/linuxcompat.o		  \
+ 	Sources/main.o Sources/glwindow.o Sources/mp3.o		  \
+-	Sources/linux_oss.o Sources/linux_alsa.o
++	Sources/linux_sdl2.o
+ U3DOBJS=LIBS/u3dLib/sources/2Dstuff.o LIBS/u3dLib/sources/Bitmap.o  \
+ 	LIBS/u3dLib/sources/Boundings.o LIBS/u3dLib/sources/Bsp.o   \
+ 	LIBS/u3dLib/sources/BSpline.o LIBS/u3dLib/sources/BTree.o   \
+@@ -64,9 +64,9 @@
+ AR    := ar
+ RANLIB := ranlib
+ PKG_CONFIG:=pkg-config
+-CFLAGS   += -Wall -ffast-math -std=gnu90 -pipe $(shell $(PKG_CONFIG) glu gl x11 alsa xxf86vm libjpeg --cflags)
+-CXXFLAGS += -Wall -ffast-math -std=gnu++98  -fabi-version=2 -pipe $(shell $(PKG_CONFIG) glu gl x11 alsa xxf86vm libjpeg --cflags)
+-LDFLAGS  += $(shell $(PKG_CONFIG) glu gl x11 alsa xxf86vm libjpeg --libs)
++CFLAGS   += -Wall -ffast-math -std=gnu90 -pipe $(shell $(PKG_CONFIG) glu gl sdl2 libjpeg --cflags)
++CXXFLAGS += -Wall -ffast-math -std=gnu++98  -fabi-version=2 -pipe $(shell $(PKG_CONFIG) glu gl sdl2 libjpeg --cflags)
++LDFLAGS  += $(shell $(PKG_CONFIG) glu gl sdl2 libjpeg --libs)
+ RM_F = rm -f
+ INSTALL = install
+ INSTALL_DIR     = $(INSTALL) -p -d -m  755
+--- a/Sources/glwindow.cpp
++++ b/Sources/glwindow.cpp
+@@ -1,13 +1,9 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+-
+ #include <unistd.h>
+-#include <GL/glx.h>
+-#include <X11/extensions/xf86vmode.h>
+-#include <X11/keysym.h>
++#include <SDL2/SDL.h>
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+-
+ #include "glwindow.h"
+ 
+ #define DEMOLIB_XASPECT 4.0f
+@@ -15,10 +11,8 @@
+ 
+ void GLWindow::resize(int x, int y, int w, int h)
+ {
+-	/* Prevent division by zero */
+-	if (h == 0) {
++	if (h == 0)
+ 		h = 1;
+-	}
+ 
+ 	float aspect = (float)w / (float)h;
+ 	if (aspect > DEMOLIB_XASPECT / DEMOLIB_YASPECT) {
+@@ -30,31 +24,26 @@
+ 		y += (h - new_h) / 2;
+ 		h = new_h;
+ 	}
+- 
++
+ 	glViewport(x, y, w, h);
+ }
+ 
+ GLWindow::GLWindow(const char *title, int width, int height, int bpp, bool fullscreen, int zbuffer, int visual_id)
+ {
+-	XVisualInfo *vi;
+-	int dpyWidth = 0, dpyHeight = 0;
+-	int i;
+-	XF86VidModeModeInfo **modes;
+-	int modeNum;
+-	int bestMode;
+-	Atom wmDelete;
+-	Window winDummy;
+-	unsigned int borderDummy;
+-
+-	static int attrList[] = {
+- 		GLX_RGBA, 
+-		GLX_RED_SIZE, 1,
+-		GLX_GREEN_SIZE, 1,
+-		GLX_BLUE_SIZE, 1,
+-		GLX_DOUBLEBUFFER,
+-		GLX_DEPTH_SIZE, zbuffer,
+-		None
+-	};
++	/* Demander au compositeur X11 de s'effacer pour cette fenÃªtre (mode plein Ã©cran). */
++	SDL_SetHint(SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR, "1");
++
++	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
++		fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
++		exit(-1);
++	}
++
++	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
++	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
++	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, zbuffer);
++	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
++	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
++	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+ 
+ 	this->x = 0;
+ 	this->y = 0;
+@@ -63,135 +52,38 @@
+ 	this->bpp = bpp;
+ 	this->fullscreen = fullscreen;
+ 	this->zbuffer = zbuffer;
+-	this->done = 0;
+-	
+-	/* set best mode to current */
+-	bestMode = 0;
+-
+-	/* get a connection */
+-	this->dpy = XOpenDisplay(0);
+-	this->screen = DefaultScreen(this->dpy);
+-
+-	if (fullscreen) {
+-		XF86VidModeGetAllModeLines(this->dpy, this->screen, &modeNum, &modes);
+-
+-		/* save desktop-resolution before switching modes */
+-		this->deskMode = *modes[0];
+-
+-		/* look for mode with requested resolution */
+-		for (i = 0; i < modeNum; i++) {
+-			if ((modes[i]->hdisplay == width) && (modes[i]->vdisplay == height)) {
+-				bestMode = i;
+-			}
+-		}
++	this->done = false;
+ 
+-		/* if we don't have it, bomb out */
+-		if (bestMode == 0 && (modes[0]->hdisplay != width || modes[0]->vdisplay != height)) {
+-			fprintf(stderr, "Couldn't set requested screen mode.\n");
+-			exit(-1);
+-		}
++	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
++	if (fullscreen)
++		flags |= SDL_WINDOW_FULLSCREEN;
++
++	this->window = SDL_CreateWindow(title,
++		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++		width, height, flags);
++	if (!this->window) {
++		fprintf(stderr, "SDL_CreateWindow failed: %s\n", SDL_GetError());
++		exit(-1);
+ 	}
+ 
+-	if (visual_id != -1) {
+-		XVisualInfo tmplate;
+-		int nret;
+-		
+-		tmplate.visualid = visual_id;
+-		vi = XGetVisualInfo(this->dpy, VisualIDMask, &tmplate, &nret);
+-		if (vi == NULL) {
+-			fprintf(stderr, "Couldn't get selected visual!\n");
+-			exit(-1);
+-		}
+-	} else {
+-		/* get an appropriate visual */
+-		vi = glXChooseVisual(this->dpy, this->screen, attrList);
+-		if (vi == NULL) {
+-			fprintf(stderr, "Couldn't get double-buffered visual\n");
+-			exit(-1);
+-		}
++	this->ctx = SDL_GL_CreateContext(this->window);
++	if (!this->ctx) {
++		fprintf(stderr, "SDL_GL_CreateContext failed: %s\n", SDL_GetError());
++		exit(-1);
+ 	}
+ 
+-	/* create a GLX context */
+-	this->ctx = glXCreateContext(this->dpy, vi, NULL, GL_TRUE);
+-
+-	/* create a color map (umm, needed?) */
+-	Colormap cmap = XCreateColormap(this->dpy, RootWindow(this->dpy, vi->screen),
+-		vi->visual, AllocNone);
+-	this->attr.colormap = cmap;
+-
+-	/* make a blank cursor */
+-	{
+-		static char data[1] = {0};
+-		Cursor cursor;
+-		Pixmap blank;
+-		XColor dummy;
+-
+-		blank = XCreateBitmapFromData(this->dpy, RootWindow(this->dpy, vi->screen), data, 1, 1);
+-		if (blank == None) {
+-			fprintf(stderr, "Out of memory!\n");
+-			exit(-1);
+-		}
+-		cursor = XCreatePixmapCursor(this->dpy, blank, blank, &dummy, &dummy, 0, 0);
+-		XFreePixmap(this->dpy, blank);
+-		this->attr.cursor = cursor;
+-	}
+-		
+-	this->attr.border_pixel = 0;
+-
+-	/* change screen mode */	
+-	if (fullscreen) {
+-		XF86VidModeSwitchToMode(this->dpy, this->screen, modes[bestMode]);
+-		XF86VidModeSetViewPort(this->dpy, this->screen, 0, 0);
+-		dpyWidth = modes[bestMode]->hdisplay;
+-		dpyHeight = modes[bestMode]->vdisplay;
+-		XFree(modes);
+-	}
+-
+-	/* create the window */
+-	this->attr.background_pixel = 0;
+-
+-	if (fullscreen) {
+-		/* create a fullscreen window */
+-		this->attr.override_redirect = True;
+-		this->attr.event_mask = KeyPressMask | ButtonPressMask |
+-					StructureNotifyMask;
+-
+-		this->win = XCreateWindow(this->dpy, RootWindow(this->dpy, vi->screen),
+-			0, 0, dpyWidth, dpyHeight, 0, vi->depth, InputOutput, vi->visual,
+-			CWColormap | CWCursor | CWEventMask | CWOverrideRedirect,
+-			&this->attr);
+-		XWarpPointer(this->dpy, None, this->win, 0, 0, 0, 0, 0, 0);
+-		XMapRaised(this->dpy, this->win);
+-		XGrabKeyboard(this->dpy, this->win, True, GrabModeAsync,
+-			GrabModeAsync, CurrentTime);
+-		XGrabPointer(this->dpy, this->win, True, ButtonPressMask,
+-			GrabModeAsync, GrabModeAsync, this->win, None, CurrentTime);
+-	} else {
+-		/* create a window in window mode*/
+-		this->attr.event_mask = KeyPressMask | ButtonPressMask |
+-			StructureNotifyMask;
+-		this->win = XCreateWindow(this->dpy, RootWindow(this->dpy, vi->screen),
+-			0, 0, width, height, 0, vi->depth, InputOutput, vi->visual,
+-			CWColormap | CWBorderPixel | CWEventMask, &this->attr);
+-
+-		/* only set window title and handle wm_delete_events if in windowed mode */
+-		wmDelete = XInternAtom(this->dpy, "WM_DELETE_WINDOW", True);
+-		XSetWMProtocols(this->dpy, this->win, &wmDelete, 1);
+-		XSetStandardProperties(this->dpy, this->win, title,
+-			title, None, NULL, 0, NULL);
+-		XMapRaised(this->dpy, this->win);
+-	}
+-
+-	/* connect the glx-context to the window */
+-	glXMakeCurrent(this->dpy, this->win, this->ctx);
+-	XClearWindow(this->dpy, this->win);
+-	XGetGeometry(this->dpy, this->win, &winDummy, &this->x, &this->y,
+-		&this->width, &this->height, &borderDummy, &this->bpp);
+-	if (!glXIsDirect(this->dpy, this->ctx)) {
+-		fprintf(stderr, "No direct rendering (hardware acceleration) available! (Check libGL.so symlinks)\n");
+-		exit(-1);
++	/* Vsync adaptatif (-1) : synchronisÃ© si possible, sans attente si en retard.
++	   Fallback sur vsync strict (1) si non supportÃ©. */
++	if (SDL_GL_SetSwapInterval(-1) < 0) {
++		fprintf(stderr, "adaptive vsync non supportÃ©, vsync strict activÃ©\n");
++		SDL_GL_SetSwapInterval(1);
+ 	}
+ 
++	fprintf(stderr, "GL Renderer : %s\n", glGetString(GL_RENDERER));
++	fprintf(stderr, "GL Vendor   : %s\n", glGetString(GL_VENDOR));
++	fprintf(stderr, "GL Version  : %s\n", glGetString(GL_VERSION));
++
++	SDL_ShowCursor(SDL_DISABLE);
+ 	nice(-7);
+ 
+ 	this->resize(0, 0, this->width, this->height);
+@@ -199,50 +91,52 @@
+ 
+ GLWindow::~GLWindow()
+ {
+-	if (this->ctx) {
+-		if (!glXMakeCurrent(this->dpy, None, NULL)) {
+-			fprintf(stderr, "Could not release drawing context.\n");
+-			exit(-1);
+-		}
+-		glXDestroyContext(this->dpy, this->ctx);
+-		this->ctx = NULL;
+-	}
+-
+-	if (fullscreen) {
+-		XF86VidModeSwitchToMode(this->dpy, this->screen, &this->deskMode);
+-		XF86VidModeSetViewPort(this->dpy, this->screen, 0, 0);
+-	}
+-
+-	XCloseDisplay(this->dpy);
++	SDL_GL_DeleteContext(this->ctx);
++	SDL_DestroyWindow(this->window);
++	SDL_Quit();
+ }
+ 
+ void GLWindow::flip()
+ {
+-        while (XPending(this->dpy) > 0) {
+-			XEvent event;
+-			XNextEvent(this->dpy, &event);
+-
+-			switch (event.type) {
+-			case ConfigureNotify:
+-                        if ((event.xconfigure.width != (signed int)this->width) ||
+-				    (event.xconfigure.height != (signed int)this->height)) {
+-					this->width = event.xconfigure.width;
+-					this->height = event.xconfigure.height;
+-					this->resize(0, 0, this->width, this->height);
+-				}
+-				break;
+-	            	case ButtonPress:
++	static int fps_frames = 0;
++	static Uint32 fps_ticks = 0;
++	Uint32 now = SDL_GetTicks();
++	if (fps_ticks == 0) fps_ticks = now;
++	if (++fps_frames, now - fps_ticks >= 2000) {
++		fprintf(stderr, "FPS: %.1f\n", fps_frames * 1000.0f / (now - fps_ticks));
++		fps_frames = 0;
++		fps_ticks = now;
++	}
++
++	SDL_Event event;
++	while (SDL_PollEvent(&event)) {
++		switch (event.type) {
++		case SDL_QUIT:
++			this->done = true;
++			break;
++		case SDL_KEYDOWN:
++			if (event.key.keysym.sym == SDLK_ESCAPE)
+ 				this->done = true;
+-				break;
+-			case KeyPress:
+-				if (XLookupKeysym(&event.xkey, 0) == XK_Escape) {
+-					this->done = true;
+-				}
+-		                break;
++			else if (event.key.keysym.sym == SDLK_f) {
++				this->fullscreen = !this->fullscreen;
++				SDL_SetWindowFullscreen(this->window,
++					this->fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+ 			}
++			break;
++		case SDL_MOUSEBUTTONDOWN:
++			this->done = true;
++			break;
++		case SDL_WINDOWEVENT:
++			if (event.window.event == SDL_WINDOWEVENT_RESIZED ||
++			    event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
++				this->width  = event.window.data1;
++				this->height = event.window.data2;
++				this->resize(0, 0, this->width, this->height);
++			}
++			break;
+ 		}
+-
+-	glXSwapBuffers(this->dpy, this->win);
++	}
++	SDL_GL_SwapWindow(this->window);
+ }
+ 
+ bool GLWindow::is_done()
+--- /dev/null
++++ b/Sources/linux_sdl2.cpp
+@@ -0,0 +1,109 @@
++/*
++ * SDL2 audio driver: uses SDL_QueueAudio (push model).
++ * Mirrors the interface of the OSS and ALSA drivers.
++ */
++#include "linux_sdl2.h"
++
++#include <stdio.h>
++#include <string.h>
++#include <sys/time.h>
++
++#define SAMPLE_RATE      44100
++#define NUM_CHANNELS     2
++#define BYTES_PER_FRAME  4        /* sizeof(short) * NUM_CHANNELS */
++#define PERIOD_FRAMES    4096
++
++SDL2AudioDriver::SDL2AudioDriver(MP3AudioProvider *prv)
++{
++	this->prov = prv;
++	this->in_outbuf = 0;
++	this->bytes_written = 0;
++	this->eof = false;
++	this->last_audio_base = -1.0f;  /* sentinel : premier appel non encore initialisÃ© */
++	this->last_wall_time.tv_sec = 0;
++	this->last_wall_time.tv_usec = 0;
++
++	SDL_AudioSpec want, got;
++	SDL_zero(want);
++	want.freq     = SAMPLE_RATE;
++	want.format   = AUDIO_S16LSB;
++	want.channels = NUM_CHANNELS;
++	want.samples  = PERIOD_FRAMES;
++	want.callback = NULL;         /* push mode: we call SDL_QueueAudio */
++
++	this->dev_id = SDL_OpenAudioDevice(NULL, 0, &want, &got, 0);
++	if (this->dev_id == 0) {
++		fprintf(stderr, "SDL_OpenAudioDevice failed: %s\n", SDL_GetError());
++		exit(-1);
++	}
++	SDL_PauseAudioDevice(this->dev_id, 0);
++}
++
++SDL2AudioDriver::~SDL2AudioDriver()
++{
++	SDL_CloseAudioDevice(this->dev_id);
++}
++
++bool SDL2AudioDriver::run()
++{
++	if (this->eof) {
++		struct timeval now;
++		gettimeofday(&now, NULL);
++		float secs = (float)(now.tv_sec  - eof_time.tv_sec) +
++		             (float)(now.tv_usec - eof_time.tv_usec) * 0.000001f;
++		this->bytes_written += (int)(secs * SAMPLE_RATE * BYTES_PER_FRAME);
++		memcpy(&this->eof_time, &now, sizeof(struct timeval));
++		return true;
++	}
++
++	/* Keep ~1 second of audio pre-buffered in the SDL queue. */
++	while (SDL_GetQueuedAudioSize(this->dev_id) <
++	       (Uint32)(SAMPLE_RATE * BYTES_PER_FRAME)) {
++		int ret = this->prov->fill_buf(this->outbuf + this->in_outbuf,
++		                               65536 - this->in_outbuf);
++		if (ret == 0) {
++			this->eof = true;
++			gettimeofday(&this->eof_time, NULL);
++			return true;
++		}
++		this->in_outbuf += ret;
++
++		while (this->in_outbuf >= PERIOD_FRAMES * BYTES_PER_FRAME) {
++			int chunk = PERIOD_FRAMES * BYTES_PER_FRAME;
++			if (SDL_QueueAudio(this->dev_id, this->outbuf, chunk) != 0)
++				fprintf(stderr, "SDL_QueueAudio: %s\n", SDL_GetError());
++			this->bytes_written += chunk;
++			this->in_outbuf -= chunk;
++			memmove(this->outbuf, this->outbuf + chunk, this->in_outbuf);
++		}
++	}
++	return false;
++}
++
++float SDL2AudioDriver::get_time()
++{
++	Uint32 queued = SDL_GetQueuedAudioSize(this->dev_id);
++	int played = this->bytes_written - (int)queued;
++	if (played < 0)
++		played = 0;
++	float audio_base = (float)played / SAMPLE_RATE / BYTES_PER_FRAME;
++
++	struct timeval now;
++	gettimeofday(&now, NULL);
++
++	if (this->last_audio_base < 0.0f || audio_base > this->last_audio_base) {
++		/* Premier appel ou nouvelle mesure audio : recaler la rÃ©fÃ©rence. */
++		this->last_audio_base = audio_base;
++		this->last_wall_time  = now;
++		return audio_base;
++	}
++
++	/* Entre deux quanta audio, extrapoler avec l'horloge systÃ¨me.
++	   On plafonne Ã  100 ms pour Ã©viter toute dÃ©rive en cas de blocage. */
++	float wall_elapsed = (float)(now.tv_sec  - this->last_wall_time.tv_sec)
++	                   + (float)(now.tv_usec - this->last_wall_time.tv_usec) * 0.000001f;
++	if (wall_elapsed > 0.1f)
++		wall_elapsed = 0.1f;
++
++	return this->last_audio_base + wall_elapsed;
++}
+--- a/Sources/main.cpp
++++ b/Sources/main.cpp
+@@ -15,17 +15,13 @@
+ U32					TickNum = 0			;	// var pour calcul de Fps ( voar utils.h )
+ float				m_fps =0.0f			;	// var pour calcul de Fps ( voar utils.h )
+ MP3AudioProvider *prov;
+-#if DEMOLIB_USE_ALSA
+-    ALSAAudioDriver *mp3;
+-#else
+-    OSSAudioDriver *mp3;
+-#endif
++SDL2AudioDriver *mp3;
+ 
+ bool	m_Fullscreen = FALSE;
+ U32	m_Resx = 640			;
+ U32	m_Resy = 480			;	// resolution choisie
+ bool	m_TrueColor = TRUE	;	// est-ce ke l'on veux du 32 bit
+-bool	m_Hiddenpart1	= FALSE	;	// est-ce ke ya la partie cachée 1 ?
++bool	m_Hiddenpart1	= FALSE	;	// est-ce ke ya la partie cachï¿½e 1 ?
+ bool	m_Active = FALSE		;
+ 
+ GLWindow *glw;
+@@ -159,11 +155,7 @@
+ 	//-------------------------- Ini MP3 Manager
+ #ifndef NOMP3
+ 	prov = new MP3AudioProvider(MP3_PATH);
+-    #if DEMOLIB_USE_ALSA
+-        mp3 =  new ALSAAudioDriver(prov);
+-    #else
+-        mp3 = new OSSAudioDriver(prov);
+-    #endif
++	mp3 = new SDL2AudioDriver(prov);
+ #endif
+ 
+ 
+@@ -271,11 +263,11 @@
+ 	
+ 	glHint( GL_PERSPECTIVE_CORRECTION_HINT , GL_NICEST )    ;       // met la coretion de perspective
+ 				//
+-	glLineWidth( 1.0f )                     ;       // épaisseur de 1 pour une ligne
++	glLineWidth( 1.0f )                     ;       // ï¿½paisseur de 1 pour une ligne
+ 	glEnable( GL_LINE_SMOOTH )      ;
+ 				//
+ 				//                                                                        //--------------------------- Ini le fog
+-	glFogi( GL_FOG_MODE, GL_LINEAR  )                               ;       // equation utilisée pour le fog
++	glFogi( GL_FOG_MODE, GL_LINEAR  )                               ;       // equation utilisï¿½e pour le fog
+ 	glFogf(GL_FOG_DENSITY, 0.35f)                           ;       // Density du fog
+ 	glHint(GL_FOG_HINT, GL_DONT_CARE )                              ;       // on veux du fog ki torche
+ 	glFogf(GL_FOG_START, 1.0f)      ;       // debut du fog
+@@ -290,8 +282,8 @@
+ 			(void)mp3->run();
+ 			ClockU3D::mp3_timer = mp3->get_time();
+ #endif
+-			AllSynchro->Run()	;	// op gère les gnolies synchrosi
+-			MainScheduler.Run()	;	// lance les différentes taches
++			AllSynchro->Run()	;	// op gï¿½re les gnolies synchrosi
++			MainScheduler.Run()	;	// lance les diffï¿½rentes taches
+ 		}
+ 
+ 	//////////////////////////////////////////////////////////////
+--- a/LIBS/u3dLib/sources/opengl.cpp
++++ b/LIBS/u3dLib/sources/opengl.cpp
+@@ -1,8 +1,8 @@
+     				 /*-----------------------------------------------------+
+ 					  |				         OpenGl.cpp						|
+ 					  |														|
+-					  |		c'est qq fonctions qui me permettent de gérer   |
+-					  |				l'OpenGl dans le moteur tridé héhé		|
++					  |		c'est qq fonctions qui me permettent de gï¿½rer   |
++					  |				l'OpenGl dans le moteur tridï¿½ hï¿½hï¿½		|
+ 					  |														|
+ 					  | 	U2^PoPsy TeAm 1999								|
+ 					  +-----------------------------------------------------*/
+@@ -40,7 +40,7 @@
+ 
+ 	if( glActiveTextureARB && glMultiTexCoord2fARB ) return	;
+ 
+-	//---------------------- Test la présence d'extensions indispensables !
++	//---------------------- Test la prï¿½sence d'extensions indispensables !
+ 
+ 	str = (char *) glGetString(GL_EXTENSIONS)	;
+ 
+@@ -65,7 +65,7 @@
+ 	//----------------------
+ 
+ 
+-	//---------------------- Récup les pointeurs sur cs fonctions
++	//---------------------- Rï¿½cup les pointeurs sur cs fonctions
+ 
+     glActiveTextureARB = (PROCACTIVETEXTUREARB)wglGetProcAddress("glActiveTextureARB")			;
+     glMultiTexCoord2fARB = (PROCMULTITEXCOORD2DFARB)wglGetProcAddress("glMultiTexCoord2fARB")	;
+@@ -138,11 +138,11 @@
+ 
+ 	glHint( GL_PERSPECTIVE_CORRECTION_HINT , GL_NICEST )	;	// met la coretion de perspective
+ 
+-	glLineWidth( 1.0f )			;	// épaisseur de 1 pour une ligne
++	glLineWidth( 1.0f )			;	// ï¿½paisseur de 1 pour une ligne
+ 	glEnable( GL_LINE_SMOOTH )	;
+ 
+ 	//--------------------------- Ini le fog
+-	glFogi( GL_FOG_MODE, GL_LINEAR  )				;	// equation utilisée pour le fog
++	glFogi( GL_FOG_MODE, GL_LINEAR  )				;	// equation utilisï¿½e pour le fog
+ //	glFogfv(GL_FOG_COLOR, fogColor);			;	// couleur du fog
+ 	glFogf(GL_FOG_DENSITY, 0.35f)				;	// Density du fog
+ 	glHint(GL_FOG_HINT, GL_DONT_CARE )				;	// on veux du fog ki torche
+@@ -185,7 +185,6 @@
+ // swap le back et front buffer si yen a 1 poil de sein !
+ void FlipOpenGL()
+ {
+-    glFinish()						;
+ 	glw->flip();
+ }
+ //----------------------------------------------------------------------------------------------------------
+@@ -224,7 +223,7 @@
+ }
+ //----------------------------------------------------------------------------------------------------------
+ #if 0
+-// va afficher un text aux coordonnées ecrans x,y
++// va afficher un text aux coordonnï¿½es ecrans x,y
+ void TextOpenGL(GLuint x, GLuint y, GLuint scale, const char* format, ...)
+ {
+     va_list args							;

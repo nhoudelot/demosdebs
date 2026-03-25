@@ -1,0 +1,14 @@
+Description: Fix Implicit int types 
+GCC 14 no longer treats types as int when their type are not declared
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/antagonism.h
++++ b/src/antagonism.h
+@@ -1,3 +1,3 @@
+-void initAntagonism();
++void initAntagonism(int width, int height);
+ void playAntagonism();
+ void releaseAntagonism();

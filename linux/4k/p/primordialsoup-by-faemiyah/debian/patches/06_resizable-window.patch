@@ -1,0 +1,90 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-04
+
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -794,12 +794,45 @@
+ 
+ #if defined(USE_LD) && !defined(SDL12)
+ 
+-static void SetViewport(SDL_Window *window)
++static void SetViewportAspect(SDL_Window *window)
+ {
+   int dw = 0;
+   int dh = 0;
+   SDL_GL_GetDrawableSize(window, &dw, &dh);
+-  glViewport(0, 0, dw, dh);
++
++  if((dw <= 0) || (dh <= 0))
++  {
++    return;
++  }
++
++  const float target_aspect = static_cast<float>(SCREEN_W) /
++                               static_cast<float>(SCREEN_H);
++  const float window_aspect = static_cast<float>(dw) /
++                               static_cast<float>(dh);
++
++  int vp_w;
++  int vp_h;
++  int vp_x;
++  int vp_y;
++
++  if(window_aspect >= target_aspect)
++  {
++    // Window wider than render target: pillarbox (black left/right bars).
++    vp_h = dh;
++    vp_w = static_cast<int>(static_cast<float>(dh) * target_aspect + 0.5f);
++    vp_x = (dw - vp_w) / 2;
++    vp_y = 0;
++  }
++  else
++  {
++    // Window taller than render target: letterbox (black top/bottom bars).
++    vp_w = dw;
++    vp_h = static_cast<int>(static_cast<float>(dw) / target_aspect + 0.5f);
++    vp_x = 0;
++    vp_y = (dh - vp_h) / 2;
++  }
++
++  glViewport(vp_x, vp_y, vp_w, vp_h);
+ }
+ 
+ static void ToggleFullscreen(SDL_Window *window)
+@@ -808,9 +841,8 @@
+   SDL_SetWindowFullscreen(window,
+       g_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+   SDL_PumpEvents();
+-  SetViewport(window);
++  SetViewportAspect(window);
+ }
+-
+ #endif // USE_LD && !SDL12
+ 
+ //######################################
+@@ -906,7 +938,7 @@
+   dnload_SDL_GL_CreateContext(g_window);
+ #if defined(USE_LD)
+   g_fullscreen = flag_fullscreen;
+-  SetViewport(g_window);
++  SetViewportAspect(g_window);
+ #endif
+ #endif
+   dnload_SDL_ShowCursor(g_flag_developer);
+@@ -1228,6 +1260,13 @@
+       {
+         quit = true;
+       }
++      else if(SDL_WINDOWEVENT == event.type)
++      {
++        if(event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++        {
++          SetViewportAspect(g_window);
++        }
++      }
+       else if((SDL_KEYDOWN == event.type) && !event.key.repeat)
+       {
+         switch(event.key.keysym.sym)

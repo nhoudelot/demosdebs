@@ -1,0 +1,160 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cc
++++ b/main.cc
+@@ -120,7 +120,7 @@
+     glViewport(0,0,WIDTH,HEIGHT);
+     glMatrixMode(GL_PROJECTION);
+     glLoadIdentity();
+-    gluPerspective(45.0f,(float)(WIDTH/HEIGHT),0.1f,100.0f);
++    gluPerspective(45.0f,(float)WIDTH/(float)HEIGHT,0.1f,100.0f);
+     glMatrixMode(GL_MODELVIEW);
+     glLoadIdentity();
+     glClearColor(0, 0, 0, 0);
+@@ -168,7 +168,7 @@
+ {
+     double  aeka;
+ 
+-    static long    alux=0;
++    static time_t    alux=0;
+ 
+     struct timeval  system_time;
+     struct timezone system_timezone;
+@@ -195,7 +195,7 @@
+ {
+     FILE    *f;
+ 
+-    long    len;
++    off_t    len;
+ 
+     if((f=fopen(name,"rb"))==NULL)
+     {
+@@ -203,10 +203,10 @@
+         exit(EXIT_FAILURE);
+     }
+ 
+-    fseek(f,0,SEEK_END);
+-    len=ftell(f);
+-    fseek(f,0,SEEK_SET);
+-    fread(dest,1,len,f);
++    fseeko(f,0,SEEK_END);
++    len=ftello(f);
++    fseeko(f,0,SEEK_SET);
++    fread(dest,1,(size_t)len,f);
+     fclose(f);
+ }
+ 
+--- a/neandertaler_mainloop.cc
++++ b/neandertaler_mainloop.cc
+@@ -32,6 +32,7 @@
+ 
+ #include <math.h>
+ #include <string.h>
++#include <stdint.h>
+ 
+ //#include "loadxm.h"
+ 
+@@ -625,7 +626,7 @@
+ 
+ 						int val = dest[(pos+x-font_pos[j*2])+(y+posy)*destwidth]+font_raw[y*429+x];
+ 						if (val>255) val=255;
+-						dest[(pos+x-font_pos[j*2])+(y+posy)*destheight]=val;
++						dest[(pos+x-font_pos[j*2])+(y+posy)*destwidth]=val;
+ 					}
+ 					newpos++;
+ 				}
+@@ -763,7 +764,7 @@
+ 
+ 
+ 
+-#define RGBA(r, g, b, a) (a<<24)+(r<<16)+(g<<8)+b
++#define RGBA(r, g, b, a) (((uint32_t)(a)<<24)|((uint32_t)(r)<<16)|((uint32_t)(g)<<8)|(uint32_t)(b))
+ 
+ static GLfloat cirkelposx[10];
+ static GLfloat cirkelposy[10];
+@@ -815,31 +816,31 @@
+ 	memset(credits, 0, 256*256);
+ 	putstring("coded by macavv\0", credits, 0, 0, 256, 256);
+ 	loadRAW(credits, 256, 256, MACAW);
+-	delete credits;
++	delete[] credits;
+ 
+ 	credits = new unsigned char [256*256];
+ 	memset(credits, 0, 256*256);
+ 	putstring("music by prat\0", credits, 0, 0, 256, 256);
+ 	loadRAW(credits, 256, 256, PRAT);
+-	delete credits;
++	delete[] credits;
+ 
+ 	credits = new unsigned char [256*256];
+ 	memset(credits, 0, 256*256);
+ 	putstring("nean der taler\0", credits, 0, 0, 256, 256);
+ 	loadRAW(credits, 256, 256, TITLE);
+-	delete credits;
++	delete[] credits;
+ 
+ 	credits = new unsigned char [256*256];
+ 	memset(credits, 0, 256*256);
+ 	putstring("non alien nature five\0", credits, 0, 0, 256, 256);
+ 	loadRAW(credits, 256, 256, GROUPS1);
+-	delete credits;
++	delete[] credits;
+ 
+ 	credits = new unsigned char [256*256];
+ 	memset(credits, 0, 256*256);
+ 	putstring("bypass\0", credits, 0, 0, 256, 256);
+ 	loadRAW(credits, 256, 256, GROUPS2);
+-	delete credits;
++	delete[] credits;
+ 
+ 	credits = new unsigned char [256*256];
+ 	memset(credits, 0, 256*256);
+@@ -862,7 +863,7 @@
+ 		}
+ 	}
+ 	loadRAW(credits, 256, 256, FLARE);
+-	delete credits;
++	delete[] credits;
+ 
+ 	credits = new unsigned char [256*256];
+ 	memset(credits, 0, 256*256);
+@@ -876,7 +877,7 @@
+ 	putstring("haujobb\0", credits, 0, y+=30, 256, 256);
+ 	putstring("klan\0", credits, 0, y+=30, 256, 256);
+ 	loadRAW(credits, 256, 256, GREETS);
+-	delete credits;
++	delete[] credits;
+ 
+ 	credits = new unsigned char [256*256];
+ 	memset(credits, 0, 256*256);
+@@ -888,7 +889,7 @@
+ 	putstring("purple\0", credits, 0, y+=30, 256, 256);
+ 	putstring("tivoliet\0", credits, 0, y+=30, 256, 256);
+ 	loadRAW(credits, 256, 256, GREETS2);
+-	delete credits;
++	delete[] credits;
+ 
+ 
+ 	credits = new unsigned char [256*256*4];
+@@ -896,14 +897,14 @@
+ 	//putstring("bypass\0", credits, 0, 0, 256, 256);
+ 	ellipse(128, 128, 100, 120, (int*)credits, RGBA(75,75,75,75), 256, 256);
+ 	loadRAW32(credits, 256, 256, CIRKEL);
+-	delete credits;
++	delete[] credits;
+ 
+ 	credits = new unsigned char [128*128*4];
+ 	memset(credits, 0, 128*128*4);
+ 	//putstring("bypass\0", credits, 0, 0, 256, 256);
+ 	ellipse(64, 64, 60, 64, (int*)credits, RGBA(50,50,50,50), 128, 128);
+ 	loadRAW32(credits, 128, 128, CIRKEL2);
+-	delete credits;
++	delete[] credits;
+ 
+ 	
+ 	//	loadRAW(greets_raw, 256, 256, GREETS);

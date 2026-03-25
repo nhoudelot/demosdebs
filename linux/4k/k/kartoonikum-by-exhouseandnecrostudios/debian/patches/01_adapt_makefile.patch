@@ -30,9 +30,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #compiler we're using
 -CC = gcc
 -CXX = g++
-+CC := gcc
-+CXX := g++
-+PKG_CONFIG := pkg-config
++CC ?= gcc
++CXX ?= g++
++PKG_CONFIG ?= pkg-config
  
  #sourcefiles in use
  OBJ = main.o

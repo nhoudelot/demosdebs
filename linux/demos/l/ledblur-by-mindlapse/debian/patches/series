@@ -1,3 +1,5 @@
 01_adapt_makefile.patch
 02_replace_mikmod_by_sdlmixer.diff
 03_adapt_path.patch
+04_fix_64bit_compatibility.patch
+05_port_to_sdl2.patch

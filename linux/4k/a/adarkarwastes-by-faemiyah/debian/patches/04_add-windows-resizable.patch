@@ -1,0 +1,54 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-03-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -841,7 +841,7 @@
+ #endif
+ 
+ void ToggleFullscreen(SDL_Window* Window) {
+-    int FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
+     int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
+     SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
+     SDL_ShowCursor(isFullscreen);
+@@ -870,7 +870,7 @@
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+   g_sdl_window = dnload_SDL_CreateWindow("Adarkar Wastes by Faemiyah", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+       static_cast<int>(screen_w), static_cast<int>(screen_h),
+-      SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++      SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
+   dnload_SDL_GL_CreateContext(g_sdl_window);
+   dnload_SDL_ShowCursor(g_flag_developer);
+ 
+@@ -1399,6 +1399,26 @@
+           mouse_look_y += event.motion.yrel;
+         }
+       }
++     else if(SDL_WINDOWEVENT == event.type)
++	 {
++	  if(SDL_WINDOWEVENT_RESIZED == event.window.event ||
++		 SDL_WINDOWEVENT_SIZE_CHANGED == event.window.event)
++	  {
++		screen_w = static_cast<unsigned>(event.window.data1);
++		screen_h = static_cast<unsigned>(event.window.data2);
++
++		// Redimensionne les textures FBO en conséquence.
++		glBindTexture(GL_TEXTURE_2D, g_textures[TEXTURE_COLOR_INDEX]);
++		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
++			static_cast<GLsizei>(screen_w << 1), static_cast<GLsizei>(screen_h << 1),
++			0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
++
++		glBindTexture(GL_TEXTURE_2D, g_textures[TEXTURE_DEPTH_INDEX]);
++		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
++			static_cast<GLsizei>(screen_w << 1), static_cast<GLsizei>(screen_h << 1),
++			0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
++	  }
++	 }
+     }
+ 
+     if(g_flag_developer)

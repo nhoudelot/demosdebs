@@ -1,0 +1,27 @@
+--- a/linux/device.c
++++ b/linux/device.c
+@@ -50,7 +50,7 @@
+ 
+     memset(ctx, 0, sizeof(DeviceContext));
+ 
+-    ctx->fd = open(device_path, O_RDWR | O_NONBLOCK | O_CREAT);
++    ctx->fd = open(device_path, O_RDWR | O_NONBLOCK);
+ 
+     if((ctx->fd < 0) && (errno == EACCES || errno == EROFS)) { ctx->fd = open(device_path, O_RDONLY | O_NONBLOCK); }
+ 
+@@ -368,7 +368,7 @@
+         return errno;
+     }
+ 
+-    ctx->fd = open(ctx->device_path, O_RDWR | O_NONBLOCK | O_CREAT);
++    ctx->fd = open(ctx->device_path, O_RDWR | O_NONBLOCK);
+ 
+     if((ctx->fd < 0) && (errno == EACCES || errno == EROFS)) ctx->fd = open(ctx->device_path, O_RDONLY | O_NONBLOCK);
+ 
+@@ -393,4 +393,4 @@
+     ret = read(ctx->fd, (void *)buffer, (size_t)length);
+ 
+     return ret < 0 ? errno : 0;
+-}
+\ No newline at end of file
++}

@@ -1,3 +1,14 @@
+nordlicht2015invitation-by-wddkbc (1.0+git20150405-0ddebs7) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * ported to SDL2
+  * added fullscreen with F key
+  * fix 64 bit portability issues
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 24 Apr 2026 23:42:13 +0200
+
 nordlicht2015invitation-by-wddkbc (1.0+git20150405-0ddebs6) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

@@ -1,3 +1,5 @@
-usr/share/engagethefresse-by-stroboholics/shader usr/lib/x86_64-linux-gnu/engagethefresse-by-stroboholics/shader
-usr/share/engagethefresse-by-stroboholics/tex usr/lib/x86_64-linux-gnu/engagethefresse-by-stroboholics/tex
-usr/share/engagethefresse-by-stroboholics/Stroboholics_-_Engage_the_Noise.mp3 usr/lib/x86_64-linux-gnu/engagethefresse-by-stroboholics/Stroboholics_-_Engage_the_Noise.mp3
+#!/usr/bin/dh-exec
+
+usr/share/engagethefresse-by-stroboholics/shader usr/lib/@DEB_HOST_MULTIARCH@/engagethefresse-by-stroboholics/shader
+usr/share/engagethefresse-by-stroboholics/tex usr/lib/@DEB_HOST_MULTIARCH@/engagethefresse-by-stroboholics/tex
+usr/share/engagethefresse-by-stroboholics/Stroboholics_-_Engage_the_Noise.mp3 usr/lib/@DEB_HOST_MULTIARCH@/engagethefresse-by-stroboholics/Stroboholics_-_Engage_the_Noise.mp3

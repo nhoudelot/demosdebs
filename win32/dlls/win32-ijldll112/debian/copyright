@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name:win32-ijldll112
-Source: https://www.un4seen.com/download.php?bass10
+Source: https://www.example.com
 
 Files: *
 Copyright: 1999 Intel
@@ -8,7 +8,7 @@ License: proprietary
  (but probably freeware)
 
 Files: debian/*
-Copyright: 2021-2024 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2021-2026 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
 License: GPL-3.0+

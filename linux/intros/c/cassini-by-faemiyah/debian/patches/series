@@ -1,3 +1,6 @@
 01_update_cmakelists.patch
 02_adapt_path.patch
 03_add_window_title.patch
+04_fix-warnings.patch
+05_fix-realloc.patch
+06_add-fullscreen-and-resizable.patch

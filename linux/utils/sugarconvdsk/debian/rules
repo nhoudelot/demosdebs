@@ -10,5 +10,3 @@ override_dh_install:
 	mkdir -p "debian/sugarconvdsk/usr/bin/"
 	cp "build/SugarConvDsk" "debian/sugarconvdsk/usr/bin/sugarconvdsk"
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

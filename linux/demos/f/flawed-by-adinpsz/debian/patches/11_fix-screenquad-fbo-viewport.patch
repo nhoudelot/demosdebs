@@ -1,0 +1,180 @@
+Description: Fix resize/fullscreen rendering via full FBO composite pipeline
+ Replace the old screen pass with a full FBO composite pipeline:
+ pass 3 renders scene + vblur overlay into textureFinal at fixed
+ fboWidth x fboHeight with explicit viewport and projection reset.
+ The final screen pass letterboxes/pillarboxes textureFinal to preserve
+ the original aspect ratio regardless of window/fullscreen size.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Flawed/Sources/main.cpp
++++ b/Flawed/Sources/main.cpp
+@@ -133,6 +133,7 @@
+ 
+ 		Texture textureBucket(fboWidth, fboHeight);
+ 		Texture textureHBlurBucket(fboWidth, fboHeight);
++		Texture textureFinal(fboWidth, fboHeight);
+ /*
+         std::cout << "Render buffer preparation (R2T)" << std::endl;
+         RenderBuffer renderBuffer;
+@@ -214,42 +215,69 @@
+ 				pHBlurShader->enable();
+ 				/* blurOffset uniform unused for now */
+ 
+-				ScreenQuad::draw(textureBucket,*e.getWindow());
++				ScreenQuad::draw(textureBucket, fboWidth, fboHeight);
+ 				pHBlurShader->disable();
+ 
+ 				GLUtils::checkError("Draw");
+ 			}
+ 			frameBuffer.unbind(GL_FRAMEBUFFER);
+ 
++			frameBuffer.attach(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureFinal.getID());
++			frameBuffer.bind(GL_FRAMEBUFFER);
++			{
++				glViewport(0, 0, fboWidth, fboHeight);
++				glMatrixMode(GL_PROJECTION);
++				glLoadIdentity();
++				gluPerspective(45.0f, (float)fboWidth / (float)fboHeight, 0.1f, 120.0f);
++				glMatrixMode(GL_MODELVIEW);
+ 
+-			glClearColor(0.0f,0.0f, 0.0f, 1.0f);
+-			e.getWindow()->clear();
+-
+-			pSimpleShader->enable();
+-			GLint idPulse = glGetUniformLocation(pSimpleShader->getProgram(),"amplif");
+-			GLUtils::checkError("glGetUniformLocation 'amplif'");
+-			glUniform1f(idPulse,sm.getCurrentScene()->getPulseValue());
+-
+-			GLint idFade = glGetUniformLocation(pSimpleShader->getProgram(),"fade");
+-			GLUtils::checkError("glGetUniformLocation 'fade'");
+-			glUniform1f(idFade,sm.getCurrentScene()->getFadeValue());
+-
+-			sm.draw(e.getWindow());
+-
+-			pSimpleShader->disable();
++				glClearColor(0.0f,0.0f, 0.0f, 1.0f);
++				e.getWindow()->clear();
+ 
+-			glDisable(GL_DEPTH_TEST);
+-			glEnable(GL_BLEND);
+-			glBlendFunc(GL_SRC_ALPHA,GL_ONE);
++				pSimpleShader->enable();
++				GLint idPulse = glGetUniformLocation(pSimpleShader->getProgram(),"amplif");
++				GLUtils::checkError("glGetUniformLocation 'amplif'");
++				glUniform1f(idPulse,sm.getCurrentScene()->getPulseValue());
++				GLint idFade = glGetUniformLocation(pSimpleShader->getProgram(),"fade");
++				GLUtils::checkError("glGetUniformLocation 'fade'");
++				glUniform1f(idFade,sm.getCurrentScene()->getFadeValue());
++				sm.draw(e.getWindow());
++				pSimpleShader->disable();
+ 
+-			pVBlurShader->enable();
+-			/* blurOffset uniform unused for now */
++				glDisable(GL_DEPTH_TEST);
++				glEnable(GL_BLEND);
++				glBlendFunc(GL_SRC_ALPHA,GL_ONE);
++
++				pVBlurShader->enable();
++				ScreenQuad::draw(textureHBlurBucket, fboWidth, fboHeight);
++				pVBlurShader->disable();
+ 
+-			ScreenQuad::draw(textureHBlurBucket,*e.getWindow());
+-			pVBlurShader->disable();
++				glDisable(GL_BLEND);
++				glEnable(GL_DEPTH_TEST);
++			}
++			frameBuffer.unbind(GL_FRAMEBUFFER);
+ 
+-			glDisable(GL_BLEND);
+-			glEnable(GL_DEPTH_TEST);
++			{
++				unsigned int winW = e.getWindow()->getWidth();
++				unsigned int winH = e.getWindow()->getHeight();
++				float aspect = (float)fboWidth / (float)fboHeight;
++				int vpW, vpH, vpX, vpY;
++				if ((float)winW / (float)winH > aspect) {
++					vpH = (int)winH;
++					vpW = (int)((float)winH * aspect);
++					vpX = ((int)winW - vpW) / 2;
++					vpY = 0;
++				} else {
++					vpW = (int)winW;
++					vpH = (int)((float)winW / aspect);
++					vpX = 0;
++					vpY = ((int)winH - vpH) / 2;
++				}
++				glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++				e.getWindow()->clear();
++				ScreenQuad::draw(textureFinal, vpX, vpY,
++				                 (unsigned int)vpW, (unsigned int)vpH);
++			}
+ 
+ 			e.getWindow()->refresh();
+ 
+
+--- a/Flawed/Sources/3D/ScreenQuad.cpp
++++ b/Flawed/Sources/3D/ScreenQuad.cpp
+@@ -10,9 +10,9 @@
+ const float vquad[] = { 1, 1, 0, 1, 0, 0, 1, 0 };
+ const float tquad[] = { 1, 1, 0, 1, 0, 0, 1, 0 };
+ 
+-void ScreenQuad :: draw(const Texture& t, const Window& w)
++void ScreenQuad :: draw(const Texture& t, int x, int y, unsigned int width, unsigned int height)
+ {
+-	glViewport(0, 0, w.getWidth(), w.getHeight());
++	glViewport(x, y, (GLsizei)width, (GLsizei)height);
+ 
+ 	glMatrixMode(GL_PROJECTION);
+ 	glPushMatrix();
+@@ -37,21 +37,6 @@
+ 		glTexCoord2f(1, 0);  glVertex2f(1,0);
+ 	} glEnd();
+ 
+-/*
+-
+-    glEnableClientState(GL_VERTEX_ARRAY);
+-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+-
+-    // Assign our data to OpenGL
+-    glVertexPointer(2, GL_FLOAT, 0, vquad);
+-    glTexCoordPointer(2, GL_FLOAT, 0, tquad);
+-
+-    glDrawArrays(GL_QUADS,0, 4);
+-    GLUtils::checkError("glDrawArrays");
+-
+-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+-    glDisableClientState(GL_VERTEX_ARRAY);
+- */
+ 	t.unbind();
+ 	glDisable(GL_TEXTURE_2D);
+ 
+@@ -61,3 +46,13 @@
+ 	glMatrixMode( GL_MODELVIEW );
+ 	glPopMatrix();
+ }
++
++void ScreenQuad :: draw(const Texture& t, unsigned int width, unsigned int height)
++{
++	draw(t, 0, 0, width, height);
++}
++
++void ScreenQuad :: draw(const Texture& t, const Window& w)
++{
++	draw(t, 0, 0, w.getWidth(), w.getHeight());
++}
+
+--- a/Flawed/Sources/3D/ScreenQuad.hpp
++++ b/Flawed/Sources/3D/ScreenQuad.hpp
+@@ -11,6 +11,8 @@
+ public:
+ 
+ static void draw(const Texture& t, const Window& w);
++static void draw(const Texture& t, unsigned int width, unsigned int height);
++static void draw(const Texture& t, int x, int y, unsigned int width, unsigned int height);
+ };
+ 
+ #endif

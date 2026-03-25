@@ -1,0 +1,107 @@
+Description: Fix 64-bit portability issues
+ - model.h: T3D_Color and T3D_Vector fields double -> float
+   (coordinates are used exclusively with glVertex2f/glColor4f which
+   expect GLfloat; passing double caused implicit narrowing on every call)
+ - model.c: sscanf format %lf -> %f to match float fields
+ - model.c: glColor4f literal constants suffixed with f (1.1 -> 1.1f etc.)
+   to avoid -Wdouble-promotion with GCC 15
+ - model.c: density(): abs() on float -> fabsf() (<math.h> already included);
+   abs() silently truncated the float to int before computing absolute value
+ - model.c: density(): remove unused variable 'step' (-Wunused-variable)
+ - main.c: integer division of Uint32 before implicit float conversion
+   replaced with explicit float arithmetic (now - 46000) / 100 -> (float)(now - 46000) / 100.0f
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/model.h
++++ b/model.h
+@@ -1,15 +1,15 @@
+ typedef struct T3D_Color {
+-	double r;
+-	double g;
+-	double b;
+-	double a;
++	float r;
++	float g;
++	float b;
++	float a;
+ } T3D_Color;
+ 
+ typedef struct T3D_Vector {
+-	double start_x;
+-	double start_y;
+-	double end_x;
+-	double end_y;
++	float start_x;
++	float start_y;
++	float end_x;
++	float end_y;
+ 	T3D_Color color;
+ } T3D_Vector;
+ 
+--- a/model.c
++++ b/model.c
+@@ -40,7 +40,7 @@
+ 		}
+ 		/* Vertex */
+ 		if (one_line[0] == 'V') {
+-			sscanf(one_line,"V %lf %lf %lf %lf\n",&movie->frames[f_count].vectors[v_count].start_x,
++			sscanf(one_line,"V %f %f %f %f\n",&movie->frames[f_count].vectors[v_count].start_x,
+ 			       &movie->frames[f_count].vectors[v_count].start_y,
+ 			       &movie->frames[f_count].vectors[v_count].end_x,
+ 			       &movie->frames[f_count].vectors[v_count].end_y);
+@@ -57,7 +57,7 @@
+ 
+ 	glBegin(GL_LINES);
+ 	for(vectorcount = 0; vectorcount < movie->frames[frame].max_vector; vectorcount++) {
+-		glColor4f(1.1, 0.9, 1.0, 0.1);
++		glColor4f(1.1f, 0.9f, 1.0f, 0.1f);
+ 		for(rnd_count = 0; rnd_count < RND_MAX_LINES; rnd_count++) {
+ 			rnd_x = X + drand48() * 10;
+ 			rnd_y = Y + drand48() * 10;
+@@ -225,15 +225,12 @@
+ void density(float startx, float starty, float endx, float endy, float density){
+ 	float i,j;
+ 	float area;
+-	float step;
+ 	float rndx, rndy, probability;
+ 	int k;
+ 
+-	area = abs(endx - startx * (endy - starty));
++	area = fabsf(endx - startx * (endy - starty));
+ 
+-	step = area / (area * density);
+-
+-	glColor4f(1.0, 1.0, 1.0, 0.1);
++	glColor4f(1.0f, 1.0f, 1.0f, 0.1f);
+ 	glBegin( GL_POINTS );
+ 	for(k = 0; k < (area * density); k++) {
+ 		rndx = drand48();
+--- a/main.c
++++ b/main.c
+@@ -151,9 +151,9 @@
+ 		if( (now > 43407)   && (now < 44592))       { motion1(movie, 7, 8, (float)(now - 43407) / (43907 - 43407), 430, 490); }
+ 		if( (now > 44592)   && (now < 45327))       { motion1(movie, 8, 9, (float)(now - 44592) / (45080 - 44592), 430, 490); }
+ 		if( (now > 45327)   && (now < 65000))       { motion1(movie, 9,10, (float)(now - 45327) / (45600 - 45327), 430, 490); }
+-		if( (now > 46000)   && (now < 50308))       { flipflop(movie,31,32, (now - 46000) / 100, 200, (now - 46000), 60); }
+-		if( (now > 50308)   && (now < 57000))       { motion1(movie,32,33, (float)(now - 50308) / (57000 - 50308), (now - 46000) / 100,180);}
+-		if( (now > 57000)   && (now < 65000))       { flipflop(movie,33,34, (now - 46000) / 100, 200, (now - 57000), 40);}
++		if( (now > 46000)   && (now < 50308))       { flipflop(movie,31,32, (float)(now - 46000) / 100.0f, 200, (now - 46000), 60); }
++		if( (now > 50308)   && (now < 57000))       { motion1(movie,32,33, (float)(now - 50308) / (57000 - 50308), (float)(now - 46000) / 100.0f,180);}
++		if( (now > 57000)   && (now < 65000))       { flipflop(movie,33,34, (float)(now - 46000) / 100.0f, 200, (now - 57000), 40);}
+ 
+ 		/* dragon */
+ 		if( (now > 65000)   && (now < 69389))       { draw_model(movie, 44, 0, 0); }
+@@ -231,7 +231,7 @@
+ 		if( (now > 157780)  && (now < 160000))      { draw_model(movie, 37, 200, 200);}
+ 		if( (now > 160000)  && (now < 164023))      {
+ 			draw_model(movie, 35, 100, 0); density(347, 53, 455, 115, 0.2);
+-			draw_model(movie,37,800 - (now - 160000) / 10,200);
++			draw_model(movie,37,800.0f - (float)(now - 160000) / 10.0f,200);
+ 		}
+ 
+ 		if( (now > 164023)  && (now < 164800))      {

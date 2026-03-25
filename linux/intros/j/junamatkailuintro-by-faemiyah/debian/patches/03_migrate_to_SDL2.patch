@@ -7,16 +7,16 @@ Last-Update: 2020-04-27
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -14,7 +14,7 @@
+@@ -11,7 +11,7 @@
  
- find_boost_program_options(TRUE)
- find_png(TRUE)
--find_sdl(TRUE)
+ find_package(Boost 1.74.0 CONFIG REQUIRED COMPONENTS program_options)
+ find_package(PNG REQUIRED)
+-find_package(SDL REQUIRED)
 +find_package(SDL2 REQUIRED)
  
  check_videocore()
  if(VIDEOCORE_FOUND)
-@@ -102,7 +102,7 @@
+@@ -98,7 +98,7 @@
    target_link_libraries(junamatkailuintro "${OPENGL_gl_LIBRARY}")
    target_link_libraries(junamatkailuintro debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
    target_link_libraries(junamatkailuintro debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
@@ -25,15 +25,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    target_link_libraries(junamatkailuintro debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
  else()
    if(VIDEOCORE_FOUND)
-@@ -114,7 +114,7 @@
-   endif()
-   target_link_libraries(junamatkailuintro ${BOOST_PROGRAM_OPTIONS_LIBRARY})
-   target_link_libraries(junamatkailuintro ${PNG_LIBRARY})
--  target_link_libraries(junamatkailuintro ${SDL_LIBRARY})
-+  target_link_libraries(junamatkailuintro ${SDL2_LIBRARIES})
+@@ -113,7 +113,7 @@
+     Boost::program_options
+     OpenGL::GL
+     PNG::PNG
+-    SDL::SDL
++    SDL2::SDL2
+   )
    # remove the CMake generated '-Wl,-rpath'
    set_target_properties(junamatkailuintro PROPERTIES SKIP_BUILD_RPATH 1)
- endif()
 --- a/src/SDLMain.mm
 +++ b/src/SDLMain.mm
 @@ -5,7 +5,7 @@

@@ -13,9 +13,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -CPPC = g++
 -CC = gcc
 +SHELL = /bin/sh
-+CXX := g++
-+CC := gcc
-+PKG_CONFIG:=pkg-config
++CXX ?= g++
++CC ?= gcc
++PKG_CONFIG ?= pkg-config
  
  # GUI --------------------------------------------------------------------------
  # GUI seems to freeze or crash on OSX :(, too close to release now, disabled.

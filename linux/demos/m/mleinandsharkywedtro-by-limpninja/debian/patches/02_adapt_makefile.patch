@@ -12,7 +12,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	scons
 +#variables de compilation
 +SHELL := /bin/sh
-+CC    := gcc
++CC    ?= gcc
 +TARGET   := mleinandsharkywedtro-by-limpninja
 +#variable de nettoyage
 +RM_F := rm -f

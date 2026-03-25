@@ -9,5 +9,3 @@ override_dh_install:
 	dh_install
 	docbook-to-man  debian/mp3gain.sgml > debian/mp3gain.1
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

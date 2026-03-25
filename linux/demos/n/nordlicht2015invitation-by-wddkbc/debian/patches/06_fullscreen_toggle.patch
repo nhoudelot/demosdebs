@@ -1,0 +1,72 @@
+Description: add fullscreen toggle with F key and fix letterbox clearing
+ Press F to toggle between windowed and fullscreen (desktop resolution, no
+ mode change). SDL_WINDOWEVENT_SIZE_CHANGED replaces SDL_WINDOWEVENT_RESIZED
+ so that programmatic fullscreen transitions update the viewport correctly.
+ The render loop now clears the full window to black before restricting to
+ the letterboxed viewport, so pillar/letterbox bars are always filled.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cpp
++++ b/main.cpp
+@@ -7,8 +7,9 @@
+ #include <sstream>
+ 
+ static bool gShouldClose = false;
++static bool gFullscreen  = false;
+ 
+-void handleKey(SDL_Keycode key, bool repeat)
++void handleKey(SDL_Window *win, SDL_Keycode key, bool repeat)
+ {
+ 	if (!repeat && key == SDLK_ESCAPE)
+ 	{
+@@ -35,6 +36,10 @@
+ 			case SDLK_SPACE:
+ 				gMusic->pause(!gMusic->paused());
+ 				break;
++			case SDLK_f:
++				gFullscreen = !gFullscreen;
++				SDL_SetWindowFullscreen(win, gFullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
++				break;
+ 			default:
+ 				if (key >= SDLK_0 && key <= SDLK_9)
+ 				{
+@@ -208,10 +213,10 @@
+ 					gShouldClose = true;
+ 					break;
+ 				case SDL_KEYDOWN:
+-					handleKey(event.key.keysym.sym, event.key.repeat != 0);
++					handleKey(win, event.key.keysym.sym, event.key.repeat != 0);
+ 					break;
+ 				case SDL_WINDOWEVENT:
+-					if (event.window.event == SDL_WINDOWEVENT_RESIZED)
++					if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+ 					{
+ 						demo.setSize(event.window.data1, event.window.data2);
+ 						demo.setViewport();
+@@ -222,13 +227,18 @@
+ 
+ 		float time = gMusic->getTime();
+ 
++		/* Clear full window to black, covering letterbox bars */
++		glViewport(0, 0, demo.sizex + 2 * demo.xborder, demo.sizey + 2 * demo.yborder);
++		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++		glClearDepth(1.0f);
++		setDepthMode(DEPTH_FULL);
++		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
++		setDepthMode(NO_DEPTH);
++		demo.setViewport();
++
+ 		setBlendMode(NO_BLEND);
+ 		glDepthRange(0.0f, 1.0f);
+ 		setCullMode(NO_CULL);
+-		setDepthMode(DEPTH_FULL);
+-		glClearDepth(1.0f);
+-		glClear(GL_DEPTH_BUFFER_BIT);
+-		setDepthMode(NO_DEPTH);
+ 
+ 		demo.draw(time);
+ 

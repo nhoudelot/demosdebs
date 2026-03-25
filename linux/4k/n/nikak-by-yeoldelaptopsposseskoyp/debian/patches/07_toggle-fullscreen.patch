@@ -1,0 +1,170 @@
+Description: added fullscreen
+ added fullscreen function, to go fullscreen and back, with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2024-03-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/intro_c.c
++++ b/intro_c.c
+@@ -66,6 +66,7 @@
+ #define oglUniform1iv glUniform1iv
+ #define oglDrawBuffers glDrawBuffers
+ #define oglActiveTexture glActiveTexture
++#define oglBlitFramebuffer glBlitFramebuffer
+ #endif
+ 
+ #include <GL/glext.h>
+@@ -168,6 +169,7 @@
+   FUNCLIST_DO(PFNGLUNIFORM1IVPROC, Uniform1iv) \
+   FUNCLIST_DO(PFNGLUNIFORM1FVPROC, Uniform1fv) \
+   FUNCLIST_DO(PFNGLGENFRAMEBUFFERSPROC, GenFramebuffers) \
++  FUNCLIST_DO(PFNGLBLITFRAMEBUFFERPROC,      BlitFramebuffer) \
+   FUNCLIST_DO(PFNGLBINDFRAMEBUFFERPROC, BindFramebuffer) \
+   FUNCLIST_DO(PFNGLFRAMEBUFFERTEXTURE2DPROC, FramebufferTexture2D) \
+   FUNCLIST_DO(PFNGLDRAWBUFFERSPROC, DrawBuffers) \
+@@ -199,9 +201,12 @@
+ 	Tex_ReflectBlur,
+ 	Tex_Combined,
+ 	Tex_DofNear, Tex_DofFar,
++	Tex_Output,
+ 	Tex_COUNT
+ };
+ 
++static GLuint fb_output;
++
+ #pragma data_seg(".samplers")
+ const static GLint samplers[Tex_COUNT] = {
+ 	0, 1, 2, 3, 4, 5, 6
+@@ -437,6 +442,9 @@
+ 	oglGenFramebuffers(Pass_COUNT - 1, fb);
+ 	GLCHECK();
+ 
++	/* texture de sortie XRES×YRES */
++	oglActiveTexture(GL_TEXTURE0 + Tex_Output);
++	initTexture(texture[Tex_Output], XRES, YRES, GL_RGBA8, GL_UNSIGNED_BYTE, 0);
+ 	initTexture(texture[Tex_Random], NOISE_SIZE, NOISE_SIZE, GL_RGBA, GL_UNSIGNED_BYTE, noise_bytes);
+ 	oglActiveTexture(GL_TEXTURE1);
+ 	initTexture(texture[Tex_RaymarchPrimary], XRES, YRES, GL_RGBA16F, GL_FLOAT, 0);
+@@ -456,6 +464,15 @@
+ 	initFb(fb[Pass_ReflectCombine], texture[Tex_Combined], 0);
+ 	initFb(fb[Pass_DofTap], texture[Tex_DofNear], texture[Tex_DofFar]);
+ 
++	oglGenFramebuffers(1, &fb_output);
++	oglBindFramebuffer(GL_FRAMEBUFFER, fb_output);
++	oglFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
++		                    GL_TEXTURE_2D, texture[Tex_Output], 0);
++
++    /* remettre le FBO par défaut avant le premier paint */
++    oglBindFramebuffer(GL_FRAMEBUFFER, 0);
++    GLCHECK();
++
+ 	program[Pass_Raymarch] = compileProgram(raymarch_glsl);
+ 	program[Pass_ReflectBlur] = compileProgram(blur_reflection_glsl);
+ 	program[Pass_ReflectCombine] = compileProgram(composite_glsl);
+@@ -463,15 +480,45 @@
+ 	program[Pass_Post] = compileProgram(post_glsl);
+ }
+ 
++static void blitLetterbox(int src_w, int src_h, int dst_w, int dst_h) {
++    const float src_ratio = (float)src_w / src_h;
++    const float dst_ratio = (float)dst_w / dst_h;
++    int x = 0, y = 0, w = dst_w, h = dst_h;
++
++    if (dst_ratio > src_ratio) {
++        /* écran plus large : bandes à gauche/droite */
++        w = (int)(dst_h * src_ratio);
++        x = (dst_w - w) / 2;
++    } else {
++        /* écran plus haut : bandes en haut/bas */
++        h = (int)(dst_w / src_ratio);
++        y = (dst_h - h) / 2;
++    }
++
++    glClear(GL_COLOR_BUFFER_BIT);   /* bandes noires */
++    glBlitFramebuffer(
++        0, 0, src_w, src_h,
++        x, y, x + w, y + h,
++        GL_COLOR_BUFFER_BIT, GL_LINEAR);
++}
++
+ #pragma code_seg(".introPaint")
+ static __forceinline void introPaint() {
+ 	paint(program[Pass_Raymarch], fb[Pass_Raymarch], 2);
+ 	paint(program[Pass_ReflectBlur], fb[Pass_ReflectBlur], 1);
+ 	paint(program[Pass_ReflectCombine], fb[Pass_ReflectCombine], 1);
+ 	paint(program[Pass_DofTap], fb[Pass_DofTap], 2);
+-	paint(program[Pass_Post], 0, 1);
++	paint(program[Pass_Post],            fb_output,                1);
++
++	/* blit fb_output → écran, avec zoom */
++    oglBindFramebuffer(GL_READ_FRAMEBUFFER, fb_output);
++    oglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
++    blitLetterbox(XRES, YRES, iwidth, iheight);
++    glViewport(0, 0, XRES, YRES);
++    oglBindFramebuffer(GL_FRAMEBUFFER, 0);
+ }
+ 
++
+ #ifdef _WIN32
+ 
+ #ifdef _DEBUG
+@@ -631,6 +678,19 @@
+ };
+ #endif /* AUDIO */
+ 
++static void SetViewport(SDL_Window *window) {
++	SDL_GL_GetDrawableSize(window, &iwidth, &iheight);
++}
++
++void ToggleFullscreen(SDL_Window* window) {
++    const Uint32 flag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    const int is_fullscreen = SDL_GetWindowFlags(window) & flag;
++    int isFS = SDL_GetWindowFlags(window) & flag;
++    SDL_SetWindowFullscreen(window, isFS ? 0 : flag);
++    SDL_ShowCursor(isFS);
++    SetViewport(window);
++}
++
+ #ifndef COMPACT
+ int main() {
+ #else
+@@ -643,17 +703,22 @@
+ #endif
+ 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+ #ifdef FULLSCREEN
+-    Uint32 wflags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
++    Uint32 wflags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
+     SDL_ShowCursor(SDL_DISABLE);
+ #else
+     Uint32 wflags = SDL_WINDOW_OPENGL;
+ #endif
+ 	SDL_Window *sdlWindow;
+ 	SDL_GLContext sdlGlcontext;
+-	sdlWindow = SDL_CreateWindow("Nikak by Ye Olde Laptops Posse & s.k.o.y.p", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, XRES, YRES,  SDL_WINDOW_OPENGL);
++	sdlWindow = SDL_CreateWindow("Nikak by Ye Olde Laptops Posse & s.k.o.y.p", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, XRES, YRES,  wflags);
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+-	glViewport(0, 0, XRES, YRES);
+-	introInit();
++	/* Taille réelle du drawable, HiDPI inclus */
++    int drawW, drawH;
++    SDL_GL_GetDrawableSize(sdlWindow, &drawW, &drawH);
++    iwidth  = drawW;
++	iheight = drawH;
++    SetViewport(sdlWindow);
++    introInit();
+ 
+ #ifndef CAPTURE
+ #ifndef NO_AUDIO
+@@ -677,6 +742,11 @@
+ 		if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
+ 			|| now >= (MAX_SAMPLES * 1000ull / SAMPLE_RATE)) break;
+ 		itime = now * sizeof(SAMPLE_TYPE) * 2ull * SAMPLE_RATE / 1000;
++		if (e.type == SDL_KEYUP) {
++		    switch (e.key.keysym.sym) {
++		        case SDLK_f: ToggleFullscreen(sdlWindow); break;
++		    }
++		}
+ 		introPaint();
+ 
+ #ifdef CAPTURE

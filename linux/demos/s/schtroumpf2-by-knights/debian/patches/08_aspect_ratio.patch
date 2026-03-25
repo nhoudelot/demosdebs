@@ -1,0 +1,124 @@
+Description: Resizable window with 4:3 aspect ratio preservation
+ Adds a letterbox/pillarbox viewport so that the fixed 1024x768 logical
+ coordinate system is always rendered centered with correct proportions,
+ regardless of window size. Black borders fill the unused areas.
+ .
+ SDL_WINDOWEVENT_SIZE_CHANGED is handled to update the viewport whenever
+ the user resizes the window. RestoreViewport() replaces direct
+ glViewport(0,0,ScreenWidth,ScreenHeight) calls so all scene code
+ benefits automatically via Mode2D().
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/harmonics.c
++++ b/src/harmonics.c
+@@ -240,7 +240,7 @@
+         glLoadIdentity();
+         gluPerspective(90, 1024.0/768.0, 100, 0);
+ 	
+-        glViewport(0, 0, ScreenWidth, ScreenHeight);
++        RestoreViewport();
+ 
+         glMatrixMode(GL_MODELVIEW);
+         glLoadIdentity();
+--- a/src/introsystem.c
++++ b/src/introsystem.c
+@@ -33,6 +33,9 @@
+ int LowDetails=0;
+ int Fullscreen=0;
+ 
++static int WindowW=1024, WindowH=768;
++static int ViewportX=0, ViewportY=0, ViewportW=1024, ViewportH=768;
++
+ Uint32 ticks=0;
+ double delta;
+ Uint32 frames=0;
+@@ -76,6 +79,8 @@
+ 
+ extern SDL_Window *sdlWindow;
+ 
++static void UpdateViewport(int win_w, int win_h);
++
+ int CheckUserBreak()
+ {
+ #ifdef USE_SDL	
+@@ -84,6 +89,10 @@
+ 		if (event.type == SDL_QUIT) {
+ 			return 1;
+ 		}
++		if (event.type == SDL_WINDOWEVENT &&
++			event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
++			UpdateViewport(event.window.data1, event.window.data2);
++		}
+ 		if (event.type == SDL_KEYDOWN) {
+ 			if (event.key.keysym.sym == SDLK_ESCAPE) {
+ 				return 1;
+@@ -154,6 +163,26 @@
+ }
+ #endif
+ 
++static void UpdateViewport(int win_w, int win_h)
++{
++	WindowW = win_w;
++	WindowH = win_h;
++	if ((long)win_w * 768 > (long)win_h * 1024) {
++		ViewportH = win_h;
++		ViewportW = win_h * 1024 / 768;
++	} else {
++		ViewportW = win_w;
++		ViewportH = win_w * 768 / 1024;
++	}
++	ViewportX = (win_w - ViewportW) / 2;
++	ViewportY = (win_h - ViewportH) / 2;
++}
++
++void RestoreViewport(void)
++{
++	glViewport(ViewportX, ViewportY, ViewportW, ViewportH);
++}
++
+ SDL_Window *sdlWindow;
+ SDL_GLContext sdlGlcontext;
+ 
+@@ -241,8 +270,8 @@
+ 	EnableOpenGL(hWnd, &hDC, &hRC);
+     
+ #endif
+-        glViewport(0, 0, ScreenWidth, ScreenHeight);
+-	glClearColor( 1, 0, 0, 1 );
++        UpdateViewport(ScreenWidth, ScreenHeight);
++	glClearColor( 0, 0, 0, 1 );
+         glEnable(GL_TEXTURE_2D);
+ }
+ 
+@@ -281,6 +310,9 @@
+ {
+ #ifdef USE_SDL
+ 	SDL_GL_SwapWindow(sdlWindow);
++	glViewport(0, 0, WindowW, WindowH);
++	glClearColor(0, 0, 0, 1);
++	glClear(GL_COLOR_BUFFER_BIT);
+ #else
+ 	SwapBuffers(hDC);
+ #endif
+@@ -490,7 +522,7 @@
+ 
+ void Mode2D()
+ {
+-        glViewport(0, 0, ScreenWidth, ScreenHeight);
++        RestoreViewport();
+ 
+         glMatrixMode(GL_PROJECTION);
+         glLoadIdentity();
+--- a/src/introsystem.h
++++ b/src/introsystem.h
+@@ -120,6 +120,7 @@
+ int NextPowerOfTwo(int number);
+ /* Set an OpenGL 2D mode */
+ void Mode2D();
++void RestoreViewport(void);
+ /* Sinewave: return a sinus between min and max, with period and offset */
+ float Sine(float min, float max, float period, float offset);
+ /* Sinewave, with a custom time reference */

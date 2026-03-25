@@ -1,0 +1,197 @@
+--- a/src/mascot.cpp
++++ b/src/mascot.cpp
+@@ -3,8 +3,13 @@
+ 
+ Mascot::Mascot(){
+ 	// Create Window
+-	window.create( sf::VideoMode(128,128, 32), "Shimeji", sf::Style::None );
+-	winHandle = window.getSystemHandle();
++#if SFML_VERSION_MAJOR >= 3
++    window.create( sf::VideoMode({128, 128}), "Shimeji", sf::Style::None );
++    winHandle = window.getNativeHandle();
++#else
++    window.create( sf::VideoMode(128, 128, 32), "Shimeji", sf::Style::None );
++    winHandle = window.getSystemHandle();
++#endif
+ 	window.setFramerateLimit(60);
+ 	// Hide taskbar icon if possible
+ 	defaultProp(winHandle);
+@@ -29,7 +34,7 @@
+ 		framesI[i].loadFromFile(spritesImg[i]);
+ 		frames[i].loadFromImage(framesI[i]);
+ 	}
+-	currentFrame = sf::Sprite(frames[0]);
++	currentFrame.emplace(frames[0]);
+ 	setShape(winHandle, framesI[0]);
+ }
+ void Mascot::setPos(int x=0, int y=0){
+@@ -38,54 +43,86 @@
+ 	if ( y != 0 )
+ 		this->y = y;
+ }
+-std::string Mascot::update(){
+-	sf::Event event;
+-	const int dt = tick();
+-
+-	while (window.pollEvent(event)) {
+ 
+-		const sf::Vector2i currentMousePos = sf::Mouse::getPosition();
+ 
+-		if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)){
+-			return "quit";
+-
+-		} else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+-
+-			if ( (!grabbing) or clickTime > 200){
+-				// the moves averages are computed in 200ms max. After, it will reset.
+-				clickTime = 0;
+-				pos0 = currentMousePos;
+-				grabbing = true;
+-			} else {
+-				clickTime += dt;
+-				x = currentMousePos.x;
+-				y = currentMousePos.y;
+-			}
+-		} else if (grabbing){
+-			if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) ) {
+-				clickTime += dt;
+-				x = currentMousePos.x;
+-				y = currentMousePos.y;
+-			} else {
+-				grabbing = false;
+-				// determine velocity by mouse movement
+-				v0.x = currentMousePos.x - pos0.x;
+-				v0.y = 1.2 * (currentMousePos.y - pos0.y); // increase his value by 120%
+-				pos0 = currentMousePos; // reset pos0
+-			}
+-		}
+-
+-	}
+-
+-	if (!grabbing) {
+-		physics(dt);
+-	}
++std::string Mascot::update(){
++    const int dt = tick();
++    const sf::Vector2i currentMousePos = sf::Mouse::getPosition();
+ 
+-	window.setPosition(sf::Vector2i(x, y));
+-	window.clear(sf::Color::Transparent);
+-	window.draw(currentFrame);
+-	window.display();
+-	return "fine";
++#if SFML_VERSION_MAJOR >= 3
++    while (const std::optional<sf::Event> event = window.pollEvent()) {
++        if (event->is<sf::Event::Closed>()) {
++            return "quit";
++        } else if (const auto* key = event->getIf<sf::Event::KeyPressed>()) {
++            if (key->code == sf::Keyboard::Key::Escape)
++                return "quit";
++        } else if (const auto* click = event->getIf<sf::Event::MouseButtonPressed>()) {
++            if (click->button == sf::Mouse::Button::Left) {
++                if ((!grabbing) || clickTime > 200) {
++                    clickTime = 0;
++                    pos0 = currentMousePos;
++                    grabbing = true;
++                } else {
++                    clickTime += dt;
++                    x = currentMousePos.x;
++                    y = currentMousePos.y;
++                }
++            }
++        }
++        if (grabbing) {
++            if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
++                clickTime += dt;
++                x = currentMousePos.x;
++                y = currentMousePos.y;
++            } else {
++                grabbing = false;
++                v0.x = currentMousePos.x - pos0.x;
++                v0.y = 1.2 * (currentMousePos.y - pos0.y);
++                pos0 = currentMousePos;
++            }
++        }
++    }
++#else
++    sf::Event event;
++    while (window.pollEvent(event)) {
++        if (event.type == sf::Event::Closed ||
++           (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
++            return "quit";
++        } else if (event.type == sf::Event::MouseButtonPressed &&
++                   event.mouseButton.button == sf::Mouse::Left) {
++            if ((!grabbing) || clickTime > 200) {
++                clickTime = 0;
++                pos0 = currentMousePos;
++                grabbing = true;
++            } else {
++                clickTime += dt;
++                x = currentMousePos.x;
++                y = currentMousePos.y;
++            }
++        } else if (grabbing) {
++            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
++                clickTime += dt;
++                x = currentMousePos.x;
++                y = currentMousePos.y;
++            } else {
++                grabbing = false;
++                v0.x = currentMousePos.x - pos0.x;
++                v0.y = 1.2 * (currentMousePos.y - pos0.y);
++                pos0 = currentMousePos;
++            }
++        }
++    }
++#endif
++
++    if (!grabbing) {
++        physics(dt);
++    }
++
++    window.setPosition(sf::Vector2i(x, y));
++    window.clear(sf::Color::Transparent);
++    window.draw(*currentFrame);
++    window.display();
++    return "fine";
+ }
+ 
+ int Mascot::tick(){
+--- a/src/mascot.h
++++ b/src/mascot.h
+@@ -7,6 +7,7 @@
+ #include <cmath>
+ using namespace std;
+ #include <array>
++#include <optional>
+ 
+ class Mascot {
+ 	//actually, not implemented to make more than 1 mascot.
+@@ -27,7 +28,7 @@
+ 	std::vector<sf::Image> framesI;
+ 	std::vector<sf::Texture> frames;
+ 
+-	sf::Sprite currentFrame;
++	std::optional<sf::Sprite> currentFrame;
+ 
+ 	unsigned int lastTime, physics_t;
+ 	int x,y, clickTime;
+--- a/src/system.cpp
++++ b/src/system.cpp
+@@ -9,6 +9,7 @@
+ using namespace std;
+ #include <array>
+ #include <cstring>
++#include <cstdint>
+ 
+ // Window params
+ bool defaultProp(Window window) {
+@@ -78,7 +79,7 @@
+ }
+ 
+ bool setShape(Window wnd, const sf::Image& image) {
+-	const sf::Uint8* pixelData = image.getPixelsPtr();
++	const std::uint8_t* pixelData = image.getPixelsPtr();
+ 	Display* display = XOpenDisplay(NULL);
+ 
+ 	// Try to set the window shape

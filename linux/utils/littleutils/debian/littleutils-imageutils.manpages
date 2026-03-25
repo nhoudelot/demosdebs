@@ -1,0 +1,14 @@
+imageutils/imagdiff.1
+imageutils/imagsize.1
+imageutils/jpgcom.1
+scripts/opt-gif.1
+scripts/opt-jpg.1
+extra/opt-pdf.1
+scripts/opt-png.1
+extra/pdfbw4.1
+extra/pdfidiff.1
+extra/pdfquant.1
+imageutils/pngrecolor.1
+imageutils/pngstrip.1
+scripts/recomp-jpg.1
+scripts/rot-jpg.1

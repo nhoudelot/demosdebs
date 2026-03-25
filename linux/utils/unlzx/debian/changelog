@@ -1,3 +1,19 @@
+unlzx (2.0-0ddebs1) unstable; urgency=medium
+
+  * New Version modernised with Claude Sonnet 4.6 (mostly crap vibecoding)
+  * comply with C11
+  * display date using RFC 3339
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Mar 2026 20:05:14 +0100
+
+unlzx (1.1-0ddebs15) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Mar 2026 20:04:11 +0100
+
 unlzx (1.1-0ddebs14) unstable; urgency=medium
 
   * Fix implicit-function-declaration

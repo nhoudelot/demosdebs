@@ -1,0 +1,65 @@
+Description: fix 64-bit portability issues
+ - Use stdint.h types instead of home-grown integer typedefs in types.h
+ - Promote int16 x,y mouse coordinates to int32 in input_t struct
+   (int16 overflows at 32767 pixels, too small for multi-monitor or 4K setups)
+ - Fix ogg_int64_t truncation to int in decode_ogg
+   (ov_pcm_total returns ogg_int64_t; storing in int overflows above ~500 MB PCM)
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/input.h
++++ b/input.h
+@@ -13,7 +13,7 @@
+ 
+ typedef struct
+ {
+-	int16 x,y;
++	int32 x,y;
+ 	uint8 b;
+ } input_t;
+ 
+--- a/main.c
++++ b/main.c
+@@ -1,6 +1,7 @@
+ /* main.c */
+ 
+ #include <SDL2/SDL.h>
++#include <stdint.h>
+ #include <vorbis/vorbisfile.h>
+ #include <unistd.h>
+ #include <math.h>
+@@ -286,7 +287,8 @@
+ decode_ogg(OggVorbis_File *vf, char **buf)
+ {
+ 	char *p;
+-	int n,len,section,total;
++	int n,len,section;
++	int64_t total;
+ 
+ 	total = ov_pcm_total(vf,-1)*2*2;
+ 	*buf = p = malloc(total);
+--- a/types.h
++++ b/types.h
+@@ -3,11 +3,13 @@
+ #ifndef TYPES_H
+ #define TYPES_H
+ 
+-typedef signed char int8;
+-typedef unsigned char uint8;
+-typedef signed short int16;
+-typedef unsigned short uint16;
+-typedef signed int int32;
+-typedef unsigned int uint32;
++#include <stdint.h>
++
++typedef int8_t   int8;
++typedef uint8_t  uint8;
++typedef int16_t  int16;
++typedef uint16_t uint16;
++typedef int32_t  int32;
++typedef uint32_t uint32;
+ 
+ #endif

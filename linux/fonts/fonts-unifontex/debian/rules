@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	dh_install
+	mkdir -p "debian/fonts-unifontex/usr/share/fonts/truetype/unifontex"
+	cp "UnifontExMono.ttf" "debian/fonts-unifontex/usr/share/fonts/truetype/unifontex/UnifontExMono.ttf"

@@ -48,7 +48,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #endif
  
-@@ -1834,6 +1838,27 @@
+@@ -1831,6 +1835,27 @@
  static SDL_Window *sdlWindow;
  static SDL_GLContext sdlGlcontext;
  
@@ -76,7 +76,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #ifdef DISCARD_LIBC
  void *environ, *__progname;
  /** Small main function.
-@@ -1884,7 +1909,7 @@
+@@ -1881,7 +1906,7 @@
  	DDL_SetVideoMode(SCREEN_W, SCREEN_H, SCREEN_B, SDL_OPENGL | SCREEN_F);
  #else
  	{
@@ -85,7 +85,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #if defined(SCREEN_F)
  		sdl_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
  #endif
-@@ -2103,6 +2128,8 @@
+@@ -2101,6 +2126,8 @@
  		// C89.
  		uint32_t tick_pos;
  
@@ -94,7 +94,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		SDL_Event event;
  		while(SDL_PollEvent(&event))
  	    {
-@@ -2116,6 +2143,15 @@
+@@ -2114,6 +2141,15 @@
  					default: break;
  				}
  			}

@@ -1,0 +1,68 @@
+Description: Fix compiler warnings in Sources/main.cpp
+ - Catch polymorphic exceptions by const reference instead of by value
+ - Remove unused variables: spectrum, directions, buttons, idOffsetBlur (x2)
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-20
+
+--- a/Flawed/Sources/main.cpp
++++ b/Flawed/Sources/main.cpp
+@@ -54,8 +54,6 @@
+ 
+ int main(int argc, char** argv)
+ {
+-	float spectrum[512];
+-
+ 	try
+ 	{
+ 		Settings setting("data/settings.ini");
+@@ -121,7 +119,7 @@
+ 			pHBlurShader = new Shader("/usr/share/flawed-by-adinpsz/data/shaders/hblur.vs","/usr/share/flawed-by-adinpsz/data/shaders/hblur.ps");
+ 			pVBlurShader = new Shader("/usr/share/flawed-by-adinpsz/data/shaders/vblur.vs","/usr/share/flawed-by-adinpsz/data/shaders/vblur.ps");
+ 		}
+-		catch (ShaderException se )
++		catch (const ShaderException& se )
+ 		{
+ 			std::cout << se.what() << std::endl;
+ 			return -3;
+@@ -153,13 +151,8 @@
+ 		{
+ 			static Impulsor imp(1000);
+ 
+-			InputManager::ArrowsDirection directions = im.getDirectionsPressed();
+-			InputManager::Buttons buttons = im.getButtonsPressed();
+-
+-/*
+-            m.getSpectrum(spectrum,512);
+-            g.updateSpectrum(spectrum,512);
+- */
++			im.getDirectionsPressed();
++			im.getButtonsPressed();
+ 
+ //			if ( ( buttons & InputManager::INPUT_A ) == InputManager::INPUT_A )
+ //			{
+@@ -206,12 +199,7 @@
+ 				e.getWindow()->clear();
+ 
+ 				pHBlurShader->enable();
+-				GLint idOffsetBlur = glGetUniformLocation(pHBlurShader->getProgram(),"blurOffset");
+-				GLUtils::checkError("glGetUniformLocation 'blurOffset'");
+-				/*
+-				   glUniform1f(idOffsetBlur,hblurOffset);
+-				   GLUtils::checkError("glUniform1f");
+-				 */
++				/* blurOffset uniform unused for now */
+ 
+ 				ScreenQuad::draw(textureBucket,*e.getWindow());
+ 				pHBlurShader->disable();
+@@ -242,8 +230,7 @@
+ 			glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+ 
+ 			pVBlurShader->enable();
+-			GLint idOffsetBlur = glGetUniformLocation(pVBlurShader->getProgram(),"blurOffset");
+-			GLUtils::checkError("glGetUniformLocation 'blurOffset'");
++			/* blurOffset uniform unused for now */
+ 
+ 			ScreenQuad::draw(textureHBlurBucket,*e.getWindow());
+ 			pVBlurShader->disable();

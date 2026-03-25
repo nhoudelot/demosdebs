@@ -1,0 +1,9 @@
+extra/to-7zip.1
+scripts/to-bzip2.1
+scripts/to-bzip3.1
+scripts/to-gzip.1
+scripts/to-lzip.1
+scripts/to-xz.1
+scripts/to-zst.1
+scripts/rar2tarcat.1
+scripts/zip2tarcat.1

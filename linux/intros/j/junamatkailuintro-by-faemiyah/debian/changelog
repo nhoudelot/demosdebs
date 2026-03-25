@@ -1,3 +1,13 @@
+junamatkailuintro-by-faemiyah (1.0+git20170414-0ddebs9) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fullscreen at desktop resolution
+  * resizable window
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 16 Apr 2026 02:42:02 +0200
+
 junamatkailuintro-by-faemiyah (1.0+git20170414-0ddebs8) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

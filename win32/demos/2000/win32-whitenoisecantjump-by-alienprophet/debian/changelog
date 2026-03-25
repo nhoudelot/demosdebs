@@ -1,3 +1,11 @@
+win32-whitenoisecantjump-by-alienprophet (1:1.0+4-0ddebs8) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 May 2026 02:13:01 +0200
+
 win32-whitenoisecantjump-by-alienprophet (1:1.0+4-0ddebs7) unstable; urgency=medium
 
   * using d7vk in addition to wine

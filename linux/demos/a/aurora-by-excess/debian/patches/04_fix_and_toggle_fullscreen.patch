@@ -1,0 +1,80 @@
+Description: fix fullscreen issue on main monitor and added some fullscreen switch with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2025-11-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -385,6 +385,43 @@
+ 	return rect;
+ }
+ 
++bool fullscreen = false;
++int windowedX = 0, windowedY = 0;
++int windowedW = 1920, windowedH = 1080;
++
++void ToggleFullscreen(GLFWwindow* window)
++{
++    fullscreen = !fullscreen;
++
++    if (fullscreen) {
++        // Sauvegarde de la position/taille avant plein écran
++        glfwGetWindowPos(window, &windowedX, &windowedY);
++        glfwGetWindowSize(window, &windowedW, &windowedH);
++
++        GLFWmonitor* monitor = glfwGetPrimaryMonitor();
++        const GLFWvidmode* mode = glfwGetVideoMode(monitor);
++
++        // Passage en plein écran
++        glfwSetWindowMonitor(window,
++            monitor,
++            0, 0,
++            mode->width, mode->height,
++            mode->refreshRate);
++
++        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
++    }
++    else {
++        // Retour en mode fenêtré
++        glfwSetWindowMonitor(window,
++            nullptr,
++            windowedX, windowedY,
++            windowedW, windowedH,
++            0);
++
++        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
++    }
++}
++
+ #ifdef WIN32
+ 
+ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
+@@ -423,7 +460,9 @@
+ 
+ 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+ 		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+-		win = glfwCreateWindow(width, height, appName, fullscreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
++		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
++		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
++		win = glfwCreateWindow(mode->width, mode->height, appName, monitor, 0);
+ 		if (fullscreen)
+ 			glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+ 
+@@ -435,8 +474,14 @@
+ 			throw runtime_error("failed to open tune");
+ 
+ 		glfwSetKeyCallback(win, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+-			if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
+-				glfwSetWindowShouldClose(window, GLFW_TRUE);
++			if (action == GLFW_PRESS)
++			{
++				if (key == GLFW_KEY_ESCAPE)
++				    glfwSetWindowShouldClose(window, GLFW_TRUE);
++
++				if (key == GLFW_KEY_F)
++				    ToggleFullscreen(window);   // bascule plein écran <-> fenêtré
++			}
+ 			});
+ 
+ 

@@ -1,0 +1,30 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/nwep.c
++++ b/nwep.c
+@@ -483,7 +483,7 @@
+ #endif
+ 	SDL_Window *sdlWindow;
+ 	SDL_GLContext sdlGlcontext;
+-	sdlWindow = SDL_CreateWindow("nwep by Ye Olde Laptops Posse & s.k.o.y.p", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, XRES, YRES,  SDL_WINDOW_OPENGL);
++	sdlWindow = SDL_CreateWindow("nwep by Ye Olde Laptops Posse & s.k.o.y.p", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, XRES, YRES,  SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 
+     /* Taille réelle du drawable, HiDPI inclus */
+@@ -527,6 +527,11 @@
+ 		SDL_PollEvent(&e);
+ 		if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) || now >= INTRO_LENGTH) break;
+ 		if ((e.type == SDL_QUIT) || now >= INTRO_LENGTH) break;
++		if (e.type == SDL_WINDOWEVENT &&
++            (e.window.event == SDL_WINDOWEVENT_RESIZED ||
++             e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
++            SetViewport(sdlWindow);
++        }
+ 		if (e.type == SDL_KEYUP) {
+ 		    switch (e.key.keysym.sym) {
+ 		        case SDLK_f: ToggleFullscreen(sdlWindow); break;

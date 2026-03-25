@@ -1,0 +1,141 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-17
+
+--- a/feidi.c
++++ b/feidi.c
+@@ -14,7 +14,7 @@
+                     *bytes2,
+                     *destc;
+ 
+-    int n;
++    int n, nbytes;
+ 
+     /*  Siitä kertolaskutaulukot */
+     for(n=0;n<256;n++)
+@@ -29,7 +29,8 @@
+ 
+     /*  Tavu kerrallaan niin on endian clean (muka) ja alphakin tulee
+         käsiteltyä */
+-    for(n=0;n<pixels*sizeof(unsigned);n++)
++    nbytes = pixels * (int)sizeof(unsigned);
++    for(n=0;n<nbytes;n++)
+         destc[n]=mul1[bytes1[n]]+mul2[bytes2[n]];
+ }
+ 
+@@ -41,7 +42,7 @@
+                     *bytes2,
+                     *destc;
+ 
+-    int n,c,
++    int n,c,nbytes,
+         mul1[256],mul2[256];
+ 
+     /*  Siitä kertolaskutaulukot */
+@@ -61,7 +62,8 @@
+ 
+     /*  Tavu kerrallaan niin on endian clean (muka) ja alphakin tulee
+         käsiteltyä */
+-    for(n=0;n<pixels*sizeof(unsigned);n++)
++    nbytes = pixels * (int)sizeof(unsigned);
++    for(n=0;n<nbytes;n++)
+     {
+         c=mul1[bytes1[n]]+mul2[bytes2[n]];
+         if(c<256)
+--- a/cool_gfx/gfx_sdl.c
++++ b/cool_gfx/gfx_sdl.c
+@@ -116,8 +116,8 @@
+ }
+ 
+ void ToggleFullscreen(SDL_Window* Window) {
+-    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
+-    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
+     SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
+     SDL_ShowCursor(isFullscreen);
+ }
+--- a/maf.c
++++ b/maf.c
+@@ -11,7 +11,8 @@
+ #define GETGREEN(c) ((unsigned char)(c >> 8))
+ #define GETBLUE(c) ((unsigned char)(c))
+ 
+-#define MAKERGB(r, g, b) (((unsigned int)(r) << 16) + ((unsigned int)(g) << 8) + (unsigned int)(b << 0))
++/* Cast each component to unsigned int BEFORE shifting to avoid UB on negative values */
++#define MAKERGB(r, g, b) (((unsigned int)(r) << 16) + ((unsigned int)(g) << 8) + (unsigned int)(b))
+ 
+ static int 
+   maf_divtable[MAXBLUR+1][256];
+--- a/main.c
++++ b/main.c
+@@ -804,10 +804,9 @@
+ {
+     double  a;
+     static long alaku=-1;
+-    struct timezone sone;
+     struct timeval  aika;
+ 
+-    gettimeofday(&aika,&sone);
++    gettimeofday(&aika,NULL);
+ 
+     if(alaku==-1)
+     {
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -327,11 +327,11 @@
+      // levyltä, ei muistialuetta saa vapauttaa ja käyttää uudestaan,
+      // jos tässä on nolla!!!
+ 
+-   unsigned char  *pt_errorstr; // tässä sitten lukee jotain tai ei lue...
++   const char     *pt_errorstr; // tässä sitten lukee jotain tai ei lue...
+ 
+    unsigned char   pt_modid[5];
+ 
+-   unsigned char  *pt_modid_table[] =
++   const char     *pt_modid_table[] =
+    {"2CHN", "4CHN", "M.K.", "M!K!", "FLT4", "FLT8", "OCTA", "6CHN", "8CHN",
+     "10CH", "12CH", "14CH", "16CH", "18CH", "20CH", "22CH",
+     "24CH", "26CH", "28CH", "30CH", "32CH", "STOP" };
+@@ -460,7 +460,7 @@
+   
+   // onkohan tämä for-lause vai while? :)
+   for (i=0; (strncmp(pt_modid_table[i], "STOP", 4)) &&
+-       (strncmp(pt_modid, pt_modid_table[i], 4)); i++)
++       (strncmp((const char *)pt_modid, pt_modid_table[i], 4)); i++)
+       /*printf("Trying id %d...\n", i)*/;
+   pt_channels = pt_modid_channels_table[i];
+   	
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -52,7 +52,7 @@
+ #include "sd_main.h"
+ #include "sd_mix.h"
+ 
+-typedef struct SAMPLEINFOBLOCK {
++struct SAMPLEINFOBLOCK {
+ 	signed char *data;
+ 	unsigned int
+ 	    size,
+@@ -62,7 +62,7 @@
+ 	    sample16bit;
+ };
+ 
+-typedef struct CHANNELINFOBLOCK {
++struct CHANNELINFOBLOCK {
+ 	signed char *sampledata;
+ 	unsigned int
+ 	    sample,
+--- a/Makefile
++++ b/Makefile
+@@ -15,7 +15,7 @@
+ endif
+ 
+ LDFLAGS += -lm
+-CFLAGS += -Wall -D$(ENDIAN) $(shell $(PKG_CONFIG) --cflags sdl2) -std=gnu90 -pipe
++CFLAGS += -Wall -D$(ENDIAN) $(shell $(PKG_CONFIG) --cflags sdl2) -std=gnu11 -pipe
+ COOL = cool_mzx/cool_mzx.a cool_gfx/cool_gfx.a
+ OBJ = main.o venkula.o data.o maf.o feidi.o panorama.o suumi.o halftone.o \
+       flarex.o ranta.o

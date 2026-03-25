@@ -1,5 +1,19 @@
 Description: migrate to SDL2
  Migrate from SDL1.2 to SDL2
+ main.c:
+  - Remove unused #include <unistd.h>
+  - Enable VSync via SDL_GL_SetSwapInterval(1) to avoid busy-looping
+    the GPU between frames
+  - Call resize_window() at startup so the initial glViewport matches
+    the 4:3 aspect-ratio logic from the start
+  - Use AUDIO_S16SYS instead of AUDIO_S16 for big-endian portability
+ texture.c:
+  - Remove unused includes: <SDL2/SDL.h>, <unistd.h>, <math.h>
+ .
+ wayang.h:
+  - Add #include <SDL2/SDL.h> so that Uint32 (used in show_wayang)
+    is always defined regardless of include order
+  - Remove duplicate 'extern Mesh3D *arrow' declaration
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
 Last-Update: 2020-05-01
@@ -37,7 +51,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  int main(){
  	SDL_Event event;
  	Uint32 start, time;
-@@ -13,11 +16,8 @@
+@@ -13,11 +16,9 @@
  
  /* Initializations */
  	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -48,10 +62,20 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	SDL_WM_SetCaption("Wayang by Cybernetic Genetics",NULL);
 +	sdlWindow = SDL_CreateWindow("Wayang by Cybernetic Genetics",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL);
 +	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	SDL_GL_SetSwapInterval(1);
  	SDL_ShowCursor(SDL_DISABLE);
  /* OpenGL related settings */
  	glClearColor(0.0,0.0,0.0,0.0);
-@@ -51,7 +51,7 @@
+@@ -34,7 +35,7 @@
+ /* Demo related initialization */
+ 	init_wayang();
+ /* Music initialization */
+-	Mix_OpenAudio(22050, AUDIO_S16, 2, 4096);
++	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
+ 	music = Mix_LoadMUS("/usr/share/wayang-by-cyberneticgenetics/data/wayang.ogg");
+ 	Mix_PlayMusic(music, 0);
+ 	start = SDL_GetTicks();
+@@ -51,7 +52,7 @@
  		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
  		time = SDL_GetTicks();
  		show_wayang(time - start);
@@ -60,7 +84,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	}
  
  /* Exit from demo */
-@@ -59,6 +59,8 @@
+@@ -59,6 +60,8 @@
  	free_wayang();
  	Mix_FreeMusic(music);
  	Mix_CloseAudio();
@@ -79,11 +103,32 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include "wayang.h"
 --- a/texture.c
 +++ b/texture.c
-@@ -1,6 +1,6 @@
+@@ -1,9 +1,7 @@
  #include <stdio.h>
  #include <stdlib.h>
 -#include <SDL.h>
 +#include <SDL2/SDL.h>
  #include <GL/gl.h>
- #include <unistd.h>
- #include <math.h>
+-#include <unistd.h>
+-#include <math.h>
+ #include <png.h>
+ 
+ #include "texture.h"
+--- a/wayang.h
++++ b/wayang.h
+@@ -1,6 +1,7 @@
+ #define GL_GLEXT_PROTOTYPES
+ #include <GL/gl.h>
+ #include <GL/glext.h>
++#include <SDL2/SDL.h>
+ #include "mesh3d.h"
+ #include "texture.h"
+ 
+@@ -40,7 +41,6 @@
+ extern Mesh3D *rightwing;
+ extern Mesh3D *arrow;
+ extern Mesh3D *hand;
+-extern Mesh3D *arrow;
+ extern Mesh3D *humerus;
+ 
+ extern GLuint canvas;

@@ -1,3 +1,13 @@
+drfungigoesafrica-by-fit (1.0+1-0ddebs11) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fixed some compilations warning
+  * udpated SDL2 migration
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 20 Apr 2026 12:21:57 +0200
+
 drfungigoesafrica-by-fit (1.0+1-0ddebs10) unstable; urgency=medium
 
   * Fix implicit types error on trixie

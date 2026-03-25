@@ -7,12 +7,12 @@ Last-Update: 2025-04-21
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/lib_sundog/sundog_makefile.inc
 +++ b/lib_sundog/sundog_makefile.inc
-@@ -76,7 +76,7 @@
+@@ -83,7 +83,7 @@
  ## Linux
  ##
  ifneq (,$(findstring linux,$(TARGET_OS)))
 -    CC = gcc
 +    CC ?= gcc
-     CXX = $(CC)
+     CXX = $(CC) $(CPPSTD)
      LD = $(CC)
      AR = ar

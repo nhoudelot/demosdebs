@@ -1,0 +1,34 @@
+Description: fixing various warnings 
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+--- a/src/origami.c
++++ b/src/origami.c
+@@ -4,7 +4,7 @@
+ 
+ // Aika
+ #define TIMER_FPS	60
+-#define TIMER_MS	(Uint32)(1000.0f / (float)TIMER_FPS)
++#define TIMER_MS	(1000 / TIMER_FPS)
+ 
+ /*
+  * Mahdolliset liput:
+@@ -2224,7 +2224,7 @@
+ 	}
+ 	texture_create(&texture_flare, FLARE_W, FLARE_H);
+ 
+-	for(i = 0; i < FLARE_AMOUNT * 3; i++)
++	for(i = 0; i < FLARE_AMOUNT; i++)
+ 	{
+ 		flare_speeds[i][0] = rand_float_neg(FLARE_INITIAL_SPEEDS);
+ 		flare_forces[i][0] = 0;
+@@ -6469,7 +6469,7 @@
+ #ifdef FLAG_ENABLE_GTK
+ 
+ // Headeri
+-#include "gtk/gtk.h"
++#include <gtk/gtk.h>
+ 
+ // Definet
+ #define ORIGAMI_PADDING	2

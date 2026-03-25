@@ -5,3 +5,7 @@
 05_change_data_path.patch
 06_migrate_to_SDL2.patch
 07_fix_gcc11.patch
+08_fix-warnings-main.patch
+09_fix-fullscreen-resize-fbo.patch
+10_migrate-audio-sdl-mixer.patch
+11_fix-screenquad-fbo-viewport.patch

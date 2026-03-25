@@ -13,7 +13,7 @@ Build-Depends:
  libpulse-dev,
  pkgconf
 Homepage: https://github.com/poikilos/Audiere
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Rules-Requires-Root: no
 
 Package: libaudiere-1.10.1
@@ -35,7 +35,6 @@ Description: Portable, high-level audio library
 
 Package: libaudiere-1.9.4
 Architecture: any
-Section: oldlibs
 Multi-Arch: same
 Depends:
  ${misc:Depends},

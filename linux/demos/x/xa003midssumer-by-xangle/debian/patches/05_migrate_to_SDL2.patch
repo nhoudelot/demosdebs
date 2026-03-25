@@ -77,26 +77,24 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		frames = 0;
  		fpsupdate = xio->timer->getTime();
  	}
-@@ -128,13 +128,13 @@
+@@ -128,15 +128,13 @@
  	xio->video->update();
  	xio->event->update();
  #ifdef DEBUG
 -	SDLKey key = xio->event->keyboard();
--	if(key == SDLK_SPACE) {
++	SDL_Keycode key = xio->event->keyboard();
+ 	if(key == SDLK_SPACE) {
 -		cout << "DEBUG | Current scene time: " << xio->timer->getTime() - scenestart << endl;
--	}
-+//	SDLKey key = xio->event->keyboard();
-+//	if(key == SDLK_SPACE) {
-+//		std::cout << "DEBUG | Current scene time: " << xio->timer->getTime() - scenestart << endl;
-+//	}
- #ifdef DEBUG
--	else if(key == SDLK_TAB)
--		skipscene = true;
-+//	else if(key == SDLK_TAB)
-+//		skipscene = true;
++		std::cout << "DEBUG | Current scene time: " << xio->timer->getTime() - scenestart << endl;
+ 	}
+-#ifdef DEBUG
+ 	else if(key == SDLK_TAB)
+ 		skipscene = true;
  #endif
- #endif
+-#endif
  
+ 	// Calcuate move based upon being 1.0 when it's 25 fps
+ 	move = (float)(xio->timer->getTime() - frametime)/(1000/25);
 --- a/base/xio.cpp
 +++ b/base/xio.cpp
 @@ -30,7 +30,7 @@
@@ -117,15 +115,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  #endif
  
-@@ -58,6 +58,7 @@
- Video::Video(int w, int h, int bpp, bool fs, bool opengl, const char *window_title)
- {
- 	width = w; height = h; b = bpp; fullscreen = fs; ogl = opengl; wtitle = window_title;
-+	sdl_screen= createSurface(width, height);
- 	sdl_back = createSurface(width, height);
- 
- 	if (sdl_back == NULL) {
-@@ -83,82 +84,49 @@
+@@ -83,82 +83,48 @@
  #endif
  
  	// Fetch the video info
@@ -152,8 +142,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	{
  #ifdef DEBUG
 -		cout << "DEBUG | Activating OPENGL" << endl;
-+		std::cout << "DEBUG | Activating OPENGL" << endl;
- #endif
+-#endif
 -		flags |= SDL_OPENGL;
 -		flags |= SDL_GL_DOUBLEBUFFER;
 -	}
@@ -188,7 +177,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	{
 -#ifdef DEBUG
 -		cout << "DEBUG | Activating HWACCEL" << endl;
--#endif
++		std::cout << "DEBUG | Activating OPENGL" << endl;
+ #endif
 -		flags |= SDL_HWACCEL;
 +		flags |= SDL_WINDOW_OPENGL;
  	}
@@ -201,38 +191,33 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  	// Create the screen
 -	if(!(sdl_screen = SDL_SetVideoMode(width, height, b, flags))) {
--		string temp = "Video mode set failed: ";
--		temp += SDL_GetError();
--		xs::error.add(temp.c_str());
--	}
++	if(!(sdlWindow = SDL_CreateWindow(wtitle.c_str(),SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,flags))) {
+ 		string temp = "Video mode set failed: ";
+ 		temp += SDL_GetError();
+ 		xs::error.add(temp.c_str());
+ 	}
 -	SDL_WM_SetCaption(wtitle.c_str(), NULL);
-+		if(!(sdlWindow = SDL_CreateWindow(wtitle.c_str(),SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,flags))) {
-+			string temp = "Video mode set failed: ";
-+			temp += SDL_GetError();
-+			xs::error.add(temp.c_str());
-+		};
-+		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
-+		sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,sdl_screen);
-+	
++	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
++	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer, sdl_back);
++
  #ifdef DEBUG
 -	cout << "DEBUG | BitsPerPixel: " << (int)(sdl_screen->format->BitsPerPixel) << endl;
-+	std::cout << "DEBUG | BitsPerPixel: " << (int)(sdl_screen->format->BitsPerPixel) << endl;
++	std::cout << "DEBUG | BitsPerPixel: " << (int)(sdl_back->format->BitsPerPixel) << endl;
  #endif
--}
-+	}
+ }
  
  void Video::update()
  {
- 	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
+-	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
 -	SDL_Flip(sdl_screen);
-+	SDL_UpdateTexture(sdlTexture, NULL, sdl_screen->pixels, sdl_screen->pitch);
++	SDL_UpdateTexture(sdlTexture, NULL, sdl_back->pixels, sdl_back->pitch);
 +	SDL_RenderClear(sdlRenderer);
 +	SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
 +	SDL_RenderPresent(sdlRenderer);
  }
  
  void Video::getPixel(xio::surface *surface, rgb *pixel, int x, int y)
-@@ -175,7 +143,7 @@
+@@ -175,7 +141,7 @@
  
  xio::surface *Video::createSurface(int w, int h)
  {
@@ -241,15 +226,24 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
  void Video::freeSurface(xio::surface *surface)
-@@ -463,13 +431,13 @@
+@@ -444,7 +410,7 @@
+ 
+ void Video::fillScreen(u32 color, int sx, int sy, int dx, int dy)
+ {
+-	fillSurface(sdl_screen, color, sx, sy, dx, dy);
++	fillSurface(sdl_back, color, sx, sy, dx, dy);
+ }
+ 
+ void Video::fillSurfaceAll(xio::surface *s, u32 color)
+@@ -463,13 +429,15 @@
  	SDL_Event event;
  	SDL_PollEvent(&event);
  	if(event.type == SDL_KEYDOWN)
 +	{
  		if(event.key.keysym.sym == SDLK_ESCAPE)
  			xs::shutdown.run(0);
--		else
--			keyboard_input = event.key.keysym.sym;
+ 		else
+ 			keyboard_input = event.key.keysym.sym;
 +	}
  #ifdef DEBUG
  	else if(event.type == SDL_MOUSEBUTTONDOWN) {
@@ -372,44 +366,60 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
  // PI
-@@ -74,6 +74,12 @@
- 	if(SDL_MUSTLOCK(sdl_screen)) SDL_UnlockSurface(sdl_screen);
+@@ -68,23 +68,29 @@
+ Video(int w, int h, int bpp, bool fs, bool opengl, const char *window_title);
+ void init();
+ void lock() {
+-	if(SDL_MUSTLOCK(sdl_screen)) SDL_LockSurface(sdl_screen);
++	if(SDL_MUSTLOCK(sdl_back)) SDL_LockSurface(sdl_back);
+ };
+ void unlock() {
+-	if(SDL_MUSTLOCK(sdl_screen)) SDL_UnlockSurface(sdl_screen);
++	if(SDL_MUSTLOCK(sdl_back)) SDL_UnlockSurface(sdl_back);
  };
  
 +
 +SDL_Window *sdlWindow;
 +SDL_Renderer *sdlRenderer;
 +SDL_Texture *sdlTexture;
-+SDL_Surface* sdlSurface;
 +
  // Update buffer to screen
  void update();
  
-@@ -85,6 +91,7 @@
- 	return sdl_screen->h;
+ // Getting screen width, height
+ inline int getWidth() {
+-	return sdl_screen->w;
++	return sdl_back->w;
+ };
+ inline int getHeight() {
+-	return sdl_screen->h;
++	return sdl_back->h;
  };
  
 +
  // Direct screen access
  surface *getScreen() {
  	return (surface*)sdl_back;
-@@ -177,14 +184,14 @@
- class Event {
- public:
- Event() {
--	keyboard_input = SDLK_UNKNOWN;
-+//	keyboard_input = SDLK_UNKNOWN;
+@@ -124,7 +130,6 @@
+ bool fullscreen, ogl;
+ std::string wtitle;
+ SDL_Rect updatedest, filldest;
+-SDL_Surface *sdl_screen;
+ SDL_Surface *sdl_back;
+ SDL_Surface *temp;
+ };
+@@ -180,11 +185,11 @@
+ 	keyboard_input = SDLK_UNKNOWN;
  };
  void update();
 -SDLKey keyboard() {
 -	SDLKey t = keyboard_input; keyboard_input = SDLK_UNKNOWN; return t;
--};
-+//SDLKey keyboard() {
-+//	SDLKey t = keyboard_input; keyboard_input = SDLK_UNKNOWN; return t;
-+//};
++SDL_Keycode keyboard() {
++	SDL_Keycode t = keyboard_input; keyboard_input = SDLK_UNKNOWN; return t;
+ };
  private:
 -SDLKey keyboard_input;
-+//SDLKey keyboard_input;
++SDL_Keycode keyboard_input;
  };
  
  class Manager {

@@ -1,3 +1,6 @@
 01_adapt_makefile.patch
 02_remove_fullscreen.patch
 03_chang_path.patch
+04_audio-sdl2.patch
+05_main-sdl2.patch
+06_build-sdl2.patch

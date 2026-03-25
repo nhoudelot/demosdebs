@@ -1,0 +1,32 @@
+Description: remove old code by mikmod
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-15
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -244,22 +244,6 @@
+ }
+ 
+ extern char musadata[];
+-int fakeoff=0, fakesize=56366;
+-int fakeseek(struct MREADER *m, long offset, int whence) {
+-	fakeoff=(whence==SEEK_SET ? 0 : whence==SEEK_CUR ? fakeoff : fakesize)+offset; return 0;
+-}
+-long faketell(struct MREADER *m) {
+-	return fakeoff;
+-}
+-int fakeread(struct MREADER *m, void *dest, size_t length) {
+-	memcpy(dest, musadata+fakeoff, length); fakeoff+=length; return length;
+-}
+-int fakeeof(struct MREADER *m) {
+-	return fakeoff>=fakesize;
+-}
+-int fakeget(struct MREADER *m) {
+-	return fakeeof(0) ? EOF : musadata[fakeoff++];
+-}
+ 
+ static Tso tsot[10];
+ Movie *mov;

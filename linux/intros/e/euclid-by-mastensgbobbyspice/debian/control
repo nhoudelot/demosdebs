@@ -6,10 +6,10 @@ Build-Depends:
  debhelper-compat (= 13),
  libgl-dev,
  freeglut3-dev|libglut-dev,
- libasound2-dev,
- libvorbis-dev,
+ libsdl2-dev,
+ libsdl2-mixer-dev,
  pkgconf
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=61281
 Rules-Requires-Root: no
 

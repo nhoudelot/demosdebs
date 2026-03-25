@@ -1,7 +1,8 @@
 Description: fixing several simple warnings 
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
 Applied-Upstream: no
-Last-Update: 2020-04-27
+Last-Update: 2026-04-11
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/bluecubes.c
@@ -29,3 +30,27 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	       tcurrent, st, argn = 0;
  	Uint32 flags = SDL_OPENGL | SDL_HWPALETTE | SDL_FULLSCREEN;
  	char fr = 0;
+--- a/data.c
++++ b/data.c
+@@ -929,9 +929,9 @@
+ 	                         -133,17,109,116,-107,-413,-298,-90,29,-99,-381,-386,-200,-91,-37,-44,22,20,0,99,138,92,11,-73,-163,
+ 	                         -325,-310,-347,-488,-428,-231,-16,225,253,-13,-127,-53,83,118,63,-115,-265,-227,-33,54,-66,-146,1,116};
+ 
+-extern const short *musicdata[] = {musicdata_drum,musicdata_hihat,musicdata_snare};
+-extern const int musicsizes[3] = {9917,8768,4428};
+-extern char sounddat[] = {
++const short *musicdata[] = {musicdata_drum,musicdata_hihat,musicdata_snare};
++const int musicsizes[3] = {9917,8768,4428};
++char sounddat[] = {
+ 	0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,3,1,3,1,3,1,
+ 	3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,2,1,3,1,3,1,3,1,2,1,3,1,3,1,3,1,2,1,3,1,2,1,
+ 	3,1,2,1,3,1,3,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,3,1,2,1,1,1,3,1,3,1,3,1,3,1,3,1,3,1,1,1,3,1,3,1,3,1,
+@@ -940,7 +940,7 @@
+ 	0,1,0,1,0,1,0,3,0,1,0,1,0,1,0,3,0,1,0,1,0,1,0,2,0,
+ };
+ 
+-extern unsigned int tunneldat[][14] = {
++unsigned int tunneldat[][14] = {
+ //      1       2       3       4       5       6       7       8       9      10      11      12      13      14
+ 	{      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0 },// 0
+ 	{      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0 },

@@ -1,3 +1,13 @@
+onceuponatimeintheeast-by-fit (1.0+1-0ddebs14) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fix 64 bit portability
+  * update SDL2 port
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Apr 2026 11:48:23 +0200
+
 onceuponatimeintheeast-by-fit (1.0+1-0ddebs13) unstable; urgency=medium
 
   * Fix incompatible pointer types error on trixie

@@ -16,7 +16,7 @@ Build-Depends:
  libbz2-dev,
  zlib1g-dev,
  libssl-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/horsicq/DIE-engine
 Rules-Requires-Root: no
 

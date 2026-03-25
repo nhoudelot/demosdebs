@@ -1,6 +1,7 @@
 Description: updating makefile
  updating makefile to make it more compatible with packaging
 Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
+Applied-Upstream: no
 Last-Update: 2020-04-25
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
@@ -14,8 +15,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	gcc this_is_the_end_of_this_four_kilo_bytes_source_compo___hope_you_enjoyed_it_as_much_as_i_enjoyed_to_write_it___bye_folks.c -o source -I/usr/include/SDL -lSDL -Wall -g -ggdb -ansi
 +#variables de compilation
 +SHELL := /bin/sh
-+CC    := gcc
-+PKG_CONFIG := pkg-config
++CC    ?= gcc
++PKG_CONFIG ?= pkg-config
 +CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl)
 +LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl) -lm
 +TARGET   := historyofvideogamein4k-by-jean-yveslamoureux
@@ -33,7 +34,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +all: $(TARGET)
 +
-+$(TARGET):
++$(TARGET): $(SOURCE)
 +	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)

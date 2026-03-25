@@ -17,8 +17,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	upx association
 +#variables de compilation
 +SHELL := /bin/sh
-+CC := gcc
-+PKG_CONFIG:=pkg-config
++CC ?= gcc
++PKG_CONFIG ?= pkg-config
 +CFLAGS += -Wall -pipe -pedantic $(shell $(PKG_CONFIG) gl sdl SDL_mixer --cflags) -std=gnu90
 +LDFLAGS += -L/usr/X11R6/lib $(shell $(PKG_CONFIG) gl sdl SDL_mixer --libs) -lm
 +

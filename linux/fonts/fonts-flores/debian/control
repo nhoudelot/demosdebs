@@ -5,7 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  rename
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.dafont.com/fr/flores.font
 Rules-Requires-Root: no
 

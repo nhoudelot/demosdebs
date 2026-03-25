@@ -1,9 +1,21 @@
+Description: Port to SDL2
+ Replace SDL1 rendering backend with SDL2: SDL_Window, SDL_Renderer,
+ SDL_Texture. The 8-bit indexed surface (Video_Memory) is converted to
+ 32-bit via SDL_BlitSurface before uploading to a streaming texture.
+ SDL_RenderSetLogicalSize(320,240) provides automatic letterboxing when
+ the window is resized. Update build-dependencies accordingly.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -3,7 +3,7 @@
- CC    := gcc
- CXX   := g++
- PKG_CONFIG:=pkg-config
+ CC    ?= gcc
+ CXX   ?= g++
+ PKG_CONFIG ?= pkg-config
 -CXXFLAGS += -Wall -w -pipe -std=gnu++98 -fabi-version=2 $(shell $(PKG_CONFIG) sdl SDL_mixer --cflags)
 +CXXFLAGS += -Wall -w -pipe -std=gnu++98 -fabi-version=2 $(shell $(PKG_CONFIG) sdl2 SDL2_mixer --cflags)
  TARGET   := borntro-by-insolitdust
@@ -37,29 +49,69 @@
  	Font = new IDScroller("/usr/share/borntro-by-insolitdust/ID_Font_002_32x31.pcx", Video, 32, 31);
  
  	Font->YPosScroller = 208;
+@@ -294,7 +292,7 @@
+ 
+ 	atexit(MyExit);
+ 
+-	if (Mix_OpenAudio(22050, AUDIO_S16, 2, 512) < 0)
++	if (Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 512) < 0)
+ 		OkAudio = false;
+ 	else
+ 		module = Mix_LoadMUS("/usr/share/borntro-by-insolitdust/music.mod");
+--- a/timerlib.cpp
++++ b/timerlib.cpp
+@@ -1,4 +1,4 @@
+-#include <SDL/SDL.h>
++#include <SDL2/SDL.h>
+ 
+ #include "timerlib.h"
+ 
+@@ -14,4 +14,4 @@
+ long long TIMER::GetCount()
+ {
+ 	return (SDL_GetTicks() - StartTime) * 1000;
+-}
+\ No newline at end of file
++}
 --- a/xmodelib.h
 +++ b/xmodelib.h
-@@ -31,7 +31,7 @@
+@@ -31,18 +31,25 @@
  #ifndef XMODELIB_H
  #define XMODELIB_H
  
 -#include <SDL/SDL.h>
++#define DEMO_XASPECT 4.0f
++#define DEMO_YASPECT 3.0f
++
 +#include <SDL2/SDL.h>
  
  class VgaXMode
  {
-@@ -43,6 +43,9 @@
+ private:
+-SDL_Surface *Video_Surface;                                     //Primary video surface
+-SDL_Surface *Video_Memory;                                      //320x240 surface
++SDL_Surface *Video_Memory;                                      //320x240 8-bit indexed surface
++SDL_Surface *sdlSurface32;                                      //32-bit intermediate surface
+ unsigned int *PixTab;                                           //Precalculated Y offset table
+ unsigned char *pVideo_Memory;                           //Internal pointer to video memory
  SDL_Color Palette[256];                                         //Main palette
  SDL_Color FadePalette[256];                                     //Palette used for fading
  char NewFade;                               //Uset to reset new fade effect
 +SDL_Window *sdlWindow;
 +SDL_Renderer *sdlRenderer;
 +SDL_Texture *sdlTexture;
++Uint32 windowID;
  
  public:
  VgaXMode(char FullScreen);                                      //Constructor, FullScreen = 1 to go in fullscreen mode
-@@ -86,4 +89,4 @@
+@@ -84,6 +91,10 @@
+ char FadeOut(unsigned char Speed);
+ //Reset Fade functions to use another fade effect
  void ResetFade(void);
++//Toggle fullscreen mode
++void ToggleFullscreen(void);
++//Return the window ID
++Uint32 GetWindowID(void) { return windowID; }
  };
  
 -#endif
@@ -67,20 +119,30 @@
 +#endif
 --- a/xmodelib.cc
 +++ b/xmodelib.cc
-@@ -40,43 +40,32 @@
+@@ -40,45 +40,49 @@
  
  VgaXMode::VgaXMode(char FullScreen)
  {
 -	SDL_VideoInfo vinfo;
- 	Uint32 vmodeflags = 0;
+-	Uint32 vmodeflags = 0;
++	Uint32 vmodeflags = SDL_WINDOW_RESIZABLE;
  	int i;
  
- 	//Set the best resolution mode possible
+-	//Set the best resolution mode possible
++	if (FullScreen)
++		vmodeflags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
  
 -	vmodeflags = SDL_DOUBLEBUF;
--
++	sdlWindow = SDL_CreateWindow("InsolitDust BoRnTrO 2012",
++		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, vmodeflags);
++	if (sdlWindow == NULL)
++		exit(-1);
+ 
 -	vinfo = *SDL_GetVideoInfo();
--
++	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
++	if (sdlRenderer == NULL)
++		exit(-1);
+ 
 -	if (vinfo.hw_available == 0)
 -		vmodeflags |= SDL_SWSURFACE;
 -	else
@@ -88,87 +150,142 @@
 -		vmodeflags |= SDL_HWSURFACE;
 -	else
 -		vmodeflags |= SDL_SWSURFACE;
-+	vmodeflags = SDL_WINDOW_OPENGL;
++	//SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
++	SDL_RenderSetLogicalSize(sdlRenderer, 320, 240);
  
- 	//Enable fullscreen mode if is required
+-	//Enable fullscreen mode if is required
++	windowID = SDL_GetWindowID(sdlWindow);
  
  	if (FullScreen)
- 	{
+-	{
 -		vmodeflags |= SDL_FULLSCREEN;
-+		vmodeflags |= SDL_WINDOW_FULLSCREEN;
++		SDL_ShowCursor(SDL_DISABLE);
  
- 		SDL_ShowCursor(0);
- 	}
+-		SDL_ShowCursor(0);
+-	}
++	//Create the 320x240x8 emulated video mode
++
++	Video_Memory = SDL_CreateRGBSurface(0, 320, 240, 8, 0, 0, 0, 0);
++
++	if (Video_Memory == NULL)
++		exit(-1);
  
- 	//Create the 640x480x256 main "window"
+-	//Create the 640x480x256 main "window"
++	//32-bit surface for palette conversion before texture upload
  
 -	Video_Surface = SDL_SetVideoMode(640, 480, 8, vmodeflags);
--
--	if (Video_Surface == NULL)
--		exit(-1);
-+	sdlWindow = SDL_CreateWindow("InsolitDust BoRnTrO 2012",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,vmodeflags);
-+	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
-+	Video_Surface = SDL_CreateRGBSurface(0, 640, 480, 8, 0, 0, 0, 0); //video buffer 8 bits
-+	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,Video_Surface);// texture from video buffer
++	sdlSurface32 = SDL_CreateRGBSurfaceWithFormat(0, 320, 240, 32, SDL_PIXELFORMAT_RGB888);
  
- 	//Create the 320x240x256 emulated video mode
+-	if (Video_Surface == NULL)
++	if (sdlSurface32 == NULL)
+ 		exit(-1);
+ 
+-	//Create the 320x240x256 emulated video mode
++	//Streaming texture for rendering
  
 -	Video_Memory = SDL_CreateRGBSurface(vmodeflags, 320, 240, 8, 0, 0, 0, 0);
-+	Video_Memory = SDL_CreateRGBSurface(0, 320, 240, 8, 0, 0, 0, 0); //video buffer 8 bits
++	sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_RGB888,
++		SDL_TEXTUREACCESS_STREAMING, 320, 240);
  
- 	if (Video_Memory == NULL)
+-	if (Video_Memory == NULL)
++	if (sdlTexture == NULL)
  		exit(-1);
-@@ -112,12 +101,15 @@
- 	SDL_Rect srcrect = {0, 0, 320, 240};
- 	SDL_Rect dstrect = {0, 0, 640, 480};
  
--	SDL_SoftStretch(Video_Memory, &srcrect, Video_Surface, &dstrect);
+ 	//Build then Y offset table for speed up video memory read/write
+@@ -99,25 +103,24 @@
+ {
+ 	//free resource
+ 
+-	SDL_FreeSurface(Video_Surface);
++	SDL_DestroyTexture(sdlTexture);
++	SDL_FreeSurface(sdlSurface32);
+ 	SDL_FreeSurface(Video_Memory);
++	SDL_DestroyRenderer(sdlRenderer);
++	SDL_DestroyWindow(sdlWindow);
+ 
+ 	free(PixTab);
+ }
+ 
+ void VgaXMode::Update()
+ {
+-	//Stretch emulated 320x240 surface in main 640x480 window
 -
- 	if (SDL_MUSTLOCK(Video_Surface))
-+	{
- 		SDL_UnlockSurface(Video_Surface);
+-	SDL_Rect srcrect = {0, 0, 320, 240};
+-	SDL_Rect dstrect = {0, 0, 640, 480};
+-
+-	SDL_SoftStretch(Video_Memory, &srcrect, Video_Surface, &dstrect);
++	//Convert indexed 8-bit surface to 32-bit then upload to texture
+ 
+-	if (SDL_MUSTLOCK(Video_Surface))
+-		SDL_UnlockSurface(Video_Surface);
 -	else
 -		SDL_UpdateRect(Video_Surface, 0, 0, 0, 0);
-+	} else {
-+		SDL_UpdateTexture(sdlTexture, NULL, Video_Memory->pixels, Video_Memory->pitch); //update texture content with the surface
-+		SDL_RenderClear(sdlRenderer);
-+		SDL_RenderCopy(sdlRenderer, sdlTexture, &srcrect, &dstrect);
-+		SDL_RenderPresent(sdlRenderer);
-+	}
++	SDL_BlitSurface(Video_Memory, NULL, sdlSurface32, NULL);
++	SDL_UpdateTexture(sdlTexture, NULL, sdlSurface32->pixels, sdlSurface32->pitch);
++	SDL_RenderClear(sdlRenderer);
++	SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
++	SDL_RenderPresent(sdlRenderer);
  }
  
  void VgaXMode::PutPixel(int x, int y, unsigned char col)
-@@ -228,7 +220,7 @@
+@@ -226,9 +229,9 @@
+ 
+ void VgaXMode::UpdatePalette(void)
  {
- 	//Enabled palette
+-	//Enabled palette
++	//Apply palette to indexed surface
  
 -	SDL_SetColors(Video_Surface, Palette, 0, 256);
-+	SDL_SetPaletteColors(Video_Surface->format->palette, FadePalette, 0, 256);
++	SDL_SetPaletteColors(Video_Memory->format->palette, Palette, 0, 256);
  }
  
  SDL_Color *VgaXMode::GetPalette(void)
-@@ -402,7 +394,7 @@
+@@ -318,10 +321,10 @@
+ 
+ void VgaXMode::CheckLock(void)
+ {
+-	//Check if video surface must be lock
++	//Check if video surface must be locked
+ 
+-	if(SDL_MUSTLOCK(Video_Surface))
+-		if (SDL_LockSurface(Video_Surface) < 0)
++	if (SDL_MUSTLOCK(Video_Memory))
++		if (SDL_LockSurface(Video_Memory) < 0)
+ 			exit(-2);
+ }
+ 
+@@ -402,7 +405,7 @@
  		return 1;
  	}
  
 -	SDL_SetColors(Video_Surface, FadePalette, 0, 256);
-+	SDL_SetPaletteColors(Video_Surface->format->palette, FadePalette, 0, 256);
++	SDL_SetPaletteColors(Video_Memory->format->palette, FadePalette, 0, 256);
  
  	return 0;
  }
-@@ -465,7 +457,7 @@
+@@ -465,7 +468,7 @@
  		return 1;
  	}
  
 -	SDL_SetColors(Video_Surface, Palette, 0, 256);
-+	SDL_SetPaletteColors(Video_Surface->format->palette, FadePalette, 0, 256);
++	SDL_SetPaletteColors(Video_Memory->format->palette, Palette, 0, 256);
  
  	return 0;
  }
-@@ -473,4 +465,4 @@
+@@ -473,4 +476,14 @@
  void VgaXMode::ResetFade(void)
  {
  	NewFade = 0;
 -}
 \ No newline at end of file
++}
++
++void VgaXMode::ToggleFullscreen(void)
++{
++	Uint32 flags = SDL_GetWindowFlags(sdlWindow);
++
++	if (flags & SDL_WINDOW_FULLSCREEN_DESKTOP)
++		SDL_SetWindowFullscreen(sdlWindow, 0);
++	else
++		SDL_SetWindowFullscreen(sdlWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
 +}

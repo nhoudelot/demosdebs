@@ -7,3 +7,6 @@
 07_add_fullscreen.patch
 08_fix_implicit-function-declaration.patch
 09_fix_incompatible_pointer_type.patch
+10_gcc15-compat.patch
+11_sdl2-fullscreen-fbo.patch
+12_gnu11-warnings.patch

@@ -1,0 +1,504 @@
+--- a/src/additional.c
++++ b/src/additional.c
+@@ -19,7 +19,7 @@
+   float R;
+   float sum2;
+   float largest=0;
+-  float seed = 0.4999999; //0.5 on hyv‰ pop. seed
++  float seed = 0.4999999; //0.5 on hyv√§ pop. seed
+   
+   float xscale = 40.0; //eli ruutu menee ikkunaan 2,2
+   float yscale = 40.0;
+@@ -37,7 +37,7 @@
+   for(i=0; i<SCREEN_H; i++) {
+     for(j=0; j<SCREEN_W; j++) {
+ /*      for(k=0; k<iterations; k++) {
+-	if(sequence[iterations%seqlen-1] == 'A') //jakoj‰‰nnˆksell‰ katsotaan miss‰ kohtaa sekvenssi‰ ollaan menossa -> A ottaa x-akselilta ja B y-akselilta
++	if(sequence[iterations%seqlen-1] == 'A') //jakoj√§√§nn√∂ksell√§ katsotaan miss√§ kohtaa sekvenssi√§ ollaan menossa -> A ottaa x-akselilta ja B y-akselilta
+ //	if(1)
+ 	  R = (float)(i-320)/xscale;
+ 	else 
+@@ -63,18 +63,18 @@
+ 	
+ 	X = R*X*(1-X);
+ 	sum2 = R-2*R*X;
+-	if(sum2<0) sum = sum * (-sum2); //vitun abs() teht‰v‰ n‰in, entajuu(tm)
++	if(sum2<0) sum = sum * (-sum2); //vitun abs() teht√§v√§ n√§in, entajuu(tm)
+ 	else sum = sum*sum2;
+ 	//sum = sum * abs(R-2*R*X);
+       }
+       sum = log(sum)/((float)iterations);
+-      if(sum<0.0) framebuffer[i*SCREEN_W+j] = -sum; //hupaisaa v‰ri‰
++      if(sum<0.0) framebuffer[i*SCREEN_W+j] = -sum; //hupaisaa v√§ri√§
+       else framebuffer[i*SCREEN_W+j] = 0;
+ 
+ //      if(-sum>largest) largest=-sum;
+ 
+ 
+-// Joo se piirt‰‰ mandelin, oli vain vittu viekˆˆn pakko tarkistaa ett‰ JOKIN toimii
++// Joo se piirt√§√§ mandelin, oli vain vittu viek√∂√∂n pakko tarkistaa ett√§ JOKIN toimii
+ /*
+       z1=a=(float)(i-320)/xscale;
+       z2=b=(float)(j-240)/yscale;
+--- a/src/pinp.nsm
++++ b/src/pinp.nsm
+@@ -98,7 +98,7 @@
+ ; Glut
+ EXTERN glutInit,glutSolidSphere
+ 
+-; T‰m‰ pit‰‰ exportata
++; T√§m√§ pit√§√§ exportata
+ %ifdef AUTOMAKE
+ GLOBAL main
+ %else
+@@ -125,7 +125,7 @@
+ 	xor	%1, %1
+ %endmacro
+ 
+-; Ensimm‰isen parametrin osoite pushan j‰lkeen
++; Ensimm√§isen parametrin osoite pushan j√§lkeen
+ %define PUSHA_START	36
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@@ -202,7 +202,7 @@
+  	xor eax, eax
+  	mov ax, [ebx*2 + notetable - 2]
+  	shr eax, 4
+-	mov ebp, eax 		; ja t‰h‰ p‰‰tyy kudasai nee
++	mov ebp, eax 		; ja t√§h√§ p√§√§tyy kudasai nee
+ 
+ 	.bdloop
+ 
+@@ -303,7 +303,7 @@
+ 
+ 	ret
+ 
+-;;; per‰ti sinibasari, nyt ollaan porvareita
++;;; per√§ti sinibasari, nyt ollaan porvareita
+ 
+ basari:
+ 	push ecx
+@@ -371,7 +371,7 @@
+ 
+ 	ret
+ 
+-;;; kierr‰tyst‰
++;;; kierr√§tyst√§
+ 
+ padchord:
+ 	pusha
+@@ -383,7 +383,7 @@
+ 
+ 	mov ecx, 12*5
+ .phatloop:
+-	;; nouda edx:‰‰n addi tablesta
++	;; nouda edx:√§√§n addi tablesta
+ 	test cl,11b
+ 	jnz .eiseur
+ 
+@@ -443,7 +443,7 @@
+ 
+ ;;; edi target, ecx len, ebx num
+ 
+-;;; t‰‰ on kyl ihan persehest‰
++;;; t√§√§ on kyl ihan persehest√§
+ 
+ vowel:
+ 	;; ensin sarja
+@@ -458,9 +458,9 @@
+ 	and bl, 0x7f 		; 0-3 freq, 4-6 vol
+ 
+ 	%ifdef AUTOMAKE
+-	mov esi, main		; t‰‰lt‰ noiset
++	mov esi, main		; t√§√§lt√§ noiset
+ 	%else
+-	mov esi, _start		; t‰‰lt‰ noiset
++	mov esi, _start		; t√§√§lt√§ noiset
+ 	%endif
+ 
+ 	shr ecx, 2
+@@ -504,7 +504,7 @@
+ 
+ 	.long:
+ 	pusha
+-	;; pitk‰‰ vokaalii
++	;; pitk√§√§ vokaalii
+ 	mov ecx, 50
+ 
+ 	.seriesloop:
+@@ -600,8 +600,8 @@
+ 	ret
+ 
+ ;;; -----------------------------------------------------------------------------
+-;;; duunaa yhden ‰‰nen annetuilla parametreilla
+-;;; esi = ‰‰nen alku, edx = kutsuttava nuottifunkkari
++;;; duunaa yhden √§√§nen annetuilla parametreilla
++;;; esi = √§√§nen alku, edx = kutsuttava nuottifunkkari
+ 
+ do_voice:
+ 
+@@ -656,7 +656,7 @@
+ 
+ 	je .silence
+ 
+-	;; funkkari j‰tt‰‰ edi:n p‰ivitetyksi
++	;; funkkari j√§tt√§√§ edi:n p√§ivitetyksi
+ 	call edx
+ 	loop .voiceloop
+ 
+@@ -673,9 +673,9 @@
+ ; Random ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+-; Nippu satunnaislukufunktioita joita k‰ytet‰‰n kaiken ohjailemiseen.
++; Nippu satunnaislukufunktioita joita k√§ytet√§√§n kaiken ohjailemiseen.
+ 
+-; Palauttaa eax:ss‰ satunnaisluvun v‰lilt‰ 0 - MAXINT
++; Palauttaa eax:ss√§ satunnaisluvun v√§lilt√§ 0 - MAXINT
+ func_rand_i:
+  	mov	eax, dword [var_rand]
+ 	imul	eax, 0x3fbc3
+@@ -683,7 +683,7 @@
+  	mov	dword [var_rand], eax
+ 	ret
+ 
+-; Palauttaa fpu-stackin pohjalla satunnaisluvun v‰lilt‰ -pino <-> +pino
++; Palauttaa fpu-stackin pohjalla satunnaisluvun v√§lilt√§ -pino <-> +pino
+ func_rand_f:
+ 	call	func_rand_i
+ 	__null	edx
+@@ -697,7 +697,7 @@
+ 	fisub	dword [esp + 4]
+ 	ret
+ 
+-; Palauttaa edx:ss‰ satunnaisluvun v‰lilt‰ -pino <-> +pino
++; Palauttaa edx:ss√§ satunnaisluvun v√§lilt√§ -pino <-> +pino
+ func_rand_d:
+ 	push	dword [esp + 4]
+ 	call	func_rand_f
+@@ -729,9 +729,9 @@
+ ; GL-wrappity ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+-; Pyˆrittelee 3 akselin ymp‰ri yksinkertaisimmassa (mutta ep‰loogisessa)
+-; j‰rjestyksess‰. Parametrit pinossa.
+-; S‰ilytt‰‰ kaiken.
++; Py√∂rittelee 3 akselin ymp√§ri yksinkertaisimmassa (mutta ep√§loogisessa)
++; j√§rjestyksess√§. Parametrit pinossa.
++; S√§ilytt√§√§ kaiken.
+ 
+ func_glRotate3f:
+ 	push	dword 0
+@@ -750,7 +750,7 @@
+ 	add	esp, (8 - 2) * 4
+ 	ret
+ 
+-; Translatoi ebp:ss‰ olevan taulukon mukaan
++; Translatoi ebp:ss√§ olevan taulukon mukaan
+ 
+ func_glTranslate3f:
+ 	push	dword [ebp + 8]
+@@ -760,7 +760,7 @@
+ 	add	esp, 3 * 4
+ 	ret
+ 
+-; Piirt‰‰ pallon
++; Piirt√§√§ pallon
+ 
+ func_glutSphere:
+ 	fld	dword [esp + 8]
+@@ -812,10 +812,10 @@
+ 	ret
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-; V‰rit ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
++; V√§rit ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+-; Lukee ainokaisen parametrinsa eax:sta, ja asettaa v‰rin sen mukaisesti
++; Lukee ainokaisen parametrinsa eax:sta, ja asettaa v√§rin sen mukaisesti
+ func_glColor1i:
+ 	lea	eax, [eax * 4 + num_color]
+ 	push	eax
+@@ -824,10 +824,10 @@
+ 	ret
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-; Kordinaattisyˆttˆ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
++; Kordinaattisy√∂tt√∂ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+-; Lukee pinosta 3 tavua kordinaattidataa ja syˆtt‰‰ ne GL:lle
++; Lukee pinosta 3 tavua kordinaattidataa ja sy√∂tt√§√§ ne GL:lle
+ 
+ func_feed_cordinate:
+ 	mov	ecx, 3
+@@ -860,10 +860,10 @@
+ 	ret
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-; Mallipiirtelij‰ (pakattua dataa) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
++; Mallipiirtelij√§ (pakattua dataa) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+-; Piirt‰‰ mallin (triangle strip), ottaa datan edi:ss‰.
++; Piirt√§√§ mallin (triangle strip), ottaa datan edi:ss√§.
+ 
+ func_feed_model:
+ 	push	dword GL_TRIANGLE_STRIP
+@@ -894,7 +894,7 @@
+ 	ret
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-; Kuvapiirtelij‰ (pakattua dataa) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
++; Kuvapiirtelij√§ (pakattua dataa) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ func_feed_picture:
+@@ -945,8 +945,8 @@
+ ; Yleinen translatointiefu ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+-; Ottaa parametrinaan edi:ss‰ paikkainterpolaatiodatan ja esi:ss‰ aikadatan.
+-; Kutsuu pinossa olevaa funktiota translatoinnin j‰lkeen
++; Ottaa parametrinaan edi:ss√§ paikkainterpolaatiodatan ja esi:ss√§ aikadatan.
++; Kutsuu pinossa olevaa funktiota translatoinnin j√§lkeen
+ efu_sub_translate:
+ 	call	glLoadIdentity
+ 	call	func_interpolate_translate
+@@ -954,19 +954,19 @@
+ 	ret
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-; Yleinen t‰htiefu ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
++; Yleinen t√§htiefu ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ %define TAEHTIEFU_SAKARAT	160
+ 
+-; Piirt‰‰ t‰hden paikkaan joka on juuri nyt GL:n matriisipinossa. Asettaa myˆs
++; Piirt√§√§ t√§hden paikkaan joka on juuri nyt GL:n matriisipinossa. Asettaa my√∂s
+ ; valon samaiseen kohtaan.
+ 
+ efu_taehti:
+ 	mov	ecx, TAEHTIEFU_SAKARAT
+ .looppi:
+ 	push	ecx
+-; V‰ritys
++; V√§ritys
+ 	;mov	esi, num_color + 1 * 4
+ 	;push	dword [esi]
+ 	;cmp	byte [esi], 0
+@@ -980,7 +980,7 @@
+ 	call	glLoadIdentity
+ 	call	func_glTranslate3f
+ 
+-; Pyˆrit‰‰n ja hyˆrit‰‰n sattumanvaraisesti
++; Py√∂rit√§√§n ja hy√∂rit√§√§n sattumanvaraisesti
+ 	call	func_rand_rotate
+ ; Nyt sakara
+ 	mov	edi, malli_sakara
+@@ -994,13 +994,13 @@
+ 	ret
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-; Yleinen kentt‰efu ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
++; Yleinen kentt√§efu ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ %define KENTTA_COUNT		60
+ %define KENTTA_DISTRIBUTION	300
+ 
+-; Ottaa pinossa osoitteen josta lˆytyy count, distribution, particle (word)
++; Ottaa pinossa osoitteen josta l√∂ytyy count, distribution, particle (word)
+ 
+ efu_field:
+ 	;mov	ebx, dword [esp + 4]
+@@ -1177,7 +1177,7 @@
+ 	movsx	ecx, word [esi + 1]
+ .looppi:
+ 	push	ecx
+-; L‰hdet‰‰n nollista
++; L√§hdet√§√§n nollista
+ 	call	glLoadIdentity
+ 
+ ; Translatointi Z
+@@ -1214,7 +1214,7 @@
+ 	ret
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-; Piirt‰‰ kuplan ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
++; Piirt√§√§ kuplan ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ efu_kupla_particle:
+@@ -1225,7 +1225,7 @@
+ 	fmul	dword [num_kupla_bobscale]
+ 	fadd	dword [num_kupla_bobbase]
+ 	fstp	dword [esp + 0]
+-; V‰ri
++; V√§ri
+ 	mov	eax, 4
+ 	call	func_glColor1i
+ 	push	dword 24
+@@ -1236,7 +1236,7 @@
+ 	ret
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-; Piirt‰‰ hassun viivan ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
++; Piirt√§√§ hassun viivan ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ efu_hairio_particle:
+@@ -1399,11 +1399,11 @@
+ ; Interpolaattori ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+-; Lataa 3 arvoa edi:ss‰ passatusta osoitteesta (short) ja liu-uttaa niit‰
+-; kohti arvoja, jotka lˆytyv‰t ks. osoitteen per‰st‰.
+-; Liu-utus esi:ss‰ passattujen aika-arvojen mukaan (short).
+-; T‰ten intron maksimipituus on hyvin rajoitettu, vitunkos v‰li‰!
+-; Interpoloidut arvot menev‰t osoitteeseen ebp.
++; Lataa 3 arvoa edi:ss√§ passatusta osoitteesta (short) ja liu-uttaa niit√§
++; kohti arvoja, jotka l√∂ytyv√§t ks. osoitteen per√§st√§.
++; Liu-utus esi:ss√§ passattujen aika-arvojen mukaan (short).
++; T√§ten intron maksimipituus on hyvin rajoitettu, vitunkos v√§li√§!
++; Interpoloidut arvot menev√§t osoitteeseen ebp.
+ ; Tuhoaa ecx:n
+ 
+ func_interpolate:
+@@ -1580,7 +1580,7 @@
+ 	;push	dword TIMER_MILLISECONDS
+ 	;call	SDL_SetTimer
+ 
+-; N‰yttˆ
++; N√§ytt√∂
+ 	push	dword SDL_HWSURFACE + SDL_OPENGL
+ 	push	dword SCREEN_B
+ 	push	dword SCREEN_H
+@@ -1664,10 +1664,10 @@
+ 	;push	dword 0
+ 	;call	glViewport
+ 
+-; Depthtest on oletuksena poissa p‰‰lt‰, emme oikeastaan halua sit‰ p‰‰lle
++; Depthtest on oletuksena poissa p√§√§lt√§, emme oikeastaan halua sit√§ p√§√§lle
+ 	;push	dword GL_DEPTH_TEST
+ 	;call	glDisable
+-; N‰ytt‰isi myˆs silt‰ ett‰ cleardepthi‰ ei tarvita, palauta jos ongelmia
++; N√§ytt√§isi my√∂s silt√§ ett√§ cleardepthi√§ ei tarvita, palauta jos ongelmia
+ 	;fld1
+ 	;fstp	qword [esp + 0]
+ 	;call	glClearDepth
+@@ -1683,17 +1683,17 @@
+ 	;push	dword GL_PERSPECTIVE_CORRECTION_HINT
+ 	;call	glHint
+ 
+-; Vertex ja color array p‰‰lle
++; Vertex ja color array p√§√§lle
+ 	;push	dword GL_VERTEX_ARRAY
+ 	;call	glEnableClientState
+ 	;push	dword GL_COLOR_ARRAY
+ 	;call	glEnableClientState
+ 
+-; Normalisaatiota ei todenn‰kˆisesti tarvitse koska piirto k‰y Quadriceilla
++; Normalisaatiota ei todenn√§k√∂isesti tarvitse koska piirto k√§y Quadriceilla
+ 	;push	dword GL_NORMALIZE
+ 	;call	glEnable
+ 
+-; V‰rimateriaali p‰‰lle
++; V√§rimateriaali p√§√§lle
+ 	;push	dword GL_AMBIENT_AND_DIFFUSE
+ 	;push	dword GL_FRONT_AND_BACK
+ 	;call	glColorMaterial
+@@ -1717,7 +1717,7 @@
+ 	;push	eax
+ 	;call	gluQuadricNormals
+ 
+-; Aloitetaan p‰‰loop
++; Aloitetaan p√§√§loop
+ .mainloop:
+ 	mov	ebp, var_multiuse
+ 	mov	dword [var_rand], 0xFFCC0D23
+@@ -1730,7 +1730,7 @@
+ 	dec	ebx
+ 	jnz	.efuloop
+ 
+-; ebx:ss‰ on t‰m‰nhetkinen efun j‰rjestysnumero
++; ebx:ss√§ on t√§m√§nhetkinen efun j√§rjestysnumero
+ .efu_found:
+ 	lea	esi, [ebx * 4 + control_efutime]
+ 	push	esi
+@@ -1741,7 +1741,7 @@
+ 	cmp	edi, 0
+ 	je	.swapbuffers
+ 
+-; ebx:ss‰ on efun j‰rjestysnumero, toimitaan sen mukaan
++; ebx:ss√§ on efun j√§rjestysnumero, toimitaan sen mukaan
+ .valitseefu:
+ 	cmp	ebx, 1
+ 	jl	.efu1
+@@ -1749,7 +1749,7 @@
+ 	cmp	ebx, 3
+ 	jl	.efu3
+ 	je	.efu4
+-;; 	jmp	short .quit ; MEH M÷H MEE
++;; 	jmp	short .quit ; MEH M√ñH MEE
+ 	jmp .quit
+ 
+ .efu1:
+@@ -1790,7 +1790,7 @@
+ 	cmp	byte [ebp + 0], byte 2	; SDL_KEYDOWN
+ 	jne	.mainloop
+ 
+-; Poista myˆhemmin
++; Poista my√∂hemmin
+ 	;add	dword [var_timer], 100000
+ 	;jmp	near .mainloop
+ 
+@@ -1825,8 +1825,8 @@
+ num_kupla_len		dw	550
+ ;num_rand_detail		dw	64
+ 
+-; Sis‰lt‰‰ kaikki v‰rit, taulukoituina (dword per). T‰h‰n viitataan indeksill‰
+-; muualta, jolloin ks. v‰ri tyˆnnet‰‰n pinoon.
++; Sis√§lt√§√§ kaikki v√§rit, taulukoituina (dword per). T√§h√§n viitataan indeksill√§
++; muualta, jolloin ks. v√§ri ty√∂nnet√§√§n pinoon.
+ num_color:
+ .hairio:
+ 	db	0xFF, 0x50, 0x00, 0xA0
+@@ -1849,7 +1849,7 @@
+ control_efutime:
+ 	dd 0, EFU_1_LOPPU, EFU_2_LOPPU, EFU_3_LOPPU, EFU_4_LOPPU
+ 
+-; Pist‰ t‰h‰n ohjausdata
++; Pist√§ t√§h√§n ohjausdata
+ control_camera:
+ .rot1:
+ 	dw 75, 530, 20
+@@ -1908,7 +1908,7 @@
+ 	dw -LYAPUNOV_WIDTH / 2, -LYAPUNOV_HEIGHT / 2, 0
+ 	dw -LYAPUNOV_WIDTH / 2, -LYAPUNOV_HEIGHT / 2, 0
+ 
+-; Kentt‰efun parametridata
++; Kentt√§efun parametridata
+ ;num_field:
+ ;.hairio:
+ ;	dw	1500, 400
+@@ -1973,7 +1973,7 @@
+ ;;; vokaalit
+ 	;; E N U A
+ vtable:
+-	db 4, 14, 22, 30	;mˆhmˆh
++	db 4, 14, 22, 30	;m√∂hm√∂h
+ 
+ 	;; E
+ 	db 4, 33
+@@ -2118,7 +2118,7 @@
+ 	db 0x00
+ 
+ 
+-;;; ‰‰net
++;;; √§√§net
+ 
+ padsong:
+ 	db 0x04, 0x01

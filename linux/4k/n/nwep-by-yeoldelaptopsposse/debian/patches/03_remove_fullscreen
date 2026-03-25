@@ -6,7 +6,7 @@ Last-Update: 2024-03-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/nwep.c
 +++ b/nwep.c
-@@ -446,7 +446,7 @@
+@@ -451,7 +451,7 @@
  #define FULLSCREEN SDL_FULLSCREEN
  	SDL_ShowCursor(0);
  #endif

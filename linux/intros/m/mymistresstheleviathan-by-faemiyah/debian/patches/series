@@ -1,2 +1,5 @@
-01_remove_binary-or-shlib-defines-rpath.patch
+01_update-cmakelist.patch
 02_add_fullscreen.patch
+03_fix-warnings.patch
+04_add-window-title.patch
+05_fullscreen-desktop.patch

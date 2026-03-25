@@ -15,7 +15,7 @@ Build-Depends:
  libglew-dev,
  libopengl-dev,
  sox
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/faemiyah/faemiyah-demoscene_2019-08_4k-intro_region_de_magallanes
 
 Package: regiondemagallanes-by-faemiyah

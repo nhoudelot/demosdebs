@@ -3,3 +3,4 @@
 03_fix_cpp_errors.patch
 04_use_system_bass.patch
 05_link_to_libgl.patch
+06_migrate-glut-to-sdl2.patch

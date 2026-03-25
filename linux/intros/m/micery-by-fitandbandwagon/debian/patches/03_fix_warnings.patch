@@ -1,35 +1,53 @@
-Description: fixing several simple warnings 
+Description: fixing several warnings 
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
 Applied-Upstream: no
 Last-Update: 2020-04-27
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/dump.c
 +++ b/dump.c
-@@ -176,7 +176,7 @@
+@@ -118,7 +118,12 @@
+ 	data=malloc(len);
+ 	if(data==NULL)
+ 		return(-1);
+-	fread(data,1,len,fp);
++	if(fread(data,1,len,fp) != (size_t)len)
++	{
++		fclose(fp);
++		free(data);
++		return(-1);
++	}
+ 	fclose(fp);
+ 
+ 	return(get_dump(s,data));
+@@ -176,7 +181,8 @@
  			m=malloc(sizeof(MTL));
  			m->next=s->materials;
  			s->materials=m;
 -			strcpy(m->name,data);
-+			strncpy(m->name,(const char*)data,sizeof(m->name));
++			strncpy(m->name,(const char*)data,sizeof(m->name)-1);
++			m->name[sizeof(m->name)-1]='\0';
  			while(*data++);
  
  			m->ambient[3]=m->diffuse[3]=m->specular[3];
-@@ -204,7 +204,7 @@
+@@ -204,7 +210,8 @@
  			o->rot=0;
  			o->pivot=NULL;
  
 -			strcpy(o->name,data);
-+			strncpy(o->name,(const char*)data,sizeof(o->name));
++			strncpy(o->name,(const char*)data,sizeof(o->name)-1);
++			o->name[sizeof(o->name)-1]='\0';
  			while(*data++);
  
  			o->type=TYPE_OBJECT;
-@@ -225,13 +225,13 @@
+@@ -225,13 +232,14 @@
  			p->dlist=-1;
  			p->next=o->parts;
  			o->parts=p;
 -			strcpy(p->name,data);
-+			strncpy(p->name,(const char*)data,sizeof(p->name));
++			strncpy(p->name,(const char*)data,sizeof(p->name)-1);
++			p->name[sizeof(p->name)-1]='\0';
  			while(*data++);
  
  			m=s->materials; /* Find material */
@@ -40,6 +58,32 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  					p->material=m;
  				m=m->next;
  			}
+@@ -287,8 +295,9 @@
+ 
+ void writefloat(FILE *fp,float f)
+ {
+-	int *p=&f;
+-	writeint(fp,*p,4);
++	unsigned int i;
++	memcpy(&i,&f,sizeof(i));
++	writeint(fp,i,4);
+ }
+ void writeint(FILE *fp,unsigned c,int len)
+ {
+@@ -300,9 +309,10 @@
+ 
+ float getfloat(unsigned char **p)
+ {
+-	int i=getint(p,4);
+-	float *f=&i;
+-	return(*f);
++	unsigned int i=getint(p,4);
++	float f;
++	memcpy(&f,&i,sizeof(f));
++	return(f);
+ }
+ unsigned getint(unsigned char **p,int len)
+ {
 --- a/main.c
 +++ b/main.c
 @@ -8,7 +8,7 @@
@@ -51,3 +95,139 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #ifdef MAC
  #include <gl.h>
+@@ -487,7 +487,6 @@
+ int main(int argc, char * argv[]) {
+ #define RATE 75.0
+ 	int quit=0;
+-	int shiftdown=0;
+ 	int frame=0;
+ 	int keydown;
+ 	int start_tick;
+@@ -562,34 +561,27 @@
+ 				quit=1;
+ 			if (e.type==SDL_KEYUP) {
+ 				keydown=0;
+-				if (e.key.keysym.sym==SDLK_LSHIFT)
+-					shiftdown=0;
+ 			}
+-
+ 			/* The quit events. Mac demos should exit with mousebutton. */
+ #ifdef MAC
+ 			if(e.type==SDL_MOUSEBUTTONDOWN)
+ 				quit=1;
+ #endif
+-			if (e.type==SDL_KEYDOWN) {
++				if (e.type==SDL_KEYDOWN) {
+ 				keydown=e.key.keysym.sym;
+-				if (keydown==SDLK_LSHIFT)
+-					shiftdown=1;
+-
+-				switch (e.key.keysym.sym) {
+-
+-				case SDLK_ESCAPE:
+-					if (quit==2)
+-						quit=1;
+-					else {
+-						quit=2;
+-						kill_all_hiiret(&maa1);
+-						kill_all_pallot(&maa1);
++				switch (keydown) {
++					case SDLK_ESCAPE:
++						if (quit==2)
++							quit=1;
++						else {
++							quit=2;
++							kill_all_hiiret(&maa1);
++							kill_all_pallot(&maa1);
++						}
++						break;
++					default:
++						break;
+ 					}
+-					break;
+-				default:
+-					break;
+-				}
+ 			}
+ 		}
+ 	}
+--- a/syna.c
++++ b/syna.c
+@@ -125,7 +125,11 @@
+ 	length=ftell(f);
+ 	fseek(f,0,SEEK_SET);
+ 	module=malloc(length+1);
+-	fread(module,1,length,f);
++	if(fread(module,1,length,f) != (size_t)length)
++	{
++		fclose(f);
++		return(-1);
++	}
+ 	module[length]=0; /* String ends in zero */
+ 	fclose(f);
+ 
+@@ -135,7 +139,7 @@
+ 
+ int syna_get(void *tune)
+ {
+-	int n=0,i,j,tmp,a,d,s,r,mod,sweep,wave,patt,track,note;
++	int n=0,i,j,tmp,a,d,s,r,mod,sweep,wave=0,patt,track,note;
+ 	char    *rows[MAXR],*key,*tnp;
+ 
+ 	module=tune;
+@@ -157,7 +161,7 @@
+ 		if(rows[i][0]=='#')
+ 			continue;
+ 
+-		if(key=strtok(rows[i],":"))
++		if((key=strtok(rows[i],":")))
+ 		{
+ 			if(!strcmp(key,"bpm"))
+ 			{
+@@ -190,13 +194,13 @@
+ 				instr[tmp]=malloc(len[tmp]*sizeof(float));
+ 
+ 				mod=atoi(strtok(NULL,","));
+-				if(tnp=strtok(NULL,","))
++				if((tnp=strtok(NULL,",")))
+ 					sweep=atoi(tnp);
+ 				else
+ 					sweep=0;
+-				if(tnp=strtok(NULL,","))
++				if((tnp=strtok(NULL,",")))
+ 					pan[tmp]=(float)atoi(tnp)/100.0;
+-				if(tnp=strtok(NULL,","))
++				if((tnp=strtok(NULL,",")))
+ 					pola[tmp]=(float)atoi(tnp)/100.0;
+ 
+ 				adsr(a,d,s,r,mod,sweep,tmp,wave);
+--- a/wavefront.c
++++ b/wavefront.c
+@@ -28,7 +28,12 @@
+ 	scn=malloc(size+1);
+ 	if(scn==NULL)
+ 		return(-1);
+-	fread(scn,1,size,fp);
++	if(fread(scn,1,size,fp) != (size_t)size)
++	{
++		fclose(fp);
++		free(scn);
++		return(-1);
++	}
+ 	scn[size]=0;
+ 	fclose(fp);
+ 
+@@ -100,7 +105,12 @@
+ 					mtl=malloc(size+1);
+ 					if(mtl==NULL)
+ 						return(-1);
+-					fread(mtl,1,size,fp);
++					if(fread(mtl,1,size,fp) != (size_t)size)
++					{
++						fclose(fp);
++						free(mtl);
++						return(-1);
++					}
+ 					mtl[size]=0;
+ 					fclose(fp);
+ 

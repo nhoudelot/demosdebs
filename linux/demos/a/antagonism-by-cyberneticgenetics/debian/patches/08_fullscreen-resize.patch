@@ -1,0 +1,188 @@
+Description: Added Fullscreen with F key and resizable window
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/cg_x11.h
++++ b/src/cg_x11.h
+@@ -1,6 +1,6 @@
+ #include <SDL2/SDL.h>
+ 
+-/* Poll SDL events, handle Escape and window close */
++/* Poll SDL events, handle Escape/F/resize */
+ #define BEGIN_EVENT \
+ while(cg_isrunning){ \
+     SDL_Event cg_event; \
+@@ -10,6 +10,13 @@
+         if(cg_event.type == SDL_KEYDOWN){ \
+             if(cg_event.key.keysym.sym == SDLK_ESCAPE) \
+                 cg_isrunning = 0; \
++            if(cg_event.key.keysym.sym == SDLK_f) \
++                ToggleFullscreen(); \
++        } \
++        if(cg_event.type == SDL_WINDOWEVENT && \
++           cg_event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED){ \
++            cg_win_w = cg_event.window.data1; \
++            cg_win_h = cg_event.window.data2; \
+         } \
+     }
+ 
+@@ -19,6 +26,10 @@
+ extern SDL_Window   *cg_window;
+ extern SDL_GLContext cg_context;
+ extern char          cg_isrunning;
++/* Current window dimensions (updated on every resize / fullscreen toggle) */
++extern int           cg_win_w;
++extern int           cg_win_h;
+ 
+ int  CreateScene(int width, int height, int mode);
+ void RestoreScene(void);
++void ToggleFullscreen(void);
+--- a/src/cg_x11.c
++++ b/src/cg_x11.c
+@@ -7,6 +7,8 @@
+ char          cg_isrunning = 1;
+ SDL_Window   *cg_window    = NULL;
+ SDL_GLContext cg_context   = NULL;
++int           cg_win_w     = 0;
++int           cg_win_h     = 0;
+ 
+ int CreateScene(int width, int height, int mode){
+     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0){
+@@ -14,8 +16,7 @@
+         return -1;
+     }
+ 
+-    /* Request OpenGL 4.1 Core forward-compatible context
+-       (same as the original GLX setup) */
++    /* Request OpenGL 4.1 Core forward-compatible context */
+     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
+@@ -29,10 +30,10 @@
+     SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,     8);
+     SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE,    8);
+ 
+-    /* mode (CG_WINDOW / CG_FULLSCREEN) is accepted for API compatibility;
+-       fullscreen is handled separately — not implemented in this patch. */
+-    Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+-    (void)mode;
++    /* SDL_WINDOW_RESIZABLE allows the user to drag window borders.
++       Fullscreen is toggled at runtime with ToggleFullscreen(). */
++    Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
++    (void)mode; /* fullscreen handled via ToggleFullscreen(), not at creation */
+ 
+     cg_window = SDL_CreateWindow(
+                     "Antagonism by Cybernetic Genetics",
+@@ -53,9 +54,23 @@
+     SDL_GL_SetSwapInterval(1); /* vsync */
+     SDL_ShowCursor(SDL_DISABLE);
+ 
++    /* Initialise the tracked size with the actual window dimensions */
++    SDL_GetWindowSize(cg_window, &cg_win_w, &cg_win_h);
++
+     return 0;
+ }
+ 
++void ToggleFullscreen(void){
++    static int is_fullscreen = 0;
++    is_fullscreen ^= 1;
++    SDL_SetWindowFullscreen(cg_window,
++        is_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
++    /* SDL will emit SDL_WINDOWEVENT_SIZE_CHANGED which updates cg_win_w/h
++       in BEGIN_EVENT.  We also read it immediately so the very next frame
++       already has the correct dimensions even if the event is delayed. */
++    SDL_GetWindowSize(cg_window, &cg_win_w, &cg_win_h);
++}
++
+ void RestoreScene(void){
+     SDL_ShowCursor(SDL_ENABLE);
+     SDL_GL_DeleteContext(cg_context);
+--- a/src/renderer.h
++++ b/src/renderer.h
+@@ -6,10 +6,7 @@
+ 	GLuint depthbuffer;
+ 	GLuint       *colorbuffers;
+ 	unsigned int colorbuffernum;
+-	int fviewport[4];      /* Viewport for first pass */
+-/*   GLuint        gbuffer_prg;
+-   GLuint       *gbuffer_shaders;
+-   unsigned int  gbuffershadernum; It is unnecessary */
++	int fviewport[4];      /* Viewport for first pass (FBO — fixed size) */
+ 	GLenum       *bufferids;
+ 
+ 	/* Members for the second pass */
+@@ -18,7 +15,7 @@
+ 	GLuint screen_prg;
+ 	GLuint       *screen_shaders;
+ 	unsigned int screenshadernum;
+-	int vviewport[4];      /* Viewport for second pass*/
++	int vviewport[4];      /* Viewport for second pass (window — variable) */
+ } Renderer;
+ 
+ Renderer createRenderer(unsigned int colorbuffernum, unsigned int screenshadernum, int width, int height, float aspect);
+@@ -26,3 +23,7 @@
+ void renderFirstStage(Renderer renderer);
+ void renderSecondStage(Renderer renderer, char **varname);
+ void drawQuad(Renderer renderer);
++
++/* Update ONLY the second-pass viewport when the window is resized or
++   goes fullscreen.  Does NOT touch fviewport (FBO stays fixed). */
++void updateViewport(Renderer *renderer, int win_w, int win_h, float aspect);
+--- a/src/renderer.c
++++ b/src/renderer.c
+@@ -178,3 +178,32 @@
+ 	}
+ 
+ }
++
++/**
++ * Update the second-pass (screen) viewport to match the new window size
++ * while preserving the original aspect ratio (letterbox / pillarbox).
++ * The FBO (fviewport) is intentionally left untouched.
++ *
++ * @param renderer  Renderer to update
++ * @param win_w     New window width  (from SDL_GetWindowSize / resize event)
++ * @param win_h     New window height
++ * @param aspect    Original aspect ratio (width/height)
++ */
++void updateViewport(Renderer *renderer, int win_w, int win_h, float aspect){
++    int draw_w, draw_h;
++
++    /* Try to fit the full window width first */
++    draw_w = win_w;
++    draw_h = (int)((float)win_w / aspect);
++
++    /* If that overflows the window height, fit by height instead */
++    if(draw_h > win_h){
++        draw_h = win_h;
++        draw_w = (int)((float)win_h * aspect);
++    }
++
++    renderer->vviewport[0] = (win_w - draw_w) / 2;   /* x: centre horizontalement */
++    renderer->vviewport[1] = (win_h - draw_h) / 2;   /* y: centre verticalement   */
++    renderer->vviewport[2] = draw_w;
++    renderer->vviewport[3] = draw_h;
++}
+--- a/src/antagonism.c
++++ b/src/antagonism.c
+@@ -249,6 +249,17 @@
+ 	double time;
+ 	char *cbnames[] = {"color1", "color2", "depth"};
+ 	GLint loc;
++	/* Adapt the second-pass viewport to the current window size.
++	   The FBO (first pass) is never resized here.
++	   static vars ensure updateViewport() is called only on actual changes. */
++	{
++		static int last_w = 0, last_h = 0;
++		if(cg_win_w != last_w || cg_win_h != last_h){
++			updateViewport(&renderer, cg_win_w, cg_win_h, ASPECT);
++			last_w = cg_win_w;
++			last_h = cg_win_h;
++		}
++	}
+ 	time = getTimeInterval();
+ 
+ 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

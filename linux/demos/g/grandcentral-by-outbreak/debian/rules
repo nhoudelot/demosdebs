@@ -1,10 +1,28 @@
 #!/usr/bin/make -f
 
+export EXE
+
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
+    EXE=GrandCentral_linux_64bit.elf
+endif
+ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
+    EXE=GrandCentral_linux_32bit.elf
+    RUN_DHSTRIP=dh_strip -XGrandCentral_linux_32bit.elf
+endif
+
 %:
 	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure
+	(cd debian/scripts; \
+		for i in *.in; do\
+		o=`basename $$i .in`;\
+		sed -e 's/@EXE@/${EXE}/g' -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
+	done )
 
 override_dh_shlibdeps:
 	dh_shlibdeps -- -l. --ignore-missing-info
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz
+override_dh_strip:
+	$(RUN_DHSTRIP)

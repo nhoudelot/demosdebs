@@ -8,7 +8,7 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/base/xio.cpp
 +++ b/base/xio.cpp
-@@ -127,6 +127,19 @@
+@@ -125,6 +125,19 @@
  	SDL_RenderClear(sdlRenderer);
  	SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
  	SDL_RenderPresent(sdlRenderer);
@@ -28,21 +28,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
  void Video::getPixel(xio::surface *surface, rgb *pixel, int x, int y)
-@@ -428,21 +441,13 @@
- // Keyboard ________________________________________________________________
- void Event::update()
- {
--	SDL_Event event;
--	SDL_PollEvent(&event);
--	if(event.type == SDL_KEYDOWN)
--	{
--		if(event.key.keysym.sym == SDLK_ESCAPE)
--			xs::shutdown.run(0);
--	}
-+
- #ifdef DEBUG
- 	else if(event.type == SDL_MOUSEBUTTONDOWN) {
- 		std::cout << "DEBUG | Mouse pressed at " << event.motion.x << ", "
+@@ -441,8 +454,6 @@
  		     << event.motion.y << "." << endl;
  	}
  #endif
@@ -51,3 +37,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
  // Sound ___________________________________________________________________
+--- a/base/xdm.cpp
++++ b/base/xdm.cpp
+@@ -125,8 +125,8 @@
+ 	frames++;
+ #endif
+ 	// Update video, check for input, ...
+-	xio->video->update();
+ 	xio->event->update();
++	xio->video->update();
+ #ifdef DEBUG
+ 	SDL_Keycode key = xio->event->keyboard();
+ 	if(key == SDLK_SPACE) {

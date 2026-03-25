@@ -15,7 +15,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  unsigned char *loadJPG(char *path,int *width,int *height);
  
-@@ -191,6 +192,7 @@
+@@ -196,6 +197,7 @@
  				switch (e.key.keysym.sym) {
  					case SDLK_ESCAPE: quit++; break;
  					case SDLK_q: quit++; break;
@@ -23,17 +23,25 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  				}
  			}
  			if(e.type == SDL_WINDOWEVENT)
-@@ -232,6 +234,13 @@
+@@ -237,6 +239,13 @@
  	glViewport(x, y, w, h);
  }
  
 +void ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
-+    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
 +    SDL_ShowCursor(isFullscreen);
 +}
 +
- init()
+ int init(void)
  {
  	double dx,dy;
+@@ -526,7 +535,6 @@
+ 				glBegin(GL_LINE_STRIP);
+ 			for(d=0; d<=2.0*M_PI+0.2; d+=M_PI*2.0/(double)ASK)
+ 			{
+-				dp=d+M_PI*2.0/ASK;
+ 				if(phase==0)
+ 				{
+ 					glVertex3f(sin(d)*r+dx,cos(d)*r+dy,PAXUUS);

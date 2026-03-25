@@ -7,13 +7,13 @@ Last-Update: 2024-03-28
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -620,6 +620,13 @@
+@@ -616,6 +616,13 @@
  	                      0,
  	                      (void (*)(void *, Uint8 *, int))play,
  	                      0};
 +
 +static void ToggleFullscreen(SDL_Window* sdlWindow) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN | SDL_WINDOW_FULLSCREEN_DESKTOP;
 +    int isFullscreen = SDL_GetWindowFlags(sdlWindow) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(sdlWindow, isFullscreen ? 0 : FullscreenFlag);
 +    SDL_ShowCursor(isFullscreen);
@@ -21,7 +21,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
  #if defined(WIN32) && !defined(SDL)
-@@ -1106,6 +1113,11 @@
+@@ -1102,6 +1109,11 @@
  end:
  			break;
  		}
@@ -33,7 +33,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  #if defined(WIN32) && !defined(SDL)
  		glFlush();
-@@ -1139,3 +1151,5 @@
+@@ -1135,3 +1147,5 @@
  #endif
  #endif
  }

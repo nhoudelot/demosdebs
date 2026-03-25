@@ -6,7 +6,7 @@ Last-Update: 2024-08-07
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -61,7 +61,7 @@
+@@ -64,7 +64,7 @@
  	glOrtho(0.0,800.0,600.0,0.0,-10.0,600.0);
  	if ((movie = load_model("/usr/share/association-by-cyberneticgenetics/model.TVF")) == NULL) printf("Error!\n");
  

@@ -10,7 +10,7 @@ Build-Depends:
  libsdl-ttf2.0-dev,
  libglu-dev,
  lib3ds-dev,
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=59471
 Rules-Requires-Root: no
 

@@ -1,3 +1,13 @@
+fortnight-by-mfx (1.0+1-0ddebs9) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fixes more compilation warnings
+  * fixes 32 to 64 code (with the help of Claude Sonnet 4.6)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 15 Apr 2026 00:44:50 +0200
+
 fortnight-by-mfx (1.0+1-0ddebs8) unstable; urgency=medium
 
   * fixed some warnings

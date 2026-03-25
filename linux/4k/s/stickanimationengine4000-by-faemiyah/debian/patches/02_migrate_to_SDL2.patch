@@ -31,7 +31,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Incorporate LIBMIKMOD.
 --- a/configure.ac
 +++ b/configure.ac
-@@ -58,7 +58,7 @@
+@@ -57,7 +57,7 @@
  
  AC_INCORPORATE_OPENGL([SAE4_OPENGL], [yes])
  AC_INCORPORATE_GLUT([SAE4_FREEGLUT], [yes])

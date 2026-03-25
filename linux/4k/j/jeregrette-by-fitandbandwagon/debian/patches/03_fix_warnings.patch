@@ -15,3 +15,30 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <math.h>
  
  #include "letters2.h"
+@@ -189,9 +189,9 @@
+ 
+ };
+ 
+-char osa(int klok)
++int osa(int klok)
+ {
+-	int z,i,j,pat;
++	int z,i,j,pat=0;
+ 	float f,r1,r2;
+ 	static int oldframe;
+ 
+--- a/syna.c
++++ b/syna.c
+@@ -120,7 +120,11 @@
+ 	length=ftell(f);
+ 	fseek(f,0,SEEK_SET);
+ 	module=malloc(length+1);
+-	fread(module,1,length,f);
++	if(fread(module,1,length,f) != (size_t)length) {
++		fclose(f);
++		free(module);
++		return(-1);
++	}
+ 	module[length]=0; /* String ends in zero */
+ 	fclose(f);
+ 

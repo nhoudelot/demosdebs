@@ -8,3 +8,5 @@
 0014-CVE-2004-0991-copy-frame-size-checking-from-mpg123-0.patch
 0016-Increase-MAXFRAMESIZE-to-3456-bytes-which-is-much-cl.patch
 07_link_to_libgl.patch
+08_port_to_sdl2.patch
+09_fix_compiler_warnings.patch

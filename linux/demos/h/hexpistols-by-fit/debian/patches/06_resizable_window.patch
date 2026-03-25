@@ -2,7 +2,7 @@ Description: make window resizable
  make window resizable with correct ratio
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
-Last-Update: 2020-04-29
+Last-Update: 2021-04-21
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
@@ -17,35 +17,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #ifdef NOAMIKA
  SDL_Surface *scr;
  #else
-@@ -88,6 +91,27 @@
- #endif
- }
- 
-+void resize_window(SDL_Renderer *sdlRenderer, int w, int h) {
-+    SDL_Rect newWindowSize;
-+    newWindowSize.x = 0;
-+    newWindowSize.y = 0;
-+
-+    float aspect = (float)w / (float)h;
-+    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
-+        newWindowSize.w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
-+        newWindowSize.x = (w - newWindowSize.w) / 2;
-+        newWindowSize.h = h;
-+    } else {
-+        newWindowSize.h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
-+        newWindowSize.y = (h - newWindowSize.h) / 2;
-+        newWindowSize.w = w;
-+    }
-+
-+    SDL_Rect viewPort;
-+    SDL_RenderGetViewport(sdlRenderer, &viewPort);
-+    SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
-+}
-+
- int main(int argc,char *argv[])
- {
- 	int quit=0,n,i,*pal,last=0,pos=0,tmp,r,g,b,*pix,origtime=-1;
-@@ -106,7 +130,7 @@
+@@ -106,7 +109,7 @@
  	DRAWING *james,*afro;
  #ifdef NOAMIKA
  	SDL_Event e;
@@ -54,7 +26,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
  	int o_intro=-1,o_ring1=-1,o_stara=-1,o_kale=-1,o_tytsi=-1,o_greet=-1,
-@@ -133,9 +157,9 @@
+@@ -133,9 +136,9 @@
  #ifdef NOAMIKA
  	if(argc>=2)
  		if(!strcmp(argv[1],"-w"))
@@ -66,30 +38,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);
  	SDL_Window *sdlWindow;
-@@ -143,6 +167,7 @@
- 	SDL_Texture *sdlTexture;
- 	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
- 	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
-+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
- 	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_RGB888); //buffer video
- 	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
- 
-@@ -171,6 +196,7 @@
- #endif
- 
- 	memset(buf,127,320*200);
-+	Uint32 windowID = SDL_GetWindowID(sdlWindow);
- 	while(!quit)
- 	{
- #ifdef NOAMIKA
-@@ -185,6 +211,11 @@
+@@ -186,7 +189,7 @@
+ 					case SDLK_ESCAPE: quit=1; break;
  					case SDLK_q: quit=1; break;
  				}
- 			 }
-+			if (e.window.windowID == windowID)  {
-+				if (e.window.event == SDL_WINDOWEVENT_RESIZED)  {
-+				    resize_window(sdlRenderer,e.window.data1,e.window.data2);
-+				}
+-			 }
 +			}
  		}
  #else

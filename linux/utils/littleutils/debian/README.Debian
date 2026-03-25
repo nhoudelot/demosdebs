@@ -1,0 +1,6 @@
+littleutils for Debian
+---------------------
+
+on update, look at the original debian/*.install package, to get the new utilities to install
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Mar 2026 13:24:15 +0100

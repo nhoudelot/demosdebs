@@ -1,6 +1,7 @@
 Description: added fullscreen key
  added fullscreen function, to go fullscreen and back, with F key
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
 Applied-Upstream: no
 Last-Update: 2024-04-03
 ---
@@ -16,12 +17,43 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  // Sound texture store
  float sound_data[2200*10*3];
  
-@@ -480,6 +482,14 @@
+@@ -51,11 +53,12 @@
+ #version 150\n\
+ #extension GL_ARB_texture_rectangle : enable\n\
+ uniform sampler2DRect tex;\
++uniform vec2 scale;\
+ out vec4 color;\
+ \
+ void main(){\
+     vec2 coord = gl_FragCoord.st;\
+-    color = texture2DRect(tex, coord * " SCALE ");\
++    color = texture2DRect(tex, coord * scale);\
+ }";
+ 
+ // I don't like single pixel wide box filters too much, so reduce image
+@@ -475,11 +478,30 @@
+ 	draw_part(fbo_y, image_w, image_h, fbo_xtex, filter_prog);
+ 
+ 	// Draw downsampled image on screen
+-	draw_part(0, window_w, window_h, fbo_ytex, display_prog);
++	int cur_w, cur_h;
++	SDL_GL_GetDrawableSize(sdlWindow, &cur_w, &cur_h);
++	glBindFramebuffer(GL_FRAMEBUFFER, 0);
++	glViewport(0, 0, cur_w, cur_h);
++	glBindTexture(GL_TEXTURE_RECTANGLE, fbo_ytex);
++	glUseProgram(display_prog);
++
++	// Recalcul du SCALE dynamique : ramener les coordonnées écran vers les coordonnées image
++	GLuint scale_loc = glGetUniformLocation(display_prog, "scale");
++	glUniform2f(scale_loc, float(image_w) / float(cur_w), float(image_h) / float(cur_h));
++
++	glRecti(-1, -1, 1, 1);
+ #endif
  }
  
  
 +static void ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN;
++    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
 +    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
 +    SDL_ShowCursor(isFullscreen);
@@ -31,7 +63,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  static int do_stuff() {
  	SDL_Event ev;
  	if (pos / 2048 > 1500) return 0;
-@@ -488,6 +498,7 @@
+@@ -488,6 +510,7 @@
  		if (ev.type == SDL_KEYDOWN) {
  			if(ev.key.keysym.sym == SDLK_ESCAPE) return 0;
  			if(ev.key.keysym.sym == SDLK_q) return 0;
@@ -39,7 +71,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		}
  		if (ev.type == SDL_QUIT) return 0;
  	}
-@@ -504,7 +515,7 @@
+@@ -504,7 +527,7 @@
  	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
  	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
  	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);

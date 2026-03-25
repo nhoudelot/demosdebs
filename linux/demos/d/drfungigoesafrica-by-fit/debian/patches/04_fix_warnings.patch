@@ -4,27 +4,61 @@ Applied-Upstream: no
 Last-Update: 2020-04-29
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/jpeg.c
-+++ b/jpeg.c
-@@ -4,6 +4,7 @@
- #include <stdio.h>
- #include <stdlib.h>
- #include <jpeglib.h>
-+#include <string.h>
- 
- unsigned char *loadJPG(char *path,int *width,int *height)
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -189,8 +189,6 @@
+ /*      Aloittaa soiton ja käynnistää timerin taajuudella freq  */
+ void mzx_start(int freq)
  {
---- a/tausta.c
-+++ b/tausta.c
-@@ -1,7 +1,7 @@
- 
- #include "include.h"
- #include "tausta.h"
+-	int tavut,n,pois=0;
 -
-+#include <stdlib.h>
+ 	tix = SDL_GetTicks();
+ 	//vbiInit(&vbiproc0, &vbiproc1, &vbiproc2);
  
- #define MAX_X 16
- #define MAX_Y 16
+@@ -209,7 +207,7 @@
+ /*	SIGCHLD-handleri	*/
+ void mix_newhand(void *udata, Uint8 *stream, int len)
+ {
+-	static int ny=0,luku=0,off,samples_left_before_tick=0, pttime;
++	static int off,samples_left_before_tick=0, pttime;
+ 
+ 	short   *oso=stream;
+ 	int pala;
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -325,11 +325,11 @@
+ // levyltä, ei muistialuetta saa vapauttaa ja käyttää uudestaan,
+ // jos tässä on nolla!!!
+ 
+-unsigned char  *pt_errorstr;    // tässä sitten lukee jotain tai ei lue...
++const char  *pt_errorstr;    // tässä sitten lukee jotain tai ei lue...
+ 
+ unsigned char pt_modid[5];
+ 
+-unsigned char  *pt_modid_table[] =
++const char  *pt_modid_table[] =
+ {"2CHN", "4CHN", "M.K.", "M!K!", "FLT4", "FLT8", "OCTA", "6CHN", "8CHN",
+  "10CH", "12CH", "14CH", "16CH", "18CH", "20CH", "22CH",
+  "24CH", "26CH", "28CH", "30CH", "32CH", "STOP" };
+@@ -344,7 +344,7 @@
+ // alustetaan ne muuttujat
+ {
+ 
+-	int c, i, j;
++	int c, i;
+ 
+ 	for (c=0; c<32; c++)
+ 	{
+@@ -533,8 +533,7 @@
+ 
+ void pt_play (void)
+ {
+-	int c, i, oldvbtempo, cmdprm;
+-	long l;
++	int c, i, cmdprm;
+ 	unsigned char *row; // osoitin riville
+ 	unsigned char sm, nt, cmd, prm;
+ 
 --- a/cool_mzx/sd_mix.c
 +++ b/cool_mzx/sd_mix.c
 @@ -52,6 +52,8 @@
@@ -36,7 +70,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include "sd_main.h"
  #include "sd_mix.h"
  #include "sdfx_delay.h"
-@@ -517,7 +519,7 @@
+@@ -307,7 +309,7 @@
+ 
+ void sd_mix_init (int rate, int blocksize)
+ {
+-	int i,n,m;
++	int i;
+ 	struct SDFX_FORMANT_FILTER *formantfilter;
+ 
+ 
+@@ -517,16 +519,13 @@
  	static int i;
  
  #define BITS 16
@@ -45,30 +88,46 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  /* dithering code by Paul Kellet / from musicdsp.org archives */
  
-@@ -649,4 +651,3 @@
+-	int r1, r2;            //rectangular-PDF random numbers
+-	float s1, s2;          //error feedback buffers
+ 	float s = 0.5f;        //set to 0.0f for no noise shaping
+ 	float w = pow(2.0,BITS-1); //word length (usually bits=16)
+ 	float wi= 1.0f/w;
+-	float d = wi / RAND_MAX; //dither amplitude (2 lsb)
+ 	float o = wi * 0.5f;   //remove dc offset
+ 	float in, tmp;
+ 	int out;
+@@ -571,7 +570,6 @@
+ 	float *dst32, *src32;
+ 	signed int i, ii, c, b;
+ 	static float lvol, rvol;
+-	signed int left, right;
+ 	signed short *dst;
+ 	struct SAMPLEINFOBLOCK *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+@@ -649,4 +647,3 @@
  
  } /* sd_mix_stereo */
  
 -
---- a/cool_mzx/sdfx_lphp_filter.c
-+++ b/cool_mzx/sdfx_lphp_filter.c
+--- a/cool_mzx/sdfx_delay.c
++++ b/cool_mzx/sdfx_delay.c
 @@ -1,6 +1,7 @@
  
  #include <math.h>
  #include <assert.h>
 +#include <stdlib.h>
- #include "sdfx_lphp_filter.h"
+ #include "sdfx_delay.h"
  
  
---- a/cool_mzx/sdfx_formant_filter.c
-+++ b/cool_mzx/sdfx_formant_filter.c
-@@ -1,6 +1,7 @@
+@@ -79,7 +80,7 @@
  
- #include <math.h>
- #include <assert.h>
-+#include <stdlib.h>
- #include "sdfx_formant_filter.h"
- 
+ void sdfx_delay_process_replacing(void *self, float *src, float *dest, int len, int channels, int time)
+ {
+-	int i, c;
++	int i;
+ 	float iL, iR;
+ 	struct SDFX_DELAY *Self;
  
 --- a/cool_mzx/sdfx_delay2.c
 +++ b/cool_mzx/sdfx_delay2.c
@@ -80,13 +139,83 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include "sdfx_delay2.h"
  
  /* Sets delaytime and read pointer. The write pointer is not moved. */
---- a/cool_mzx/sdfx_delay.c
-+++ b/cool_mzx/sdfx_delay.c
+@@ -39,7 +40,6 @@
+ 	float speedLFOspeedL, float speedLFOspeedR)
+ {
+ 	struct SDFX_DELAY2 *result;
+-	int c;
+ 
+ 	result = (void *)malloc(sizeof(struct SDFX_DELAY2));
+ 
+@@ -105,7 +105,7 @@
+ 	    ri, wi;     // integer parts of read and write pos.
+ 	float rf, wf; // fractional parts of read and write pos.
+ 	float wleft;
+-	float outval, o[SDFX_MAX_CHANNELS],  /* output value */
++	float outval,  /* output value */
+ 	      inp, readval, writeval, step;
+ 	struct SDFX_DELAY2 *Self;
+ 
+--- a/cool_mzx/sdfx_formant_filter.c
++++ b/cool_mzx/sdfx_formant_filter.c
 @@ -1,6 +1,7 @@
  
  #include <math.h>
  #include <assert.h>
 +#include <stdlib.h>
- #include "sdfx_delay.h"
+ #include "sdfx_formant_filter.h"
  
  
+--- a/cool_mzx/sdfx_lphp_filter.c
++++ b/cool_mzx/sdfx_lphp_filter.c
+@@ -1,6 +1,7 @@
+ 
+ #include <math.h>
+ #include <assert.h>
++#include <stdlib.h>
+ #include "sdfx_lphp_filter.h"
+ 
+ 
+--- a/font.c
++++ b/font.c
+@@ -8,7 +8,7 @@
+ 
+ unsigned char *loadJPG(char *path,int *width,int *height);
+ 
+-static GLint font;
++static GLuint font;
+ 
+ void init_font(void)
+ {
+--- a/jpeg.c
++++ b/jpeg.c
+@@ -4,6 +4,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <jpeglib.h>
++#include <string.h>
+ 
+ unsigned char *loadJPG(char *path,int *width,int *height)
+ {
+--- a/main.c
++++ b/main.c
+@@ -34,7 +34,7 @@
+ {
+ 	int quit=0,finito=0,n;
+ 	SDL_Event e;
+-	long alku;
++	Uint32 alku;
+ 	float tid,prev=0,prev2=0,r,d;
+ 	float vaihto=1.0f,vaihto_tid,dx,dy;
+ 	int hitnum,oldhit;
+--- a/tausta.c
++++ b/tausta.c
+@@ -1,7 +1,7 @@
+ 
+ #include "include.h"
+ #include "tausta.h"
+-
++#include <stdlib.h>
+ 
+ #define MAX_X 16
+ #define MAX_Y 16

@@ -1,0 +1,48 @@
+Description: fixing several simple warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-03-29 
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/hvl_replay.c
++++ b/hvl_replay.c
+@@ -449,7 +449,8 @@
+     return NULL;
+   }
+ 
+-  strncpy( ht->ht_Name, (TEXT *)&buf[(buf[4]<<8)|buf[5]], 128 );
++  strncpy( ht->ht_Name, (TEXT *)&buf[(buf[4]<<8)|buf[5]], 127 );
++  ht->ht_Name[127] = '\0';
+   nptr = (TEXT *)&buf[((buf[4]<<8)|buf[5])+strlen( ht->ht_Name )+1];
+ 
+   bptr = &buf[14];
+@@ -507,7 +508,8 @@
+   {
+     if( nptr < (TEXT *)(buf+buflen) )
+     {
+-      strncpy( ht->ht_Instruments[i].ins_Name, nptr, 128 );
++      strncpy( ht->ht_Instruments[i].ins_Name, nptr, 127 );
++      ht->ht_Instruments[i].ins_Name[127] = '\0';
+       nptr += strlen( nptr )+1;
+     } else {
+       ht->ht_Instruments[i].ins_Name[0] = 0;
+@@ -679,7 +681,8 @@
+     return NULL;
+   }
+ 
+-  strncpy( ht->ht_Name, (TEXT *)&buf[(buf[4]<<8)|buf[5]], 128 );
++  strncpy( ht->ht_Name, (TEXT *)&buf[(buf[4]<<8)|buf[5]], 127 );
++  ht->ht_Name[127] = '\0';
+   nptr = (TEXT *)&buf[((buf[4]<<8)|buf[5])+strlen( ht->ht_Name )+1];
+ 
+   bptr = &buf[16];
+@@ -748,7 +751,8 @@
+   {
+     if( nptr < (TEXT *)(buf+buflen) )
+     {
+-      strncpy( ht->ht_Instruments[i].ins_Name, nptr, 128 );
++      strncpy( ht->ht_Instruments[i].ins_Name, nptr, 127 );
++      ht->ht_Instruments[i].ins_Name[127] = '\0';
+       nptr += strlen( nptr )+1;
+     } else {
+       ht->ht_Instruments[i].ins_Name[0] = 0;

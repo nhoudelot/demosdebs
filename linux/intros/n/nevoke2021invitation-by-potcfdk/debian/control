@@ -14,7 +14,7 @@ Build-Depends:
  libgl-dev,
  libxrandr-dev,
  dh-exec (>=0.3)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=89522
 
 Package: nevoke2021invitation-by-potcfdk

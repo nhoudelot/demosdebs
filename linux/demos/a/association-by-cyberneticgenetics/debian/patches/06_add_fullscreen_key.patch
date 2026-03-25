@@ -12,16 +12,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  SDL_GLContext sdlGlcontext;
  
 +void ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
-+    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
-+    SDL_ShowCursor(isFullscreen);
++    SDL_ShowCursor(isFullscreen ? SDL_ENABLE : SDL_DISABLE);
 +}
 +
  int main(){
  	SDL_Event event;
  	T3D_Movie *movie;
-@@ -42,6 +49,7 @@
+@@ -45,6 +52,7 @@
  			case SDL_KEYDOWN:
  				if (event.key.keysym.sym == SDLK_ESCAPE) Mix_HaltMusic();
  				if (event.key.keysym.sym == SDLK_q) Mix_HaltMusic();

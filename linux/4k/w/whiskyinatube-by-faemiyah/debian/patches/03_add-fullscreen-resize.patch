@@ -1,0 +1,117 @@
+Description: added fullscreen key & resizable window
+ added fullscreen function, to go fullscreen and back, with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by: Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-11
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -154,6 +154,12 @@
+ static SDL_GLContext sdlGlcontext;
+ 
+ #if defined(USE_LD)
++/** Fixed intro resolution, stored once at startup for viewport computation. */
++static int g_intro_w = 0;
++static int g_intro_h = 0;
++#endif
++
++#if defined(USE_LD)
+ 
+ /** \cond */
+ static float g_pos_x = STARTING_POS_X;
+@@ -796,6 +802,35 @@
+ static void draw()
+ {
+ #if defined(USE_LD)
++  // Recompute letterbox/pillarbox viewport each frame to preserve the intro
++  // aspect ratio regardless of the current window/fullscreen size.
++  {
++    int win_w, win_h;
++    SDL_GL_GetDrawableSize(sdlWindow, &win_w, &win_h);
++
++    float intro_ratio  = static_cast<float>(g_intro_w) / static_cast<float>(g_intro_h);
++    float window_ratio = static_cast<float>(win_w)     / static_cast<float>(win_h);
++
++    int vp_x = 0, vp_y = 0;
++    int vp_w = win_w, vp_h = win_h;
++
++    if(intro_ratio > window_ratio)
++    {
++      // Letterbox: black bars top and bottom.
++      vp_h = static_cast<int>(static_cast<float>(win_w) / intro_ratio + 0.5f);
++      vp_y = (win_h - vp_h) / 2;
++    }
++    else if(intro_ratio < window_ratio)
++    {
++      // Pillarbox: black bars left and right.
++      vp_w = static_cast<int>(static_cast<float>(win_h) * intro_ratio + 0.5f);
++      vp_x = (win_w - vp_w) / 2;
++    }
++
++    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++    glClear(GL_COLOR_BUFFER_BIT);
++    glViewport(vp_x, vp_y, vp_w, vp_h);
++  }
+   glDisable(GL_DEPTH_TEST);
+   glDisable(GL_BLEND);
+ #endif
+@@ -831,6 +866,24 @@
+   dnload_glRects(-1, -1, 1, 1);
+ }
+ 
++void ToggleFullscreen(SDL_Window* window)
++{
++  bool is_fullscreen = (SDL_GetWindowFlags(window) &
++      (SDL_WINDOW_FULLSCREEN | SDL_WINDOW_FULLSCREEN_DESKTOP)) != 0;
++
++  if(is_fullscreen)
++  {
++    SDL_SetWindowFullscreen(window, 0);
++    SDL_ShowCursor(SDL_ENABLE);
++  }
++  else
++  {
++    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
++    SDL_ShowCursor(SDL_DISABLE);
++  }
++  SDL_SetWindowResizable(window, SDL_TRUE);
++}
++
+ //######################################
+ // Music ###############################
+ //######################################
+@@ -875,6 +928,11 @@
+     uint8_t flag_record)
+ {
+   g_flag_developer = flag_developer;
++#if defined(USE_LD)
++  // Store fixed intro resolution for viewport letterbox/pillarbox computation.
++  g_intro_w = static_cast<int>(screen_w);
++  g_intro_h = static_cast<int>(screen_h);
++#endif
+ #else
+ /** \cond */
+ #define screen_h SCREEN_H
+@@ -889,6 +947,9 @@
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+   sdlWindow =  dnload_SDL_CreateWindow("Whisky in a Tube by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,static_cast<int>(screen_w),static_cast<int>(screen_h),SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
+   sdlGlcontext = dnload_SDL_GL_CreateContext(sdlWindow);
++#if defined(USE_LD)
++  SDL_SetWindowResizable(sdlWindow, SDL_TRUE);
++#endif
+   dnload_SDL_ShowCursor(flag_developer);
+ #if defined(USE_LD)
+   {
+@@ -1378,6 +1439,10 @@
+             g_uniform_array[5] = 1.0f;
+             break;
+ 
++		  case SDLK_f:
++            ToggleFullscreen(sdlWindow);
++            break;
++
+           default:
+             break;
+         }

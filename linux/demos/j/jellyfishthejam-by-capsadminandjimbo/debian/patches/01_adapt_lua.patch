@@ -1,7 +1,7 @@
-Description: updated link to libs
+Description: updated link to libs and fix rocket for linux
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
-Last-Update: 2019-12-23
+Last-Update: 2026-04-22
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/standalone/glfw.lua
@@ -33,3 +33,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
     BSD     = { },
     POSIX   = { },
     Other   = { }, 
+--- a/standalone/rocket.lua
++++ b/standalone/rocket.lua
+@@ -4,9 +4,11 @@
+ print(ffi.os)
+ local socket = nil
+ if (ffi.os == "Windows") then
+-    --TODO: how do I link to socket package on Linux?
+     package.loadlib("socket/core.dll", "luaopen_socket_core")
+     socket = require("socket.core")
++elseif (ffi.os == "Linux") then
++    package.cpath = package.cpath .. ';bin/linux/socket/?.so'
++    socket = require 'socket.core'
+ end
+ 
+ rocket = {}

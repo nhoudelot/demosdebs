@@ -11,7 +11,7 @@ Build-Depends:
  libsdl2-dev,
  libsoxr-dev,
  dh-exec (>=0.3)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/hukkax/Propulse
 
 Package: propulse

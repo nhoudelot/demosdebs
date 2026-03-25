@@ -116,17 +116,19 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  /** \brief Perform init.
   *
   * \param screen_w Screen width definition.
-@@ -185,8 +188,8 @@
+@@ -185,9 +188,9 @@
  {
  #if defined(USE_LD)
    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 -  SDL_SetVideoMode(screen_w, screen_h, 0, SDL_OPENGL | (flag_fullscreen ? SDL_FULLSCREEN : 0));
 -  SDL_WM_SetCaption("Lavos by Faemiyah",NULL);
+-
 + window = SDL_CreateWindow("Lavos by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,screen_w,screen_h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL| (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
 +  SDL_GLContext glcontext = SDL_GL_CreateContext(window);
- 
++  SDL_GL_SetSwapInterval(1);
    {
      GLenum err = glewInit();
+ 
 @@ -212,7 +215,7 @@
    g_sym.glShaderSource = glShaderSource;
    g_sym.glGetUniformLocation = glGetUniformLocation;
@@ -211,6 +213,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      for(ii = 0; (ii < CHARACTER_FIDELITY); ++ii)
      {
        float angle1 = static_cast<float>(ii + 0) * ARC_MUL;
+@@ -2329,7 +2329,7 @@
+ static SDL_AudioSpec audio_spec =
+ {
+   AUDIO_FREQUENCY,
+-  AUDIO_S16,
++  AUDIO_S16SYS,
+   AUDIO_CHANNELS,
+   0,
+ #if defined(USE_LD)
 @@ -3159,7 +3159,7 @@
          }
        }

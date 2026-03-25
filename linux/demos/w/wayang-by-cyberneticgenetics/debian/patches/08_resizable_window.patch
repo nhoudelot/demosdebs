@@ -7,7 +7,11 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -6,8 +6,33 @@
+@@ -2,12 +2,36 @@
+ #include <stdlib.h>
+ #include <SDL2/SDL.h>
+ #include <SDL2/SDL_mixer.h>
+-#include <unistd.h>
  
  #include "wayang.h"
  
@@ -41,18 +45,27 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  int main(){
  	SDL_Event event;
-@@ -16,8 +41,9 @@
+@@ -16,9 +40,10 @@
  
  /* Initializations */
  	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 -	sdlWindow = SDL_CreateWindow("Wayang by Cybernetic Genetics",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL);
 +	sdlWindow = SDL_CreateWindow("Wayang by Cybernetic Genetics",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
  	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
+ 	SDL_GL_SetSwapInterval(1);
 +	windowID = SDL_GetWindowID(sdlWindow);
  	SDL_ShowCursor(SDL_DISABLE);
  /* OpenGL related settings */
  	glClearColor(0.0,0.0,0.0,0.0);
-@@ -51,6 +77,17 @@
+@@ -32,6 +57,7 @@
+ 	glEnableClientState(GL_COLOR_ARRAY);
+ 	glEnableClientState(GL_VERTEX_ARRAY);
+ 	glEnable(GL_BLEND);
++	resize_window(0, 0, 1024, 768);
+ /* Demo related initialization */
+ 	init_wayang();
+ /* Music initialization */
+@@ -52,6 +78,17 @@
  					case SDLK_q: Mix_HaltMusic(); break;
  				}
  			}
@@ -60,7 +73,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +			if(event.type == SDL_WINDOWEVENT)
 +			{
 +				if (event.window.windowID == windowID)  {
-+					if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
++					if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)  {
 +						int new_w = event.window.data1;
 +						int new_h = event.window.data2;
 +						resize_window(0,0, new_w,new_h);

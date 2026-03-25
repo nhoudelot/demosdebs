@@ -12,5 +12,3 @@ export CC = $(DEB_HOST_GNU_TYPE)-gcc
 %:
 	dh $@
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

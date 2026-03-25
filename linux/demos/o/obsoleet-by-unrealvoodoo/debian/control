@@ -10,7 +10,7 @@ Build-Depends:
  libstdc++5,
  libxmu-dev,
  libvorbis-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=13033
 Rules-Requires-Root: no
 

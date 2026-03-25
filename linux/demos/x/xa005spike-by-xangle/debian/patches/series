@@ -1,4 +1,7 @@
 01_adapt_makefile.patch
 02_adapt_path.patch
-#03_migrate_to_fmodex.patch
 03_link_to_libgl.patch
+04_migrate_to_SDL2.patch
+05_migrate_to_openmpt.patch
+06_fix_xpk_64bit.patch
+#07_fix_xmlparser_64bit.patch

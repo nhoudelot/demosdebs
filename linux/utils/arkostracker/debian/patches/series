@@ -1,2 +1,3 @@
 01_adapt_makefiles.patch
 02_fix-cross-compiling.patch
+03_fix-g++15-compilation.patch

@@ -5,9 +5,9 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  pkgconf,
- libsdl1.2-compat-dev|libsdl1.2-dev,
- libsdl-mixer1.2-dev
-Standards-Version: 4.6.2
+ libsdl2-dev,
+ libsdl2-mixer-dev
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=25515
 Rules-Requires-Root: no
 

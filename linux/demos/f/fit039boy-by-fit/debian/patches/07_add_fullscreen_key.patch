@@ -15,7 +15,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  int bg_beat[]=    {0,      48,     96,       128, -1};
  float bg_rgb[][3]={{1,1,1},{0,0,0},{0.8,0,0},{1,1,1}};
-@@ -830,6 +831,7 @@
+@@ -833,6 +834,7 @@
  				switch (e.key.keysym.sym) {
  					case SDLK_ESCAPE: quit=1; break;
  					case SDLK_q: quit=1; break;
@@ -23,15 +23,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  				}
  			}
  			if(e.type==SDL_MOUSEMOTION)
-@@ -863,6 +865,13 @@
+@@ -866,6 +868,14 @@
  	return(EXIT_SUCCESS);
  }
  
-+void ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
-+    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
-+    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
-+    SDL_ShowCursor(isFullscreen);
++void ToggleFullscreen(SDL_Window* Window)
++{
++	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++	Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++	SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
++	SDL_ShowCursor(isFullscreen);
 +}
 +
  void resize_window(int x, int y, int w, int h)

@@ -1,0 +1,42 @@
+Description: added fullscreen key
+ added fullscreen function, to go fullscreen and back, with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2024-03-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -543,6 +543,14 @@
+   dnload_glRects(-1, -1, 1, 1);
+ }
+ 
++void ToggleFullscreen(SDL_Window* window)
++{
++  bool isFullscreen = (SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN_DESKTOP) != 0;
++  SDL_SetWindowFullscreen(window, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN_DESKTOP);
++  SDL_ShowCursor(isFullscreen ? SDL_ENABLE : SDL_DISABLE);
++}
++
++
+ //######################################
+ // Main ################################
+ //######################################
+@@ -564,7 +572,7 @@
+   dnload();
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+   SDL_Window *window = dnload_SDL_CreateWindow(NULL, 0, 0, static_cast<int>(screen_w),
+-      static_cast<int>(screen_h), SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++      static_cast<int>(screen_h), SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
+   dnload_SDL_GL_CreateContext(window);
+   dnload_SDL_ShowCursor(flag_developer);
+ #if defined(USE_LD)
+@@ -854,7 +862,7 @@
+             break;
+ 
+           case SDLK_f:
+-            g_freelook = !g_freelook;
++             ToggleFullscreen(window);
+             break;
+ 
+           case SDLK_z:

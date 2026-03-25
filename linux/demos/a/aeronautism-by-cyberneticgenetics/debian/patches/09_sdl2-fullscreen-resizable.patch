@@ -1,0 +1,123 @@
+Description: added fullscreen with F key + resizable window
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+--- a/src/cg_x11.c
++++ b/src/cg_x11.c
+@@ -6,8 +6,64 @@
+ SDL_Window   *cg_window;
+ SDL_GLContext cg_glcontext;
+ SDL_Event     cg_event;
++int           cg_win_w;
++int           cg_win_h;
+ char          cg_isrunning = 1;
+ 
++/* Base rendering resolution – used to maintain aspect ratio */
++#define CG_BASE_W 800
++#define CG_BASE_H 600
++
++static void calc_viewport(int win_w, int win_h,
++                           int *vx, int *vy, int *vw, int *vh)
++{
++	float base_ar = (float)CG_BASE_W / (float)CG_BASE_H;
++	float win_ar  = (float)win_w     / (float)win_h;
++
++	if(win_ar > base_ar){
++		/* wider window: pillarbox (vertical black bars) */
++		*vw = (int)(win_h * base_ar);
++		*vh = win_h;
++		*vx = (win_w - *vw) / 2;
++		*vy = 0;
++	} else {
++		/* taller window: letterbox (horizontal black bars) */
++		*vw = win_w;
++		*vh = (int)(win_w / base_ar);
++		*vx = 0;
++		*vy = (win_h - *vh) / 2;
++	}
++}
++
++/*
++ * Called once per frame (from BEGIN_EVENT) before the draw call.
++ * 1. Clears the full framebuffer to black with no scissor (black bars).
++ * 2. Restricts subsequent rendering to the aspect-correct content area.
++ */
++void cg_frame_begin(void){
++	int vx, vy, vw, vh;
++	calc_viewport(cg_win_w, cg_win_h, &vx, &vy, &vw, &vh);
++
++	glDisable(GL_SCISSOR_TEST);
++	glViewport(0, 0, cg_win_w, cg_win_h);
++	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++	glClear(GL_COLOR_BUFFER_BIT);
++
++	glViewport(vx, vy, vw, vh);
++	glScissor(vx, vy, vw, vh);
++	glEnable(GL_SCISSOR_TEST);
++}
++
++void ToggleFullscreen(void){
++	Uint32 flags = SDL_GetWindowFlags(cg_window);
++	if(flags & SDL_WINDOW_FULLSCREEN_DESKTOP){
++		SDL_SetWindowFullscreen(cg_window, 0);
++	} else {
++		SDL_SetWindowFullscreen(cg_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
++	}
++	/* cg_win_w/h are updated via SDL_WINDOWEVENT_SIZE_CHANGED in BEGIN_EVENT */
++}
++
+ void CreateScene(int width, int height){
+ 	if(SDL_Init(SDL_INIT_VIDEO) < 0){
+ 		fprintf(stderr, "SDL_Init: %s\n", SDL_GetError());
+@@ -20,11 +76,15 @@
+ 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,    8);
+ 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,     8);
+ 
++	cg_win_w = width;
++	cg_win_h = height;
++
+ 	cg_window = SDL_CreateWindow("Aeronautism by Cybernetic Genetics",
+ 	                              SDL_WINDOWPOS_CENTERED,
+ 	                              SDL_WINDOWPOS_CENTERED,
+ 	                              width, height,
+-	                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
++	                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN|
++	                              SDL_WINDOW_RESIZABLE);
+ 	if(!cg_window){
+ 		fprintf(stderr, "SDL_CreateWindow: %s\n", SDL_GetError());
+ 		SDL_Quit();
+--- a/src/cg_x11.h
++++ b/src/cg_x11.h
+@@ -6,17 +6,29 @@
+       if(cg_event.type == SDL_QUIT) cg_isrunning = 0;\
+       if(cg_event.type == SDL_KEYDOWN){\
+          if(cg_event.key.keysym.sym == SDLK_ESCAPE) cg_isrunning = 0;\
++         if(cg_event.key.keysym.sym == SDLK_f) ToggleFullscreen();\
+       }\
+-   }
++         if(cg_event.type == SDL_WINDOWEVENT){\
++         if(cg_event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED){\
++            cg_win_w = cg_event.window.data1;\
++            cg_win_h = cg_event.window.data2;\
++         }\
++      }\
++   }\
++   cg_frame_begin();
+ 
+-#define END_EVENT SDL_GL_SwapWindow(cg_window);}
++#define END_EVENT glDisable(GL_SCISSOR_TEST); SDL_GL_SwapWindow(cg_window);}
+ 
+ /* Global variables. We use cg_ prefix to identify these. */
+ 
+ extern SDL_Window   *cg_window;
+ extern SDL_GLContext cg_glcontext;
+ extern SDL_Event     cg_event;
++extern int           cg_win_w;
++extern int           cg_win_h;
+ extern char          cg_isrunning;
+ 
+ void CreateScene(int width, int height);
+ void RestoreScene(void);
++void ToggleFullscreen(void);
++void cg_frame_begin(void);

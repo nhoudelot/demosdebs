@@ -1,4 +1,6 @@
+#!/usr/bin/dh-exec
+
 debian/scripts/theworldinabubble-by-thebadsectors usr/bin/
 debian/resources/theworldinabubble-by-thebadsectors.desktop usr/share/applications/
 debian/resources/theworldinabubble-by-thebadsectors.png usr/share/icons/hicolor/256x256/apps/
-./tbs-bubble-linux-64bit.lnx usr/lib/x86_64-linux-gnu/theworldinabubble-by-thebadsectors/./ 
+./${EXE} usr/lib/${DEB_HOST_MULTIARCH}/theworldinabubble-by-thebadsectors/./ 

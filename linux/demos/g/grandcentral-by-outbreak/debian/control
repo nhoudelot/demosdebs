@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
+ dh-exec (>=0.3),
  libaudiere-dev,
  libx11-dev,
  libpng12-dev,
@@ -11,12 +12,12 @@ Build-Depends:
  libxrandr-dev,
  libglu-dev,
  libglew1.5
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=50691
 Rules-Requires-Root: no
 
 Package: grandcentral-by-outbreak
-Architecture: amd64
+Architecture: amd64 i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},

@@ -1,0 +1,480 @@
+Description: migrate from Glut to SDL2
+ Migrate from Glut to SDL2
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+--- a/rubber1.0/Rubber.h
++++ b/rubber1.0/Rubber.h
+@@ -8,18 +8,11 @@
+ #include <iostream>
+ #include <vector>
+ 
+-#ifdef __APPLE__
+-#include <GLUT/GLUT.h>
+-#include <OpenGL/gl.h>
+-#include <OpenGL/OpenGL.h>
+-#include <Carbon/Carbon.h>
+-#endif
+-
+ #define GL_GLEXT_PROTOTYPES
+ #include <GL/gl.h>
+ #include <GL/glext.h>
+ #include <GL/glu.h>
+-#include <GL/glut.h>
++#include <SDL2/SDL.h>
+ 
+ #include "BassRocket.h"
+ //#include "Shader.h"
+@@ -93,6 +86,7 @@
+ void startPlaying();
+ void setResolution(int xres, int yres);
+ void initBassRocket(std::string filename, float bpm);
++void toggleFullscreen();
+ int getXRes() const {
+ 	return m_xRes;
+ }
+@@ -100,6 +94,14 @@
+ 	return m_yRes;
+ }
+ 
++SDL_Window* getWindow() const {
++	return m_window;
++}
++
++bool isFullscreen() const {
++	return m_isFullscreen;
++}
++
+ MainLoopCallBack m_pMainLoop;
+ BassRocket* getBassRocket() const {
+ 	return m_pBassRocket;
+@@ -150,6 +152,10 @@
+ uint m_xRes;
+ uint m_yRes;
+ bool m_done;
++bool m_isFullscreen;
++
++SDL_Window*   m_window;
++SDL_GLContext m_glContext;
+ 
+ std::vector<Shader*> m_allShaders;
+ Fbo* m_currentFbo;
+--- a/rubber1.0/Rubber.cpp
++++ b/rubber1.0/Rubber.cpp
+@@ -1,19 +1,21 @@
+ #include <sys/time.h>
+-#ifdef __APPLE__
+-#include "CoreFoundation/CoreFoundation.h"
+-#endif
+-
++#include <unistd.h>
+ #include <cstdarg>
+ 
+ #include "Rubber.h"
+ #include "Shader.h"
+ #include "BmpWriter.h"
+ 
+-
+ using namespace RubberSpace;
+ 
+ 
+-Rubber::Rubber() : m_done(false), m_currentFbo(0) {
++Rubber::Rubber()
++	: m_done(false)
++	, m_isFullscreen(false)
++	, m_window(NULL)
++	, m_glContext(NULL)
++	, m_currentFbo(0)
++{
+ }
+ Rubber* Rubber::m_pInstance = NULL;
+ 
+@@ -62,181 +64,215 @@
+ 	return m_pInstance;
+ }
+ 
+-namespace RubberSpace
+-{
+ 
+-void rubberGlutResizeCallback(int x, int y)
++void Rubber::init(int argc, char** argv, MainLoopCallBack mainLoop)
+ {
+-	Rubber::getInstance()->setResolution(x, y);
+-}
++	m_pMainLoop = mainLoop;
+ 
+-void glutRenderBitmapString(float x, float y, char* text)
+-{
+-	char *c;
+-	glMatrixMode(GL_PROJECTION);
+-	glLoadIdentity();
+-	glMatrixMode(GL_MODELVIEW);
+-	glLoadIdentity();
++	if (SDL_Init(SDL_INIT_VIDEO) < 0)
++		ERROR("SDL_Init failed: %s\n", SDL_GetError());
+ 
+-	glRasterPos2f(x, y);
+-	glDisable(GL_TEXTURE_2D);
+-//	Rubber::getInstance()->setDepthMode(NO_DEPTH);
+-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
++	SDL_GL_SetAttribute(SDL_GL_RED_SIZE,           8);
++	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,         8);
++	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,          8);
++	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE,         8);
++	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,         24);
++	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,       1);
++	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
++	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+ 
+-	for (c = text; *c != '\0'; c++)
++	int w = 1280, h = 720;
++	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
++
++	if (argc == 2)
+ 	{
+-		glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *c);
++		/* mode fenêtré : argv[1] présent */
++		LOG("Windowed mode: %ix%i\n", w, h);
+ 	}
++	else
++	{
++		/* mode plein écran via le bureau */
++		SDL_DisplayMode dm;
++		if (SDL_GetCurrentDisplayMode(0, &dm) == 0)
++		{
++			w = dm.w;
++			h = dm.h;
++		}
++		flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
++		SDL_ShowCursor(SDL_DISABLE);
++		m_isFullscreen = true;
++		LOG("Fullscreen mode: %ix%i\n", w, h);
++	}
++
++	m_window = SDL_CreateWindow(
++		"I am rubber, you are glue",
++		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++		w, h, flags);
++
++	if (!m_window)
++		ERROR("SDL_CreateWindow failed: %s\n", SDL_GetError());
++
++	m_glContext = SDL_GL_CreateContext(m_window);
++	if (!m_glContext)
++		ERROR("SDL_GL_CreateContext failed: %s\n", SDL_GetError());
++
++	/* vsync */
++	if (SDL_GL_SetSwapInterval(1) < 0)
++		LOG("Warning: vsync not available: %s\n", SDL_GetError());
++
++	SDL_GetWindowSize(m_window, &w, &h);
++	m_xRes = w;
++	m_yRes = h;
+ 
++	setBlendMode(NO_BLEND);
++	setDepthMode(ENABLED);
++	setCullMode(BACK);
+ }
+ 
+-void rubberGlutMainLoopCallback()
++void Rubber::toggleFullscreen()
+ {
+-	static long long prevMs = 0;
+-	Rubber* rubber = Rubber::getInstance();
+-	long ms = rubber->getMs();
+-	static long long framecnt = 0;
+-	static long long fps = 0.0f;
+-
+-	if (rubber->isDone()) rubber->close();
++	m_isFullscreen = !m_isFullscreen;
+ 
+-#ifdef DEBUG
+-	if (ms >= prevMs + 1000)
++	if (m_isFullscreen)
+ 	{
+-		printf("%d\n",framecnt);
+-		fps = framecnt;
+-		framecnt = 0;
+-		prevMs = ms;
+-
+-		rubber->reloadShaders();
++		SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
++		SDL_ShowCursor(SDL_DISABLE);
++	}
++	else
++	{
++		SDL_SetWindowFullscreen(m_window, 0);
++		SDL_SetWindowResizable(m_window, SDL_TRUE);
++		SDL_ShowCursor(SDL_ENABLE);
+ 	}
+-	framecnt++;
+-#endif
+ 
+-#ifdef DISKWRITE
+-	static int frame = 0;
+-	double dwfps = 25.0;
+-	double row = frame / dwfps / 60.0 * rubber->getBassRocket()->getBpm() * float(rubber->getBassRocket()->getRowsPerBeat());
+-	rubber->getBassRocket()->setRow(row);
+-#else
+-	double row = rubber->getBassRocket()->getRow();
+-#endif
++	int w, h;
++	SDL_GetWindowSize(m_window, &w, &h);
++	setResolution(w, h);
++}
+ 
+-	//printf("%lf\n",rubber->getBassRocket()->getRow());
++void Rubber::initBassRocket(std::string filename, float bpm)
++{
++	m_pBassRocket = new BassRocket;
++	m_pBassRocket->init(filename, bpm);
++}
++
++void Rubber::startPlaying()
++{
++	m_pBassRocket->startPlaying();
++
++	SDL_Event event;
++	static long long prevMs  = 0;
++	static long long framecnt = 0;
++	static long long fps      = 0;
++
++	while (!m_done)
++	{
++		/* --- gestion des événements --- */
++		while (SDL_PollEvent(&event))
++		{
++			switch (event.type)
++			{
++			case SDL_QUIT:
++				m_done = true;
++				break;
++
++			case SDL_KEYDOWN:
++				switch (event.key.keysym.sym)
++				{
++				case SDLK_ESCAPE:
++					m_done = true;
++					break;
++				case SDLK_f:
++					toggleFullscreen();
++					break;
++				default:
++					break;
++				}
++				break;
++
++			case SDL_WINDOWEVENT:
++				if (event.window.event == SDL_WINDOWEVENT_RESIZED ||
++				    event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++				{
++					setResolution(event.window.data1, event.window.data2);
++				}
++				break;
++
++			default:
++				break;
++			}
++		}
+ 
+-	rubber->m_pMainLoop(row);
++		if (m_done) break;
+ 
++		/* --- compteur FPS en debug --- */
+ #ifdef DEBUG
+-	char debugtxt[128];
+-	sprintf(debugtxt, "time = %6.2f fps = %i", row / 64.0f, fps);
+-	float yp = 26.0f / rubber->getYRes();
+-	glColor3f(1.0f, 1.0f, 1.0f);
+-	glutRenderBitmapString(-1.0f, 1.0f - yp, debugtxt);
++		{
++			long long ms = getMs();
++			if (ms >= prevMs + 1000)
++			{
++				printf("%lld fps\n", framecnt);
++				fps      = framecnt;
++				framecnt = 0;
++				prevMs   = ms;
++				reloadShaders();
++			}
++			framecnt++;
++		}
+ #endif
+ 
+-//	glFlush(); // Probably not needed
+-
++		/* --- calcul de la position --- */
+ #ifdef DISKWRITE
+-	char filename[128];
+-	sprintf(filename, "kwl_%05i.bmp", frame);
+-	BmpWriter::writeBmp(filename);
+-	frame++;
++		{
++			static int frame = 0;
++			double dwfps = 25.0;
++			double row   = frame / dwfps / 60.0
++			               * m_pBassRocket->getBpm()
++			               * float(m_pBassRocket->getRowsPerBeat());
++			m_pBassRocket->setRow(row);
++			m_pMainLoop(row);
++
++			char filename[128];
++			sprintf(filename, "kwl_%05i.bmp", frame);
++			BmpWriter::writeBmp(filename);
++			frame++;
++		}
++#else
++		{
++			double row = m_pBassRocket->getRow();
++			m_pMainLoop(row);
++		}
+ #endif
+ 
+-	glutSwapBuffers();
+-	glutPostRedisplay();
++		SDL_GL_SwapWindow(m_window);
++		checkGLErrors("after SDL_GL_SwapWindow");
++		m_pBassRocket->update();
+ 
+-	rubber->checkGLErrors("after glutPostRedisplay");
+-	rubber->getBassRocket()->update();
+ #ifdef DEBUG
+-	if (!rubber->getBassRocket()->isPlaying()) usleep(100000);
++		if (!m_pBassRocket->isPlaying()) SDL_Delay(100);
+ #endif
+-
+-}
+-
+-void rubberGlutKeyboardCallback(unsigned char key, int x, int y)
+-{
+-	switch(key)
+-	{
+-	case 27:
+-		RubberSpace::Rubber::getInstance()->setDone();
+-		break;
+-	default:
+-		break;
+ 	}
+ }
+-} // namespace
+ 
+-void Rubber::init(int argc, char** argv, MainLoopCallBack mainLoop)
++void Rubber::close()
+ {
+-#ifdef __APPLE__
+-	CFBundleRef mainBundle = CFBundleGetMainBundle();
+-	CFURLRef resourcesURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
+-	char path[PATH_MAX];
+-	if (!CFURLGetFileSystemRepresentation(resourcesURL, TRUE, (UInt8 *)path, PATH_MAX))
++	if (m_pBassRocket)
+ 	{
+-		ERROR("chdir erreur");
++		m_pBassRocket->close();
++		delete m_pBassRocket;
++		m_pBassRocket = NULL;
+ 	}
+-	CFRelease(resourcesURL);
+-
+-	chdir(path);
+-	LOG("Changing working directory to %s\n", path);
+-#endif
+-
+-	m_pMainLoop = mainLoop;
+-	glutInit(&argc, argv);
+-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
+-
+-	if(argc==2)
++	if (m_glContext)
+ 	{
+-		glutInitWindowSize(1280,720);
+-		glutCreateWindow("I am rubber, you are glue");
++		SDL_GL_DeleteContext(m_glContext);
++		m_glContext = NULL;
+ 	}
+-	else
++	if (m_window)
+ 	{
+-		int w = glutGet(GLUT_SCREEN_WIDTH);
+-		int h = glutGet(GLUT_SCREEN_HEIGHT);
+-		char gameModeString[128];
+-		sprintf(gameModeString, "%ix%i:32", w, h);
+-		glutGameModeString(gameModeString);
+-		if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE)) glutEnterGameMode();
+-		else exit(1);
+-		glutSetCursor(GLUT_CURSOR_NONE);
++		SDL_DestroyWindow(m_window);
++		m_window = NULL;
+ 	}
+-
+-#ifdef __APPLE__
+-	GLint VBL=1;
+-	CGLSetParameter(CGLGetCurrentContext(), kCGLCPSwapInterval, &VBL);
+-#endif
+-
+-	glutDisplayFunc(rubberGlutMainLoopCallback);
+-	glutReshapeFunc(rubberGlutResizeCallback);
+-	glutKeyboardFunc(rubberGlutKeyboardCallback);
+-
+-	m_xRes = glutGet(GLUT_WINDOW_WIDTH);
+-	m_yRes = glutGet(GLUT_WINDOW_HEIGHT);
+-
+-	setBlendMode(NO_BLEND);
+-	setDepthMode(ENABLED);
+-	setCullMode(BACK);
+-}
+-
+-void Rubber::initBassRocket(std::string filename, float bpm)
+-{
+-	m_pBassRocket = new BassRocket;
+-	m_pBassRocket->init(filename, bpm);
+-}
+-
+-void Rubber::startPlaying()
+-{
+-	m_pBassRocket->startPlaying();
+-	glutMainLoop();
+-}
+-
+-void Rubber::close()
+-{
+-	m_pBassRocket->close();
+-	delete m_pBassRocket;
++	SDL_Quit();
+ 	exit(0);
+ }
+ 
+@@ -430,7 +466,7 @@
+ 
+ void Rubber::reloadShaders()
+ {
+-	for (int i = 0; i < m_allShaders.size(); i++)
++	for (int i = 0; i < (int)m_allShaders.size(); i++)
+ 	{
+ 		bool changed = m_allShaders[i]->getFile()->reloadIfChanged();
+ 		if (changed) m_allShaders[i]->load();
+@@ -473,7 +509,3 @@
+ 	if (colors) glDisableClientState(GL_COLOR_ARRAY);
+ 
+ }
+-
+-
+-
+-
+--- a/Makefile
++++ b/Makefile
+@@ -6,11 +6,11 @@
+ RM_F       := rm -f
+ 
+ # Flags
+-CFLAGS += -Wall -pipe -Irubber1.0 -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu gl)
+-CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell $(PKG_CONFIG) --cflags glu gl)
++CFLAGS += -Wall -pipe -Irubber1.0 -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu gl sdl2)
++CXXFLAGS += -Wall -pipe -Irubber1.0 -std=c++11 $(shell $(PKG_CONFIG) --cflags glu gl sdl2)
+ 
+ # Libraries for linking
+-LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu gl) -lm
++LDFLAGS += /usr/lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)/libbass.so -lglut $(shell $(PKG_CONFIG) --libs glu gl sdl2) -lm
+ 
+ OBJ = test3d.o Kewlmation.o \
+       rubber1.0/Rubber.o rubber1.0/Shader.o rubber1.0/Texture.o \

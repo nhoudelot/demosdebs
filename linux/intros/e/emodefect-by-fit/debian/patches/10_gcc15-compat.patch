@@ -1,0 +1,20 @@
+Description: GCC 15 Compatibility — -std=gnu11 and GL_GLEXT_PROTOTYPES activation
+ Claude : GCC 15 (Ubuntu 26.04) becomes stricter on several points of C90.
+ It switches to -std=gnu11, which is a compatible superset, and adds
+ GL_GLEXT_PROTOTYPES so that <GL/glext.h> declares the prototypes of
+ OpenGL 3.0 functions (FBO, glBlitFramebuffer, etc.) without using GLEW.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-13
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ SHELL := /bin/sh
+ CC ?= gcc
+ PKG_CONFIG ?= pkg-config
+-CFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) sdl2 gl --cflags) -std=gnu90
++CFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) sdl2 gl --cflags) -std=gnu11 -DGL_GLEXT_PROTOTYPES
+ LDFLAGS += $(shell $(PKG_CONFIG) sdl2 gl --libs) -lm
+ MAKE := make
+ AR := ar

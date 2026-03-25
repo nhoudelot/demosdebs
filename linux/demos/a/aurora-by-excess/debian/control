@@ -18,7 +18,7 @@ Build-Depends:
  vulkan-validationlayers,
  glslang-tools,
  libsimde-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/kusma/even-laster-engine/tree/aurora-linux
 Rules-Requires-Root: no
 
@@ -26,6 +26,7 @@ Package: aurora-by-excess
 Architecture: any
 Depends:
  aurora-by-excess-data,
+ common-install-function-ddebs(>=1.61),
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Demo by Excess, released in 2018

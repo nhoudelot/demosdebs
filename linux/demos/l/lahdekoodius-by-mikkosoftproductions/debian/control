@@ -8,7 +8,7 @@ Build-Depends:
  mesa-common-dev,
  libxrandr-dev,
  libopenal-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=83105
 
 Package: lahdekoodius-by-mikkosoftproductions

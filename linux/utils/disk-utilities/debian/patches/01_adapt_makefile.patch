@@ -99,7 +99,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	$(CC) -flto $(LDFLAGS) $@.o -lamiga -lm68k -o $@
  
  m68k_emulate: m68k/m68k.a m68k_emulate.o
- 	$(CC) $(LDFLAGS) $@.o -lm68k -o $@
+ 	$(CC) $(LDFLAGS) $@.o -lm68k -ldisk -o $@
 --- a/m68k/m68k/Makefile
 +++ b/m68k/m68k/Makefile
 @@ -4,4 +4,4 @@

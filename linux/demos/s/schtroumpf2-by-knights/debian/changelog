@@ -1,3 +1,15 @@
+schtroumpf2-by-knights (1.0+1-0ddebs6) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * ported to openmpt (fixed sound issue)
+  * ported to SDL2 
+  * fixed warnings and multiples definitions (fixed to effect issues)
+  * added fullscreen with F key and resizable window
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Apr 2026 13:47:45 +0200
+
 schtroumpf2-by-knights (1.0+1-0ddebs5) unstable; urgency=medium
 
   * use xz compression until debian 13 is released

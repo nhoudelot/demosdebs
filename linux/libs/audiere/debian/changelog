@@ -1,3 +1,11 @@
+audiere (1.10.1-0ddebs13) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 26 Mar 2026 18:09:13 +0100
+
 audiere (1.10.1-0ddebs12) unstable; urgency=medium
 
   * use of dh-exec to reduce complexity of debian/ files

@@ -1,3 +1,16 @@
+antagonism-by-cyberneticgenetics (1.0+1-0ddebs7) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * patched to compile on Ubuntu 26.04
+  * fix some 64 bit portability issue with help from claude sonnet 4.6 
+  * ported to SDL2 with help from claude sonnet 4.6 
+  * added Fullscreen with F key and resizable window with help from claude sonnet 4.6 
+  * fixed visual artefacts (black screens and wrong particule size) with help from claude sonnet 4.6
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 18 Apr 2026 20:45:58 +0200
+
 antagonism-by-cyberneticgenetics (1.0+1-0ddebs6) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

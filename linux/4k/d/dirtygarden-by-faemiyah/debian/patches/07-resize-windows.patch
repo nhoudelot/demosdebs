@@ -1,0 +1,66 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-03-31
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.c
++++ b/src/main.c
+@@ -1111,6 +1111,8 @@
+ 
+ static SDL_Window *sdlWindow;
+ static SDL_GLContext sdlGlcontext;
++static int screen_w = SCREEN_W;
++static int screen_h = SCREEN_H;
+ 
+ /** \brief Draw the world.
+  *
+@@ -1247,7 +1249,22 @@
+ 
+ 	dlUseProgram(program_fbo);
+ 
+-	dlViewport(0, 0, SCREEN_W, SCREEN_H);
++	float target_ratio = (float)SCREEN_W / (float)SCREEN_H;
++    float window_ratio = (float)screen_w / (float)screen_h;
++    int vp_x = 0, vp_y = 0, vp_w = screen_w, vp_h = screen_h;
++    if(window_ratio > target_ratio)
++    {
++        // Fenêtre trop large : pillarbox
++        vp_w = (int)(screen_h * target_ratio);
++        vp_x = (screen_w - vp_w) / 2;
++    }
++    else
++    {
++        // Fenêtre trop haute : letterbox
++        vp_h = (int)(screen_w / target_ratio);
++        vp_y = (screen_h - vp_h) / 2;
++    }
++    dlViewport(vp_x, vp_y, vp_w, vp_h);
+ 	dlBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+ 
+ #if defined(DEV_MODE)
+@@ -1595,6 +1612,11 @@
+ 			// Abort on any keypress.
+ 			if(DDL_PollEvent(&event))
+ 			{
++				if(event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++				{
++					screen_w = event.window.data1;
++					screen_h = event.window.data2;
++				}
+ 				int key_multiplier = (event.type == SDL_KEYDOWN) ? 1 : -1;
+ 				switch(event.key.keysym.sym)
+ 				{
+@@ -1922,6 +1944,11 @@
+ 		// Abort on any keypress.
+ 		if(DDL_PollEvent(&event))
+ 		{
++			if(event.type == SDL_WINDOWEVENT &&  event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++			{
++				screen_w = event.window.data1;
++				screen_h = event.window.data2;
++			}
+ 			if(event.type == SDL_KEYDOWN)
+ 			{
+ 				break;

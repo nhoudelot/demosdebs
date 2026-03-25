@@ -1,0 +1,143 @@
+Description: fullscreen desktop, Fixed FBO, resizable window
+ Claude : All the scene is rendered in a 640x480 FBO (Original demo resolution).
+ At the end of each frame, the FBO is blitted to the default framebuffer using 
+ glBlitFramebuffer(), maintaining the 4:3 aspect ratio 
+ (black pillarbox/letterbox bars if necessary).
+ The glCopyTexSubImage2D() function of the "shine" effect reads from the linked 
+ FBO, so the visual behavior is identical to the original.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-13
+
+--- a/main.c
++++ b/main.c
+@@ -4,6 +4,7 @@
+ 
+ #include <SDL2/SDL.h>
+ #include <SDL2/SDL_opengl.h>
++#include <GL/glext.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <unistd.h>
+@@ -17,11 +18,13 @@
+ extern short *aanibuf;
+ extern int aanilen;
+ 
++#define FBO_W 640
++#define FBO_H 480
++
+ void ToggleFullscreen(SDL_Window* Window) {
+-	int FullscreenFlag = SDL_WINDOW_FULLSCREEN;
+-    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
+-    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
+-    SDL_ShowCursor(isFullscreen);
++	int isFullscreen = SDL_GetWindowFlags(Window) & SDL_WINDOW_FULLSCREEN_DESKTOP;
++	SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN_DESKTOP);
++	SDL_ShowCursor(isFullscreen);
+ }
+ 
+ int main(int argc, char *argv[])
+@@ -33,6 +36,8 @@
+ 	FILE *f;
+ 	SCENE s[4];
+ 	float str=0.01,angle=0,ff;
++	GLuint fbo, fbo_color, fbo_depth;
++	int win_w, win_h, dst_x, dst_y, dst_w, dst_h;
+ 
+ 	/* The script of the demo */
+ 	int monet[]={-1,-1, 0,2,0,2, -1,-1,-1,-1,-1, 1,1,3, 0,1,3,3,   -1};
+@@ -62,16 +67,39 @@
+ 
+ 	SDL_Window *window;
+ 
++	/* Profil compatibilité OpenGL 3.0 : FBO en core + legacy glBegin/End */
++	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
++	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
++	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
++
+ 	if(argc>=2 || argv[0][strlen(argv[0])-1]=='w') {
+-		window = SDL_CreateWindow("Emo Defect by The Fiture Crew",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,xs,ys,SDL_WINDOW_OPENGL);
++		window = SDL_CreateWindow("Emo Defect by The Fiture Crew",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,xs,ys,SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+ 		SDL_ShowCursor(1);
+ 	}
+ 	else {
+-		window = SDL_CreateWindow("Emo Defect by The Fiture Crew",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,xs,ys, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
++		window = SDL_CreateWindow("Emo Defect by The Fiture Crew",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,xs,ys, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN_DESKTOP);
+ 		SDL_ShowCursor(0);
+ 	}
+ 	SDL_GLContext glcontext = SDL_GL_CreateContext(window);
+ 
++	/* Création du FBO fixe 640x480 (résolution d'origine de la démo) */
++	glGenFramebuffers(1, &fbo);
++	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
++
++	glGenRenderbuffers(1, &fbo_color);
++	glBindRenderbuffer(GL_RENDERBUFFER, fbo_color);
++	glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, FBO_W, FBO_H);
++	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
++	                          GL_RENDERBUFFER, fbo_color);
++
++	glGenRenderbuffers(1, &fbo_depth);
++	glBindRenderbuffer(GL_RENDERBUFFER, fbo_depth);
++	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, FBO_W, FBO_H);
++	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
++	                          GL_RENDERBUFFER, fbo_depth);
++
++	glBindFramebuffer(GL_FRAMEBUFFER, 0);
++
+ 	load_dump(&s[0],"kuutio.dump");
+ 	load_dump(&s[1],"pallo.dump");
+ 	load_dump(&s[2],"piikit.dump");
+@@ -107,6 +135,9 @@
+ 				}
+ 			}
+ 		}
++		/* Rendu vers le FBO fixe — glCopyTexSubImage2D lit depuis ce FBO */
++		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
++		glViewport(0, 0, FBO_W, FBO_H);
+ 		modpos=mzx_position();
+ 
+ 		/* Blinking */
+@@ -320,6 +351,31 @@
+ 			glPopAttrib();
+ 		}
+ 
++		/* Blit FBO->framebuffer par défaut en conservant le ratio 4:3 */
++		SDL_GetWindowSize(window, &win_w, &win_h);
++		if (win_w * FBO_H >= win_h * FBO_W) {
++			/* Pillarbox : bandes noires a gauche et a droite */
++			dst_h = win_h;
++			dst_w = win_h * FBO_W / FBO_H;
++			dst_x = (win_w - dst_w) / 2;
++			dst_y = 0;
++		} else {
++			/* Letterbox : bandes noires en haut et en bas */
++			dst_w = win_w;
++			dst_h = win_w * FBO_H / FBO_W;
++			dst_x = 0;
++			dst_y = (win_h - dst_h) / 2;
++		}
++		glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo);
++		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
++		glViewport(0, 0, win_w, win_h);
++		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++		glClear(GL_COLOR_BUFFER_BIT);
++		glBlitFramebuffer(0, 0, FBO_W, FBO_H,
++		                  dst_x, dst_y, dst_x + dst_w, dst_y + dst_h,
++		                  GL_COLOR_BUFFER_BIT, GL_LINEAR);
++		glBindFramebuffer(GL_FRAMEBUFFER, 0);
++
+ 		SDL_GL_SwapWindow(window);
+ 
+ 		if(modpos>=1848)
+@@ -327,6 +383,9 @@
+ 	}
+ 
+ 	mzx_close();
++	glDeleteRenderbuffers(1, &fbo_depth);
++	glDeleteRenderbuffers(1, &fbo_color);
++	glDeleteFramebuffers(1, &fbo);
+ 	SDL_GL_DeleteContext(glcontext);
+ 	SDL_DestroyWindow(window);
+ 	SDL_Quit();

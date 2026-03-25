@@ -1,3 +1,14 @@
+onedaymiracle-by-fit (1.0+1-0ddebs12) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * patched to compile for Ubuntu 26.04
+  * fix 64 bit portability
+  * fix warnings
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Apr 2026 16:18:08 +0200
+
 onedaymiracle-by-fit (1.0+1-0ddebs11) unstable; urgency=medium
 
   * Fix incompatible pointer types

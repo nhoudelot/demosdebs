@@ -9,7 +9,7 @@ cherrycherrysquarewave-by-funnycurlycatcodefactory - the command to run Cherry C
 cherrycherrysquarewave-by-funnycurlycatcodefactory [*options*]
 
 # DESCRIPTION
-Cherry Cherry Square Wave is a demo released by Funny Curly Cat Code Factory in march 2019.
+Cherry Cherry Square Wave is a 4k intro released by Funny Curly Cat Code Factory in march 2019.
 4th combined intro at Instanssi 2019
 
 # OPTIONS

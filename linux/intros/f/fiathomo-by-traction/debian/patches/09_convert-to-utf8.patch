@@ -1,0 +1,441 @@
+Description: convert to utf8
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -54,7 +54,7 @@
+ #define DEMO_XASPECT 4.0f
+ #define DEMO_YASPECT 3.0f
+ Vector clearcolor;
+-int originalaika; //globaali, että näkyisi muuallekin.. 
++int originalaika; //globaali, ettÃ¤ nÃ¤kyisi muuallekin.. 
+ bool smoothflag=true;
+ bool runflag=false;
+ bool musicflag=true;
+@@ -151,10 +151,10 @@
+ 		const int efekti13ajat[] = {261300, 280000}; //ihminen
+ 		const int efekti14ajat[] = {278500, 299500}; //galaksi
+ 		const int introloppu = 300000;
+-		//**************ENGINEN INITIT TÄHÄN********************
++		//**************ENGINEN INITIT TÃ„HÃ„N********************
+ 		textures_init();
+ 		font_init();
+-		//***************EFEKTIEN INITIT TÄHÄN******************
++		//***************EFEKTIEN INITIT TÃ„HÃ„N******************
+ 		alku_init();
+ 		bigbang_init();
+ 		atomi_init();
+--- a/src/matikka.h
++++ b/src/matikka.h
+@@ -11,7 +11,7 @@
+ #define RAND_INT(l,h) (((int)(randFloat() * ((float)(h)-(l)+1))) + (l))
+ 
+ 
+-//kaivetaan projektiomatriisista tavarat, että voidaan piirtää billboardit
++//kaivetaan projektiomatriisista tavarat, ettÃ¤ voidaan piirtÃ¤Ã¤ billboardit
+ void antiRotate(Vector *x, Vector *y, Vector *z);
+ 
+ float catmullromValue(float t, float p1, float p2, float p3, float p4);
+@@ -20,7 +20,7 @@
+ Vector lerpVector(Vector v1, Vector v2, float t);
+ 
+ //pallokoordinaatistomuunnos
+-//radius = [0..ääretön], phi = [0..pii], theta = [0..2*pii]
++//radius = [0..Ã¤Ã¤retÃ¶n], phi = [0..pii], theta = [0..2*pii]
+ Vector sphereCoord(float radius, float phi, float theta);
+ 
+ 
+--- a/src/primitives.cpp
++++ b/src/primitives.cpp
+@@ -75,7 +75,7 @@
+ 	glVertex3fv((float *)&etuoikeaala);
+ 	glVertex3fv((float *)&takaoikeaala);
+ 	glVertex3fv((float *)&takavasenala);
+-	//yläpuoli
++	//ylÃ¤puoli
+ 	glVertex3fv((float *)&etuvasenyla);
+ 	glVertex3fv((float *)&etuoikeayla);
+ 	glVertex3fv((float *)&takaoikeayla);
+--- a/src/stuff.hpp
++++ b/src/stuff.hpp
+@@ -41,13 +41,13 @@
+ extern Vector clearcolor;
+ extern int originalaika;
+ 
+-//interpoloi, palauttaa 0 jos value1 < limit1, palauttaa 0..1 jos välissä, 1 jos menee yli
++//interpoloi, palauttaa 0 jos value1 < limit1, palauttaa 0..1 jos vÃ¤lissÃ¤, 1 jos menee yli
+ float calcPosInt(int value1, int limit1, int limit2);
+ 
+-//interpoloi, palauttaa 0 jos value1 < limit1, palauttaa 0..1 jos välissä, 1 jos menee yli
++//interpoloi, palauttaa 0 jos value1 < limit1, palauttaa 0..1 jos vÃ¤lissÃ¤, 1 jos menee yli
+ float calcPosFloat(float value1, float limit1, float limit2);
+ 
+-//saa maksimin puolivälissä (limit1+limit2)/2, multiplyllä kerrotaan, paluuarvo klipataan [0..1]
++//saa maksimin puolivÃ¤lissÃ¤ (limit1+limit2)/2, multiplyllÃ¤ kerrotaan, paluuarvo klipataan [0..1]
+ float calcSaturate(float value, float limit1, float limit2, float multiply);
+ 
+ const bool testaaPos(const int aika, const int ajat[]);
+--- a/src/vector.hpp
++++ b/src/vector.hpp
+@@ -47,7 +47,7 @@
+ 
+ 			float x, y, z;
+ 
+-			float a; // tämän ei pitäisi olla tässä! läst minute häk
++			float a; // tÃ¤mÃ¤n ei pitÃ¤isi olla tÃ¤ssÃ¤! lÃ¤st minute hÃ¤k
+ 		private:
+ 	};
+ 
+--- a/src/misc.hpp
++++ b/src/misc.hpp
+@@ -1,10 +1,10 @@
+ #ifndef _MISC_HPP_
+ #define _MISC_HPP_
+ 
+-// Täällä löytyy ne funktiot ja parametrit jotka pitää tehdä/asettaa itse kun default-libit
+-// ei ole käytössä
++// TÃ¤Ã¤llÃ¤ lÃ¶ytyy ne funktiot ja parametrit jotka pitÃ¤Ã¤ tehdÃ¤/asettaa itse kun default-libit
++// ei ole kÃ¤ytÃ¶ssÃ¤
+ //
+-// Poista alla oleva kommentista kun haluat linkittää pois default-libit
++// Poista alla oleva kommentista kun haluat linkittÃ¤Ã¤ pois default-libit
+ //#define _NODEFAULTLIBS_
+ #ifdef _NODEFAULTLIBS_
+ 
+@@ -17,7 +17,7 @@
+ 
+ void __cdecl operator delete(void* pv)
+ {
+-  // Alkuperäinen: --> GetProcessHead?? <-- virhe?? ei löydy ainakaan MSDN-dokumentaatiosta?
++  // AlkuperÃ¤inen: --> GetProcessHead?? <-- virhe?? ei lÃ¶ydy ainakaan MSDN-dokumentaatiosta?
+   if(pv)
+     HeapFree(GetProcessHeap(),0,pv);
+ }
+@@ -27,7 +27,7 @@
+   return 0;
+ }
+ 
+-extern "C" int _fltused=1;			// floatit käyttöön
++extern "C" int _fltused=1;			// floatit kÃ¤yttÃ¶Ã¶n
+ extern "C" int _ftol=1;				// float to long - tyyppi konversio
+ extern "C" int _ftoi=1;				// float to int - tyyppi konversio
+ 
+--- a/src/font.cpp
++++ b/src/font.cpp
+@@ -63,7 +63,7 @@
+ 	else if (!strcmp("plastic", string)) { return 16; }
+ 	else if (!strcmp("static",string)) { return 17; }
+ 	else if (!strcmp("hedelmae",string)) { return 18; }
+-	else if (!strcmp("ümlaut design",string)) { return 19; }
++	else if (!strcmp("Ã¼mlaut design",string)) { return 19; }
+ 	else if (!strcmp("neuro.concept",string)) { return 20; }
+ 	else if (!strcmp("Anna",string)) { return 21; }
+ 	else if (!strcmp("matt current",string)) { return 22; }
+--- a/src/Effects/amino.cpp
++++ b/src/Effects/amino.cpp
+@@ -17,7 +17,7 @@
+ 
+ 	Matrix kokomul;
+ 	kokomul.makeIdentity();
+-	//jos ei hyvällä niin sitten pahalla. . 
++	//jos ei hyvÃ¤llÃ¤ niin sitten pahalla. . 
+ 	kokomul.data[0][0] = koko;
+ 	kokomul.data[1][1] = koko;
+ 	kokomul.data[2][2] = koko;
+--- a/src/Effects/atomi.cpp
++++ b/src/Effects/atomi.cpp
+@@ -152,7 +152,7 @@
+ 		rotate.makeRotation(rotates[i][0], rotates[i][1], rotates[i][2]);
+ 		glBegin(GL_LINES);
+ 		const int strips = 256;
+-		//piirretään ympyrä ja rotatoidaan se, ja piirretään se sitten 
++		//piirretÃ¤Ã¤n ympyrÃ¤ ja rotatoidaan se, ja piirretÃ¤Ã¤n se sitten 
+ 		for (j=0;j<strips;j++)
+ 		{
+ 			const float kohta = 2*3.141592f*j / (float)(strips-1);
+@@ -188,7 +188,7 @@
+ 		const float scale = 0.1f;
+ 		billboard(electronpos, x, y, z, scale);
+ 	}
+-	//PIIRRETÄÄN YDIN TOISTAISEKSI WANHALLA TAVaLLA
++	//PIIRRETÃ„Ã„N YDIN TOISTAISEKSI WANHALLA TAVaLLA
+ 	glDisable(GL_TEXTURE_2D);
+ 
+ 	for (i=0;i<ydincount;i++)
+--- a/src/Effects/bigbang.cpp
++++ b/src/Effects/bigbang.cpp
+@@ -20,12 +20,12 @@
+ 
+ 	float kameraaika = (float)(aika*aika);
+ 
+-//	kamera.. liikkuu [0,0,6] lähelle tarkasteltavaa pistettä
++//	kamera.. liikkuu [0,0,6] lÃ¤helle tarkasteltavaa pistettÃ¤
+ 
+ 	//targetoitavan hitusen paikka
+ 	Vector targetpos = lerpVector(Vector(0,0,0), bigbang_end[targetindex], kameraaika);
+ 
+-	//kameran paikka liikkuu kohti targetoitavaa hitusta, mutta ei ihan lähelle.. 
++	//kameran paikka liikkuu kohti targetoitavaa hitusta, mutta ei ihan lÃ¤helle.. 
+ 	Vector camerapos = lerpVector(Vector(0,0,-6), targetpos + Vector(0.06f, 0.06f, 0.06f), kameraaika*aika*0.94f);
+ 
+ 
+--- a/src/Effects/dna.cpp
++++ b/src/Effects/dna.cpp
+@@ -68,7 +68,7 @@
+ 	offset = 0;
+ 	for (i=0;i<asti;i++)
+ 	{
+-		//välissä oleva sidos
++		//vÃ¤lissÃ¤ oleva sidos
+ 		Vector v1 = dnapoints[offset];
+ 		Vector v2 = dnapoints[offset+1];
+ 		Vector middle = (v1+v2)*0.5f;
+@@ -109,7 +109,7 @@
+ 		offset+=2;
+ 	}
+ 	glEnd();
+-	//ja niiden täytteet
++	//ja niiden tÃ¤ytteet
+ 	glColor4f(1,1,1,1);
+ 	glEnable(GL_DEPTH_TEST);
+ 
+@@ -137,9 +137,9 @@
+ void dna_init()
+ {
+ 	int i;
+-	const float dnatwist = 0.1f; //kuinka paljon käännytään per segmentti
+-	const float dnaradius = 1.0f; //kierteen läpimitta
+-	const float yadd = 0.1f; //näin paljon liikutaan eteenpäin per segmentti
++	const float dnatwist = 0.1f; //kuinka paljon kÃ¤Ã¤nnytÃ¤Ã¤n per segmentti
++	const float dnaradius = 1.0f; //kierteen lÃ¤pimitta
++	const float yadd = 0.1f; //nÃ¤in paljon liikutaan eteenpÃ¤in per segmentti
+ 
+ 	//kappale ja vastakappale
+ 	dnapoints = new Vector[dnasegments*2];
+@@ -148,7 +148,7 @@
+ 	dnastrip1 = new Vector[dnasegments*2];
+ 	dnastrip2 = new Vector[dnasegments*2];
+ 
+-	//kierre alkaa x-kohdasta 0, y ja z määräytyvät kohdan mukaan
++	//kierre alkaa x-kohdasta 0, y ja z mÃ¤Ã¤rÃ¤ytyvÃ¤t kohdan mukaan
+ 
+ 	float kulma = 0.0f;
+ 	float yvalue = 0.0f;
+@@ -159,7 +159,7 @@
+ 
+ 	for (i=0;i<dnasegments;i++)
+ 	{
+-		//pyöritetään suoraa tikkua y-akselin ympäri
++		//pyÃ¶ritetÃ¤Ã¤n suoraa tikkua y-akselin ympÃ¤ri
+ 		rotate.makeRotation(0, kulma, 0);
+ 		const float epsilon = 0.01f;
+ 		Vector reunapiste =  Vector( dnaradius, 0, 0)*rotate + Vector(0, yvalue, 0);
+--- a/src/Effects/galaksi.cpp
++++ b/src/Effects/galaksi.cpp
+@@ -27,7 +27,7 @@
+ "plastic", 
+ "static",
+ "hedelmae",
+-"ümlaut design",
++"Ã¼mlaut design",
+ "neuro.concept",
+ "Anna",
+ "matt current",
+@@ -49,7 +49,7 @@
+ 	1174, //plastic ok
+ 	1615, //static ok
+ 	1024, //hedelmae
+-	6097, //üd
++	6097, //Ã¼d
+ 	819,//neuro.concept
+ 	1422, //anna <3
+ 	1274, //matt current
+--- a/src/Effects/kukka.cpp
++++ b/src/Effects/kukka.cpp
+@@ -66,21 +66,21 @@
+ 	
+ 	glEnd();
+ 
+-	//terälehdet
++	//terÃ¤lehdet
+ 	for (i=0;i<teralehtia;i++)
+ 	{
+ 		const float petaladd = 2*3.141592f / teralehtia;
+ 		const float kulma = i*petaladd;
+-		//terälehden kärki
++		//terÃ¤lehden kÃ¤rki
+ 		Vector endpoint = Vector(teralehtipituus*(float)sin(kulma), korkeus, teralehtipituus*(float)cos(kulma))*kohta; 
+ 		Vector origo = Vector(0, 0, 0);
+ 
+-		//suuntavektorit bezier-käyrille
++		//suuntavektorit bezier-kÃ¤yrille
+ 		Vector sivu1 = Vector((float)sin(kulma-teralehtikulma), endpoint.y*0.5f, (float)cos(kulma-teralehtikulma))*teralehtipower*kohta;
+ 		Vector keskus = Vector((float)sin(kulma), endpoint.y*0.5f-teralehtikayristyma, (float)cos(kulma))*teralehtipower2*kohta;
+ 		Vector sivu2 = Vector((float)sin(kulma+teralehtikulma), endpoint.y*0.5f, (float)cos(kulma+teralehtikulma))*teralehtipower*kohta;
+ 
+-		//terälehden reunat. Bezier-käyrät keskeltä kärkeen suuntavektorin suuntaisesti
++		//terÃ¤lehden reunat. Bezier-kÃ¤yrÃ¤t keskeltÃ¤ kÃ¤rkeen suuntavektorin suuntaisesti
+ 		const int petalvertices = 10;
+ 		const float petalstep = 1.0f / (petalvertices-1);
+ 
+@@ -104,7 +104,7 @@
+ 			points2[j] = (curve3.getValue(j*petalstep)*petalvariation[i])*rotation;
+ 		}
+ 		glEnable(GL_BLEND);
+-		//terälehdet itse
++		//terÃ¤lehdet itse
+ 		
+ 		glColor4f(color.x, color.y, color.z, alpha*petalcolors[i]);
+ 		glBegin(GL_TRIANGLE_STRIP);
+@@ -122,7 +122,7 @@
+ 		}
+ 		glEnd();
+ 
+-		//terälehtien reunat
++		//terÃ¤lehtien reunat
+ 		glDisable(GL_BLEND);
+ 
+ 		glColor4f(1-alpha, 1-alpha, 1-alpha, alpha);
+--- a/src/Effects/life.cpp
++++ b/src/Effects/life.cpp
+@@ -172,7 +172,7 @@
+ 			}
+ 			else
+ 			{
+-				//syntymä
++				//syntymÃ¤
+ 				if (naapurit==3)
+ 					t2[index] = true;
+ 			}
+--- a/src/Effects/meduusa.cpp
++++ b/src/Effects/meduusa.cpp
+@@ -64,8 +64,8 @@
+ 	glTranslatef(m1pos.x, m1pos.y, m1pos.z);
+ 	glRotatef(aika*40, 0.89f, 0.5f, -1);
+ 
+-	//täytyy olla nolla luvuilla 0 ja 1, eli sin(i*3.141592f)
+-	//ykkönen luvulla 0.5f
++	//tÃ¤ytyy olla nolla luvuilla 0 ja 1, eli sin(i*3.141592f)
++	//ykkÃ¶nen luvulla 0.5f
+ 
+ 	drawmeduusa(Vector(0, 0, 0), Vector(0.5f, 0.2f, 0.6f), aika, alpha*zoomalpha*syncmodifier1);
+ 	glPopMatrix();
+@@ -144,7 +144,7 @@
+ 	const float height = 1.0f;
+ 	const Vector keskipiste(0, -height*0.5f, 0);
+ 
+-	//meduusa pyörähtää y-akselin ympäri
++	//meduusa pyÃ¶rÃ¤htÃ¤Ã¤ y-akselin ympÃ¤ri
+ 
+ 	for (i=0;i<reunastrips;i++)
+ 	{
+@@ -152,7 +152,7 @@
+ 		const float kohta = (i / (float)reunastrips);
+ 		const float mul = 0.8f+(float)(0.2*sin(kohta*3.141592f*1.2f)+0.01*cos(kohta*3.141592f*3+aika*65));
+ 
+-		//puoliympyrä
++		//puoliympyrÃ¤
+ 		const float ypos = kohta*height;
+ 		const float xpos = (float)pow(kohta*(float)(0.8f+0.1f*sin(aika*37)),0.4f+0.1f*(float)sin(aika*17))*(1.0f+0.2f*(float)cos(aika*24));
+ 		const float zpos = 0;
+@@ -163,7 +163,7 @@
+ 	Matrix rot;
+ 	for (i=0;i<palasia;i++)
+ 	{
+-		//pyöräytetään y-akselin ympäri
++		//pyÃ¶rÃ¤ytetÃ¤Ã¤n y-akselin ympÃ¤ri
+ 		const float pos = i / (float)palasia;
+ 		const float step = 1.0f / (float)palasia;
+ 		rot.makeRotation(0, pos*2*3.141592f, 0);
+@@ -176,7 +176,7 @@
+ 
+ 	for (i=0;i<lonkeroita;i++)
+ 	{
+-		//lähtöpiste
++		//lÃ¤htÃ¶piste
+ 		const float pos = i / (float)lonkeroita;
+ 		const float step = 1.0f / (float)lonkeroita;
+ 
+@@ -294,7 +294,7 @@
+ 	tikut = new Vector[tikkucount];
+ 	tikkurotations = new Vector[tikkucount];
+ 
+-	//m1 = keskellä
++	//m1 = keskellÃ¤
+ 	//m2 = vasen
+ 	//m3 = oikea
+ 
+--- a/src/Effects/meri.cpp
++++ b/src/Effects/meri.cpp
+@@ -105,7 +105,7 @@
+ 		glColor4f(0,0,0,alpha*0.8f*kalpha);
+ 		billboard(p, x, y, z, 0.04f);
+ 	}
+-	//korjataan seuraavaa framea/efektiä varten tämä
++	//korjataan seuraavaa framea/efektiÃ¤ varten tÃ¤mÃ¤
+ 	glLineWidth(1.0f);
+ 
+ }
+@@ -130,7 +130,7 @@
+ 		const float radius = randFloat()*maxradius;
+ 		merenpohjavertices[i] = Vector((float)sin(kulma)*radius, randFloat()*0.05f, (float)cos(kulma)*radius);
+ 
+-		//nollataan nämä tässä
++		//nollataan nÃ¤mÃ¤ tÃ¤ssÃ¤
+ 		merenpohjaindices[i*2] = 0;
+ 		merenpohjaindices[i*2+1] = 0;
+ 	}
+@@ -179,7 +179,7 @@
+ 				dist = etaisyys;
+ 			}
+ 		}
+-		//viiva lähimpään toiseen pisteeseen
++		//viiva lÃ¤himpÃ¤Ã¤n toiseen pisteeseen
+ 		merenpohjaindices[(i<<1)] = i;
+ 		merenpohjaindices[(i<<1)+1] = indeksi;
+ 	}
+--- a/src/Effects/molekyyli.cpp
++++ b/src/Effects/molekyyli.cpp
+@@ -44,7 +44,7 @@
+ 		glColor4f(0, 0, 0, alpha*frac);
+ 		billboard(notfinishedpos, x, y, z, 0.05f);
+ 
+-		//piirretään valmiit
++		//piirretÃ¤Ã¤n valmiit
+ 		glColor4f(0, 0, 0, alpha);
+ 		for (j=0;j<raja;j++)
+ 		{
+@@ -60,7 +60,7 @@
+ 		int raja = (int)(aika*kasvustonkoot[i]);
+ 		float frac = aika*kasvustonkoot[i] - raja;
+ 
+-		//eivielävalmis.. <- eikö vai? :-)
++		//eivielÃ¤valmis.. <- eikÃ¶ vai? :-)
+ 		glBegin(GL_LINES);
+ 		if (raja > 0)
+ 		{
+--- a/src/Effects/ranta.cpp
++++ b/src/Effects/ranta.cpp
+@@ -393,7 +393,7 @@
+ 	glEnable(GL_DEPTH_TEST);
+ 	glDepthMask(0);
+ 
+-	//neljä kolmiota
++	//neljÃ¤ kolmiota
+ 
+ 	const float beamheight = 4.8f;
+ 	const float width = 0.15f;
+--- a/src/Effects/solut.cpp
++++ b/src/Effects/solut.cpp
+@@ -50,7 +50,7 @@
+ 			const float kohta = j / (float)(solustrips-1);
+ //			const float ikohta = i / (float)(solucount-1);
+ 
+-			//sisustan täytyy olla 2*pi jaollinen...
++			//sisustan tÃ¤ytyy olla 2*pi jaollinen...
+ 			const float anglevalue = 2*kohta + 6*ikohta;
+ //			const float rotation = aika*(float)sin(ikohta*17)*7;
+ 			soluoutline[j] = 1.0f + 0.3f*(float)sin(anglevalue*2*3.141592f + rotation);

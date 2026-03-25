@@ -12,7 +12,7 @@ Build-Depends:
  libpulse-dev,
  libxi-dev,
  libasound2-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage:https://www.pouet.net/prod.php?which=82674
 
 Package: nextlevel-by-pixdigit

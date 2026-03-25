@@ -32,6 +32,13 @@ Juippi [Music]
 \-h [ --help ] 
 :    Print help text.
 
+# KEYS
+ESC
+:	to quit
+
+F
+:	toggle fullscreen
+
 # INFOS
 https://www.pouet.net/prod.php?which=66046
 

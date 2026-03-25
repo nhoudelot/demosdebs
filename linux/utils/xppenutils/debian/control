@@ -12,7 +12,7 @@ Build-Depends:
  libxrandr-dev,
  libxinerama-dev,
  libxtst-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.xp-pen.fr/download/index
 Rules-Requires-Root: no
 

@@ -1,3 +1,14 @@
+flawed-by-adinpsz (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * added fullscreen with F key
+  * resizable window with aspect ratio
+  * ported to SDL2_Mixer
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 21 Apr 2026 01:58:47 +0200
+
 flawed-by-adinpsz (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

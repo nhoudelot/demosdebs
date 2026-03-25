@@ -38,18 +38,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  // Regular AmigaDOS CLI arguments template for ReadArgs()
  #define PROG_ARG_TEMPLATE "FROM/A,A=SIDEA/S,B=SIDEB/S,TO,CAPS=IPF/S,SUPERCARDPRO=SCP/S,HXC=HFE/S,EXTENDEDDSK=EDSK/S,QUIET/S"
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -7,9 +7,6 @@
- set (CMAKE_INSTALL_PREFIX ${SugarConvDsk_BINARY_DIR}/Install)
- set (SKIP_INSTALL_ALL ON)
- 
--add_subdirectory(zlib)
- add_subdirectory(SugarConvDsk)
--add_subdirectory(googletest/googletest)
--add_subdirectory(Tests)
- 
- 
 --- a/Tests/test.cpp
 +++ b/Tests/test.cpp
 @@ -7,14 +7,12 @@

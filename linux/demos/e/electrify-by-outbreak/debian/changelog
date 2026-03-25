@@ -1,3 +1,11 @@
+electrify-by-outbreak (1.0-0ddebs12) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 20 Apr 2026 12:37:48 +0200
+
 electrify-by-outbreak (1.0-0ddebs11) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

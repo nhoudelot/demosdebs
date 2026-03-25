@@ -1,0 +1,168 @@
+Description: Corrige la lecture du format XPK sur les systèmes 64 bits
+ Le format XPK de 2005 stocke toutes ses tailles sur 32 bits. Le code
+ original utilisait uLongf (typedef zlib) qui vaut 8 octets sur les
+ architectures 64 bits modernes. Cela provoquait un fseek vers un offset
+ de plusieurs téraoctets suivi d'une boucle infinie de lecture (fread
+ renvoyant 0 à cause de l'EOF). Toutes les lectures du format fichier sont
+ maintenant faites avec uint32_t. Le bug supplémentaire passant l'adresse
+ de m_csizes[n] à uncompress() au lieu de sa valeur est également corrigé.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/ds/io/loaders/read_xpk.cpp
++++ b/ds/io/loaders/read_xpk.cpp
+@@ -66,8 +66,8 @@
+ 		delete pTemp;
+ 	}
+ 
+-	// Read total amount of compressed data
+-	fread(&m_ctotal, sizeof(uLongf), 1, pXf);
++	// Read total amount of compressed data (format 32 bits, indépendant de l'ABI)
++	fread(&m_ctotal, sizeof(uint32_t), 1, pXf);
+ 
+ #ifdef macosx
+ 	#if BYTE_ORDER == BIG_ENDIAN
+@@ -76,11 +76,11 @@
+ #endif
+ 
+ 	// Skip the compressed data
+-	fseek(pXf, m_loc + sizeof(uLongf) + m_ctotal, SEEK_SET);
++	fseek(pXf, m_loc + sizeof(uint32_t) + m_ctotal, SEEK_SET);
+ 
+ 	// Read number of files
+-	uLongf nfiles;
+-	fread(&nfiles, sizeof(uLongf), 1, pXf);
++	uint32_t nfiles;
++	fread(&nfiles, sizeof(uint32_t), 1, pXf);
+ 
+ #ifdef macosx
+ 	#if BYTE_ORDER == BIG_ENDIAN
+@@ -90,14 +90,15 @@
+ 
+ 	// Read filenames, real and compressed sizes
+ 	string name = "";
+-	for(uLongf i = 0; i < nfiles; i++)
++	for(uint32_t i = 0; i < nfiles; i++)
+ 	{
+ 		// Read filename
+ 		char buf[1];
+ 		name = "";
+ 		for(;;)
+ 		{
+-			fread(buf, 1, 1, pXf);
++			if(fread(buf, 1, 1, pXf) != 1)
++				break;
+ 			if(buf[0] == '$')
+ 				break;
+ 			else
+@@ -106,10 +107,10 @@
+ 
+ 		m_FileNames.push_back(name);
+ 
+-		// Read real and compressed size
+-		uLongf rsize, csize;
+-		fread(&rsize, sizeof(uLongf), 1, pXf);
+-		fread(&csize, sizeof(uLongf), 1, pXf);
++		// Read real and compressed size (format 32 bits)
++		uint32_t rsize, csize;
++		fread(&rsize, sizeof(uint32_t), 1, pXf);
++		fread(&csize, sizeof(uint32_t), 1, pXf);
+ 
+ #ifdef macosx
+ 	#if BYTE_ORDER == BIG_ENDIAN
+@@ -148,22 +149,23 @@
+ 		throw Exception(fn, "Can't open archive " + m_archive + ".");
+ 
+ 	// Add sizes of all previous files
+-	uLongf filepos = 0;
++	uint32_t filepos = 0;
+ 	for(int i = 0; i < number; i++)
+ 		filepos += m_csizes[i];
+ 
+ 	// Seek to the file we want
+-	fseek(pXf, m_loc + sizeof(uLongf) + filepos, SEEK_SET);
++	fseek(pXf, m_loc + sizeof(uint32_t) + filepos, SEEK_SET);
+ 
+ 	// Read file
+ 	Bytef* pC = new Bytef[m_csizes[number]];
+ 	fread(pC, m_csizes[number], 1, pXf);
+ 	fclose(pXf);
+ 
+-	// Uncompress data
++	// Uncompress data (uLongf intermédiaire requis par l'API zlib)
+ 	char* pData = new char[m_rsizes[number]];
+-	uncompress((Bytef*)pData, &m_rsizes[number], pC, (uLong)&m_csizes[number]);
+-	MemFile* pMemFile = new MemFile(pData, m_rsizes[number]);
++	uLongf destLen = m_rsizes[number];
++	uncompress((Bytef*)pData, &destLen, pC, (uLong)m_csizes[number]);
++	MemFile* pMemFile = new MemFile(pData, (long)destLen);
+ 
+ 	// Cleanup and save data
+ 	delete pC;
+--- a/ds/io/loaders/read_xpk.h
++++ b/ds/io/loaders/read_xpk.h
+@@ -29,10 +29,10 @@
+ void Init();
+ void Read(const char* pFile);
+ private:
+-std::vector<uLongf> m_rsizes;
+-std::vector<uLongf> m_csizes;
++std::vector<uint32_t> m_rsizes;
++std::vector<uint32_t> m_csizes;
+ std::string m_archive;
+-uLongf m_ctotal;
++uint32_t m_ctotal;
+ long m_loc;
+ };
+ }
+--- a/ds/utils/xmlparser.cpp
++++ b/ds/utils/xmlparser.cpp
+@@ -122,8 +122,8 @@
+ 		if(pData[i] == '\n')
+ 		{
+ 			// Fix the "\n" linebreaks
+-			unsigned int lbegin = 0;
+-			unsigned int lend = 0;
++			size_t lbegin = 0;
++			size_t lend = 0;
+ 			string out;
+ 			for(;;)
+ 			{
+@@ -148,7 +148,7 @@
+ 
+ 	// Look for XML header
+ 	m_currentline = 0;
+-	unsigned int loc = m_lines[m_currentline].find("<?");
++	size_t loc = m_lines[m_currentline].find("<?");
+ 	if(loc == string::npos)
+ 		throw Exception(fn, "No XML header.");
+ 
+@@ -164,12 +164,12 @@
+ 	XMLElement* pElement = new XMLElement(m_currentline+1);
+ 
+ 	// Look for begin tag
+-	unsigned int l0 = m_lines[m_currentline].find("<");
++	size_t l0 = m_lines[m_currentline].find("<");
+ 	if(l0 == string::npos)
+ 		throw Exception(fn, "\"<\" expected at line " + itoa(m_currentline+1) + ".");
+ 
+ 	// Look for element value
+-	unsigned int l1 = m_lines[m_currentline].find_first_of(" ", l0);
++	size_t l1 = m_lines[m_currentline].find_first_of(" ", l0);
+ 	if(l1 == string::npos)
+ 		throw Exception(fn, "space expected after element value at line " + itoa(m_currentline+1) + ".");
+ 
+--- a/ds/scriptparser.cpp
++++ b/ds/scriptparser.cpp
+@@ -204,7 +204,7 @@
+ 	{
+ 		// Translate binds
+ 		string current = bindindex[i];
+-		unsigned int loc = str.find(current);
++		size_t loc = str.find(current);
+ 		if(loc != string::npos)
+ 		{
+ 			str = str.substr(0, loc) + pBindMap->Get(current.c_str()) +

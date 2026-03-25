@@ -1,0 +1,53 @@
+Description: added fullscreen key
+ added fullscreen function, to go fullscreen and back, with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-03-31
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/main.c
++++ b/src/main.c
+@@ -1114,6 +1114,22 @@
+ static int screen_w = SCREEN_W;
+ static int screen_h = SCREEN_H;
+ 
++static void toggle_fullscreen(void)
++{
++    Uint32 flags = SDL_GetWindowFlags(sdlWindow);
++    if(flags & (SDL_WINDOW_FULLSCREEN | SDL_WINDOW_FULLSCREEN_DESKTOP))
++    {
++        SDL_SetWindowFullscreen(sdlWindow, 0);
++        SDL_ShowCursor(SDL_ENABLE);
++    }
++    else
++    {
++        SDL_SetWindowFullscreen(sdlWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
++        SDL_ShowCursor(SDL_DISABLE);
++    }
++    SDL_GL_GetDrawableSize(sdlWindow, &screen_w, &screen_h);
++}
++
+ /** \brief Draw the world.
+  *
+  * @param ms Milliseconds.
+@@ -1951,7 +1967,19 @@
+ 			}
+ 			if(event.type == SDL_KEYDOWN)
+ 			{
+-				break;
++				if(event.key.keysym.sym == SDLK_f)
++				{
++				    toggle_fullscreen();
++				}
++				else
++				{
++				    break;
++				}
++			}
++			if(event.type == SDL_WINDOWEVENT &&
++			   event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++			{
++				SDL_GL_GetDrawableSize(sdlWindow, &screen_w, &screen_h);
+ 			}
+ 		}
+ #endif

@@ -1,0 +1,18 @@
+Description: some compatibility fixes for SDL2
+ - use AUDIO_S16SYS instead of AUDIO_S16 for compatibility with BigEndian systems
+ - aded SDL_GL_SetSwapInterval(1); to have VSync
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/scalemark.c
++++ b/scalemark.c
+@@ -453,6 +453,7 @@
+ 	);
+ 
+ 	SDL_GL_CreateContext(mainwindow);
++	SDL_GL_SetSwapInterval(1);
+ 
+ 	static SDL_AudioSpec desired = {
+ 		.freq = SAMPLE_RATE,

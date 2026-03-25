@@ -6,12 +6,12 @@ Last-Update: 2020-04-25
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,11 +1,33 @@
+@@ -1,11 +1,31 @@
 -SRCS = main.c
 +#variables de compilation
 +SHELL = /bin/sh
-+CC   := gcc
-+PKG_CONFIG:=pkg-config
++CC   ?= gcc
++PKG_CONFIG ?= pkg-config
 +CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu gl)
 +LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
 +TARGET   := fab-by-tharsis
@@ -32,13 +32,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -main: $(SRCS:.c=.o)
 -	$(CC) -o $@ $< $(LDFLAGS)
 -	cat $(SRCS) | tr -d " \n\t" | wc -c
-+export
++all: $(TARGET)
  
 -syn: syn.o
 -	$(CC) -o $@ $< $(LDFLAGS)
-+all: $(TARGET)
-+
-+$(TARGET):
++$(TARGET): $(SOURCE)
 +	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)

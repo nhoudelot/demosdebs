@@ -1,0 +1,30 @@
+Description: make window resizable
+ make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/intro_c.c
++++ b/intro_c.c
+@@ -706,7 +706,7 @@
+     Uint32 wflags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
+     SDL_ShowCursor(SDL_DISABLE);
+ #else
+-    Uint32 wflags = SDL_WINDOW_OPENGL;
++    Uint32 wflags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
+ #endif
+ 	SDL_Window *sdlWindow;
+ 	SDL_GLContext sdlGlcontext;
+@@ -748,6 +748,11 @@
+ 		        case SDLK_f: ToggleFullscreen(sdlWindow); break;
+ 		    }
+ 		}
++		if (e.type == SDL_WINDOWEVENT &&
++            (e.window.event == SDL_WINDOWEVENT_RESIZED ||
++             e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
++            SetViewport(sdlWindow);
++        }
+ 		introPaint();
+ 
+ #ifdef CAPTURE

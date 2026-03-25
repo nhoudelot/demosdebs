@@ -15,7 +15,7 @@ Build-Depends:
  libboost-thread-dev,
  libboost-wave-dev,
  sox
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=75218
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2018-03_4k-intro_adarkar_wastes
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2018-03_4k-intro_adarkar_wastes.git
@@ -28,7 +28,7 @@ Depends:
  ${misc:Depends},
  adarkarwastes-by-faemiyah-data
 Description: 4k intro by Faemiyah, released in 2018
- Demo by Faemiyah, 1st combined 4k at Instanssi 2018
+ 4k intro by Faemiyah, 1st combined 4k at Instanssi 2018
 
 Package: adarkarwastes-by-faemiyah-data
 Architecture: all

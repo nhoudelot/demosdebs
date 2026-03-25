@@ -1,3 +1,9 @@
+libmt32emu (2.7.2-0ddebs2) unstable; urgency=medium
+
+  * recompile for ubuntu 26.04
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 18:09:51 +0100
+
 libmt32emu (2.7.2-0ddebs1) unstable; urgency=medium
 
   * Initial release.

@@ -7,6 +7,15 @@ Last-Update: 2024-03-27
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/syna.c
 +++ b/syna.c
+@@ -153,7 +153,7 @@
+ 		if(rows[i][0]=='#')
+ 			continue;
+ 
+-		if(key=strtok(rows[i],":"))
++		if((key=strtok(rows[i],":")))
+ 		{
+ 			if(!strcmp(key,"bpm"))
+ 			{
 @@ -166,6 +166,7 @@
  				/* Get instrument number and wave form */
  				tmp=atoi(&key[1]);
@@ -15,3 +24,29 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  				tnp=strtok(NULL,",");
  				if(!strcmp(tnp,"kantti"))
  					wave=0;
+@@ -185,13 +186,13 @@
+ 				instr[tmp]=malloc(len[tmp]*sizeof(float));
+ 
+ 				mod=atoi(strtok(NULL,","));
+-				if(tnp=strtok(NULL,","))
++				if((tnp=strtok(NULL,",")))
+ 					sweep=atoi(tnp);
+ 				else
+ 					sweep=0;
+-				if(tnp=strtok(NULL,","))
++				if((tnp=strtok(NULL,",")))
+ 					pan[tmp]=(float)atoi(tnp)/100.0;
+-				if(tnp=strtok(NULL,","))
++				if((tnp=strtok(NULL,",")))
+ 					pola[tmp]=(float)atoi(tnp)/100.0;
+ 
+ 				adsr(a,d,s,r,mod,sweep,tmp,wave);
+@@ -284,7 +285,7 @@
+ 				}
+ 				if(ti[i]!=END)
+ 				{
+-					if(note=ptn[trak[i][ti[i]]][pi[i]])
++					if((note=ptn[trak[i][ti[i]]][pi[i]]))
+ 					{
+ 						switch(note)
+ 						{

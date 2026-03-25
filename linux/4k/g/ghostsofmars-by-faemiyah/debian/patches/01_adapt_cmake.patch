@@ -7,23 +7,31 @@ Last-Update: 2020-04-25
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -1,5 +1,6 @@
+@@ -1,25 +1,25 @@
 -cmake_minimum_required(VERSION 2.8)
-+cmake_minimum_required(VERSION 3.5)
++cmake_minimum_required(VERSION 3.16)
  set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+-project(ghosts_of_mars)
 +set(THREADS_PREFER_PTHREAD_FLAG ON)
- project(ghosts_of_mars)
  
- enable_language(C)
-@@ -8,11 +9,11 @@
+-enable_language(C)
+-enable_language(CXX)
++project(ghosts_of_mars LANGUAGES C CXX)
+ 
++set(CMAKE_CXX_STANDARD 17)
++set(CMAKE_CXX_STANDARD_REQUIRED ON)
++set(CMAKE_CXX_EXTENSIONS OFF)
++set(CMAKE_C_STANDARD 11)
++set(CMAKE_C_STANDARD_REQUIRED ON)
  include("defaults.cmake")
  
- find_boost("filesystem" "program_options" "system" "thread" "wave")
+-find_boost("filesystem" "program_options" "system" "thread" "wave")
 -find_glew()
 -find_opengl()
 -find_png()
 -find_sdl2()
 -find_threads()
++find_package(Boost 1.74.0 CONFIG REQUIRED COMPONENTS filesystem program_options thread wave)
 +find_package(GLEW REQUIRED)
 +find_package(OpenGL REQUIRED)
 +find_package(PNG REQUIRED)
@@ -32,17 +40,49 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  output_flags("DEBUG" on)
  
-@@ -47,8 +48,9 @@
-   target_link_libraries(ghosts_of_mars "${BOOST_SYSTEM_LIBRARY}")
-   target_link_libraries(ghosts_of_mars "${BOOST_THREAD_LIBRARY}")
-   target_link_libraries(ghosts_of_mars "${BOOST_WAVE_LIBRARY}")
+-add_definitions(-DUSE_LD)
+-
+-include_directories("${PROJECT_SOURCE_DIR}/src")
+-
+ add_executable(ghosts_of_mars
+   "src/bsd_rand.c"
+   "src/bsd_rand.h"
+@@ -34,21 +34,22 @@
+   "src/intro.cpp"
+   "src/intro.hpp"
+   "src/main.cpp")
++
++target_compile_definitions(ghosts_of_mars PRIVATE USE_LD)
++target_include_directories(ghosts_of_mars PRIVATE "${PROJECT_SOURCE_DIR}/src")
++
+ if(MSVC)
+-  target_link_libraries(ghosts_of_mars "WINMM")
+-  target_link_libraries(ghosts_of_mars ${OPENGL_gl_LIBRARY})
+-  target_link_libraries(ghosts_of_mars debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
+-else()
+-  target_link_libraries(ghosts_of_mars "${BOOST_FILESYSTEM_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars "${BOOST_SYSTEM_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars "${BOOST_THREAD_LIBRARY}")
+-  target_link_libraries(ghosts_of_mars "${BOOST_WAVE_LIBRARY}")
 -  target_link_libraries(ghosts_of_mars "${GLEW_LIBRARY}")
 -  target_link_libraries(ghosts_of_mars "${PNG_LIBRARY}")
 -  target_link_libraries(ghosts_of_mars "${SDL2_LIBRARY}")
-+  target_link_libraries(ghosts_of_mars "${OPENGL_LIBRARIES}")
-+  target_link_libraries(ghosts_of_mars "${GLEW_LIBRARIES}")
-+  target_link_libraries(ghosts_of_mars "${PNG_LIBRARIES}")
-+  target_link_libraries(ghosts_of_mars "${SDL2_LIBRARIES}")
++  target_link_libraries(regiondemagallanes-by-faemiyah PRIVATE Winmm)
  endif()
 -target_link_libraries(ghosts_of_mars "${THREADS_LIBRARY}")
-+target_link_libraries(ghosts_of_mars "${THREADS_LIBRARIES}")
++
++target_link_libraries(ghosts_of_mars PRIVATE
++	Boost::filesystem
++	Boost::program_options
++	Boost::thread
++	Boost::wave
++	OpenGL::GL
++	GLEW::GLEW
++	PNG::PNG
++	SDL2::SDL2
++	Threads::Threads
++)

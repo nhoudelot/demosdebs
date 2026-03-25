@@ -7,7 +7,7 @@ Last-Update: 2025-01-17
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/cool_mzx/cool_mzx.c
 +++ b/cool_mzx/cool_mzx.c
-@@ -135,7 +135,7 @@
+@@ -136,7 +136,7 @@
  		aikaa_siita_kun_viimeksi_tavattu[sanbale]++;
  }
  
@@ -16,7 +16,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  {
  	if(!laite)
  	{
-@@ -216,7 +216,7 @@
+@@ -217,7 +217,7 @@
  {
  	static int ny=0,luku=0,off;
  
@@ -25,7 +25,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  	if(laite==1)
  	{
-@@ -260,7 +260,7 @@
+@@ -261,7 +261,7 @@
  		{
  			pt_play();
  			update_sample_trig_times();
@@ -34,7 +34,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  			off+=44100/screenHz;
  		}
  
-@@ -271,7 +271,7 @@
+@@ -272,7 +272,7 @@
  			luku=len-off;
  			pt_play();
  			update_sample_trig_times();

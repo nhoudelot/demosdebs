@@ -115,7 +115,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -
 -  if( SDL_OpenAudio( &wanted, NULL ) < 0 )
 +  device = SDL_OpenAudioDevice(NULL, 0, &wanted, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
-+  if( device == NULL )
++  if( device == 0 )
    {
  #ifdef __XBOX__
      debugPrint("SDL says: %s\n", SDL_GetError() );

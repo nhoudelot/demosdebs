@@ -8,13 +8,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -4,8 +4,8 @@
- CC    := gcc
+ CC    ?= gcc
  # Try -Os -O1 -O2 -O3
- PKG_CONFIG:=pkg-config
+ PKG_CONFIG ?= pkg-config
 -CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl gl )
--LDFLAGS += -Wl,--allow-multiple-definition $(shell $(PKG_CONFIG) --libs sdl gl ) -lm
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl gl ) -lm
 +CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl2 gl )
-+LDFLAGS += -Wl,--allow-multiple-definition $(shell $(PKG_CONFIG) --libs sdl2 gl ) -lm
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl ) -lm
  TARGET := derivations-by-zipola
  
  #variables d’installation
@@ -40,7 +40,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	exit(0);
 --- a/gfx.c
 +++ b/gfx.c
-@@ -5,8 +5,8 @@
+@@ -5,11 +5,14 @@
   */
  
  #include <math.h>
@@ -51,7 +51,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #include "gfx.h"
  
-@@ -234,11 +234,10 @@
++SDL_Window *sdlWindow;
++SDL_GLContext sdlGlcontext;
++
+ float randf()
+ {
+ 	return (float)rand()/(float)RAND_MAX - 0.5;
+@@ -234,11 +237,10 @@
   */
  void init_gfx()
  {
@@ -138,7 +144,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  static boid boid_array[N_BOIDS];
  
-+SDL_Window *sdlWindow;
-+SDL_GLContext sdlGlcontext;
++extern SDL_Window *sdlWindow;
++extern SDL_GLContext sdlGlcontext;
 +
  #endif

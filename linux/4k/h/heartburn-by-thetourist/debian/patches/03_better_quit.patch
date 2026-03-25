@@ -16,7 +16,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #ifdef __linux__
  
-@@ -598,7 +599,7 @@
+@@ -599,7 +600,7 @@
  	SDL_PauseAudio( 0 );
  #endif
  	SDL_Event event;
@@ -25,7 +25,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		int d = SDL_GetTicks( ) - timeCurrent;
  
  #ifdef HAS_MUSIC
-@@ -646,8 +647,14 @@
+@@ -647,8 +648,14 @@
  		display( );
  
  		SDL_GL_SwapWindow(sdlWindow);
@@ -40,5 +40,5 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +		}
 +	}
  
- 	SDL_Quit( );
  	SDL_GL_DeleteContext(sdlGlcontext);
+ 	SDL_DestroyWindow(sdlWindow);

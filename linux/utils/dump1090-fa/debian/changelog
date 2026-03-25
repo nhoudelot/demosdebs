@@ -1,3 +1,12 @@
+dump1090-fa (10.2-0ddebs2) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * fix charset
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 Mar 2026 19:10:23 +0100
+
 dump1090-fa (10.2-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

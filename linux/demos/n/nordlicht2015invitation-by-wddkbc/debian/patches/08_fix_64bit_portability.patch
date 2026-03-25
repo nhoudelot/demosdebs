@@ -1,0 +1,150 @@
+Description: fix 64-bit portability issues
+ - Use uint32_t for the LCG seed (was unsigned long: 32-bit on Windows LLP64,
+   64-bit on Linux LP64) and matching 32-bit unsigned constants, so the random
+   sequence is deterministic and correct on all platforms.
+ - Replace %u with %zu for size_t arguments to ERR/LOG, and %d for int
+   arguments that were mistakenly passed to %u.
+ - Use size_t loop variables when iterating over size_t-returning getCount()
+   / .size(), eliminating signed/unsigned width mismatches.
+ - Use size_t for ObjLoader::range_t members (was int) and for range_start,
+   silencing implicit-narrowing conversions from size_t.
+ - Add explicit cast for ftell() → size_t assignment.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/k.i.t.t.cpp
++++ b/k.i.t.t.cpp
+@@ -2,7 +2,7 @@
+ #include "scenes.h"
+ 
+ Demo demo(1, 1, 1.0f);
+-unsigned long seed = 1;
++uint32_t seed = 1;
+ 
+ Fbo *gFullScreenFbo;
+ Music *gMusic;
+@@ -157,7 +157,7 @@
+ 		ERR("open failed: %s\n", strerror(errno));
+ 
+ 	fseek(f, 0, SEEK_END);
+-	size_t fsize = ftell(f);
++	size_t fsize = (size_t)ftell(f);
+ 	fseek(f, 0, SEEK_SET);
+ 
+ 	size = fsize + (loadAsString ? 1 : 0);
+@@ -442,7 +442,7 @@
+ 	addVert(v1, t1, n1); addVert(v2, t2, n2); addVert(v3, t3, n3);
+ 
+ 	int lineno = 0;
+-	int range_start = 0;
++	size_t range_start = 0;
+ 	char str[1000], mtl[100];
+ 	while (fgets(str, sizeof(str), f)) {
+ 		lineno++;
+@@ -507,7 +507,7 @@
+ 	if (colors.size() && colors.size() != verts.size() ||
+ 		uvs.size() && uvs.size() != verts.size() ||
+ 		normals.size() && normals.size() != verts.size())
+-		ERR("OBJ count mismatch - %u verts, %u colors, %u uvs, %u normals\n",
++		ERR("OBJ count mismatch - %zu verts, %zu colors, %zu uvs, %zu normals\n",
+ 		verts.size(), colors.size(), uvs.size(), normals.size());
+ 
+ 	fclose(f);
+@@ -711,5 +711,5 @@
+ void loadEnd()
+ {
+ 	isLoading = false;
+-	LOG("got %u progress calls\n", numProgressCalls);
++	LOG("got %d progress calls\n", numProgressCalls);
+ }
+--- a/k.i.t.t.h
++++ b/k.i.t.t.h
+@@ -70,16 +70,16 @@
+ 
+ const float PI = 3.14159265358979323846f;
+ 
+-extern unsigned long seed;
++extern uint32_t seed;
+ 
+ static void skrand(unsigned int s)
+ {
+-	seed = s;
++	seed = (uint32_t)s;
+ }
+ 
+ static inline int krand()
+ {
+-	seed = seed * 214013L + 2531011L;
++	seed = seed * 214013U + 2531011U;
+ 	return ((seed >> 16) & 0x7fff);
+ }
+ 
+@@ -356,7 +356,7 @@
+ 	typedef std::vector<vec2> uv_t;
+ 	typedef std::vector<vec3> normal_t;
+ 
+-	typedef struct { int start, count; } range_t;
++	typedef struct { size_t start, count; } range_t;
+ 	typedef std::vector<range_t> ranges_t;
+ 
+ 	vert_t verts;
+--- a/scn-ink.cpp
++++ b/scn-ink.cpp
+@@ -92,7 +92,7 @@
+ 	}
+ 	}
+ 
+-	for (unsigned i = 0; i < children.size(); i++)
++	for (size_t i = 0; i < children.size(); i++)
+ 		children[i]->draw(type, end, ssize, time, fade);
+ }
+ 
+@@ -249,7 +249,7 @@
+ 
+ 	for (int i = 0; i < NUM_TEXTS; i++) {
+ 		char fname[100];
+-		sprintf(fname, "data/ink/text%u.png", i + 1);
++		sprintf(fname, "data/ink/text%d.png", i + 1);
+ 		tTexts[i] = new Texture(fname);
+ 	}
+ 	for (int i = 0; i < NUM_BLOTS; i++)
+--- a/scn-park.cpp
++++ b/scn-park.cpp
+@@ -28,7 +28,7 @@
+ 	sPark[0] = sPark[1] = sPark[2] = sPark[3] = sPark[4] = sDrawFlat;
+ 
+ 	/* I couldn't use blender if my life depended on it, so I just fix up the inkblot UVs in code >.> */
+-	for (unsigned i = 0; i < oInkBlotOverlay->getCount(); i++) {
++	for (size_t i = 0; i < oInkBlotOverlay->getCount(); i++) {
+ 		vec2 &uv = oInkBlotOverlay->getUVs2fv()[i];
+ 		uv.x = 1 - uv.x;
+ 		uv.y = 1 - uv.y;
+@@ -59,7 +59,7 @@
+ {
+ 	vec4 pos[100];
+ 	
+-	for (unsigned i = 0; i < ovl->getCount(); i++) {
++	for (size_t i = 0; i < ovl->getCount(); i++) {
+ 		vec4 pos3D = m * vec4(ovl->getVerts3fv()[i], 1);
+ 		vec2 uv = ovl->getUVs2fv()[i];
+ 		vec4 pos2D = vec4(uv.x * 2 - 1, uv.y * 2 - 1, -1, 1);
+--- a/scn-pictures.cpp
++++ b/scn-pictures.cpp
+@@ -78,12 +78,12 @@
+ 	shadowTex = new Texture("data/pics/shadow.jpeg", SOIL_LOAD_L, SOIL_FLAG_POWER_OF_TWO);
+ 
+ 	for (int i = 0; i < NUM_PICS; i++) {
+-		snprintf(fname, sizeof(fname), "data/pics/%u.jpeg", i + 1);
++		snprintf(fname, sizeof(fname), "data/pics/%d.jpeg", i + 1);
+ 		pics[i] = new Picture(fname);
+ 	}
+ 
+ 	for (int i = 0; i < NUM_TEXTS; i++) {
+-		sprintf(fname, "data/pics/line%u.obj", i + 1);
++		sprintf(fname, "data/pics/line%d.obj", i + 1);
+ 		oTexts[i] = new ObjLoader(fname, 0.15f);
+ 	}
+ 

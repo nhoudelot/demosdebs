@@ -1,0 +1,18 @@
+--- a/ais_charset.c
++++ b/ais_charset.c
+@@ -1,3 +1,3 @@
+ #include "ais_charset.h"
+ 
+-char ais_charset[64] = "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ !\"#$%&'()*+,-./0123456789:;<=>?";
++char ais_charset[64] __attribute__((nonstring)) = "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ !\"#$%&'()*+,-./0123456789:;<=>?";
+--- a/interactive.c
++++ b/interactive.c
+@@ -140,7 +140,7 @@
+     static bool need_clear = true;
+     uint64_t now = mstime();
+     char progress;
+-    char spinner[4] = "|/-\\";
++    char spinner[4] __attribute__((nonstring)) = "|/-\\";
+     int valid = 0;
+     double signalMax = -100.0;
+     double signalMin = +100.0;

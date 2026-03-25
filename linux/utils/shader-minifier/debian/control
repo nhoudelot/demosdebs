@@ -7,7 +7,7 @@ Build-Depends:
  libmono-cil-dev,
  mono-devel,
  debhelper-compat (= 13) 
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/laurentlb/Shader_Minifier
 Vcs-Git: https://github.com/laurentlb/Shader_Minifier.git
 Vcs-Browser: https://github.com/laurentlb/Shader_Minifier
@@ -15,6 +15,7 @@ Rules-Requires-Root: no
 
 Package: shader-minifier
 Architecture: all
+XB-ddebs: oneperdistrib
 Depends:
  ${cli:Depends},
  ${shlibs:Depends},

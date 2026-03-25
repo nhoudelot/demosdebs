@@ -10,7 +10,7 @@ Build-Depends:
  libsdl2-dev,
  libopenmpt-dev,
  pkgconf
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=24373
 Rules-Requires-Root: no
 

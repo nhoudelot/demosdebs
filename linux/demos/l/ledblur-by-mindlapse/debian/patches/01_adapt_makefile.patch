@@ -17,8 +17,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +warn := -Wall
 +
-+CC := gcc
-+PKG_CONFIG:=pkg-config
++CC ?= gcc
++PKG_CONFIG ?= pkg-config
 +CFLAGS += -std=gnu99 -pedantic $(warn) -Isource $(shell $(PKG_CONFIG) sdl SDL_mixer --cflags) -pipe
 +LDFLAGS += $(shell $(PKG_CONFIG) sdl SDL_mixer --libs) -lm
 +

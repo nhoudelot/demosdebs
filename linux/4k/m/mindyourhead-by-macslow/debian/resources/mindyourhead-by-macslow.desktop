@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Mind your head
+GenericName=Demo
+Comment=Demo by MacSlow, released in 2019
+Type=Application
+Exec=/usr/bin/mindyourhead-by-macslow
+Icon=mindyourhead-by-macslow
+Categories=AudioVideo;
+Name[fr_FR]=Mind your head

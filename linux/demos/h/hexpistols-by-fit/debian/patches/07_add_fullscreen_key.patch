@@ -2,13 +2,13 @@ Description: better fullscreen
  update fullscreen function, to make go fullscreen and back, with the same key
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
-Last-Update: 2020-04-29
+Last-Update: 2026-04-21
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -112,6 +112,13 @@
-     SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
+@@ -91,6 +91,13 @@
+ #endif
  }
  
 +void ToggleFullscreen(SDL_Window* Window) {
@@ -21,11 +21,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  int main(int argc,char *argv[])
  {
  	int quit=0,n,i,*pal,last=0,pos=0,tmp,r,g,b,*pix,origtime=-1;
-@@ -209,6 +216,7 @@
+@@ -188,6 +195,7 @@
  				switch (e.key.keysym.sym) {
  					case SDLK_ESCAPE: quit=1; break;
  					case SDLK_q: quit=1; break;
 +					case SDLK_f: ToggleFullscreen(sdlWindow); break;
  				}
- 			 }
- 			if (e.window.windowID == windowID)  {
+ 			}
+ 		}

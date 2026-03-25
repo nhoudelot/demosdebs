@@ -1,3 +1,11 @@
+simlife-by-contraz (1.0-0ddebs12) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Apr 2026 13:56:43 +0200
+
 simlife-by-contraz (1.0-0ddebs11) unstable; urgency=medium
 
   * added SDL12COMPAT_OPENGL_SCALING=0 to avoid black screen

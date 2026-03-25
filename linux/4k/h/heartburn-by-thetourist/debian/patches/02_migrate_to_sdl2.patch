@@ -45,7 +45,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
  // Max shaders log size
-@@ -567,7 +567,10 @@
+@@ -567,13 +567,17 @@
  
  int main( int argc, char ** argv )
  {
@@ -53,11 +53,19 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	SDL_Window *sdlWindow;
 +	SDL_GLContext sdlGlcontext;
 +	sdlWindow = SDL_CreateWindow("Heartburn by The Tourist",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,S_WIDTH,S_HEIGHT,S_FLAGS);
-+	SDL_GL_CreateContext(sdlWindow);
++	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	SDL_GL_SetSwapInterval(1);
  
  #ifdef HAS_MUSIC
  	Clinkster_GenerateMusic();
-@@ -642,11 +645,13 @@
+ 	SDL_AudioSpec fmt;
+ 	fmt.freq = 44100;
+-	fmt.format = AUDIO_S16;
++	fmt.format = AUDIO_S16SYS;
+ 	fmt.channels = 2;
+ 	fmt.samples = 512;
+ 	fmt.callback = SDLSoundOut;
+@@ -642,11 +646,13 @@
  
  		display( );
  
@@ -66,9 +74,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		SDL_PollEvent( &event );
  	} while ( event.type != SDL_KEYUP || event.key.keysym.sym != 27 );
  
- 	SDL_Quit( );
+-	SDL_Quit( );
 +	SDL_GL_DeleteContext(sdlGlcontext);
 +	SDL_DestroyWindow(sdlWindow);
++	SDL_Quit();
  	return 0;
  }
  

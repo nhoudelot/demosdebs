@@ -7,7 +7,7 @@ Build-Depends:
  pkgconf,
  libgl-dev,
  libsdl1.2-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://320x200.org/2004/4k/
 Rules-Requires-Root: no
 

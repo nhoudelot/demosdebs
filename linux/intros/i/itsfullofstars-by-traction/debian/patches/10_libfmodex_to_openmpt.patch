@@ -1,7 +1,7 @@
 Description: migrate to openmpt
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
-Last-Update: 2024-04-20
+Last-Update: 2026-04-15
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
@@ -28,7 +28,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  .PHONY: all all-before all-after clean clean-custom
 --- a/sound.cpp
 +++ b/sound.cpp
-@@ -4,22 +4,16 @@
+@@ -4,23 +4,18 @@
  #include <stdio.h>
  #include "sound.hpp"
  
@@ -53,9 +53,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
 +
  int Sound::getTime() {
++	return (int)(mod->get_position_seconds() * 1000.0);
  }
  
-@@ -33,35 +27,63 @@
+ Sound::Sound()
+@@ -33,35 +28,63 @@
  
  }
  

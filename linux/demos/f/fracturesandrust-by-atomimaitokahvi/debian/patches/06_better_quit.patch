@@ -2,13 +2,14 @@ Description: better quit
  update key to the new SDL2 layout
  and even add more options to quit the app
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
 Applied-Upstream: no
-Last-Update: 2020-04-29
+Last-Update: 2026-04-21
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -185,12 +185,18 @@
+@@ -189,12 +189,18 @@
  		}
  
  		/* check for program termination */

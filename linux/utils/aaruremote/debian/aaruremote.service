@@ -1,0 +1,25 @@
+[Unit]
+Description=Aaru Remove server deamon on port 6666
+After=network-online.target
+
+[Service]
+Type=simple
+User=aaruremote
+ExecStart=/usr/bin/aaruremote
+
+# On laisse systemd gérer l'arrêt (SIGTERM par défaut)
+KillMode=process
+Restart=on-failure
+
+# Sécurité et Accès
+User=aaruremote
+Group=operator
+# Permet d'accéder aux disques sans être root
+SupplementaryGroups=disk cdrom
+
+StandardOutput=append:/var/log/aaruremote.log
+StandardError=append:/var/log/aaruremote.log
+
+[Install]
+WantedBy=multi-user.target
+

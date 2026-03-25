@@ -8,7 +8,7 @@ Last-Update: 2024-05-09
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/organica.c
 +++ b/src/organica.c
-@@ -2097,18 +2097,26 @@
+@@ -2095,18 +2095,26 @@
  	uint32_t tick_progress = 0;
  #endif
  

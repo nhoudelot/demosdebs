@@ -9,7 +9,7 @@ Build-Depends:
  libsdl2-dev,
  libsdl2-mixer-dev,
  sox
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=83155
 
 Package: sadeaskeltaja-by-jnalanko

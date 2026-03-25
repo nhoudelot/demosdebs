@@ -8,7 +8,7 @@ Build-Depends:
  libx11-dev,
  libxext-dev,
  libsfml-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/logantann/shimeji-re
 Rules-Requires-Root: no
 

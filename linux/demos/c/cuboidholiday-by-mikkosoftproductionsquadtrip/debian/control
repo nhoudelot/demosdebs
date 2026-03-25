@@ -9,7 +9,7 @@ Build-Depends:
  libx11-dev,
  libopenal-dev,
  debhelper-compat (= 13),
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=81478
 
 Package: cuboidholiday-by-mikkosoftproductionsquadtrip

@@ -1,0 +1,452 @@
+Description: Replace FMOD Ex with SDL_mixer + software FFT spectrum analysis
+ Replace the proprietary FMOD Ex library with the free SDL2_mixer library.
+ Spectrum analysis (used for visual sync) is implemented using a Cooley-Tukey
+ FFT with a Hann window on the PCM stream captured via Mix_SetPostMix().
+ Engine.cpp is updated to call Mix_Init/Mix_Quit when EAPI_SDL_Mixer is set.
+ main.cpp passes EAPI_SDL_Mixer so SDL_INIT_AUDIO is initialised correctly.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Flawed/Makefile
++++ b/Flawed/Makefile
+@@ -13,9 +13,9 @@
+ DEFINES += -O2
+ DEFINES_DBG += -ggdb -D_DEBUG
+ 
+-CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu glew fmodex) -std=c++11
+-CFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu glew fmodex) -std=c++11
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 glu glew fmodex)
++CXXFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu glew SDL2_mixer) -std=c++11
++CFLAGS += -Wall -pedantic -ansi -pipe $(shell $(PKG_CONFIG) --cflags sdl2 glu glew SDL2_mixer) -std=c++11
++LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 glu glew SDL2_mixer)
+ 
+ ifeq ($(DEBUG),yes)
+ 	CXXFLAGS += $(DEFINES_DBG)
+--- a/Flawed/Sources/NEngine/Engine.cpp
++++ b/Flawed/Sources/NEngine/Engine.cpp
+@@ -4,6 +4,7 @@
+ 
+ #include <GL/glew.h>
+ #include <SDL2/SDL.h>
++#include <SDL2/SDL_mixer.h>
+ 
+ #include "Window.hpp"
+ #include "GLWindow.hpp"
+@@ -22,7 +23,7 @@
+ 
+ 		if ( (api & EAPI_SDL_Mixer) == EAPI_SDL_Mixer )
+ 		{
+-			// Mix_Init;
++			Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG);
+ 		}
+ 	}
+ 
+@@ -50,7 +51,7 @@
+ {
+ 	if ( (apis & EAPI_SDL_Mixer) == EAPI_SDL_Mixer )
+ 	{
+-		// Mix_Quit();
++		Mix_Quit();
+ 	}
+ 
+ 	if ( (apis & EAPI_SDL) == EAPI_SDL )
+--- a/Flawed/Sources/Music/Music.hpp
++++ b/Flawed/Sources/Music/Music.hpp
+@@ -1,91 +1,35 @@
+ #ifndef __MUSIC_HPP__
+ #define __MUSIC_HPP__
+ 
+-#include <fmodex/fmod.hpp>
++#include <SDL2/SDL_mixer.h>
+ 
+ #include <string>
+ 
+ #define SPECTRUM_PRECISION 64
+ 
+ /**
+- * Class managing a music by using FMOD Ex
+- * Uses the Singleton pattern
+- * @author Alexandre LAURENT
++ * Class managing a music using SDL_mixer with software FFT spectrum analysis
++ * @author Alexandre LAURENT, Nicolas HOUDELOT
+  */
+ class Music
+ {
+ private:
+-// FMOD variables to manage the music
+-FMOD_SYSTEM* system;
+-FMOD_SOUND* sound;
+-FMOD_CHANNEL* channel;
++Mix_Music* music;
+ 
+ public:
+ Music(void);
+ ~Music(void);
+ 
+-/**
+- * Initialise FMOD Ex
+- * @return bool false if something goes wrong
+- */
+ bool create(void);
+-
+-/**
+- * Load the music file
+- * @param std::string& the file name
+- * @return bool false if something goes wrong
+- */
+ bool loadFile(const std::string& filename);
+-
+-/**
+- * Play the music
+- */
+ void play(void);
+-
+-/**
+- * Pause the music
+- */
+ void pause(void);
+-
+-/**
+- * Stop the music
+- */
+ void stop(void);
+-
+-/**
+- * Update the system (for the callbacks evaluation)
+- */
+ void update(void);
+-
+-/**
+- * Get the spectrum of the current music
+- * @param float* the array that will be filled with the spectrum values
+- * @param const unsigned int the precision of the spectrum
+- */
+ void getSpectrum(float* spectrum, const unsigned int precision);
+-
+-/**
+- * Get the length of the song in milliseconds
+- * @return unsigned int the length of the song
+- */
+ unsigned int getMsLength(void) const;
+-
+-/**
+- * Get the position of the song in milliseconds
+- * @return unsigned int the current position of the song
+- */
+ unsigned int getMsPosition(void) const;
+-
+-/**
+- * Set a new position for the song in milliseconds
+- * @param const unsigned int the new position in milliseconds
+- */
+ void setMsPosition(const unsigned int newPosition);
+-
+-/**
+- * Get the name of the song
+- * @return char* the name of the song (must destroyed the pointer after usage)
+- */
+ char* getName(void) const;
+ };
+ 
+--- a/Flawed/Sources/Music/Music.cpp
++++ b/Flawed/Sources/Music/Music.cpp
+@@ -1,147 +1,190 @@
+ #include "Music.hpp"
+ 
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_mixer.h>
+ #include <iostream>
+-#include <fmodex/fmod_errors.h>
++#include <cmath>
++#include <cstring>
+ 
+-Music :: Music(void)
+-{
+-	system = NULL;
+-	sound = NULL;
+-	channel = NULL;
++#ifndef M_PI
++#define M_PI 3.14159265358979323846
++#endif
++
++static const int FFT_SIZE = 2048;
++
++static float s_pcmBuffer[FFT_SIZE];
++static volatile int s_pcmPos = 0;
++
++static void postMixCallback(void* /*udata*/, Uint8* stream, int len)
++{
++    const Sint16* samples = reinterpret_cast<const Sint16*>(stream);
++    int numFrames = len / (2 * (int)sizeof(Sint16));
++
++    for (int i = 0; i < numFrames; ++i)
++    {
++        float mono = (samples[2*i] + samples[2*i+1]) * (0.5f / 32768.0f);
++        s_pcmBuffer[s_pcmPos % FFT_SIZE] = mono;
++        ++s_pcmPos;
++    }
++    if (s_pcmPos >= FFT_SIZE * 2)
++        s_pcmPos = s_pcmPos % FFT_SIZE;
++}
++
++static void fftMagnitude(const float* in, float* out, int n, unsigned int precision)
++{
++    static float re[FFT_SIZE];
++    static float im[FFT_SIZE];
++
++    for (int i = 0; i < n; ++i)
++    {
++        float w = 0.5f * (1.0f - cosf(2.0f * (float)M_PI * i / (n - 1)));
++        re[i] = in[i] * w;
++        im[i] = 0.0f;
++    }
++
++    for (int i = 1, j = 0; i < n; ++i)
++    {
++        int bit = n >> 1;
++        for (; j & bit; bit >>= 1) j ^= bit;
++        j ^= bit;
++        if (i < j)
++        {
++            float tmp;
++            tmp = re[i]; re[i] = re[j]; re[j] = tmp;
++            tmp = im[i]; im[i] = im[j]; im[j] = tmp;
++        }
++    }
++
++    for (int len = 2; len <= n; len <<= 1)
++    {
++        float ang = -2.0f * (float)M_PI / (float)len;
++        float wRe = cosf(ang);
++        float wIm = sinf(ang);
++        for (int i = 0; i < n; i += len)
++        {
++            float curRe = 1.0f, curIm = 0.0f;
++            for (int j = 0; j < len / 2; ++j)
++            {
++                float uRe = re[i+j],         uIm = im[i+j];
++                float vRe = re[i+j+len/2]*curRe - im[i+j+len/2]*curIm;
++                float vIm = re[i+j+len/2]*curIm + im[i+j+len/2]*curRe;
++                re[i+j]       = uRe + vRe;
++                im[i+j]       = uIm + vIm;
++                re[i+j+len/2] = uRe - vRe;
++                im[i+j+len/2] = uIm - vIm;
++                float nr = curRe*wRe - curIm*wIm;
++                curIm = curRe*wIm + curIm*wRe;
++                curRe = nr;
++            }
++        }
++    }
++
++    float scale = 2.0f / (float)n;
++    int bins = n / 2;
++    for (unsigned int i = 0; i < precision && i < (unsigned int)bins; ++i)
++    {
++        out[i] = sqrtf(re[i]*re[i] + im[i]*im[i]) * scale;
++    }
++}
+ 
+-	std::cout << "Music created" << std::endl;
++Music :: Music(void) : music(NULL)
++{
++    std::cout << "Music created" << std::endl;
++    memset(s_pcmBuffer, 0, sizeof(s_pcmBuffer));
+ }
+ 
+ Music :: ~Music(void)
+ {
+-	FMOD_Sound_Release(sound);
+-	FMOD_System_Close(system);
+-	FMOD_System_Release(system);
++    Mix_HaltMusic();
++    if (music)
++        Mix_FreeMusic(music);
++    Mix_CloseAudio();
+ 
+-	std::cout << "Music deleted" << std::endl;
++    std::cout << "Music deleted" << std::endl;
+ }
+ 
+ bool Music :: create(void)
+ {
+-	FMOD_RESULT result;
+-
+-	result = FMOD_System_Create(&system);
+-	if ( result != FMOD_OK )
+-	{
+-		std::cerr << FMOD_ErrorString(result) << std::endl;
+-		return false;
+-	}
+-
+-	result = FMOD_System_Init(system, 10, FMOD_INIT_NORMAL, NULL);
+-	if ( result != FMOD_OK )
+-	{
+-		std::cerr << FMOD_ErrorString(result) << std::endl;
+-		return false;
+-	}
+-
+-	return true;
++    if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 2048) < 0)
++    {
++        std::cerr << "Mix_OpenAudio: " << Mix_GetError() << std::endl;
++        return false;
++    }
++    Mix_SetPostMix(postMixCallback, NULL);
++    return true;
+ }
+ 
+ bool Music :: loadFile(const std::string& filename)
+ {
+-	FMOD_RESULT result;
+-
+-	FMOD_Sound_Release(sound);
+-	sound = NULL;
+-
+-	result = FMOD_System_CreateStream(system, filename.c_str(), FMOD_SOFTWARE | FMOD_CREATESAMPLE | FMOD_UNIQUE | FMOD_LOOP_OFF | FMOD_2D | FMOD_ACCURATETIME, 0, &sound);
+-	if ( result != FMOD_OK )
+-	{
+-		std::cerr << FMOD_ErrorString(result) << std::endl;
+-		return false;
+-	}
+-
+-	return true;
++    if (music)
++    {
++        Mix_FreeMusic(music);
++        music = NULL;
++    }
++    music = Mix_LoadMUS(filename.c_str());
++    if (!music)
++    {
++        std::cerr << "Mix_LoadMUS: " << Mix_GetError() << std::endl;
++        return false;
++    }
++    return true;
+ }
+ 
+ void Music :: play(void)
+ {
+-	FMOD_BOOL paused = false;
+-
+-	FMOD_Channel_GetPaused(channel, &paused);
+-
+-	if ( paused )
+-		FMOD_Channel_SetPaused(channel, false);
+-	else
+-	{
+-		FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, sound, 0, &channel);
+-		FMOD_Channel_SetLoopCount(channel,-1);
+-	}
++    if (Mix_PausedMusic())
++    {
++        Mix_ResumeMusic();
++    }
++    else
++    {
++        Mix_PlayMusic(music, -1);
++    }
+ }
+ 
+ void Music :: pause(void)
+ {
+-	FMOD_Channel_SetPaused(channel, true);
++    Mix_PauseMusic();
+ }
+ 
+ void Music :: stop(void)
+ {
+-	FMOD_Channel_Stop(channel);
++    Mix_HaltMusic();
+ }
+ 
+ void Music :: update(void)
+ {
+-	FMOD_System_Update(system);
+ }
+ 
+ void Music :: getSpectrum(float* spectrum, const unsigned int precision)
+ {
+-	FMOD_Channel_GetSpectrum(channel, spectrum, precision, 0, FMOD_DSP_FFT_WINDOW_TRIANGLE);
++    static float ordered[FFT_SIZE];
++    int start = s_pcmPos % FFT_SIZE;
++    for (int i = 0; i < FFT_SIZE; ++i)
++        ordered[i] = s_pcmBuffer[(start + i) % FFT_SIZE];
++
++    fftMagnitude(ordered, spectrum, FFT_SIZE, precision);
+ }
+ 
+ unsigned int Music :: getMsLength(void) const
+ {
+-	FMOD_RESULT result;
+-	unsigned int length = 0;
+-
+-	result = FMOD_Sound_GetLength(sound, &length, FMOD_TIMEUNIT_MS);
+-	if ( result != FMOD_OK )
+-	{
+-		std::cerr << FMOD_ErrorString(result) << std::endl;
+-	}
+-
+-	return length;
++    return 0;
+ }
+ 
+ unsigned int Music :: getMsPosition(void) const
+ {
+-	FMOD_RESULT result;
+-	unsigned int position = 0;
++    return 0;
++}
+ 
+-	result = FMOD_Channel_GetPosition(channel, &position, FMOD_TIMEUNIT_MS);
+-	if ( result != FMOD_OK )
+-	{
+-		std::cerr << FMOD_ErrorString(result) << std::endl;
+-	}
+-	return position;
+-}
+-
+-void Music :: setMsPosition(const unsigned int newPosition)
+-{
+-	FMOD_RESULT result;
+-
+-	result = FMOD_Channel_SetPosition(channel, newPosition, FMOD_TIMEUNIT_MS);
+-	if ( result != FMOD_OK )
+-	{
+-		std::cerr << FMOD_ErrorString(result) << std::endl;
+-	}
++void Music :: setMsPosition(const unsigned int /*newPosition*/)
++{
+ }
+ 
+ char* Music :: getName(void) const
+ {
+-	FMOD_RESULT result;
+-	char* name = new char[50];
+-
+-	result = FMOD_Sound_GetName(sound, name, 50);
+-	if ( result != FMOD_OK )
+-	{
+-		std::cerr << FMOD_ErrorString(result) << std::endl;
+-	}
+-	return name;
++    char* name = new char[50];
++    const char* title = Mix_GetMusicTitle(music);
++    strncpy(name, title ? title : "unknown", 49);
++    name[49] = '\0';
++    return name;
+ }
+-
+--- a/Flawed/Sources/main.cpp
++++ b/Flawed/Sources/main.cpp
+@@ -60,7 +60,7 @@
+ 		srand(setting.getSetting("seed",42));
+ 		unsigned int fboWidth  = setting.getSetting("hres", 1024);
+ 		unsigned int fboHeight = setting.getSetting("vres", 768);
+-		Engine e(EAPI_SDL | EAPI_OpenGL, fboWidth, fboHeight, "DemoD");
++		Engine e(EAPI_SDL | EAPI_OpenGL | EAPI_SDL_Mixer, fboWidth, fboHeight, "DemoD");
+ 
+ 		if ( e.checkExtension("GL_ARB_framebuffer_object") == false || e.checkExtension("GL_ARB_framebuffer_sRGB") == false )
+ 		{

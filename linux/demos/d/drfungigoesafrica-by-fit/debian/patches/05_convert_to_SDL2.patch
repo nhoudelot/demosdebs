@@ -8,8 +8,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -4,8 +4,8 @@
- CC := gcc
- PKG_CONFIG:=pkg-config
+ CC ?= gcc
+ PKG_CONFIG ?= pkg-config
  CFLAGS += -Wall -std=gnu90 -pipe
 -INC := $(shell $(PKG_CONFIG) sdl libjpeg gl --cflags)
 -LDFLAGS += $(shell $(PKG_CONFIG) sdl libjpeg gl --libs) -lm
@@ -29,7 +29,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include "cool_mzx.h"
  #include "sd_main.h"
  #include "pt.h"
-@@ -200,7 +200,7 @@
+@@ -198,7 +198,7 @@
  	if(!laite)
  	{
  		SDL_Init(SDL_INIT_TIMER);
@@ -38,7 +38,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		return;
  	}
  	SDL_PauseAudio(0);
-@@ -251,7 +251,7 @@
+@@ -249,7 +249,7 @@
  {
  	if(!laite)
  	{
@@ -59,20 +59,23 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include "include.h"
  #include "tausta.h"
  #include "pallot.h"
-@@ -83,10 +84,9 @@
+@@ -83,10 +84,12 @@
  	FILE    *fp;
  
  	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 -	SDL_SetVideoMode(800,600,32,SDL_OPENGL|SDL_DOUBLEBUF);
 -	//SDL_SetVideoMode(640,480,32,SDL_OPENGL);
++	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
++	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 +	SDL_Window *sdlWindow = SDL_CreateWindow("Dr.Fungi goes Africa by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,800, 600,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
 +	SDL_GLContext glcontext = SDL_GL_CreateContext(sdlWindow);
++	SDL_GL_SetSwapInterval(1);
  	SDL_ShowCursor(0);
 -	SDL_WM_SetCaption("Dr.Fungi goes Africa",0);
  
  #ifndef BLKSIZE
  	if(!mzx_init(44100, 4096))
-@@ -485,7 +485,7 @@
+@@ -485,7 +488,7 @@
  		musasynk(HIT,tid);
  		musasynk(KICKBASS,tid);
  
@@ -81,7 +84,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		while(SDL_PollEvent(&e)>0)
  		{
  			if(e.type==SDL_MOUSEBUTTONDOWN || e.type==SDL_QUIT ||
-@@ -495,6 +495,8 @@
+@@ -495,6 +498,8 @@
  	}
  
  	mzx_close();

@@ -1,0 +1,11 @@
+--- a/img2djvu
++++ b/img2djvu
+@@ -31,7 +31,7 @@
+ ocrjobsdefault="$ocrjobs"
+ 
+ function printversion() {
+-printf "img2djvu version 20151127\n"
++printf "img2djvu version 20191007\n"
+ }
+ 
+ function usage() {

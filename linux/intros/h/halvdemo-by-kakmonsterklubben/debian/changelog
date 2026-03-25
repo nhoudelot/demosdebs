@@ -1,3 +1,11 @@
+halvdemo-by-kakmonsterklubben (1.0+1-0ddebs6) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 15 Apr 2026 02:20:29 +0200
+
 halvdemo-by-kakmonsterklubben (1.0+1-0ddebs5) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

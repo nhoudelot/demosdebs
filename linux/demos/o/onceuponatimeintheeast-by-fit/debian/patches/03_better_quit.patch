@@ -8,7 +8,7 @@ Last-Update: 2020-04-30
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -703,18 +703,21 @@
+@@ -705,18 +705,21 @@
  
  		while(SDL_PollEvent(&e))
  		{

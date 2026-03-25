@@ -42,7 +42,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  void checker_board() {
  #define C 0.2
-@@ -499,7 +520,7 @@
+@@ -498,7 +519,7 @@
  	int start_tick;
  	int cmode=0;
  	int tick;
@@ -51,7 +51,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	SDL_Event e;
  	int old_frame=-1,new_frame;
  
-@@ -539,6 +560,8 @@
+@@ -538,6 +559,8 @@
  
  	init_steer();
  
@@ -60,7 +60,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	start_tick=SDL_GetTicks();
  	while (quit!=1) {
  
-@@ -559,7 +582,19 @@
+@@ -558,7 +581,19 @@
  		}
  		frame++;
  

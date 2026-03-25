@@ -1,0 +1,502 @@
+Description: convert from GLFW/GLEW/BASS to SDL2/SDL2_mixer/libepoxy
+ Replace GLFW with SDL2 for window management and input handling.
+ Replace GLEW with libepoxy for OpenGL extension loading (Wayland/EGL compatible).
+ Replace BASS with SDL2_mixer for audio playback.
+ This enables native Wayland support since libepoxy transparently uses EGL or GLX.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-24
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -17,8 +17,8 @@
+ datarootdir     := $(prefix)/share
+ datadir         := $(prefix)/share/nordlicht2015invitation-by-wddkbc/data
+ 
+-CXXFLAGS += -Wall -pipe -std=c++11 -Ibass $(shell pkg-config --cflags glew gl)
+-LDFLAGS += -Wall -pipe -lbass -lglfw $(shell pkg-config --libs glew gl) -lSOIL
++CXXFLAGS += -Wall -pipe -std=c++11 $(shell pkg-config --cflags epoxy sdl2 SDL2_mixer)
++LDFLAGS += -Wall -pipe $(shell pkg-config --libs epoxy sdl2 SDL2_mixer) -lSOIL
+ 
+ $(TARGET): k.i.t.t.o scn-cubewall.o scn-end.o scn-forever.o scn-ink.o scn-lazor.o scn-outstorm.o scn-park.o scn-pictures.o scn-rocket.o main.o
+ 	#cp bass/x64/libbass.so libbass.so
+--- a/antsy.h
++++ b/antsy.h
+@@ -11,7 +11,7 @@
+ # endif
+ #include <AntTweakBar.h>
+ 
+-void AntsyInit(GLFWwindow *window);
++void AntsyInit(SDL_Window *window);
+ #define AntsyHandleKey TwEventKeyGLFW3
+ #define AntsyDraw TwDraw
+ 
+--- a/k.i.t.t.cpp
++++ b/k.i.t.t.cpp
+@@ -14,7 +14,7 @@
+ 	vsnprintf(str, sizeof(str), fmt, args);
+ 	MessageBoxA(NULL, str, "Error", MB_ICONEXCLAMATION | MB_OK);
+ #else
+-	printf("%7.3f ", (float)glfwGetTime());
++	printf("%7.3f ", (float)SDL_GetTicks64() / 1000.0f);
+ 	vprintf(fmt, args);
+ #endif
+ 	if (exitOnError)
+@@ -328,71 +328,67 @@
+ 
+ Music::Music(const char *fname)
+ {
+-	pausedTime = 0;
+-	startTime  = 0;
++	pausedTime   = 0;
++	startTicks   = 0;
++	seekOffset   = 0.0f;
++	musicStarted = false;
+ 
+ 	if (instance)
+ 		ERR("Can only init Music once\n");
+ 
+ 	instance = this;
+ 
+-	if (!BASS_Init(-1, 44100, 0, NULL, NULL))
+-		ERR("Failed to initialize BASS\n");
++	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) < 0)
++		ERR("Failed to initialize SDL_mixer: %s\n", Mix_GetError());
+ 
+-	stream = BASS_StreamCreateFile(0, fname, 0, 0, BASS_MP3_SETPOS);
++	stream = Mix_LoadMUS(fname);
+ 	if (!stream)
+-		WRN("Failed to open music %s\n", fname);
++		WRN("Failed to open music %s: %s\n", fname, Mix_GetError());
+ }
+ 
+ void Music::play()
+ {
+-	BASS_ChannelPlay(instance->stream, false);
+-	pausedTime = 0;
++	if (stream)
++		Mix_PlayMusic(stream, 1);
++	startTicks   = SDL_GetTicks64();
++	seekOffset   = 0.0f;
++	pausedTime   = 0;
++	musicStarted = true;
+ }
+ 
+ void Music::pause(bool pause)
+ {
+-	if ((!pause) && (pausedTime != 0))
+-	{
+-		setTime(pausedTime);
+-		pausedTime = 0;
+-	}
+-	else
+-	{
++	if (pause) {
+ 		pausedTime = getTime();
+-	}
+-
+-	if (pause)
+-	{
+-		BASS_ChannelPause(instance->stream);
+-	}
+-	else
+-	{
+-		BASS_ChannelPlay(instance->stream, false);
++		if (stream) Mix_PauseMusic();
++	} else {
++		if (pausedTime != 0) {
++			seekOffset = pausedTime;
++			startTicks = SDL_GetTicks64();
++			pausedTime = 0;
++		}
++		if (stream) Mix_ResumeMusic();
+ 	}
+ }
+ 
+ bool Music::paused()
+ {
+-	return stream ? BASS_ChannelIsActive(instance->stream) == BASS_ACTIVE_PAUSED : (pausedTime != 0);
++	return stream ? Mix_PausedMusic() != 0 : (pausedTime != 0);
+ }
+ 
+ bool Music::stopped()
+ {
+-	return stream ? BASS_ChannelIsActive(instance->stream) == BASS_ACTIVE_STOPPED : (getTime() > 500 * 60); //TODO: Echte Länge angeben
++	if (!musicStarted) return false;
++	return stream ? (!Mix_PlayingMusic() && !Mix_PausedMusic()) : (getTime() > 500 * 60);
+ }
+ 
+ float Music::getTime()
+ {
+-	if (!instance->stream)
+-	{
+-		if (pausedTime != 0)
+-		{
+-			return pausedTime;
+-		}
+-		return ((float)glfwGetTime() - StartTime());
+-	}
+-	return (float)BASS_ChannelBytes2Seconds(instance->stream, BASS_ChannelGetPosition(stream, BASS_POS_BYTE));
++	if (pausedTime != 0)
++		return pausedTime;
++	if (!musicStarted)
++		return 0.0f;
++	return seekOffset + (float)(SDL_GetTicks64() - startTicks) / 1000.0f;
+ }
+ 
+ float Music::getBeat()
+@@ -402,28 +398,17 @@
+ 
+ void Music::setTime(float time)
+ {
+-	if (time <= 0)
+-	{
++	if (time < 0)
+ 		time = 0;
+-	}
++
++	if (stream)
++		Mix_SetMusicPosition((double)time);
++
++	seekOffset = time;
++	startTicks = SDL_GetTicks64();
++
+ 	if (pausedTime != 0)
+-	{
+ 		pausedTime = time;
+-	}
+-	if (!instance->stream)
+-	{
+-		StartTime() = ((float)glfwGetTime() - time);
+-	}
+-	BASS_ChannelSetPosition(stream, BASS_ChannelSeconds2Bytes(stream, time), BASS_POS_BYTE);
+-}
+-
+-float& Music::StartTime()
+-{
+-	if (!startTime)
+-	{
+-		startTime = (float)glfwGetTime();
+-	}
+-	return startTime;
+ }
+ 
+ ObjLoader::ObjLoader(const char *fname, float scale, bool blender, bool splitMaterials)
+--- a/k.i.t.t.h
++++ b/k.i.t.t.h
+@@ -9,13 +9,13 @@
+ #endif
+ 
+ #include <algorithm>
+-#include <GL/glew.h>
++#include <epoxy/gl.h>
+ #include <glm/glm.hpp>
+ #include <glm/gtc/matrix_transform.hpp>
+ #include <glm/gtc/type_ptr.hpp>
+-#include <GLFW/glfw3.h>
++#include <SDL2/SDL.h>
++#include <SDL2/SDL_mixer.h>
+ #include <SOIL/SOIL.h>
+-#include <bass.h>
+ #include "antsy.h"
+ 
+ #include <stdio.h>
+@@ -52,7 +52,7 @@
+ void loadEnd();
+ 
+ #ifdef DEBUG
+-#define LOG(msg, ...)  { loadProgress(); printf("%7.3f " msg, (float)glfwGetTime(), __VA_ARGS__); }
++#define LOG(msg, ...)  { loadProgress(); printf("%7.3f " msg, (float)SDL_GetTicks64() / 1000.0f, __VA_ARGS__); }
+ #else
+ #define LOG(...) loadProgress()
+ #endif
+@@ -313,11 +313,11 @@
+ 
+ private:
+ 	static Music *instance;
+-	HSTREAM stream;
+-	float    startTime;
+-	float 	pausedTime;
+-
+-	float& StartTime();
++	Mix_Music   *stream;
++	float        pausedTime;
++	Uint64       startTicks;
++	float        seekOffset;
++	bool         musicStarted;
+ };
+ 
+ extern Music *gMusic;
+--- a/main.cpp
++++ b/main.cpp
+@@ -1,75 +1,53 @@
+ #include "k.i.t.t.h"
+ #include "scenes.h"
+-#include <GLFW/glfw3.h>
++#include <SDL2/SDL.h>
+ 
+ #include <iomanip>
+ #include <unistd.h>
+ #include <sstream>
+ 
+-void handleGLFWerror(int error, const char *text)
+-{
+-	ERR("%s\n", text);
+-}
++static bool gShouldClose = false;
+ 
+-void KeyCallback(GLFWwindow* win, int key, int scan, int action, int modifier)
++void handleKey(SDL_Keycode key, bool repeat)
+ {
+-	if (AntsyHandleKey(win, key, scan, action, modifier))
+-		return;
+-
+-	if (key == GLFW_KEY_ESCAPE)
++	if (!repeat && key == SDLK_ESCAPE)
+ 	{
+-		glfwSetWindowShouldClose(win, TRUE);
++		gShouldClose = true;
++		return;
+ 	}
+-	if (((action == GLFW_PRESS) || (action == GLFW_REPEAT)) && gMusic)
++
++	if (gMusic)
+ 	{
+ 		switch (key)
+ 		{
+-			case GLFW_KEY_RIGHT:
++			case SDLK_RIGHT:
+ 				gMusic->setTime(gMusic->getTime() + 1.0f);
+ 				break;
+-			case GLFW_KEY_LEFT:
++			case SDLK_LEFT:
+ 				gMusic->setTime(gMusic->getTime() - 1.0f);
+ 				break;
+-			case GLFW_KEY_DOWN:
++			case SDLK_DOWN:
+ 				gMusic->setTime(gMusic->getTime() + 10.0f);
+ 				break;
+-			case GLFW_KEY_UP:
++			case SDLK_UP:
+ 				gMusic->setTime(gMusic->getTime() - 10.0f);
+ 				break;
+-			case GLFW_KEY_SPACE:
++			case SDLK_SPACE:
+ 				gMusic->pause(!gMusic->paused());
+ 				break;
+-			case GLFW_KEY_0:
+-			case GLFW_KEY_1:
+-			case GLFW_KEY_2:
+-			case GLFW_KEY_3:
+-			case GLFW_KEY_4:
+-			case GLFW_KEY_5:
+-			case GLFW_KEY_6:
+-			case GLFW_KEY_7:
+-			case GLFW_KEY_8:
+-			case GLFW_KEY_9:
+-			{
+-				int number = (key == GLFW_KEY_0) ? 9 : key - GLFW_KEY_1;
+-				Scene* scene = demo.getScene(number);
+-				if (scene)
++			default:
++				if (key >= SDLK_0 && key <= SDLK_9)
+ 				{
+-					gMusic->setTime(scene->StartTime());
++					int number = (key == SDLK_0) ? 9 : key - SDLK_1;
++					Scene* scene = demo.getScene(number);
++					if (scene)
++						gMusic->setTime(scene->StartTime());
+ 				}
+-			}
++				break;
+ 		}
+ 	}
+ }
+ 
+-void ResizeCallback(GLFWwindow* win, int width, int height)
+-{
+-	demo.setSize(width, height);
+-	demo.setViewport();
+-}
+-
+-GlslShader *loadShader, *loadSplashShader;
+-Texture *loadSplash;
+-
+ #define c(r, g, b) vec4((float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, 1.0f)
+ 
+ vec4 palette[] = {
+@@ -79,6 +57,9 @@
+ 	c(0x80, 0x80, 0x80), c(0xB9, 0xF2, 0x96), c(0xB1, 0xB3, 0xFF), c(0xAB, 0xAB, 0xAB),
+ };
+ 
++GlslShader *loadShader, *loadSplashShader;
++Texture *loadSplash;
++
+ void loadCallback(void *priv, float progress)
+ {
+ 	const int maxh = 240;
+@@ -113,8 +94,8 @@
+ 	loadSplashShader->unbind();
+ 	setBlendMode(NO_BLEND);
+ 
+-	glfwSwapBuffers((GLFWwindow *)priv);
+-	glfwPollEvents();
++	SDL_GL_SwapWindow((SDL_Window *)priv);
++	SDL_PumpEvents();
+ }
+ 
+ namespace SceneTime
+@@ -139,64 +120,53 @@
+ 	float        lazors2end =  9.0f;
+ }
+ 
+-#ifdef WIN32
+-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+-{
+-#ifdef DEBUG
+-	RedirectIOToConsole();
+-#endif
+-#else
+ int main(int argc, char *argv[])
+ {
+-#endif
+-	if (!glfwInit())
++	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
++	{
++		ERR("SDL_Init failed: %s\n", SDL_GetError());
+ 		return 1;
++	}
++
++	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
++	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+ 
+-	/*	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
+-	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
+-	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+-	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+-	*/
+ 	const float wantAspect = 16.0f / 9.0f;
+ 
+-#ifdef DEBUG
+-	demo = Demo(1280, 768, wantAspect);
+-	GLFWwindow *win = glfwCreateWindow(demo.sizex, demo.sizey, "Imvitation", NULL, NULL);
+-#else
+ 	demo = Demo(1280, 720, wantAspect);
+-	GLFWwindow *win = glfwCreateWindow(demo.sizex, demo.sizey, "Imvitation", NULL, NULL);
+-/*
+-	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+-	const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+-	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+-	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+-	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+-	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+-	GLFWwindow* win = glfwCreateWindow(mode->width, mode->height, "Imvitation", monitor, NULL);
+-	demo = Demo(mode->width, mode->height, wantAspect);
+-	*/
+-#endif
++
++	SDL_Window *win = SDL_CreateWindow("Imvitation",
++		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++		demo.sizex, demo.sizey,
++		SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+ 	if (!win)
++	{
++		ERR("SDL_CreateWindow failed: %s\n", SDL_GetError());
++		SDL_Quit();
+ 		return 1;
++	}
+ 
+-	glfwMakeContextCurrent(win);
+-	GLenum err = glewInit();
+-	if (GLEW_OK != err)
+-	  ERR("GLEW error: %s\n", glewGetErrorString(err));
++	SDL_GLContext ctx = SDL_GL_CreateContext(win);
++	if (!ctx)
++	{
++		ERR("SDL_GL_CreateContext failed: %s\n", SDL_GetError());
++		SDL_DestroyWindow(win);
++		SDL_Quit();
++		return 1;
++	}
++
++	SDL_GL_MakeCurrent(win, ctx);
++	SDL_GL_SetSwapInterval(1);
++	SDL_ShowCursor(SDL_DISABLE);
+ 
+ 	demo.setViewport();
+ 	AntsyInit(win);
+-	glfwSetKeyCallback(win, KeyCallback);
+-	glfwSetWindowSizeCallback(win, ResizeCallback);
+-#ifndef DEBUG
+-	glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); //bevor jemand heult
+-#endif
+ 
+ 	gFullScreenFbo = new Fbo(demo.sizex, demo.sizey, GL_RGBA8);
+ 
+ 	char datapath[]="/usr/share/nordlicht2015invitation-by-wddkbc";
+ 	if (chdir(datapath) != 0) {
+-	    printf("Error : Could not change directory to %s\n",datapath);
++		printf("Error : Could not change directory to %s\n", datapath);
+ 	}
+ 
+ 	loadShader = new GlslShader("data/glsl/flat.glsl");
+@@ -227,8 +197,29 @@
+ 	gMusic = new Music("data/Skyrunner-Ein Nordlicht in der Finsternis.mp3");
+ 	gMusic->play();
+ 
+-	while (!(glfwWindowShouldClose(win) || gMusic->stopped()))
++	while (!gShouldClose && !gMusic->stopped())
+ 	{
++		SDL_Event event;
++		while (SDL_PollEvent(&event))
++		{
++			switch (event.type)
++			{
++				case SDL_QUIT:
++					gShouldClose = true;
++					break;
++				case SDL_KEYDOWN:
++					handleKey(event.key.keysym.sym, event.key.repeat != 0);
++					break;
++				case SDL_WINDOWEVENT:
++					if (event.window.event == SDL_WINDOWEVENT_RESIZED)
++					{
++						demo.setSize(event.window.data1, event.window.data2);
++						demo.setViewport();
++					}
++					break;
++			}
++		}
++
+ 		float time = gMusic->getTime();
+ 
+ 		setBlendMode(NO_BLEND);
+@@ -244,20 +235,19 @@
+ 		checkGlError();
+ 
+ 		AntsyDraw();
+-		glfwSwapBuffers(win);
+-		glfwPollEvents();
++		SDL_GL_SwapWindow(win);
+ 
+ #ifdef DEBUG
+ 		std::ostringstream title;
+ 		title << "imvitation ";
+ 		title << time;
+-		glfwSetWindowTitle(win, title.str().c_str());
++		SDL_SetWindowTitle(win, title.str().c_str());
+ #endif
+ 	}
+ 
+-#ifdef WIN32
+-	/* Fix exit crash on AMD >.< */
+-	TerminateProcess(GetCurrentProcess(), EXIT_SUCCESS);
+-#endif
++	SDL_GL_DeleteContext(ctx);
++	SDL_DestroyWindow(win);
++	Mix_CloseAudio();
++	SDL_Quit();
+ 	return 0;
+ }

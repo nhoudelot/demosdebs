@@ -16,7 +16,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <pthread.h>
  
  #ifndef NO_AUDIO
-@@ -446,7 +446,10 @@
+@@ -451,7 +451,10 @@
  #define FULLSCREEN SDL_FULLSCREEN
  	SDL_ShowCursor(0);
  #endif
@@ -28,7 +28,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	glViewport(0, 0, XRES, YRES);
  	introInit();
  
-@@ -486,7 +489,7 @@
+@@ -491,7 +494,7 @@
  		frame_start = frame_end;
  #endif
  
@@ -37,7 +37,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	}
  
  #ifdef COMPACT
-@@ -496,7 +499,8 @@
+@@ -501,7 +504,8 @@
  		"int $0x80\n" \
  	);
  #else

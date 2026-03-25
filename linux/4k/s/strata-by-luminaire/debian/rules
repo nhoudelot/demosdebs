@@ -6,5 +6,3 @@
 override_dh_strip:
 	dh_strip -Xstrata-by-luminaire
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

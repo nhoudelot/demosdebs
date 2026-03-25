@@ -1,0 +1,50 @@
+Description: Fix lrintf declaration conflicts with GCC 15 on i386
+ GCC 15 enforces that a static inline definition cannot follow a non-static
+ declaration already emitted by <math.h> for lrintf.
+ .
+ Two blocks in common.h were affected:
+  1. The i386+GCC asm fallback (static inline, return type 'int')
+  2. The last-resort #define / static inline fallback after <math.h>
+ .
+ Both are dead code on any modern toolchain: configure always detects
+ HAVE_LRINTF via <math.h> on glibc >= 2.1, so HAS_LRINTF is always set
+ before reaching the bottom guard. Remove both fallbacks and rely entirely
+ on the system <math.h> lrintf() on all targets.
+Author: Claude sonnet 4.6, Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-03-28
+--- a/faad2/libfaad/common.h
++++ b/faad2/libfaad/common.h
+@@ -329,20 +329,8 @@
+     #endif /* HAVE_LRINTF */
+   #elif (defined(__i386__) && defined(__GNUC__) && \
+ 	!defined(__CYGWIN__) && !defined(__MINGW32__))
+-    #ifndef HAVE_LRINTF
+-    #define HAS_LRINTF
+-    // from http://www.stereopsis.com/FPU.html
+-    static INLINE int lrintf(float f)
+-    {
+-        int i;
+-        __asm__ __volatile__ (
+-            "flds %1        \n\t"
+-            "fistpl %0      \n\t"
+-            : "=m" (i)
+-            : "m" (f));
+-        return i;
+-    }
+-    #endif /* HAVE_LRINTF */
++   /* lrintf() is provided by <math.h> on all modern i386 toolchains;
++      the old asm fallback conflicted with the system prototype in GCC 15. */
+   #endif
+ 
+ 
+@@ -397,8 +385,7 @@
+ #endif
+ 
+ #ifndef HAS_LRINTF
+-/* standard cast */
+-#define lrintf(f) ((int32_t)(f))
++/* lrintf() is always available from <math.h> on supported platforms. */
+ #endif
+ 
+ typedef real_t complex_t[2];

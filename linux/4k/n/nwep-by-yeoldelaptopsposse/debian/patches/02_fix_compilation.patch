@@ -15,3 +15,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #include "music/4klang.h"
  #define INTRO_LENGTH (1000ull * MAX_SAMPLES / SAMPLE_RATE)
+@@ -427,7 +427,12 @@
+ 	}
+ }
+ 
+-static SDL_AudioSpec as = {SAMPLE_RATE, 0x8010, 2, 0, 0, 0, 0, audioPlay};
++static SDL_AudioSpec as = {
++    .freq     = SAMPLE_RATE,
++    .format   = 0x8010,
++    .channels = 2,
++    .callback = audioPlay
++};
+ #endif /* AUDIO */
+ 
+ #ifndef COMPACT

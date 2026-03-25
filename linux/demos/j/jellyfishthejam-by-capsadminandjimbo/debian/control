@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=65870
 Vcs-Browser: https://bitbucket.org/jimbo00000/jellyfish-the-jam
 Vcs-Git: https://bitbucket.org/jimbo00000/jellyfish-the-jam.git

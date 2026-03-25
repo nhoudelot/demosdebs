@@ -1,3 +1,12 @@
+disk-utilities (1:0.0+git20260310-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 Mar 2026 15:42:49 +0100
+
 disk-utilities (1:0.0+git20250910-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

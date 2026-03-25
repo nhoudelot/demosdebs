@@ -1,2 +1,7 @@
 01_adapt_makefile.patch
 02_update_path.patch
+03_migrate_to_SDL2.patch
+04_better_quit.patch
+05_add-f-key.patch
+06_fix_sdl2_mainloop.patch
+07_fix_delete_array.patch

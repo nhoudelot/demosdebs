@@ -1,3 +1,13 @@
+primordialsoup-by-faemiyah (1.0+git20171017-0ddebs6) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * Added Fullscreen with F key
+  * added resizable window
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 04 Apr 2026 23:52:30 +0200
+
 primordialsoup-by-faemiyah (1.0+git20171017-0ddebs5) unstable; urgency=medium
 
   * Wav file is now compressed to FLAC to reduce the overall size of the

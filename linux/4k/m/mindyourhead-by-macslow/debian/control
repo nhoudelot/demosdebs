@@ -1,0 +1,20 @@
+Source: mindyourhead-by-macslow
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=81157
+
+Package: mindyourhead-by-macslow
+Architecture: amd64
+Multi-Arch: foreign
+Depends:
+ libsdl2-2.0-0,
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61),
+Description: Demo by MacSlow, released in 2019
+ 4k-intro (Linux 64bit) using SDL2.x & OpenGL 4.x...

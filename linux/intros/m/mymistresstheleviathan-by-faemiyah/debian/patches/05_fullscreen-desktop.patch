@@ -1,0 +1,276 @@
+Description: added fullscreen to desktop resolution + resizable window
+ added fullscreen function, to go fullscreen and back, with F key
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/verbatim_frame_buffer.hpp
++++ b/src/verbatim_frame_buffer.hpp
+@@ -10,6 +10,11 @@
+     /// Current render target.
+     static FrameBuffer const *g_current_frame_buffer;
+ 
++    /// Screen FBO override.
++    /// 0 = bind to the real window framebuffer (default behaviour).
++    /// Non-zero = bind to this offscreen FBO instead of 0.
++    static GLuint g_screen_fbo_override;
++
+   private:
+     /// Framebuffer id.
+     GLuint m_id;
+@@ -191,13 +196,25 @@
+     {
+       if(g_current_frame_buffer)
+       {
+-        dnload_glBindFramebuffer(GL_FRAMEBUFFER, 0);
++        dnload_glBindFramebuffer(GL_FRAMEBUFFER, g_screen_fbo_override);
+         dnload_glViewport(0, 0, static_cast<GLsizei>(screen_width), static_cast<GLsizei>(screen_height));
+         g_current_frame_buffer = NULL;
+       }
+     }
++
++    /// Override the framebuffer used as the "screen" target by bind_default_frame_buffer.
++    ///
++    /// Call with a non-zero id before draw() to redirect rendering to an offscreen FBO.
++    /// Call with 0 after draw() to restore normal window-framebuffer behaviour.
++    ///
++    /// \param id OpenGL FBO id, or 0 for the real window framebuffer.
++    static void set_screen_fbo(GLuint id)
++    {
++      g_screen_fbo_override = id;
++    }
+ };
+ 
++GLuint FrameBuffer::g_screen_fbo_override = 0;
+ const FrameBuffer *FrameBuffer::g_current_frame_buffer = NULL;
+ 
+ #endif
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -114,6 +114,19 @@
+ /// Global SDL window storage.
+ SDL_Window *g_sdl_window;
+ 
++/// Current display (window) dimensions — updated on resize and fullscreen toggle.
++static int g_display_w = 0;
++static int g_display_h = 0;
++
++#if defined(USE_LD)
++/// Offscreen render FBO used to blit the fixed-resolution scene to an
++/// arbitrarily-sized window while preserving aspect ratio.
++/// Color: GL_RGBA8 renderbuffer. Depth+stencil: GL_DEPTH24_STENCIL8 renderbuffer.
++static GLuint g_render_fbo = 0;
++static GLuint g_render_color_rb = 0;
++static GLuint g_render_depth_stencil_rb = 0;
++#endif
++
+ #if defined(DNLOAD_GLESV2) && defined(DNLOAD_VIDEOCORE)
+ #include "dnload_egl.h"
+ #include "dnload_videocore.h"
+@@ -140,6 +153,15 @@
+   egl_quit(g_egl_display);
+   dnload_bcm_host_deinit();
+ #endif
++#if defined(USE_LD)
++  if(g_render_fbo)
++  {
++    glDeleteRenderbuffers(1, &g_render_depth_stencil_rb);
++    glDeleteRenderbuffers(1, &g_render_color_rb);
++    glDeleteFramebuffers(1, &g_render_fbo);
++    g_render_fbo = 0;
++  }
++#endif
+   dnload_SDL_Quit();
+ }
+ 
+@@ -3059,11 +3081,105 @@
+ }
+ 
+ 
+-void ToggleFullscreen(SDL_Window* Window) {
+-    int FullscreenFlag = SDL_WINDOW_FULLSCREEN;
+-    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
+-    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
+-    SDL_ShowCursor(isFullscreen);
++/// Create the offscreen render FBO at the fixed render resolution.
++///
++/// The FBO has a GL_RGBA8 color renderbuffer and a GL_DEPTH24_STENCIL8
++/// depth+stencil renderbuffer so that stencil-based shadow passes work
++/// correctly.  Must be called after the GL context and GLEW are ready.
++///
++/// \param w Fixed render width.
++/// \param h Fixed render height.
++static void create_render_fbo(int w, int h)
++{
++  glGenFramebuffers(1, &g_render_fbo);
++  glBindFramebuffer(GL_FRAMEBUFFER, g_render_fbo);
++
++  glGenRenderbuffers(1, &g_render_color_rb);
++  glBindRenderbuffer(GL_RENDERBUFFER, g_render_color_rb);
++  glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, w, h);
++  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
++                             GL_RENDERBUFFER, g_render_color_rb);
++
++  glGenRenderbuffers(1, &g_render_depth_stencil_rb);
++  glBindRenderbuffer(GL_RENDERBUFFER, g_render_depth_stencil_rb);
++  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h);
++  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT,
++                             GL_RENDERBUFFER, g_render_depth_stencil_rb);
++
++#if defined(USE_LD)
++  GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
++  if(GL_FRAMEBUFFER_COMPLETE != status)
++  {
++    std::ostringstream sstr;
++    sstr << "render FBO " << w << "x" << h << ": incomplete, status=" << status;
++    BOOST_THROW_EXCEPTION(std::runtime_error(sstr.str()));
++  }
++#endif
++
++  glBindFramebuffer(GL_FRAMEBUFFER, 0);
++}
++
++/// Blit the fixed-resolution render FBO to the real window framebuffer,
++/// centring the image and adding black bars to preserve the aspect ratio
++/// (letterbox when the window is wider, pillarbox when it is taller).
++///
++/// Always blits — even when the sizes match — because draw() rendered into
++/// g_render_fbo (not into FB 0).
++///
++/// \param render_w Fixed render width.
++/// \param render_h Fixed render height.
++static void blit_to_display(int render_w, int render_h)
++{
++  // Compute the destination rectangle that preserves aspect ratio.
++  float src_ratio = static_cast<float>(render_w) / static_cast<float>(render_h);
++  float dst_ratio = static_cast<float>(g_display_w) / static_cast<float>(g_display_h);
++  int dst_x, dst_y, dst_w, dst_h;
++  if(src_ratio > dst_ratio)
++  {
++    // Pillarbox — content wider than screen, black bars on the sides.
++    dst_w = g_display_w;
++    dst_h = static_cast<int>(static_cast<float>(g_display_w) / src_ratio + 0.5f);
++    dst_x = 0;
++    dst_y = (g_display_h - dst_h) / 2;
++  }
++  else
++  {
++    // Letterbox — content taller than screen, black bars top/bottom.
++    dst_h = g_display_h;
++    dst_w = static_cast<int>(static_cast<float>(g_display_h) * src_ratio + 0.5f);
++    dst_x = (g_display_w - dst_w) / 2;
++    dst_y = 0;
++  }
++
++  // Clear the real window FB to black (fills the bars).
++  glBindFramebuffer(GL_FRAMEBUFFER, 0);
++  glViewport(0, 0, g_display_w, g_display_h);
++  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++  glClear(GL_COLOR_BUFFER_BIT);
++
++  // Blit colour from render FBO to the letterboxed area of FB 0.
++  glBindFramebuffer(GL_READ_FRAMEBUFFER, g_render_fbo);
++  glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
++  glBlitFramebuffer(0, 0, render_w, render_h,
++                    dst_x, dst_y, dst_x + dst_w, dst_y + dst_h,
++                    GL_COLOR_BUFFER_BIT, GL_LINEAR);
++
++  // Leave FB 0 bound for swap_buffers().
++  glBindFramebuffer(GL_FRAMEBUFFER, 0);
++}
++
++/// Toggle between windowed and desktop-resolution fullscreen.
++///
++/// Uses SDL_WINDOW_FULLSCREEN_DESKTOP so the video mode is never changed:
++/// the window becomes borderless at the desktop resolution.
++///
++/// \param window SDL window handle.
++void ToggleFullscreen(SDL_Window *window)
++{
++  bool isFullscreen = (SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN_DESKTOP) != 0;
++  SDL_SetWindowFullscreen(window, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN_DESKTOP);
++  SDL_ShowCursor(isFullscreen ? SDL_ENABLE : SDL_DISABLE);
++  SDL_GetWindowSize(window, &g_display_w, &g_display_h);
+ }
+ 
+ /// Set frame jump.
+@@ -3082,9 +3198,9 @@
+ 
+ /// \cond
+ #if defined(DNLOAD_VIDEOCORE)
+-#define DEFAULT_SDL_WINDOW_FLAGS SDL_WINDOW_BORDERLESS
++#define DEFAULT_SDL_WINDOW_FLAGS (SDL_WINDOW_BORDERLESS)
+ #else
+-#define DEFAULT_SDL_WINDOW_FLAGS SDL_WINDOW_OPENGL
++#define DEFAULT_SDL_WINDOW_FLAGS (SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE)
+ #endif
+ /// \endcond
+ 
+@@ -3137,6 +3253,10 @@
+ #endif
+   dnload_SDL_ShowCursor(is_developer());
+ 
++  // Read actual window dimensions (may differ from screen_w/screen_h when
++  // fullscreen caused a desktop-sized window).
++  SDL_GetWindowSize(g_sdl_window, &g_display_w, &g_display_h);
++
+ #if defined(USE_LD)
+ #if !defined(DNLOAD_GLESV2)
+   {
+@@ -3153,6 +3273,13 @@
+   {
+     update_window_position();
+   }
++
++  // Create the offscreen render FBO (after GLEW so GL 3.0 calls are available).
++  create_render_fbo(static_cast<int>(screen_w), static_cast<int>(screen_h));
++
++  // Redirect all bind_default_frame_buffer() calls inside draw() to our FBO.
++  FrameBuffer::set_screen_fbo(g_render_fbo);
++
+ #else
+   (void)flag_record;
+ #endif
+@@ -3371,7 +3498,7 @@
+               break;
+ 
+             case SDLK_f:
+-              ToggleFullscreen(g_sdl_window); break;
++              ToggleFullscreen(g_sdl_window);
+               break;
+ 
+             default:
+@@ -3448,6 +3575,12 @@
+         }
+         else if(SDL_WINDOWEVENT == event.type)
+         {
++          if(event.window.event == SDL_WINDOWEVENT_RESIZED ||
++             event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++          {
++            g_display_w = event.window.data1;
++            g_display_h = event.window.data2;
++          }
+           if(!flag_fullscreen)
+           {
+             update_window_position();
+@@ -3525,7 +3658,18 @@
+ #endif
+       }
+ 
++#if defined(USE_LD)
++      // Bind the render FBO and set the viewport BEFORE draw().
++      // The stencil-shadow path in draw() never calls bind_default_frame_buffer,
++      // so it would otherwise render into whatever FB the blit left behind (FB 0).
++      glBindFramebuffer(GL_FRAMEBUFFER, g_render_fbo);
++      glViewport(0, 0, static_cast<GLsizei>(screen_w), static_cast<GLsizei>(screen_h));
++#endif
+       draw(gstate.getGlobals(), *state);
++#if defined(USE_LD)
++      // Blit the render FBO to the real window FB.
++      blit_to_display(static_cast<int>(screen_w), static_cast<int>(screen_h));
++#endif
+       gstate.finishReady();
+       swap_buffers();
+ 

@@ -8,7 +8,7 @@ Build-Depends:
  libdevil-dev,
  libfltk1.1-dev,
  libglew1.5
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=55394
 Rules-Requires-Root: no
 

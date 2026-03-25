@@ -1,0 +1,24 @@
+Description: fix compilation on C23
+bool is now a keywork in C23
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/vecsys/vec_cam.c
++++ b/vecsys/vec_cam.c
+@@ -297,11 +297,11 @@
+ {
+     vec_nod **o1=(void *)v1,**o2=(void *)v2;
+     vec_obj *obj;
+-    int     bool;
++    int     boolean;
+ 
+-    bool=(*o1)->obj->objdist > (*o2)->obj->objdist;
++    boolean=(*o1)->obj->objdist > (*o2)->obj->objdist;
+ 
+-    if(bool^(vec_tell_zbuffer() != NULL))
++    if(boolean^(vec_tell_zbuffer() != NULL))
+     {
+         obj=(*o1)->obj;
+         (*o1)->obj=(*o2)->obj;

@@ -1,0 +1,39 @@
+Description: fixing various warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/env_gen.cpp
++++ b/src/env_gen.cpp
+@@ -75,6 +75,8 @@
+         m_state = s_off;
+       }
+       break;
++     default:
++       break;
+   }
+ 
+   return m_value;
+--- a/src/filter.cpp
++++ b/src/filter.cpp
+@@ -180,6 +180,8 @@
+       }
+       break;
+       */
++    default:
++      break;
+   }
+   m_h = 1.0f / (1.0f + m_r2 * m_g + m_g * m_g);// factor for feedback precomputation
+ }
+--- a/src/voice.cpp
++++ b/src/voice.cpp
+@@ -610,6 +610,8 @@
+       //TODO: add a mixing value for filter balance?
+       retVal = (0.5f*temp) + (0.5f*m_filter2.process(retVal));
+       break;
++    default:
++      break;
+   }
+ 
+   //amp envelope has reached the end, setting voice inactive

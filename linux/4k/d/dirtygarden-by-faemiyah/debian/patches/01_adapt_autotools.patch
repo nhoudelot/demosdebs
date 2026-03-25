@@ -6,10 +6,9 @@ Last-Update: 2020-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1,35 +1,59 @@
--AC_INIT([dirty_garden], [1.0.0], [devel@faemiyah.fi])
+@@ -1,35 +1,58 @@
 +AC_PREREQ([2.69])
-+AC_INIT([dirty_garden], [1.0.0], [trilkk@iki.fi])
+ AC_INIT([dirty_garden], [1.0.0], [devel@faemiyah.fi])
  
 -AC_CANONICAL_BUILD
 -AC_CANONICAL_HOST
@@ -17,10 +16,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  AM_INIT_AUTOMAKE([dist-bzip2])
  
+-AC_CHECK_C99
 +# Checks for programs.
-+AC_PROG_CXX
 +AC_PROG_CC
- AC_CHECK_C99
  
  AC_PROG_INSTALL
  AC_PROG_LN_S
@@ -62,6 +60,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +AC_CHECK_DECLS([malloc, realloc, calloc, free])
 +AC_CHECK_FUNCS([strerror])
  
++AC_CONFIG_HEADERS([config.h])
  AC_CONFIG_FILES([Makefile src/Makefile])
  AC_OUTPUT
  
@@ -668,22 +667,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  AC_DEFUN([AC_INCORPORATE_SDL],
  [
    AM_PATH_SDL([$1],
-@@ -732,12 +628,31 @@
+@@ -732,12 +628,21 @@
    AC_INCORPORATE([SDL], [$sdl], [$SDL_CFLAGS], [$SDL_LIBS], [$2], [$3])
  ])
  
 -dnl Incorporate Vorbisfile.
 -dnl AC_INCORPORATE_VORBIS([version], [define on found], [obligatory])
-+# Incorporate LIBMIKMOD.
-+# AC_INCORPORATE_LIBMIKMOD([version], [define on found], [obligatory])
-+AC_DEFUN([AC_INCORPORATE_LIBMIKMOD],
-+[
-+  AM_PATH_LIBMIKMOD([$1],
-+    libmikmod=[yes],
-+    libmikmod=[no])
-+  AC_INCORPORATE([LIBMIKMOD], [$libmikmod], [$LIBMIKMOD_CFLAGS], [$LIBMIKMOD_LIBS], [$2], [$3])
-+])
-+
 +# Incorporate Vorbis.
 +# AC_INCORPORATE_VORBIS([define on found], [obligatory])
  AC_DEFUN([AC_INCORPORATE_VORBIS],

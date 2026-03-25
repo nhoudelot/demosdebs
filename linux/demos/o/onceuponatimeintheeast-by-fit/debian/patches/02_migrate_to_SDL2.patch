@@ -1,15 +1,16 @@
 Description: migrate to SDL2
  Migrate from SDL1.2 to SDL2
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
 Applied-Upstream: no
-Last-Update: 2024-08-13
+Last-Update: 2026-04-25
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -8,9 +8,9 @@
- CC := gcc
- PKG_CONFIG:=pkg-config
+ CC ?= gcc
+ PKG_CONFIG ?= pkg-config
  CFLAGS += -Wall -pipe -std=c99 \
 - -fno-strict-aliasing $(shell $(PKG_CONFIG) --cflags sdl) -DBLKSIZE=4096 \
 + -fno-strict-aliasing $(shell $(PKG_CONFIG) --cflags sdl2) -DBLKSIZE=4096 \
@@ -97,21 +98,28 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	SDL_Texture *sdlTexture;
 +	sdlWindow = SDL_CreateWindow("Once upon a Time in the East",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XRES*2,YRES*2,SDL_SWSURFACE+fullscreen);
 +	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
-+	s = SDL_CreateRGBSurfaceWithFormat(0, XRES*2, YRES*2, 32,SDL_PIXELFORMAT_RGB888); //buffer video
-+	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,s); // texture from video buffer
++	SDL_RenderSetLogicalSize(sdlRenderer, XRES, YRES);
++	sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, XRES, YRES);
 +
  #else
  
    #ifdef HICOLOR
-@@ -316,7 +323,6 @@
+@@ -311,12 +318,13 @@
+ 
+ 	// Try to detect if the buffer is not in ARGB order
+ #ifndef HICOLOR
++#ifndef DOUBLEPIX
+ 	if(s->format->Rmask!=0xff0000)
+ 		fukkidrgba=1;
  #endif
++#endif
  
  	SDL_ShowCursor(0);
 -	SDL_WM_SetCaption("Once upon a Time in the East",NULL);
  
  #ifdef GP2X
  	SDL_JoystickOpen(0);
-@@ -366,7 +372,6 @@
+@@ -366,7 +374,6 @@
  		SDL_LockSurface(gpscreen);
  		scr=gpscreen->pixels;
  #else
@@ -119,20 +127,45 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    #ifdef DOUBLEPIX
  		scr=buf3;
    #else
-@@ -818,11 +823,17 @@
+@@ -780,25 +787,6 @@
+ 		}
+ #endif
+ 
+-		// Slowly double the pixels if 320x240 is not natively supported
+-#ifdef DOUBLEPIX
+-		buftype *dst=s->pixels;
+-		unsigned offi;
+-
+-		for(y=i=0; y<YRES; y++)
+-		{
+-			offi=y*XRES*4;
+-			for(x=0; x<XRES; x++,i++,offi+=2)
+-			{
+-				dst[offi]=
+-					dst[offi+1]=
+-						dst[offi+XRES*2]=
+-							dst[offi+XRES*2+1]=
+-								buf3[i];
+-			}
+-		}
+-#endif
+-
+ #ifdef HICOLOR
+ 		overlay((buftype *)gpscreen->pixels,ovl);
+ 		noise((buftype *)gpscreen->pixels, now_ticks/20);
+@@ -818,11 +806,16 @@
    #endif
  
  #else
 -		SDL_UnlockSurface(s);
 -		SDL_Flip(s);
-+		SDL_UpdateTexture(sdlTexture, NULL, s->pixels, s->pitch);
++		SDL_UpdateTexture(sdlTexture, NULL, buf3, XRES*(int)sizeof(buftype));
 +		SDL_RenderClear(sdlRenderer);
 +		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
 +		SDL_RenderPresent(sdlRenderer);
  #endif
  	}
  
-+	SDL_FreeSurface(s);
 +	SDL_DestroyTexture(sdlTexture);
 +	SDL_DestroyRenderer(sdlRenderer);
 +	SDL_DestroyWindow(sdlWindow);

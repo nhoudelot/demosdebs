@@ -1,0 +1,130 @@
+Description: added fullscreen key and resizable window
+ added fullscreen and back, with F key, and resize window
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2026-04-18
+--- a/src/origami.c
++++ b/src/origami.c
+@@ -378,9 +378,8 @@
+ #define TEXTURE_PLAYGROUND_SIZE	(1024 * 768) // Would require 512Mb
+ #define DEF_SCREEN_W		800
+ #define DEF_SCREEN_H		600
+-/* SDL2: SDL_HWSURFACE and SDL_DOUBLEBUF are gone; OpenGL windows always
+- * use SDL_WINDOW_OPENGL.  SDL_DOUBLEBUF is implicit for OpenGL. */
+-#define SDL_GFX_FLAGS		SDL_WINDOW_OPENGL
++/* SDL_WINDOW_RESIZABLE lets the user drag the window border at any time. */
++#define SDL_GFX_FLAGS		(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE)
+ #define DEF_FRACTAL_W		512
+ #define DEF_FRACTAL_H		384
+ 
+@@ -399,6 +398,10 @@
+ /* SDL2: global window and GL context replace local SDL_Surface *screen. */
+ SDL_Window   *sdl_window = NULL;
+ SDL_GLContext sdl_glctx  = NULL;
++int win_w = DEF_SCREEN_W;
++int win_h = DEF_SCREEN_H;
++int vp_x = 0;
++int vp_y = 0;
+ // Liukuluvut
+ float camera_position[6];
+ 
+@@ -658,6 +661,37 @@
+ 	glMatrixMode(GL_MODELVIEW);
+ }
+ 
++void screen_resize(int w, int h)
++{
++	int vp_w, vp_h;
++
++	win_w = w;
++	win_h = h;
++
++	if(w * 3 >= h * 4)
++	{
++		/* Window is wider than 4:3 → pillarbox (vertical black bars). */
++		vp_h = h;
++		vp_w = h * 4 / 3;
++	}
++	else
++	{
++		/* Window is taller than 4:3 → letterbox (horizontal black bars). */
++		vp_w = w;
++		vp_h = w * 3 / 4;
++	}
++
++	vp_x = (w - vp_w) / 2;
++	vp_y = (h - vp_h) / 2;
++
++	screen_w = vp_w;
++	screen_h = vp_h;
++
++	glViewport(vp_x, vp_y, vp_w, vp_h);
++	glScissor(vp_x, vp_y, vp_w, vp_h);
++	glEnable(GL_SCISSOR_TEST);
++}
++
+ void blend_mode(int op)
+ {
+ 	glDisable(GL_LIGHTING);
+@@ -7119,7 +7153,7 @@
+ #endif
+ #endif
+ 	// OpenGL
+-	glViewport(0, 0, screen_w, screen_h);
++	screen_resize(screen_w, screen_h);
+ 	glClearDepth(1.0);
+ 	glDepthFunc(GL_LEQUAL);
+ 	//glShadeModel(GL_SMOOTH);
+@@ -7249,8 +7283,13 @@
+ 			lasttime = var_timer;
+ #endif
+ 
+-			// Useimmat haluavat että tausta nollataan, jos halutaan jotakin muuta,
+-			// niin erikseen ne.
++			glDisable(GL_SCISSOR_TEST);
++			glViewport(0, 0, win_w, win_h);
++			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
++			glViewport(vp_x, vp_y, screen_w, screen_h);
++			glScissor(vp_x, vp_y, screen_w, screen_h);
++			glEnable(GL_SCISSOR_TEST);
+ 			screen_clear(0);
+ 
+ 			// Kelataan efut läpi
+@@ -7294,6 +7333,21 @@
+ 			{
+ 				if(event.key.keysym.sym == SDLK_ESCAPE)
+ 					loop = 0;
++				else if(event.key.keysym.sym == SDLK_f)
++				{
++					SDL_WindowFlags wf = SDL_GetWindowFlags(sdl_window);
++					if(wf & SDL_WINDOW_FULLSCREEN_DESKTOP)
++					{
++						SDL_SetWindowFullscreen(sdl_window, 0);
++						SDL_ShowCursor(SDL_ENABLE);
++					}
++					else
++					{
++						SDL_SetWindowFullscreen(sdl_window,
++								SDL_WINDOW_FULLSCREEN_DESKTOP);
++						SDL_ShowCursor(SDL_DISABLE);
++					}
++				}
+ #ifndef FLAG_NOSTDLIB // De puk komentooerwweouew
+ 				else if(debug_flag)
+ 					switch(event.key.keysym.sym)
+@@ -7311,6 +7365,14 @@
+ 					}
+ #endif
+ 			}
++			else if(event.type == SDL_WINDOWEVENT)
++			{
++				if(event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++				{
++					screen_resize(event.window.data1,
++							event.window.data2);
++				}
++			}
+ 		}
+ 
+ #ifdef RECORDING_MODE

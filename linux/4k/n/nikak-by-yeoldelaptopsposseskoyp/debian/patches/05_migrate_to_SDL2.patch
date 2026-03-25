@@ -21,7 +21,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  WIDTH ?= 1280
 --- a/intro_c.c
 +++ b/intro_c.c
-@@ -604,7 +604,7 @@
+@@ -389,6 +389,7 @@
+ }
+ 
+ int itime;
++int iwidth, iheight;   /* résolution réelle du bureau */
+ 
+ #pragma code_seg(".paint")
+ static void paint(GLuint prog, GLuint dst_fb, int out_bufs) {
+@@ -604,7 +605,7 @@
  }
  #elif defined(__linux__)
  /* cc -Wall -Wno-unknown-pragmas `pkg-config --cflags --libs sdl` -lGL nwep.c -o nwep */
@@ -30,9 +38,33 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <pthread.h>
  
  #ifndef NO_AUDIO
-@@ -643,7 +643,10 @@
+@@ -622,7 +623,13 @@
+ 	}
+ }
+ 
+-static SDL_AudioSpec as = {SAMPLE_RATE, 0x8010, 2, 0, 0, 0, 0, audioPlay};
++static SDL_AudioSpec as = {
++    .freq     = SAMPLE_RATE,
++    .format   = AUDIO_F32SYS,
++    .channels = 2,
++    .samples  = 4096,
++    .callback = audioPlay,
++};
+ #endif /* AUDIO */
+ 
+ #ifndef COMPACT
+@@ -637,13 +644,15 @@
+ #endif
+ 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+ #ifdef FULLSCREEN
+-#undef FULLSCREEN
+-#define FULLSCREEN SDL_FULLSCREEN
+-	SDL_ShowCursor(0);
++    Uint32 wflags = SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
++    SDL_ShowCursor(SDL_DISABLE);
  #else
- #define FULLSCREEN 0
+-#define FULLSCREEN 0
++    Uint32 wflags = SDL_WINDOW_OPENGL;
  #endif
 -	SDL_SetVideoMode(XRES, YRES, 32, SDL_OPENGL | FULLSCREEN);
 +	SDL_Window *sdlWindow;
@@ -42,7 +74,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	glViewport(0, 0, XRES, YRES);
  	introInit();
  
-@@ -685,7 +688,7 @@
+@@ -685,7 +694,7 @@
  		frame_start = frame_end;
  #endif
  
@@ -51,7 +83,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	}
  
  #ifdef COMPACT
-@@ -695,7 +698,8 @@
+@@ -695,7 +704,8 @@
  		"int $0x80\n" \
  	);
  #else

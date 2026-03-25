@@ -1,0 +1,24 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/blob.c
++++ b/blob.c
+@@ -59,10 +59,10 @@
+   for (y=0; y<30; y++) {
+     q=b->buf+y*41;
+     for (x=0; x<40; x++) {
+-      c=(ne_mask((int)q[ 0].px, 0)&1)
+-       +(ne_mask((int)q[ 0].py, 0)&2)
+-       +(ne_mask((int)q[41].px, 0)&4)
+-       +(ne_mask((int)q[ 1].py, 0)&8);
++      c=(q[ 0].px ? 1 : 0)
++       +(q[ 0].py ? 2 : 0)
++       +(q[41].px ? 4 : 0)
++       +(q[ 1].py ? 8 : 0);
+       switch (c) {
+         case  3: line(l->vmem, q[ 0].px, q[ 0].py, col); break;
+         case  6: line(l->vmem, q[ 0].py, q[41].px, col); break;

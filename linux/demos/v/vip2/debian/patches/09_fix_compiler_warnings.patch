@@ -1,0 +1,1268 @@
+Description: fixing various warnings 
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Include/ImageBlur.h
++++ b/Include/ImageBlur.h
+@@ -67,7 +67,7 @@
+ 	void SetAlpha( Ufloat a )															;
+ 	void SetAngle( Ufloat a )															;
+ 	void SetColor( Ufloat r, Ufloat v, Ufloat b, Ufloat a=1.0f )						;
+-	void SetCoordRV( Ufloat u1, Ufloat u2, Ufloat v1, Ufloat v2 )						;	// donne les coord de la texture ( mais en valeur réel non unitaire )
++	void SetCoordRV( Ufloat u1, Ufloat u2, Ufloat v1, Ufloat v2 )						;	// donne les coord de la texture ( mais en valeur rï¿½el non unitaire )
+ 	void SetCoord( Ufloat u1, Ufloat u2, Ufloat v1, Ufloat v2 )							;	// donne les coord de la texture ( ici valeur unitaire )
+ 
+ 	void InterpoAlpha( Ufloat debut, Ufloat fin, Ufloat time )	;
+@@ -78,7 +78,7 @@
+ 	void InterpoZoom( Ufloat debut, Ufloat fin, Ufloat time )	;
+ 	void InterpoAngle( Ufloat debut, Ufloat fin, Ufloat time )	;
+ 
+-	bool IsEnable()			{tab[0]->IsEnable();}
++	bool IsEnable()			{return tab[0]->IsEnable();}
+ 	bool IsInterpoAlpha()	;
+ 	bool IsInterpoXPos()	;
+ 	bool IsInterpoYPos()	;
+--- a/LIBS/u3dLib/include/BTree.h
++++ b/LIBS/u3dLib/include/BTree.h
+@@ -26,9 +26,9 @@
+ 	BTreeElem(PolygonU3D *p=NULL)	;
+ 	~BTreeElem()					;
+ 
+-	void SetSize( BTreeElem *liste )	;	// devient la boite englobante de tout les elements passés dans la liste
++	void SetSize( BTreeElem *liste )	;	// devient la boite englobante de tout les elements passï¿½s dans la liste
+ 
+-	bool IsTerminal()	{ poly? TRUE : FALSE;}
++	bool IsTerminal()	{ return poly != NULL; }
+ 
+ 	bool WicheXSide( Ufloat x )	;	// renvoie TRUE si majoritairement au dessus
+ 	bool WicheYSide( Ufloat y )	;	// renvoie TRUE si majoritairement au dessus
+@@ -39,7 +39,7 @@
+ 	Ufloat GetMiddleZ()	{return (bounds.GetMaxZ()+bounds.GetMinZ())*.5f;}
+ 
+ 	bool SegmentIntersecPoly( Ufloat debut[3], Ufloat fin[3] )						;	// renvoie TRUE si segment coupe un poly
+-	bool SegmentIntersecPoly( Ufloat debut[3], Ufloat fin[3], PolygonU3D* &pres )	;	// renvoie TRUE si le segment coupe un poly du monde et renvoie l'intersection dans fin et le poly touché dans pres !
++	bool SegmentIntersecPoly( Ufloat debut[3], Ufloat fin[3], PolygonU3D* &pres )	;	// renvoie TRUE si le segment coupe un poly du monde et renvoie l'intersection dans fin et le poly touchï¿½ dans pres !
+ 
+ 	void Affiche( Mat3x4& m, Ufloat RVBA[4] )	;	// affiche TOUT le contenu de l'element
+ 
+@@ -73,7 +73,7 @@
+ 	void Construct( PolygonU3D *tab, U32 nb )	;	// construit l'arbre
+ 
+ 	bool SegmentIntersecPoly( Ufloat debut[3], Ufloat fin[3] )						;	// renvoie TRUE si segment coupe un poly
+-	bool SegmentIntersecPoly( Ufloat debut[3], Ufloat fin[3], PolygonU3D* &pres )	;	// renvoie TRUE si le segment coupe un poly du monde et renvoie l'intersection dans fin et le poly touché dans pres !
++	bool SegmentIntersecPoly( Ufloat debut[3], Ufloat fin[3], PolygonU3D* &pres )	;	// renvoie TRUE si le segment coupe un poly du monde et renvoie l'intersection dans fin et le poly touchï¿½ dans pres !
+ 
+ 	void Affiche( Mat3x4& m )	;	// affiche en fonction de la matrice m l'arbre de boundings box
+ 
+--- a/LIBS/u3dLib/include/OSspec.h
++++ b/LIBS/u3dLib/include/OSspec.h
+@@ -1,7 +1,7 @@
+     	 /*-----------------------------------------------------+
+ 		  |				          OSspec.h					    |
+ 		  |														|
+-		  |tout les trucs spécifiques a un OS quoa sont definit |
++		  |tout les trucs spï¿½cifiques a un OS quoa sont definit |
+ 		  |					ici poil au (....)					|
+ 		  |											            |
+ 		  | 	U2^PoPsy TeAm 1999								|
+@@ -12,14 +12,16 @@
+ 
+ #include "opengl.h"
+ 
+-//fenetre principale doit être définit dans le WinMain !
++//fenetre principale doit ï¿½tre dï¿½finit dans le WinMain !
+ /* extern HWND hWndMain;
+ extern HDC HdcMain; 
+ 
+ void WindowsLife( HWND hwnd=NULL )	;	// permet de traiter les messages d'une fenetre
+ */
+ 
++#ifdef _MSC_VER
+ #pragma warning (disable : 4244 )
++#endif
+ 
+ #endif
+ 
+--- a/LIBS/u3dLib/include/TexMana.h
++++ b/LIBS/u3dLib/include/TexMana.h
+@@ -40,7 +40,7 @@
+ 
+ 	static char *Repertoir	;
+ 
+-	static U32 ForceFlag	;	// flag de capacité ke l'on force pour chak texture allouée
++	static U32 ForceFlag	;	// flag de capacitï¿½ ke l'on force pour chak texture allouï¿½e
+ 
+ 	static void         DeleteListe( TextureListe *actuel, TextureListe *preced )	;
+ 	static TextureListe *Getl( LPCSTR nom )											;
+@@ -54,7 +54,7 @@
+ 	static void SetForceFlag( U32 flag )	{ForceFlag=flag;}	// voir textureU3D.h pour la liste des flags
+ 
+ 	static void Add( TextureU3D *tex, LPCSTR nom )	;	// ajoute texture dans la liste
+-	static void AddUse( TextureU3D *tex )			;	// déclare cette texture comme étant utilisee au moins 1 fois
++	static void AddUse( TextureU3D *tex )			;	// dï¿½clare cette texture comme ï¿½tant utilisee au moins 1 fois
+ 	static void AddUse( LPCSTR nom )				;
+ 	static void SubUse( TextureU3D *tex )			;	// Attention SubUse verifie que la texture n'est plus utilisee
+ 	static void SubUse( LPCSTR nom )				;	// avant de l'eventuellement la detruire
+@@ -68,17 +68,17 @@
+ 	static bool			Exist( TextureU3D *tex  )		;	// renvoie TRUE sur texture presente
+ 
+ 	static void		SetRepertoire( LPCSTR nom )	{free(Repertoir);Repertoir = strdup(nom);}
+-	static LPCSTR	GetRepertoire()				{}
++	static LPCSTR	GetRepertoire()				{ return Repertoir; }
+ 
+ 	//----------------- ouvre le fichier depuis le Carchive et l'ajoute dans la liste des textures
+-	static TextureU3D*	OpenRaw( CArchive &ar, LPCSTR nom, U32 x, U32 y, U32 Texflag=TILE_TEXTURE|BILINEAR_TEXTURE )	;	// Note : pour TexFlag se référé a la class TextureU3D
++	static TextureU3D*	OpenRaw( CArchive &ar, LPCSTR nom, U32 x, U32 y, U32 Texflag=TILE_TEXTURE|BILINEAR_TEXTURE )	;	// Note : pour TexFlag se rï¿½fï¿½rï¿½ a la class TextureU3D
+ 	static TextureU3D*	OpenJpg( CArchive &ar, LPCSTR nom, U32 lenghtdata, U32 Texflag=TILE_TEXTURE|BILINEAR_TEXTURE  )	;	// Note lenghtdata = taille du fichier Jpeg !
+ 	static U8*			NewRaw( CArchive &ar, U32 x, U32 y, U32 nbOctet=1 )												;	// ouvre un .raw et renvoie l'adresse de l'image
+ 	static U32*			NewJpg( CArchive &ar, U32 &x, U32 &y, U32 lenghtdata  )											;	// ouvre un .jpg et renvoie l'adresse de en 32 bit et la taille x et y de l'image
+ 	static bool			OpenMask( TextureU3D* tex, CArchive &ar )														;
+ 
+-	//---------------- ouvre le fichier depuis un nom de répertoire
+-	static TextureU3D*	OpenRaw( LPCSTR nom,U32 x, U32 y, U32 Texflag=TILE_TEXTURE|BILINEAR_TEXTURE )	;	// Note : pour TexFlag se référé a la class TextureU3D
++	//---------------- ouvre le fichier depuis un nom de rï¿½pertoire
++	static TextureU3D*	OpenRaw( LPCSTR nom,U32 x, U32 y, U32 Texflag=TILE_TEXTURE|BILINEAR_TEXTURE )	;	// Note : pour TexFlag se rï¿½fï¿½rï¿½ a la class TextureU3D
+ 	static TextureU3D*	OpenJpg( LPCSTR nom, U32 Texflag=TILE_TEXTURE|BILINEAR_TEXTURE  )				;
+ 	static U8*			NewRaw( LPCSTR nom,U32 x, U32 y, U32 nbOctet=1 )								;	// ouvre un .raw et renvoie l'adresse de l'image
+ 	static U32*			NewJpg( LPCSTR nom, U32 &x, U32 &y  )											;	// ouvre un .jpg et renvoie l'adresse de en 32 bit et la taille x et y de l'image
+--- a/LIBS/u3dLib/sources/DataFile.cpp
++++ b/LIBS/u3dLib/sources/DataFile.cpp
+@@ -1,7 +1,7 @@
+     					/*------------------------------------------------------+
+ 						  |				     DataFile.cpp						|
+ 						  |														|
+-						  |	 class ki permet de récupérer facilement se kil y   |
++						  |	 class ki permet de rï¿½cupï¿½rer facilement se kil y   |
+ 						  |		dans un GTZ ( une surcouche koa en fait )	    |
+ 						  |														|
+ 						  | 	U2^PoPsy TeAm 2000								|
+@@ -24,7 +24,7 @@
+ {
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// renvoie TRUE si succes sinon FALSE ( pf on l'aurai pas deviné )
++// renvoie TRUE si succes sinon FALSE ( pf on l'aurai pas devinï¿½ )
+ void DataManager::LoadGTZ( CArchive &ar )
+ {
+ }
+@@ -76,6 +76,7 @@
+ 
+ 	return ret	;
+ #endif
++	return NULL;
+ }
+ //----------------------------------------------------------------------------------------------------------
+ // voir fonctions danbs pack.h (de la  GTZLib )
+@@ -93,5 +94,6 @@
+ 
+ 	return ret	;
+ #endif
++	return NULL;
+ }
+ //----------------------------------------------------------------------------------------------------------
+--- a/LIBS/u3dLib/sources/Lignes.cpp
++++ b/LIBS/u3dLib/sources/Lignes.cpp
+@@ -74,6 +74,7 @@
+ 	return TRUE	;
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
++#if 0
+ static void Interpole( CoordU3D &debut, CoordU3D &fin, Ufloat scale )
+ {
+ 	Ufloat		temp[4]	;
+@@ -86,6 +87,7 @@
+ 	vec4_mul( temp, temp, scale )				;
+ 	vec4_add( debut.ecran, temp, debut.ecran )	;
+ }
++#endif
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ static void UpdateYInfo( CoordU3D &pt, Viewport &view )
+ {
+@@ -95,7 +97,7 @@
+ 		pt.ClipInfo |= ClipBas	;
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
+-// renvoie une ligne clippée 3D par la camera courante ( renvoie FALSE si ligne non affichable )
++// renvoie une ligne clippï¿½e 3D par la camera courante ( renvoie FALSE si ligne non affichable )
+ //bool GetClippedLineByCamera( CoordU3D &ptdest1, CoordU3D &ptdest2 )
+ bool GetClippedLineByCamera( CoordU3D &drpt1A, CoordU3D &drpt2A )
+ {
+@@ -210,7 +212,7 @@
+ 	return TRUE	;
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
+-// renvoie une ligne clippée 2D par le viewport ( renvoie FALSE si ligne non affichable )
++// renvoie une ligne clippï¿½e 2D par le viewport ( renvoie FALSE si ligne non affichable )
+ bool GetClippedLineByViewport( CoordU3D &drpt1A, CoordU3D &drpt2A, Viewport &view )
+ {
+ 	Ufloat	vec[4]	;
+--- a/LIBS/u3dLib/sources/ObjStaticLighting.cpp
++++ b/LIBS/u3dLib/sources/ObjStaticLighting.cpp
+@@ -30,7 +30,7 @@
+ 		vec3_eg( &GouraudData[a*3], ambient )	;
+ 
+ 	//------------------ va calculer le lighting static
+-	for( U3D3Monde3D->IniLightIterator(); li=U3D3Monde3D->GetLightFromIterator();  U3D3Monde3D->IncLightIterator() )
++	for( U3D3Monde3D->IniLightIterator(); (li=U3D3Monde3D->GetLightFromIterator());  U3D3Monde3D->IncLightIterator() )
+ 		if( !li->IsAnimated() )
+ 			li->CalcGouraudStaticLighting( GouraudData, obj )	;
+ }
+--- a/LIBS/u3dLib/sources/ObjetBones.cpp
++++ b/LIBS/u3dLib/sources/ObjetBones.cpp
+@@ -1,7 +1,7 @@
+     				 /*---------------------------------------------------------+
+ 					  |				     Objet3dBones.cpp						|
+ 					  |															|
+-					  |		une implémentation des bones dans l'engine.			|
++					  |		une implï¿½mentation des bones dans l'engine.			|
+ 					  |				avec ces Bones il pourra					|
+ 					  | y avoir N matrices ki influenceront N vertex vala.		|
+ 					  |															|
+@@ -241,7 +241,7 @@
+ 		tmpB = tmpB->suiv					;
+ 	}
+ 
+-	//------------------- va calculer le degré d'influence de tout les bones sur les coord
++	//------------------- va calculer le degrï¿½ d'influence de tout les bones sur les coord
+ 	for( a=0; a<obj->nbcoords; a++ )
+ 	{
+ 		tmpCalcCoord[a].TotInfluence = 1.0f	;	// ya au moins une influence de base
+@@ -259,7 +259,7 @@
+ 	{
+ 		tmpLB = tmpCalcCoord[a].Bones	;
+ 
+-		//---------- rajoute dans la liste des coods touchés par au moins 1 bone
++		//---------- rajoute dans la liste des coods touchï¿½s par au moins 1 bone
+ 		if( tmpLB )
+ 		{
+ 			BonesCoordListe *ctmp = new BonesCoordListe					;
+@@ -309,10 +309,9 @@
+ 	}
+ }
+ //-----------------------------------------------------------------------------------------------------------------------------------------
+-// calcul la position dans le monde des coordonnées de l'objet
++// calcul la position dans le monde des coordonnï¿½es de l'objet
+ void ObjBones::Transform( ObjetU3D *obj )
+ {
+-	CoordU3D*			ctmp = obj->Ctab			;
+ 	OneObjBones*		tmpB						;
+ 	BonesCoordListe*	cbtmp						;
+ 	Mat3x4				mat = obj->GetObjToWorld()	;
+@@ -322,7 +321,7 @@
+ 	for( U32 a=0; a<obj->nbcoords; a++,ctmp++ )
+ 		vec3_set( ctmp->origine, 0.0f, 0.0f, 0.0f )	;*/
+ 
+-	//------------- ini toutes les coords touchées par au moins 1 bone
++	//------------- ini toutes les coords touchï¿½es par au moins 1 bone
+ 	cbtmp = ListeCoord	;
+ 	while( cbtmp )
+ 	{
+@@ -337,7 +336,7 @@
+ 		tmpB = tmpB->suiv	;
+ 	}
+ 
+-	//------------- Transform ensuite toute les coordonnées ki on été modifiées
++	//------------- Transform ensuite toute les coordonnï¿½es ki on ï¿½tï¿½ modifiï¿½es
+ 	cbtmp = ListeCoord	;
+ 	while( cbtmp )
+ 	{
+--- a/LIBS/u3dLib/sources/Polygon.cpp
++++ b/LIBS/u3dLib/sources/Polygon.cpp
+@@ -51,7 +51,7 @@
+ 	suiv = NULL				;
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// attach coordonnée a ca vertex
++// attach coordonnï¿½e a ca vertex
+ CoordU3D *VertexU3D::operator=(CoordU3D *coord)
+ {
+ 	c = coord		;
+@@ -103,7 +103,7 @@
+ 	plan.Calc( Vtab[0]->c->origine, Vtab[2]->c->origine, Vtab[1]->c->origine )	;
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// créé un new poly si nécessaire en fonction du clipping !
++// crï¿½ï¿½ un new poly si nï¿½cessaire en fonction du clipping !
+ PolygonU3D *PolygonU3D::ClipToPlan(Plan *plan)
+ {
+ 	PolygonU3D *ret;
+@@ -138,13 +138,12 @@
+ 			Fnew = 1;
+ 			continue;
+ 		}
+-		// ca où l'on créé un nouveau vertex car le segment est 
+-		// coupé
++		// ca oï¿½ l'on crï¿½ï¿½ un nouveau vertex car le segment est
++		// coupï¿½
+ 		else
+ 		{
+ 			Ufloat scale;
+ 			VertexU3D *nouvo;
+-			CoordU3D *co;
+ 
+ 			if( dist1>=0 )
+ 			{
+@@ -160,9 +159,8 @@
+ 
+ 			nouvo = U3D3Manager->NewVertex();
+ 			nouvo->c = U3D3Manager->NewCoord();
+-			co = nouvo->c;
+ 
+-			// ---> interpole les données attachées au vertex !
++			// ---> interpole les donnï¿½es attachï¿½es au vertex !
+ 			nouvo->Interpole3D( debut, fin, scale );
+ 			// insere new point
+ 			*V1 = nouvo;
+@@ -191,13 +189,12 @@
+ 		{
+ 			Fnew = 1;
+ 		}
+-		// ca où l'on créé un nouveau vertex car le segment est 
+-		// coupé
++		// ca oï¿½ l'on crï¿½ï¿½ un nouveau vertex car le segment est
++		// coupï¿½
+ 		else
+ 		{
+ 			Ufloat scale;
+ 			VertexU3D *nouvo;
+-			CoordU3D *co;
+ 
+ 			if( dist1>=0 )
+ 			{
+@@ -213,9 +210,8 @@
+ 
+ 			nouvo = U3D3Manager->NewVertex();
+ 			nouvo->c = U3D3Manager->NewCoord();
+-			co = nouvo->c;
+ 
+-			// ---> interpole les données attachées au vertex !
++			// ---> interpole les donnï¿½es attachï¿½es au vertex !
+ 			nouvo->Interpole3D( debut, fin, scale );
+ 			// insere new point
+ 			*V1 = nouvo;
+@@ -231,7 +227,7 @@
+ 	{
+ 		if( nbV<3 ) return NULL; // moins de 3 sommets alors zou rien
+ 
+-		ret = U3D3Manager->NewPoly( nbV );		// créé un poly
++		ret = U3D3Manager->NewPoly( nbV );		// crï¿½ï¿½ un poly
+ 		ret->flag = this->flag|PolyFLAG_TEMP;	// on indique que c'est un poly temporaire
+ 		ret->arrete = arreteF;
+ //		ret->lmapTex = lmapTex;
+@@ -286,7 +282,7 @@
+ 		{
+ 			Ufloat scale = (val - src1->ecran[0]) / (src2->ecran[0] - src1->ecran[0])	;
+ 
+-			//---- interpole les données attachées au vertex !
++			//---- interpole les donnï¿½es attachï¿½es au vertex !
+ 			nouvo->Interpole2D( Vtab[a], Vtab[(a+1)%nbVertex], scale )							;
+ 			nouvo->c->ecran[0] = val															;
+ 			nouvo->c->ecran[1] = scale*( src2->ecran[1] - src1->ecran[1] ) + src1->ecran[1]		;
+@@ -302,7 +298,7 @@
+ 		{
+ 			Ufloat scale = (val - src1->ecran[1]) / (src2->ecran[1] - src1->ecran[1])	;
+ 
+-			//---- interpole les données attachées au vertex !
++			//---- interpole les donnï¿½es attachï¿½es au vertex !
+ 			nouvo->Interpole2D( Vtab[a], Vtab[(a+1)%nbVertex], scale )							;
+ 			nouvo->c->ecran[1] = val															;
+ 			nouvo->c->ecran[0] = scale*( src2->ecran[0] - src1->ecran[0] ) + src1->ecran[0]		;
+@@ -322,7 +318,7 @@
+ 	if( !Fnew ) return this	;	// pas de clipping alors rien de nouvo
+ 	else
+ 	{
+-		ret = U3D3Manager->NewPoly( nbV )		;	// créé un poly
++		ret = U3D3Manager->NewPoly( nbV )		;	// crï¿½ï¿½ un poly
+ 		ret->flag = this->flag|PolyFLAG_TEMP	;	// on indique que c'est un poly temporaire
+ 		vec4_eg( ret->RVBA, RVBA )				;
+ 		ret->m = this->m						;
+@@ -517,7 +513,7 @@
+ {
+ 	PolygonU3D *ret	;
+ 
+-	ret = U3D3Manager->NewPoly( nbVertex )	;	// créé un poly
++	ret = U3D3Manager->NewPoly( nbVertex )	;	// crï¿½ï¿½ un poly
+ 	ret->flag = flag|PolyFLAG_TEMP			;	// on indique que c'est un poly temporaire
+ 	ret->arrete = arrete					;
+ 	ret->plan = plan						;
+@@ -548,7 +544,7 @@
+ 	if( BackFaceCull( debut ) )
+ 		return FALSE	;
+ 
+-	// si les 2 pts sont du même coté du plan de la face alors
++	// si les 2 pts sont du mï¿½me cotï¿½ du plan de la face alors
+ 	// cette que le segment ne coupe pas cette face !
+ 	dist = plan.distance(debut)			;
+ 	if(  dist < -EPSILON ) res1 = 0		;
+@@ -593,7 +589,7 @@
+ 	if( BackFaceCull( debut ) )
+ 		return FALSE	;
+ 
+-	// si les 2 pts sont du même coté du plan de la face alors
++	// si les 2 pts sont du mï¿½me cotï¿½ du plan de la face alors
+ 	// cette que le segment ne coupe pas cette face !
+ 	dist = plan.distance(debut)			;
+ 	if(  dist < -EPSILON ) res1 = 0		;
+--- a/LIBS/u3dLib/sources/TexMana.cpp
++++ b/LIBS/u3dLib/sources/TexMana.cpp
+@@ -194,10 +194,11 @@
+ 	while( tmp )
+ 	{
+ 		suiv = tmp->suiv	;
+-		if( tmp->tex == tex )
++		if( tmp->tex == tex ) {
+ 			if( tex->Kill() )
+ 				DeleteListe( tmp, preced )	;
+ 			else return	;
++		}
+ 		preced = tmp	;
+ 		tmp = suiv		;
+ 	}
+@@ -209,10 +210,11 @@
+ 
+ 	while( tmp )
+ 	{
+-		if( tmp->nom==nom )
++		if( tmp->nom==nom ) {
+ 			if( tmp->tex->Kill() )
+ 				DeleteListe( tmp, preced )	;
+ 			else return	;
++		}
+ 		preced = tmp	;
+ 		tmp = tmp->suiv	;
+ 	}
+@@ -283,7 +285,7 @@
+ //----------------------------------------------------------------------------------------------------------
+ TextureU3D* TextureManager::GetForUse( LPCSTR nom )
+ {
+-	TextureListe *tmp=Liste,*preced	;
++	TextureListe *tmp=Liste	;
+ 
+ 	while( tmp )
+ 	{
+@@ -292,7 +294,6 @@
+ 			tmp->tex->IncUser()	;
+ 			return tmp->tex	;
+ 		}
+-		preced = tmp	;
+ 		tmp = tmp->suiv	;
+ 	}
+ 	return NULL	;
+@@ -312,12 +313,12 @@
+ 	return FALSE	;
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// Note : pour TexFlag se référé a la class TextureU3D
++// Note : pour TexFlag se rï¿½fï¿½rï¿½ a la class TextureU3D
+ TextureU3D* TextureManager::OpenRaw( CArchive &ar, LPCSTR nom, U32 x, U32 y, U32 flag )
+ {
+ 	U32	a	;
+ 
+-	flag |= ForceFlag	;	// force certains flag settés
++	flag |= ForceFlag	;	// force certains flag settï¿½s
+ 
+ 	if( ar.IsStoring() )	return	NULL;
+ 
+@@ -519,17 +520,17 @@
+ 
+ 	dest = (U8*)tex->GetTexture()	;
+ 
+-	ar.Read( buf, taille )	; // lit les données poil de nez
++	ar.Read( buf, taille )	; // lit les donnï¿½es poil de nez
+ 
+ 	for( a=0; a<taille; a++,dest+=4 )	
+ 		dest[3] = buf[a]	;	// op store la composate alpha
+ 
+-	delete buf ;	// on a plus besoin de ce vilain buffer
++	delete[] buf ;	// on a plus besoin de ce vilain buffer
+ 
+ 	return TRUE	;
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
+-// Note : pour TexFlag se référé a la class TextureU3D
++// Note : pour TexFlag se rï¿½fï¿½rï¿½ a la class TextureU3D
+ TextureU3D* TextureManager::OpenRaw( LPCSTR nom,U32 x, U32 y, U32 flag )
+ {
+ 	FILE            *file		;
+--- a/LIBS/u3dLib/sources/TextureU3D.cpp
++++ b/LIBS/u3dLib/sources/TextureU3D.cpp
+@@ -45,7 +45,7 @@
+ 	}
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
+-// alloue espace nécessaire pour la resolution de texture donnée
++// alloue espace nï¿½cessaire pour la resolution de texture donnï¿½e
+ void TextureU3D::Create( U32 larg, U32 haut )
+ {
+ 	U32		a,latmp,hatmp,nbbit	;
+@@ -62,7 +62,7 @@
+ 	data = new U8[largeur*hauteur*nbbit]	;
+ 
+ 
+-	//----------------------- Trouve et alloue les mipmaps nécessaires
++	//----------------------- Trouve et alloue les mipmaps nï¿½cessaires
+ 
+ 	if( IsMipMapTexture() )
+ 	{
+@@ -71,7 +71,7 @@
+ 		hatmp = hauteur		;
+ 		sortie = FALSE		;
+ 		
+-		//------------------- tourve le nombre de mipmap nécessaires
++		//------------------- tourve le nombre de mipmap nï¿½cessaires
+ 		while( !sortie )
+ 		{
+ 			latmp>>= 1	;	if( latmp<1 ) latmp = 1	;
+@@ -98,18 +98,15 @@
+ 	//----------------------- 
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
+-static U32 nbMIP = 0	;
+-// va créer les textures de mipmaping automatiquement !
++// va crï¿½er les textures de mipmaping automatiquement !
+ void TextureU3D::CreatDefaultMipmaps()
+ {
+-	U32	a,latmp,hatmp,nbbit	;
++	U32	a,latmp,hatmp	;
+ 	U32	latmpP,hatmpP		;
+ 	U8	*srctmp				;
+ 
+ 	if( !IsMipMapTexture() )	return	;
+ 
+-	if( IsAlphaTexture() || IsLowTexture() ) nbbit = 4	;
+-	else									 nbbit = 3	;
+ 
+ 	latmp = latmpP = largeur	;
+ 	hatmp = hatmpP = hauteur	;
+@@ -149,8 +146,8 @@
+ 	if( IsLoaded() )	return	;
+ 	if( !data )			return	;
+ 
+-	glGenTextures(1, &BindNum)				;	// Génère un ID pour la tetxure
+-	glBindTexture(GL_TEXTURE_2D, BindNum)	;	// La fonction pour dire que la texture courante c'est celle référencée par "TextureID"
++	glGenTextures(1, &BindNum)				;	// Gï¿½nï¿½re un ID pour la tetxure
++	glBindTexture(GL_TEXTURE_2D, BindNum)	;	// La fonction pour dire que la texture courante c'est celle rï¿½fï¿½rencï¿½e par "TextureID"
+ 
+ 	//-------------------- Determine format interne de stockage de la texture
+ 	if( IsLowTexture() )
+--- a/LIBS/u3dLib/sources/Txm.cpp
++++ b/LIBS/u3dLib/sources/Txm.cpp
+@@ -2,8 +2,8 @@
+ 							  |				         TXM.h						    |
+ 							  |														|
+ 							  | Je sais c'est une methode de Monde3D mais bon elle  |
+-							  |   est tellement imposante que j'ai décidé de la 	|
+-							  |		foutre dans un fichier indépendant vala	        |
++							  |   est tellement imposante que j'ai dï¿½cidï¿½ de la 	|
++							  |		foutre dans un fichier indï¿½pendant vala	        |
+ 							  |														|
+ 							  | 	U2^PoPsy TeAm 1999								|
+ 							  +-----------------------------------------------------*/
+@@ -58,7 +58,7 @@
+ 	U32			flagOpenTex = flag	;
+ 
+ 
+-	MondeU3D *Save = SetActualMondeU3D( this )	;	// met ce world comme actuel et sauve le précédent
++	MondeU3D *Save = SetActualMondeU3D( this )	;	// met ce world comme actuel et sauve le prï¿½cï¿½dent
+ 
+ 
+ 	while( !fin )
+@@ -92,7 +92,7 @@
+ 		if( strncasecmp(&bufligne[a],"material",8) == 0)
+ 		{
+ 			if( mat )	mat->Confirm()			;
+-			sscanf(&bufligne[a+8],"%s",&mname)      ;
++			sscanf(&bufligne[a+8],"%s",mname)      ;
+ 			mat = GetOrCreateMat( mname )		;
+ 		}
+ 		else if( strncasecmp(&bufligne[a],"2side",5) ==0)
+@@ -125,12 +125,10 @@
+ 		}
+ 		else if( strncasecmp(&bufligne[a],"Shading",7) == 0)
+ 		{
+-			U32 dest=0	;
+ 			S32 i=a+7	;
+ 			while(chaine[i]==' ') i++	;
+ 			if( strncasecmp(&chaine[i],"Fil",3)==0 )
+ 			{
+-				dest=1						;
+ 				while(chaine[i]!=' ') i++	;
+ 			}
+ 			if( mat )
+@@ -197,7 +195,7 @@
+ 			{
+ 				S32 i=a+4	;
+ 				while(chaine[i]==' ') i++	;
+-				sscanf(&chaine[i],"%s",&buf)							;
++				sscanf(&chaine[i],"%s",buf)							;
+ 				mat->SetTexture1( TextureManager::GetForUse( buf ) )	;
+ 			}
+ 		}
+@@ -207,7 +205,7 @@
+ 			{
+ 				S32 i=a+4	;
+ 				while(chaine[i]==' ') i++	;
+-				sscanf(&chaine[i],"%s",&buf)							;
++				sscanf(&chaine[i],"%s",buf)							;
+ 				mat->SetTexture2( TextureManager::GetForUse( buf ) )	;
+ 			}
+ 		}
+@@ -281,7 +279,7 @@
+ 		}
+ 		else if( strncasecmp(&bufligne[a],"Repertoire", 10) ==0)
+ 		{
+-			sscanf(&bufligne[a+10],"%s",&buf)		;
++			sscanf(&bufligne[a+10],"%s",buf)		;
+ 			TextureManager::SetRepertoire( buf )	;
+ 		}
+ 		else if( strncasecmp(&bufligne[a],"TileTex", 7) ==0 )
+@@ -290,7 +288,7 @@
+ 		}
+ 		else if( strncasecmp(&bufligne[a],"MaskOpen", 8) ==0 )
+ 		{
+-			sscanf(&bufligne[a+8],"%s",&buf)		;
++			sscanf(&bufligne[a+8],"%s",buf)		;
+ 			MaskOpen = buf							;
+ 			flagOpenTex |= ALPHA_TEXTURE			;
+ 		}
+@@ -298,7 +296,7 @@
+ 		{
+ 			TextureU3D	*textmp	;
+ 
+-			sscanf(&bufligne[a+4],"%s",&buf)						;
++			sscanf(&bufligne[a+4],"%s",buf)						;
+ 			textmp = TextureManager::OpenJpg( buf, flagOpenTex )	;
+ 
+ 			if( textmp->IsAlphaTexture() )
+@@ -315,7 +313,7 @@
+ 	if( mat )	mat->Confirm()	;
+ 
+ 
+-	ApplyMat()	;	// !!!!!!!!!!! TMPPPPPP !!!!!! un truc ki partira kon j'aurai amélioré le TOOLS !
++	ApplyMat()	;	// !!!!!!!!!!! TMPPPPPP !!!!!! un truc ki partira kon j'aurai amï¿½liorï¿½ le TOOLS !
+ 
+ 
+ 	SetActualMondeU3D( Save )	;	// remete l'ancien monde !
+--- a/LIBS/u3dLib/sources/World3d.cpp
++++ b/LIBS/u3dLib/sources/World3d.cpp
+@@ -1,8 +1,8 @@
+     				 /*-----------------------------------------------------+
+ 					  |				         World3D.cpp				    |
+ 					  |														|
+-					  |	  Ici ce sont les définitions principales pour 	    |
+-					  |	  gérer un monde 3D grace a mon moteur BSP tout		|
++					  |	  Ici ce sont les dï¿½finitions principales pour 	    |
++					  |	  gï¿½rer un monde 3D grace a mon moteur BSP tout		|
+ 					  |							neuf !!						|
+ 					  |														|
+ 					  | 	U2^PoPsy TeAm 1999								|
+@@ -150,14 +150,14 @@
+ 		delete ListeMat			;
+ 		ListeMat = Mtmp			;
+ 	}
+-	// détruit les lights
++	// dï¿½truit les lights
+ 	while( ListeLight )
+ 	{
+ 		Ltmp = ListeLight->suiv	;
+ 		delete ListeLight		;
+ 		ListeLight = Ltmp		;
+ 	}
+-	// détruit les AFD callback
++	// dï¿½truit les AFD callback
+ 	while( ListeAFDcallback )
+ 	{
+ 		AFDtmp = ListeAFDcallback->suiv	;
+@@ -169,7 +169,6 @@
+ //----------------------------------------------------------------------------------------------------------
+ bool MondeU3D::LoadU3D( LPCSTR nom )
+ {
+-	std::vector<char>*	array	;
+ 	FILE *file = fopen(nom, "r");
+ 	
+ 	if( file ) {
+@@ -212,7 +211,7 @@
+ 	if( !ar.IsStoring() )
+ 	{
+ 
+-		//---------------- Test validité du fichier
++		//---------------- Test validitï¿½ du fichier
+ 		ar >> Chunk									;
+ 		if( Chunk != CHUNK_WOLRD )	return FALSE	;
+ 
+@@ -264,14 +263,14 @@
+ 	return TRUE	;
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// fait des inies une fois tout chagé en mémoire
++// fait des inies une fois tout chagï¿½ en mï¿½moire
+ void MondeU3D::IniAfterAllLoaded()
+ {
+ 
+ 	//------------------------ appel la meme fonction mais pour chak objets
+ 	for( IniObjIterator(); GetObjFromIterator();  IncObjIterator() )	GetObjFromIterator()->IniAfterAllLoaded()	;
+ 
+-	//------------------------ met une camera par defaut ( la derniere entrée )
++	//------------------------ met une camera par defaut ( la derniere entrï¿½e )
+ 	SetActualCamera( GetCamera( (U32)0 ) )	;
+ 
+ 	//------------------------- Ini Animations
+@@ -364,7 +363,7 @@
+ 	{
+ 		ObjetU3D	*Otmp = GetObjet( obj->GetParent() )					;
+ 		if( Otmp )	Otmp->AddFils( obj )									;
+-		else FatalError( "1 objet na pas trouvé son parent ( ho nan!!)" )	;
++		else FatalError( "1 objet na pas trouvï¿½ son parent ( ho nan!!)" )	;
+ 	}
+ }
+ //----------------------------------------------------------------------------------------------------------
+@@ -438,7 +437,7 @@
+ // va calculer la new image du monde3D non d'un petit bonhomme
+ void MondeU3D::UpdateFrame( float nb )
+ {
+-	MondeU3D *Save = SetActualMondeU3D( this )	;	// met ce world comme actuel et sauve le précédent
++	MondeU3D *Save = SetActualMondeU3D( this )	;	// met ce world comme actuel et sauve le prï¿½cï¿½dent
+ 
+ 	IncAnim( nb )	;
+ 
+@@ -477,7 +476,7 @@
+ 	ListeAFDcallback = tmp			;
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// Fait tout se quya à faire sur les objets pour une frame
++// Fait tout se quya ï¿½ faire sur les objets pour une frame
+ void MondeU3D::TraiteObj()
+ {
+ 	ListeObjetU3D *tmp = ListeObj	;
+@@ -635,21 +634,21 @@
+ 
+ 	NumFrame +=	v	;
+ 
+-	//----------------- Incrémente Animation cameras
++	//----------------- Incrï¿½mente Animation cameras
+ 	while( Ctmp )
+ 	{
+ 		Ctmp->cam->IncAnim( v )	;
+ 		Ctmp = Ctmp->suiv		;
+ 	}
+ 	
+-	//----------------- Incrémente Animaton de light
++	//----------------- Incrï¿½mente Animaton de light
+ 	while( Ltmp	)
+ 	{
+ 		Ltmp->light->IncAnim( v )	;
+ 		Ltmp = Ltmp->suiv			;
+ 	}
+ 
+-	//----------------- Inicrémente Animation Objets 
++	//----------------- Inicrï¿½mente Animation Objets
+ 	while( Otmp )
+ 	{
+ 		if( Otmp->obj->IsAnimated() )
+@@ -674,7 +673,7 @@
+ 	return FALSE;
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// renvoie TRUE si le segment coupe un poly du monde et renvoie l'intersection dans fin et le poly touché dans pres !
++// renvoie TRUE si le segment coupe un poly du monde et renvoie l'intersection dans fin et le poly touchï¿½ dans pres !
+ bool MondeU3D::SegmentIntersecPoly( Ufloat debut[3], Ufloat fin[3], PolygonU3D* &pres )
+ {
+ 	U32				a = 0			;
+--- a/LIBS/u3dLib/sources/material.cpp
++++ b/LIBS/u3dLib/sources/material.cpp
+@@ -1,7 +1,7 @@
+     				 /*-----------------------------------------------------+
+ 					  |				         material.cpp					|
+ 					  |														|
+-					  |	 et op une chtite définition de material pour les   |
++					  |	 et op une chtite dï¿½finition de material pour les   |
+ 					  |					polygones 3D						|
+ 					  |														|
+ 					  | 	U2^PoPsy TeAm 1999								|
+@@ -179,7 +179,6 @@
+ void MaterialU3D::Serialize( CArchive &ar )
+ {
+ 	char tmp[256];
+-	char tmp1[256];
+ 	U32		iTex=0	;
+ 
+ 	if( ar.IsStoring() )
+--- a/LIBS/u3dLib/sources/opengl.cpp
++++ b/LIBS/u3dLib/sources/opengl.cpp
+@@ -33,52 +33,25 @@
+ extern GLWindow *glw;
+ 
+ //----------------------------------------------------------------------------------------------------------
++#if 0
+ static void GetGLProcs()
+ {
+-#if 0
+ 	char *str	;
+ 
+ 	if( glActiveTextureARB && glMultiTexCoord2fARB ) return	;
+ 
+-	//---------------------- Test la prï¿½sence d'extensions indispensables !
+-
+ 	str = (char *) glGetString(GL_EXTENSIONS)	;
+ 
+-	if(!str)
+-	{
+-		MessageBox( NULL, "No OpenGL Extention !!!! Arg", "Fuck! Fuck Fuck!", MB_OK )	;
+-		exit(0)																			;
+-	}
+-
+-	if( !strstr( str, "GL_ARB_multitexture" ) )
+-	{
+-		MessageBox( NULL, "No OpenGL GL_ARB_multitexture Extention !!!! Arg", "Fuck! Fuck Fuck!", MB_OK )	;
+-		exit(0)																								;
+-	}
+-
+-/*	if( !strstr( str, "EXT_texture_env_combine" ) )
+-	{
+-		MessageBox( NULL, "No OpenGL EXT_texture_env_combine Extention !!!! Arg", "Fuck! Fuck Fuck!", MB_OK )	;
+-		exit(0)																									;
+-	}*/
+-
+-	//----------------------
++	if(!str) { exit(0); }
+ 
+-
+-	//---------------------- Rï¿½cup les pointeurs sur cs fonctions
++	if( !strstr( str, "GL_ARB_multitexture" ) ) { exit(0); }
+ 
+     glActiveTextureARB = (PROCACTIVETEXTUREARB)wglGetProcAddress("glActiveTextureARB")			;
+     glMultiTexCoord2fARB = (PROCMULTITEXCOORD2DFARB)wglGetProcAddress("glMultiTexCoord2fARB")	;
+ 
+-	if( (!glActiveTextureARB) || (!glMultiTexCoord2fARB) )
+-	{
+-		MessageBox( NULL, "No OpenGL Multitexturing Extention !!!! Arg", "Fuck! Fuck Fuck!", MB_OK )	;
+-		exit(0)																							;
+-	}
+-
+-	//----------------------
+-#endif
++	if( (!glActiveTextureARB) || (!glMultiTexCoord2fARB) ) { exit(0); }
+ }
++#endif
+ //----------------------------------------------------------------------------------------------------------
+ #if 0
+ HGLRC EnableOpenGL( HWND hWnd, HDC dc, bool HighColor, bool HighZbuf )
+--- a/LIBS/u3dLib/sources/polyprimOpenGL.cpp
++++ b/LIBS/u3dLib/sources/polyprimOpenGL.cpp
+@@ -451,7 +451,7 @@
+ 		}
+ 	glEnd();
+ 
+-/*	glBindTexture(GL_TEXTURE_2D, p->m->Tex1->BindNum );
++	glBindTexture(GL_TEXTURE_2D, p->m->Tex1->BindNum );
+ 	glEnable( GL_BLEND );
+ 	glBlendFunc( GL_ZERO, GL_SRC_COLOR );
+ 	glBegin( GL_POLYGON );
+--- a/LIBS/u3dLib/sources/video.cpp
++++ b/LIBS/u3dLib/sources/video.cpp
+@@ -20,10 +20,10 @@
+ 
+ //static RECT *ActualRec;		// Rectangle de la fenetre
+ 
+-static bool fenetre;		// mode fenetré ?			
++static bool fenetre;		// mode fenetrï¿½ ?
+ static bool Actif;			// est-ce que le mode video est actif
+ static bool AfficheOK;		// est-ce qu'on peut Afficher qq chose ?	
+-U32  Xres,Yres;				// résolution X et Y demandée
++U32  Xres,Yres;				// rï¿½solution X et Y demandï¿½e
+ U32  ABpp;					// nombre de bits par pixels	
+ //HDC HdcMain;
+ 
+@@ -35,7 +35,7 @@
+ //----------------------------------------------------------------------------------------------------------
+ 
+ //----------------------------------------------------------------------------------------------------------
+-// mode fenétré
++// mode fenï¿½trï¿½
+ void SetVideoW(U32 X, U32 Y)
+ {
+ 	AfficheOK = FALSE;
+@@ -56,7 +56,7 @@
+ }
+ #endif
+ //----------------------------------------------------------------------------------------------------------
+-// Quit le mode vidéo désiré
++// Quit le mode vidï¿½o dï¿½sirï¿½
+ void KillVideo()
+ {
+ //	DisableOpenGL()						;
+@@ -67,8 +67,8 @@
+ {
+ //    MSG         msg;
+ 
+-	// gere les messages et attend eventuéllement que l'image
+-	// précedente ait finit de s'afficher
++	// gere les messages et attend eventuï¿½llement que l'image
++	// prï¿½cedente ait finit de s'afficher
+ /*	do
+ 	{*/
+ #if 0
+@@ -184,6 +184,7 @@
+ 
+ 	return FALSE	;
+ #endif
++	return false;
+ }
+ //----------------------------------------------------------------------------------------------------------
+ // remet la resolution comme avant
+--- a/Sources/BPeloche.cpp
++++ b/Sources/BPeloche.cpp
+@@ -72,8 +72,6 @@
+ //-----------------------------------------------------------------------------------------------------------------------------------------
+ void BPeloche::UpdateFrame( Ufloat laptime )
+ {
+-	U32 tp = time + Random1()*.4f 	;
+-
+ 	time += laptime	;
+ 
+ 	MatPic1->SetAlpha( Alpha * ( .5f + fabs(.5f*sin( time*3.f+ Random1() )) ) )	;
+--- a/Sources/CouplePluieL.cpp
++++ b/Sources/CouplePluieL.cpp
+@@ -2,7 +2,7 @@
+ 					  |						CouplePluieL.cpp							|
+ 					  |																	|
+ 					  |	la classe ki affiche de la pluie en ligne sur la scene en avant	|
+-					  |						et en arrière plan.							|
++					  |						et en arriï¿½re plan.							|
+ 					  |																	|
+ 					  | 	U2^PoPsy TeAm 2000											|
+ 					  +-----------------------------------------------------------------*/
+@@ -213,11 +213,11 @@
+ void PluieL::UpdateFrameForeGround( Ufloat laptime )
+ {
+ 	CoordU3D		pt1,pt2									;
+-	Camera*			cam = U3D3Monde3D->GetActualCamera()	;
++	(void)(U3D3Monde3D->GetActualCamera())	;
+ 	Ufloat			RVBA[2][4]								;
+ 	GoutteL*		tmpg									;
+ 
+-	//-------------- affiche les lignes ( ki représentent les gouttes d'eau )
++	//-------------- affiche les lignes ( ki reprï¿½sentent les gouttes d'eau )
+ 	U3D3Pipeline->Begin( MatTranspAddAlpha, FALSE, TRUE )	;
+ 
+ 		tmpg = Gouttes	;
+--- a/Sources/EtoileGreets.cpp
++++ b/Sources/EtoileGreets.cpp
+@@ -184,7 +184,7 @@
+ /*	Cote1->GetMaterial()->SetTex1Pos( 0.0f, -Temps, 1.0f, 1.0f )		;
+ 	Cote2->GetMaterial()->SetTex1Pos( 0.0f, -Temps+.5f, 1.0f, 1.0f )	;
+ 
+-/*	Cote1->Affiche( laptime )	;
++	Cote1->Affiche( laptime )	;
+ 	Cote2->Affiche( laptime )	;*/
+ 
+ 	for( U32 a=0; a<24; a++ )
+--- a/Sources/Final.cpp
++++ b/Sources/Final.cpp
+@@ -93,7 +93,7 @@
+ 	//----------- Ini le scheduler interne
+ 	Scheduler = new UScheduler	;
+ 
+-	//----------- Ini des flags divers et variés ( poil d'épervier )
++	//----------- Ini des flags divers et variï¿½s ( poil d'ï¿½pervier )
+ 	VolumeLightIntens = 0.0f	;
+ 	VolumeLightIncIntens = 0.0f	;
+ 	Flat3DIntens = 0.0f			;
+@@ -137,7 +137,7 @@
+ 
+ 	phase->AddTick( 0, 5.f,  SynchrosMess )		;	// balance l'affichage des outlines
+ 	phase->AddTick( 1, 7.f,  SynchrosMess )		;	// balance l'affichage en flat
+-	phase->AddTick( 2, 5.f,  SynchrosMess )		;	// balance l'affichage des lumières volumiks
++	phase->AddTick( 2, 5.f,  SynchrosMess )		;	// balance l'affichage des lumiï¿½res volumiks
+ 	phase->AddTick( 3, 13.f,  SynchrosMess )	;	// stop le clignotement du flat
+ 	phase->AddTick( 4, 16.f,  SynchrosMess )	;	// balance url
+ 
+@@ -207,7 +207,7 @@
+ 
+ void WINAPI	FinalPart::AffVolumeLight( Ufloat step, U32 user )
+ {
+-	Ufloat pos[3] ={0.5f+.2f*cos(LastTime*.6f), 0.5f+.2f*sin(LastTime*.5f+.123f), 1500.0f/* + 1000.f*sin(LastTime*4.4f)*/ }	;
++	Ufloat pos[3] ={0.5f+.2f*cosf(LastTime*.6f), 0.5f+.2f*sinf(LastTime*.5f+.123f), 1500.0f/* + 1000.f*sin(LastTime*4.4f)*/ }	;
+ 
+ 	U3D3Monde3D->GetActualCamera()->Cam2MondePos( pos, pos )	;
+ 
+--- a/Sources/HSplineAff.cpp
++++ b/Sources/HSplineAff.cpp
+@@ -1,8 +1,8 @@
+ 		   			 /*---------------------------------------------------------------------+
+ 					  |							HSplineAff.cpp								|
+ 					  |																		|
+-					  |	va afficher une gnolie spline avec des lignes toute antialiasées	|
+-					  |						et accélérées									|
++					  |	va afficher une gnolie spline avec des lignes toute antialiasï¿½es	|
++					  |						et accï¿½lï¿½rï¿½es									|
+ 					  |																		|
+ 					  | 	U2^PoPsy TeAm 2000												|
+ 					  +---------------------------------------------------------------------*/
+@@ -20,7 +20,7 @@
+ {
+ 	tempKeys = NULL	;
+ 	actuaKey = NULL	;
+-	nbKey = 0		;	// nombre de clé
++	nbKey = 0		;	// nombre de clï¿½
+ 
+ 	spline = NULL	;
+ 
+@@ -53,7 +53,7 @@
+ 		tempKeys = tmp			;
+ 	}
+ 
+-	nbKey = 0		;	// nombre de clé
++	nbKey = 0		;	// nombre de clï¿½
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
+ void HSplinaeAff::AddKey( Ufloat time )
+@@ -68,7 +68,7 @@
+ 	if( time >= Tmax ) Tmax = time	;	// update Tmax
+ 
+ 
+-	//-------------- va rajouter la clé dans l'ordre correct de temps
++	//-------------- va rajouter la clï¿½ dans l'ordre correct de temps
+ 	tmp = tempKeys	;
+ 	while( tmp )
+ 	{
+@@ -105,7 +105,7 @@
+ 	actuaKey->a = a	;
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
+-// pré-calcul de la spline ( en donnat un nombre maxi de ligne pour afficher la spline )
++// prï¿½-calcul de la spline ( en donnat un nombre maxi de ligne pour afficher la spline )
+ void HSplinaeAff::Confirm( U32 nbMaxline )
+ {
+ 	Ufloat*				keys			;
+@@ -146,8 +146,8 @@
+ 
+ 	spline = new SplineU3D( nbKey, 7, keys, headers )	;
+ 
+-	delete headers	;
+-	delete keys		;
++	delete[] headers	;
++	delete[] keys		;
+ 	KillTempKeys()	;	// on n'en a plus besoin
+ }
+ //----------------------------------------------------------------------------------------------------------------------------------------
+@@ -191,7 +191,7 @@
+ 	vec4_sub( RVBAit, RVBAEnd, RVBAStart )	;
+ 	vec4_div( RVBAit, RVBAit, nbligne )	;
+ 
+-	spline->Ini()				;	// démarre du debut ( logik non ? )
++	spline->Ini()				;	// dï¿½marre du debut ( logik non ? )
+ 	spline->GetVal( destSp )	;
+ 
+ 	vec3_eg( pt2.trans, destSp )				;
+@@ -206,7 +206,7 @@
+ 
+ 			pt1.frame_process = -1						;
+ 			pt2.frame_process = -1						;	// permet de recalculer la projection
+-			spline->IncPos( ITpos )						;	// incrémente position dans la spline 
++			spline->IncPos( ITpos )						;	// incrï¿½mente position dans la spline
+ 			spline->GetVal( destSp )					;	// prend les valeurs
+ 			vec4_eg( RVBA[0], RVBA[1] )					;
+ 			vec3_eg( pt1.trans, pt2.trans )				;
+--- a/Sources/NebuPart.cpp
++++ b/Sources/NebuPart.cpp
+@@ -1,7 +1,7 @@
+     					 /*-----------------------------------------------------+
+ 						  |				       NebuPart.cpp						|
+ 						  |														|
+-						  |	Va gérer le champ de particule de la nebuleuse de	|
++						  |	Va gï¿½rer le champ de particule de la nebuleuse de	|
+ 						  |						la 1ere partie					|
+ 						  |														|
+ 						  | 	U2^PoPsy TeAm 2000								|
+@@ -65,7 +65,7 @@
+ 	ydec = 350.f * ( .5f + .5f*cos( M_PI * ydec / 900.f ) ) + 50.f * Random1() * ( 1.0f - dist /NEBU_RAYON )	;
+ 	if( Random1()>.5f ) ydec = -ydec											;
+ 
+-	//------------------- calcul les déplacements
++	//------------------- calcul les dï¿½placements
+ 	for( U32 a=0; a<11; a++ )
+ 	{
+ 		allKey[a].k.Ini()	;
+@@ -149,7 +149,7 @@
+ 	Explodeima = new UImage( nomTexEx )	;
+ 	Explodeima->Disable()				;
+ 
+-	AllPart = new OneNebuParticule[NB_PARTICUL]	;	// tout les déplacements de chak particule
++	AllPart = new OneNebuParticule[NB_PARTICUL]	;	// tout les dï¿½placements de chak particule
+ 
+ 	centreX = 0.5f	;
+ 	centreY = 0.5f	;
+@@ -321,7 +321,7 @@
+ {
+ 	OneNebuRayon*	tmp = AllRayon							;
+ 	CoordU3D		pt1,pt2									;
+-	Camera*			cam = U3D3Monde3D->GetActualCamera()	;
++	(void)(U3D3Monde3D->GetActualCamera())	;
+ 	Ufloat			RVBA[2][4]								;
+ 	Ufloat			intensity								;
+ 	Ufloat			APintensity							;
+--- a/Sources/OeilDefor.cpp
++++ b/Sources/OeilDefor.cpp
+@@ -2,7 +2,7 @@
+ 				  |							OeilDefor.cpp								|
+ 				  |																		|
+ 				  |	 c'est une fake deformation de l'oeil 3D ( on va lui faire subir	|
+-				  |						les pires sévisses ).							|
++				  |						les pires sï¿½visses ).							|
+ 				  |																		|
+ 				  | 	U2^PoPsy TeAm 2000												|
+ 				  +---------------------------------------------------------------------*/
+@@ -176,7 +176,7 @@
+ 				Ufloat intens = (Ufloat)a/NB_POLY_Y;
+ 				intens *= intens					;
+ 
+-				vec3_set( tmpv->origine, 0.0f, -intens * ( 0.0f, 50.f + 20.f * Sin( a*.3f + dec ) ), intens * 10.f * Cos( a*.4f - dec) )	;
++				vec3_set( tmpv->origine, 0.0f, -intens * ( 50.f + 20.f * Sin( a*.3f + dec ) ), intens * 10.f * Cos( a*.4f - dec) )	;
+ 				vec3_add( tmpv->origine, tmpv->origine, tmpv->dest )																	;
+ 			}
+ 	}
+--- a/Sources/XGrezilles.cpp
++++ b/Sources/XGrezilles.cpp
+@@ -1,7 +1,7 @@
+ 	   			 /*---------------------------------------------------------------------+
+ 				  |				         XGrezilles.cpp									|
+ 				  |																		|
+-				  |			affichage d'un léger fond  pour la scene des neuronnes		|
++				  |			affichage d'un lï¿½ger fond  pour la scene des neuronnes		|
+ 				  |																		|
+ 				  | 	U2^PoPsy TeAm 2000												|
+ 				  +---------------------------------------------------------------------*/
+@@ -49,8 +49,8 @@
+ 
+ 	pos += speed*laptime	;
+ 
+-	if( speed>0.0f )	if( pos > dx2+1.0f ) pos = -dx2		;
+-	else				if( pos < -dx2 )	 pos = dx2+1.0f	;
++	if( speed>0.0f )	{ if( pos > dx2+1.0f ) pos = -dx2; }
++	else				{ if( pos < -dx2 )     pos = dx2+1.0f; }
+ 
+ 	if( left )	
+ 	{
+--- a/LIBS/u3dLib/sources/light.cpp
++++ b/LIBS/u3dLib/sources/light.cpp
+@@ -1,7 +1,7 @@
+     				 /*-----------------------------------------------------+
+ 					  |				         light.cpp						|
+ 					  |														|
+-					  |	 ralalal la gestion des lumières dans un moteur 3D  |
++					  |	 ralalal la gestion des lumiï¿½res dans un moteur 3D  |
+ 					  |	   est qq chose d'important car ca donne tout de 	|
+ 					  |				suite bocoup mieux avec que sans		|
+ 					  |														|
+@@ -32,8 +32,8 @@
+ 	Outer = 1000.f		;
+ 
+ 	vec3_set( Targ, 0.0f, 0.0f, 100.f )	;
+-	Hotspot = .7853981634				;	// Hotspot a 45 degré par defaut 
+-	Falloff = 1.570796327				;	// Falloff a 90 degré par defaut 
++	Hotspot = .7853981634				;	// Hotspot a 45 degrï¿½ par defaut
++	Falloff = 1.570796327				;	// Falloff a 90 degrï¿½ par defaut
+ 
+ 	Spos = NULL		;
+ 	Starg = NULL	;
+@@ -100,7 +100,7 @@
+ 		for( a=0; a<ntkeys;	a++	)	targK[a].Serialize( ar );
+ 		if( ntkeys > 1)
+ 		{
+-			Starg = new SplineU3D( targK, npkeys )	;
++			Starg = new SplineU3D( targK, ntkeys )	;
+ 		}
+ 		else
+ 		{
+@@ -133,21 +133,21 @@
+ 	return TRUE	;
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// est-ce que la lumière est animée ?
++// est-ce que la lumiï¿½re est animï¿½e ?
+ // TODO : a faireeeeeeeeeeeeeeee!
+ bool LightU3D::IsAnimated()
+ {
+ 	return FALSE	;
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// remet les données à jour comme il fo
++// remet les donnï¿½es ï¿½ jour comme il fo
+ void LightU3D::Normalize()
+ {
+ 	vec3_sub( Vec, Targ, Pos )	;
+ 	vec3_normalize( Vec )		;
+ }
+ //----------------------------------------------------------------------------------------------------------
+-// TODO : géré les hotspot et fallof des spots !
++// TODO : gï¿½rï¿½ les hotspot et fallof des spots !
+ void LightU3D::CalcGouraudStaticLighting( Ufloat *dest, ObjetU3D *obj  )
+ {
+ 	Ufloat	TrPos[3]		;
+@@ -158,7 +158,7 @@
+ 
+ 	obj->GetObjToWorld().GetTranspose( TrPos, Pos )		;
+ 
+-	vec3_mul( TrRVB, RVB, Intensity )	;	// ini RVB en fct de l'intensité de la light
++	vec3_mul( TrRVB, RVB, Intensity )	;	// ini RVB en fct de l'intensitï¿½ de la light
+ 
+ 	for( U32 a=0; a<obj->nbcoords; a++)
+ 	{
+@@ -177,7 +177,7 @@
+ 			{
+ 				Ufloat dist = vec3_dist( TrPos, obj->Ctab[a].origine )			;
+ 				if( dist > Outer )	continue									;
+-				if( dist > Inner )	val *= 1.f - (dist-Inner) / ( Outer-Inner )	;	// calcul distance atténuation
++				if( dist > Inner )	val *= 1.f - (dist-Inner) / ( Outer-Inner )	;	// calcul distance attï¿½nuation
+ 			}
+ 
+ 			vec3_mul( p, TrRVB, val )				;
+@@ -188,7 +188,7 @@
+ //----------------------------------------------------------------------------------------------------------
+ // va calculer le lighting pour l'objet
+ // TODO : - OPTIMISER grave ces fonctions paskeu la c'est TROP TROP pas bien !!!!!!!!!!!
+-//		  - peut etre gérer le Falloff&Hotspot pour le spot justement 
++//		  - peut etre gï¿½rer le Falloff&Hotspot pour le spot justement
+ void LightU3D::CalcLightingRealTime( ObjetU3D *obj )
+ {
+ 	Ufloat	TrPos[3]		;
+@@ -200,7 +200,7 @@
+ 	OuterC = Outer*Outer	;
+ 	InnerC = Inner*Inner	;
+ 
+-	vec3_mul( TrRVB, RVB, Intensity )	;	// ini RVB en fct de l'intensité de la light
++	vec3_mul( TrRVB, RVB, Intensity )	;	// ini RVB en fct de l'intensitï¿½ de la light
+ 
+ 	//----------------------- Calcul Positions, et vecteur de la light dans l'espace objet
+ 	obj->GetObjToWorld().GetTranspose( TrPos, Pos )		;
+@@ -213,7 +213,7 @@
+ 		{
+ 			vec3_eg( vLightObj, TrPos )	;
+ 			vec3_normalize( vLightObj )	;
+-/*		}
++		}
+ 		else if( Type== TYPE_LIGHT_SPOT )
+ 		{
+ 			vec3_eg( vLightObj, Vec )	;
+@@ -239,7 +239,7 @@
+ 				Ufloat dist = vec3_dist( TrPos, obj->Ptab[a].Vtab[0]->c->origine )		;
+ 				if( dist > Outer ) continue	;
+ 				if( dist > Inner )
+-					val *= 1.f - (dist-Inner) / ( Outer-Inner )	;	// calcul dustance atténuation
++					val *= 1.f - (dist-Inner) / ( Outer-Inner )	;	// calcul dustance attï¿½nuation
+ 			}
+ 			
+ 			vec3_mul( p, TrRVB, val )							;
+@@ -269,7 +269,7 @@
+ 				if( val < 0.f )	continue									;
+ 
+ 				if( dist > InnerC )
+-					val *= 1.f - (dist-InnerC) / ( OuterC-InnerC )	;	// calcul distance atténuation
++					val *= 1.f - (dist-InnerC) / ( OuterC-InnerC )	;	// calcul distance attï¿½nuation
+ 
+ 				vec3_mul( p, TrRVB, val )							;
+ 				vec3_add( obj->Ctab[a].RVBA, obj->Ctab[a].RVBA, p )	;	// op additionne valeur de lighting !

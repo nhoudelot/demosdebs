@@ -1,0 +1,36 @@
+Description: fixing various warnings
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-22
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/source/gpdef.h
++++ b/source/gpdef.h
+@@ -44,11 +44,6 @@
+ #define FALSE   0
+ #endif
+ 
+-#ifndef __size_t
+-#define __size_t 1
+-typedef unsigned int size_t;
+-#endif
+-
+ #undef byte
+ #define byte    char
+ 
+@@ -67,11 +62,12 @@
+ #undef ushort
+ #define ushort unsigned short
+ 
++/* Use fixed-width 32-bit types to ensure correctness on LP64 (64-bit Linux). */
+ #undef dword
+-#define dword   long
++#define dword   int
+ 
+ #undef udword
+-#define udword  unsigned long
++#define udword  unsigned int
+ 
+ #undef ulong
+ #define ulong unsigned long

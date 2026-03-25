@@ -11,7 +11,7 @@ Build-Depends:
  libgles-dev,
  pkgconf,
  dh-exec (>=0.3)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/knutae/solskogen-2020
 
 Package: eternalforest-by-soulman

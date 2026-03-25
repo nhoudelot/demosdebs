@@ -10,7 +10,7 @@ Build-Depends: debhelper-compat (= 13),
   libsoapysdr-dev <!custom> <soapysdr>,
   libusb-1.0-0-dev <!custom> <rtlsdr> <bladerf> <hackrf> <limesdr>,
   pkg-config, libncurses5-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.flightaware.com/
 Vcs-Git: https://github.com/flightaware/dump1090.git
 Vcs-Browser: https://github.com/flightaware/dump1090/

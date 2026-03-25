@@ -1,0 +1,304 @@
+Description: Migrate glut to SDL2 with FBO
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Last-Update: 2026-04-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.c
++++ b/main.c
+@@ -7,8 +7,10 @@
+ #include <stdlib.h>
+ #include <sys/time.h>
+ 
++#define GL_GLEXT_PROTOTYPES
+ #include <GL/gl.h>
+-#include <GL/glut.h>
++#include <GL/glext.h>
++#include <SDL2/SDL.h>
+ 
+ #include "audio.h"
+ 
+@@ -59,6 +61,15 @@
+ static int bw, bh;
+ static int sw, sh;
+ 
++/* SDL2 + OpenGL state */
++static SDL_Window    *window   = NULL;
++static SDL_GLContext  gl_ctx   = NULL;
++static GLuint         fbo      = 0;
++static GLuint         rbo      = 0;
++
++/* Signal de fin d'intro */
++static int done = 0;
++
+ ////////////////////////////////////////////////////////////////////////
+ 
+ static void
+@@ -158,7 +169,7 @@
+ static float
+ elapsed()
+ {
+-	return alsa_offset() / 44100.0;
++	return audio_offset();
+ }
+ #endif
+ 
+@@ -579,8 +590,6 @@
+ 		qoch(d, m - 1, n);
+ 		qoch(0, m - 1, n);
+ 		qoch(d, m - 1, n);
+-		qoch(0, m - 1, n);
+-		qoch(d, m - 1, n);
+ 
+ 		return;
+ 	}
+@@ -963,32 +972,96 @@
+ 	}
+ 	else
+ 	{
+-		exit(EXIT_SUCCESS);
++		done = 1;
++		return;
+ 	}
+ 
+ 	glFlush();
+-	glFinish();
++}
++
++////////////////////////////////////////////////////////////////////////
++
++/* Bascule plein écran via SDL_WINDOW_FULLSCREEN_DESKTOP */
++static void
++ToggleFullscreen(SDL_Window *win)
++{
++	Uint32 flags = SDL_GetWindowFlags(win);
+ 
+-	glutSwapBuffers();
++	if (flags & SDL_WINDOW_FULLSCREEN_DESKTOP)
++		SDL_SetWindowFullscreen(win, 0);
++	else
++		SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN_DESKTOP);
+ }
+ 
++/*
++ * Calcule la zone de destination dans la fenêtre en conservant le ratio
++ * du FBO (sw×sh). Les barres de letterbox/pillarbox restent noires.
++ */
+ static void
+-keyboard(unsigned char key, int x, int y) {
+-	UNUSED(x);
+-	UNUSED(y);
++compute_viewport(int win_w, int win_h, int *vx, int *vy, int *vw, int *vh)
++{
++	float win_ratio = (float)win_w / (float)win_h;
++	float fbo_ratio = (float)sw   / (float)sh;
+ 
+-	if (key == 27)
+-		exit(0);
++	if (win_ratio > fbo_ratio)
++	{
++		*vh = win_h;
++		*vw = (int)((float)win_h * fbo_ratio);
++		*vx = (win_w - *vw) / 2;
++		*vy = 0;
++	}
++	else
++	{
++		*vw = win_w;
++		*vh = (int)((float)win_w / fbo_ratio);
++		*vx = 0;
++		*vy = (win_h - *vh) / 2;
++	}
+ }
+ 
++/*
++ * Blit le FBO vers le framebuffer par défaut (écran) avec conservation
++ * du ratio, puis effectue le swap SDL.
++ *
++ * Si glBlitFramebuffer n'est pas disponible (contexte trop ancien),
++ * on tomberait sur le chemin de secours commenté ci-dessous.
++ */
+ static void
+-reshape(int w, int h) {
+-	glViewport(0, 0, w, h);
++present(void)
++{
++	int win_w, win_h;
++	int vx, vy, vw, vh;
++
++	SDL_GetWindowSize(window, &win_w, &win_h);
++	compute_viewport(win_w, win_h, &vx, &vy, &vw, &vh);
++
++	/* Blit FBO → écran */
++	glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo);
++	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
++
++	/* Efface les barres de letterbox/pillarbox */
++	glViewport(0, 0, win_w, win_h);
++	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++	glClear(GL_COLOR_BUFFER_BIT);
++
++	glBlitFramebuffer(
++		0,  0,  sw,       sh,
++		vx, vy, vx + vw,  vy + vh,
++		GL_COLOR_BUFFER_BIT, GL_LINEAR
++	);
++
++	SDL_GL_SwapWindow(window);
++
++	/* Rebind le FBO pour le prochain rendu */
++	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+ }
+ 
++////////////////////////////////////////////////////////////////////////
++
+ int
+ main(int argc, char *argv[])
+ {
++	SDL_Event ev;
+ 	int i;
+ 
+ 	if (argc != 3)
+@@ -1000,13 +1073,14 @@
+ 	bw = sw / quality;
+ 	bh = sh / quality;
+ 
+-	if (NULL == (flame = malloc(bh  * sizeof(uint8_t *))))
++	/* Allocations */
++	if (NULL == (flame = malloc(bh * sizeof(uint8_t *))))
+ 		errx(EXIT_FAILURE, "malloc flame");
+ 	for (i = 0; i < bh; ++i)
+ 		if (NULL == (flame[i] = malloc(bw)))
+-			errx(EXIT_FAILURE, "malloc flame");
++			errx(EXIT_FAILURE, "malloc flame row");
+ 
+-	if (NULL == (pixels = malloc(bh  * bw * 3)))
++	if (NULL == (pixels = malloc(bh * bw * 3)))
+ 		errx(EXIT_FAILURE, "malloc pixels");
+ 
+ 	if (NULL == (kochz = malloc(sh * sh * 3)))
+@@ -1015,24 +1089,59 @@
+ 	if (NULL == (qochz = malloc(sh * sh * 3)))
+ 		errx(EXIT_FAILURE, "malloc qochz");
+ 
+-	putenv("__GL_SYNC_TO_VBLANK=1");
++	/* SDL2 init */
++	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
++		errx(EXIT_FAILURE, "SDL_Init: %s", SDL_GetError());
++
++	/* Demande un contexte OpenGL 3.0 compat (FBO en core, legacy en compat) */
++	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
++	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
++	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
++	                    SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
++	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
++	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 0);
++
++	window = SDL_CreateWindow(
++		argv[0],
++		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++		sw, sh,
++		SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
++	);
++	if (!window)
++		errx(EXIT_FAILURE, "SDL_CreateWindow: %s", SDL_GetError());
++
++	gl_ctx = SDL_GL_CreateContext(window);
++	if (!gl_ctx)
++		errx(EXIT_FAILURE, "SDL_GL_CreateContext: %s", SDL_GetError());
+ 
+-	glutInit(&argc, argv);
+-
+-	glutInitWindowPosition(0, 0);
+-	glutInitWindowSize(sw, sh);
+-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+-	glutCreateWindow(argv[0]);
++	/* VSync */
++	SDL_GL_SetSwapInterval(1);
+ 
++	/* OpenGL state */
+ 	glDepthMask(0);
+ 	glDisable(GL_DEPTH_TEST);
+ 	glDisable(GL_BLEND);
+ 
+-	glutDisplayFunc(display);
+-	glutIdleFunc(display);
+-	glutKeyboardFunc(keyboard);
+-	glutReshapeFunc(reshape);
++	/*
++	 * Création du FBO à la résolution logique sw×sh.
++	 * Tout le rendu de l'intro se fait dans ce FBO ;
++	 * present() le blit vers l'écran en conservant le ratio.
++	 */
++	glGenFramebuffers(1, &fbo);
++	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
++
++	glGenRenderbuffers(1, &rbo);
++	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
++	glRenderbufferStorage(GL_RENDERBUFFER, GL_RGB8, sw, sh);
++	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
++	                          GL_RENDERBUFFER, rbo);
++
++	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
++		errx(EXIT_FAILURE, "FBO incomplet");
++
++	glViewport(0, 0, sw, sh);
+ 
++	/* Précalculs (s'exécutent dans le FBO) */
+ 	make_mandelbrot();
+ 	make_koch();
+ 	make_kochz();
+@@ -1040,10 +1149,50 @@
+ 	make_qochz();
+ 	make_fire();
+ 
+-	alsa_init();
+-	alsa_play("/usr/share/euclid-by-mastensgbobbyspice/euclid.ogg");
++	/* Audio SDL2_mixer */
++	audio_init();
++	audio_play("/usr/share/euclid-by-mastensgbobbyspice/euclid.ogg");
++
++	/* Boucle principale */
++	while (!done)
++	{
++		while (SDL_PollEvent(&ev))
++		{
++			if (ev.type == SDL_QUIT)
++			{
++				done = 1;
++			}
++			else if (ev.type == SDL_KEYDOWN)
++			{
++				switch (ev.key.keysym.sym)
++				{
++				case SDLK_ESCAPE:
++					done = 1;
++					break;
++				case SDLK_f:
++					ToggleFullscreen(window);
++					break;
++				default:
++					break;
++				}
++			}
++		}
++
++		/* Rendu dans le FBO à résolution fixe */
++		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
++		glViewport(0, 0, sw, sh);
++		display();
++
++		/* Présentation avec letterboxing */
++		present();
++	}
+ 
+-	glutMainLoop();
++	/* Nettoyage */
++	glDeleteRenderbuffers(1, &rbo);
++	glDeleteFramebuffers(1, &fbo);
++	SDL_GL_DeleteContext(gl_ctx);
++	SDL_DestroyWindow(window);
++	SDL_Quit();
+ 
+ 	return EXIT_SUCCESS;
+ }

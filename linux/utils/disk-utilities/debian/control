@@ -4,8 +4,9 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
+ dh-exec (>=0.3),
  libcapsimage5-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/keirf/Disk-Utilities
 Vcs-Browser: https://github.com/keirf/Disk-Utilities
 Vcs-Git: https://github.com/keirf/Disk-Utilities.git

@@ -1,0 +1,22 @@
+Source: img2djvu
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://github.com/ashipunov/img2djvu
+
+Package: img2djvu
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ graphicsmagick,
+ djvulibre-bin,
+ minidjvu,
+ netpbm
+Description: Single-pass DjVu Encoder Based on DjVu Libre and ImageMagick
+ Single-pass DjVu encoder based on DjVu Libre and ImageMagick,
+ optionally also minidjvu and ocrodjvu plus Cuneiform or Tesseract.

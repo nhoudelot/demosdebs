@@ -7,7 +7,7 @@ Build-Depends:
  libsdl2-dev,
  freeglut3-dev|libglut-dev,
  mesa-common-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=51137
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2008-08_4k-intro_stick_animation_engine_4000
 Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2008-08_4k-intro_stick_animation_engine_4000.git

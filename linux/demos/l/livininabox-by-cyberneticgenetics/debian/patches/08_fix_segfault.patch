@@ -1,0 +1,116 @@
+Description: Fix multiple segmentation faults and memory safety issues
+ This patch addresses several stability issues across the engine:
+  * src/livin.c: Added missing 'prev_time = time' update in Cube() to fix
+    timing logic. Previously, matat.dv was read at 60fps instead of 30fps,
+    leading to excessive file rewinds.
+  * src/depthvideo.c: Fixed an off-by-one error where one byte was written
+    outside the buffer, and improved EOF (End Of File) validation.
+  * src/tridlist.c: Fixed a 'use-after-free' bug in deleteAll() where the 
+    'next' pointer was accessed after the current iterator had been freed.
+  * src/outline.c: Added a guard in earClipping() to prevent a NULL pointer
+    dereference when the vertex count is less than 3.
+  * src/face.c & src/bigcube.c: Added mandatory NULL checks for glMapBuffer()
+    return values to prevent crashes during buffer mapping failures. 
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-22
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/bigcube.c
++++ b/src/bigcube.c
+@@ -106,6 +106,10 @@
+ 
+ 	glBindBuffer(GL_ARRAY_BUFFER, bc->vbo[0]);
+ 	verts = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
++	if(verts == NULL) {
++		glBindBuffer(GL_ARRAY_BUFFER, 0);
++		return;
++	}
+ 	for(i = 0; i < 640*480; i++) {
+ 		x = i % 640;
+ 		y = i / 640;
+--- a/src/depthvideo.c
++++ b/src/depthvideo.c
+@@ -29,18 +29,24 @@
+ 	unsigned char sizechunk[3], *encoded_data;
+ 	unsigned int read, i, pos;
+ 
+-	fread(sizechunk, sizeof(char), 3, dv.videofile);
++	if(fread(sizechunk, sizeof(char), 3, dv.videofile) < 3)
++		return;
++
+ 	read = 65536u * sizechunk[0] + 256u * sizechunk[1] + sizechunk[2];
++	if(read == 0)
++		return;
+ 
+ 	encoded_data = malloc(sizeof(char) * read);
+-	if(encoded_data == NULL) { printf("Oh my God!\n"); return; } /* Not nice, but safe */
++	if(encoded_data == NULL) { printf("Oh my God!\n"); return; }
+ 
+-	fread(encoded_data, sizeof(char), read, dv.videofile);
++	if(fread(encoded_data, sizeof(char), read, dv.videofile) < read) {
++		free(encoded_data);
++		return;
++	}
+ 
+ 	for(i = 0; i < read / 4; i++) {
+ 		pos = encoded_data[i*4] * 65536u + encoded_data[i*4+1] * 256u + encoded_data[i*4+2];
+-		if(pos > 640 * 480) {
+-			printf("Invalid position in depth video\n");
++		if(pos >= 640u * 480u) {
+ 			continue;
+ 		}
+ 		dv.buffer[pos] = encoded_data[i*4+3];
+--- a/src/face.c
++++ b/src/face.c
+@@ -68,6 +68,10 @@
+ 
+ 	glBindBuffer(GL_ARRAY_BUFFER, face->vbo[0]);
+ 	verts = glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE);
++	if(verts == NULL) {
++		glBindBuffer(GL_ARRAY_BUFFER, 0);
++		return;
++	}
+ 
+ 	for(i = 0; i < 640*480; i++) {
+ 		verts[(640 * 480 * 3) + i * 3 + 2] = (float)buffer[i] / 70.0;
+--- a/src/livin.c
++++ b/src/livin.c
+@@ -873,6 +873,7 @@
+ 	if(time - prev_time > 0.03) {
+ 		getNextFrame(matat);
+ 		updateBigCube(matat.buffer, &bigcube);
++		prev_time = time;
+ 		matatpos++;
+ 	}
+ 
+--- a/src/outline.c
++++ b/src/outline.c
+@@ -193,6 +193,8 @@
+ 	int canTriangulate = 1, inside;
+ 	Triangle *iter, *iter2;
+ 
++	if(triangles->count < 3) return;
++
+ 	while(canTriangulate) {
+ 		canTriangulate = 0;
+ 		for(iter = triangles->tail->prev; iter->prev != NULL; iter = iter->prev) {
+--- a/src/tridlist.c
++++ b/src/tridlist.c
+@@ -32,9 +32,13 @@
+ }
+ 
+ void deleteAll(TriangleDList *triangles){
+-	Triangle *iter;
++	Triangle *iter, *next;
+ 
+-	for(iter = triangles->list; iter != NULL; iter = iter->next) {
++	for(iter = triangles->list; iter != NULL; iter = next) {
++		next = iter->next;
+ 		free(iter);
+ 	}
++	triangles->list = NULL;
++	triangles->tail = NULL;
++	triangles->count = 0;
+ }

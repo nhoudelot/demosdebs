@@ -1,3 +1,13 @@
+vip2 (1.2-0ddebs18) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * ported to SDL2
+  * fixed some compilation warnings
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 28 Apr 2026 01:18:31 +0200
+
 vip2 (1.2-0ddebs17) unstable; urgency=medium
 
   * reduce num_periods to 32, to avoid audio crash

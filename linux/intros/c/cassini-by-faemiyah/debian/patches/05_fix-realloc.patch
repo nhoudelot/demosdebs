@@ -1,0 +1,202 @@
+Description: Fix [-Wclass-memaccess] and [-Wsized-deallocation] warnings on GCC13+
+ this time, it's mostly vibe coding
+Author: Claude Sonnet 4.6
+Assisted-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-12
+--- a/src/verbatim_realloc.hpp
++++ b/src/verbatim_realloc.hpp
+@@ -33,6 +33,18 @@
+   }
+ }
+ 
++/// Sized delete operator (required by C++14, silences -Wsized-deallocation).
++///
++/// \param ptr Pointer to free.
++/// \param sz Size (unused, free() does not require it).
++void operator delete(void *ptr, size_t /*sz*/) NOEXCEPT
++{
++  if(ptr)
++  {
++    dnload_free(ptr);
++  }
++}
++
+ /// A global new operator using realloc().
+ ///
+ /// \param sz Size to allocate.
+@@ -51,7 +63,7 @@
+ 
+ /// Array delete.
+ ///
+-/// Repolacement for delete[] using free().
++/// Replacement for delete[] using free().
+ /// Use with types that have destructors is not supported.
+ ///
+ /// \param ptr Pointer to free.
+@@ -63,12 +75,47 @@
+   }
+ }
+ 
+-/// Array new.
++/// Allocate a raw untyped buffer of the given byte size.
+ ///
+-/// Replacement for new[] using realloc().
+-/// Use with types that have destructors is not supported.
++/// Thin wrapper around dnload_realloc(NULL, sz).  Used for the initial
++/// allocation in seq<T> (where no objects exist yet) and for the
++/// non-trivially-copyable resize path in seq::resizeInternal().
++/// Using this helper instead of array_new() avoids the
++/// -Wclass-memaccess warning that GCC emits when realloc() is called
++/// with a typed pointer to a non-trivially copyable type.
++///
++/// \param sz Byte size to allocate.
++/// \return Allocated pointer.
++inline void* array_alloc_raw(size_t sz)
++{
++#if defined(USE_LD)
++  if(!sz)
++  {
++    BOOST_THROW_EXCEPTION(std::runtime_error("array_alloc_raw: size 0"));
++  }
++#endif
++  void* ptr = dnload_realloc(NULL, sz);
++#if defined(USE_LD)
++  if(!ptr)
++  {
++    std::ostringstream sstr;
++    sstr << "array_alloc_raw: allocating " << sz << " bytes failed";
++    BOOST_THROW_EXCEPTION(std::runtime_error(sstr.str()));
++  }
++  g_total += sz;
++#endif
++  return ptr;
++}
++
++/// Array new (trivially copyable types only).
++///
++/// Replacement for new[] using realloc().  Safe only for trivially
++/// copyable types; seq::resizeInternal() handles non-trivially copyable
++/// types separately.  Use with types that have destructors is not
++/// supported.
+ ///
+-/// \param ptr Existing ptr (may be NULL).
++/// \param ptr Existing ptr (must be non-NULL; for initial allocation use
++///            array_alloc_raw()).
+ /// \param count Number of elements to allocate.
+ /// \return Reallocated ptr.
+ template <typename T> inline T* array_new(T* ptr, size_t count)
+--- a/src/verbatim_seq.hpp
++++ b/src/verbatim_seq.hpp
+@@ -41,12 +41,34 @@
+   public:
+     /// Constructor.
+     ///
++    /// Uses array_alloc_raw() rather than array_new() for the initial
++    /// buffer so that the allocation is type-agnostic and does not
++    /// trigger -Wclass-memaccess for non-trivially copyable T.
++    /// No objects are constructed here; the buffer is populated later
++    /// via placement new in push_back() / emplace_back() / resize().
++    ///
+     /// \param op Starting capacity.
+     explicit seq(unsigned op = DEFAULT_CAPACITY) :
+-      m_data(array_new(static_cast<T*>(NULL), op)),
++      m_data(static_cast<T*>(array_alloc_raw(sizeof(T) * op))),
+       m_size(0),
+       m_capacity(op) { }
+ 
++    /// Move constructor.
++    ///
++    /// Transfers ownership of the internal buffer.  Required so that
++    /// seq<seq<T>> can be resized via the move path in resizeInternal().
++    ///
++    /// \param op Source sequence (left empty after the move).
++    seq(seq<T> &&op) NOEXCEPT :
++      m_data(op.m_data),
++      m_size(op.m_size),
++      m_capacity(op.m_capacity)
++    {
++      op.m_data = static_cast<T*>(array_alloc_raw(sizeof(T) * DEFAULT_CAPACITY));
++      op.m_size = 0;
++      op.m_capacity = DEFAULT_CAPACITY;
++    }
++
+     /// Destructor.
+     ~seq()
+     {
+@@ -151,11 +173,56 @@
+ 
+     /// Internal resize.
+     ///
+-    /// \param cnt New size.
++    /// Three paths depending on type traits:
++    ///
++    ///  Uses tag-dispatch on std::is_trivially_copyable<T> to select:
++    ///  1. Trivially copyable — delegate to realloc() via array_new().
++    ///     Fast and always correct for POD-like types.
++    ///  2. Not trivially copyable — allocate a fresh buffer via
++    ///     array_alloc_raw(), move-construct the m_size live elements,
++    ///     destroy originals, free old buffer.  Correct for SplinePoint,
++    ///     Crater, Crawler, seq<T>, etc.  seq<T> provides a move
++    ///     constructor so seq<seq<T>> also takes this path correctly.
++    ///  Tag dispatch (not if/else) prevents GCC from instantiating the
++    ///  realloc path for non-trivial types, eliminating -Wclass-memaccess.
++    ///
++    /// \param cnt New capacity (must be >= m_size).
++    /// Resize implementation for trivially copyable types (realloc path).
++    ///
++    /// Calls dnload_realloc directly through a void* to avoid instantiating
++    /// array_new<T> for non-trivially copyable T (which would trigger
++    /// -Wclass-memaccess even when this overload is never selected).
++    void resizeInternalImpl(unsigned cnt, std::true_type /*trivially_copyable*/)
++    {
++      m_data = static_cast<T*>(dnload_realloc(static_cast<void*>(m_data), sizeof(T) * cnt));
++      m_capacity = cnt;
++    }
++
++    /// Resize implementation for non-trivially copyable types (move path).
++    ///
++    /// Allocates a fresh buffer, move-constructs live elements into it,
++    /// destroys originals in-place, frees the old buffer.
++    void resizeInternalImpl(unsigned cnt, std::false_type /*trivially_copyable*/)
++    {
++      T* allocated = static_cast<T*>(array_alloc_raw(sizeof(T) * cnt));
++      for(unsigned ii = 0; ii < m_size; ++ii)
++      {
++        new(&allocated[ii]) T(std::move(m_data[ii]));
++        m_data[ii].~T();
++      }
++      array_delete(m_data);
++      m_data = allocated;
++      m_capacity = cnt;
++    }
++
+     void resizeInternal(unsigned cnt)
+     {
++#if __cplusplus >= 201103L
++      resizeInternalImpl(cnt, std::is_trivially_copyable<T>());
++#else
+       m_data = array_new(m_data, cnt);
+       m_capacity = cnt;
++#endif
+     }
+ 
+   public:
+@@ -204,7 +271,7 @@
+     {
+       return (0 >= m_size);
+     }
+-    
++
+     /// Get iterator.
+     ///
+     /// \return Iterator to end.
+@@ -278,7 +345,7 @@
+       {
+         new(&m_data[ii]) T();
+       }
+-      
++
+       for(unsigned ii = m_size; (ii > cnt); --ii)
+       {
+         m_data[ii - 1].~T();

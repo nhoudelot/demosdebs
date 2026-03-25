@@ -1,0 +1,48 @@
+Description: fix 64 bit portability
+  * src/cg_music.c: Fixed pointer cast where a 'long' (8 bytes on x86_64) was 
+    treated as an 'unsigned int' (4 bytes), causing truncated reads of the 
+    music rate. 
+  * src/shader.c: Fixed potential truncation when handling large shader files. 
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-22
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/cg_music.c
++++ b/src/cg_music.c
+@@ -29,7 +29,8 @@
+ 	music_info = ov_info(&cg_music, -1);
+ 
+ 	/* Set alsa channels and rate */
+-	snd_pcm_hw_params_set_rate_near(cg_audio, hw_params, (unsigned int *)&music_info->rate, 0);
++	{ unsigned int rate = (unsigned int)music_info->rate;
++	snd_pcm_hw_params_set_rate_near(cg_audio, hw_params, &rate, 0); }
+ 	snd_pcm_hw_params_set_channels(cg_audio, hw_params, music_info->channels);
+ 
+ 	/* Set alsa buffer and period */
+--- a/src/shader.c
++++ b/src/shader.c
+@@ -37,7 +37,8 @@
+ 	char *content = NULL;
+ 	GLuint ret;
+ 
+-	int count=0;
++	long count = 0;
++	size_t nread;
+ 
+ 	sourcefile = fopen(fn,"rt");
+ 
+@@ -48,9 +49,9 @@
+ 		rewind(sourcefile);
+ 
+ 		if (count > 0) {
+-			content = (char *)malloc(sizeof(char) * (count+1));
+-			count = fread(content, sizeof(char), count, sourcefile);
+-			content[count] = '\0';
++			content = (char *)malloc(sizeof(char) * ((size_t)count+1));
++			nread = fread(content, sizeof(char), (size_t)count, sourcefile);
++			content[nread] = '\0';
+ 		}
+ 		fclose(sourcefile);
+ 	}

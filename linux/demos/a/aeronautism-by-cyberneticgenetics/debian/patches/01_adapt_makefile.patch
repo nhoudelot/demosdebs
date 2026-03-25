@@ -19,8 +19,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	mv $(DEMO) ../
 +#variables de compilation
 +SHELL	:= /bin/sh
-+CC 		:= gcc
-+PKG_CONFIG:=pkg-config
++CC 		?= gcc
++PKG_CONFIG ?= pkg-config
 +CFLAGS 	+= -Wall -pipe -pedantic -std=gnu90 $(shell $(PKG_CONFIG) --cflags glu x11 xrandr libpng vorbisfile)
 +LDFLAGS += $(shell $(PKG_CONFIG) --libs glu x11 xrandr libpng vorbisfile) -lasound -lm
 +
@@ -54,7 +54,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Common demo stuff
  main.o: main.c
 -	$(CC) main.c -c
-+	$(CC) -flto main.c -c
++	$(CC) $(CFLAGS) -flto main.c -c
  texture.o: texture.c texture.h
  	$(CC) $(CFLAGS) texture.c -c
  mesh3d.o: mesh3d.c mesh3d.h

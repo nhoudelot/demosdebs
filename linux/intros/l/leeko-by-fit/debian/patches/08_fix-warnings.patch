@@ -1,0 +1,195 @@
+Description: fixing various warnings 
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+--- a/dump.c
++++ b/dump.c
+@@ -126,7 +126,12 @@
+ 	data=malloc(len);
+ 	if(data==NULL)
+ 		return(-1);
+-	fread(data,1,len,fp);
++	if(fread(data,1,(size_t)len,fp)!=(size_t)len)
++	{
++		free(data);
++		fclose(fp);
++		return(-1);
++	}
+ 	fclose(fp);
+ 
+ 	return(get_dump(s,data));
+@@ -184,7 +189,8 @@
+ 			m=malloc(sizeof(MTL));
+ 			m->next=s->materials;
+ 			s->materials=m;
+-			strncpy(m->name,(const char*)data,sizeof(m->name));
++			strncpy(m->name,(const char*)data,sizeof(m->name)-1);
++			m->name[sizeof(m->name)-1]='\0';
+ 			while(*data++);
+ 
+ 			m->ambient[3]=m->diffuse[3]=m->specular[3];
+@@ -212,7 +218,8 @@
+ 			o->rot=0;
+ 			o->pivot=NULL;
+ 
+-			strncpy(o->name,(const char*)data,sizeof(o->name));
++			strncpy(o->name,(const char*)data,sizeof(o->name)-1);
++			o->name[sizeof(o->name)-1]='\0';
+ 			while(*data++);
+ 
+ 			o->type=TYPE_OBJECT;
+@@ -232,7 +239,8 @@
+ 			p->faces=NULL;
+ 			p->next=o->parts;
+ 			o->parts=p;
+-			strncpy(p->name,(const char*)data,sizeof(p->name));
++			strncpy(p->name,(const char*)data,sizeof(p->name)-1);
++			p->name[sizeof(p->name)-1]='\0';
+ 			while(*data++);
+ 
+ 			m=s->materials; /* Find material */
+@@ -278,7 +286,8 @@
+ 				if(o2->type!=TYPE_PIVOT && o2->pivot==NULL)
+ 				{
+ 					key[0]='_';
+-					strncpy(&key[1],o2->name,sizeof(key[1]));
++					strncpy(&key[1],o2->name,sizeof(key)-1);
++					key[sizeof(key)-1]='\0';
+ 					if(strstr(o->name,key)!=NULL)
+ 						o2->pivot=o;
+ 				}
+--- a/syna.c
++++ b/syna.c
+@@ -119,7 +119,12 @@
+ 	length=(size_t)ftell(f);
+ 	fseek(f,0,SEEK_SET);
+ 	module=malloc(length+1);
+-	fread(module,1,length,f);
++	if(fread(module,1,length,f)!=length)
++	{
++		free(module);
++		fclose(f);
++		return(-1);
++	}
+ 	module[length]=0; /* String ends in zero */
+ 	fclose(f);
+ 
+@@ -130,7 +135,7 @@
+ int syna_get(void *tune)
+ {
+ 	int n=0,i,j,tmp,a,d,s,r,mod,sweep,
+-	    wave,patt,track,note;
++	    wave=0,patt,track,note;
+ 	char    *rows[MAXR],*key,*tnp;
+ 
+ 	module=tune;
+@@ -152,7 +157,7 @@
+ 		if(rows[i][0]=='#')
+ 			continue;
+ 
+-		if(key=strtok(rows[i],":"))
++		if((key=strtok(rows[i],":")))
+ 		{
+ 			if(!strcmp(key,"bpm"))
+ 			{
+@@ -185,13 +190,13 @@
+ 				instr[tmp]=malloc(len[tmp]*sizeof(float));
+ 
+ 				mod=atoi(strtok(NULL,","));
+-				if(tnp=strtok(NULL,","))
++				if((tnp=strtok(NULL,",")))
+ 					sweep=atoi(tnp);
+ 				else
+ 					sweep=0;
+-				if(tnp=strtok(NULL,","))
++				if((tnp=strtok(NULL,",")))
+ 					pan[tmp]=(float)atoi(tnp)/100.0;
+-				if(tnp=strtok(NULL,","))
++				if((tnp=strtok(NULL,",")))
+ 					pola[tmp]=(float)atoi(tnp)/100.0;
+ 
+ 				adsr(a,d,s,r,mod,sweep,tmp,wave);
+@@ -286,7 +291,7 @@
+ 				}
+ 				if(ti[i]!=END)
+ 				{
+-					if(note=ptn[trak[i][ti[i]]][pi[i]])
++					if((note=ptn[trak[i][ti[i]]][pi[i]]))
+ 					{
+ 						switch(note)
+ 						{
+--- a/palikka.c
++++ b/palikka.c
+@@ -15,7 +15,7 @@
+           GLfloat r,GLfloat g,GLfloat b)
+ {
+ 	int x,z,n;
+-	GLfloat fx,fz,color[4]={0,0,0,1.0};
++	GLfloat color[4]={0,0,0,1.0};
+ 	GLboolean kulli=glIsEnabled(GL_CULL_FACE);
+ 	double d,d2;
+ 
+@@ -45,10 +45,8 @@
+ 		{
+ 			glPushMatrix();
+ 			glTranslatef(0.5,0,-0.5-z);
+-			fz=z;
+ 			for(x=0; x<xs; x++)
+ 			{
+-				fx=x;
+ 				glBegin(GL_QUAD_STRIP);
+ 				for(n=0; n<nsteps; n++)
+ 				{
+@@ -181,12 +179,10 @@
+ 		glDisable(GL_CULL_FACE);
+ 		for(z=1; z<zs; z++)
+ 		{
+-			fz=z;
+ 			for(x=1; x<xs; x++)
+ 			{
+ 				glPushMatrix();
+ 				glTranslatef(x,0,-z);
+-				fx=x;
+ 				glBegin(GL_QUAD_STRIP);
+ 				for(n=0; n<psteps; n++)
+ 				{
+--- a/wavefront.c
++++ b/wavefront.c
+@@ -23,7 +23,12 @@
+ 	scn=malloc(size+1);
+ 	if(scn==NULL)
+ 		return(-1);
+-	fread(scn,1,size,fp);
++	if(fread(scn,1,size,fp)!=size)
++	{
++		free(scn);
++		fclose(fp);
++		return(-1);
++	}
+ 	scn[size]=0;
+ 	fclose(fp);
+ 
+@@ -95,7 +100,12 @@
+ 					mtl=malloc(size+1);
+ 					if(mtl==NULL)
+ 						return(-1);
+-					fread(mtl,1,size,fp);
++					if(fread(mtl,1,size,fp)!=size)
++					{
++						free(mtl);
++						fclose(fp);
++						return(-1);
++					}
+ 					mtl[size]=0;
+ 					fclose(fp);
+ 
+@@ -222,7 +232,8 @@
+ 				if(o2->type!=TYPE_PIVOT && o2->pivot==NULL)
+ 				{
+ 					key[0]='_';
+-					strncpy(&key[1],o2->name,sizeof(key[1]));
++					strncpy(&key[1],o2->name,sizeof(key)-1);
++					key[sizeof(key)-1]='\0';
+ 					if(strstr(o->name,key)!=NULL)
+ 						o2->pivot=o;
+ 				}

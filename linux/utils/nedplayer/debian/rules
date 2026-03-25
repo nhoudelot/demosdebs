@@ -7,5 +7,3 @@ export DEB_CXXFLAGS_MAINT_APPEND  = -std=gnu++14
 %:
 	dh $@  --sourcedirectory=Player
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

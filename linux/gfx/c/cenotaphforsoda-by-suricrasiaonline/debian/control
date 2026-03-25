@@ -10,7 +10,7 @@ Build-Depends:
  libxrandr-dev,
  libcairo2-dev,
  pkgconf
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://bitbucket.org/blackle_mori/cenotaph4soda/src/master/
 Rules-Requires-Root: no
 

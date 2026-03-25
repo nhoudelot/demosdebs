@@ -1,0 +1,468 @@
+Description: fix out-of-bounds write in FFI VLA buffers (GC64 segfault)
+ same fix than cratered
+ Here is the explanation that Claude Sonnet 4.6 wrote about the fix :
+ Fix: change glIntv(0) to glIntv(1) (and equivalents) in all affected files
+ so that each "output pointer" buffer has room for the one value GL writes.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-22
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/standalone/effect/compound_effect.lua
++++ b/standalone/effect/compound_effect.lua
+@@ -64,14 +64,14 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 2, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.DYNAMIC_DRAW)
+@@ -87,7 +87,7 @@
+         1,0,2,
+         2,0,3,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/effect/fullscreen_quad.lua
++++ b/standalone/effect/fullscreen_quad.lua
+@@ -25,14 +25,14 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 2, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.DYNAMIC_DRAW)
+@@ -48,7 +48,7 @@
+         1,0,2,
+         2,0,3,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/effect/iir_effect.lua
++++ b/standalone/effect/iir_effect.lua
+@@ -90,14 +90,14 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 2, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.DYNAMIC_DRAW)
+@@ -113,7 +113,7 @@
+         1,0,2,
+         2,0,3,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/effect/twopassblur_effect.lua
++++ b/standalone/effect/twopassblur_effect.lua
+@@ -74,14 +74,14 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 2, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.DYNAMIC_DRAW)
+@@ -97,7 +97,7 @@
+         1,0,2,
+         2,0,3,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/dots_scene.lua
++++ b/standalone/scene/dots_scene.lua
+@@ -111,7 +111,7 @@
+ 
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+@@ -123,7 +123,7 @@
+     local quads = glUintv(3, {
+         1,0,2,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+@@ -180,4 +180,4 @@
+     g = g + dt
+ end
+ 
+-return dots_scene
+\ No newline at end of file
++return dots_scene
+--- a/standalone/scene/font_scene.lua
++++ b/standalone/scene/font_scene.lua
+@@ -84,14 +84,14 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    vvbo = glIntv(0)
++    vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 2, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    cvbo = glIntv(0)
++    cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.DYNAMIC_DRAW)
+@@ -107,7 +107,7 @@
+         1,0,2,
+         2,0,3,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/inst_scene.lua
++++ b/standalone/scene/inst_scene.lua
+@@ -103,14 +103,14 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 3, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+@@ -128,7 +128,7 @@
+         3,0,4, 7,3,4,
+         0,1,5, 4,0,5
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/jellyfish_head.lua
++++ b/standalone/scene/jellyfish_head.lua
+@@ -193,7 +193,7 @@
+ 
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+@@ -202,7 +202,7 @@
+ 
+     gl.EnableVertexAttribArray(vpos_loc)
+ 
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/jellyfish_tentacles.lua
++++ b/standalone/scene/jellyfish_tentacles.lua
+@@ -143,14 +143,14 @@
+     local vpos_loc = gl.GetAttribLocation(jellyfish_tentacles.prog_spline, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(jellyfish_tentacles.prog_spline, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 3, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.STATIC_DRAW)
+@@ -168,7 +168,7 @@
+         3,0,4, 7,3,4,
+         0,1,5, 4,0,5
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/quad_scene.lua
++++ b/standalone/scene/quad_scene.lua
+@@ -61,14 +61,14 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 2, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.DYNAMIC_DRAW)
+@@ -84,7 +84,7 @@
+         1,0,2,
+         2,0,3,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/scene.lua
++++ b/standalone/scene/scene.lua
+@@ -65,13 +65,13 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 3, GL.FLOAT, GL.FALSE, 0, nil)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+@@ -88,7 +88,7 @@
+         3,0,4, 7,3,4,
+         0,1,5, 4,0,5
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/shadertoy_scene.lua
++++ b/standalone/scene/shadertoy_scene.lua
+@@ -83,7 +83,7 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+@@ -97,7 +97,7 @@
+         1,0,2,
+         2,0,3,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/tess_scene.lua
++++ b/standalone/scene/tess_scene.lua
+@@ -147,13 +147,13 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 3, GL.FLOAT, GL.FALSE, 0, nil)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.DYNAMIC_DRAW)
+@@ -167,7 +167,7 @@
+     local quads = glUintv(3, {
+         1,0,2,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/tri_scene.lua
++++ b/standalone/scene/tri_scene.lua
+@@ -62,14 +62,14 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 3, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.DYNAMIC_DRAW)
+@@ -84,7 +84,7 @@
+     local quads = glUintv(3, {
+         1,0,2,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/scene/trihex_scene.lua
++++ b/standalone/scene/trihex_scene.lua
+@@ -146,7 +146,7 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+@@ -154,7 +154,7 @@
+     table.insert(vbos, vvbo)
+ 
+     -- TODO: keep all our VBOs in a table so we can delete them
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.STATIC_DRAW)
+@@ -180,7 +180,7 @@
+         0,11,12,
+         0,12,1,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/standalone/util/shaderfunctions.lua
++++ b/standalone/util/shaderfunctions.lua
+@@ -21,17 +21,17 @@
+     gl.ShaderSource(s, 1, sourcepp, NULL)
+     gl.CompileShader(s)
+ 
+-    local ill = glIntv(0)
++    local ill = glIntv(1)
+     gl.GetShaderiv(s, GL.INFO_LOG_LENGTH, ill)
+     if (ill[0] > 1) then
+-        local cw = glIntv(0)
++        local cw = glIntv(1)
+         local logp = glCharv(ill[0] + 1)
+         gl.GetShaderInfoLog(s, ill[0], cw, logp)
+         print("__ShaderInfoLog: "..ffi.string(logp))
+         return 0
+     end
+ 
+-    local success = glIntv(0)
++    local success = glIntv(1)
+     gl.GetShaderiv(s, GL.COMPILE_STATUS, success);
+     assert(success[0] == GL.TRUE)
+ 
+@@ -75,10 +75,10 @@
+ 
+     gl.LinkProgram(program)
+ 
+-    local ill = glIntv(0)
++    local ill = glIntv(1)
+     gl.GetProgramiv(program, GL.INFO_LOG_LENGTH, ill)
+     if (ill[0] > 1) then
+-        local cw = glIntv(0)
++        local cw = glIntv(1)
+         local logp = glCharv(ill[0] + 1)
+         gl.GetProgramInfoLog(program, ill[0], cw, logp)
+         print("__ProgramInfoLog: "..ffi.string(logp))
+--- a/standalone/scene/shadertoy_atparty.lua
++++ b/standalone/scene/shadertoy_atparty.lua
+@@ -417,7 +417,7 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+@@ -431,7 +431,7 @@
+         1,0,2,
+         2,0,3,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)

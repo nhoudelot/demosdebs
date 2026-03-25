@@ -8,7 +8,7 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -42,9 +42,14 @@
+@@ -43,9 +43,14 @@
  /* Event handling */
  	while(Mix_PlayingMusic()) {
  		while( SDL_PollEvent( &event) ) {

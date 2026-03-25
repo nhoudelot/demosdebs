@@ -8,14 +8,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -1,38 +1,54 @@
+-CC	:= gcc
 +#variables de compilation
 +SHELL := /bin/sh
- CC	:= gcc
-+PKG_CONFIG:=pkg-config
- 
--CFLAGS	:= -W -Wall -I/usr/include `sdl-config --cflags`
--CFLAGS	+= -O3 -ffast-math -fpeephole2 -fexpensive-optimizations
--#CFLAGS	+= -g
++CC	?= gcc
++PKG_CONFIG ?= pkg-config
++
 +CFLAGS	+= -Wall -pipe -I/usr/include $(shell $(PKG_CONFIG) sdl vorbisfile --cflags)
 +CFLAGS2	+= -fpeephole2 -fexpensive-optimizations
 +LDFLAGS +=
@@ -29,7 +27,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 + NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 + MAKEFLAGS += -j$(NUMJOBS)
 +endif
-+
+ 
+-CFLAGS	:= -W -Wall -I/usr/include `sdl-config --cflags`
+-CFLAGS	+= -O3 -ffast-math -fpeephole2 -fexpensive-optimizations
+-#CFLAGS	+= -g
 +export
  
  all: main script-buildbg script-filter script-buildcr script-loop script-addtime

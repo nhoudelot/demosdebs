@@ -1,0 +1,59 @@
+Description: fix 64-bit portability in movements module
+ On LP64 systems (Linux x86-64), 'unsigned long int' is 64 bits while
+ SDL's Uint32 is always 32 bits. Replace 'unsigned long int' with
+ 'uint32_t' (C99, <stdint.h>) for the time and counter fields in the
+ Movements struct and its API, ensuring consistent 32-bit semantics on
+ both 32-bit and 64-bit architectures.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-28
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/movements.c
++++ b/movements.c
+@@ -10,7 +10,7 @@
+ 	char *xpos;
+ 	char *ypos;
+ 	Movements *movements;
+-	long int linenum = 0;
++	uint32_t linenum = 0;
+ 
+ 	movements = malloc(sizeof(Movements));
+ 	movements->pos = NULL;
+@@ -46,10 +46,10 @@
+ 	free(move);
+ }
+ 
+-float getMovementsX(Movements *move, unsigned long int time){
++float getMovementsX(Movements *move, uint32_t time){
+ 	return(move->pos[time - move->starttime].x);
+ }
+ 
+-float getMovementsY(Movements *move, unsigned long int time){
++float getMovementsY(Movements *move, uint32_t time){
+ 	return(move->pos[time - move->starttime].y);
+ }
+--- a/movements.h
++++ b/movements.h
+@@ -1,15 +1,17 @@
++#include <stdint.h>
++
+ typedef struct Pos {
+ 	float x;
+ 	float y;
+ } Pos;
+ 
+ typedef struct Movements {
+-	unsigned long int starttime;
+-	unsigned long int size;
++	uint32_t starttime;
++	uint32_t size;
+ 	Pos *pos;
+ } Movements;
+ 
+ Movements *loadMovements(const char *filename);
+ void freeMovements(Movements *move);
+-float getMovementsX(Movements *move, unsigned long int time);
+-float getMovementsY(Movements *move, unsigned long int time);
++float getMovementsX(Movements *move, uint32_t time);
++float getMovementsY(Movements *move, uint32_t time);

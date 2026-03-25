@@ -14,9 +14,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -				
 +#variables de compilation
 +SHELL := /bin/sh
-+CC    := gcc
-+CXX   := g++
-+PKG_CONFIG:=pkg-config
++CC    ?= gcc
++CXX   ?= g++
++PKG_CONFIG ?= pkg-config
 +CXXFLAGS += -Wall -w -pipe -std=gnu++98 -fabi-version=2 $(shell $(PKG_CONFIG) sdl SDL_mixer --cflags)
 +TARGET   := borntro-by-insolitdust
 +

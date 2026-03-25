@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+
+%:
+	dh $@
+
+override_dh_strip:
+	dh_strip -Xmind-your-head_by_MacSlow-fullscreen-1920x1080
+

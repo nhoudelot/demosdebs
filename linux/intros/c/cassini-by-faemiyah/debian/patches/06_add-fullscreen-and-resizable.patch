@@ -1,0 +1,231 @@
+Description: added fullscreen key and resizable window
+ added fullscreen function, to go fullscreen and back, with F key
+ and make window resizable with correct aspect ratio
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by: Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-12
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -106,6 +106,9 @@
+ /// Global SDL window storage.
+ static SDL_Window *g_sdl_window;
+ 
++/// Fullscreen state toggle.
++static bool g_fullscreen = static_cast<bool>(SCREEN_F);
++
+ /// Font paths to try.
+ static const char* g_font_paths[] =
+ {
+@@ -382,13 +385,6 @@
+   return ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE));
+ }
+ 
+-/// Swap buffers.
+-///
+-/// Uses global data.
+-static void swap_buffers()
+-{
+-  dnload_SDL_GL_SwapWindow(g_sdl_window);
+-}
+ 
+ //######################################
+ // Music ###############################
+@@ -922,6 +918,74 @@
+ #include "global_data.hpp"
+ 
+ //######################################
++// Fullscreen / swap ##################
++//######################################
++
++/// Toggle fullscreen mode.
++///
++/// Uses SDL_WINDOW_FULLSCREEN_DESKTOP for best compositor compatibility.
++static void ToggleFullscreen()
++{
++  g_fullscreen = !g_fullscreen;
++  SDL_SetWindowFullscreen(g_sdl_window,
++      g_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
++}
++
++/// Swap buffers.
++///
++/// Blits the screen FBO to the window default framebuffer with aspect-ratio
++/// preservation (letterbox / pillarbox), then presents the frame.
++///
++/// \param screen_fbo Screen-resolution output FBO written by draw().
++static void swap_buffers(const FrameBuffer& screen_fbo)
++{
++  int win_w = 0;
++  int win_h = 0;
++  SDL_GL_GetDrawableSize(g_sdl_window, &win_w, &win_h);
++
++  const GLsizei fbo_w = static_cast<GLsizei>(screen_fbo.getWidth());
++  const GLsizei fbo_h = static_cast<GLsizei>(screen_fbo.getHeight());
++
++  // Compute destination rect preserving FBO aspect ratio.
++  int dst_x = 0;
++  int dst_y = 0;
++  int dst_w = win_w;
++  int dst_h = win_h;
++  {
++    long long scaled_w = static_cast<long long>(win_h) * fbo_w / fbo_h;
++    long long scaled_h = static_cast<long long>(win_w) * fbo_h / fbo_w;
++    if(scaled_w <= win_w)
++    {
++      dst_w = static_cast<int>(scaled_w);
++      dst_x = (win_w - dst_w) / 2;
++    }
++    else
++    {
++      dst_h = static_cast<int>(scaled_h);
++      dst_y = (win_h - dst_h) / 2;
++    }
++  }
++
++  // Bind screen FBO as read source, window default framebuffer as draw target.
++  // screen_fbo.bind() sets both READ and DRAW; we then redirect DRAW to FBO 0.
++  screen_fbo.bind();
++  glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
++
++  // Clear entire window to black (letterbox / pillarbox bars).
++  glViewport(0, 0, win_w, win_h);
++  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
++  glClear(GL_COLOR_BUFFER_BIT);
++
++  glBlitFramebuffer(
++      0, 0, fbo_w, fbo_h,
++      dst_x, dst_y, dst_x + dst_w, dst_y + dst_h,
++      GL_COLOR_BUFFER_BIT, GL_LINEAR);
++
++  glBindFramebuffer(GL_FRAMEBUFFER, 0);
++  SDL_GL_SwapWindow(g_sdl_window);
++}
++
++//######################################
+ // Drawing #############################
+ //######################################
+ 
+@@ -1488,7 +1552,7 @@
+ 
+     dnload_glRects(-1, -1, 1, 1);
+   }
+-  swap_buffers();
++  swap_buffers(data.getScreenFbo());
+ }
+ 
+ #if defined(USE_LD)
+@@ -1821,7 +1885,8 @@
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+   g_sdl_window = dnload_SDL_CreateWindow("Cassini by Faemiyah", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+       static_cast<int>(screen_w), static_cast<int>(screen_h),
+-      SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++      SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
++      (flag_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
+   dnload_SDL_GL_CreateContext(g_sdl_window);
+   dnload_SDL_ShowCursor(g_flag_developer);
+ 
+@@ -2040,6 +2105,10 @@
+                 }
+                 break;
+ 
++              case SDLK_f:
++                ToggleFullscreen();
++                break;
++
+               case SDLK_ESCAPE:
+                 quit = true;
+                 break;
+@@ -2156,7 +2225,7 @@
+ 
+       draw(ticks, global_data);
+       write_frame(screen_w, screen_h, frame_idx);
+-      swap_buffers();
++      swap_buffers(global_data.getScreenFbo());
+       ++frame_idx;
+     }
+ 
+@@ -2311,6 +2380,10 @@
+             }
+             break;
+ 
++          case SDLK_f:
++            ToggleFullscreen();
++            break;
++
+           case SDLK_F5:
+             {
+               opt<Pipeline*> failed_pipeline = global_data.linkPipelines();
+@@ -2449,6 +2522,10 @@
+ #else
+     dnload_SDL_PollEvent(&event);
+ 
++    if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_f))
++    {
++      ToggleFullscreen();
++    }
+     if((playback_ticks > INTRO_LENGTH_TICKS) || is_quit_event(event))
+     {
+       break;
+@@ -2468,7 +2545,7 @@
+       g_next_audio_position = next_apos - (next_apos % static_cast<int>(AUDIO_CHANNELS * sizeof(sample_t)));
+ 
+       draw(static_cast<int>(playback_ticks), global_data);
+-      swap_buffers();
++      swap_buffers(global_data.getScreenFbo());
+     }
+     else
+ #endif
+@@ -2496,7 +2573,7 @@
+       }
+ 
+       draw(static_cast<int>(playback_ticks), global_data);
+-      swap_buffers();
++      swap_buffers(global_data.getScreenFbo());
+ 
+       // Second check, wait until we can proceed (less than one frame left).
+       for(;;)
+--- a/src/global_data.hpp
++++ b/src/global_data.hpp
+@@ -52,6 +52,10 @@
+     FrameBuffer m_fluid_dye_fbo_2;
+     /// Fluid simulation framebuffer 5 (pressure).
+     FrameBuffer m_fluid_pressure_fbo;
++    /// Screen-resolution output FBO.
++    /// draw() writes its final post-process here; swap_buffers() blits it to
++    /// the window (FBO 0) with aspect-ratio preservation when needed.
++    FrameBuffer m_screen_fbo;
+ 
+     /// Font.
+     Font m_font;
+@@ -116,6 +120,7 @@
+       m_fluid_dye_fbo_1(FLUID_WIDTH, FLUID_HEIGHT, true, false, 4, BILINEAR, WRAP),
+       m_fluid_dye_fbo_2(FLUID_WIDTH, FLUID_HEIGHT, true, false, 4, BILINEAR, WRAP),
+       m_fluid_pressure_fbo(FLUID_WIDTH, FLUID_HEIGHT, true, false, 4, BILINEAR, WRAP),
++      m_screen_fbo(width, height),
+       m_font(128, g_font_paths),
+       m_direction(g_direction),
+       m_temporary(new GlobalDataTemporary())
+@@ -163,7 +168,7 @@
+     /// Restore default framebuffer.
+     void bindDefaultFrameBuffer() const
+     {
+-      FrameBuffer::bind_default_frame_buffer(m_fbo.getWidth(), m_fbo.getHeight());
++      m_screen_fbo.bind();
+     }
+ 
+     /// Calculates the width of a string.
+@@ -417,6 +422,11 @@
+       return m_fbo_lq;
+     }
+     /// Accessor.
++    const FrameBuffer& getScreenFbo() const
++    {
++      return m_screen_fbo;
++    }
++    /// Accessor.
+     /// \param idx Fluid dye framebuffer index (0 or 1).
+     const FrameBuffer& getFluidDyeFbo(int idx) const
+     {

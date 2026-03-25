@@ -1,3 +1,9 @@
+glib-1.2 (10-58ddebs5) unstable; urgency=medium
+
+  * Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 10:26:28 +0100
+
 glib-1.2 (10-58ddebs4) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

@@ -1,3 +1,10 @@
+gtk+ (1.2.10-93ddebs6) unstable; urgency=medium
+
+  * Removed xz compression of the package
+  * Backported Fedora C23 patch
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 14:09:05 +0100
+
 gtk+ (1.2.10-93ddebs5) unstable; urgency=medium
 
   * added patch to fix incompatible pointer type from Fedora

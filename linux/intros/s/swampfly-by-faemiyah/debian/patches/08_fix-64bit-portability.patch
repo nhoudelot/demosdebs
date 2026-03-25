@@ -1,0 +1,53 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+--- a/src/synth.h
++++ b/src/synth.h
+@@ -1,6 +1,7 @@
+ // Yes, this acts as a header. Fuck that.
+ 
+ #include "sys/types.h"
++#include <stdint.h>
+ #include "math.h"
+ #include "notetable.h"
+ 
+@@ -30,8 +31,6 @@
+ //
+ #define N_SINES 8
+ 
+-typedef unsigned char uint8_t;
+-
+ #define VOICES 3
+ 
+ //ICONST uint8_t song[SONGLEN * VOICES] = {
+@@ -212,7 +211,7 @@
+ 						*(op) = (int16_t)(op_s + (int)s_in);
+ 					} else { 
+ 						// cutoff slide
+-						if (f > 4000 && ((int)op & 4)) {
++						if (f > 4000 && ((uintptr_t)op & 4u)) {
+ 							f--;
+ 						}
+ 
+--- a/src/swamp_fly.c
++++ b/src/swamp_fly.c
+@@ -309,7 +309,7 @@
+    * Park and Miller, Communications of the ACM, vol. 31, no. 10,
+    * October 1988, p. 1195.
+    */
+-  long hi, lo, x;
++  int32_t hi, lo, x;
+ 
+   /* Can't be initialized with 0, so use another value. */
+   if(bsd_rand_next == 0)
+@@ -1208,7 +1208,7 @@
+ 
+   // Graphics init.
+   SDL_Window *sdlWindow;
+-  SDL_GLContext *sdlGlcontext;
++  SDL_GLContext sdlGlcontext;
+   DDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+   {
+ #if defined(USE_LD)

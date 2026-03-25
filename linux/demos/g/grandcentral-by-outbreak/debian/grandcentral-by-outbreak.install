@@ -1,4 +1,6 @@
+#!/usr/bin/dh-exec
+
 debian/scripts/grandcentral-by-outbreak usr/bin/
 debian/resources/grandcentral-by-outbreak.desktop usr/share/applications/
 debian/resources/grandcentral-by-outbreak.png usr/share/icons/hicolor/256x256/apps/
-./GrandCentral_linux_64bit.elf usr/lib/x86_64-linux-gnu/grandcentral-by-outbreak/./ 
+./${EXE} usr/lib/${DEB_HOST_MULTIARCH}/grandcentral-by-outbreak/./ 

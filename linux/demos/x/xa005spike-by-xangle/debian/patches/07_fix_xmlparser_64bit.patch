@@ -1,0 +1,48 @@
+--- a/ds/utils/xmlparser.cpp
++++ b/ds/utils/xmlparser.cpp
+@@ -122,8 +122,8 @@
+ 		if(pData[i] == '\n')
+ 		{
+ 			// Fix the "\n" linebreaks
+-			unsigned int lbegin = 0;
+-			unsigned int lend = 0;
++			size_t lbegin = 0;
++			size_t lend = 0;
+ 			string out;
+ 			for(;;)
+ 			{
+@@ -148,7 +148,7 @@
+ 
+ 	// Look for XML header
+ 	m_currentline = 0;
+-	unsigned int loc = m_lines[m_currentline].find("<?");
++	size_t loc = m_lines[m_currentline].find("<?");
+ 	if(loc == string::npos)
+ 		throw Exception(fn, "No XML header.");
+ 
+@@ -164,12 +164,12 @@
+ 	XMLElement* pElement = new XMLElement(m_currentline+1);
+ 
+ 	// Look for begin tag
+-	unsigned int l0 = m_lines[m_currentline].find("<");
++	size_t l0 = m_lines[m_currentline].find("<");
+ 	if(l0 == string::npos)
+ 		throw Exception(fn, "\"<\" expected at line " + itoa(m_currentline+1) + ".");
+ 
+ 	// Look for element value
+-	unsigned int l1 = m_lines[m_currentline].find_first_of(" ", l0);
++	size_t l1 = m_lines[m_currentline].find_first_of(" ", l0);
+ 	if(l1 == string::npos)
+ 		throw Exception(fn, "space expected after element value at line " + itoa(m_currentline+1) + ".");
+ 
+--- a/ds/scriptparser.cpp
++++ b/ds/scriptparser.cpp
+@@ -204,7 +204,7 @@
+ 	{
+ 		// Translate binds
+ 		string current = bindindex[i];
+-		unsigned int loc = str.find(current);
++		size_t loc = str.find(current);
+ 		if(loc != string::npos)
+ 		{
+ 			str = str.substr(0, loc) + pBindMap->Get(current.c_str()) +

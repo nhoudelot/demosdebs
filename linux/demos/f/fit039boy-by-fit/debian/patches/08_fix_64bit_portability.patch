@@ -1,0 +1,103 @@
+Description: Fix 64-bit portability issues
+ - mp3.c: use long for filelen to avoid truncation of ftell() return value
+ - wavefront.c: cast fn to size_t before malloc multiplication
+ - cgm.c: cast n/num to size_t before malloc/memcpy multiplication
+ - mpglib/layer3.c: explicit int cast for ptrdiff_t->int narrowing in loop bounds
+ - mpglib/mpglib.h: use int instead of long in struct buf/framebuf,
+   consistent with interface.c usage (audio frames are always small)
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-20
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cgm.c
++++ b/cgm.c
+@@ -179,8 +179,8 @@
+ 
+ 			e=malloc(sizeof(ELEMENT));
+ 			e->points=n;
+-			e->pointsv=malloc(n*2*sizeof(int));
+-			memcpy(e->pointsv,vrt,n*2*sizeof(int));
++			e->pointsv=malloc((size_t)n*2*sizeof(int));
++			memcpy(e->pointsv,vrt,(size_t)n*2*sizeof(int));
+ 			e->color=cur;
+ 			e->linecolor=edge;
+ 			e->linewidth=edgewidth;
+@@ -271,7 +271,7 @@
+ 	        nx,ny,
+ 	        miny,mi;
+ 
+-	re=malloc((num-2)*2*3*sizeof(int));
++	re=malloc((size_t)(num-2)*2*3*sizeof(int));
+ 	*res=re;
+ 	*tris=num-2;
+ 
+--- a/mp3.c
++++ b/mp3.c
+@@ -11,7 +11,8 @@
+ #include <SDL2/SDL.h>
+ #include <math.h>
+ 
+-static int pos,retval,allocated,bufdata,finished,filelen;
++static int pos,retval,allocated,bufdata,finished;
++static long filelen;
+ static void *biisi;
+ static struct mpstr mp;
+ static Uint8 buf[MP3_BUFSIZE],*bufptr;
+--- a/mpglib/layer3.c
++++ b/mpglib/layer3.c
+@@ -938,7 +938,7 @@
+ 		/*
+ 		 * zero part
+ 		 */
+-		for(i=(&xr[SBLIMIT][0]-xrpnt)>>1; i; i--) {
++		for(i=(int)((&xr[SBLIMIT][0]-xrpnt)>>1); i; i--) {
+ 			*xrpnt++ = 0.0;
+ 			*xrpnt++ = 0.0;
+ 		}
+@@ -1349,7 +1349,7 @@
+ 					*xrpnt++ = *xr0pnt++;
+ 			}
+ 		}
+-		for(i=(&xr[1][SBLIMIT][0]-xrpnt)>>1; i; i--) {
++		for(i=(int)((&xr[1][SBLIMIT][0]-xrpnt)>>1); i; i--) {
+ 			*xrpnt++ = *xr0pnt++;
+ 			*xrpnt++ = *xr0pnt++;
+ 		}
+--- a/mpglib/mpglib.h
++++ b/mpglib/mpglib.h
+@@ -1,15 +1,15 @@
+ 
+ struct buf {
+ 	unsigned char *pnt;
+-	long size;
+-	long pos;
++	int size;
++	int pos;
+ 	struct buf *next;
+ 	struct buf *prev;
+ };
+ 
+ struct framebuf {
+ 	struct buf *buf;
+-	long pos;
++	int pos;
+ 	struct frame *next;
+ 	struct frame *prev;
+ };
+--- a/wavefront.c
++++ b/wavefront.c
+@@ -239,9 +239,9 @@
+ 						done=1;
+ 				}
+ 				f->num=fn;
+-				f->index=malloc(fn*sizeof(int));
+-				f->normal=malloc(fn*sizeof(int));
+-				f->tcoord=malloc(fn*sizeof(int));
++				f->index=malloc((size_t)fn*sizeof(int));
++				f->normal=malloc((size_t)fn*sizeof(int));
++				f->tcoord=malloc((size_t)fn*sizeof(int));
+ 
+ 				strsep(&row," ");
+ 				for(done=fn=0; !done;)

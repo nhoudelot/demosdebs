@@ -6,3 +6,5 @@
 06_resizable_window.patch
 07_toggle_fullscreen.patch
 08_fix_implicit-function-declaration.patch
+09_fix-warnings.patch
+10_fix-64bit-portability.patch

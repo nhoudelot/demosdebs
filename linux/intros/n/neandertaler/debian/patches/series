@@ -3,3 +3,6 @@
 03_fix_warnings.patch
 04_replace_mikmod_by_sdlmixer.patch
 05_link_to_libgl.patch
+06_fix-64bit-portability.patch
+07_sdl2-port.patch
+08_fix-warnings

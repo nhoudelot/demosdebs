@@ -33,11 +33,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	$(RM) *.o *~
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,31 @@
 +#variables de compilation
 +SHELL = /bin/sh
-+CXX   := g++
-+PKG_CONFIG := pkg-config
++CXX   ?= g++
++PKG_CONFIG ?= pkg-config
 +CXXFLAGS += -std=gnu++98 -fabi-version=2 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu gl)
 +LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
 +TARGET   := bugymetaballs-by-lordcow
@@ -51,13 +51,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +exec_prefix     = $(prefix)
 +bindir          = $(prefix)/bin
 +
-+export
-+
 +SOURCE          = buggy_metaballs.cpp
 +
 +all: $(TARGET)
 +
-+$(TARGET):
++$(TARGET): $(SOURCE)
 +	 $(CXX) $(SOURCE) $(CXXFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)

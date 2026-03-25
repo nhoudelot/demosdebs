@@ -5,7 +5,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export QT_SELECT=qt5
 
 %:
-	dh $@
+	dh $@ --buildsystem=qmake
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz
+override_dh_auto_clean:
+	[ -f Makefile ] && $(MAKE) distclean || true

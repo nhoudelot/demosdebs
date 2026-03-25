@@ -3,13 +3,13 @@
 % 2024-03-24
 
 # NAME
-adarkarwastes-by-faemiyah - the command to run Adarkar Wastes.
+**adarkarwastes-by-faemiyah** - the command to run Adarkar Wastes.
 
 # SYNOPSIS
-adarkarwastes-by-faemiyah [*options*]
+**adarkarwastes-by-faemiyah** [*options*]
 
 # DESCRIPTION
-Adarkar Wastes is a 4k intro released by Faemiyah in march 2018.
+**Adarkar Wastes** is a 4k intro released by Faemiyah in march 2018.
 Ended 1st 4k at Instanssi 2018
 
 # OPTIONS

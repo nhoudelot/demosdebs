@@ -1,3 +1,9 @@
+glfw (2.7.9-1ddebs8) unstable; urgency=medium
+
+  * Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 02:11:46 +0100
+
 glfw (2.7.9-1ddebs7) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

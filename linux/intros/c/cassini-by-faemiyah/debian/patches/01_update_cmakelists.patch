@@ -7,33 +7,51 @@ Last-Update: 2024-05-10
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -1,6 +1,6 @@
- cmake_minimum_required(VERSION 3.1)
+@@ -1,26 +1,19 @@
+-cmake_minimum_required(VERSION 3.1)
++cmake_minimum_required(VERSION 3.16)
  set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
 -project(cassini)
-+project(cassini-by-faemiyah)
+-
+-enable_language(C)
+-enable_language(CXX)
++project(cassini-by-faemiyah  LANGUAGES C CXX)
  
- enable_language(C)
- enable_language(CXX)
-@@ -14,13 +14,13 @@
- find_png()
- find_sdl2()
+ include("defaults.cmake")
  
+-find_boost("filesystem" "program_options" "system" "thread" "wave")
+-find_freetype()
+-find_glew()
+-find_opengl()
+-find_png()
+-find_sdl2()
+-
 -output_flags("DEBUG" on)
+-
+-add_definitions(-DUSE_LD)
++find_package(Boost 1.74.0 CONFIG REQUIRED COMPONENTS filesystem program_options thread wave)
++find_package(Freetype REQUIRED)
++find_package(GLEW REQUIRED)
++find_package(OpenGL REQUIRED)
++find_package(PNG REQUIRED)
++find_package(SDL2 REQUIRED)
+ 
+-include_directories("${PROJECT_SOURCE_DIR}/src")
 +set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
- 
- add_definitions(-DUSE_LD)
- 
- include_directories("${PROJECT_SOURCE_DIR}/src")
  
 -add_executable(cassini
 +add_executable(cassini-by-faemiyah
    "src/bsd_rand.c"
    "src/bsd_rand.h"
    "src/clouds.frag.glsl.hpp"
-@@ -104,25 +104,27 @@
+@@ -103,26 +96,25 @@
+   "src/verbatim_uptr.hpp"
    "src/verbatim_vec2.hpp"
    "src/verbatim_vec3.hpp")
++
++target_include_directories(cassini-by-faemiyah PRIVATE "${PROJECT_SOURCE_DIR}/src")
++target_compile_definitions(cassini-by-faemiyah PRIVATE USE_LD)
++
  if(MSVC)
 -  target_link_libraries(cassini "Imm32")
 -  target_link_libraries(cassini "Version")
@@ -45,16 +63,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -  target_link_libraries(cassini debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
 -  target_link_libraries(cassini debug "${SNDFILE_LIBRARY_DEBUG}" optimized "${SNDFILE_LIBRARY}")
 -  target_link_libraries(cassini debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "Imm32")
-+  target_link_libraries(cassini-by-faemiyah "Version")
-+  target_link_libraries(cassini-by-faemiyah "WinMM")
-+  target_link_libraries(cassini-by-faemiyah "${OPENGL_gl_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah debug "${GLEW_LIBRARY_DEBUG}" optimized "${GLEW_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah debug "${FREETYPE_LIBRARY_DEBUG}" optimized "${FREETYPE_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah debug "${PNG_LIBRARY_DEBUG}" optimized "${PNG_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah debug "${SDL2_LIBRARY_DEBUG}" optimized "${SDL2_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah debug "${SNDFILE_LIBRARY_DEBUG}" optimized "${SNDFILE_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah debug "${ZLIB_LIBRARY_DEBUG}" optimized "${ZLIB_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah PRIVATE Imm32 Version WinMM)
  else()
 -  target_link_libraries(cassini "${BOOST_FILESYSTEM_LIBRARY}")
 -  target_link_libraries(cassini "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
@@ -66,16 +75,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -  target_link_libraries(cassini "${PNG_LIBRARY}")
 -  target_link_libraries(cassini "${SDL2_LIBRARY}")
 -  target_link_libraries(cassini "${SNDFILE_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${BOOST_FILESYSTEM_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${BOOST_PROGRAM_OPTIONS_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${BOOST_SYSTEM_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${BOOST_THREAD_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${BOOST_WAVE_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${GLEW_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${FREETYPE_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${PNG_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${SDL2_LIBRARY}")
-+  target_link_libraries(cassini-by-faemiyah "${SNDFILE_LIBRARY}")
++  target_link_libraries(cassini-by-faemiyah
++  PRIVATE
++    Boost::filesystem
++    Boost::program_options
++    Boost::thread
++    Boost::wave
++    OpenGL::GL
++    Freetype::Freetype
++    GLEW::GLEW
++    PNG::PNG
++    SDL2::SDL2
++)
  endif()
 +
 +set_target_properties(cassini-by-faemiyah PROPERTIES SKIP_BUILD_RPATH TRUE)

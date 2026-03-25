@@ -10,10 +10,10 @@ Build-Depends:
  libfmt-dev,
  libfmt7 <bullseye>,
  libfmt8 <jammy>,
- libfmt9 <bookworm> <noble>,
+ libfmt9 <bookworm> <noble> ,
  libfmt10 <trixie> <resolute>,
  rename
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.kryoflux.com/?page=download
 Rules-Requires-Root: no
 

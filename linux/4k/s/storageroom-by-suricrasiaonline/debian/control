@@ -9,11 +9,11 @@ Build-Depends:
  shader-minifier:native,
  libgtk-3-dev,
  libglu-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://suricrasia.online/demoscene/storage_room.html
 
 Package: storageroom-by-suricrasiaonline
-Architecture: any
+Architecture: amd64
 Multi-Arch: foreign
 Depends:
  ${shlibs:Depends},

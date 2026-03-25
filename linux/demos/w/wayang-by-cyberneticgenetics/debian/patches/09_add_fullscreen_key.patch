@@ -7,21 +7,21 @@ Last-Update: 2020-05-01
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -14,6 +14,13 @@
+@@ -13,6 +13,13 @@
  Uint32 windowID;
  float aspect;
  
 +void ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
-+    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
-+    SDL_ShowCursor(isFullscreen);
++    SDL_ShowCursor(isFullscreen ? SDL_ENABLE : SDL_DISABLE);
 +}
 +
  void resize_window(int x, int y, int w, int h)
  {
  	/* Prevent division by zero */
-@@ -75,6 +82,7 @@
+@@ -76,6 +83,7 @@
  				switch (event.key.keysym.sym) {
  					case SDLK_ESCAPE: Mix_HaltMusic(); break;
  					case SDLK_q: Mix_HaltMusic(); break;

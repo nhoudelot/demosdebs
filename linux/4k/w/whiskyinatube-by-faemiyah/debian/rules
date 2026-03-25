@@ -10,5 +10,3 @@ override_dh_install:
 	mv build/whisky_in_a_tube build/whiskyinatube-by-faemiyah
 	dh_install
 
-override_dh_builddeb:
-	dh_builddeb -- -Zxz

@@ -1,3 +1,13 @@
+hexpistols-by-fit (1.0+1-0ddebs13) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * update SDL2 migration
+  * fix 64 bit portability
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 21 Apr 2026 22:22:18 +0200
+
 hexpistols-by-fit (1.0+1-0ddebs12) unstable; urgency=medium
 
   * Fix a few incompatible pointer types warning

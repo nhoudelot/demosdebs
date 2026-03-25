@@ -1,3 +1,14 @@
+cassini-by-faemiyah (1.0+git20190703-0ddebs4) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * Fix some warning on GCC 13+
+  * added Fullscreen with F key
+  * make window resizable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 12 Apr 2026 02:12:58 +0200
+
 cassini-by-faemiyah (1.0+git20190703-0ddebs3) unstable; urgency=medium
 
   * FLAC was used to reduce the overall size of the data package.

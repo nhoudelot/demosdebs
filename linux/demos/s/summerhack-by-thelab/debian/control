@@ -10,7 +10,7 @@ Build-Depends:
  libfreetype-dev,
  libpng12-0,
  libjpeg62-dev|libjpeg62-turbo-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=18823
 Rules-Requires-Root: no
 

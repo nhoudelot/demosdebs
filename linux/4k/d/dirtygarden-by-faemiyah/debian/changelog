@@ -1,3 +1,14 @@
+dirtygarden-by-faemiyah (1.0+git20170414-0ddebs6) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * Migrate to SDL2
+  * Added Fullscreen with F key
+  * fixed warnings in compilation & in shaders
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 31 Mar 2026 01:52:55 +0200
+
 dirtygarden-by-faemiyah (1.0+git20170414-0ddebs5) unstable; urgency=medium
 
   * Set the environment variable SDL12COMPAT_OPENGL_SCALING to 0 to avoid black 

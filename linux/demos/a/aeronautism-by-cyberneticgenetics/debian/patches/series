@@ -4,3 +4,6 @@
 04_remove_fullscreen.patch
 05_link_to_libglx-dev.patch
 06_fix_implicit_declaration.patch
+07_fix-64bit-protability.patch
+08_sdl2-replace-cg_x11.patch
+09_sdl2-fullscreen-resizable.patch

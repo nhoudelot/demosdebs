@@ -1,3 +1,11 @@
+thom (1.6-0ddebs11) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Mar 2026 19:20:55 +0100
+
 thom (1.6-0ddebs10) unstable; urgency=medium
 
   * fix compilation for trixie

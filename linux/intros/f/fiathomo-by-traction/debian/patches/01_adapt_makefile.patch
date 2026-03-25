@@ -10,7 +10,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 @@ -1,3 +1,11 @@
 +# compilers and tools
 +SHELL      := /bin/sh
-+PKG_CONFIG := pkg-config
++PKG_CONFIG ?= pkg-config
 +RM_F       := rm -f
 +#define some system utilities
 +CP = cp -R

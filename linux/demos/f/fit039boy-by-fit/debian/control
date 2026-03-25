@@ -7,7 +7,7 @@ Build-Depends:
  libsdl2-dev,
  pkgconf,
  mesa-common-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=50696
 Rules-Requires-Root: no
 

@@ -9,10 +9,13 @@ particlesimthingy-by-mehu – a real-time particle simulation demo using OpenGL 
 **particlesimthingy-by-mehu** [*options*]
 
 # DESCRIPTION
-**Particle sim thingy** is a demo released by Mehu in 2020.
+**Particle sim thingy** is a demo released by Mehu in 2020.  
 Ranked 6th at the Assembly 2020 Winter One Scene competition
 
 # OPTIONS
+\--window
+:   Start the demo in window mode
+
 \--help
 :   Display help for the command
 

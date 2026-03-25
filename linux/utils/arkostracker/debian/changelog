@@ -1,3 +1,14 @@
+arkostracker (3.5.1-0ddebs1) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+  * New upstream release.
+  * Added patch to fix compilation on G++15
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 26 Mar 2026 09:59:02 +0100
+
 arkostracker (3.2.7-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

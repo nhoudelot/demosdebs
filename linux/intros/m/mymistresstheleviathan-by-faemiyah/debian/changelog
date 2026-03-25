@@ -1,3 +1,13 @@
+mymistresstheleviathan-by-faemiyah (1.0+git20170414-0ddebs5) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * chaged fullscreen to use desktop resolution
+  * added resizable window
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 17 Apr 2026 13:43:18 +0200
+
 mymistresstheleviathan-by-faemiyah (1.0+git20170414-0ddebs4) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

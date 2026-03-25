@@ -1,0 +1,18 @@
+Source: fonts-unifontex
+Section: fonts
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://github.com/stgiga/UnifontEX/
+Rules-Requires-Root: no
+
+Package: fonts-unifontex
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: Extended fork of GNU Unifont with a focus on high compatibility
+ Fonts designed by Roman Cyzborra, Paul Hardy, stgiga
+

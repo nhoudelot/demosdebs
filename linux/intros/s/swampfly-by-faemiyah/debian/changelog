@@ -1,3 +1,11 @@
+swampfly-by-faemiyah (1.0+git20170414-0deebs8) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 18 Apr 2026 01:30:26 +0200
+
 swampfly-by-faemiyah (1.0+git20170414-0deebs7) unstable; urgency=medium
 
   * fix fullscreen when start fullscreen

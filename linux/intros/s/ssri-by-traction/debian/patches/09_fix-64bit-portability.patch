@@ -1,0 +1,104 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+--- a/texture.hpp
++++ b/texture.hpp
+@@ -1,6 +1,8 @@
+ #ifndef _TEXTURE_HPP_
+ #define _TEXTURE_HPP_
+ 
++#include <cstdint>
++
+ class Texture
+ {
+ public:
+@@ -11,7 +13,7 @@
+ int width;
+ int height;
+ unsigned int ID;
+-unsigned long *data;
++uint32_t *data;
+ };
+ 
+ 
+--- a/texture.cpp
++++ b/texture.cpp
+@@ -7,7 +7,7 @@
+ 	width = pwidth;
+ 	height = pheight;
+ 
+-	data = new unsigned long[width*height];
++	data = new uint32_t[width*height];
+ 	for (i=0; i<width*height; i++)
+ 	{
+ 		data[i] = pdata[i];
+@@ -20,7 +20,7 @@
+ 	width = pwidth;
+ 	height = pheight;
+ 
+-	data = new unsigned long[width*height];
++	data = new uint32_t[width*height];
+ 	for (i=0; i<width*height; i++)
+ 	{
+ 		data[i] = 0xFF000000;
+--- a/object3d.cpp
++++ b/object3d.cpp
+@@ -1,4 +1,5 @@
+ #include <stdio.h>
++#include <cstring>
+ #include "object3d.hpp"
+ 
+ Object::Object()
+@@ -36,7 +37,11 @@
+ 	int i;
+ 	FILE *fp;
+ 
++#ifdef _WIN32
+ 	fp = fopen("C:\\debug.txt", "wt");
++#else
++	fp = fopen("/tmp/debug_object3d.txt", "w");
++#endif
+ 	char string[256];
+ 
+ 	//facenormaalit
+@@ -44,7 +49,7 @@
+ 
+ 	for (i=0; i<vertexcount; i++)
+ 	{
+-		sprintf(string, "i = %d, v = %f %f %f\n", i, vertices[i].position.x, vertices[i].position.y, vertices[i].position.z);
++		snprintf(string, sizeof(string), "i = %d, v = %f %f %f\n", i, vertices[i].position.x, vertices[i].position.y, vertices[i].position.z);
+ 		fputs(string, fp);
+ 	}
+ 
+@@ -60,7 +65,7 @@
+ 		Vector normal = (v2-v1).crossProduct(v3-v1);
+ 
+ 		faces[i].normal = normal.normalize()* -1;
+-		sprintf(string, "i=%d\nindeksit = %d %d %d\nv1 = %f,%f,%f\n, v2 = %f,%f,%f\n, v3 = %f,%f,%f\n, normal = %f,%f,%f\n,normalisoitu=%f,%f,%f\n\n",
++		snprintf(string, sizeof(string), "i=%d\nindeksit = %d %d %d\nv1 = %f,%f,%f\n, v2 = %f,%f,%f\n, v3 = %f,%f,%f\n, normal = %f,%f,%f\n,normalisoitu=%f,%f,%f\n\n",
+ 		        i, faces[i].v1, faces[i].v2, faces[i].v3, v1.x, v1.y, v1.z, v2.x, v2.y, v2.z, v3.x, v3.y, v3.z, normal.x, normal.y, normal.z, faces[i].normal.x, faces[i].normal.y,
+ 		        faces[i].normal.z);
+ 		fputs(string, fp);
+--- a/timer.hpp
++++ b/timer.hpp
+@@ -25,7 +25,6 @@
+ private:
+ bool HRT;
+ float addTime;
+-Uint64 ticksPerSec;
+ float startTime;
+ unsigned int frames;
+ float time, deltaTime;
+--- a/timer.cpp
++++ b/timer.cpp
+@@ -44,7 +44,7 @@
+ 		lastTime = time;
+ 
+ 		frames++;
+-		fps = frames / (time*0.001f);
++		fps = (time > 0.0f) ? (float)frames / time : 0.0f;
+ 	}
+ }
+ 

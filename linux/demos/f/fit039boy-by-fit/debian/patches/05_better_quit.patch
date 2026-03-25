@@ -8,7 +8,7 @@ Last-Update: 2020-04-29
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
 +++ b/main.c
-@@ -815,14 +815,17 @@
+@@ -818,14 +818,17 @@
  		if(text)
  			rendertext(xs,ys);
  
@@ -31,4 +31,4 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +			}
  			if(e.type==SDL_MOUSEMOTION)
  			{
- 				mx=(e.motion.x-XS/2)/70.0;
+ 				mx=(e.motion.x-xs/2)/70.0;

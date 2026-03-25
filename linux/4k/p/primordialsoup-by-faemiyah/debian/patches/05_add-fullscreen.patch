@@ -1,0 +1,73 @@
+Description: added fullscreen key
+ added fullscreen function, to go fullscreen and back, with F key
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-04-04
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -514,6 +514,11 @@
+ #if !defined(SDL12)
+ /// Window.
+ SDL_Window *g_window;
++
++#if defined(USE_LD)
++/// Tracks current fullscreen state for ToggleFullscreen().
++static bool g_fullscreen = false;
++#endif
+ #endif
+ 
+ //######################################
+@@ -787,6 +792,27 @@
+ #endif
+ }
+ 
++#if defined(USE_LD) && !defined(SDL12)
++
++static void SetViewport(SDL_Window *window)
++{
++  int dw = 0;
++  int dh = 0;
++  SDL_GL_GetDrawableSize(window, &dw, &dh);
++  glViewport(0, 0, dw, dh);
++}
++
++static void ToggleFullscreen(SDL_Window *window)
++{
++  g_fullscreen = !g_fullscreen;
++  SDL_SetWindowFullscreen(window,
++      g_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
++  SDL_PumpEvents();
++  SetViewport(window);
++}
++
++#endif // USE_LD && !SDL12
++
+ //######################################
+ // Utility #############################
+ //######################################
+@@ -875,8 +901,13 @@
+ #else
+   g_window = dnload_SDL_CreateWindow(NULL, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+       static_cast<int>(screen_w), static_cast<int>(screen_h),
+-      SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++      SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
++      (flag_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
+   dnload_SDL_GL_CreateContext(g_window);
++#if defined(USE_LD)
++  g_fullscreen = flag_fullscreen;
++  SetViewport(g_window);
++#endif
+ #endif
+   dnload_SDL_ShowCursor(g_flag_developer);
+ 
+@@ -1201,6 +1232,10 @@
+       {
+         switch(event.key.keysym.sym)
+         {
++          case SDLK_f:
++            ToggleFullscreen(g_window);
++            break;
++
+           case SDLK_a:
+             move_left = 1;
+             break;

@@ -1,0 +1,19 @@
+Description: update boost include
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/synth.c
++++ b/src/synth.c
+@@ -4,9 +4,7 @@
+ 
+ #if defined(USE_LD)
+ #include <boost/random/mersenne_twister.hpp>
+-#include <boost/random/uniform_int.hpp>
+-#include <boost/random/uniform_real.hpp>
+-#include <boost/random/variate_generator.hpp>
++#include <boost/random/uniform_int_distribution.hpp>
+ 
+ /// Mersenne random number generator.
+ static boost::mt19937 g_mt_rand;

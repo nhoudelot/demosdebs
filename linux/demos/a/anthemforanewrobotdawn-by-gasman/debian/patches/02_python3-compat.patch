@@ -1,0 +1,290 @@
+Description: Ported to python3
+ Ported from python2 to python3
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/robot.py
++++ b/robot.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ from shortcrust import BaseGLApp
+ from shortcrust.gl2 import *
+ from shortcrust.texture import Texture
+@@ -53,8 +53,8 @@
+ 		if SOUND_ENABLED:
+ 			try:
+ 				pygame.mixer.init(FREQ, BITSIZE, CHANNELS, BUFFER)
+-			except pygame.error, exc:
+-				print >>sys.stderr, "Could not initialize sound system: %s" % exc
++			except pygame.error as exc:
++				print("Could not initialize sound system: %s" % exc, file=sys.stderr)
+ 				return 1
+ 			#sound = pygame.mixer.Sound('data/beer.mp3')
+ 			#sound.play()
+--- a/shaders/phong.py
++++ b/shaders/phong.py
+@@ -60,7 +60,7 @@
+ 	"""
+ 
+ 	def __init__(self):
+-		super(PhongSolidColorShader, self).__init__()
++		super().__init__()
+ 		self.use()
+ 
+ 		self.aVertexPosition = self.get_attrib('aVertexPosition')
+@@ -171,7 +171,7 @@
+ 	"""
+ 
+ 	def __init__(self):
+-		super(PhongTextureShader, self).__init__()
++		super().__init__()
+ 		self.use()
+ 
+ 		self.aVertexPosition = self.get_attrib('aVertexPosition')
+--- a/shaders/texture.py
++++ b/shaders/texture.py
+@@ -42,7 +42,7 @@
+ 	"""
+ 
+ 	def __init__(self):
+-		super(TextureShader, self).__init__()
++		super().__init__()
+ 		self.use()
+ 
+ 		self.aVertexPosition = self.get_attrib('aVertexPosition')
+--- a/scenes/fader.py
++++ b/scenes/fader.py
+@@ -27,7 +27,7 @@
+ 	"""
+ 
+ 	def __init__(self):
+-		super(FaderShader, self).__init__()
++		super().__init__()
+ 		self.aVertexPosition = self.get_attrib('aVertexPosition')
+ 		self.uAlpha = self.get_uniform('uAlpha')
+ 
+@@ -62,7 +62,7 @@
+ 	"""
+ 
+ 	def __init__(self):
+-		super(BlackFaderShader, self).__init__()
++		super().__init__()
+ 		self.aVertexPosition = self.get_attrib('aVertexPosition')
+ 		self.uAlpha = self.get_uniform('uAlpha')
+ 
+--- a/scenes/planet.py
++++ b/scenes/planet.py
+@@ -40,7 +40,7 @@
+ 	"""
+ 
+ 	def __init__(self):
+-		super(TitleShader, self).__init__()
++		super().__init__()
+ 		self.aVertexPosition = self.get_attrib('aVertexPosition')
+ 		self.aTexturePosition = self.get_attrib('aTexturePosition')
+ 		self.uSampler = self.get_uniform('uSampler')
+--- a/scenes/robots.py
++++ b/scenes/robots.py
+@@ -132,10 +132,10 @@
+ 
+ class Robot(BaseRobot):
+ 	def __init__(self, shader):
+-		super(Robot, self).__init__(shader, [0.2, 0.3, 0.2])
++		super().__init__(shader, [0.2, 0.3, 0.2])
+ 
+ 	def animate(self, beat):
+-		super(Robot, self).animate(beat)
++		super().animate(beat)
+ 
+ 		mouth_beat = beat + 0.2  # offset so that mouth has chance to open before the beat
+ 		try:
+@@ -153,10 +153,10 @@
+ 
+ class Robokid(BaseRobot):
+ 	def __init__(self, shader):
+-		super(Robokid, self).__init__(shader, [0.6, 0.2, 0.16], 0.7)
++		super().__init__(shader, [0.6, 0.2, 0.16], 0.7)
+ 
+ 	def animate(self, beat):
+-		super(Robokid, self).animate(beat)
++		super().animate(beat)
+ 
+ 		mouth_beat = beat + 0.2  # offset so that mouth has chance to open before the beat
+ 
+--- a/shortcrust/shader.py
++++ b/shortcrust/shader.py
+@@ -16,7 +16,7 @@
+ 		# print "compiled? %s" % repr(compiled)
+ 
+ 		if not compiled:
+-			print "Error compiling shader: %s" % glGetShaderInfoLog(shader)
++			print("Error compiling shader: %s" % glGetShaderInfoLog(shader))
+ 			raise ValueError
+ 
+ 		return shader
+@@ -38,14 +38,14 @@
+ 		#print "linked: %s" % repr(linked)
+ 		program_log = glGetProgramInfoLog(self.program_object)
+ 		if program_log:
+-			print "linking notes: %s" % program_log
++			print("linking notes: %s" % program_log)
+ 
+ 		glValidateProgram(self.program_object)
+ 		#validated = glGetProgramiv(self.program_object, GL_VALIDATE_STATUS)
+ 		#print "validated: %s" % repr(validated)
+ 		program_log = glGetProgramInfoLog(self.program_object)
+ 		if program_log:
+-			print "validation notes: %s" % program_log
++			print("validation notes: %s" % program_log)
+ 
+ 	def get_attrib(self, name):
+ 		attr_location = glGetAttribLocation(self.program_object, name)
+--- a/shortcrust/raspi/egl.py
++++ b/shortcrust/raspi/egl.py
+@@ -68,7 +68,7 @@
+ 		r = openegl.eglBindAPI(EGL_OPENGL_ES_API)
+ 		assert r
+ 		if verbose:
+-			print 'numconfig=', numconfig
++			print('numconfig=', numconfig)
+ 		context_attribs = eglints((EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE))
+ 		self.context = openegl.eglCreateContext(self.display, config,
+ 										EGL_NO_CONTEXT,
+--- /dev/null
++++ b/scenes/sphere.py
+@@ -0,0 +1,114 @@
++# uncompyle6 version 3.9.3
++# Python bytecode version base 2.7 (62211)
++# Decompiled from: Python 3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]
++# Embedded file name: /Volumes/raspi/dev/robot/scenes/sphere.py
++# Compiled at: 2012-09-08 21:42:43
++from shortcrust.gl2 import *
++from shortcrust.matrix import vec3, mat4
++from shortcrust.texture import Texture
++from shortcrust.buffer import AttributeBuffer
++from shaders.phong import PhongSolidColorShader
++from shaders.texture import TextureShader
++from scenes.robots import Robot, Robokid
++
++class GroundMesh(object):
++    mode = GL_TRIANGLE_STRIP
++
++    def __init__(self):
++        self.positions = AttributeBuffer([
++         (-10, 0, -10), (10, 0, -10), (-10, 0, 10), (10, 0, 10)])
++        self.vertex_count = self.positions.element_count
++        self.texture_positions = AttributeBuffer([
++         (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 1.0)])
++        self.texture = Texture('data/ground.jpg', flipped=True)
++        return
++
++    def draw(self):
++        glDrawArrays(self.mode, 0, self.vertex_count)
++        return
++
++
++class SkyMesh(object):
++    mode = GL_TRIANGLE_STRIP
++
++    def __init__(self):
++        self.positions = AttributeBuffer([
++         (-10, 0, 10), (10, 0, 10), (-10, 7, 10), (10, 7, 10)])
++        self.vertex_count = self.positions.element_count
++        self.texture_positions = AttributeBuffer([
++         (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 1.0)])
++        self.texture = Texture('data/sunset.jpg', flipped=True)
++        return
++
++    def draw(self):
++        glDrawArrays(self.mode, 0, self.vertex_count)
++        return
++
++
++class FaderLayer(object):
++
++    def __init__(self, shader, mesh):
++        self.shader = shader
++        self.mesh = mesh
++        return
++
++    def draw(self, beat):
++        if beat < 36:
++            alpha = 1 - (beat - 34) / 2
++        else:
++            return
++        self.shader.use()
++        self.shader.draw_mesh(self.mesh, alpha)
++        return
++
++
++class SphereScene(object):
++
++    def __init__(self, app):
++        glEnable(GL_DEPTH_TEST)
++        self.app = app
++        self.fader_layer = FaderLayer(app.fader_shader, app.fader_mesh)
++        self.phong_shader = PhongSolidColorShader()
++        self.texture_shader = TextureShader()
++        self.mvMatrix = mat4.create()
++        self.pMatrix = mat4.create()
++        self.lightLocation = vec3.create([-3, 30, 0])
++        self.transformedLightLocation = vec3.create()
++        self.phong_shader.use()
++        self.phong_shader.pMatrix = mat4.perspective(45, self.app.aspect_ratio, 0.1, 100.0)
++        self.texture_shader.use()
++        self.texture_shader.pMatrix = mat4.perspective(45, self.app.aspect_ratio, 0.1, 100.0)
++        self.robot = Robot(self.phong_shader)
++        self.robokid = Robokid(self.phong_shader)
++        self.ground_mesh = GroundMesh()
++        self.sky_mesh = SkyMesh()
++        return
++
++    def draw(self, beat):
++        self.robot.animate(beat)
++        self.robokid.animate(beat)
++        glViewport(0, 0, self.app.width, self.app.height)
++        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
++        mat4.lookAt([
++         0, 2, -6], [
++         0, 1.5, 0], [
++         0, 1, 0], self.mvMatrix)
++        self.texture_shader.use()
++        self.texture_shader.mvMatrix = self.mvMatrix
++        self.ground_mesh.texture.activate(0)
++        self.texture_shader.draw_mesh(self.ground_mesh)
++        self.sky_mesh.texture.activate(0)
++        self.texture_shader.draw_mesh(self.sky_mesh)
++        self.phong_shader.use()
++        mat4.multiplyVec3(self.mvMatrix, self.lightLocation, self.transformedLightLocation)
++        self.phong_shader.lightLocation = self.transformedLightLocation
++        mat4.translate(self.mvMatrix, [-1.5, 0, 0])
++        self.robot.draw(self.mvMatrix)
++        mat4.translate(self.mvMatrix, [1.5, 0, 0])
++        self.robot.draw(self.mvMatrix)
++        mat4.translate(self.mvMatrix, [1.5, 0, 0])
++        self.robot.draw(self.mvMatrix)
++        mat4.translate(self.mvMatrix, [-2.25, 0, 1])
++        self.robokid.draw(self.mvMatrix)
++        self.fader_layer.draw(beat)
++        return
+--- a/shortcrust/geometry/__init__.py
++++ b/shortcrust/geometry/__init__.py
+@@ -1,3 +1,3 @@
+-from sphere import Sphere
+-from cylinder import Cylinder
+-from union import Union
++from .sphere import Sphere
++from .cylinder import Cylinder
++from .union import Union
+--- a/shortcrust/glut/basegl.py
++++ b/shortcrust/glut/basegl.py
+@@ -88,4 +88,4 @@
+ 
+ 	def exit(self):
+ 		self.on_exit()
+-		sys.exit()
++		glutLeaveMainLoop()

@@ -24,8 +24,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -DEF = 
 -GL = -lglut -lGL -lGLU
 -LIBS = -lm
-+CXX := g++
-+PKG_CONFIG:=pkg-config
++CXX ?= g++
++PKG_CONFIG ?= pkg-config
 +CXXFLAGS += -Wall -pipe $(shell $(PKG_CONFIG) --cflags glu) -std=gnu++98 -fabi-version=2
 +DEF =
 +GL = -lglut $(shell $(PKG_CONFIG) --libs glu)

@@ -7,7 +7,7 @@ Build-Depends:
  pkgconf,
  libglu-dev,
  libsdl2-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=13023
 Rules-Requires-Root: no
 

@@ -7,16 +7,20 @@ Last-Update: 2025-12-20
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,6 +1,6 @@
+@@ -1,14 +1,16 @@
  
 -CC = clang
 -CFLAGS = -fno-plt -fno-unwind-tables -Wall -Werror -Oz
-+CC = gcc
+-CFLAGS += $(shell pkg-config --cflags gtk+-3.0)
++CC ?= gcc
++PKG_CONFIG ?= pkg-config
++RM_F       := rm -f
 +CFLAGS = -fno-plt -fno-unwind-tables -Wall
- CFLAGS += $(shell pkg-config --cflags gtk+-3.0)
++CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk+-3.0)
  
  LIBS = -lGL -lgtk-3 -lgdk-3 -lgobject-2.0
-@@ -8,7 +8,7 @@
+-DEBUG_LIBS = -lGL $(shell pkg-config --libs gtk+-3.0)
++DEBUG_LIBS = -lGL $(shell $(PKG_CONFIG) --libs gtk+-3.0)
  
  XZ = xz -c -9e --format=lzma --lzma1=preset=9,lc=0,lp=0,pb=0
  SSTRIP = ./ELFkickers/bin/sstrip
@@ -25,15 +29,19 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  EXE = bin/main-4k
  DEBUG_EXE = bin/main-debug
-@@ -19,7 +19,6 @@
+@@ -19,10 +21,9 @@
  	./$(EXE)
  
  debug: $(DEBUG_EXE)
 -	./$(DEBUG_EXE)
  
  clean:
- 	rm -rf bin/ obj/ gen/
-@@ -34,7 +33,7 @@
+-	rm -rf bin/ obj/ gen/
++	$(RM_F) bin/ obj/ gen/
+ 
+ $(SSTRIP):
+ 	cd ELFkickers; make
+@@ -34,7 +35,7 @@
  	@mkdir -p gen
  	unifdef -x2 -DNDEBUG -o $@ $<
  
@@ -42,7 +50,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	@mkdir -p gen
  	TERM=xterm mono $(SHADER_MINIFIER) --preserve-externals $< -o $@
  
-@@ -46,14 +45,13 @@
+@@ -46,14 +47,13 @@
  	@mkdir -p obj
  	$(CC) -c $(CFLAGS) -DDEBUG -o $@ $<
  
@@ -58,7 +66,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		--orphan-handling=discard \
  		--as-needed \
  		--no-demangle \
-@@ -67,7 +65,7 @@
+@@ -67,7 +67,7 @@
  		-o $@ \
  		$< \
  		$(LIBS)

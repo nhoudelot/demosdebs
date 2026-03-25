@@ -1,0 +1,41 @@
+Description: Fullscreen toggle via F key
+ Adds fullscreen toggle with the F key using SDL_WINDOW_FULLSCREEN_DESKTOP
+ (desktop resolution, no mode change). Also adds SDL_WINDOW_RESIZABLE so
+ the window can be properly restored when leaving fullscreen.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/introsystem.c
++++ b/src/introsystem.c
+@@ -74,6 +74,8 @@
+ 	printf("%d surfaces used: %dKb\n",stat_surfaces, stat_surface_mem);
+ }
+ 
++extern SDL_Window *sdlWindow;
++
+ int CheckUserBreak()
+ {
+ #ifdef USE_SDL	
+@@ -86,6 +88,11 @@
+ 			if (event.key.keysym.sym == SDLK_ESCAPE) {
+ 				return 1;
+ 			}
++			if (event.key.keysym.sym == SDLK_f) {
++				Fullscreen = !Fullscreen;
++				SDL_SetWindowFullscreen(sdlWindow,
++					Fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
++			}
+ 		}
+ 	}
+ #else
+@@ -166,7 +173,7 @@
+ 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+ 	SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY );
+ 	
+-	sdlWindow = SDL_CreateWindow("Schtroumpf2 by Knights",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,ScreenWidth,ScreenHeight, SDL_WINDOW_OPENGL |  (Fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++	sdlWindow = SDL_CreateWindow("Schtroumpf2 by Knights",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,ScreenWidth,ScreenHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | (Fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
+ 	if ( sdlWindow == NULL ) {
+ 		fputs("Couldn't set GL mode:\n",stderr);
+ 			fputs(SDL_GetError(),stderr);

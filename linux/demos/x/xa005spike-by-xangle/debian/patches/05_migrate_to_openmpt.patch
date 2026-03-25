@@ -1,0 +1,279 @@
+Description: Remplacer FMOD par libopenmpt pour la lecture tracker XM/MOD
+ Remplace le sous-système audio propriétaire FMOD par libopenmpt, la
+ référence pour la lecture fidèle des modules tracker (XM, MOD, S3M...).
+ .
+ La musique est chargée directement depuis le MemFile en mémoire via le
+ constructeur openmpt::module(void*, size_t), sans accès fichier
+ supplémentaire. La lecture utilise un callback SDL2 (SDL_OpenAudioDevice +
+ AUDIO_F32SYS) qui rend le module en stéréo float32 entrelacé à 48000 Hz
+ pour une qualité maximale. Le volume est appliqué dans le callback.
+ .
+ La fréquence d'échantillonnage passe de 22050 Hz à 48000 Hz dans
+ demosystem.cpp pour correspondre à la sortie native d'openmpt.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-05-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -22,8 +22,8 @@
+ 
+ # Detect OS --------------------------------------------------------------------
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "linux")),)
+-	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 glu gl zlib libpng) $(GUILIB)
+-	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl2 glu gl zlib libpng) $(GUIOPT)
++	LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 libopenmpt glu gl zlib libpng) $(GUILIB)
++	CFLAGS += $(shell $(PKG_CONFIG) --cflags sdl2 libopenmpt glu gl zlib libpng) $(GUIOPT)
+ endif
+ 
+ ifneq ($(strip $(shell $(CC) -v 2>&1 |grep "Apple")),)
+--- a/ds/demosystem.cpp
++++ b/ds/demosystem.cpp
+@@ -52,18 +52,12 @@
+ 	m_pDataReader->Init();
+ 	m_pTextureLoader = new TextureLoader(m_pDataReader);
+ 	m_pModelLoader = new ModelLoader(m_pTextureLoader, m_pDataReader);
+-
+-	// Load scriptfile
+ 	m_pScriptFile = m_pDataReader->GetFile(pScript);
+-
+-	// Display/Sound
+ 	if(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_AUDIO) < 0) {
+ 		throw Exception(fn, (string)"Failed to init SDL: " + SDL_GetError());
+ 	}
+-
+ 	m_pVideo = new Video();
+ 	m_pMusic = new Music(m_pDataReader);
+-	m_pMusic->Init(22050);
+ 
+ 	// Random
+ 	srand(time(0));
+@@ -145,6 +139,7 @@
+ 
+ 	for(;;)
+ 	{
++		SDL_PumpEvents();
+ 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+ 		glLoadIdentity();
+ 		glPushMatrix();
+@@ -215,9 +210,11 @@
+ 	if(m_config.fullscreen)
+ 		SDL_Delay(1500);
+ 
+-	// Load music and cache data
+-	if(m_config.sound)
++	// Initialisation audio après ouverture fenêtre (SDL_OpenAudioDevice → PulseAudio/PipeWire)
++	if(m_config.sound) {
++		m_pMusic->Init(48000);
+ 		m_pMusic->Load(m_musicfile.c_str());
++	}
+ 
+ 
+ #ifdef DEVEL
+--- a/ds/io/music.cpp
++++ b/ds/io/music.cpp
+@@ -1,5 +1,5 @@
+ /*  DS
+- *  Copyright (C) Joakim Kolsjö and Anders Asplund 2005
++ *  Copyright (C) Joakim Kolsjö och Anders Asplund 2005
+  *	This program is free software; you can redistribute it and/or modify
+  *  it under the terms of the GNU General Public License as published by
+  *  the Free Software Foundation; either version 2 of the License, or
+@@ -16,102 +16,109 @@
+  */
+ 
+ #include "music.h"
++#include <cstring>
+ 
+ using namespace std;
+ 
+ namespace DS
+ {
+-F_CALLBACKAPI void* cbopen(const char* pName)
+-{
+-	return (void*)pName;         // :D
+-}
+-
+-void F_CALLBACKAPI cbclose(void* pHandle) {
+-}
+ 
+-int F_CALLBACKAPI cbread(void* pBuffer, int size, void* pHandle)
++// Rendu openmpt en float32 stéréo entrelacé, applique le volume, silence si fin de module
++void Music::AudioCallback(void* userdata, Uint8* stream, int len)
+ {
+-	return ((MemFile*)pHandle)->Read(pBuffer, size);
+-}
++	Music* self = static_cast<Music*>(userdata);
++	float* buf = reinterpret_cast<float*>(stream);
++	std::size_t frames = static_cast<std::size_t>(len) / (2 * sizeof(float));
++
++	if (!self->m_pModule || !self->m_bHasLoad) {
++		memset(stream, 0, len);
++		return;
++	}
+ 
+-int F_CALLBACKAPI cbseek(void* pHandle, int pos, signed char mode)
+-{
+-	((MemFile*)pHandle)->Seek(pos, mode);
+-	return 0;
+-}
++	std::size_t rendered = self->m_pModule->read_interleaved_stereo(
++		self->m_samplerate, frames, buf);
+ 
+-int F_CALLBACKAPI cbtell(void* pHandle)
+-{
+-	return ((MemFile*)pHandle)->Tell();
++	float vol = self->m_volume / 255.0f;
++	for (std::size_t i = 0; i < rendered * 2; ++i)
++		buf[i] *= vol;
++
++	if (rendered < frames)
++		memset(buf + rendered * 2, 0, (frames - rendered) * 2 * sizeof(float));
+ }
+ 
+ Music::Music(DataReader* pDataReader)
+ {
+ 	m_pDataReader = pDataReader;
+-	m_pSong = 0;
++	m_pModule = NULL;
+ 	m_volume = 255;
++	m_samplerate = 48000;
+ 	m_bHasInit = false;
+ 	m_bHasLoad = false;
+-//#ifndef WIN32
+-	FSOUND_File_SetCallbacks(cbopen,
+-	                         cbclose,
+-	                         cbread,
+-	                         cbseek,
+-	                         cbtell);
+-//#endif
++	m_device = 0;
+ }
+ 
+ Music::~Music()
+ {
+-	if(m_pSong)
+-		FMUSIC_FreeSong(m_pSong);
++	if (m_device) {
++		SDL_PauseAudioDevice(m_device, 1);
++		SDL_CloseAudioDevice(m_device);
++	}
++	delete m_pModule;
+ }
+ 
+ void Music::Init(int samplerate)
+ {
+-	static char* fn = "[Music::Init]";
+-	if(!FSOUND_Init(samplerate, 32, 0))
+-		cout << fn << " Failed to init sound." << endl;
+-	else
+-		m_bHasInit = true;
++	static const char* fn = "[Music::Init]";
++	m_samplerate = samplerate;
++	SDL_AudioSpec want;
++	SDL_zero(want);
++	want.freq = samplerate;
++	want.format = AUDIO_F32SYS;
++	want.channels = 2;
++	want.samples = 4096;
++	want.callback = AudioCallback;
++	want.userdata = this;
++	m_device = SDL_OpenAudioDevice(nullptr, 0, &want, nullptr, 0);
++	if (m_device == 0) {
++		cout << fn << " Failed to open audio: " << SDL_GetError() << endl;
++		return;
++	}
++	m_bHasInit = true;
+ }
+ 
+ void Music::Load(const char* pFile)
+ {
+-	static char* fn = "[Music::Load]";
+-	if(m_bHasInit)
++	static const char* fn = "[Music::Load]";
++	if (m_bHasInit)
+ 	{
+-//			#ifdef WIN32
+-//			m_pSong = FMUSIC_LoadSong(((string)"../data/" + pFile).c_str());
+-//			m_pSong = FMUSIC_LoadSong("ps.xm");
+-//			#else
+-		m_pSong = FMUSIC_LoadSong((char*)m_pDataReader->GetFile(pFile));
+-//			#endif
+-		FSOUND_SetVolume(FSOUND_ALL, m_volume);
+-		if(!m_pSong)
+-			cout << fn << " Failed to load music." << endl;
+-		FMUSIC_SetLooping(m_pSong, false);
+-		m_bHasLoad = true;
++		MemFile* pMemFile = m_pDataReader->GetFile(pFile);
++		try {
++			m_pModule = new openmpt::module(
++				static_cast<const void*>(pMemFile->GetData()),
++				static_cast<std::size_t>(pMemFile->GetLength()));
++			m_pModule->set_repeat_count(0);
++			m_bHasLoad = true;
++		} catch (const std::exception& e) {
++			cout << fn << " Failed to load music: " << e.what() << endl;
++		}
+ 	}
+ }
+ 
+ void Music::Play()
+ {
+-	if(m_bHasLoad)
+-		if(!FMUSIC_PlaySong(m_pSong))
+-			cout << "[Music::Play] Failed to play music." << endl;
++	if (m_bHasLoad)
++		SDL_PauseAudioDevice(m_device, 0);
+ }
+ 
+ void Music::Stop()
+ {
+-	if(m_bHasLoad)
+-		FSOUND_StopSound(FSOUND_ALL);
++	if (m_bHasLoad)
++		SDL_PauseAudioDevice(m_device, 1);
+ }
+ 
+ void Music::SetVolume(int volume)
+ {
+ 	m_volume = volume;
+-	FSOUND_SetVolume(FSOUND_ALL, m_volume);
+ }
+ 
+ int Music::GetVolume()
+--- a/ds/io/music.h
++++ b/ds/io/music.h
+@@ -1,5 +1,5 @@
+ /*  DS
+- *  Copyright (C) Joakim Kolsjö and Anders Asplund 2005
++ *  Copyright (C) Joakim Kolsjö och Anders Asplund 2005
+  *	This program is free software; you can redistribute it and/or modify
+  *  it under the terms of the GNU General Public License as published by
+  *  the Free Software Foundation; either version 2 of the License, or
+@@ -19,7 +19,7 @@
+ #define MUSIC_H
+ 
+ #include "../common.h"
+-#include <fmod.h>
++#include <libopenmpt/libopenmpt.hpp>
+ #include "datareader.h"
+ 
+ namespace DS
+@@ -35,11 +35,14 @@
+ void SetVolume(int volume);
+ int GetVolume();
+ private:
++static void AudioCallback(void* userdata, Uint8* stream, int len);
+ bool m_bHasInit;
+ bool m_bHasLoad;
+ int m_volume;
++int m_samplerate;
+ DataReader* m_pDataReader;
+-FMUSIC_MODULE* m_pSong;
++openmpt::module* m_pModule;
++SDL_AudioDeviceID m_device;
+ };
+ }
+ 

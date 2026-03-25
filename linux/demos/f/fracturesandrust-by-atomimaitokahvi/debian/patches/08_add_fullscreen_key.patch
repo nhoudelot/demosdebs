@@ -2,7 +2,7 @@ Description: better fullscreen
  update fullscreen function, to make go fullscreen and back, with the same key
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
-Last-Update: 2020-04-29
+Last-Update: 2026-04-21
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/main.c
@@ -15,29 +15,29 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  /* data and variables */
  extern im_t *pics[SCRIPT_MAX_PICS];
-@@ -201,6 +202,7 @@
+@@ -204,6 +205,7 @@
  				switch (event.key.keysym.sym) {
  					case SDLK_ESCAPE:goto terminate; break;
  					case SDLK_q: goto terminate; break;
 +					case SDLK_f: ToggleFullscreen(sdlWindow); break;
  				}
  			}
- 			if (event.window.windowID == windowID)  {
-@@ -248,6 +250,13 @@
+ 			if (event.type == SDL_WINDOWEVENT && event.window.windowID == windowID)  {
+@@ -249,6 +251,13 @@
      SDL_RenderSetViewport(sdlRenderer, &newWindowSize);
  }
  
 +void ToggleFullscreen(SDL_Window* Window) {
-+    int FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
-+    int isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
++    Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP;
++    Uint32 isFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 +    SDL_SetWindowFullscreen(Window, isFullscreen ? 0 : FullscreenFlag);
-+    SDL_ShowCursor(isFullscreen);
++    SDL_ShowCursor(isFullscreen ? SDL_ENABLE : SDL_DISABLE);
 +}
 +
  void
  write_pnm(Uint8 *pixels)
  {
-@@ -484,6 +493,7 @@
+@@ -485,6 +494,7 @@
  	}
  }
  

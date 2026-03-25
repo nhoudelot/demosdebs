@@ -7,11 +7,10 @@ Build-Depends:
  libglu1-mesa-dev,
  libgl-dev,
  freeglut3-dev|libglut-dev,
+ libsdl2-dev,
  libsdl2-mixer-dev,
- libxi-dev,
- libxmu-dev,
  pkgconf,
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=1225
 Rules-Requires-Root: no
 

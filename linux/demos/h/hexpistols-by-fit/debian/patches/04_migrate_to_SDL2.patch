@@ -2,13 +2,13 @@ Description: migrate to SDL2
  Migrate from SDL1.2 to SDL2
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
-Last-Update: 2020-04-29
+Last-Update: 2026-04-21
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
 @@ -5,8 +5,8 @@
- PKG_CONFIG:=pkg-config
+ PKG_CONFIG ?= pkg-config
  
  # Change BUFSIZE for crappy systems that need a large audio buffer
 -CFLAGS += -Wall $(shell  $(PKG_CONFIG) sdl --cflags) -DNOAMIKA -DBUFSIZE=2048 -std=gnu90 -pipe
@@ -29,21 +29,29 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  extern int pt_curperiod[32],           // kanavan nykyinen periodi
             pt_curnote[32],             // kanavan nykyinen sävel
-@@ -204,7 +204,7 @@
+@@ -79,6 +79,7 @@
+ volatile unsigned int ticksfromstart = 0;
+ 
+ static int laite=0,piippu[2],jacaja,screenHz;
++static SDL_TimerID timerID=0;
+ 
+ static unsigned char audio[40000];
+ 
+@@ -204,7 +205,7 @@
  	if(!laite)
  	{
  		SDL_Init(SDL_INIT_TIMER);
 -		SDL_SetTimer(jacaja, timeri);
-+		SDL_AddTimer(jacaja, timeri,NULL);
++		timerID = SDL_AddTimer(jacaja, timeri, NULL);
  		return;
  	}
  	SDL_PauseAudio(0);
-@@ -281,7 +281,7 @@
+@@ -281,7 +282,7 @@
  {
  	if(!laite)
  	{
 -		SDL_SetTimer(0,NULL);
-+		SDL_AddTimer(0,NULL,NULL);
++		SDL_RemoveTimer(timerID);
  		return;
  	}
  
@@ -78,7 +86,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #endif
  
  	int o_intro=-1,o_ring1=-1,o_stara=-1,o_kale=-1,o_tytsi=-1,o_greet=-1,
-@@ -138,9 +138,15 @@
+@@ -138,9 +138,17 @@
  		fullscreen=0;
  
  	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);
@@ -86,8 +94,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	SDL_Window *sdlWindow;
 +	SDL_Renderer *sdlRenderer;
 +	SDL_Texture *sdlTexture;
++	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 +	sdlWindow = SDL_CreateWindow("Hex Pistols by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,fullscreen);
 +	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
++	SDL_RenderSetLogicalSize(sdlRenderer, 640, 480);
 +	scr = SDL_CreateRGBSurfaceWithFormat(0, 640, 480, 32,SDL_PIXELFORMAT_RGB888); //buffer video
 +	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,scr); // texture from video buffer
 +
@@ -96,7 +106,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	SDL_ShowCursor(0);
  
  	ungetc('\n',stdin);
-@@ -460,13 +466,20 @@
+@@ -460,13 +468,20 @@
  			}
  		}
  		SDL_UnlockSurface(scr);

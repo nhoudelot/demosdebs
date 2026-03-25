@@ -1,3 +1,11 @@
+bigtimesensuality-by-axis-whdload (1.5-0ddebs2) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 May 2026 00:21:10 +0200
+
 bigtimesensuality-by-axis-whdload (1.5-0ddebs1) unstable; urgency=medium
 
   * Demo run a A1200 now, some effects where running too fast

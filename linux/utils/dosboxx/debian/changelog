@@ -1,3 +1,12 @@
+dosboxx (2026.01.02-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 Mar 2026 17:21:14 +0100
+
 dosboxx (2025.10.07-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

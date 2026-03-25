@@ -20,11 +20,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -AR = ar
 -MAKE = make
 -TARGET = boy
-+CC := gcc
++CC ?= gcc
 +RANLIB := ranlib
 +AR := ar
 +MAKE := make
-+PKG_CONFIG:=pkg-config
++PKG_CONFIG ?= pkg-config
 +TARGET = fit039boy-by-fit
  
 -CFLAGS = -Wall -O2 -ffast-math `sdl-config --cflags`

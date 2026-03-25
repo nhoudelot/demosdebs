@@ -1,2 +1,5 @@
 01-legacy.patch
 libpng-config.diff
+libpng-1.2.51-CVE-2013-7353.patch
+libpng-1.2.51-CVE-2013-7354.patch
+libpng12-CVE-2025-64505.patch

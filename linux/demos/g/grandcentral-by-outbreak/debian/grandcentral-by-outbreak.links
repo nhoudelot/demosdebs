@@ -1,3 +1,5 @@
-usr/share/grandcentral-by-outbreak/data usr/lib/x86_64-linux-gnu/grandcentral-by-outbreak/data
-usr/share/grandcentral-by-outbreak/GrandCentral.ogg usr/lib/x86_64-linux-gnu/grandcentral-by-outbreak/GrandCentral.ogg
-usr/share/grandcentral-by-outbreak/setup.xml usr/lib/x86_64-linux-gnu/grandcentral-by-outbreak/setup.xml
+#!/usr/bin/dh-exec
+
+usr/share/grandcentral-by-outbreak/data usr/lib/${DEB_HOST_MULTIARCH}/grandcentral-by-outbreak/data
+usr/share/grandcentral-by-outbreak/GrandCentral.ogg usr/lib/${DEB_HOST_MULTIARCH}/grandcentral-by-outbreak/GrandCentral.ogg
+usr/share/grandcentral-by-outbreak/setup.xml usr/lib/${DEB_HOST_MULTIARCH}/grandcentral-by-outbreak/setup.xml

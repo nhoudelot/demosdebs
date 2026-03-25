@@ -1,0 +1,142 @@
+Description: Fix 64-bit portability issues
+ Three categories of problems fixed:
+ .
+ 1. ppdepack.c: undefined behaviour when shifting uint8_t values into the
+    sign bit of a 32-bit int (expressions like data[n]<<24 or 1<<data[n]).
+    All byte values are now explicitly cast to ULONG before shifting.
+    The size_t argument passed to ppcrack() is also explicitly cast to ULONG
+    to document the intentional truncation (Amiga files are always < 4 GiB).
+ .
+ 2. mmcmp.c: the four MMCMP structs are mapped directly onto file data via
+    pointer casts. Several fields sit at unaligned offsets (e.g. MMCMPHEADER
+    at offset 10), which causes a bus error on strict-alignment architectures
+    (arm64, armhf, riscv64). All four structs now carry __attribute__((packed))
+    so the compiler generates safe byte-by-byte accesses.
+    The size_t-to-uint32_t narrowing in decrunch_mmcmp() is made explicit.
+ .
+ 3. unsqsh.c: two unaligned accesses via raw pointer casts:
+    - the SQSH chunk checksum word was read as *(UWORD*)c — replaced by memcpy.
+    - xchecksum() received a (ULONG*) pointer to potentially unaligned data;
+      the function now takes a byte pointer and uses memcpy to read each word.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Forwarded: no
+Applied-Upstream: no
+Last-Update: 2026-05-02
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/mmcmp.c
++++ b/mmcmp.c
+@@ -26,7 +26,7 @@
+ 	uint32_t id_ziRC;	/* "ziRC" */
+ 	uint32_t id_ONia;	/* "ONia" */
+ 	uint16_t hdrsize;
+-} MMCMPFILEHEADER, *LPMMCMPFILEHEADER;
++} __attribute__((packed)) MMCMPFILEHEADER, *LPMMCMPFILEHEADER;
+ 
+ typedef struct MMCMPHEADER
+ {
+@@ -36,7 +36,7 @@
+ 	uint32_t blktable;
+ 	uint8_t glb_comp;
+ 	uint8_t fmt_comp;
+-} MMCMPHEADER, *LPMMCMPHEADER;
++} __attribute__((packed)) MMCMPHEADER, *LPMMCMPHEADER;
+ 
+ typedef struct MMCMPBLOCK
+ {
+@@ -47,13 +47,13 @@
+ 	uint16_t flags;
+ 	uint16_t tt_entries;
+ 	uint16_t num_bits;
+-} MMCMPBLOCK, *LPMMCMPBLOCK;
++} __attribute__((packed)) MMCMPBLOCK, *LPMMCMPBLOCK;
+ 
+ typedef struct MMCMPSUBBLOCK
+ {
+ 	uint32_t unpk_pos;
+ 	uint32_t unpk_size;
+-} MMCMPSUBBLOCK, *LPMMCMPSUBBLOCK;
++} __attribute__((packed)) MMCMPSUBBLOCK, *LPMMCMPSUBBLOCK;
+ 
+ #define mmcmp_COMP		0x0001
+ #define mmcmp_DELTA		0x0002
+@@ -304,7 +304,7 @@
+ 
+ static int decrunch_mmcmp (uint8_t *src, size_t newsize, FILE *out)
+ {
+-  uint32_t size = newsize;
++  uint32_t size = (uint32_t)newsize;
+ 
+   mmcmp_unpack(&src, &size);
+ 
+--- a/ppdepack.c
++++ b/ppdepack.c
+@@ -226,7 +226,7 @@
+     return -1;
+   }
+ 
+-  outlen = (data[len-4]<<16) | (data[len-3]<<8) | data[len-2];
++  outlen = ((ULONG)data[len-4]<<16) | ((ULONG)data[len-3]<<8) | data[len-2];
+ 
+   /* fprintf(stderr, "decrunched length = %u bytes\n", outlen); */
+ 
+@@ -270,9 +270,9 @@
+      * Given the knowledge of exactly one of the bits in the keys, we can
+      * reject all keys that do not have the appropriate value for this bit.
+      */
+-    ULONG drop_mask = 1 << data[len-1];
+-    ULONG drop_value = ( (data[len-8]<<24) | (data[len-7]<<16)
+-                       | (data[len-6]<<8)  |  data[len-5] ) & drop_mask;
++    ULONG drop_mask = (ULONG)1 << data[len-1];
++    ULONG drop_value = ( ((ULONG)data[len-8]<<24) | ((ULONG)data[len-7]<<16)
++                       | ((ULONG)data[len-6]<<8)  |  data[len-5] ) & drop_mask;
+ 
+     UBYTE *temp = (UBYTE *) malloc(len-14);
+ 
+@@ -322,7 +322,7 @@
+ {
+   int success;
+   key_start = 0;
+-  success = ppcrack(fo, (UBYTE *) src, s);
++  success = ppcrack(fo, (UBYTE *) src, (ULONG)s);
+   return success;
+ }
+ 
+--- a/unsqsh.c
++++ b/unsqsh.c
+@@ -78,12 +78,15 @@
+ };
+ 
+ 
+-static UWORD xchecksum(ULONG* ptr, ULONG count)
++static UWORD xchecksum(byte *ptr, ULONG count)
+ {
+   register ULONG sum=0;
++  ULONG word;
+ 
+   while(count-- > 0){
+-    sum ^= *ptr++;
++    memcpy(&word, ptr, sizeof(ULONG));
++    sum ^= word;
++    ptr += sizeof(ULONG);
+    }
+ 
+   return (UWORD) (sum ^ (sum >> 16));
+@@ -160,14 +163,14 @@
+ #if 0
+     u = (*c++); u |= (*c++)<<8;		/* checksum */
+ #endif
+-    u = *(UWORD*)c; c+=2;
++    memcpy(&u, c, sizeof(UWORD)); c+=2;
+     cp = *c++; cp <<= 8; cp |= *c++;		/* packed */
+     cup1 = *c++; cup1 <<= 8; cup1 |= *c++;	/* unpacked */
+ 
+     src = c+2;
+     bc1=c[cp+2];bc2=c[cp+1];bc3=c[cp];
+     c[cp+2]=0;c[cp+1]=0;c[cp]=0;
+-	lchk=xchecksum((ULONG*)(c),(cp+3)>>2);
++	lchk=xchecksum(c,(cp+3)>>2);
+     c[cp+2]=bc1;c[cp+1]=bc2;c[cp]=bc3;
+ 	/*fprintf(stderr,"c=%x type=%02x chk=%04x cp=%04x cup1=%04x chk=%04x\n",c-osrc-8,type,u,cp,cup1,lchk);*/
+ 	if (lchk != u)

@@ -4,17 +4,16 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- libsdl1.2-compat-dev|libsdl1.2-dev,
- libsdl-mixer1.2-dev,
+ libsdl2-dev,
+ libsdl2-mixer-dev,
  pkgconf
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=58704
 Rules-Requires-Root: no
 
 Package: borntro-by-insolitdust
 Architecture: any
 Depends:
- libsdl1.2-compat,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Demo for Linux, released in 2012

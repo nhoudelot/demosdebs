@@ -1,0 +1,379 @@
+Description: fixing various warnings 
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-17
+
+--- a/maf.c
++++ b/maf.c
+@@ -26,7 +26,7 @@
+             maf_divtable[j][i] = (j ? i/j : 255);
+ } /* init maf */
+ 
+-void horiz_maf(int *srcbuf, int *destbuf,
++void horiz_maf(unsigned int *srcbuf, unsigned int *destbuf,
+                int srcx1, int srcy1, 
+                int destx1, int desty1, 
+                int width, int height,
+@@ -35,10 +35,10 @@
+ {
+ 	int y,
+ 		av_r, av_g, av_b,
+-        srcpix1, srcpix2,
+-        *_src, *src1, *src2, 
+-        *_dest, *dest,
+-        *divtable;
++        srcpix1, srcpix2;
++    unsigned int *_src, *src1, *src2,
++                 *_dest, *dest;
++    int *divtable;
+ 
+     divtable = maf_divtable[filterwidth];
+         
+@@ -102,7 +102,7 @@
+ 
+ } /* horiz_maf */
+ 
+-void vert_maf(int *srcbuf, int *destbuf,
++void vert_maf(unsigned int *srcbuf, unsigned int *destbuf,
+               int srcx1, int srcy1, 
+               int destx1, int desty1, 
+               int width, int height,
+@@ -111,10 +111,10 @@
+ {
+ 	int x,
+ 		av_r, av_g, av_b,
+-        srcpix1, srcpix2,
+-        *_src, *src1, *src2, 
+-        *_dest, *dest,
+-        *divtable;
++        srcpix1, srcpix2;
++    unsigned int *_src, *src1, *src2,
++                 *_dest, *dest;
++    int *divtable;
+ 
+     _src = srcbuf + srcx1 + srcy1 * bufwidth;
+     _dest = destbuf + destx1 + desty1 * bufwidth;
+--- a/venkula.c
++++ b/venkula.c
+@@ -58,7 +58,7 @@
+         }
+ }
+ 
+-void venkula(int clock,int *buffer,int *bg)
++void venkula(int clock,unsigned int *buffer,unsigned int *bg)
+ {
+     int plus,paikka,i,x,y,z,tmp;
+ 
+--- a/main.c
++++ b/main.c
+@@ -28,10 +28,10 @@
+ 
+ /* Lazy lazy lazy: instead of writing headers here are the declarations */
+ extern void init_maf();
+-extern void horiz_maf(int *,int *,int,int, int,int,int,int, int,int,int);
+-extern void vert_maf(int *,int *,int,int, int,int,int,int, int,int,int);
++extern void horiz_maf(unsigned *,unsigned *,int,int, int,int,int,int, int,int,int);
++extern void vert_maf(unsigned *,unsigned *,int,int, int,int,int,int, int,int,int);
+ extern void venkula_init(int param1,int param2);
+-extern void venkula(int clock,int *buffer,int *bg);
++extern void venkula(int clock,unsigned *buffer,unsigned *bg);
+ extern int pano_init(unsigned *,unsigned *);
+ extern void pano_effect(unsigned *,int);
+ extern int suumi_init(int,int);
+@@ -63,7 +63,7 @@
+ int main(int argc,char *argv[])
+ {
+     static unsigned    buf[LEV*KOR],buf2[LEV*KOR*2],white[LEV*KOR],buf3[LEV*KOR];
+-    int         n=0,cont=1,tmp,vuaro,ver=0,tid,ver2,ctr,ctr2,x,y,marker;
++    int         n=0,cont=1,tmp,vuaro,ver=0,tid,ver2,ctr,ctr2,x,y,marker=0;
+ 
+     /* Inits */
+     if(!mzx_init())
+@@ -627,7 +627,6 @@
+ void blandis(unsigned *buf,int n)
+ {
+     static unsigned    dest[320*240];
+-    int         y;
+ 
+     pano_effect(buf,n);///48*20);
+     horiz_maf(buf,dest, 0,0,0,0, 320,240, 320,240, fabs(sin(n/12.0))*20.0+1.0);
+@@ -638,7 +637,6 @@
+ void unzoomeri_init()
+ {
+     int n;
+-    unsigned    tmp;
+ 
+     suumi_init(320,240);
+     venkula_init(500,180);
+@@ -749,8 +747,6 @@
+ 
+ void flar(unsigned *buf,int n)
+ {
+-    int y;
+-
+     memset(buf,0,320*240*sizeof(int));
+     flarez(buf,n);
+ 
+--- a/ranta.c
++++ b/ranta.c
+@@ -97,7 +97,7 @@
+ void ranta_effect(int p_time1)
+ {
+ 	int 	n;	
+-	vec_fp	l[3]={1000,50000,180000},paso;
++	vec_fp	l[3]={1000,50000,180000};
+ 
+         //memset(cam.dbuf,0,320*240*4);
+ 
+--- a/cool_mzx/cool_mzx.c
++++ b/cool_mzx/cool_mzx.c
+@@ -79,9 +79,7 @@
+ 
+ volatile unsigned int ticksfromstart = 0;
+ 
+-static int	laite=0,piippu[2],jacaja,screenHz;
+-
+-static unsigned char	audio[40000];
++static int	laite=0,jacaja,screenHz;
+ 
+ void mix_newhand(void *udata, Uint8 *stream, int len);
+ 
+@@ -136,8 +134,6 @@
+ 
+ Uint32 timeri(Uint32 interval, void *param)
+ {
+-    static int i, sanbale;
+-
+ 	if(!laite)
+ 	{
+ 		pt_play();
+@@ -175,8 +171,6 @@
+ /*      Aloittaa soiton ja käynnistää timerin taajuudella freq 	*/
+ void mzx_start(int freq)
+ {
+-	int	tavut,n,pois=0;
+-
+         tix = SDL_GetTicks();
+         //vbiInit(&vbiproc0, &vbiproc1, &vbiproc2);
+ 
+@@ -194,7 +188,7 @@
+ /*	SIGCHLD-handleri	*/
+ void mix_newhand(void *udata, Uint8 *stream, int len)
+ {
+-	static int	ny=0,luku=0,off;
++	static int	luku=0,off;
+ 
+ 	short	*oso=(short *)stream;
+ 
+--- a/cool_mzx/sd_mix.c
++++ b/cool_mzx/sd_mix.c
+@@ -95,7 +95,7 @@
+ 				mix_realchannels[SD_MAXCHANNELS],
+ 				*curchan;
+ 
+-int mix_getsample (int snum, char *src, int len,
++int mix_getsample (int snum, signed char *src, int len,
+ 		    int loopstart, int loopend, int looptype)
+ /* "Ottaa" samplen. Muistia ei varata tässä, joten olis ihan kiva,
+    että se tila pysyisi varattuna. */
+@@ -208,7 +208,7 @@
+ 	c->loopend = 0;
+ 	c->looptype = LOOP_OFF;
+ 	c->panning = PAN_MIDDLE;
+-	c->sampledata = (char *)0; /* NULL */
++	c->sampledata = NULL;
+ 	c->sample = 0;
+ 	c->sample16bit = 0;
+ 	c->newoffset = 1;
+@@ -220,12 +220,12 @@
+ 	s->loopstart = 0;
+ 	s->loopend = 0;
+ 	s->looptype = LOOP_OFF;
+-	s->data = (char *)0; /* NULL */
++	s->data = NULL;
+ } /* sd_mix_initchannel */
+ 
+ void sd_mix_init (int rate)
+ {
+-	int	i,n,m;
++	int	i;
+ 
+ 	sd_mix_rate = rate;
+ 	for (i=0; i<SD_MAXCHANNELS; i++)
+@@ -660,9 +660,7 @@
+ {
+ 	signed int *dst32;
+ 	signed int i, c, lvol, rvol;
+-	signed int left, right;
+ 	signed short *dst;
+-	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+ 
+ 	/* Kopioidaan kanavat */
+@@ -676,12 +674,12 @@
+ 	for (c=0; c<mix_activechannels; c++)
+ 	{
+ 		chan = &mix_realchannels[c];
+-		sample = chan->sampledata;
+ 		dst32 = mix_buffer32;
+ 
+ 		lvol = (chan->volume*(255-chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		rvol = (chan->volume*(chan->panning)*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		if ((chan->samplesize>0) && (chan->volume>0))
++		{
+ #ifdef MIX_ASM
+                 if (sd_mix_interpolation)
+                         sd_asm_imixstereo(chan, dst32, length, lvol, rvol);
+@@ -693,6 +691,7 @@
+                 else
+                         sd_c_mixstereo(chan, dst32, length, lvol, rvol);
+ #endif
++		}
+ 
+ 	} /* for channel */
+ 
+@@ -719,10 +718,8 @@
+ void sd_mix_mono (unsigned char *dest, int length, int to16bit)
+ {
+ 	signed int *dst32;
+-	signed int i, c, lvol, rvol;
+-	signed int left, right;
++	signed int i, c, lvol;
+ 	unsigned char *dst;
+-	signed char *sample;
+ 	struct CHANNELINFOBLOCK *chan;
+ 
+ 	/* Kopioidaan kanavat */
+@@ -736,11 +733,11 @@
+ 	for (c=0; c<mix_activechannels; c++)
+ 	{
+ 		chan = &mix_realchannels[c];
+-		sample = chan->sampledata;
+ 		dst32 = mix_buffer32;
+ 
+ 		lvol = (chan->volume*255*mix_mainvolume)/(128*SD_MAXMAINVOLUME);
+ 		if ((chan->samplesize>0) && (chan->volume>0))
++		{
+ #ifdef MIX_ASM
+                 if (sd_mix_interpolation)
+                         sd_asm_imixmono(chan, dst32, length, lvol);
+@@ -752,6 +749,7 @@
+                 else
+                         sd_c_mixmono(chan, dst32, length, lvol);
+ #endif
++		}
+ 
+ 	} /* for channel */
+ 
+--- a/cool_mzx/pt.c
++++ b/cool_mzx/pt.c
+@@ -346,7 +346,7 @@
+ // alustetaan ne muuttujat
+ {
+ 
+-        int c, i, j;
++        int c, i;
+ 
+         for (c=0; c<32; c++)
+         {
+@@ -498,14 +498,14 @@
+ 
+         if (pt_loope[i] > 2)
+         {
+-                sd_getsample(i, &rb_src[rb_ofs], pt_slen[i],
++                sd_getsample(i, (signed char *)&rb_src[rb_ofs], pt_slen[i],
+                              pt_loops[i],
+                              pt_loops[i] + pt_loope[i],
+                              LOOP_NORMAL);
+         }
+         else
+         {
+-                sd_getsample(i, &rb_src[rb_ofs], pt_slen[i],
++                sd_getsample(i, (signed char *)&rb_src[rb_ofs], pt_slen[i],
+                              pt_loops[i],
+                              pt_loops[i] + pt_loope[i],
+                              LOOP_OFF);
+@@ -530,8 +530,7 @@
+ 
+ void pt_play (void)
+ {
+-        int c, i, oldvbtempo, cmdprm;
+-        long l;
++        int c, i, cmdprm;
+         unsigned char *row; // osoitin riville
+         unsigned char sm, nt, cmd, prm;
+ 
+@@ -759,7 +758,8 @@
+                                             i = pt_curvol[c] +
+                                                 pt_tremolotable[pt_trmc[c]]*pt_trmd[c] / 127;
+                                             pt_trmc[c] = (pt_trmc[c]+pt_trms[c]) & 63;
+-                                            if (i<0) i=0; if (i>64) i=64;
++                                            if (i<0) i=0;
++                                            if (i>64) i=64;
+                                             sd_setvolume(i);
+                                             break;
+                                 case 0xA00: dovolslideandbehappy:
+--- a/cool_mzx/pt.h
++++ b/cool_mzx/pt.h
+@@ -12,10 +12,10 @@
+ #ifndef PT_H
+ #define PT_H
+ 
+-extern unsigned char  *pt_errorstr; // tässä sitten lukee jotain tai ei lue...
++extern const char     *pt_errorstr; // tässä sitten lukee jotain tai ei lue...
+ 
+ void pt_init ();
+-int  pt_takemod (char *src);
++int  pt_takemod (unsigned char *src);
+ void pt_play ();
+ 
+ extern int pt_bpmtempo;
+--- a/cool_mzx/sd_main.h
++++ b/cool_mzx/sd_main.h
+@@ -51,7 +51,7 @@
+ extern void (*sd_secondhand)();
+ /* Tätä kutsutaan kakkosinterruptissa, mikäli sellainen tarvitaan. */
+ 
+-extern int (*sd_getsample)(int snum, char *src, int len,
++extern int (*sd_getsample)(int snum, signed char *src, int len,
+                            int loopstart, int loopend, int looptype);
+ /* Palauttaa SD_OK, tai SD_ERR, jos esim. GUSin muisti loppui. */
+ 
+--- a/cool_mzx/sd_main.c
++++ b/cool_mzx/sd_main.c
+@@ -31,7 +31,7 @@
+ void (*sd_secondhand)();
+ /* Tätä kutsutaan kakkosinterruptissa. (GUS!) */
+ 
+-int (*sd_getsample)(int snum, char *src, int len,
++int (*sd_getsample)(int snum, signed char *src, int len,
+                     int loopstart, int loopend, int looptype);
+ 
+ void (*sd_selectchannel)(int cnum);
+--- a/flarex.c
++++ b/flarex.c
+@@ -25,7 +25,7 @@
+ 
+ void init_flare()
+ {
+-	int	x,y,tmp;
++	int	x,y;
+ 	float	dist;
+ 	unsigned col;
+ 
+@@ -46,11 +46,10 @@
+ 
+ void flarez(unsigned *buf,int phase)
+ {
+-    int count,n,siz,pase,base,
+-        intx,inty,
+-        x,y,x2,y2,klip;
++    int count,siz,pase,base,
++        intx,inty;
+ 
+-    unsigned int    col,bol;
++    unsigned int    col;
+ 
+     double  vx,vy,vz;
+ 

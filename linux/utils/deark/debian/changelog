@@ -1,3 +1,11 @@
+deark (1.7.2-0ddebs1) noble; urgency=medium
+
+  * New upstream release.
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 27 Mar 2026 12:55:30 +0100
+
 deark (1.7.1-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

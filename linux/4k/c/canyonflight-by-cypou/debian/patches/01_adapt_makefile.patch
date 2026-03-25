@@ -7,14 +7,14 @@ Last-Update: 2020-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
 +++ b/Makefile
-@@ -1,6 +1,33 @@
+@@ -1,6 +1,32 @@
 -CC=gcc
 -CFLAGS=`sdl-config --cflags` -g -W -Wall -std=c99 -pedantic
 -LDFLAGS=`sdl-config --libs` -lGL -lm
 +#variables de compilation
 +SHELL = /bin/sh
-+CC    := gcc
-+PKG_CONFIG:=pkg-config
++CC    ?= gcc
++PKG_CONFIG ?= pkg-config
 +CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu gl)
 +LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
 +TARGET   := canyonflight-by-cypou
@@ -31,11 +31,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -all: canyonflight
 +SOURCE          = canyonflight.c
  
-+export
 +
 +all: $(TARGET)
 +
-+$(TARGET):
++$(TARGET): $(SOURCE)
 +	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)

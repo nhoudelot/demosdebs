@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=77426
 Rules-Requires-Root: no
 
@@ -17,4 +17,4 @@ Depends:
  libc6,
  common-install-function-ddebs(>=1.61)
 Description: 4k intro by tkln, released in 2018
- 4k intro by tkln, released in 2018
+ 4k intro released in 2018

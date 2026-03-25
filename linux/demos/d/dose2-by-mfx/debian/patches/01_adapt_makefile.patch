@@ -2,7 +2,7 @@ Description: updating makefile
  updating makefile to make it more compatible with packaging and crossbuilding
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
-Last-Update: 2024-05-05
+Last-Update: 2026-04-20
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Makefile
@@ -13,7 +13,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +# compilers and tools
 +SHELL      := /bin/sh
 +CC         ?= gcc
-+PKG_CONFIG := pkg-config
++PKG_CONFIG ?= pkg-config
 +RM_F       := rm -f
 +CFLAGS 	   += -std=gnu90 -ffast-math -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl)
 +# Libraries for linking

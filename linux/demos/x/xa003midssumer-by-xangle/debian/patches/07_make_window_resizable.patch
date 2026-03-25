@@ -7,7 +7,7 @@ Last-Update: 2024-04-24
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/base/xio.cpp
 +++ b/base/xio.cpp
-@@ -91,7 +91,7 @@
+@@ -90,7 +90,7 @@
  //		xs::error.add(temp.c_str());
  //	}
  
@@ -16,18 +16,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  	if(ogl)
  	{
-@@ -112,6 +112,8 @@
- 			temp += SDL_GetError();
- 			xs::error.add(temp.c_str());
- 		};
-+		windowID = SDL_GetWindowID(sdlWindow);
-+		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
- 		sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
- 		sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,sdl_screen);
- 	
-@@ -120,6 +122,27 @@
- #endif
+@@ -111,6 +111,8 @@
+ 		temp += SDL_GetError();
+ 		xs::error.add(temp.c_str());
  	}
++	windowID = SDL_GetWindowID(sdlWindow);
++	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+ 	sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
+ 	sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer, sdl_back);
+ 
+@@ -119,6 +121,27 @@
+ #endif
+ }
  
 +void Video::resize_window(SDL_Renderer *sdlRenderer, int w, int h) {
 +    SDL_Rect newWindowSize;
@@ -52,8 +52,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
  void Video::update()
  {
- 	SDL_BlitSurface(sdl_back, NULL, sdl_screen, NULL);
-@@ -139,6 +162,11 @@
+ 	SDL_UpdateTexture(sdlTexture, NULL, sdl_back->pixels, sdl_back->pitch);
+@@ -137,6 +160,11 @@
  			    case SDLK_q: xs::shutdown.run(0); break;
  			}
  		    }
@@ -78,15 +78,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  // SDL and SDL_Mixer
  #ifdef WIN32
  	#include <SDL/SDL.h>
-@@ -74,11 +78,13 @@
- 	if(SDL_MUSTLOCK(sdl_screen)) SDL_UnlockSurface(sdl_screen);
- };
- 
--
+@@ -78,6 +82,9 @@
  SDL_Window *sdlWindow;
  SDL_Renderer *sdlRenderer;
  SDL_Texture *sdlTexture;
- SDL_Surface* sdlSurface;
 +Uint32 windowID;
 +
 +void resize_window(SDL_Renderer *sdlRenderer, int w, int h);

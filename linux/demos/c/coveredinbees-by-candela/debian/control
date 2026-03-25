@@ -4,13 +4,14 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
+ dh-exec (>=0.3),
  libglu-dev,
  libsdl1.2-compat-dev|libsdl1.2-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=59318
 
 Package: coveredinbees-by-candela
-Architecture: amd64
+Architecture: amd64 i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},

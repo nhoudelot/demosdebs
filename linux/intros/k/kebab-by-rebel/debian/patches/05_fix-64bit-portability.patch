@@ -1,0 +1,486 @@
+Description: fix 64 bit portability
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/kebab.c
++++ b/kebab.c
+@@ -67,9 +67,9 @@
+ 
+ #define MOONWALK_LEN 4.0f
+ 
+-void draw_border(void);
++void *draw_border(void *arg);
+ void pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space_intro(void);
+-void we_get_signal(void);
++void *we_get_signal(void *arg);
+ void man_eating_plasma_vortex_from_hell();
+ void man_eating_plasma_vortex_from_hell_intro();
+ void moonwalk(void);
+@@ -77,17 +77,16 @@
+ void fire(void);
+ void fire_intro(void);
+ void slide(void);
+-void fireworks(void);
++void *fireworks();
+ void fireworks_intro(void);
+ void plasma_attack(void);
+ void plasma_attack_intro(void);
+ void scrolla(char *s);
+-void worm(void);
++void *worm();
+ void puttext(char *s, int pause);
+ void timer_fill(int interval,int pause);
+ void snurra(void);
+ void munching(void);
+-void mice(void);
+ 
+ 
+ int interval, dbnum, duration;
+@@ -106,7 +105,7 @@
+ 
+ 
+ void pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space(void);
+-void pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space_thread(void);
++void *pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space_thread(void *arg);
+ void ching(void);
+ void ching_intro(void);
+ 
+@@ -280,7 +279,7 @@
+ 
+ 	p = s;
+ 
+-	for(i=0,col=0; i<strlen(s); i++)
++	for(i=0,col=0; (size_t)i<strlen(s); i++)
+ 	{
+ 
+ 		if(s[i] == ' ')
+@@ -313,7 +312,7 @@
+ 
+ }
+ 
+-void update_screen(void)
++void *update_screen(void *arg)
+ {
+ 	int x,y,p,xx,yy;
+ 	struct framebuffer_point (*scr)[LINES];
+@@ -415,6 +414,7 @@
+ 
+ 		usleep(UPDATE_INTERVAL_MICROSEC);
+ 	}
++	return NULL; /* unreachable */
+ }
+ 
+ void fillscreen(void)
+@@ -482,17 +482,17 @@
+ //initialize the framebuffer
+ 	fill(RESET,WHITE,BLACK,' ');
+ 
+-	pthread_create(&thread[0],NULL,(void *)update_screen,NULL);
++	pthread_create(&thread[0],NULL,update_screen,NULL);
+ 
+ 	fill(RESET,GREEN,BLACK,' ');
+ 
+ 
+ 	for(x=0; x<67; x++)
+ 	{
+-		bzero(letters[x],4999);
++		memset(letters[x],0,4999);
+ 		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/letters/%c",table[x]);
+ 		fd = open(snopp,O_RDONLY);
+-		read(fd,letters[x],5000);
++		(void)read(fd,letters[x],5000);
+ 		close(fd);
+ 	}
+ 
+@@ -508,7 +508,7 @@
+ 
+ 
+ 
+-//pthread_create(&thread[1],NULL,(void *)draw_border,NULL);
++//pthread_create(&thread[1],NULL,draw_border,NULL);
+ 
+ 
+ //fillscreen();
+@@ -562,34 +562,34 @@
+ 
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/intro1",O_RDONLY);
+-	read(fd,&buf1,4999);
++	(void)read(fd,buf1,4999);
+ 	close(fd);
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/intro2",O_RDONLY);
+-	read(fd,&buf2,4999);
++	(void)read(fd,buf2,4999);
+ 	close(fd);
+ 
+ 
+ 
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/intro3",O_RDONLY);
+-	read(fd,&buf3,4999);
++	(void)read(fd,buf3,4999);
+ 	close(fd);
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/intro4",O_RDONLY);
+-	read(fd,&buf4,4999);
++	(void)read(fd,buf4,4999);
+ 	close(fd);
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/intro5",O_RDONLY);
+-	read(fd,&buf5,4999);
++	(void)read(fd,buf5,4999);
+ 	close(fd);
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/intro6",O_RDONLY);
+-	read(fd,&buf6,4999);
++	(void)read(fd,buf6,4999);
+ 	close(fd);
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/intro7",O_RDONLY);
+-	read(fd,&buf7,4999);
++	(void)read(fd,buf7,4999);
+ 	close(fd);
+ 
+ 
+@@ -642,7 +642,7 @@
+ 	for(x=1; x<120; x++)
+ 	{
+ 		usleep(50000);
+-		pthread_create(&thread[1],NULL,(void *)draw_border,NULL);
++		pthread_create(&thread[1],NULL,draw_border,NULL);
+ 	}
+ 
+ /*
+@@ -663,13 +663,13 @@
+ 
+ 	ninja = GREEN;
+ 	pirate = 5;
+-	pthread_create(&thread[50],NULL,(void *)pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space_thread,NULL);
++	pthread_create(&thread[50],NULL,pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space_thread,NULL);
+ 	usleep(INTRO_SLEEP);
+ 	ninja = RED;
+ 	pirate = 10;
+-	pthread_create(&thread[51],NULL,(void *)pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space_thread,NULL);
++	pthread_create(&thread[51],NULL,pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space_thread,NULL);
+ 	usleep(INTRO_SLEEP);
+-	pthread_create(&thread[52],NULL,(void *)we_get_signal,NULL);
++	pthread_create(&thread[52],NULL,we_get_signal,NULL);
+ 	ninja = CYAN;
+ 	pirate = 15;
+ 	pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space();
+@@ -714,7 +714,7 @@
+ 		for(x=30; x<35; x++)
+ 		{
+ 
+-			pthread_create(&thread[x],NULL,(void *)fireworks,NULL);
++			pthread_create(&thread[x],NULL,fireworks,NULL);
+ 			usleep(100000);
+ 			dbnum++;
+ 			id++;
+@@ -740,12 +740,12 @@
+ 	wormx = 6;
+ 	wormy = 4;
+ 	id=1;
+-	pthread_create(&thread[70],NULL,(void *)worm,NULL);
++	pthread_create(&thread[70],NULL,worm,NULL);
+ 	usleep(50000);
+ /*wormx = 2;
+    wormy = 7;
+    id=2;
+-   pthread_create(&thread[71],NULL,(void *)worm,NULL);
++   pthread_create(&thread[71],NULL,worm,NULL);
+    usleep(10000);*/
+ 	wormx = 4;
+ 	wormy = 2;
+@@ -766,8 +766,8 @@
+ 	plasma_attack();
+ 
+ 	x = open("/usr/share/kebab-by-rebel/grafik/end",O_RDONLY);
+-	bzero(ahh,4999);
+-	read(x,ahh,4999);
++	memset(ahh,0,4999);
++	(void)read(x,ahh,4999);
+ 	close(x);
+ 	scrolla("k0d:  REBEL  -  mj00sic: JALLABERT - mad greetz till: NICON PACKY BIRNEE UDD RV KASTBERG TLUND");
+ 	fill(BRIGHT,WHITE,BLUE,' ');
+@@ -782,7 +782,7 @@
+ 
+ 
+ //draw something travelling the borders..
+-void draw_border(void)
++void *draw_border(void *arg)
+ {
+ 	int x,y;
+ 	int xdir,ydir; //0 for down/right, 1 for up/left
+@@ -837,7 +837,7 @@
+ 		usleep(10000);
+ 	}
+ 
+-
++	return NULL; /* unreachable */
+ }
+ 
+ void ching_intro(void)
+@@ -851,7 +851,7 @@
+ 	{
+ 		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/ching_intro%d",x);
+ 		fd = open(snopp,O_RDONLY);
+-		read(fd,ahem[x],5000);
++		(void)read(fd,ahem[x],5000);
+ 		close(fd);
+ 	}
+ 
+@@ -875,10 +875,10 @@
+ 
+ 	for(x=1; x<4; x++)
+ 	{
+-		bzero(ahem[x],4999);
++		memset(ahem[x],0,4999);
+ 		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/fireworks%d",x);
+ 		fd = open(snopp,O_RDONLY);
+-		read(fd,ahem[x],5000);
++		(void)read(fd,ahem[x],5000);
+ 		close(fd);
+ 	}
+ 
+@@ -901,15 +901,15 @@
+ 	int x;
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/ching1",O_RDONLY);
+-	read(fd,&buf3,4999);
++	(void)read(fd,buf3,4999);
+ 	close(fd);
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/ching2",O_RDONLY);
+-	read(fd,&buf4,4999);
++	(void)read(fd,buf4,4999);
+ 	close(fd);
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/ching3",O_RDONLY);
+-	read(fd,&buf5,4999);
++	(void)read(fd,buf5,4999);
+ 	close(fd);
+ 
+ 	fill(RESET,YELLOW,BLACK,' ');
+@@ -937,10 +937,10 @@
+ 
+ 	for(x=1; x<14; x++)
+ 	{
+-		bzero(kuka[x],4999);
++		memset(kuka[x],0,4999);
+ 		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/signal%d",x);
+ 		fd = open(snopp,O_RDONLY);
+-		read(fd,kuka[x],5000);
++		(void)read(fd,kuka[x],5000);
+ 		close(fd);
+ 	}
+ 
+@@ -979,7 +979,7 @@
+ 
+ }
+ 
+-void pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space_thread(void)
++void *pirate_ninja_robot_zombie_mutant_alien_signals_from_outer_space_thread(void *arg)
+ {
+ 	int x,y;
+ 	float hm;
+@@ -1000,7 +1000,7 @@
+ 
+ 		usleep(6500);
+ 	}
+-	sleep(100000);
++	return NULL;
+ }
+ 
+ 
+@@ -1014,10 +1014,10 @@
+ 
+ 	for(x=1; x<6; x++)
+ 	{
+-		bzero(ahem[x],4999);
++		memset(ahem[x],0,4999);
+ 		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/vortex%d",x);
+ 		fd = open(snopp,O_RDONLY);
+-		read(fd,ahem[x],5000);
++		(void)read(fd,ahem[x],5000);
+ 		close(fd);
+ 	}
+ 
+@@ -1034,14 +1034,15 @@
+ 
+ }
+ 
+-void we_get_signal(void)
++void *we_get_signal(void *arg)
+ {
+ 	int a;
+ 	a = open("/usr/share/kebab-by-rebel/grafik/omg",O_RDONLY);
+-	read(fd,kuka[19],4999);
++	(void)read(a,kuka[19],4999);
+ 	close(a);
+ 	sleep(6);
+ 	mutta(1,18,BRIGHT,WHITE,WHITE,kuka[19]);
++	return NULL;
+ }
+ 
+ void man_eating_plasma_vortex_from_hell(void)
+@@ -1096,7 +1097,7 @@
+ 	}
+ 
+ 	c = open("/usr/share/kebab-by-rebel/grafik/lol",O_RDONLY);
+-	read(c,sup,4999);
++	(void)read(c,sup,4999);
+ 	close(c);
+ 	mutta(29,9,BRIGHT,GREEN,GREEN,sup);
+ 	usleep(800000);
+@@ -1112,10 +1113,10 @@
+ 
+ 	for(x=1; x<2; x++)
+ 	{
+-		bzero(ahem[x],4999);
++		memset(ahem[x],0,4999);
+ 		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/man_intro%d",x);
+ 		fd = open(snopp,O_RDONLY);
+-		read(fd,ahem[x],5000);
++		(void)read(fd,ahem[x],5000);
+ 		close(fd);
+ 	}
+ 
+@@ -1145,10 +1146,10 @@
+ 
+ 	for(x=1; x<13; x++)
+ 	{
+-		bzero(ahem[x],4999);
++		memset(ahem[x],0,4999);
+ 		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/man%d",x);
+ 		fd = open(snopp,O_RDONLY);
+-		read(fd,ahem[x],5000);
++		(void)read(fd,ahem[x],5000);
+ 		close(fd);
+ 	}
+ 
+@@ -1160,7 +1161,7 @@
+ 
+ 	for(x=1; x<13; x++)
+ 	{
+-		bzero(ahem_backwards[x],4999);
++		memset(ahem_backwards[x],0,4999);
+ 
+ 		foo = ahem[x];
+ 		o = 0;
+@@ -1225,7 +1226,7 @@
+ 		if(times!=1)
+ 		{
+ 			a = open("/usr/share/kebab-by-rebel/grafik/wow",O_RDONLY);
+-			read(a,sup,4999);
++			(void)read(a,sup,4999);
+ 			close(a);
+ 
+ 			mutta(1,4,BRIGHT,WHITE,WHITE,sup);
+@@ -1248,8 +1249,8 @@
+ 	}
+ 
+ 	a = open("/usr/share/kebab-by-rebel/grafik/fantastic",O_RDONLY);
+-	bzero(sup,4999);
+-	read(a,sup,4999);
++	memset(sup,0,4999);
++	(void)read(a,sup,4999);
+ 	close(a);
+ 
+ 	mutta(1,4,BRIGHT,WHITE,WHITE,sup);
+@@ -1276,10 +1277,10 @@
+ 
+ 	for(x=1; x<4; x++)
+ 	{
+-		bzero(ahh[x],4999);
++		memset(ahh[x],0,4999);
+ 		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/fire%d",x);
+ 		fd = open(snopp,O_RDONLY);
+-		read(fd,ahh[x],5000);
++		(void)read(fd,ahh[x],5000);
+ 		close(fd);
+ 	}
+ 
+@@ -1409,7 +1410,7 @@
+ 
+ 
+ 
+-void fireworks(void)
++void *fireworks()
+ {
+ 	int plane[COLUMNS][LINES];
+ 	int x,y,i,k,c,p,height;
+@@ -1612,6 +1613,7 @@
+ 
+ 	if(my_id == 1) local_fill(scr,BRIGHT,WHITE,BLACK,' ');
+ 	else local_fill(scr,BRIGHT,WHITE,BLACK,5);
++	return NULL;
+ }
+ 
+ 
+@@ -1625,10 +1627,10 @@
+ 
+ 	for(x=1; x<2; x++)
+ 	{
+-		bzero(ahem[x],4999);
++		memset(ahem[x],0,4999);
+ 		sprintf(snopp,"/usr/share/kebab-by-rebel/grafik/plasma%d",x);
+ 		fd = open(snopp,O_RDONLY);
+-		read(fd,ahem[x],5000);
++		(void)read(fd,ahem[x],5000);
+ 		close(fd);
+ 	}
+ 
+@@ -1691,7 +1693,7 @@
+ 	y = 8;
+ 	x = 2;
+ 
+-	chars = strlen(s);
++	chars = (int)strlen(s);
+ 
+ 	for(start=(chars*15+(COLUMNS)+40); start>chars*2+(COLUMNS)+40; start-=2)
+ 	{
+@@ -1741,7 +1743,7 @@
+ 
+ 
+ 
+-void worm(void)
++void *worm()
+ {
+ 	int c,d,x,y,l,v;
+ 	float f1,i;
+@@ -1869,7 +1871,7 @@
+ 	}
+ 
+ 
+-
++	return NULL;
+ }
+ 
+ 
+@@ -1880,7 +1882,7 @@
+ 	int x;
+ 	int space = 9;
+ 
+-	length = strlen(s);
++	length = (int)strlen(s);
+ 
+ 	for(x=0; x<length; x++)
+ 	{
+@@ -2047,10 +2049,10 @@
+ 	int x,y,count;
+ 	char smile[500];
+ 
+-	bzero(smile,500);
++	memset(smile,0,500);
+ 
+ 	fd = open("/usr/share/kebab-by-rebel/grafik/smile",O_RDONLY);
+-	read(fd,&smile,500);
++	(void)read(fd,&smile,500);
+ 	close(fd);
+ 
+ 

@@ -1,0 +1,783 @@
+Description: fix out-of-bounds write in FFI VLA buffers (GC64 segfault)
+ same fix than cratered
+ Here is the explanation that Claude Sonnet 4.6 wrote about the fix :
+ Fix: change glIntv(0) to glIntv(1) (and equivalents) in all affected files
+ so that each "output pointer" buffer has room for the one value GL writes.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/effect/clut_effect.lua
++++ b/effect/clut_effect.lua
+@@ -114,7 +114,7 @@
+ end
+ 
+ function clut_effect:make_quad_vbos()
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     table.insert(self.vbos, vvbo)
+ 
+--- a/effect/effect_chain.lua
++++ b/effect/effect_chain.lua
+@@ -119,7 +119,7 @@
+ end
+ 
+ function effect_chain:make_quad_vbos()
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     table.insert(self.vbos, vvbo)
+ 
+--- a/effect/fullscreen_quad.lua
++++ b/effect/fullscreen_quad.lua
+@@ -25,14 +25,14 @@
+     local vpos_loc = gl.GetAttribLocation(prog, "vPosition")
+     local vcol_loc = gl.GetAttribLocation(prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.GenBuffers(1, vvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, vvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.STATIC_DRAW)
+     gl.VertexAttribPointer(vpos_loc, 2, GL.FLOAT, GL.FALSE, 0, nil)
+     table.insert(vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.GenBuffers(1, cvbo)
+     gl.BindBuffer(GL.ARRAY_BUFFER, cvbo[0])
+     gl.BufferData(GL.ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.DYNAMIC_DRAW)
+@@ -46,7 +46,7 @@
+         1,0,2,
+         2,0,3,
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.GenBuffers(1, qvbo)
+     gl.BindBuffer(GL.ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.BufferData(GL.ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.STATIC_DRAW)
+--- a/effect/iir_effect.lua
++++ b/effect/iir_effect.lua
+@@ -102,7 +102,7 @@
+         -1,1,
+         })
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+--- a/effect/simple_effect.lua
++++ b/effect/simple_effect.lua
+@@ -76,7 +76,7 @@
+ 
+ 
+ function simple_effect:make_quad_vbos()
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     table.insert(self.vbos, vvbo)
+ 
+--- a/scene/at.lua
++++ b/scene/at.lua
+@@ -584,21 +584,21 @@
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+     local vtex_loc = gl.glGetAttribLocation(self.prog, "vTexCoord")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vcol_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, cvbo)
+ 
+-    local tvbo = glIntv(0)
++    local tvbo = glIntv(1)
+     gl.glGenBuffers(1, tvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, tvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(texs), texs, GL.GL_STATIC_DRAW)
+@@ -614,7 +614,7 @@
+ 
+     local tris = glIntv(#dat.tris, dat.tris)
+     self.num_tris = #dat.tris
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+@@ -663,21 +663,21 @@
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+     local vtex_loc = gl.glGetAttribLocation(self.prog, "vTexCoord")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vcol_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, cvbo)
+ 
+-    local tvbo = glIntv(0)
++    local tvbo = glIntv(1)
+     gl.glGenBuffers(1, tvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, tvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(texs), texs, GL.GL_STATIC_DRAW)
+@@ -690,7 +690,7 @@
+ 
+     local tris = glIntv(#i, i)
+     self.num_tris = #i
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+--- a/scene/colorcube.lua
++++ b/scene/colorcube.lua
+@@ -85,14 +85,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+@@ -110,7 +110,7 @@
+         3,0,4, 7,3,4,
+         0,1,5, 4,0,5
+     })
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(quads), quads, GL.GL_STATIC_DRAW)
+--- a/scene/spiral1.lua
++++ b/scene/spiral1.lua
+@@ -446,14 +446,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -467,7 +467,7 @@
+ 
+     local tris = glIntv(#dat.tris, dat.tris)
+     self.num_tris = #dat.tris
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+@@ -515,14 +515,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -534,7 +534,7 @@
+ 
+     local tris = glIntv(#i, i)
+     self.num_tris = #i
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+--- a/scene/spiral2.lua
++++ b/scene/spiral2.lua
+@@ -465,14 +465,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -486,7 +486,7 @@
+ 
+     local tris = glIntv(#dat.tris, dat.tris)
+     self.num_tris = #dat.tris
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+@@ -534,14 +534,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -553,7 +553,7 @@
+ 
+     local tris = glIntv(#i, i)
+     self.num_tris = #i
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+--- a/scene/spiral3.lua
++++ b/scene/spiral3.lua
+@@ -488,14 +488,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -509,7 +509,7 @@
+ 
+     local tris = glIntv(#dat.tris, dat.tris)
+     self.num_tris = #dat.tris
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+@@ -557,14 +557,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -576,7 +576,7 @@
+ 
+     local tris = glIntv(#i, i)
+     self.num_tris = #i
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+--- a/scene/squid.lua
++++ b/scene/squid.lua
+@@ -678,21 +678,21 @@
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+     local vtex_loc = gl.glGetAttribLocation(self.prog, "vTexCoord")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vcol_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, cvbo)
+ 
+-    local tvbo = glIntv(0)
++    local tvbo = glIntv(1)
+     gl.glGenBuffers(1, tvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, tvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(texs), texs, GL.GL_STATIC_DRAW)
+@@ -708,7 +708,7 @@
+ 
+     local tris = glIntv(#dat.tris, dat.tris)
+     self.num_tris = #dat.tris
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+@@ -757,21 +757,21 @@
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+     local vtex_loc = gl.glGetAttribLocation(self.prog, "vTexCoord")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vcol_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, cvbo)
+ 
+-    local tvbo = glIntv(0)
++    local tvbo = glIntv(1)
+     gl.glGenBuffers(1, tvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, tvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(texs), texs, GL.GL_STATIC_DRAW)
+@@ -784,7 +784,7 @@
+ 
+     local tris = glIntv(#i, i)
+     self.num_tris = #i
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+--- a/scene/tree3.lua
++++ b/scene/tree3.lua
+@@ -473,14 +473,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -494,7 +494,7 @@
+ 
+     local tris = glIntv(#dat.tris, dat.tris)
+     self.num_tris = #dat.tris
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+@@ -542,14 +542,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -561,7 +561,7 @@
+ 
+     local tris = glIntv(#i, i)
+     self.num_tris = #i
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+--- a/scene/tree4.lua
++++ b/scene/tree4.lua
+@@ -478,14 +478,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -499,7 +499,7 @@
+ 
+     local tris = glIntv(#dat.tris, dat.tris)
+     self.num_tris = #dat.tris
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+@@ -547,14 +547,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+@@ -566,7 +566,7 @@
+ 
+     local tris = glIntv(#i, i)
+     self.num_tris = #i
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+--- a/scene/tube.lua
++++ b/scene/tube.lua
+@@ -596,21 +596,21 @@
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+     local vtex_loc = gl.glGetAttribLocation(self.prog, "vTexCoord")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vcol_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, cvbo)
+ 
+-    local tvbo = glIntv(0)
++    local tvbo = glIntv(1)
+     gl.glGenBuffers(1, tvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, tvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(texs), texs, GL.GL_STATIC_DRAW)
+@@ -626,7 +626,7 @@
+ 
+     local tris = glIntv(#dat.tris, dat.tris)
+     self.num_tris = #dat.tris
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+@@ -675,21 +675,21 @@
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+     local vtex_loc = gl.glGetAttribLocation(self.prog, "vTexCoord")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vcol_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, cvbo)
+ 
+-    local tvbo = glIntv(0)
++    local tvbo = glIntv(1)
+     gl.glGenBuffers(1, tvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, tvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(texs), texs, GL.GL_STATIC_DRAW)
+@@ -702,7 +702,7 @@
+ 
+     local tris = glIntv(#i, i)
+     self.num_tris = #i
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+--- a/scene/vs.lua
++++ b/scene/vs.lua
+@@ -603,21 +603,21 @@
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+     local vtex_loc = gl.glGetAttribLocation(self.prog, "vTexCoord")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vcol_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, cvbo)
+ 
+-    local tvbo = glIntv(0)
++    local tvbo = glIntv(1)
+     gl.glGenBuffers(1, tvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, tvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(texs), texs, GL.GL_STATIC_DRAW)
+@@ -633,7 +633,7 @@
+ 
+     local tris = glIntv(#dat.tris, dat.tris)
+     self.num_tris = #dat.tris
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+@@ -682,21 +682,21 @@
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+     local vtex_loc = gl.glGetAttribLocation(self.prog, "vTexCoord")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(cols), cols, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vcol_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, cvbo)
+ 
+-    local tvbo = glIntv(0)
++    local tvbo = glIntv(1)
+     gl.glGenBuffers(1, tvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, tvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(texs), texs, GL.GL_STATIC_DRAW)
+@@ -709,7 +709,7 @@
+ 
+     local tris = glIntv(#i, i)
+     self.num_tris = #i
+-    local qvbo = glIntv(0)
++    local qvbo = glIntv(1)
+     gl.glGenBuffers(1, qvbo)
+     gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, qvbo[0])
+     gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, ffi.sizeof(tris), tris, GL.GL_STATIC_DRAW)
+--- a/scene/vsfstri.lua
++++ b/scene/vsfstri.lua
+@@ -91,14 +91,14 @@
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+     local vcol_loc = gl.glGetAttribLocation(self.prog, "vColor")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+     gl.glVertexAttribPointer(vpos_loc, 3, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+     table.insert(self.vbos, vvbo)
+ 
+-    local cvbo = glIntv(0)
++    local cvbo = glIntv(1)
+     gl.glGenBuffers(1, cvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, cvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+--- a/util/fullscreen_shader.lua
++++ b/util/fullscreen_shader.lua
+@@ -83,7 +83,7 @@
+ 
+     local vpos_loc = gl.glGetAttribLocation(self.prog, "vPosition")
+ 
+-    local vvbo = glIntv(0)
++    local vvbo = glIntv(1)
+     gl.glGenBuffers(1, vvbo)
+     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vvbo[0])
+     gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+--- a/util/glfont.lua
++++ b/util/glfont.lua
+@@ -211,14 +211,14 @@
+             local verts = glFloatv(#stringv, stringv)
+             local texs  = glFloatv(#stringt, stringt)
+ 
+-            local newvbov = glIntv(0)
++            local newvbov = glIntv(1)
+             gl.glGenBuffers(1, newvbov)
+             gl.glBindBuffer(GL.GL_ARRAY_BUFFER, newvbov[0])
+             gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(verts), verts, GL.GL_STATIC_DRAW)
+             gl.glVertexAttribPointer(vpos_loc, 2, GL.GL_FLOAT, GL.GL_FALSE, 0, nil)
+             table.insert(self.vbos, newvbov)
+ 
+-            local newvbot = glIntv(0)
++            local newvbot = glIntv(1)
+             gl.glGenBuffers(1, newvbot)
+             gl.glBindBuffer(GL.GL_ARRAY_BUFFER, newvbot[0])
+             gl.glBufferData(GL.GL_ARRAY_BUFFER, ffi.sizeof(texs), texs, GL.GL_STATIC_DRAW)
+--- a/util/shaderfunctions.lua
++++ b/util/shaderfunctions.lua
+@@ -40,10 +40,10 @@
+     gl.glShaderSource(s, 1, sourcepp, NULL)
+     gl.glCompileShader(s)
+ 
+-    local ill = glIntv(0)
++    local ill = glIntv(1)
+     gl.glGetShaderiv(s, GL.GL_INFO_LOG_LENGTH, ill)
+     if (ill[0] > 1) then
+-        local cw = glIntv(0)
++        local cw = glIntv(1)
+         local logp = glCharv(ill[0] + 1)
+         gl.glGetShaderInfoLog(s, ill[0], cw, logp)
+         print("__ShaderInfoLog: \n"..ffi.string(logp))
+@@ -51,7 +51,7 @@
+         return 0
+     end
+ 
+-    local success = glIntv(0)
++    local success = glIntv(1)
+     gl.glGetShaderiv(s, GL.GL_COMPILE_STATUS, success);
+     assert(success[0] == GL.GL_TRUE)
+ 
+@@ -95,10 +95,10 @@
+ 
+     gl.glLinkProgram(program)
+ 
+-    local ill = glIntv(0)
++    local ill = glIntv(1)
+     gl.glGetProgramiv(program, GL.GL_INFO_LOG_LENGTH, ill)
+     if (ill[0] > 1) then
+-        local cw = glIntv(0)
++        local cw = glIntv(1)
+         local logp = glCharv(ill[0] + 1)
+         gl.glGetProgramInfoLog(program, ill[0], cw, logp)
+         print("__ProgramInfoLog: "..ffi.string(logp))
+--- a/util/shaderfunctions2.lua
++++ b/util/shaderfunctions2.lua
+@@ -34,10 +34,10 @@
+     gl.glShaderSource(shaderObject, 1, sourcepp, NULL)
+     gl.glCompileShader(shaderObject)
+ 
+-    local ill = glIntv(0)
++    local ill = glIntv(1)
+     gl.glGetShaderiv(shaderObject, GL.GL_INFO_LOG_LENGTH, ill)
+     if (ill[0] > 1) then
+-        local cw = glIntv(0)
++        local cw = glIntv(1)
+         local logp = glCharv(ill[0] + 1)
+         gl.glGetShaderInfoLog(shaderObject, ill[0], cw, logp)
+         errorText = ffi.string(logp)
+@@ -45,7 +45,7 @@
+         return 0, errorText
+     end
+ 
+-    local success = glIntv(0)
++    local success = glIntv(1)
+     gl.glGetShaderiv(shaderObject, GL.GL_COMPILE_STATUS, success);
+     assert(success[0] == GL.GL_TRUE)
+ 
+@@ -86,10 +86,10 @@
+ 
+     gl.glLinkProgram(program)
+ 
+-    local ill = glIntv(0)
++    local ill = glIntv(1)
+     gl.glGetProgramiv(program, GL.GL_INFO_LOG_LENGTH, ill)
+     if (ill[0] > 1) then
+-        local cw = glIntv(0)
++        local cw = glIntv(1)
+         local logp = glCharv(ill[0] + 1)
+         gl.glGetProgramInfoLog(program, ill[0], cw, logp)
+         return 0, ffi.string(logp)

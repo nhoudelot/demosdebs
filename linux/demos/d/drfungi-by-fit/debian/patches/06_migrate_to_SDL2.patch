@@ -9,8 +9,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +++ b/Makefile
 @@ -7,8 +7,8 @@
  SHELL := /bin/sh
- CC := gcc
- PKG_CONFIG:=pkg-config
+ CC ?= gcc
+ PKG_CONFIG ?= pkg-config
 -CFLAGS += -Wall $(shell $(PKG_CONFIG) sdl gl libjpeg --cflags) -std=gnu90 -pipe
 -LDFLAGS += $(shell $(PKG_CONFIG) sdl gl libjpeg --libs) -lm
 +CFLAGS += -Wall $(shell $(PKG_CONFIG) sdl2 gl libjpeg --cflags) -std=gnu90 -pipe
@@ -30,12 +30,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <GL/gl.h>
  
  #include "cool_mzx/cool_mzx.h"
-@@ -31,16 +30,17 @@
+@@ -31,16 +30,21 @@
  
  int main(int argc,char *argv[])
  {
 -	int quit=0,flags=SDL_OPENGL|SDL_HWSURFACE|SDL_FULLSCREEN;
 +	int quit=0,flags=SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
++	int win_w=XS,win_h=YS;
  	SDL_Event e;
  	double mp=0,oldtimer=0.0,oldtimer2=0.0,oldtimer3=0.0,d;
  
@@ -46,13 +47,26 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	SDL_Init(SDL_INIT_VIDEO);
 -	SDL_SetVideoMode(XS,YS,32,flags);
 -	SDL_WM_SetCaption("Dr Fungi by Fit",NULL);
++	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
++	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 +	SDL_Window *sdlWindow;
 +	sdlWindow = SDL_CreateWindow("Dr Fungi by Fit",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,XS,YS,flags);
 +	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	SDL_GL_SetSwapInterval(1);
  	SDL_ShowCursor(0);
  
  	/* Skip the music dialog in init */
-@@ -175,12 +175,14 @@
+@@ -73,7 +77,8 @@
+ 				oldtimer=get_time();
+ 			d=get_time()-oldtimer;
+ 			d=1.0/(1+d*d*15);
+-			glViewport(XS/2-XS/2.0*d,YS/2-YS/2.0*d,XS*d,YS*d);
++			SDL_GetWindowSize(sdlWindow,&win_w,&win_h);
++			glViewport(win_w/2-win_w/2.0*d,win_h/2-win_h/2.0*d,win_w*d,win_h*d);
+ 		}
+ 
+ 		if(mp<400)
+@@ -175,12 +180,14 @@
  		if(mzx_position()>1920)
  			quit++;
  
@@ -79,21 +93,29 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  extern int pt_curperiod[32],           // kanavan nykyinen periodi
             pt_curnote[32],             // kanavan nykyinen sävel
-@@ -205,7 +205,7 @@
+@@ -81,6 +81,7 @@
+ volatile unsigned int ticksfromstart = 0;
+ 
+ static int laite=0,piippu[2],jacaja,screenHz;
++static SDL_TimerID timer_id=0;
+ 
+ static unsigned char audio[40000];
+ 
+@@ -205,7 +206,7 @@
  	if(!laite)
  	{
  		SDL_Init(SDL_INIT_TIMER);
 -		SDL_SetTimer(jacaja, timeri);
-+		SDL_AddTimer(jacaja, timeri,NULL);
++		timer_id = SDL_AddTimer(jacaja, timeri,NULL);
  		return;
  	}
  	SDL_PauseAudio(0);
-@@ -282,7 +282,7 @@
+@@ -282,7 +283,7 @@
  {
  	if(!laite)
  	{
 -		SDL_SetTimer(0,NULL);
-+		SDL_AddTimer(0,NULL,NULL);
++		SDL_RemoveTimer(timer_id);
  		return;
  	}
  
@@ -108,3 +130,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include <stdio.h>
  #include <stdlib.h>
  
+@@ -37,11 +37,8 @@
+ 	if(freq<44100)
+ 		wanted.format = AUDIO_U8;
+ 	else
+-#ifdef MSB
+-		wanted.format = AUDIO_S16MSB;
+-#else
+-		wanted.format = AUDIO_S16;
+-#endif
++		wanted.format = AUDIO_U16SYS;
++
+ 	wanted.channels = 1;    /* 1 = mono, 2 = stereo */
+ 	wanted.samples = 2048;  /* Good low-latency value for callback */
+ 	wanted.callback = mix_newhand;

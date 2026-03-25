@@ -21,8 +21,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -LDFLAGS = `$(SDLPREFIX)sdl-config --libs` -lpng -lz -lm
 -RANLIB = ranlib
 -AR = ar
-+CC := gcc
-+PKG_CONFIG:=pkg-config
++CC ?= gcc
++PKG_CONFIG ?= pkg-config
 +CFLAGS += -Wall -pipe -std=c99 \
 + -fno-strict-aliasing $(shell $(PKG_CONFIG) --cflags sdl) -DBLKSIZE=4096 \
 + -DDOUBLEPIX -DDATADIR=\"/usr/share/onceuponatimeintheeast-by-fit/data/\" $(shell pkg-config libpng --cflags)

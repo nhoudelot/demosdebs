@@ -6,7 +6,7 @@ Build-Depends:
  debhelper-compat (= 13),
  libvorbis-dev,
  libglfw3-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=69698
 Rules-Requires-Root: no
 

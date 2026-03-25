@@ -1,3 +1,11 @@
+arte-by-sanity-disk (1:1.0+3-0ddebs8) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 02 May 2026 00:21:04 +0200
+
 arte-by-sanity-disk (1:1.0+3-0ddebs7) unstable; urgency=medium
 
   * Updated to standards-version 4.6.2

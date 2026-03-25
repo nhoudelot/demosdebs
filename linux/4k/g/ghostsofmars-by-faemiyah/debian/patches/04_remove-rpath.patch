@@ -1,0 +1,15 @@
+Description: skip building of rpath
+ fix lintian error binary-or-shlib-defines-rpath
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2020-04-25
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -53,3 +53,5 @@
+ 	SDL2::SDL2
+ 	Threads::Threads
+ )
++
++set_target_properties(ghosts_of_mars PROPERTIES SKIP_BUILD_RPATH 1) # remove the CMake generated '-Wl,-rpath'

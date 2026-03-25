@@ -1,0 +1,104 @@
+Description: fix 32 to 64 bit conversion
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/texture.hpp
++++ b/src/texture.hpp
+@@ -1,6 +1,7 @@
+ #ifndef _TEXTURE_HPP_
+ #define _TEXTURE_HPP_
+ 
++#include <cstdint>
+ #ifndef OS_X
+ #include "GL/gl.h"
+ #else
+@@ -10,14 +11,14 @@
+ class Texture
+ {
+ public:
+-	Texture(int pwidth, int pheight, unsigned long *pdata);
++	Texture(int pwidth, int pheight, uint32_t *pdata);
+ 	Texture(int pwidth, int pheight); 
+ 	~Texture();
+ 	void upload();
+ 	int width;
+     int height;
+     GLuint ID;
+-    unsigned long *data;
++    uint32_t *data;
+ };
+ 
+ 
+--- a/src/stuff.hpp
++++ b/src/stuff.hpp
+@@ -1,6 +1,7 @@
+ #ifndef _STUFF_HPP_
+ #define _STUFF_HPP_
+ 
++#include <cstdint>
+ #ifndef OS_X
+ #include <GL/gl.h>
+ #include <GL/glu.h>
+@@ -58,7 +59,7 @@
+ 
+ void textures_init();
+ void textures_free();
+-void unpack(unsigned char *source, unsigned long *dest);
++void unpack(unsigned char *source, uint32_t *dest);
+ 
+ 
+ #endif
+--- a/src/texture.cpp
++++ b/src/texture.cpp
+@@ -1,13 +1,13 @@
+ #include "stuff.hpp"
+ #include "texture.hpp"
+ 
+-Texture::Texture(int pwidth, int pheight, unsigned long *pdata)
++Texture::Texture(int pwidth, int pheight, uint32_t *pdata)
+ {
+ 	int i;
+ 	width = pwidth;
+ 	height = pheight;
+ 
+-	data = new unsigned long[width*height];
++	data = new uint32_t[width*height];
+ 	for (i=0;i<width*height;i++)
+ 	{
+ 		data[i] = pdata[i];
+@@ -20,7 +20,7 @@
+ 	width = pwidth;
+ 	height = pheight;
+ 
+-	data = new unsigned long[width*height];
++	data = new uint32_t [width*height];
+ 	for (i=0;i<width*height;i++)
+ 	{
+ 		data[i] = 0xFF000000;
+--- a/src/stuff.cpp
++++ b/src/stuff.cpp
+@@ -84,7 +84,7 @@
+ 	return arvo;
+ }
+ 
+-void unpack(unsigned char *source, unsigned long *dest)
++void unpack(unsigned char *source, uint32_t *dest)
+ {
+ 	int i;
+ 	int offset = 0;
+@@ -114,9 +114,9 @@
+ void textures_init()
+ {
+ 	int x, y;
+-	unsigned long *palluratemp = new unsigned long[128*128];
+-	unsigned long *palluratemp2 = new unsigned long[128*128];
+-	unsigned long *kasvottemp = new unsigned long[128*128];
++	uint32_t *palluratemp = new uint32_t[128*128];
++	uint32_t *palluratemp2 = new uint32_t[128*128];
++	uint32_t *kasvottemp = new uint32_t[128*128];
+ 
+ 	int offset = 0;
+ 

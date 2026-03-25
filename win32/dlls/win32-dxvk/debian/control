@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://github.com/doitsujin/dxvk
 Rules-Requires-Root: no
 

@@ -1,0 +1,677 @@
+Description: port to SDL2
+ Port from X11/GLX to SDL2
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/cg_x11.h
++++ b/src/cg_x11.h
+@@ -1,31 +1,24 @@
+-#include <GL/glx.h>
+-#include <X11/Xlib.h>
+-#include <X11/Xatom.h>
+-#include <X11/keysym.h>
+-#include <X11/extensions/Xrandr.h>
++#include <SDL2/SDL.h>
+ 
++/* Poll SDL events, handle Escape and window close */
+ #define BEGIN_EVENT \
+-while(cg_isrunning){\
+-   while(XPending(cg_display) > 0){\
+-      XNextEvent(cg_display, &cg_event);\
+-      if(cg_event.type == Expose) break;\
+-      if(cg_event.type == KeyPress){\
+-         cg_ks = XLookupKeysym((XKeyEvent*)&cg_event, 0);\
+-         if(cg_ks == XK_Escape) cg_isrunning = 0;\
+-      }\
+-   }
++while(cg_isrunning){ \
++    SDL_Event cg_event; \
++    while(SDL_PollEvent(&cg_event)){ \
++        if(cg_event.type == SDL_QUIT) \
++            cg_isrunning = 0; \
++        if(cg_event.type == SDL_KEYDOWN){ \
++            if(cg_event.key.keysym.sym == SDLK_ESCAPE) \
++                cg_isrunning = 0; \
++        } \
++    }
++
++#define END_EVENT SDL_GL_SwapWindow(cg_window); }
++
++/* Global SDL handles */
++extern SDL_Window   *cg_window;
++extern SDL_GLContext cg_context;
++extern char          cg_isrunning;
+ 
+-#define END_EVENT glXSwapBuffers(cg_display, cg_window);}
+-
+-
+-/* Global variables for better coding style.
+-   We use cg_ prefix to identify these.  */
+-
+-Display                *cg_display;
+-Window                  cg_window;
+-XEvent                  cg_event;
+-KeySym                  cg_ks;
+-extern char             cg_isrunning;
+-
+-int CreateScene(int width, int height, int mode);
+-void RestoreScene();
++int  CreateScene(int width, int height, int mode);
++void RestoreScene(void);
+--- a/src/cg_x11.c
++++ b/src/cg_x11.c
+@@ -1,135 +1,64 @@
+ #define GL_GLEXT_PROTOTYPES
+-#define GLX_GLXEXT_PROTOTYPES
++#include <GL/gl.h>
++#include <stdio.h>
+ #include "cg_x11.h"
+ #include "cg_constants.h"
+-#include <stdlib.h>
+ 
+-char cg_isrunning = 1;
+-/*XVisualInfo            *cg_visual;*/
+-XRRScreenConfiguration *cg_screen_conf;
+-int cg_orig_size;
+-Rotation cg_rotation;
+-short cg_orig_rate;
+-int cg_screen_mode;
+-GLXContext cg_context;
+-
+-
+-void SetScreenSize(int width, int height, XVisualInfo *visual){
+-	XRRScreenSize *sizes;
+-	int snum, rnum, i;
+-	short *rates;
+-
+-	cg_screen_conf = XRRGetScreenInfo(cg_display, cg_window);
+-	cg_orig_size   = XRRConfigCurrentConfiguration(cg_screen_conf, &cg_rotation);
+-	cg_orig_rate   = XRRConfigCurrentRate(cg_screen_conf);
+-
+-	/* Get the available resolutions */
+-	sizes = XRRSizes(cg_display, visual->screen, &snum);
+-	for(i = 0; i < snum; i++) {
+-		if((sizes[i].width == width) && (sizes[i].height == height)) {
+-			rates = XRRRates(cg_display, visual->screen, i, &rnum);
+-			XRRSetScreenConfigAndRate(cg_display, cg_screen_conf,
+-			                          DefaultRootWindow(cg_display), i,
+-			                          cg_rotation, rates[0], CurrentTime);
+-		}
+-	}
+-}
+-
+-void HideCursor(){
+-	/* We don't want to see cursors during the demo */
+-	Cursor hide;
+-	Pixmap empty;
+-	static char empty_data[] = {0,0,0,0,0,0,0,0};
+-	static XColor black = {0,0,0,0,0,0};
+-
+-	empty = XCreateBitmapFromData(cg_display, cg_window, empty_data, 8, 8);
+-	hide  = XCreatePixmapCursor(cg_display, empty, empty, &black, &black, 0, 0);
+-	XDefineCursor(cg_display, cg_window, hide);
+-}
++char          cg_isrunning = 1;
++SDL_Window   *cg_window    = NULL;
++SDL_GLContext cg_context   = NULL;
+ 
+-/*
+-   This method create a new glx based context
+-   creation method to create opengl 4.1 context
+- */
+ int CreateScene(int width, int height, int mode){
+-	int conf[] = {GLX_DOUBLEBUFFER, True,
+-		      GLX_DEPTH_SIZE, 12,
+-		      GLX_RED_SIZE,    4,
+-		      GLX_BLUE_SIZE,   4,
+-		      GLX_GREEN_SIZE,  4,
+-		      GLX_ALPHA_SIZE,  4,
+-		      None};
+-
+-	int gl4attr[] = {GLX_CONTEXT_MAJOR_VERSION_ARB, 4, /* OpenGL major version number */
+-		         GLX_CONTEXT_MINOR_VERSION_ARB, 1, /* OpenGL minor version number */
+-		         GLX_CONTEXT_FLAGS_ARB,
+-		         GLX_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
+-		         None};
+-
+-	GLXFBConfig *fbc;
+-	int fbcount;
+-	XSetWindowAttributes swa;
+-	XVisualInfo *visual;
+-	Atom fullscreen;
+-
+-	cg_display = XOpenDisplay(NULL);
+-	fbc = glXChooseFBConfig(cg_display, DefaultScreen(cg_display), conf, &fbcount);
+-	if(!fbc) {
+-		return(-1);
+-	}
+-
+-	visual            = glXGetVisualFromFBConfig(cg_display, fbc[0]);
+-	if(!visual) {
+-		return(-1);
+-	}
+-	swa.background_pixel = 0;
+-	swa.border_pixel     = 0;
+-	swa.colormap         = XCreateColormap(cg_display, RootWindow(cg_display, visual->screen),
+-	                                       visual->visual, AllocNone);
+-	swa.event_mask       = StructureNotifyMask | ExposureMask | KeyPressMask;
+-	cg_window            = XCreateWindow(cg_display, RootWindow(cg_display, visual->screen),
+-	                                     0, 0, width, height, 0, visual->depth, InputOutput,
+-	                                     visual->visual, CWBorderPixel | CWColormap | CWEventMask, &swa);
+-	if(!cg_window) {
+-		return(-1);
+-	}
+-	PFNGLXCREATECONTEXTATTRIBSARBPROC glXCreateContextAttribsARB = 0;
+-    glXCreateContextAttribsARB = (PFNGLXCREATECONTEXTATTRIBSARBPROC) glXGetProcAddressARB( (const GLubyte *) "glXCreateContextAttribsARB" );
+-	cg_context           = glXCreateContextAttribsARB(cg_display, fbc[0], NULL, True, gl4attr);
+-
+-	if(mode == CG_FULLSCREEN) {
+-		/* Set to fullscreen */
+-		fullscreen = XInternAtom(cg_display, "_NET_WM_STATE_FULLSCREEN", False);
+-		XChangeProperty(cg_display, cg_window, XInternAtom(cg_display, "_NET_WM_STATE", False),
+-		                XA_ATOM, 32, PropModeReplace,
+-		                (unsigned char *)&fullscreen, 1);
+-
+-		HideCursor();
+-		/* Get the current screen size and set the new one */
+-		SetScreenSize(width, height, visual);
+-	}
+-
+-	cg_screen_mode = mode;
+-	XMapWindow(cg_display, cg_window);
+-	glXMakeCurrent(cg_display, cg_window, cg_context);
+-
+-	free(fbc);
+-	XFree(visual);
+-	return(0);
++    if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0){
++        fprintf(stderr, "SDL_Init: %s\n", SDL_GetError());
++        return -1;
++    }
++
++    /* Request OpenGL 4.1 Core forward-compatible context
++       (same as the original GLX setup) */
++    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
++    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
++    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
++                        SDL_GL_CONTEXT_PROFILE_CORE);
++    SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS,
++                        SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
++    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
++    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   24);
++    SDL_GL_SetAttribute(SDL_GL_RED_SIZE,      8);
++    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,    8);
++    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,     8);
++    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE,    8);
++
++    /* mode (CG_WINDOW / CG_FULLSCREEN) is accepted for API compatibility;
++       fullscreen is handled separately — not implemented in this patch. */
++    Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
++    (void)mode;
++
++    cg_window = SDL_CreateWindow(
++                    "Antagonism by Cybernetic Genetics",
++                    SDL_WINDOWPOS_CENTERED,
++                    SDL_WINDOWPOS_CENTERED,
++                    width, height, flags);
++    if(!cg_window){
++        fprintf(stderr, "SDL_CreateWindow: %s\n", SDL_GetError());
++        return -1;
++    }
++
++    cg_context = SDL_GL_CreateContext(cg_window);
++    if(!cg_context){
++        fprintf(stderr, "SDL_GL_CreateContext: %s\n", SDL_GetError());
++        return -1;
++    }
++
++    SDL_GL_SetSwapInterval(1); /* vsync */
++    SDL_ShowCursor(SDL_DISABLE);
++
++    return 0;
+ }
+ 
+-void RestoreScene(){
+-	/* Restore screen resolution */
+-	if(cg_screen_mode == CG_FULLSCREEN) {
+-		XRRSetScreenConfigAndRate(cg_display, cg_screen_conf,
+-		                          DefaultRootWindow(cg_display), cg_orig_size,
+-		                          cg_rotation, cg_orig_rate, CurrentTime);
+-		XRRFreeScreenConfigInfo(cg_screen_conf);
+-	}
+-
+-	/* Free resources */
+-	glXMakeCurrent(cg_display, 0, 0);
+-	glXDestroyContext(cg_display, cg_context);
+-	XDestroyWindow(cg_display, cg_window);
+-	XCloseDisplay(cg_display);
++void RestoreScene(void){
++    SDL_ShowCursor(SDL_ENABLE);
++    SDL_GL_DeleteContext(cg_context);
++    SDL_DestroyWindow(cg_window);
++    SDL_Quit();
+ }
+--- a/src/cg_music.h
++++ b/src/cg_music.h
+@@ -1,17 +1,8 @@
+-#include <vorbis/vorbisfile.h>
+-#include <vorbis/codec.h>
+-#include <alsa/asoundlib.h>
++#include <SDL2/SDL_mixer.h>
+ 
+-/* Global audio handle */
+-snd_pcm_t                *cg_audio;
+-extern snd_pcm_uframes_t cg_frames;
+-/* Music file */
+-OggVorbis_File cg_music;
+-char                     *cg_audio_buffer;
+-int cg_audio_buffer_size;
+-FILE                     *cg_music_file;
++/* Defined in cg_music.c */
++extern Mix_Music *cg_music_handle;
+ 
+ void InitMusic(char *musicfilename);
+-void PlayingMusic(snd_pcm_t *handle);
+-void SyncPlay();
+-void FreeMusic();
++void SyncPlay(void);
++void FreeMusic(void);
+--- a/src/cg_music.c
++++ b/src/cg_music.c
+@@ -1,136 +1,29 @@
+-#include <vorbis/vorbisfile.h>
+-#include <vorbis/codec.h>
+-#include <alsa/asoundlib.h>
+-#include <math.h>
+-
++#include <stdio.h>
+ #include "cg_music.h"
+ 
+-snd_pcm_uframes_t cg_frames = 256;
++Mix_Music *cg_music_handle = NULL;
+ 
+ void InitMusic(char *musicfilename){
+-	snd_pcm_hw_params_t  *hw_params;
+-	snd_pcm_sw_params_t  *sw_params;
+-	vorbis_info          *music_info;
+-	int dir = 0;
+-	int err;
+-
+-	/* Alsa initialization */
+-	err = snd_pcm_open(&cg_audio, "default", SND_PCM_STREAM_PLAYBACK, 0);
+-	if(err < 0) printf("snd_pcm_open error %s\n", snd_strerror(err));
+-
+-	snd_pcm_hw_params_malloc(&hw_params);
+-	snd_pcm_hw_params_any(cg_audio, hw_params);
+-	snd_pcm_hw_params_set_access(cg_audio, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
+-	snd_pcm_hw_params_set_format(cg_audio, hw_params, SND_PCM_FORMAT_S16_LE);
+-
+-	/* Vorbis file */
+-	cg_music_file = fopen(musicfilename, "r");
+-	ov_open(cg_music_file, &cg_music, NULL, 0);
+-	music_info = ov_info(&cg_music, -1);
+-
+-	/* Set alsa channels and rate */
+-	snd_pcm_hw_params_set_rate_near(cg_audio, hw_params, (unsigned int *)&music_info->rate, 0);
+-	snd_pcm_hw_params_set_channels(cg_audio, hw_params, music_info->channels);
+-
+-	/* Set alsa buffer and period */
+-	snd_pcm_hw_params_get_period_size(hw_params, &cg_frames, &dir);
+-	cg_audio_buffer_size = cg_frames * music_info->channels * 2;/* 2 bytes/sample */
+-	cg_audio_buffer = (char *)malloc(cg_audio_buffer_size);
+-
+-	snd_pcm_hw_params(cg_audio, hw_params);
+-	snd_pcm_hw_params_free(hw_params);
+-
+-	/* Software settings */
+-	snd_pcm_sw_params_malloc(&sw_params);
+-	snd_pcm_sw_params_current(cg_audio, sw_params);
+-	snd_pcm_sw_params_set_start_threshold(cg_audio, sw_params, cg_audio_buffer_size);
+-	snd_pcm_sw_params_set_avail_min(cg_audio, sw_params, cg_frames);
+-	err = snd_pcm_sw_params(cg_audio, sw_params);
+-	if(err < 0) printf("software setting error:%s\n", snd_strerror(err));
+-	snd_pcm_sw_params_free(sw_params);
+-
+-	/* All settings finished */
+-	err = snd_pcm_prepare(cg_audio);
+-}
+-
+-void PlayingMusic(snd_pcm_t *handle){
+-	int bytes_needed = cg_audio_buffer_size;
+-	int pcm_index = 0;
+-	int bitstream;
+-	long sample_length;
+-	snd_pcm_sframes_t ret;
+-	/* Read vorbis file */
+-	while(bytes_needed > 0) {
+-		sample_length = ov_read(&cg_music, cg_audio_buffer + pcm_index, bytes_needed, 0, 2, 1, &bitstream);
+-		switch(sample_length) {
+-		case 0:
+-			bytes_needed = 0;
+-			break;
+-		default:
+-			pcm_index    += sample_length;
+-			bytes_needed -= sample_length;
+-		}
+-	}
+-	/* put the data to alsa*/
+-	ret = snd_pcm_writei(handle, cg_audio_buffer, cg_frames);
+-	if(ret < 0) {
+-		printf("Recover\n");
+-		ret = snd_pcm_recover(handle, ret, 0);
+-	}
+-	if(ret < 0) ret = snd_pcm_prepare(handle);
+-	if(ret < 0) printf("Underrun %s\n", snd_strerror(ret));
+-}
+-
+-static void PlayingCallback(snd_async_handler_t *ahandler){
+-	snd_pcm_t *handle = snd_async_handler_get_pcm(ahandler);
+-	snd_pcm_sframes_t avail;
+-
+-	avail = snd_pcm_avail_update(handle);
+-	if(avail < 0) printf("update error: %s\n", snd_strerror(avail));
+-
+-	while(avail >= (signed int)cg_frames) {
+-		PlayingMusic(handle);
+-		avail = snd_pcm_avail_update(handle);
+-	}
+-
+-}
+-
+-void AsyncPlay(){
+-	snd_async_handler_t *ahandler;
+-	int count;
+-
+-	count = snd_async_add_pcm_handler(&ahandler, cg_audio, PlayingCallback, NULL);
+-	if(count < 0) printf("No async handler. Reason = %s %d\n", snd_strerror(count),count);
+-
+-	/*
+-	   We need this cicle to send enought data to the callback.
+-	   Without this we get a broken pipe error message in the callback.
+-	 */
+-	for(count = 0; count < 2; count++) {
+-		PlayingMusic(cg_audio);
+-	}
+-
+-	count = snd_pcm_start(cg_audio);/* Start playing */
+-	if(count < 0) printf("No music. Reason = %s %d\n",snd_strerror(count),count);
+-}
+-
+-/* Use this in the case of PulseAudio */
+-void SyncPlay(){
+-	snd_pcm_sframes_t avail;
+-
+-	avail = snd_pcm_avail_update(cg_audio);
+-	if(avail < 0) {
+-		printf("update error: %s\n", snd_strerror(avail));
+-	}
+-
+-	while(avail >= (signed int)cg_frames) {
+-		PlayingMusic(cg_audio);
+-		avail = snd_pcm_avail_update(cg_audio);
+-	}
+-}
+-
+-void FreeMusic(){
+-	free(cg_audio_buffer);
+-	snd_pcm_close(cg_audio);
+-	ov_clear(&cg_music);
++    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
++        fprintf(stderr, "Mix_OpenAudio: %s\n", Mix_GetError());
++        return;
++    }
++    cg_music_handle = Mix_LoadMUS(musicfilename);
++    if(!cg_music_handle){
++        fprintf(stderr, "Mix_LoadMUS(%s): %s\n", musicfilename, Mix_GetError());
++        return;
++    }
++    Mix_PlayMusic(cg_music_handle, 1);
++}
++
++/* SDL_mixer pumps audio automatically; kept for API compatibility. */
++void SyncPlay(void){ }
++
++void FreeMusic(void){
++    Mix_HaltMusic();
++    if(cg_music_handle){
++        Mix_FreeMusic(cg_music_handle);
++        cg_music_handle = NULL;
++    }
++    Mix_CloseAudio();
+ }
+--- a/src/cg_dialog.h
++++ b/src/cg_dialog.h
+@@ -1 +1 @@
+-int cgDialog(int *width, int *height, int *fullscreen);
++int cgDialog(int argc, char *argv[], int *width, int *height, int *fullscreen);
+--- a/src/cg_dialog.c
++++ b/src/cg_dialog.c
+@@ -1,131 +1,41 @@
+-#include <gtk/gtk.h>
++#include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include "cg_dialog.h"
+ #include "cg_constants.h"
+ 
+-int width, height, fullscreen = 1, quit;
++static void print_usage(const char *prog){
++    fprintf(stderr,
++        "Usage: %s [WxH]\n"
++        "  e.g. %s 1920x1080\n"
++        "Default: 1280x720 (windowed)\n",
++        prog, prog);
++}
++
++int cgDialog(int argc, char *argv[], int *w, int *h, int *f){
++    *w = 1280;
++    *h =  720;
++    *f = CG_WINDOW;
++
++    if(argc >= 2){
++        if(strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0){
++            print_usage(argv[0]);
++            return CG_QUIT;
++        }
++        char *sep = strchr(argv[1], 'x');
++        if(!sep){
++            fprintf(stderr, "Bad resolution '%s'\n", argv[1]);
++            print_usage(argv[0]);
++            return CG_QUIT;
++        }
++        *w = atoi(argv[1]);
++        *h = atoi(sep + 1);
++    }
++
++    if(*w <= 0 || *h <= 0){
++        fprintf(stderr, "Invalid resolution %dx%d\n", *w, *h);
++        return CG_QUIT;
++    }
+ 
+-/* ******
+- * Events
+- * ****** */
+-
+-static gboolean delete_event(){
+-	quit = CG_QUIT;
+-	return FALSE;
+-}
+-
+-static void destroy_event(){
+-	quit = CG_QUIT;
+-	gtk_main_quit();
+-}
+-
+-static void start_event(GtkWidget *widget, gpointer data){
+-	char *widthstr, *heightstr;
+-	char *text;
+-
+-	if(widget == NULL) return;
+-	quit       = CG_RUNDEMO;
+-	text       = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(data));
+-	widthstr   = strtok((char*)text, "x");
+-	heightstr  = strtok(NULL, "\0");
+-	width      = atoi(widthstr);
+-	height     = atoi(heightstr);
+-	gtk_main_quit();
+-}
+-
+-static void toggle_event(GtkWidget *widget){
+-	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
+-		fullscreen = 1;
+-	}
+-	else{
+-		fullscreen = 0;
+-	}
+-}
+-
+-/* **********************
+- * Dialog creation method
+- * ********************** */
+-
+-void createWindow(){
+-	GtkWidget *window,
+-	          *startbutton,
+-	          *exitbutton,
+-	          *togglefs,
+-	          *hbox,
+-	          *vbox,
+-	          *resolutions;
+-
+-	/* Widget initialization */
+-	gtk_init(NULL, NULL);
+-	window      = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+-	startbutton = gtk_button_new_with_label("Demo");
+-	exitbutton  = gtk_button_new_with_label("Die");
+-	togglefs    = gtk_check_button_new_with_label("Fullscreen");
+-	hbox        = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+-	vbox        = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+-	resolutions = gtk_combo_box_text_new();
+-
+-	/* Events */
+-	g_signal_connect(window,      "delete-event", G_CALLBACK(delete_event),  NULL);
+-	g_signal_connect(window,      "destroy",      G_CALLBACK(destroy_event), NULL);
+-	g_signal_connect(exitbutton,  "clicked",      G_CALLBACK(destroy_event), NULL);
+-	g_signal_connect(startbutton, "clicked",      G_CALLBACK(start_event),   (gpointer)resolutions);
+-	g_signal_connect(togglefs,    "toggled",      G_CALLBACK(toggle_event),  NULL);
+-
+-	/* Set properties of the widgets */
+-	gtk_window_set_title(GTK_WINDOW(window), "Cybernetic genetics");
+-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
+-	gtk_window_set_default_size(GTK_WINDOW(window), 330,100);
+-	/*4:3*/
+-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(resolutions), "640x480");
+-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(resolutions), "800x600");
+-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(resolutions), "1024x768");
+-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(resolutions), "1280x1024");
+-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(resolutions), "1600x1200");
+-	/*16:9*/
+-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(resolutions), "1280x720");
+-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(resolutions), "1366x768");
+-	/*16:10*/
+-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(resolutions), "1440x900");
+-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(resolutions), "1680x1050");
+-	gtk_combo_box_set_active(GTK_COMBO_BOX(resolutions), 2);
+-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(togglefs), TRUE);
+-
+-	/* Build layout */
+-	gtk_container_add(GTK_CONTAINER(hbox), startbutton);
+-	gtk_container_add(GTK_CONTAINER(hbox), exitbutton);
+-	gtk_box_pack_start(GTK_BOX(vbox), resolutions, FALSE, FALSE, 0);
+-	gtk_box_pack_start(GTK_BOX(vbox), togglefs, FALSE, FALSE, 0);
+-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+-	gtk_container_add(GTK_CONTAINER(window), vbox);
+-
+-	/* See widgets */
+-	gtk_widget_show(startbutton);
+-	gtk_widget_show(exitbutton);
+-	gtk_widget_show(togglefs);
+-	gtk_widget_show(resolutions);
+-	gtk_widget_show(hbox);
+-	gtk_widget_show(vbox);
+-	gtk_widget_show(window);
+-}
+-
+-/*
+- * cgDialog is the connection between the application and the
+- * Window content managment system.
+- */
+-int cgDialog(int *w, int *h, int *f){
+-
+-	createWindow();
+-	gtk_main();
+-
+-	if(quit == CG_QUIT) {
+-		return(CG_QUIT);
+-	}
+-
+-	*w = width;
+-	*h = height;
+-	*f = fullscreen;
+-
+-	return(CG_RUNDEMO);
++    return CG_RUNDEMO;
+ }
+--- a/src/main.c
++++ b/src/main.c
+@@ -8,21 +8,23 @@
+ #include "antagonism.h"
+ 
+ int main(int argc, char *argv[]){
+-	int width, height, fullscreen;
++    int width, height, fullscreen;
+ 
+-	cgDialog(&width, &height, &fullscreen);
+-	setlocale(LC_ALL, "C");
+-	CreateScene(width, height, fullscreen);
+-	initAntagonism(width, height);
+-	InitMusic("/usr/share/antagonism-by-cyberneticgenetics/data/katemix.ogg");
++    if(cgDialog(argc, argv, &width, &height, &fullscreen) != 0)
++        return 0;
+ 
+-	BEGIN_EVENT
+-	playAntagonism();
+-	SyncPlay();
+-	END_EVENT
++    setlocale(LC_ALL, "C");
++    CreateScene(width, height, fullscreen);
++    initAntagonism(width, height);
++    InitMusic("/usr/share/antagonism-by-cyberneticgenetics/data/katemix.ogg");
+ 
+-	FreeMusic();
+-	releaseAntagonism();
+-	RestoreScene();
+-	return(EXIT_SUCCESS);
++    BEGIN_EVENT
++    playAntagonism();
++    SyncPlay();
++    END_EVENT
++
++    FreeMusic();
++    releaseAntagonism();
++    RestoreScene();
++    return 0;
+ }
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -2,14 +2,14 @@
+ SHELL := /bin/sh
+ CC    ?= gcc
+ PKG_CONFIG ?= pkg-config
+-CFLAGS += -Wall -pipe -pedantic $(shell $(PKG_CONFIG) --cflags gtk+-3.0)
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs gl x11 xrandr libpng vorbisfile alsa gtk+-3.0) -lm
++CFLAGS += -Wall -pipe -pedantic $(shell $(PKG_CONFIG) --cflags sdl2 SDL2_mixer)
++LDFLAGS += $(shell $(PKG_CONFIG) --libs gl libpng sdl2 SDL2_mixer) -lm
+ 
+ TARGET = antagonism-by-cyberneticgenetics
+ #variable de nettoyage
+ RM_F := rm -f
+ 
+-#variables d’installation
++#variables d'installation
+ INSTALL := install
+ INSTALL_DIR     := $(INSTALL) -p -d -m  755
+ INSTALL_PROGRAM := $(INSTALL) -p    -m  755

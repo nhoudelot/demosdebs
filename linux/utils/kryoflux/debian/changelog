@@ -1,3 +1,12 @@
+kryoflux (3.50r4-0ddebs1) unstable; urgency=medium
+
+  * New Upstream release
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 28 Mar 2026 11:14:01 +0100
+
 kryoflux (3.50-0ddebs2) unstable; urgency=medium
 
   * use of dh-exec to reduce complexity of debian/ files

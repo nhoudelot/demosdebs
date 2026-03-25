@@ -7,7 +7,7 @@ Build-Depends:
  libsdl1.2-dev,
  pkgconf,
  freeglut3-dev|libglut-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=50507
 Rules-Requires-Root: no
 
