@@ -1,0 +1,10 @@
+legrandcurl-by-neuroticaefs-win32 for Debian
+-------------------------------------
+
+Executable :
+ * win32
+ * compiled with Microsoft Visual Studio (6.0) C++
+ * Use bass.dll 0.8
+ * Use DirectX 7
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 18 Feb 2021 01:07:12 +0100

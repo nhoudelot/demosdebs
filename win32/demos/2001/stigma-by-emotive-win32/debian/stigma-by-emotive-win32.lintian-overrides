@@ -1,0 +1,6 @@
+stigma-by-emotive-win32 binary: unknown-section demos
+stigma-by-emotive-win32: symlink-target-in-tmp /tmp/stigma-by-emotive-win32/Bol.msh [usr/share/win32/apps/stigma-by-emotive-win32/Data/Bol.msh]
+stigma-by-emotive-win32: symlink-target-in-tmp /tmp/stigma-by-emotive-win32/Hedra.msh [usr/share/win32/apps/stigma-by-emotive-win32/Data/Hedra.msh]
+stigma-by-emotive-win32: symlink-target-in-tmp /tmp/stigma-by-emotive-win32/Scape1.map [usr/share/win32/apps/stigma-by-emotive-win32/Data/Scape1.map]
+stigma-by-emotive-win32: symlink-target-in-tmp /tmp/stigma-by-emotive-win32/Scape2.map [usr/share/win32/apps/stigma-by-emotive-win32/Data/Scape2.map]
+stigma-by-emotive-win32: symlink-target-in-tmp /tmp/stigma-by-emotive-win32/Stekels.msh [usr/share/win32/apps/stigma-by-emotive-win32/Data/Stekels.msh]

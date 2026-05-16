@@ -1,0 +1,5 @@
+debian/scripts/thisis-by-orion-win32 usr/bin/
+debian/scripts/thisis-by-orion-win32.conf etc/
+debian/resources/thisis-by-orion-win32.desktop usr/share/applications/
+debian/resources/thisis-by-orion-win32.png usr/share/icons/hicolor/32x32/apps/
+./ThisIs.exe usr/share/win32/apps/thisis-by-orion-win32/./ 

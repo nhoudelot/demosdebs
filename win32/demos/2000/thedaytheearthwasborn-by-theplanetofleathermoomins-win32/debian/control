@@ -1,0 +1,24 @@
+Source: thedaytheearthwasborn-by-theplanetofleathermoomins-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=328
+Rules-Requires-Root: no
+
+Package: thedaytheearthwasborn-by-theplanetofleathermoomins-win32
+Architecture: all
+Replaces: win32-thedaytheearthwasborn-by-theplanetofleathermoomins
+Breaks: win32-thedaytheearthwasborn-by-theplanetofleathermoomins
+Depends:
+ wine,
+ d7vk-win32,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ${misc:Depends}
+Description: Win32 Demo released in 2000
+ Demo ranked 2nd at Remedy 2000
+ .
+ -windows program launched using wine and d7vk

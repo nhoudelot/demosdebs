@@ -1,0 +1,23 @@
+Source: radon-by-thethirdfoundation-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=1492
+Rules-Requires-Root: no
+
+Package: radon-by-thethirdfoundation-win32
+Architecture: all
+Replaces: win32-radon-by-thethirdfoundation
+Breaks: win32-radon-by-thethirdfoundation
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ${misc:Depends}
+Description: Windows Demo released in 2001
+ Demo released in march 2001
+ .
+ -windows program launched using PlayOnLinux

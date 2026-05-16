@@ -1,0 +1,10 @@
+debian/scripts/caillou-by-mandarine-win32 usr/bin/
+debian/scripts/caillou-by-mandarine-win32.conf etc/
+debian/resources/caillou-by-mandarine-win32.desktop usr/share/applications/
+debian/resources/caillou-by-mandarine-win32.png usr/share/icons/hicolor/32x32/apps/
+./rivaGE.dll usr/share/win32/apps/caillou-by-mandarine-win32/./ 
+./Artworks3D usr/share/win32/apps/caillou-by-mandarine-win32/./ 
+./Music usr/share/win32/apps/caillou-by-mandarine-win32/./ 
+./Caillou.exe usr/share/win32/apps/caillou-by-mandarine-win32/./ 
+./rivD3D.dll usr/share/win32/apps/caillou-by-mandarine-win32/./ 
+./Artworks2D usr/share/win32/apps/caillou-by-mandarine-win32/./ 

@@ -1,0 +1,22 @@
+Source: sunkdemo-by-evilninjamob-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13),
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=6639
+Rules-Requires-Root: no
+
+Package: sunkdemo-by-evilninjamob-win32
+Architecture: all
+Replaces: win32-sunkdemo-by-evilninjamob
+Breaks: win32-sunkdemo-by-evilninjamob
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Win32 Demo released in 2000
+ Demo ranked 8th at Dreamhack 2000
+ .
+ -windows program launched using PlayOnLinux

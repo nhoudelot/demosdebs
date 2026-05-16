@@ -1,0 +1,24 @@
+Source: outofstyle2-by-stormstudiosbellbendergroup-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=3329
+Rules-Requires-Root: no
+
+Package: outofstyle2-by-stormstudiosbellbendergroup-win32
+Architecture: all
+Replaces: win32-outofstyle2-by-stormstudiosbellbendergroup
+Breaks: win32-outofstyle2-by-stormstudiosbellbendergroup
+Depends:
+ wine,
+ d7vk-win32,
+ common-install-function-ddebs(>=1.76),
+ win32-bassdll08a,
+ ${misc:Depends}
+Description: Win32 Demo released in 2001
+ Demo ranked 15th at Assembly 2001
+ .
+ -windows program launched using wine and d7vk

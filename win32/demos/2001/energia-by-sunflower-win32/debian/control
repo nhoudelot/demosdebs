@@ -1,0 +1,23 @@
+Source: energia-by-sunflower-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=3290
+Rules-Requires-Root: no
+
+Package: energia-by-sunflower-win32
+Architecture: all
+Replaces: win32-energia-by-sunflower
+Breaks: win32-energia-by-sunflower
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ${misc:Depends}
+Description: Win32 Demo released in 2001
+ Demo ranked 6th at Assembly 2001
+ .
+ -windows program launched using PlayOnLinux

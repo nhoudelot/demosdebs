@@ -1,0 +1,8 @@
+debian/scripts/volatile-by-addict-win32 usr/bin/
+debian/scripts/volatile-by-addict-win32.conf etc/
+debian/resources/volatile-by-addict-win32.desktop usr/share/applications/
+debian/resources/volatile-by-addict-win32.png usr/share/icons/hicolor/32x32/apps/
+./File_id.diz usr/share/win32/apps/volatile-by-addict-win32/./ 
+./Dragon2.dll usr/share/win32/apps/volatile-by-addict-win32/./ 
+./volatile.alf usr/share/win32/apps/volatile-by-addict-win32/./ 
+./Volatile.exe usr/share/win32/apps/volatile-by-addict-win32/./ 

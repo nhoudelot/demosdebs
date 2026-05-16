@@ -1,0 +1,9 @@
+debian/scripts/enhaluaisiolla-by-damage-win32 usr/bin/
+debian/scripts/enhaluaisiolla-by-damage-win32.conf etc/
+debian/resources/enhaluaisiolla-by-damage-win32.desktop usr/share/applications/
+debian/resources/enhaluaisiolla-by-damage-win32.png usr/share/icons/hicolor/32x32/apps/
+./NOSOUND.EXE usr/share/win32/apps/enhaluaisiolla-by-damage-win32/./ 
+./INFO.TXT usr/share/win32/apps/enhaluaisiolla-by-damage-win32/./ 
+./DEMO.EXE usr/share/win32/apps/enhaluaisiolla-by-damage-win32/./ 
+./LAHJA.MP3 usr/share/win32/apps/enhaluaisiolla-by-damage-win32/./ 
+./D usr/share/win32/apps/enhaluaisiolla-by-damage-win32/./ 

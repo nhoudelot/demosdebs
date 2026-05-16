@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+domain=entropy-by-medieval-win32
+
+source /usr/share/common-install-function-ddebs/common-install-function
+source /etc/$domain.conf
+
+function prerun()
+{
+	winetricks mfc42
+	sleep 1
+}
+
+function postrun()
+{
+	sleep 1
+}
+
+source /usr/share/common-install-function-ddebs/endscript_wine2

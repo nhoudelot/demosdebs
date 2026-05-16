@@ -1,0 +1,9 @@
+debian/scripts/recycled-by-byterapersanddoomsday-win32 usr/bin/
+debian/scripts/recycled-by-byterapersanddoomsday-win32.conf etc/
+debian/resources/recycled-by-byterapersanddoomsday-win32.desktop usr/share/applications/
+debian/resources/recycled-by-byterapersanddoomsday-win32.png usr/share/icons/hicolor/32x32/apps/
+./ptc.dll usr/share/win32/apps/recycled-by-byterapersanddoomsday-win32/./ 
+./celebrant.mp3 usr/share/win32/apps/recycled-by-byterapersanddoomsday-win32/./ 
+./recycled.dat usr/share/win32/apps/recycled-by-byterapersanddoomsday-win32/./ 
+./recycled.exe usr/share/win32/apps/recycled-by-byterapersanddoomsday-win32/./ 
+./hermes.dll usr/share/win32/apps/recycled-by-byterapersanddoomsday-win32/./ 

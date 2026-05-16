@@ -1,0 +1,6 @@
+debian/scripts/whitenoisecantjump-by-alienprophet-win32 usr/bin/
+debian/scripts/whitenoisecantjump-by-alienprophet-win32.conf etc/
+debian/resources/whitenoisecantjump-by-alienprophet-win32.desktop usr/share/applications/
+debian/resources/whitenoisecantjump-by-alienprophet-win32.png usr/share/icons/hicolor/32x32/apps/
+./demo.exe usr/share/win32/apps/whitenoisecantjump-by-alienprophet-win32/./ 
+./drikmit.pis usr/share/win32/apps/whitenoisecantjump-by-alienprophet-win32/./ 

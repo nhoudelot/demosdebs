@@ -1,0 +1,25 @@
+Source: whitenoisecantjump-by-alienprophet-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=775
+Rules-Requires-Root: no
+
+Package: whitenoisecantjump-by-alienprophet-win32
+Architecture: all
+Replaces: win32-whitenoisecantjump-by-alienprophet
+Breaks: win32-whitenoisecantjump-by-alienprophet
+Depends:
+ wine,
+ d7vk-win32,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ Demo ranked 1st at TRSAC 2000
+ .
+ -windows program launched using wine and d7vk
+

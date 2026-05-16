@@ -1,0 +1,3 @@
+moralhardcandy-by-blasphemy-win32 source: source-contains-prebuilt-windows-binary [BASS.DLL]
+moralhardcandy-by-blasphemy-win32 source: source-contains-prebuilt-windows-binary [CANDYD.EXE]
+moralhardcandy-by-blasphemy-win32 source: source-contains-prebuilt-windows-binary [CANDYW.EXE]

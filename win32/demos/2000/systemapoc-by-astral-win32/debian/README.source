@@ -1,0 +1,16 @@
+systemapoc-by-astral-win32 for Debian
+------------------------------
+
+* Executable have been unpacked
+
+* Detect It Easy info from the original executable :
+PE32
+    Le système d'exploitation: Windows(XP)[I386, 32 bits, GUI]
+    Packer: UPX(0.82)[NRV,brute]
+    Compilateur: Watcom(-)[-]
+    Lier: Watcom Linker(2.18*)[GUI32]
+
+Text :
+ * converted to utf8
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 25 Nov 2023 13:33:37 +0100

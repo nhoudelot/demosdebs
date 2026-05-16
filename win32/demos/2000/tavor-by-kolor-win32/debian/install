@@ -1,0 +1,9 @@
+debian/scripts/tavor-by-kolor-win32 usr/bin/
+debian/scripts/tavor-by-kolor-win32.conf etc/
+debian/resources/tavor-by-kolor-win32.desktop usr/share/applications/
+debian/resources/tavor-by-kolor-win32.png usr/share/icons/hicolor/32x32/apps/
+./ptc.dll usr/share/win32/apps/tavor-by-kolor-win32/./ 
+./tavor.exe usr/share/win32/apps/tavor-by-kolor-win32/./ 
+./TAVOR.mo3 usr/share/win32/apps/tavor-by-kolor-win32/./ 
+./tavor.wad usr/share/win32/apps/tavor-by-kolor-win32/./ 
+./hermes.dll usr/share/win32/apps/tavor-by-kolor-win32/./ 

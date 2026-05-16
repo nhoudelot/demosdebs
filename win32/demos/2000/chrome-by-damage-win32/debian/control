@@ -1,0 +1,23 @@
+Source: chrome-by-damage-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=1232
+Rules-Requires-Root: no
+
+Package: chrome-by-damage-win32
+Architecture: all
+Replaces: win32-chrome-by-damage
+Breaks: win32-chrome-by-damage
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ Demo ranked 2rd at The Party 2000
+ .
+ -windows program launched using PlayOnLinux

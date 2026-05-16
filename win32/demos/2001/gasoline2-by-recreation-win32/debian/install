@@ -1,0 +1,8 @@
+debian/scripts/gasoline2-by-recreation-win32 usr/bin/
+debian/scripts/gasoline2-by-recreation-win32.conf etc/
+debian/resources/gasoline2-by-recreation-win32.desktop usr/share/applications/
+debian/resources/gasoline2-by-recreation-win32.png usr/share/icons/hicolor/48x48/apps/
+./gasoline2.exe usr/share/win32/apps/gasoline2-by-recreation-win32/./ 
+./murikka.mp3 usr/share/win32/apps/gasoline2-by-recreation-win32/./ 
+./data.zip usr/share/win32/apps/gasoline2-by-recreation-win32/./ 
+./fmod.dll usr/share/win32/apps/gasoline2-by-recreation-win32/./ 

@@ -1,0 +1,23 @@
+Source: explicitsupremacy-by-apocalypsedesign-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=1541
+Rules-Requires-Root: no
+
+Package: explicitsupremacy-by-apocalypsedesign-win32
+Architecture: all
+Replaces: win32-explicitsupremacy-by-apocalypsedesign
+Breaks: win32-explicitsupremacy-by-apocalypsedesign
+Depends:
+ wine,
+ d7vk-win32,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ Demo ranked 15th at Assembly 2000
+ .
+ -windows program launched using wine and d7vk

@@ -1,0 +1,15 @@
+debian/scripts/eternal-by-flyinpig-win32 usr/bin/
+debian/scripts/eternal-by-flyinpig-win32.conf etc/
+debian/resources/eternal-by-flyinpig-win32.desktop usr/share/applications/
+debian/resources/eternal-by-flyinpig-win32.png usr/share/icons/hicolor/32x32/apps/
+./DARKAGE.XM usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./CREDITS.SCE usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./FMOD.DLL usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./S3D.CFG usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./PIGPROD.SCE usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./INTRO.SCE usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./FACE.PPM usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./Eternal.exe usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./JUNGLPIG.XM usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./s3dconfig.exe usr/share/win32/apps/eternal-by-flyinpig-win32/./ 
+./SUMMON01.SCE usr/share/win32/apps/eternal-by-flyinpig-win32/./ 

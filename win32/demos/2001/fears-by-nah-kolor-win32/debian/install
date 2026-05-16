@@ -1,0 +1,10 @@
+debian/scripts/fears-by-nah-kolor-win32 usr/bin/
+debian/scripts/fears-by-nah-kolor-win32.conf etc/
+debian/resources/fears-by-nah-kolor-win32.desktop usr/share/applications/
+debian/resources/fears-by-nah-kolor-win32.png usr/share/icons/hicolor/32x32/apps/
+./datas usr/share/win32/apps/fears-by-nah-kolor-win32/./ 
+./Fears.mp3 usr/share/win32/apps/fears-by-nah-kolor-win32/./ 
+./DEFAULT.DMO usr/share/win32/apps/fears-by-nah-kolor-win32/./ 
+./FMOD.DLL usr/share/win32/apps/fears-by-nah-kolor-win32/./ 
+./FEARS.exe usr/share/win32/apps/fears-by-nah-kolor-win32/./ 
+./Pw.tga usr/share/win32/apps/fears-by-nah-kolor-win32/./ 

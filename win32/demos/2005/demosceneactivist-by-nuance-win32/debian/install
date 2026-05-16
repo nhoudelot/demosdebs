@@ -1,0 +1,9 @@
+debian/scripts/demosceneactivist-by-nuance-win32 usr/bin/
+debian/scripts/demosceneactivist-by-nuance-win32.conf etc/
+debian/resources/demosceneactivist-by-nuance-win32.desktop usr/share/applications/
+debian/resources/demosceneactivist-by-nuance-win32.png usr/share/icons/hicolor/32x32/apps/
+./ILU.dll usr/share/win32/apps/demosceneactivist-by-nuance-win32/./ 
+./activist.exe usr/share/win32/apps/demosceneactivist-by-nuance-win32/./ 
+./ILUT.dll usr/share/win32/apps/demosceneactivist-by-nuance-win32/./ 
+./Data usr/share/win32/apps/demosceneactivist-by-nuance-win32/./ 
+./DevIL.dll usr/share/win32/apps/demosceneactivist-by-nuance-win32/./ 

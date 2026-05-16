@@ -1,0 +1,9 @@
+debian/scripts/leveltwo-by-peon-win32 usr/bin/
+debian/scripts/leveltwo-by-peon-win32.conf etc/
+debian/resources/leveltwo-by-peon-win32.desktop usr/share/applications/
+debian/resources/leveltwo-by-peon-win32.png usr/share/icons/hicolor/32x32/apps/
+./data usr/share/win32/apps/leveltwo-by-peon-win32/./
+./file_id.diz usr/share/win32/apps/leveltwo-by-peon-win32/./
+./L2COMPO.EXE usr/share/win32/apps/leveltwo-by-peon-win32/./
+./L2FULLSC.EXE usr/share/win32/apps/leveltwo-by-peon-win32/./
+./L2WINDOW.EXE usr/share/win32/apps/leveltwo-by-peon-win32/./

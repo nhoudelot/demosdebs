@@ -1,0 +1,5 @@
+debian/scripts/cosmowavmusicdisctrailer-by-orion-win32 usr/bin/
+debian/scripts/cosmowavmusicdisctrailer-by-orion-win32.conf etc/
+debian/resources/cosmowavmusicdisctrailer-by-orion-win32.desktop usr/share/applications/
+debian/resources/cosmowavmusicdisctrailer-by-orion-win32.png usr/share/icons/hicolor/32x32/apps/
+./CosmoWave.exe usr/share/win32/apps/cosmowavmusicdisctrailer-by-orion-win32/./ 

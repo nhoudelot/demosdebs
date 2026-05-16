@@ -1,0 +1,24 @@
+Source: bluemchen-by-kekse-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=1496
+Rules-Requires-Root: no
+
+Package: bluemchen-by-kekse-win32
+Architecture: all
+Replaces: win32-bluemchen-by-kekse
+Breaks: win32-bluemchen-by-kekse
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ijldll112-win32,
+ ${misc:Depends}
+Description: Win32 Demo released in 2001
+ Demo ranked 5th at Ambience 2001
+ .
+ -windows program launched using PlayOnLinux

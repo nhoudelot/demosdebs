@@ -1,0 +1,24 @@
+Source: moralhardcandy-by-blasphemy-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=11
+Rules-Requires-Root: no
+
+Package: moralhardcandy-by-blasphemy-win32
+Architecture: all
+Replaces: win32-moralhardcandy-by-blasphemy
+Breaks: win32-moralhardcandy-by-blasphemy
+Depends:
+ wine,
+ d7vk-win32,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Win32 Demo released in 1999
+ Demo released at summer encounter 1999
+ .
+ -windows program launched using wine and d7vk
+

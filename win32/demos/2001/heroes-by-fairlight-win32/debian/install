@@ -1,0 +1,16 @@
+debian/scripts/heroes-by-fairlight-win32 usr/bin/
+debian/scripts/heroes-by-fairlight-win32.conf etc/
+debian/resources/heroes-by-fairlight-win32.desktop usr/share/applications/
+debian/resources/heroes-by-fairlight-win32.png usr/share/icons/hicolor/32x32/apps/
+./spidey.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./roguealpha.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./rogue.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./flare.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./0xdeadbeef.exe usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./spideyalpha.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./ijl10.dll usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./scottalpha.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./thing.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./scott.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./2k.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 
+./thingalpha.jpg usr/share/win32/apps/heroes-by-fairlight-win32/./ 

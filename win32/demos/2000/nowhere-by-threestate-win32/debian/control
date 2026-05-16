@@ -1,0 +1,22 @@
+Source: nowhere-by-threestate-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=161
+Rules-Requires-Root: no
+
+Package: nowhere-by-threestate-win32
+Architecture: all
+Replaces: win32-nowhere-by-threestate
+Breaks: win32-nowhere-by-threestate
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Win32 Demo released in 2000
+ Demo ranked 2nd at Takeover 2000
+ .
+ -windows program launched using PlayOnLinux

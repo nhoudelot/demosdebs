@@ -1,0 +1,7 @@
+debian/scripts/strangefeelings-by-haujobb-win32 usr/bin/
+debian/scripts/strangefeelings-by-haujobb-win32.conf etc/
+debian/resources/strangefeelings-by-haujobb-win32.desktop usr/share/applications/
+debian/resources/strangefeelings-by-haujobb-win32.png usr/share/icons/hicolor/32x32/apps/
+./STRANGE.EXE usr/share/win32/apps/strangefeelings-by-haujobb-win32/./ 
+./DATA usr/share/win32/apps/strangefeelings-by-haujobb-win32/./ 
+./STRANGE.MO3 usr/share/win32/apps/strangefeelings-by-haujobb-win32/./ 

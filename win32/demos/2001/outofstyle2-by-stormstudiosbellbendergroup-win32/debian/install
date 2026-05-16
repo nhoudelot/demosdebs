@@ -1,0 +1,8 @@
+debian/scripts/outofstyle2-by-stormstudiosbellbendergroup-win32 usr/bin/
+debian/scripts/outofstyle2-by-stormstudiosbellbendergroup-win32.conf etc/
+debian/resources/outofstyle2-by-stormstudiosbellbendergroup-win32.desktop usr/share/applications/
+debian/resources/outofstyle2-by-stormstudiosbellbendergroup-win32.png usr/share/icons/hicolor/32x32/apps/
+./out.exe usr/share/win32/apps/outofstyle2-by-stormstudiosbellbendergroup-win32/./ 
+./demo.mo3 usr/share/win32/apps/outofstyle2-by-stormstudiosbellbendergroup-win32/./ 
+./RESOURCE usr/share/win32/apps/outofstyle2-by-stormstudiosbellbendergroup-win32/./ 
+./hermes.dll usr/share/win32/apps/outofstyle2-by-stormstudiosbellbendergroup-win32/./ 

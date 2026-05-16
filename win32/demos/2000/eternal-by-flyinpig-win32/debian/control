@@ -1,0 +1,22 @@
+Source: eternal-by-flyinpig-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=6467
+Rules-Requires-Root: no
+
+Package: eternal-by-flyinpig-win32
+Architecture: all
+Replaces: win32-eternal-by-flyinpig
+Breaks: win32-eternal-by-flyinpig
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ Demo ranked 3rd at Abort 2000
+ .
+ -windows program launched using PlayOnLinux

@@ -1,0 +1,23 @@
+Source: legrandcurl-by-neuroticaefs-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=5150
+Rules-Requires-Root: no
+
+Package: legrandcurl-by-neuroticaefs-win32
+Architecture: all
+Replaces: win32-legrandcurl-by-neuroticaefs
+Breaks: win32-legrandcurl-by-neuroticaefs
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ Demo ranked 10th at the Dreamhack 2000
+ .
+ -windows program launched using PlayOnLinux

@@ -1,0 +1,15 @@
+debian/scripts/soepkip9-by-kontvlokkenposse-win32 usr/bin/
+debian/scripts/soepkip9-by-kontvlokkenposse-win32.conf etc/
+debian/resources/soepkip9-by-kontvlokkenposse-win32.desktop usr/share/applications/
+debian/resources/soepkip9-by-kontvlokkenposse-win32.png usr/share/icons/hicolor/32x32/apps/
+./KONTVLOK.PAK usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./EEN.IMV usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./VIER.IMV usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./ZEVEN.IMV usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./DISCO.EXE usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./DATA.MP3 usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./ZES.IMV usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./DRIE.IMV usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./VIJF.IMV usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./TWEE.IMV usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 
+./BASS.DLL usr/share/win32/apps/soepkip9-by-kontvlokkenposse-win32/./ 

@@ -1,0 +1,10 @@
+debian/scripts/persistent-by-wipeandukonx-win32 usr/bin/
+debian/scripts/persistent-by-wipeandukonx-win32.conf etc/
+debian/resources/persistent-by-wipeandukonx-win32.desktop usr/share/applications/
+debian/resources/persistent-by-wipeandukonx-win32.png usr/share/icons/hicolor/48x48/apps/
+./persistent.exe usr/share/win32/apps/persistent-by-wipeandukonx-win32/./ 
+./overground.ini usr/share/win32/apps/persistent-by-wipeandukonx-win32/./ 
+./deem.lwo usr/share/win32/apps/persistent-by-wipeandukonx-win32/./ 
+./Noone3.mo3 usr/share/win32/apps/persistent-by-wipeandukonx-win32/./ 
+./bass.dll usr/share/win32/apps/persistent-by-wipeandukonx-win32/./ 
+./data.wdt usr/share/win32/apps/persistent-by-wipeandukonx-win32/./ 

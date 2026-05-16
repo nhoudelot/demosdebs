@@ -1,0 +1,6 @@
+debian/scripts/blue-by-fourbytealiens-win32 usr/bin/
+debian/scripts/blue-by-fourbytealiens-win32.conf etc/
+debian/resources/blue-by-fourbytealiens-win32.desktop usr/share/applications/
+debian/resources/blue-by-fourbytealiens-win32.png usr/share/icons/hicolor/32x32/apps/
+./0x4ba04D.exe usr/share/win32/apps/blue-by-fourbytealiens-win32/./ 
+./0x4ba04D.4ba usr/share/win32/apps/blue-by-fourbytealiens-win32/./ 

@@ -1,0 +1,8 @@
+debian/scripts/chrome-by-damage-win32 usr/bin/
+debian/scripts/chrome-by-damage-win32.conf etc/
+debian/resources/chrome-by-damage-win32.desktop usr/share/applications/
+debian/resources/chrome-by-damage-win32.png usr/share/icons/hicolor/32x32/apps/
+./kromi.mp3 usr/share/win32/apps/chrome-by-damage-win32/./ 
+./data usr/share/win32/apps/chrome-by-damage-win32/./ 
+./BASS.DLL usr/share/win32/apps/chrome-by-damage-win32/./ 
+./chrome.exe usr/share/win32/apps/chrome-by-damage-win32/./ 

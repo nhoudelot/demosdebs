@@ -1,0 +1,7 @@
+debian/scripts/flashback-by-voidman-win32 usr/bin/
+debian/scripts/flashback-by-voidman-win32.conf etc/
+debian/resources/flashback-by-voidman-win32.desktop usr/share/applications/
+debian/resources/flashback-by-voidman-win32.png usr/share/icons/hicolor/32x32/apps/
+./flashback.exe usr/share/win32/apps/flashback-by-voidman-win32/./ 
+./fmod.dll usr/share/win32/apps/flashback-by-voidman-win32/./ 
+./Sound.mp3 usr/share/win32/apps/flashback-by-voidman-win32/./ 

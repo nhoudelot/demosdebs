@@ -1,0 +1,10 @@
+debian/scripts/thedaytheearthwasborn-by-theplanetofleathermoomins-win32 usr/bin/
+debian/scripts/thedaytheearthwasborn-by-theplanetofleathermoomins-win32.conf etc/
+debian/resources/thedaytheearthwasborn-by-theplanetofleathermoomins-win32.desktop usr/share/applications/
+debian/resources/thedaytheearthwasborn-by-theplanetofleathermoomins-win32.png usr/share/icons/hicolor/32x32/apps/
+./tekstit usr/share/win32/apps/thedaytheearthwasborn-by-theplanetofleathermoomins-win32/./ 
+./Lib.dll usr/share/win32/apps/thedaytheearthwasborn-by-theplanetofleathermoomins-win32/./ 
+./texture usr/share/win32/apps/thedaytheearthwasborn-by-theplanetofleathermoomins-win32/./ 
+./tpolm_-_the_day_that_earth_was_born.exe usr/share/win32/apps/thedaytheearthwasborn-by-theplanetofleathermoomins-win32/./ 
+./Rasterizer.dll usr/share/win32/apps/thedaytheearthwasborn-by-theplanetofleathermoomins-win32/./ 
+./tekno.xm usr/share/win32/apps/thedaytheearthwasborn-by-theplanetofleathermoomins-win32/./ 

@@ -1,0 +1,7 @@
+debian/scripts/legomania-by-doomsday-win32 usr/bin/
+debian/scripts/legomania-by-doomsday-win32.conf etc/
+debian/resources/legomania-by-doomsday-win32.desktop usr/share/applications/
+debian/resources/legomania-by-doomsday-win32.png usr/share/icons/hicolor/32x32/apps/
+./lmania.ogg usr/share/win32/apps/legomania-by-doomsday-win32/./ 
+./dsd_lm.exe usr/share/win32/apps/legomania-by-doomsday-win32/./ 
+./fmod.dll usr/share/win32/apps/legomania-by-doomsday-win32/./ 

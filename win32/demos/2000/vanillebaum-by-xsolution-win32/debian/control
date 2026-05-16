@@ -1,0 +1,24 @@
+Source: vanillebaum-by-xsolution-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=5100
+Rules-Requires-Root: no
+
+Package: vanillebaum-by-xsolution-win32
+Architecture: all
+Replaces: win32-vanillebaum-by-xsolution
+Breaks: win32-vanillebaum-by-xsolution
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ijldll112-win32,
+ ${misc:Depends}
+Description: Win32 Demo released in 2000
+ Demo ranked 18th at Mekka and Symposium 2000
+ .
+ -windows program launched using PlayOnLinux

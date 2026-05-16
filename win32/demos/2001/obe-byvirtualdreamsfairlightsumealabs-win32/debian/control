@@ -1,0 +1,23 @@
+Source: obe-byvirtualdreamsfairlightsumealabs-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=3300
+Rules-Requires-Root: no
+
+Package: obe-byvirtualdreamsfairlightsumealabs-win32
+Architecture: all
+Replaces: win32-obe-byvirtualdreamsfairlightsumealabs
+Breaks: win32-obe-byvirtualdreamsfairlightsumealabs
+Depends:
+ wine,
+ dxvk-win32,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Win32 Demo released in 2001
+ Demo ranked 10th at Assembly 2001
+ .
+ -windows program launched using wine and dxvk

@@ -1,0 +1,24 @@
+Source: art-by-haujobb-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=125
+Rules-Requires-Root: no
+
+Package: art-by-haujobb-win32
+Architecture: all
+Replaces: win32-art-by-haujobb
+Breaks: win32-art-by-haujobb
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ijldll112-win32,
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ demo ranked 2nd at Assembly 2000
+ .
+ -windows program launched using PlayOnLinux

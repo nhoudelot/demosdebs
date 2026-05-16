@@ -1,0 +1,24 @@
+Source: fr03monochromieistnichts-by-farbrausch-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.farbrausch.de/prod&which=11.py
+Rules-Requires-Root: no
+
+Package: fr03monochromieistnichts-by-farbrausch-win32
+Architecture: all
+Replaces: win32-fr03monochromieistnichts-by-farbrausch
+Breaks: win32-fr03monochromieistnichts-by-farbrausch
+Depends:
+ wine,
+ gstreamer1.0-plugins-base:i386,
+ gstreamer1.0-libav:i386,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Win32 Demo released in 2000
+ Demo released at Mekka and Symposium 2000
+ .
+ -windows program launched using wine

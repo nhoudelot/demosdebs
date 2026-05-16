@@ -1,0 +1,22 @@
+Source: imagine-by-dizzlogic-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=956
+Rules-Requires-Root: no
+
+Package: imagine-by-dizzlogic-win32
+Architecture: all
+Replaces: win32-imagine-by-dizzlogic
+Breaks: win32-imagine-by-dizzlogic
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Windows Demo released in 2000
+ demo ranked #11 at Dreamhack 2000
+ .
+ -windows program launched using PlayOnLinux

@@ -1,0 +1,23 @@
+Source: entropy-by-medieval-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=2389
+Rules-Requires-Root: no
+
+Package: entropy-by-medieval-win32
+Architecture: all
+Replaces: win32-entropy-by-medieval
+Breaks: win32-entropy-by-medieval
+Depends:
+ wine,
+ d7vk-win32,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Win32 Demo released in 2000
+ Demo ranked 7th at The Party 2000
+ .
+ -windows program launched using wine and d7vk

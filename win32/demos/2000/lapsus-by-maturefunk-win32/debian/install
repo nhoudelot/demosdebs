@@ -1,0 +1,8 @@
+debian/scripts/lapsus-by-maturefunk-win32 usr/bin/
+debian/scripts/lapsus-by-maturefunk-win32.conf etc/
+debian/resources/lapsus-by-maturefunk-win32.desktop usr/share/applications/
+debian/resources/lapsus-by-maturefunk-win32.png usr/share/icons/hicolor/32x32/apps/
+./Lapsus.dat usr/share/win32/apps/lapsus-by-maturefunk-win32/./
+./glut32.dll usr/share/win32/apps/lapsus-by-maturefunk-win32/./
+./fmod.dll usr/share/win32/apps/lapsus-by-maturefunk-win32/./
+./Lapsus.exe usr/share/win32/apps/lapsus-by-maturefunk-win32/./

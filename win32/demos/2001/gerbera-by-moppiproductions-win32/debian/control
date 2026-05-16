@@ -1,0 +1,23 @@
+Source: gerbera-by-moppiproductions-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=3286
+Rules-Requires-Root: no
+
+Package: gerbera-by-moppiproductions-win32
+Architecture: all
+Replaces: win32-gerbera-by-moppiproductions
+Breaks: win32-gerbera-by-moppiproductions
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ ijldll112-win32,
+ ${misc:Depends}
+Description: Win32 Demo released in 2001
+ Demo ranked 2nd at Assembly 2001
+ .
+ -windows program launched using PlayOnLinux

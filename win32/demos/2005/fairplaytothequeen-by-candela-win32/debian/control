@@ -1,0 +1,23 @@
+Source: fairplaytothequeen-by-candela-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=17088
+Rules-Requires-Root: no
+
+Package: fairplaytothequeen-by-candela-win32
+Architecture: all
+Replaces: win32-fairplaytothequeen-by-candela
+Breaks: win32-fairplaytothequeen-by-candela
+Depends:
+ fmoddll375-win32,
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.76),
+ wine
+Description: Demo for Windows, released in 2005
+ Demo by Candela, released in 2005
+ .
+ -windows program launched using PlayOnLinux

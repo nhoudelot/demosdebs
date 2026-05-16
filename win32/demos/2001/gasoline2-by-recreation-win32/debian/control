@@ -1,0 +1,23 @@
+Source: gasoline2-by-recreation-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=3299
+Rules-Requires-Root: no
+
+Package: gasoline2-by-recreation-win32
+Architecture: all
+Replaces: win32-gasoline2-by-recreation
+Breaks: win32-gasoline2-by-recreation
+Depends:
+ wine,
+ dxvk-win32,
+ common-install-function-ddebs(>=1.76),
+ ${misc:Depends}
+Description: Win32 Demo released in 2001
+ Demo ranked #13 at Assembly 2001
+ .
+ -windows program launched using wine and dxvk

@@ -1,0 +1,23 @@
+Source: 96-by-damage-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=349
+Rules-Requires-Root: no
+
+Package: 96-by-damage-win32
+Architecture: all
+Replaces: win32-96-by-damage
+Breaks: win32-96-by-damage
+Depends: 
+ wine,
+ common-install-function-ddebs(>=1.76),
+ bassdll08a-win32,
+ ${misc:Depends}
+Description: Win32 Demo released in 2000
+ Demo ranked 10th at Mekka and Symposium 2000
+ .
+ -windows program launched using PlayOnLinux

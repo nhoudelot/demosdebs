@@ -1,0 +1,6 @@
+demosceneactivist-by-nuance-win32 for Debian
+-------------------------------------------
+
+* use fmod 3.75 dll, instead of the given one.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 27 Feb 2021 23:41:07 +0100

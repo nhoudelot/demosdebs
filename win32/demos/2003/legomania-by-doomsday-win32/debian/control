@@ -1,0 +1,23 @@
+Source: legomania-by-doomsday-win32
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=10540
+Rules-Requires-Root: no
+
+Package: legomania-by-doomsday-win32
+Architecture: all
+Replaces: win32-legomania-by-doomsday
+Breaks: win32-legomania-by-doomsday
+Depends:
+ wine,
+ common-install-function-ddebs(>=1.76),
+ ijldll112-win32,
+ ${misc:Depends}
+Description: Win32 Demo released in 2003
+ demo ranked 1st at Asembly 2003
+ .
+ -windows program launched using wine

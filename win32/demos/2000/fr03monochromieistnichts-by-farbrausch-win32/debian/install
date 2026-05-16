@@ -1,0 +1,9 @@
+debian/scripts/fr03monochromieistnichts-by-farbrausch-win32 usr/bin/
+debian/scripts/fr03monochromieistnichts-by-farbrausch-win32.conf etc/
+debian/resources/fr03monochromieistnichts-by-farbrausch-win32.desktop usr/share/applications/
+debian/resources/fr03monochromieistnichts-by-farbrausch-win32.png usr/share/icons/hicolor/32x32/apps/
+./Scene.scr usr/share/win32/apps/fr03monochromieistnichts-by-farbrausch-win32/./ 
+./OBJEKT.PAQ usr/share/win32/apps/fr03monochromieistnichts-by-farbrausch-win32/./ 
+./fvs32.exe usr/share/win32/apps/fr03monochromieistnichts-by-farbrausch-win32/./ 
+./IMS.DLL usr/share/win32/apps/fr03monochromieistnichts-by-farbrausch-win32/./ 
+./fvs32dbg.txt.init usr/share/win32/apps/fr03monochromieistnichts-by-farbrausch-win32/./ 

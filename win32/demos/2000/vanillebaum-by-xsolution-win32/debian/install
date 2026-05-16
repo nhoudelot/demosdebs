@@ -1,0 +1,5 @@
+debian/scripts/vanillebaum-by-xsolution-win32 usr/bin/
+debian/scripts/vanillebaum-by-xsolution-win32.conf etc/
+debian/resources/vanillebaum-by-xsolution-win32.desktop usr/share/applications/
+debian/resources/vanillebaum-by-xsolution-win32.png usr/share/icons/hicolor/32x32/apps/
+./vanillebaum.exe usr/share/win32/apps/vanillebaum-by-xsolution-win32/./ 

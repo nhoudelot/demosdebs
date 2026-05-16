@@ -1,0 +1,9 @@
+debian/scripts/further-by-moppiproductions-win32 usr/bin/
+debian/scripts/further-by-moppiproductions-win32.conf etc/
+debian/resources/further-by-moppiproductions-win32.desktop usr/share/applications/
+debian/resources/further-by-moppiproductions-win32.png usr/share/icons/hicolor/32x32/apps/
+./MSVCP60.DLL usr/share/win32/apps/further-by-moppiproductions-win32/./ 
+./56kb_m.mp3 usr/share/win32/apps/further-by-moppiproductions-win32/./ 
+./plugins usr/share/win32/apps/further-by-moppiproductions-win32/./ 
+./further.dmo usr/share/win32/apps/further-by-moppiproductions-win32/./ 
+./demopaja.exe usr/share/win32/apps/further-by-moppiproductions-win32/./
