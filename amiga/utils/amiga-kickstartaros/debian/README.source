@@ -1,0 +1,11 @@
+amiga-kickstartaros for Debian
+------------------------------
+
+m68k binary rom taken from this page : http://www.aros.org/nightly1.html
+download : amiga-m68k-boot-iso
+roms are in : /boot/amiga
+* aros-ext.bin
+* aros-rom.bin
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 17 May 2026 20:22:31 +0200
+

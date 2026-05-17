@@ -1,3 +1,12 @@
+amiga-whdloadharddisk (1.19-0ddebs1) unstable; urgency=medium
+
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
+  * Update to WHDLoad 19.2 (not usign 20.0 that fail with Aros)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 17 May 2026 23:09:03 +0200
+
 amiga-whdloadharddisk (1.18-0ddebs1) unstable; urgency=medium
 
   * Update to WHDLoad 19.0
