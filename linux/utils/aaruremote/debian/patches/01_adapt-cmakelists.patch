@@ -1,0 +1,154 @@
+Description: updating CMakeLists
+ updating CMakeLists to 3.5
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-06-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,69 +1,100 @@
+-cmake_minimum_required(VERSION 2.8)
++cmake_minimum_required(VERSION 3.5)
+ project(aaruremote C)
++
+ include(CheckIncludeFiles)
+ include(CheckLibraryExists)
+ include(TestBigEndian)
++
+ set(CMAKE_C_STANDARD 90)
++set(CMAKE_C_STANDARD_REQUIRED ON)
+ 
++# --- Version ---
+ set(AARUREMOTE_VERSION_BASE     "0.99")
+ set(AARUREMOTE_VERSION_FALLBACK "${AARUREMOTE_VERSION_BASE}-unknown"
+     CACHE STRING "Fallback aaruremote version when git metadata is unavailable")
+-set(AARUREMOTE_VERSION          "${AARUREMOTE_VERSION_FALLBACK}")
++set(AARUREMOTE_VERSION "${AARUREMOTE_VERSION_FALLBACK}")
+ 
+ find_package(Git QUIET)
+ 
+ if(GIT_FOUND)
+-    execute_process(COMMAND "${GIT_EXECUTABLE}" rev-parse --short HEAD
+-                    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+-                    RESULT_VARIABLE AARUREMOTE_GIT_COMMIT_RESULT
+-                    OUTPUT_VARIABLE AARUREMOTE_GIT_COMMIT_OUTPUT
+-                    ERROR_QUIET
+-                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+-
+-    if(AARUREMOTE_GIT_COMMIT_RESULT EQUAL 0 AND NOT "${AARUREMOTE_GIT_COMMIT_OUTPUT}" STREQUAL "")
++    execute_process(
++        COMMAND "${GIT_EXECUTABLE}" rev-parse --short HEAD
++        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
++        RESULT_VARIABLE  AARUREMOTE_GIT_COMMIT_RESULT
++        OUTPUT_VARIABLE  AARUREMOTE_GIT_COMMIT_OUTPUT
++        ERROR_QUIET
++        OUTPUT_STRIP_TRAILING_WHITESPACE
++    )
++    if(AARUREMOTE_GIT_COMMIT_RESULT EQUAL 0 AND
++       NOT "${AARUREMOTE_GIT_COMMIT_OUTPUT}" STREQUAL "")
+         set(AARUREMOTE_VERSION "${AARUREMOTE_VERSION_BASE}-${AARUREMOTE_GIT_COMMIT_OUTPUT}")
+-    endif ()
+-endif ()
++    endif()
++endif()
+ 
+ set(AARUREMOTE_VERSION_C "${AARUREMOTE_VERSION}")
+-string(REPLACE "\\" "\\\\" AARUREMOTE_VERSION_C "${AARUREMOTE_VERSION_C}")
++string(REPLACE "\\"  "\\\\" AARUREMOTE_VERSION_C "${AARUREMOTE_VERSION_C}")
+ string(REPLACE "\"" "\\\"" AARUREMOTE_VERSION_C "${AARUREMOTE_VERSION_C}")
+ 
+-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/aaruremote_version.h.in
+-               ${CMAKE_CURRENT_BINARY_DIR}/aaruremote_version.h @ONLY)
+-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+-add_definitions(-DHAVE_AARUREMOTE_VERSION_H)
++configure_file(
++    "${CMAKE_CURRENT_SOURCE_DIR}/aaruremote_version.h.in"
++    "${CMAKE_CURRENT_BINARY_DIR}/aaruremote_version.h"
++    @ONLY
++)
+ message(STATUS "aaruremote version: ${AARUREMOTE_VERSION}")
+ 
+-set(MAIN_SOURCES aaruremote.h endian.h hex2bin.c list_devices.c main.c worker.c)
++# --- Bibliothèque principale ---
++set(MAIN_SOURCES
++    aaruremote.h
++    endian.h
++    hex2bin.c
++    list_devices.c
++    main.c
++    worker.c
++)
+ 
+ add_library(aaruremotecore ${MAIN_SOURCES})
+ 
+-CHECK_INCLUDE_FILES("endian.h" HAVE_ENDIAN_H)
+-
+-if (HAVE_ENDIAN_H)
+-    add_definitions(-DHAVE_ENDIAN_H)
+-endif ()
+-
+-if (WII)
+-    set(CMAKE_C_FLAGS "-mrvl -mcpu=750 -meabi -mhard-float")
+-    add_definitions(-DGEKKO=1)
+-    include_directories($ENV{DEVKITPRO}/libogc/include/)
+-    add_definitions(-D__BYTE_ORDER=4321)
+-else ()
+-    if (NOT HAVE_ENDIAN_H AND NOT HAVE_SYS_ENDIAN_H)
++# Remplace include_directories() global par target_include_directories()
++target_include_directories(aaruremotecore PUBLIC
++    "${CMAKE_CURRENT_BINARY_DIR}"
++)
++
++# Remplace add_definitions() global par target_compile_definitions()
++target_compile_definitions(aaruremotecore PUBLIC HAVE_AARUREMOTE_VERSION_H)
++
++# --- Détection endian.h ---
++CHECK_INCLUDE_FILES("endian.h"     HAVE_ENDIAN_H)
++CHECK_INCLUDE_FILES("sys/endian.h" HAVE_SYS_ENDIAN_H)
++
++if(HAVE_ENDIAN_H)
++    target_compile_definitions(aaruremotecore PUBLIC HAVE_ENDIAN_H)
++endif()
++
++# --- Plateforme : Wii ou hôte standard ---
++if(WII)
++    target_compile_options(aaruremotecore PRIVATE
++        -mrvl -mcpu=750 -meabi -mhard-float
++    )
++    target_compile_definitions(aaruremotecore PUBLIC GEKKO=1)
++    target_include_directories(aaruremotecore PUBLIC
++        "$ENV{DEVKITPRO}/libogc/include/"
++    )
++    target_compile_definitions(aaruremotecore PUBLIC __BYTE_ORDER=4321)
++else()
++    if(NOT HAVE_ENDIAN_H AND NOT HAVE_SYS_ENDIAN_H)
+         TEST_BIG_ENDIAN(IS_BIG_ENDIAN)
+-        if (IS_BIG_ENDIAN)
+-            add_definitions(-D__BYTE_ORDER=4321)
+-        else ()
+-            add_definitions(-D__BYTE_ORDER=1234)
+-        endif ()
+-    endif ()
+-endif ()
+-
++        if(IS_BIG_ENDIAN)
++            target_compile_definitions(aaruremotecore PUBLIC __BYTE_ORDER=4321)
++        else()
++            target_compile_definitions(aaruremotecore PUBLIC __BYTE_ORDER=1234)
++        endif()
++    endif()
++endif()
++
++# --- Sous-répertoires des ports ---
++set(AARU_PORTS "linux;wii;win32;freebsd;macos"
++    CACHE STRING "List of ports to build")
+ 
+-set(AARU_PORTS "linux;wii;win32;freebsd;macos" CACHE STRING "List of ports to build")
+-foreach (PORT IN LISTS AARU_PORTS)
++foreach(PORT IN LISTS AARU_PORTS)
+     add_subdirectory(${PORT})
+-endforeach (PORT)
+-
++endforeach()

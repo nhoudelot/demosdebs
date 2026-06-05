@@ -1,3 +1,9 @@
+aaruremote (1.0+git20260410-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 05 Jun 2026 23:13:50 +0200
+
 aaruremote (1.0+git20251229-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

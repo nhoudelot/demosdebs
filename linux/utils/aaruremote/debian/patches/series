@@ -1,2 +1,2 @@
-01_fix_fortify.patch
-02_update_minimum_cmake.patch
+01_adapt-cmakelists.patch
+02_fix-open-o-creat.patch
