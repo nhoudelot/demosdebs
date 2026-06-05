@@ -1,0 +1,22 @@
+Source: unshieldv3
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake,
+Standards-Version: 4.7.3
+Homepage: https://github.com/wfr/unshieldv3
+
+Package: unshieldv3
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Extract InstallShield V3 (Z) archives.
+ InstallShield Z format is a compressed archive format used by version 3 of
+ the InstallShield installation software. Z files can be recognised by their
+ magic marker: `13 5D 65 8C 3A 01 02 00`. Contained files are compressed with
+ the PKware implode algorithm.
