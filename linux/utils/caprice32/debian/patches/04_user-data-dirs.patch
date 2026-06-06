@@ -1,0 +1,214 @@
+Description: Use XDG directories for user data, screenshots and printer output
+ Apply the XDG Base Directory specification to default paths:
+ .
+  * snap_path, cart_path, dsk_path, tape_path
+    default to $XDG_DATA_HOME/caprice32/<subdir>
+    (i.e. $HOME/.local/share/caprice32/snap etc.)
+ .
+  * sdump_dir (screenshots)
+    default to $XDG_PICTURES_DIR as read from
+    ~/.config/user-dirs.dirs (localised: "Images" on French systems),
+    falling back to $HOME/Pictures.
+ .
+  * printer_file
+    default to $XDG_DOCUMENTS_DIR/printer.dat,
+    falling back to $HOME/Documents/printer.dat.
+ .
+ All these defaults are used only when the corresponding key is absent
+ or empty in cap32.cfg; an explicit value in the config is always
+ respected.  The four data directories are created on startup if needed.
+ .
+ cap32.cfg.tmpl is updated to ship empty values for all five entries so
+ the installed /etc/cap32.cfg no longer contains hard-coded system paths.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-06-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/cap32.cfg.tmpl
++++ b/cap32.cfg.tmpl
+@@ -175,17 +175,17 @@
+ [file]
+ max_track_size=5990
+ # cart_path
+-#   Path to cartridges (Plus range). Default to $APP_PATH/cart
+-cart_path=__SHARE_PATH__/cart
++#   Path to cartridges (Plus range). Default to $HOME/.local/share/caprice32/cart
++cart_path=
+ # snap_path
+-#   Path to snapshots. Default to $APP_PATH/snap
+-snap_path=__SHARE_PATH__/snap
++#   Path to snapshots. Default to $HOME/.local/share/caprice32/snap
++snap_path=
+ # dsk_path
+-#   Path to disks. Default to $APP_PATH/disk
+-dsk_path=__SHARE_PATH__/disk
++#   Path to disks. Default to $HOME/.local/share/caprice32/dsk
++dsk_path=
+ # tape_path
+-#   Path to tapes. Default to $APP_PATH/tape
+-tape_path=__SHARE_PATH__/tape
++#   Path to tapes. Default to $HOME/.local/share/caprice32/tape
++tape_path=
+ fmt02=
+ fmt03=
+ fmt04=
+@@ -193,11 +193,11 @@
+ fmt06=
+ fmt07=
+ # printer_file
+-#   Path to output printer stream.
+-printer_file=./printer.dat
++#   Path to output printer stream. Default to $XDG_DOCUMENTS_DIR/printer.dat
++printer_file=
+ # sdump_dir
+-#   Directory where screenshots will be found. Default to $APP_PATH/screenshots
+-sdump_dir=__SHARE_PATH__/screenshots
++#   Directory where screenshots will be saved. Default to $XDG_PICTURES_DIR
++sdump_dir=
+ 
+ [rom]
+ # rom_path
+--- a/src/cap32.cpp
++++ b/src/cap32.cpp
+@@ -17,6 +17,7 @@
+ */
+ 
+ #include <algorithm>
++#include <fstream>
+ #include <iostream>
+ #include <sstream>
+ #include <chrono>
+@@ -1824,6 +1825,49 @@
+ }
+ 
+ 
++static std::string getUserDataDir()
++{
++  const char* xdgDataHome = getenv("XDG_DATA_HOME");
++  if (xdgDataHome && xdgDataHome[0])
++    return std::string(xdgDataHome) + "/caprice32";
++  const char* homeDir = getenv("HOME");
++  if (homeDir)
++    return std::string(homeDir) + "/.local/share/caprice32";
++  return "";
++}
++
++// Read an XDG user directory (e.g. XDG_PICTURES_DIR) from the environment
++// or from ~/.config/user-dirs.dirs.  Returns "" if not found.
++static std::string getXdgUserDir(const std::string& varName)
++{
++  const char* envVal = getenv(varName.c_str());
++  if (envVal && envVal[0]) return std::string(envVal);
++
++  const char* homeDir = getenv("HOME");
++  if (!homeDir) return "";
++
++  std::ifstream f(std::string(homeDir) + "/.config/user-dirs.dirs");
++  if (!f.is_open()) return "";
++
++  std::string line;
++  while (std::getline(f, line)) {
++    if (line.empty() || line[0] == '#') continue;
++    const std::string prefix = varName + "=";
++    if (line.substr(0, prefix.size()) != prefix) continue;
++    std::string val = line.substr(prefix.size());
++    // Strip surrounding double-quotes.
++    if (val.size() >= 2 && val.front() == '"' && val.back() == '"')
++      val = val.substr(1, val.size() - 2);
++    // Expand leading $HOME token.
++    const std::string homeToken = "$HOME";
++    size_t pos = val.find(homeToken);
++    if (pos != std::string::npos)
++      val.replace(pos, homeToken.size(), homeDir);
++    return val;
++  }
++  return "";
++}
++
+ void loadConfiguration (t_CPC &CPC, const std::string& configFilename)
+ {
+    config::Config conf;
+@@ -1907,14 +1951,38 @@
+    CPC.kbd_layout = conf.getStringValue("control", "kbd_layout", "keymap_us.map");
+ 
+    CPC.max_tracksize = conf.getIntValue("file", "max_track_size", 6144-154);
+-   CPC.current_snap_path =
+-   CPC.snap_path = conf.getStringValue("file", "snap_path", appPath + "/snap/");
+-   CPC.current_cart_path =
+-   CPC.cart_path = conf.getStringValue("file", "cart_path", appPath + "/cart/");
+-   CPC.current_dsk_path =
+-   CPC.dsk_path = conf.getStringValue("file", "dsk_path", appPath + "/disk/");
+-   CPC.current_tape_path =
+-   CPC.tape_path = conf.getStringValue("file", "tape_path", appPath + "/tape/");
++
++   {
++     std::string udDir = getUserDataDir();
++     // Use the configured path when non-empty; otherwise fall back to the
++     // user data directory ($HOME/.local/share/caprice32/<subdir>).
++     auto resolveDir = [&](const std::string& key, const std::string& subdir) -> std::string {
++       std::string val = conf.getStringValue("file", key, "");
++       if (!val.empty()) return val;
++       if (!udDir.empty()) return udDir + "/" + subdir;
++       return appPath + "/" + subdir;
++     };
++
++     CPC.current_snap_path =
++     CPC.snap_path = resolveDir("snap_path", "snap");
++     CPC.current_cart_path =
++     CPC.cart_path = resolveDir("cart_path", "cart");
++     CPC.current_dsk_path =
++     CPC.dsk_path = resolveDir("dsk_path", "dsk");
++     CPC.current_tape_path =
++     CPC.tape_path = resolveDir("tape_path", "tape");
++
++     // Create the user data directories so saves work out of the box.
++     if (!udDir.empty()) {
++       for (const auto& sub : {"snap", "cart", "dsk", "tape"}) {
++         try {
++           std::filesystem::create_directories(udDir + "/" + sub);
++         } catch (const std::filesystem::filesystem_error& e) {
++           std::cerr << "Warning: could not create " << udDir << "/" << sub << ": " << e.what() << std::endl;
++         }
++       }
++     }
++   }
+ 
+    int iFmt = FIRST_CUSTOM_DISK_FORMAT;
+    for (int i = iFmt; i < MAX_DISK_FORMAT; i++) { // loop through all user definable disk formats
+@@ -1926,8 +1994,32 @@
+          iFmt++; // entry is valid
+       }
+    }
+-   CPC.printer_file = conf.getStringValue("file", "printer_file", appPath + "/printer.dat");
+-   CPC.sdump_dir = conf.getStringValue("file", "sdump_dir", appPath + "/screenshots");
++   {
++     std::string val = conf.getStringValue("file", "printer_file", "");
++     if (!val.empty()) {
++       CPC.printer_file = val;
++     } else {
++       std::string docsDir = getXdgUserDir("XDG_DOCUMENTS_DIR");
++       if (docsDir.empty()) {
++         const char* homeDir = getenv("HOME");
++         docsDir = homeDir ? std::string(homeDir) + "/Documents" : appPath;
++       }
++       CPC.printer_file = docsDir + "/printer.dat";
++     }
++   }
++   {
++     std::string val = conf.getStringValue("file", "sdump_dir", "");
++     if (!val.empty()) {
++       CPC.sdump_dir = val;
++     } else {
++       std::string picDir = getXdgUserDir("XDG_PICTURES_DIR");
++       if (picDir.empty()) {
++         const char* homeDir = getenv("HOME");
++         picDir = homeDir ? std::string(homeDir) + "/Pictures" : appPath;
++       }
++       CPC.sdump_dir = picDir;
++     }
++   }
+ 
+    CPC.rom_path = conf.getStringValue("rom", "rom_path", appPath + "/rom/");
+    for (int iRomNum = 0; iRomNum < 16; iRomNum++) { // loop for ROMs 0-15

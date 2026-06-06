@@ -1,0 +1,97 @@
+Description: Store user configuration in $HOME/.config/caprice32/cap32.cfg
+ On first launch, copy the system default /etc/cap32.cfg into
+ $HOME/.config/caprice32/cap32.cfg (creating the directory as needed).
+ Subsequent launches read from and write to that user file, following
+ the XDG Base Directory convention.  The system file in /etc is never
+ modified.
+ .
+ The command-line --config option still overrides this path.
+ Portable / development fallbacks (executable directory, XDG_CONFIG_HOME,
+ /etc, macOS bundle) are kept for non-installed use.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-06-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/cap32.cpp
++++ b/src/cap32.cpp
+@@ -1754,30 +1754,66 @@
+ 
+ std::string getConfigurationFilename(bool forWrite)
+ {
+-  int mode = R_OK | ( F_OK * forWrite );
++  // User-supplied path via command line takes priority.
++  if (!args.cfgFilePath.empty()) {
++    int mode = R_OK | (F_OK * forWrite);
++    if (access(args.cfgFilePath.c_str(), mode) == 0) {
++      std::cout << "Using configuration file" << (forWrite ? " to save" : "") << ": " << args.cfgFilePath << std::endl;
++      return args.cfgFilePath;
++    }
++  }
++
++  // Standard user config: $HOME/.config/caprice32/cap32.cfg
++  const char* homeDir = getenv("HOME");
++  if (homeDir) {
++    std::string userConfigDir  = std::string(homeDir) + "/.config/caprice32";
++    std::string userConfigFile = userConfigDir + "/cap32.cfg";
++
++    if (access(userConfigFile.c_str(), R_OK) == 0) {
++      // File already exists — use it directly.
++      std::cout << "Using configuration file" << (forWrite ? " to save" : "") << ": " << userConfigFile << std::endl;
++      return userConfigFile;
++    }
+ 
+-  const char* PATH_OK = "";
++    // First run: copy system default into the user directory.
++    std::string systemConfig = std::string(DESTDIR) + "/etc/cap32.cfg";
++    if (access(systemConfig.c_str(), R_OK) == 0) {
++      try {
++        std::filesystem::create_directories(userConfigDir);
++        std::filesystem::copy_file(systemConfig, userConfigFile);
++        std::cout << "First run: initialized user configuration from " << systemConfig
++                  << " to " << userConfigFile << std::endl;
++        std::cout << "Using configuration file" << (forWrite ? " to save" : "") << ": " << userConfigFile << std::endl;
++        return userConfigFile;
++      } catch (const std::filesystem::filesystem_error& e) {
++        std::cerr << "Could not initialize user configuration: " << e.what() << std::endl;
++      }
++    }
++
++    // If we need to write (save), return the user path anyway so the
++    // directory is created on demand by saveConfiguration.
++    if (forWrite) {
++      try { std::filesystem::create_directories(userConfigDir); } catch (...) {}
++      return userConfigFile;
++    }
++  }
+ 
++  // Fallback search for portable / development use.
++  int mode = R_OK | (F_OK * forWrite);
+   std::vector<std::pair<const char*, std::string>> configPaths = {
+-    { PATH_OK, args.cfgFilePath}, // First look in any user supplied configuration file path
+-    { chAppPath, "/cap32.cfg" }, // If not found, cap32.cfg in the same directory as the executable
++    { chAppPath, "/cap32.cfg" },
+     { getenv("XDG_CONFIG_HOME"), "/cap32.cfg" },
+-    { getenv("HOME"), "/.config/cap32.cfg" },
+-    { getenv("HOME"), "/.cap32.cfg" },
+     { DESTDIR, "/etc/cap32.cfg" },
+-    { binPath.string().c_str(), "/../Resources/cap32.cfg" }, // To find the configuration from the bundle on MacOS
++    { binPath.string().c_str(), "/../Resources/cap32.cfg" },
+   };
+ 
+-  for(const auto& p: configPaths){
+-    // Skip paths using getenv if it returned NULL (i.e environment variable not defined)
++  for (const auto& p : configPaths) {
+     if (!p.first) continue;
+     std::string s = std::string(p.first) + p.second;
+     if (access(s.c_str(), mode) == 0) {
+       std::cout << "Using configuration file" << (forWrite ? " to save" : "") << ": " << s << std::endl;
+-      // Dirty hack for MacOS Bundle to work: change dir to the bin dir
+-      // cap32.cfg is edited to have relative paths from the bin dir
+       if (p.second == "/../Resources/cap32.cfg") {
+-              std::filesystem::current_path(binPath);
++        std::filesystem::current_path(binPath);
+       }
+       return s;
+     }

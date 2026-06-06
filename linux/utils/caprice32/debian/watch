@@ -1,0 +1,5 @@
+version=4
+opts="mode=git, pgpmode=none, pretty=4.6.0+git%cd, \
+         repack,compression=xz" \
+         https://github.com/ColinPitrat/caprice32 \
+         HEAD debian uupdate

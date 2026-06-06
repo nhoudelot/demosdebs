@@ -1,0 +1,271 @@
+Description: Fix display and input of UTF-8 accented characters in GUI file browser
+ The GUI file selection dialog failed to display or accept filenames with
+ accented characters (e.g. é, è, à).
+ .
+ Three bugs were fixed:
+ .
+ 1. wg_fontengine: RenderGlyph() and GetMetrics() accepted a plain 'char',
+    causing UTF-8 bytes >= 0x80 to be sign-extended into large invalid
+    FT_ULong values when passed to FT_Load_Char().  Changed to FT_ULong.
+ .
+ 2. wg_renderedstring: GetMetrics() and Draw() iterated the string byte
+    by byte, rendering each byte as a separate glyph.  Multi-byte UTF-8
+    sequences produced garbled output (e.g. "é" appeared as "Ã©").
+    Now decodes UTF-8 on the fly; continuation bytes get zero-width rects
+    so all byte-based cursor indices in wg_editbox remain valid.
+ .
+ 3. wg_editbox TEXTINPUT handler: explicitly filtered every byte with the
+    high bit set ("Ignore extended ASCII chars"), silently discarding all
+    accented characters typed by the user.  For content type ANY the whole
+    UTF-8 text is now inserted directly.  BACKSPACE and DELETE were also
+    fixed to erase complete UTF-8 sequences instead of single bytes.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-06-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/gui/includes/wg_fontengine.h
++++ b/src/gui/includes/wg_fontengine.h
+@@ -56,20 +56,20 @@
+ 	//! Renders the specified character
+ 	//! \param Char The character to render
+ 	//! \return A pointer to a FreeType glyph
+-	FT_BitmapGlyphRec* RenderGlyph(char Char);
++	FT_BitmapGlyphRec* RenderGlyph(FT_ULong Char);
+ 
+ 	//! Returns the metrics for a specified character
+ 	//! \param Char The character to render
+ 	//! \return A pointer to a FreeType metrics structure
+-	FT_Glyph_Metrics* GetMetrics(char Char);
++	FT_Glyph_Metrics* GetMetrics(FT_ULong Char);
+ 
+ 
+ protected:
+ 	static FT_Library m_FTLibrary;  //!< The FreeType library
+ 	static bool m_bFTLibraryLoaded;  //!< Indicates if the FreeType library has been loaded
+ 	FT_Face m_FontFace;  //!< The FreeType font face
+-	std::map<char, FT_BitmapGlyphRec> m_CachedGlyphMap;  //!< A cached map of the rendered glyphs
+-	std::map<char, FT_Glyph_Metrics> m_CachedMetricsMap;  //!< A cached map of the glyph metrics
++	std::map<FT_ULong, FT_BitmapGlyphRec> m_CachedGlyphMap;  //!< A cached map of the rendered glyphs
++	std::map<FT_ULong, FT_Glyph_Metrics> m_CachedMetricsMap;  //!< A cached map of the glyph metrics
+ };
+ 
+ }
+--- a/src/gui/src/wg_editbox.cpp
++++ b/src/gui/src/wg_editbox.cpp
+@@ -441,17 +441,22 @@
+         {
+           std::string sBuffer = m_sWindowText;
+           SelDelete(&sBuffer);
+-          // TODO: Find a clean way to handle real unicode. Here we assume this is only ASCII.
+-          for (auto val : pTextInputMessage->Text)
+-          {
+-                // Ignore extended ASCII chars
+-                if ((val & 0xFF80) != 0) continue;
++          if (m_contentType == ANY) {
++            // Insert the whole UTF-8 string directly (supports accented characters).
++            sBuffer.insert(m_SelStart, pTextInputMessage->Text);
++            m_SelStart += pTextInputMessage->Text.length();
++          } else {
++            // Restricted types (NUMBER, HEXNUMBER, ALPHA, ALPHANUM) only accept ASCII.
++            for (auto val : pTextInputMessage->Text)
++            {
++                if ((val & 0x80) != 0) continue;
+                 if(m_contentType == NUMBER && (val < '0' || val > '9')) continue;
+                 if(m_contentType == HEXNUMBER && (val < '0' || val > '9') && (val < 'A' || val > 'F') && (val < 'a' || val > 'f')) continue;
+                 if(m_contentType == HEXNUMBER && val >= 'a' && val <= 'z') val += 'A' - 'a';
+                 if(m_contentType == ALPHA && (val < 'A' || val > 'Z') && (val < 'a' || val > 'z')) continue;
+                 if(m_contentType == ALPHANUM && (val < '0' || val > '9') && (val < 'A' || val > 'Z') && (val < 'a' || val > 'z')) continue;
+-								sBuffer.insert(m_SelStart++, 1, val);
++                sBuffer.insert(m_SelStart++, 1, val);
++            }
+           }
+           if (m_sWindowText != sBuffer)
+           {
+@@ -485,7 +490,13 @@
+ 						{
+ 							if (m_SelStart > 0)
+ 							{
+-								sBuffer.erase(--m_SelStart, 1);
++								// Erase the whole UTF-8 sequence ending at m_SelStart.
++								size_t eraseEnd = m_SelStart;
++								size_t eraseStart = eraseEnd - 1;
++								while (eraseStart > 0 && (static_cast<unsigned char>(sBuffer[eraseStart]) & 0xC0) == 0x80)
++									--eraseStart;
++								sBuffer.erase(eraseStart, eraseEnd - eraseStart);
++								m_SelStart = eraseStart;
+ 							}
+ 						}
+ 						break;
+@@ -499,7 +510,12 @@
+ 							}
+ 							else
+ 							{
+-								sBuffer.erase(m_SelStart, 1);
++								// Erase the whole UTF-8 sequence starting at m_SelStart.
++								size_t eraseStart = m_SelStart;
++								size_t eraseEnd = eraseStart + 1;
++								while (eraseEnd < sBuffer.size() && (static_cast<unsigned char>(sBuffer[eraseEnd]) & 0xC0) == 0x80)
++									++eraseEnd;
++								sBuffer.erase(eraseStart, eraseEnd - eraseStart);
+ 							}
+ 						}
+ 						break;
+--- a/src/gui/src/wg_fontengine.cpp
++++ b/src/gui/src/wg_fontengine.cpp
+@@ -62,7 +62,7 @@
+ 	FT_Done_Face(m_FontFace);
+ }
+ 
+-FT_BitmapGlyphRec* CFontEngine::RenderGlyph(char Char)
++FT_BitmapGlyphRec* CFontEngine::RenderGlyph(FT_ULong Char)
+ {
+ 	auto glyphIter = m_CachedGlyphMap.find(Char);
+ 	if (glyphIter == m_CachedGlyphMap.end())
+@@ -85,7 +85,7 @@
+ 	return &(glyphIter->second);
+ }
+ 
+-FT_Glyph_Metrics* CFontEngine::GetMetrics(char Char)
++FT_Glyph_Metrics* CFontEngine::GetMetrics(FT_ULong Char)
+ {
+ 	auto glyphIter = m_CachedMetricsMap.find(Char);
+ 	if (glyphIter == m_CachedMetricsMap.end())
+--- a/src/gui/src/wg_renderedstring.cpp
++++ b/src/gui/src/wg_renderedstring.cpp
+@@ -31,6 +31,33 @@
+ namespace wGui
+ {
+ 
++// Decode the first UTF-8 codepoint at s[i], advance i past the sequence.
++static FT_ULong utf8NextCodepoint(const std::string& s, size_t& i)
++{
++	unsigned char c = static_cast<unsigned char>(s[i]);
++	FT_ULong cp;
++	size_t extra;
++	if (c < 0x80) {
++		cp = c; extra = 0;
++	} else if ((c & 0xE0) == 0xC0) {
++		cp = c & 0x1F; extra = 1;
++	} else if ((c & 0xF0) == 0xE0) {
++		cp = c & 0x0F; extra = 2;
++	} else {
++		cp = c & 0x07; extra = 3;
++	}
++	for (size_t k = 0; k < extra && i + 1 + k < s.size(); ++k)
++		cp = (cp << 6) | (static_cast<unsigned char>(s[i + 1 + k]) & 0x3F);
++	i += 1 + extra;
++	return cp;
++}
++
++// Return true if byte is a UTF-8 continuation byte (10xxxxxx).
++static bool isUtf8Continuation(unsigned char c)
++{
++	return (c & 0xC0) == 0x80;
++}
++
+ CRenderedString::CRenderedString(CFontEngine* pFontEngine, std::string sString, EVAlign eVertAlign, EHAlign eHorzAlign) :
+ 	m_pFontEngine(pFontEngine),
+ 	m_sString(std::move(sString)),
+@@ -55,14 +82,18 @@
+ 	GetMetrics(nullptr, &OriginOffset, &CharacterRects);
+ 	for (unsigned int i = 0; i < m_sString.size(); ++i)
+ 	{
++		// Skip UTF-8 continuation bytes — the glyph was already rendered with the leading byte.
++		if (m_MaskChar == ' ' && isUtf8Continuation(static_cast<unsigned char>(m_sString[i])))
++			continue;
+ 		FT_BitmapGlyphRec* pGlyph;
+ 		if (m_MaskChar == ' ')
+ 		{
+-			pGlyph = m_pFontEngine->RenderGlyph(m_sString[i]);
++			size_t pos = i;
++			pGlyph = m_pFontEngine->RenderGlyph(utf8NextCodepoint(m_sString, pos));
+ 		}
+ 		else
+ 		{
+-			pGlyph = m_pFontEngine->RenderGlyph(m_MaskChar);
++			pGlyph = m_pFontEngine->RenderGlyph(static_cast<FT_ULong>(static_cast<unsigned char>(m_MaskChar)));
+ 		}
+ 		CPainter Painter(pSurface, CPainter::PAINT_NORMAL);
+ 		for (unsigned int y = 0; y < static_cast<unsigned int>(pGlyph->bitmap.rows); ++y)
+@@ -92,7 +123,7 @@
+ 		FT_Glyph_Metrics* pMetrics;
+ 		for(int i = 0; i < 256; i++)
+ 		{
+-			pMetrics = m_pFontEngine->GetMetrics(static_cast<char>(i));
++			pMetrics = m_pFontEngine->GetMetrics(static_cast<FT_ULong>(i));
+ 			if ((pMetrics->height >> 6) > maxHeight)
+ 			{
+ 				maxHeight = (pMetrics->height >> 6);
+@@ -111,7 +142,7 @@
+ 		FT_Glyph_Metrics* pMetrics;
+ 		for(int i = 0; i < 256; i++)
+ 		{
+-			pMetrics = m_pFontEngine->GetMetrics(static_cast<char>(i));
++			pMetrics = m_pFontEngine->GetMetrics(static_cast<FT_ULong>(i));
+ 			if ((pMetrics->width >> 6) > maxWidth)
+ 			{
+ 				maxWidth = (pMetrics->width >> 6);
+@@ -127,9 +158,11 @@
+ {
+     int totalWidth = 0;
+ 	FT_Glyph_Metrics* pMetrics;
+-	for(const char c : sText)
++	for(size_t i = 0; i < sText.size(); )
+ 	{
+-		pMetrics = m_pFontEngine->GetMetrics(c);
++		if (isUtf8Continuation(static_cast<unsigned char>(sText[i]))) { ++i; continue; }
++		FT_ULong cp = utf8NextCodepoint(sText, i);
++		pMetrics = m_pFontEngine->GetMetrics(cp);
+ 		totalWidth += (pMetrics->horiAdvance >> 6);
+ 	}
+ 	return totalWidth;
+@@ -145,17 +178,28 @@
+ 		int iMinY = 0;
+ 		int iMaxY = 0;
+ 		int iLength = 0;
+-		for (const char c : m_sString)
++		for (size_t byteIdx = 0; byteIdx < m_sString.size(); ++byteIdx)
+ 		{
+-			FT_Glyph_Metrics* pMetrics;
+-			if (m_MaskChar == ' ')
+-			{
+-				pMetrics = m_pFontEngine->GetMetrics(c);
+-			}
+-			else
+-			{
+-				pMetrics = m_pFontEngine->GetMetrics(m_MaskChar);
+-			}
++			unsigned char c = static_cast<unsigned char>(m_sString[byteIdx]);
++			if (m_MaskChar != ' ') {
++				// Masked display: each byte gets a full-width rect for the mask char.
++				FT_Glyph_Metrics* pMetrics = m_pFontEngine->GetMetrics(
++					static_cast<FT_ULong>(static_cast<unsigned char>(m_MaskChar)));
++				if (pMetrics->horiBearingY > iMaxY) iMaxY = pMetrics->horiBearingY;
++				iLength += pMetrics->horiAdvance;
++				m_CachedCharacterRects.emplace_back((iLength - pMetrics->horiAdvance) >> 6,
++					pMetrics->horiBearingY >> 6, iLength >> 6, pMetrics->height >> 6);
++				continue;
++			}
++			if (isUtf8Continuation(c)) {
++				// Continuation byte: zero-width rect so byte indices stay aligned.
++				m_CachedCharacterRects.emplace_back(iLength >> 6, iMaxY >> 6, iLength >> 6, 0);
++				continue;
++			}
++			// Leading byte: decode the full codepoint and use its metrics.
++			size_t pos = byteIdx;
++			FT_ULong cp = utf8NextCodepoint(m_sString, pos);
++			FT_Glyph_Metrics* pMetrics = m_pFontEngine->GetMetrics(cp);
+ 
+ 			if ((pMetrics->horiBearingY - pMetrics->height) < iMinY)
+ 			{
+@@ -168,7 +212,7 @@
+ 				iMaxY = pMetrics->horiBearingY;
+ 			}
+ 			iLength += (pMetrics->horiAdvance);
+-			// The top and bottom values of the rect are not actually in rect coordinates at this point, since iMaxY and iMinY are not yet know
++			// The top and bottom values of the rect are not actually in rect coordinates at this point, since iMaxY and iMinY are not yet known.
+ 			m_CachedCharacterRects.emplace_back((iLength - pMetrics->horiAdvance) >> 6, pMetrics->horiBearingY >> 6, iLength >> 6, pMetrics->height >> 6);
+ 		}
+ 

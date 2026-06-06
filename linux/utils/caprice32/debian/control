@@ -1,0 +1,22 @@
+Source: caprice32
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ libsdl2-dev,
+ libfreetype6-dev,
+ zlib1g-dev,
+ libpng-dev
+Standards-Version: 4.7.3
+Homepage: https://github.com/ColinPitrat/caprice32
+
+Package: caprice32
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Caprice32 is a software emulator of the Amstrad CPC 8-bit home computer series
+ <Insert long description, indented with spaces.>

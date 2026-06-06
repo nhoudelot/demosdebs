@@ -1,0 +1,101 @@
+Description: updating makefile
+ updating makefile to make it more compatible with packaging and crossbuilding
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-06-06
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/makefile
++++ b/makefile
+@@ -19,7 +19,7 @@
+ 
+ LAST_BUILD_IN_DEBUG = $(shell [ -e .debug ] && echo 1 || echo 0)
+ 
+-ARCH ?= linux
++ARCHE ?= linux
+ 
+ COMMON_CFLAGS ?= 
+ 
+@@ -35,13 +35,13 @@
+ COMMON_CFLAGS = -DWINDOWS -D_POSIX_C_SOURCE=200809L -Wno-error=old-style-cast
+ PLATFORM=windows
+ MINGW_PATH=/mingw32
+-else ifeq ($(ARCH),linux)
++else ifeq ($(ARCHE),linux)
+ PLATFORM=linux
+-else ifeq ($(ARCH),macos)
++else ifeq ($(ARCHE),macos)
+ # Yes that's weird, but the build on macos works the same way as on linux
+ PLATFORM=linux
+ else
+-$(error Unknown ARCH. Supported ones are linux, win32 and win64.)
++$(error Unknown ARCHE. Supported ones are linux, win32 and win64.)
+ endif
+ 
+ CAPS_INCLUDES=-Isrc/capsimg/LibIPF -Isrc/capsimg/Device -Isrc/capsimg/CAPSImg -Isrc/capsimg/Codec -Isrc/capsimg/Core
+@@ -58,7 +58,7 @@
+ COMMON_CFLAGS += -DWINDOWS
+ LIBS += -lws2_32
+ else
+-prefix = /usr/local
++prefix = /usr
+ TARGET = cap32
+ TEST_TARGET = test_runner
+ endif
+@@ -88,9 +88,9 @@
+ 
+ SRCDIR:=src
+ TSTDIR:=test
+-OBJDIR:=obj/$(ARCH)
++OBJDIR:=obj/$(ARCHE)
+ RELEASE_DIR = release
+-ARCHIVE = cap32-$(ARCH)
++ARCHIVE = cap32-$(ARCHE)
+ ARCHIVE_DIR = $(RELEASE_DIR)/$(ARCHIVE)
+ 
+ HTML_DOC:=doc/man.html
+@@ -226,6 +226,18 @@
+ 
+ SRC_PACKAGE_DIR=$(ARCHIVE_DIR)/caprice32-$(VERSION)
+ 
++RM_F       := rm -f
++INSTALL 		:= install
++INSTALL_DIR     := $(INSTALL) -p -d -m  755
++INSTALL_PROGRAM := $(INSTALL) -p    -m  755
++INSTALL_DATA    := $(INSTALL) -p    -m  644
++INSTALL_DATAR   := cp -r
++exec_prefix     := $(prefix)
++bindir          := $(prefix)/bin
++datarootdir     := $(prefix)/share
++datadir         := $(prefix)/share/caprice32
++mandir          := $(prefix)/share/man
++
+ # Create a debian source package
+ distrib: $(TARGET)
+ 	mkdir -p $(SRC_PACKAGE_DIR)
+@@ -238,14 +250,17 @@
+ endif  # ARCH =? macos
+ 
+ install: $(TARGET)
+-	install -D $(TARGET) $(DESTDIR)$(prefix)/bin/$(TARGET)
+-	install -D $(GROFF_DOC) $(DESTDIR)$(prefix)/share/man/man6/cap32.6
+-	if [ ! -f $(DESTDIR)/etc/cap32.cfg ]; then \
+-		install -D -m664 cap32.cfg.tmpl $(DESTDIR)/etc/cap32.cfg; \
+-		sed -i "s,__SHARE_PATH__,$(DESTDIR)$(prefix)/share/caprice32," $(DESTDIR)/etc/cap32.cfg; \
+-	fi
+-	mkdir -p $(DESTDIR)$(prefix)/share/caprice32
+-	cp -r resources rom $(DESTDIR)$(prefix)/share/caprice32
++	$(INSTALL_DIR) $(DESTDIR)$(bindir)
++	-$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
++	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
++	$(INSTALL_DIR)  $(DESTDIR)$(mandir)
++	$(INSTALL_DATA) $(GROFF_DOC) $(DESTDIR)$(mandir)/cap32.6
++	$(INSTALL_DIR)  $(DESTDIR)/etc
++	$(INSTALL_DATA) cap32.cfg.tmpl $(DESTDIR)/etc/cap32.cfg
++	sed -i "s,__SHARE_PATH__,/usr/share/caprice32," $(DESTDIR)/etc/cap32.cfg
++	$(INSTALL_DIR) $(DESTDIR)$(datadir)
++	$(INSTALL_DATAR) resources $(DESTDIR)$(datadir)
++	$(INSTALL_DATAR) rom $(DESTDIR)$(datadir)
+ 
+ endif
+ 

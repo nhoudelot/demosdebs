@@ -1,0 +1,4 @@
+01_adapt-makefile.patch
+02_fix-utf8-in-gui.patch
+03_user-config-in-home.patch
+04_user-data-dirs.patch
