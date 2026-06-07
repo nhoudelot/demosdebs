@@ -13,9 +13,9 @@ Description: Fix lrintf declaration conflicts with GCC 15 on i386
 Author: Claude sonnet 4.6, Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
 Last-Update: 2026-03-28
---- a/faad2/libfaad/common.h
-+++ b/faad2/libfaad/common.h
-@@ -329,20 +329,8 @@
+--- a/3rdparty/faad2/libfaad/common.h
++++ b/3rdparty/faad2/libfaad/common.h
+@@ -332,20 +332,8 @@
      #endif /* HAVE_LRINTF */
    #elif (defined(__i386__) && defined(__GNUC__) && \
  	!defined(__CYGWIN__) && !defined(__MINGW32__))
@@ -38,7 +38,7 @@ Last-Update: 2026-03-28
    #endif
  
  
-@@ -397,8 +385,7 @@
+@@ -400,8 +388,7 @@
  #endif
  
  #ifndef HAS_LRINTF

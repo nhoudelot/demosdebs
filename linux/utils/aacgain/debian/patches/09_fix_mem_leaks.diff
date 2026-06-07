@@ -20,19 +20,19 @@ Subject: fix some issues found by cppcheck
  	}
 --- a/mp3gain/mp3gain.c
 +++ b/mp3gain/mp3gain.c
-@@ -762,6 +762,7 @@
+@@ -763,6 +763,7 @@
              passError(MP3GAIN_UNSPECIFED_ERROR, 3,
                  "\nCan't open ", outfilename, " for temp writing\n");
- 			NowWriting = 0;
-+			free(outfilename);
+             NowWriting = 0;
++            free(outfilename);
  			return M3G_ERR_CANT_MAKE_TMP;
  		} 
   
-@@ -779,6 +780,7 @@
+@@ -780,6 +781,7 @@
  	  passError( MP3GAIN_UNSPECIFED_ERROR, 3,
            "\nCan't open ", filename, " for modifying\n");
- 	  NowWriting = 0;
-+	  free(outfilename);
+       NowWriting = 0;
++      free(outfilename);
  	  return M3G_ERR_CANT_MODIFY_FILE;
    }
    else {

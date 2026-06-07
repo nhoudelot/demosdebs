@@ -1,41 +1,5 @@
 #!/usr/bin/make -f
 
-ifeq "$(DEB_HOST_ARCH)" "armhf"
-	OPTIONS=--disable-optimize
-endif
-
-ifeq "$(DEB_HOST_ARCH)" "arm64"
-	OPTIONS=--disable-optimize
-endif
-
-ifneq (,$(findstring parallel=,$(DEB_BUILD_OPTIONS)))
-	NCPUS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-else
-	NCPUS := $(shell getconf _NPROCESSORS_ONLN 2>/dev/null || echo 1)
-	ifeq ($(NCPUS),-1)
-		NCPUS:=1
-	endif
-	ifeq ($(NCPUS),0)
-		NCPUS:=1
-	endif
-endif
-
 %:
-	dh $@
+	dh $@  --buildsystem=cmake --builddirectory=build
 
-override_dh_auto_configure:
-	cd mp4v2 && ./configure --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE) CFLAGS="$(CFLAGS) -Wno-narrowing" $(OPTIONS)
-	cd faad2 && ./configure --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE) CFLAGS="$(CFLAGS)" --without-xmms --without-mpeg4ip
-
-	dh_auto_configure
-
-override_dh_auto_build:
-	$(MAKE) -C mp4v2 -j $(NCPUS) libmp4v2.la
-	$(MAKE) -C faad2 -j $(NCPUS)
-
-	$(MAKE) -j $(NCPUS)
-
-override_dh_clean:
-	if [ -f mp4v2/GNUmakefile ] ; then cd mp4v2 && $(MAKE) distclean ; fi
-	if [ -f faad2/Makefile ] ; then cd faad2 && $(MAKE) distclean ; fi
-	dh_clean aacgain/config.h mpeg4ip_config.h faad2/config.h mpeg4ip_config.h

@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Christian Marillat <marillat@deb-multimedia.org>
 Build-Depends:
  debhelper-compat (= 13),
+ cmake,
  libmp3lame-dev
 Standards-Version: 4.7.3
 Homepage: https://altosdesign.com/aacgain/

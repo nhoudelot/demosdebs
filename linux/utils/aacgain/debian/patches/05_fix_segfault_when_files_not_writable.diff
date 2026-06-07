@@ -7,19 +7,17 @@ Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=444373
  mp3gain/mp3gain.c | 12 +++++++++++-
  1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/mp3gain/mp3gain.c b/mp3gain/mp3gain.c
-index 14d43e0..2573440 100644
 --- a/mp3gain/mp3gain.c
 +++ b/mp3gain/mp3gain.c
-@@ -761,6 +761,7 @@ int changeGain(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftgainchang
+@@ -762,6 +762,7 @@
  			inf = NULL;
              passError(MP3GAIN_UNSPECIFED_ERROR, 3,
                  "\nCan't open ", outfilename, " for temp writing\n");
-+			NowWriting = 0;
++            NowWriting = 0;
  			return M3G_ERR_CANT_MAKE_TMP;
  		} 
   
-@@ -771,10 +772,13 @@ int changeGain(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftgainchang
+@@ -772,10 +773,13 @@
    }
  
    if (inf == NULL) {
@@ -30,11 +28,11 @@ index 14d43e0..2573440 100644
 +	  }
  	  passError( MP3GAIN_UNSPECIFED_ERROR, 3,
            "\nCan't open ", filename, " for modifying\n");
-+	  NowWriting = 0;
++      NowWriting = 0;
  	  return M3G_ERR_CANT_MODIFY_FILE;
    }
    else {
-@@ -967,6 +971,7 @@ int changeGain(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftgainchang
+@@ -968,6 +972,7 @@
  		fclose(inf);
  		if (UsingTemp) {
  			fclose(outf);
@@ -42,7 +40,7 @@ index 14d43e0..2573440 100644
  			deleteFile(outfilename);
  			free(outfilename);
  			passError(MP3GAIN_CANCELLED,2,"Cancelled processing of ",filename);
-@@ -976,6 +981,7 @@ int changeGain(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftgainchang
+@@ -977,6 +982,7 @@
  		}
  		if (saveTime) 
  		  fileTime(filename, setStoredTime);		
@@ -50,7 +48,7 @@ index 14d43e0..2573440 100644
  		return;
  	}
  #endif
-@@ -1040,12 +1046,14 @@ int changeGain(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftgainchang
+@@ -1041,12 +1047,14 @@
  		fclose(outf);
  		fclose(inf);
  		inf = NULL;
@@ -65,19 +63,19 @@ index 14d43e0..2573440 100644
              return M3G_ERR_NOT_ENOUGH_TMP_SPACE;
          }
          else {
-@@ -1054,6 +1062,7 @@ int changeGain(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftgainchang
+@@ -1055,6 +1063,7 @@
  				deleteFile(outfilename); //try to delete tmp file
  				passError( MP3GAIN_UNSPECIFED_ERROR, 3,
                      "Can't open ", filename, " for modifying\n");
-+			    NowWriting = 0;
++                NowWriting = 0;
  			    return M3G_ERR_CANT_MODIFY_FILE;
  		    }
  		    if (moveFile(outfilename, filename)) {
-@@ -1062,6 +1071,7 @@ int changeGain(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftgainchang
+@@ -1063,6 +1072,7 @@
                      "\nThe mp3 was correctly modified, but you will need to re-name ", 
                      outfilename, " to ", filename, 
                      " yourself.\n");
-+		            NowWriting = 0;
++                   NowWriting = 0;
  			    return M3G_ERR_RENAME_TMP;
  		    };
  		    if (saveTime)

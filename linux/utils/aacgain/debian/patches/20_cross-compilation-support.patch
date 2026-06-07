@@ -1,0 +1,60 @@
+Description: Add cross-compilation support for faad2 and mp4v2 autoconf sub-projects
+ The ExternalProject_Add calls for faad2 and mp4v2 invoke ./configure without
+ any cross-compilation flags. When building for a foreign architecture, this
+ causes both libraries to be compiled for the build machine instead of the
+ target, resulting in a link failure.
+ .
+ When the Debian cross-build environment is detected (DEB_HOST_GNU_TYPE differs
+ from DEB_BUILD_GNU_TYPE), pass --host and the cross-compiler via CC/CXX to
+ each ./configure invocation.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
+Applied-Upstream: no
+Last-Update: 2026-06-07
+--- a/3rdparty/CMakeLists.txt
++++ b/3rdparty/CMakeLists.txt
+@@ -4,9 +4,34 @@
+ include(ProcessorCount)
+ ProcessorCount(N)
+ 
++# Detect Debian cross-compilation: pass --host and cross-compiler to autoconf sub-projects.
++# Use explicit "sh -c" so that CC=/CXX= assignments are separate shell words, not a single
++# quoted argument (which the shell would misinterpret as a command name).
++if(DEFINED ENV{DEB_HOST_GNU_TYPE} AND DEFINED ENV{DEB_BUILD_GNU_TYPE} AND
++   NOT "$ENV{DEB_HOST_GNU_TYPE}" STREQUAL "$ENV{DEB_BUILD_GNU_TYPE}")
++    set(_cross_host $ENV{DEB_HOST_GNU_TYPE})
++    set(_cross_cc   $ENV{CC})
++    set(_cross_cxx  $ENV{CXX})
++    set(FAAD2_CONFIGURE_COMMAND
++        ${CMAKE_COMMAND} -E env CC=${_cross_cc} CXX=${_cross_cxx}
++        sh -c "autoreconf -i && ./configure --host=${_cross_host} --prefix=${CMAKE_CURRENT_BINARY_DIR} --disable-shared --enable-static"
++    )
++    set(MP4V2_CONFIGURE_COMMAND
++        ${CMAKE_COMMAND} -E env CC=${_cross_cc} CXX=${_cross_cxx}
++        sh -c "autoreconf -i && ./configure --host=${_cross_host} --prefix=${CMAKE_CURRENT_BINARY_DIR} --disable-shared --enable-static"
++    )
++else()
++    set(FAAD2_CONFIGURE_COMMAND
++        sh -c "autoreconf -i && ./configure --prefix=${CMAKE_CURRENT_BINARY_DIR} --disable-shared --enable-static"
++    )
++    set(MP4V2_CONFIGURE_COMMAND
++        sh -c "autoreconf -i && ./configure --prefix=${CMAKE_CURRENT_BINARY_DIR} --disable-shared --enable-static"
++    )
++endif()
++
+ ExternalProject_Add(faad2_proj
+                     SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/faad2"
+-                    CONFIGURE_COMMAND autoreconf -i && ./configure --prefix=${CMAKE_CURRENT_BINARY_DIR} --disable-shared --enable-static
++                    CONFIGURE_COMMAND ${FAAD2_CONFIGURE_COMMAND}
+                     BUILD_COMMAND make -j ${N}
+                     INSTALL_COMMAND make -j ${N} install
+                     BUILD_IN_SOURCE 1
+@@ -14,7 +39,7 @@
+ 
+ ExternalProject_Add(mp4v2_proj
+                     SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mp4v2"
+-                    CONFIGURE_COMMAND autoreconf -i && ./configure --prefix=${CMAKE_CURRENT_BINARY_DIR} --disable-shared --enable-static
++                    CONFIGURE_COMMAND ${MP4V2_CONFIGURE_COMMAND}
+                     BUILD_COMMAND make -j ${N}
+                     INSTALL_COMMAND make -j ${N} install
+                     BUILD_IN_SOURCE 1

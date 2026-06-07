@@ -9,11 +9,9 @@ Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=428301
  mp3gain/mp3gain.c | 5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/mp3gain/mp3gain.c b/mp3gain/mp3gain.c
-index 2573440..eeaebe9 100644
 --- a/mp3gain/mp3gain.c
 +++ b/mp3gain/mp3gain.c
-@@ -1213,7 +1213,7 @@ void changeGainAndTag(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftga
+@@ -1214,7 +1214,7 @@
  static 
  int queryUserForClipping(char * argv_mainloop,int intGainChange)
  {
@@ -22,7 +20,7 @@ index 2573440..eeaebe9 100644
  
  	fprintf(stderr,"\nWARNING: %s may clip with mp3 gain change %d\n",argv_mainloop,intGainChange);
  	ch = 0;
-@@ -1223,6 +1223,9 @@ int queryUserForClipping(char * argv_mainloop,int intGainChange)
+@@ -1224,6 +1224,9 @@
  		fprintf(stderr,"Make change? [y/n]:");
  		fflush(stderr);
  		ch = getchar();
