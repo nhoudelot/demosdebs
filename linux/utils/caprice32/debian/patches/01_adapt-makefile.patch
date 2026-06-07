@@ -1,5 +1,9 @@
 Description: updating makefile
  updating makefile to make it more compatible with packaging and crossbuilding
+ * rename ARCH to ARCHE, so it get unused for packaging, and doesn't collide 
+ with the other ARCH  environnement variable
+ * clean was deleting .pc folder, which break quilt after every debuild -sa
+ * install was rewritten to a more modern way
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Applied-Upstream: no
 Last-Update: 2026-06-06
@@ -88,8 +92,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 +	-$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
 +	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
-+	$(INSTALL_DIR)  $(DESTDIR)$(mandir)
-+	$(INSTALL_DATA) $(GROFF_DOC) $(DESTDIR)$(mandir)/cap32.6
++	$(INSTALL_DIR)  $(DESTDIR)$(mandir)/man6/
++	$(INSTALL_DATA) $(GROFF_DOC) $(DESTDIR)$(mandir)/man6/cap32.6
 +	$(INSTALL_DIR)  $(DESTDIR)/etc
 +	$(INSTALL_DATA) cap32.cfg.tmpl $(DESTDIR)/etc/cap32.cfg
 +	sed -i "s,__SHARE_PATH__,/usr/share/caprice32," $(DESTDIR)/etc/cap32.cfg
@@ -99,3 +103,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  endif
  
+@@ -335,7 +350,7 @@
+ 	doxygen doxygen.cfg
+ 
+ clean:
+-	rm -rf obj/ release/ .pc/ doxygen/
++	rm -rf obj/ release/ doxygen/
+ 	rm -f test_runner test_runner.exe cap32 cap32.exe .debug tags
+ 
+ -include $(DEPENDS) $(TEST_DEPENDS)

@@ -1,3 +1,15 @@
+caprice32 (4.6.0+git20260604-0ddebs2) unstable; urgency=medium
+
+  * added a description to debian/control
+  * fixed makefile clean that breaks debuild -sa and quilt
+  * fixed lintian warnings
+  ** manual in wrong place
+  ** libfreetype6-dev was an obsolete package dependencie
+  ** package now depend of ttf-bitstream-vera, and fonts are now not included
+     and replaced by a link, so caprice32 can still found them
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 07 Jun 2026 00:56:49 +0200
+
 caprice32 (4.6.0+git20260604-0ddebs1) unstable; urgency=medium
 
   * Initial release.

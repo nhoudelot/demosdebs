@@ -6,7 +6,7 @@ Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
  libsdl2-dev,
- libfreetype6-dev,
+ libfreetype-dev|libfreetype6-dev,
  zlib1g-dev,
  libpng-dev
 Standards-Version: 4.7.3
@@ -18,5 +18,18 @@ Multi-Arch: foreign
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
-Description: Caprice32 is a software emulator of the Amstrad CPC 8-bit home computer series
- <Insert long description, indented with spaces.>
+ ttf-bitstream-vera
+Description: Amstrad CPC home computer emulator
+ Caprice32 is a software emulator for the Amstrad CPC 8-bit home
+ computer series. It faithfully mimics the CPC464, CPC664, and
+ CPC6128 models at a low level, ensuring high compatibility with
+ original games and software.
+ .
+ This modern fork brings several enhancements, including:
+  * Full emulation of CPC464, CPC664, and CPC6128 models.
+  * Preliminary support for the Plus range (464+, 128+, GX4000).
+  * Joystick support (physical or mapped to keyboard).
+  * Support for disk, tape, and cartridge formats (DSK, IPF,
+    CT-RAW, VOC, CDT, CPR) and ZIP archives.
+  * Built-in developer tools (debugger, disassembler, memory
+    editor).
