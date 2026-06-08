@@ -14,25 +14,72 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "getrom" "1" "2018-01-31" "User Manuals" ""
+.TH "funzy_getrom" "1" "2026-06-09" "" "funzyto770 User Manuals"
 .hy
 .SH NAME
 .PP
-getrom - the command to run getrom.
+funzy_getrom - extract the Thomson TO7 high ROM from a tape file
 .SH SYNOPSIS
 .PP
-getrom nom.k7
+\f[B]funzy_getrom\f[R] \f[I]file.k7\f[R]
 .SH DESCRIPTION
 .PP
-getrom is a program released by Sylvain Huet in 1996.
+\f[B]funzy_getrom\f[R] reads a Thomson TO7 or TO7-70 cassette tape file
+(.k7 format) and extracts the high ROM image from it, writing a
+6144-byte .rom file.
 .PP
-Recuperation de la rom du to7 a partir d\[cq]un fichier .k7 La rom a du
-etre sauvegardee par : SAVEM \[lq]ROM\[rq],&HE800,&HFFFF,0
+The ROM must have been previously saved on the TO7 or TO7-70 computer
+using the following BASIC command:
+.IP
+.nf
+\f[C]
+SAVEM\[dq]ROM\[dq],&HE800,&HFFFF,0
+\f[R]
+.fi
+.PP
+The output file takes the name of the input file with the \f[B].k7\f[R]
+extension replaced by \f[B].rom\f[R].
+.PP
+The TO7 high ROM covers 6144 bytes (address range 0xE800\[en]0xFFFF) and
+is required to run the \f[B]funzyto770\f[R] emulator.
+The resulting .rom file must be renamed \f[B]romto770\f[R] and placed in
+the emulator\[cq]s working directory.
 .SH OPTIONS
 .PP
-there is no options to this program
+This program accepts no options.
+.SH FILES
+.TP
+\f[I]file.k7\f[R]
+Input cassette tape file.
+.TP
+\f[I]file.rom\f[R]
+Output ROM image (6144 bytes), named after the input file.
+.SH EXAMPLES
+.PP
+Extract the TO7 ROM from a tape recording:
+.IP
+.nf
+\f[C]
+funzy_getrom romto770.k7
+\f[R]
+.fi
+.PP
+Then rename the output for use with the emulator:
+.IP
+.nf
+\f[C]
+mv romto770.rom romto770
+\f[R]
+.fi
+.SH SEE ALSO
+.PP
+\f[B]funzy_getmemo7\f[R](1), \f[B]funzy_wav2k7\f[R](1)
 .SH BUGS
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Sylvain Huet.
+.PP
+Written by Sylvain Huet in 1996.
+Packaged for Debian by Nicolas HOUDELOT <nicolas@demosdebs.org>.
+.SH AUTHORS
+Nicolas HOUDELOT <nicolas@demosdebs.org>; Sylvain Huet.

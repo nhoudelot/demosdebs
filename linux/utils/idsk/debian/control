@@ -16,10 +16,17 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Tool to edit DSK (Amstrad CPC disk images)
- Tool to edit DSK (Amstrad CPC disk images) files from the command
- line.
- You can add and remove files from your image, but also list BASIC and DAMS
- source files (which are usually in a tokenized format, not plain ASCII).
+Description: command-line editor for Amstrad CPC DSK disk images
+ iDSK allows editing DSK disk image files used by Amstrad CPC home computers
+ directly from the command line. DSK files are virtual floppy disk images
+ containing files stored in AMSDOS format.
  .
- iDSK can add and remove AMSDOS headers as needed.
+ It supports the following operations:
+  - listing the disk catalog
+  - importing and exporting files from and to the image
+  - creating new blank disk images
+  - adding and removing AMSDOS headers as needed
+  - displaying BASIC and DAMS source files (stored in tokenized format)
+  - disassembling Z80 binary files
+  - displaying binary files as hexadecimal dumps
+  - controlling file attributes (read-only, system, user number)

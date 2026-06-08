@@ -1,0 +1,5 @@
+version=4
+opts="mode=git, pgpmode=none, pretty=0.8.0~rc4+git%cd, \
+         repack,compression=xz" \
+         https://github.com/bleskodev/rubyripper \
+         HEAD debian uupdate

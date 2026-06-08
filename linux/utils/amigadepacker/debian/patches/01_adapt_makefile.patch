@@ -59,7 +59,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  main.o:	main.c decrunch.h version.h
  	$(CC) $(CFLAGS) -c $<
-@@ -28,21 +46,16 @@
+@@ -28,21 +46,13 @@
  unsqsh.o:	unsqsh.c unsqsh.h decrunch.h compat.h
  	$(CC) $(CFLAGS) -c $<
  
@@ -79,9 +79,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 +	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
 +	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
-+	$(INSTALL_DIR) $(DESTDIR)$(man1dir)
-+	-@$(RM_F) $(DESTDIR)$(man1dir)/amigadepacker.1
-+	$(INSTALL_DATA) amigadepacker.1 $(DESTDIR)$(man1dir)
  
  check:	amigadepacker
  	cd tests && ./check.sh

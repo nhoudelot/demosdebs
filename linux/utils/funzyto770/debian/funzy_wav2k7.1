@@ -14,25 +14,70 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "wav2k7" "1" "2018-01-31" "User Manuals" ""
+.TH "funzy_wav2k7" "1" "2026-06-09" "" "funzyto770 User Manuals"
 .hy
 .SH NAME
 .PP
-wav2k7 - the command to run wav2k7.
+funzy_wav2k7 - convert a cassette WAV audio recording to Thomson TO7 .k7
+format
 .SH SYNOPSIS
 .PP
-wav2k7 file.wav
+\f[B]funzy_wav2k7\f[R] \f[I]file.wav\f[R]
 .SH DESCRIPTION
 .PP
-wav2k7 is a program released by Sylvain Huet in 1996.
-conversion .wav 44,1KHz -> .k7 to7
+\f[B]funzy_wav2k7\f[R] converts a WAV audio file recorded from a Thomson
+TO7 or TO7-70 cassette tape into the .k7 binary format used by the
+\f[B]funzyto770\f[R] emulator and the companion utilities
+\f[B]funzy_getrom\f[R](1) and \f[B]funzy_getmemo7\f[R](1).
 .PP
-version 2.1
+The input WAV file must be 8-bit mono recorded at 44100 Hz.
+The output file takes the name of the input file with the \f[B].wav\f[R]
+extension replaced by \f[B].k7\f[R].
+.PP
+If the conversion does not yield a usable .k7 file, check that the
+recording level was adequate.
+If necessary, apply equalisation by boosting the 4.5 kHz\[en]6.3 kHz
+frequency band.
 .SH OPTIONS
 .PP
-there is no options to this program
+This program accepts no options.
+.SH FILES
+.TP
+\f[I]file.wav\f[R]
+Input audio file (8-bit mono, 44100 Hz).
+.TP
+\f[I]file.k7\f[R]
+Output cassette tape image in TO7 format.
+.SH EXAMPLES
+.PP
+Convert a WAV recording to .k7 format:
+.IP
+.nf
+\f[C]
+funzy_wav2k7 myprog.wav
+\f[R]
+.fi
+.PP
+This produces \f[B]myprog.k7\f[R], which can then be loaded by the
+\f[B]funzyto770\f[R] emulator.
+.PP
+Convert a ROM dump for extraction with \f[B]funzy_getrom\f[R](1):
+.IP
+.nf
+\f[C]
+funzy_wav2k7 romto770.wav
+funzy_getrom romto770.k7
+\f[R]
+.fi
+.SH SEE ALSO
+.PP
+\f[B]funzy_getrom\f[R](1), \f[B]funzy_getmemo7\f[R](1)
 .SH BUGS
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Sylvain Huet.
+.PP
+Written by Sylvain Huet in 1996 (version 2.1).
+Packaged for Debian by Nicolas HOUDELOT <nicolas@demosdebs.org>.
+.SH AUTHORS
+Nicolas HOUDELOT <nicolas@demosdebs.org>; Sylvain Huet.

@@ -14,24 +14,78 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "nedplayer" "1" "2020-06-26" "NED Player User Manuals" ""
+.TH "nedplayer" "1" "2026-06-09" "NED Player User Manual" ""
 .hy
 .SH NAME
 .PP
-nedplayer - the command to run NED Player.
+nedplayer - runtime player for NED scripting language productions
 .SH SYNOPSIS
 .PP
-nedplayer [\f[I]options\f[R]]
+\f[B]nedplayer\f[R]
 .SH DESCRIPTION
 .PP
-NED Player is a program released by bartoshe in 2016.
-It search for a data/player.conf file, and must be run in the same
-directory than it
+\f[B]nedplayer\f[R] is a runtime engine for productions written in the
+NED scripting language, part of the Dead Deer framework developed by
+bartoshe.
+It is primarily used for demoscene content, interactive presentations
+and simple games.
+.PP
+The player must be invoked from the directory that contains the
+\f[B]data/\f[R] sub-directory with a valid \f[B]player.conf\f[R] file.
+On startup it reads that configuration file to determine which NED
+script to load and which display mode to use.
+.PP
+The engine supports:
+.IP \[bu] 2
+OpenGL hardware-accelerated 3-D rendering
+.IP \[bu] 2
+OpenAL positional audio
+.IP \[bu] 2
+Vorbis/Ogg music playback
+.IP \[bu] 2
+JPEG 2000 image decoding
+.IP \[bu] 2
+TrueType font rendering via FreeType
+.IP \[bu] 2
+A built-in NED scripting virtual machine for animations, particle
+systems, physics and finite-state machines
 .SH OPTIONS
 .PP
-there is no options to this program
+\f[B]nedplayer\f[R] takes no command-line options.
+All configuration is read from the \f[B]data/player.conf\f[R] file
+located in the current working directory.
+.SH FILES
+.TP
+\f[I]./data/player.conf\f[R]
+Main configuration file.
+The first line gives the path to the NED script to execute (relative to
+the current directory).
+Subsequent lines may contain display-mode hints such as
+\f[B]fullscreen\f[R], \f[B]windowed\f[R] or \f[B]fullscreenlowres\f[R].
+.TP
+\f[I]./data/\f[R]
+Directory containing all assets (scripts, images, sounds, fonts) used by
+the production.
+.SH EXIT STATUS
+.TP
+\f[B]0\f[R]
+Normal exit.
+.TP
+\f[B]non-zero\f[R]
+The player could not initialise (missing \f[B]data/player.conf\f[R],
+OpenGL context failure, etc.).
 .SH BUGS
 .PP
 No known bugs.
+Please report issues to the Debian package maintainer.
+.SH SEE ALSO
+.PP
+The Dead Deer project homepage: <https://deaddeer.free.fr/>
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),bartoshe.
+.PP
+bartoshe.
+.PP
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>.
+.SH AUTHORS
+bartoshe; Packaged for Debian/Ubuntu by Nicolas HOUDELOT
+<nicolas@demosdebs.org>.

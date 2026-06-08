@@ -22,18 +22,18 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: scriptable graphics environment for real-time applications (demos)
- Luisita is an scriptable graphics environment à la Processing, only it's based
- on Lua & C++.
- It enables you to program graphic real-time applications (demos) without
- digging too deep into OpenGL or fighting with C++'s memory management. Its
- basic premise is to provide an easy to understand environment for newbies so
- they can begin with some scripting and maybe jump to c/c++ later, but it can be
- used by experts alike. The only limit is your imagination :-)
+Description: Lua-scripted OpenGL graphics engine for real-time demo creation
+ Luisita is a scriptable graphics environment inspired by Processing, based on
+ Lua and C++. It lets you write real-time graphical applications (demos) without
+ requiring deep OpenGL knowledge or manual C++ memory management.
  .
- Demos written with Luisita consist in a demo script which uses the provided set
- of simple functions for handling graphics and music. This set is intentionally
- reduced and minimalist.
+ A Luisita demo is a Lua script that calls built-in functions for 2D/3D
+ rendering, image loading, camera control, lighting, fog effects, and audio
+ playback. The intentionally small and minimalist API makes it accessible to
+ newcomers, while remaining expressive enough for experienced demo coders.
  .
- It uses Lua for scripting, Bass for playing sound, OpenGL for displaying
- graphics and Simple OpenGL Image Library for loading images.
+ Luisita relies on the following libraries:
+  - Lua 5.1 for scripting;
+  - BASS for audio stream playback;
+  - OpenGL with GLEW for hardware-accelerated rendering;
+  - SOIL (Simple OpenGL Image Library) for texture loading.

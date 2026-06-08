@@ -1,36 +1,73 @@
-% propulse(1) Propulse User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),hukka
-% 2025-12-21
+% propulse(1) "Propulse Tracker 0.9.6.1" "" "2026-06-10" "General Commands Manual"
+% Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>
+% 2026-06-10
 
 # NAME
-**propulse** - the command to run Propulse.
+
+**propulse** - crossplatform tracker compatible with Amiga ProTracker modules
 
 # SYNOPSIS
-**propulse** [*options*]
+
+**propulse** [*file*]
 
 # DESCRIPTION
-**Propulse** is a program released by hukka in 2020.
 
-It's a crossplatform tracker for making Amiga ProTracker compatible tracker
-modules using an Impulse/Schism Tracker style user interface.
+**Propulse** is a tracker for creating and playing Amiga ProTracker compatible
+modules (.MOD), using an interface inspired by Impulse Tracker and Schism
+Tracker.
 
-# Features
+It features a highly accurate playback engine based on 8bitbubsy's work,
+itself derived from a disassembly of the original Amiga ProTracker firmware.
+Test cases such as *black_queen.mod* and MPT test modules play correctly.
 
-- Super accurate playback engine based on work by 8bitbubsy (itself based on a disassembly of the original Amiga ProTracker); things like - - - black_queen.mod and MPT test cases play correctly
-- Familiar Impulse/Schism Trackerish interface with familiar keyboard commands
-- User configurable keybindings, colors, fonts of any size, even screen layouts...
-- WAV export with optional looping and fade out
+An optional *file* argument can be passed to open a module directly on startup.
+
+# OPTIONS
+
+**propulse** does not currently support command-line options beyond opening a
+file on startup.
+
+# FEATURES
+
+- Familiar keyboard commands from Impulse Tracker and Schism Tracker
+- Fully configurable keybindings, colour palettes, bitmap fonts, and screen
+  layouts
+- WAV export with optional loop and fade out
 - Integrated mouse-driven sample editor
 
-# Supported formats
+# SUPPORTED FORMATS
 
-- **MOD** - Loads and saves Amiga ProTracker modules (including load support for 15-sample Ultimate SoundTracker mods, NoiseTracker, and PowerPacked files)
-- **P61A** - Imports The Player 6.1a crunched modules
-- **IT** and **S3M** - Imports Impulse Tracker and Scream Tracker 3 modules
-- Samples: **raw**, **IFF 8SVX**, **WAV**, **MP3** & **Ogg Vorbis** (when using BASS)
+**MOD**
+:   Loads and saves Amiga ProTracker modules, including 15-sample Ultimate
+    SoundTracker mods, NoiseTracker, and PowerPacked files.
 
-# URL
-https://github.com/hukkax/Propulse
+**P61A**
+:   Imports The Player 6.1a crunched modules.
+
+**IT**, **S3M**
+:   Imports Impulse Tracker and Scream Tracker 3 modules.
+
+**Samples**
+:   raw, IFF 8SVX, WAV, MP3, and Ogg Vorbis (requires BASS library).
+
+# FILES
+
+*~/.config/propulse/*
+:   Per-user configuration directory (keybindings, colour palette, settings).
+
+*/usr/share/propulse/data/*
+:   Shared data files (fonts, palettes, icons).
 
 # BUGS
-No known bugs.
+
+No known bugs. Please report issues at <https://github.com/hukkax/Propulse/issues>.
+
+# SEE ALSO
+
+**schismtracker**(1)
+
+# AUTHOR
+
+Propulse was written by hukka <https://github.com/hukkax>.
+
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>.

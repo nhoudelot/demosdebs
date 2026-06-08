@@ -15,5 +15,19 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: TO7 and TO7-70 emulator
- TO7 and TO7-70 are French computers
+Description: Thomson TO7 and TO7-70 home computer emulator
+ funzyto770 emulates the Thomson TO7 and TO7-70, French 8-bit home computers
+ based on the Motorola 6809E processor, popular in France during the 1980s,
+ notably through the "Informatique Pour Tous" (IPT) national program in schools.
+ .
+ The following hardware features are emulated:
+  - Motorola 6809E CPU
+  - optical pen (light pen)
+  - joysticks
+  - cassette tape reader (.k7 format)
+  - removable memo7 ROM cartridges (16 KB each)
+ .
+ The package also provides companion utilities:
+  - funzy_wav2k7: converts cassette audio recordings (WAV, 44.1 kHz) to .k7
+  - funzy_getrom: extracts the TO7 high ROM (6 KB) from a .k7 tape file
+  - funzy_getmemo7: extracts a memo7 ROM cartridge (16 KB) from a .k7 tape file

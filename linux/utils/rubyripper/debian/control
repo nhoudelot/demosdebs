@@ -31,7 +31,23 @@ Depends: ruby,
          vorbis-tools,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Digital audio extraction algorithm
- It uses cdparanoia in a sophisticated way to make sure that a CD rip is done
- successfully and accurately. It is very similar to and inspired by EAC.
- Rubyripper is written in the ruby programming language.
+Description: secure audio CD ripper with GTK3 and CLI interfaces
+ Rubyripper is a high-quality audio CD ripper that uses cdparanoia to ensure
+ reliable and accurate extractions. Inspired by Exact Audio Copy (EAC), it
+ employs a secure ripping method: each track is ripped multiple times and the
+ results compared chunk by chunk to detect and correct read errors.
+ .
+ Main features:
+  - GTK3 graphical interface and interactive command-line interface
+  - Secure ripping via multiple cdparanoia passes with configurable match
+    thresholds and maximum retry count
+  - Metadata retrieval and editing via GnuDB and MusicBrainz
+  - Encoding to FLAC, Ogg Vorbis, MP3 (LAME), AAC (Nero, Fraunhofer),
+    WavPack, Opus, WAV, or any external encoder
+  - Multiple simultaneous codec encoding with configurable thread count
+  - ReplayGain and normalize support for audio level normalisation
+  - Cuesheet and playlist generation
+  - Detailed rip log with per-second error analysis and MD5 checksums
+  - Drive read offset support
+  - Hidden track detection and configurable pre-gap handling
+  - Pre-emphasis correction via cuesheet tag or sox processing

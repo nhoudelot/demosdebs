@@ -19,6 +19,24 @@ Architecture: amd64 i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
-Description: Tracker with an Impulse/Schism Tracker style user interface.
- Crossplatform tracker for making Amiga ProTracker compatible tracker modules 
- using an Impulse/Schism Tracker style user interface.
+Description: crossplatform tracker compatible with Amiga ProTracker modules
+ Propulse is a tracker for creating and playing Amiga ProTracker compatible
+ modules (.MOD), using an interface inspired by Impulse Tracker and Schism
+ Tracker.
+ .
+ Key features:
+  - Highly accurate playback engine based on 8bitbubsy's work, itself derived
+    from a disassembly of the original Amiga ProTracker firmware; test cases
+    such as black_queen.mod and MPT play correctly
+  - Familiar keyboard commands from Impulse Tracker and Schism Tracker
+  - Fully configurable keybindings, colour palettes, bitmap fonts, and screen
+    layouts
+  - WAV export with optional loop and fade out
+  - Integrated mouse-driven sample editor
+ .
+ Supported file formats:
+  - MOD: loads and saves Amiga ProTracker modules, including 15-sample
+    Ultimate SoundTracker mods, NoiseTracker, and PowerPacked files
+  - P61A: imports The Player 6.1a crunched modules
+  - IT and S3M: imports Impulse Tracker and Scream Tracker 3 modules
+  - Samples: raw, IFF 8SVX, WAV, MP3, and Ogg Vorbis (requires BASS library)

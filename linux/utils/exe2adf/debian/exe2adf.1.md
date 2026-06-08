@@ -1,69 +1,99 @@
-% exe2adf-by-reality(1) exe2adf User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),Bonefish/Reality
+% exe2adf(1) exe2adf "User Manual"
+% Nicolas HOUDELOT (nicolas@demosdebs.org); Bonefish/Reality
 % 2019-12-21
 
 # NAME
-exe2adf - the command to run exe2adf.
+exe2adf - convert Amiga executables to ADF disk images
 
 # SYNOPSIS
-exe2adf -i filename.exe [*options*]
+**exe2adf** **-i** *filename.exe* [*options*]
 
 # DESCRIPTION
-exe2adf is a tool released by Reality in 2015.
+**exe2adf** converts Amiga executable (**.exe**) files into bootable ADF
+(Amiga Disk File) disk images, suitable for use with Amiga emulators or
+real hardware.
 
-# MANDATORY OPTIONS
-\-i [--input]
-:   exe to convert to ADF
+Created by Bonefish of the demo group Reality and released in 2015, the
+tool places the executable onto a bootable floppy image with optional
+support for boot-time text display, custom disk labels, directory
+inclusion, custom bootblocks, and palette configuration.
 
-# OPTIONAL OPTIONS
-\-a [--adf]
-:   ADF filename
+# OPTIONS
 
-\-t [--txt]
-:   text file to display at boot time
+## Mandatory
 
-\-l [--label]
-:   label of the ADF disk
+**-i** *file*, **--input** *file*
+:   Amiga executable file to convert to ADF.
 
-\-k [--add21k]
-:   free 21kb before loading rest of the floppyF
+## Optional
 
-\-c [--cls]
-:   clear screen before typing readme.txt, only usable if --txt is used
+**-a** *file*, **--adf** *file*
+:   Output ADF filename.
 
-\-w [--wide]
-:   set AmigaDOS/Cli to 80cols instead of default 60cols
+**-t** *file*, **--txt** *file*
+:   Text file to display at boot time.
 
-\-p [--palette]
-:   set AmigaDOS/Cli palette
-color 1 and 2 - back/foreground (Mandatory!), color 3 - minimize icon, color 4 - cursor
-color 5 - pointer main, color 6 - pointer shadow, color 7 - pointer. See example below
+**-l** *label*, **--label** *label*
+:   Label of the ADF disk.
 
-\-d [--directory]
-:   directory to include onfloppy
+**-k**, **--add21k**
+:   Free 21 KB before loading the rest of the floppy.
 
-\-b [--bootblock]
-:   install custom bootblock
+**-c**, **--cls**
+:   Clear the screen before displaying the text file.
+    Only usable with **--txt**.
 
-\-0
-:   show sector allocation map
+**-w**, **--wide**
+:   Set AmigaDOS/CLI to 80 columns instead of the default 60 columns.
 
-# USAGE
+**-p** *colors*, **--palette** *colors*
+:   Set AmigaDOS/CLI palette. Accepts 3 or 7 comma-separated RGB hex
+    triplets:
+
+    - color 1: background (mandatory)
+    - color 2: foreground (mandatory)
+    - color 3: minimise icon
+    - color 4: cursor
+    - color 5: pointer main
+    - color 6: pointer shadow
+    - color 7: pointer highlight
+
+**-d** *directory*, **--directory** *directory*
+:   Directory to include on the floppy.
+
+**-b** *file*, **--bootblock** *file*
+:   Install a custom bootblock.
+
+**-0**
+:   Show the sector allocation map.
+
+# EXAMPLES
 
 Fast usage:
-exe2adf -i intro.exe
+
+    exe2adf -i intro.exe
 
 Simple usage:
-: exe2adf -i intro.exe -l myfloppy -a floppy.adf
-exe2adf --input intro.exe --label myfloppy  --adf floppy.adf
+
+    exe2adf -i intro.exe -l myfloppy -a floppy.adf
+    exe2adf --input intro.exe --label myfloppy --adf floppy.adf
 
 Advanced usage:
-: exe2adf -i intro.exe -l myfloppy -t readme.txt -a floppy.adf -k -c
 
-Palette usage:
-: exe2adf -i intro.exe -t readme.txt -a floppy.adf -p 000,fff,00f,f0f              ;cli colors only
-exe2adf -i intro.exe -t readme.txt -a floppy.adf -p 000,fff,00f,f0f,888,444,fff  ;cli and pointer colors
+    exe2adf -i intro.exe -l myfloppy -t readme.txt -a floppy.adf -k -c
 
+Palette usage (CLI colors only):
+
+    exe2adf -i intro.exe -t readme.txt -a floppy.adf -p 000,fff,00f,f0f
+
+Palette usage (CLI and pointer colors):
+
+    exe2adf -i intro.exe -t readme.txt -a floppy.adf \
+            -p 000,fff,00f,f0f,888,444,fff
 
 # BUGS
 No known bugs.
+
+# AUTHORS
+Bonefish/Reality (upstream author).
+Packaged for Debian by Nicolas HOUDELOT <nicolas@demosdebs.org>.

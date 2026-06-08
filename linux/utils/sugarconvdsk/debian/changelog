@@ -1,3 +1,9 @@
+sugarconvdsk (1.0.216-0ddebs8) unstable; urgency=medium
+
+  * updated manual and added French version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 10 Jun 2026 00:36:00 +0200
+
 sugarconvdsk (1.0.216-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

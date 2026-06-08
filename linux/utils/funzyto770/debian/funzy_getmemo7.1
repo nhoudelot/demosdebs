@@ -14,25 +14,67 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "getmemo7" "1" "2018-01-31" "User Manuals" ""
+.TH "funzy_getmemo7" "1" "2026-06-09" "" "funzyto770 User Manuals"
 .hy
 .SH NAME
 .PP
-getmemo7 - the command to run getmemo7.
+funzy_getmemo7 - extract a memo7 ROM cartridge from a Thomson TO7 tape
+file
 .SH SYNOPSIS
 .PP
-getmemo7 nom.k7
+\f[B]funzy_getmemo7\f[R] \f[I]file.k7\f[R]
 .SH DESCRIPTION
 .PP
-getmemo7 is a program released by Sylvain Huet in 1996.
+\f[B]funzy_getmemo7\f[R] reads a Thomson TO7 or TO7-70 cassette tape
+file (.k7 format) and extracts the memo7 ROM cartridge image from it,
+writing a 16384-byte .rom file.
 .PP
-Recuperation d\[cq]une cartouche rom a partir d\[cq]un fichier .k7 La
-rom a du etre sauvegardée par : SAVEM \[lq]MEMO7\[rq],0,&H3FFF,0
+The cartridge must have been previously saved on the TO7 or TO7-70
+computer using the following BASIC command:
+.IP
+.nf
+\f[C]
+SAVEM\[dq]MEMO7\[dq],0,&H3FFF,0
+\f[R]
+.fi
+.PP
+The output file takes the name of the input file with the \f[B].k7\f[R]
+extension replaced by \f[B].rom\f[R].
+.PP
+A memo7 ROM cartridge holds 16384 bytes (address range
+0x0000\[en]0x3FFF).
+Multiple cartridges can be used with the \f[B]funzyto770\f[R] emulator
+by placing them in its \f[B]memo7/\f[R] directory.
 .SH OPTIONS
 .PP
-there is no options to this program
+This program accepts no options.
+.SH FILES
+.TP
+\f[I]file.k7\f[R]
+Input cassette tape file.
+.TP
+\f[I]file.rom\f[R]
+Output ROM cartridge image (16384 bytes), named after the input file.
+.SH EXAMPLES
+.PP
+Extract a memo7 cartridge from a tape recording:
+.IP
+.nf
+\f[C]
+funzy_getmemo7 memo7.k7
+\f[R]
+.fi
+.PP
+The file \f[B]memo7.rom\f[R] is created in the current directory.
+.SH SEE ALSO
+.PP
+\f[B]funzy_getrom\f[R](1), \f[B]funzy_wav2k7\f[R](1)
 .SH BUGS
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Sylvain Huet.
+.PP
+Written by Sylvain Huet in 1996.
+Packaged for Debian by Nicolas HOUDELOT <nicolas@demosdebs.org>.
+.SH AUTHORS
+Nicolas HOUDELOT <nicolas@demosdebs.org>; Sylvain Huet.

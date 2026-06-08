@@ -1,0 +1,8 @@
+Format: https://wiki.debian.org/UpstreamMetadata
+Upstream-Name: rubyripper
+Upstream-Contact: https://github.com/bleskodev/rubyripper/issues
+Source: https://github.com/bleskodev/rubyripper
+Bug-Database: https://github.com/bleskodev/rubyripper/issues
+Bug-Submit: https://github.com/bleskodev/rubyripper/issues/new
+Repository: https://github.com/bleskodev/rubyripper.git
+Repository-Browse: https://github.com/bleskodev/rubyripper

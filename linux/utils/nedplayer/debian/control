@@ -21,8 +21,16 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Player for Dead Deer projects
- Player for demoscene or games based on Dead Deer
+Description: player for NED scripting language demoscene productions
+ NED Player is a runtime engine developed by bartoshe for executing
+ productions written in the NED scripting language. It is primarily
+ aimed at demoscene content, interactive presentations and simple
+ games built with the Dead Deer framework.
+ .
+ The player reads a data/player.conf configuration file and must be
+ launched from the directory containing it. It supports OpenGL
+ rendering, OpenAL audio, Vorbis/Ogg music, JPEG 2000 images and
+ TrueType fonts via FreeType.
 
 Package: fonts-segoe
 Section: fonts
@@ -30,8 +38,11 @@ Architecture: all
 Multi-Arch: foreign
 Depends:
  ${misc:Depends}
-Description: segoe fonts
- Fonts designed by Steve Matteson
+Description: Segoe UI-compatible TrueType fonts by Steve Matteson
+ This package provides TrueType fonts compatible with the Segoe UI
+ family, designed by Steve Matteson. They are used by NED Player
+ productions that rely on this typeface for their on-screen text
+ rendering.
 
 Package: nedscript-fire-tutorial
 Section: demos
@@ -42,5 +53,8 @@ Depends:
  fonts-segoe,
  nedplayer,
  common-install-function-ddebs
-Description: ned file example
- fire tutorial example included with nedplayer
+Description: fire effect tutorial for NED Player
+ This package contains the fire-effect tutorial shipped with the NED
+ Player source tree. It demonstrates basic particle and palette
+ animation techniques available through the NED scripting language
+ and serves as a starting point for learning Dead Deer development.

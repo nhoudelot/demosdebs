@@ -1,3 +1,9 @@
+hermes (0.7.1-0ddebs2) unstable; urgency=medium
+
+  * updated manual and added French version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 09 Jun 2026 02:08:59 +0200
+
 hermes (0.7.1-0ddebs1) unstable; urgency=medium
 
   * New upstream release.

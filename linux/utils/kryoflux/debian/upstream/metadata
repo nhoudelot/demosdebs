@@ -1,0 +1,14 @@
+Bug-Database: https://forum.kryoflux.com/
+Bug-Submit: https://forum.kryoflux.com/
+Changelog: https://www.kryoflux.com/?page=download
+Name: KryoFlux
+Reference:
+ - Type: article
+   Title: "KryoFlux: High Definition Flux Sampler for USB"
+   Author: István Fábián, Christian Bartsch
+   Year: 2009
+   URL: https://www.kryoflux.com/
+Registry:
+ - Entry: https://www.kryoflux.com/?page=download
+   Name: KryoFlux official download page
+Security-Contact: licensing@kryoflux.com

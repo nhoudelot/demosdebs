@@ -1,3 +1,9 @@
+idsk (0.20-0ddebs6) unstable; urgency=medium
+
+  * updated manual, and added French version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 09 Jun 2026 14:20:18 +0200
+
 idsk (0.20-0ddebs5) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

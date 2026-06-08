@@ -20,19 +20,36 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Tool for synchronizing music and visuals in demoscene productions
- Rocket is an intuitive new way of... bah, whatever. It's a sync-tracker, a tool
- for synchronizing music and visuals in demoscene productions. It consists of a
- GUI editor (using Qt), and an ANSI C library that can either communicate with
- the editor over a network socket, or play back an exported data-set.
+Description: sync-tracker editor for demoscene productions
+ Rocket is a tool for synchronizing music and visuals in demoscene
+ productions, laid out like a traditional music tracker.
+ .
+ The Qt5 editor organizes a timeline into named tracks (columns) and
+ discrete rows (time points). Key-frames are interpolated between adjacent
+ rows using one of four modes: Step, Linear, Smooth (S-curve) or Ramp.
+ .
+ During development a demo links against librocket, connects to the editor
+ over a TCP socket and mirrors all edits in real time. For the final release
+ the demo is compiled in player mode and reads back the data-set exported
+ from the editor without any network connection.
 
 Package: librocket-dev
 Section: libdevel
 Architecture: any
 Depends:
  ${misc:Depends}
-Description: headers for rocket
- Provides support for rocket files
+Description: development files for the Rocket sync-tracker library
+ This package provides the ANSI C headers and static libraries needed to
+ build demo applications that synchronize their visuals to a Rocket
+ sync-tracker.
+ .
+ In editor mode the library connects to rocket-sync-tracker over TCP port
+ 1338 and mirrors all timeline edits in real time. In player mode
+ (SYNC_PLAYER defined at compile time) it reads back the data-set
+ previously exported from the editor, with no network dependency.
+ .
+ Also included are example source files demonstrating how to integrate
+ librocket into a demo project.
 
 Package: node-jsrocket
 Section: demos
@@ -42,5 +59,11 @@ Depends:
  node-grunt-contrib-concat,
  ${misc:Depends}
 Provides: ${nodejs:Provides}
-Description: node-js headers for rocket
- Provides support for rocket files on node-js
+Description: JavaScript/browser client for the Rocket sync-tracker
+ jsRocket is the JavaScript implementation of the Rocket sync-tracker
+ client, allowing browser-based demos and Node.js applications to
+ synchronize their visuals with the Rocket editor.
+ .
+ In edit mode the library connects to rocket-sync-tracker over a WebSocket
+ and mirrors all timeline edits in real time. In player mode it parses an
+ exported .rocket XML file directly, without any editor connection.

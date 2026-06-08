@@ -22,9 +22,20 @@ Depends:
  ${java:Depends},
  default-jre | java2-runtime,
  java-wrappers
-Description: DVB demuxing tool
- European digital radio & television uses the DVB standard to broadcast its
- data. Project X gives you a look behind the transmissions and tries its
- best to handle & repair many stream types and shows what went wrong on
- reception.
+Description: DVB stream demultiplexer and repairer
+ Project X is a free, Java-based utility for demultiplexing, cleaning up,
+ and repairing DVB (Digital Video Broadcasting) transport streams.
+ .
+ European digital radio and television use the DVB standard to broadcast
+ their data. Project X lets you inspect those transmissions, handle a wide
+ variety of stream types, and correct errors introduced during reception or
+ recording.
+ .
+ Supported input formats include MPEG-1/2 Transport Streams (TS), Program
+ Streams (PS/VOB), PVA streams, and recordings from various set-top boxes
+ (Dreambox, Topfield). Output can be demultiplexed elementary streams
+ (video, audio, subtitles) or re-muxed container files.
+ .
+ Project X can be used both through a graphical user interface and in
+ headless command-line mode, making it suitable for automated workflows.
 

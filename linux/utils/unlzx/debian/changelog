@@ -1,3 +1,9 @@
+unlzx (2.0-0ddebs2) unstable; urgency=medium
+
+  * update manual and added French version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 10 Jun 2026 00:47:49 +0200
+
 unlzx (2.0-0ddebs1) unstable; urgency=medium
 
   * New Version modernised with Claude Sonnet 4.6 (mostly crap vibecoding)

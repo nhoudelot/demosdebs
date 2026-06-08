@@ -14,26 +14,57 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "hxcfloppyemulator" "1" "2018-06-03" "HxCFloppyEmulator User Manuals" ""
+.TH "hxcfloppyemulator" "1" "2026-06-09" "HxC Floppy Emulator User Manual" ""
 .hy
 .SH NAME
 .PP
-hxcfloppyemulator - the command to run HxCFloppyEmulator.
+hxcfloppyemulator - graphical floppy disk image converter and USB HxC
+floppy server
 .SH SYNOPSIS
 .PP
-hxcfloppyemulator [\f[I]options\f[R]]
+\f[B]hxcfloppyemulator\f[R]
 .SH DESCRIPTION
 .PP
-HxCFloppyEmulator is a program released by Jean-François DEL NERO in
-2006.
+\f[B]HxCFloppyEmulator\f[R] is a graphical application (built with FLTK)
+released by Jean-François DEL NERO in 2006.
+It is the companion software for the HxC Floppy Emulator hardware
+devices (USB and SD-card based).
+.PP
+The software allows users to import, analyze and convert floppy disk
+images across a wide range of formats, browse DOS/FAT and AmigaDOS
+floppy images, inspect tracks at low level, read physical floppy disks,
+and drive a USB HxC Floppy Emulator device directly as a floppy image
+server.
+.PP
+Supported image formats include (but are not limited to): HFE, ADF, IMG,
+DSK, MFM, Kryoflux stream files, SCP, IPF, and many more.
+Use the companion command-line tool \f[B]hxcfe\f[R](1) to list all
+supported formats.
 .SH OPTIONS
 .PP
-there is no options to this program
+\f[B]hxcfloppyemulator\f[R] does not accept command-line options.
+All operations are performed through its graphical user interface.
+.SH FILES
 .TP
---help
-Display help for the command
+\f[I]$HOME/.hxcfe/\f[R]
+User configuration and settings directory.
+.SH SEE ALSO
+.PP
+\f[B]hxcfe\f[R](1)
+.PP
+Project website: <https://hxc2001.com>
 .SH BUGS
 .PP
-No known bugs.
+Report bugs at <https://github.com/jfdelnero/HxCFloppyEmulator/issues>.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Jean-François DEL NERO.
+.PP
+Jean-François DEL NERO <hxc2001@hxc2001.com>
+.PP
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>
+.SH COPYRIGHT
+.PP
+Copyright (C) 2006-2026 Jean-François DEL NERO / HxC2001.
+License GPLv2+: GNU GPL version 2 or later
+<https://www.gnu.org/licenses/gpl-2.0.html>.
+.SH AUTHORS
+Jean-François DEL NERO; Nicolas HOUDELOT <nicolas@demosdebs.org>.

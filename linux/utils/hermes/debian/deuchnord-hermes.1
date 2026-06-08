@@ -14,23 +14,54 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "hermes" "1" "2018-02-04" "hermes User Manuals" ""
+.TH "HERMES" "1" "June 2026" "hermes User Manuals" "Version 0.7.1"
 .hy
 .SH NAME
 .PP
-hermes - the command to run hermes.
+hermes - graphical manager for product warranties
 .SH SYNOPSIS
 .PP
-hermes [\f[I]options\f[R]]
+\f[B]hermes\f[R]
 .SH DESCRIPTION
 .PP
-hermes is a program released by deuchnord in 2014.
-Open-source software to manage your products\[cq] guarantees
-.SH OPTIONS
+\f[B]hermes\f[R] is a free and open-source Qt5 graphical application to
+manage your products\[cq] warranties.
+It allows you to:
+.IP \[bu] 2
+add products with their purchase date and warranty end date,
+.IP \[bu] 2
+attach invoice and warranty certificate documents to each product,
+.IP \[bu] 2
+mark products currently in after-sales service (SAV),
+.IP \[bu] 2
+search through your product list,
+.IP \[bu] 2
+configure the data storage location.
 .PP
-there is no options to this program
+Product data is stored locally in \f[B]\[ti]/deuchnord-hermes/\f[R] in
+both a legacy binary format (\f[I].hrms\f[R]) and individual JSON files
+for future compatibility.
+.PP
+Hermes checks for new upstream versions at startup and notifies the user
+in the status bar when one is available.
+.SH FILES
+.TP
+\f[I]\[ti]/deuchnord-hermes/products.hrms\f[R]
+Main product database (legacy binary format, Qt5 QDataStream).
+.TP
+\f[I]\[ti]/deuchnord-hermes/json/*.json\f[R]
+Per-product JSON files (format used by future versions).
 .SH BUGS
 .PP
-No known bugs.
+Report bugs at
+<https://tickets.deuchnord.fr/index.php?project=2&do=index&switch=1>.
+.SH SEE ALSO
+.PP
+Online documentation: <https://doc.deuchnord.fr/hermes/start>
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),deuchnord.
+.PP
+Written by Deuchnord.
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT
+<nicolas\[at]demosdebs.org>.
+.SH AUTHORS
+Nicolas HOUDELOT <nicolas@demosdebs.org>; Deuchnord.

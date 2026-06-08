@@ -1,3 +1,10 @@
 debian/funzy_getmemo7.1
 debian/funzy_getrom.1
 debian/funzy_wav2k7.1
+debian/funzy_enterkey.1
+debian/funzyto770.1
+debian/funzy_getmemo7.fr.1
+debian/funzy_getrom.fr.1
+debian/funzy_wav2k7.fr.1
+debian/funzy_enterkey.fr.1
+debian/funzyto770.fr.1

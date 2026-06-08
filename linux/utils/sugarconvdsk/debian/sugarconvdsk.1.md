@@ -1,54 +1,126 @@
-% sugarconvdsk(1) SugarConvDsk User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),Tom1975
-% 2018-05-13
+% sugarconvdsk(1) SugarConvDsk 1.0.216 User Manual
+% Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>
+% 2026-03-28
 
 # NAME
-sugarconvdsk - the command to run SugarConvDsk.
+
+sugarconvdsk - convert Amstrad CPC disk image formats
 
 # SYNOPSIS
-sugarconvdsk *source* [destination] [-s=side] [-o=outputformat] [-r] [-f=filter]
+
+**sugarconvdsk** *source* [*destination*] [**-s=**_side_] [**-second=**_path_] [**-o=**_outputformat_] [**-r**] [**-f=**_filter_]
+
+**sugarconvdsk** **-cat=**_user_ [**-sort**] [**-l**] [**-c**] *source*
 
 # DESCRIPTION
-SugarConvDsk is a program released by Tom1975 in 2018.
-It convert any Amstrad CPC dump file format to other format
+
+**SugarConvDsk** converts Amstrad CPC disk dump files between various formats.
+It supports a wide range of input and output formats including DSK, EDSK, HFE,
+IPF, SCP, CT-RAW, and Kryoflux.
+
+When the **-cat** option is not used, **sugarconvdsk** performs a format
+conversion. When **-cat** is used, it displays the disk directory contents
+without performing any conversion; in that case, *destination* and all
+conversion flags are ignored.
+
+Internally, the tool converts any supported format into an MFM-based
+representation that handles weak bits, optional bits, and multi-revolution
+tracks, then writes it back in the chosen output format.
 
 # OPTIONS
 
-\-s=side : Select side of the disk to convert.
-   Side can be 1 or 2
-   If omitted, both side are written (if relevant for the format)
+## Conversion mode
 
-\-o=outputformat : Select output format. Can take the following values:
-    EDSK : Extended Dsk format
-    HFE : HFE format
-    IPF : IPF format
-    SCP : Supercard Pro format
-If this parameter is not used, default output format is EDSK
+**-s=**_side_
+:   Select the disk side to convert. *side* must be **1** or **2**.
+    If omitted, both sides are written (where relevant for the chosen format).
 
-source : The source file can be in the following format :
-    CTRAW : CT-RAW format
-    DSK : Dsk format
-    EDSK : Extended Dsk format
-    HFE : HFE format
-    IPF : IPF format
-    SCP : Supercard Pro format
-    KRYOFLUX : Kryoflux RAW file format
-	
-If the source file is a directory : In this case, every files in the given directory are converted to the 'output' directory
+**-second=**_path_
+:   Replace the second side of the disk with the dump source file at *path*.
 
-destination : output file. If source file is a directory, destination is used as an output directory
+**-o=**_outputformat_
+:   Select the output format. Accepted values:
 
-\-r : If the source file is a directory, convert recursively the given directory.
-\-f=filter : If the source file is a directory, set a filter for the files to convert.
+    **EDSK** — Extended DSK format (default),
+    **HFE**  — HFE format,
+    **IPF**  — Interchangeable Preservation Format,
+    **SCP**  — Supercard Pro format.
 
-Example : 
+    If omitted, the default output format is EDSK.
 
-	SugarConvDsk d:\dump d:\result -o=IPF -r -f=[CPC]*.dsk 
-This will convert to IPF every file of the form "[CPC]*.dsk", from directory d:\result, and subdirectories.
-Result files will be saved in the d:\result directory.
+**-r**
+:   If *source* is a directory, convert files recursively.
 
-\--help
-:   Display help for the command
+**-f=**_filter_
+:   If *source* is a directory, apply a filename filter (e.g. **[CPC]*.dsk**).
+
+## Catalog mode
+
+**-cat=**_user_
+:   Display the disk directory for the given CP/M *user* number (0–15).
+    Use **ALLUSERS** to display entries for all users.
+    This option prevents any conversion from taking place.
+
+**-sort**
+:   Sort the listed files in alphabetical order.
+
+**-l**
+:   Display one file per line. Adds flag **H** for hidden files and **R** for
+    read-only files.
+
+**-c**
+:   Display files on a single line, separated by semicolons.
+
+## General
+
+**--help**
+:   Display a usage summary and exit.
+
+# OPERANDS
+
+*source*
+:   Source disk image file or directory. Supported input formats:
+
+    **CTRAW**    — CT-RAW format,
+    **DSK**      — standard DSK format,
+    **EDSK**     — Extended DSK format,
+    **HFE**      — HFE format,
+    **IPF**      — Interchangeable Preservation Format,
+    **SCP**      — Supercard Pro format,
+    **KRYOFLUX** — Kryoflux RAW file set.
+
+    If *source* is a directory, every file in that directory is converted
+    and saved to the *destination* directory.
+
+*destination*
+:   Output file or directory. If *source* is a directory, *destination* is
+    used as the output directory.
+
+# EXAMPLES
+
+Convert a single file to IPF format:
+
+    sugarconvdsk disk.dsk output.ipf -o=IPF
+
+Recursively convert all **[CPC]*.dsk** files from **/dump** to IPF, storing
+results in **/result**:
+
+    sugarconvdsk /dump /result -o=IPF -r -f=[CPC]*.dsk
+
+Display the directory of a disk image for CP/M user 0:
+
+    sugarconvdsk -cat=0 disk.dsk
+
+Display all users' files, sorted alphabetically, one per line:
+
+    sugarconvdsk -cat=ALLUSERS -sort -l disk.dsk
 
 # BUGS
-No known bugs.
+
+No known bugs. Please report issues at <https://github.com/Tom1975/SugarConvDsk/issues>.
+
+# AUTHORS
+
+Tom1975.
+
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>.

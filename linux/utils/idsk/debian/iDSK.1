@@ -14,81 +14,136 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "idsk" "1" "2018-05-20" "iDSK User Manuals" ""
+.TH "IDSK" "1" "2026-06-09" "iDSK User Manual" "iDSK 0.20"
 .hy
 .SH NAME
 .PP
-idsk - the command to run iDSK.
+idsk - command-line editor for Amstrad CPC DSK disk images
 .SH SYNOPSIS
 .PP
-iDSK <\f[B]DSKfile\f[R]> [\f[I]OPTIONS\f[R]] [\f[I]files to
-process\f[R]]
+\f[B]iDSK\f[R] \f[I]DSKfile\f[R] [\f[I]OPTION\f[R]]\&...
+[\f[I]file\f[R]]\&...
 .SH DESCRIPTION
 .PP
-iDSK is a Tool to edit DSK (Amstrad CPC disk images) files from the
-command line, released by Sid in 2008.
+\f[B]iDSK\f[R] is a command-line utility for editing DSK disk image
+files used by Amstrad CPC home computers.
+DSK files are virtual floppy disk images containing files stored in
+AMSDOS format.
+.PP
+It allows listing, importing, exporting, and removing files within a
+disk image, as well as creating new empty disk images.
+It can also display the contents of BASIC and DAMS source files (stored
+in a tokenized format, not plain ASCII), and disassemble Z80 binary
+files.
 .SH OPTIONS
+.SS File operations
 .TP
--l
-List disk catalog - iDSK floppy.dsk -l
+\f[B]-l\f[R]
+List the disk catalog.
 .TP
--g
-export (`Get') file - iDSK floppy.dsk -g myprog.bas
+\f[B]-g\f[R] \f[I]file\f[R]
+Export (get) a file from the image.
 .TP
--r
-Remove file - iDSK floppy.dsk -r myprog.bas
+\f[B]-i\f[R] \f[I]file\f[R]
+Import a file into the image.
 .TP
--n
-create New dsk file - iDSK floppy2.dsk -n
+\f[B]-r\f[R] \f[I]file\f[R]
+Remove a file from the image.
 .TP
--z
-disassemble a binary file iDSK floppy.dsk -z myprog.bin
+\f[B]-n\f[R]
+Create a new empty DSK image file.
 .TP
--b
-list a Basic file iDSK floppy.dsk -b myprog.bas
+\f[B]-f\f[R]
+Force overwriting if the destination file already exists.
+.SS File attributes (used with \f[B]-i\f[R])
 .TP
--p
-split lines after 80 char \&...
--p
+\f[B]-t\f[R] \f[I]type\f[R]
+Set the file type: \f[B]0\f[R] for ASCII, \f[B]1\f[R] for binary.
 .TP
--d
-list a Dams file iDSK floppy.dsk -d myprog.dms
+\f[B]-e\f[R] \f[I]address\f[R]
+Set the execution address (hexadecimal) for a binary file.
 .TP
--h
-list a binary file as Hexadecimal iDSK floppy.dsk -h myprog.bin
+\f[B]-c\f[R] \f[I]address\f[R]
+Set the loading address (hexadecimal) for a binary file.
 .TP
--i
-Import file iDSK floppy.dsk -i myprog.bas
+\f[B]-o\f[R]
+Mark the imported file as read-only.
 .TP
--t
-fileType (0=ASCII/1=BINARY) \&...
--t 1
+\f[B]-s\f[R]
+Mark the imported file as a system file.
 .TP
--e
-hex Execute address of file \&...
--e C000 -t 1
+\f[B]-u\f[R] \f[I]number\f[R]
+Set the user number for the imported file.
+.SS Display and analysis
 .TP
--c
-hex loading address of file \&...
--e C000 -c 4000 -t 1
+\f[B]-b\f[R] \f[I]file\f[R]
+Display a tokenized Amstrad BASIC source file.
 .TP
--f
-Force overwriting if file exists \&...
--f
+\f[B]-p\f[R]
+Split lines longer than 80 characters (used with \f[B]-b\f[R]).
 .TP
--o
-insert a read-Only file \&...
--o
+\f[B]-d\f[R] \f[I]file\f[R]
+Display a DAMS assembly source file.
 .TP
--s
-insert a System file \&...
--s
+\f[B]-h\f[R] \f[I]file\f[R]
+Display a binary file as hexadecimal.
 .TP
--u
-insert file with User number \&...
--u 3
+\f[B]-z\f[R] \f[I]file\f[R]
+Disassemble a Z80 binary file.
+.SH EXAMPLES
+.PP
+List the contents of a disk image:
+.IP
+.nf
+\f[C]
+iDSK floppy.dsk -l
+\f[R]
+.fi
+.PP
+Export a file from a disk image:
+.IP
+.nf
+\f[C]
+iDSK floppy.dsk -g myprog.bas
+\f[R]
+.fi
+.PP
+Import a binary file with specific load and execution addresses:
+.IP
+.nf
+\f[C]
+iDSK floppy.dsk -i myprog.bin -t 1 -c 4000 -e C000
+\f[R]
+.fi
+.PP
+Create a new empty disk image:
+.IP
+.nf
+\f[C]
+iDSK floppy2.dsk -n
+\f[R]
+.fi
+.PP
+Display a tokenized BASIC file, wrapping at 80 characters:
+.IP
+.nf
+\f[C]
+iDSK floppy.dsk -b myprog.bas -p
+\f[R]
+.fi
 .SH BUGS
 .PP
 No known bugs.
+Please report bugs at <https://github.com/cpcsdk/idsk/issues>.
+.SH SEE ALSO
+.PP
+\f[B]dsktools\f[R](1)
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Sid.
+.PP
+\f[B]iDSK\f[R] was originally written by Sid (IMPACT) and further
+developed by PulkoMandy (Shinra Team), Thierry JOUIN (Ramlaid),
+Demoniak, and other contributors from the cpcsdk project.
+.PP
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>.
+.SH AUTHORS
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>.

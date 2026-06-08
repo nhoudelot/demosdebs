@@ -18,8 +18,8 @@ Description: Fix 64-bit portability issues
     - the SQSH chunk checksum word was read as *(UWORD*)c — replaced by memcpy.
     - xchecksum() received a (ULONG*) pointer to potentially unaligned data;
       the function now takes a byte pointer and uses memcpy to read each word.
-Generated-by: Claude Sonnet 4.6
-Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-by : Claude Sonnet 4.6
 Forwarded: no
 Applied-Upstream: no
 Last-Update: 2026-05-02

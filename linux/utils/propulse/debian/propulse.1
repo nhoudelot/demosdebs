@@ -14,53 +14,76 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "propulse" "1" "2025-12-21" "Propulse User Manuals" ""
+.TH "propulse" "1" "2026-06-10" "\[lq]Propulse Tracker 0.9.6.1\[rq] \[lq]\[rq] \[lq]2026-06-10\[rq] \[lq]General Commands Manual\[rq]" ""
 .hy
 .SH NAME
 .PP
-\f[B]propulse\f[R] - the command to run Propulse.
+\f[B]propulse\f[R] - crossplatform tracker compatible with Amiga
+ProTracker modules
 .SH SYNOPSIS
 .PP
-\f[B]propulse\f[R] [\f[I]options\f[R]]
+\f[B]propulse\f[R] [\f[I]file\f[R]]
 .SH DESCRIPTION
 .PP
-\f[B]Propulse\f[R] is a program released by hukka in 2020.
+\f[B]Propulse\f[R] is a tracker for creating and playing Amiga
+ProTracker compatible modules (.MOD), using an interface inspired by
+Impulse Tracker and Schism Tracker.
 .PP
-It\[cq]s a crossplatform tracker for making Amiga ProTracker compatible
-tracker modules using an Impulse/Schism Tracker style user interface.
-.SH Features
+It features a highly accurate playback engine based on 8bitbubsy\[cq]s
+work, itself derived from a disassembly of the original Amiga ProTracker
+firmware.
+Test cases such as \f[I]black_queen.mod\f[R] and MPT test modules play
+correctly.
+.PP
+An optional \f[I]file\f[R] argument can be passed to open a module
+directly on startup.
+.SH OPTIONS
+.PP
+\f[B]propulse\f[R] does not currently support command-line options
+beyond opening a file on startup.
+.SH FEATURES
 .IP \[bu] 2
-Super accurate playback engine based on work by 8bitbubsy (itself based
-on a disassembly of the original Amiga ProTracker); things like - - -
-black_queen.mod and MPT test cases play correctly
+Familiar keyboard commands from Impulse Tracker and Schism Tracker
 .IP \[bu] 2
-Familiar Impulse/Schism Trackerish interface with familiar keyboard
-commands
+Fully configurable keybindings, colour palettes, bitmap fonts, and
+screen layouts
 .IP \[bu] 2
-User configurable keybindings, colors, fonts of any size, even screen
-layouts\&...
-.IP \[bu] 2
-WAV export with optional looping and fade out
+WAV export with optional loop and fade out
 .IP \[bu] 2
 Integrated mouse-driven sample editor
-.SH Supported formats
-.IP \[bu] 2
-\f[B]MOD\f[R] - Loads and saves Amiga ProTracker modules (including load
-support for 15-sample Ultimate SoundTracker mods, NoiseTracker, and
-PowerPacked files)
-.IP \[bu] 2
-\f[B]P61A\f[R] - Imports The Player 6.1a crunched modules
-.IP \[bu] 2
-\f[B]IT\f[R] and \f[B]S3M\f[R] - Imports Impulse Tracker and Scream
-Tracker 3 modules
-.IP \[bu] 2
-Samples: \f[B]raw\f[R], \f[B]IFF 8SVX\f[R], \f[B]WAV\f[R], \f[B]MP3\f[R]
-& \f[B]Ogg Vorbis\f[R] (when using BASS)
-.SH URL
-.PP
-https://github.com/hukkax/Propulse
+.SH SUPPORTED FORMATS
+.TP
+\f[B]MOD\f[R]
+Loads and saves Amiga ProTracker modules, including 15-sample Ultimate
+SoundTracker mods, NoiseTracker, and PowerPacked files.
+.TP
+\f[B]P61A\f[R]
+Imports The Player 6.1a crunched modules.
+.TP
+\f[B]IT\f[R], \f[B]S3M\f[R]
+Imports Impulse Tracker and Scream Tracker 3 modules.
+.TP
+\f[B]Samples\f[R]
+raw, IFF 8SVX, WAV, MP3, and Ogg Vorbis (requires BASS library).
+.SH FILES
+.TP
+\f[I]\[ti]/.config/propulse/\f[R]
+Per-user configuration directory (keybindings, colour palette,
+settings).
+.TP
+\f[I]/usr/share/propulse/data/\f[R]
+Shared data files (fonts, palettes, icons).
 .SH BUGS
 .PP
 No known bugs.
+Please report issues at <https://github.com/hukkax/Propulse/issues>.
+.SH SEE ALSO
+.PP
+\f[B]schismtracker\f[R](1)
+.SH AUTHOR
+.PP
+Propulse was written by hukka <https://github.com/hukkax>.
+.PP
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),hukka.
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>.

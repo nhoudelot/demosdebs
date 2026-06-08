@@ -1,3 +1,9 @@
+funzyto770 (1.5-0ddebs11) unstable; urgency=medium
+
+  * updated manuals, added French versions
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 09 Jun 2026 01:52:04 +0200
+
 funzyto770 (1.5-0ddebs10) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

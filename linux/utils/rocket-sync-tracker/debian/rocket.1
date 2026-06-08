@@ -14,25 +14,135 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "rocket-sync-tracker" "1" "2019-11-09" "Rocket User Manuals" ""
+.TH "rocket-sync-tracker" "1" "2024-03-13" "Rocket Sync-Tracker User Manual" ""
 .hy
 .SH NAME
 .PP
-rocket-sync-tracker - the command to run Rocket.
+rocket-sync-tracker - sync-tracker editor for demoscene productions
 .SH SYNOPSIS
 .PP
-rocket-sync-tracker [\f[I]options\f[R]]
+\f[B]rocket-sync-tracker\f[R] [\f[I]FILE\f[R]]
 .SH DESCRIPTION
 .PP
-Rocket is a program released by Rocket dev team in 2008.
-.SH OPTIONS
+\f[B]Rocket\f[R] is a sync-tracker, a tool for synchronizing music and
+visuals in demoscene productions.
+It provides a Qt5-based GUI editor and an ANSI C client library
+(\f[B]librocket\f[R]) that can either communicate with the editor over a
+network socket during development, or play back an exported data-set in
+the final release.
 .PP
-there is no options to this program
+The editor is laid out like a music-tracker: tracks (columns) hold named
+variables; rows represent discrete points in time.
+Key-frames can be set at any row; Rocket interpolates between adjacent
+key-frames according to a per-key-frame interpolation mode.
+.PP
+If \f[I]FILE\f[R] is provided, the specified \f[B].rocket\f[R] project
+file is opened on startup.
+.SH INTERPOLATION MODES
 .TP
---help
-Display help for the command
+\f[B]Step\f[R]
+Always returns the exact value of the key-frame (no interpolation).
+.TP
+\f[B]Linear\f[R]
+Linearly interpolates between the current and the next key-frame value.
+.TP
+\f[B]Smooth\f[R]
+Applies a smooth-step (S-curve) interpolation between two values.
+.TP
+\f[B]Ramp\f[R]
+Like Linear, with an additional exponentiation applied to the
+interpolation factor.
+.SH KEYBOARD SHORTCUTS
+.TP
+\f[B]Up\f[R]/\f[B]Down\f[R]/\f[B]Left\f[R]/\f[B]Right\f[R]
+Move the cursor.
+.TP
+\f[B]PgUp\f[R]/\f[B]PgDn\f[R]
+Move the cursor 16 rows up or down.
+.TP
+\f[B]Home\f[R]/\f[B]End\f[R]
+Move the cursor to the beginning or end of the track.
+.TP
+\f[B]Ctrl+Left\f[R]/\f[B]Ctrl+Right\f[R]
+Move the current track left or right.
+.TP
+\f[B]Enter\f[R]
+Enter a key-frame value at the cursor position.
+.TP
+\f[B]Del\f[R]
+Delete the key-frame at the cursor position.
+.TP
+\f[B]i\f[R]
+Cycle through interpolation modes.
+.TP
+\f[B]k\f[R]
+Toggle a bookmark on the current row.
+.TP
+\f[B]Alt+PgUp\f[R]/\f[B]Alt+PgDn\f[R]
+Jump to the previous or next bookmarked row.
+.TP
+\f[B]Space\f[R]
+Pause or resume demo playback.
+.TP
+\f[B]Shift+Up\f[R]/\f[B]Down\f[R]/\f[B]Left\f[R]/\f[B]Right\f[R]
+Extend the selection.
+.TP
+\f[B]Ctrl+C\f[R]
+Copy the selection.
+.TP
+\f[B]Ctrl+V\f[R]
+Paste.
+.TP
+\f[B]Ctrl+Z\f[R]
+Undo.
+.TP
+\f[B]Shift+Ctrl+Z\f[R]
+Redo.
+.TP
+\f[B]Ctrl+B\f[R]
+Bias (offset) the selected key-frames.
+.TP
+\f[B]Shift+Ctrl+Up\f[R]/\f[B]Shift+Ctrl+Down\f[R]
+Quick-bias the selection by ±0.1.
+.TP
+\f[B]Ctrl+Up\f[R]/\f[B]Ctrl+Down\f[R]
+Quick-bias the selection by ±1.
+.TP
+\f[B]Ctrl+PgUp\f[R]/\f[B]Ctrl+PgDn\f[R]
+Quick-bias the selection by ±10.
+.TP
+\f[B]Shift+Ctrl+PgUp\f[R]/\f[B]Shift+Ctrl+PgDn\f[R]
+Quick-bias the selection by ±100.
+.SH FILES
+.TP
+*\f[B].rocket\f[R]
+Project file containing all tracks and key-frames for a production.
+.TP
+\f[B]\[ti]/.config/rocket/\f[R]
+Per-user Qt application settings.
+.SH NOTES
+.PP
+During development, \f[B]rocket-sync-tracker\f[R] listens on TCP port
+\f[B]1338\f[R] (default) for incoming connections from a demo client
+linked against \f[B]librocket\f[R].
+All edits made in the editor are mirrored to the demo client in real
+time.
+For the final release, the demo is compiled with the
+\f[B]SYNC_PLAYER\f[R] preprocessor symbol defined, and plays back the
+data-set previously exported from the editor.
 .SH BUGS
 .PP
-No known bugs.
+Report bugs at: <https://github.com/rocket/rocket/issues>
+.PP
+Or to the Rocket mailing list: <rocket-dev@googlegroups.com>
+.SH SEE ALSO
+.PP
+The full documentation and examples are available in
+\f[B]/usr/share/doc/rocket-sync-tracker/\f[R].
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Rocket dev team.
+.PP
+Developed by the Rocket dev team.
+.PP
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>
+.SH AUTHORS
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>.

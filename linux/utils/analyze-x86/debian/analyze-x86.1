@@ -14,23 +14,96 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "analyze-x86" "1" "2016-11-01" "analyzex86 User Manuals" ""
+.TH "analyze-x86" "1" "2026-06-08" "analyze-x86 1.0+git20181231" ""
 .hy
 .SH NAME
 .PP
-analyze-x86 - is the command to run analyzex86
+analyze-x86 - analyze an x86 binary for instruction set usage
 .SH SYNOPSIS
 .PP
-analyze-x86 [\f[I]options\f[R]]
+\f[B]analyze-x86\f[R] \f[I]binary\f[R]
 .SH DESCRIPTION
 .PP
-analyzex86 is a program released by Alexey Shvetsov tool to guess for
-which minimum instruction set, a binary has been compiled
-.SH OPTIONS
+\f[B]analyze-x86\f[R] disassembles an x86 ELF binary using
+\f[B]objdump\f[R](1) and counts how many instructions from each x86
+instruction set extension are present.
+It reports the detected instruction class counts along with a total
+instruction count, making it easy to determine the minimum CPU
+instruction set required to execute the binary.
+.SH ARGUMENTS
+.TP
+\f[I]binary\f[R]
+Path to the x86 or x86-64 ELF binary to analyze.
+.SH OUTPUT
 .PP
-there is no options to this program
+Each line of output is tab-separated and has the form:
+.IP
+.nf
+\f[C]
+binary<TAB>class<TAB>count
+\f[R]
+.fi
+.PP
+Where \f[I]binary\f[R] is the path passed on the command line,
+\f[I]class\f[R] is one of the detected instruction set names listed
+below, and \f[I]count\f[R] is the number of instructions belonging to
+that class.
+A final line with class \f[B]total\f[R] gives the total number of
+instructions disassembled.
+.PP
+Only classes with a non-zero count are printed.
+.SS Detected instruction sets
+.PP
+The following instruction classes are recognized, in detection order:
+.PP
+\f[B]cpuid\f[R], \f[B]nop\f[R], \f[B]call\f[R], \f[B]i486\f[R],
+\f[B]i586\f[R], \f[B]i686\f[R], \f[B]3dnow!\f[R], \f[B]3dnowext\f[R],
+\f[B]mmx\f[R], \f[B]sse\f[R], \f[B]sse2\f[R], \f[B]sse3\f[R],
+\f[B]ssse3\f[R], \f[B]sse4.1\f[R], \f[B]sse4.2\f[R], \f[B]sse4a\f[R],
+\f[B]aes\f[R], \f[B]avx\f[R], \f[B]avx2\f[R]
+.SH EXIT STATUS
+.TP
+\f[B]0\f[R]
+Success, or the binary contains no instructions.
+.TP
+\f[B]1\f[R]
+Wrong number of arguments, failure to invoke \f[B]objdump\f[R](1), or an
+I/O error while reading its output.
+.SH EXAMPLES
+.PP
+Analyze a system binary:
+.IP
+.nf
+\f[C]
+analyze-x86 /usr/bin/ls
+\f[R]
+.fi
+.PP
+Analyze all ELF binaries in a directory and sort by SSE4.2 usage:
+.IP
+.nf
+\f[C]
+for f in /usr/bin/*; do analyze-x86 \[dq]$f\[dq] 2>/dev/null; done \[rs]
+    | awk -F\[aq]\[rs]t\[aq] \[aq]$2==\[dq]sse4.2\[dq]{print $3, $1}\[aq] | sort -rn | head
+\f[R]
+.fi
+.SH SEE ALSO
+.PP
+\f[B]objdump\f[R](1), \f[B]readelf\f[R](1), \f[B]file\f[R](1)
 .SH BUGS
 .PP
 No known bugs.
+Please report bugs at
+\f[B]https://github.com/alexxy/analyze-x86/issues\f[R].
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Alexey Shvetsov.
+.PP
+Meya Argenta <fierevere@ya.ru> (original author, 2010)
+.PP
+Alexey Shvetsov <alexxy@gentoo.org> (2012)
+.PP
+Ivan Shapovalov <intelfx@intelfx.name> (2016)
+.PP
+Nicolas HOUDELOT <nicolas@demosdebs.org> (Debian packaging)
+.SH AUTHORS
+Nicolas HOUDELOT <nicolas@demosdebs.org>; Alexey Shvetsov; Ivan
+Shapovalov.

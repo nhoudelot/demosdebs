@@ -17,5 +17,18 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Thomson TO7/70 emulator
- Emulator for the Thomson TO7/70
+Description: Thomson TO7-70 home computer emulator
+ thom emulates the Thomson TO7-70, a French 8-bit home computer based on the
+ Motorola MC6809E processor. It faithfully reproduces the hardware of the
+ TO7-70, including the CPU, memory card, video card, and the following
+ peripherals: optical pen (light pen), joysticks, cassette tape reader, and
+ floppy disk controller.
+ .
+ The emulator runs in windowed mode under X11 (GTK+ 1.2) and supports the
+ following virtual media formats:
+  - Mémo7 ROM cartridge images (.m7)
+  - Cassette tape images (.k7)
+  - Thomson 5"25 floppy disk images (.sap)
+ .
+ Sound output is provided via PulseAudio. The control panel (ESC key) allows
+ managing peripherals and adjusting the emulation speed.

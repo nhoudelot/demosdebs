@@ -22,17 +22,34 @@ Architecture: amd64 arm64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: software to control the kryoflux hardware
- software to use with kryoflux hardware, in order to extract
- data from floppy disk.
- include the command line tool : dtc
+Description: KryoFlux Disk Tool Console for floppy disk acquisition
+ dtc (Disk Tool Console) controls the KryoFlux USB floppy controller board.
+ It reads raw magnetic flux streams from legacy floppy disks and converts
+ them to a wide range of image formats, or writes images back to disk.
+ .
+ Supported platforms include Acorn, Apple, Amstrad CPC, Atari 8-bit and ST,
+ BBC Micro, Commodore 64 and Amiga, MSX, IBM PC, ZX Spectrum, and many
+ others. Disk media of 3", 3.5", 5.25" and 8" are supported.
+ .
+ Key features:
+  - Preservation-quality raw STREAM capture
+  - Simultaneous multi-format output in a single disk pass
+  - Deviceless (offline) image conversion without KryoFlux hardware
+  - Path Solver and consistency graph generation for quality assessment
+  - EDOS (Electronic Distribution Of Software) decryption support
+  - Non-root access via udev rules
 
 Package: dtc-doc
 Architecture: all
 Depends:
  ${misc:Depends}
-Description: Documentations for dtc
- dtc documentation, the software to use with kryoflux hardware
+Description: Documentation for the KryoFlux Disk Tool Console
+ This package contains the full KryoFlux documentation set, including the
+ hardware and software manual, quick-start guide, stream protocol
+ specification, and hardware schematics.
+ .
+ The manual covers hardware setup, command-line usage, all supported image
+ formats, graph interpretation, writing disks, and preservation workflows.
 
 Package: kryofluxui
 Architecture: all
@@ -42,7 +59,12 @@ Depends:
  jarwrapper,
  default-jre (>= 2:1.8) | java8-runtime,
  ${misc:Depends}
-Description: GUI to control the kryoflux hardware
- software to use with kryoflux hardware, in order to extract
- data from floppy disk.
- include the java gui tool : kryofluxui
+Description: KryoFlux graphical user interface for floppy disk acquisition
+ kryofluxui provides a Java-based graphical front-end to dtc, the KryoFlux
+ Disk Tool Console. It covers the most common KryoFlux operations and is
+ recommended for users who prefer a visual interface over the command line.
+ .
+ The interface displays a live track grid with colour-coded status indicators,
+ histogram and scatter views of the raw flux data, and a profile-based format
+ selector. Multiple output profiles can be active simultaneously, enabling
+ combined STREAM and decoded-image dumps in a single pass.

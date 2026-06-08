@@ -1,3 +1,9 @@
+project-x (0.91.10-0ddebs10) unstable; urgency=medium
+
+  * updated manual, added French version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 10 Jun 2026 00:02:29 +0200
+
 project-x (0.91.10-0ddebs9) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

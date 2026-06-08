@@ -18,6 +18,15 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends},
  sane-utils
-Description: Open-source software to manage your products' guarantees.
- Only in French for the moment. The project will be adapted to be translated in
- a few versions.
+Description: graphical manager for product warranties
+ Hermes is a free and open-source Qt5 graphical application to manage your
+ products' warranties.
+ .
+ It allows you to add products with their purchase date and warranty end date,
+ attach invoice and warranty certificate documents, mark products currently in
+ after-sales service (SAV), and search through your product list.
+ .
+ Product data is stored locally in the user's home directory, both in a legacy
+ binary format and in individual JSON files for future compatibility.
+ .
+ The interface is currently available in French only.

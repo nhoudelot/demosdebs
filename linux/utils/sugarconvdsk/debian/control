@@ -15,5 +15,14 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Convert any Amstrad CPC dump file format to other format
- Tool to convert any Amstrad CPC dump file format to another format
+Description: Amstrad CPC disk image format converter
+ SugarConvDsk converts Amstrad CPC disk dump files between various formats,
+ including DSK, EDSK, HFE, IPF (Interchangeable Preservation Format),
+ SCP (Supercard Pro), CT-RAW, and Kryoflux.
+ .
+ Internally the tool uses an MFM-based representation that handles weak bits,
+ optional bits, and multi-revolution tracks, ensuring accurate preservation
+ of disk data during conversion.
+ .
+ SugarConvDsk can also display the CP/M directory of a disk image for a given
+ user number, without performing any conversion.

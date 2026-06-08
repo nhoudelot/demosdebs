@@ -13,5 +13,12 @@ Architecture: amd64 i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Tool for Linux, released in 2015
- Tool by Reality, released in 2015
+Description: converts Amiga executables to ADF disk images
+ exe2adf converts Amiga executable (.exe) files into bootable ADF
+ (Amiga Disk File) disk images, suitable for use with Amiga emulators
+ or real hardware.
+ .
+ Created by Bonefish of the demo group Reality in 2015, exe2adf
+ supports optional features such as boot-time text display, custom disk
+ labels, directory inclusion, custom bootblocks, palette configuration,
+ and sector allocation map display.

@@ -14,25 +14,143 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "elfing" "1" "2019-12-12" "elfing User Manuals" ""
+.TH "elfling" "1" "2026-06-09" "elfling User Manuals" ""
 .hy
 .SH NAME
 .PP
-elfing - the command to run elfing.
+elfling - a linking compressor for ELF files
 .SH SYNOPSIS
 .PP
-elfing [\f[I]options\f[R]]
+\f[B]elfling\f[R] [\f[B]-o\f[R]\f[I]output\f[R]]
+[\f[B]-c\f[R]\f[I]params\f[R]] [\f[B]-l\f[R]\f[I]library\f[R]]\&...
+[\f[B]-f\f[R]\f[I]flag\f[R]]\&...
+\f[I]file.o\f[R]
 .SH DESCRIPTION
 .PP
-elfing is a program released by Minas and Calodox in 2014.
+\f[B]elfling\f[R] is a context-modeling compressing linker that
+transforms an ELF relocatable object file (\f[I].o\f[R]) into a minimal
+self-decompressing ELF executable.
+It is inspired by \f[B]Crinkler\f[R], a compressing linker for the
+Windows demoscene, and targets the Linux demoscene where executable size
+is critical.
+.PP
+\f[B]elfling\f[R] reads a single ELF object file (i386 or x86_64),
+resolves symbol relocations, builds an import jump table using a
+hash-based dynamic linker stub, compresses the resulting code and data
+with an adaptive arithmetic context model, and writes a
+self-decompressing ELF binary embedding the decompression stub.
+.PP
+The following limitations apply in the current version:
+.IP \[bu] 2
+Only a single input object file is supported.
+.IP \[bu] 2
+Only SDL 1.2 and OpenGL library imports are resolved at run time; the
+\f[B]-l\f[R] option is parsed but ignored for library resolution.
+.IP \[bu] 2
+Some ELF section types and relocation types may not be handled and may
+cause a crash.
+.IP \[bu] 2
+Running i386 output on a 64-bit system requires the matching 32-bit
+runtime libraries.
 .SH OPTIONS
-.PP
-there is no options to this program
 .TP
---help
-Display help for the command
-.SH BUGS
+\f[B]-o\f[R]\f[I]output\f[R]
+Write the compressed executable to \f[I]output\f[R].
+Default: \f[B]c.out\f[R].
+.TP
+\f[B]-c\f[R]\f[I]params\f[R]
+Set the compression context configuration.
+\f[I]params\f[R] is a hexadecimal string encoding the weight and size of
+each arithmetic context (up to 16 contexts).
+When omitted, default parameters are used automatically.
+Example: \f[B]-c0801010205070b0b0734273ac30403158d\f[R]
+.TP
+\f[B]-l\f[R]\f[I]library\f[R]
+Declare a shared library dependency (e.g., \f[B]-llibc.so.6\f[R],
+\f[B]-llibSDL-1.2.so.0\f[R], \f[B]-llibGL.so.1\f[R]).
+This option is parsed but currently ignored; SDL 1.2 and OpenGL are the
+only libraries resolved at run time.
+.TP
+\f[B]-f\f[R]\f[I]flag\f[R]
+Enable a boolean flag.
+\f[I]flag\f[R] is appended directly to \f[B]-f\f[R] with no separator.
+Recognized flags:
+.RS
+.TP
+\f[B]verbose\f[R]
+Print detailed information about sections, imports, and relocations
+during linking.
+Enabled with \f[B]-fverbose\f[R].
+.RE
+.SH OUTPUT
 .PP
-No known bugs.
+\f[B]elfling\f[R] prints progress to standard output during linking:
+.TP
+\f[B]Arch: i386\f[R] or \f[B]Arch: x86_64\f[R]
+Detected architecture of the input object file.
+.TP
+\f[B]Section\f[R] \f[I]name\f[R] **\[at]** \f[I]address\f[R]
+Virtual address assigned to each section in the output image.
+.TP
+\f[B]Wrote\f[R] \f[I]N\f[R] \f[B]bytes\f[R]
+Size of the final compressed executable in bytes.
+.SH EXAMPLES
+.PP
+Compress a 32-bit C program:
+.IP
+.nf
+\f[C]
+gcc -Os -c prog.c -fomit-frame-pointer -fno-exceptions -o prog.o -m32
+elfling prog.o -oprog.out -llibc.so.6
+chmod 755 prog.out
+\f[R]
+.fi
+.PP
+Compress a 64-bit program with explicit compression parameters:
+.IP
+.nf
+\f[C]
+gcc -Os -c prog.c -fomit-frame-pointer -fno-exceptions -o prog.o
+elfling prog.o -oprog.out -c0801010205070b0b0734273ac30403158d -llibc.so.6
+chmod 755 prog.out
+\f[R]
+.fi
+.PP
+Compress an SDL/OpenGL demo with verbose output:
+.IP
+.nf
+\f[C]
+gcc -Os -c demo.c -fomit-frame-pointer -fno-exceptions -ffast-math \[rs]
+    -fsingle-precision-constant -o demo.o -m32
+elfling demo.o -odemo.out -llibSDL-1.2.so.0 -llibGL.so.1 -fverbose
+\f[R]
+.fi
+.SH FILES
+.TP
+\f[B]test/tmp\f[R]
+Temporary file created during linking.
+Contains the uncompressed linked binary before compression.
+Overwritten on each run.
+.SH BUGS
+.IP \[bu] 2
+Only one input object file can be linked at a time.
+.IP \[bu] 2
+Library flags (\f[B]-l\f[R]) are ignored; SDL 1.2 and OpenGL are always
+assumed.
+.IP \[bu] 2
+Some ELF relocation types or unusual section layouts may cause a crash.
+.IP \[bu] 2
+32-bit output on a 64-bit system requires 32-bit compatibility
+libraries.
+.PP
+Report bugs at \f[B]https://github.com/google/elfling\f[R].
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Minas and Calodox.
+.PP
+Written by Minas and Calodox.
+Packaged for Debian by Nicolas HOUDELOT <nicolas@demosdebs.org>.
+.SH SEE ALSO
+.PP
+\f[B]ld\f[R](1), \f[B]gcc\f[R](1), \f[B]nasm\f[R](1),
+\f[B]objdump\f[R](1), \f[B]readelf\f[R](1)
+.SH AUTHORS
+Nicolas HOUDELOT (nicolas\[at]demosdebs.org), Minas and Calodox.

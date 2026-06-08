@@ -25,8 +25,14 @@ Depends:
  libhxcfe2 (= ${binary:Version}),
  ${misc:Depends}
 Multi-Arch: same
-Description: librarie to communicate with hxcfe (development files)
- development files for communication librarie
+Description: HxC Floppy Emulator core library (development files)
+ libhxcfe is the main library of the HxC Floppy Emulator project. It provides
+ support for importing, exporting and converting a wide range of floppy disk
+ image formats (HFE, ADF, IMG, DSK, MFM, Kryoflux, SCP, and many more), as
+ well as low-level track analysis and floppy stream handling.
+ .
+ This package contains the header files and static library needed to build
+ applications against libhxcfe.
 
 Package: libhxcfe2
 Section: libs
@@ -35,8 +41,13 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Multi-Arch: same
-Description: librarie to communicate with hxcfe
- binary files for communication librarie
+Description: HxC Floppy Emulator core library (shared library)
+ libhxcfe is the main library of the HxC Floppy Emulator project. It provides
+ support for importing, exporting and converting a wide range of floppy disk
+ image formats (HFE, ADF, IMG, DSK, MFM, Kryoflux, SCP, and many more), as
+ well as low-level track analysis and floppy stream handling.
+ .
+ This package contains the shared library.
 
 Package: libusbhxcfe-dev
 Section: libdevel
@@ -45,18 +56,27 @@ Depends:
  libusbhxcfe2 (= ${binary:Version}),
  ${misc:Depends}
 Multi-Arch: same
-Description: librarie to communicate with hxcfe on USB (development files)
- development files for USB communication librarie
+Description: HxC Floppy Emulator USB driver library (development files)
+ libusbhxcfe is the USB driver library for the HxC Floppy Emulator hardware.
+ It provides the communication layer required to control a USB HxC Floppy
+ Emulator device directly from a host computer.
+ .
+ This package contains the header files and static library needed to build
+ applications against libusbhxcfe.
 
 Package: libusbhxcfe2
 Section: libs
 Architecture: any
 Depends:
  ${shlibs:Depends},
-  ${misc:Depends}
+ ${misc:Depends}
 Multi-Arch: same
-Description: librarie to communicate with hxcfe on USB
- shared binary
+Description: HxC Floppy Emulator USB driver library (shared library)
+ libusbhxcfe is the USB driver library for the HxC Floppy Emulator hardware.
+ It provides the communication layer required to control a USB HxC Floppy
+ Emulator device directly from a host computer.
+ .
+ This package contains the shared library.
 
 Package: libhxcadaptor-dev
 Section: libdevel
@@ -64,23 +84,44 @@ Architecture: any
 Depends:
  ${misc:Depends}
 Multi-Arch: same
-Description: librarie to communicate with hxcadaptor
- Development files
+Description: HxC Floppy Emulator system abstraction library (development files)
+ libhxcadaptor is a portability helper library used internally by the HxC
+ Floppy Emulator project. It provides cross-platform wrappers for system calls,
+ file I/O, memory management and other OS-level primitives, allowing the rest
+ of the project to build on Linux, Windows and macOS without modification.
+ .
+ This package contains the header files needed to build applications against
+ libhxcadaptor.
 
 Package: hxcfloppyemulator
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: This software act as the floppy server with the USB HxC Floppy Emulator
- This program also allows you to convert floppy image files for the SDCard
- based HxC Floppy Emulator.
- 
+Description: graphical floppy disk image converter and USB HxC floppy server
+ HxCFloppyEmulator is a graphical application (built with FLTK) that serves as
+ a companion to the HxC Floppy Emulator hardware devices. It allows users to:
+ .
+  - Import and convert floppy disk images across many formats (HFE, ADF, IMG,
+    DSK, MFM, Kryoflux streams, SCP, and many more).
+  - Browse and manipulate DOS/FAT and AmigaDOS floppy images.
+  - Perform low-level track and disk inspection.
+  - Act as a floppy image server for the USB HxC Floppy Emulator device.
+  - Read physical floppy disks and save them as image files.
+
 Package: hxcfe
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Command line version of the floppy server with the USB HxC Floppy Emulator
- This cli program also allows you to convert floppy image files for the SDCard
- based HxC Floppy Emulator.
+Description: command-line floppy disk image converter and USB HxC floppy server
+ hxcfe is the command-line companion to the HxC Floppy Emulator hardware
+ devices. It exposes the full power of the libhxcfe library through a simple
+ command-line interface and allows users to:
+ .
+  - Convert floppy disk images between many formats (HFE, ADF, IMG, DSK, MFM,
+    Kryoflux streams, SCP, and many more).
+  - Apply a specific raw disk layout to an image during conversion.
+  - List the content of a floppy image and extract or inject individual files.
+  - Drive a USB HxC Floppy Emulator device as a floppy image server.
+  - Execute batch conversion operations via script files.

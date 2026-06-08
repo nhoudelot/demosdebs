@@ -14,46 +14,188 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "thom" "1" "2016-10-13" "Thom User Manuals" ""
+.TH "thom" "1" "2026-06-10" "" "thom User Manuals"
 .hy
 .SH NAME
 .PP
-thom - is the command to run thom
+thom - Thomson TO7-70 home computer emulator
 .SH SYNOPSIS
 .PP
-thom [\f[I]options\f[R]]
+\f[B]thom\f[R] [\f[B]-m\f[R] \f[I]file.m7\f[R]] [\f[B]-nodisk\f[R]]
+[\f[B]-fast\f[R]] [\f[B]-nosound\f[R]] [\f[B]-geometry\f[R]
+\f[I]wxh+x+y\f[R]] [\f[B]-noshm\f[R]] [\f[B]-display\f[R]
+\f[I]displayname\f[R]] [\f[B]-help\f[R]]
 .SH DESCRIPTION
 .PP
-Thom is a TO7/70 emulator Copyright (C) 1996 Sylvain Huet, 1999-2003
-Eric Botcazou.
+\f[B]thom\f[R] emulates the Thomson TO7-70, a French 8-bit home computer
+based on the Motorola MC6809E processor.
+It faithfully reproduces the hardware of the TO7-70, including the
+MC6809E CPU, memory card, video card, and the following peripherals:
+optical pen (light pen), joysticks, cassette tape reader, and floppy
+disk controller.
+.PP
+The emulator requires an X11 display and GTK+ 1.2.
+Sound output is provided via PulseAudio.
+.PP
+The TO7-70 ROM is not included for copyright reasons and must be
+obtained separately.
+ROM files must be placed in \f[B]/usr/share/thom/\f[R].
+.SS Control Panel
+.PP
+Pressing \f[B]ESC\f[R] suspends emulation and opens the control panel.
+From this menu, the following operations are available:
+.IP \[bu] 2
+Reset the TO7-70 (equivalent to pressing the Reset button on the
+machine)
+.IP \[bu] 2
+Cold restart (power cycle)
+.IP \[bu] 2
+Adjust emulation speed: exact (MC6809E at 1 MHz) or maximum (full speed,
+disables sound)
+.IP \[bu] 2
+Manage the cartridge slot (Mémo7 format, \f[I].m7\f[R])
+.IP \[bu] 2
+Manage the cassette tape reader (\f[I].k7\f[R] format)
+.IP \[bu] 2
+Manage up to four floppy disk drives (\f[I].sap\f[R] format, Thomson
+5\[rq]25 360 KB)
+.SS Keyboard
+.PP
+The TO7-70 keyboard is fully emulated on an AZERTY layout.
+Key mappings:
+.IP \[bu] 2
+\f[B]STOP\f[R] → Tab
+.IP \[bu] 2
+\f[B]CNT\f[R] → Left Ctrl
+.IP \[bu] 2
+\f[B]RAZ\f[R] → End
+.IP \[bu] 2
+\f[B]ACC\f[R] → Alt
+.IP \[bu] 2
+\f[B]HOME\f[R] → Home
+.IP \[bu] 2
+\f[B]INS\f[R] → Insert
+.IP \[bu] 2
+\f[B]EFF\f[R] → Delete
+.IP \[bu] 2
+Arrow keys → Arrow keys
+.IP \[bu] 2
+\f[B]#\f[R] is mapped to \f[B]ù\f[R] (Shift+2)
+.SS Joysticks
+.PP
+The numeric keypad emulates joystick 0 (8 directions); Fire is mapped to
+Right Ctrl.
+The left keyboard block (A\[en]E, Q\[en]D, W\[en]C) emulates joystick 1
+while still sending the corresponding letters to the TO7-70; Fire is
+mapped to Left Ctrl.
+.SS Optical Pen
+.PP
+The mouse emulates the TO7-70 optical pen.
+The left button acts as the pen tip.
+The right button toggles the mouse cursor visibility.
+.SS Sound
+.PP
+Both the internal 1-bit sound generator and the external 6-bit generator
+(Musique et Jeux interface) are emulated.
+Sound is output via PulseAudio.
+.SS Graphics Modes
+.PP
+The emulator supports 8, 16, 24, and 32-bit X11 color depths.
+The default window size is 640x400; the \f[B]-geometry 320x200\f[R]
+option selects a smaller, faster-rendering window.
 .SH OPTIONS
 .TP
--help
-affiche cette aide
+\f[B]-help\f[R]
+Display command-line help.
 .TP
--m
-file.m7 place the cartridge file.m7 in the slot
+\f[B]-m\f[R] \f[I]file.m7\f[R]
+Load the Mémo7 ROM cartridge image \f[I]file.m7\f[R] at startup.
 .TP
--nodisk
-disable disk controller
+\f[B]-nodisk\f[R]
+Disable the floppy disk controller.
 .TP
--fast
-activate emulator in fast-speed
+\f[B]-fast\f[R]
+Start the emulator at maximum speed (sound is disabled in this mode).
 .TP
--nosound
-disable sound
+\f[B]-nosound\f[R]
+Disable sound output.
 .TP
--geometry wxh+x+y
-change window geometry (two possible size: 640x400 or 320x200)
+\f[B]-geometry\f[R] \f[I]wxh+x+y\f[R]
+Set the window geometry.
+Two sizes are supported: \f[B]640x400\f[R] (default) and
+\f[B]320x200\f[R] (faster rendering).
 .TP
--noshm
-disable the use of MIT-SHM extension
+\f[B]-noshm\f[R]
+Disable the MIT-SHM X11 shared memory extension.
 .TP
--display displayname
-specify the X server to use
+\f[B]-display\f[R] \f[I]displayname\f[R]
+Specify the X server to connect to.
+.SH FILES
+.TP
+\f[I]/usr/share/thom/\f[R]
+Directory where the TO7-70 ROM files must be placed.
+.TP
+\f[I]memo7/\f[R]
+Recommended directory for Mémo7 ROM cartridge images (\f[I].m7\f[R]).
+.TP
+\f[I]k7/\f[R]
+Recommended directory for cassette tape images (\f[I].k7\f[R]).
+.TP
+\f[I]disks/\f[R]
+Recommended directory for Thomson 5\[rq]25 floppy disk images
+(\f[I].sap\f[R]).
+.SH EXAMPLES
+.PP
+Start the emulator with default settings:
+.IP
+.nf
+\f[C]
+thom
+\f[R]
+.fi
+.PP
+Start the emulator with a Mémo7 cartridge preloaded:
+.IP
+.nf
+\f[C]
+thom -m memo7/basic128.m7
+\f[R]
+.fi
+.PP
+Start at maximum speed (no sound):
+.IP
+.nf
+\f[C]
+thom -fast -nosound
+\f[R]
+.fi
+.PP
+Start in 320x200 windowed mode:
+.IP
+.nf
+\f[C]
+thom -geometry 320x200
+\f[R]
+.fi
+.PP
+Connect to a specific X server:
+.IP
+.nf
+\f[C]
+thom -display :1
+\f[R]
+.fi
+.SH SEE ALSO
+.PP
+\f[B]xrandr\f[R](1)
 .SH BUGS
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Sylvain Huet, Eric
-Botcazou..
+.PP
+Written by Sylvain Huet in 1996.
+Extended and ported to Linux/Windows by Eric Botcazou (1999-2003).
+Updated for modern Linux systems in 2016.
+Packaged for Debian by Nicolas HOUDELOT <nicolas@demosdebs.org>.
+.SH AUTHORS
+Nicolas HOUDELOT <nicolas@demosdebs.org>; Eric Botcazou; Sylvain Huet.

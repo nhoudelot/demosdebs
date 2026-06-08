@@ -1,3 +1,9 @@
+exe2adf (1.0+1-0ddebs3) unstable; urgency=medium
+
+  * Updated manual, and added French version
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 09 Jun 2026 01:39:34 +0200
+
 exe2adf (1.0+1-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

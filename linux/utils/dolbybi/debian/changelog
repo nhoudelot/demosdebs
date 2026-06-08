@@ -1,3 +1,9 @@
+dolbybi (1:0.0+20180403-0ddebs8) unstable; urgency=medium
+
+  * Updated manual (and added french translation)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 09 Jun 2026 01:22:20 +0200
+
 dolbybi (1:0.0+20180403-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

@@ -14,23 +14,211 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "luisita-by-sole" "1" "2017-03-31" "luisita User Manuals" ""
+.TH "luisita" "1" "2026-06-09" "User Commands" "luisita"
 .hy
 .SH NAME
 .PP
-luisita-by-sole - the command to run luisita.
+luisita - Lua-scripted OpenGL graphics environment for real-time demos
 .SH SYNOPSIS
 .PP
-luisita-by-sole [\f[I]options\f[R]]
+\f[B]luisita\f[R] \f[B]-s\f[R] \f[I]script\f[R] [\f[I]options\f[R]]
 .SH DESCRIPTION
 .PP
-Luisita is an scriptable graphics environment à la Processing, only
-it\[cq]s based on Lua & C++.
-.SH OPTIONS
+\f[B]luisita\f[R] is a scriptable graphics environment inspired by
+Processing, built on top of Lua and C++.
+It provides a simple, minimalist API for writing real-time graphical
+applications (demos) without requiring deep OpenGL knowledge or manual
+C++ memory management.
 .PP
-there is no options to this program
+A Luisita demo consists of a Lua script that calls the built-in
+functions for graphics, image loading, camera control, lighting, fog,
+and audio playback.
+The script must define at least a \f[B]setup()\f[R] function and a
+\f[B]draw(ticks)\f[R] function.
+\f[B]setup()\f[R] is called once at startup; \f[B]draw()\f[R] is called
+every frame with the elapsed time in milliseconds.
+.PP
+Luisita uses \f[B]Lua\f[R] for scripting, \f[B]BASS\f[R] for audio
+playback, \f[B]OpenGL\f[R] (via GLEW) for rendering, and \f[B]SOIL\f[R]
+for image loading.
+.SH OPTIONS
+.TP
+\f[B]-s\f[R] \f[I]filename\f[R], \f[B]\[en]script-name\f[R] \f[I]filename\f[R]
+Name of the Lua script to execute.
+This option is required.
+.TP
+\f[B]-w\f[R] \f[I]pixels\f[R], \f[B]\[en]width\f[R] \f[I]pixels\f[R]
+Window width in pixels (default: 1024).
+.TP
+\f[B]-h\f[R] \f[I]pixels\f[R], \f[B]\[en]height\f[R] \f[I]pixels\f[R]
+Window height in pixels (default: 768).
+.TP
+\f[B]\[en]fullscreen\f[R]
+Run in fullscreen mode (default: windowed).
+.TP
+\f[B]\[en]antialias\f[R]
+Enable multisample antialiasing (default: disabled).
+.TP
+\f[B]\[en]antialias-samples\f[R] \f[I]N\f[R]
+Number of multisample antialiasing samples to use (default: 4).
+Has no effect unless \f[B]\[en]antialias\f[R] is also specified.
+.TP
+\f[B]-t\f[R] \f[I]seconds\f[R], \f[B]\[en]start-time\f[R] \f[I]seconds\f[R]
+Begin playback at \f[I]seconds\f[R] into the timeline (default: 0).
+Useful for debugging a specific moment in a demo.
+.TP
+\f[B]-l\f[R], \f[B]\[en]list-modes\f[R]
+List available hardware-accelerated fullscreen resolutions and exit.
+.TP
+\f[B]-?\f[R], \f[B]\[en]help\f[R]
+Show a brief usage summary and exit.
+.SH LUA API
+.PP
+The following global functions are available inside Lua scripts:
+.SS Setup and control
+.TP
+\f[B]setupIsDone\f[R]()
+Signal that the \f[B]setup()\f[R] function has completed initialisation.
+.TP
+\f[B]quit\f[R]()
+Request application exit.
+.TP
+\f[B]windowTitle\f[R](\f[I]title\f[R])
+Set the window title string.
+.TP
+\f[B]width\f[R](), \f[B]height\f[R]()
+Return the current window width or height in pixels.
+.TP
+\f[B]trace\f[R](\f[I]message\f[R])
+Print \f[I]message\f[R] to standard output (debugging aid).
+.SS 2D / 3D primitives
+.TP
+\f[B]beginShape\f[R]([\f[I]type\f[R]]), \f[B]endShape\f[R]()
+Begin and end a vertex sequence.
+\f[I]type\f[R] can be SHAPE_POINTS, SHAPE_LINES, SHAPE_LINE_STRIP,
+SHAPE_TRIANGLES, SHAPE_TRIANGLE_STRIP, SHAPE_QUADS, SHAPE_QUAD_STRIP, or
+SHAPE_POLYGON.
+.TP
+\f[B]vertex\f[R](\f[I]x\f[R], \f[I]y\f[R][, \f[I]z\f[R]]), \f[B]normal\f[R](\f[I]nx\f[R], \f[I]ny\f[R], \f[I]nz\f[R])
+Add a vertex or surface normal to the current shape.
+.TP
+\f[B]line\f[R](\f[I]x1\f[R], \f[I]y1\f[R], \f[I]x2\f[R], \f[I]y2\f[R]), \f[B]triangle\f[R](\f[I]x1\f[R], \f[I]y1\f[R], \f[I]x2\f[R], \f[I]y2\f[R], \f[I]x3\f[R], \f[I]y3\f[R])
+Draw a line or triangle directly.
+.TP
+\f[B]stipple\f[R](), \f[B]noStipple\f[R]()
+Enable or disable line stippling.
+.SS Colour
+.TP
+\f[B]background\f[R](\f[I]r\f[R], \f[I]g\f[R], \f[I]b\f[R][, \f[I]a\f[R]])
+Set the background (clear) colour.
+.TP
+\f[B]fill\f[R](\f[I]r\f[R], \f[I]g\f[R], \f[I]b\f[R][, \f[I]a\f[R]]), \f[B]noFill\f[R]()
+Set or disable the fill colour for shapes.
+.TP
+\f[B]stroke\f[R](\f[I]r\f[R], \f[I]g\f[R], \f[I]b\f[R][, \f[I]a\f[R]]), \f[B]noStroke\f[R]()
+Set or disable the outline colour for shapes.
+.TP
+\f[B]color\f[R](\f[I]r\f[R], \f[I]g\f[R], \f[I]b\f[R][, \f[I]a\f[R]]), \f[B]colorMode\f[R](\f[I]mode\f[R])
+Set the current drawing colour or the colour interpretation mode.
+.TP
+\f[B]strokeWeight\f[R](\f[I]w\f[R]), \f[B]pointSize\f[R](\f[I]s\f[R])
+Set the stroke width or point size in pixels.
+.SS Images and textures
+.TP
+\f[B]loadImage\f[R](\f[I]filename\f[R])
+Load an image file and return a texture identifier.
+.TP
+\f[B]image\f[R](\f[I]texId\f[R], \f[I]x\f[R], \f[I]y\f[R], \f[I]w\f[R], \f[I]h\f[R])
+Draw texture \f[I]texId\f[R] at (\f[I]x\f[R], \f[I]y\f[R]) with size
+\f[I]w\f[R] × \f[I]h\f[R].
+.TP
+\f[B]useTexture\f[R](\f[I]texId\f[R]), \f[B]noTexture\f[R]()
+Bind or unbind a texture for subsequent geometry.
+.SS Camera and projection
+.TP
+\f[B]ortho\f[R]([\f[I]w\f[R], \f[I]h\f[R]]), \f[B]restoreProjection\f[R]()
+Switch to orthographic (2D) projection or restore the previous one.
+.TP
+\f[B]camera\f[R](\f[I]eyeX\f[R], \f[I]eyeY\f[R], \f[I]eyeZ\f[R], \f[I]centerX\f[R], \f[I]centerY\f[R], \f[I]centerZ\f[R], \f[I]upX\f[R], \f[I]upY\f[R], \f[I]upZ\f[R])
+Position the 3D camera (equivalent to gluLookAt).
+.TP
+\f[B]perspective\f[R](\f[I]fov\f[R], \f[I]aspect\f[R], \f[I]zNear\f[R], \f[I]zFar\f[R])
+Set a perspective projection.
+.TP
+\f[B]depthTest\f[R](), \f[B]noDepthTest\f[R]()
+Enable or disable OpenGL depth testing.
+.SS Blending
+.TP
+\f[B]blending\f[R](\f[I]mode\f[R]), \f[B]noBlending\f[R]()
+Enable a blending mode or disable blending entirely.
+\f[I]mode\f[R] is one of BLENDING_ALPHABLEND, BLENDING_ADDITIVE,
+BLENDING_SUBSTRACTIVE, BLENDING_MULTIPLY, BLENDING_COLORMULTIPLY.
+.SS Lights
+.TP
+\f[B]lightEnabled\f[R](\f[I]n\f[R]), \f[B]noLights\f[R]()
+Enable OpenGL light \f[I]n\f[R] or disable all lights.
+.TP
+\f[B]lightPosition\f[R](\f[I]n\f[R], \f[I]x\f[R], \f[I]y\f[R], \f[I]z\f[R]), \f[B]lightAmbient\f[R](\f[I]n\f[R], \f[I]r\f[R], \f[I]g\f[R], \f[I]b\f[R], \f[I]a\f[R])
+Set the position or ambient colour of light \f[I]n\f[R].
+.TP
+\f[B]lightDiffuse\f[R](\f[I]n\f[R], \f[I]r\f[R], \f[I]g\f[R], \f[I]b\f[R], \f[I]a\f[R]), \f[B]lightSpotDirection\f[R](\f[I]n\f[R], \f[I]x\f[R], \f[I]y\f[R], \f[I]z\f[R])
+Set the diffuse colour or spot direction of light \f[I]n\f[R].
+.SS Fog
+.TP
+\f[B]fogMode\f[R](\f[I]mode\f[R]), \f[B]fogDensity\f[R](\f[I]d\f[R]), \f[B]fogStartEnd\f[R](\f[I]start\f[R], \f[I]end\f[R]), \f[B]fogColor\f[R](\f[I]r\f[R], \f[I]g\f[R], \f[I]b\f[R], \f[I]a\f[R])
+Configure OpenGL fog.
+\f[I]mode\f[R] is one of FOG_NONE, FOG_LINEAR, FOG_EXP, FOG_EXP2.
+.SS Audio
+.TP
+\f[B]loadMusicStream\f[R](\f[I]filename\f[R])
+Load an audio file and return a stream handle.
+.TP
+\f[B]playMusicStream\f[R](\f[I]handle\f[R])
+Start playback of stream \f[I]handle\f[R].
+.TP
+\f[B]isMusicStreamFinished\f[R](\f[I]handle\f[R])
+Return true when stream \f[I]handle\f[R] has finished playing.
+.TP
+\f[B]getMusicStreamTime\f[R](\f[I]handle\f[R]), \f[B]getMusicStartPosition\f[R]()
+Return the current playback position in seconds, or the value passed via
+\f[B]\[en]start-time\f[R].
+.SH EXAMPLES
+.PP
+Run the bundled hello-world script in a 1280 × 720 window:
+.IP
+.nf
+\f[C]
+luisita -s samples/001-hello.lua -w 1280 -h 720
+\f[R]
+.fi
+.PP
+Run a demo in fullscreen with antialiasing from the 30-second mark:
+.IP
+.nf
+\f[C]
+luisita -s demo.lua --fullscreen --antialias -t 30
+\f[R]
+.fi
+.PP
+List available fullscreen resolutions:
+.IP
+.nf
+\f[C]
+luisita --list-modes
+\f[R]
+.fi
 .SH BUGS
 .PP
 No known bugs.
+Please report issues at <https://github.com/sole/luisita/issues>.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),soledad penadés.
+.PP
+Luisita was written by Soledad Penades <http://soledadpenades.com>.
+.PP
+Packaged for Debian/Ubuntu by Nicolas HOUDELOT <nicolas@demosdebs.org>.
+.SH SEE ALSO
+.PP
+\f[B]lua\f[R](1), \f[B]glew\f[R](3)
+.SH AUTHORS
+Soledad Penades; Packaged for Debian/Ubuntu by Nicolas HOUDELOT
+<nicolas@demosdebs.org>.
