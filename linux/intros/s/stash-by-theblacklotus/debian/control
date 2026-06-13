@@ -1,0 +1,26 @@
+Source: stash-by-theblacklotus
+Section: demos
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+Standards-Version: 4.7.3
+Homepage: https://www.pouet.net/prod.php?which=3
+
+Package: stash-by-theblacklotus
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ixalance:i386,
+ ${shlibs:Depends},
+ ${misc:Depends},
+ common-install-function-ddebs(>=1.61),
+Description: 64Kb intro by The Black Lotus (1997)
+ Stash is a 64 Kb intro released by The Black Lotus at a demoparty in 1997.
+ It delivers 3.5 MB of full-colour graphics and 4 MB of music sampled at
+ 16-bit/44 kHz, packed into a 64 Kb executable.
+ .
+ Created by probe, jace, nix, balance, danny, and sick1/trp, the production
+ requires a Pentium-class CPU, a VGA card, and a Gravis UltraSound with at
+ least 1 MB of sample RAM.

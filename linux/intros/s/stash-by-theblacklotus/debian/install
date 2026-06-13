@@ -1,0 +1,4 @@
+debian/resources/stash-by-theblacklotus.desktop usr/share/applications/
+debian/resources/stash-by-theblacklotus.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/stash-by-theblacklotus usr/bin/
+STASH.IXA usr/share/stash-by-theblacklotus/ 

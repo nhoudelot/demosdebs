@@ -1,0 +1,37 @@
+#!/bin/bash -e
+
+source /usr/share/common-install-function-ddebs/common-install-function
+
+domain=stash-by-theblacklotus
+
+APP_FULLNAME="Stash"
+APP_COPYRIGHT="The Black Lotus"
+APP_DESC="Demo by The Black Lotus, released in 1997"
+
+function run()
+{
+	backuppwd=$(pwd)
+	cd /usr/share/${domain} || exit
+	ixalance STASH.IXA
+	cd $backuppwd || exit
+}
+
+
+if [ "$#" -gt "1" ]; then
+	 NSH_std_usage
+	exit 1
+elif [ "$#" -lt "1" ]; then
+	run
+else
+	case "$1" in
+	--help)
+		NSH_std_usage
+		;;
+	*)
+		NSH_std_usage
+		exit 1
+		;;
+	esac
+fi
+
+exit 0

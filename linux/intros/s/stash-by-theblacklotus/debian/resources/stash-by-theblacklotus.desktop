@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Stash
+GenericName=Demo
+Comment=Demo by The Black Lotus, released in 1997
+Type=Application
+Exec=/usr/bin/stash-by-theblacklotus
+Icon=stash-by-theblacklotus
+Categories=AudioVideo;
+Name[fr_FR]=Stash
