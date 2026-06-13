@@ -1,0 +1,30 @@
+Description: Disable PIE to fix segfault in 32-bit assembly trampoline
+ code.asm uses absolute addresses for C globals (saveFS, saveGS, saveESP,
+ jumptramp, etc.) via NASM EXTERN declarations compiled with -f elf32.
+ These absolute references are incompatible with Position Independent
+ Executables (PIE), which Ubuntu enables by default. When the binary is
+ loaded as PIE, the runtime relocations are not applied correctly to the
+ 32-bit ELF object, causing a SIGSEGV in the far-call trampoline during
+ demo startup.
+ .
+ Add -fno-pie to CFLAGS and -no-pie to LDFLAGS to produce a non-PIE ELF
+ executable, restoring the expected absolute addressing for code.asm.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-05-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -2,8 +2,8 @@
+ CC ?= gcc
+ CXX ?= g++
+ NASM ?= nasm
+-CFLAGS += -ffast-math -m32 $(shell sdl2-config --cflags)
+-LDFLAGS += -m32 $(shell sdl2-config --libs) -lopenmpt -lm
++CFLAGS += -ffast-math -m32 -fno-pie $(shell sdl2-config --cflags)
++LDFLAGS += -m32 -no-pie $(shell sdl2-config --libs) -lopenmpt -lm
+ OBJ =  main.o  lzss.o unrle.o d32load.o code.o
+ 
+ 

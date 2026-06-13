@@ -1,0 +1,42 @@
+Description: Mark demo executable buffer with PROT_EXEC to fix NX segfault
+ The demo code is loaded into heap memory allocated via calloc().  On
+ Linux with NX (No-Execute) support, heap pages are mapped rw-p by default,
+ causing a SIGSEGV when the CPU attempts to fetch instructions from the
+ demo's entry point.
+ .
+ After allocating the demo buffer (exeofs), call mprotect() to set
+ PROT_READ|PROT_WRITE|PROT_EXEC on the covering pages.  The address is
+ rounded down to the nearest page boundary and the size is rounded up
+ accordingly, so the call is safe for both large (mmap-backed, always
+ page-aligned) and small (sbrk-backed) allocations.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-05-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/d32load.c
++++ b/d32load.c
+@@ -5,6 +5,7 @@
+ #include <string.h>
+ #include <unistd.h>
+ #include <stdint.h>
++#include <sys/mman.h>
+ 
+ #include <SDL2/SDL.h>
+ #include <libopenmpt/libopenmpt.h>
+@@ -367,6 +368,14 @@
+     if (!(exeofs = IXDRV_Malloc(memrequired)))
+         IXDRV_OutputDebug("Virtual Alloc (for final exe memory) Failed!\n");
+ 
++    if (exeofs) {
++        uintptr_t base = (uintptr_t)exeofs & ~(uintptr_t)4095u;
++        size_t    len  = (size_t)memrequired + ((uintptr_t)exeofs & 4095u);
++        len = (len + 4095u) & ~(size_t)4095u;
++        if (mprotect((void *)base, len, PROT_READ | PROT_WRITE | PROT_EXEC) < 0)
++            IXDRV_OutputDebug("mprotect(EXEC) failed for exe buffer\n");
++    }
++
+     startip += (uint32_t)(uintptr_t) exeofs;
+     startsp += (uint32_t)(uintptr_t) exeofs;
+ 

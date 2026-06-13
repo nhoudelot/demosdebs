@@ -1,0 +1,675 @@
+Description: Port video output from SDL 1.x to SDL 2
+ Replace SDL 1.x surface-based rendering with SDL2 window/renderer/texture
+ pipeline.  Key changes:
+  - SDL_Window + SDL_Renderer + streaming RGB565 SDL_Texture replace the
+    SDL_Surface.  Demos write to a plain malloc() pixel_buffer; each frame
+    SDL_UpdateTexture() uploads it and SDL_RenderCopy() scales it.
+  - SDL_RenderSetLogicalSize() keeps the aspect ratio with black bars; the
+    hardware renderer handles the blit internally (no explicit OpenGL FBO
+    required; the fallback path falls back to software if the driver does
+    not support acceleration).
+  - ToggleFullscreen() implemented with SDL_WINDOW_FULLSCREEN_DESKTOP, bound
+    to the F key.
+  - Window is resizable (SDL_WINDOW_RESIZABLE).
+  - Dead GGI/PTC conditional code removed.
+  - Build dependency updated: libsdl1.2-dev -> libsdl2-dev.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-05-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -2,8 +2,8 @@
+ CC ?= gcc
+ CXX ?= g++
+ NASM ?= nasm
+-CFLAGS += -ffast-math -m32 $(shell sdl-config --cflags)
+-LDFLAGS += -m32 $(shell sdl-config --libs) -lmidas -lm
++CFLAGS += -ffast-math -m32 $(shell sdl2-config --cflags)
++LDFLAGS += -m32 $(shell sdl2-config --libs) -lmidas -lm
+ OBJ =  main.o  lzss.o unrle.o d32load.o code.o
+ 
+ 
+
+--- a/main.cpp
++++ b/main.cpp
+@@ -1,23 +1,7 @@
+-// Linux driver
+-// Supports X, SVGAlib, Glide, Fbcon, KGI (and AALib :) ++ via libGGI
+-// And X11 via OpenPTC library
+-// Heavily based on the original Win32 code
+-// By Jarno Paananen <jpaana@s2.org>
+-
+-//#define USE_GGI
+-//#define USE_PTC
+-#define USE_SDL
+-
+-#if (defined(USE_PTC) + defined(USE_GGI) + defined(USE_SDL)) != 1
+-#error Define only one of USE_GGI, USE_PTC or USE_SDL
+-#endif
+-#if !defined(USE_PTC) && !defined(USE_GGI) && !defined(USE_SDL)
+-#error You have to define one of USE_GGI, USE_PTC or USE_SDL
+-#endif
+-
+-#ifndef USE_SDL
+-#include <sys/time.h>
+-#endif
++// Linux driver – SDL2 backend
++// Original: Jarno Paananen <jpaana@s2.org>
++// SDL2 port: see debian/changelog
++
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <malloc.h>
+@@ -25,73 +9,29 @@
+ #include <stdarg.h>
+ #include "midasdll.h"
+ #include "ixalance.h"
+-#ifdef USE_GGI
+-#include <ggi/ggi.h>
+-#endif
+-#ifdef USE_PTC
+-#include <ptc/ptc.h>
+-#endif
+-#ifdef USE_SDL
+-#include "SDL.h"
+-#endif
+-
+-typedef struct {
+-    int x;
+-    int y;
+-    int depth;
+-    int rmask;
+-    int bmask;
+-    int gmask;
+-    int rcomp;
+-    int gcomp;
+-    int bcomp;
+-} Tgfxmodelist;
+-Tgfxmodelist gfxmodelist[256];
+-int numgfxmodes;
++#include <SDL2/SDL.h>
+ 
+ static FILE* debugfp;
+ 
+-// Setting
+ int Setting_Debugfile = 0;
+ int Setting_Doublesize = 0;
+ 
+-typedef unsigned int dword;
+-
+-//static void *g_lastBufferPtr = NULL;
+ static int g_lastWidth = 0, g_lastHeight = 0;
+-//static int ClearCount;
+-
+-//static int timepaused;
+-//static int pausetime;
+-//static int holdtime;
+ 
+ int paused;
+ static int showfps = 0;
+ static int stretch = 0;
+ 
+-#ifdef USE_GGI
+-/* GGI Stuff */
+-ggi_visual_t vis;
+-ggi_visual_t mvis;
+-ggi_mode mode;
+-const ggi_directbuffer *db;
+-static int async = 1;
+-#endif
+-
+-#ifdef USE_PTC
+-Surface *surf = NULL;
+-Console con;
+-#endif
+-
+-#ifdef USE_SDL
+-SDL_Surface *screen = NULL;
+-int fullscreen = 0;
+-#endif
++/* SDL2 state */
++static SDL_Window   *window       = NULL;
++static SDL_Renderer *renderer     = NULL;
++static SDL_Texture  *texture      = NULL;
++static void         *pixel_buffer = NULL;
++static int           is_fullscreen = 0;
+ 
+ int fx = 0, fy = 0;
+ int sx = 0, sy = 0;
+ 
+-
+ const char *usage =
+         "iXalance Loader 0.5, " __DATE__ "\n"
+         "Original Win32 version by Jurjen Katsman\n"
+@@ -105,293 +45,216 @@
+         "\t-sXxY\tForce screen mode to X x Y\n"
+         "\t-d\tCreate a debug file called debug.txt\n"
+         "\t-t\tPrints frames per second values to stdout\n"
+-#if defined(USE_GGI)
+-        "\t-a\tDon't use LibGGI in asynchronous mode\n";
+-#elif defined(USE_SDL)
+-        "\t-F\tUse full-screen mode\n";
+-#else
+-        "";
+-#endif
++        "\t-F\tStart in full-screen mode (toggle with F key)\n";
++
++/* ---------- helpers ---------------------------------------------------- */
+ 
+ void IXDRV_OutputDebug(const char *fmt, ...) {
+-    char string[100];
++    char string[256];
+     va_list bla;
+-
+     va_start(bla, fmt);
+-
+-    vsprintf(string, fmt, bla);
+-
+-//    if (Setting_Debugfile) {
+-//        fprintf(debugfp, string);
+-//        fflush(debugfp);
+-//    }
++    vsnprintf(string, sizeof(string), fmt, bla);
++    if (Setting_Debugfile && debugfp) {
++        fprintf(debugfp, "%s", string);
++        fflush(debugfp);
++    }
+     va_end(bla);
+ }
+ 
+-void IXDRV_InitScreen() {
+-    void* lfb;
+-
+-
+-#ifdef USE_GGI
++void* IXDRV_Malloc(int memrequired) {
++    void* mem = calloc(1, memrequired);
++    if (!mem)
++        IXDRV_OutputDebug("iXalance memory alloc failed!");
++    return mem;
++}
+ 
+-    ggiSetGraphMode(mvis, g_lastWidth, g_lastHeight,
+-            g_lastWidth, g_lastHeight, GT_16BIT);
++int IXDRV_Free(void* mem) {
++    if (mem) free(mem);
++    return 0;
++}
+ 
+-    db = ggiDBGetBuffer(mvis, 0);
+-    lfb = db->write;
+-#endif
++int IXDRV_GetTime() {
++    return (int)SDL_GetTicks();
++}
+ 
+-#ifdef USE_PTC
+-    if (surf) {
+-        surf->unlock();
+-        delete surf;
+-    }
+-    Format form(16, 0xF800, 0x7E0, 0x1F);
++/* ---------- fullscreen toggle ------------------------------------------ */
+ 
+-    surf = new Surface(g_lastWidth, g_lastHeight, form);
+-    lfb = surf->lock();
+-#endif
++static void ToggleFullscreen(void) {
++    is_fullscreen = !is_fullscreen;
++    SDL_SetWindowFullscreen(window,
++        is_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
++}
+ 
+-#ifdef USE_SDL
+-    screen = SDL_SetVideoMode(g_lastWidth, g_lastHeight, 16,
+-            SDL_SWSURFACE | fullscreen);
++/* ---------- screen initialisation -------------------------------------- */
+ 
+-    if (!screen) {
+-        IXDRV_OutputDebug("Can't setup screen (%i, %i)!\n", g_lastWidth,
+-                g_lastHeight);
++void IXDRV_InitScreen() {
++    if (texture) {
++        SDL_DestroyTexture(texture);
++        texture = NULL;
++    }
++    if (pixel_buffer) {
++        free(pixel_buffer);
++        pixel_buffer = NULL;
++    }
++
++    /*
++     * Streaming RGB565 texture – demos write to pixel_buffer, we upload it
++     * each frame with SDL_UpdateTexture().  SDL2's hardware renderer handles
++     * the scaling to the window size (no explicit FBO needed; if the driver
++     * supports it the blit goes through an internal GL FBO equivalent).
++     */
++    texture = SDL_CreateTexture(renderer,
++                                SDL_PIXELFORMAT_RGB565,
++                                SDL_TEXTUREACCESS_STREAMING,
++                                g_lastWidth, g_lastHeight);
++    if (!texture) {
++        fprintf(stderr, "SDL_CreateTexture: %s\n", SDL_GetError());
+         exit(1);
+     }
+-    SDL_ShowCursor(0);
+ 
+-    if (SDL_MUSTLOCK(screen)) {
+-        if (SDL_LockSurface(screen) < 0) {
+-            IXDRV_OutputDebug("Can't lock surface!\n");
+-            exit(1);
+-        }
++    pixel_buffer = malloc((size_t)g_lastWidth * g_lastHeight * 2);
++    if (!pixel_buffer) {
++        fprintf(stderr, "pixel_buffer malloc failed\n");
++        exit(1);
+     }
+-    lfb = screen->pixels;
+-#endif
+-    gfxmodeinfo.tclfb = lfb;
+-    gfxmodeinfo.htclfb = lfb;
+-    gfxmodeinfo.gfxlfb = lfb;
+-
+-#ifdef USE_SDL
+-    gfxmodeinfo.tcxres = screen->w;
+-    gfxmodeinfo.tcyres = screen->h;
+-    gfxmodeinfo.tcscanlen = screen->pitch;
+-    gfxmodeinfo.rcomp = screen->format->Rshift;
+-    gfxmodeinfo.rmask = (8 - screen->format->Rloss);
+-    gfxmodeinfo.gcomp = screen->format->Gshift;
+-    gfxmodeinfo.gmask = (8 - screen->format->Gloss);
+-    gfxmodeinfo.bcomp = screen->format->Bshift;
+-    gfxmodeinfo.bmask = (8 - screen->format->Bloss);
+-#else
+-    gfxmodeinfo.tcxres = g_lastWidth;
+-    gfxmodeinfo.tcyres = g_lastHeight;
+-    gfxmodeinfo.tcscanlen = g_lastWidth * 2;
+-    gfxmodeinfo.rcomp = 11;
+-    gfxmodeinfo.rmask = 5;
+-    gfxmodeinfo.gcomp = 5;
+-    gfxmodeinfo.gmask = 6;
+-    gfxmodeinfo.bcomp = 0;
+-    gfxmodeinfo.bmask = 5;
+-#endif
+-};
++    memset(pixel_buffer, 0, (size_t)g_lastWidth * g_lastHeight * 2);
++
++    gfxmodeinfo.tclfb   = pixel_buffer;
++    gfxmodeinfo.htclfb  = pixel_buffer;
++    gfxmodeinfo.gfxlfb  = pixel_buffer;
++
++    gfxmodeinfo.tcxres    = (unsigned int)g_lastWidth;
++    gfxmodeinfo.tcyres    = (unsigned int)g_lastHeight;
++    gfxmodeinfo.tcscanlen = (unsigned int)(g_lastWidth * 2);
++
++    /* RGB565 fixed colour layout */
++    gfxmodeinfo.rcomp = 11; gfxmodeinfo.rmask = 5;
++    gfxmodeinfo.gcomp =  5; gfxmodeinfo.gmask = 6;
++    gfxmodeinfo.bcomp =  0; gfxmodeinfo.bmask = 5;
++}
++
++/* ---------- event loop ------------------------------------------------- */
+ 
+ void IXDRV_CheckMessages() {
+-#ifdef USE_GGI
+-    if (ggiKbhit(vis)) {
+-        if (ggiGetc(vis) == GIIUC_Escape) // ESC
+-            BreakPart();
+-    }
+-#endif
+-#ifdef USE_PTC
+-    if (con.key()) {
+-        Key key = con.read();
+-        if (key.code() == Key::ESCAPE) // ESC
+-            BreakPart();
+-    }
+-#endif
+-#ifdef USE_SDL
+     SDL_Event ev;
+-
+     while (SDL_PollEvent(&ev)) {
+         switch (ev.type) {
+             case SDL_QUIT:
+                 BreakPart();
+                 break;
+             case SDL_KEYDOWN:
+-                if (ev.key.keysym.sym == SDLK_ESCAPE)
+-                    BreakPart();
++                switch (ev.key.keysym.sym) {
++                    case SDLK_ESCAPE:
++                        BreakPart();
++                        break;
++                    case SDLK_f:
++                        ToggleFullscreen();
++                        break;
++                    default:
++                        break;
++                }
++                break;
++            default:
+                 break;
+         }
+     }
+-#endif
+-};
++}
++
++/* ---------- resolution change ------------------------------------------ */
+ 
+ int IXDRV_SetVideoResolution(int x, int y, int d) {
+-    // no action required if we're already in this mode
++    (void)d;
+     if ((x == g_lastWidth) && (y == g_lastHeight)) return 1;
+ 
+-    if (fx == 0 || fy == 0) {
+-#ifdef USE_GGI
+-        int err = ggiCheckGraphMode(vis, x, y, x, y, GT_16BIT, &mode);
+-        if (err) {
+-            IXDRV_OutputDebug("Can't setup screen (%i, %i, %i)!\n", x, y, d);
+-            //            exit(1);
+-        }
+-#endif
+-#ifdef USE_PTC
+-        Format form(16, 0xF800, 0x7E0, 0x1F);
+-        con.open("iXalance/Linux", x, y, form);
+-#endif
+-#ifdef USE_SDL
+-        if (!SDL_VideoModeOK(x, y, 16, SDL_SWSURFACE | fullscreen))
+-            IXDRV_OutputDebug("Can't setup screen (%i, %i)!\n", x, y);
+-#endif
+-        sx = x;
+-        sy = y;
++    if (fx != 0 && fy != 0) {
++        sx = fx; sy = fy;
++        stretch = (x != fx || y != fy) ? 1 : 0;
+     } else {
+-#ifdef USE_GGI
+-        int err = ggiCheckGraphMode(vis, fx, fy, fx, fy, GT_16BIT, &mode);
+-        if (err) {
+-            IXDRV_OutputDebug("Can't setup screen (%i, %i, %i)!\n", fx, fy, d);
+-            //            exit(1);
+-        }
+-#endif
+-#ifdef USE_PTC
+-        Format form(16, 0xF800, 0x7E0, 0x1F);
+-        con.open("iXalance/Linux", fx, fy, form);
+-#endif
+-#ifdef USE_SDL
+-        if (!SDL_VideoModeOK(fx, fy, 16, SDL_SWSURFACE | fullscreen))
+-            IXDRV_OutputDebug("Can't setup screen (%i, %i)!\n", fx, fy);
+-#endif
+-        if (x == fx && y == fx)
+-            stretch = 0;
+-        else
+-            stretch = 1;
+-
+-        sx = fx;
+-        sy = fy;
+-    }
+-#ifdef USE_GGI
+-    ggiSetMode(vis, &mode);
+-#endif
++        sx = x; sy = y;
++        stretch = 0;
++    }
+ 
+-    // record resolution
+-    g_lastWidth = x;
++    g_lastWidth  = x;
+     g_lastHeight = y;
+-    IXDRV_InitScreen();
+-    return 1;
+-};
+-
+-int IXDRV_GetTime() {
+-#ifdef USE_SDL
+-    return SDL_GetTicks();
+-#else
+-    struct timeval t;
+-
+-    gettimeofday(&t, NULL);
+-    return t.tv_sec * 1000 + t.tv_usec / 1000;
+-#endif
+-}
+-
+-void* IXDRV_Malloc(int memrequired) {
+-    void* mem;
+ 
+-    mem = calloc(1, memrequired);
+-    if (!mem) {
+-        IXDRV_OutputDebug("iXalance memory alloc failed!");
+-        return 0;
++    if (window) {
++        /* Update logical size so SDL scales the content to the window */
++        SDL_RenderSetLogicalSize(renderer, g_lastWidth, g_lastHeight);
+     }
+-    return mem;
+-}
+ 
+-int IXDRV_Free(void* mem) {
+-    if (mem)
+-        free(mem);
+-    return 0;
++    IXDRV_InitScreen();
++    return 1;
+ }
+ 
++/* ---------- graphics subsystem ----------------------------------------- */
++
+ void IXDRV_InitGfx() {
+-#ifdef USE_GGI
+-    ggiInit();
+-    vis = ggiOpen(NULL);
+-    if (!vis) {
+-        fprintf(stderr, "Unable to open visual\n");
++    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
++        fprintf(stderr, "SDL_Init: %s\n", SDL_GetError());
+         exit(1);
+     }
+-    mvis = ggiOpen("display-memory", NULL);
+-    if (!mvis) {
+-        fprintf(stderr, "Unable to open memory visual\n");
++
++    /* Use nearest-neighbour scaling for crisp pixel art */
++    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
++
++    window = SDL_CreateWindow(
++        "iXalance/SDL2",
++        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++        640, 400,   /* initial 2× window; demos set actual logical size */
++        SDL_WINDOW_RESIZABLE | (is_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
++    if (!window) {
++        fprintf(stderr, "SDL_CreateWindow: %s\n", SDL_GetError());
+         exit(1);
+     }
+ 
+-    if (async) {
+-        ggiAddFlags(vis, GGIFLAG_ASYNC);
+-        ggiAddFlags(mvis, GGIFLAG_ASYNC);
+-    }
+-#endif
+-#ifdef USE_SDL
+-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+-        fprintf(stderr, "Unable to initialize SDL\n");
++    renderer = SDL_CreateRenderer(window, -1,
++        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
++    if (!renderer)
++        renderer = SDL_CreateRenderer(window, -1, 0); /* software fallback */
++    if (!renderer) {
++        fprintf(stderr, "SDL_CreateRenderer: %s\n", SDL_GetError());
+         exit(1);
+     }
+ 
+-    SDL_EventState((Uint8) SDL_ALLEVENTS, SDL_IGNORE);
+-    SDL_EventState(SDL_QUIT, SDL_ENABLE);
+-    SDL_EventState(SDL_KEYDOWN, SDL_ENABLE);
+-
+-    SDL_WM_SetCaption("iXalance/SDL", NULL);
+-    if (fullscreen)
+-        SDL_ShowCursor(0);
+-#endif
++    /* Black bars when aspect ratio doesn't match window */
++    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
++
++    SDL_ShowCursor(SDL_DISABLE);
+ }
+ 
+ void IXDRV_QuitGfx() {
+-#ifdef USE_SDL
++    if (pixel_buffer) { free(pixel_buffer);            pixel_buffer = NULL; }
++    if (texture)      { SDL_DestroyTexture(texture);   texture   = NULL; }
++    if (renderer)     { SDL_DestroyRenderer(renderer); renderer  = NULL; }
++    if (window)       { SDL_DestroyWindow(window);     window    = NULL; }
+     SDL_Quit();
+-#endif
+ }
+ 
+-//---------------------------------------------------------------------------------------------------------
+-// Copies fake-lfb onto the screen
++/* ---------- frame display ---------------------------------------------- */
++
+ static unsigned oldtime = 0;
+-static unsigned frames = 0;
++static unsigned frames  = 0;
+ 
+ void IXDRV_CopyScreen(void) {
+     unsigned tm;
+ 
+-#ifdef USE_GGI
+-    ggiCrossBlit(mvis, 0, 0, g_lastWidth, g_lastHeight, vis, 0, 0);
+-    if (async)
+-        ggiFlush(vis);
+-#endif
+-#ifdef USE_PTC
+-    surf->copy(con);
+-    con.update();
+-#endif
+-#ifdef USE_SDL
+-    if (SDL_MUSTLOCK(screen))
+-        SDL_UnlockSurface(screen);
+-
+-    SDL_UpdateRect(screen, 0, 0, 0, 0);
+-
+-    if (SDL_MUSTLOCK(screen))
+-        SDL_LockSurface(screen);
+-#endif
+-    frames++;
+-    tm = IXDRV_GetTime();
++    SDL_UpdateTexture(texture, NULL, pixel_buffer, g_lastWidth * 2);
++    SDL_RenderClear(renderer);
++    SDL_RenderCopy(renderer, texture, NULL, NULL); /* NULL dst → logical size */
++    SDL_RenderPresent(renderer);
+ 
++    frames++;
++    tm = (unsigned)IXDRV_GetTime();
+     if (showfps && (tm > oldtime + 1000)) {
+-        printf("\rFPS: %2.2f", ((float) frames * 1000) / (tm - oldtime));
++        printf("\rFPS: %2.2f", ((float)frames * 1000.0f) / (float)(tm - oldtime));
+         fflush(stdout);
+         oldtime = tm;
+-        frames = 0;
++        frames  = 0;
+     }
+ }
+ 
++/* ---------- main ------------------------------------------------------- */
++
+ int main(int argc, char *argv[]) {
+     int i, j;
+     int mode;
+@@ -403,8 +266,6 @@
+ 
+     Setting_Debugfile = 0;
+ 
+-    oldtime = IXDRV_GetTime();
+-
+     IXSND_SoundInit();
+ 
+     for (i = 1; i < argc; i++) {
+@@ -415,58 +276,48 @@
+                 case 't':
+                     showfps = 1;
+                     break;
+-#ifdef USE_GGI
+-                case 'a':
+-                    async = 0;
+-                    break;
+-#endif
+-#ifdef USE_SDL
+                 case 'F':
+-                    fullscreen = SDL_FULLSCREEN;
++                    is_fullscreen = 1;
+                     break;
+-#endif
+                 case 'm':
+                     MIDASsetOption(MIDAS_OPTION_MIXRATE, atoi(&argv[i][2]));
+                     break;
+-
+                 case 'o':
+                     mode = MIDAS_MODE_16BIT_STEREO;
+                     for (j = 2; j < 4; j++) {
+                         switch (argv[i][j]) {
+                             case '1':
+                                 mode &= ~MIDAS_MODE_8BIT;
+-                                mode |= MIDAS_MODE_16BIT;
++                                mode |=  MIDAS_MODE_16BIT;
+                                 break;
+                             case '8':
+                                 mode &= ~MIDAS_MODE_16BIT;
+-                                mode |= MIDAS_MODE_8BIT;
+-                                break;
+-                            case 's':
++                                mode |=  MIDAS_MODE_8BIT;
+                                 break;
+                             case 'm':
+                                 mode &= ~MIDAS_MODE_STEREO;
+-                                mode |= MIDAS_MODE_MONO;
++                                mode |=  MIDAS_MODE_MONO;
++                                break;
++                            default:
+                                 break;
+                         }
+                     }
+                     MIDASsetOption(MIDAS_OPTION_OUTPUTMODE, mode);
+                     break;
+-
+                 case 'i':
+                     MIDASsetOption(MIDAS_OPTION_MIXING_MODE,
+-                            MIDAS_MIX_HIGH_QUALITY);
++                                   MIDAS_MIX_HIGH_QUALITY);
+                     break;
+-
+                 case 'f':
+-                    MIDASsetOption(MIDAS_OPTION_FILTER_MODE, atoi(&argv[i][2]));
++                    MIDASsetOption(MIDAS_OPTION_FILTER_MODE,
++                                   atoi(&argv[i][2]));
+                     break;
+-
+                 case 's':
+                     sscanf(&argv[i][2], "%ix%i", &fx, &fy);
+                     break;
+-
+                 case 'd':
+                     Setting_Debugfile = 1;
++                    break;
+             }
+         }
+     }
+@@ -477,8 +328,12 @@
+         debugfp = fopen("debug.txt", "w");
+         if (!debugfp) Setting_Debugfile = 0;
+     }
++
++    oldtime = (unsigned)IXDRV_GetTime();
++
+     DemoMain();
+-    if (Setting_Debugfile) fclose(debugfp);
++
++    if (Setting_Debugfile && debugfp) fclose(debugfp);
+ 
+     return 0;
+-};
++}

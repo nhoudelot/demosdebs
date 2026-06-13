@@ -1,0 +1,17 @@
+Description: fix warnings 
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2016-02-26
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cpp
++++ b/main.cpp
+@@ -92,7 +92,7 @@
+ int sx = 0, sy = 0;
+ 
+ 
+-char *usage =
++const char *usage =
+         "iXalance Loader 0.5, " __DATE__ "\n"
+         "Original Win32 version by Jurjen Katsman\n"
+         "Linux version by Jarno Paananen\n\n"

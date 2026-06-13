@@ -1,0 +1,165 @@
+Description: Prepare for GCC 15 defaults (C23) and fix security issues
+ Replace multi-character character constants ('TBL1', 'TBL3') with explicit
+ hexadecimal values to avoid implementation-defined behaviour warned about
+ under C23.
+ Replace deprecated tempnam() with mkstemp()+fdopen() to avoid the
+ dangerous temp-file race condition (CWE-377).
+ Fix int<->pointer casts in PushExe/PopExe to use uintptr_t.
+ Make swindow[] static in lzss.c to avoid polluting the global namespace.
+ Add missing #include <unistd.h> and <stdint.h>.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-05-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/d32load.c
++++ b/d32load.c
+@@ -3,6 +3,8 @@
+ #include <fcntl.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <unistd.h>
++#include <stdint.h>
+ 
+ #include "midasdll.h"
+ #include "lzss.h"
+@@ -179,14 +181,24 @@
+     printf("temp3 = %x\n", temp3);
+     printf("temp4 = %x\n", temp4);
+      */
+-    if (temp1 == 'TBL1') {
++    if (temp1 == 0x54424C31U) { /* 'TBL1' */
++        char _tmpbuf[] = "/tmp/IXA-XXXXXX";
++        int _tmpfd;
+         timerrate = 140;
+ 
+-        tempname = tempnam(NULL, "IXA");
+-
+-        tempfp = fopen(tempname, "wb");
++        _tmpfd = mkstemp(_tmpbuf);
++        if (_tmpfd < 0) {
++            IXDRV_OutputDebug("mkstemp failed\n");
++            return;
++        }
++        tempfp = fdopen(_tmpfd, "wb");
++        if (!tempfp) {
++            close(_tmpfd);
++            return;
++        }
++        tempname = strdup(_tmpbuf);
+ 
+-        fwrite((void *) temp3, temp4, 1, tempfp);
++        fwrite((void *)(uintptr_t) temp3, temp4, 1, tempfp);
+         fclose(tempfp);
+ 
+         if (MIDAS_playing) {
+@@ -208,7 +220,7 @@
+         remove(tempname);
+         free(tempname);
+     }        // EAX='TBL3' option. Get position in music.
+-    else if (temp1 == 'TBL3') {
++    else if (temp1 == 0x54424C33U) { /* 'TBL3' */
+         if (MIDAS_playing) {
+             temp1 = (mustime.timerow + 1) + ((mustime.timepos) << 8);
+         } else {
+@@ -311,8 +323,8 @@
+     if (!(exeofs = IXDRV_Malloc(memrequired)))
+         IXDRV_OutputDebug("Virtual Alloc (for final exe memory) Failed!\n");
+ 
+-    startip += (unsigned int) exeofs;
+-    startsp += (unsigned int) exeofs;
++    startip += (uint32_t)(uintptr_t) exeofs;
++    startsp += (uint32_t)(uintptr_t) exeofs;
+ 
+     readptr = stubsize + exestart;
+     memcpy(exeofs, lzssbuf + readptr, exesize);
+@@ -337,7 +349,7 @@
+ void startdemo();
+ 
+ static void PopExe() {
+-    unsigned int allocsp;
++    uintptr_t allocsp;
+     void *exeofs;
+ 
+     IXDRV_SetVideoResolution(320, 200, 16);
+@@ -347,7 +359,7 @@
+     startsp = partstack[partpointer].esp;
+     exeofs = partstack[partpointer].memptr;
+ 
+-    allocsp = (unsigned int) IXDRV_Malloc(64000);
++    allocsp = (uintptr_t) IXDRV_Malloc(64000);
+ 
+     startsp = allocsp + 63900;
+ 
+@@ -358,7 +370,7 @@
+     startdemo();
+ 
+     IXDRV_Free(exeofs);
+-    IXDRV_Free((void *) allocsp);
++    IXDRV_Free((void *)(uintptr_t) allocsp);
+     FreeAllPartmem();
+ };
+ 
+@@ -416,7 +428,8 @@
+ 
+ void
+ PlayMusic(int filenum) {
+-    char *tempname;
++    char tmppath[] = "/tmp/IXA-XXXXXX";
++    int tmpfd;
+     char *lzssbuf, *lzssbuf1, *lzssbuf2;
+     FILE *tempfp;
+ 
+@@ -437,11 +450,18 @@
+     decode_rle((unsigned char *) lzssbuf2, (unsigned char *) lzssbuf);
+     FreeAllPartmem();
+ 
+-    // What I do is a bit nasty. I save the XM to a temporary file, and make
+-    // Midas open it. You might have some better way to do this :)
+-    tempname = tempnam(NULL, "IXA");
+-
+-    tempfp = fopen(tempname, "wb");
++    tmpfd = mkstemp(tmppath);
++    if (tmpfd < 0) {
++        IXDRV_OutputDebug("mkstemp failed\n");
++        IXDRV_Free(lzssbuf);
++        return;
++    }
++    tempfp = fdopen(tmpfd, "wb");
++    if (!tempfp) {
++        close(tmpfd);
++        IXDRV_Free(lzssbuf);
++        return;
++    }
+ 
+     fwrite(lzssbuf, IXAdir[filenum].fullsize, 1, tempfp);
+     fclose(tempfp);
+@@ -450,14 +470,13 @@
+     if (MIDAS_enabled) {
+         IXDRV_OutputDebug("Starting Midas audio playback...\n");
+         MIDASstartBackgroundPlay(70);
+-        MIDAS_module = MIDASloadModule(tempname);
++        MIDAS_module = MIDASloadModule(tmppath);
+ 
+         MIDAS_playHandle = MIDASplayModule(MIDAS_module, TRUE);
+         MIDAS_playing = 1;
+     }
+ 
+-    remove(tempname);
+-    free(tempname);
++    remove(tmppath);
+ }
+ 
+ void
+--- a/lzss.c
++++ b/lzss.c
+@@ -11,7 +11,7 @@
+ /*
+  * Function prototypes for ANSI C compilers
+  */
+-char swindow[1024];
++static char swindow[1024];
+ void Expand (long *input, char *output);
+ void InitBitstring (long *bitstring);
+ int InputBit();

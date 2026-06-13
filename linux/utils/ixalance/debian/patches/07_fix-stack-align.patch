@@ -1,0 +1,57 @@
+Description: Align stack to 16 bytes before C callbacks from demo trampolines
+ The assembly trampolines (basictramp, farshowptramp, farmalloctramp,
+ fardointtramp) switch the stack pointer back to the saved C stack
+ (saveESP) before calling their C counterparts.  saveESP was captured
+ inside startdemo after a pushad (32 bytes), so its alignment relative
+ to the 16-byte boundary is not guaranteed to satisfy the i386 System V
+ ABI requirement (ESP % 16 == 0 at a call site).
+ .
+ SDL2 and other modern libraries are compiled with SSE support and emit
+ movaps instructions that require 16-byte aligned stack slots.  The
+ misaligned stack caused a SIGSEGV inside libSDL2 on the first
+ farshowp → IXDRV_CopyScreen → SDL_RenderPresent call.
+ .
+ Fix: add "and esp, -16" after restoring saveESP in every trampoline,
+ immediately before the call to the C function.  This rounds ESP down
+ to a 16-byte boundary; the call instruction then subtracts 4 more
+ bytes, yielding ESP % 16 == 12 at function entry as required by the ABI.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-05-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/code.asm
++++ b/code.asm
+@@ -54,6 +54,7 @@
+         mov fs, [saveFS]
+         mov gs, [saveGS]
+         mov esp, [saveESP]
++        and esp, -16
+ 
+         call farbank
+ 
+@@ -74,6 +75,7 @@
+         mov fs, [saveFS]
+         mov gs, [saveGS]
+         mov esp, [saveESP]
++        and esp, -16
+ 
+         call farshowp
+ 
+@@ -94,6 +96,7 @@
+         mov fs, [saveFS]
+         mov gs, [saveGS]
+         mov esp, [saveESP]
++        and esp, -16
+ 
+         call farmalloc
+ 
+@@ -121,6 +124,7 @@
+         mov fs, [saveFS]
+         mov gs, [saveGS]
+         mov esp, [saveESP]
++        and esp, -16
+ 
+         call fardoint
+ 

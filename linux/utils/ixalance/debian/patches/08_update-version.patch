@@ -1,0 +1,17 @@
+Description: updated version number
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-06-12
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/main.cpp
++++ b/main.cpp
+@@ -32,7 +32,7 @@
+ int sx = 0, sy = 0;
+ 
+ const char *usage =
+-        "iXalance Loader 0.5, " __DATE__ "\n"
++        "iXalance Loader 0.6, " __DATE__ "\n"
+         "Original Win32 version by Jurjen Katsman\n"
+         "Linux version by Jarno Paananen\n\n"
+         "Usage:\tixalance [options] <filename> [options]\n"

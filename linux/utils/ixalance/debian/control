@@ -1,0 +1,23 @@
+Source: ixalance
+Section: utils
+Priority: optional
+Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Build-Depends:
+ libopenmpt-dev,
+ nasm,
+ libsdl2-dev,
+ debhelper-compat (= 13),
+Standards-Version: 4.7.3
+Homepage: https://www.libsdl.org/projects/ixalance/
+Rules-Requires-Root: no
+
+Package: ixalance
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: demo loading program written by The Black Lotus
+ demo loading program written by The Black Lotus demo group
+ and then ported to Linux and SDL by Jarno Paananen. The
+ program loads fantastic demos written by TBL and allows 
+ them to display graphics and play music.

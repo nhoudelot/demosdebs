@@ -1,0 +1,8 @@
+01_fix-cpp.patch
+02_gcc15-compat.patch
+03_sdl2-video.patch
+04_sdl2-audio.patch
+05_fix-nopie.patch
+06_fix-exec-memory.patch
+07_fix-stack-align.patch
+08_update-version.patch

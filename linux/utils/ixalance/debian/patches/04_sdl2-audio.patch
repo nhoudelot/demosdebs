@@ -1,0 +1,427 @@
+Description: Replace MIDAS Sound System with libopenmpt + SDL2 audio
+ MIDAS is unmaintained, 32-bit only and not available in current Debian/Ubuntu
+ archives as an i386 package.  Replaces all MIDAS calls with:
+  - SDL2 audio device (SDL_OpenAudioDevice) driving a streaming callback.
+  - libopenmpt for module decoding (XM, IT, MOD, S3M, …).  libopenmpt
+    exposes current order/row, preserving the TBL3 demo-sync mechanism that
+    MIDAS provided via MIDASgetPlayStatus().
+  - Music is now loaded directly from the in-memory decompressed buffer via
+    openmpt_module_create_from_memory2(), eliminating the temporary-file
+    round-trip that existed in both PlayMusic() and fardoint()/TBL1.
+  - Thread safety: audio callback and main thread share openmpt_mod under
+    an SDL_mutex.
+  - Build dependency updated: libmidas-dev removed, libopenmpt-dev added.
+Generated-by: Claude Sonnet 4.6
+Reviewed-by: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-05-03
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ CXX ?= g++
+ NASM ?= nasm
+ CFLAGS += -ffast-math -m32 $(shell sdl2-config --cflags)
+-LDFLAGS += -m32 $(shell sdl2-config --libs) -lmidas -lm
++LDFLAGS += -m32 $(shell sdl2-config --libs) -lopenmpt -lm
+ OBJ =  main.o  lzss.o unrle.o d32load.o code.o
+ 
+ 
+--- a/d32load.c
++++ b/d32load.c
+@@ -6,7 +6,8 @@
+ #include <unistd.h>
+ #include <stdint.h>
+ 
+-#include "midasdll.h"
++#include <SDL2/SDL.h>
++#include <libopenmpt/libopenmpt.h>
+ #include "lzss.h"
+ 
+ #include "ixalance.h"
+@@ -16,8 +17,6 @@
+ void decode_rle(unsigned char *input, unsigned char *output);
+ 
+ static FILE *ixafp;
+-static FILE *tempfp;
+-static char *tempname;
+ 
+ static int timerrate = 70;
+ int PARTMEM = 13 * 1024 * 1024;
+@@ -44,12 +43,14 @@
+ // Prototypes
+ void UpdateMusic();
+ 
+-// Statics voor Midas
++/* Audio state (libopenmpt + SDL2) */
+ static int music2 = 0;
+-int MIDAS_playing;
+-int MIDAS_enabled;
+-MIDASmodule MIDAS_module;
+-MIDASmodulePlayHandle MIDAS_playHandle;
++int MIDAS_playing = 0;
++int MIDAS_enabled = 0;
++static SDL_AudioDeviceID audio_dev   = 0;
++static SDL_AudioSpec     audio_spec;
++static openmpt_module   *openmpt_mod = NULL;
++static SDL_mutex        *audio_mutex = NULL;
+ 
+ // Statics voor balmode zooi
+ unsigned short int saveFS, saveGS;
+@@ -96,14 +97,87 @@
+ int fixupsize;
+ void *exeofs;
+ 
+-void IXSND_SoundInit(void) {
+-    MIDASstartup();
++/* ---- audio callback (runs in SDL audio thread) ------------------------- */
++static void audio_callback(void *userdata, Uint8 *stream, int len) {
++    int16_t *out   = (int16_t *)stream;
++    size_t  frames = (size_t)len / (2 * sizeof(int16_t));
++    (void)userdata;
++    SDL_LockMutex(audio_mutex);
++    if (openmpt_mod) {
++        size_t read = openmpt_module_read_interleaved_stereo(
++            openmpt_mod, (int32_t)audio_spec.freq, frames, out);
++        if (read < frames)
++            memset(out + read * 2, 0, (frames - read) * 4);
++    } else {
++        memset(stream, 0, (size_t)len);
++    }
++    SDL_UnlockMutex(audio_mutex);
+ }
+ 
+-void IXSND_SoundSetup(void) {
+-    /* MIDASconfig(); */
++/* ---- audio helpers ----------------------------------------------------- */
++static int audio_init(void) {
++    SDL_AudioSpec want;
++    if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0) return 0;
++    audio_mutex = SDL_CreateMutex();
++    if (!audio_mutex) return 0;
++    SDL_zero(want);
++    want.freq     = 44100;
++    want.format   = AUDIO_S16SYS;
++    want.channels = 2;
++    want.samples  = 512;
++    want.callback = audio_callback;
++    audio_dev = SDL_OpenAudioDevice(NULL, 0, &want, &audio_spec, 0);
++    if (!audio_dev) return 0;
++    SDL_PauseAudioDevice(audio_dev, 0);
++    return 1;
++}
++
++static void audio_load_from_memory(const void *data, size_t size) {
++    openmpt_module *new_mod;
++    if (!data || !size) return;
++    new_mod = openmpt_module_create_from_memory2(
++        data, size,
++        openmpt_log_func_silent,  NULL,
++        openmpt_error_func_ignore, NULL,
++        NULL, NULL, NULL);
++    if (!new_mod) return;
++    SDL_LockMutex(audio_mutex);
++    if (openmpt_mod) openmpt_module_destroy(openmpt_mod);
++    openmpt_mod = new_mod;
++    SDL_UnlockMutex(audio_mutex);
++    MIDAS_playing = 1;
++}
++
++static void audio_stop(void) {
++    SDL_LockMutex(audio_mutex);
++    if (openmpt_mod) { openmpt_module_destroy(openmpt_mod); openmpt_mod = NULL; }
++    SDL_UnlockMutex(audio_mutex);
++    MIDAS_playing = 0;
++}
++
++static void audio_suspend(void) { if (audio_dev) SDL_PauseAudioDevice(audio_dev, 1); }
++static void audio_resume(void)  { if (audio_dev) SDL_PauseAudioDevice(audio_dev, 0); }
++
++static void audio_get_position(unsigned char *order, unsigned char *row) {
++    SDL_LockMutex(audio_mutex);
++    if (openmpt_mod) {
++        *order = (unsigned char)openmpt_module_get_current_order(openmpt_mod);
++        *row   = (unsigned char)openmpt_module_get_current_row(openmpt_mod);
++    } else { *order = 0; *row = 0; }
++    SDL_UnlockMutex(audio_mutex);
++}
++
++static void audio_close(void) {
++    audio_stop();
++    if (audio_dev) { SDL_PauseAudioDevice(audio_dev, 1);
++                     SDL_CloseAudioDevice(audio_dev); audio_dev = 0; }
++    if (audio_mutex) { SDL_DestroyMutex(audio_mutex); audio_mutex = NULL; }
+ }
+ 
++void IXSND_SoundInit(void) { /* audio initialised in DemoMain() via audio_init() */ }
++
++void IXSND_SoundSetup(void) { }
++
+ // ---------------------
+ // Partmemory functions
+ char *partmem;
+@@ -181,44 +255,15 @@
+     printf("temp3 = %x\n", temp3);
+     printf("temp4 = %x\n", temp4);
+      */
+-    if (temp1 == 0x54424C31U) { /* 'TBL1' */
+-        char _tmpbuf[] = "/tmp/IXA-XXXXXX";
+-        int _tmpfd;
++    if (temp1 == 0x54424C31U) { /* 'TBL1': load XM from embedded memory */
+         timerrate = 140;
+-
+-        _tmpfd = mkstemp(_tmpbuf);
+-        if (_tmpfd < 0) {
+-            IXDRV_OutputDebug("mkstemp failed\n");
+-            return;
+-        }
+-        tempfp = fdopen(_tmpfd, "wb");
+-        if (!tempfp) {
+-            close(_tmpfd);
+-            return;
+-        }
+-        tempname = strdup(_tmpbuf);
+-
+-        fwrite((void *)(uintptr_t) temp3, temp4, 1, tempfp);
+-        fclose(tempfp);
+-
+-        if (MIDAS_playing) {
+-            MIDASstopModule(MIDAS_playHandle);
+-            MIDASfreeModule(MIDAS_module);
+-            MIDASstopBackgroundPlay();
+-            MIDAS_playing = 0;
+-        }
+-
++        if (MIDAS_playing)
++            audio_stop();
+         if (MIDAS_enabled) {
+-            IXDRV_OutputDebug("Starting Midas audio playback...\n");
+-            MIDASstartBackgroundPlay(70);
+-            MIDAS_module = MIDASloadModule(tempname);
+-            MIDAS_playHandle = MIDASplayModule(MIDAS_module, TRUE);
+-            MIDAS_playing = 1;
++            IXDRV_OutputDebug("Loading embedded XM (%u bytes)...\n", temp4);
++            audio_load_from_memory((void *)(uintptr_t)temp3, (size_t)temp4);
+             music2 = 1;
+         }
+-
+-        remove(tempname);
+-        free(tempname);
+     }        // EAX='TBL3' option. Get position in music.
+     else if (temp1 == 0x54424C33U) { /* 'TBL3' */
+         if (MIDAS_playing) {
+@@ -247,15 +292,14 @@
+ 
+ void ResumePart() {
+     if (MIDAS_playing)
+-        MIDASresume();
+-
++        audio_resume();
+     UpdateMusic();
+ }
+ 
+ void PausePart() {
+     UpdateMusic();
+     if (MIDAS_playing)
+-        MIDASsuspend();
++        audio_suspend();
+ }
+ 
+ void savesegs(void);
+@@ -428,15 +472,10 @@
+ 
+ void
+ PlayMusic(int filenum) {
+-    char tmppath[] = "/tmp/IXA-XXXXXX";
+-    int tmpfd;
+     char *lzssbuf, *lzssbuf1, *lzssbuf2;
+-    FILE *tempfp;
+ 
+-    IXDRV_OutputDebug("Loading music file: %i", filenum);
+-    IXDRV_OutputDebug("\n");
++    IXDRV_OutputDebug("Loading music file: %i\n", filenum);
+ 
+-    // Allocate memory for possible decompression
+     lzssbuf2 = (char *) AllocPartmem(IXAdir[filenum].fullsize);
+     lzssbuf1 = (char *) AllocPartmem(IXAdir[filenum].size);
+ 
+@@ -445,38 +484,20 @@
+ 
+     IXDRV_OutputDebug("Decompressing...\n");
+     Expand((long *) lzssbuf1, lzssbuf2);
+-    if (!(lzssbuf = (char *) IXDRV_Malloc(IXAdir[filenum].fullsize)))
++    if (!(lzssbuf = (char *) IXDRV_Malloc(IXAdir[filenum].fullsize))) {
+         IXDRV_OutputDebug("Couldn't allocate memory for decompression!\n");
+-    decode_rle((unsigned char *) lzssbuf2, (unsigned char *) lzssbuf);
+-    FreeAllPartmem();
+-
+-    tmpfd = mkstemp(tmppath);
+-    if (tmpfd < 0) {
+-        IXDRV_OutputDebug("mkstemp failed\n");
+-        IXDRV_Free(lzssbuf);
+-        return;
+-    }
+-    tempfp = fdopen(tmpfd, "wb");
+-    if (!tempfp) {
+-        close(tmpfd);
+-        IXDRV_Free(lzssbuf);
++        FreeAllPartmem();
+         return;
+     }
+-
+-    fwrite(lzssbuf, IXAdir[filenum].fullsize, 1, tempfp);
+-    fclose(tempfp);
+-    IXDRV_Free(lzssbuf);
++    decode_rle((unsigned char *) lzssbuf2, (unsigned char *) lzssbuf);
++    FreeAllPartmem();
+ 
+     if (MIDAS_enabled) {
+-        IXDRV_OutputDebug("Starting Midas audio playback...\n");
+-        MIDASstartBackgroundPlay(70);
+-        MIDAS_module = MIDASloadModule(tmppath);
+-
+-        MIDAS_playHandle = MIDASplayModule(MIDAS_module, TRUE);
+-        MIDAS_playing = 1;
++        IXDRV_OutputDebug("Starting audio playback...\n");
++        audio_load_from_memory(lzssbuf, (size_t)IXAdir[filenum].fullsize);
+     }
+ 
+-    remove(tmppath);
++    IXDRV_Free(lzssbuf);
+ }
+ 
+ void
+@@ -535,11 +556,7 @@
+         lasttime = time;
+     }
+     if (MIDAS_playing) {
+-        MIDASplayStatus status;
+-
+-        MIDASgetPlayStatus(MIDAS_playHandle, &status);
+-        mustime.timepos = status.position;
+-        mustime.timerow = status.row;
++        audio_get_position(&mustime.timepos, &mustime.timerow);
+     } else {
+         mustime.timepos = 0;
+         mustime.timerow = 0;
+@@ -612,20 +629,12 @@
+         escaped = 0;
+         partpointer = 0;
+ 
+-        MIDASsetOption(MIDAS_OPTION_FORCE_NO_SOUND, 0);
+-        if (MIDASinit()) {
+-            IXDRV_OutputDebug("Midas initialised.\n");
++        if (audio_init()) {
++            IXDRV_OutputDebug("Audio initialised (libopenmpt + SDL2).\n");
+             MIDAS_enabled = 1;
+         } else {
+-            IXDRV_OutputDebug("Midas init failed.\n");
+-            MIDASsetOption(MIDAS_OPTION_FORCE_NO_SOUND, 1);
+-            if (MIDASinit()) {
+-                IXDRV_OutputDebug("Midas initialised (nosound).\n");
+-                MIDAS_enabled = 1;
+-            } else {
+-                IXDRV_OutputDebug("Midas nosound init failed!");
+-                return;
+-            }
++            IXDRV_OutputDebug("Audio init failed: %s\n", SDL_GetError());
++            MIDAS_enabled = 0;
+         }
+ 
+         IXDRV_OutputDebug("Starting exe playback...\n");
+@@ -654,13 +663,7 @@
+         }
+ 
+         IXDRV_Free(partmem);
+-        if (MIDAS_playing) {
+-            MIDASstopModule(MIDAS_playHandle);
+-            MIDASfreeModule(MIDAS_module);
+-            MIDASstopBackgroundPlay();
+-            MIDAS_playing = 0;
+-        }
+-        MIDASclose();
++        audio_close();
+         IXDRV_QuitGfx();
+     }
+ };
+--- a/main.cpp
++++ b/main.cpp
+@@ -7,7 +7,6 @@
+ #include <malloc.h>
+ #include <string.h>
+ #include <stdarg.h>
+-#include "midasdll.h"
+ #include "ixalance.h"
+ #include <SDL2/SDL.h>
+ 
+@@ -38,10 +37,6 @@
+         "Linux version by Jarno Paananen\n\n"
+         "Usage:\tixalance [options] <filename> [options]\n"
+         "Options:\n"
+-        "\t-mx\tMixing rate x Hz\n"
+-        "\t-ox\tOutput mode (8=8-bit, 1=16-bit, s=stereo, m=mono)\n"
+-        "\t-fx\tUse filter (0 = none, 1=less, 2=more)\n"
+-        "\t-i \tUse oversampling (interpolation)\n"
+         "\t-sXxY\tForce screen mode to X x Y\n"
+         "\t-d\tCreate a debug file called debug.txt\n"
+         "\t-t\tPrints frames per second values to stdout\n"
+@@ -256,8 +251,7 @@
+ /* ---------- main ------------------------------------------------------- */
+ 
+ int main(int argc, char *argv[]) {
+-    int i, j;
+-    int mode;
++    int i;
+ 
+     if (argc < 2) {
+         fprintf(stderr, "%s", usage);
+@@ -279,39 +273,6 @@
+                 case 'F':
+                     is_fullscreen = 1;
+                     break;
+-                case 'm':
+-                    MIDASsetOption(MIDAS_OPTION_MIXRATE, atoi(&argv[i][2]));
+-                    break;
+-                case 'o':
+-                    mode = MIDAS_MODE_16BIT_STEREO;
+-                    for (j = 2; j < 4; j++) {
+-                        switch (argv[i][j]) {
+-                            case '1':
+-                                mode &= ~MIDAS_MODE_8BIT;
+-                                mode |=  MIDAS_MODE_16BIT;
+-                                break;
+-                            case '8':
+-                                mode &= ~MIDAS_MODE_16BIT;
+-                                mode |=  MIDAS_MODE_8BIT;
+-                                break;
+-                            case 'm':
+-                                mode &= ~MIDAS_MODE_STEREO;
+-                                mode |=  MIDAS_MODE_MONO;
+-                                break;
+-                            default:
+-                                break;
+-                        }
+-                    }
+-                    MIDASsetOption(MIDAS_OPTION_OUTPUTMODE, mode);
+-                    break;
+-                case 'i':
+-                    MIDASsetOption(MIDAS_OPTION_MIXING_MODE,
+-                                   MIDAS_MIX_HIGH_QUALITY);
+-                    break;
+-                case 'f':
+-                    MIDASsetOption(MIDAS_OPTION_FILTER_MODE,
+-                                   atoi(&argv[i][2]));
+-                    break;
+                 case 's':
+                     sscanf(&argv[i][2], "%ix%i", &fx, &fy);
+                     break;
+@@ -322,8 +283,6 @@
+         }
+     }
+ 
+-    MIDASsetOption(MIDAS_OPTION_MIXBUFLEN, 50);
+-
+     if (Setting_Debugfile) {
+         debugfp = fopen("debug.txt", "w");
+         if (!debugfp) Setting_Debugfile = 0;
