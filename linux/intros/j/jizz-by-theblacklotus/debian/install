@@ -1,0 +1,4 @@
+debian/resources/jizz-by-theblacklotus.desktop usr/share/applications/
+debian/resources/jizz-by-theblacklotus.png usr/share/icons/hicolor/256x256/apps/
+debian/scripts/jizz-by-theblacklotus usr/bin/
+JIZZ.IXA usr/share/jizz-by-theblacklotus/ 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Jizz
+GenericName=Demo
+Comment=Demo by The Black Lotus, released in 1997
+Type=Application
+Exec=/usr/bin/jizz-by-theblacklotus
+Icon=jizz-by-theblacklotus
+Categories=AudioVideo;
+Name[fr_FR]=Jizz
