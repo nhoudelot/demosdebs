@@ -1,3 +1,9 @@
+detectiteasy (3.21-0ddebs1) unstable; urgency=medium
+
+  * New Upstream Release
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 03 May 2026 14:26:59 +0200
+
 detectiteasy (3.10-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
