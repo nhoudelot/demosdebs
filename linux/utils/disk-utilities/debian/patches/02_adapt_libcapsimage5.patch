@@ -4,22 +4,6 @@ Last-Update: 2020-04-18
 Applied-Upstream: no
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/libdisk/stream/caps.c
-+++ b/libdisk/stream/caps.c
-@@ -9,7 +9,12 @@
- #include <sys/stat.h>
- #include <fcntl.h>
- #include <unistd.h>
--#include <caps/capsimage.h>
-+#include <CommonTypes.h>
-+#include <CapsAPI.h>
-+#include <stdint.h>
-+typedef uint8_t  CapsUByte;
-+typedef int32_t  CapsLong;
-+typedef uint32_t CapsULong;
- #include <dlfcn.h>
- 
- #ifdef __APPLE__
 --- a/libdisk/Makefile
 +++ b/libdisk/Makefile
 @@ -36,7 +36,7 @@

@@ -7,7 +7,7 @@ Applied-Upstream: no
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/Rules.mk
 +++ b/Rules.mk
-@@ -17,24 +17,25 @@
+@@ -20,24 +20,25 @@
  
  # Override these on the command line eg. "make PREFIX=/usr"
  # These must be absolute paths
