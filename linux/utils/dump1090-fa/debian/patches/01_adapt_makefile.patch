@@ -42,7 +42,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    endif
  
    ifndef SOAPYSDR
-@@ -107,6 +109,8 @@
+@@ -95,6 +97,8 @@
  RTLSDR ?= yes
  BLADERF ?= yes
  
@@ -51,7 +51,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($(RTLSDR), yes)
    SDR_OBJ += sdr_rtlsdr.o
    DUMP1090_CPPFLAGS += -DENABLE_RTLSDR
-@@ -123,18 +127,18 @@
+@@ -111,18 +115,18 @@
  
      # FreeBSD's librtlsdr.pc includes -std=gnu89 in cflags
      # some linux librtlsdr packages return a bare -I/ with no path in --cflags
@@ -74,7 +74,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      endif
    endif
  endif
-@@ -142,22 +146,22 @@
+@@ -130,22 +134,22 @@
  ifeq ($(BLADERF), yes)
    SDR_OBJ += sdr_bladerf.o
    DUMP1090_CPPFLAGS += -DENABLE_BLADERF

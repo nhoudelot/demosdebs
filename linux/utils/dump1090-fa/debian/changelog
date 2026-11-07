@@ -1,3 +1,9 @@
+dump1090-fa (11.1-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 06 Nov 2026 02:01:41 +0100
+
 dump1090-fa (10.2-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
