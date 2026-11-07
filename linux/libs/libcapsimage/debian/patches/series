@@ -1,0 +1,3 @@
+01_install-symlink-destdir.patch
+02_restrict-exported-symbols.patch
+03_usable-public-headers.patch

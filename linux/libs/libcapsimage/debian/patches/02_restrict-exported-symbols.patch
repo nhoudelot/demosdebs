@@ -1,0 +1,35 @@
+Description: Only export the public CAPS* API from libCAPSImage
+ The library is linked with -static-libstdc++ and without symbol visibility
+ control, so about 1300 libstdc++ and internal symbols leaked into the
+ dynamic symbol table. Use a linker version script, as the previous Debian
+ packaging did, so that only the CAPS* functions are exported.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: no
+Last-Update: 2026-11-07
+--- /dev/null
++++ b/CAPSImg/libcapsimage.map
+@@ -0,0 +1,7 @@
++{
++global:
++	CAPS*;
++
++local:
++	*;
++};
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -144,6 +144,13 @@
+     target_link_options(CAPSImage PRIVATE -static-libgcc -static-libstdc++)
+ endif()
+ 
++# Only export the public CAPS* API (keeps libstdc++ internals private).
++if(UNIX AND NOT APPLE)
++    set(CAPSIMAGE_VERSION_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/CAPSImg/libcapsimage.map")
++    target_link_options(CAPSImage PRIVATE "-Wl,--version-script=${CAPSIMAGE_VERSION_SCRIPT}")
++    set_property(TARGET CAPSImage APPEND PROPERTY LINK_DEPENDS "${CAPSIMAGE_VERSION_SCRIPT}")
++endif()
++
+ # -----------------------------------------------------------------------------
+ # Target: public headers / development usage
+ # -----------------------------------------------------------------------------

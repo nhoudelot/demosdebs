@@ -1,29 +1,36 @@
-Source: libcapsimage5
+Source: libcapsimage
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- dh-exec (>=0.3)
-Standards-Version: 4.6.2
+ dh-exec (>=0.3),
+ cmake
+Standards-Version: 4.7.3
 Section: libs
 Homepage: http://www.softpres.org/?id=download
 Rules-Requires-Root: no
 
-Package: libcapsimage5-dev
+Package: libcapsimage-dev
 Section: libdevel
 Architecture: any
 Depends:
  libcapsimage5 (= ${binary:Version}),
  ${misc:Depends}
-Description: Provides IPF support, primarily for UAE E-UAE
+Breaks: libcapsimage5-dev
+Replaces: libcapsimage5-dev
+Description: Development files for libcapsimage
  Provides support for reading IPF files, an Amiga disk image format developed by
  the Amiga Preservation Society, as part of the C.A.P.S. project.
+ .
+ This package contains the header files and CMake export files.
 
 Package: libcapsimage5
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Development files for libcapsimage
- Development files (includes) for libcapsimage, Provides IPF support, 
- primarily for UAE E-UAE
+Description: Provides IPF support, primarily for UAE E-UAE
+ Provides support for reading IPF files, an Amiga disk image format developed by
+ the Amiga Preservation Society, as part of the C.A.P.S. project.
+ .
+ This package contains the shared library.

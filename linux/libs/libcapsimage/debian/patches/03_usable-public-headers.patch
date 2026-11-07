@@ -1,0 +1,58 @@
+Description: Make the installed public headers usable from C and C++
+ The installed headers could not be used by any consumer:
+  - CapsLibAll.h includes CommonTypes.h, which was not installed;
+  - nothing included <stdint.h> before using the fixed-width types;
+  - __cdecl was only defined in the private stdafx.h on POSIX;
+  - ExtSub always expanded to extern "C", which a C compiler rejects.
+ Install CommonTypes.h, include <stdint.h>, define __cdecl on POSIX when
+ needed and only use extern "C" when compiling as C++.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: no
+Last-Update: 2026-11-07
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -106,6 +106,7 @@
+     "${CMAKE_CURRENT_SOURCE_DIR}/LibIPF/CapsLibAll.h"
+     "${CMAKE_CURRENT_SOURCE_DIR}/LibIPF/CapsLibVersion.h"
+     "${CMAKE_CURRENT_SOURCE_DIR}/LibIPF/ComLib.h"
++    "${CMAKE_CURRENT_SOURCE_DIR}/Core/CommonTypes.h"
+ )
+ 
+ # -----------------------------------------------------------------------------
+--- a/LibIPF/CapsLibAll.h
++++ b/LibIPF/CapsLibAll.h
+@@ -1,6 +1,7 @@
+ #ifndef CAPSLIBALL_H
+ #define CAPSLIBALL_H
+ 
++#include <stdint.h>
+ #include "CapsLibVersion.h"
+ #include "CommonTypes.h"
+ #include "CapsAPI.h"
+--- a/LibIPF/ComLib.h
++++ b/LibIPF/ComLib.h
+@@ -15,6 +15,11 @@
+ 
+ #endif
+ 
++#ifdef __cplusplus
+ #define ExtSub extern "C" DllSub
+ #define ExtVar extern "C" DllVar
++#else
++#define ExtSub DllSub
++#define ExtVar DllVar
++#endif
+ 
+--- a/Core/CommonTypes.h
++++ b/Core/CommonTypes.h
+@@ -111,6 +111,9 @@
+ #endif
+ 
+ #else // POSIX
++#ifndef __cdecl
++#define __cdecl
++#endif
+ #define DllImport
+ #define DllExport
+ #define Naked

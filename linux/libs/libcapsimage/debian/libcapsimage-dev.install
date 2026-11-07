@@ -1,0 +1,4 @@
+usr/include/*
+usr/lib/*/libCAPSImage.so
+usr/lib/*/libcapsimage.so
+usr/lib/*/cmake

@@ -1,0 +1,28 @@
+Description: Honour DESTDIR and multiarch libdir for the libcapsimage.so symlink
+ The install(CODE) step used a bracket argument, so CMAKE_INSTALL_LIBDIR was
+ undefined at install time, and DESTDIR was ignored: the compatibility
+ symlink was created in the wrong directory, outside the staging area.
+ Expand the full libdir at configure time and prefix it with DESTDIR.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: no
+Last-Update: 2026-11-07
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -195,12 +195,12 @@
+ 
+ if(NOT ANDROID AND UNIX AND NOT APPLE)
+     # Backwards-compatible lowercase .so symlink.
+-    install(CODE [[
++    install(CODE "
+         execute_process(
+-            COMMAND "${CMAKE_COMMAND}" -E create_symlink libCAPSImage.so libcapsimage.so
+-            WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}"
++            COMMAND \"\${CMAKE_COMMAND}\" -E create_symlink libCAPSImage.so libcapsimage.so
++            WORKING_DIRECTORY \"\$ENV{DESTDIR}${CMAKE_INSTALL_FULL_LIBDIR}\"
+         )
+-    ]] COMPONENT Runtime)
++    " COMPONENT Runtime)
+ endif()
+ 
+ # -----------------------------------------------------------------------------
