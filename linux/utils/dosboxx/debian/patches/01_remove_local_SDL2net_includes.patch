@@ -7,7 +7,7 @@ Last-Update: 2024-03-10
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/acinclude.m4
 +++ b/acinclude.m4
-@@ -27,11 +27,6 @@
+@@ -59,11 +59,6 @@
        fi
      fi
  
@@ -21,18 +21,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      AC_PATH_PROG(SDL2_CONFIG, sdl2-config, no)
 --- a/configure.ac
 +++ b/configure.ac
-@@ -630,10 +630,10 @@
- pwd=`realpath $srcdir`
+@@ -686,8 +686,8 @@
  if [[ -z "$pwd" ]]; then pwd=`pwd`; fi
  
--CFLAGS="$CFLAGS -I$pwd -I$pwd/vs/sdlnet/linux-host/include -I$pwd/vs/sdlnet/linux-host/include/SDL"
+ #CFLAGS="$CFLAGS -I$pwd -I$pwd/vs/sdlnet/linux-host/include -I$pwd/vs/sdlnet/linux-host/include/SDL"
 -LDFLAGS="$LDFLAGS -L$pwd/vs/sdlnet/linux-host/lib"
 -CPPFLAGS="$CPPFLAGS -I$pwd -I$pwd/vs/sdlnet/linux-host/include -I$pwd/vs/sdlnet/linux-host/include/SDL"
--CXXFLAGS="$CXXFLAGS -I$pwd -I$pwd/vs/sdlnet/linux-host/include -I$pwd/vs/sdlnet/linux-host/include/SDL"
-+CFLAGS="$CFLAGS -I$pwd"
 +LDFLAGS="$LDFLAGS"
 +CPPFLAGS="$CPPFLAGS -I$pwd"
-+CXXFLAGS="$CXXFLAGS -I$pwd"
+ #CXXFLAGS="$CXXFLAGS -I$pwd -I$pwd/vs/sdlnet/linux-host/include -I$pwd/vs/sdlnet/linux-host/include/SDL"
  
  if test x$enable_emscripten != xyes; then
- dnl Some target detection and actions for them
