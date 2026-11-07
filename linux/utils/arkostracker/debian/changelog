@@ -1,3 +1,9 @@
+arkostracker (3.7-0ddebs1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 07 Nov 2026 02:32:43 +0100
+
 arkostracker (3.5.1-0ddebs1) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

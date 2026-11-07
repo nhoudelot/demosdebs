@@ -15,7 +15,7 @@
  
  # Uses C++17.
  set(CMAKE_CXX_STANDARD 17)
-@@ -41,8 +35,8 @@
+@@ -42,8 +36,8 @@
  # (some useless methods to discard, not used).
  CPMAddPackage(
          NAME JUCE
@@ -26,7 +26,7 @@
  )
  
  add_subdirectory(binaryResources)
-@@ -124,4 +118,4 @@
+@@ -131,4 +125,4 @@
  #target_compile_options(ThirdParty PRIVATE ${NO_WARNING_FLAGS})     # This actually doesn't work. Fallback on pragmas...
  
  # Packaging via CPack.
