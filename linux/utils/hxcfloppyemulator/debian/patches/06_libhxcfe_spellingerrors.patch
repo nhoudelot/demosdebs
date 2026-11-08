@@ -51,7 +51,7 @@
  		trackoffsetlist=(pictrack*)malloc(sizeof(pictrack)* header.number_of_track);
 --- a/libhxcfe/sources/loaders/stx_loader/stx_loader.c
 +++ b/libhxcfe/sources/loaders/stx_loader/stx_loader.c
-@@ -715,7 +715,7 @@
+@@ -808,7 +808,7 @@
  						{
  							hxc_fread( &temp_val, sizeof(unsigned short), f );
  #ifdef PASTI_DBG
@@ -73,7 +73,7 @@
  											col=(s_col *)&td->layers[LAYER_IDENTIFICATION][(td->xsize*j) + i];
 --- a/libhxcfe/sources/stream_analyzer/fluxStreamAnalyzer.c
 +++ b/libhxcfe/sources/stream_analyzer/fluxStreamAnalyzer.c
-@@ -2881,7 +2881,7 @@
+@@ -2901,7 +2901,7 @@
  
  			/////////////////////////////////////////////////////////
  #ifdef FLUXSTREAMDBG
@@ -82,7 +82,7 @@
  
  			// print missing blocks.
  			for(block_num=0;block_num<tb->number_of_blocks;block_num++)
-@@ -2965,7 +2965,7 @@
+@@ -2985,7 +2985,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -91,7 +91,7 @@
  #endif
  										}
  										else
-@@ -2986,7 +2986,7 @@
+@@ -3006,7 +3006,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -100,7 +100,7 @@
  #endif
  										}
  										else
-@@ -3011,7 +3011,7 @@
+@@ -3031,7 +3031,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -109,7 +109,7 @@
  #endif
  										}
  										else
-@@ -3048,7 +3048,7 @@
+@@ -3068,7 +3068,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -118,7 +118,7 @@
  #endif
  										}
  										else
-@@ -3129,7 +3129,7 @@
+@@ -3149,7 +3149,7 @@
  											block_analysed++;
  											c = 0;
  #ifdef FLUXSTREAMDBG
@@ -127,7 +127,7 @@
  #endif
  										}
  										else
-@@ -3150,7 +3150,7 @@
+@@ -3170,7 +3170,7 @@
  											tb->blocks[block_num].locked = 1;
  											block_analysed++;
  #ifdef FLUXSTREAMDBG
@@ -136,7 +136,7 @@
  #endif
  										}
  										else
-@@ -4078,7 +4078,7 @@
+@@ -4114,7 +4114,7 @@
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Bitrate: %d",side->bitrate);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Number of sector: %d",side->number_of_sector);
  	fxs->hxcfe->hxc_printf(MSG_DEBUG,"Track encoding: %d",side->track_encoding);
@@ -145,7 +145,7 @@
  
  	nbbadbit = 0;
  
-@@ -4360,7 +4360,7 @@
+@@ -4396,7 +4396,7 @@
  					if(pl->forward_link[first_index] == 1)
  					{
  #ifdef FLUXSTREAMDBG
@@ -219,8 +219,8 @@
  		break;
  
  	}
-@@ -232,4 +232,4 @@
- #if !defined(STANDALONEFSBROWSER) && !defined(HXC_STREAMER_MODE)
+@@ -234,4 +234,4 @@
+ 	USBStats stats;
  	libusbhxcfe_getStats(guicontext->hxcfe,guicontext->usbhxcfe,&stats,1);
  #endif
 -}

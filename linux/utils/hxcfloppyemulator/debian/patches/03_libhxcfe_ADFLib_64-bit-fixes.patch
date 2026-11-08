@@ -138,42 +138,15 @@ Slightly modified (and removed the .depend files from the patches)
      entry->mins = entryBlk->mins%60;
 --- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_disk.c
 +++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_disk.c
-@@ -173,7 +173,7 @@
+@@ -181,7 +181,7 @@
  	vol->dev = dev;
-     vol->mounted = TRUE;
+ 	vol->mounted = TRUE;
  
 -/*printf("first=%ld last=%ld root=%ld\n",vol->firstBlock,
 +/*printf("first=%d last=%d root=%d\n",vol->firstBlock,
   vol->lastBlock, vol->rootBlock);
  */
-     if (adfReadBootBlock(vol, &boot)!=RC_OK) {
-@@ -258,7 +258,7 @@
-     vol->firstBlock = (dev->heads * dev->sectors)*start;
-     vol->lastBlock = (vol->firstBlock + (dev->heads * dev->sectors)*len)-1;
-     vol->rootBlock = (vol->lastBlock - vol->firstBlock+1)/2;
--/*printf("first=%ld last=%ld root=%ld\n",vol->firstBlock,
-+/*printf("first=%d last=%d root=%d\n",vol->firstBlock,
-  vol->lastBlock, vol->rootBlock);
- */
-     vol->curDirPtr = vol->rootBlock;
-@@ -356,7 +356,7 @@
- 
-     if (adfEnv.useProgressBar)
-         (*adfEnv.progressBar)(100);
--/*printf("free blocks %ld\n",adfCountFreeBlocks(vol));*/
-+/*printf("free blocks %d\n",adfCountFreeBlocks(vol));*/
- 
-     /* will be managed by adfMount() later */
-     adfFreeBitmap(vol);
-@@ -436,7 +436,7 @@
-     }
- 
-     pSect = nSect+vol->firstBlock;
--/*printf("write nsect=%ld psect=%ld\n",nSect,pSect);*/
-+/*printf("write nsect=%d psect=%d\n",nSect,pSect);*/
- 
-     if (adfEnv.useRWAccess)
-         (*adfEnv.rwhAccess)(pSect,nSect,TRUE);
+ 	if (adfReadBootBlock(vol, &boot)!=RC_OK) {
 --- a/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_dump.h
 +++ b/libhxcfe/sources/thirdpartylibs/adflib/Lib/adf_dump.h
 @@ -25,6 +25,7 @@
@@ -243,7 +216,7 @@ Slightly modified (and removed the .depend files from the patches)
      do {
          adfReadDumpSector(dev, vol->rootBlock, 512, buf);
          found = swapLong(buf)==T_HEADER && swapLong(buf+508)==ST_ROOT;
-@@ -645,7 +645,7 @@
+@@ -651,7 +651,7 @@
      dev->nVol = n;
  /*
  vol=dev->volList[0];

@@ -1,3 +1,13 @@
+Description: Use Debian build flags exported by dh in all Makefiles
+ Append to CFLAGS/LDFLAGS/CPPFLAGS instead of overwriting them, so the
+ hardening flags exported by dh_auto_build are used. The flags are no
+ longer computed with $(shell dpkg-buildflags) inside the subdirectories:
+ there, debian/changelog cannot be found, so the ELF package metadata was
+ missing and the flags were added twice.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-08
 --- a/libhxcfe/build/Makefile
 +++ b/libhxcfe/build/Makefile
 @@ -15,12 +15,12 @@
@@ -17,28 +27,23 @@
  endif
  
  ifeq ($(DEBUG_ASAN), 1)
-@@ -44,7 +44,9 @@
- endif
- 
- ifeq ($(TARGET), Linux)
-+	CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
- 	CFLAGS += -fPIC -Wl,-Map,foo.map
-+	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
- 	LDFLAGS += -lminizip -llz4 -lz -lexpat -ldl -lspng
- 	LDFLAGS += -Wl,--as-needed,-soname,libhxcfe.so.2
- endif
 --- a/libusbhxcfe/build/Makefile
 +++ b/libusbhxcfe/build/Makefile
-@@ -42,7 +42,9 @@
+@@ -15,11 +15,11 @@
+ 
+ ifeq ($(DEBUG), 1)
+ 	CFLAGS = -O0 $(INCLUDES) -Wall -DDEBUG
+-	LDFLAGS = -shared
++	LDFLAGS += -shared
+ 	DEBUG_INFOS = 1
+ else
+-	CFLAGS = -O3 $(INCLUDES) -Wall
+-	LDFLAGS = -shared
++	CFLAGS += -O3 $(INCLUDES) -Wall
++	LDFLAGS += -shared
  endif
  
- ifeq ($(TARGET), Linux)
-+	CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
- 	CFLAGS += -fPIC -Wl,-Map,foo.map
-+	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
- 	LDFLAGS += -lc -lm  -ldl
- endif
- 
+ ifeq ($(DEBUG_ASAN), 1)
 --- a/HxCFloppyEmulator_cmdline/build/Makefile
 +++ b/HxCFloppyEmulator_cmdline/build/Makefile
 @@ -16,8 +16,8 @@
@@ -52,30 +57,19 @@
  endif
  
  ifeq ($(DEBUG_ASAN), 1)
-@@ -52,6 +52,8 @@
- endif
- 
- ifeq ($(TARGET), Linux)
-+	CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
-+	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
- 	LDFLAGS += -lc -lm -ldl -lpthread -Wl,-rpath=. -Wl,-Map,foo.map
- endif
- 
 --- a/HxCFloppyEmulator_software/build/Makefile
 +++ b/HxCFloppyEmulator_software/build/Makefile
-@@ -21,7 +21,10 @@
+@@ -21,7 +21,8 @@
  	LDFLAGS =
  	DEBUG_INFOS = 1
  else
 -	CFLAGS = -O3 $(INCLUDES) -Wall
 +	CFLAGS += -O3 $(INCLUDES) -Wall
-+	CPPFLAGS += $(CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
-+	CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
-+	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
++	CPPFLAGS += $(CFLAGS)
  	LDFLAGS+= -g $(shell fltk-config --ldflags) -lpthread
  endif
  
-@@ -264,97 +267,97 @@
+@@ -264,97 +265,97 @@
  	$(RESC) $< $@
  
  main.o: $(BASEDIR)/main.cxx
@@ -204,3 +198,14 @@
  
  microintro.o : $(BASEDIR)/gui/microintro/microintro.c
  	$(CC) -o $@ -c $< $(CFLAGS)
+--- a/libhxcadaptor/build/Makefile
++++ b/libhxcadaptor/build/Makefile
+@@ -18,7 +18,7 @@
+ 	LDFLAGS = -shared
+ 	DEBUG_INFOS = 1
+ else
+-	CFLAGS = -O3 $(INCLUDES) -Wall
++	CFLAGS += -O3 $(INCLUDES) -Wall
+ 	LDFLAGS = -shared
+ endif
+ 
