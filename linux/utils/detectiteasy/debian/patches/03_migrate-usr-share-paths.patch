@@ -1,0 +1,50 @@
+Description: Migrate absolute /usr/share/detectiteasy paths from older settings
+ Packages up to 3.21 patched the default data paths to absolute locations in
+ /usr/share/detectiteasy, and XOptions saved them in ~/.config/NTInfo/die.conf.
+ With such a value, the "$data/..." lookup is bypassed: the per-user data
+ folder is never used, and die-update considers the read-only packaged
+ database as an explicit target and fails to update it.
+ .
+ XOptions::load() now rewrites any path under /usr/share/detectiteasy back to
+ "$data/...", and die-update treats /usr/share/detectiteasy/db as the default
+ database, so it falls back to the per-user folder.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-08
+--- a/dep/XOptions/xoptions.cpp
++++ b/dep/XOptions/xoptions.cpp
+@@ -546,6 +546,20 @@
+ 
+         QVariant variant = pSettings->value(sName, varDefault);
+ 
++        // Debian: older packages stored absolute paths to the read-only data
++        // in /usr/share/detectiteasy. Turn them back into "$data/..." so the
++        // per-user data folder (database updates) is looked up first again.
++        if (variant.userType() == QMetaType::QString) {
++            QString sValue = QDir::cleanPath(variant.toString());
++            QString sDebianData = QString("/usr/share/detectiteasy");
++
++            if (sValue == sDebianData) {
++                variant = QString("$data");
++            } else if (sValue.startsWith(sDebianData + QString("/"))) {
++                variant = QString("$data") + sValue.mid(sDebianData.size());
++            }
++        }
++
+         if (!variant.toString().contains("$data")) {
+             if ((id == ID_SCAN_DIE_DATABASE_MAIN_PATH) || (id == ID_SCAN_DIE_DATABASE_CUSTOM_PATH) || (id == ID_SCAN_YARA_DATABASE_PATH) ||
+                 (id == ID_SCAN_PEID_DATABASE_PATH)) {
+--- a/src/updater/databaseupdater.cpp
++++ b/src/updater/databaseupdater.cpp
+@@ -456,7 +456,9 @@
+             if (key == UrlKey && url.isEmpty()) url = value;
+         }
+     }
+-    if (!portable() && (main == "$data/db" || main == "$data\\db")) main.clear();
++    // Debian: /usr/share/detectiteasy/db is the read-only packaged database,
++    // stored as an absolute path by older packages. Treat it as the default.
++    if (!portable() && (main == "$data/db" || main == "$data\\db" || QDir::cleanPath(main) == "/usr/share/detectiteasy/db")) main.clear();
+     if (config.mainPath.isEmpty() && !main.isEmpty()) {
+         if (main == "$data" || main.startsWith("$data/") || main.startsWith("$data\\"))
+             main = QDir(QCoreApplication::applicationDirPath()).filePath(main.size() > 5 ? main.mid(6) : QString());

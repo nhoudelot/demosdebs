@@ -1,0 +1,29 @@
+Description: Look for runtime data in /usr/share/detectiteasy
+ The Debian package installs the architecture-independent data (signature
+ databases, translations, styles, info, yara rules) in /usr/share/detectiteasy,
+ shipped by detectiteasy-data. Add this directory to the paths searched by
+ XOptions::convertPathName(), before the upstream /usr/local/lib and /usr/lib
+ locations. The per-user data folder still takes precedence, so databases
+ downloaded by die-update keep overriding the packaged ones.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-08
+--- a/dep/XOptions/xoptions.cpp
++++ b/dep/XOptions/xoptions.cpp
+@@ -2564,6 +2564,15 @@
+ 
+         if (!bSuccess) {
+             _sPathName = sPathName;
++            QString sPath = QString("/usr/share/detectiteasy");
++
++            _sPathName = _sPathName.replace("$data", sPath);
++
++            bSuccess = isPathExists(_sPathName);
++        }
++
++        if (!bSuccess) {
++            _sPathName = sPathName;
+             QString sPath = QString("/usr/local/lib/%1").arg(sApplicationName);
+ 
+             _sPathName = _sPathName.replace("$data", sPath);

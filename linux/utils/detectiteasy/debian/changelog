@@ -1,3 +1,18 @@
+detectiteasy (4.0.0-0ddebs1) unstable; urgency=medium
+
+  * New Upstream Release
+  * Switch to the upstream CMake build system
+  * Use the libraries bundled upstream (qwt, zlib, bzip2)
+  * Ship the new diel (lite) and die-update binaries
+  * Migrate absolute /usr/share/detectiteasy paths saved by older
+    packages, so database updates go to the per-user folder
+  * Ship io.github.horsicq.detect-it-easy.desktop, as referenced by the
+    metainfo, instead of the generated die.desktop
+  * Depend on libqt5svg5: some styles embed SVG images
+  * Build with -DNDEBUG, like the upstream release builds
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 08 Nov 2026 03:37:29 +0100
+
 detectiteasy (3.21-0ddebs1) unstable; urgency=medium
 
   * New Upstream Release

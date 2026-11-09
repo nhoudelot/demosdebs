@@ -1,13 +1,24 @@
 detectiteasy for Debian
 ----------------------
 
-there is a script to compile a portable version of the program.
-but i'm not using it
+The package is built with the upstream CMake build system. Since 4.0.0, the
+libraries bundled upstream (qwt, zlib, bzip2...) are used instead of the
+system ones.
 
-also, I use those system libs, instead of the embedded ones
-* libqwt-qt5-dev
-* zlib
-* bzip2
-* libssl-dev
+The data files (signature databases, translations, styles...) are installed
+in /usr/share/detectiteasy by the detectiteasy-data package, read-only.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 22 Jun 2020 12:08:21 +0200
+Only the main DiE database (db) has an updater. die-update, also run by the
+"Update" button of the GUI, sees that /usr/share/detectiteasy/db is read-only
+and installs the new database in ~/.local/share/NTInfo/die/db. Each data path
+set to "$data/..." is looked up first in ~/.local/share/NTInfo/die, then in
+/usr/share/detectiteasy, so the updated database takes precedence.
+
+The "Update" buttons of the info, PEiD and yara databases only open the
+download page in a web browser. The signatures folder has no update. To use a
+newer copy, extract it in ~/.local/share/NTInfo/die/<info|peid|yara_rules>.
+
+Paths saved as /usr/share/detectiteasy/... by packages up to 3.21 are turned
+back into "$data/..." when the settings are loaded.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 08 Nov 2026 03:40:00 +0100

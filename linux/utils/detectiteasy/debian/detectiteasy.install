@@ -1,4 +1,8 @@
-LINUX/io.github.horsicq.detect-it-easy.desktop usr/share/applications/
-LINUX/hicolor/ usr/share/icons
-build/release/diec usr/bin
-build/release/die usr/bin
+usr/bin/die
+usr/bin/diec
+usr/bin/diel
+usr/bin/die-update
+usr/lib/*/die/die-update
+LINUX/io.github.horsicq.detect-it-easy.desktop usr/share/applications
+usr/share/icons
+usr/share/metainfo

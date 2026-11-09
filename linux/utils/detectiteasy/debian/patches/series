@@ -1,4 +1,3 @@
-01_adapt_build.patch
-02_use_system_libs.patch
-03_change_config_path.patch
-04_use-zlib-src-include.patch
+01_fix-translations-dir.patch
+02_data-path-usr-share.patch
+03_migrate-usr-share-paths.patch

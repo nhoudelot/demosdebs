@@ -4,18 +4,14 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- pkgconf,
+ cmake,
  qtbase5-dev,
  qtbase5-dev-tools,
- qt5-qmake,
+ qttools5-dev,
  qttools5-dev-tools,
  qtscript5-dev,
  libqt5svg5-dev,
- libqwt-qt5-dev,
- libqt5opengl5-dev,
- libbz2-dev,
- zlib1g-dev,
- libssl-dev
+ libqt5opengl5-dev
 Standards-Version: 4.7.3
 Homepage: https://github.com/horsicq/DIE-engine
 Rules-Requires-Root: no
@@ -24,6 +20,7 @@ Package: detectiteasy
 Architecture: any
 Depends:
  detectiteasy-data,
+ libqt5svg5,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Detect It Easy(DiE) is a packer identifier
