@@ -1,0 +1,523 @@
+libsfml (2.5.1+dfsg-2ddebs1) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * Rebuild SFML 2.5 for current distributions, needed by binary-only
+    demos linked against SFML 2.4/2.5 (SFML 2.6 moved
+    sf::Window::pollEvent() and others to sf::WindowBase, breaking ABI)
+  * debian/control : Updated to standards-version 4.7.3 and debhelper-
+    compat 13
+  * debian/control : Removed kfreebsd-only build dependency libusbhid-
+    dev
+  * debian/control : Prefer libfreetype-dev and libgl-dev over the
+    obsolete libfreetype6-dev and libgl1-mesa-dev (kept as fallbacks)
+  * debian/control, debian/rules : Dropped libsfml-doc (Architecture:
+    all, would replace the official documentation on other
+    distributions)
+  * debian/rules : Set CMAKE_POLICY_VERSION_MINIMUM=3.5 to build with
+    CMake 4
+  * debian/not-installed : Added upstream license.md and readme.md
+    (dh_missing fails with debhelper 13)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 09 Nov 2026 02:11:33 +0100
+
+libsfml (2.5.1+dfsg-2) unstable; urgency=high
+
+  * Team upload.
+  * debian/tests/CMakeLists.txt: Bump minimum version requirement
+    to 3.7.2 to avoid autopkgtest regression (DeprecationWarning
+    in stderr. (Closes: #994500)
+
+  [ Debian Janitor ]
+  * Refer to common license file for CC0-1.0.
+  * Use secure URI in Homepage field.
+  * Replace use of deprecated $ADTTMP with $AUTOPKGTEST_TMP.
+  * Set debhelper-compat version in Build-Depends.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 05 Oct 2021 12:52:50 -0400
+
+libsfml (2.5.1+dfsg-1) unstable; urgency=medium
+
+  * New upstream version.
+
+  * d/control: Bump standards to 4.2.1.
+  * d/libsfml-doc.links:
+    - Remove unused jquery symlink and dependency from libsfml-doc.
+  * d/patches:
+    - Drop cmake pkgconfig patches.
+    - Drop 05_cmake-config-LIB_SIFFIX.patch.
+  * d/rules: Set SFML_PKGCONFIG_INSTALL_PREFIX.
+
+ -- James Cowgill <jcowgill@debian.org>  Wed, 17 Oct 2018 09:31:40 +0100
+
+libsfml (2.5.0+dfsg-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- James Cowgill <jcowgill@debian.org>  Thu, 17 May 2018 14:14:43 +0100
+
+libsfml (2.5.0+dfsg-1) experimental; urgency=medium
+
+  [ James Cowgill ]
+  * New upstream version.
+  * Rename binary packages to libsfml-*2.5 due to SONAME bump.
+
+  * debian/copyright:
+    - Update for 2.5.
+    - Use secure Format URL.
+  * debian/compat: Use debhelper compat 11.
+  * debian/control:
+    - Set Rules-Requires-Root: no.
+    - Switch Vcs URLs to salsa.debian.org.
+    - Remove unnecessary Testsuite: autopkgtest field.
+    - Bump standards version to 4.1.4.
+    - Remove obsolete Breaks (not needed after ABI bump).
+    - Drop build-dependency on libjpeg-dev.
+    - Increase minimum cmake version in build dependencies.
+  * debian/libsfml-dev.install:
+    - Install CMake config files and drop FindSFML.cmake.
+  * debian/libsfml-doc.doc-base:
+    - Update paths now that docs are installed in /usr/share/doc/libsfml-dev.
+  * debian/libsfml-doc.docs: Remove debian/tmp/ prefix.
+  * debian/libsfml-doc.README.Debian:
+    - Update list of removed example resources.
+    - Only install in libsfml-doc package.
+  * debian/patches:
+    - Change author in all patches to my debian.org email address.
+    - Renumber patches.
+    - 01_remove-googleapi-css.patch: Refresh.
+    - 02_hurd.patch: Remove.
+    - 03_pkgconfig-cleanup.patch: Added to cleanup pkg-config build system
+      which makes the freebsd patch simpler.
+    - 04_pkgconfig-freebsd.patch, 05_cmake-config-LIB_SIFFIX.patch:
+      - Install cmake config and pkg-config files in multiarch paths.
+    - 06_pkgconfig-libs-private.patch: Remove unnecessary private dependencies.
+  * debain/rules:
+    - Remove obsolete dh_makeshlibs override (not needed after ABI bump).
+    - Don't install examples/android/.gitignore.
+    - Use /usr/share/dpkg/architecture.mk in debian/rules.
+    - Reformat cmake configure options in debian/rules.
+  * debian/source/local-options: Remove.
+  * debian/tests: Adjust cmake test to work with new config files.
+
+  [ Christoph Egger ]
+  * Remove myself from uploaders
+
+ -- James Cowgill <jcowgill@debian.org>  Wed, 16 May 2018 11:34:53 +0100
+
+libsfml (2.4.2+dfsg-4) unstable; urgency=medium
+
+  * Rebuild with GCC 7 to fix FTBFS of reverse-dependencies. (Closes: #853729)
+    - Build-depend on gcc >= 7.
+    - Update shlibs to ensure rdeps pull in the new version.
+
+ -- James Cowgill <jcowgill@debian.org>  Sat, 05 Aug 2017 10:34:04 -0400
+
+libsfml (2.4.2+dfsg-3) unstable; urgency=medium
+
+  * debian/patches/02_hurd.patch:
+    - Fix Hurd patch to link in Xrandr again after the XCB conversion was
+      reverted in 2.4.1.
+
+ -- James Cowgill <jcowgill@debian.org>  Thu, 13 Jul 2017 12:15:38 +0100
+
+libsfml (2.4.2+dfsg-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+  * debian/control:
+    - Bump standards to 4.0.0 (no changes required).
+
+ -- James Cowgill <jcowgill@debian.org>  Sun, 18 Jun 2017 22:22:24 +0100
+
+libsfml (2.4.2+dfsg-1) experimental; urgency=medium
+
+  * New upstream release.
+
+  * debian/copyright:
+    - Update copyright dates to 2017.
+  * debian/patches:
+    - Drop 07_fix-crashing-in-sf-Window-setIcon.patch - applied upstream.
+
+ -- James Cowgill <jcowgill@debian.org>  Fri, 10 Feb 2017 23:49:10 +0000
+
+libsfml (2.4.1+dfsg-2) unstable; urgency=medium
+
+  * Fix segfaults triggered by sf::Window::setIcon. (Closes: #849750)
+  * Use debhelper compat 10.
+
+ -- James Cowgill <jcowgill@debian.org>  Fri, 30 Dec 2016 19:02:05 +0000
+
+libsfml (2.4.1+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Upload 2.4.1 to unstable.
+
+  * debian/control:
+    - Mark libsfml-doc as multi-arch foreign.
+  * debian/patches:
+    - Drop 07_abi.patch - equivalent applied upstream.
+
+ -- James Cowgill <jcowgill@debian.org>  Thu, 03 Nov 2016 21:25:22 +0000
+
+libsfml (2.4.1~git15.b61c2f8+dfsg-1) experimental; urgency=medium
+
+  * New upstream pre-release.
+    - Reverts window implementation to X11 from XCB. (Closes: #839104)
+
+  * debian/control:
+    - Update dependencies.
+    - Ensure graphics 2.4 is not used with window 2.4.1.
+  * debian/patches:
+    - Refresh patches.
+    - Drop 07_config-kfreebsd.patch - applied upstream.
+    - Add 07_abi.patch to maintain SFML 2.4 ABI.
+  * debian/rules:
+    - Bump libsfml-window2.4 shlibs dependency.
+  * debian/tests:
+    - Fix autopkgtests on Ubuntu by depending on make in the cmake test.
+
+ -- James Cowgill <jcowgill@debian.org>  Thu, 27 Oct 2016 21:34:07 +0100
+
+libsfml (2.4.0+dfsg-2) unstable; urgency=medium
+
+  * Upload 2.4 to unstable.
+
+  * debian/patches:
+    - Define SFML_OS_FREEBSD on kFreeBSD to fix FTBFS there.
+
+ -- James Cowgill <jcowgill@debian.org>  Fri, 12 Aug 2016 08:54:42 +0000
+
+libsfml (2.4.0+dfsg-1) experimental; urgency=medium
+
+  * New upstream version.
+  * Binary packages renamed due to SONAME bump.
+
+  * debian/copyright:
+    - Minor updates for 2.4.
+  * debian/patches:
+    - Refresh patches for 2.4.
+    - Drop 07_gcc-5.3.patch and require gcc 6 instead.
+  * debian/rules:
+    - Drop dbysym migration code which is no longer needed.
+  * debian/*.symbols:
+    - Drop the symbols files.
+
+ -- James Cowgill <jcowgill@debian.org>  Tue, 09 Aug 2016 16:03:45 +0000
+
+libsfml (2.3.2+dfsg-3) unstable; urgency=medium
+
+  * debian/patches:
+    - Add patch to workaround GCC 5.3 bug.
+  * debian/tests:
+    - Depend on pkg-config to fix autopkgtest failures.
+
+ -- James Cowgill <jcowgill@debian.org>  Wed, 29 Jun 2016 13:34:17 +0100
+
+libsfml (2.3.2+dfsg-2) unstable; urgency=medium
+
+  * debian/copyright:
+    - Fix spelling mistake.
+  * debian/control:
+    - Drop libsfml2.3-dbg and use automatic debug packages instead.
+    - Use secure Vcs URLs.
+    - Bump standards to 3.9.8.
+    - Use my debian.org email address.
+  * debian/rules:
+    - Drop get-orig-source target - use uscan instead.
+  * debian/tests:
+    - Add autopkgtests.
+  * debian/watch:
+    - Add repack and compression options.
+
+ -- James Cowgill <jcowgill@debian.org>  Tue, 28 Jun 2016 21:09:55 +0100
+
+libsfml (2.3.2+dfsg-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- James Cowgill <james410@cowgill.org.uk>  Sun, 13 Sep 2015 21:42:57 +0100
+
+libsfml (2.3.1+dfsg-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- James Cowgill <james410@cowgill.org.uk>  Fri, 14 Aug 2015 14:34:56 +0100
+
+libsfml (2.3.1+dfsg-2~exp1) experimental; urgency=medium
+
+  * Rename packages to libsfml-*2.3v5 for libstdcxx ABI transition.
+  * Update symbol files for GCC 5 (Closes: #791747).
+  * Build-Depend on g++ >= 5.2.
+
+ -- James Cowgill <james410@cowgill.org.uk>  Wed, 05 Aug 2015 11:41:14 +0100
+
+libsfml (2.3.1+dfsg-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- James Cowgill <james410@cowgill.org.uk>  Sat, 04 Jul 2015 22:15:39 +0100
+
+libsfml (2.3+dfsg-2) unstable; urgency=medium
+
+  * Upload 2.3 to unstable.
+  * Try again to fix the FTBFS on FreeBSD using a new patch.
+  * Update the hurd patch to try and fix the FTBFS there.
+
+ -- James Cowgill <james410@cowgill.org.uk>  Tue, 30 Jun 2015 15:17:19 +0100
+
+libsfml (2.3+dfsg-1) experimental; urgency=low
+
+  * New upstream version.
+  * Rename packages to libsfml-*2.3 due to SONAME bump.
+  * Fix FTBFS on kfreebsd-* by installing the pkgconfig files into the
+    correct directory.
+
+  * debian/control:
+    - Revert debug package rename since it will prevent having debug packages
+      installed for two versions at once.
+    - Add new build dependencies for 2.3.
+    - Drop versioned build-depends on pkg-kde-tools.
+    - Use cgit (instead of gitweb) Vcs-Browser URL.
+    - Remove GLU dependency from libsfml-dev - OpenGL.hpp no longer includes
+      glu.h.
+    - Add libjs-jquery dependency to libsfml-doc.
+  * debian/copyright:
+    - Fix dep5-copyright-license-name-not-unique lintian warning.
+  * debian/libsfml-doc.doc-base:
+    - Update path to documentation root.
+  * debian/patches:
+    - Drop 01_fix-gl-headers - no longer needed.
+  * debian/watch:
+    - New upstream GitHub URL.
+
+ -- James Cowgill <james410@cowgill.org.uk>  Wed, 10 Jun 2015 00:05:53 +0100
+
+libsfml (2.2.0+dfsg-1) experimental; urgency=medium
+
+  * New upstream version.
+  * Rename packages to libsfml-*2.2.0 due to SONAME bump.
+
+  * debian/control:
+    - Bump standards version (no changes).
+    - Build depend on libudev-dev / libusbhid-dev for joystick support.
+    - Rename libsfml2-dbg to libsfml-dbg.
+  * debian/copyright:
+    - Update copyright for new files.
+    - Sort the "Files" entries.
+  * debian/rules:
+    - Enable SFML_INSTALL_PKGCONFIG_FILES.
+    - Build documentation as a separate step.
+    - Use uscan's --download-current-version in get-orig-source.
+  * debian/patches:
+    - Refresh patches.
+    - Drop 03_freebsd-joystick.patch since upstream now has FreeBSD
+      joystick support.
+    - Move joystick code for hurd into 02_hurd.patch
+    - Add 05_build-doc-once.patch to prevent building documentation twice.
+  * debian/*.symbols:
+    - Update all symbol files for 2.2.0
+
+ -- James Cowgill <james410@cowgill.org.uk>  Wed, 10 Dec 2014 14:07:26 +0000
+
+libsfml (2.1+dfsg2-1) unstable; urgency=medium
+
+  * Update symbols for GCC 4.9 (Closes: 746877)
+  * Add example resources I can verify are free (Closes: 647698)
+  * Install FindSFML.cmake in libsfml-dev (Closes: 747186)
+  * Fix debian/watch file
+  * Repack original source using uscan
+  * Enable parallel builds and hardening flags
+  * Add patch to remove googleapi css in doc/header.htm
+  * Add numeric prefixes to all patches
+
+ -- James Cowgill <james410@cowgill.org.uk>  Sat, 17 May 2014 13:37:17 +0100
+
+libsfml (2.1+dfsg-5) unstable; urgency=low
+
+  * Change package priority to optional (Closes: 728886)
+  * Fixed VCS-Browser field (Closes: 728887)
+
+ -- James Cowgill <james410@cowgill.org.uk>  Wed, 06 Nov 2013 15:38:55 +0000
+
+libsfml (2.1+dfsg-4) unstable; urgency=low
+
+  * Update the symbol files (yet again) to fix a lintian error on some arches
+  * Added lintian override for hardening libsfml-graphics2
+
+ -- James Cowgill <james410@cowgill.org.uk>  Thu, 31 Oct 2013 19:38:25 +0000
+
+libsfml (2.1+dfsg-3) unstable; urgency=low
+
+  * Release to unstable
+  * Updated the symbol files
+  * Bump standards version to 3.9.5 - no changes
+
+ -- James Cowgill <james410@cowgill.org.uk>  Wed, 30 Oct 2013 22:00:08 +0000
+
+libsfml (2.1+dfsg-2) experimental; urgency=low
+
+  * Added --as-needed linker option to only build against needed libraries
+  * Remove duplicate section fields in the control file
+  * Remove conflicts and replaces lines for very old libsfml packages
+  * Updated GNU/Hurd patch so it works correctly with CMake
+  * Added patch so that the joystick code is only compiled in on linux
+  * Added initial symbols files created with pkgkde_symbolshelper
+
+ -- James Cowgill <james410@cowgill.org.uk>  Sun, 06 Oct 2013 18:24:46 +0100
+
+libsfml (2.1+dfsg-1) experimental; urgency=low
+
+  * New upstream version 2.1 (Closes: #706001)
+  * Add myself to the list of uploaders in debian/control
+  * Add dependency to libgl-dev and libglu-dev to libsfml-dev (Closes: #706239)
+  * Modify debian/copyright to use the machine-readable format
+    (http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/)
+  * Added doc-base file for API documentation
+  * Moved debian/watch source to the SFML github repository
+  * Upgrade source format to 3.0 and debhelper 9 using dh
+  * Upgrade to standards version 3.9.4
+  * Moved source package to libs section
+  * Fixed typos in package description
+  * Added multiarch support
+
+ -- James Cowgill <james410@cowgill.org.uk>  Mon, 02 Sep 2013 15:44:26 +0100
+
+libsfml (1.6+dfsg2-2) unstable; urgency=low
+
+  * Add the now needed build-dependency
+
+ -- Christoph Egger <christoph@debian.org>  Sun, 08 Jul 2012 22:20:18 +0200
+
+libsfml (1.6+dfsg2-1) unstable; urgency=low
+
+  * Remove nonfree Arial.hpp (Closes: #647497)
+
+ -- Christoph Egger <christoph@debian.org>  Sun, 08 Jul 2012 20:57:06 +0200
+
+libsfml (1.6+dfsg1-3) unstable; urgency=low
+
+  * Team upload.
+  * Thanks to Konstantinos Margaritis for the NMU.
+  * Fix FTBFS with gcc-4.7, thanks to Matthias Klose. (Closes: #672086)
+  * Fix FTGFS with libpng-1.5, thanks to Nobuhiro Iwamatsu. (Closes: #650564)
+  * Bump standards version to 3.9.3
+
+ -- Dmitrijs Ledkovs <xnox@debian.org>  Sun, 27 May 2012 17:46:23 +0100
+
+libsfml (1.6+dfsg1-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Patch from Ubuntu by Matthias Klose fix FTBFS. (Closes: #628253)
+    - Don't include system headers in the sf namespace.
+
+ -- Konstantinos Margaritis <markos@debian.org>  Fri, 03 Feb 2012 15:31:30 +0200
+
+libsfml (1.6+dfsg1-2) unstable; urgency=low
+
+  * Add patch by Evgeni to build against gcc-4.6 (Closes: #625031)
+  * Upgrade standards version from 3.8.4 to 3.9.2 (no changes)
+
+ -- Christoph Egger <christoph@debian.org>  Tue, 17 May 2011 00:39:32 +0200
+
+libsfml (1.6+dfsg1-1) unstable; urgency=low
+
+  * New upstream release
+  * Rename library packages due to soname change
+  * Upgrade policy version (no changes)
+
+ -- Christoph Egger <christoph@debian.org>  Sun, 09 May 2010 11:38:53 +0200
+
+libsfml (1.5+repack1-3) unstable; urgency=low
+
+  * Make -dev package only suggest -doc instead of recommend
+  * Update my email address
+  * Reformat debian/control slightly
+  * Make -dbg installable with only some SFML libs available
+  * Try building on Hurd the way it works on kFreeBSD
+
+ -- Christoph Egger <christoph@debian.org>  Fri, 18 Dec 2009 13:39:19 +0100
+
+libsfml (1.5+repack1-2) unstable; urgency=low
+
+  * Patch include/SFML/Config.hpp to correctly detect kFreeBSD kernels
+    enables the build on these ports
+  * Bump standards version from 3.8.2 to .3 (no changes)
+  * Bump compat to 7, use debian/clean file
+  * Clean up watch file
+  * Clean up rules as per NM-review
+  * Depend on unversioned lib{jpeg,png}-dev packages, no special needs
+    here
+  * Remove debian/*dirs files, they're unneeded
+
+ -- Christoph Egger <debian@christoph-egger.org>  Mon, 24 Aug 2009 15:20:58 +0200
+
+libsfml (1.5+repack1-1) unstable; urgency=low
+
+  * [af202195] Imported Upstream version 1.5+repack1
+  * [118764a1] Add lintian override, -dbg is explicitly set to
+               Priority:extra on purpose
+  * [43beb98d] improve long descriptions
+  * [b25d0c2c] lib/ is missing from time to time, just create it if
+               needed
+  * [eef4cb02] Update standards-Version to 3.8.2 (no changes needed)
+  * [08ae7680] rename doc package to drop the soname part
+
+ -- Christoph Egger <debian@christoph-egger.org>  Sat, 25 Jul 2009 14:07:05 +0200
+
+libsfml (1.4+repack1-1) unstable; urgency=low
+
+  [ Christoph Egger ]
+  * New upstream release.
+  * Drop patches implemented upstream
+    - RM: add_destdir_to_makefile.patch
+    - RM: building_on_all_arches.patch
+    - RM: bump_soname.patch
+    - RM: cstring_ftbfs.patch
+    - RM: modify_toplevel_makefile
+  * Reorganize remaining patches using topgit
+  * Using external libSOIL
+    - add SOIL to repacking list
+  * Build debug package
+  * Build documentation package
+    - separate docs and examples from -dev package
+  * Change my email address
+
+  [ Gonéri Le Bouder ]
+  * libsfml-dev conflicts/replaces libsfml1.deb3-dev
+
+ -- Christoph Egger <debian@christoph-egger.org>  Sun, 25 Jan 2009 16:51:47 +0100
+
+libsfml (1.3-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christoph Egger <Christoph.Egger@gmx.de>  Sun, 22 Jun 2008 13:33:03 +0200
+
+libsfml (1.2-3) unstable; urgency=low
+
+  * Clean rules improvement (thanks to gnoéri)
+  * Switch to Standards Version 3.8.0
+    - add README.source
+  * Rename make target for orig tarball to reflect
+    common way to do so
+  * Allow building on unknown arches and non-linux
+    debian kernels (Closes: #486851)
+  * Link libraries correctly (fixing upstream Makefile)
+  * Not installing binary sample programms
+
+ -- Christoph Egger <Christoph.Egger@gmx.de>  Thu, 19 Jun 2008 17:59:52 +0200
+
+libsfml (1.2-2) unstable; urgency=low
+
+  * Change copyright of the packaging part
+    to be identical to the source (zlib)
+  * Fix Vcs-Git field
+  * Fix build with g++ 4.3
+
+ -- Christoph Egger <Christoph.Egger@gmx.de>  Tue, 10 Jun 2008 18:52:46 +0200
+
+libsfml (1.2-1) unstable; urgency=low
+
+  * Initial release. (Closes: #475850)
+
+ -- Christoph Egger <Christoph.Egger@gmx.de>  Tue, 13 May 2008 16:57:31 +0200

@@ -1,0 +1,30 @@
+#!/bin/sh
+# autopkgtest check: Build and run a simple program against SFML
+
+set -e
+
+# Require $AUTOPKGTEST_TMP for temporary build files
+if [ -z "$AUTOPKGTEST_TMP" ]
+then
+	echo "Required envvar \"$AUTOPKGTEST_TMP\"is not set" >&2
+	exit 1
+fi
+
+cp debian/tests/sfml_test.cpp "$AUTOPKGTEST_TMP"
+cd "$AUTOPKGTEST_TMP"
+
+# Build programs - once with raw libraries and once with pkg-config
+g++ -Wall -Werror -o sfml_test1 sfml_test.cpp -lsfml-network -lsfml-system
+echo "build1: OK"
+g++ -Wall -Werror -o sfml_test2 sfml_test.cpp $(pkg-config --cflags --libs sfml-all)
+echo "build2: OK"
+g++ -Wall -Werror -o sfml_test3 sfml_test.cpp $(pkg-config --cflags --libs sfml-network sfml-system)
+echo "build3: OK"
+
+# Run them
+./sfml_test1
+echo "run1: OK"
+./sfml_test2
+echo "run2: OK"
+./sfml_test3
+echo "run3: OK"

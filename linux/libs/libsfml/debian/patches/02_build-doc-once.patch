@@ -1,0 +1,21 @@
+Description: Adjust build script to build documentation only once
+ This patch removes the ALL option from the documentation build command so
+ that it must be run manually with "make doc". This prevents the documentation
+ being built twice (normal build + install phase). It also allows the
+ documentation building to happen after the code building, which makes the
+ logs much more readable in parallel builds.
+Author: James Cowgill <jcowgill@debian.org>
+Forwarded: no
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/doc/CMakeLists.txt
++++ b/doc/CMakeLists.txt
+@@ -45,7 +45,7 @@ configure_file(${DOXYGEN_INPUT_DIR}/doc/
+ configure_file(${DOXYGEN_INPUT_DIR}/doc/doxygen.css ${DOXYGEN_OUTPUT_DIR}/html/doxygen.css COPYONLY)
+ 
+ # target setup
+-add_custom_target(doc ALL
++add_custom_target(doc
+                   COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
+                   COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_CONFIGURED_INPUT}
+                   COMMAND ${CMAKE_COMMAND} -E echo "Done."

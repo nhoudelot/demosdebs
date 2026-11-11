@@ -1,0 +1,3 @@
+# The libsfml-system package doesn't use any functions which can be
+#  fortified, even though all the correct flags are passed.
+libsfml-system2.5 binary: hardening-no-fortify-functions

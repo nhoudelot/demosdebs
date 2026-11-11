@@ -1,0 +1,6 @@
+# See uscan(1) for format
+version=3
+
+# From GitHub
+opts=repack,compression=xz,filenamemangle=s/.+\/v?(\d\S*)\.tar\.gz/SFML-$1\.tar\.gz/,dversionmangle=s/\+dfsg\d?$//,repacksuffix=+dfsg \
+  https://github.com/SFML/SFML/tags .*/v?(\d\S*)\.tar\.gz

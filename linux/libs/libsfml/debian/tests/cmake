@@ -1,0 +1,23 @@
+#!/bin/sh
+# autopkgtest check: Build and run a simple program against SFML
+
+set -e
+
+# Require $AUTOPKGTEST_TMP for temporary build files
+if [ -z "$AUTOPKGTEST_TMP" ]
+then
+	echo "Required envvar \"$AUTOPKGTEST_TMP\"is not set" >&2
+	exit 1
+fi
+
+cp debian/tests/CMakeLists.txt debian/tests/sfml_test.cpp "$AUTOPKGTEST_TMP"
+cd "$AUTOPKGTEST_TMP"
+
+# Run CMake and build program
+CFLAGS='-Wall -Werror' cmake .
+make VERBOSE=1
+echo "build: OK"
+
+# Run it
+./sfml_test
+echo "run: OK"

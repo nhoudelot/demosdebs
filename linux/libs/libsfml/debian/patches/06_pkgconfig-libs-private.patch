@@ -1,0 +1,38 @@
+Description: Remove *.private fields from pkg-config files
+ This avoids unnecessary dependencies which are only needed when building static
+ libraries. It also removes the unused dependency on glu.
+Author: James Cowgill <jcowgill@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/tools/pkg-config/sfml-audio.pc.in
++++ b/tools/pkg-config/sfml-audio.pc.in
+@@ -8,8 +8,5 @@ Description: The Simple and Fast Multime
+ URL: http://www.sfml-dev.org
+ Version: @VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_PATCH@
+ Requires: sfml-system
+-Requires.private: openal, vorbisenc, vorbisfile, vorbis, ogg, flac
+ Libs: -L${libdir} -lsfml-audio
+-# openal may be a system framework
+-Libs.private: @OPENAL_LIBRARY@
+ Cflags: -I${includedir}
+--- a/tools/pkg-config/sfml-graphics.pc.in
++++ b/tools/pkg-config/sfml-graphics.pc.in
+@@ -8,8 +8,5 @@ Description: The Simple and Fast Multime
+ URL: http://www.sfml-dev.org
+ Version: @VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_PATCH@
+ Requires: sfml-window
+-Requires.private: sfml-system, freetype2
+ Libs: -L${libdir} -lsfml-graphics
+-# gl may not be in pkg-config
+-Libs.private: @OPENGL_gl_LIBRARY@ @OPENGL_glu_LIBRARY@
+ Cflags: -I${includedir}
+--- a/tools/pkg-config/sfml-window.pc.in
++++ b/tools/pkg-config/sfml-window.pc.in
+@@ -9,6 +9,4 @@ URL: http://www.sfml-dev.org
+ Version: @VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_PATCH@
+ Requires: sfml-system
+ Libs: -L${libdir} -lsfml-window
+-# gl may not be in pkg-config
+-Libs.private: @OPENGL_gl_LIBRARY@ @OPENGL_glu_LIBRARY@
+ Cflags: -I${includedir}

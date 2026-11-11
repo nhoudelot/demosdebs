@@ -1,0 +1,5 @@
+Tests: build
+Depends: g++, libsfml-dev, pkg-config
+
+Tests: cmake
+Depends: cmake, g++, libsfml-dev, make

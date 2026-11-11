@@ -1,0 +1,16 @@
+Description: Remove commented out googleapi css in documentation
+ There isn't actually any privacy breach here (since the line is commented
+ out), but removing it shuts up lintian.
+Author: James Cowgill <jcowgill@debian.org>
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/doc/header.html.in
++++ b/doc/header.html.in
+@@ -4,7 +4,6 @@
+         <title>SFML - Simple and Fast Multimedia Library</title>
+         <meta http-equiv="Content-Type" content="text/html;"/>
+         <meta charset="utf-8"/>
+-        <!--<link rel='stylesheet' type='text/css' href="https://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>-->
+         <link rel="stylesheet" type="text/css" href="doxygen.css" title="default" media="screen,print" />
+         <script type="text/javascript" src="jquery.js"></script>
+         <script type="text/javascript" src="dynsections.js"></script>

@@ -1,0 +1,3 @@
+01_remove-googleapi-css.patch
+02_build-doc-once.patch
+06_pkgconfig-libs-private.patch

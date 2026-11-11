@@ -1,0 +1,110 @@
+Source: libsfml
+Section: libs
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders:
+ James Cowgill <jcowgill@debian.org>
+Build-Depends: debhelper-compat (= 13),
+ cmake (>= 3.0.2),
+ g++ (>= 4:7),
+ libflac-dev,
+ libfreetype-dev | libfreetype6-dev,
+ libgl-dev | libgl1-mesa-dev,
+ libopenal-dev,
+ libudev-dev [linux-any],
+ libvorbis-dev,
+ libx11-dev,
+ libxrandr-dev,
+Rules-Requires-Root: no
+Standards-Version: 4.7.3
+Homepage: https://www.sfml-dev.org/
+Vcs-Git: https://salsa.debian.org/games-team/libsfml.git
+Vcs-Browser: https://salsa.debian.org/games-team/libsfml
+
+Package: libsfml-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends},
+ libgl-dev | libgl1-mesa-dev,
+ libsfml-audio2.5 (= ${binary:Version}),
+ libsfml-graphics2.5 (= ${binary:Version}),
+ libsfml-network2.5 (= ${binary:Version}),
+ libsfml-system2.5 (= ${binary:Version}),
+ libsfml-window2.5 (= ${binary:Version})
+Description: Simple and Fast Multimedia Library - Development Files
+ SFML is a modern multimedia library offering a wide range of subsystems
+ useful to produce a multimedia app. It offers OpenGL integration for
+ Hardware accelerated Graphics, Windowing and Input support, Audio and
+ Network facilities and supports GNU/Linux, MS Windows and Mac OS X.
+ .
+ This package includes header files for all SFML libraries.
+
+Package: libsfml-audio2.5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Simple and Fast Multimedia Library - Audio part
+ SFML is a modern multimedia library offering a wide range of subsystems
+ useful to produce a multimedia app. It offers OpenGL integration for
+ Hardware accelerated Graphics, Windowing and Input support, Audio and
+ Network facilities and supports GNU/Linux, MS Windows and Mac OS X.
+ .
+ The Audio library is used to play sound and music in games. It is able to
+ load OGG/Vorbis files.
+
+Package: libsfml-graphics2.5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Simple and Fast Multimedia Library - Graphics part
+ SFML is a modern multimedia library offering a wide range of subsystems
+ useful to produce a multimedia app. It offers OpenGL integration for
+ Hardware accelerated Graphics, Windowing and Input support, Audio and
+ Network facilities and supports GNU/Linux, MS Windows and Mac OS X.
+ .
+ The Graphics library contains all the OpenGL and drawing code. It needs the
+ Window library for Window creation.
+
+Package: libsfml-network2.5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Simple and Fast Multimedia Library - Network part
+ SFML is a modern multimedia library offering a wide range of subsystems
+ useful to produce a multimedia app. It offers OpenGL integration for
+ Hardware accelerated Graphics, Windowing and Input support, Audio and
+ Network facilities and supports GNU/Linux, MS Windows and Mac OS X.
+ .
+ The Network Library brings basic networking support as needed by games.
+
+Package: libsfml-system2.5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Simple and Fast Multimedia Library - System part
+ SFML is a modern multimedia library offering a wide range of subsystems
+ useful to produce a multimedia app. It offers OpenGL integration for
+ Hardware accelerated Graphics, Windowing and Input support, Audio and
+ Network facilities and supports GNU/Linux, MS Windows and Mac OS X.
+ .
+ The system library brings useful system utilities like multithreading and
+ UNICODE handling.
+
+Package: libsfml-window2.5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Simple and Fast Multimedia Library - Window part
+ SFML is a modern multimedia library offering a wide range of subsystems
+ useful to produce a multimedia app. It offers OpenGL integration for
+ Hardware accelerated Graphics, Windowing and Input support, Audio and
+ Network facilities and supports GNU/Linux, MS Windows and Mac OS X.
+ .
+ The Window library provides basic utilities for creating and managing Windows.
+
