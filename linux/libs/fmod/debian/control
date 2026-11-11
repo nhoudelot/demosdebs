@@ -4,12 +4,13 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  rename
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Section: libs
 Homepage: https://www.fmod.org/
 Rules-Requires-Root: no
 
 Package: libfmod
+Section: oldlibs
 Architecture: i386
 Depends:
  ${misc:Depends},
@@ -19,7 +20,8 @@ Description: Transitional package
 
 Package: libfmod3
 Architecture: i386
-Replaces: libfmod (<< 3.75-ddebs5~)
+Replaces: libfmod (<< 3.75-0ddebs5~)
+Breaks: libfmod (<< 3.75-0ddebs5~)
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -33,7 +35,7 @@ Description: Programming library for audio playback
 
 Package: libfmod-dev
 Section: libdevel
-Architecture: any
+Architecture: i386
 Depends:
  libfmod3 (= ${binary:Version}),
  ${misc:Depends}

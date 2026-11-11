@@ -3,9 +3,8 @@ exec_prefix=${prefix}
 libdir=${prefix}/lib/i386-linux-gnu
 includedir=${prefix}/include
 
-Name: fmodex
-Description: FMOD is a cross platform audio library and toolset
-Requires:
+Name: fmod
+Description: FMOD 3 sound system library
 Version: 3.75
 Libs: -L${libdir} -lfmod
-Cflags: -I${includedir}/fmod
+Cflags: -I${includedir}

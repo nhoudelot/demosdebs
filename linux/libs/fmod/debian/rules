@@ -22,4 +22,5 @@ override_dh_dwz:
 override_dh_install:
 		dh_install
 		(find debian/libfmod3 -type f -execdir rename 's/libfmod-3.75.so/libfmod.so.3.75/g' * {} \;)
-
+		# glibc >= 2.41 refuses to dlopen() a library requesting an executable stack
+		perl debian/clear-execstack.pl debian/libfmod3/usr/lib/$(DEB_HOST_MULTIARCH)/libfmod.so.3.75

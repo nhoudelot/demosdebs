@@ -1,0 +1,4 @@
+# Prebuilt upstream binary from 2005, not compiled as PIC (text relocations)
+# and without RELRO: it cannot be rebuilt, no source is available.
+libfmod3: specific-address-in-shared-library [usr/lib/i386-linux-gnu/libfmod.so.3.75]
+libfmod3: hardening-no-relro [usr/lib/i386-linux-gnu/libfmod.so.3.75]
