@@ -1,0 +1,5 @@
+# Prebuilt by Un4seen without SONAME: programs are linked with "NEEDED libbass.so",
+# so the symbols file is keyed on that name and installed by debian/rules
+libbass2: sharedobject-in-library-directory-missing-soname [usr/lib/*/libbass.so.*]
+libbass2: empty-shared-library-symbols [symbols]
+libbass2: surplus-shared-library-symbols libbass.so [symbols]

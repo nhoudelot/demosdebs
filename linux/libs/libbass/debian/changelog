@@ -1,7 +1,25 @@
+libbass (2.4.18.3-0ddebs2) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/libbass2.symbols : keyed on libbass.so, the name programs are
+    linked with (no SONAME)
+  * debian/rules : install the symbols file by hand, dh_makeshlibs
+    ignores libraries without SONAME, and check it against the exported
+    symbols
+  * debian/control : libbass-dev restricted to the architectures of
+    libbass2 (was uninstallable on riscv64)
+  * debian/libbass2.symbols : added Build-Depends-Package field
+  * debian/control : transitional package libbass moved to section
+    oldlibs
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 11 Nov 2026 18:38:25 +0100
+
 libbass (2.4.18.3-0ddebs1) unstable; urgency=medium
 
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
   * New upstream update
-  * Removed xz compression of the package
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 14:19:55 +0100
 

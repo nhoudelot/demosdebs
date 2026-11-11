@@ -1,11 +1,16 @@
 libbass for Debian
 ------------------
 
-sources have been assembled from un4seen archive
+Sources have been assembled from the un4seen archives (one prebuilt
+libbass.so per architecture, bass.h and bass.txt).
 
-patched the library with : patchelf --set-soname libbass.so.2 libbass.so.2.4.17
-so it has a soname
+The library has no SONAME, and it is not patched: programs linked with -lbass
+get "NEEDED libbass.so". debian/libbass2.symbols is therefore keyed on
+"libbass.so" and installed by hand in debian/rules, because dh_makeshlibs
+ignores libraries without SONAME. The build fails if the exported BASS_*
+functions do not match the symbols file: new functions of an upstream update
+must be added there with the new version.
 
-and then I could create a symbols file
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Now 2025 00:11:32 +0100
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 11 Nov 2026 18:45:00 +0100

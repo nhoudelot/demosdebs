@@ -1,2 +1,5 @@
-libbass source: source-is-missing i686-linux-gnu/libbass.so
-libbass source: source-is-missing x86_64-linux-gnu/libbass.so
+# Prebuilt library distributed by Un4seen, no source available
+libbass source: source-is-missing [x86_64-linux-gnu/libbass.so]
+libbass source: source-is-missing [i386-linux-gnu/libbass.so]
+libbass source: source-is-missing [arm-linux-gnueabihf/libbass.so]
+libbass source: source-is-missing [aarch64-linux-gnu/libbass.so]

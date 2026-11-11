@@ -5,12 +5,13 @@ Build-Depends:
  debhelper-compat (= 13),
  dh-exec (>=0.3),
  rename
-Standards-Version: 4.6.2
+Standards-Version: 4.7.3
 Section: libs
 Homepage: https://www.un4seen.com/
 Rules-Requires-Root: no
 
 Package: libbass
+Section: oldlibs
 Architecture: i386 amd64 armhf arm64
 Multi-Arch: same
 Depends:
@@ -35,7 +36,7 @@ Description: Audio library
 
 Package: libbass-dev
 Section: libdevel
-Architecture: any
+Architecture: i386 amd64 armhf arm64
 Multi-Arch: same
 Depends:
  libbass2(= ${binary:Version}),

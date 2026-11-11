@@ -4,8 +4,23 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 export BASSVERSION := $(shell dpkg-parsechangelog -S Version | cut -d- -f1)
+include /usr/share/dpkg/architecture.mk
+
+LIB := debian/libbass2/usr/lib/$(DEB_HOST_MULTIARCH)/libbass.so.$(BASSVERSION)
 
 %:
 	dh $@
 
 override_dh_strip:
+
+# libbass.so has no SONAME, so dh_makeshlibs/dpkg-gensymbols skip it.
+# Programs linked with -lbass get "NEEDED libbass.so": the symbols file is
+# keyed on that name and installed by hand, so that dpkg-shlibdeps adds
+# "libbass2 (>= x)" to the packages using it.
+override_dh_makeshlibs-arch:
+	dh_makeshlibs -a -Nlibbass2
+	# Fail if the exported BASS_* functions differ from debian/libbass2.symbols
+	readelf --dyn-syms -W $(LIB) | awk '$$7 != "UND" && $$8 ~ /^BASS_/ {print $$8}' | sort -u > debian/exported-symbols
+	sed -n 's/^ \([^@]*\)@Base .*/\1/p' debian/libbass2.symbols | sort -u | diff -u - debian/exported-symbols
+	rm -f debian/exported-symbols
+	install -D -m 644 debian/libbass2.symbols debian/libbass2/DEBIAN/symbols

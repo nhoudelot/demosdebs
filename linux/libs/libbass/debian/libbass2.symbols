@@ -1,4 +1,5 @@
-libbass.so.2 libbass2 #MINVER#
+libbass.so libbass2 #MINVER#
+* Build-Depends-Package: libbass-dev
  BASS_Apply3D@Base 2.4.6
  BASS_ChannelBytes2Seconds@Base 2.4.6
  BASS_ChannelFlags@Base 2.4.6
