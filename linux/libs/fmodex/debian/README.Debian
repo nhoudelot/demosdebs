@@ -1,0 +1,18 @@
+fmodex for Debian
+-----------------
+
+FMOD Ex is only distributed as prebuilt binaries (i386 and amd64).
+
+ * The 64-bit library is shipped upstream as libfmodex64-<version>.so; it is
+   installed as libfmodex.so.4.44.64 for both architectures, with the
+   libfmodex.so.4 (SONAME) and libfmodex.so (development) links.
+ * The logging variant libfmodexL is not packaged: upstream builds it
+   without a SONAME and nothing uses it.
+ * Audio output libraries are loaded with dlopen(): ALSA (libasound.so.2)
+   and PulseAudio (libpulse-simple.so.0). ESD is no longer available.
+ * Programs can use "pkg-config --cflags --libs fmodex"; headers are in
+   /usr/include/fmodex.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 11 Nov 2026 23:00:00 +0100

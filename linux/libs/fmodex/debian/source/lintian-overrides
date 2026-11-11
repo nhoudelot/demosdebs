@@ -1,0 +1,7 @@
+# FMOD Ex is a proprietary, binary-only SDK: the upstream documentation is
+# only distributed as a compiled HTML help file, there is no source for it.
+# It is kept in the orig tarball as shipped upstream and is not installed.
+source-contains-prebuilt-ms-help-file [documentation/fmodex.chm]
+
+# EXT is exported by debian/rules (64 on amd64, empty on i386).
+dh-exec-subst-unknown-variable EXT [debian/libfmodex4.install:*]

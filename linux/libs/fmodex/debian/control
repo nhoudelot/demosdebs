@@ -4,69 +4,51 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- dh-exec (>=0.3),
- rename
-Standards-Version: 4.6.2
-Homepage: https://www.fmod.org/download/
+ dh-exec (>= 0.3)
+Standards-Version: 4.7.3
+Homepage: https://www.fmod.com/
 Rules-Requires-Root: no
 
 Package: libfmodex-dev
 Section: libdevel
-Architecture: any
+Architecture: i386 amd64
 Multi-Arch: same
 Depends:
  libfmodex4 (= ${binary:Version}),
  ${misc:Depends}
-Description: FMOD is a cross platform audio library and toolset
+Description: FMOD Ex cross platform audio library - development files
  FMOD is a cross platform audio library and toolset to let you easily
  implement the latest audio technologies into your title.
  .
- The FMOD Ex sound system is a revolutionary new audio engine for
- game developers, multimedia developers, sound designers, musicians
- and audio engineers, based on the years of experienced of Firelight
- Technologies(tm) previous product FMOD.
- It also aims high - to push the boundaries of audio implementation
- for games and the like while at the same time using minimal resources
- and being scalable. This new engine is written from the ground up
- since FMOD 3 was released and involves years of experience and
- feedback from FMOD users to create the most feature filled and easy
- to use product possible, without the rawbacks of legacy
- implementation that FMOD 3 may have suffered from its years of
- continuous development.
+ The FMOD Ex sound system is an audio engine for game developers,
+ multimedia developers, sound designers, musicians and audio engineers,
+ based on the years of experience of Firelight Technologies' previous
+ product FMOD 3. It is written from the ground up and aims to push the
+ boundaries of audio implementation for games while using minimal
+ resources and being scalable.
+ .
+ This package contains the header files, the pkg-config file and the
+ libfmodex.so link needed to do development with FMOD Ex.
 
 Package: libfmodex4
 Architecture: i386 amd64
 Multi-Arch: same
-Replaces: libfmodex (<<4.44.64-0ddebs3~)
 Depends:
  NSHPIPEWIREALSA,
  ${shlibs:Depends},
  ${misc:Depends}
-Description: FMOD Ex library Package development
+Recommends:
+ libpulse0
+Description: FMOD Ex cross platform audio library - runtime library
  FMOD is a cross platform audio library and toolset to let you easily
  implement the latest audio technologies into your title.
  .
- The FMOD Ex sound system is a revolutionary new audio engine for
- game developers, multimedia developers, sound designers, musicians
- and audio engineers, based on the years of experienced of Firelight
- Technologies(tm) previous product FMOD.
- It also aims high - to push the boundaries of audio implementation
- for games and the like while at the same time using minimal resources
- and being scalable. This new engine is written from the ground up
- since FMOD 3 was released and involves years of experience and
- feedback from FMOD users to create the most feature filled and easy
- to use product possible, without the rawbacks of legacy
- implementation that FMOD 3 may have suffered from its years of
- continuous development.
+ The FMOD Ex sound system is an audio engine for game developers,
+ multimedia developers, sound designers, musicians and audio engineers,
+ based on the years of experience of Firelight Technologies' previous
+ product FMOD 3. It is written from the ground up and aims to push the
+ boundaries of audio implementation for games while using minimal
+ resources and being scalable.
  .
- This package contains the header files and libraries
- needed to do development with FMOD Ex.
-
-Package: libfmodex
-Architecture: i386 amd64
-Multi-Arch: same
-Depends:
- libfmodex4,
- ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
+ This package contains the shared library libfmodex.so.4. Audio output
+ libraries (ALSA, PulseAudio) are loaded at runtime.

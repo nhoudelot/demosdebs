@@ -1,34 +1,15 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
-export EXT
+include /usr/share/dpkg/architecture.mk
 
-
-ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),x86_64-linux-gnu)
-    EXT=64
-endif
-ifeq ($(shell dpkg-architecture -qDEB_HOST_MULTIARCH),i386-linux-gnu)
-    EXT=
-endif
+# upstream names the 64-bit library libfmodex64-<version>.so
+export EXT := $(if $(filter amd64,$(DEB_HOST_ARCH)),64)
 
 %:
 	dh $@
 
+# prebuilt upstream library, already stripped, no debug info
 override_dh_strip:
 
-override_dh_install:
-	dh_install
-	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodex64)-([0-9,.]*).so/libfmodex.so.$$2/g' * {} \;)
-	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodexL64)-([0-9,.]*).so/libfmodexL.so.$$2/g' * {} \;)
-	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodex)-([0-9,.]*).so/$$1.so.$$2/g' * {} \;)
-	(find debian/libfmodex4 -type f -execdir rename 's/(libfmodexL)-([0-9,.]*).so/$$1.so.$$2/g' * {} \;)
-
 override_dh_auto_configure:
-	dh_auto_configure
-	(cd debian; \
-		for i in *.in; do\
-		o=`basename $$i .in`;\
-		sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$$o"; \
-		done )
+	sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' debian/fmodex.pc.in > debian/fmodex.pc

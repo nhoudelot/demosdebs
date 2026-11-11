@@ -112,8 +112,16 @@ libfmodex.so.4 libfmodex4 #MINVER#
  FMOD_DSPConnection_SetMix@Base 4.16.00
  FMOD_DSPConnection_SetUserData@Base 4.16.00
  FMOD_DSP_AddInput@Base 4.00.37
+ (arch=i386)FMOD_DSP_Connection_Mix5_1To5_1_SIMD@Base 4.44.64
+ (arch=i386)FMOD_DSP_Connection_Mix7_1To7_1_SIMD@Base 4.44.64
+ (arch=i386)FMOD_DSP_Connection_MixMonoTo5_1_SIMD@Base 4.44.64
+ (arch=i386)FMOD_DSP_Connection_MixMonoTo7_1_SIMD@Base 4.44.64
+ (arch=i386)FMOD_DSP_Connection_MixMonoToStereo_SIMD@Base 4.44.64
+ (arch=i386)FMOD_DSP_Connection_MixStereoToStereo_SIMD@Base 4.44.64
+ (arch=i386)FMOD_DSP_Convert_FloatToPCM16@Base 4.44.64
  FMOD_DSP_DisconnectAll@Base 4.08.00
  FMOD_DSP_DisconnectFrom@Base 4.00.37
+ (arch=i386)FMOD_DSP_Distortion_SIMD@Base 4.44.64
  FMOD_DSP_GetActive@Base 4.00.37
  FMOD_DSP_GetBypass@Base 4.00.37
  FMOD_DSP_GetDefaults@Base 4.00.37
@@ -170,6 +178,9 @@ libfmodex.so.4 libfmodex4 #MINVER#
  FMOD_Memory_GetStats@Base 4.00.37
  FMOD_Memory_Initialize@Base 4.00.37
  FMOD_MyEars_GetError@Base 4.44.01
+ (arch=i386)FMOD_OS_SupportsSSE@Base 4.44.64
+ (arch=i386)FMOD_Resampler_Linear_PCM16_Mono@Base 4.44.64
+ (arch=i386)FMOD_Resampler_Linear_PCM16_Stereo@Base 4.44.64
  FMOD_Reverb_Get3DAttributes@Base 4.08.00
  FMOD_Reverb_GetActive@Base 4.08.00
  FMOD_Reverb_GetMemoryInfo@Base 4.22.00
@@ -346,6 +357,17 @@ libfmodex.so.4 libfmodex4 #MINVER#
  FMOD_System_UnloadPlugin@Base 4.00.37
  FMOD_System_UnlockDSP@Base 4.00.37
  FMOD_System_Update@Base 4.00.37
+ (arch=i386)_FMOD_DSP_Connection_Mix5_1To5_1_SIMD@Base 4.44.64
+ (arch=i386)_FMOD_DSP_Connection_Mix7_1To7_1_SIMD@Base 4.44.64
+ (arch=i386)_FMOD_DSP_Connection_MixMonoTo5_1_SIMD@Base 4.44.64
+ (arch=i386)_FMOD_DSP_Connection_MixMonoTo7_1_SIMD@Base 4.44.64
+ (arch=i386)_FMOD_DSP_Connection_MixMonoToStereo_SIMD@Base 4.44.64
+ (arch=i386)_FMOD_DSP_Connection_MixStereoToStereo_SIMD@Base 4.44.64
+ (arch=i386)_FMOD_DSP_Convert_FloatToPCM16@Base 4.44.64
+ (arch=i386)_FMOD_DSP_Distortion_SIMD@Base 4.44.64
+ (arch=i386)_FMOD_OS_SupportsSSE@Base 4.44.64
+ (arch=i386)_FMOD_Resampler_Linear_PCM16_Mono@Base 4.44.64
+ (arch=i386)_FMOD_Resampler_Linear_PCM16_Stereo@Base 4.44.64
  _ZN4FMOD10SoundGroup11getUserDataEPPv@Base 4.08.00
  _ZN4FMOD10SoundGroup11setUserDataEPv@Base 4.08.00
  _ZN4FMOD10SoundGroup12getNumSoundsEPi@Base 4.08.00

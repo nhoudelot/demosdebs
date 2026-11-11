@@ -1,6 +1,38 @@
+fmodex (4.44.64+1-0ddebs9) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : removed the transitional package libfmodex and its
+    Replaces
+  * debian/control : libfmodex-dev restricted to i386 amd64, like
+    libfmodex4
+  * debian/control : fixed swapped and misspelled descriptions
+  * debian/control : libfmodex4 recommends libpulse0 (libpulse-simple is
+    dlopened)
+  * debian/control : updated Homepage to www.fmod.com, removed rename
+    build-dependency
+  * libfmodexL (logging variant, no SONAME) is not packaged anymore
+  * debian/rules : use architecture.mk, rename libraries with dh-exec
+    instead of rename
+  * debian/clean : remove the generated debian/fmodex.pc
+  * debian/copyright : use the FMOD Ex licence shipped in
+    documentation/LICENSE.TXT
+  * debian/README.Debian : renamed from README.debian so it is
+    installed, updated
+  * debian/README.source : describe the +1 repack
+  * removed empty debian/patches
+  * debian/libfmodex4.symbols : added the 22 internal SIMD symbols only
+    exported by the i386 library, tagged (arch=i386)
+  * debian/source/lintian-overrides : override source-contains-prebuilt-
+    ms-help-file (upstream documentation is only available as .chm) and
+    dh-exec-subst-unknown-variable EXT
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 11 Nov 2026 22:34:59 +0100
+
 fmodex (4.44.64+1-0ddebs8) unstable; urgency=medium
 
-  * Removed xz compression of the package
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 02:10:56 +0100
 
