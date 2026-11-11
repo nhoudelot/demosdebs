@@ -18,13 +18,8 @@ set -e
 
 case "$1" in
     remove|upgrade|deconfigure)
-    #Close driver if it running
-    appName=pentablet
-	pid=`ps -e|grep $appName|awk '{print $1}'`
-	if [ -n "$pid" ]; then
-		echo "close $appName"
-		kill -15 $pid
-	fi
+    # Close the driver if it is running
+    pkill -x PenTablet || true
     ;;
 
     failed-upgrade)

@@ -1,3 +1,23 @@
+xppenutils (3.4.9+240607-0ddebs3) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/scripts/xppenutils : fix first launch (missing
+    config.xml.init), accept /mini, don't reset /tmp/pentablet when the
+    driver is already running
+  * debian/rules : install default config.xml.init (indep build only)
+  * Install autostart entry, driver starts minimized in the tray at
+    login
+  * debian/xppenutils.prerm : fix driver process name (PenTablet)
+  * debian/xppenutils-data.links : fix oldlog.txt link target
+  * debian/xppenutils.udev : use uaccess instead of world writable
+    devices
+  * debian/patches/01_adapt_path.patch : themed icon, valid categories,
+    keywords
+  * debian/control : depend on xppenutils-data >= upstream version, so
+    the arch all package pulled from resolute fits every distribution
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 08 Nov 2026 01:34:11 +0100
+
 xppenutils (3.4.9+240607-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

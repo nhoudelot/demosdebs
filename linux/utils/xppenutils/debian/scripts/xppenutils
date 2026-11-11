@@ -4,53 +4,56 @@ source /usr/share/common-install-function-ddebs/common-install-function
 
 domain=pentablet
 
-APP_FULLNAME="Business"
+APP_FULLNAME="XP-Pen Tablet"
 APP_COPYRIGHT="XP-Pen"
 APP_DESC="XP-Pen (Official) Linux utility"
 
 APP_EXE="PenTablet"
+APP_DIR="/usr/lib/x86_64-linux-gnu/${domain}"
 
-function NSH_cpUserDataFileToHOME()
+function usage()
 {
-	if [ ! -e ${NSH_LOCALUSERDIR}/${domain}/$2 ]
-	then
-		cp -r /usr/share/${domain}/$1 ${NSH_LOCALUSERDIR}/${domain}/$2
-	fi
+	NSH_std_usage
+	echo "    /mini				start minimized in the system tray"
 }
 
 function prerun()
 {
 	NSH_CreateConfigDir
-    NSH_CreateTmpDomainDir
-    touch /tmp/${domain}/log.txt
-    touch /tmp/${domain}/oldlog.txt
+	NSH_CreateTmpDomainDir
+	touch /tmp/${domain}/log.txt
+	touch /tmp/${domain}/oldlog.txt
 	NSH_LinkConfig conf/xppen/config.xml config.xml
 }
 
 function run()
 {
-	prerun
-	backuppwd=$(pwd)
-	cd /usr/lib/x86_64-linux-gnu/${domain}
-	./${APP_EXE}
-	cd $backuppwd
+	# The driver is a single instance application: when it is already
+	# running, only start it again so it shows its window, and keep the
+	# files of the running instance in /tmp untouched.
+	if ! pgrep -x -u "$(id -u)" "${APP_EXE}" > /dev/null
+	then
+		prerun
+	fi
+	cd "${APP_DIR}"
+	exec "./${APP_EXE}" "$@"
 }
 
-if [ "$#" -gt "1" ]; then
-	 NSH_std_usage
-	exit 1
-elif [ "$#" -lt "1" ]; then
-	run
-else
-	case "$1" in
+case "$1" in
 	--help)
-		NSH_std_usage
+		usage
+		;;
+	""|/mini)
+		if [ "$#" -gt "1" ]; then
+			usage
+			exit 1
+		fi
+		run "$@"
 		;;
 	*)
-		NSH_std_usage
+		usage
 		exit 1
 		;;
-	esac
-fi
+esac
 
 exit 0

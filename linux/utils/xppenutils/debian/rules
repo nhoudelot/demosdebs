@@ -4,10 +4,17 @@ export QT_SELECT := qt5
 %:
 	dh $@
 
-override_dh_install:
-	dh_install
+override_dh_install-arch:
+	dh_install -a
+	find debian -type f -name 'PenTablet' -exec chmod 0755 {} +
+
+# xppenutils-data only exists in arch independent builds
+override_dh_install-indep:
+	dh_install -i
+	# default configuration, copied to ~/.config/pentablet on first launch
+	install -m 0644 App/usr/lib/pentablet/conf/xppen/config.xml \
+		debian/xppenutils-data/usr/share/pentablet/conf/xppen/config.xml.init
 	find debian -type f -name 'resource.rcc' -exec chmod 0644 {} +
-	find debian -type f -name 'Pentablet' -exec chmod 0755 {} +
 
 override_dh_shlibdeps:
 	dh_shlibdeps -- -lApp/usr/lib/pentablet/lib --ignore-missing-info

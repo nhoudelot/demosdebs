@@ -1,24 +1,58 @@
-Description: update desktop shortcut
+Description: Adapt desktop entries to the Debian layout
+ Launch the driver through the xppenutils wrapper instead of
+ /usr/lib/pentablet/PenTablet.sh, both from the menu and at session start
+ (in the tray, with /mini). Use a themed icon name, valid freedesktop
+ categories, add keywords and French translations, and drop the
+ X-Ubuntu-Touch key.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2024-03-14
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-08
 --- a/App/usr/share/applications/xppentablet.desktop
 +++ b/App/usr/share/applications/xppentablet.desktop
 @@ -1,11 +1,13 @@
  [Desktop Entry]
- Name=xppentablet
- Comment=XPPen driver
+-Name=xppentablet
+-Comment=XPPen driver
 -Exec=/usr/lib/pentablet/PenTablet.sh
-+Comment[fr_FR]=Pilote XPPen
-+Exec=xppenutils
- Icon=/usr/share/icons/hicolor/256x256/apps/xppentablet.png
- Terminal=false
+-Icon=/usr/share/icons/hicolor/256x256/apps/xppentablet.png
+-Terminal=false
  Type=Application
- X-Ubuntu-Touch=true                                        
- Categories=Application;Utility;
+-X-Ubuntu-Touch=true                                        
+-Categories=Application;Utility;
++Name=XP-Pen Tablet
++Name[fr_FR]=Tablette XP-Pen
++Comment=XP-Pen tablet driver and settings
++Comment[fr_FR]=Pilote et réglages des tablettes XP-Pen
++Exec=xppenutils
++Icon=xppentablet
++Terminal=false
++Categories=Settings;HardwareSettings;
++Keywords=tablet;stylus;pen;drawing;xp-pen;wacom;
++Keywords[fr_FR]=tablette;stylet;crayon;dessin;xp-pen;wacom;
  StartupNotify=true
 -Name[en_US]=xppentablet
-+Name[en_US]=XP-Pen Tablet
+--- a/App/etc/xdg/autostart/xppentablet.desktop
++++ b/App/etc/xdg/autostart/xppentablet.desktop
+@@ -1,12 +1,11 @@
+-
+ [Desktop Entry]
+-Name=xppentablet
+-Comment=XPPen driver
+-Exec=/usr/lib/pentablet/PenTablet.sh /mini
+-Icon=/usr/share/icons/hicolor/256x256/apps/xppentablet.png
+-Terminal=false
+ Type=Application
+-X-Ubuntu-Touch=true                                        
+-Categories=Application;Utility;
+-StartupNotify=true
+-Name[en_US]=xppentablet
++Name=XP-Pen Tablet
 +Name[fr_FR]=Tablette XP-Pen
++Comment=Start the XP-Pen tablet driver in the system tray
++Comment[fr_FR]=Démarre le pilote XP-Pen dans la zone de notification
++Exec=xppenutils /mini
++Icon=xppentablet
++Terminal=false
++NoDisplay=true
++X-GNOME-Autostart-enabled=true
