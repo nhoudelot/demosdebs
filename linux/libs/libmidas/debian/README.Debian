@@ -1,0 +1,20 @@
+libmidas for Debian
+-------------------
+
+This is the SDL 1.2 port of MIDAS Digital Audio System 1.1.2 (2000). It plays
+MOD, S3M, XM and IT modules.
+
+The upstream code was written for 32-bit systems. The Debian patches make it
+work on 64-bit architectures (amd64, arm64...): before them, MIDASinit()
+crashed and no module could be loaded.
+
+Known upstream limitation: IT modules whose samples are compressed (Impulse
+Tracker 2.14 compression, used by recent trackers) are not supported. Loading
+them fails with "Unexpected end of file".
+
+Programs using this library must be compiled with -fpack-struct, like the
+library itself, if they use the structures of midasdll.h.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 12 Nov 2026 02:30:00 +0100

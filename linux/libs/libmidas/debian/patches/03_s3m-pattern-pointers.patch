@@ -1,0 +1,19 @@
+Description: Allocate the S3M pattern pointer array with the pointer size
+ The S3M loader allocated 4 bytes per pattern pointer. On 64-bit
+ architectures the array overflowed and corrupted the heap, so loading any
+ S3M module aborted with a glibc malloc assertion.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-12
+--- a/loads3m.c
++++ b/loads3m.c
+@@ -672,7 +672,7 @@
+     CHECKHEAP
+ 
+     /* Allocate memory for pattern pointers: */
+-    if ( (error = memAlloc(4 * module->numPatts,
++    if ( (error = memAlloc(sizeof(gmpPattern*) * module->numPatts,
+         (void**) &module->patterns)) != OK )
+         PASSERR()
+ 

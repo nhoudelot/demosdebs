@@ -1,6 +1,34 @@
+libmidas (1.1.2-0ddebs11) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : fixed Build-Depends syntax, added Multi-Arch: same,
+    removed obsolete Pre-Depends, rewrote the descriptions
+  * debian/rules : use dh_autoreconf so the regenerated files are
+    cleaned, remove the .la file directly, enable all hardening flags
+  * debian/patches : removed 01_update_scripts.patch, LT_INIT is already
+    in the orig configure.ac
+  * debian/patches/01_64bit-pointer-alignment.patch : fix the truncation of
+    the buffer pointers to 32 bits, MIDASinit() crashed on 64-bit
+    architectures
+  * debian/patches/02_fixed-size-32bit-types.patch : U32 and S32 are now
+    32-bit on 64-bit architectures, loading XM, IT and S3M modules failed
+  * debian/patches/03_s3m-pattern-pointers.patch : fix a heap overflow,
+    loading S3M modules crashed on 64-bit architectures
+  * debian/README.Debian : added, documents the unsupported compressed
+    IT 2.14 samples
+  * debian/source/lintian-overrides : override ancient-libtool for the
+    unused upstream ltconfig
+  * debian/*.dirs, debian/not-installed.in : removed, not needed
+  * debian/copyright : added Housemarque Inc., fixed Upstream-Name
+  * debian/README.source : updated
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 12 Nov 2026 01:50:27 +0100
+
 libmidas (1.1.2-0ddebs10) unstable; urgency=medium
 
-  * Removed xz compression of the package
+  * Recompile for ubuntu 26.04
+  * debian/control : Updated to standards-version 4.7.3
+  * debian/rules : Removed xz compression of the package
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 25 Mar 2026 15:49:36 +0100
 

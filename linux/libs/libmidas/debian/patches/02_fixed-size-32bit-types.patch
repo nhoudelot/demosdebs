@@ -1,0 +1,28 @@
+Description: Use fixed-size types for U32 and S32
+ U32 and S32 were defined as long, which is 64 bits on LP64 architectures.
+ They are used in the packed structures that map the XM, IT and S3M file
+ headers, so loading a module failed with "Unexpected end of file" on
+ amd64 and arm64. The public DWORD type of midasdll.h is not changed: it
+ holds pointer-sized handles.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-12
+--- a/lang.h
++++ b/lang.h
+@@ -118,12 +118,13 @@
+     typedef unsigned int UINT;
+     typedef signed int SINT;
+ #else
++    #include <stdint.h>
+     typedef unsigned char U8;
+     typedef signed char S8;
+     typedef unsigned short U16;
+     typedef signed short S16;
+-    typedef unsigned long U32;
+-    typedef signed long S32;
++    typedef uint32_t U32;
++    typedef int32_t S32;
+     typedef unsigned int UINT;
+     typedef signed int SINT;
+ #endif

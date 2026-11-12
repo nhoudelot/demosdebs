@@ -1,0 +1,104 @@
+Description: Fix pointer alignment on 64-bit architectures
+ The volume tables, the mixing buffer and the conversion tables are aligned
+ to 1024 bytes by casting the pointer to "unsigned", which truncates it to
+ 32 bits on LP64 architectures. The heap lives above 4 GB on amd64 and
+ arm64, so MIDASinit() crashed with a segmentation fault. Use uintptr_t.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-12
+--- a/dsm.c
++++ b/dsm.c
+@@ -17,6 +17,7 @@
+ 
+ #include <assert.h>
+ #include <string.h>
++#include <stdint.h>
+ 
+ #include "lang.h"
+ #include "mtypes.h"
+@@ -236,10 +237,10 @@
+             PASSERROR(ID_dsmInit);
+ 
+         /* Align both volume tables to 1024-byte boundaries: */
+-        dsmVolumeTable = (int*) ((((unsigned) dsmVolTableMem) + 1023) &
+-                                 (~1023));
+-        dsmUlawVolumeTable = (int*) ((((unsigned) dsmUlawVolTableMem)
+-                                      + 1023) & (~1023));
++        dsmVolumeTable = (int*) ((((uintptr_t) dsmVolTableMem) + 1023) &
++                                 (~(uintptr_t) 1023));
++        dsmUlawVolumeTable = (int*) ((((uintptr_t) dsmUlawVolTableMem)
++                                      + 1023) & (~(uintptr_t) 1023));
+     }
+ 
+     /* Allocate the mixing buffer: */
+@@ -247,7 +248,7 @@
+         PASSERROR(ID_dsmInit);
+ 
+     /* Align the mixing buffer to a 1024-byte boundary: */
+-    dsmMixBuffer = (void*) ((((unsigned) dsmMixBufferMem) + 1023) & (~1023));
++    dsmMixBuffer = (void*) ((((uintptr_t) dsmMixBufferMem) + 1023) & (~(uintptr_t) 1023));
+ 
+     /* Allocate memory for sample structures: */
+     if ( (error = memAlloc(MAXSAMPLES * sizeof(dsmSample), (void**)
+@@ -266,8 +267,8 @@
+                                &dsmByteFloatTableMem)) != OK )
+             PASSERROR(ID_dsmInit);
+ 
+-        dsmByteFloatTable = (float*) ((((unsigned) dsmByteFloatTableMem)
+-                                       + 1023) & (~1023));
++        dsmByteFloatTable = (float*) ((((uintptr_t) dsmByteFloatTableMem)
++                                       + 1023) & (~(uintptr_t) 1023));
+         
+         for ( i = 0; i < 256; i++ )
+             dsmByteFloatTable[i] = (float) (256 * (i-128));
+@@ -278,8 +279,8 @@
+                                &dsmUlawFloatTableMem)) != OK )
+             PASSERROR(ID_dsmInit);
+         
+-        dsmUlawFloatTable = (float*) ((((unsigned) dsmUlawFloatTableMem)
+-                                       + 1023) & (~1023));
++        dsmUlawFloatTable = (float*) ((((uintptr_t) dsmUlawFloatTableMem)
++                                       + 1023) & (~(uintptr_t) 1023));
+         
+         if ( (error = memAlloc(256, (void**) &tempUlaw)) != OK )
+             PASSERROR(ID_dsmInit);
+--- a/dsmmix.c
++++ b/dsmmix.c
+@@ -16,6 +16,7 @@
+ #include <assert.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <stdint.h>
+ 
+ #include "lang.h"
+ #include "mtypes.h"
+@@ -657,8 +658,8 @@
+             else
+                 dsmMixStep = step;
+ 
+-            assert((((unsigned) dsmMixDest) % sampleSize) == 0);
+-            assert((((unsigned) dsmMixSample) % sampleSize) == 0);
++            assert((((uintptr_t) dsmMixDest) % sampleSize) == 0);
++            assert((((uintptr_t) dsmMixSample) % sampleSize) == 0);
+             assert((mixRoutine->mainLoopAlign) &&
+                    (mixRoutine->mainLoopRepeat));
+ 
+@@ -692,7 +693,7 @@
+                 /* Ensure proper alignment and do all mixing if
+                    nextSampleOffset != 1: */
+                 if ( mixNow && ((nextSampleOffset != 1) ||
+-                                ((((unsigned) dsmMixDest)
++                                ((((uintptr_t) dsmMixDest)
+                                  % mixRoutine->mainLoopAlign) != 0)) )
+                 {
+                     if ( nextSampleOffset != 1 )
+@@ -702,7 +703,7 @@
+                     else
+                     {
+                         num = mixRoutine->mainLoopAlign -
+-                            (((unsigned) dsmMixDest) %
++                            (((uintptr_t) dsmMixDest) %
+                              mixRoutine->mainLoopAlign);
+                         if ( num > mixNow )
+                             num = mixNow;

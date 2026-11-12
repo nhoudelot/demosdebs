@@ -1,32 +1,41 @@
 Source: libmidas
+Section: libs
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- libsdl1.2-dev(>=1.0.6),
- debhelper-compat (= 13)
-Standards-Version: 4.6.2
-Section: libs
+ debhelper-compat (= 13),
+ libsdl1.2-dev,
+Standards-Version: 4.7.3
 Homepage: https://www.libsdl.org/projects/midas/
 Rules-Requires-Root: no
 
 Package: libmidas-dev
 Section: libdevel
 Architecture: any
-Depends: libmidas-1.1-2 (= ${binary:Version}),
- ${misc:Depends}
-Description: Developments files for the MIDAS Digital Audio System to SDL
- Developments files for MIDAS Digital Audio System.
- a multichannel digital sound and music  system, designed mainly for use in
- games, demos, and other realtime multimedia applications. MIDAS is free for 
- non-commercial usage, but licenses for commercial use are also available. 
+Multi-Arch: same
+Depends:
+ libmidas-1.1-2 (= ${binary:Version}),
+ ${misc:Depends},
+Description: MIDAS Digital Audio System for SDL - development files
+ MIDAS Digital Audio System is a multichannel digital sound and music
+ system, designed mainly for use in games, demos, and other realtime
+ multimedia applications. This is a quick port of MIDAS to SDL 1.2.
+ .
+ MIDAS is free for non-commercial usage only.
+ .
+ This package contains the header file and the static library.
 
 Package: libmidas-1.1-2
 Architecture: any
-Depends: ${shlibs:Depends},
- ${misc:Depends}
-Pre-Depends: ${misc:Pre-Depends}
-Description: quick port of the MIDAS Digital Audio System to SDL
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: MIDAS Digital Audio System for SDL - shared library
  MIDAS Digital Audio System is a multichannel digital sound and music
  system, designed mainly for use in games, demos, and other realtime
- multimedia applications. MIDAS is free for non-commercial usage, but
- licenses for commercial use are also available. 
+ multimedia applications. This is a quick port of MIDAS to SDL 1.2.
+ .
+ MIDAS is free for non-commercial usage only.
+ .
+ This package contains the shared library.

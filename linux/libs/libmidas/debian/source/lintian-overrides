@@ -1,0 +1,4 @@
+# ltconfig is a leftover of the libtool 1.x shipped upstream in 2000. It is
+# not used: dh_autoreconf regenerates the build system with the current
+# libtool (ltmain.sh), and the file is kept in the orig tarball as shipped.
+ancient-libtool [ltconfig]

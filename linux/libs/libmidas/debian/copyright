@@ -1,12 +1,13 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: libmidas-1.1.2
+Upstream-Name: midas
 Source: https://www.libsdl.org/projects/midas/
 
 Files: *
-Copyright: 1996-2000 Sam Lantinga
-           1996-1999 Jarno Paananen 
+Copyright: 1996-1999 Housemarque Inc.
+           1996-1999 Jarno Paananen
            1999 Petteri Kangaslampi
-License: MIDAS_Digital_Audio_System_LICENSE
+           1996-2000 Sam Lantinga
+License: MIDAS
  MIDAS Digital Audio System LICENSE
  ----------------------------------
  Copyright 1996,1997,1998,1999 Housemarque Inc.
@@ -16,14 +17,14 @@ License: MIDAS_Digital_Audio_System_LICENSE
  Housemarque Inc. as MIDAS Digital Audio System. This license only applies to
  the freely distributable versions of MIDAS Digital Audio System, Housemarque
  Inc. may make MIDAS Digital Audio System, or portions of it, available under
- different licensing conditions for selected licensees.  
+ different licensing conditions for selected licensees.
  .
  "You" refers to the licensee, the person or other legal entity using MIDAS
  Digital Audio System. "Using" MIDAS Digital Audio System includes compiling
  MIDAS Digital Audio System source code, linking it to other parts of MIDAS
  Digital Audio System or your own code to form an executable program, and
  distributing portions of MIDAS Digital Audio System with the program. This
- program is referred to as "a program using MIDAS Digital Audio System". 
+ program is referred to as "a program using MIDAS Digital Audio System".
  .
  This license applies to all files distributed in the original MIDAS Digital
  Audio System archive, including all source code, libraries, binaries and
@@ -35,7 +36,7 @@ License: MIDAS_Digital_Audio_System_LICENSE
  MIDAS DIGITAL AUDIO SYSTEM IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
  EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF
  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL ANY OF
- THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DAMAGES CAUSED BY THE USE 
+ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DAMAGES CAUSED BY THE USE
  OR INABILITY TO USE, OF MIDAS DIGITAL AUDIO SYSTEM.
  .
  As you have not signed this license, you are not required to accept it.
@@ -95,7 +96,7 @@ License: MIDAS_Digital_Audio_System_LICENSE
  MIDAS Digital Audio System are included.
 
 Files: debian/*
-Copyright: 2016-2023 Nicolas HOUDELOT <nicolas@demosdebs.org>
+Copyright: 2016-2026 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

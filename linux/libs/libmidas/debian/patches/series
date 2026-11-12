@@ -1,1 +1,3 @@
-01_update_scripts.patch
+01_64bit-pointer-alignment.patch
+02_fixed-size-32bit-types.patch
+03_s3m-pattern-pointers.patch
