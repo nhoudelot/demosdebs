@@ -1,5 +1,6 @@
 detectiteasy (4.0.0-0ddebs1) unstable; urgency=medium
 
+  * Changes prepared with Claude Opus 5.5
   * New Upstream Release
   * Switch to the upstream CMake build system
   * Use the libraries bundled upstream (qwt, zlib, bzip2)

@@ -21,4 +21,6 @@ newer copy, extract it in ~/.local/share/NTInfo/die/<info|peid|yara_rules>.
 Paths saved as /usr/share/detectiteasy/... by packages up to 3.21 are turned
 back into "$data/..." when the settings are loaded.
 
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 08 Nov 2026 03:40:00 +0100
