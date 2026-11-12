@@ -1,0 +1,108 @@
+Description: align the stack on 16 bytes before each library call
+ The i386 ABI used by current compilers requires esp to be 16-byte aligned
+ at every call. The intro pushes its arguments without caring about it,
+ which worked with the original SDL 1.2 but crashes in SDL2 (used by
+ sdl12-compat) and in OpenGL drivers that use SSE instructions (movaps)
+ on the stack. The stack is aligned at start and padded before each call.
+ The dlopen() loop now reuses its argument slots instead of pushing new
+ ones. Only gl_Color.x is read by the shader, so the padding before
+ glColor3us() does not change the picture. The clean version also exits
+ with status 0.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: no
+Last-Update: 2026-11-12
+--- a/src/intro.asm
++++ b/src/intro.asm
+@@ -150,6 +150,9 @@
+ 
+ musiciters	equ	8
+ _start:
++	; The i386 ABI requires esp to be 16-byte aligned at every call:
++	; SDL2 (used by sdl12-compat) and Mesa use SSE (movaps) on the stack.
++	and	esp, -16
+ 	mov	edi, music
+ 	mov	ecx, musiciters
+ .imusicgen:
+@@ -208,6 +211,7 @@
+ 	inc	ebp
+ 	; assumes df=0 ; cld
+ 	mov	edi,sdlptrs
++	sub	esp, 8
+ 	push	2
+ 	push	sdllib
+ .loadloop:
+@@ -218,7 +222,7 @@
+ dlopen	equ	$+1
+ 	call	0
+ ;	call	[dlopen]
+-	push	eax
++	mov	[esp], eax	; handle, keeps the stack aligned
+ 
+ 	mov	esi,f0
+ .symloop:
+@@ -234,8 +238,8 @@
+ 	cmp	esi,endstrs
+ 	jne	.symloop
+ 
+-	push	2
+-	push	gllib
++	mov	dword [esp+4], 2
++	mov	dword [esp], gllib
+ 	dec	ebp
+ 	jz	.loadloop
+ 
+@@ -252,13 +256,15 @@
+ 	push	HEIGHT
+ 	push	WIDTH
+ 	call	F(SetVideoMode)
+-	push	0
++	times	4	push	0
+ 	call	F(ShowCursor)
++	times	3	push	0	; also the NULL 'obtained' argument
+ 	push	aspec
+ 	call	F(OpenAudio)
+-	push	0
++	times	4	push	0
+ 	call	F(PauseAudio)
+ 
++	times	3	push	0
+ 	push	8b30h ; GL_FRAGMENT_SHADER
+ 	call	F(CreateShader)
+ 	push	0
+@@ -270,6 +276,7 @@
+ 	call	F(CompileShader)
+ 	call	F(CreateProgram)
+ 	; nvidia glCompileShader overwrites shader param
++	sub	esp, 8
+ 	push	ebx
+ 	push	eax
+ 	call	F(AttachShader)
+@@ -284,6 +291,7 @@
+ 	cmp	eax, endtime
+ 	jg	end
+ %endif
++	sub	esp, 12
+ 	push	eax
+ 	call	F(Color)
+ 
+@@ -294,16 +302,18 @@
+ 	call	F(Recti)
+ 	call	F(SwapBuffers)
+ 
++	sub	esp, 12
+ 	push	event
+ 	call	F(PollEvent)
+ 
+ ;	add	esp,6*4
+-	times	6	pop	eax
++	add	esp, 48
+ 	cmp	byte	[event],2
+ 	jne	introloop
+ end:
+ %ifdef CLEAN
+ 	call	F(Quit)
++	xor	ebx, ebx	; exit status 0
+ 	xor	eax, eax
+ 	inc	eax
+ 	int	128

@@ -1,0 +1,31 @@
+Description: play silence once the music buffer has been read
+ The SDL audio callback copied the music without any bound check. With
+ some SDL2 audio backends (sdl12-compat), the callback is called faster
+ than real time and the intro crashed with a segmentation fault around
+ 46 seconds, before its end at 55 seconds. After the music (and the
+ silence that follows it in the buffer), the callback now fills the
+ stream with silence.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: no
+Last-Update: 2026-11-12
+--- a/src/intro.asm
++++ b/src/intro.asm
+@@ -324,9 +324,17 @@
+ 	mov	ecx,[esp+12]
+ 	mov	esi, music
+ 	musicpos	equ	$-4
++	; Never read past the music: some audio backends call the
++	; callback faster than real time, which ran out of the buffer.
++	cmp	esi, music + 2*MS
++	jae	.silence
+ 	add	[musicpos], ecx
+ 	rep	movsb
+ 	ret
++.silence:
++	xor	eax, eax
++	rep	stosb
++	ret
+ 
+ ; section .data
+ aspec:	dd	FREQ ; freq

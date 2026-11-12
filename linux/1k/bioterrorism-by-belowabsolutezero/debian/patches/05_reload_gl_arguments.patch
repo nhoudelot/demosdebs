@@ -1,0 +1,35 @@
+Description: pass the shader and program again before each GL call
+ The intro reused the arguments left on the stack by the previous call:
+ glCompileShader() reused the shader of glShaderSource(), glLinkProgram()
+ and glUseProgram() the program of glAttachShader(). A called function may
+ overwrite its arguments, and the current nvidia driver (580) does it in
+ glAttachShader(): glUseProgram() received a wrong program and only the
+ red glColor() fade was drawn, without the shader. The identifiers are
+ now kept in ebx and written back to the stack before each call.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: no
+Last-Update: 2026-11-12
+--- a/src/intro.asm
++++ b/src/intro.asm
+@@ -273,14 +273,20 @@
+ 	push	eax
+ 	mov	ebx,eax
+ 	call	F(ShaderSource)
++	; GL functions may overwrite their arguments on the stack (nvidia):
++	; the shader (ebx), then the program, are rewritten before each call.
++	mov	[esp], ebx
+ 	call	F(CompileShader)
+ 	call	F(CreateProgram)
+ 	; nvidia glCompileShader overwrites shader param
+ 	sub	esp, 8
+ 	push	ebx
+ 	push	eax
++	mov	ebx, eax
+ 	call	F(AttachShader)
++	mov	[esp], ebx
+ 	call	F(LinkProgram)
++	mov	[esp], ebx
+ 	call	F(UseProgram)
+ 
+ 	; main loop

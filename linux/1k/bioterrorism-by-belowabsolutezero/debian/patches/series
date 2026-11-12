@@ -1,1 +1,6 @@
 01_adapt_makefile.patch
+02_align_stack_for_modern_libraries.patch
+03_clean_version_and_private_tmpfile.patch
+04_play_silence_after_the_music.patch
+05_reload_gl_arguments.patch
+06_standard_glsl.patch

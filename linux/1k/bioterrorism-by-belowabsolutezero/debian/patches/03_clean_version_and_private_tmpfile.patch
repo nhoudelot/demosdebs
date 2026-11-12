@@ -1,0 +1,41 @@
+Description: build the clean version and unpack it in a private temporary file
+ The authors provide a "clean" version of the intro (clean/ directory of
+ the release, built with -dCLEAN) which calls SDL_Quit() and stops at the
+ end of the music or when a key is pressed, instead of crashing on exit.
+ The packaged binary is now byte-identical to clean/intro_800x600_window
+ once unpacked (before 02_align_stack_for_modern_libraries.patch).
+ .
+ The unpacking header wrote the intro to the fixed path /tmp/a, which
+ fails when another user already owns that file and is unsafe on a
+ multi-user system. It now uses mktemp and removes the file on exit.
+ .
+ The clean target also removes the generated intro and executable.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-12
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -38,7 +38,7 @@
+ all: $(TARGET)
+ 
+ intro: intro.asm t.frag.small
+-	nasm -f bin $< -o $@ -dWIDTH=$(WIDTH) -dHEIGHT=$(HEIGHT) -dFULLSCREEN=$(FULLSCREEN)
++	nasm -f bin $< -o $@ -dWIDTH=$(WIDTH) -dHEIGHT=$(HEIGHT) -dFULLSCREEN=$(FULLSCREEN) -dCLEAN
+ 	chmod +x $@
+ 	du -b $@
+ 
+@@ -59,7 +59,7 @@
+ 	$(CXX) $< -o $@ $(CXXFLAGS)
+ 
+ clean:
+-	-@$(RM_F) packed t.frag.small cshader
++	-@$(RM_F) packed intro $(TARGET) t.frag.small cshader
+ 
+ install: $(TARGET)
+ 	$(INSTALL_DIR) $(DESTDIR)$(bindir)
+--- a/src/unpack.header
++++ b/src/unpack.header
+@@ -1 +1 @@
+-a=/tmp/a;tail -n+2 $0|zcat>$a;chmod +x $a;$a;exit
++a=$(mktemp)||exit;trap 'rm -f "$a"' 0;trap exit 1 2 15;tail -n+2 "$0"|zcat>"$a";chmod +x "$a";"$a";exit

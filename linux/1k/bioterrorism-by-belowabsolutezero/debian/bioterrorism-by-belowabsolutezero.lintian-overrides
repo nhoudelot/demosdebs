@@ -1,2 +1,7 @@
+# demos is the section used by all the packages of the demosdebs repository.
 bioterrorism-by-belowabsolutezero binary: unknown-section demos
+
+# Upstream 1k packing: a one-line shell header followed by the gzip-compressed
+# intro. It has no shebang (the gzip data cannot pass a shell syntax check)
+# and is run by /bin/sh through the ENOEXEC fallback.
 bioterrorism-by-belowabsolutezero: executable-not-elf-or-script [usr/bin/bioterrorism-by-belowabsolutezero]

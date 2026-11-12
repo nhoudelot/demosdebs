@@ -1,3 +1,32 @@
+bioterrorism-by-belowabsolutezero (1.0+1-0ddebs7) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches : 02_align_stack_for_modern_libraries.patch, align
+    the stack on 16 bytes before each library call (crashed at start
+    with sdl12-compat/SDL2)
+  * debian/patches : 03_clean_version_and_private_tmpfile.patch, build
+    the upstream clean version (proper exit, restores the screen) and
+    unpack it with mktemp instead of /tmp/a
+  * debian/patches : 04_play_silence_after_the_music.patch, fix a crash
+    around 46 s when the audio callback runs faster than real time
+  * debian/patches : 05_reload_gl_arguments.patch, pass the program again
+    to glLinkProgram/glUseProgram (the nvidia driver overwrites it, only
+    a red fade was displayed)
+  * debian/patches : 06_standard_glsl.patch, valid GLSL so that the
+    shader also compiles with Mesa
+  * debian/control : depend on libsdl1.2debian and libgl1 (libsdl1.2-
+    compat is not available on Ubuntu 26.04 and Debian 14), better
+    description
+  * removed the launcher script and its manual page, the .desktop file
+    already starts the intro directly
+  * debian/resources : added the missing icon (screenshot from
+    pouet.net)
+  * debian/copyright : no license found upstream, public-domain
+    (probably freeware)
+  * debian/bioterrorism-by-belowabsolutezero.6.md : updated manual page
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 12 Nov 2026 23:44:41 +0100
+
 bioterrorism-by-belowabsolutezero (1.0+1-0ddebs6) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

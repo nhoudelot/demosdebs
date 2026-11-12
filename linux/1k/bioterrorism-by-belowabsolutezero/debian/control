@@ -14,6 +14,13 @@ Architecture: i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libsdl1.2-compat
-Description: 1K intro for Linux, released in 2013
- 1K intro by Below Absolute Zero, released in 2013
+ libgl1,
+ libsdl1.2debian
+Description: 1k intro for Linux, released in 2013
+ Bioterrorism is a 1k intro by Below Absolute Zero, ranked 7th in the
+ PC 1k competition at Assembly 2013. A raymarched organic shape and its
+ music are generated in real time by a 1 kilobyte executable.
+ .
+ This package builds the "clean" version provided by the authors, which
+ stops at the end of the music or when a key is pressed. It runs in an
+ 800x600 window.
