@@ -1,0 +1,60 @@
+Description: limit the frame rate to keep the original speed
+ The animation advances by a fixed step at each frame, without any timer.
+ The author noted in martigan.txt that the intro already ran way too
+ fast on a 2.8 GHz CPU; on current hardware it is unwatchable.
+ Request vsync and cap the frame rate to DEMO_FPS (60 by default) with
+ SDL_GetTicks()/SDL_Delay(), which also works when vsync is ignored or
+ the display runs above 60 Hz.
+ Also initialise the camera position used before the first frame is
+ computed, which was read uninitialised.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/main.cpp
++++ b/main.cpp
+@@ -1,5 +1,9 @@
+ #include "g.h"
+ 
++#ifndef DEMO_FPS
++#define DEMO_FPS 60
++#endif
++
+ #define H );
+ #define W if(
+ 
+@@ -89,7 +93,7 @@
+ I main(I _,char** __)
+ {
+ 	I i,j,k;
+-	F d1,d2,d3,c1,c2,c3,x,y,z,u,v,w;
++	F d1=0,d2=0,d3=0,c1=0,c2=0,c3=1,x,y,z,u,v,w;
+     SDL_Event e;
+     SDL_AudioSpec des={22500,32784,1,0,512};
+ 
+@@ -102,6 +106,8 @@
+ 
+     SDL_PauseAudio(0 H
+ 	
++	/* Debian: request vsync, and see the frame limiter below */
++	SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL,1);
+ 	SDL_SetVideoMode(640,480,32,2 H
+ 
+ 	F GA[]={0.2,0.2,0.2,1};
+@@ -344,6 +350,16 @@
+ 		glTranslated(0.02,0,0 H 
+ 		MM 5888 H 
+ 		SDL_GL_SwapBuffers(  H 
++		/* Debian: the animation advances by a fixed step per frame, so cap
++		   the frame rate to keep the original speed on modern hardware */
++		{
++			static Uint32 t0=0, fr=0;
++			Uint32 now=SDL_GetTicks(), target;
++			if(!t0) t0=now;
++			target=t0+(++fr)*1000/DEMO_FPS;
++			if(target>now) SDL_Delay(target-now);
++			else if(now-target>250) { t0=now; fr=0; }
++		}
+ 	}
+     Q
+     return 0;

@@ -1,2 +1,3 @@
+# "demos" is the archive section used by the demosdebs repository for
+# demoscene productions; it is not one of the Debian sections.
 4ksdemo-by-madmartigan binary: unknown-section demos
-4ksdemo-by-madmartigan binary: desktop-entry-lacks-keywords-entry [usr/share/applications/4ksdemo-by-madmartigan.desktop]

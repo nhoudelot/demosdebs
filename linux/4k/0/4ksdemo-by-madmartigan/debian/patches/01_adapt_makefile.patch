@@ -1,10 +1,11 @@
 Description: create makefile & g.h
- create makefile to make it compile with packaging
+ Create a makefile so that the intro builds with the packaging tools,
+ using pkg-config and the build flags given by dpkg-buildflags
+ (CPPFLAGS, CXXFLAGS, LDFLAGS).
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-22
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- /dev/null
 +++ b/g.h
 @@ -0,0 +1,5 @@
@@ -38,7 +39,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): $(SOURCE)
-+	 $(CXX) $(SOURCE) $(CXXFLAGS) -o $(TARGET) $(LDFLAGS)
++	 $(CXX) $(SOURCE) $(CPPFLAGS) $(CXXFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

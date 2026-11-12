@@ -16,4 +16,9 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: MadMartigan 4k Intro/2004/Linux
- 4k Intro by MadMartigan, released in 2004
+ 4k intro by MadMartigan (Vincent Siles), released in 2004 for the
+ #demoscene 4k source compo, where it ranked 7th.
+ .
+ A textured tunnel with a fake radial blur, a wireframe sphere and
+ generated sound, in less than 4 KB of C++ source using SDL and OpenGL.
+ Press Escape to switch to the next scene.

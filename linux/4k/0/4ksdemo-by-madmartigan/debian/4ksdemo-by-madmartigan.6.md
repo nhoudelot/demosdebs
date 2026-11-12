@@ -1,19 +1,29 @@
 % 4ksdemo-by-madmartigan(6) 4ks demo User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),MadMartigan
-% 2024-03-23
+% Nicolas HOUDELOT (nicolas@demosdebs.org),Claude Opus 5.5,MadMartigan
+% 2026-11-13
 
 # NAME
-4ksdemo-by-madmartigan - is the command to run 4ks demo 
+4ksdemo-by-madmartigan - 4k intro by MadMartigan
 
 # SYNOPSIS
-4ksdemo-by-madmartigan [*options*]
+4ksdemo-by-madmartigan
 
 # DESCRIPTION
-4ks demo is a 4k intro released by MadMartigan
-Demo by MadMartigan, released in 2004
+4ks demo is a 4k intro written in C++ with SDL and OpenGL by MadMartigan
+(Vincent Siles), released in 2004 for the #demoscene 4k source compo, where
+it ranked 7th with 22 points.
+
+The intro runs in a 640x480 window. Its animation is frame based: the Debian
+package limits it to 60 frames per second so that it keeps the speed it had
+on the hardware of 2004.
 
 # OPTIONS
-there is no options to this program
+This program has no options.
+
+# KEYS
+**Escape**
+:   The scenes do not change automatically: press Escape to switch to the
+    next scene. On the last scene ("END"), Escape quits the intro.
 
 # INFOS
 https://320x200.org/2004/4k/
