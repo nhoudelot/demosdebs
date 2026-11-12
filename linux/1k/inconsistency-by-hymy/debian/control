@@ -16,4 +16,11 @@ Depends:
  ${misc:Depends},
  libsdl1.2debian
 Description: 1k intro for Linux, released in 2013
- 1k intro by Hymy, released in 2013
+ Inconsistency is a 1 kilobyte intro by Hymy, released at Assembly 2013
+ (11th in the PC 1k compo): a software rendered strange attractor with
+ synthesized music.
+ .
+ The intro is a self-extracting shell script: a gzipped 32-bit ELF
+ executable, written in assembly, is extracted into a temporary directory
+ and run with SDL 1.2. On amd64, install the i386 version of the package
+ (multiarch).

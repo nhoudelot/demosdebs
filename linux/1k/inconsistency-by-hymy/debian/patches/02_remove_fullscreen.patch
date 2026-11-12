@@ -1,11 +1,14 @@
-Description: remove fullscreen
- the app start only in fullscreen
- that could be annoying, so we start in windowed mode
+Description: run in a window that can be closed
+ Upstream opens the SDL 1.2 video mode with SDL_FULLSCREEN (0x80000000, the
+ comment wrongly says SDL_DOUBLEBUF), which changes the resolution of the
+ screen to 1280x720. The intro now runs in a 1280x720 window.
+ .
+ Upstream only quits on Escape or at the end of the intro: closing the
+ window (SDL_QUIT event) now quits too.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-22
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/src/inconsistency.asm
 +++ b/src/inconsistency.asm
 @@ -252,7 +252,7 @@
@@ -13,7 +16,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  
 -	push dword ( 80000000h )		; SDL_DOUBLEBUF
-+	push dword ( 00000000h )		; SDL_DOUBLEBUF
++	push dword ( 00000000h )		; was SDL_FULLSCREEN
  	push dword 32				; bpp
  	push dword height			; Y
  	push dword width			; X
+@@ -500,6 +500,8 @@
+ 			jz main_loop
+ 
+ 			mov al,[sdl_event]
++			cmp al, byte 0xc		; SDL_QUIT
++			je exit
+ 			cmp al, byte 0x2
+ 			jne check_esc
+ 

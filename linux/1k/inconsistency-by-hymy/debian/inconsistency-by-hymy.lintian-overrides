@@ -1,2 +1,11 @@
+# demos is the section used by the demosdebs repository.
 inconsistency-by-hymy binary: unknown-section demos
-inconsistency-by-hymy: executable-not-elf-or-script [usr/bin/inconsistency-by-hymy]
+
+# The intro is a self-extracting shell script: the gzipped ELF executable is
+# appended after the final "exit", so sh -n parses binary data that is
+# never executed.
+inconsistency-by-hymy: shell-script-fails-syntax-check [usr/bin/inconsistency-by-hymy]
+
+# False positive: "[[" is found in the gzipped ELF appended to the script,
+# which the shell never reads.
+inconsistency-by-hymy: bash-term-in-posix-shell '[[' [usr/bin/inconsistency-by-hymy:*]

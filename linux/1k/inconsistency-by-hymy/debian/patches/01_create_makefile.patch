@@ -1,10 +1,18 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: add a Makefile and make the launcher safe
+ Adds a Makefile that assembles the intro with nasm, compresses it with
+ gzip -n (reproducible) and writes the self-extracting launcher under the
+ package name.
+ .
+ The upstream stub extracted the ELF to the fixed path /tmp/L: another user
+ (or another intro using the same trick) could not run it at the same time,
+ and the predictable name allowed symlink attacks. The stub is now a real
+ shell script (with a shebang) that extracts the intro into a private
+ mktemp directory, removed on exit. It exits with 0: the intro itself
+ always ends with exit status 4.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-22
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- /dev/null
 +++ b/src/Makefile
 @@ -0,0 +1,31 @@
@@ -24,7 +32,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +all: $(TARGET)
 +
-+$(TARGET):
++$(TARGET): inconsistency.asm stub
 +	nasm inconsistency.asm
 +	gzip inconsistency -f -9 -n
 +	cat stub inconsistency.gz > $(TARGET)
@@ -39,3 +47,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +	-@$(RM_F) $(DESTDIR)$(bindir)/$(TARGET)
 +	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)
 +
+--- a/src/stub
++++ b/src/stub
+@@ -1 +1,4 @@
+-a=/tmp/L;tail -n+2	$0|zcat>$a;chmod +x $a;$a;rm $a;exit
++#!/bin/sh
++d=$(mktemp -d)||exit;trap 'rm -rf "$d"' 0;trap 'exit 1' 1 2 15
++tail -n+5 "$0"|zcat>"$d/i"&&chmod +x "$d/i"||exit
++"$d/i";exit 0

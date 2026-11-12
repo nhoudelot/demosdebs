@@ -1,0 +1,21 @@
+Description: end the whole process with exit_group
+ The intro ends with the i386 system call exit (1), which only ends the
+ calling thread. The SDL threads (audio callback and, with sdl12-compat,
+ SDL 2 event threads) keep running: the main thread becomes a zombie and
+ the window stays on the screen, frozen, instead of closing. Use
+ exit_group (252) so that the whole process ends.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/src/inconsistency.asm
++++ b/src/inconsistency.asm
+@@ -512,7 +512,7 @@
+ 
+ 	exit:
+ 	call [SDL_CloseAudio]
+-	mov eax,1		;EXIT
++	mov eax,252		;exit_group: SDL threads must end too
+ 	mov ebx,4
+ 	int 80h
+ 
