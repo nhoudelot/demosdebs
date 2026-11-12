@@ -1,3 +1,10 @@
+# demos is the section used by the demosdebs repository.
 aa500bvpfov-by-tvt binary: unknown-section demos
-aa500bvpfov-by-tvt: executable-not-elf-or-script [usr/bin/aa500bvpfov-by-tvt]
-aa500bvpfov-by-tvt: desktop-command-not-in-package bash [usr/share/applications/aa500bvpfov-by-tvt.desktop]
+
+# The intro is a self-extracting shell script: the gzipped C source is
+# appended after the final "exit", so sh -n parses binary data that is
+# never executed.
+aa500bvpfov-by-tvt: shell-script-fails-syntax-check [usr/bin/aa500bvpfov-by-tvt]
+
+# "our" is part of the upstream title of the production.
+aa500bvpfov-by-tvt: using-first-person-in-description line 1: our

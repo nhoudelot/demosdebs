@@ -1,6 +1,6 @@
 % aa500bvpfov-by-tvt(6) aa500bvpfov User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),tvt
-% 2024-03-23
+% Nicolas HOUDELOT (nicolas@demosdebs.org),Claude Opus 5.5,tvt
+% 2026-11-12
 
 # NAME
 aa500bvpfov-by-tvt - is the command to run aa500bvpfov 
@@ -9,8 +9,17 @@ aa500bvpfov-by-tvt - is the command to run aa500bvpfov
 aa500bvpfov-by-tvt [*options*]
 
 # DESCRIPTION
-aa500bvpfov  is a demonstration released by tvt released in september 2008 
-500 bytes intro by tvt, for Stream 2008
+aa500bvpfov is a 508 bytes intro by TVT, released in September 2008 at
+Stream 2008 (4th in the PC 4k compo).
+
+The program is a shell script that contains the gzipped C source of the
+intro: at each start, the source is compiled with **gcc** in a temporary
+directory, which is removed when the intro ends. The sound (unsigned 8 bits,
+mono, 8 kHz) is played with **aplay**.
+
+Press a key or close the window to quit.
+
+The original nfo file follows.
 
 released at stream '08
  
@@ -39,7 +48,7 @@ released at stream '08
  by someone else..........................
 
 # OPTIONS
-there is no options to this program
+There are no options.
 
 # INFOS
 https://www.pouet.net/prod.php?which=51725

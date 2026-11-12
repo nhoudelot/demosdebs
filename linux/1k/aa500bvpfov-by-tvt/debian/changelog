@@ -1,3 +1,24 @@
+aa500bvpfov-by-tvt (1.0-0ddebs12) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/01_adapt_build.patch : the launcher is a real shell
+    script, compiles in a private temporary directory with -std=gnu89
+    (GCC 14 and 15 rejected the code), plays the sound with aplay
+    instead of /dev/dsp, and runs the intro in its own session
+  * debian/patches/02_remove_fullscreen.patch : closing the window quits
+    the intro
+  * debian/control : Architecture all (the binary is a shell script),
+    dropped osspd, osspd-pulseaudio, gzip, coreutils and
+    mesa-common-dev, added libc6-dev, libgl-dev, libglu1-mesa-dev,
+    alsa-utils and pipewire-alsa, better description
+  * debian/resources : real icon (was empty), desktop file runs the
+    intro without bash nor terminal
+  * debian/aa500bvpfov-by-tvt.lintian-overrides : removed obsolete
+    overrides
+  * debian/aa500bvpfov-by-tvt.6.md : updated manual
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 12 Nov 2026 00:47:40 +0100
+
 aa500bvpfov-by-tvt (1.0-0ddebs11) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

@@ -14,7 +14,7 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "aa500bvpfov-by-tvt" "6" "2024-03-23" "aa500bvpfov User Manuals" ""
+.TH "aa500bvpfov-by-tvt" "6" "2026-11-12" "aa500bvpfov User Manuals" ""
 .hy
 .SH NAME
 .PP
@@ -24,8 +24,17 @@ aa500bvpfov-by-tvt - is the command to run aa500bvpfov
 aa500bvpfov-by-tvt [\f[I]options\f[R]]
 .SH DESCRIPTION
 .PP
-aa500bvpfov is a demonstration released by tvt released in september
-2008 500 bytes intro by tvt, for Stream 2008
+aa500bvpfov is a 508 bytes intro by TVT, released in September 2008 at
+Stream 2008 (4th in the PC 4k compo).
+.PP
+The program is a shell script that contains the gzipped C source of the
+intro: at each start, the source is compiled with \f[B]gcc\f[R] in a
+temporary directory, which is removed when the intro ends.
+The sound (unsigned 8 bits, mono, 8 kHz) is played with \f[B]aplay\f[R].
+.PP
+Press a key or close the window to quit.
+.PP
+The original nfo file follows.
 .PP
 released at stream \[cq]08
 .PP
@@ -50,7 +59,7 @@ stuff is written
 by someone else\&...\&...\&...\&...\&...\&...\&...\&.....
 .SH OPTIONS
 .PP
-there is no options to this program
+There are no options.
 .SH INFOS
 .PP
 https://www.pouet.net/prod.php?which=51725
@@ -58,4 +67,4 @@ https://www.pouet.net/prod.php?which=51725
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),tvt.
+Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Claude Opus 5.5,tvt.

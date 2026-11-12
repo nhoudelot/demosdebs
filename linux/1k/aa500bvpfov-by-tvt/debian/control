@@ -3,23 +3,26 @@ Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
- debhelper-compat (= 13),
- coreutils(>=6.10)
+ debhelper-compat (= 13)
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=51725
 Rules-Requires-Root: no
 
 Package: aa500bvpfov-by-tvt
-Architecture: any
+Architecture: all
 Depends:
- ${shlibs:Depends},
  ${misc:Depends},
- osspd,
- osspd-pulseaudio,
- gzip(>=1.3),
  gcc,
+ libc6-dev | libc-dev,
  libsdl1.2-dev,
- libglu1,
- mesa-common-dev
-Description: Demo for Linux, released in 2008
- Demo by tvp, released in 2008
+ libgl-dev,
+ libglu1-mesa-dev,
+ alsa-utils,
+ NSHPIPEWIREALSA
+Description: 512 bytes intro for Linux, released in 2008
+ "An around 500B viagra pill for our vpenises" is a 508 bytes intro by TVT,
+ released at Stream 2008 (4th in the PC 4k compo).
+ .
+ The intro is a self-extracting shell script: the gzipped C source is
+ compiled with gcc each time it is started, then run with SDL 1.2 and
+ OpenGL; the sound is played with aplay.

@@ -2,9 +2,9 @@
 Version=1.0
 Name=aa500bvpfov
 GenericName=Demo
-Comment=Demo by tvt, released in 2008
+Comment=512 bytes intro by TVT, released in 2008
 Type=Application
-Exec=bash -c '/usr/bin/aa500bvpfov-by-tvt'
-Terminal=true
+Exec=/usr/bin/aa500bvpfov-by-tvt
+Terminal=false
 Icon=aa500bvpfov-by-tvt
-Categories=AudioVideo;Game;
+Categories=AudioVideo;

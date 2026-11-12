@@ -1,15 +1,28 @@
-Description: adapt build
- use /tmp while building temporary file
+Description: adapt build and launcher to Debian
+ The self-extracting launcher is turned into a real shell script:
+  - a shebang is added;
+  - the C source and the binary go into a private mktemp directory,
+    removed on exit, instead of the current directory (the demo deletes
+    "y" and "x.c" from its working directory when it quits);
+  - the code is compiled with -std=gnu89: GCC 14 rejects implicit
+    declarations and GCC 15 (C23) old-style K&R definitions;
+  - the sound, unsigned 8-bit mono at 8 kHz (OSS /dev/dsp defaults), is
+    played with aplay instead of /dev/dsp, which needed osspd;
+  - the demo runs in its own session: it ends with kill(0, SIGTERM), which
+    must not reach the shell or the desktop that started it.
+ The build script writes the launcher under the package name.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-22
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-12
 --- a/unpack.header2
 +++ b/unpack.header2
-@@ -1 +1 @@
+@@ -1 +1,4 @@
 -tail -n+2 $0|zcat>x.c;cc -O3 -lSDL -lGLU x.c -o y;./y>/dev/dsp
-+tail -n+2 $0|zcat>/tmp/x.c;cc /tmp/x.c -lGL -lGLU -lSDL -lm -o /tmp/y;/tmp/y>/dev/dsp
++#!/bin/sh
++d=$(mktemp -d)||exit;trap 'rm -rf "$d"' 0;trap '${p:+kill -9 -$p};exit' 1 2 15
++tail -n+5 "$0"|zcat>"$d/x.c"&&cd "$d"&&mkfifo f&&cc -std=gnu89 -w x.c -lGL -lGLU -lSDL -lm -o y||exit
++setsid ./y>f&p=$!;aplay -q -t raw -f U8 -r 8000 -c1 <f;wait;exit
 --- a/stream2.make
 +++ b/stream2.make
 @@ -1,7 +1,7 @@

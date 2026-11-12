@@ -1,11 +1,11 @@
-Description: remove fullscreen
- the app start only in fullscreen
- that could be annoying, so we start in windowed mode
+Description: start the demo in a window
+ The demo only starts in fullscreen, which could be annoying, so it is
+ started in windowed mode. Closing the window (SDL_QUIT) now also ends the
+ demo, like a key press.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-22
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-12
 --- a/stream2.c
 +++ b/stream2.c
 @@ -1,5 +1,5 @@
@@ -13,5 +13,5 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  #include"SDL/SDL_opengl.h"
  #include"math.h"
 -main(t,z,a,e){if(fork()){for(;;){static GLUquadricObj*q;q=gluNewQuadric();SDL_Event k;SDL_SetVideoMode(1024,768,32,0x80000002);glEnable(3042);glBlendFunc(770,1);do{glClear(16640);e=2;do{glLoadIdentity();z=120;do{glTranslatef(e/18.,0,sin(t/999.)*.1);glRotatef(360*sin(t/500.)/20,1,1,1);SDL_PollEvent(&k);glColor4f(cos(z/30.+t/999.),.3,.4,.1);gluSphere(q,1-z/119.,6,6);}while(z--);}while(e--);t+=20;SDL_GL_SwapBuffers();}while(k.type!=2);SDL_Quit();remove("y");remove("x.c");kill(0,15);}}else{for(;;a++){putchar(128+60*sin(.05*a)+69*tanh(2+sin(.2023*a)+sin(.101*a)));}}}
-+main(t,z,a,e){if(fork()){for(;;){static GLUquadricObj*q;q=gluNewQuadric();SDL_Event k;SDL_SetVideoMode(1024,768,32,SDL_OPENGL|SDL_HWSURFACE);glEnable(3042);glBlendFunc(770,1);do{glClear(16640);e=2;do{glLoadIdentity();z=120;do{glTranslatef(e/18.,0,sin(t/999.)*.1);glRotatef(360*sin(t/500.)/20,1,1,1);SDL_PollEvent(&k);glColor4f(cos(z/30.+t/999.),.3,.4,.1);gluSphere(q,1-z/119.,6,6);}while(z--);}while(e--);t+=20;SDL_GL_SwapBuffers();}while(k.type!=2);SDL_Quit();remove("y");remove("x.c");kill(0,15);}}else{for(;;a++){putchar(128+60*sin(.05*a)+69*tanh(2+sin(.2023*a)+sin(.101*a)));}}}
++main(t,z,a,e){if(fork()){for(;;){static GLUquadricObj*q;q=gluNewQuadric();SDL_Event k;SDL_SetVideoMode(1024,768,32,SDL_OPENGL|SDL_HWSURFACE);glEnable(3042);glBlendFunc(770,1);do{glClear(16640);e=2;do{glLoadIdentity();z=120;do{glTranslatef(e/18.,0,sin(t/999.)*.1);glRotatef(360*sin(t/500.)/20,1,1,1);SDL_PollEvent(&k);glColor4f(cos(z/30.+t/999.),.3,.4,.1);gluSphere(q,1-z/119.,6,6);}while(z--);}while(e--);t+=20;SDL_GL_SwapBuffers();}while(k.type!=2&&k.type!=12);SDL_Quit();remove("y");remove("x.c");kill(0,15);}}else{for(;;a++){putchar(128+60*sin(.05*a)+69*tanh(2+sin(.2023*a)+sin(.101*a)));}}}
  
