@@ -1,0 +1,42 @@
+Description: detect and build Speex support with the Debian headers
+ Debian installs the Speex headers under /usr/include/speex/, so configure
+ never found speex.h and silently disabled Speex support. Look for
+ speex/speex.h, include the headers with their speex/ prefix and link
+ libogg explicitly, as speexfile.cpp uses it directly.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-12
+--- a/configure.ac
++++ b/configure.ac
+@@ -238,10 +238,10 @@
+     AC_DEFINE(NO_OGG))
+ AM_CONDITIONAL(HAVE_OGG, test "x$HAVE_OGG" = "xtrue")
+ 
+-AC_CHECK_HEADER(speex.h,
++AC_CHECK_HEADER(speex/speex.h,
+     HAVE_SPEEX=true
+-    LIBS="-lspeex $LIBS"
+-    EXTRA_LIBS="-lspeex $EXTRA_LIBS"
++    LIBS="-lspeex -logg $LIBS"
++    EXTRA_LIBS="-lspeex -logg $EXTRA_LIBS"
+   ,
+     AC_MSG_WARN([Could not find speex header.  You do not appear to have libspeex installed.
+ Get libspeex from http://www.speex.org/])
+--- a/src/speexfile/speexfile.h
++++ b/src/speexfile/speexfile.h
+@@ -13,10 +13,10 @@
+ //#define SL_READER   // uncomment to provide own reader
+ 
+ extern "C" {
+-#include <speex.h>
+-#include <speex_header.h>
+-#include <speex_stereo.h>
+-#include <speex_callbacks.h>
++#include <speex/speex.h>
++#include <speex/speex_header.h>
++#include <speex/speex_stereo.h>
++#include <speex/speex_callbacks.h>
+ //#include <misc.h>
+ #include <ogg/ogg.h>
+ }

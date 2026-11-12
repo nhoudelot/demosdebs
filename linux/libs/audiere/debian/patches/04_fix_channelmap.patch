@@ -1,12 +1,15 @@
 Description: fix distortion on some soundcards
- On Starsip/Matisse HD Audio Controller, we got sound, only when the card is setup to 5.1
-So I guess I had to setup the channel mapping to stero
-but there was still distortion. It was because rate was set to 44100 instead of 48000 that is now the minimum
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
-Applied-Upstream: no
-Last-Update: 2022-05-30
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+ On a Starship/Matisse HD Audio Controller, sound was only heard when the
+ card was set up as 5.1, so the PulseAudio stream now uses an explicit
+ stereo channel map. There was still distortion, because the rate was set
+ to 44100 Hz instead of 48000 Hz, which is now the minimum.
+ .
+ pa_channel_map_init_stereo() comes from libpulse, not libpulse-simple:
+ link it explicitly so the library is not underlinked.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: no
+Last-Update: 2026-11-12
 --- a/src/device_pulse.cpp
 +++ b/src/device_pulse.cpp
 @@ -19,12 +19,13 @@
@@ -34,3 +37,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		NULL,					// default buffering attributes,
  		NULL					// ignore error code
  	);
+--- a/configure.ac
++++ b/configure.ac
+@@ -219,8 +219,8 @@
+ AC_CHECK_HEADER(pulse/simple.h,
+     HAVE_PULSE=true
+     AC_DEFINE(HAVE_PULSE)
+-    LIBS="-lpulse-simple $LIBS"
+-    EXTRA_LIBS="-lpulse-simple $EXTRA_LIBS"
++    LIBS="-lpulse-simple -lpulse $LIBS"
++    EXTRA_LIBS="-lpulse-simple -lpulse $EXTRA_LIBS"
+   ,
+     AC_MSG_WARN([Could not find pulse header.  You do not appear to have libpulse installed.])
+     AC_MSG_WARN([Disabling Pulse Audio support.])

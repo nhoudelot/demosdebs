@@ -2,8 +2,6 @@
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) --without-dumb
-
 %:
 	dh $@
 

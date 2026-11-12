@@ -2,3 +2,4 @@
 02_fix_includes.patch
 03_fix_crosscompile.patch
 04_fix_channelmap.patch
+05_fix_speex_detection.patch

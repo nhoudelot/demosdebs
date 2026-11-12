@@ -7,6 +7,7 @@ Build-Depends:
  dh-exec (>=0.3),
  libvorbis-dev,
  libcdaudio-dev,
+ libdumb1-dev,
  libflac-dev,
  libspeex-dev,
  libasound2-dev,
@@ -34,14 +35,14 @@ Description: Portable, high-level audio library
  with ALSA
 
 Package: libaudiere-1.9.4
+Section: oldlibs
 Architecture: any
 Multi-Arch: same
 Depends:
  ${misc:Depends},
  libaudiere-1.10.1
-Description: Portable, high-level audio library
- transitional package to libaudiere-1.10.1. It can be safely removed.
-
+Description: Portable, high-level audio library (transitional package)
+ Transitional package to libaudiere-1.10.1. It can be safely removed.
 
 Package: libaudiere
 Architecture: any
@@ -52,18 +53,20 @@ Depends:
 Description: metapackage for this portable, high-level audio library
  metapackage for libaudiere
 
-
 Package: libaudiere-dev
 Section: libdevel
 Architecture: any
 Depends:
  libaudiere-1.10.1 (= ${binary:Version}),
  ${misc:Depends},
- libvorbis-dev,
- libdumb1-dev,
+ libasound2-dev,
  libcdaudio-dev,
+ libdumb1-dev,
+ libflac-dev,
+ libogg-dev,
+ libpulse-dev,
  libspeex-dev,
- libasound2-dev
+ libvorbis-dev
 Description: Portable, high-level audio library (development files)
  Audiere can play Ogg Vorbis, MP3, FLAC, uncompressed WAV, AIFF, MOD, S3M,
  XM, and IT files.

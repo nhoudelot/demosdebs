@@ -1,3 +1,19 @@
+audiere (1.10.1-0ddebs14) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : enabled MOD, S3M, XM and IT support with libdumb1-dev
+  * debian/patches/05_fix_speex_detection.patch : look for speex/speex.h,
+    Speex support was silently disabled
+  * debian/patches/04_fix_channelmap.patch : link libpulse, needed by
+    pa_channel_map_init_stereo(), and fixed the DEP-3 header
+  * debian/control : libaudiere-dev depends on every library listed by
+    audiere-config --libs (libflac-dev, libogg-dev, libpulse-dev)
+  * debian/control : transitional package libaudiere-1.9.4 moved to oldlibs
+    with its own short description
+  * debian/rules : removed the unused CONFIGURE_EXTRA_FLAGS variable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 12 Nov 2026 01:11:16 +0100
+
 audiere (1.10.1-0ddebs13) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
