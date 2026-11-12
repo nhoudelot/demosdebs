@@ -4,11 +4,13 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- libsdl1.2-dev,
  pkgconf,
- freeglut3-dev|libglut-dev
+ libsdl1.2-dev,
+ libgl-dev,
+ libglu1-mesa-dev | libglu-dev,
+ libglut-dev | freeglut3-dev
 Standards-Version: 4.7.3
-Homepage: https://www.pouet.net/prod.php?which=50507
+Homepage: https://320x200.org/2003/4k/
 Rules-Requires-Root: no
 
 Package: 4ksrc-pack1
@@ -16,5 +18,15 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: pack of 4 4k intros released in 2003
- hogwagen jylam randomname dwitvs
+Description: entries of the 2003 #demoscene 4k source compo
+ The four entries of the first #demoscene 4k source compo (March 2003),
+ where the 4 KB limit applied to the C source code instead of the
+ executable:
+  - 3d by Jylam (winner), command 4ksrc-pack1-3d;
+  - Lollipop hogwagen by tonic, command 4ksrc-pack1-hogwagen;
+  - different wavelengths in the visible spectrum by spectre/flare,
+    command 4ksrc-pack1-dwitvs;
+  - oh the nos! its termos and styx' code! by termos and styx,
+    command 4ksrc-pack1-randomname.
+ .
+ The first three use SDL, the last one OpenGL and GLUT.

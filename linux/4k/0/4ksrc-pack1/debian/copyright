@@ -1,9 +1,30 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: 4ksrc-pack1
-Source: https://www.pouet.net/prod.php?which=50507
+Upstream-Contact: warp <warp@frob.nl>
+Source: https://320x200.org/2003/4k/4ksrc-pack1.zip
 
 Files: *
-Copyright: 2003 Jylam
+Copyright: 2003 warp (compo organizer, readme.txt, votesheet.txt, Makefiles)
+License: public-domain
+ (probably freeware)
+
+Files: jylam/*
+Copyright: 2003 Jean-Yves Lamoureux (Jylam)
+License: public-domain
+ (probably freeware)
+
+Files: hogwagen/*
+Copyright: 2003 tonic (Jetro, of Armada, Grin, sYmptom)
+License: public-domain
+ (probably freeware)
+
+Files: dwitvs/*
+Copyright: 2003 spectre/flare
+License: public-domain
+ (probably freeware)
+
+Files: randomname/*
+Copyright: 2003 termos and styx
 License: public-domain
  (probably freeware)
 

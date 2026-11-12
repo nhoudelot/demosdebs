@@ -1,11 +1,12 @@
-Description: Fix implicit int types & Fix type checking on pointer types 
-GCC 14 no longer treats types as int when their type are not declared
-GCC 14 no longer allows implicitly casting all pointer types to all other pointer types.
+Description: Fix implicit int types and pointer type mismatches
+ GCC 14 no longer accepts functions declared without a return type, nor
+ implicit conversions between incompatible pointer types (SDL audio
+ callback of the "3d" entry). The helper functions of dwitvs, which
+ return nothing, are declared void, and main() returns int.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2024-11-18
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/dwitvs/dwitvs.c
 +++ b/dwitvs/dwitvs.c
 @@ -21,7 +21,7 @@
@@ -13,7 +14,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  UI lg[120000];
  
 -gm (I x, I y)
-+int gm (I x, I y)
++void gm (I x, I y)
  {
    I lri, lgi, lbi, rri, rgi, rbi, clr, clg, clb, crr, crg, crb;
    I ra, ga, ba, cr, cg, cb;
@@ -22,7 +23,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
 -gf (I x, I y, FL s, I r, I gc, I b)
-+int gf (I x, I y, FL s, I r, I gc, I b)
++void gf (I x, I y, FL s, I r, I gc, I b)
  {
    I dx, dy;
  
@@ -31,7 +32,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
 -rg ()
-+int rg ()
++void rg ()
  {
    F (y = 0; y < 37; y++)
      F (x = 0; x < 50; x++)
@@ -39,7 +40,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
 -fd (UI a)
-+int fd (UI a)
++void fd (UI a)
  {
    UI i, c;
  
@@ -48,7 +49,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
 -bl (UI *b, I w, I h)
-+int bl (UI *b, I w, I h)
++void bl (UI *b, I w, I h)
  {
    UI i, c;
  
@@ -57,7 +58,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
 -re (I x1, I y1, I x2, I y2)
-+int re (I x1, I y1, I x2, I y2)
++void re (I x1, I y1, I x2, I y2)
  {
    I i, j;
  
@@ -66,7 +67,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  }
  
 -main (I ar, char **av)
-+void main (I ar, char **av)
++int main (I ar, char **av)
  {
    I z, p, o;
    UI c, fl = 1;
@@ -86,7 +87,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  }
 -main()
-+void main()
++int main()
  {
  
  

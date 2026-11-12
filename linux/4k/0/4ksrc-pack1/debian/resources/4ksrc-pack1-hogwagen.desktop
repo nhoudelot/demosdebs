@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Lollipop hogwagen
+GenericName=Demo
+Comment=4k source compo entry by tonic, released in 2003
+Comment[fr]=Participation de tonic à la 4k source compo, sortie en 2003
+Type=Application
+Exec=/usr/bin/4ksrc-pack1-hogwagen
+Icon=4ksrc-pack1
+Categories=AudioVideo;
+Keywords=demoscene;demo;intro;4k;

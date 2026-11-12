@@ -1,38 +1,17 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: Adapt the Makefile to the Debian build
+ Use pkg-config for SDL, GL and GLU, honour CC, PKG_CONFIG, CPPFLAGS,
+ CFLAGS and LDFLAGS (hardening), link each entry only with the libraries
+ it needs and add an install target. The programs are installed with the
+ prefix given in progprefix, to avoid generic names like /usr/bin/3d.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-23
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/linux/Makefile
 +++ b/linux/Makefile
-@@ -1,29 +1,55 @@
+@@ -1,29 +1,48 @@
  # makefile to build all entries of the first ever #demoscene
  # 4k source compo.
-+#variables de compilation
-+SHELL = /bin/sh
-+CC    := gcc
-+PKG_CONFIG:=pkg-config
-+CFLAGS   += -Wall -pipe -std=c9x $(shell $(PKG_CONFIG) --cflags sdl glu)
-+LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lglut -lm
-+TARGETS = dwitvs hogwagen 3d randomname
-+
-+#variables d'instalation
-+INSTALL = install
-+INSTALL_DIR     = $(INSTALL) -p -d -m  755
-+INSTALL_PROGRAM = $(INSTALL) -p    -m  755
-+INSTALL_DATA    = $(INSTALL) -p    -m  644
-+INSTALL_SCRIPT  = $(INSTALL) -p    -m  755
-+prefix = /usr
-+exec_prefix = $(prefix)
-+bindir = $(exec_prefix)/bin
-+
-+#parallel compilation if available
-+ifneq (,$(filter parallel=%,$(DEB_BUILD_MAINT_OPTIONS)))
-+ NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_MAINT_OPTIONS)))
-+ MAKEFLAGS += -j$(NUMJOBS)
-+endif
  
 -          CFLAGS = -std=c9x -pedantic
 -       SDL_FLAGS = `sdl-config --cflags`
@@ -43,36 +22,52 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -
 -         TARGETS = dwitvs hogwagen 3d randomname
 -
-+export
++CC         ?= gcc
++PKG_CONFIG ?= pkg-config
++CFLAGS     ?= -O2
++CFLAGS     += -Wall -pipe -std=gnu99
++
++SDL_CFLAGS := $(shell $(PKG_CONFIG) --cflags sdl)
++SDL_LIBS   := $(shell $(PKG_CONFIG) --libs sdl) -lm
++GL_CFLAGS  := $(shell $(PKG_CONFIG) --cflags glu gl)
++GL_LIBS    := $(shell $(PKG_CONFIG) --libs glu gl) -lglut -lm
++
++TARGETS = dwitvs hogwagen 3d randomname
++
++# installation: the programs are installed as $(progprefix)<name>
++INSTALL         = install
++INSTALL_DIR     = $(INSTALL) -p -d -m 755
++INSTALL_PROGRAM = $(INSTALL) -p    -m 755
++prefix      = /usr
++exec_prefix = $(prefix)
++bindir      = $(exec_prefix)/bin
++progprefix  =
  
  all: $(TARGETS)
  
  dwitvs: ../dwitvs/dwitvs.c
 -	$(CC) $(CPPFLAGS) $(CFLAGS) $(SDL_FLAGS) $< $(LOADLIBES) $(LDLIBS) $(SDL_LIBS) -o $@
-+	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(SDL_CFLAGS) $(LDFLAGS) $< $(SDL_LIBS) -o $@
  
  hogwagen: ../hogwagen/hogwagen.c
 -	$(CC) $(CPPFLAGS) $(CFLAGS) $(SDL_FLAGS) $< $(LOADLIBES) $(LDLIBS) $(SDL_LIBS) -o $@
-+	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(SDL_CFLAGS) $(LDFLAGS) $< $(SDL_LIBS) -o $@
  
  3d: ../jylam/main.c
 -	$(CC) $(CPPFLAGS) $(CFLAGS) $(SDL_FLAGS) $< $(LOADLIBES) $(LDLIBS) $(SDL_LIBS) -o $@
-+	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(SDL_CFLAGS) $(LDFLAGS) $< $(SDL_LIBS) -o $@
  
  randomname: ../randomname/main.c
 -	$(CC) $(CPPFLAGS) $(CFLAGS) $< $(LOADLIBES) $(LDLIBS) $(GLLIBS) $(GLUTLIBS) -o $@
-+	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(GL_CFLAGS) $(LDFLAGS) $< $(GL_LIBS) -o $@
  
  clean:
  	$(RM) $(TARGETS)
 +
-+install:
++install: $(TARGETS)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
-+	-@$(RM) $(DESTDIR)$(bindir)/dwitvs
-+	-@$(RM) $(DESTDIR)$(bindir)/hogwagen
-+	-@$(RM) $(DESTDIR)$(bindir)/3d
-+	-@$(RM) $(DESTDIR)$(bindir)/randomname
-+	$(INSTALL_PROGRAM) dwitvs $(DESTDIR)$(bindir)
-+	$(INSTALL_PROGRAM) hogwagen $(DESTDIR)$(bindir)
-+	$(INSTALL_PROGRAM) 3d $(DESTDIR)$(bindir)
-+	$(INSTALL_PROGRAM) randomname $(DESTDIR)$(bindir)
++	for t in $(TARGETS); do \
++		$(INSTALL_PROGRAM) $$t $(DESTDIR)$(bindir)/$(progprefix)$$t || exit 1; \
++	done
++
++.PHONY: all clean install

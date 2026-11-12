@@ -1,0 +1,78 @@
+Description: Limit the frame rate to keep the original speed
+ The "3d" (jylam) and "different wavelengths in the visible spectrum"
+ (dwitvs) entries advance their animation by a fixed step at each frame,
+ without any timer: "3d" shows each scene for 500 frames, dwitvs lasts
+ 3600 frames. On current hardware they run several times too fast.
+ Cap the frame rate to DEMO_FPS (60 by default) with
+ SDL_GetTicks()/SDL_Delay() after each SDL_Flip(). The other two entries
+ already use a timer and are not changed.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/dwitvs/dwitvs.c
++++ b/dwitvs/dwitvs.c
+@@ -17,6 +17,22 @@
+ }
+ g[51*38];
+ 
++/* Debian: the animation advances by a fixed step per frame, so cap
++   the frame rate to keep the original speed on modern hardware */
++#ifndef DEMO_FPS
++#define DEMO_FPS 60
++#endif
++static void limit_fps (void)
++{
++  static Uint32 fps_t0 = 0, fps_n = 0;
++  Uint32 now = SDL_GetTicks (), due;
++
++  if (!fps_t0) fps_t0 = now;
++  due = fps_t0 + (++fps_n) * 1000 / DEMO_FPS;
++  if (due > now) SDL_Delay (due - now);
++  else if (now - due > 250) { fps_t0 = now; fps_n = 0; }
++}
++
+ I *v, w = 400, h = 300, o, i, j, x, y, *di;
+ FL an = 0, d;
+ UI lg[120000];
+@@ -281,6 +297,7 @@
+ 
+     SDL_UnlockSurface (b);
+     SDL_Flip (b);
++    limit_fps ();
+     fr++;
+   }
+ }
+--- a/jylam/main.c
++++ b/jylam/main.c
+@@ -32,7 +32,7 @@
+       #define AJ r.w = 
+       #define GP N,V,
+        #define CR ((I*)U[(x+
+-       #define FL SDL_Flip(b)
++       #define FL SDL_Flip(b);limit_fps()
+        #define FR SDL_FillRect(b, &r,
+        #define e );
+        #define j =0;
+@@ -88,6 +88,21 @@
+    };
+ char tt[]="        THIS IS THE END OF THIS FOUR KILOBYTE COMPO CODED BY JYLAM            IN LESS THAN FOUR K IT FEATURES THREE DIMENTIONNAL TEXTURED VOXEL        PARTICLE SYSTEM       TEXTURE SCALING SINUS PLASMA      NOISE      RASTERS      ZOOM      SINUS BARS AND THIS SINUS SCROLL WITH FOT      THAT S ALL YOU CAN NOW PRESS ESC                          NOW I SAID OK WE WILL NOW END     ";
+ SDL_Surface * b; 
++/* Debian: the animation advances by a fixed step per frame, so cap
++   the frame rate to keep the original speed on modern hardware */
++#ifndef DEMO_FPS
++#define DEMO_FPS 60
++#endif
++static void limit_fps (void)
++{
++  static Uint32 fps_t0 = 0, fps_n = 0;
++  Uint32 now = SDL_GetTicks (), due;
++
++  if (!fps_t0) fps_t0 = now;
++  due = fps_t0 + (++fps_n) * 1000 / DEMO_FPS;
++  if (due > now) SDL_Delay (due - now);
++  else if (now - due > 250) { fps_t0 = now; fps_n = 0; }
++}
+ void clbc(void *ut, unsigned char *st, int le)
+ {
+ sj++;

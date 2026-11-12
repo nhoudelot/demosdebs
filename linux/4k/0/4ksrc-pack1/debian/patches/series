@@ -1,2 +1,4 @@
 01_adapt_makefile.patch
 02_fix-implicit-conversions.patch
+03_limit_frame_rate.patch
+04_fix_fullscreen_option.patch

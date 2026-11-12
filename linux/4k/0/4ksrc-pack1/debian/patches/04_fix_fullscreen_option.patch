@@ -1,0 +1,21 @@
+Description: Fix the fullscreen option of dwitvs
+ The test of the command line argument was inverted: any argument,
+ including a mistyped one, switched to fullscreen. Only -f and
+ --fullscreen do now.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/dwitvs/dwitvs.c
++++ b/dwitvs/dwitvs.c
+@@ -156,8 +156,8 @@
+   UI fr = 0;
+ 
+   SDL_Init (32);
+-  if (ar > 1 && (strcmp (av[1], "-f") ||
+-      strcmp (av[1], "--fullscreen"))) fl |= SDL_FULLSCREEN;
++  if (ar > 1 && (!strcmp (av[1], "-f") ||
++      !strcmp (av[1], "--fullscreen"))) fl |= SDL_FULLSCREEN;
+   b = SDL_SetVideoMode (w, h, 32, fl);
+   v = b->pixels;
+ 

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Different wavelengths in the visible spectrum
+GenericName=Demo
+Comment=4k source compo entry by spectre/flare, released in 2003
+Comment[fr]=Participation de spectre/flare à la 4k source compo, sortie en 2003
+Type=Application
+Exec=/usr/bin/4ksrc-pack1-dwitvs
+Icon=4ksrc-pack1
+Categories=AudioVideo;
+Keywords=demoscene;demo;intro;4k;

@@ -6,3 +6,5 @@ export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 %:
 	dh $@ --sourcedirectory=linux
 
+override_dh_auto_install:
+	dh_auto_install -- progprefix=4ksrc-pack1-

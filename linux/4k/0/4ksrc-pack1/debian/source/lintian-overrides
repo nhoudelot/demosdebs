@@ -1,4 +1,7 @@
-4ksrc-pack1 source: source-contains-prebuilt-windows-binary [win32/3d.exe]
-4ksrc-pack1 source: source-contains-prebuilt-windows-binary [win32/dwitvs.exe]
-4ksrc-pack1 source: source-contains-prebuilt-windows-binary [win32/hogwagen.exe]
-4ksrc-pack1 source: source-contains-prebuilt-windows-binary [win32/randomname.exe]
+# The upstream archive is the release pack of the compo, which also ships
+# the win32 builds of the entries. They are kept in the orig tarball as
+# released and are not used nor installed.
+source-contains-prebuilt-windows-binary [win32/3d.exe]
+source-contains-prebuilt-windows-binary [win32/dwitvs.exe]
+source-contains-prebuilt-windows-binary [win32/hogwagen.exe]
+source-contains-prebuilt-windows-binary [win32/randomname.exe]

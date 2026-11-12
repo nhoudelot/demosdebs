@@ -1,0 +1,2 @@
+debian/resources/*.desktop usr/share/applications/
+debian/resources/4ksrc-pack1.png usr/share/icons/hicolor/256x256/apps/
