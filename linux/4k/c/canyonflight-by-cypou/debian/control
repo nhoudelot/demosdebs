@@ -17,10 +17,12 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: cypou 4k Intro/2004/Linux
- 4k intro by cypou,released in 2004
- (c) 2004 Nathael PAJANI & Cyprien LAPLACE
+ Canyon Flight is a 4k intro written in C with SDL 1.2 and OpenGL by
+ Nathael PAJANI and Cyprien LAPLACE (cypou) for the 2004 Linux 4k compo
+ listed on 320x200.org.
  .
-    Canyon Flight
+ A small plane flies through an endless, randomly generated canyon and
+ switches lanes to avoid the walls that block its way. Each run is
+ different. Press Escape or close the window to quit.
  .
- some 30 hours coding -(including night & meals)-
- of course, it is distributed under GPL license
+ Some 30 hours of coding, including nights and meals.

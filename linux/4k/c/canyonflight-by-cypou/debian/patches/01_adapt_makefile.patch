@@ -1,10 +1,12 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: adapt the Makefile to packaging
+ Use pkg-config (cross-build friendly) instead of sdl-config, honour the
+ CPPFLAGS, CFLAGS and LDFLAGS set by dpkg-buildflags, add an install target
+ and name the binary after the package. GLU is not linked any more: the
+ intro only calls core OpenGL functions. g.h gathers the includes.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-24
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/Makefile
 +++ b/Makefile
 @@ -1,6 +1,32 @@
@@ -15,8 +17,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +SHELL = /bin/sh
 +CC    ?= gcc
 +PKG_CONFIG ?= pkg-config
-+CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu gl)
-+LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
++CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl gl)
++LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl gl) -lm
 +TARGET   := canyonflight-by-cypou
 +#variable de nettoyage
 +RM_F := rm -f
@@ -35,7 +37,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): $(SOURCE)
-+	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(SOURCE) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

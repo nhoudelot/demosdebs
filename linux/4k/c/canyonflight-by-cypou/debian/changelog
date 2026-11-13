@@ -1,3 +1,21 @@
+canyonflight-by-cypou (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/copyright : upstream license is GPL-2+ (see file_id.diz), not
+    public-domain; list both authors
+  * debian/control : rewrote the long description
+  * debian/patches/01_adapt_makefile.patch : honour CPPFLAGS (fortify),
+    stop linking against GLU, which is not used
+  * debian/patches/04_fix_sdl_setup.patch : request the depth buffer
+    before creating the OpenGL context, quit when the window is closed
+  * debian/patches : DEP-3 headers completed (Forwarded)
+  * debian/resources/canyonflight-by-cypou.desktop : added Keywords and
+    a French comment, dropped the matching lintian override
+  * debian/canyonflight-by-cypou.6.md : documented the intro and its
+    keys, regenerated the manual page
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Nov 2026 13:43:56 +0100
+
 canyonflight-by-cypou (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

@@ -1,9 +1,8 @@
-Description: just a title to the window
+Description: set a title on the window
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-24
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/canyonflight.c
 +++ b/canyonflight.c
 @@ -93,6 +93,7 @@

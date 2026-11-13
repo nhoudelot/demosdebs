@@ -1,0 +1,39 @@
+Description: fix the SDL setup and allow closing the window
+ The depth buffer size must be requested before SDL_SetVideoMode() creates
+ the OpenGL context, otherwise it is ignored and the depth test may run
+ without a depth buffer. The intro now also quits when the window is closed
+ (SDL_QUIT), not only with the Escape key, and calls SDL_Quit() to restore
+ the display.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/canyonflight.c
++++ b/canyonflight.c
+@@ -92,9 +92,9 @@
+ 	srand(time(NULL));
+ 
+ 	SDL_Init(32);
++	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
+ 	SDL_SetVideoMode(640, 480, 32, 2);
+         SDL_WM_SetCaption("Canyon Flight by Cypou",NULL);
+-	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
+ 
+ 	glCullFace( GL_BACK );
+ 	glEnable( GL_DEPTH_TEST );
+@@ -120,7 +120,7 @@
+ 	for( i = 0 ; i < 100 ; i++ )
+ 		H[ i ] =  h(-1.5);
+ 
+-	while (!SDL_PollEvent (&e) || !(e.type==2 && e.key.keysym.sym == SDLK_ESCAPE) )
++	while (!SDL_PollEvent (&e) || !(e.type == SDL_QUIT || (e.type==2 && e.key.keysym.sym == SDLK_ESCAPE)) )
+ 	{
+ 		glClear (65<<8);
+ 
+@@ -231,5 +231,6 @@
+                 
+ 	}
+ 
++	SDL_Quit();
+ 	return 0;
+ }

@@ -1,9 +1,10 @@
-Description: fix includes path
+Description: include the SDL headers with their SDL/ prefix
+ The headers are found in /usr/include/SDL without relying on the include
+ path given by sdl-config.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-24
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/g.h
 +++ b/g.h
 @@ -1,5 +1,5 @@

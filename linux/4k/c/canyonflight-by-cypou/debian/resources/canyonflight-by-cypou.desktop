@@ -2,9 +2,10 @@
 Version=1.0
 Name=Canyon Flight
 GenericName=Demo
-Comment=Demo by cypou,released in 2004
+Comment=4k intro by cypou, released in 2004
+Comment[fr]=Intro 4k de cypou, sortie en 2004
 Type=Application
 Exec=/usr/bin/canyonflight-by-cypou
 Icon=canyonflight-by-cypou
 Categories=AudioVideo;Game;
-Name[fr_FR]=Canyon Flight
+Keywords=demoscene;demo;intro;4k;OpenGL;
