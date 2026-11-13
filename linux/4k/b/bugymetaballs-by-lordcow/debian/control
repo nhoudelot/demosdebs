@@ -6,6 +6,7 @@ Build-Depends:
  debhelper-compat (= 13),
  pkgconf,
  libgl-dev,
+ libglu1-mesa-dev | libglu-dev,
  libsdl1.2-dev
 Standards-Version: 4.7.3
 Homepage: https://320x200.org/2004/4k/
@@ -16,8 +17,11 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: lordcow 4k Intro/2004/Linux
- 4k intro by lordcow, released in 2004
- BUGGY METABALLS
+Description: Buggy Metaballs, 4k intro by lordcow (2004)
+ Buggy Metaballs is a 4k intro written by lordcow for the 2004 4k source
+ compo. It renders a real metaball surface (the iso-surface of the sum of
+ 1/distance fields of points moving around the scene), with a scroll text
+ mapped on it and a tiny one-track music engine.
  .
- a 4k source compo by lordcow.
+ Part of the data (metaball tables, scroll text and music) is encoded
+ into the whitespace of the source code.

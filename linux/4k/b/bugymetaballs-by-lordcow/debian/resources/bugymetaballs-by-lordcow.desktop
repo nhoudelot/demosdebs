@@ -1,10 +1,11 @@
 [Desktop Entry]
 Version=1.0
-Name=Bugy Metaballs
+Name=Buggy Metaballs
 GenericName=Demo
-Comment=Demo by lordcow, released in 2004
+Comment=4k intro by lordcow, released in 2004
+Comment[fr]=Intro 4k de lordcow, sortie en 2004
 Type=Application
 Exec=/usr/bin/bugymetaballs-by-lordcow
 Icon=bugymetaballs-by-lordcow
 Categories=AudioVideo;Game;
-Name[fr_FR]=Bugy Metaballs
+Keywords=demo;demoscene;intro;4k;metaballs;

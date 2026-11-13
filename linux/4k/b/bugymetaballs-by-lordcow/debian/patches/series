@@ -1,3 +1,6 @@
 01_adapt_makefile.patch
 02_remove_fullscreen.patch
 03_fix_warnings.patch
+04_fix_missing_return.patch
+05_quit_on_window_close.patch
+06_cap_frame_rate.patch

@@ -1,3 +1,29 @@
+bugymetaballs-by-lordcow (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/04_fix_missing_return.patch : added the missing
+    return statement of the vector assignment operator, the intro
+    crashed at start-up when built with current GCC
+  * debian/patches/05_quit_on_window_close.patch : quit on SDL_QUIT
+    (window close button, SIGTERM)
+  * debian/patches/01_adapt_makefile.patch : use CPPFLAGS (fortify),
+    updated DEP-3 header
+  * debian/patches/03_fix_warnings.patch : fixed the DEP-3 description
+  * debian/control : added libglu1-mesa-dev to Build-Depends, rewrote
+    the description
+  * debian/rules : removed the useless PKG_CONFIG_PATH export
+  * debian/resources : added the missing icon (was an empty file),
+    Keywords in the desktop file
+  * debian/copyright : full GPL-2+ license text
+  * debian/lintian-overrides : commented overrides, removed desktop-
+    entry-lacks-keywords-entry
+  * debian/bugymetaballs-by-lordcow.6.md : rewrote the manual page
+  * debian/README.source : documented the orig tarball and the patches
+  * debian/patches/06_cap_frame_rate.patch : cap the frame rate to 60
+    fps, the intro ran far too fast on current hardware
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Nov 2026 10:25:28 +0100
+
 bugymetaballs-by-lordcow (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

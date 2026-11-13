@@ -1,0 +1,19 @@
+Description: quit when the window is closed
+ The main loop only stops on a key press (event type 2, SDL_KEYDOWN), so
+ the close button of the window, and SIGTERM/SIGINT (which SDL turns into
+ SDL_QUIT), had no effect. Also stop on SDL_QUIT.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/buggy_metaballs.cpp
++++ b/buggy_metaballs.cpp
+@@ -91,7 +91,7 @@
+ g b=GL_LIGHT0; f(a,2) glLightfv(b+a, GL_POSITION, c[a] o glLightfv(b+a, GL_DIFFUSE, c[2] o 
+ glLightfv(b+a, GL_SPECULAR, c[3+a] o glEnable( b+a o } SDL_AudioSpec e={22500,AUDIO_U8,1,0,4096,0,0,am}, h;
+ SDL_OpenAudio(&e, &h o SDL_PauseAudio(0 o  glLightModeli(0x81F8, GL_SEPARATE_SPECULAR_COLOR o 
+-while (!SDL_PollEvent (&a) || a.type!=2) {  glClear(0x4100 o ab( GL_PROJECTION )
++while (!SDL_PollEvent (&a) || (a.type!=SDL_KEYDOWN && a.type!=SDL_QUIT)) {  glClear(0x4100 o ab( GL_PROJECTION )
+ ab( GL_MODELVIEW)gluOrtho2D( .2, .8, .2, .8 o  A++;
+ f(a,v) m b=((10*k*a)) * E * 2.0 / 100, d = .2+cos(10*k+2*E*a/v o 
+ x=l(.5+.1 * cos(b+a*.2), .5+.1*sin(2*b+a*.4), .5+0.1*sin(.5*b+a*.1) o 

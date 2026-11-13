@@ -1,0 +1,20 @@
+Description: return *this from the vector assignment operator
+ The template operator= of the vector class "l" has no return statement.
+ Flowing off the end of a non-void function is undefined behaviour in C++:
+ current GCC versions emit a trap there (SIGILL at -O0) or generate code
+ that crashes (SIGSEGV at -O2) as soon as the metaball surface is built.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/buggy_metaballs.cpp
++++ b/buggy_metaballs.cpp
+@@ -41,7 +41,7 @@
+ 
+ #define F .7+.3*cos(k*	
+     G(l) m c[3];  l(){ } l (m a, m b, m d){ c[0]=a; c[1]=b; c[2]=d; };
+-l (m a){ f(b,3)c[b]=a;} }template <typename e> l & y=(e a) { f(b,3)c[b]=a;}
++l (m a){ f(b,3)c[b]=a;} }template <typename e> l & y=(e a) { f(b,3)c[b]=a;} p *this;
+  } m &y [] (g a) { p c[a]; { s ;  D(+,l,.c[a]) D(-,l,.c[a])
+ D(*,m,) D(/,m,)  ae(%, a[0]*b[0] + a[1]*b[1] +a[2]*b[2],m) ae(*,l(a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]),l)
+ m k; const g v=10, i=40, z=(i* i), M=(z*i o  l ai[v];

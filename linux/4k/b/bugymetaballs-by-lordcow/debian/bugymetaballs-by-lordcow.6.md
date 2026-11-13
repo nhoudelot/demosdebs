@@ -1,21 +1,35 @@
-% bugymetaballs-by-lordcow(6) Bugy Metaballs User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),lordcow
-% 2024-03-24
+% bugymetaballs-by-lordcow(6) Buggy Metaballs User Manuals
+% Nicolas HOUDELOT <nicolas@demosdebs.org>,Claude Opus 5.5,lordcow
+% 2026-11-13
 
 # NAME
-bugymetaballs-by-lordcow - is the command to run Bugy Metaballs 
+bugymetaballs-by-lordcow - run the Buggy Metaballs 4k intro
 
 # SYNOPSIS
-bugymetaballs-by-lordcow [*options*]
+bugymetaballs-by-lordcow
 
 # DESCRIPTION
-Bugy Metaballs is a 4k intro released by lordcow released in 2004
+Buggy Metaballs is a 4k intro written by lordcow for the 2004 4k source
+compo. It renders a metaball surface with a scroll text mapped on it, and
+plays a small one-track music.
+
+The intro runs in a 640x480 window (the original version started in
+fullscreen) and loops until it is stopped.
 
 # OPTIONS
-there is no options to this program
+This program has no options.
 
-# INTROS
+# KEYS
+Any key
+:   quit the intro. Closing the window also quits.
+
+# SEE ALSO
 https://320x200.org/2004/4k/
+
+# NOTES
+The original intro has no timer and advances by a fixed step on each frame.
+The Debian version caps the frame rate to 60 frames per second, so that the
+animation and the scroll text keep a steady speed on current hardware.
 
 # BUGS
 No known bugs.

@@ -1,0 +1,36 @@
+Description: cap the frame rate to 60 frames per second
+ The intro has no timer: the animation (k += .005) and the scroll text
+ advance by a fixed step on each frame, while the music is driven by the
+ audio callback. On current hardware the effect runs far too fast and out
+ of sync with the music. Wait with SDL_Delay() so that frames are drawn at
+ BUGY_FPS (60 by default, can be changed with -DBUGY_FPS=n). The schedule is
+ based on the frame count, so it does not drift; it is reset when the
+ machine is more than 100 ms late.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/buggy_metaballs.cpp
++++ b/buggy_metaballs.cpp
+@@ -1,6 +1,10 @@
+ 
+ #include "g.h"
+ 
++#ifndef BUGY_FPS
++#define BUGY_FPS 60
++#endif
++
+ #define o );
+ 
+ #define s }}}
+@@ -104,5 +108,9 @@
+ }  glBegin(GL_TRIANGLES o f(a,K) f(b,3) S &c=*V[a].q[b];
+ glNormal3fv(c.L.c o glVertex3fv(c.n.c o glTexCoord2fv(c.n.c o 
+ { s  glEnd( o glFlush( o SDL_GL_SwapBuffers( o 
+-k +=.005; } SDL_Quit( o }  
++k +=.005;
++{ /* Debian: cap the frame rate, the animation advances by a fixed step per frame */
++  static Uint32 st=SDL_GetTicks(), fr=0; Uint32 tg=st+(++fr)*1000/BUGY_FPS, nw=SDL_GetTicks();
++  _(tg>nw) SDL_Delay(tg-nw); else _(nw-tg>100) { st=nw; fr=0; } }
++} SDL_Quit( o }  
+ 

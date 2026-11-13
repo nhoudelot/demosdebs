@@ -1,7 +1,25 @@
 bugymetaballs-by-lordcow for Debian
 -----------------------------------
 
-sources have been repackaged
+The orig tarball contains the files of the 4k source compo entry, as
+published on https://320x200.org/2004/4k/ : buggy_metaballs.cpp, g.h,
+GNUmakefile and file_id.diz.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Feb 2016 16:31:21 +0100
+Part of the data (metaball tables, scroll text, music) is encoded in the
+whitespace of buggy_metaballs.cpp: do not reformat or reindent this file,
+and keep the patches minimal.
 
+Patches (debian/patches):
+ 01  replace the GNUmakefile by a Makefile using pkg-config and the
+     dpkg-buildflags (CPPFLAGS, CXXFLAGS, LDFLAGS)
+ 02  start in a window instead of fullscreen
+ 03  include the SDL 1.2 headers by their full path
+ 04  add the missing "return *this" of the vector assignment operator: with
+     current GCC the intro crashed (SIGILL/SIGSEGV) at start-up
+ 05  also quit on SDL_QUIT (window close button, SIGTERM)
+ 06  cap the frame rate to 60 fps (BUGY_FPS): without it the intro ran at
+     thousands of frames per second on current hardware
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Nov 2026 10:30:00 +0100

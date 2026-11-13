@@ -1,10 +1,11 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: replace the upstream GNUmakefile with a packaging friendly Makefile
+ Use pkg-config (cross-compilation aware) instead of sdl-config, honour the
+ CPPFLAGS, CXXFLAGS and LDFLAGS set by dpkg-buildflags and add an install
+ target.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-24
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/GNUmakefile
 +++ /dev/null
 @@ -1,23 +0,0 @@
@@ -56,7 +57,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): $(SOURCE)
-+	 $(CXX) $(SOURCE) $(CXXFLAGS) -o $(TARGET) $(LDFLAGS)
++	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(SOURCE) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

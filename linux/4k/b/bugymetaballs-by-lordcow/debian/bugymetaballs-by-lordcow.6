@@ -14,25 +14,43 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "bugymetaballs-by-lordcow" "6" "2024-03-24" "Bugy Metaballs User Manuals" ""
+.TH "bugymetaballs-by-lordcow" "6" "2026-11-13" "Buggy Metaballs User Manuals" ""
 .hy
 .SH NAME
 .PP
-bugymetaballs-by-lordcow - is the command to run Bugy Metaballs
+bugymetaballs-by-lordcow - run the Buggy Metaballs 4k intro
 .SH SYNOPSIS
 .PP
-bugymetaballs-by-lordcow [\f[I]options\f[R]]
+bugymetaballs-by-lordcow
 .SH DESCRIPTION
 .PP
-Bugy Metaballs is a 4k intro released by lordcow released in 2004
+Buggy Metaballs is a 4k intro written by lordcow for the 2004 4k source
+compo.
+It renders a metaball surface with a scroll text mapped on it, and plays
+a small one-track music.
+.PP
+The intro runs in a 640x480 window (the original version started in
+fullscreen) and loops until it is stopped.
 .SH OPTIONS
 .PP
-there is no options to this program
-.SH INTROS
+This program has no options.
+.SH KEYS
+.TP
+Any key
+quit the intro.
+Closing the window also quits.
+.SH SEE ALSO
 .PP
 https://320x200.org/2004/4k/
+.SH NOTES
+.PP
+The original intro has no timer and advances by a fixed step on each
+frame.
+The Debian version caps the frame rate to 60 frames per second, so that
+the animation and the scroll text keep a steady speed on current
+hardware.
 .SH BUGS
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),lordcow.
+Nicolas HOUDELOT <nicolas@demosdebs.org>,Claude Opus 5.5,lordcow.

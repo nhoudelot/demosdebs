@@ -1,9 +1,10 @@
-Description: fixing several simple warnings 
+Description: include the SDL 1.2 headers by their full path
+ "SDL.h" and "SDL_opengl.h" are only found when sdl-config adds
+ -I/usr/include/SDL; include <SDL/SDL.h> and <SDL/SDL_opengl.h> instead.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-24
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/g.h
 +++ b/g.h
 @@ -1,5 +1,5 @@
