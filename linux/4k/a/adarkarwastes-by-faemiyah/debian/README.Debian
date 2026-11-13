@@ -1,15 +1,26 @@
 adarkarwastes-by-faemiyah for Debian
-----------------------------------
+------------------------------------
 
 This is a standard version of the 4K intro, not the minimized "party" version.
 
-The source code uses the USE_LD definition and does not generate music. 
-Instead, it relies on existing WAV files and shaders.
+The source code uses the USE_LD definition and does not generate music.
+Instead, it relies on the precalculated soundtrack and on the shader files
+installed in /usr/share/adarkarwastes-by-faemiyah.
 
-I always prefer using the most basic binary format to ensure compatibility 
+The upstream soundtrack is a 32-bit float WAV file (about 30 MB). It is
+compressed to FLAC at build time, and the intro decodes it at startup with
+libsndfile (debian/patches/08_load-flac-soundtrack.patch). The peak level of
+the soundtrack stays below 0 dBFS, so the 24-bit FLAC file does not clip.
+
+I always prefer using the most basic binary format to ensure compatibility
 with dh_shlibdeps, allowing it to accurately identify dependencies.
 
 Forcing music generation might be possible, but exploring the ASM code
 suggests a loss of cross-platform compilation.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 18 Feb 2025 02:31:14 +0100
+Keys: F toggles fullscreen, Esc quits. The intro prints its frame rate on
+the standard error output every 2 seconds, to check that VSync is respected.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Nov 2026 00:49:14 +0100

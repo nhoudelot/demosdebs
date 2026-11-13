@@ -1,0 +1,27 @@
+Description: added an FPS counter
+ Added an FPS counter that output to stderr
+ to be sure we're still in VSync
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Applied-Upstream: no
+Last-Update: 2026-04-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -1110,6 +1110,16 @@
+     SDL_Event event;
+     int curr_ticks;
+ 
++	static int fps_frames = 0;
++	static Uint32 fps_ticks = 0;
++	Uint32 now = SDL_GetTicks();
++	if (fps_ticks == 0) fps_ticks = now;
++	if (++fps_frames, now - fps_ticks >= 2000) {
++		fprintf(stderr, "FPS: %.1f\n", static_cast<float>(fps_frames) * 1000.0f / static_cast<float>(now - fps_ticks));
++		fps_frames = 0;
++		fps_ticks = now;
++	}
++
+ #if defined(USE_LD)
+     while(SDL_PollEvent(&event))
+     {

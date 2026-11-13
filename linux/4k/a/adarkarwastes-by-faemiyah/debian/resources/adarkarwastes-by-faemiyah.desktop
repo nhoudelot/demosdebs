@@ -2,9 +2,10 @@
 Version=1.0
 Name=Adarkar Wastes
 GenericName=Demo
-Comment=Demo by Faemiyah, released in 2018
+Comment=4k intro by Faemiyah, released in 2018
 Type=Application
 Exec=/usr/bin/adarkarwastes-by-faemiyah
 Icon=adarkarwastes-by-faemiyah
 Categories=AudioVideo;
+Keywords=demo;demoscene;intro;4k;Faemiyah;
 Name[fr_FR]=Adarkar Wastes

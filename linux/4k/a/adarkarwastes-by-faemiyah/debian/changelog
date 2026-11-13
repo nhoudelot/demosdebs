@@ -1,3 +1,22 @@
+adarkarwastes-by-faemiyah (1.0+git20180525-0ddebs6) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches : added 08_load-flac-soundtrack.patch, the intro
+    reads the FLAC soundtrack directly with libsndfile
+  * debian/*-data.postinst, debian/*-data.prerm : removed, the FLAC file
+    is no longer converted back to WAV in /usr/share at install time
+  * debian/control : added libsndfile1-dev and pkgconf, cmake (>= 3.16),
+    sox moved to Build-Depends-Indep, sox dropped from the data package
+    Depends, longer descriptions
+  * debian/rules : FLAC compression done in override_dh_install-indep
+    only, debian/clean removes the generated file
+  * debian/copyright : upstream licence is BSD-3-Clause (LICENCE file)
+  * debian/source/lintian-overrides : commented overrides
+  * debian/README.Debian, debian/adarkarwastes-by-faemiyah.6.md :
+    updated, documented the F and Esc keys
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Nov 2026 00:48:55 +0100
+
 adarkarwastes-by-faemiyah (1.0+git20180525-0ddebs5) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
@@ -5,8 +24,9 @@ adarkarwastes-by-faemiyah (1.0+git20180525-0ddebs5) unstable; urgency=medium
   * debian/rules : Removed xz compression of the package
   * added resizable windows  with the help of Claude Sonnet 4.6
   * update CMakeList.txt & defaults.cmake with the help of Claude Sonnet 4.6
+  * added an fps counter to be sure we're still in the VSync
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 30 Mar 2026 02:05:41 +0200
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 30 Apr 2026 01:20:56 +0200
 
 adarkarwastes-by-faemiyah (1.0+git20180525-0ddebs4) unstable; urgency=medium
 

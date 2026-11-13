@@ -1,0 +1,109 @@
+Description: read the soundtrack from a FLAC file with libsndfile
+ The Debian package ships the precalculated soundtrack compressed as FLAC.
+ It used to be decoded back to WAV by the postinst script, which left an
+ untracked file in /usr/share and removed a file shipped by the package.
+ The intro now decodes the FLAC file directly with libsndfile, into the
+ same 32-bit float buffer as before.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -10,6 +10,8 @@
+ find_package(OpenGL REQUIRED)
+ find_package(PNG REQUIRED)
+ find_package(SDL2 REQUIRED)
++find_package(PkgConfig REQUIRED)
++pkg_check_modules(SNDFILE REQUIRED IMPORTED_TARGET sndfile)
+ 
+ output_flags("DEBUG" on)
+ 
+@@ -43,7 +45,7 @@
+   GLEW::GLEW
+   PNG::PNG
+   SDL2::SDL2
+-  "${SNDFILE_LIBRARY}"
++  PkgConfig::SNDFILE
+ )
+ 
+ set_target_properties(adarkarwastes-by-faemiyah PROPERTIES SKIP_BUILD_RPATH TRUE)
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -13,6 +13,8 @@
+ #if defined(USE_LD)
+ #include "glsl_program.hpp"
+ #include "image_png.hpp"
++#include <sndfile.h>
++#include <cstring>
+ #include <cstdio>
+ #include <iomanip>
+ #include <iostream>
+@@ -122,7 +124,7 @@
+ /// \endcond
+ 
+ /// Precalculated file to load if synth cannot be ran.
+-#define SYNTH_TEST_INPUT_FILE "adarkar_wastes.wav"
++#define SYNTH_TEST_INPUT_FILE "adarkar_wastes.flac"
+ #if 0 // Change to 1 to enable writing synth output.
+ /// Output file to write for synth test.
+ #define SYNTH_TEST_OUTPUT_FILE SYNTH_TEST_INPUT_FILE
+@@ -275,33 +277,45 @@
+ #if defined(SYNTH_TEST_INPUT_FILE)
+   const fs::path REL_PATH("/usr/share/adarkarwastes-by-faemiyah");
+   const fs::path SYNTH_TEST_INPUT_FILE_PATH(SYNTH_TEST_INPUT_FILE);
+-  SDL_AudioSpec wav_spec;
+-  SDL_AudioSpec* wav_found;
+-  Uint32 wav_length;
+-  Uint8 *wav_buffer;
+-
+-  wav_found = SDL_LoadWAV(SYNTH_TEST_INPUT_FILE_PATH.string().c_str(), &wav_spec, &wav_buffer, &wav_length);
+-  if(!wav_found)
++  SF_INFO wav_info = {};
++  SNDFILE *wav_file = sf_open(SYNTH_TEST_INPUT_FILE_PATH.string().c_str(), SFM_READ, &wav_info);
++  if(!wav_file)
+   {
+     fs::path fname = REL_PATH / SYNTH_TEST_INPUT_FILE_PATH;
+-    wav_found = SDL_LoadWAV(fname.string().c_str(), &wav_spec, &wav_buffer, &wav_length);
++    wav_file = sf_open(fname.string().c_str(), SFM_READ, &wav_info);
+   }
+-  if(!wav_found)
++  bool wav_found = false;
++  if(wav_file)
+   {
+-    fs::path fname = fs::path("..") / REL_PATH / SYNTH_TEST_INPUT_FILE_PATH;
+-    wav_found = SDL_LoadWAV(fname.string().c_str(), &wav_spec, &wav_buffer, &wav_length);
++    if((wav_info.channels == AUDIO_CHANNELS) && (wav_info.samplerate == AUDIO_SAMPLERATE))
++    {
++      wav_found = true;
++    }
++    else
++    {
++      std::cerr << "WARNING: unexpected audio format in " << SYNTH_TEST_INPUT_FILE << std::endl;
++    }
+   }
+ 
+   // If successful, read floating-point data from file.
+   if(wav_found)
+   {
+-    memcpy(g_audio_buffer, wav_buffer, std::min(static_cast<size_t>(wav_length), sizeof(g_audio_buffer)));
+-    SDL_FreeWAV(wav_buffer);
++    sf_count_t frames = static_cast<sf_count_t>(sizeof(g_audio_buffer) / (AUDIO_CHANNELS * sizeof(float)));
++    sf_count_t read = sf_readf_float(wav_file, reinterpret_cast<float*>(g_audio_buffer), frames);
++    memset(g_audio_buffer + read * AUDIO_CHANNELS * sizeof(float), 0,
++        sizeof(g_audio_buffer) - static_cast<size_t>(read) * AUDIO_CHANNELS * sizeof(float));
++    sf_close(wav_file);
+   }
+   // No no audio data available, fill data with 0.
+   else
+ #endif
+   {
++#if defined(SYNTH_TEST_INPUT_FILE)
++    if(wav_file)
++    {
++      sf_close(wav_file);
++    }
++#endif
+     std::cerr << "WARNING: synth not available, filling audio with 0" << std::endl;
+     while(bytes > 0)
+     {

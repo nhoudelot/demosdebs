@@ -4,16 +4,19 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- cmake(>=3.1),
+ cmake (>= 3.16),
  libopengl-dev,
  libpng-dev,
  libsdl2-dev,
+ libsndfile1-dev,
+ pkgconf,
  zlib1g-dev,
  libglew-dev,
  libboost-filesystem-dev,
  libboost-program-options-dev,
  libboost-thread-dev,
- libboost-wave-dev,
+ libboost-wave-dev
+Build-Depends-Indep:
  sox
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=75218
@@ -28,14 +31,20 @@ Depends:
  ${misc:Depends},
  adarkarwastes-by-faemiyah-data
 Description: 4k intro by Faemiyah, released in 2018
- 4k intro by Faemiyah, 1st combined 4k at Instanssi 2018
+ Adarkar Wastes is a 4k intro by Faemiyah (Juippi, Trilkk), released at
+ Instanssi 2018, where it ranked 1st in the combined 4k competition.
+ .
+ This package contains the standard (non size-optimized) build of the
+ intro. Press F to toggle fullscreen and Esc to quit.
 
 Package: adarkarwastes-by-faemiyah-data
 Architecture: all
 Multi-Arch: foreign
 Depends:
- ${misc:Depends},
- sox
+ ${misc:Depends}
 Description: Data files for adarkarwastes-by-faemiyah
- adarkarwastes-by-faemiyah data files
+ Adarkar Wastes is a 4k intro by Faemiyah, released at Instanssi 2018.
+ .
+ This package contains the shaders and the precalculated soundtrack
+ (compressed as FLAC) used by adarkarwastes-by-faemiyah.
 

@@ -4,3 +4,5 @@
 04_add-windows-resizable.patch
 05_avoid-custom-rpath.patch
 06_update-cmake.patch
+07_count-fps.patch
+08_load-flac-soundtrack.patch

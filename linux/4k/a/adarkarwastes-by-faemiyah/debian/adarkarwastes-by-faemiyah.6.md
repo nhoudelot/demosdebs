@@ -1,5 +1,5 @@
 % adarkarwastes-by-faemiyah(6) Adarkar Wastes User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),Faemiyah
+% Nicolas HOUDELOT (nicolas@demosdebs.org),Claude Opus 5.5,Faemiyah
 % 2024-03-24
 
 # NAME
@@ -10,7 +10,7 @@
 
 # DESCRIPTION
 **Adarkar Wastes** is a 4k intro released by Faemiyah in march 2018.
-Ended 1st 4k at Instanssi 2018
+Ended 1st in the combined 4k competition at Instanssi 2018.
 
 # OPTIONS
 \-d [ --developer ]
@@ -27,6 +27,17 @@ Ended 1st 4k at Instanssi 2018
       
 \-h [ --help ] 
 :    Print help text.
+
+# KEYS
+**F**
+:    Toggle fullscreen.
+
+**Esc**
+:    Quit.
+
+# FILES
+*/usr/share/adarkarwastes-by-faemiyah/*
+:    Shaders and precalculated soundtrack (FLAC).
 
 # INFOS
 https://www.pouet.net/prod.php?which=75218

@@ -10,7 +10,8 @@ export PKG_CONFIG_PATH=/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
 %:
 	dh $@ --buildsystem=cmake --sourcedirectory=. --builddirectory=build
 
-override_dh_install:
+# The soundtrack is only needed by the arch-independent data package:
+# compress the 32-bit float WAV to FLAC, the intro reads it with libsndfile.
+override_dh_install-indep:
 	sox rel/adarkar_wastes.wav rel/adarkar_wastes.flac
-	dh_install
-
+	dh_install -i

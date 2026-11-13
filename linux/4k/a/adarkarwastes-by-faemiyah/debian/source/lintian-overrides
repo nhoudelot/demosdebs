@@ -1,4 +1,4 @@
-adarkarwastes-by-faemiyah source: source-is-missing [rel/adarkar_wastes_freebsd-amd64]
-adarkarwastes-by-faemiyah source: source-is-missing [rel/adarkar_wastes_freebsd-ia32]
-adarkarwastes-by-faemiyah source: source-is-missing [rel/adarkar_wastes_linux-amd64]
-
+# The upstream release directory also ships the Windows build of the party
+# version. It is kept in the orig tarball as shipped upstream and is not
+# installed; the package is built from the sources in src/.
+source-contains-prebuilt-windows-binary [rel/adarkar_wastes_windows-ia32.exe]
