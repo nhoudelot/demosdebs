@@ -1,0 +1,18 @@
+Description: quit when the window is closed
+ The intro only stops on a key press (SDL_KEYDOWN): closing its window
+ did nothing. Also stop on SDL_QUIT, sent when the window is closed.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/analeptique.c
++++ b/analeptique.c
+@@ -55,7 +55,7 @@
+ ,z=.03125,a=-31.;SDL_Surface*S;SDL_Event O;SDL_Init(32);S=SDL_SetVideoMode(w,w,32,32);
+ v=S->pixels;M(b0,255,m*4);j=176;J(b1,0xb0b0b0);f(i=0;i<w;i++){M(b1+i*w+40,j,152*4);i<
+ 176?j--:j++;}J(b2,e=0xd080d0);f(j=0;j<w;j++){f(i=40;i<192;i++)b2[j*w+i]=e;e-=j<128?w:m
+-+1;}A(r1,g1,518);A(r2,g2,394752);i=j=0;while(!SDL_PollEvent(&O)||O.type!=2){T=W;
+++1;}A(r1,g1,518);A(r2,g2,394752);i=j=0;while(!SDL_PollEvent(&O)||(O.type!=2&&O.type!=12)){T=W;
+ SDL_LockSurface(S);if(k&1)E(v);_ {if(k&4){N(v,b0,m*4);if(T>x){s+=d;if(s<=c||s>=fi)
+ {d=-d;c=r(7)+15;fi=r(31)+42;}x=T+35;}L(v);G(v,s,t);N(b0,v,m*4);F(v,&u,k&8);t+=.015625;
+ }if(k&16){if(k&2304)N(v,k&w?b2:b1,m*4);_ J(v,0xb0b0b0);K(v,k&w?Q:(k&128?(Q+6):Q),k&64);

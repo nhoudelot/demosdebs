@@ -1,10 +1,10 @@
-Description: Fix Implicit int types 
-GCC 14 is gnu23 by default and no longer treats types as int when their type are not declared
+Description: fix implicit int types
+ GCC 14 no longer accepts declarations without a type (implicit int is an
+ error since C99): declare the return type of the drawing functions.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2025-01-04
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/analeptique.c
 +++ b/analeptique.c
 @@ -22,33 +22,33 @@

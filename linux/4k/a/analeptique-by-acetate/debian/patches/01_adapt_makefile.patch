@@ -1,10 +1,15 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: create a makefile for the packaging tools
+ The upstream Makefile calls sdl-config and gcc directly. Replace it with
+ a makefile that uses pkg-config, honours the build flags given by
+ dpkg-buildflags (CPPFLAGS, CFLAGS, LDFLAGS) and the CC of a cross build,
+ and installs the program under the package name.
+ The intro only draws into an SDL software surface: it is linked with SDL
+ and libm only (the former link with GLU was useless).
+ Also add the s.h header included by the source (SDL, math, stdlib).
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-23
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/Makefile
 +++ b/Makefile
 @@ -1,6 +1,34 @@
@@ -14,8 +19,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +SHELL = /bin/sh
 +CC    ?= gcc
 +PKG_CONFIG ?=pkg-config
-+CFLAGS   +=  -std=c99 -Wall -pipe -fstrict-aliasing $(shell $(PKG_CONFIG) --cflags sdl glu)
-+LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu) -lm
++CFLAGS   +=  -std=c99 -Wall -pipe -fstrict-aliasing $(shell $(PKG_CONFIG) --cflags sdl)
++LDLIBS   += $(shell $(PKG_CONFIG) --libs sdl) -lm
 +TARGET   = analeptique-by-acetate
 +#variables d'instalation
 +INSTALL = install
@@ -39,7 +44,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): $(SOURCE)
-+	 $(CC) -o $(TARGET) $(SOURCE) $(CFLAGS) $(LDFLAGS)
++	 $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(SOURCE) $(LDLIBS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

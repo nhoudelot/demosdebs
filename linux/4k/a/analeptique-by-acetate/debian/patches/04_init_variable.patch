@@ -1,0 +1,19 @@
+Description: initialise the offset of the wobbling raster bars
+ In K(), the random seed of the first line uses the offset d before it is
+ computed: the value was read uninitialised (undefined behaviour, reported
+ by -Wuninitialized). Start from 0.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/analeptique.c
++++ b/analeptique.c
+@@ -45,7 +45,7 @@
+ 0xaaaaff};f(i=0;i<3;i++)f(j=2*i*w;j<(2*i+2)*w;j++){if(e)v[(j+d*w)&n]&=h[i];_ v[(j
+ +d*w)&n]|=h[i];v[(j+e*(d+21)*2*w)&n]&=h[i];}}Y J(Y *v,Y c){Y i,j;f(i=0;i<w;i++){M(v,
+ 48,12*4);M(v+12,208,28*4);M(v+192,208,8*4);f(j=200;j<w;j++)v[j]=c;v+=w;}}Y K(Y *v,Z
+-*s,Y a){Y d,b[w],y,h,t;Z l;srand(T<<2|3);h=r(63);srand(h<<2);t=r(31);f(y=0;y<w;y++)
++*s,Y a){Y d=0,b[w],y,h,t;Z l;srand(T<<2|3);h=r(63);srand(h<<2);t=r(31);f(y=0;y<w;y++)
+ {if(a)l=(T+y)/100.;_ l=y;srand(T+d);if(t<h)t++;d=(*s-t*cos(l/s[1]))*sin(l/(cos(y/s[2]
+ )/(r(3)+s[3])*s[4]+s[5]))+r(3)-1;if(d<0)d+=w;N(b,&v[y*w],(w-d)*4);N(&v[y*w],&v[y*w+w
+ -d],d*4);N(&v[y*w+d],b,(w-d)*4);}}Y L(Y*v){Y i;f(i=0;i<m;i++){if(v[i]<=0xefefef)v[i]+=

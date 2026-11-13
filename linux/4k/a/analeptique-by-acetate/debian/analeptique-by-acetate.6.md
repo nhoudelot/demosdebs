@@ -1,19 +1,28 @@
 % analeptique-by-acetate(6) Analeptique User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),Acetate
-% 2024-03-24
+% Nicolas HOUDELOT (nicolas@demosdebs.org),Claude Opus 5.5,Acetate
+% 2026-11-13
 
 # NAME
-analeptique-by-acetate_launcher - is the command to run Analeptique 
+analeptique-by-acetate - 4k intro by Acetate
 
 # SYNOPSIS
-analeptique-by-acetate [*options*]
+analeptique-by-acetate
 
 # DESCRIPTION
-Analeptique  is a 4k intro released by Acetate in 2004
-4k intro by Acetate, released
+Analeptique is a 4k intro written in C with SDL by Acetate, released in 2004
+for the #demoscene 4k source compo, where it ranked 2nd ex aequo with
+39 points.
+
+All the effects are computed in software and drawn into a 256x256 window:
+noise, rotating squares, wobbling raster bars, zooming bitmap texts and
+greetings. The scenes loop until the intro is stopped.
 
 # OPTIONS
-there is no options to this program
+This program has no options.
+
+# KEYS
+**Any key**
+:   Quits the intro. Closing the window also quits it.
 
 # INFOS
 https://320x200.org/2004/4k/

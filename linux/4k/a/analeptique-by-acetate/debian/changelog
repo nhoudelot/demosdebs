@@ -1,3 +1,27 @@
+analeptique-by-acetate (1.0+1-0ddebs10) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : depend on libsdl1.2debian through ${shlibs:Depends}
+    (provided by sdl12-compat); libsdl1.2-compat does not exist on
+    resolute, which made the package uninstallable. Removed the useless
+    libglu-dev build dependency. Better description
+  * Removed the launcher script: the intro is installed as
+    /usr/bin/analeptique-by-acetate
+  * debian/patches/01_adapt_makefile.patch : use CPPFLAGS (fortify) and
+    LDLIBS, no longer link with GLU
+  * debian/patches/03_quit_on_window_close.patch : quit when the window
+    is closed
+  * debian/patches/04_init_variable.patch : initialise a variable read
+    before being set
+  * debian/resources : added the missing icon (was an empty file)
+  * debian/resources/*.desktop : added Keywords, single main category
+  * debian/*.lintian-overrides : documented the overrides, removed the
+    desktop keywords one, added the pandoc groff-message one
+  * debian/*.6 : rewritten, documented the keys
+  * debian/docs : removed (empty)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Nov 2026 10:04:51 +0100
+
 analeptique-by-acetate (1.0+1-0ddebs9) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
