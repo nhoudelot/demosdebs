@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Name=By the Pond
-GenericName=Demo
-Comment=Demo by tkln, released in 2018
+GenericName=4k intro
+Comment=4k intro by tkln, released at Assembly 2018
 Type=Application
 Exec=/usr/bin/bythepond-by-tkln
 Icon=bythepond-by-tkln

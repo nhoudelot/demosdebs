@@ -1,10 +1,12 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: bythepond-by-tkln
-Source: https://www.pouet.net/prod.php?which=77426
+Upstream-Name: By the Pond
+Upstream-Contact: tkln
+Source: https://files.scene.org/view/parties/2018/assembly18/4k/by_the_pond_by_tkln.sh
 
 Files: *
 Copyright: 2018 tkln
-License: GPL-3.0+
+License: public-domain
+ (probably freeware)
 
 Files: debian/*
 Copyright: 2024-2026 Nicolas HOUDELOT <nicolas@demosdebs.org>

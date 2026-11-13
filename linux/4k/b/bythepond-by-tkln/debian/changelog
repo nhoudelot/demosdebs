@@ -1,3 +1,29 @@
+bythepond-by-tkln (1.0-0ddebs4) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : depend on libsdl1.2debian only: on Debian 12,
+    libsdl1.2-compat installs libSDL-1.2.so.0 outside of the library
+    path and the intro could not dlopen it
+  * debian/control : added libgl1 (opened with dlopen), removed the
+    hardcoded libc6, wrote a real description
+  * debian/copyright : no license found upstream, use public-domain
+    (probably freeware) instead of GPL-3.0+, Source is the scene.org
+    release
+  * debian/resources : added the missing icon (the PNG was empty),
+    cropped from the Pouet screenshot
+  * debian/README.source : explain the content of the orig tarball and
+    the dlopen dependencies
+  * debian/bythepond-by-tkln.6.md : documented --help and the sdl12-
+    compat slowdown
+  * debian/docs : removed the empty file
+  * debian/bythepond-by-tkln.lintian-overrides : override the pandoc
+    groff-message
+  * debian/rules, debian/shlibs-stub.c : compute the shlibs on a stub
+    with the same imports, dpkg-shlibdeps cannot read the packed
+    executable (no section header table)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Nov 2026 13:25:49 +0100
+
 bythepond-by-tkln (1.0-0ddebs3) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

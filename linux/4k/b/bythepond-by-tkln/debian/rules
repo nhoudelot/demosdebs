@@ -6,3 +6,10 @@
 override_dh_strip:
 	dh_strip -Xby_the_pond_by_tkln
 
+# The packed executable has no section header table: dpkg-shlibdeps cannot
+# read it. Compute the shlibs on a stub with the same imports instead
+# (see debian/shlibs-stub.c).
+override_dh_shlibdeps:
+	$(CC) -o debian/shlibs-stub debian/shlibs-stub.c -ldl
+	dpkg-shlibdeps -Tdebian/bythepond-by-tkln.substvars -edebian/shlibs-stub
+	rm -f debian/shlibs-stub

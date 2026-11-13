@@ -6,7 +6,7 @@ domain=bythepond-by-tkln
 
 APP_FULLNAME="By the Pond"
 APP_COPYRIGHT="tkln"
-APP_DESC="Demo by tkln, released in 2018"
+APP_DESC="4k intro by tkln, released at Assembly 2018"
 
 APP_EXE="by_the_pond_by_tkln"
 

@@ -13,8 +13,15 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libsdl1.2-compat|libsdl1.2debian,
- libc6,
- common-install-function-ddebs(>=1.61)
-Description: 4k intro by tkln, released in 2018
- 4k intro released in 2018
+ libgl1,
+ libsdl1.2debian,
+ common-install-function-ddebs (>= 1.61)
+Description: By the Pond, 4k intro by tkln (Assembly 2018)
+ By the Pond is a 4k intro written by tkln (code, graphics and music),
+ released at Assembly 2018 where it ranked 12th in the combined 4k compo.
+ .
+ The whole scene, a pond with a water lily floating on it, is raymarched
+ in a single OpenGL 3.3 fragment shader.
+ .
+ The intro is only available as a precompiled x86-64 binary. It opens
+ libGL and SDL 1.2 at run time with dlopen.
