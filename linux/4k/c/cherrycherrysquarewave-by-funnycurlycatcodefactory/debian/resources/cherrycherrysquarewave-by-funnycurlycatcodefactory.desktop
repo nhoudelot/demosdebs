@@ -1,10 +1,11 @@
 [Desktop Entry]
 Version=1.0
 Name=Cherry Cherry Square Wave
-GenericName=Demo
-Comment=Demo by Funny Curly Cat Code Factory, released in 2019
+GenericName=4k intro
+Comment=4k intro by Funny Curly Cat Code Factory, released at Instanssi 2019
+Comment[fr]=Intro 4k de Funny Curly Cat Code Factory, sortie à l'Instanssi 2019
 Type=Application
 Exec=/usr/bin/cherrycherrysquarewave-by-funnycurlycatcodefactory
 Icon=cherrycherrysquarewave-by-funnycurlycatcodefactory
 Categories=AudioVideo;
-Name[fr_FR]=Cherry Cherry Square Wave
+Keywords=demoscene;demo;intro;4k;OpenGL;

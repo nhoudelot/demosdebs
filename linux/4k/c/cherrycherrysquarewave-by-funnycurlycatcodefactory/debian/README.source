@@ -1,7 +1,31 @@
 cherrycherrysquarewave-by-funnycurlycatcodefactory for Debian
 ------------------------------------------------------------
 
-ccsq_fixed_audio has been unpacked
+Upstream (fcccf_ccsq_2.zip on scene.org, see debian/copyright) ships the
+intro as two self-extracting shell scripts (a dd/gunzip header followed by
+the compressed executable):
+ - ccsq_original: the original version, with very clippy and distorted audio;
+ - ccsq_fixed_audio: the same intro with a softer square wave.
+The orig tarball contains ccsq_original as shipped upstream, the
+executable extracted from ccsq_fixed_audio, and info.txt. Only the
+extracted fixed audio executable is installed.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 26 Jan 2025 12:11:50 +0100
+The executable is linked to libSDL-1.2.so.0, libGL.so.1, libc.so.6 and
+libm.so.6. It has no section header table: it must not be stripped, and
+dpkg-shlibdeps cannot read it, so the shlibs are computed on a stub (see
+debian/rules and debian/shlibs-stub.c) and SDL 1.2 and libGL are declared
+by hand in the Depends field of debian/control.
 
+executable seems to be compiled for Lubuntu 18.04 (Ubuntu Bionic), as
+stated in info.txt: it was built with Clang and contains no compiler
+identification string.
+
+(no output from: strings -a ccsq_fixed_audio | grep -i gcc)
+
+Source files:
+-------------
+(none listed by elfls -cd: no symbol table)
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Nov 2026 13:48:37 +0100

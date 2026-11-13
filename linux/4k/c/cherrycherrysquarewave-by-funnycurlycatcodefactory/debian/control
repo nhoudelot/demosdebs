@@ -2,23 +2,27 @@ Source: cherrycherrysquarewave-by-funnycurlycatcodefactory
 Section: demos
 Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Rules-Requires-Root: no
 Build-Depends:
- debhelper-compat (= 13),
- libsdl1.2-dev
+ debhelper-compat (= 13)
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=80567
+Rules-Requires-Root: no
 
 Package: cherrycherrysquarewave-by-funnycurlycatcodefactory
 Architecture: amd64
-Multi-Arch: foreign
 Depends:
- libsdl1.2debian,
  ${shlibs:Depends},
  ${misc:Depends},
- common-install-function-ddebs(>=1.61),
-Description: 4k intro by Funny Curly Cat Code Factory, released in 2019
- Tools used: Lubuntu 18.04, Spacemacs, Clang and zopfli.
- Depends on SDL1.2 and OpenGL.
+ libgl1,
+ libsdl1.2debian,
+ common-install-function-ddebs (>= 1.61)
+Description: Cherry Cherry Square Wave, 4k intro by FCCCF (Instanssi 2019)
+ Cherry Cherry Square Wave is a Linux 4k intro coded by muffintrap of
+ Funny Curly Cat Code Factory (FCCCF), released at Instanssi 2019 where it
+ ranked 4th in the combined intro compo.
  .
- Please  enjoy the pretty flowers
+ Flowers drawn with OpenGL immediate mode, on a raw square wave
+ soundtrack. Please enjoy the pretty flowers.
+ .
+ The intro is only available as a precompiled x86-64 binary, linked to
+ SDL 1.2 and OpenGL. The package installs the "fixed audio" version.
