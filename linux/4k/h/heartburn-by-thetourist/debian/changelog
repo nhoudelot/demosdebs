@@ -1,3 +1,24 @@
+heartburn-by-thetourist (1.0+1-0ddebs10) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/06_fix_aspect_ratio.patch : use the real aspect ratio
+    of the window (the picture was distorted after a resize or in
+    fullscreen), call SDL_Init and stop with a message when the window
+    or the OpenGL context cannot be created
+  * debian/patches/07_use_buildflags.patch : use CPPFLAGS, CFLAGS and
+    LDFLAGS from dpkg-buildflags
+  * debian/rules : enable all hardening options
+  * debian/copyright : no license found upstream, removed the Unlicense
+    text
+  * debian/source/lintian-overrides : removed unused source-is-missing
+    overrides
+  * debian/heartburn-by-thetourist.lintian-overrides : override groff-
+    message from the pandoc preamble
+  * desktop file : added Keywords, described as a 4k intro
+  * manpage : documented keys and behaviour
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 12:59:27 +0100
+
 heartburn-by-thetourist (1.0+1-0ddebs9) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

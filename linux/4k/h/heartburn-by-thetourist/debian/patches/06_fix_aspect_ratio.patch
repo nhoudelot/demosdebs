@@ -1,0 +1,106 @@
+Description: use the real aspect ratio of the window and check SDL init
+ The 04 patch kept a 4:3 viewport after a resize while the shaders still
+ used the fixed S_WIDTH/S_HEIGHT ratio (16:10), so the picture was
+ distorted after a resize or a switch to fullscreen. The shaders build
+ their projection from uniforms[10], so the whole drawable is now used
+ and this uniform follows its real ratio (SDL_WINDOWEVENT_SIZE_CHANGED,
+ which is also sent on fullscreen toggle, and SDL_GL_GetDrawableSize).
+ Also call SDL_Init and stop with a message instead of crashing when the
+ window or the OpenGL context cannot be created.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/source/heartburn.c
++++ b/source/heartburn.c
+@@ -178,8 +178,8 @@
+ # define TFO(i) transformFeedbacks[i]
+ #endif
+ 
+-#define DEMO_XASPECT 4.0f
+-#define DEMO_YASPECT 3.0f
++// Aspect ratio of the drawable, updated when the window is resized
++static float aspectRatio = S_WIDTH/(float)S_HEIGHT;
+ 
+ // Direction
+ static int curSeed = 0;
+@@ -552,7 +552,7 @@
+ 
+ 	uniforms[6] = timeOffset / 1000.f;
+ 	uniforms[7] = ( timeOffset - transitionStart ) / 3310.f;
+-	uniforms[10] = S_WIDTH/(float)S_HEIGHT;
++	uniforms[10] = aspectRatio;
+ 
+ 	glEnable( GL_RASTERIZER_DISCARD );
+ 	seedParticles( );
+@@ -566,22 +566,16 @@
+ 	drawLines( );
+ }
+ 
+-INLINE void resize_window(int x, int y, int w, int h)
++INLINE void resize_window(SDL_Window* Window)
+ {
+-    /* Prevent division by zero */
+-    if (h == 0) h = 1;
+-
+-    float aspect = (float)w / (float)h;
+-    if (aspect > DEMO_XASPECT / DEMO_YASPECT) {
+-        int new_w = (int)((float)h * DEMO_XASPECT / DEMO_YASPECT);
+-        x += (w - new_w) / 2;
+-        w = new_w;
+-    } else if (aspect < DEMO_XASPECT / DEMO_YASPECT) {
+-        int new_h = (int)((float)w * DEMO_YASPECT / DEMO_XASPECT);
+-        y += (h - new_h) / 2;
+-        h = new_h;
+-    }
+-    glViewport(x, y, w, h);
++	int w, h;
++	SDL_GL_GetDrawableSize(Window, &w, &h);
++	/* Prevent division by zero */
++	if (h <= 0) h = 1;
++	/* the shaders build the projection from uniforms[10], so the
++	 * whole window can be used with its real aspect ratio */
++	aspectRatio = w / (float)h;
++	glViewport(0, 0, w, h);
+ }
+ 
+ INLINE void ToggleFullscreen(SDL_Window* Window) {
+@@ -597,9 +591,25 @@
+ {
+ 	SDL_Window *sdlWindow;
+ 	SDL_GLContext sdlGlcontext;
++	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) != 0) {
++		fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
++		return 1;
++	}
+ 	sdlWindow = SDL_CreateWindow("Heartburn by The Tourist",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,S_WIDTH,S_HEIGHT,S_FLAGS);
++	if (!sdlWindow) {
++		fprintf(stderr, "SDL_CreateWindow failed: %s\n", SDL_GetError());
++		SDL_Quit();
++		return 1;
++	}
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	if (!sdlGlcontext) {
++		fprintf(stderr, "SDL_GL_CreateContext failed: %s\n", SDL_GetError());
++		SDL_DestroyWindow(sdlWindow);
++		SDL_Quit();
++		return 1;
++	}
+ 	SDL_GL_SetSwapInterval(1);
++	resize_window(sdlWindow);
+ 
+ 	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ 
+@@ -681,10 +691,8 @@
+ 			if(event.type == SDL_WINDOWEVENT)
+ 			{
+ 				if (event.window.windowID == windowID)  {
+-				    if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
+-				        int new_w = event.window.data1;
+-				        int new_h = event.window.data2;
+-				        resize_window(0,0, new_w,new_h);
++				    if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)  {
++				        resize_window(sdlWindow);
+ 				    }
+ 				}
+ 			}

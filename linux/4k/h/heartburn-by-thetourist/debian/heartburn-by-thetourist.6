@@ -14,30 +14,49 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "heartburn-by-thetourist" "6" "2024-03-26" "Heartburn User Manuals" ""
+.TH "heartburn-by-thetourist" "6" "2026-11-14" "Heartburn User Manuals" ""
 .hy
 .SH NAME
 .PP
 heartburn-by-thetourist - the command to run Heartburn.
 .SH SYNOPSIS
 .PP
-heartburn-by-thetourist [\f[I]options\f[R]]
+heartburn-by-thetourist
 .SH DESCRIPTION
 .PP
 Heartburn is a 4k intro released by The Tourist in august 2013.
-Ended 2nd at Buenzli 2013
+Ended 2nd at Buenzli 2013 (combined 64k/4k compo).
 .PP
 TheT(ourist) [Code]
+.PP
+The intro needs OpenGL 4.0.
+It starts in a 1680x1050 window and stops by itself after about 75
+seconds.
 .SH OPTIONS
 .PP
-there is no options to this program
+This program has no options.
+.SH KEYS
+.TP
+F
+switch between window and fullscreen (desktop resolution).
+.TP
+Escape, Q
+quit the intro.
+Closing the window also quits.
+.SH NOTES
+.PP
+The original Linux binaries were built for a single resolution each.
+The Debian version is compiled from the sources: the window can be
+resized and the picture keeps the real aspect ratio of the window.
+V-Sync is enabled.
+.PP
+The frame rate is printed on the standard output while the intro runs.
 .SH INFOS
 .PP
-http://www.pouet.net/prod.php?which=61809
-.PP
-OpenGL4.0, Windows / Linux
+https://www.pouet.net/prod.php?which=61809
 .SH BUGS
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),The Tourist.
+Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Claude Opus 5.5,The
+Tourist.

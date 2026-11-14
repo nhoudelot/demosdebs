@@ -3,3 +3,5 @@
 03_better_quit.patch
 04_resize_window.patch
 05_add_fulllscreen.patch
+06_fix_aspect_ratio.patch
+07_use_buildflags.patch

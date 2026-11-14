@@ -1,10 +1,11 @@
 [Desktop Entry]
 Version=1.0
 Name=Heartburn
-GenericName=Demo
-Comment=Demo by The Tourist, released in 2013
+GenericName=4k intro
+Comment=4k intro by The Tourist, released in 2013
 Type=Application
 Exec=/usr/bin/heartburn-by-thetourist
 Icon=heartburn-by-thetourist
 Categories=AudioVideo;
+Keywords=demo;demoscene;intro;4k;
 Name[fr_FR]=Heartburn

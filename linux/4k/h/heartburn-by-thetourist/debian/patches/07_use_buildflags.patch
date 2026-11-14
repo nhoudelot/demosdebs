@@ -1,0 +1,32 @@
+Description: use the build flags given by dpkg-buildflags
+ Pass CPPFLAGS when compiling (needed by _FORTIFY_SOURCE), and CFLAGS
+ and LDFLAGS when linking (LTO, relro, bindnow). The libraries now go in
+ LDLIBS, after the objects, so LDFLAGS from the environment are kept.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/source/Makefile
++++ b/source/Makefile
+@@ -17,7 +17,7 @@
+ CFLAGS += -m32 -O0 -g
+ else
+ CFLAGS += -Wall -pipe -mpush-args -std=gnu90
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl)
++LDLIBS += $(shell $(PKG_CONFIG) --libs sdl2 gl)
+ endif
+ 
+ 
+@@ -33,10 +33,10 @@
+ 	as --32 -o heartburn_footer.o heartburn_footer.S
+ else
+ $(TARGET):	heartburn.o music.o
+-	$(CC) -m32 heartburn.o music.o -o $(TARGET) $(LDFLAGS)
++	$(CC) -m32 $(CFLAGS) $(LDFLAGS) heartburn.o music.o -o $(TARGET) $(LDLIBS)
+ 
+ heartburn.o:	heartburn.c shaders.h
+-	$(CC) $(CFLAGS) -g -DS_WIDTH=1680 -DS_HEIGHT=1050 \
++	$(CC) $(CPPFLAGS) $(CFLAGS) -g -DS_WIDTH=1680 -DS_HEIGHT=1050 \
+ 		-c -o heartburn.o heartburn.c
+ 
+ heartburn.S:	heartburn.c
