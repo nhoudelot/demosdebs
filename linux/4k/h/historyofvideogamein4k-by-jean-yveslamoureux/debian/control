@@ -15,5 +15,10 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Jean-Yves Lamoureux 4k Intro/2004/Linux
- Intro 4k by Jean-Yves Lamoureux, released in 2004
+Description: 4k intro for Linux by Jean-Yves Lamoureux, released in 2004
+ History of video game in 4k is a brief history of video games, from the
+ 70's to the 90's, written in less than 4096 bytes of ANSI C for the 4k
+ source compo of 2004: a title in bitmap font, a pong, a road, a raycaster
+ and a scroller whose text is the name of the source file.
+ .
+ The intro uses SDL 1.2 and 2D effects only, without sound.

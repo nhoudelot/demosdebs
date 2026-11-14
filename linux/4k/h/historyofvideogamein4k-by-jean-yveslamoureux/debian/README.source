@@ -1,7 +1,22 @@
 historyofvideogamein4k-by-jean-yveslamoureux for Debian
 -------------------------------------------------------
 
-source have been repackaged
+The orig tarball contains the upstream files (source, Makefile,
+README.txt), with a resources/ folder added at packaging time (an
+earlier desktop file and an empty icon). The files used by the package
+are in debian/resources/.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Feb 2016 02:44:48 +0100
+The source file includes "s.h", which is not in the upstream archive:
+debian/patches/01_adapt_makefile.patch adds it, with the SDL and libc
+headers, and rewrites the Makefile to use the Debian build flags.
 
+debian/patches/02_vsync-quit-fullscreen.patch enables V-Sync through
+SDL12COMPAT_SYNC_TO_VBLANK (the pong moves one step per frame and lasted
+a fraction of a second at more than 1000 frames per second), quits with
+Escape or when the window is closed, and adds a --fullscreen option.
+
+The icon is a frame of the "vroom" part, captured from the intro.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 21:45:00 +0100

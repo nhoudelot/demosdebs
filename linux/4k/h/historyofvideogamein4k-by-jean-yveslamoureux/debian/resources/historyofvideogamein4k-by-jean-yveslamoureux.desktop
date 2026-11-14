@@ -1,10 +1,13 @@
 [Desktop Entry]
 Version=1.0
 Name=History of video game in 4k
-GenericName=Demo
-Comment=Demo by Jean-Yves Lamoureux, released in 2004
+GenericName=4k intro
+Comment=4k intro by Jean-Yves Lamoureux, released in 2004
 Type=Application
 Exec=/usr/bin/historyofvideogamein4k-by-jean-yveslamoureux
 Icon=historyofvideogamein4k-by-jean-yveslamoureux
-Categories=AudioVideo;Game;
+Terminal=false
+Categories=AudioVideo;
+Keywords=demoscene;intro;4k;oldschool;pong;raycaster;
 Name[fr_FR]=History of video game in 4k
+Comment[fr_FR]=Intro 4k de Jean-Yves Lamoureux, sortie en 2004

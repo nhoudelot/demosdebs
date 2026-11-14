@@ -1,0 +1,81 @@
+Description: V-Sync, quit with Escape or window close, fullscreen option
+ Without V-Sync the intro draws more than 1000 frames per second, and the
+ pong part, which moves one step per frame, lasts a fraction of a second.
+ sdl12-compat syncs SDL_Flip() to the vertical blank when
+ SDL12COMPAT_SYNC_TO_VBLANK is set, so it is set before SDL_SetVideoMode()
+ (an existing value from the environment is kept).
+ .
+ The intro only handled key presses, one event per frame, to skip a part:
+ all pending events are now read, Escape or closing the window quits.
+ .
+ Also: --fullscreen option (with hidden cursor), window title, error message
+ when the video mode cannot be set, exit status 0 at the end, missing return
+ value in Q().
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/s.h
++++ b/s.h
+@@ -1,4 +1,25 @@
++#define _POSIX_C_SOURCE 200112L
+ #include <SDL/SDL.h>
+ #include <math.h>
+ #include <stdlib.h>
++#include <string.h>
++#include <stdio.h>
++
++/* Debian: read all pending events, quit on window close or Escape,
++   return 1 when another key skips the current part */
++static int ev(void)
++{
++	SDL_Event e;
++	int k = 0;
++	while (SDL_PollEvent(&e)) {
++		if (e.type == SDL_QUIT ||
++		    (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)) {
++			SDL_Quit();
++			exit(0);
++		}
++		if (e.type == SDL_KEYDOWN)
++			k = 1;
++	}
++	return k;
++}
+ 
+--- a/this_is_the_end_of_this_four_kilo_bytes_source_compo___hope_you_enjoyed_it_as_much_as_i_enjoyed_to_write_it___bye_folks.c
++++ b/this_is_the_end_of_this_four_kilo_bytes_source_compo___hope_you_enjoyed_it_as_much_as_i_enjoyed_to_write_it___bye_folks.c
+@@ -15,7 +15,7 @@
+ #define K (D  (h+T));
+ #define M (H/2)
+ #define ML SDL_GetTicks()
+-#define N while((!SDL_PollEvent(&e)||e.type!=2)&&(ML<n)){SDL_LockSurface(b);
++#define N while(!ev()&&(ML<n)){SDL_LockSurface(b);
+ #define P ; SDL_UnlockSurface (b);SDL_Flip (b);}
+ #define R (sin((D (ix)+y*70)/5000.0f)*50.0f)
+ #define S ((fo[y+l*15]&
+@@ -57,9 +57,14 @@
+ /**/                   187,215,239,215,187,17, X 56,125,187,187,215,          /**/
+ /**/                                   215, X3 223};                          /**/
+                  unsigned char st[]=__FILE__,sf[99];; SDL_Surface * b;
+-  int Q(int d,int f,int g, int s, int c) {SDL_Rect r;r.x=s;r.y=d;r.w=f;r.h=g;SDL_FillRect(b,&r,c);}
++  int Q(int d,int f,int g, int s, int c) {SDL_Rect r;r.x=s;r.y=d;r.w=f;r.h=g;SDL_FillRect(b,&r,c);return 0;}
+                         int main (int warp, char **is_annoying){ 
+-        SDL_Event e; b = SDL_SetVideoMode(W, H, 32, 0);V = b->pixels;t = 45;
++        setenv("SDL12COMPAT_SYNC_TO_VBLANK","1",0);
++        SDL_WM_SetCaption("History of video game in 4k",0);
++        b = SDL_SetVideoMode(W, H, 32, (warp>1&&!strcmp(is_annoying[1],"--fullscreen"))?SDL_FULLSCREEN:0);
++        if(!b){fprintf(stderr,"%s\n",SDL_GetError());return 1;}
++        if(b->flags&SDL_FULLSCREEN)SDL_ShowCursor(0);
++        V = b->pixels;t = 45;
+                             /* (pitite chose rulez) */
+                                 AR "history");n=2000 
+                                  FE AR "of");n=4000 
+@@ -92,6 +97,6 @@
+ /**/for(i=0;i<px-2;i++){l = st[i]-97;if(l!=-2)for(y=0;y<15;y++){LAM,S 128)>>7 /**/
+ /**/JY LAM +10,S 64)>>6 JY LAM +20,S 32)>>5 JY LAM +30,S 16)>>4 JY LAM+40,S 8)/**/
+ /**/>>3 JY LAM +50,S 4)>>2 JY LAM +60,S 2)>>1 JY LAM +70,S 1) JY}             /**/
+-/**/py+=80;}if(mx<-19700)break;P return 1;}                                   /**/
++/**/py+=80;}if(mx<-19700)break;P SDL_Quit();return 0;}                                   /**/
+ /********************************************************************************/	    
+ 

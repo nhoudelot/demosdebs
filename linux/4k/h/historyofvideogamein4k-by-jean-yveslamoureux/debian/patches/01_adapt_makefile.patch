@@ -1,10 +1,11 @@
 Description: updating makefile
- updating makefile to make it more compatible with packaging
-Author: Nicolas HOUDELOT (nicolas@demosdebs.org)
-Applied-Upstream: no
-Last-Update: 2020-04-25
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+ updating makefile to make it more compatible with packaging: system flags
+ (CPPFLAGS, CFLAGS, LDFLAGS), pkg-config, install target. The SDL and libc
+ headers are moved to s.h.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/Makefile
 +++ b/Makefile
 @@ -1,14 +1,31 @@
@@ -35,7 +36,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): $(SOURCE)
-+	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
++	$(CC) $(CPPFLAGS) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

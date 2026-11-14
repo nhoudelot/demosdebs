@@ -1,3 +1,24 @@
+historyofvideogamein4k-by-jean-yveslamoureux (1.0-0ddebs15) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/02_vsync-quit-fullscreen.patch : enable V-Sync with
+    sdl12-compat (more than 1000 frames per second, the pong lasted a
+    fraction of a second), quit with Escape or window close,
+    --fullscreen option, window title, exit status 0
+  * debian/patches/01_adapt_makefile.patch : use CPPFLAGS (fortify),
+    DEP-3 header
+  * debian/control : described the intro
+  * debian/resources : new icon from the vroom part, desktop file with
+    Keywords and French comment
+  * debian/docs : README.txt was listed twice
+  * debian/README.source : explained the patches and the orig content
+  * debian/historyofvideogamein4k-by-jean-yveslamoureux.lintian-overrides :
+    override groff-message from the pandoc preamble
+  * manpage : removed --help and --version (they never existed),
+    documented --fullscreen and the keys
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 21:32:38 +0100
+
 historyofvideogamein4k-by-jean-yveslamoureux (1.0-0ddebs14) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
