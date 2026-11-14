@@ -1,0 +1,3 @@
+# "demos" is the section used by the demosdebs repository for demoscene
+# productions; it is not one of the Debian archive sections.
+cursesdemo-by-dc5-data binary: unknown-section demos

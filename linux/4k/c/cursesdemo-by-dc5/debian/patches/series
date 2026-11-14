@@ -1,1 +1,3 @@
 01_adapt_makefile.patch
+02_fix_terminal_handling.patch
+03_play_soundtrack.patch

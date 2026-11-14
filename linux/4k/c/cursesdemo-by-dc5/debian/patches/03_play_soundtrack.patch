@@ -1,0 +1,90 @@
+Description: play the soundtrack with mpg123
+ The release ships patchbay.mp3 (Patchbay, by Octothorp), the one-minute
+ soundtrack of the demo, but the program does not play it. Start mpg123
+ in the background when the demo begins and stop it at the end. The demo
+ stays silent if mpg123 is not installed; --no-music disables the
+ soundtrack.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/demo.c
++++ b/demo.c
+@@ -7,6 +7,42 @@
+ #include <sys/ioctl.h>
+ #include <string.h>
+ #include <assert.h>
++#include <fcntl.h>
++#include <signal.h>
++#include <unistd.h>
++#include <sys/types.h>
++#include <sys/wait.h>
++
++#ifndef SOUNDTRACK
++#define SOUNDTRACK "/usr/share/cursesdemo-by-dc5/patchbay.mp3"
++#endif
++
++/* play the soundtrack with mpg123 in the background; the demo stays
++ * silent if mpg123 is not installed or cannot open the audio device */
++static pid_t startmusic(void) {
++	pid_t pid;
++	int devnull;
++
++	if(access(SOUNDTRACK, R_OK) != 0) return -1;
++	pid = fork();
++	if(pid == 0) {
++		devnull = open("/dev/null", O_RDWR);
++		if(devnull >= 0) {
++			dup2(devnull, 0);
++			dup2(devnull, 1);
++			dup2(devnull, 2);
++		}
++		execlp("mpg123", "mpg123", "-q", SOUNDTRACK, (char *)NULL);
++		_exit(127);
++	}
++	return pid;
++}
++
++static void stopmusic(pid_t pid) {
++	if(pid <= 0) return;
++	kill(pid, SIGTERM);
++	waitpid(pid, NULL, 0);
++}
+ 
+ #define NAPTIME 100
+ 
+@@ -421,8 +457,16 @@
+ 
+ }
+ 
+-int main(void) {
++int main(int argc, char **argv) {
+ 	int cursorstate;
++	pid_t music = -1;
++	int withmusic = 1;
++
++	if(argc == 2 && strcmp(argv[1], "--no-music") == 0) withmusic = 0;
++	else if(argc > 1) {
++		fprintf(stderr, "usage: cursesdemo-by-dc5 [--no-music]\n");
++		return 2;
++	}
+ 
+ 	/* initialize curses */
+ 	initscr();
+@@ -439,6 +483,8 @@
+ 	/* disable the cursor */
+ 	cursorstate = curs_set(0);
+ 
++	if(withmusic) music = startmusic();
++
+ #if 0
+ 	/* move across */
+ 	for(loopy = 0; loopy < cols-littleman.cols+1; loopy++) {
+@@ -459,6 +505,7 @@
+ 	refresh();
+ 	curs_set(cursorstate);
+ 	endwin();
++	stopmusic(music);
+ 	printf("done basically in one day.\n");
+ 	printf("we hope it was entertaining.\n");
+ 	printf("next year will be better.\n");

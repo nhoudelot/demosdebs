@@ -1,0 +1,953 @@
+Description: fix the terminal handling and the compiler warnings
+ Read the terminal size from curses (getmaxyx) instead of a TIOCGWINSZ
+ ioctl on stdin, which fails when stdin is not the terminal, and refuse
+ terminals smaller than 2x2 instead of dividing by zero. Call endwin()
+ before printing the end text, so that the terminal is restored (echo,
+ line mode). main() returns 0.
+ .
+ Compiler warnings: the "5" sprite of part 2 was declared but the "C"
+ sprite was drawn twice, a character was compared with NULL, unused
+ variables, and a row that could stay uninitialised.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/demo.c
++++ b/demo.c
+@@ -1,467 +1,469 @@
+-/* copyright 2003 Aaron J. Grier */
+-
+-#include <stdio.h>
+-#include <math.h>
+-#include <stdlib.h>
+-#include <curses.h>
+-#include <sys/ioctl.h>
+-#include <string.h>
+-#include <assert.h>
+-
+-#define NAPTIME 100
+-
+-typedef struct {
+-	char **data;
+-	int cols;
+-	int rows;
+-} sprite;
+-
+-static int rows, cols;
+-
+-static void drawspriteat(
+-	sprite *mysprite,
+-	int atcol,
+-	int atrow
+-) {
+-	int loopy;
+-	char *curline;
+-
+-	/* start at the first line */
+-	curline = mysprite->data[0];
+-
+-	/* move and draw */
+-	for(loopy = 0; loopy < mysprite->rows; loopy++) {
+-		move(atrow+loopy, atcol);
+-		addstr(curline);
+-		curline+=mysprite->cols;
+-	}
+-}
+-
+-static void part1(void) {
+-	char *foodata[] = { "DC5" };
+-	sprite dc5sprite = { foodata, 4, 1 };
+-
+-	int loopy, row;
+-	double scale;
+-
+-	/* sinus action */
+-	for(loopy = 0; loopy <= cols/2-dc5sprite.cols+1; loopy++) {
+-		scale = 1.0 - (loopy*1.0)/(cols/2.0*1.0);
+-		row = floor(rows/2.0)-1
+-			+rint(
+-			    cos(5*(loopy*1.0/cols*1.0)*2*M_PI)
+-			    *(floor(rows/2.0)-1) * scale
+-			);
+-		clear();
+-		drawspriteat(&dc5sprite, loopy, row);
+-		refresh();
+-		napms(NAPTIME);
+-	}
+-
+-	napms(500);
+-	move(row+1, loopy-8);
+-	addstr("is in the house.");
+-	refresh();
+-	napms(500);
+-
+-	move(row+2, loopy-13);
+-	addstr("time to go back to sleep.");
+-	napms(500);
+-	refresh();
+-}
+-
+-static void part2(void) {
+-#define P2ITERATIONS 100
+-	char *ddata[] = { "D" };
+-	char *cdata[] = { "C" };
+-	char *fdata[] = { "5" };
+-	sprite dsprite = { ddata, 2, 1 };
+-	sprite csprite = { cdata, 2, 1 };
+-	sprite fsprite = { fdata, 2, 1 };
+-	int loopy, row, col;
+-	char *scrollertext[] = {
+-		"Welcome to the DC5 minidemo!",
+-		"by tfinn for DC5",
+-		"for the pilgrimage party in SLC.",
+-		"On with the show!",
+-		""
+-	}, *curline;
+-
+-	for(loopy = 0; loopy < P2ITERATIONS; loopy++) {
+-		clear();
+-		row = floor(rows/2.0)-1;
+-		row += rint(
+-		    sin(5*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(rows/2.0)-1)
+-		);
+-		col = floor(cols/2.0)-1;
+-		col += rint(
+-		    sin(2*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(cols/2.0)-1)
+-		);
+-		drawspriteat(&dsprite, col, row);
+-
+-		row = floor(rows/2.0)-1;
+-		row += rint(
+-		    sin(2*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(rows/2.0)-1)
+-		);
+-		col = floor(cols/2.0)-1;
+-		col += rint(
+-		    sin(5*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(cols/2.0)-1)
+-		);
+-		drawspriteat(&csprite, col, row);
+-
+-		row = floor(rows/2.0)-1;
+-		row += rint(
+-		    sin(1*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(rows/2.0)-1)
+-		);
+-		col = floor(cols/2.0)-1;
+-		col += rint(
+-		    cos(1*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(cols/2.0)-1)
+-		);
+-		drawspriteat(&csprite, col, row);
+-
+-		curline = scrollertext[loopy/(P2ITERATIONS/5)];
+-
+-		row = floor(rows/2.0)-1;
+-		row += rint( 0.5*
+-		    sin(0.75*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(rows/2.0)-1)
+-		);
+-		col = floor(cols/2.0)-1;
+-		col -= strlen(curline)/2;
+-		move(row, col);
+-		addstr(curline);
+-
+-		refresh();
+-		napms(NAPTIME);
+-	}
+-}
+-
+-static void part3(void) {
+-	char *mandata[] = {
+-		" o ",
+-		"\\|/",
+-		"/ \\"
+-	};
+-	sprite littleman = {
+-		mandata,
+-		4, 3 
+-	};
+-	char *mantext[] = {
+-		"hi there",
+-		"I am littleman",
+-		"welcome to my littleworld",
+-		".                        ",
+-		"..",
+-		"...",
+-		"it is small here.",
+-		".                ",
+-		"..",
+-		"...",
+-		"I like to yo-yo.",
+-		""
+-	}, *curtext=mantext[0];
+-	int row, col, loopy, loopy2, lindex=0;
+-
+-	row = rint(rows/2.0)+littleman.rows/2;
+-
+-	for(loopy=0; loopy < rint(cols/2.0); loopy++) {
+-		clear();
+-		drawspriteat(&littleman, loopy, row);
+-		refresh();
+-		napms(NAPTIME);
+-	}
+-
+-	while(strlen(curtext) > 0) {
+-		move(row, loopy+littleman.cols-1);
+-		addstr("- ");
+-		addstr(curtext);
+-		refresh();
+-		curtext = mantext[++lindex];
+-		napms(750);
+-	}
+-
+-	col = loopy-2;
+-	row++;
+-
+-	for(loopy=0; loopy < 50; loopy++) {
+-		int index;
+-
+-		index = rint( fabs(
+-		    sin((loopy*1.0/rows*1.0)*2*M_PI) * rows/4
+-		));
+-		for(loopy2=row; loopy2 < row+index; loopy2++) {
+-			move(loopy2, col);
+-			addch('|');
+-		}
+-
+-		move(row+index, col);
+-		addch('|');
+-		move(row+index+1, col);
+-		addch('o');
+-		refresh();
+-		move(row+index, col);
+-		addch(' ');
+-		move(row+index+1, col);
+-		addch(' ');
+-		napms(100);
+-	}
+-
+-}
+-
+-/* find pixels in a section of pixelstuffs */
+-int foundpixels(
+-	char *pixelrow, int pixellength, int fitinto, int fitspot
+-) {
+-	int loopy, spix, epix, pixcount=0;
+-	double scale;
+-
+-	/* first figure out how many pixels to get to the start */
+-	scale = pixellength*1.0 / fitinto*1.0;
+-
+-	spix = floor(scale * fitspot*1.0);
+-	epix = floor(scale * (fitspot+1)*1.0);
+-	for(loopy = spix; loopy < epix; loopy++) {
+-		if(pixelrow[loopy] != NULL) pixcount++;
+-	}
+-	if ((pixcount*1.0)/(epix-spix)*1.0 > 0.5) return 1;
+-	else return 0;
+-}
+-
+-/* star field?
+- * expanding rectangles, because they're easy */
+-static void part4(void) {
+-	char *mandata[] = {
+-		" o<",
+-		" = ",
+-		"/ \\"
+-	};
+-	sprite littleman = {
+-		mandata,
+-		4, 3 
+-	};
+-	char *toprow, *bottomrow, *leftcol, *rightcol;
+-	int loopy, crow, ccol, col, row;
+-	char *scrollertext[] = {
+-		"DC5 r0x",
+-		"all others f0x",
+-		"so vote DC5!",
+-		"K-Rad cannot meet",
+-		"this curses-coding 'leet",
+-		"it was really quite a feat",
+-		"to K-rad DC5 sends a greet",
+-		"kwak",
+-		""
+-	}, *curline;
+-
+-	crow = rows/2;
+-	ccol = cols/2;
+-
+-	/* malloc stuffs */
+-	toprow = malloc(cols);
+-	assert(toprow != NULL);
+-	bottomrow = malloc(cols);
+-	assert(bottomrow != NULL);
+-	leftcol = malloc(rows);
+-	assert(leftcol != NULL);
+-	rightcol = malloc(rows);
+-	assert(rightcol != NULL);
+-
+-	bzero(toprow,cols);
+-	bzero(bottomrow,cols);
+-	bzero(leftcol,rows);
+-	bzero(rightcol,rows);
+-
+-	/* generate random stars */
+-	for(loopy = 0; loopy < cols/4; loopy++) {
+-		toprow[random()%cols]='*';
+-		bottomrow[random()%cols]='*';
+-		leftcol[random()%rows]='*';
+-		rightcol[random()%rows]='*';
+-	}
+-
+-	/* plot them */
+-	for(loopy = 0; loopy < 250; loopy++) {
+-		int current, start, end, cstart, i, j, pixcount;
+-
+-		clear();
+-
+-		/* bottom row #1 */
+-		current = crow+(loopy%(rows/2));
+-		start = ccol-(loopy%(cols/2));
+-		end = ccol+(loopy%(cols/2));
+-
+-		/* draw it */
+-		move(current, start);
+-		/* there are this many dots in the current line */
+-		i = (end - start);
+-		cstart=start;
+-		/* iterate through all the characters on a row */
+-		while(cstart < end) {
+-			if(foundpixels(bottomrow, cols, i, cstart-start))
+-			    addch('*');
+-			else move(current, cstart+1);
+-			cstart++;
+-		}
+-
+-		/* and top row #1 */
+-		current = crow-(loopy%(rows/2));
+-		move(current, start);
+-		cstart=start;
+-		while(cstart++ < end) {
+-			if(foundpixels(toprow, cols, i, cstart-start))
+-			    addch('*');
+-			else move(current, cstart+1);
+-		}
+-
+-		/* bottom row #2 */
+-		current = crow+((loopy+rows/4)%(rows/2));
+-		start = ccol-((loopy+rows/4)%(cols/2));
+-		end = ccol+((loopy+rows/4)%(cols/2));
+-
+-		/* draw it */
+-		move(current, start);
+-		i = end-start;
+-		cstart=start;
+-		while(cstart++ < end) {
+-			if(foundpixels(bottomrow, cols, i, cstart-start))
+-			    addch('*');
+-			else move(current, cstart+1);
+-		}
+-
+-		/* and top row #2 */
+-		current = crow-((loopy+rows/4)%(rows/2));
+-
+-		/* draw it */
+-		move(current, start);
+-		cstart=start;
+-		while(cstart++ < end) {
+-			if(foundpixels(toprow, cols, i, cstart-start))
+-			    addch('*');
+-			else move(current, cstart+1);
+-		}
+-
+-		/* left column #1 */
+-		current = ccol-(loopy%(cols/2));
+-		start = crow-(loopy%(rows/2));
+-		end = crow+(loopy%(rows/2));
+-		i = end-start;
+-
+-		/* draw */
+-		cstart=start;
+-		while(cstart++ < end) {
+-			move(cstart, current);
+-			if(foundpixels(leftcol, rows, i, cstart-start))
+-			    addch('*');
+-		}
+-
+-		/* right column #1 */
+-		current = ccol+(loopy%(cols/2));
+-		cstart=start;
+-		while(cstart++ < end) {
+-			move(cstart, current);
+-			if(foundpixels(rightcol, rows, i, cstart-start))
+-			    addch('*');
+-		}
+-
+-		/* right column #2 */
+-		current = ccol+((loopy+cols/4)%(cols/2));
+-		start = crow-((loopy+cols/4)%(rows/2));
+-		end = crow+((loopy+cols/4)%(rows/2));
+-
+-		/* draw */
+-		cstart=start;
+-		while(cstart++ < end) {
+-			move(cstart, current);
+-			if(foundpixels(rightcol, rows, i, cstart-start))
+-			   addch('*');
+-		}
+-
+-		/* left column #2 */
+-		current = ccol-((loopy+cols/4)%(cols/2));
+-		cstart=start;
+-		while(cstart++ < end) {
+-			move(cstart, current);
+-			if(foundpixels(leftcol, rows, i, cstart-start))
+-			    addch('*');
+-		}
+-
+-		row = floor(rows/2.0)-1;
+-		row += rint(
+-		    sin(1*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(rows/2.0)-1)
+-		);
+-		col = floor(cols/2.0)-1;
+-		col += rint(
+-		    cos(1*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(cols/2.0)-1)
+-		);
+-		drawspriteat(&littleman, col, row);
+-
+-		curline = scrollertext[loopy/(250/8)];
+-
+-		row = floor(rows/2.0)-1;
+-		row += rint( 0.5*
+-		    sin(0.75*(loopy*1.0/cols*1.0)*2*M_PI)
+-		    *(floor(rows/2.0)-1)
+-		);
+-		col = floor(cols/2.0)-1;
+-		col -= strlen(curline)/2;
+-		move(row, col);
+-		addstr(curline);
+-
+-		refresh();
+-		napms(100);
+-	}
+-
+-}
+-
+-int main() {
+-	struct winsize myws;
+-
+-	int loopy, cursorstate;
+-
+-	/* get the current window's columns and rows */
+-	ioctl(0, TIOCGWINSZ, &myws);
+-	rows=myws.ws_row;
+-	cols=myws.ws_col;
+-	assert(rows != 0);
+-	assert(cols != 0);
+-
+-	/* initialize curses */
+-	initscr();
+-
+-	/* disable the cursor */
+-	cursorstate = curs_set(0);
+-
+-#if 0
+-	/* move across */
+-	for(loopy = 0; loopy < cols-littleman.cols+1; loopy++) {
+-		clear();
+-
+-		drawspriteat(&littleman, loopy, rows/2);
+-
+-		refresh();
+-		napms(NAPTIME);
+-	}
+-#endif
+-
+-	part1();
+-	part2();
+-	part3();
+-	part4();
+-	clear();
+-	refresh();
+-	curs_set(cursorstate);
+-	printf("done basically in one day.\n");
+-	printf("we hope it was entertaining.\n");
+-	printf("next year will be better.\n");
+-	printf("The Finn / DC5 out.\n\n");
+-	printf("thanks to nullsleep for music help\n\n");
+-	printf("DC5 world domination 2003\n");
+-}
++/* copyright 2003 Aaron J. Grier */
++
++#include <stdio.h>
++#include <math.h>
++#include <stdlib.h>
++#include <curses.h>
++#include <sys/ioctl.h>
++#include <string.h>
++#include <assert.h>
++
++#define NAPTIME 100
++
++typedef struct {
++	char **data;
++	int cols;
++	int rows;
++} sprite;
++
++static int rows, cols;
++
++static void drawspriteat(
++	sprite *mysprite,
++	int atcol,
++	int atrow
++) {
++	int loopy;
++	char *curline;
++
++	/* start at the first line */
++	curline = mysprite->data[0];
++
++	/* move and draw */
++	for(loopy = 0; loopy < mysprite->rows; loopy++) {
++		move(atrow+loopy, atcol);
++		addstr(curline);
++		curline+=mysprite->cols;
++	}
++}
++
++static void part1(void) {
++	char *foodata[] = { "DC5" };
++	sprite dc5sprite = { foodata, 4, 1 };
++
++	int loopy, row = 0;
++	double scale;
++
++	/* sinus action */
++	for(loopy = 0; loopy <= cols/2-dc5sprite.cols+1; loopy++) {
++		scale = 1.0 - (loopy*1.0)/(cols/2.0*1.0);
++		row = floor(rows/2.0)-1
++			+rint(
++			    cos(5*(loopy*1.0/cols*1.0)*2*M_PI)
++			    *(floor(rows/2.0)-1) * scale
++			);
++		clear();
++		drawspriteat(&dc5sprite, loopy, row);
++		refresh();
++		napms(NAPTIME);
++	}
++
++	napms(500);
++	move(row+1, loopy-8);
++	addstr("is in the house.");
++	refresh();
++	napms(500);
++
++	move(row+2, loopy-13);
++	addstr("time to go back to sleep.");
++	napms(500);
++	refresh();
++}
++
++static void part2(void) {
++#define P2ITERATIONS 100
++	char *ddata[] = { "D" };
++	char *cdata[] = { "C" };
++	char *fdata[] = { "5" };
++	sprite dsprite = { ddata, 2, 1 };
++	sprite csprite = { cdata, 2, 1 };
++	sprite fsprite = { fdata, 2, 1 };
++	int loopy, row, col;
++	char *scrollertext[] = {
++		"Welcome to the DC5 minidemo!",
++		"by tfinn for DC5",
++		"for the pilgrimage party in SLC.",
++		"On with the show!",
++		""
++	}, *curline;
++
++	for(loopy = 0; loopy < P2ITERATIONS; loopy++) {
++		clear();
++		row = floor(rows/2.0)-1;
++		row += rint(
++		    sin(5*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(rows/2.0)-1)
++		);
++		col = floor(cols/2.0)-1;
++		col += rint(
++		    sin(2*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(cols/2.0)-1)
++		);
++		drawspriteat(&dsprite, col, row);
++
++		row = floor(rows/2.0)-1;
++		row += rint(
++		    sin(2*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(rows/2.0)-1)
++		);
++		col = floor(cols/2.0)-1;
++		col += rint(
++		    sin(5*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(cols/2.0)-1)
++		);
++		drawspriteat(&csprite, col, row);
++
++		row = floor(rows/2.0)-1;
++		row += rint(
++		    sin(1*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(rows/2.0)-1)
++		);
++		col = floor(cols/2.0)-1;
++		col += rint(
++		    cos(1*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(cols/2.0)-1)
++		);
++		drawspriteat(&fsprite, col, row);
++
++		curline = scrollertext[loopy/(P2ITERATIONS/5)];
++
++		row = floor(rows/2.0)-1;
++		row += rint( 0.5*
++		    sin(0.75*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(rows/2.0)-1)
++		);
++		col = floor(cols/2.0)-1;
++		col -= strlen(curline)/2;
++		move(row, col);
++		addstr(curline);
++
++		refresh();
++		napms(NAPTIME);
++	}
++}
++
++static void part3(void) {
++	char *mandata[] = {
++		" o ",
++		"\\|/",
++		"/ \\"
++	};
++	sprite littleman = {
++		mandata,
++		4, 3 
++	};
++	char *mantext[] = {
++		"hi there",
++		"I am littleman",
++		"welcome to my littleworld",
++		".                        ",
++		"..",
++		"...",
++		"it is small here.",
++		".                ",
++		"..",
++		"...",
++		"I like to yo-yo.",
++		""
++	}, *curtext=mantext[0];
++	int row, col, loopy, loopy2, lindex=0;
++
++	row = rint(rows/2.0)+littleman.rows/2;
++
++	for(loopy=0; loopy < rint(cols/2.0); loopy++) {
++		clear();
++		drawspriteat(&littleman, loopy, row);
++		refresh();
++		napms(NAPTIME);
++	}
++
++	while(strlen(curtext) > 0) {
++		move(row, loopy+littleman.cols-1);
++		addstr("- ");
++		addstr(curtext);
++		refresh();
++		curtext = mantext[++lindex];
++		napms(750);
++	}
++
++	col = loopy-2;
++	row++;
++
++	for(loopy=0; loopy < 50; loopy++) {
++		int index;
++
++		index = rint( fabs(
++		    sin((loopy*1.0/rows*1.0)*2*M_PI) * rows/4
++		));
++		for(loopy2=row; loopy2 < row+index; loopy2++) {
++			move(loopy2, col);
++			addch('|');
++		}
++
++		move(row+index, col);
++		addch('|');
++		move(row+index+1, col);
++		addch('o');
++		refresh();
++		move(row+index, col);
++		addch(' ');
++		move(row+index+1, col);
++		addch(' ');
++		napms(100);
++	}
++
++}
++
++/* find pixels in a section of pixelstuffs */
++int foundpixels(
++	char *pixelrow, int pixellength, int fitinto, int fitspot
++) {
++	int loopy, spix, epix, pixcount=0;
++	double scale;
++
++	/* first figure out how many pixels to get to the start */
++	scale = pixellength*1.0 / fitinto*1.0;
++
++	spix = floor(scale * fitspot*1.0);
++	epix = floor(scale * (fitspot+1)*1.0);
++	for(loopy = spix; loopy < epix; loopy++) {
++		if(pixelrow[loopy] != '\0') pixcount++;
++	}
++	if ((pixcount*1.0)/(epix-spix)*1.0 > 0.5) return 1;
++	else return 0;
++}
++
++/* star field?
++ * expanding rectangles, because they're easy */
++static void part4(void) {
++	char *mandata[] = {
++		" o<",
++		" = ",
++		"/ \\"
++	};
++	sprite littleman = {
++		mandata,
++		4, 3 
++	};
++	char *toprow, *bottomrow, *leftcol, *rightcol;
++	int loopy, crow, ccol, col, row;
++	char *scrollertext[] = {
++		"DC5 r0x",
++		"all others f0x",
++		"so vote DC5!",
++		"K-Rad cannot meet",
++		"this curses-coding 'leet",
++		"it was really quite a feat",
++		"to K-rad DC5 sends a greet",
++		"kwak",
++		""
++	}, *curline;
++
++	crow = rows/2;
++	ccol = cols/2;
++
++	/* malloc stuffs */
++	toprow = malloc(cols);
++	assert(toprow != NULL);
++	bottomrow = malloc(cols);
++	assert(bottomrow != NULL);
++	leftcol = malloc(rows);
++	assert(leftcol != NULL);
++	rightcol = malloc(rows);
++	assert(rightcol != NULL);
++
++	bzero(toprow,cols);
++	bzero(bottomrow,cols);
++	bzero(leftcol,rows);
++	bzero(rightcol,rows);
++
++	/* generate random stars */
++	for(loopy = 0; loopy < cols/4; loopy++) {
++		toprow[random()%cols]='*';
++		bottomrow[random()%cols]='*';
++		leftcol[random()%rows]='*';
++		rightcol[random()%rows]='*';
++	}
++
++	/* plot them */
++	for(loopy = 0; loopy < 250; loopy++) {
++		int current, start, end, cstart, i;
++
++		clear();
++
++		/* bottom row #1 */
++		current = crow+(loopy%(rows/2));
++		start = ccol-(loopy%(cols/2));
++		end = ccol+(loopy%(cols/2));
++
++		/* draw it */
++		move(current, start);
++		/* there are this many dots in the current line */
++		i = (end - start);
++		cstart=start;
++		/* iterate through all the characters on a row */
++		while(cstart < end) {
++			if(foundpixels(bottomrow, cols, i, cstart-start))
++			    addch('*');
++			else move(current, cstart+1);
++			cstart++;
++		}
++
++		/* and top row #1 */
++		current = crow-(loopy%(rows/2));
++		move(current, start);
++		cstart=start;
++		while(cstart++ < end) {
++			if(foundpixels(toprow, cols, i, cstart-start))
++			    addch('*');
++			else move(current, cstart+1);
++		}
++
++		/* bottom row #2 */
++		current = crow+((loopy+rows/4)%(rows/2));
++		start = ccol-((loopy+rows/4)%(cols/2));
++		end = ccol+((loopy+rows/4)%(cols/2));
++
++		/* draw it */
++		move(current, start);
++		i = end-start;
++		cstart=start;
++		while(cstart++ < end) {
++			if(foundpixels(bottomrow, cols, i, cstart-start))
++			    addch('*');
++			else move(current, cstart+1);
++		}
++
++		/* and top row #2 */
++		current = crow-((loopy+rows/4)%(rows/2));
++
++		/* draw it */
++		move(current, start);
++		cstart=start;
++		while(cstart++ < end) {
++			if(foundpixels(toprow, cols, i, cstart-start))
++			    addch('*');
++			else move(current, cstart+1);
++		}
++
++		/* left column #1 */
++		current = ccol-(loopy%(cols/2));
++		start = crow-(loopy%(rows/2));
++		end = crow+(loopy%(rows/2));
++		i = end-start;
++
++		/* draw */
++		cstart=start;
++		while(cstart++ < end) {
++			move(cstart, current);
++			if(foundpixels(leftcol, rows, i, cstart-start))
++			    addch('*');
++		}
++
++		/* right column #1 */
++		current = ccol+(loopy%(cols/2));
++		cstart=start;
++		while(cstart++ < end) {
++			move(cstart, current);
++			if(foundpixels(rightcol, rows, i, cstart-start))
++			    addch('*');
++		}
++
++		/* right column #2 */
++		current = ccol+((loopy+cols/4)%(cols/2));
++		start = crow-((loopy+cols/4)%(rows/2));
++		end = crow+((loopy+cols/4)%(rows/2));
++
++		/* draw */
++		cstart=start;
++		while(cstart++ < end) {
++			move(cstart, current);
++			if(foundpixels(rightcol, rows, i, cstart-start))
++			   addch('*');
++		}
++
++		/* left column #2 */
++		current = ccol-((loopy+cols/4)%(cols/2));
++		cstart=start;
++		while(cstart++ < end) {
++			move(cstart, current);
++			if(foundpixels(leftcol, rows, i, cstart-start))
++			    addch('*');
++		}
++
++		row = floor(rows/2.0)-1;
++		row += rint(
++		    sin(1*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(rows/2.0)-1)
++		);
++		col = floor(cols/2.0)-1;
++		col += rint(
++		    cos(1*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(cols/2.0)-1)
++		);
++		drawspriteat(&littleman, col, row);
++
++		curline = scrollertext[loopy/(250/8)];
++
++		row = floor(rows/2.0)-1;
++		row += rint( 0.5*
++		    sin(0.75*(loopy*1.0/cols*1.0)*2*M_PI)
++		    *(floor(rows/2.0)-1)
++		);
++		col = floor(cols/2.0)-1;
++		col -= strlen(curline)/2;
++		move(row, col);
++		addstr(curline);
++
++		refresh();
++		napms(100);
++	}
++
++}
++
++int main(void) {
++	int cursorstate;
++
++	/* initialize curses */
++	initscr();
++
++	/* get the current window's columns and rows from curses: the
++	 * TIOCGWINSZ ioctl on stdin fails when stdin is not the terminal */
++	getmaxyx(stdscr, rows, cols);
++	if(rows < 2 || cols < 2) {
++		endwin();
++		fprintf(stderr, "cursesdemo-by-dc5: the terminal is too small\n");
++		return 1;
++	}
++
++	/* disable the cursor */
++	cursorstate = curs_set(0);
++
++#if 0
++	/* move across */
++	for(loopy = 0; loopy < cols-littleman.cols+1; loopy++) {
++		clear();
++
++		drawspriteat(&littleman, loopy, rows/2);
++
++		refresh();
++		napms(NAPTIME);
++	}
++#endif
++
++	part1();
++	part2();
++	part3();
++	part4();
++	clear();
++	refresh();
++	curs_set(cursorstate);
++	endwin();
++	printf("done basically in one day.\n");
++	printf("we hope it was entertaining.\n");
++	printf("next year will be better.\n");
++	printf("The Finn / DC5 out.\n\n");
++	printf("thanks to nullsleep for music help\n\n");
++	printf("DC5 world domination 2003\n");
++	return 0;
++}

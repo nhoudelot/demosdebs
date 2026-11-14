@@ -2,9 +2,11 @@
 Version=1.0
 Name=Curses Demo
 GenericName=Demo
-Comment=Demo by dc5, released in 2003
+Comment=Text-mode demo by DC5, released in 2003
+Comment[fr]=Démo en mode texte de DC5, sortie en 2003
 Type=Application
 Exec=/usr/bin/cursesdemo-by-dc5
 Icon=cursesdemo-by-dc5
+Terminal=true
 Categories=AudioVideo;Game;
-Name[fr_FR]=Curses Demo
+Keywords=demoscene;demo;curses;terminal;ASCII;

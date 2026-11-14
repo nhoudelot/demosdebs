@@ -1,10 +1,12 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: adapt the Makefile to packaging
+ Honour the CPPFLAGS (fortify), CFLAGS and LDFLAGS set by dpkg-buildflags,
+ add an install target and name the binary after the package. Link
+ against ncurses only: libtermcap is an alias of libtinfo, which the
+ ncurses linker script already pulls in.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-24
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
 --- a/Makefile
 +++ b/Makefile
 @@ -1,2 +1,29 @@
@@ -15,7 +17,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +SHELL = /bin/sh
 +CC    ?= gcc
 +CFLAGS   +=-Wall -std=gnu90 -pipe
-+LDFLAGS  +=-lcurses -ltermcap -lm
++LDLIBS   = -lncurses -lm
 +TARGET=cursesdemo-by-dc5
 +RM_F := rm -f
 +
@@ -31,7 +33,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +all: $(TARGET)
 +
 +$(TARGET): $(SOURCE)
-+	$(CC) $(CFLAGS) $(SOURCE) -o $(TARGET) $(LDFLAGS)
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $(SOURCE) -o $(TARGET) $(LDLIBS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

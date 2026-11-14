@@ -1,3 +1,31 @@
+cursesdemo-by-dc5 (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : rewrote the description, recommend mpg123
+  * debian/control : new cursesdemo-by-dc5-data package with the
+    soundtrack (patchbay.mp3), which was not installed
+  * debian/copyright : upstream author (Aaron J. Grier, tfinn),
+    Octothorp for the soundtrack, full text of the GPL-2+ license for
+    debian/*
+  * debian/patches/01_adapt_makefile.patch : honour CPPFLAGS (fortify),
+    drop -ltermcap (alias of libtinfo)
+  * debian/patches/02_fix_terminal_handling.patch : restore the terminal
+    at the end (endwin), take the terminal size from curses, draw the
+    missing "5" sprite, fix the compiler warnings
+  * debian/patches/03_play_soundtrack.patch : play the soundtrack with
+    mpg123, new --no-music option
+  * debian/patches : DEP-3 headers completed (Forwarded)
+  * debian/resources/cursesdemo-by-dc5.png : the icon was an empty file
+  * debian/resources/cursesdemo-by-dc5.desktop : run in a terminal,
+    added Keywords and a French comment, dropped the matching lintian
+    override
+  * debian/*.lintian-overrides : commented the overrides, added the
+    pandoc groff-message override
+  * debian/cursesdemo-by-dc5.6.md : documented the demo, its option and
+    the soundtrack, regenerated the manual page
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 13 Nov 2026 23:59:55 +0100
+
 cursesdemo-by-dc5 (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

@@ -14,21 +14,42 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "cursesdemo-by-dc5" "6" "2024-03-24" "Curses Demo User Manuals" ""
+.TH "cursesdemo-by-dc5" "6" "2026-11-13" "Curses Demo User Manuals" ""
 .hy
 .SH NAME
 .PP
-cursesdemo-by-dc5 - is the command to run Curses Demo
+cursesdemo-by-dc5 - run Curses Demo, a text-mode demo released by DC5
 .SH SYNOPSIS
 .PP
-cursesdemo-by-dc5 [\f[I]options\f[R]]
+cursesdemo-by-dc5 [\f[B]--no-music\f[R]]
 .SH DESCRIPTION
 .PP
-Curses Demo is a text demo released by dc5 in august 2003 ended 3rd at
-Pilgrimage 2003
-.SH OPTIONS
+Curses Demo is a one-minute demo written in C with ncurses by tfinn of
+The Dennis Courtney 5 (DC5).
+It was released in August 2003 and ranked 3rd in the combined demo compo
+of Pilgrimage 2003.
 .PP
-there is no options to this program
+Bouncing \[lq]DC5\[rq] letters, sine scrollers, a little man made of
+ASCII characters who plays yo-yo and an expanding star field.
+The demo uses the whole terminal, whatever its size, and prints a short
+message when it ends.
+.PP
+The soundtrack, Patchbay by Octothorp, is played with
+\f[B]mpg123\f[R](1) from
+\f[I]/usr/share/cursesdemo-by-dc5/patchbay.mp3\f[R].
+If mpg123 is not installed, the demo runs silently.
+.SH OPTIONS
+.TP
+\f[B]--no-music\f[R]
+do not play the soundtrack.
+.SH KEYS
+.TP
+\f[B]Ctrl+C\f[R]
+stop the demo.
+.SH FILES
+.TP
+\f[I]/usr/share/cursesdemo-by-dc5/patchbay.mp3\f[R]
+the soundtrack.
 .SH INFOS
 .PP
 https://www.pouet.net/prod.php?which=10644
@@ -36,4 +57,4 @@ https://www.pouet.net/prod.php?which=10644
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),dc5.
+Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Claude Opus 5.5,dc5.

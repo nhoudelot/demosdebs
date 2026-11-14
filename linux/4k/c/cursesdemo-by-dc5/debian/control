@@ -13,6 +13,27 @@ Package: cursesdemo-by-dc5
 Architecture: any
 Depends:
  ${shlibs:Depends},
+ ${misc:Depends},
+ cursesdemo-by-dc5-data (>= ${source:Upstream-Version})
+Recommends:
+ mpg123
+Description: Curses Demo, text-mode demo by DC5 (Pilgrimage 2003)
+ Curses Demo is a one-minute demo written in C with ncurses by tfinn of
+ The Dennis Courtney 5 (DC5), ranked 3rd in the combined demo compo of
+ Pilgrimage 2003, in Salt Lake City. It runs in a terminal.
+ .
+ Bouncing "DC5" letters, sine scrollers, a little man made of ASCII
+ characters who plays yo-yo and an expanding star field, on Patchbay,
+ an Octothorp tune played with mpg123.
+
+Package: cursesdemo-by-dc5-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
  ${misc:Depends}
-Description: text demo ranked 3rd at Pilgrimage 2003
- little ncurse 4k demo ranked 3rd
+Description: Curses Demo, text-mode demo by DC5 (Pilgrimage 2003) - soundtrack
+ Curses Demo is a one-minute demo written in C with ncurses by tfinn of
+ The Dennis Courtney 5 (DC5), ranked 3rd in the combined demo compo of
+ Pilgrimage 2003, in Salt Lake City.
+ .
+ This package contains the soundtrack of the demo: Patchbay, by Octothorp.
