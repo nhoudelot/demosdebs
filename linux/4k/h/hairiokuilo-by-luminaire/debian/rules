@@ -3,8 +3,11 @@
 %:
 	dh $@
 
+override_dh_auto_build:
+	mkdir -p build
+	perl debian/patch-binary.pl hairiokuilu-by-luminaire debian/shader.frag build/hairiokuilu-by-luminaire
+
 override_dh_strip:
 	dh_strip -Xhairiokuilu-by-luminaire
-
 
 override_dh_makeshlibs:

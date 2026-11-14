@@ -1,8 +1,39 @@
 hairiokuilo-by-luminaire for Debian
 ----------------------------------
 
-executable has been unpacked, and renamed
-binary was also patched to remove fullscreen (SDL1.2 break display)
+The intro was released as a self-extracting shell script
+(hairiokuilu_by_luminaire.sh). The executable has been unpacked and
+renamed.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 25 Feb 2024 00:52:35 +0100
+The binary was also patched to remove fullscreen (SDL 1.2 breaks the
+display). This patch is already in the orig tarball.
 
+At build time, debian/patch-binary.pl patches a copy of the executable
+(build/hairiokuilu-by-luminaire), the orig tarball is not modified:
+ - the intro reused stack slots as arguments for glCompileShader(),
+   glLinkProgram() and glUseProgram(). Current NVIDIA drivers overwrite
+   them, glUseProgram() got a garbage id and the screen stayed white. The
+   calls are rewritten, with the same size, to push their arguments again;
+ - the fragment shader is replaced by debian/shader.frag, same length:
+   "#version 150 compatibility" (Mesa refused the shader without
+   #version), an explicit smoothstep() (reversed and equal edges are
+   undefined, Mesa rendered another picture), without unused code.
+   With NVIDIA, the pictures are identical to the original shader.
+The script checks the original bytes before patching.
+
+The executable is a hand-made ELF without section headers: objdump and
+dpkg-shlibdeps cannot read it, so the libraries are declared by hand in
+debian/control, dh_makeshlibs is skipped in debian/rules, and lintian
+sees it as a statically linked binary.
+
+executable seems to be compiled for an unknown distribution
+
+no GCC version string left in the executable
+
+Source files:
+-------------
+none (no section headers, no symbol table)
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 15:10:21 +0100

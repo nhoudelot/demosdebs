@@ -1,7 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: hairiokuilo-by-luminaire
-Upstream-Contact: <preferred name and address to reach the upstream project>
-Source: https://www.pouet.net/prod.php?which=71449
+Upstream-Name: Häiriökuilo
+Source: https://files.scene.org/view/parties/2017/assembly17/4k/hairiokuilu_by_luminaire.sh
 
 Files: *
 Copyright: 2017 Luminaire

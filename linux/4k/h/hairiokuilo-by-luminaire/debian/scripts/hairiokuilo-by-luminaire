@@ -4,20 +4,17 @@ source /usr/share/common-install-function-ddebs/common-install-function
 
 domain=hairiokuilo-by-luminaire
 
-APP_FULLNAME="Hairiokuilo"
+APP_FULLNAME="Häiriökuilo"
 APP_COPYRIGHT="Luminaire"
-APP_DESC="Demo by Luminaire, released in 2017"
+APP_DESC="4k intro by Luminaire, released in 2017"
 
 APP_EXE="hairiokuilu-by-luminaire"
 
 function run()
 {
-	backuppwd=$(pwd)
 	cd /usr/lib/i386-linux-gnu/${domain} || exit
-	./${APP_EXE} | aplay -f cd
-	cd $backuppwd || exit
+	./${APP_EXE} | aplay -q -f cd
 }
-
 
 if [ "$#" -gt "1" ]; then
 	 NSH_std_usage

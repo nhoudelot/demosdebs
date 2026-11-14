@@ -15,6 +15,11 @@ Depends:
  libgl1,
  libsdl1.2debian,
  libcairo2,
- common-install-function-ddebs(>=1.61)
-Description: 4k intro by Luminaire, released in 2017
- 4k intro by Luminaire in 2017
+ alsa-utils,
+ common-install-function-ddebs (>= 1.61)
+Description: 4k intro for Linux by Luminaire, released in 2017
+ Häiriökuilo is a 4k intro released by Luminaire at Assembly 2017,
+ where it ended 7th in the combined 4k competition.
+ .
+ The intro uses OpenGL, SDL 1.2 and cairo. The music is written as raw
+ audio on the standard output and played with aplay.

@@ -1,3 +1,30 @@
+hairiokuilo-by-luminaire (1.0-0ddebs4) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patch-binary.pl, debian/shader.frag : patch the executable at
+    build time, the picture stayed white. The intro reused stack slots as
+    arguments of glLinkProgram() and glUseProgram(), NVIDIA drivers
+    overwrite them. The shader gets a #version for Mesa, and an explicit
+    smoothstep() for reversed edges
+  * debian/rules : run debian/patch-binary.pl, install the patched copy
+  * debian/control : added alsa-utils, aplay plays the music; described
+    the intro
+  * debian/copyright : removed the Upstream-Contact placeholder, Source
+    points to scene.org
+  * debian/resources : added a real icon (the PNG was empty), desktop
+    file with Keywords and French comment
+  * debian/scripts : described as a 4k intro, aplay in quiet mode
+  * debian/hairiokuilo-by-luminaire.lintian-overrides : override
+    statically-linked-binary (hand-made ELF without section headers) and
+    groff-message from the pandoc preamble
+  * debian/README.source : explained the unpacked binary, and why
+    dh_makeshlibs is skipped (objdump cannot read the executable)
+  * debian/docs : removed the empty file
+  * manpage : documented audio output, the windowed mode and the binary
+    patches
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 15:10:21 +0100
+
 hairiokuilo-by-luminaire (1.0-0ddebs3) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

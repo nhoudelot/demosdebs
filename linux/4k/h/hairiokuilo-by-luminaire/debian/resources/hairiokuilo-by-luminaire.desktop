@@ -1,10 +1,13 @@
 [Desktop Entry]
 Version=1.0
-Name=Hairiokuilo
-GenericName=Demo
-Comment=Demo by Luminaire, released in 2017
+Name=Häiriökuilo
+GenericName=4k intro
+Comment=4k intro by Luminaire, released in 2017
 Type=Application
 Exec=/usr/bin/hairiokuilo-by-luminaire
 Icon=hairiokuilo-by-luminaire
+Terminal=false
 Categories=AudioVideo;
-Name[fr_FR]=Hairiokuilo
+Keywords=demoscene;intro;4k;Luminaire;Assembly;
+Name[fr_FR]=Häiriökuilo
+Comment[fr_FR]=Intro 4k de Luminaire, sortie en 2017
