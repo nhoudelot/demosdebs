@@ -1,18 +1,47 @@
-Description: change data path
- Relocate non-binary architecture-specific files to /usr/share to ensure correct installation
+Description: load the shader from /usr/share/eternalforest-by-soulman
+ The packaged executable is the debug build, which reads the fragment shader
+ at run time. Upstream runs unifdef in a shell to write gen/fshader-debug.glsl
+ in the current directory, then loads it, and watches fshader.glsl in the
+ current directory to reload it while editing. Load the installed shader
+ directly (fshader.glsl has no #if blocks, so unifdef does not change it) and
+ drop the file monitor: the demo no longer creates a gen/ directory where it
+ is started, nor needs unifdef at run time.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2025-12-20
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/main.c
 +++ b/main.c
-@@ -102,7 +102,7 @@
- 
- void load_fragment_shader() {
-   system("mkdir -p gen && unifdef -b -x2 -DDEBUG -o gen/fshader-debug.glsl fshader.glsl");
--  load_shader(fragment_shader, "gen/fshader-debug.glsl", GL_FRAGMENT_SHADER);
-+  load_shader(fragment_shader, "/usr/share/eternalforest-by-soulman/fshader-debug.glsl", GL_FRAGMENT_SHADER);
+@@ -101,19 +101,7 @@
  }
  
- void fragment_shader_changed(GFileMonitor * file_monitor, GFile *file, GFile *other_file, GFileMonitorEvent event_type, GtkGLArea * area) {
+ void load_fragment_shader() {
+-  system("mkdir -p gen && unifdef -b -x2 -DDEBUG -o gen/fshader-debug.glsl fshader.glsl");
+-  load_shader(fragment_shader, "gen/fshader-debug.glsl", GL_FRAGMENT_SHADER);
+-}
+-
+-void fragment_shader_changed(GFileMonitor * file_monitor, GFile *file, GFile *other_file, GFileMonitorEvent event_type, GtkGLArea * area) {
+-  if (event_type != G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT) {
+-    // events seem to come in bursts of three. The done hint should be last.
+-    return;
+-  }
+-  load_fragment_shader();
+-  glLinkProgram(program);
+-  handle_link_error(program);
+-  gtk_gl_area_queue_render(area);
++  load_shader(fragment_shader, "/usr/share/eternalforest-by-soulman/fshader.glsl", GL_FRAGMENT_SHADER);
+ }
+ #endif
+ 
+@@ -142,11 +130,6 @@
+   handle_link_error(program);
+   glGenVertexArrays(1, &vba);
+ 
+-#ifdef DEBUG
+-  GFile * fragment_shader_file = g_file_new_for_path("fshader.glsl");
+-  GFileMonitor * file_monitor = g_file_monitor_file(fragment_shader_file, G_FILE_MONITOR_NONE, NULL, NULL);
+-  g_signal_connect(file_monitor, "changed", G_CALLBACK(fragment_shader_changed), area);
+-#endif
+ }
+ 
+ void key_press(GtkWidget * widget, GdkEventKey * event, GtkGLArea * area) {

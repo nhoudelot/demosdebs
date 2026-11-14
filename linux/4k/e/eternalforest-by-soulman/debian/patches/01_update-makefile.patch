@@ -1,10 +1,12 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging and crossbuilding (use GCC instead of clang)
+Description: adapt the Makefile to packaging and cross-building
+ Use $(CC) and $(PKG_CONFIG) (GCC instead of clang), the system
+ shader_minifier.exe, the build flags of the environment (CPPFLAGS, CFLAGS,
+ LDFLAGS) for the debug executable, do not run the demo after building it,
+ and do not use sstrip.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2025-12-20
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/Makefile
 +++ b/Makefile
 @@ -1,14 +1,16 @@
@@ -14,8 +16,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -CFLAGS += $(shell pkg-config --cflags gtk+-3.0)
 +CC ?= gcc
 +PKG_CONFIG ?= pkg-config
-+RM_F       := rm -f
-+CFLAGS = -fno-plt -fno-unwind-tables -Wall
++RM_F       := rm -rf
++CFLAGS += -fno-plt -fno-unwind-tables -Wall
 +CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk+-3.0)
  
  LIBS = -lGL -lgtk-3 -lgdk-3 -lgobject-2.0
@@ -50,9 +52,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	@mkdir -p gen
  	TERM=xterm mono $(SHADER_MINIFIER) --preserve-externals $< -o $@
  
-@@ -46,14 +47,13 @@
+@@ -44,16 +45,15 @@
+ 
+ obj/%-debug.o: %.c
  	@mkdir -p obj
- 	$(CC) -c $(CFLAGS) -DDEBUG -o $@ $<
+-	$(CC) -c $(CFLAGS) -DDEBUG -o $@ $<
++	$(CC) -c $(CPPFLAGS) $(CFLAGS) -DDEBUG -o $@ $<
  
 -bin/%: obj/%.o $(SSTRIP)
 +bin/%: obj/%.o
@@ -66,7 +71,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		--orphan-handling=discard \
  		--as-needed \
  		--no-demangle \
-@@ -67,7 +67,7 @@
+@@ -67,11 +67,11 @@
  		-o $@ \
  		$< \
  		$(LIBS)
@@ -75,3 +80,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  bin/%-debug: obj/%-debug.o
  	@mkdir -p bin
+-	$(CC) -o $@ $^ $(DEBUG_LIBS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(DEBUG_LIBS)
+ 
+ %.xz: %
+ 	cat $^ | $(XZ) > $@

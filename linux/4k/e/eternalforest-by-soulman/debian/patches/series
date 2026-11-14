@@ -1,2 +1,3 @@
 01_update-makefile.patch
 02_change-data-path.patch
+03_quit-on-window-close.patch

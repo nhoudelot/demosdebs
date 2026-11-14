@@ -1,3 +1,30 @@
+eternalforest-by-soulman (1.0-0ddebs3) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/01_update-makefile.patch : use the build flags of the
+    environment for the debug executable (hardening), fixed the clean
+    target, DEP-3 header
+  * debian/patches/02_change-data-path.patch : load the installed shader
+    directly, no more unifdef run in a gen/ directory of the current
+    directory at start-up, removed the shader file monitor
+  * debian/patches/03_quit-on-window-close.patch : stop the program when
+    the window is closed
+  * debian/control : removed unused build dependencies (shader-minifier,
+    unifdef) and the dependency on common-install-function-ddebs, added
+    libgl-dev, Pouet Homepage, rewritten description
+  * debian/rules : hardening=+all
+  * debian/install : install the shader as fshader.glsl
+  * debian/resources : added the missing icon (made from preview.png)
+  * debian/eternalforest-by-soulman.6.md : rewritten, no --help option
+  * debian/README.Debian : rewritten
+  * debian/copyright : filled Upstream-Contact
+  * debian/upstream/metadata : added, replaces metadata.ex
+  * debian/eternalforest-by-soulman.lintian-overrides : override for the
+    pandoc manual page
+  * debian/resources/eternalforest-by-soulman.desktop : added Keywords
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 11:30:00 +0100
+
 eternalforest-by-soulman (1.0-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

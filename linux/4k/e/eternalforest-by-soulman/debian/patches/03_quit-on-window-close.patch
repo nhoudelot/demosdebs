@@ -1,0 +1,21 @@
+Description: quit when the window is closed
+ Only the Escape key stops the demo. Closing the window with the window
+ manager destroys it, but gtk_main() keeps running and the process stays in
+ the background. Call gtk_main_quit() on the destroy signal (the 4k build
+ is left untouched, as it is not packaged).
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/main.c
++++ b/main.c
+@@ -155,6 +155,9 @@
+   g_signal_connect (area, "realize", G_CALLBACK (realize), NULL);
+   g_signal_connect (area, "render", G_CALLBACK (render), NULL);
+   g_signal_connect (window, "key-press-event", G_CALLBACK(key_press), area);
++#ifdef DEBUG
++  g_signal_connect (window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
++#endif
+ 
+   gtk_widget_show_all(window);
+ 

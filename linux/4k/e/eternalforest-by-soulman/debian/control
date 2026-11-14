@@ -5,14 +5,13 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
- shader-minifier:native,
- unifdef:native,
- libgtk-3-dev,
- libgles-dev,
+ dh-exec (>= 0.3),
  pkgconf,
- dh-exec (>=0.3)
+ libgtk-3-dev,
+ libgl-dev,
+ libgles-dev,
 Standards-Version: 4.7.3
-Homepage: https://github.com/knutae/solskogen-2020
+Homepage: https://www.pouet.net/prod.php?which=88685
 
 Package: eternalforest-by-soulman
 Architecture: any
@@ -20,7 +19,10 @@ Multi-Arch: foreign
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- common-install-function-ddebs(>=1.61),
-Description: 4k procedural gfx by Soulman, released in 2020
- Raymarched forest written in GLSL and C.
- 5th at 4k executable graphics compo for the Solskogen 2020 demoparty.
+Description: 4k procedural graphics by Soulman, released in 2020
+ Eternal Forest renders a single fullscreen picture of a forest covering
+ hills, with a bird, entirely from a raymarching GLSL shader driven by a
+ small GTK program. An OpenGL 4.5 capable driver is needed.
+ .
+ Eternal Forest was ranked 5th at Solskogen 2020 in the 4k procedural
+ graphics category.

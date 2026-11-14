@@ -1,7 +1,21 @@
 eternalforest-by-soulman for Debian
 ----------------------------------
 
-* make debug is used to produce an executable with clear libraries dependencies
-* clang has been patched, to use GCC instead for crossbuilding
+* The packaged executable is the debug build of the Makefile (make debug):
+  the 4k version is linked by hand with an x86-64 _start entry point and raw
+  syscalls, and compressed with xz behind a shell header that unpacks it to
+  /tmp. The debug build is a normal GTK program, compiled with GCC instead of
+  clang and the Debian build flags, so it is also built for the other
+  architectures.
+* The debug build reads the fragment shader at run time: it is installed as
+  /usr/share/eternalforest-by-soulman/fshader.glsl. The upstream
+  preprocessing of the shader with unifdef in a gen/ directory of the
+  current directory, and the reload of the shader when it is edited, are
+  removed (02_change-data-path.patch).
+* Closing the window now stops the program, as the Escape key does
+  (03_quit-on-window-close.patch).
+* The icon is made from the upstream preview.png.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 19 Dec 2025 10:25:58 +0100
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 11:30:00 +0100

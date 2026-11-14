@@ -14,29 +14,49 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "eternalforest-by-soulman" "6" "2025-12-19" "Eternal Forest User Manuals" ""
+.TH "eternalforest-by-soulman" "6" "2026-11-14" "Eternal Forest User Manuals" ""
 .hy
 .SH NAME
 .PP
-\f[B]eternalforest-by-soulman\f[R] - the command to run Eternal Forest.
+eternalforest-by-soulman - Eternal Forest, a 4k procedural graphics
+executable
 .SH SYNOPSIS
 .PP
-\f[B]eternalforest-by-soulman\f[R] [\f[I]options\f[R]]
+\f[B]eternalforest-by-soulman\f[R]
 .SH DESCRIPTION
 .PP
-\f[B]Eternal Forest\f[R] is a 4k procedural gfx intro released by
-Soulman in july 2020.
+\f[B]Eternal Forest\f[R] is a 4-kilobyte executable graphics production
+(exegfx) by Soulman, released in July 2020.
+It was ranked 5th in the 4k procedural graphics competition at Solskogen
+2020.
+.PP
+A raymarched forest with a bird is rendered by a GLSL fragment shader in
+a fullscreen window.
+An OpenGL 4.5 capable driver is needed.
+Depending on the graphics card and the resolution, the picture can take
+a long time to appear, and the desktop may not respond during the
+rendering.
+.PP
+Exit using the \f[B]Esc\f[R] key or your window manager\[cq]s close
+window shortcut.
 .SH OPTIONS
 .PP
-there is no options to this program
+There are no options to this program.
+.SH FILES
 .TP
---help
-Display help for the command
-.SH INFOS
+\f[I]/usr/share/eternalforest-by-soulman/fshader.glsl\f[R]
+The fragment shader, read at start-up.
+.SH SEE ALSO
 .PP
-https://www.pouet.net/prod.php?which=88685
+For more information, visit the following links:
+.IP \[bu] 2
+GitHub repository:
+solskogen-2020 (https://github.com/knutae/solskogen-2020)
+.IP \[bu] 2
+Pouët entry: Eternal Forest on
+Pouët (https://www.pouet.net/prod.php?which=88685)
 .SH BUGS
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Soulman.
+Nicolas HOUDELOT <nicolas@demosdebs.org>,Claude Opus 5.5,Soulman.
