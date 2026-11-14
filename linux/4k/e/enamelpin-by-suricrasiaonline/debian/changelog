@@ -1,3 +1,30 @@
+enamelpin-by-suricrasiaonline (1.0+git20200705-0ddebs3) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/02_portable-entry-point.patch : replace the x86-64
+    _start entry point and raw syscalls with main() and _exit(), so the
+    demo builds on every architecture
+  * debian/patches/01_adapt_makefile.patch : fixed DEP-3 header
+  * debian/control : Architecture any, removed unused build dependencies
+    (nasm, pax-utils, python3-minimal), added libgl-dev, rewritten
+    description
+  * debian/copyright : upstream has no license, use public-domain
+    (probably freeware), added smol, vondehi and shader_minifier.exe
+  * debian/resources : added the missing icon (made from the upstream
+    screenshot)
+  * debian/enamelpin-by-suricrasiaonline.6.md : fixed example and
+    program name, documented the progressive rendering
+  * debian/README.Debian : added
+  * debian/source/lintian-overrides : override for the upstream Windows
+    Shader Minifier
+  * debian/enamelpin-by-suricrasiaonline.lintian-overrides : override for
+    the pandoc manual page
+  * debian/upstream/metadata : removed the non-standard References field
+  * debian/resources/enamelpin-by-suricrasiaonline.desktop : added
+    Keywords
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 11:08:24 +0100
+
 enamelpin-by-suricrasiaonline (1.0+git20200705-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

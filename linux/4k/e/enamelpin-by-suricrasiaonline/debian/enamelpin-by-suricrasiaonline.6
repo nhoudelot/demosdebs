@@ -14,12 +14,12 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "enamelpin-by-suricrasiaonline" "6" "2025-05-08" "Enamel Pin User Manuals" ""
+.TH "enamelpin-by-suricrasiaonline" "6" "2026-11-14" "Enamel Pin User Manuals" ""
 .hy
 .SH NAME
 .PP
-\f[B]Enamel Pin\f[R] - a 4k procedural graphics executable for 64-bit
-Linux
+enamelpin-by-suricrasiaonline - Enamel Pin, a 4k procedural graphics
+executable
 .SH SYNOPSIS
 .PP
 [\f[B]SAMPLES=\f[R]_number_] \f[B]enamelpin-by-suricrasiaonline\f[R]
@@ -33,6 +33,11 @@ Linux
 It was developed by Suricrasia Online and won first place in the 4k
 procedural graphics competition at Solskogen 2020.
 .PP
+The picture is path traced on the GPU and drawn ten scanlines at a time,
+so it appears progressively; the render time is printed on the standard
+output when it is complete.
+An OpenGL 4.2 capable driver is needed.
+.PP
 The demo generates a 1920x1080 image.
 On smaller displays, the image will be clipped.
 On larger displays, it will render in the corner.
@@ -41,21 +46,22 @@ Exit at any time using the \f[B]Esc\f[R] key or your window
 manager\[cq]s close window shortcut.
 .SH OPTIONS
 .PP
-While \f[V]enamel_pin\f[R] itself does not accept command-line options,
-you can control the rendering quality through the \f[B]SAMPLES\f[R]
-environment variable:
+While \f[B]enamelpin-by-suricrasiaonline\f[R] itself does not accept
+command-line options, you can control the rendering quality through the
+\f[B]SAMPLES\f[R] environment variable:
 .IP \[bu] 2
 \f[V]SAMPLES=100\f[R] (default)
 .PD 0
 .P
 .PD
-Controls the number of samples used during rendering.
+Controls the number of samples per pixel used during rendering.
+Higher values give a less noisy image but take longer to render.
 .PP
 Example:
 .IP
 .nf
 \f[C]
-env SAMPLES=200 ./enamel_pin
+SAMPLES=200 enamelpin-by-suricrasiaonline
 \f[R]
 .fi
 .SH SEE ALSO
@@ -85,4 +91,5 @@ Pin (https://suricrasia.online/demoscene/enamel_pin.html)
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Suricrasia Online.
+Nicolas HOUDELOT <nicolas@demosdebs.org>,Claude Opus 5.5,Suricrasia
+Online.

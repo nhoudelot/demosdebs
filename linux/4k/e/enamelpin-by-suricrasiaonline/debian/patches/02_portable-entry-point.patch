@@ -1,0 +1,84 @@
+Description: use a standard main() entry point
+ The 4k version starts from a hand-written _start (with an x86-64 stack
+ adjustment) and exits through raw x86-64 syscalls from sys.h, without the C
+ runtime. This only works on amd64 and is not needed for the unpacked
+ executable: use main(), gtk_init(&argc, &argv) and _exit(), and link
+ normally against the C library and the GTK libraries given by pkg-config.
+ This lets the demo be built for the other architectures (i386, armhf, arm64).
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/Makefile
++++ b/Makefile
+@@ -58,10 +58,9 @@
+ CFLAGS += -std=gnu11
+ #CFLAGS += -no-pie
+ 
+-CFLAGS += -nostartfiles -nodefaultlibs
+ CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk+-3.0)
+ 
+-LDFLAGS += -lc -lGL -lglib-2.0 -lgobject-2.0 -lgtk-3 -lgdk-3
++LDFLAGS += -lGL $(shell $(PKG_CONFIG) --libs gtk+-3.0)
+ 
+ .PHONY: clean check_size noelfver
+ 
+--- a/enamel_pin.c
++++ b/enamel_pin.c
+@@ -4,6 +4,7 @@
+ #include<stdbool.h>
+ #include<stdlib.h>
+ #include<stdint.h>
++#include<unistd.h>
+ 
+ #include <glib.h>
+ #include <gtk/gtk.h>
+@@ -13,7 +14,6 @@
+ #include <GL/glu.h>
+ #include <GL/glext.h>
+ 
+-#include "sys.h"
+ 
+ #include "shader.h"
+ const char* vshader = "#version 420\nvoid main(){gl_Position=vec4(gl_VertexID%2==0?-1:1,gl_VertexID%4/2==0?-1:1,1,1);}";
+@@ -27,8 +27,7 @@
+ #define SCISSORS
+ 
+ static void quit_asm() {
+-	SYS_exit_group(0);
+-	__builtin_unreachable();
++	_exit(0);
+ }
+ 
+ GLuint vao;
+@@ -154,19 +153,12 @@
+ #endif
+   return TRUE;
+ }
+-__attribute__((__externally_visible__, __section__(".text.startup._start"), __noreturn__))
+-void _start() {
+-	asm volatile("sub $8, %rsp\n");
++int main(int argc, char **argv) {
+ #ifdef TIME_RENDER
+ 	gtimer = g_timer_new();
+ #endif
+ 
+-	typedef void (*voidWithOneParam)(int*);
+-#pragma GCC diagnostic push
+-#pragma GCC diagnostic ignored "-Wcast-function-type"
+-	voidWithOneParam gtk_init_one_param = (voidWithOneParam)gtk_init;
+-#pragma GCC diagnostic pop
+-	(*gtk_init_one_param)(NULL);
++	gtk_init(&argc, &argv);
+ 
+ 	GtkWidget *win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+ 	GtkWidget *glarea = gtk_gl_area_new();
+@@ -190,5 +182,5 @@
+ 	gtk_main();
+ 
+ 	quit_asm();
+-	__builtin_unreachable();
+-}
+\ No newline at end of file
++	return 0;
++}

@@ -1,0 +1,15 @@
+enamelpin-by-suricrasiaonline for Debian
+----------------------------------------
+
+* The packaged executable is the "unpacked" version described in README.txt:
+  the 4k version is compressed with smol and vondehi, which need a hand-tuned
+  x86-64 toolchain.
+* The x86-64 _start entry point and raw syscalls of the 4k version are
+  replaced by a standard main() and _exit() (02_portable-entry-point.patch),
+  so the demo is also built for i386, armhf and arm64.
+* The shader is minified at build time with the system shader_minifier.exe
+  (shader-minifier package) instead of the copy shipped upstream.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 11:08:24 +0100

@@ -1,10 +1,12 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging and crossbuilding
+Description: adapt the Makefile to packaging and cross-building
+ Use $(CC), $(NASM) and $(PKG_CONFIG), the system shader_minifier.exe, the
+ build flags of the environment, rename the executable after the package,
+ build the unpacked executable (the smol/vondehi packing needs a hand-tuned
+ x86-64 toolchain) and add an install target.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2025-05-08
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/Makefile
 +++ b/Makefile
 @@ -22,29 +22,46 @@
@@ -109,7 +111,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 \ No newline at end of file
 +	./sizelimit_check.sh
 +
-+install: $(TARGET)
++install:
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 +	$(INSTALL_PROGRAM) $(PROJNAME) $(DESTDIR)$(bindir)
 --- a/sizelimit_check.sh
