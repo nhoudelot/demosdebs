@@ -1,10 +1,11 @@
 [Desktop Entry]
 Version=1.0
-Name=cube
+Name=Cube
 GenericName=Demo
-Comment=Demo by MooZ, released in 2004
+Comment=4k intro by MooZ, released in 2004
+Comment[fr]=Intro 4k de MooZ, sortie en 2004
 Type=Application
 Exec=/usr/bin/cube-by-mooz
 Icon=cube-by-mooz
 Categories=AudioVideo;Game;
-Name[fr_FR]=cube
+Keywords=demoscene;demo;intro;4k;OpenGL;

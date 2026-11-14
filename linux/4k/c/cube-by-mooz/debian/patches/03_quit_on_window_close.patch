@@ -1,0 +1,19 @@
+Description: quit when the window is closed
+ The intro only stopped on a key press (SDL_KEYDOWN): closing the window,
+ or sending SIGTERM (which SDL turns into SDL_QUIT), left it running. It
+ now also quits on SDL_QUIT.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-13
+--- a/cube.c
++++ b/cube.c
+@@ -75,7 +75,7 @@
+     glTexParameteri(3553,10240,9729);
+   } h = u = SDL_GetTicks(); g = 0;s = 1;
+ 
+-  while (!SDL_PollEvent (&e) || (e.type != 2))
++  while (!SDL_PollEvent (&e) || (e.type != 2 && e.type != SDL_QUIT))
+     {  
+       t=((v=SDL_GetTicks())-u)*M/8e3;
+ 

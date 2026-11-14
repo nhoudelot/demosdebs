@@ -17,10 +17,12 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: MooZ 4k Intro/2004/Linux
- Demo by MooZ, released in 2004
- make for building
- cube-by-mooz for running
- any key for quitting
- openGL for showing
- silence for dancing
- MooZ for the making
+ Cube is a 4k intro written in C with SDL 1.2 and OpenGL by MooZ for the
+ 2004 Linux 4k compo listed on 320x200.org.
+ .
+ A grid of small cubes is lit by three metaballs that drift through it:
+ each cube grows with the field around it. In rhythm, the picture
+ switches between two blur effects made with textures: a soft glow and a
+ radial zoom.
+ .
+ Press any key or close the window to quit.

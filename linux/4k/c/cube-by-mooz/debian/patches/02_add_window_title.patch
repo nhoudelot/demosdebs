@@ -1,9 +1,7 @@
 Description: add a title to the window
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
+Forwarded: not-needed
 Last-Update: 2020-04-24
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/cube.c
 +++ b/cube.c
 @@ -45,6 +45,7 @@
