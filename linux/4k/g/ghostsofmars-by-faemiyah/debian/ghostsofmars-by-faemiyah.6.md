@@ -1,6 +1,6 @@
 % ghostsofmars-by-faemiyah(6) Ghosts of Mars User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),Faemiyah
-% 2024-03-25
+% Nicolas HOUDELOT (nicolas@demosdebs.org),Claude Opus 5.5,Faemiyah
+% 2026-11-14
 
 # NAME
 ghostsofmars-by-faemiyah - the command to run Ghosts of Mars.
@@ -9,8 +9,8 @@ ghostsofmars-by-faemiyah - the command to run Ghosts of Mars.
 ghostsofmars-by-faemiyah [*options*]
 
 # DESCRIPTION
-Ghosts of Mars is a 4k intro released by Faemiyah in august 2015.
-Ended 4th at Assembly 2015
+Ghosts of Mars is a 4k intro released by Faemiyah in August 2015.
+It ended 4th in the combined 4k intro compo at Assembly 2015.
 
 Warma [Additional code]
 Trilkk [Code]
@@ -37,7 +37,9 @@ ESC
 :	to quit
 
 F
-:	toggle fullscreen
+:	toggle fullscreen (desktop resolution)
+
+The window can be resized. V-Sync is enabled.
 
 # INFOS
 https://www.pouet.net/prod.php?which=66046

@@ -4,14 +4,15 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- cmake,
+ cmake (>= 3.16),
  libboost-filesystem-dev,
  libboost-program-options-dev,
  libboost-thread-dev,
  libboost-wave-dev,
  libpng-dev,
  libsdl2-dev,
- libglew-dev
+ libglew-dev,
+ libgl-dev
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=66046
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2015-08_4k-intro_ghosts_of_mars
@@ -23,9 +24,14 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: 4k intro for Linux, released in 2015
- 4k intro by Faemiyah, released in 2015
- Ghosts of Mars
+Description: Ghosts of Mars, 4k intro by Faemiyah (Assembly 2015)
+ Ghosts of Mars is a 4k intro released by Faemiyah at Assembly 2015, where
+ it ranked 4th in the combined 4k intro compo. The original party version
+ ran on FreeBSD.
+ .
+ This package contains the regular (non-compressed) build of the intro,
+ compiled from the sources with the system libraries. Press F to toggle
+ fullscreen and Esc to quit.
  .
  Synth & music:              Juippi
  Everything else:            Trilkk

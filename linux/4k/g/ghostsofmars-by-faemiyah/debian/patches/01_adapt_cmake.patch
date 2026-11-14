@@ -1,10 +1,11 @@
-Description: updating CMakeLists
- updating CMakeLists to v3 at least
+Description: update the CMake build system
+ Require CMake 3.16 and use the imported targets of the system libraries
+ (Boost, GLEW, OpenGL, PNG, SDL2, Threads) instead of the upstream find_*()
+ helpers. The executable is named after the Debian package.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-25
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1,25 +1,25 @@
@@ -47,13 +48,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  add_executable(ghosts_of_mars
    "src/bsd_rand.c"
    "src/bsd_rand.h"
-@@ -34,21 +34,22 @@
+@@ -34,21 +34,23 @@
    "src/intro.cpp"
    "src/intro.hpp"
    "src/main.cpp")
 +
 +target_compile_definitions(ghosts_of_mars PRIVATE USE_LD)
 +target_include_directories(ghosts_of_mars PRIVATE "${PROJECT_SOURCE_DIR}/src")
++set_target_properties(ghosts_of_mars PROPERTIES OUTPUT_NAME ghostsofmars-by-faemiyah)
 +
  if(MSVC)
 -  target_link_libraries(ghosts_of_mars "WINMM")
@@ -71,7 +73,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -  target_link_libraries(ghosts_of_mars "${GLEW_LIBRARY}")
 -  target_link_libraries(ghosts_of_mars "${PNG_LIBRARY}")
 -  target_link_libraries(ghosts_of_mars "${SDL2_LIBRARY}")
-+  target_link_libraries(regiondemagallanes-by-faemiyah PRIVATE Winmm)
++  target_link_libraries(ghosts_of_mars PRIVATE Winmm)
  endif()
 -target_link_libraries(ghosts_of_mars "${THREADS_LIBRARY}")
 +

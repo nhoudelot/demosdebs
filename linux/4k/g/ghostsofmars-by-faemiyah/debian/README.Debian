@@ -1,10 +1,26 @@
 ghostsofmars-by-faemiyah for Debian
-----------------------------------
+-----------------------------------
 
-This is the regular version of this intro
-not the minimified version of 4k
+This is the regular version of the intro, not the minimised 4k party
+version. It is built with the USE_LD definition, so the executable is
+linked normally against the system libraries (SDL2, GLEW, libpng, Boost)
+instead of loading them at runtime with the dnload mechanism.
 
-had to patch SDL2 include path
-updated CMAkefiles.list to 3.5 at least
+The fragment shader is read from /usr/share/ghostsofmars-by-faemiyah.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 19 Dec 2019 00:21:30 +0100
+Changes made for the Debian package (see debian/patches):
+ - CMake 3.16 build with the imported targets of the system libraries,
+   the executable is named after the package;
+ - SDL2 include paths;
+ - no rpath in the executable;
+ - shader path moved to /usr/share/ghostsofmars-by-faemiyah;
+ - F toggles fullscreen (desktop resolution), the window is resizable;
+ - V-Sync is enabled.
+
+The prebuilt party binaries of the rel/ directory (FreeBSD, Linux,
+Windows) are kept in the source package as shipped upstream, but are not
+installed.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 12:44:00 +0100

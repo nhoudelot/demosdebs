@@ -1,3 +1,30 @@
+ghostsofmars-by-faemiyah (1.0+git20171018-0ddebs9) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches : added 08_enable-vsync.patch, V-Sync is enabled
+    after the OpenGL context creation
+  * debian/patches/01_adapt_cmake.patch : fixed the target name of the
+    MSVC link, the executable is named after the package by CMake
+    (OUTPUT_NAME), DEP-3 header
+  * debian/patches/07_resizable-window.patch : the drawable size is
+    checked every frame, the intro was not centered when started in
+    fullscreen (no resize event from SDL2), DEP-3 header
+  * debian/rules : removed the mv of the executable in
+    override_dh_install and the redundant -DUSE_LD flag
+  * debian/control : cmake (>= 3.16), added libgl-dev, longer
+    description
+  * debian/copyright : upstream name and source, BSD-3-Clause text as in
+    the LICENCE file
+  * debian/resources/*.desktop : 4k intro comment, French comment and
+    keywords
+  * debian/source/lintian-overrides : removed the unused source-is-missing
+    overrides and the package prefix
+  * debian/ghostsofmars-by-faemiyah.lintian-overrides : groff-message of
+    the pandoc man page
+  * debian/README.Debian, debian/ghostsofmars-by-faemiyah.6.md : updated
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 12:44:00 +0100
+
 ghostsofmars-by-faemiyah (1.0+git20171018-0ddebs8) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

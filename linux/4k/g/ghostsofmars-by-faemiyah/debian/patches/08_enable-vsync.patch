@@ -1,0 +1,19 @@
+Description: enable vertical synchronisation
+ SDL2 does not set the swap interval by itself, so the intro could render
+ as fast as possible depending on the driver. Ask for V-Sync right after
+ the OpenGL context creation. The timing of the intro is based on
+ SDL_GetTicks(), so the playback speed does not change.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -609,6 +609,7 @@
+   SDL_Window *window = dnload_SDL_CreateWindow("Ghosts of Mars by Faemiyah", 0, 0, static_cast<int>(screen_w),
+       static_cast<int>(screen_h), SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
+   dnload_SDL_GL_CreateContext(window);
++  SDL_GL_SetSwapInterval(1);
+   dnload_SDL_ShowCursor(flag_developer);
+ #if defined(USE_LD)
+   {

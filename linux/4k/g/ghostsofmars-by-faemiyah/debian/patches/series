@@ -5,3 +5,4 @@
 05_change-glsl-path.patch
 06_add-fullscreen.patch
 07_resizable-window.patch
+08_enable-vsync.patch

@@ -1,13 +1,58 @@
-Description: make window resizable
- make window resizable with correct aspect ratio
-Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
-Applied-Upstream: no
-Last-Update: 2026-04-01
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Description: make the window resizable
+ The window can be resized and gets a title. The size of the drawable area
+ is checked every frame, and the viewport and the aspect ratio uniform of
+ the fragment shader follow it. Resize events alone are not enough: when
+ the intro starts in fullscreen, SDL2 creates the window directly at the
+ desktop size and sends no event, so the image was not centered.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
-@@ -571,8 +571,8 @@
+@@ -543,6 +543,41 @@
+   dnload_glRects(-1, -1, 1, 1);
+ }
+ 
++#if defined(USE_LD)
++/// \brief Follow the size of the drawable area.
++///
++/// Called every frame: SDL2 sends no resize event when the window is created
++/// directly at the desktop size (fullscreen at startup).
++static void update_viewport(SDL_Window *window)
++{
++  static int last_w = 0;
++  static int last_h = 0;
++  int new_w;
++  int new_h;
++
++  SDL_GL_GetDrawableSize(window, &new_w, &new_h);
++  if((0 >= new_w) || (0 >= new_h) || ((new_w == last_w) && (new_h == last_h)))
++  {
++    return;
++  }
++  last_w = new_w;
++  last_h = new_h;
++
++  glViewport(0, 0, new_w, new_h);
++
++  float fw = static_cast<float>(new_w);
++  float fh = static_cast<float>(new_h);
++  if(new_w > new_h)
++  {
++    glProgramUniform3f(g_program_fragment, g_uniform_aspect, fw / fh, 1.0f, 2.0f / fh);
++  }
++  else
++  {
++    glProgramUniform3f(g_program_fragment, g_uniform_aspect, 1.0f, fh / fw, 2.0f / fw);
++  }
++}
++#endif
++
+ void ToggleFullscreen(SDL_Window* window)
+ {
+   bool isFullscreen = (SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN_DESKTOP) != 0;
+@@ -571,8 +606,8 @@
  #endif
    dnload();
    dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -18,34 +63,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    dnload_SDL_GL_CreateContext(window);
    dnload_SDL_ShowCursor(flag_developer);
  #if defined(USE_LD)
-@@ -833,6 +833,30 @@
-       {
-         quit = true;
-       }
-+      else if(SDL_WINDOWEVENT == event.type)
-+		{
-+		  if(SDL_WINDOWEVENT_RESIZED == event.window.event ||
-+			 SDL_WINDOWEVENT_SIZE_CHANGED == event.window.event)
-+		  {
-+			int new_w = event.window.data1;
-+			int new_h = event.window.data2;
+@@ -827,6 +862,8 @@
+     SDL_Event event;
+ 
+ #if defined(USE_LD)
++    update_viewport(window);
 +
-+			glViewport(0, 0, new_w, new_h);
-+
-+			float fw = static_cast<float>(new_w);
-+			float fh = static_cast<float>(new_h);
-+			if(new_w > new_h)
-+			{
-+			  glProgramUniform3f(g_program_fragment, g_uniform_aspect,
-+				  fw / fh, 1.0f, 2.0f / fh);
-+			}
-+			else
-+			{
-+			  glProgramUniform3f(g_program_fragment, g_uniform_aspect,
-+				  1.0f, fh / fw, 2.0f / fw);
-+			}
-+		  }
-+		}
-       else if(SDL_KEYDOWN == event.type)
-       {
-         switch(event.key.keysym.sym)
+     while(SDL_PollEvent(&event))
+     {
+       if(SDL_QUIT == event.type)

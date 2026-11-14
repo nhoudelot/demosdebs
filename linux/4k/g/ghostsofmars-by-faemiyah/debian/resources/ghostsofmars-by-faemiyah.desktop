@@ -1,10 +1,12 @@
 [Desktop Entry]
 Version=1.0
 Name=Ghosts of Mars
-GenericName=Demo
-Comment=Demo by Faemiyah, released in 2015
+GenericName=4k intro
+Comment=4k intro by Faemiyah, released at Assembly 2015
+Comment[fr]=Intro 4k de Faemiyah, sortie à l'Assembly 2015
 Type=Application
 Exec=/usr/bin/ghostsofmars-by-faemiyah
 Icon=ghostsofmars-by-faemiyah
 Categories=AudioVideo;
+Keywords=demo;demoscene;intro;4k;Faemiyah;
 Name[fr_FR]=Ghosts of Mars
