@@ -1,3 +1,26 @@
+dirtygarden-by-faemiyah (1.0+git20170414-0ddebs7) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/09_vsync-and-event-handling.patch : enable V-Sync,
+    quit when the window is closed, process all pending events, fix
+    -n/--no-fullscreen and use desktop fullscreen
+  * debian/patches/03_fix-shader.patch : added DEP-3 header
+  * debian/control : build with libsdl2-dev instead of libsdl1.2-dev,
+    added libglu1-mesa-dev (required by configure, was pulled by SDL 1.2),
+    better description
+  * debian/README.source : updated (the package is portable, built for
+    all architectures)
+  * debian/dirtygarden-by-faemiyah.6.md : documented the real options
+    and keys
+  * debian/resources/*.desktop : added Keywords and French comment,
+    dropped the lintian override
+  * debian/*lintian-overrides : added comments, removed obsolete
+    overrides
+  * debian/upstream/metadata : added
+  * Removed unused debian/dirtygarden-by-faemiyah-docs.docs
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 02:59:08 +0100
+
 dirtygarden-by-faemiyah (1.0+git20170414-0ddebs6) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

@@ -6,3 +6,4 @@
 06_migrate-to-SDL2.patch
 07-resize-windows.patch
 08_add-f-for-fullscreen.patch
+09_vsync-and-event-handling.patch

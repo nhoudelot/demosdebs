@@ -2,9 +2,10 @@
 Version=1.0
 Name=Dirty Garden
 GenericName=Demo
-Comment=Demo by Faemiyah, released in 2011
+Comment=4k intro by Faemiyah, released in 2011
+Comment[fr]=Intro 4k de Faemiyah, sortie en 2011
 Type=Application
 Exec=/usr/bin/dirtygarden-by-faemiyah
 Icon=dirtygarden-by-faemiyah
 Categories=AudioVideo;Game;
-Name[fr_FR]=Dirty Garden
+Keywords=demo;demoscene;intro;4k;

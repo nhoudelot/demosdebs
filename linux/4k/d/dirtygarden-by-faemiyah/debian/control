@@ -4,8 +4,9 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- libsdl1.2-dev,
+ libsdl2-dev,
  libgl-dev,
+ libglu1-mesa-dev,
  libpng-dev
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=57451
@@ -18,7 +19,11 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: 4k intro for Linux, released in 2011
+Description: 4k intro by Faemiyah, released at Assembly 2011
+ Dirty Garden is a 4 kilobyte intro by the Finnish demogroup Faemiyah,
+ rendering ray-marched fractals (Mandelbulb and Julia sets) with a
+ software synthesizer soundtrack.
+ .
  Release: Assembly 2011 4k intro compo, 8th place
  Release platform: FreeBSD-ia32
  Ports: FreeBSD, Linux, Windows

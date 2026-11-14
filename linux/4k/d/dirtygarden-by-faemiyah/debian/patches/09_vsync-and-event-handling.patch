@@ -1,0 +1,120 @@
+Description: enable V-Sync, handle window close and fix command line flags
+ * Call SDL_GL_SetSwapInterval(1) right after SDL_GL_CreateContext, so that
+   the intro is synchronised with the display instead of rendering as fast
+   as possible.
+ * Read the real drawable size after the window creation, so that the
+   viewport is right when the intro starts in fullscreen.
+ * Use desktop fullscreen for -f (no video mode change).
+ * -n/--no-fullscreen toggled the fullscreen flag, so it switched to
+   fullscreen when the default is windowed: it is now the same as -w.
+ * Process all pending events each frame, quit on SDL_QUIT (window close
+   button), and ignore key repeat of F.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/src/main.c
++++ b/src/main.c
+@@ -478,7 +478,7 @@
+ {
+ 	int ii;
+ #if SCREEN_F
+-	uint32_t ret = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN;
++	uint32_t ret = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP;
+ #else
+ 	uint32_t ret = SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
+ #endif
+@@ -488,15 +488,12 @@
+ 
+ 		if((strcmp("-f", cmp) == 0) || (strcmp("--fullscreen", cmp) == 0))
+ 		{
+-			ret |= SDL_WINDOW_FULLSCREEN;
++			ret |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 		}
+-		else if((strcmp("-n", cmp) == 0) || (strcmp("--no-fullscreen", cmp) == 0))
++		else if((strcmp("-n", cmp) == 0) || (strcmp("--no-fullscreen", cmp) == 0) ||
++				(strcmp("-w", cmp) == 0) || (strcmp("--windowed", cmp) == 0))
+ 		{
+-			ret ^= SDL_WINDOW_FULLSCREEN;
+-		}
+-		else if((strcmp("-w", cmp) == 0) || (strcmp("--windowed", cmp) == 0))
+-		{
+-			ret &= ~SDL_WINDOW_FULLSCREEN;
++			ret &= ~(uint32_t)SDL_WINDOW_FULLSCREEN_DESKTOP;
+ 		}
+ #if defined(HAVE_LIBPNG)
+ 		else if((strcmp("-r", cmp) == 0) || (strcmp("--record", cmp) == 0))
+@@ -509,7 +506,8 @@
+ 			printf("Unknown flag: %s\n", cmp);
+ 			puts("Valid command line arguments:\n"
+ 					"  -f, --fullscreen    Fullscreen mode.\n"
+-					"  -w, --windowed      Windowed mode."
++					"  -w, --windowed      Windowed mode (default).\n"
++					"  -n, --no-fullscreen Same as --windowed."
+ #if defined(HAVE_LIBPNG)
+ 					"\n"
+ 					"  -r, --record        Do not run in realtime, produce png/wav output."
+@@ -1424,6 +1422,9 @@
+ 
+ 		sdlWindow = DDL_CreateWindow("Dirty Garden by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_W,SCREEN_H,sdl_flags);
+ 		sdlGlcontext = DDL_GL_CreateContext(sdlWindow);
++		// Enable V-Sync: must be called once the GL context exists.
++		SDL_GL_SetSwapInterval(1);
++		SDL_GL_GetDrawableSize(sdlWindow, &screen_w, &screen_h);
+ 	}
+ 	DDL_ShowCursor(0);
+ #if defined(WIN32)
+@@ -1957,29 +1958,38 @@
+ 		DDL_GL_SwapWindow(sdlWindow);
+ 		draw(currtick);
+ 
+-		// Abort on any keypress.
+-		if(DDL_PollEvent(&event))
++		// Abort on any keypress (except F) or when the window is closed.
+ 		{
+-			if(event.type == SDL_WINDOWEVENT &&  event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++			int quit = 0;
++			while(DDL_PollEvent(&event))
+ 			{
+-				screen_w = event.window.data1;
+-				screen_h = event.window.data2;
+-			}
+-			if(event.type == SDL_KEYDOWN)
+-			{
+-				if(event.key.keysym.sym == SDLK_f)
++				if(event.type == SDL_QUIT)
+ 				{
+-				    toggle_fullscreen();
++					quit = 1;
+ 				}
+-				else
++				else if(event.type == SDL_KEYDOWN)
+ 				{
+-				    break;
++					if(event.key.keysym.sym == SDLK_f)
++					{
++						if(!event.key.repeat)
++						{
++							toggle_fullscreen();
++						}
++					}
++					else
++					{
++						quit = 1;
++					}
++				}
++				else if(event.type == SDL_WINDOWEVENT &&
++						event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++				{
++					SDL_GL_GetDrawableSize(sdlWindow, &screen_w, &screen_h);
+ 				}
+ 			}
+-			if(event.type == SDL_WINDOWEVENT &&
+-			   event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++			if(quit)
+ 			{
+-				SDL_GL_GetDrawableSize(sdlWindow, &screen_w, &screen_h);
++				break;
+ 			}
+ 		}
+ #endif

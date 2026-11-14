@@ -1,8 +1,22 @@
 dirtygarden-by-faemiyah for Debian
 ----------------------------------
 
-as there is some 32 bit asm, it's impossible to compile it for another architecture
+The upstream source has two build modes:
+ * the compo mode, which loads its symbols by hand and ends with 32-bit x86
+   assembly, to fit in 4 kilobytes (FreeBSD ia32 only);
+ * the USE_LD mode, plain C linked normally against SDL and OpenGL.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>   fri, 19 Jan 2018 02:13:02 +0100
- 
+The package is built in the USE_LD mode (DEB_CFLAGS_MAINT_APPEND in
+debian/rules), which is portable: it is built for amd64, i386, armhf, arm64
+and riscv64.
 
+The Debian patches move the intro from SDL 1.2 to SDL2, start it in a
+resizable window (F toggles fullscreen) and fix the shaders
+for strict GLSL compilers.
+
+The rel/ directory of the upstream archive contains the original prebuilt
+executables (FreeBSD, Linux, Windows); they are neither used nor installed.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 03:00:00 +0100
