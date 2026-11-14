@@ -3,3 +3,5 @@
 03_remove_asm.patch
 04_migrate_to_SDL2.patch
 05_fix_implicit-function-declaration.patch
+06_fix_audio_events_and_timing.patch
+07_use_cppflags.patch

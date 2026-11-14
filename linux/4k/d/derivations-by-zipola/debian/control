@@ -15,16 +15,10 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: 4k intro for Linux, released in 2010
- 4k intro by zipola, released in 2010
- Derivations
- ***********
+Description: Derivations 4k intro by zipola/2010/Linux
+ 4k intro by zipola (Tuomo Sipola), released in November 2010 at
+ Instanssi I/2010, where it ranked 7th in the combined demo compo.
  .
- by zipola (Tuomo Sipola)
- .
- Linux
- C code compiled with gcc
- uses SDL and SDL_opengl
- 4k
- .
- Made for Instanssi I/2010
+ Colored polygons, flocks of spinning triangles and a line-drawn font
+ for the greetings, with sine-wave sound generated at start-up, written
+ in C with SDL and OpenGL. Press any key to quit.

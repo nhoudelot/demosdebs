@@ -1,3 +1,26 @@
+derivations-by-zipola (1.0+1-0ddebs10) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/06_fix_audio_events_and_timing.patch : SDL converts
+    the 16-bit mono sound instead of opening the device with another
+    format, closing the window quits, effects timed from the start of
+    the sound, vsync enabled after the creation of the OpenGL context
+  * debian/patches/07_use_cppflags.patch : use CPPFLAGS (fortify) and
+    LDLIBS
+  * debian/rules : use optimize=+lto instead of -flto, removed
+    PKG_CONFIG_PATH
+  * debian/resources/*.desktop : added Keywords and a French comment,
+    single main category
+  * debian/*.lintian-overrides : documented the override, removed the
+    desktop keywords one
+  * debian/*.6 : rewritten, documented the keys
+  * debian/control : better description
+  * removed debian/derivations-by-zipola-docs.docs (unused, for a non-
+    existent package)
+  * debian/*.lintian-overrides : override for the pandoc CB font probe
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 02:50:25 +0100
+
 derivations-by-zipola (1.0+1-0ddebs9) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

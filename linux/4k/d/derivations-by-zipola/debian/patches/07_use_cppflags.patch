@@ -1,0 +1,54 @@
+Description: pass CPPFLAGS to the compiler and libraries in LDLIBS
+ CPPFLAGS were ignored, so the build did not get -D_FORTIFY_SOURCE.
+ The link now uses CFLAGS too (needed with -flto), links the listed
+ objects instead of *.o, and puts the libraries after the objects in
+ LDLIBS.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/Makefile
++++ b/Makefile
+@@ -5,7 +5,7 @@
+ # Try -Os -O1 -O2 -O3
+ PKG_CONFIG ?= pkg-config
+ CFLAGS += -Wall -std=gnu90 -pipe $(shell $(PKG_CONFIG) --cflags sdl2 gl )
+-LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl ) -lm
++LDLIBS += $(shell $(PKG_CONFIG) --libs sdl2 gl ) -lm
+ TARGET := derivations-by-zipola
+ 
+ #variables d’installation
+@@ -22,7 +22,7 @@
+ all: $(TARGET)
+ 
+ $(TARGET): derivations.o gfx.o snd.o seq.o letters.o
+-	$(CC) *.o -o $(TARGET) $(LDFLAGS)
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+ 	#$(LINKER) $(LDFLAGS) $^ $(LDLIBS) -o $@
+ 	#./size.sh
+ 	#strip -s -R .comment -R .gnu.version $(TARGET)
+@@ -36,19 +36,19 @@
+ 	#./size.sh
+ 
+ derivations.o: derivations.c
+-	$(CC) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(CFLAGS) -c $<
+ 
+ gfx.o: gfx.c
+-	$(CC) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(CFLAGS) -c $<
+ 
+ seq.o: seq.c
+-	$(CC) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(CFLAGS) -c $<
+ 
+ snd.o: snd.c
+-	$(CC) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(CFLAGS) -c $<
+ 
+ letters.o: letters.c
+-	$(CC) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(CFLAGS) -c $<
+ 
+ run:
+ 	./$(TARGET)

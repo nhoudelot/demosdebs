@@ -1,0 +1,78 @@
+Description: fix the audio format, the quit events and the timing
+ * snd.c: the audio callback writes signed 16-bit mono samples at 44100 Hz,
+   so SDL must convert them instead of being allowed to open the device
+   with another format (SDL_AUDIO_ALLOW_ANY_CHANGE): with a device that
+   prefers, for example, 32-bit float stereo, the samples were misread.
+   Zero the SDL_AudioSpec and stop reading the sound buffer at its end.
+ * seq.c: read all pending events each frame and also quit when the window
+   is closed (SDL_QUIT); the close button did nothing before.
+ * seq.c: give the effects the time elapsed since the start of the main
+   loop, as the sound starts there, and not the time since SDL_Init, which
+   includes the generation of the sound.
+ * gfx.c: enable vsync after the creation of the OpenGL context, it had
+   no effect before.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/gfx.c
++++ b/gfx.c
+@@ -239,9 +239,9 @@
+ void init_gfx()
+ {
+ 	SDL_ShowCursor(SDL_ENABLE );
+-	SDL_GL_SetSwapInterval(1);
+ 	sdlWindow = SDL_CreateWindow("derivations",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1024,768,SDL_WINDOW_OPENGL);
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	SDL_GL_SetSwapInterval(1);
+ 
+ 	glEnable(GL_DEPTH_TEST);
+ 	glHint(GL_LINE_SMOOTH_HINT,GL_NICEST);
+--- a/seq.c
++++ b/seq.c
+@@ -65,12 +65,14 @@
+ 		if (time < next_time)
+ 			to_next = next_time - time;
+ 
+-		end = sequence(time);
++		end = sequence(time - start_time);
+ 		SDL_Delay(to_next);
+ 		next_time += TICK;
+ 
+-		if (SDL_PollEvent(&e) && e.type == SDL_KEYDOWN)
+-			end = 1;
++		while (SDL_PollEvent(&e)) {
++			if (e.type == SDL_KEYDOWN || e.type == SDL_QUIT)
++				end = 1;
++		}
+ 	}
+ }
+ 
+--- a/snd.c
++++ b/snd.c
+@@ -92,7 +92,7 @@
+ 	int16_t *str = (int16_t*)stream;
+ 	int i = 0;
+ 	for (i = 0; i < len/2; i++) {
+-		str[i] = sound[sound_position++];
++		str[i] = (sound_position < SOUND_SIZE) ? sound[sound_position++] : 0;
+ 	}
+ }
+ 
+@@ -104,6 +104,7 @@
+ {
+ 	SDL_AudioSpec desired;
+ 	SDL_AudioSpec obtained;
++	SDL_zero(desired);
+ 	desired.freq = FS;
+ 	desired.format = AUDIO_S16SYS;
+ 	desired.channels = 1;
+@@ -113,7 +114,7 @@
+ 
+ 	generate_sound();
+ 
+-	device = SDL_OpenAudioDevice(NULL, 0, &desired, &obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);
++	device = SDL_OpenAudioDevice(NULL, 0, &desired, &obtained, 0);
+ 
+ 	SDL_PauseAudioDevice(device,0);
+ }

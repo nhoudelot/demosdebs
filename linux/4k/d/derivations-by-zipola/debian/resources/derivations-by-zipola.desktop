@@ -2,9 +2,11 @@
 Version=1.0
 Name=Derivations
 GenericName=Demo
-Comment=Demo by zipola, released in 2010
+Comment=4k intro by zipola, released in 2010
+Comment[fr]=Intro 4k de zipola, sortie en 2010
 Type=Application
 Exec=/usr/bin/derivations-by-zipola
 Icon=derivations-by-zipola
-Categories=AudioVideo;Game;
+Categories=AudioVideo;
+Keywords=demoscene;demo;intro;4k;OpenGL;
 Name[fr_FR]=Derivations
