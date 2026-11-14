@@ -1,3 +1,10 @@
+Description: fix 64-bit portability warnings
+ Cast the copied texture size to GLsizei, compare sizeof() as an int
+ and check argv[0] before reading its last character.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/main.c
 +++ b/main.c
 @@ -36,7 +36,8 @@

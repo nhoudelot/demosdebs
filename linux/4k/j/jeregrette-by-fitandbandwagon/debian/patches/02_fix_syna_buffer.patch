@@ -1,10 +1,11 @@
-Description: fix syna bug
-SDL2 need a buffer to be defined with memset()
+Description: fix the echo buffers of the synthesizer
+ The echo buffers were not initialised: clear them with memset(), SDL2 gives
+ audible noise otherwise. Also add parentheses around assignments used as
+ truth values.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2024-03-27
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/syna.c
 +++ b/syna.c
 @@ -153,7 +153,7 @@

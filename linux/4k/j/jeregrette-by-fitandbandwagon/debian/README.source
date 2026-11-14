@@ -1,0 +1,26 @@
+jeregrette-by-fitandbandwagon for Debian
+---------------------------------------
+
+The orig tarball contains the source release of the intro, published on
+http://ftp.kameli.net/pub/fit/je_regrette/ : main.c, osa.c, syna.c,
+syna.h, biisi.c (the music), letters2.h, Makefile and README.txt.
+osa.c and the Makefile were reformatted with uncrustify in 2019.
+
+Patches (debian/patches):
+ 01  Makefile using pkg-config and the dpkg-buildflags (CPPFLAGS, CFLAGS,
+     LDFLAGS), with an install target
+ 02  clear the echo buffers of the synthesizer
+ 03  fix compiler warnings
+ 04  port from SDL 1.2 to SDL2
+ 05  quit with Escape, Q or the window close button
+ 06  toggle fullscreen with the F key
+ 07  64-bit portability warnings
+ 08  enable V-Sync, let SDL convert the audio format (the synthesizer only
+     writes signed 16-bit stereo samples), sleep instead of spinning when
+     the 100 Hz limiter skips a frame, fix the -w option
+ 09  linear filtering of the feedback textures: with GL_NEAREST the motion
+     blur drew a line at exactly half the height of the image
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 22:57:20 +0100

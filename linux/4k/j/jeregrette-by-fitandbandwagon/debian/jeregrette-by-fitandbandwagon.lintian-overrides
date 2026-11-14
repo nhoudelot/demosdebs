@@ -1,2 +1,2 @@
-jeregrette-by-fitandbandwagon binary: unknown-section demos
-jeregrette-by-fitandbandwagon binary: desktop-entry-lacks-keywords-entry [usr/share/applications/jeregrette-by-fitandbandwagon.desktop]
+unknown-section demos
+groff-message * [usr/share/man/man6/jeregrette-by-fitandbandwagon.6.gz:*]

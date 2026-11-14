@@ -1,3 +1,27 @@
+jeregrette-by-fitandbandwagon (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/08_vsync_and_audio_format.patch : enable V-Sync, open
+    the audio device without format changes (noise or out-of-bounds reads
+    with PipeWire), stop spinning on the CPU between frames, fix the -w
+    option
+  * debian/patches/09_linear_feedback_filter.patch : linear filtering of
+    the motion blur texture, removes a line at half the image height
+  * debian/patches/01_adapt_makefile.patch : use CPPFLAGS (fortify)
+  * debian/patches : DEP-3 headers for 01, 02, 03 and 07, removed the
+    unused 08_resizable-window.patch (not in series)
+  * debian/control : removed the obsolete libsdl1.2-compat dependency,
+    libgl-dev instead of the unused libglu-dev, rewrote the description
+  * debian/rules : removed the useless PKG_CONFIG_PATH export
+  * debian/resources/*.desktop : added Keywords and a French comment
+  * debian/*.lintian-overrides : removed desktop-entry-lacks-keywords-entry,
+    added the pandoc groff-message override
+  * debian/*.6 : rewrote the manual page (no launcher, keys, credits)
+  * debian/copyright : full GPL-2+ license text
+  * debian/README.source : documented the orig tarball and the patches
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 22:57:20 +0100
+
 jeregrette-by-fitandbandwagon (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

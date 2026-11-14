@@ -5,7 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  pkgconf,
- libglu-dev,
+ libgl-dev,
  libsdl2-dev
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=13023
@@ -15,15 +15,14 @@ Package: jeregrette-by-fitandbandwagon
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libsdl1.2-compat
-Description: Fit and Bandwagon 4k Intro/2004/Linux
- Intro 4k by Fit and Bandwagon, released in 2004
- Fit and Bandwagon present at Assembly'04
+ ${misc:Depends}
+Description: Je Regrette, 4k intro by Fit and Bandwagon (2004)
+ Je Regrette is a 4k intro for Linux by the Finnish demogroups Fit and
+ Bandwagon, released at Assembly 2004 where it ranked 5th in the combined
+ 4k intro competition.
  .
- JE REGRETTE
- A 4k intro originally for x86 Linux
- The source release
+ A text cylinder, a wireframe red sphere and music-synced stripes and
+ triangles with motion blur and glow, driven by a small software
+ synthesizer, using SDL and OpenGL.
  .
- NF/Bandwagon - effects, music
- Marq/fit     - add. effects, soft synth, system programming
+ Credits: Marq (code, soft synth) and neckfreak (code, effects, music).

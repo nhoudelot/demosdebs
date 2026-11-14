@@ -1,0 +1,21 @@
+Description: use linear filtering for the feedback textures
+ The motion blur and glow draw the previous frame back on a quad slightly
+ smaller than the screen, so the texture is minified. With GL_NEAREST the
+ rows above and below the centre are sampled from opposite sides, and the
+ feedback turned this into a visible line at exactly half the height of
+ the image. GL_LINEAR removes it.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/osa.c
++++ b/osa.c
+@@ -57,7 +57,7 @@
+ 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+ 
+ 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
++		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+ 		glTexImage2D(GL_TEXTURE_2D, 0,
+ 		             GL_RGBA,
+ 		             TW,TH,

@@ -1,10 +1,10 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: adapt the Makefile to Debian packaging
+ Use pkg-config, honour CC, CPPFLAGS, CFLAGS and LDFLAGS from
+ dpkg-buildflags (hardening), add an install target and do not strip.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-25
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/Makefile
 +++ b/Makefile
 @@ -1,17 +1,40 @@
@@ -43,12 +43,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	$(CC) -o $@ $(OBJ) $(LIB)
 -	strip $@
 +$(TARGET): $(OBJ)
-+	$(CC) -o $@ $(OBJ) $(LDFLAGS)
++	$(CC) $(CFLAGS) -o $@ $(OBJ) $(LDFLAGS)
  
  %.o: %.c letters2.h
 -	$(CC) $(COPT) -c $<
 -       
-+	$(CC) $(CFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(CFLAGS) -c $<
 +
  clean:
 -	rm *.o $(NAME) core *~

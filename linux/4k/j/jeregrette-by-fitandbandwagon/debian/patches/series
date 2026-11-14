@@ -5,3 +5,5 @@
 05_better_quit.patch
 06_add_fullscreen.patch
 07_fix-64bit-portability.patch
+08_vsync_and_audio_format.patch
+09_linear_feedback_filter.patch
