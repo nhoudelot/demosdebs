@@ -1,3 +1,26 @@
+fab-by-tharsis (1.0-0ddebs16) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : depend on libsdl1.2debian through ${shlibs:Depends}
+    (provided by sdl12-compat); libsdl1.2-compat does not exist on
+    resolute, which made the package uninstallable. Build-depend on
+    libsdl1.2-dev and libglu1-mesa-dev. Better description
+  * Removed the launcher script (it sourced common-install-function-ddebs
+    without depending on it): the intro is installed as
+    /usr/bin/fab-by-tharsis
+  * debian/patches/01_adapt_makefile.patch : use CPPFLAGS (fortify) and
+    LDLIBS, DEP-3 header
+  * debian/patches/05_vsync_timing_and_quit.patch : enable vsync, limit
+    the intro to 60 frames per second (it ran as fast as the machine
+    could), quit when the window is closed
+  * debian/resources/*.desktop : added Keywords, single main category
+  * debian/*.lintian-overrides : removed the desktop keywords one, added
+    the pandoc groff-message one
+  * debian/*.6 : rewritten, documented the keys
+  * debian/docs : removed (empty)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 14 Nov 2026 12:33:03 +0100
+
 fab-by-tharsis (1.0-0ddebs15) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

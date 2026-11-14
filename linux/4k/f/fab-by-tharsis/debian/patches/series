@@ -2,3 +2,4 @@
 02_add_windowtitle.patch
 03_fix_warnings.patch
 04_fix_implicit_int.patch
+05_vsync_timing_and_quit.patch

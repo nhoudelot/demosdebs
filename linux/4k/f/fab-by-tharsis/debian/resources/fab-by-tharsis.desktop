@@ -2,9 +2,11 @@
 Version=1.0
 Name=Fab
 GenericName=Demo
-Comment=4K intro by tharsis, released in 2004
+Comment=4k intro by Tharsis of Bliss, released in 2004
+Comment[fr]=Intro 4k de Tharsis de Bliss, sortie en 2004
 Type=Application
-Exec=/usr/bin/fab-by-tharsis_launcher
+Exec=/usr/bin/fab-by-tharsis
 Icon=fab-by-tharsis
-Categories=AudioVideo;Game;
+Categories=AudioVideo;
+Keywords=demoscene;demo;intro;4k;
 Name[fr_FR]=Fab

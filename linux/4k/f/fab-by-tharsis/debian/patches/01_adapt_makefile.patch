@@ -1,9 +1,12 @@
-Description: fixing several simple warnings 
+Description: create a makefile for the packaging tools
+ The upstream Makefile calls sdl-config and builds a debugging binary.
+ Replace it with a makefile that uses pkg-config, honours the build flags
+ given by dpkg-buildflags (CPPFLAGS, CFLAGS, LDFLAGS) and the CC of a
+ cross build, and installs the program under the package name.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-25
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
 --- a/Makefile
 +++ b/Makefile
 @@ -1,11 +1,31 @@
@@ -13,7 +16,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +CC   ?= gcc
 +PKG_CONFIG ?= pkg-config
 +CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl glu gl)
-+LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
++LDLIBS   += $(shell $(PKG_CONFIG) --libs sdl glu gl) -lm
 +TARGET   := fab-by-tharsis
 +#variable de nettoyage
 +RM_F := rm -f
@@ -37,7 +40,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -syn: syn.o
 -	$(CC) -o $@ $< $(LDFLAGS)
 +$(TARGET): $(SOURCE)
-+	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
++	 $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(SOURCE) $(LDLIBS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

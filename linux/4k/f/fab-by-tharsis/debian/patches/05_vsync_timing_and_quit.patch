@@ -1,0 +1,67 @@
+Description: enable vsync, run at a fixed speed and quit on window close
+ The animation advances by one step per frame and the intro never waits:
+ its speed depended on the speed of the machine and was far too fast on
+ current hardware.
+  * request vsync with SDL_GL_SWAP_CONTROL before SDL_SetVideoMode;
+  * limit the main loop to 60 frames per second, so the speed no longer
+    depends on the refresh rate of the screen either;
+  * read all pending events each frame and also quit on SDL_QUIT: only a
+    key press stopped the intro, closing the window did nothing;
+  * call SDL_Quit before leaving.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-14
+--- a/main.c
++++ b/main.c
+@@ -326,7 +326,10 @@
+ 	Job *j;
+ 	D d=1, w=640, h=480;
+ 
++	Uint32 start, frames = 0;
++
+ 	SDL_Init(32);
++	SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, 1);
+ 	SDL_SetVideoMode(w,h, 32, 2);
+ 	SDL_WM_SetCaption("fab by Tharsis",NULL);
+ 	SDL_OpenAudio (&as,0);
+@@ -337,8 +340,18 @@
+ 	glBlendFunc (770,771);
+ 
+ 	SDL_PauseAudio (0);
+-	while (!SDL_PollEvent (&e) || e.type!=2)
++	start = SDL_GetTicks ();
++	for (;;)
+ 	{
++		Uint32 now, next;
++		I quit = 0;
++
++		while (SDL_PollEvent (&e))
++			if (e.type == SDL_KEYDOWN || e.type == SDL_QUIT)
++				quit = 1;
++		if (quit)
++			break;
++
+ 		glClear (65<<8);
+ 
+ 		for (j=jobs; j->f; j++) {
+@@ -350,7 +363,19 @@
+ 		SDL_GL_SwapBuffers ();
+ 		f+=d;
+ 		if (f>1000 || f<1) d=-d;
++
++		/* the animation advances one step per frame: 60 frames per second */
++		frames++;
++		next = start + frames * 50 / 3;
++		now = SDL_GetTicks ();
++		if ((Sint32)(next - now) > 0)
++			SDL_Delay (next - now);
++		else if ((Sint32)(now - next) > 100) {
++			start = now;
++			frames = 0;
++		}
+ 	}
++	SDL_Quit ();
+ 	puts ("Fab    by    tharsis of Bliss\n"
+ 	      "for the 2004 4k compo");
+ }
