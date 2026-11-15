@@ -1,9 +1,12 @@
 #!/usr/bin/make -f
 
-
 %:
 	dh $@
 
 override_dh_strip:
 	dh_strip -Xmind-your-head_by_MacSlow-fullscreen-1920x1080
 
+override_dh_shlibdeps:
+	$(CC) -o debian/shlibs-stub debian/shlibs-stub.c -ldl
+	dpkg-shlibdeps -Tdebian/mindyourhead-by-macslow.substvars -edebian/shlibs-stub
+	rm -f debian/shlibs-stub

@@ -1,1 +1,3 @@
 mindyourhead-by-macslow binary: unknown-section demos
+mindyourhead-by-macslow binary: groff-message * [usr/share/man/man6/mindyourhead-by-macslow.6.gz:*]
+mindyourhead-by-macslow binary: hardening-no-pie [usr/lib/x86_64-linux-gnu/mindyourhead-by-macslow/mind-your-head_by_MacSlow-fullscreen-1920x1080]

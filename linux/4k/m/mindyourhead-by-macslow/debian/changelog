@@ -1,3 +1,28 @@
+mindyourhead-by-macslow (1.0-0ddebs3) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * Fix startup on systems without libsdl2-dev and libgl-dev: the intro
+    dlopen()s libSDL2-2.0.so and libGL.so, debian/*.links now provides
+    these names in the executable directory and the launcher sets
+    LD_LIBRARY_PATH
+  * debian/control : added libgl1 dependency, fixed common-install-
+    function-ddebs relation, real description
+  * debian/resources : added the missing icon (from the pouet.net
+    screenshot), Keywords in the .desktop file
+  * debian/scripts : enable V-Sync with __GL_SYNC_TO_VBLANK=1 by default
+  * debian/mindyourhead-by-macslow.6.md : real content, regenerated man
+    page
+  * debian/README.source, debian/copyright : details about the prebuilt
+    executable and upstream archive
+  * debian/upstream/metadata.ex : removed template leftover
+  * debian/rules : compute ${shlibs:Depends} on debian/shlibs-stub.c, as
+    dpkg-shlibdeps cannot read the packed executable (fixes lintian
+    missing-dependency-on-libc)
+  * debian/mindyourhead-by-macslow.lintian-overrides : hardening-no-pie
+    on the prebuilt executable, groff-message from the pandoc preamble
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 15 Nov 2026 01:39:41 +0100
+
 mindyourhead-by-macslow (1.0-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

@@ -6,16 +6,16 @@ domain=mindyourhead-by-macslow
 
 APP_FULLNAME="Mind your head"
 APP_COPYRIGHT="MacSlow"
-APP_DESC="Demo by MacSlow, released in 2019"
+APP_DESC="4k intro by MacSlow, released in 2019"
 
 APP_EXE="mind-your-head_by_MacSlow-fullscreen-1920x1080"
 
 function run()
 {
-	backuppwd=$(pwd)
+	backuppwd="$(pwd)"
 	cd /usr/lib/x86_64-linux-gnu/${domain} || exit
-	./${APP_EXE}
-	cd $backuppwd || exit
+	__GL_SYNC_TO_VBLANK=${__GL_SYNC_TO_VBLANK:-1} LD_LIBRARY_PATH=./ ./${APP_EXE}
+	cd "$backuppwd" || exit
 }
 
 

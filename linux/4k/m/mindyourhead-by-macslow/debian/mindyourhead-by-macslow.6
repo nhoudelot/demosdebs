@@ -18,22 +18,37 @@
 .hy
 .SH NAME
 .PP
-mindyourhead-by-macslow - the command to run Mind your head.
+mindyourhead-by-macslow - run the Mind your head 4k intro by MacSlow
 .SH SYNOPSIS
 .PP
-mindyourhead-by-macslow [\f[I]options\f[R]]
+mindyourhead-by-macslow [\f[I]\[en]help\f[R]]
 .SH DESCRIPTION
 .PP
-Mind your head is a demo released by MacSlow in 2019.
+Mind your head is a 4k intro for Linux 64-bit by MacSlow, using SDL 2
+and OpenGL 4.
+It was released at Revision 2019 (PC 4k intro compo, 13th place).
+.PP
+The intro runs fullscreen at 1920x1080 and has no sound.
+It quits by itself after about 90 seconds.
+A dedicated GPU is recommended.
 .SH OPTIONS
 .TP
 --help
 Display help for the command
+.SH KEYS
+.TP
+Escape
+Quit the intro
+.SH ENVIRONMENT
+.TP
+__GL_SYNC_TO_VBLANK
+Set to 1 by default by the launcher to enable V-Sync with the NVIDIA
+proprietary driver, as the intro does not request it itself.
 .SH INFOS
 .PP
-url
+https://www.pouet.net/prod.php?which=81157
 .SH BUGS
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),MacSlow.
+Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Claude Opus 5.5,MacSlow.

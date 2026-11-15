@@ -1,6 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Source: https://www.pouet.net/prod.php?which=81157
-Upstream-Name: mindyourhead-by-macslow
+Source: https://files.scene.org/view/parties/2019/revision19/pc-4k-intro/mind-your-head-compo.tar.xz
+Upstream-Name: Mind your head
+Upstream-Contact: MacSlow <https://macslow.org>
 
 Files:
  *

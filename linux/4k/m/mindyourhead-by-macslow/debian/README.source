@@ -1,8 +1,28 @@
 mindyourhead-by-macslow for Debian
 ---------------------------------
 
-mind-your-head_by_MacSlow-fullscreen-1920x1080 has been unpacked
+The upstream archive (mind-your-head-compo.tar.xz from scene.org,
+Revision 2019 PC 4k intro compo) only contains a prebuilt x86-64 executable.
+mind-your-head_by_MacSlow-fullscreen-1920x1080 has been unpacked and is
+installed as is in /usr/lib/x86_64-linux-gnu/mindyourhead-by-macslow/.
 
+The executable only links to libc and libdl: SDL 2 and OpenGL are opened at
+run time with dlopen("libSDL2-2.0.so") and dlopen("libGL.so"). These
+unversioned names are only shipped by the -dev packages, so
+debian/mindyourhead-by-macslow.links creates them in the executable directory
+(pointing to libSDL2-2.0.so.0 and libGL.so.1) and the launcher runs the intro
+with LD_LIBRARY_PATH=./ .
+
+executable seems to be compiled for an unknown distribution (no GCC version
+string, crinkled 4k executable without section headers; upstream says it was
+tested on Ubuntu 16.04 and 18.10)
+
+<no output>
+
+Source files:
+-------------
+<none: no section header table>
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
 
  -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 08 Feb 2025 16:48:40 +0100
-
