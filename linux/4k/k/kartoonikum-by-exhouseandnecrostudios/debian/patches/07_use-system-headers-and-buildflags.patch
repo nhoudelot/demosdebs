@@ -1,0 +1,36 @@
+Description: use system OpenGL headers and Debian build flags
+ Drop -Iinclude from the Linux build so that <GL/gl.h> and <GL/glu.h> come
+ from the system instead of the 2007 copies shipped in include/GL, get the
+ OpenGL flags from pkg-config, stop linking the unused libX11, and pass
+ CPPFLAGS when compiling and CFLAGS when linking so that the hardening
+ flags (_FORTIFY_SOURCE, PIE, LTO) are really used.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-15
+--- a/Makefile
++++ b/Makefile
+@@ -48,8 +48,8 @@
+ ifeq ($(PLATFORM), LINUX)
+ 	CFLAGS += -DSDL
+ 	ifeq ($(DEBUG),TRUE)
+-		CFLAGS += -ggdb -DDEBUG -fno-strict-aliasing -std=c99 $(shell $(PKG_CONFIG) --cflags sdl2) $(INCLUDES)
+-		LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl glu x11) -lm
++		CFLAGS += -ggdb -DDEBUG -fno-strict-aliasing -std=c99 $(shell $(PKG_CONFIG) --cflags sdl2 gl glu)
++		LDFLAGS += $(shell $(PKG_CONFIG) --libs sdl2 gl glu) -lm
+ 	else
+ 		CFLAGS += -Wall -pipe -fmodulo-sched -fno-toplevel-reorder -fno-inline -fno-defer-pop -fno-keep-static-consts -fmerge-all-constants -fstrength-reduce  \
+ 			-fno-builtin -D__X11__ -DSDL $(shell $(PKG_CONFIG) gl glu sdl2 --libs) -std=c99 $(INCLUDES)
+@@ -138,10 +138,10 @@
+ 	$(CC) $(CFLAGS) $(CCFLAGS) -c $<
+ 
+ %.o: %.c $(HEADERS)
+-	$(CC) $(CFLAGS) $(CCFLAGS) -c $<
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(CCFLAGS) -c $<
+ 
+ $(TARGET): $(OBJ)
+-	$(CC) -o $@ $(OBJ) $(LDFLAGS)
++	$(CC) $(CFLAGS) -o $@ $(OBJ) $(LDFLAGS)
+ 
+ install: $(TARGET)
+ 	$(INSTALL_DIR) $(DESTDIR)$(bindir)

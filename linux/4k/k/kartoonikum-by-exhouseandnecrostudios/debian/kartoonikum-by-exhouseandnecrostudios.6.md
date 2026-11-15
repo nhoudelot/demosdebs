@@ -1,28 +1,33 @@
 % kartoonikum-by-exhouseandnecrostudios(6) kartoonikum User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),ExHouse and NecroStudios
-% 2024-03-28
+% Nicolas HOUDELOT <nicolas@demosdebs.org>,Claude Opus 5.5,ExHouse and NecroStudios
+% 2026-11-15
 
 # NAME
-kartoonikum-by-exhouseandnecrostudios - is the command to run kartoonikum 
+kartoonikum-by-exhouseandnecrostudios - run the 4k intro kartoonikum
 
 # SYNOPSIS
-kartoonikum-by-exhouseandnecrostudios [*options*]
+kartoonikum-by-exhouseandnecrostudios
 
 # DESCRIPTION
-kartoonikum is a 4k intro released by ExHouse and NecroStudios in 2007
-Ended 8th at Assembly 2007
+kartoonikum is a 4k intro released by ExHouse and NecroStudios in 2007.
+It ranked 8th in the PC 4k intro competition at Assembly 2007.
 
-waffle [Code, Graphics (design)]
-slack [Code, Music]
+The intro starts in a resizable 1024x576 window, with V-Sync enabled.
+
+Credits:
+
+- entropia: additional design
+- slack: code, music
+- waffle: code, graphics (design)
 
 # OPTIONS
-there is no option to this program
+This program has no options.
 
 # KEYS
 F
-:    toggle Fullscreen
+:    toggle fullscreen
 
-ESc / q
+Esc / Q
 :    quit the intro
 
 # INFOS

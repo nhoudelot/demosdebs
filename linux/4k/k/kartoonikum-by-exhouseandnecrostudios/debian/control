@@ -5,9 +5,9 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  pkgconf,
- libglu-dev,
- libsdl2-dev,
- mesa-common-dev
+ libgl-dev,
+ libglu1-mesa-dev | libglu-dev,
+ libsdl2-dev
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=31526
 Rules-Requires-Root: no
@@ -16,7 +16,10 @@ Package: kartoonikum-by-exhouseandnecrostudios
 Architecture: any
 Depends:
  ${misc:Depends},
- ${shlibs:Depends},
- common-install-function-ddebs(>=1.18)
-Description: Linux 4k intro by ExHouse and NecroStudios
- 4k intro by ExHouse and NecroStudios, released in 2007
+ ${shlibs:Depends}
+Description: Linux port of the 4k intro Kartoonikum by ExHouse and NecroStudios
+ Kartoonikum is a 4k intro by ExHouse and NecroStudios, released at
+ Assembly 2007 where it ranked 8th in the PC 4k intro competition.
+ .
+ This package is built from the source code released by the authors, ported
+ to SDL2, and runs in a resizable window (F toggles fullscreen).

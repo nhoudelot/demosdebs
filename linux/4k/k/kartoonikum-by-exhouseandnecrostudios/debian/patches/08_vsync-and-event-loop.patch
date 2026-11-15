@@ -1,0 +1,79 @@
+Description: enable V-Sync and fix the SDL2 event loop
+ Request V-Sync with SDL_GL_SetSwapInterval(1) right after the GL context is
+ created; the fixed 25 ms delay is now only used when V-Sync is refused.
+ Only one event was read per frame, and the key code was tested whatever the
+ event type, on an uninitialized SDL_Event when the queue was empty.
+ All pending events are now handled, Esc/Q/F react to key presses only
+ (without auto-repeat), and SDL_GLContext is no longer declared as a pointer.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-15
+--- a/main.c
++++ b/main.c
+@@ -770,7 +770,9 @@
+ #ifdef SDL
+     SDL_Window *sdlWindow;
+ 	sdlWindow = SDL_CreateWindow("kartoonikum by ExHouse & NecroStudios",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,w,h,SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
+-	SDL_GLContext *sdlContext = SDL_GL_CreateContext(sdlWindow);
++	SDL_GLContext sdlContext = SDL_GL_CreateContext(sdlWindow);
++	/* enable V-Sync; if the driver refuses it, keep the original frame delay */
++	int vsync = (SDL_GL_SetSwapInterval(1) == 0);
+ 	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ #endif
+ 
+@@ -1124,31 +1126,35 @@
+ 		glPopMatrix();
+ #ifdef SDL
+ 		SDL_GL_SwapWindow(sdlWindow);
+-		SDL_Delay(25);
++		if (!vsync)
++			SDL_Delay(25);
+ 
+ 		SDL_Event event;
+-		SDL_PollEvent(&event);
+-		if (event.key.keysym.sym == SDLK_ESCAPE||event.key.keysym.sym == SDLK_q||event.type == SDL_QUIT)
++		int quit = 0;
++		while (SDL_PollEvent(&event))
++		{
++			if (event.type == SDL_QUIT)
++				quit = 1;
++			else if (event.type == SDL_KEYDOWN && !event.key.repeat)
++			{
++				switch (event.key.keysym.sym)
++				{
++				case SDLK_ESCAPE:
++				case SDLK_q: quit = 1; break;
++				case SDLK_f: ToggleFullscreen(sdlWindow); break;
++				}
++			}
++			/* The window is resized */
++			else if (event.type == SDL_WINDOWEVENT
++			         && event.window.windowID == windowID
++			         && event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
++				resize_window(0, 0, event.window.data1, event.window.data2);
++		}
++		if (quit)
+ 		{
+ end:
+ 			break;
+ 		}
+-		if (event.type == SDL_KEYUP) {
+-		    switch (event.key.keysym.sym) {
+-		        case SDLK_f: ToggleFullscreen(sdlWindow); break;
+-		    }
+-    	}
+-    	/* The window is resized */
+-		if(event.type == SDL_WINDOWEVENT)
+-		{
+-		    if (event.window.windowID == windowID)  {
+-		        if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)  {
+-		            int new_w = event.window.data1;
+-		            int new_h = event.window.data2;
+-		            resize_window(0,0, new_w,new_h);
+-		        }
+-		    }
+-		}
+ #endif
+ #if defined(WIN32) && !defined(SDL)
+ 		glFlush();

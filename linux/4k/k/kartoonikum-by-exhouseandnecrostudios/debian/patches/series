@@ -4,3 +4,5 @@
 04_toggle_fullscreen.patch
 05_add_resize.patch
 06_better_quit.patch
+07_use-system-headers-and-buildflags.patch
+08_vsync-and-event-loop.patch

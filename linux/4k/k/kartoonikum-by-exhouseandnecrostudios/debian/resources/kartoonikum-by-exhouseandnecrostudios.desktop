@@ -2,9 +2,10 @@
 Version=1.0
 Name=kartoonikum
 GenericName=Demo
-Comment=Demo by ExHouse and NecroStudios, released in 2007
+Comment=4k intro by ExHouse and NecroStudios, released in 2007
+Comment[fr]=Intro 4k par ExHouse et NecroStudios, sortie en 2007
 Type=Application
 Exec=/usr/bin/kartoonikum-by-exhouseandnecrostudios
 Icon=kartoonikum-by-exhouseandnecrostudios
 Categories=AudioVideo;Game;
-Name[fr_FR]=kartoonikum
+Keywords=demo;demoscene;intro;4k;

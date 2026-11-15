@@ -1,14 +1,43 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: kartoonikum-by-exhouseandnecrostudios
+Upstream-Name: kartoonikum
+Upstream-Contact: slack <slack@codemaniacs.com>, waffle <iwaffle@gmail.com>
 Source: https://www.pouet.net/prod.php?which=31526
 
 Files: *
-Copyright: 2007 ExHouse and NecroStudios
-License: GPL-3.0+
+Copyright: 2007 ExHouse and NecroStudios (slack, waffle, entropia)
+License: CC-BY-NC-SA-3.0
 
 Files: debian/*
 Copyright: 2016-2026 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
 
+License: CC-BY-NC-SA-3.0
+ Creative Commons
+ Attribution-NonCommercial-ShareAlike 3.0 Unported
+ ( http://creativecommons.org/licenses/by-nc-sa/3.0/ )
+ .
+ You are free:
+ * to Share - to copy, distribute and transmit the work
+ * to Remix - to adapt the work
+ .
+ Under the following conditions:
+ .
+ * Attribution. You must attribute the work in the manner
+ specified by the author or licensor (but not in any way that
+ suggests that they endorse you or your use of the work).
+ .
+ * Noncommercial. You may not use this work for commercial purposes.
+ .
+ * Share Alike. If you alter, transform, or build upon this work,
+ you may distribute the resulting work only under the same or
+ similar license to this one.
+ .
+ - For any reuse or distribution, you must make clear to others the license
+ terms of this work.
+ - Any of the above conditions can be waived if you get permission from the
+ copyright holder.
+ - Nothing in this license impairs or restricts the author's moral rights.
+
 License: GPL-3.0+
- /usr/share/common-licenses/GPL-3
+ On Debian systems, the complete text of the GNU General Public License
+ version 3 can be found in /usr/share/common-licenses/GPL-3.
