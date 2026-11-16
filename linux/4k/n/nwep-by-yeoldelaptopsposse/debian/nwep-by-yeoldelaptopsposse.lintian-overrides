@@ -1,1 +1,3 @@
-nwep-by-yeoldelaptopsposse binary: unknown-section demos
+unknown-section demos
+groff-message * [usr/share/man/man6/nwep-by-yeoldelaptopsposse.6.gz:*]
+hardening-no-pie [usr/bin/nwep-by-yeoldelaptopsposse]

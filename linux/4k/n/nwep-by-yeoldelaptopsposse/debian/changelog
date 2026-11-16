@@ -1,3 +1,19 @@
+nwep-by-yeoldelaptopsposse (1.0+git20170512-0ddebs6) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches : added 10_fix-events-vsync.patch, process all pending
+    SDL events (one possibly uninitialized event was read per frame),
+    enable V-Sync, remove duplicate viewport code, clean shutdown
+  * debian/patches : added 11_use-cppflags.patch (_FORTIFY_SOURCE)
+  * debian/patches : cleaned DEP-3 header of 09_resizable-window.patch
+  * debian/control : Architecture i386 only (32-bit 4klang), longer
+    description, s.k.o.y.p credited
+  * debian/copyright, README.Debian, manpage, desktop file : updated
+  * debian/*lintian-overrides : pandoc groff-message, no PIE (32-bit
+    4klang assembly), upstream Windows binaries
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 16 Nov 2026 12:00:00 +0100
+
 nwep-by-yeoldelaptopsposse (1.0+git20170512-0ddebs5) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

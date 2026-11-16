@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: nwep-by-yeoldelaptopsposse
-Source: https://www.pouet.net/prod.php?which=69746
+Source: https://github.com/w23/nwep
 
 Files: *
-Copyright: 2017 Ye Olde Laptops Posse
+Copyright: 2017 Ye Olde Laptops Posse & s.k.o.y.p
 License: public-domain
  (probably freeware)
 

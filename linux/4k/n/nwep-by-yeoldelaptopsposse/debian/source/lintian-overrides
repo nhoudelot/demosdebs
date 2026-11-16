@@ -1,0 +1,7 @@
+source-contains-prebuilt-windows-binary [4klang_test/crinkler.exe]
+source-contains-prebuilt-windows-binary [4klang_test/nasmw.exe]
+source-contains-prebuilt-windows-binary [ffmpeg.exe]
+source-contains-prebuilt-windows-binary [final/nwep.exe]
+source-contains-prebuilt-windows-binary [link.exe]
+source-contains-prebuilt-windows-binary [shader_minifier.exe]
+source-contains-prebuilt-windows-binary [timepack.exe]

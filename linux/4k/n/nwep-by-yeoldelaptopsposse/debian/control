@@ -12,9 +12,16 @@ Homepage: https://www.pouet.net/prod.php?which=69746
 Rules-Requires-Root: no
 
 Package: nwep-by-yeoldelaptopsposse
-Architecture: any
+Architecture: i386
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: 4k Intro by Ye Olde Laptops Posse, released in 2017
- 4k Intro by Ye Olde Laptops Posse, released at Revision 2017
+Description: 4k Intro by Ye Olde Laptops Posse & s.k.o.y.p, released in 2017
+ 4k Intro by Ye Olde Laptops Posse & s.k.o.y.p, ranked 9th in the
+ PC 4k compo at Revision 2017.
+ .
+ Code, shaders and sync by w23 (provod), music by keen (4klang
+ synthesizer), additional code by keen and r5ha.
+ .
+ The 4klang synthesizer is written in 32-bit x86 assembly, so the
+ intro is only built for i386.

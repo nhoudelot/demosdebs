@@ -1,12 +1,27 @@
 nwep-by-yeoldelaptopsposse for Debian
 ------------------------------------
 
-mono-runtime doesn't exists anymore on i386 ubuntu, 
-so i have to minifi the shaders before compiling the package
+Changes from the original intro:
 
-do : quilt push
-(until 04_minified_shaders.patch)
-run : make shaders
-do : quilt	refresh
+ * ported from SDL 1.2 to SDL2, starts in a window;
+ * the window is resizable, F toggles fullscreen (desktop resolution);
+   the intro is still rendered at 1280x720 and scaled with letterboxing;
+ * V-Sync is enabled;
+ * Esc or closing the window quits.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 28 Feb 2024 00:39:51 +0100
+The 4klang synthesizer (music/4klang.asm) is 32-bit x86 assembly: the
+package is only built for i386. It uses absolute addressing, so the
+executable is linked without PIE (hardening-no-pie lintian override).
+
+Shaders are pre-minified in debian/patches/07_update_minified_shaders.patch,
+because shader_minifier.exe needs mono, which is not available on every
+build target. To regenerate them (mono-runtime needed):
+
+  quilt push 07_update_minified_shaders.patch
+  make shaders
+  quilt refresh -p ab --no-timestamps
+  quilt pop -a
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 16 Nov 2026 12:00:00 +0100

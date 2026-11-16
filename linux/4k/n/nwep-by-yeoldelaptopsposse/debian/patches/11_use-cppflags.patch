@@ -1,0 +1,17 @@
+Description: pass CPPFLAGS to the compiler
+ Needed for _FORTIFY_SOURCE from dpkg-buildflags.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-16
+--- a/Makefile
++++ b/Makefile
+@@ -56,7 +56,7 @@
+ 
+ # Build the final ELF executable
+ $(TARGET): nwep.c music/4klang.o $(wildcard *.seq)
+-	$(CC) $(CFLAGS) -Wno-unknown-pragmas  $< music/4klang.o $(LDFLAGS) -o $@
++	$(CC) $(CPPFLAGS) $(CFLAGS) -Wno-unknown-pragmas  $< music/4klang.o $(LDFLAGS) -o $@
+ 
+ # Clean up generated files
+ .PHONY: clean

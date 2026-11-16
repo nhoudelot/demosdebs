@@ -1,10 +1,11 @@
 [Desktop Entry]
 Version=1.0
 Name=nwep
-GenericName=Demo
-Comment=Demo by Ye Olde Laptops Posse, released in 2017
+GenericName=4k intro
+Comment=4k intro by Ye Olde Laptops Posse & s.k.o.y.p, released in 2017
 Type=Application
 Exec=/usr/bin/nwep-by-yeoldelaptopsposse
 Icon=nwep-by-yeoldelaptopsposse
 Categories=AudioVideo;
+Keywords=demo;intro;4k;demoscene;
 Name[fr_FR]=nwep

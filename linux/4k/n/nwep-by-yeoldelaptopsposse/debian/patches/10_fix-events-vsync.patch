@@ -1,0 +1,91 @@
+Description: fix event loop, V-Sync and shutdown
+ * process every pending SDL event each frame instead of reading one
+   (possibly uninitialized) event per frame: keys and window events
+   were lost or handled late, and garbage could trigger a quit.
+ * enable V-Sync after the GL context creation.
+ * remove the duplicate viewport computation in main(), whose local
+   variables shadowed the globals and were unused.
+ * close audio and call SDL_Quit on exit.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-16
+--- a/nwep.c
++++ b/nwep.c
+@@ -485,25 +485,11 @@
+ 	SDL_GLContext sdlGlcontext;
+ 	sdlWindow = SDL_CreateWindow("nwep by Ye Olde Laptops Posse & s.k.o.y.p", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, XRES, YRES,  SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	/* V-Sync, must be set after the context creation */
++	SDL_GL_SetSwapInterval(1);
+ 
+-    /* Taille réelle du drawable, HiDPI inclus */
+-    int drawW, drawH;
+-    SDL_GL_GetDrawableSize(sdlWindow, &drawW, &drawH);
+-
+-    /* Viewport centré, ratio XRES/YRES préservé */
+-    int vpW, vpH, vpX, vpY;
+-    if (drawW * YRES > drawH * XRES) {
+-        vpH = drawH;
+-        vpW = drawH * XRES / YRES;
+-    } else {
+-        vpW = drawW;
+-        vpH = drawW * YRES / XRES;
+-    }
+-    vpX = (drawW - vpW) / 2;
+-    vpY = (drawH - vpH) / 2;
+-
+-    //glViewport(vpX, vpY, vpW, vpH);
+-    SetViewport(sdlWindow);
++	/* centered viewport keeping the XRES/YRES aspect ratio (HiDPI aware) */
++	SetViewport(sdlWindow);
+     introInit();
+ 
+ #ifndef CAPTURE
+@@ -523,20 +509,21 @@
+ 	for (;;) {
+ 		const uint32_t now = ((frame++) * 1000.f) / CAPTURE_FRAMERATE;
+ #endif
++		if (now >= INTRO_LENGTH) break;
+ 		SDL_Event e;
+-		SDL_PollEvent(&e);
+-		if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) || now >= INTRO_LENGTH) break;
+-		if ((e.type == SDL_QUIT) || now >= INTRO_LENGTH) break;
+-		if (e.type == SDL_WINDOWEVENT &&
+-            (e.window.event == SDL_WINDOWEVENT_RESIZED ||
+-             e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
+-            SetViewport(sdlWindow);
+-        }
+-		if (e.type == SDL_KEYUP) {
+-		    switch (e.key.keysym.sym) {
+-		        case SDLK_f: ToggleFullscreen(sdlWindow); break;
+-		    }
++		int quit = 0;
++		while (SDL_PollEvent(&e)) {
++			if (e.type == SDL_QUIT
++				|| (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE))
++				quit = 1;
++			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f)
++				ToggleFullscreen(sdlWindow);
++			else if (e.type == SDL_WINDOWEVENT
++				&& (e.window.event == SDL_WINDOWEVENT_RESIZED
++				|| e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED))
++				SetViewport(sdlWindow);
+ 		}
++		if (quit) break;
+ 		introPaint((now - start) / 1000.f);
+ 
+ #ifdef CAPTURE
+@@ -563,8 +550,12 @@
+ 		"int $0x80\n" \
+ 	);
+ #else
++#ifndef NO_AUDIO
++	SDL_CloseAudio();
++#endif
+ 	SDL_GL_DeleteContext(sdlGlcontext);
+ 	SDL_DestroyWindow(sdlWindow);
++	SDL_Quit();
+ 	return 0;
+ #endif
+ }
