@@ -1,0 +1,17 @@
+Description: Do not strip the binary at link time
+ Upstream adds -s to LDFLAGS in non-debug builds. Debian strips the binary
+ itself with dh_strip and builds a -dbgsym package from the debug symbols.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-16
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -279,7 +279,6 @@
+ 	AC_CHECK_CFLAG([-pipe])
+ 	if test x$debug = xno ; then
+ 		AC_CHECK_CFLAG([-fomit-frame-pointer])
+-		AC_CHECK_LDFLAG([-s])
+ 	fi
+ 	if test x$debug$optimizations != xnono ; then
+ 		AC_CHECK_CFLAG([-Wall])

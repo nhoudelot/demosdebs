@@ -5,3 +5,4 @@
 05_resizable_window.patch
 06_toggle_fullscreen.patch
 07_fix_gcc14.patch
+08_no_strip_flag.patch

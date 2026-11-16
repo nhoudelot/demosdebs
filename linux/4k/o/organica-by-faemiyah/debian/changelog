@@ -1,3 +1,22 @@
+organica-by-faemiyah (1.0+git20170414-0ddebs4) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/08_no_strip_flag.patch : do not strip at link time,
+    so dh_strip can build the -dbgsym package
+  * debian/rules : enable all hardening flags
+  * debian/control : removed unneeded common-install-function-ddebs and
+    autotools-dev dependencies, better description
+  * debian/copyright : use the upstream BSD-3-Clause wording, Source
+    points to the upstream repository
+  * debian/organica-by-faemiyah.6.md : documented the real options (-f,
+    -w, -r) and keys
+  * debian/resources/organica-by-faemiyah.desktop : intro comment, Keywords,
+    French comment
+  * debian/organica-by-faemiyah.lintian-overrides : override the pandoc
+    groff-message false positive
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 16 Nov 2026 20:29:47 +0100
+
 organica-by-faemiyah (1.0+git20170414-0ddebs3) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

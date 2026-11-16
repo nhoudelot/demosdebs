@@ -1,10 +1,11 @@
 [Desktop Entry]
 Version=1.0
 Name=Organica
-GenericName=Demo
-Comment=Demo by Faemiyah, released in 2007
+GenericName=4k intro
+Comment=4k intro by Faemiyah, released at Assembly 2007
+Comment[fr]=Intro 4k de Faemiyah, sortie à l'Assembly 2007
 Type=Application
 Exec=/usr/bin/organica-by-faemiyah
 Icon=organica-by-faemiyah
 Categories=AudioVideo;
-Name[fr_FR]=Organica
+Keywords=demo;demoscene;intro;4k;Faemiyah;

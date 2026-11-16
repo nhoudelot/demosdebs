@@ -4,10 +4,9 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- autotools-dev,
  libpng-dev,
  libsdl2-dev,
- libglut-dev|freeglut3-dev
+ libglut-dev | freeglut3-dev
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=31532
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2007-08_4k-intro_organica
@@ -19,6 +18,8 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- common-install-function-ddebs(>=1.61)
-Description: 4k intro by Faemiyah, released in 2007
- 4k Linux intro by Faemiyah, released in 2007
+Description: 4k intro by Faemiyah, released at Assembly 2007
+ Organica is a 4k intro by the Finnish demogroup Faemiyah, released at
+ Assembly 2007 where it ranked 9th in the 4k intro competition.
+ .
+ This package is built from the upstream sources, ported to SDL2.
