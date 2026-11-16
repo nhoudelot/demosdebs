@@ -1,3 +1,20 @@
+nikak-by-yeoldelaptopsposseskoyp (1.0+git20170822-0ddebs4) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches : added 10_fix-noise-events-vsync.patch, the noise
+    texture was bound to the wrong texture unit since 0ddebs3 (missing
+    camera shake, light jitter, emissive spots), process all pending SDL
+    events, enable V-Sync, clean shutdown
+  * debian/patches : added 11_use-cppflags.patch (_FORTIFY_SOURCE)
+  * debian/patches : cleaned DEP-3 headers (Assisted-By)
+  * debian/control : Architecture i386 only (32-bit 4klang), Homepage to
+    pouet, longer description
+  * debian/copyright, README.Debian, manpage, desktop file : updated
+  * debian/*lintian-overrides : pandoc groff-message, no PIE (32-bit
+    4klang assembly), upstream Windows binaries
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 15 Nov 2026 23:58:42 +0100
+
 nikak-by-yeoldelaptopsposseskoyp (1.0+git20170822-0ddebs3) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

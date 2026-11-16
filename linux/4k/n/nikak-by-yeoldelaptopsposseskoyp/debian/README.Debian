@@ -1,12 +1,27 @@
 nikak-by-yeoldelaptopsposseskoyp for Debian
-------------------------------------------
+-------------------------------------------
 
-mono-runtime doesn't exists anymore on i386 ubuntu, 
-so i have to minifi the shaders before compiling the package
+Changes from the original intro:
 
-do : quilt push
-(until 04_minified_shaders.patch)
-run : make shaders
-do : quilt	refresh
+ * ported from SDL 1.2 to SDL2, float audio output;
+ * the window is resizable, F toggles fullscreen (desktop resolution);
+   the intro is still rendered at 1280x720 and scaled with letterboxing;
+ * V-Sync is enabled;
+ * Esc or closing the window quits.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 26 Feb 2024 01:15:36 +0100
+The 4klang synthesizer (4klang.asm) is 32-bit x86 assembly: the package
+is only built for i386. It uses absolute addressing, so the executable
+is linked without PIE (hardening-no-pie lintian override).
+
+Shaders are pre-minified in debian/patches/02_minified_shaders.patch,
+because shader_minifier.exe needs mono, which is not available on every
+build target. To regenerate them (mono-runtime needed):
+
+  quilt push 02_minified_shaders.patch
+  make shaders
+  quilt refresh -p ab --no-timestamps
+  quilt pop -a
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 15 Nov 2026 23:58:42 +0100

@@ -7,3 +7,5 @@
 07_toggle-fullscreen.patch
 08_better-quit.patch
 09_resizable-window.patch
+10_fix-noise-events-vsync.patch
+11_use-cppflags.patch

@@ -1,0 +1,3 @@
+source-contains-prebuilt-windows-binary [ReleaseSlow/yolp+skoyp_nikak.exe]
+source-contains-prebuilt-windows-binary [link.exe]
+source-contains-prebuilt-windows-binary [shader_minifier.exe]

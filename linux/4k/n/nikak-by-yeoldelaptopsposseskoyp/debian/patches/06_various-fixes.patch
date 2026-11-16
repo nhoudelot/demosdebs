@@ -1,9 +1,10 @@
-Description: fixing several simple warnings 
-Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
-Applied-Upstream: no
+Description: fix SDL2 audio callback
+ Output float samples to match the AUDIO_F32SYS format requested in
+ 05_migrate_to_SDL2.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Forwarded: not-needed
 Last-Update: 2026-04-03
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/intro_c.c
 +++ b/intro_c.c
 @@ -614,13 +614,12 @@

@@ -1,0 +1,122 @@
+Description: fix noise texture unit, event loop, V-Sync and shutdown
+ * 07_toggle-fullscreen bound the output texture on unit 7 just before
+   uploading the noise texture, so the noise ended up on unit 7 and unit 0
+   (S[0], used by the shaders for camera shake, light jitter, emissive
+   spots and surface detail) had no texture: keep the noise on unit 0 and
+   only pass the 7 samplers declared by the shader.
+ * process every pending SDL event each frame instead of reading one
+   (possibly uninitialized) event.
+ * enable V-Sync after the GL context creation.
+ * close audio and call SDL_Quit on exit, remove an unused variable.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-15
+--- a/intro_c.c
++++ b/intro_c.c
+@@ -208,7 +208,7 @@
+ static GLuint fb_output;
+ 
+ #pragma data_seg(".samplers")
+-const static GLint samplers[Tex_COUNT] = {
++const static GLint samplers[Tex_Output] = {
+ 	0, 1, 2, 3, 4, 5, 6
+ };
+ 
+@@ -406,7 +406,7 @@
+ 	// wastes bytes
+ 	if (dst_fb) oglDrawBuffers(out_bufs, draw_buffers);
+ 	GLCHECK();
+-	oglUniform1iv(oglGetUniformLocation(prog, "S"), Tex_COUNT, samplers);
++	oglUniform1iv(oglGetUniformLocation(prog, "S"), Tex_Output, samplers);
+ 	glGetError();
+ 	oglUniform1iv(oglGetUniformLocation(prog, "F"), 1, &itime);
+ 	glGetError();
+@@ -442,9 +442,7 @@
+ 	oglGenFramebuffers(Pass_COUNT - 1, fb);
+ 	GLCHECK();
+ 
+-	/* texture de sortie XRES×YRES */
+-	oglActiveTexture(GL_TEXTURE0 + Tex_Output);
+-	initTexture(texture[Tex_Output], XRES, YRES, GL_RGBA8, GL_UNSIGNED_BYTE, 0);
++	oglActiveTexture(GL_TEXTURE0);
+ 	initTexture(texture[Tex_Random], NOISE_SIZE, NOISE_SIZE, GL_RGBA, GL_UNSIGNED_BYTE, noise_bytes);
+ 	oglActiveTexture(GL_TEXTURE1);
+ 	initTexture(texture[Tex_RaymarchPrimary], XRES, YRES, GL_RGBA16F, GL_FLOAT, 0);
+@@ -458,6 +456,9 @@
+ 	initTexture(texture[Tex_DofNear], XRES, YRES, GL_RGBA16F, GL_FLOAT, 0);
+ 	oglActiveTexture(GL_TEXTURE6);
+ 	initTexture(texture[Tex_DofFar], XRES, YRES, GL_RGBA16F, GL_FLOAT, 0);
++	/* output texture (XRES x YRES), on its own unit, never sampled */
++	oglActiveTexture(GL_TEXTURE0 + Tex_Output);
++	initTexture(texture[Tex_Output], XRES, YRES, GL_RGBA8, GL_UNSIGNED_BYTE, 0);
+ 
+ 	initFb(fb[Pass_Raymarch], texture[Tex_RaymarchPrimary], texture[Tex_RaymarchReflect]);
+ 	initFb(fb[Pass_ReflectBlur], texture[Tex_ReflectBlur], 0);
+@@ -684,7 +685,6 @@
+ 
+ void ToggleFullscreen(SDL_Window* window) {
+     const Uint32 flag = SDL_WINDOW_FULLSCREEN_DESKTOP;
+-    const int is_fullscreen = SDL_GetWindowFlags(window) & flag;
+     int isFS = SDL_GetWindowFlags(window) & flag;
+     SDL_SetWindowFullscreen(window, isFS ? 0 : flag);
+     SDL_ShowCursor(isFS);
+@@ -712,6 +712,8 @@
+ 	SDL_GLContext sdlGlcontext;
+ 	sdlWindow = SDL_CreateWindow("Nikak by Ye Olde Laptops Posse & s.k.o.y.p", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, XRES, YRES,  wflags);
+ 	sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	/* V-Sync, must be set after the context creation */
++	SDL_GL_SetSwapInterval(1);
+ 	/* Taille réelle du drawable, HiDPI inclus */
+     int drawW, drawH;
+     SDL_GL_GetDrawableSize(sdlWindow, &drawW, &drawH);
+@@ -737,22 +739,22 @@
+ 	for (;;) {
+ 		const uint32_t now = ((frame++) * 1000.f) / CAPTURE_FRAMERATE;
+ #endif
+-		SDL_Event e;
+-		SDL_PollEvent(&e);
+-		if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
+-			|| now >= (MAX_SAMPLES * 1000ull / SAMPLE_RATE)) break;
++		if (now >= (MAX_SAMPLES * 1000ull / SAMPLE_RATE)) break;
+ 		itime = now * sizeof(SAMPLE_TYPE) * 2ull * SAMPLE_RATE / 1000;
+-		if ((e.type == SDL_QUIT) || now >= (MAX_SAMPLES * 1000ull / SAMPLE_RATE)) break;
+-		if (e.type == SDL_KEYUP) {
+-		    switch (e.key.keysym.sym) {
+-		        case SDLK_f: ToggleFullscreen(sdlWindow); break;
+-		    }
++		SDL_Event e;
++		int quit = 0;
++		while (SDL_PollEvent(&e)) {
++			if (e.type == SDL_QUIT
++				|| (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE))
++				quit = 1;
++			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f)
++				ToggleFullscreen(sdlWindow);
++			else if (e.type == SDL_WINDOWEVENT
++				&& (e.window.event == SDL_WINDOWEVENT_RESIZED
++				|| e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED))
++				SetViewport(sdlWindow);
+ 		}
+-		if (e.type == SDL_WINDOWEVENT &&
+-            (e.window.event == SDL_WINDOWEVENT_RESIZED ||
+-             e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)) {
+-            SetViewport(sdlWindow);
+-        }
++		if (quit) break;
+ 		introPaint();
+ 
+ #ifdef CAPTURE
+@@ -779,8 +781,12 @@
+ 		"int $0x80\n" \
+ 	);
+ #else
++#ifndef NO_AUDIO
++	SDL_CloseAudio();
++#endif
+ 	SDL_GL_DeleteContext(sdlGlcontext);
+ 	SDL_DestroyWindow(sdlWindow);
++	SDL_Quit();
+ 	return 0;
+ #endif
+ }

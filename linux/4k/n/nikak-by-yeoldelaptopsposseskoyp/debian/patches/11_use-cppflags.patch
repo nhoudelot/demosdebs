@@ -1,0 +1,24 @@
+Description: pass CPPFLAGS to the compiler
+ Needed for _FORTIFY_SOURCE from dpkg-buildflags.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-15
+--- a/Makefile
++++ b/Makefile
+@@ -46,13 +46,13 @@
+ 
+ # Compiling each .c file into a .o file
+ %.o: %.c
+-	$(CC) $(CFLAGS) -MMD -MP -MT $@ -MF $@.d -c $< -o $@
++	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -MT $@ -MF $@.d -c $< -o $@
+ 
+ 4klang.o: 4klang.asm 4klang.inc
+ 	$(NASM) $(NASMFLAGS) 4klang.asm -o 4klang.o
+ 
+ $(TARGET): 4klang.o $(OBJ_FILES)
+-	$(CC) $(CFLAGS) -Wno-unknown-pragmas $^ $(LDFLAGS) -o $@
++	$(CC) $(CPPFLAGS) $(CFLAGS) -Wno-unknown-pragmas $^ $(LDFLAGS) -o $@
+ 	#sstrip $@
+ 
+ clean:

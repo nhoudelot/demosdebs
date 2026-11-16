@@ -1,10 +1,11 @@
-Description: added fullscreen
- added fullscreen function, to go fullscreen and back, with F key
-Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
-Applied-Upstream: no
-Last-Update: 2024-03-28
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Description: add fullscreen toggle
+ Toggle fullscreen (desktop resolution) with the F key. The intro is
+ rendered at XRES x YRES in an offscreen framebuffer, then blitted to the
+ window with letterboxing.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-04-03
 --- a/intro_c.c
 +++ b/intro_c.c
 @@ -66,6 +66,7 @@
