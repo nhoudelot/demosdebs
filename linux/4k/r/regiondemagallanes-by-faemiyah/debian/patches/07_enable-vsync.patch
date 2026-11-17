@@ -1,0 +1,23 @@
+Description: enable VSync
+ The intro never set the swap interval, so frames were swapped as fast as
+ the driver allowed, depending on its default setting. Request VSync with
+ SDL_GL_SetSwapInterval(1), right after the GL context is created.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -767,6 +767,12 @@
+             exit(1);
+         }
+     }
++    // Synchronize buffer swaps with the display refresh rate. The context
++    // must be current, so this comes after SDL_GL_CreateContext().
++    if(SDL_GL_SetSwapInterval(1) != 0)
++    {
++        std::cerr << "WARNING: unable to enable VSync: " << SDL_GetError() << std::endl;
++    }
+     if(!flag_fullscreen)
+     {
+         update_window_position();

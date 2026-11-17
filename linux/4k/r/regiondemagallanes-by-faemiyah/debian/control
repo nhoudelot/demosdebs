@@ -5,36 +5,45 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
- cmake(>=3.1),
+ cmake (>= 3.16),
  libboost-filesystem-dev,
  libboost-program-options-dev,
  libboost-thread-dev,
  libboost-wave-dev,
- libsdl2-dev,
- libpng-dev,
  libglew-dev,
  libopengl-dev,
+ libpng-dev,
+ libsdl2-dev,
+ libsndfile1-dev,
+ pkgconf
+Build-Depends-Indep:
  sox
 Standards-Version: 4.7.3
-Homepage: https://github.com/faemiyah/faemiyah-demoscene_2019-08_4k-intro_region_de_magallanes
+Homepage: https://www.pouet.net/prod.php?which=82448
+Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2019-08_4k-intro_region_de_magallanes
+Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2019-08_4k-intro_region_de_magallanes.git
 
 Package: regiondemagallanes-by-faemiyah
 Architecture: any
-Multi-Arch: foreign
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- common-install-function-ddebs(>=1.61),
- regiondemagallanes-by-faemiyah-data
+ regiondemagallanes-by-faemiyah-data (>= ${source:Upstream-Version})
 Description: 4k intro by Faemiyah, released in 2019
- 4k intro by Faemiyah, 4th at Assembly 2019
+ Región de Magallanes is a 4k intro by Faemiyah (Juippi, Trilkk, Warma),
+ released at Assembly 2019, where it ranked 4th in the PC 4k intro
+ competition.
+ .
+ This package contains the standard (non size-optimized) build of the
+ intro. Press F to toggle fullscreen and Esc to quit.
 
 Package: regiondemagallanes-by-faemiyah-data
 Architecture: all
 Multi-Arch: foreign
 Depends:
- ${misc:Depends},
- sox
+ ${misc:Depends}
 Description: Data files for regiondemagallanes-by-faemiyah
- regiondemagallanes-by-faemiyah data files
-
+ Región de Magallanes is a 4k intro by Faemiyah, released at Assembly 2019.
+ .
+ This package contains the shaders and the precalculated soundtrack
+ (compressed as FLAC) used by regiondemagallanes-by-faemiyah.

@@ -3,13 +3,30 @@ regiondemagallanes-by-faemiyah for Debian
 
 This is a standard version of the 4K intro, not the minimized "party" version.
 
-The source code uses the USE_LD definition and does not generate music. 
-Instead, it relies on existing WAV files and shaders.
+The source code uses the USE_LD definition and does not generate music.
+Instead, it relies on the precalculated soundtrack and on the shader files
+installed in /usr/share/regiondemagallanes-by-faemiyah.
 
-I always prefer using the most basic binary format to ensure compatibility 
+The upstream soundtrack is a 32-bit float WAV file (about 31 MB). It is
+compressed to FLAC at build time (about 18 MB), and the intro decodes it at
+startup with libsndfile (debian/patches/06_load-flac-soundtrack.patch).
+The soundtrack peaks at exactly 0 dBFS: a few hundred samples are clipped
+by one 24-bit step in the FLAC file, which is inaudible.
+
+I always prefer using the most basic binary format to ensure compatibility
 with dh_shlibdeps, allowing it to accurately identify dependencies.
 
 Forcing music generation might be possible, but exploring the ASM code
 suggests a loss of cross-platform compilation.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 17 Feb 2025 12:56:16 +0100
+Keys: F toggles fullscreen (the picture keeps its aspect ratio, with black
+bars), Esc quits. VSync is requested at startup
+(debian/patches/07_enable-vsync.patch).
+
+The upstream archive also ships the Windows and FreeBSD builds of the
+intro, and the Windows SDL2.dll. They are kept in the orig tarball as
+shipped upstream and are not installed.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 17 Nov 2026 10:30:00 +0100

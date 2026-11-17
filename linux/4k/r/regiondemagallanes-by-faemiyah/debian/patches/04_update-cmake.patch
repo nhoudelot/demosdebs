@@ -1,3 +1,11 @@
+Description: modernize CMakeLists.txt for CMake 3.16+ and recent Boost
+ Use find_package() with imported targets instead of the upstream
+ find_*() helpers, require C++17 (Boost 1.74+), and move the USE_LD
+ definition and the include directory to the target.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1,24 +1,19 @@

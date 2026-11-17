@@ -2,13 +2,14 @@
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-export DEB_CXXFLAGS_MAINT_APPEND  = -flto -DUSE_LD
+export DEB_CXXFLAGS_MAINT_APPEND  = -flto
 export DEB_LDFLAGS_MAINT_APPEND  = -flto
 
 %:
 	dh $@ --buildsystem=cmake --builddirectory=build
 
-override_dh_install:
+# The soundtrack is only needed by the arch-independent data package:
+# compress the 32-bit float WAV to FLAC, the intro reads it with libsndfile.
+override_dh_install-indep:
 	sox rel/region_de_magallanes.wav rel/region_de_magallanes.flac
-	dh_install
-
+	dh_install -i

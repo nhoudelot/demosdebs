@@ -1,3 +1,33 @@
+regiondemagallanes-by-faemiyah (1.0+git20240828-0ddebs4) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches : added 06_load-flac-soundtrack.patch, the intro
+    reads the FLAC soundtrack directly with libsndfile
+  * debian/patches : added 07_enable-vsync.patch, VSync is requested
+    with SDL_GL_SetSwapInterval(1) after the GL context is created
+  * debian/patches : added DEP-3 headers to 04_update-cmake.patch and
+    05_fullscreen.patch, comments of the fullscreen code in English
+  * debian/*-data.postinst, debian/*-data.prerm : removed, the FLAC file
+    is no longer converted back to WAV in /usr/share at install time
+  * debian/control : added libsndfile1-dev and pkgconf, cmake (>= 3.16),
+    sox moved to Build-Depends-Indep, sox dropped from the data package
+    Depends, common-install-function-ddebs dropped (no launcher script),
+    versioned dependency on the data package, Homepage points to Pouet,
+    Vcs-* fields, longer descriptions
+  * debian/rules : FLAC compression done in override_dh_install-indep
+    only, debian/clean removes the generated file, -DUSE_LD removed
+    (already defined by CMakeLists.txt)
+  * debian/copyright : upstream licence is BSD-3-Clause (LICENCE file),
+    SDL2.dll is Zlib, Upstream-Contact filled
+  * debian/resources : the icon was an empty file, now made from the
+    upstream screenshot
+  * debian/source/lintian-overrides : Windows binaries of the upstream
+    release
+  * debian/README.Debian, debian/regiondemagallanes-by-faemiyah.6.md :
+    updated, documented the options and the F and Esc keys
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 17 Nov 2026 10:21:50 +0100
+
 regiondemagallanes-by-faemiyah (1.0+git20240828-0ddebs3) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

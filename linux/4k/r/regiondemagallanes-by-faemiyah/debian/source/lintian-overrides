@@ -1,0 +1,3 @@
+source-contains-prebuilt-windows-binary [rel/region_de_magallanes_windows-ia32.exe]
+source-contains-prebuilt-windows-binary [rel/SDL2.dll]
+source-contains-prebuilt-windows-binary [SDL2.dll]

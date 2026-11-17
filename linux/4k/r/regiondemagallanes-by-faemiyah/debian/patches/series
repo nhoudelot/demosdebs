@@ -2,3 +2,6 @@
 02_avoid_custom_rpath.patch
 03_add_new_data_path.patch
 04_update-cmake.patch
+05_fullscreen.patch
+06_load-flac-soundtrack.patch
+07_enable-vsync.patch
