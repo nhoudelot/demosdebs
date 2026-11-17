@@ -1,0 +1,19 @@
+Description: enable V-Sync
+ The intro never set a swap interval, so it rendered as fast as possible.
+ Call SDL_GL_SetSwapInterval(1) right after SDL_GL_CreateContext.
+ Timing is based on SDL_GetTicks(), so the playback speed is unchanged.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -937,6 +937,8 @@
+       (flag_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
+   dnload_SDL_GL_CreateContext(g_window);
+ #if defined(USE_LD)
++  // Enable V-Sync, must be called after the context has been created.
++  SDL_GL_SetSwapInterval(1);
+   g_fullscreen = flag_fullscreen;
+   SetViewportAspect(g_window);
+ #endif

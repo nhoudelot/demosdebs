@@ -14,7 +14,7 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "primordialsoup-by-faemiyah" "6" "2024-03-30" "Primordial Soup User Manuals" ""
+.TH "primordialsoup-by-faemiyah" "6" "2026-11-17" "Primordial Soup User Manuals" ""
 .hy
 .SH NAME
 .PP
@@ -24,8 +24,14 @@ primordialsoup-by-faemiyah - the command to run Primordial Soup.
 primordialsoup-by-faemiyah [\f[I]options\f[R]]
 .SH DESCRIPTION
 .PP
-Primordial Soup is a 4k intro released by Faemiyah in august 2017.
-Ended 1st at Assembly 2017
+Primordial Soup is a 4k intro released by Faemiyah in August 2017.
+Ended 1st at the Assembly 2017 combined 4k intro compo.
+.PP
+Code by Trilkk, synth and music by Juippi.
+.PP
+The intro starts in fullscreen.
+In a window, the window can be resized: the picture keeps its aspect
+ratio.
 .SH OPTIONS
 .TP
 -d [ \[en]developer ]
@@ -36,13 +42,24 @@ Do not play intro normally, instead save audio as .wav and frames as
 \&.png -files.
 .TP
 -r [ \[en]resolution ] arg
-Resolution to use, specify as `WIDTHxHEIGHT'
+Resolution to use, specify as `WIDTHxHEIGHT'.
 .TP
 -w [ \[en]window ]
 Start in window instead of full-screen.
 .TP
 -h [ \[en]help ]
 Print help text.
+.SH KEYS
+.TP
+F
+Toggle fullscreen.
+.TP
+Escape
+Quit.
+.SH FILES
+.TP
+/usr/share/primordialsoup-by-faemiyah/
+Shaders and precalculated music (FLAC).
 .SH INFOS
 .PP
 https://www.pouet.net/prod.php?which=71419
@@ -50,4 +67,4 @@ https://www.pouet.net/prod.php?which=71419
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Faemiyah.
+Nicolas HOUDELOT <nicolas@demosdebs.org>,Claude Opus 5.5,Faemiyah.

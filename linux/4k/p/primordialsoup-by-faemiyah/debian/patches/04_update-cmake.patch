@@ -1,3 +1,11 @@
+Description: update CMake build system
+ Require CMake 3.16, use the imported targets of find_package() (Boost,
+ GLEW, OpenGL, PNG, SDL2) instead of the upstream helper functions, and
+ build with C++17, needed by Boost 1.74+.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1,24 +1,18 @@

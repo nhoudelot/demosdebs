@@ -1,9 +1,9 @@
 Description: make window resizable
  make window resizable with correct aspect ratio
-Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
-Applied-Upstream: no
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Forwarded: not-needed
 Last-Update: 2026-04-04
-
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
 @@ -794,12 +794,45 @@

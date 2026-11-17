@@ -4,3 +4,5 @@
 04_update-cmake.patch
 05_add-fullscreen.patch
 06_resizable-window.patch
+07_enable-vsync.patch
+08_load-flac-with-libsndfile.patch

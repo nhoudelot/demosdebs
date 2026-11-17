@@ -1,3 +1,28 @@
+primordialsoup-by-faemiyah (1.0+git20171017-0ddebs7) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/07_enable-vsync.patch : enable V-Sync
+  * debian/patches/08_load-flac-with-libsndfile.patch : read the FLAC
+    music directly with libsndfile, no more conversion back to WAV at
+    installation
+  * Removed postinst/prerm of the data package (no more unowned 37 MB
+    WAV file in /usr/share) and its dependency on sox
+  * debian/control : added libsndfile1-dev and pkgconf, sox moved to
+    Build-Depends-Indep, versioned dependency on the data package,
+    Homepage now points to Pouet, removed Vcs-* fields (upstream
+    repository, not packaging), longer descriptions
+  * debian/rules : FLAC generated in override_dh_auto_build-indep (24
+    bits), duplicate -DUSE_LD removed, FLAC added to debian/clean
+  * debian/copyright : fixed BSD-3-Clause text and years, removed
+    placeholder Upstream-Contact
+  * debian/patches : description of patch 04, Assisted-By field in the
+    headers of patches 05 and 06
+  * Lintian : overrides for the pandoc groff warning and the upstream
+    Windows binary, Keywords entry in the desktop file
+  * Manual page and README.Debian updated (keys, resizable window, FLAC)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 17 Nov 2026 00:54:38 +0100
+
 primordialsoup-by-faemiyah (1.0+git20171017-0ddebs6) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

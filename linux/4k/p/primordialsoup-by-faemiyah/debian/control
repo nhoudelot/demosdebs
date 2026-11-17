@@ -4,20 +4,21 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
- cmake(>=3.1),
+ cmake (>= 3.16),
+ pkgconf,
  libsdl2-dev,
  libpng-dev,
  libglew-dev,
  libopengl-dev,
+ libsndfile1-dev,
  libboost-filesystem-dev,
  libboost-program-options-dev,
  libboost-thread-dev,
- libboost-wave-dev,
+ libboost-wave-dev
+Build-Depends-Indep:
  sox
 Standards-Version: 4.7.3
-Homepage: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup
-Vcs-Git: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup.git
-Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2017-08_4k-intro_primordial_soup
+Homepage: https://www.pouet.net/prod.php?which=71419
 Rules-Requires-Root: no
 
 Package: primordialsoup-by-faemiyah
@@ -25,16 +26,19 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- primordialsoup-by-faemiyah-data
+ primordialsoup-by-faemiyah-data (>= 1.0+git20171017-0ddebs7~)
 Description: 4k intro by Faemiyah, released in 2017
- 4k intro by Faemiyah, 1st combined 4k at Assembly 2017
+ Primordial Soup is a 4k intro by Faemiyah (code by Trilkk, synth and music
+ by Juippi), 1st at the Assembly 2017 combined 4k intro compo.
+ .
+ This is the non-compo build, compiled from the sources: shaders and music
+ are loaded from files instead of being packed and generated at runtime.
 
 Package: primordialsoup-by-faemiyah-data
 Architecture: all
 Multi-Arch: foreign
 Depends:
- ${misc:Depends},
- sox
+ ${misc:Depends}
 Description: Data files for primordialsoup-by-faemiyah
- primordialsoup-by-faemiyah data files
-
+ Shaders and precalculated music (FLAC) used by the non-compo build of
+ Primordial Soup, a 4k intro by Faemiyah.

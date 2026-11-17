@@ -1,7 +1,8 @@
 Description: added fullscreen key
  added fullscreen function, to go fullscreen and back, with F key
-Author: Nicolas HOUDELOT <nicolas@demosdebs.org> & Claude Sonnet 4.6
-Applied-Upstream: no
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Forwarded: not-needed
 Last-Update: 2026-04-04
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
