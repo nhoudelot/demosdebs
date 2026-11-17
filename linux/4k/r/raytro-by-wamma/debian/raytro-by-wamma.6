@@ -14,14 +14,14 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "raytro-by-wamma" "6" "2018-01-19" "Raytro User Manuals" ""
+.TH "raytro-by-wamma" "6" "2026-11-17" "Raytro User Manuals" ""
 .hy
 .SH NAME
 .PP
-raytro-by-wamma - is the command to run Raytro
+raytro-by-wamma - run Raytro, a 4k intro by glaze/wAMMA
 .SH SYNOPSIS
 .PP
-raytro-by-wamma [\f[I]options\f[R]]
+raytro-by-wamma [\f[I]-f\f[R]|\f[I]--fullscreen\f[R]]
 .SH DESCRIPTION
 .PP
 Raytro 4k intro for GNU/Linux by glaze/wAMMA, released \[at] Pouet.net
@@ -37,9 +37,20 @@ I also tried to compile a win32 version using i586-mingw32msvc-gcc that
 came with Kubuntu (it uses gcc 3.4.5).
 There was missing/weird graphics in some places, so I didn\[cq]t include
 a win32 build.
-.SH OPTIONS
 .PP
-there is no options to this program
+The intro is rendered in a 512x384 window, which can be resized.
+.SH OPTIONS
+.TP
+-f, --fullscreen
+Run in fullscreen mode, as the original release did.
+The picture is scaled to the screen, keeping its aspect ratio.
+.SH KEYS
+.TP
+F
+Toggle fullscreen mode.
+.TP
+Any other key
+Quit the intro.
 .SH INFOS
 .PP
 https://www.pouet.net/prod.php?which=49797
@@ -47,4 +58,4 @@ https://www.pouet.net/prod.php?which=49797
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),wamma.
+Nicolas HOUDELOT <nicolas@demosdebs.org>,Claude Opus 5.5,glaze/wAMMA.

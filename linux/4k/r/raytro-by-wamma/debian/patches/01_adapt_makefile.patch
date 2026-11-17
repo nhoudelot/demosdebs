@@ -1,13 +1,14 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: adapt the makefile to packaging
+ Replace the hand-linked 4k build (ld, sstrip, gzip dropper) by a normal
+ build with $(CC), and honour CC, PKG_CONFIG, CPPFLAGS, CFLAGS and LDFLAGS
+ from the environment (hardening, cross-building). Add an install target.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-25
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
 --- a/Makefile
 +++ b/Makefile
-@@ -1,12 +1,38 @@
+@@ -1,12 +1,31 @@
 -all: main
 -main:
 -	gcc -Os -ffast-math -fshort-double -fpeephole2 -fomit-frame-pointer -c main.c
@@ -21,9 +22,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	wc -c main
 +#variables de compilation
 +SHELL := /bin/sh
-+CC    := gcc
++CC    ?= gcc
 +TARGET   := raytro-by-wamma
-+PKG_CONFIG:=pkg-config
++PKG_CONFIG ?= pkg-config
 +#variable de nettoyage
 +RM_F := rm -f
 +#variables d'instalation
@@ -35,20 +36,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +exec_prefix     := $(prefix)
 +bindir          := $(prefix)/bin
 +
-+CFLAGS   += -Wall -pipe -std=gnu90 -DXCOMPILE
-+LDFLAGS  := $(shell $(PKG_CONFIG) --libs sdl) -lm -lc
++CFLAGS   += -Wall -pipe -std=gnu90 -DXCOMPILE $(shell $(PKG_CONFIG) --cflags sdl)
++LDLIBS   := $(shell $(PKG_CONFIG) --libs sdl) -lm
 +
 +all: $(TARGET)
-+$(TARGET):
-+	$(CC) $(CFLAGS) -c main.c
-+	$(CC) $(CFLAGS) main.o -o $(TARGET) $(LDFLAGS)
-+	#strip -s -R .comment -R .gnu.version $(TARGET)
-+	#sstrip $(TARGET)
-+	#7z a -tGZip -mx=9 main.gz $(TARGET)
-+	#cat unpack.header main.gz > $(TARGET)
-+	#hmod a+x $(TARGET)
-+	#rm main.gz main.o
-+	#wc -c $(TARGET)
++$(TARGET): main.c common.h functions.h structs.h
++	$(CC) $(CPPFLAGS) $(CFLAGS) -c main.c
++	$(CC) $(CFLAGS) $(LDFLAGS) main.o -o $(TARGET) $(LDLIBS)
 +
 +clean:
 +	-@$(RM_F) $(TARGET) main.o

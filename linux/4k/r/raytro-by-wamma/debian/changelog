@@ -1,3 +1,30 @@
+raytro-by-wamma (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/04_fix_texture_index.patch : fix a segmentation fault
+    on 64-bit architectures (NaN texture coordinates on sphere poles)
+  * debian/patches/03_migrate_to_SDL2.patch : finished the port to SDL 2
+    and added it to the series: correct pixel format, V-Sync, frame rate
+    capped to 60 fps, resizable window, F key and -f/--fullscreen option
+    for fullscreen, quit when the window is closed
+  * debian/patches/01_adapt_makefile.patch : honour CPPFLAGS and LDFLAGS
+    (hardening) and the CC/PKG_CONFIG given for cross-building
+  * debian/rules : enabled all hardening options, removed the
+    PKG_CONFIG_PATH and -DXCOMPILE workarounds
+  * debian/control : build with libsdl2-dev, removed the unused
+    common-install-function-ddebs dependency, better description
+  * debian/copyright : the sources say "GNU GPL" without a version
+    (GPL-1+, there is no GPL-2.1), credited Timo Wirén
+  * debian/raytro-by-wamma-docs.docs : removed, for a package that does
+    not exist
+  * debian/resources/*.desktop : added Keywords and a French comment,
+    single main category
+  * debian/*.6 : documented the option and keys
+  * debian/*.lintian-overrides : removed the desktop keywords override,
+    added the pandoc groff-message one
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 17 Nov 2026 02:22:26 +0100
+
 raytro-by-wamma (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

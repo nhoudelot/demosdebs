@@ -1,73 +1,189 @@
+Description: port the intro from SDL 1.2 to SDL 2
+ Render the software frame buffer through an SDL 2 streaming texture, with
+ V-Sync. The animation is advanced once per frame, so it is also capped
+ at about 60 fps in case V-Sync is not available (fast machines, high
+ refresh rate screens). The window is resizable and scaled; the F key
+ toggles fullscreen, and -f/--fullscreen starts in fullscreen as the
+ original release did. Any other key quits.
+ Also exit when the window is closed, read all pending events each frame
+ (a key press could be missed) and stop reading an uninitialised event
+ before the first SDL_PollEvent().
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
 --- a/main.c
 +++ b/main.c
-@@ -23,7 +23,11 @@
+@@ -10,20 +10,97 @@
+ #include "structs.h"
+ #include "common.h"
+ #include "functions.h"
++#include <stdio.h>
++#include <string.h>
++
++static SDL_Window* sdl_window;
++static SDL_Renderer* sdl_renderer;
++static SDL_Texture* sdl_texture;
++static int quit_requested;
++static int fullscreen;
++
++#define FRAME_TICKS 16 /* the animation was designed for at most ~60 fps */
++
++/* Show the software frame buffer, wait for the next frame and read events. */
++static void present_frame(SDL_Surface* screen) {
++	static Uint32 last_frame;
++	SDL_Event event;
++	Uint32 elapsed;
++
++	SDL_UpdateTexture(sdl_texture, NULL, screen->pixels, screen->pitch);
++	SDL_RenderClear(sdl_renderer);
++	SDL_RenderCopy(sdl_renderer, sdl_texture, NULL, NULL);
++	SDL_RenderPresent(sdl_renderer);
++
++	elapsed = SDL_GetTicks() - last_frame;
++	if (elapsed < FRAME_TICKS)
++		SDL_Delay(FRAME_TICKS - elapsed);
++	last_frame = SDL_GetTicks();
++
++	while (SDL_PollEvent(&event)) {
++		if (event.type == SDL_QUIT) {
++			quit_requested = 1;
++		} else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_f) {
++			if (!event.key.repeat) {
++				fullscreen = !fullscreen;
++				SDL_SetWindowFullscreen(sdl_window, fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
++			}
++		} else if (event.type == SDL_KEYDOWN) {
++			quit_requested = 1;
++		}
++	}
++}
+ 
+ #ifdef XCOMPILE 
+ int main(int argc, char* argv[]) {
+ #else
+ void _start() {
+ #endif
+-	SDL_Event event;
+ 	SDL_Surface* screen;
+ 	Uint32* pixbuf;
++	Uint32 window_flags = SDL_WINDOW_RESIZABLE;
+ 	int x, y;
  	int frameno = 0;
  	Uint32 start;
  
 -	screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_DOUBLEBUF | SDL_HWSURFACE);
-+	SDL_Window *sdlWindow = SDL_CreateWindow("Raytro by Wamma",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WIDTH,HEIGHT,SDL_WINDOW_OPENGL);
-+	SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);
-+	screen = SDL_CreateRGBSurfaceWithFormat(0, WIDTH, HEIGHT, 32,SDL_PIXELFORMAT_ARGB32); //video buffer
-+	SDL_Texture *sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer,screen);// texture from video buffer
++#ifdef XCOMPILE
++	for (x = 1; x < argc; ++x) {
++		if (strcmp(argv[x], "-f") == 0 || strcmp(argv[x], "--fullscreen") == 0) {
++			window_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN_DESKTOP;
++			fullscreen = 1;
++		} else {
++			fprintf(stderr, "Usage: %s [-f|--fullscreen]\n", argv[0]);
++			return 1;
++		}
++	}
++#endif
++
++	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
++		fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
++		return 1;
++	}
++	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
++	sdl_window = SDL_CreateWindow("Raytro by wAMMA", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
++	                              WIDTH, HEIGHT, window_flags);
++	if (sdl_window == NULL) {
++		fprintf(stderr, "SDL_CreateWindow failed: %s\n", SDL_GetError());
++		SDL_Quit();
++		return 1;
++	}
++	sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_PRESENTVSYNC);
++	if (sdl_renderer == NULL)
++		sdl_renderer = SDL_CreateRenderer(sdl_window, -1, 0);
++	screen = SDL_CreateRGBSurfaceWithFormat(0, WIDTH, HEIGHT, 32, SDL_PIXELFORMAT_ARGB8888);
++	sdl_texture = SDL_CreateTexture(sdl_renderer, SDL_PIXELFORMAT_ARGB8888,
++	                                SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
++	if (sdl_renderer == NULL || screen == NULL || sdl_texture == NULL) {
++		fprintf(stderr, "SDL initialisation failed: %s\n", SDL_GetError());
++		SDL_Quit();
++		return 1;
++	}
++	SDL_RenderSetLogicalSize(sdl_renderer, WIDTH, HEIGHT);
++	SDL_SetRenderDrawColor(sdl_renderer, 0, 0, 0, 255);
 +
  	pixbuf = (Uint32*)screen->pixels;
  
  	SDL_ShowCursor(0);
-@@ -61,7 +65,10 @@
+@@ -49,7 +126,7 @@
+ 
+ 	start = SDL_GetTicks();
+ 
+-	while (SDL_GetTicks() - start < 14000 && event.type != SDL_KEYDOWN) {
++	while (SDL_GetTicks() - start < 14000 && !quit_requested) {
+ 		lights[0].x = cos((frameno*4) * 3.14159f / 180.0f) * 30.0f;
+ 		lights[0].y = sin((frameno*4) * 3.14159f / 180.0f) * 30.0f;
+ 
+@@ -61,38 +138,39 @@
  		}
  			
  		render_scene(sphere_flake, SPHERE_FLAKE_COUNT, pixbuf);
 -		SDL_Flip(screen);
-+		SDL_UpdateTexture(sdlTexture, NULL, screen->pixels, screen->pitch); //update texture content with the surface
-+		SDL_RenderClear(sdlRenderer);
-+		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
-+		SDL_RenderPresent(sdlRenderer);
- 		SDL_PollEvent(&event);
+-		SDL_PollEvent(&event);
++		present_frame(screen);
  		++frameno;
  	}
-@@ -74,7 +81,10 @@
+ 
+ 	start = SDL_GetTicks();
+ 
+-	while (SDL_GetTicks() - start < 14000 && event.type != SDL_KEYDOWN) {
++	while (SDL_GetTicks() - start < 14000 && !quit_requested) {
+ 		lights[0].y = -10.0f;
+ 		lights[0].x=cos((frameno*2) * 3.14159f / 180.0f)*20.0f;
  		lights[0].z=sin((frameno*2) * 3.14159f / 180.0f)*20.0f;
  		render_scene(room, ROOM_COUNT, pixbuf);
  
 -		SDL_Flip(screen);
-+		SDL_UpdateTexture(sdlTexture, NULL, screen->pixels, screen->pitch); //update texture content with the surface
-+		SDL_RenderClear(sdlRenderer);
-+		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
-+		SDL_RenderPresent(sdlRenderer);
- 		SDL_PollEvent(&event);
+-		SDL_PollEvent(&event);
++		present_frame(screen);
  		++frameno;
  	}
-@@ -88,11 +98,18 @@
+ 
+ 	start = SDL_GetTicks();
+ 	lights[0].z = -120;
+ 
+-	while (SDL_GetTicks() - start < 14000 && event.type != SDL_KEYDOWN) {	
++	while (SDL_GetTicks() - start < 14000 && !quit_requested) {	
+ 		lights[0].x = cos((frameno<<2) * 3.14159f / 180.0f) * 30.0f;
+ 		lights[0].y = sin((frameno<<2) * 3.14159f / 180.0f) * 30.0f;
  
  		render_scene(wAMMA, WAMMA_COUNT, pixbuf);
  
 -		SDL_Flip(screen);
-+		SDL_UpdateTexture(sdlTexture, NULL, screen->pixels, screen->pitch); //update texture content with the surface
-+		SDL_RenderClear(sdlRenderer);
-+		SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
-+		SDL_RenderPresent(sdlRenderer);
- 		SDL_PollEvent(&event);
+-		SDL_PollEvent(&event);
++		present_frame(screen);
  		++frameno;
  	}
  
++	SDL_DestroyTexture(sdl_texture);
 +	SDL_FreeSurface(screen);
-+	SDL_DestroyTexture(sdlTexture);
-+	SDL_DestroyRenderer(sdlRenderer);
-+	SDL_DestroyWindow(sdlWindow);
++	SDL_DestroyRenderer(sdl_renderer);
++	SDL_DestroyWindow(sdl_window);
  	SDL_Quit();
  
  #ifdef XCOMPILE
 --- a/Makefile
 +++ b/Makefile
-@@ -15,7 +15,7 @@
+@@ -14,8 +14,8 @@
+ exec_prefix     := $(prefix)
  bindir          := $(prefix)/bin
  
- CFLAGS   += -Wall -pipe -std=gnu90 -DXCOMPILE
--LDFLAGS  := $(shell $(PKG_CONFIG) --libs sdl) -lm -lc
-+LDFLAGS  := $(shell $(PKG_CONFIG) --libs sdl2) -lm -lc
+-CFLAGS   += -Wall -pipe -std=gnu90 -DXCOMPILE $(shell $(PKG_CONFIG) --cflags sdl)
+-LDLIBS   := $(shell $(PKG_CONFIG) --libs sdl) -lm
++CFLAGS   += -Wall -pipe -std=gnu90 -DXCOMPILE $(shell $(PKG_CONFIG) --cflags sdl2)
++LDLIBS   := $(shell $(PKG_CONFIG) --libs sdl2) -lm
  
  all: $(TARGET)
- $(TARGET):
+ $(TARGET): main.c common.h functions.h structs.h
 --- a/common.h
 +++ b/common.h
 @@ -6,7 +6,7 @@

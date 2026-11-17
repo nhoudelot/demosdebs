@@ -5,7 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  pkgconf,
- libsdl1.2-dev
+ libsdl2-dev
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=49797
 Rules-Requires-Root: no
@@ -14,14 +14,13 @@ Package: raytro-by-wamma
 Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- common-install-function-ddebs(>=1.18)
-Description: 4k intro for GNU/Linux by glaze/wAMMA, released @ Pouet.net 2008-02-27
- This is the first released 4k intro of wamma. He says he don't like C,
- especially when coding 3D stuff, but C++ is too bloaty and asm is non-portable.
- He didn't use music in this intro, because he's more interested to
- discover how much graphics code he can get into 4k.
+ ${misc:Depends}
+Description: Raytro, 4k intro for GNU/Linux by glaze/wAMMA, released in 2008
+ First 4k intro of glaze (Timo Wirén) of the group wAMMA, released
+ at Pouet.net in February 2008: a real-time ray tracer that renders
+ a sphereflake with Amiga-style textures, a room with reflective
+ cylinders and the wAMMA logo, with moving lights, reflections and
+ shadows. There is no music: the whole 4 KB were spent on graphics code.
  .
- He also tried to compile a win32 version using i586-mingw32msvc-gcc that
- came with Kubuntu (it uses gcc 3.4.5). There was missing/weird graphics
- in some places, so he didn't include a win32 build.
+ Press F to toggle fullscreen and any other key to quit. Run with
+ --fullscreen to start in fullscreen, as the original release did.

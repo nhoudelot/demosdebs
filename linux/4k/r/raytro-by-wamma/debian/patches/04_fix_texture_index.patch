@@ -1,0 +1,50 @@
+Description: keep the texture lookup inside the texture
+ On a sphere pole, or with a rounding error, acos() got an argument out of
+ [-1, 1] (or divided by sin(phi) == 0) and returned NaN. (int)NaN is
+ INT_MIN on x86, so the texture index was far outside the object: on i386
+ the address wrapped around by chance, but the intro crashed with a
+ segmentation fault on 64-bit architectures. phi == pi or theta == pi also
+ gave an index of 256, one row or texel past the end. Clamp the acos()
+ arguments and wrap u and v to the 256x256 texture.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
+--- a/functions.h
++++ b/functions.h
+@@ -172,6 +172,15 @@
+ }
+ 
+ /**
++ * Clamps the argument of acos() to [-1, 1]; NaN gives -1.
++ */
++static float clamp_unit(float x) {
++	if (x > 1.0f) return 1.0f;
++	if (x >= -1.0f) return x;
++	return -1.0f;
++}
++
++/**
+  * Calculates texture at hit point and saves color to object's property 'color'
+  */
+ static void calculate_texture(Object* objects, int o) {
+@@ -180,15 +189,17 @@
+ 	float phi, theta;
+ 
+ 	if (objects[o].type == SPHERE) {
+-		phi = acos(-dot(&objects[o].hit_normal, &objects[o].north));
++		phi = acos(clamp_unit(-dot(&objects[o].hit_normal, &objects[o].north)));
+ 		v = (int)(phi * (256.0f / 3.14159f));
+-		theta = acos(dot(&objects[o].equator, &objects[o].hit_normal) / sin(phi)) * (128.0f / M_PI);
++		theta = acos(clamp_unit(dot(&objects[o].equator, &objects[o].hit_normal) / sin(phi))) * (128.0f / M_PI);
+ 		u = (int)theta;
+ 		if (dot(&objects[o].position, &objects[o].hit_normal) > 0) u = 256 - (int)theta;
+ 	} else { /* type == PLANE || CYLINDER */
+ 		u = abs((int)(fmod(dot(&objects[o].hit_point, &objects[o].north), 256.0f)));
+ 		v = abs((int)(fmod(dot(&objects[o].hit_point, &objects[o].equator), 256.0f)));
+ 	}
++	u &= 255;
++	v &= 255;
+ 	
+         objects[o].color.x = (objects[o].texture[(v<<8) + u] & 0xFF0000)>>16;
+         objects[o].color.y = (objects[o].texture[(v<<8) + u] & 0x00FF00)>>8;

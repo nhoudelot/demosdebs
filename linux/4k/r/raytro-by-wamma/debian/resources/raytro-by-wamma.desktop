@@ -2,9 +2,11 @@
 Version=1.0
 Name=Raytro
 GenericName=Demo
-Comment=Demo by wamma, released in 2008
+Comment=4k ray tracing intro by wAMMA, released in 2008
+Comment[fr]=Intro 4k en lancer de rayons de wAMMA, sortie en 2008
 Type=Application
 Exec=/usr/bin/raytro-by-wamma
 Icon=raytro-by-wamma
-Categories=AudioVideo;Game;
+Categories=AudioVideo;
+Keywords=demoscene;demo;intro;4k;raytracing;
 Name[fr_FR]=Raytro

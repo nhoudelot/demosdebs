@@ -1,13 +1,27 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: raytro-by-wamma
-Source: https://www.pouet.net/prod.php?which=49797
+Source: https://files.scene.org/view/demos/groups/wamma/raytro.zip
 
 Files: *
-Copyright: 2008 wamma
-License: GPL-2.1
- /usr/share/common-licenses/GPL-2
+Copyright: 2008 Timo Wirén aka glaze/wAMMA
+License: GPL-1+
+ The source files state "@licence GNU GPL" without a version number.
+ .
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 1, or (at your option)
+ any later version.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 1 can be found in `/usr/share/common-licenses/GPL-1'.
 
 Files: debian/*
 Copyright: 2016-2026 Nicolas HOUDELOT <nicolas@demosdebs.org>
 License: GPL-3.0+
- /usr/share/common-licenses/GPL-3
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 3 can be found in `/usr/share/common-licenses/GPL-3'.
