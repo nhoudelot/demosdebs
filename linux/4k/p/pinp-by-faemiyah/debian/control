@@ -18,7 +18,12 @@ Package: pinp-by-faemiyah
 Architecture: i386
 Depends:
  ${shlibs:Depends},
- ${misc:Depends},
- libsdl1.2-compat
+ ${misc:Depends}
 Description: Linux 4k intro released in 2004
- 4k intro by Faemiyah, released in 2004
+ piNp is a 4k intro by the Finnish group Faemiyah, written in x86
+ assembly with SDL 1.2, OpenGL and GLUT. Code by Trilkk, music by
+ Juippi, additional code by Warma. The soundtrack is synthesized at
+ startup.
+ .
+ It was released at Assembly 2004 and ranked 10th in the 4k intro
+ competition.

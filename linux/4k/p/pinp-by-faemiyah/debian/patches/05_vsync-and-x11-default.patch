@@ -1,0 +1,98 @@
+Description: enable V-Sync and default to the X11 video driver
+ Add a new main() entry point which sets SDL_VIDEODRIVER=x11 with
+ setenv() (a value given by the user still wins, this replaces the former
+ Debian launcher script), calls SDL_Init and sets SDL_GL_SWAP_CONTROL
+ before the original code calls SDL_SetVideoMode, then jumps to the
+ original entry point, renamed pinp_main.
+ .
+ The new code and strings live in their own sections (.text.startup and
+ .rodata): the synth reads code bytes as noise and addresses its loop
+ counters relative to the song data, so adding anything to the original
+ .text or .data changes the music and makes the intro quit after a few
+ seconds.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
+--- a/src/pinp.nsm
++++ b/src/pinp.nsm
+@@ -18,6 +18,7 @@
+ %define SDL_HWPALETTE	0x20000000	; Surface has exclusive palette
+ %define SDL_DOUBLEBUF	0x40000000	; Set up double-buffered video mode
+ %define SDL_FULLSCREEN	0x80000000	; Surface is a full screen display
++%define SDL_GL_SWAP_CONTROL	16
+ %define SDL_OPENGL      0x00000002      ; Create an OpenGL rendering context
+ %define SDL_OPENGLBLIT	0x0000000A	; Create an OpenGL rendering context and use it for blitting
+ %define SDL_RESIZABLE	0x00000010	; This video mode may be resized */
+@@ -90,6 +91,7 @@
+ %define GLU_SMOOTH				100000
+ 
+ ; SDL
++EXTERN SDL_GL_SetAttribute,setenv
+ EXTERN SDL_GL_SwapBuffers,SDL_Init,SDL_PollEvent,SDL_Quit,SDL_SetVideoMode,SDL_OpenAudio,SDL_PauseAudio,SDL_ShowCursor
+ 
+ ; GL
+@@ -283,7 +285,7 @@
+ 
+ 	mov ecx, 1000
+ 	%ifdef AUTOMAKE
+-	mov ebx, main
++	mov ebx, pinp_main
+ 	%else
+ 	mov ebx, _start
+ 	%endif
+@@ -458,7 +460,7 @@
+ 	and bl, 0x7f 		; 0-3 freq, 4-6 vol
+ 
+ 	%ifdef AUTOMAKE
+-	mov esi, main		; täältä noiset
++	mov esi, pinp_main		; täältä noiset
+ 	%else
+ 	mov esi, _start		; täältä noiset
+ 	%endif
+@@ -1566,7 +1568,7 @@
+ ; Juurifunktio
+ 
+ %ifdef AUTOMAKE
+-main:
++pinp_main:
+ %else
+ _start:
+ %endif
+@@ -2329,6 +2331,36 @@
+ ; Bss ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
++%ifdef AUTOMAKE
++; Debian: entry point added in its own sections, so that the original code
++; and data keep their layout (the synth reads code bytes as noise, and the
++; loop counters are addressed relative to the song data).
++SECTION .text.startup progbits alloc exec nowrite align=16
++main:
++; default to the X11 video driver, without overriding SDL_VIDEODRIVER
++	push	dword 0
++	push	dword str_x11
++	push	dword str_videodriver
++	call	setenv
++	add	esp, 12
++; SDL_Init early (the second call in pinp_main does nothing more), then
++; enable V-Sync, which must be set before SDL_SetVideoMode
++	push	dword SDL_INIT_VIDEO + SDL_INIT_AUDIO
++	call	SDL_Init
++	add	esp, 4
++	push	dword 1
++	push	dword SDL_GL_SWAP_CONTROL
++	call	SDL_GL_SetAttribute
++	add	esp, 8
++	jmp	pinp_main
++
++SECTION .rodata
++str_videodriver:
++	db 'SDL_VIDEODRIVER', 0
++str_x11:
++	db 'x11', 0
++%endif
++
+ SECTION .bss
+ 
+ var_kayra		resd	500

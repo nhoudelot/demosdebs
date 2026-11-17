@@ -1,3 +1,28 @@
+pinp-by-faemiyah (1.0+git20170414-0ddebs9) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : removed the libsdl1.2-compat dependency, the package
+    does not exist anymore on resolute and forky (libsdl1.2debian is now
+    sdl12-compat), which made the package uninstallable
+  * debian/control : longer description
+  * debian/copyright : upstream license is BSD-3-Clause (see COPYING)
+  * debian/patches/01_fix_makefile.patch : don't install the ftoi
+    development helper in /usr/bin
+  * debian/patches/03,04 : added DEP-3 descriptions
+  * debian/patches/05_vsync-and-x11-default.patch : enable V-Sync and
+    default SDL_VIDEODRIVER to x11
+  * Removed the launcher script, the .desktop file runs the intro directly
+    (the launcher needed common-install-function-ddebs, which was not in
+    Depends)
+  * debian/rules : enabled all hardening flags
+  * debian/resources/pinp-by-faemiyah.desktop : added Keywords and a French
+    comment
+  * debian/pinp-by-faemiyah.6.md : rewritten, regenerated the manual page
+  * debian/pinp-by-faemiyah.lintian-overrides : override the groff warning of
+    the pandoc generated manual page
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 17 Nov 2026 00:22:36 +0100
+
 pinp-by-faemiyah (1.0+git20170414-0ddebs8) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

@@ -1,3 +1,8 @@
+Description: convert Finnish comments from ISO-8859-1 to UTF-8
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
 --- a/src/additional.c
 +++ b/src/additional.c
 @@ -19,7 +19,7 @@

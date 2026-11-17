@@ -1,3 +1,8 @@
+Description: fix a float conversion warning in the ftoi helper
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
 --- a/src/ftoi.cpp
 +++ b/src/ftoi.cpp
 @@ -21,7 +21,7 @@

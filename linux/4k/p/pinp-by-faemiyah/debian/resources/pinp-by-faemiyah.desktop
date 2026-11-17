@@ -2,9 +2,10 @@
 Version=1.0
 Name=piNp
 GenericName=Demo
-Comment=Demo by Faemiyah, released in 2004
+Comment=4k intro by Faemiyah, released in 2004
+Comment[fr]=Intro 4k de Faemiyah, sortie en 2004
 Type=Application
-Exec=/usr/bin/pinp-by-faemiyah_launcher
+Exec=/usr/bin/pinp-by-faemiyah
 Icon=pinp-by-faemiyah
 Categories=AudioVideo;Game;
-Name[fr_FR]=piNp
+Keywords=demoscene;demo;intro;4k;Assembly;

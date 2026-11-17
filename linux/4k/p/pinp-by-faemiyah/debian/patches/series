@@ -2,3 +2,4 @@
 02_remove_fullscreen.patch
 03_fix-warning.patch
 04_convert-to-utf8.patch
+05_vsync-and-x11-default.patch

@@ -1,12 +1,14 @@
 Description: make binary installable with autotools
+ Install the intro as /usr/bin/pinp-by-faemiyah. The ftoi helper (a
+ float to hex converter used during development) is still built but is
+ no longer installed.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-25
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -3,7 +3,7 @@
+@@ -3,7 +3,8 @@
  	nasm -f elf -D AUTOMAKE -o $@ $<
  
  ftoi_SOURCES = ftoi.cpp
@@ -15,4 +17,5 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	       dummy.c
  
 -noinst_PROGRAMS = ftoi pinp
-+bin_PROGRAMS = ftoi pinp-by-faemiyah
++noinst_PROGRAMS = ftoi
++bin_PROGRAMS = pinp-by-faemiyah
