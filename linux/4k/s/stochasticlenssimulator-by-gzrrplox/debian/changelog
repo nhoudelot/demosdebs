@@ -1,3 +1,22 @@
+stochasticlenssimulator-by-gzrrplox (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/05_use-shipped-settings-and-cppflags.patch : use the
+    shipped settings.h instead of running a generated program (fixes
+    cross-compilation without qemu), and pass CPPFLAGS for
+    _FORTIFY_SOURCE
+  * debian/patches/06_enable-vsync.patch : enable V-Sync
+  * debian/patches/04_fullscreen_with_key.patch : fixed DEP-3 header
+  * debian/control : longer description
+  * debian/resources/*.desktop : added Keywords, removed the related
+    lintian override
+  * debian/*.lintian-overrides : override pandoc groff-message false
+    positive
+  * debian/*.6.md : documented the keys
+  * Removed stale debian/stochasticlenssimulator-by-gzrrplox-docs.docs
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 18 Nov 2026 10:29:35 +0100
+
 stochasticlenssimulator-by-gzrrplox (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

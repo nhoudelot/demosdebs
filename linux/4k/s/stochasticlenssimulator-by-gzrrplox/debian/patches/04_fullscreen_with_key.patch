@@ -1,11 +1,12 @@
 Description: added fullscreen key
- added fullscreen function, to go fullscreen and back, with F key
+ added fullscreen function, to go fullscreen and back, with F key.
+ The display shader now computes the scale from the drawable size, so the
+ desktop resolution is used in fullscreen.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Assisted-by : Claude Sonnet 4.6
-Applied-Upstream: no
-Last-Update: 2024-04-03
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-04-09
 --- a/src/slsim.cpp
 +++ b/src/slsim.cpp
 @@ -32,6 +32,8 @@

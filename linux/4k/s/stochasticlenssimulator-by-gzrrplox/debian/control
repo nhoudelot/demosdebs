@@ -17,4 +17,11 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends}
 Description: 4k Intro for Linux, released in 2011
- 4k Intro by Gzrrplox, released in 2011
+ Stochastic Lens Simulator is a 4k intro by Gzrrplox, released at
+ Instanssi 2011. It is a first step towards a realtime stochastic
+ micropolygon rasterizer: geometry is sampled at random time and lens
+ coordinates many times per pixel, which gives motion blur and depth of
+ field. Sound is also generated on the GPU.
+ .
+ This package is built from the source code shipped with the intro, and
+ requires an OpenGL 3.2 driver with geometry shader support.

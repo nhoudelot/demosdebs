@@ -2,3 +2,5 @@
 02_migrate_to_SDL2.patch
 03_better_quit.patch
 04_fullscreen_with_key.patch
+05_use-shipped-settings-and-cppflags.patch
+06_enable-vsync.patch

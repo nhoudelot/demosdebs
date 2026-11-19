@@ -1,0 +1,35 @@
+Description: use shipped settings.h and dpkg-buildflags CPPFLAGS
+ The Makefile compiled settings.cpp and ran it to regenerate settings.h with
+ the default 960x600 values. The result is identical to the settings.h shipped
+ upstream, and a program built for the target architecture cannot run on the
+ build machine when cross-compiling. Use the shipped header instead, and pass
+ CPPFLAGS (needed for _FORTIFY_SOURCE) and CXXFLAGS to the compile and link
+ steps.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-18
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -34,16 +34,14 @@
+ 	#@wc -c $(TARGET)
+ 	cp $(TARGET).payload $(TARGET)
+ 
++# settings.h is shipped upstream, already generated for 960x600
+ # (window_w window_h framebuffer_w framebuffer_h)
+-$(TARGET): settings slsim.cpp
+-	echo 960 600 960 600 | ./settings > settings.h
+-	$(CXX) $(CXXFLAGS) -c slsim.cpp
+-	$(CXX) slsim.o -o $(TARGET).payload $(LDFLAGS)
+-
+-settings:
++$(TARGET): settings.h slsim.cpp
++	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c slsim.cpp
++	$(CXX) $(CXXFLAGS) slsim.o -o $(TARGET).payload $(LDFLAGS)
+ 
+ clean:
+-	-$(RM_F) *.o settings $(TARGET).payload
++	-$(RM_F) *.o $(TARGET).payload
+ 	-$(RM_F) $(TARGET)
+ 
+ install: $(TARGET)
