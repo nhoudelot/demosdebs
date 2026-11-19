@@ -1,10 +1,11 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: add a Makefile for packaging
+ Add a Makefile using pkg-config and the build flags of dpkg-buildflags
+ (CPPFLAGS, CFLAGS, LDFLAGS) for hardening, and a g.h header with the
+ includes needed by shadowsun.c.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-25
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-18
 --- /dev/null
 +++ b/Makefile
 @@ -0,0 +1,33 @@
@@ -31,8 +32,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +all: $(TARGET)
 +
-+$(TARGET):
-+	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
++$(TARGET): $(SOURCE) g.h
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(SOURCE) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

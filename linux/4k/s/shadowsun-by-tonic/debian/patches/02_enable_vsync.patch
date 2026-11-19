@@ -1,0 +1,18 @@
+Description: enable vertical synchronization
+ Request a swap interval of 1 with SDL_GL_SWAP_CONTROL before
+ SDL_SetVideoMode, so that the intro is synchronized with the display.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-18
+--- a/shadowsun.c
++++ b/shadowsun.c
+@@ -61,7 +61,7 @@
+           ();glTranslatef(x,y,z); glRotatef(50,1,0,0); glRotatef (T*
+           5e-2f+a*20,0,1,0); glCallList(d);glPopMatrix();}}int main(
+            int c,char **a) { SDL_Event e; SDL_AudioSpec as, oa;if (
+-           SDL_Init(48)<0)exit(1);atexit(SDL_Quit);SDL_SetVideoMode
++           SDL_Init(48)<0)exit(1);atexit(SDL_Quit);SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL,1);SDL_SetVideoMode
+               (640,480,32,2);as.freq=053042;as.format=AUDIO_S16;
+                 as.channels=1;as.samples=4096;as.callback=G;D=
+                    strlen(r[0]);R=strlen(l);U=strlen(b);if(

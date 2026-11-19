@@ -2,9 +2,13 @@
 Version=1.0
 Name=Shadow Sun
 GenericName=Demo
-Comment=Demo by tonic, released in 2004
+GenericName[fr]=Démo
+Comment=4k intro by tonic, released in 2004
+Comment[fr]=Intro 4k de tonic, sortie en 2004
 Type=Application
-Exec=/usr/bin/shadowsun-by-tonic_launcher
+Exec=/usr/bin/shadowsun-by-tonic
 Icon=shadowsun-by-tonic
+Terminal=false
 Categories=AudioVideo;Game;
-Name[fr_FR]=Shadow Sun
+Keywords=demo;demoscene;intro;4k;
+Keywords[fr]=démo;demoscene;intro;4k;

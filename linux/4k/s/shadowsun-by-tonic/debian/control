@@ -6,7 +6,7 @@ Build-Depends:
  debhelper-compat (= 13),
  pkgconf,
  libgl-dev,
- libglu-dev,
+ libglu1-mesa-dev | libglu-dev,
  libsdl1.2-dev
 Standards-Version: 4.7.3
 Homepage: https://320x200.org/2004/4k/
@@ -17,6 +17,10 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libsdl1.2-compat
-Description: tonic 4k Intro/2004/Linux
- Intro 4k by tonic, released in 2004
+ libsdl1.2-compat-shim
+Description: 4k intro by tonic, released in 2004
+ Shadow Sun is a 4k intro by tonic, winner of the 2nd #demoscene 4k
+ source compo in May 2004. It renders lit spheres orbiting in additive
+ blending in a 640x480 OpenGL window, with music synthesized in real time.
+ .
+ The intro uses SDL 1.2 through sdl12-compat (SDL 2). Press Escape to quit.

@@ -1,7 +1,17 @@
 shadowsun-by-tonic for Debian
 -----------------------------
 
-sources are repackaged
+The orig tarball is the source release of the 2nd #demoscene 4k source
+compo (2004). It only contains shadowsun.c and the build files for
+Windows (compile.sh, shadowsun.dsp, shadowsun.dsw).
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sun, 28 Feb 2016 01:33:38 +0100
+The patch 01_adapt_makefile.patch adds a Makefile, which uses pkg-config
+and the build flags of dpkg-buildflags (hardening), and the g.h header
+included by shadowsun.c. The patch 02_enable_vsync.patch enables the
+vertical synchronization.
 
+The executable is installed directly as /usr/bin/shadowsun-by-tonic.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 18 Nov 2026 02:00:00 +0100

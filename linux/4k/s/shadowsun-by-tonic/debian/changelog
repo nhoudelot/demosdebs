@@ -1,3 +1,32 @@
+shadowsun-by-tonic (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : replaced the libsdl1.2-compat dependency, which does
+    not exist on resolute and forky, by libsdl1.2-compat-shim, available
+    (real or provided) on every distribution; build-depend on
+    libglu1-mesa-dev first instead of the virtual libglu-dev; extended
+    the description
+  * debian/rules : removed the launcher generation and the dh_shlibdeps
+    override, the shlibs now give the libsdl1.2debian dependency
+  * debian/scripts : removed the launcher, which relied on
+    common-install-function-ddebs without depending on it; the
+    executable is run directly as /usr/bin/shadowsun-by-tonic
+  * debian/resources : added the real icon (was an empty file), made
+    from the screenshot of the compo results page
+  * debian/resources/shadowsun-by-tonic.desktop : run the executable
+    directly, added Keywords, Terminal and French entries
+  * debian/patches/01_adapt_makefile.patch : use CPPFLAGS for hardening
+    (_FORTIFY_SOURCE), rebuild when the source changes, DEP-3 header
+  * debian/patches/02_enable_vsync.patch : enable vertical
+    synchronization (SDL_GL_SWAP_CONTROL)
+  * debian/shadowsun-by-tonic.6.md : fixed description, documented the
+    Escape key, regenerated the manual page
+  * debian/shadowsun-by-tonic.lintian-overrides : removed the Keywords
+    override, added the pandoc groff-message override
+  * debian/README.source : documented the patches
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 18 Nov 2026 02:25:34 +0100
+
 shadowsun-by-tonic (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
