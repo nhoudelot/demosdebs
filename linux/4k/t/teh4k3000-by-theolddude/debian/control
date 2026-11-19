@@ -5,7 +5,7 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  libgl-dev,
- libsdl1.2-compat-dev|libsdl1.2-dev
+ libsdl1.2-compat-dev | libsdl1.2-dev
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=56988
 Rules-Requires-Root: no
@@ -16,7 +16,11 @@ Depends:
  libsdl1.2-compat,
  ${shlibs:Depends},
  ${misc:Depends},
- common-install-function-ddebs(>=1.18)
-Description: 4k intro for Linux, released in 2011
- 4k intro by the old dude, released in 2011
- Pikkiriikkinen demo @ Instanssi 2011
+ common-install-function-ddebs (>= 1.18)
+Description: 4k intro for Linux by the old dude, released in 2011
+ Teh 4k 3000 is a 4k intro released by the old dude at Instanssi 2011,
+ where it ended 3rd in the combined 4k competition. It was the first demo
+ of its author: a software synthesizer, one synth riff and a triangle.
+ .
+ The intro uses OpenGL and SDL 1.2. This package contains the bigger
+ executable released next to the packed 4k version.

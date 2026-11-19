@@ -1,3 +1,23 @@
+teh4k3000-by-theolddude (1.0-0ddebs10) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : described the intro, fixed the spacing of
+    dependencies
+  * debian/scripts : fixed the description (4k intro), simplified the
+    run function
+  * debian/install : removed the "./" in the paths
+  * debian/resources/teh4k3000-by-theolddude.desktop : 4k intro,
+    Keywords, Terminal and French comment, removed the Game category
+  * debian/teh4k3000-by-theolddude-docs.docs : removed, it belonged to no
+    package and listed missing files
+  * debian/README.source : added, with the compiler and source files
+    found in the executable
+  * debian/teh4k3000-by-theolddude.6.md : options, how to quit, credits
+  * lintian overrides : typo-in-manual-page for any line, pandoc
+    groff-message, removed the Keywords override
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 20 Nov 2026 00:43:52 +0100
+
 teh4k3000-by-theolddude (1.0-0ddebs9) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

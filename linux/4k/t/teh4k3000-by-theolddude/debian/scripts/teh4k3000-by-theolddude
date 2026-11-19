@@ -6,16 +6,15 @@ domain=teh4k3000-by-theolddude
 
 APP_FULLNAME="Teh 4k 3000"
 APP_COPYRIGHT="the old dude"
-APP_DESC="demo by the old dude released in 2011"
+APP_DESC="4k intro by the old dude, released in 2011"
 
+# -w : 1280x720 window instead of fullscreen
 APP_EXE="teh4k -w"
 
 function run()
 {
-	backuppwd=$(pwd)
-	cd /usr/lib/i386-linux-gnu/${domain}
-	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=./:/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE}
-	cd $backuppwd
+	cd /usr/lib/i386-linux-gnu/${domain} || exit
+	SDL_VIDEODRIVER=x11 LD_LIBRARY_PATH=/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE}
 }
 
 

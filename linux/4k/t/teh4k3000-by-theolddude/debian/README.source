@@ -1,0 +1,30 @@
+teh4k3000-by-theolddude for Debian
+----------------------------------
+
+The upstream archive (entry_teh4k.zip on scene.org) contains no source
+code, only two executables:
+ - teh4k.run, the packed 4k version. It unpacks itself to /tmp/I and runs
+   it from there, so it is not installed;
+ - teh4k, a bigger executable built with debug information. This is the
+   one installed in /usr/lib/i386-linux-gnu/teh4k3000-by-theolddude.
+
+The executable starts fullscreen in 1280x720, or in a window when it gets
+the -w option: the launcher uses -w. It already asks for V-Sync
+(SDL_GL_SWAP_CONTROL before SDL_SetVideoMode). Any key quits; closing the
+window does nothing, as the intro only checks SDL_KEYDOWN events.
+
+The launcher uses sdl12-compat (SDL 1.2 API on top of SDL 2) through
+LD_LIBRARY_PATH, with the X11 video driver. The executable cannot be
+hardened: the lintian tags about hardening are overridden.
+
+executable seems to be compiled for Fedora 13
+
+GCC: (GNU) 4.4.4 20100630 (Red Hat 4.4.4-10)
+
+Source files:
+-------------
+crtstuff.c esimsong.c main.c syntinen.c teh4k_gfx.c
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 20 Nov 2026 00:43:52 +0100
