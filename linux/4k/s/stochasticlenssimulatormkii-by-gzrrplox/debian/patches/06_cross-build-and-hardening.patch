@@ -1,0 +1,61 @@
+Description: fix cross-compilation, use hardening flags, start in a 960x600 window
+ The settings and formatter tools generate settings.h and shaders.h during the
+ build, so they must run on the build machine: compile them with
+ CXX_FOR_BUILD instead of the (possibly cross) target compiler. The letters
+ tool only prints data used when writing the shaders, so it is no longer
+ built. CXX and PKG_CONFIG can now be set by debhelper, and CPPFLAGS (needed
+ for _FORTIFY_SOURCE) and CXXFLAGS are passed to the compile and link steps.
+ .
+ The window opens at 960x600, the image size, as the upstream windowed
+ version does, instead of 1920x1200 which is larger than many screens. The F
+ key still switches to fullscreen at the desktop resolution.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-19
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,7 +1,9 @@
+ #variables de compilation
+ SHELL := /bin/sh
+-CXX   := g++
+-PKG_CONFIG:=pkg-config
++CXX   ?= g++
++PKG_CONFIG ?= pkg-config
++# helper tools run during the build: compiled for the build machine
++CXX_FOR_BUILD ?= g++
+ CXXFLAGS +=$(shell $(PKG_CONFIG) --cflags sdl2 gl) -Wall -std=gnu++98 -fabi-version=2 -pipe
+ LDFLAGS +=$(shell $(PKG_CONFIG) --libs sdl2 gl)
+ 
+@@ -34,22 +36,24 @@
+ 	cp $(TARGET).payload $(TARGET)
+ 
+ # (window_w window_h framebuffer_w framebuffer_h)
+-$(TARGET): settings letters formatter main.cpp
+-	echo 1920 1200 960 600 | ./settings > settings.h
++$(TARGET): settings formatter main.cpp
++	echo 960 600 960 600 | ./settings > settings.h
+ 	./formatter > shaders.h
+-	$(CXX) $(CXXFLAGS) -c main.cpp
+-	$(CXX) main.o -o $(TARGET).payload $(LDFLAGS)
++	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c main.cpp
++	$(CXX) $(CXXFLAGS) main.o -o $(TARGET).payload $(LDFLAGS)
+ 
+-settings:
++settings: settings.cpp
++	$(CXX_FOR_BUILD) $(CXXFLAGS_FOR_BUILD) settings.cpp -o settings $(LDFLAGS_FOR_BUILD)
+ 
+-formatter:
++formatter: formatter.cpp
++	$(CXX_FOR_BUILD) $(CXXFLAGS_FOR_BUILD) formatter.cpp -o formatter $(LDFLAGS_FOR_BUILD)
+ 
+ CXXFLAGS+= -std=c++0x
+ letters:
+ 
+ clean:
+ 	-$(RM_F) *.o
+-	-$(RM_F) $(TARGET) formatter settings letters letters $(TARGET).payload
++	-$(RM_F) $(TARGET) formatter settings letters $(TARGET).payload
+ 
+ install: $(TARGET)
+ 	$(INSTALL_DIR) $(DESTDIR)$(bindir)

@@ -3,3 +3,5 @@
 03_better_quit.patch
 04_toggle_fullscreen.patch
 05_fix-warnings.patch
+06_cross-build-and-hardening.patch
+07_enable-vsync.patch

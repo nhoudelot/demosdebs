@@ -1,11 +1,12 @@
 Description: added fullscreen key
- added fullscreen function, to go fullscreen and back, with F key
+ added fullscreen function, to go fullscreen and back, with F key.
+ The final image is blitted to the drawable size, keeping its aspect ratio,
+ so the desktop resolution is used in fullscreen.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Assisted-by : Claude Sonnet 4.6
-Applied-Upstream: no
-Last-Update: 2024-04-04
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-04-09
 --- a/src/main.cpp
 +++ b/src/main.cpp
 @@ -61,6 +61,8 @@

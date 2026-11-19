@@ -1,9 +1,11 @@
 Description: C++11 requires a space between literal and string macro
+ The shaders are embedded as C string literals by the formatter tool, and
+ main.cpp is compiled in C++11 mode, where "x"MACRO is read as a user-defined
+ literal. Add a space before each macro name.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2026-04-09
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-19
 --- a/src/sound_geom_source.glsl
 +++ b/src/sound_geom_source.glsl
 @@ -6,27 +6,27 @@
@@ -94,15 +96,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      return tr(vec4(p,1) * m);
  }
  
-@@ -100,7 +100,7 @@
-         vertex.size = 0.1;
-         return turntable(p1, bcos(0.2, t*pi2*2), bsin(0.2, t*pi2*2));
-     }
--    if (t > 27 && t < 35) {
-+    if (t > 27 && t < 35) {frag.pos1=p1.xyz
-         p1 = rand3(p) * 2 -1;
-         vertex.color = rand3(p*2);
-         vertex.size = 0.1;
 @@ -118,7 +118,7 @@
  }
  

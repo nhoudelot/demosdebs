@@ -1,0 +1,18 @@
+Description: enable V-Sync
+ Call SDL_GL_SetSwapInterval(1) right after the OpenGL context is created,
+ to avoid tearing. Animation is driven by SDL_GetTicks(), so the speed of
+ the intro does not depend on the refresh rate.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-19
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -314,6 +314,7 @@
+ 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+ 	sdlWindow = SDL_CreateWindow("Stochastic Lens Simulator MKII by Gzrrplox",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,window_w,window_h,SDL_WINDOW_OPENGL);
+ 	SDL_GLContext sdlGlcontext = SDL_GL_CreateContext(sdlWindow);
++	SDL_GL_SetSwapInterval(1);
+ 	SDL_ShowCursor(0);
+ 
+ 	init_fbo(&fbo_sound, &sound_tex, anim_width, anim_channels, GL_NEAREST);
