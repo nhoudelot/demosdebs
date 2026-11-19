@@ -1,3 +1,5 @@
 01_adapt_makefile.patch
 02_remove_few_asm.patch
 03_fix-some-SDL2.patch
+04_makefile-system-minifier-hardening.patch
+05_portable-code-and-window-option.patch

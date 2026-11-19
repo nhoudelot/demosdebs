@@ -1,0 +1,50 @@
+Description: build with the system Shader Minifier and the Debian build flags
+ - minify both shader variants with /usr/bin/shader_minifier.exe instead of
+   the bundled Windows executable;
+ - pass CPPFLAGS and LDFLAGS so that the hardening flags are applied, and
+   the pkg-config CFLAGS of the libraries;
+ - build both shader variants into one binary (choice made at runtime);
+ - remove the generated files in the clean target.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-17
+--- a/Makefile
++++ b/Makefile
+@@ -5,7 +5,7 @@
+ RM_F       := rm -f
+ 
+ LIBS += $(shell $(PKG_CONFIG) --libs sdl2 gl libspectre opus )
+-CFLAGS += -std=gnu11 -Wall -Wextra
++CFLAGS += -std=gnu11 -Wall -Wextra $(shell $(PKG_CONFIG) --cflags sdl2 gl libspectre opus )
+ #CFLAGS += -fno-stack-protector -fno-stack-check -fno-unwind-tables -fno-asynchronous-unwind-tables -fomit-frame-pointer
+ #CFLAGS += -no-pie -fno-pic -fno-PIE -fno-PIC -march=core2 -ffunction-sections -fdata-sections
+ PROJNAME := scalemark-by-suricrasiaonline
+@@ -65,7 +65,7 @@
+ 	sed -i 's/\([0-9]\+\)\.\([^0-9]\)/\1\2/g' $@
+ 
+ shader_full.h : shader_full.frag.min Makefile
+-	mono ./shader_minifier.exe $< -o $@
++	mono /usr/bin/shader_minifier.exe $< -o $@
+ 	sed -i 's/\([0-9]\+\)\.\([^0-9]\)/\1\2/g' $@
+ 
+ postscript.ps.min : postscript.ps Makefile
+@@ -79,8 +79,8 @@
+ 	xxd -i $< > $@
+ 	sed -i 's/unsigned char/const unsigned char/' $@
+ 
+-$(PROJNAME).elf : scalemark.c shader_full.h postscript.h Makefile sys.h def.h
+-	$(CC) $(CFLAGS) -DCANVAS_WIDTH=$(CANVAS_WIDTH_FULL) -DCANVAS_HEIGHT=$(CANVAS_HEIGHT_FULL) -DFULLSIZE $<  $(LIBS) -o $@
++$(PROJNAME).elf : scalemark.c shader_full.h shader_small.h postscript.h Makefile
++	$(CC) $(CPPFLAGS) $(CFLAGS) -DCANVAS_WIDTH_FULL=$(CANVAS_WIDTH_FULL) -DCANVAS_HEIGHT_FULL=$(CANVAS_HEIGHT_FULL) -DCANVAS_WIDTH_SMALL=$(CANVAS_WIDTH_SMALL) -DCANVAS_HEIGHT_SMALL=$(CANVAS_HEIGHT_SMALL) $< $(LDFLAGS) $(LIBS) -o $@
+ 
+ $(PROJNAME) : $(PROJNAME).elf
+ 	mv $< $@
+@@ -91,6 +91,7 @@
+ 
+ clean :
+ 	-$(RM_F) *.elf *.xz shader.h $(PROJNAME) $(PROJNAME)_unpacked $(PROJNAME)_small $(PROJNAME)_small_unpacked
++	-$(RM_F) shader*.frag.min shader_full.h shader_small.h postscript.ps.min postscript.h
+ 
+ install: $(PROJNAME)
+ 	$(INSTALL_DIR) $(DESTDIR)$(bindir)

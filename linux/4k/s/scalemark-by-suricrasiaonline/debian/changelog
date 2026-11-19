@@ -1,3 +1,27 @@
+scalemark-by-suricrasiaonline (1.0+git20190621-0ddebs3) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches : 04_makefile-system-minifier-hardening.patch, minify
+    both shaders with the system Shader Minifier (the bundled 1.1.5 exe
+    was used for the fullscreen shader), use CPPFLAGS/LDFLAGS and pkg-
+    config CFLAGS
+  * debian/patches : 05_portable-code-and-window-option.patch, libc
+    instead of raw x86 syscalls (builds on ARM), clean exit at the end
+    of the song, -w/--window option for the 640x360 variant, fixed one
+    byte overread and shader log written on stdin
+  * debian/patches : 03_fix-some-SDL2.patch, fixed the header
+    (AUDIO_S16MSB is intentional)
+  * debian/rules : enabled hardening=+all
+  * debian/control : Architecture any, libgl-dev instead of libglu-dev,
+    removed the unneeded common-install-function-ddebs dependency,
+    improved description
+  * debian/resources : added the missing icon (the PNG was empty)
+  * debian/scalemark-by-suricrasiaonline.6.md : documented the options
+  * debian : lintian overrides (pandoc groff-message, upstream
+    shader_minifier.exe) and Keywords in the desktop file
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Tue, 17 Nov 2026 20:16:53 +0100
+
 scalemark-by-suricrasiaonline (1.0+git20190621-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
