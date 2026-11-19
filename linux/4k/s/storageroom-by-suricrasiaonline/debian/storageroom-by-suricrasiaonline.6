@@ -14,76 +14,61 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "storageroom-by-suricrasiaonline" "6" "2025-05-07" "Storage Room User Manuals" ""
+.TH "storageroom-by-suricrasiaonline" "6" "2026-11-19" "Storage Room User Manuals" ""
 .hy
 .SH NAME
 .PP
-\f[B]storageroom-by-suricrasiaonline\f[R] - the command to run Storage
-Room.
+storageroom-by-suricrasiaonline - the command to run Storage Room.
 .SH SYNOPSIS
 .PP
-\f[B]storageroom-by-suricrasiaonline\f[R] [\f[I]options\f[R]]
+storageroom-by-suricrasiaonline [\f[I]GTK options\f[R]]
 .SH DESCRIPTION
 .PP
-\f[B]Storage Room\f[R] is a 2k executable graphics demo released by
-Suricrasia Online in june 2020.
-.PD 0
-.P
-.PD
-It requires a minimum resolution of \f[B]1920x1080\f[R]; behavior at
-lower resolutions is undefined and the demo may fail to render correctly
-or at all.
+Storage Room is a 2k executable graphics released by Suricrasia Online
+in June 2020, ranked 3rd in the 4k procedural graphics competition at
+NOVA 2020.
 .PP
-The demo can be exited at any time by pressing \f[B]Esc\f[R]
+blackle [code, gfx]
+.PP
+The demo opens fullscreen and renders, line by line, a single 1920x1080
+image with a GLSL path tracer.
+The time spent on the rendering is printed on the standard output when
+it is finished.
+.PP
+The screen must be at least 1920 pixels wide, otherwise nothing is
+rendered.
+On a larger screen, the image is drawn in the bottom left corner.
+OpenGL 4.3 is required.
+.PP
+Press Escape to quit.
 .SH OPTIONS
 .PP
-\f[B]Storage Room\f[R] does not accept command-line options directly.
-.PD 0
-.P
-.PD
-However, its rendering quality can be adjusted using an environment
-variable:
-.IP \[bu] 2
-\f[V]SAMPLES=<number>\f[R] Sets the number of samples used for
-rendering.
-.PD 0
-.P
-.PD
-A higher number generally results in better image quality but may
-require more processing power.
-.PD 0
-.P
-.PD
+The demo only accepts the standard GTK options (see
+\f[B]gtk-options\f[R](7)), for example \f[B]--display\f[R].
+.SH ENVIRONMENT
+.TP
+\f[B]SAMPLES\f[R]=\f[I]number\f[R]
+Number of samples per pixel.
+A higher number gives a cleaner image but takes longer to render.
 The default value is 300.
-.RS 2
+.RS
 .PP
-Example usage: \f[V]env SAMPLES=500 storageroom-by-suricrasiaonline\f[R]
+Example: \f[B]SAMPLES=50 storageroom-by-suricrasiaonline\f[R]
 .RE
-.SH AUTHOR
-.PP
-\f[B]Storage Room\f[R] was created by blackle / Suricrasia Online.
 .SH SEE ALSO
 .IP \[bu] 2
-\f[B]Official Page:\f[R]
-<https://suricrasia.online/demoscene/storage_room.html>
-.PD 0
-.P
-.PD
+Official page: <https://suricrasia.online/demoscene/storage_room.html>
 .IP \[bu] 2
-\f[B]GitHub Repository:\f[R]
-<https://github.com/Suricrasia-Online/Storage-Room>
-.PD 0
-.P
-.PD
+Source code: <https://github.com/Suricrasia-Online/Storage-Room>
 .IP \[bu] 2
-\f[B]Pouët Entry:\f[R] <https://www.pouet.net/prod.php?which=8591>
-.PD 0
-.P
-.PD
+Pouët: <https://www.pouet.net/prod.php?which=85914>
 .IP \[bu] 2
-\f[B]Demozoo Entry:\f[R] <http://demozoo.org/productions/279417/>
+Demozoo: <https://demozoo.org/productions/279417/>
+.IP \[bu] 2
+Shadertoy: <https://www.shadertoy.com/view/WtsyRH>
 .SH BUGS
-.IP \[bu] 2
-May not run or may render incorrectly on resolutions below 1920x1080
+.PP
+Nothing is rendered on screens less than 1920 pixels wide.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Suricrasia Online.
+Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Claude Opus 5.5,Suricrasia
+Online.

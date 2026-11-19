@@ -1,1 +1,3 @@
 01_adapt_makefile.patch
+02_makefile-flags-hardening.patch
+03_portable-code.patch

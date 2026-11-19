@@ -1,0 +1,178 @@
+Description: portable C code
+ - use a regular main() and exit() from the C library instead of the
+   _start entry point with x86 inline assembly and the raw x86 syscalls of
+   sys.h, so the demo builds on every architecture and with the standard
+   start files (PIE, hardening);
+ - call gtk_init() with argc/argv, so the GTK options work;
+ - always check the shader compilation and link status and print the log
+   on stderr (the checks were only built in debug mode, and a driver
+   without GLSL 4.20 showed a black screen without any message);
+ - drop the unused GLU and GLX includes.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-19
+--- a/storage_room.c
++++ b/storage_room.c
+@@ -1,4 +1,4 @@
+-#define GL_GLEXT_PROTOTYPES why
++#define GL_GLEXT_PROTOTYPES
+ 
+ #include<stdio.h>
+ #include<stdbool.h>
+@@ -9,12 +9,8 @@
+ #include <gtk/gtk.h>
+ #include <gdk/gdkkeysyms.h>
+ #include <GL/gl.h>
+-#include <GL/glx.h>
+-#include <GL/glu.h>
+ #include <GL/glext.h>
+ 
+-#include "sys.h"
+-
+ #include "shader.h"
+ const char* vshader = "#version 430\nvoid main(){gl_Position=vec4(gl_VertexID%2==0?-1:1,gl_VertexID%4/2==0?-1:1,1,1);}";
+ 
+@@ -26,9 +22,8 @@
+ #define TIME_RENDER
+ #define SCISSORS
+ 
+-static void quit_asm() {
+-	SYS_exit_group(0);
+-	__builtin_unreachable();
++static void quit_asm(void) {
++	exit(0);
+ }
+ 
+ GLuint vao;
+@@ -51,51 +46,37 @@
+ 	return FALSE;
+ }
+ 
+-static void compile_shader()
++static void check_shader(GLuint s)
++{
++	GLint isCompiled = GL_FALSE;
++	glGetShaderiv(s, GL_COMPILE_STATUS, &isCompiled);
++	if (isCompiled == GL_FALSE) {
++		char error[4096];
++		glGetShaderInfoLog(s, sizeof(error), NULL, error);
++		fprintf(stderr, "shader compile error:\n%s\n", error);
++		exit(1);
++	}
++}
++
++static void compile_shader(void)
+ {
+ 	// compile shader
+ 	GLuint f = glCreateShader(GL_FRAGMENT_SHADER);
+ 
+-	char* samples = getenv("SAMPLES");
++	const char* samples = getenv("SAMPLES");
+ 	if (samples == NULL) samples = "300";
+ 
+ 	const char* shader_frag_list[] = {"#version 420\n#define SAMPLES ", samples, "\n", shader_frag};
+ 	glShaderSource(f, 4, shader_frag_list, NULL);
+ 	glCompileShader(f);
+ 
+-#ifdef DEBUG
+-	GLint isCompiled = 0;
+-	glGetShaderiv(f, GL_COMPILE_STATUS, &isCompiled);
+-	if(isCompiled == GL_FALSE) {
+-		GLint maxLength = 0;
+-		glGetShaderiv(f, GL_INFO_LOG_LENGTH, &maxLength);
+-
+-		char* error = malloc(maxLength);
+-		glGetShaderInfoLog(f, maxLength, &maxLength, error);
+-		printf("%s\n", error);
+-
+-		quit_asm();
+-	}
+-#endif
++	check_shader(f);
+ 
+ 	GLuint v = glCreateShader(GL_VERTEX_SHADER);
+ 	glShaderSource(v, 1, &vshader, NULL);
+ 	glCompileShader(v);
+ 
+-#ifdef DEBUG
+-	GLint isCompiled2 = 0;
+-	glGetShaderiv(v, GL_COMPILE_STATUS, &isCompiled2);
+-	if(isCompiled2 == GL_FALSE) {
+-		GLint maxLength = 0;
+-		glGetShaderiv(v, GL_INFO_LOG_LENGTH, &maxLength);
+-
+-		char* error = malloc(maxLength);
+-		glGetShaderInfoLog(v, maxLength, &maxLength, error);
+-		printf("%s\n", error);
+-
+-		quit_asm();
+-	}
+-#endif
++	check_shader(v);
+ 
+ 	// link shader
+ 	p = glCreateProgram();
+@@ -104,20 +85,14 @@
+ 	glLinkProgram(p);
+ 	glUseProgram(p);
+ 
+-#ifdef DEBUG
+-	GLint isLinked = 0;
+-	glGetProgramiv(p, GL_LINK_STATUS, (int *)&isLinked);
++	GLint isLinked = GL_FALSE;
++	glGetProgramiv(p, GL_LINK_STATUS, &isLinked);
+ 	if (isLinked == GL_FALSE) {
+-		GLint maxLength = 0;
+-		glGetProgramiv(p, GL_INFO_LOG_LENGTH, &maxLength);
+-
+-		char* error = malloc(maxLength);
+-		glGetProgramInfoLog(p, maxLength, &maxLength,error);
+-		printf("%s\n", error);
+-
+-		quit_asm();
++		char error[4096];
++		glGetProgramInfoLog(p, sizeof(error), NULL, error);
++		fprintf(stderr, "shader link error:\n%s\n", error);
++		exit(1);
+ 	}
+-#endif
+ 
+ 	glGenVertexArrays(1, &vao);
+ 	glBindVertexArray(vao);
+@@ -154,24 +129,18 @@
+   return TRUE;
+ }
+ 
+-void _start() {
+-	asm volatile("sub $8, %rsp\n");
++int main(int argc, char **argv) {
+ #ifdef TIME_RENDER
+ 	gtimer = g_timer_new();
+ #endif
+ 
+-	typedef void (*voidWithOneParam)(int*);
+-#pragma GCC diagnostic push
+-#pragma GCC diagnostic ignored "-Wcast-function-type"
+-	voidWithOneParam gtk_init_one_param = (voidWithOneParam)gtk_init;
+-#pragma GCC diagnostic pop
+-	(*gtk_init_one_param)(NULL);
++	gtk_init(&argc, &argv);
+ 
+ 	GtkWidget *win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+ 	GtkWidget *glarea = gtk_gl_area_new();
+ 	gtk_container_add(GTK_CONTAINER(win), glarea);
+ 
+-	g_signal_connect(win, "destroy", quit_asm, NULL);
++	g_signal_connect(win, "destroy", G_CALLBACK(quit_asm), NULL);
+ 	g_signal_connect(win, "key_press_event", G_CALLBACK(check_escape), NULL);
+ 	// g_signal_connect(glarea, "realize", G_CALLBACK(on_realize), NULL);
+ 	g_signal_connect(glarea, "render", G_CALLBACK(on_render), NULL);
+@@ -188,5 +157,5 @@
+ 
+ 	gtk_main();
+ 
+-	quit_asm();
++	return 0;
+ }
+\ No newline at end of file

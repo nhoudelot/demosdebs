@@ -1,39 +1,46 @@
 % storageroom-by-suricrasiaonline(6) Storage Room User Manuals
-% Nicolas HOUDELOT (nicolas@demosdebs.org),Suricrasia Online
-% 2025-05-07
+% Nicolas HOUDELOT (nicolas@demosdebs.org),Claude Opus 5.5,Suricrasia Online
+% 2026-11-19
 
 # NAME
-**storageroom-by-suricrasiaonline** - the command to run Storage Room.
+storageroom-by-suricrasiaonline - the command to run Storage Room.
 
 # SYNOPSIS
-**storageroom-by-suricrasiaonline** [*options*]
+storageroom-by-suricrasiaonline [*GTK options*]
 
 # DESCRIPTION
-**Storage Room** is a 2k executable graphics demo released by Suricrasia Online in june 2020.  
-It requires a minimum resolution of **1920x1080**; behavior at lower resolutions is undefined and the demo may fail to render correctly or at all.
+Storage Room is a 2k executable graphics released by Suricrasia Online in
+June 2020, ranked 3rd in the 4k procedural graphics competition at NOVA 2020.
 
-The demo can be exited at any time by pressing **Esc**
+blackle [code, gfx]
+
+The demo opens fullscreen and renders, line by line, a single 1920x1080
+image with a GLSL path tracer. The time spent on the rendering is printed
+on the standard output when it is finished.
+
+The screen must be at least 1920 pixels wide, otherwise nothing is
+rendered. On a larger screen, the image is drawn in the bottom left corner.
+OpenGL 4.3 is required.
+
+Press Escape to quit.
 
 # OPTIONS
-**Storage Room** does not accept command-line options directly.  
-However, its rendering quality can be adjusted using an environment variable:
+The demo only accepts the standard GTK options (see **gtk-options**(7)),
+for example **\-\-display**.
 
-* `SAMPLES=<number>`
-    Sets the number of samples used for rendering.  
-    A higher number generally results in better image quality but may require more processing power.  
-    The default value is 300.
+# ENVIRONMENT
+**SAMPLES**=*number*
+:   Number of samples per pixel. A higher number gives a cleaner image but
+    takes longer to render. The default value is 300.
 
-    Example usage:
-    `env SAMPLES=500 storageroom-by-suricrasiaonline`
-
-# AUTHOR
-**Storage Room** was created by blackle / Suricrasia Online.
+    Example: **SAMPLES=50 storageroom-by-suricrasiaonline**
 
 # SEE ALSO
-* **Official Page:** <https://suricrasia.online/demoscene/storage_room.html>  
-* **GitHub Repository:** <https://github.com/Suricrasia-Online/Storage-Room>  
-* **Pouët Entry:** <https://www.pouet.net/prod.php?which=8591>  
-* **Demozoo Entry:** <http://demozoo.org/productions/279417/>  
+* Official page: <https://suricrasia.online/demoscene/storage_room.html>
+* Source code: <https://github.com/Suricrasia-Online/Storage-Room>
+* Pouët: <https://www.pouet.net/prod.php?which=85914>
+* Demozoo: <https://demozoo.org/productions/279417/>
+* Shadertoy: <https://www.shadertoy.com/view/WtsyRH>
 
 # BUGS
-- May not run or may render incorrectly on resolutions below 1920x1080
+Nothing is rendered on screens less than 1920 pixels wide.

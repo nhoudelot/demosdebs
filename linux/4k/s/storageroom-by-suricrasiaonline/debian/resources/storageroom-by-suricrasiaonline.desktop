@@ -2,9 +2,10 @@
 Version=1.0
 Name=Storage Room
 GenericName=Demo
-Comment=Demo by Suricrasia Online, released in 2020
+Comment=2k executable graphics by Suricrasia Online, released in 2020
 Type=Application
 Exec=/usr/bin/storageroom-by-suricrasiaonline
 Icon=storageroom-by-suricrasiaonline
 Categories=AudioVideo;
 Name[fr_FR]=Storage Room
+Keywords=demo;demoscene;exegfx;2k;

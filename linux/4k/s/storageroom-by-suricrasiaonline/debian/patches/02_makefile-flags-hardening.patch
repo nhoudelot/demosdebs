@@ -1,0 +1,91 @@
+Description: build with portable flags and the Debian build flags
+ - remove the x86-only options (-malign-data, -mno-fancy-math-387,
+   -mno-ieee-fp) and the start files/default libraries hack, so the demo
+   builds on every architecture;
+ - pass CPPFLAGS and LDFLAGS so that the hardening flags are applied, and
+   take the CFLAGS and libraries of GTK 3 and OpenGL from pkg-config;
+ - do not run the size check of the packed upstream binary in the default
+   target.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-19
+--- a/Makefile
++++ b/Makefile
+@@ -33,44 +33,18 @@
+ 
+ #huge greets to donnerbrenn!
+ CFLAGS += -std=gnu11
+-
+ CFLAGS += -fno-plt
+-#CFLAGS += -fno-stack-protector -fno-stack-check
+-#CFLAGS += -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions
+ CFLAGS += -funsafe-math-optimizations -ffast-math
+-CFLAGS += -fomit-frame-pointer
+ CFLAGS += -ffunction-sections -fdata-sections
+ CFLAGS += -fmerge-all-constants
+-#CFLAGS += -fno-PIC -fno-PIE
+-CFLAGS += -malign-data=cacheline
+-CFLAGS += -mno-fancy-math-387 -mno-ieee-fp
+ CFLAGS += -Wall
+ CFLAGS += -Wextra
+-#CFLAGS += -no-pie
+ # #use with gcc7+:
+ CFLAGS += -flto
++CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk+-3.0 gl)
+ 
+-CFLAGS += -nostartfiles -nodefaultlibs
+-CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk+-3.0)
+-CFLAGS += -lc
+-CFLAGS += -lGL
+-CFLAGS += -lglib-2.0
+-CFLAGS += -lgobject-2.0
+-CFLAGS += -lgtk-3
+-CFLAGS += -lgdk-3
+-
+-#CFLAGS += -Wl,--build-id=none
+-#CFLAGS += -Wl,-z,norelro
+-#CFLAGS += -Wl,-z,nocombreloc
+-#CFLAGS += -Wl,--gc-sections
+-#CFLAGS += -Wl,-z,nodynamic-undefined-weak
+-#CFLAGS += -Wl,--no-ld-generated-unwind-info
+-#CFLAGS += -Wl,--no-eh-frame-hdr
+-#CFLAGS += -Wl,-z,noseparate-code
+-#CFLAGS += -Wl,--hash-style=sysv
+-#CFLAGS += -Wl,--whole-archive
+-#CFLAGS += -Wl,--print-gc-sections
+-#CFLAGS += -T linker.ld
++LDFLAGS += -Wl,--gc-sections
++LIBS += $(shell $(PKG_CONFIG) --libs gtk+-3.0 gl)
+ 
+ # Install variables
+ INSTALL := install
+@@ -83,7 +57,7 @@
+ 
+ .PHONY: clean check_size
+ 
+-all : $(PROJNAME) check_size
++all : $(PROJNAME)
+ 
+ $(PROJNAME).zip : $(PROJNAME) $(PROJNAME)_unpacked README.txt screenshot.jpg
+ 	-rm $@
+@@ -92,8 +66,8 @@
+ shader.h : shader.frag Makefile
+ 	mono /usr/bin/shader_minifier.exe shader.frag -o shader.h
+ 
+-$(PROJNAME).elf : storage_room.c shader.h linker.ld Makefile
+-	$(CC) -o $@ $< $(CFLAGS)
++$(PROJNAME).elf : storage_room.c shader.h Makefile
++	$(CC) $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS) $(LIBS) -o $@
+ 
+ $(PROJNAME) : $(PROJNAME).elf
+ 	mv $< $@
+@@ -119,7 +93,7 @@
+ 	./nicer.py $< -o $@
+ 
+ clean :
+-	-rm *.elf *.xz shader.h $(PROJNAME) $(PROJNAME)_unpacked
++	-$(RM_F) *.elf *.xz shader.h $(PROJNAME) $(PROJNAME)_unpacked
+ 
+ check_size :
+ 	./sizelimit_check.sh

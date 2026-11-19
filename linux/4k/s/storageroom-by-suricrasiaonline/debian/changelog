@@ -1,3 +1,29 @@
+storageroom-by-suricrasiaonline (1.0+git20200610-0ddebs3) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches : 02_makefile-flags-hardening.patch, removed the x86-
+    only options and the -nostartfiles/-nodefaultlibs hack, use
+    CPPFLAGS/LDFLAGS and the pkg-config flags of GTK 3 and OpenGL
+  * debian/patches : 03_portable-code.patch, main() and exit() instead
+    of _start with x86 inline assembly and raw syscalls (builds on ARM),
+    shader compile/link errors printed on stderr, removed unused GLU/GLX
+    includes
+  * debian/rules : cross-compilation (CC), hardening=+all now effective
+  * debian/control : Architecture any, libgl-dev instead of libglu-dev,
+    Pouët Homepage, improved description
+  * debian/copyright : no upstream license found, public-domain
+    (probably freeware) instead of GPL-3.0+, removed the Upstream-
+    Contact placeholder
+  * debian/resources : added the missing icon (the PNG was empty),
+    Keywords in the desktop file
+  * debian/storageroom-by-suricrasiaonline.6.md : fixed the Pouët link,
+    documented the GTK options and the SAMPLES variable
+  * debian/upstream/metadata : removed the non-standard References field
+  * debian : lintian overrides (pandoc groff-message, upstream
+    shader_minifier.exe)
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 19 Nov 2026 10:03:04 +0100
+
 storageroom-by-suricrasiaonline (1.0+git20200610-0ddebs2) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

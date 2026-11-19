@@ -1,11 +1,12 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Source: https://suricrasia.online/demoscene/storage_room.html
-Upstream-Name: storageroom-by-suricrasiaonline
-Upstream-Contact: <preferred name and address to reach the upstream project>
+Source: https://github.com/Suricrasia-Online/Storage-Room
+Upstream-Name: Storage Room
+Upstream-Contact: https://github.com/Suricrasia-Online/Storage-Room
 
 Files: *
 Copyright: 2020 Suricrasia Online
-License: GPL-3.0+
+License: public-domain
+ (probably freeware)
 
 Files: debian/*
 Copyright: 2025-2026 Nicolas HOUDELOT <nicolas@demosdebs.org>
