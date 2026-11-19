@@ -1,0 +1,19 @@
+stickanimationengine4000-by-faemiyah for Debian
+-----------------------------------------------
+
+This is the standard version of the 4k intro, not the size-optimized "party"
+version: configure defines SAE4_GNU_LD, so the program is linked normally
+against SDL2, freeglut, GLU and OpenGL instead of loading them with dlopen.
+The binaries shipped upstream in rel/ are not installed.
+
+Changes made by the Debian patches:
+ - port from SDL 1.2 to SDL2, resizable window that keeps the 16:9 ratio;
+ - F toggles fullscreen, Esc, Q or the close button quit;
+ - V-Sync enabled, and the time of the intro starts with the music: the
+   soundtrack is synthesised after SDL is initialised, which made the
+   picture run ahead of the music on slow machines;
+ - the executable is no longer stripped at link time (-s), dh_strip does it.
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 18 Nov 2026 10:10:37 +0100

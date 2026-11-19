@@ -1,0 +1,62 @@
+Description: enable V-Sync and synchronise the picture with the music
+ The swap interval is set to 1 right after the creation of the OpenGL
+ context. The time of the intro is counted from the start of the audio
+ playback instead of SDL_Init(): the soundtrack is synthesised in between,
+ which took several hundred milliseconds on slow machines and made the
+ picture run ahead of the music.
+ The viewport is now updated on SDL_WINDOWEVENT_SIZE_CHANGED, which is also
+ sent when the window goes fullscreen, using the drawable size so that it
+ stays correct on HiDPI screens.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-18
+--- a/src/sae4.c
++++ b/src/sae4.c
+@@ -1088,6 +1088,8 @@
+ 	// Do not take the screen with you since it is not needed.
+ 	sdlWindow = DDL_CreateWindow("Stick Animation Engine 4000 by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_W,SCREEN_H,SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SCREEN_F);
+ 	sdlGlcontext = DDL_GL_CreateContext(sdlWindow);
++	// Enable V-Sync (must come after the context creation).
++	SDL_GL_SetSwapInterval(1);
+ 	Uint32 windowID = SDL_GetWindowID(sdlWindow);
+ 	DDL_ShowCursor(0);
+ 
+@@ -1103,6 +1105,9 @@
+ 
+ 	DDL_OpenAudio(&audio_spec, NULL);
+ 	DDL_PauseAudio(0);	
++	// The synth runs after SDL_Init(): count the time from the start of
++	// the audio playback, so that the picture does not run ahead of it.
++	uint32_t starttick = DDL_GetTicks();
+ 
+ 	//SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
+ 	
+@@ -1135,12 +1140,12 @@
+ 										currtickmul = 1;
+ 		draw(currtick);
+ #else
+-		uint32_t currtick = DDL_GetTicks();
++		uint32_t currtick = DDL_GetTicks() - starttick;
+ 		if(currtick >= INTROLEN * 1000)
+ 		{
+ 			break;
+ 		}
+-		draw(DDL_GetTicks());
++		draw(currtick);
+ #endif
+ 		//DDL_GL_SwapBuffers();
+ 		DDL_GL_SwapWindow(sdlWindow);
+@@ -1338,9 +1343,9 @@
+ 			if(event.type == SDL_WINDOWEVENT)
+ 			{
+ 			    if (event.window.windowID == windowID)  {
+-				if (event.window.event == SDL_WINDOWEVENT_RESIZED)  {
+-				    int new_w = event.window.data1;
+-				    int new_h = event.window.data2;
++				if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)  {
++				    int new_w, new_h;
++				    SDL_GL_GetDrawableSize(sdlWindow, &new_w, &new_h);
+ 				    resize_window(0,0, new_w,new_h);
+ 				}
+ 			    }

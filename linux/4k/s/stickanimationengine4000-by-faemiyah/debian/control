@@ -5,7 +5,8 @@ Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
  libsdl2-dev,
- freeglut3-dev|libglut-dev,
+ libglut-dev | freeglut3-dev,
+ libglu1-mesa-dev | libglu-dev,
  mesa-common-dev
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=51137
@@ -18,5 +19,11 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Demo for Linux, released in 2008
- Demo by Faemiyah, released in 2008
+Description: 4k intro by Faemiyah, released in 2008
+ Stick Animation Engine 4000 is a 4k intro by Faemiyah (code by Trilkk,
+ music and synth by Juippi), released at Assembly 2008, where it ranked
+ 2nd in the 4k intro competition. A blocky character dances on a
+ checkered floor, to a soundtrack synthesised at startup.
+ .
+ This package contains the standard (non size-optimized) build of the
+ intro, ported to SDL2. Press F to toggle fullscreen, Esc or Q to quit.

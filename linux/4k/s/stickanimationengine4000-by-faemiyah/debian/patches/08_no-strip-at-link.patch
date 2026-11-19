@@ -1,0 +1,22 @@
+Description: do not strip the executable at link time
+ The release mode added -s to LDFLAGS and -fomit-frame-pointer to CFLAGS.
+ Stripping is left to dh_strip, which keeps the debugging symbols in the
+ dbgsym package and honours DEB_BUILD_OPTIONS=nostrip, and the frame
+ pointer setting is left to dpkg-buildflags.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-18
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -314,10 +314,6 @@
+     AC_MSG_RESULT([normal])
+     AC_CHECK_CFLAG([-O2])
+   fi
+-  if test "x$debug" = "xno" ; then
+-    AC_CHECK_CFLAG([-fomit-frame-pointer])
+-    AC_CHECK_LDFLAG([-s])
+-  fi
+ 
+   AC_CHECK_CFLAG([-ftracer])
+   AC_CHECK_CFLAG([-fweb])

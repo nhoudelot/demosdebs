@@ -4,3 +4,5 @@
 04_resizable_window.patch
 05_add_fullscreen_key.patch
 06_fix-warning.patch
+07_vsync-and-audio-sync.patch
+08_no-strip-at-link.patch

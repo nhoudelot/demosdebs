@@ -1,3 +1,28 @@
+stickanimationengine4000-by-faemiyah (1.0+git20170414-0ddebs7) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches : added 07_vsync-and-audio-sync.patch, V-Sync
+    enabled, the picture is synchronised with the start of the music,
+    viewport updated on SDL_WINDOWEVENT_SIZE_CHANGED (fullscreen, HiDPI)
+  * debian/patches : added 08_no-strip-at-link.patch, -s and -fomit-
+    frame-pointer removed from the release flags, dh_strip handles
+    stripping
+  * debian/patches : fixed the Assisted-By field of 06_fix-warning.patch
+  * debian/resources : real 256x256 icon made from the upstream
+    screenshot, the previous one was an empty file
+  * debian/control : libglut-dev listed before freeglut3-dev, explicit
+    libglu1-mesa-dev, 4k intro description
+  * debian/rules : removed -flto -DSAE4_GNU_LD, already added by
+    configure
+  * debian/*.desktop : added Keywords, removed the Game category,
+    keywords override dropped
+  * debian/*.lintian-overrides : override for the pandoc groff-message,
+    removed the unused source-is-missing overrides
+  * debian/README.Debian : added, describes the build and the patches
+  * debian/*.6.md : documented the keys, manual page regenerated
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 18 Nov 2026 10:10:37 +0100
+
 stickanimationengine4000-by-faemiyah (1.0+git20170414-0ddebs6) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
