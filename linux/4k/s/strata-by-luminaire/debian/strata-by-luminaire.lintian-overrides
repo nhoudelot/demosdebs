@@ -1,4 +1,6 @@
 strata-by-luminaire binary: unknown-section demos
-strata-by-luminaire binary: hardening-no-pie [usr/bin/strata-by-luminaire]
-strata-by-luminaire binary: hardening-no-relro [usr/bin/strata-by-luminaire]
-strata-by-luminaire binary: program-not-linked-against-libc [usr/bin/strata-by-luminaire]
+strata-by-luminaire binary: program-not-linked-against-libc [usr/lib/i386-linux-gnu/strata-by-luminaire/strata-by-luminaire]
+strata-by-luminaire binary: hardening-no-pie [usr/lib/i386-linux-gnu/strata-by-luminaire/strata-by-luminaire]
+strata-by-luminaire binary: hardening-no-relro [usr/lib/i386-linux-gnu/strata-by-luminaire/strata-by-luminaire]
+strata-by-luminaire binary: hardening-no-bindnow [usr/lib/i386-linux-gnu/strata-by-luminaire/strata-by-luminaire]
+groff-message * [usr/share/man/man6/strata-by-luminaire.6.gz:*]

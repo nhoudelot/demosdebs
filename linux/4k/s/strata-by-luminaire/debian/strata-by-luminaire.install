@@ -1,4 +1,4 @@
+debian/scripts/strata-by-luminaire usr/bin/
+build/strata-by-luminaire usr/lib/i386-linux-gnu/strata-by-luminaire
 debian/resources/strata-by-luminaire.desktop usr/share/applications/
 debian/resources/strata-by-luminaire.png usr/share/icons/hicolor/128x128/apps/
-./strata-by-luminaire usr/lib/i386-linux-gnu/strata-by-luminaire
-debian/scripts/strata-by-luminaire usr/bin/

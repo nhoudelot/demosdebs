@@ -6,18 +6,27 @@ domain=strata-by-luminaire
 
 APP_FULLNAME="Strata"
 APP_COPYRIGHT="Luminaire"
-APP_DESC="4k intro by tkln, released in 2018"
+APP_DESC="4k intro by Luminaire, released in 2015"
 
 APP_EXE="strata-by-luminaire"
 
-function run()
+# the intro writes raw audio (16 bits, stereo, 44100 Hz) on stdout
+function play()
 {
-	backuppwd=$(pwd)
-	cd /usr/lib/i386-linux-gnu/${domain} || exit
-	LD_LIBRARY_PATH=./:/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE}|aplay -f cd
-	cd $backuppwd || exit
+	if command -v pw-play >/dev/null && [ -S "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/pipewire-0" ]; then
+		pw-play --format s16 --rate 44100 --channels 2 -
+	elif command -v paplay >/dev/null && pactl info >/dev/null 2>&1; then
+		paplay --raw --format=s16le --rate=44100 --channels=2
+	else
+		aplay -q -f cd
+	fi
 }
 
+function run()
+{
+	cd /usr/lib/i386-linux-gnu/${domain} || exit
+	SDL12COMPAT_SYNC_TO_VBLANK=1 LD_LIBRARY_PATH=/usr/lib/i386-linux-gnu/sdl12-compat/ ./${APP_EXE} | play
+}
 
 if [ "$#" -gt "1" ]; then
 	 NSH_std_usage

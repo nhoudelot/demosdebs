@@ -1,11 +1,52 @@
 strata-by-luminaire for Debian
------------------------------
+------------------------------
 
-only the binary was distribute
+Only a packed binary was released (strata_by_jontte__cyndis__jnalanko.bin
+on scene.org). The executable has been unpacked and renamed.
 
-had to uncompress it.
+The binary was also patched to remove fullscreen (SDL 1.2 breaks the
+display). This patch is already in the orig tarball.
 
-as it's an SDL1 binary, had to patch it to remove fullscreen
+At build time, debian/patch-binary.pl patches a copy of the executable
+(build/strata-by-luminaire), the orig tarball is not modified:
+ - the intro reused stack slots as arguments for glCompileShader(),
+   glLinkProgram() and glUseProgram(). Current NVIDIA drivers overwrite
+   them, glUseProgram() got a garbage id and the window stayed white. The
+   calls jump to a trampoline, written in the zero padding at the end of
+   the code segment, that pushes their arguments again;
+ - at the end, the intro fell through into another function and crashed
+   with a segmentation fault; it now calls exit_group(0);
+ - the unused program header 1, which held garbage, becomes PT_GNU_STACK:
+   the stack is no longer executable;
+ - the fragment shader is replaced by debian/shader.frag, same length:
+   "#version 130" (Mesa refused the shader without #version), explicit
+   type conversions, and the time uniform declared before the texture,
+   since the intro sets uniform location 0. With NVIDIA, the pictures are
+   identical to the original shader.
+The script checks the original bytes before patching.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 20 Dec 2019 14:53:15 +0100
+The launcher sets SDL12COMPAT_SYNC_TO_VBLANK=1: the intro does not ask for
+V-Sync itself. It plays the music with pw-play when PipeWire runs, else
+paplay, else aplay: aplay goes through the ALSA default device, which only
+reaches PipeWire when pipewire-alsa is installed for the architecture of
+aplay (amd64 on a 64-bit system, so a dependency of this i386 package on
+pipewire-alsa would not help).
 
+The executable is a hand-made ELF without section headers: objdump and
+dpkg-shlibdeps cannot read it, so the libraries are declared by hand in
+debian/control, dh_strip, dh_dwz, dh_makeshlibs and dh_shlibdeps are
+skipped in debian/rules. It links only libSDL, libGL and libpthread and
+cannot be hardened: the lintian tags about libc and hardening are
+overridden.
+
+executable seems to be compiled for an unknown distribution
+
+no GCC version string left in the executable
+
+Source files:
+-------------
+none (no section headers, no symbol table)
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 19 Nov 2026 14:34:02 +0100

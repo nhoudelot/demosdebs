@@ -14,7 +14,7 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "strata-by-luminaire" "6" "2024-04-04" "Strata User Manuals" ""
+.TH "strata-by-luminaire" "6" "2026-11-19" "Strata User Manuals" ""
 .hy
 .SH NAME
 .PP
@@ -25,18 +25,40 @@ strata-by-luminaire [\f[I]options\f[R]]
 .SH DESCRIPTION
 .PP
 Strata is a 4k intro released by Luminaire in august 2015.
-Ended 5th at Assembly 2015
+Ended 5th in the combined 4k competition at Assembly 2015.
+.PP
+The intro runs in a 1280x720 window, synchronized with the vertical
+refresh.
+The music is generated as raw audio (16 bits, stereo, 44100 Hz) on the
+standard output of the intro, and the command pipes it to
+\f[B]pw-play\f[R](1) when PipeWire runs, else to \f[B]paplay\f[R](1)
+when PulseAudio runs, else to \f[B]aplay\f[R](1).
 .PP
 cyndis [code, graphics] Jontte [code, graphics] jnalanko [music]
 .SH OPTIONS
 .TP
 --help
 Display help for the command
+.PP
+The intro stops by itself after 118 seconds.
+Escape quits.
+.SH NOTES
+.PP
+Only a packed 32-bit binary was released.
+The Debian version is the unpacked binary, patched to stay in a window.
+.PP
+The binary is also patched at build time so that the picture is
+displayed with current OpenGL drivers: with NVIDIA, the shader program
+was never used and the window stayed white, and Mesa refused the shader.
+The intro now quits cleanly at the end instead of crashing.
 .SH INFOS
 .PP
 https://www.pouet.net/prod.php?which=66090
+.SH SEE ALSO
+.PP
+\f[B]pw-play\f[R](1), \f[B]paplay\f[R](1), \f[B]aplay\f[R](1)
 .SH BUGS
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Luminaire.
+Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Claude Opus 5.5,Luminaire.

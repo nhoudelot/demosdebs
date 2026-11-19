@@ -1,10 +1,13 @@
 [Desktop Entry]
 Version=1.0
 Name=Strata
-GenericName=Demo
-Comment=Demo by Luminaire, released in 2015
+GenericName=4k intro
+Comment=4k intro by Luminaire, released in 2015
 Type=Application
 Exec=/usr/bin/strata-by-luminaire
 Icon=strata-by-luminaire
+Terminal=false
 Categories=AudioVideo;
+Keywords=demoscene;intro;4k;Luminaire;Assembly;
 Name[fr_FR]=Strata
+Comment[fr_FR]=Intro 4k de Luminaire, sortie en 2015

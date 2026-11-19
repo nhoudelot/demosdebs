@@ -6,13 +6,20 @@ Build-Depends:
  debhelper-compat (= 13)
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=66090
+Rules-Requires-Root: no
 
 Package: strata-by-luminaire
 Architecture: i386
 Depends:
- ${shlibs:Depends},
- libsdl1.2-compat|libsdl1.2debian,
  ${misc:Depends},
- common-install-function-ddebs(>=1.18)
-Description: 4k Intro for Linux, released in 2015
- 4k Intro by Luminaire, released in 2015
+ libgl1,
+ libsdl1.2-compat | libsdl1.2debian,
+ pipewire-bin | pulseaudio-utils | alsa-utils,
+ common-install-function-ddebs (>= 1.61)
+Description: 4k intro for Linux by Luminaire, released in 2015
+ Strata is a 4k intro released by Luminaire at Assembly 2015, where it
+ ended 5th in the combined 4k competition. It raymarches red cube
+ lattices, tunnels and letters built from cubes.
+ .
+ The intro uses OpenGL and SDL 1.2. The music is written as raw audio on
+ the standard output and played with pw-play, paplay or aplay.

@@ -1,3 +1,33 @@
+strata-by-luminaire (1.0-0ddebs8) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patch-binary.pl, debian/shader.frag : patch the executable at
+    build time, the window stayed white. The intro reused stack slots as
+    arguments of glLinkProgram() and glUseProgram(), NVIDIA drivers
+    overwrite them. The shader gets a #version and explicit conversions
+    for Mesa. The intro now exits cleanly instead of crashing at the end,
+    and the stack is no longer executable
+  * debian/rules : run debian/patch-binary.pl, install the patched copy,
+    skip dh_dwz and dh_shlibdeps (binary without section headers)
+  * debian/control : added libgl1 and pipewire-bin | pulseaudio-utils |
+    alsa-utils (the music is played by an external player),
+    removed ${shlibs:Depends}, Rules-Requires-Root: no, described the
+    intro
+  * debian/scripts : V-Sync through SDL12COMPAT_SYNC_TO_VBLANK, fixed the
+    description (was another intro). The music is played with pw-play
+    when PipeWire runs, else paplay, else aplay: without pipewire-alsa,
+    aplay opened the sound card directly and failed (device busy)
+  * debian/docs : removed, it installed the executable as documentation
+  * debian/resources/strata-by-luminaire.desktop : 4k intro, Keywords,
+    Terminal and French comment
+  * lintian overrides : fixed the paths of the hand-made executable tags
+    (not linked against libc, no hardening possible), pandoc
+    groff-message
+  * debian/README.source : documented the binary patches
+  * manpage : documented audio output, V-Sync and the binary patches
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Thu, 19 Nov 2026 14:34:02 +0100
+
 strata-by-luminaire (1.0-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
