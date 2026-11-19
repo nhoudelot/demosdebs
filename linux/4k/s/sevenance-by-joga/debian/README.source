@@ -1,9 +1,23 @@
 sevenance-by-joga for Debian
 ---------------------------
 
-sources has been repackaged
+The upstream archive (sevenance.zip from scene.org) has been repackaged
+without the zip wrapper.
 
-executable has been unpacked
+The party executable was a self-extracting compressed binary (4864 bytes);
+the unpacked ELF is shipped instead. It has no section headers, so
+dh_strip, dh_dwz, dh_makeshlibs and dh_shlibdeps are disabled and the runtime
+dependencies (libsdl2-2.0-0, libgl1) are declared by hand in
+debian/control. Lintian reports it as statically linked: this is a false
+positive, overridden.
 
- -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Mon, 06 Jul 2020 01:24:36 +0200
+executable seems to be compiled for an unknown distribution (no compiler
+signature left in the size-optimized binary)
 
+Source files:
+-------------
+(none listed, the binary has no section headers)
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 18 Nov 2026 01:00:20 +0100

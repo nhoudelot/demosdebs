@@ -1,10 +1,13 @@
 [Desktop Entry]
 Version=1.0
 Name=Sevenance
-GenericName=Demo
-Comment=Demo by joga, released in 2016
+GenericName=Intro
+GenericName[fr]=Intro
+Comment=8k intro by joga, released in 2016
+Comment[fr]=Intro 8k de joga, sortie en 2016
 Type=Application
 Exec=/usr/bin/sevenance-by-joga
 Icon=sevenance-by-joga
+Terminal=false
 Categories=AudioVideo;
-Name[fr_FR]=Sevenance
+Keywords=demoscene;intro;8k;demo;

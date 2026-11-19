@@ -6,7 +6,7 @@ domain=sevenance-by-joga
 
 APP_FULLNAME="Sevenance"
 APP_COPYRIGHT="joga"
-APP_DESC="4k intro by joga, released in 2016"
+APP_DESC="8k intro by joga, released in 2016"
 
 APP_EXE="sevenance-1920x1080"
 

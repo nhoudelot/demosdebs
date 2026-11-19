@@ -12,7 +12,12 @@ Package: sevenance-by-joga
 Architecture: amd64
 Depends:
  ${misc:Depends},
+ libgl1,
  libsdl2-2.0-0,
- common-install-function-ddebs(>=1.61)
-Description: 4k intro by joga, released in 2016
- intro by joga, ranked 4th at Simulaatio 2016
+ common-install-function-ddebs (>= 1.61)
+Description: 8k intro by joga, released in 2016
+ Sevenance is a 64-bit Linux intro by joga, ranked 4th in the PC intro
+ competition at Simulaatio 2016. It renders OpenGL 3.3 shards with
+ scrolling greetings and synthesized music, using the desktop resolution.
+ .
+ Mind the volume: the soundtrack is loud.

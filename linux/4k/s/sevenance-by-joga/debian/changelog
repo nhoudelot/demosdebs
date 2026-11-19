@@ -1,3 +1,23 @@
+sevenance-by-joga (1.0-0ddebs6) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : added missing libgl1 dependency, fixed spacing of
+    the common-install-function-ddebs dependency, extended the
+    description, 8k intro as listed on Pouet
+  * debian/resources : added the real icon (was an empty file), made
+    from the Pouet screenshot
+  * debian/resources/sevenance-by-joga.desktop : added Keywords,
+    Terminal and French entries
+  * debian/rules : disabled dh_dwz and dh_shlibdeps (binary without
+    section headers), like dh_strip and dh_makeshlibs
+  * debian/sevenance-by-joga.lintian-overrides : statically-linked-
+    binary false positive and pandoc groff-message
+  * debian/sevenance-by-joga.6.md : fixed description, regenerated the
+    manual page
+  * debian/README.source : documented the unpacked executable
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Wed, 18 Nov 2026 01:00:20 +0100
+
 sevenance-by-joga (1.0-0ddebs5) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04
