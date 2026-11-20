@@ -1,0 +1,43 @@
+Description: Fix a stack buffer overflow, an uninitialised sample and window close
+ The _T() macro filled the sine/cosine tables from index 1 to 10000, writing
+ one float past the end of each 10000-element array on the stack and leaving
+ index 0 uninitialised (found with AddressSanitizer). Fill indexes 0 to 9999.
+ .
+ In the audio callback, the sample value v was read uninitialised when a
+ buffer starts on a rest in the score; start it at 0.
+ .
+ The main loop only stopped on SDL_KEYDOWN, so closing the window did
+ nothing; stop on SDL_QUIT too.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-20
+--- a/Unnamed.c
++++ b/Unnamed.c
+@@ -34,7 +34,7 @@
+ #define                        Mm(b,c)   ((b)>(c)?c:b)                         
+ #define                        MM(b,c)   ((b)>(c)?b:c)                         
+ #define                        MN(b,c)   -Mm(-b,-c)                            
+-#define                      _T(a,b,c) C i=0;i++<S;) t##c##a[i]=a(i*ak/(M)(b));
++#define                      _T(a,b,c) C i=0;i<S;i++)t##c##a[i]=a(i*ak/(M)(b));
+                                                                                
+                                                                                
+ aa fx[5]={10.,15.,20.,25.,30.},fy[5]={5.,10.,15.,20.,25.};z cl[5]={R<<16,R<<8,R
+@@ -50,7 +50,7 @@
+ "                                 Unnamed 2k4                                ";
+                                                                                
+                                                                                
+-z po,t2=0,ref=3000;U t1=0;void cb(void   *us,B *s,z l J M v,f2,f;char a,b;C;l>0
++z po,t2=0,ref=3000;U t1=0;void cb(void   *us,B *s,z l J M v=0,f2,f;char a,b;C;l>0
+ ;l-=2 J a=sn[po];b=sn[(po+1)%661];f=_F   (sn[po]);g(a!=' ')v=N(f*t1);g(t2>(W-W/
+ 8.) J f2=1-(t2-(W-W/8.))/(W/8.);v*=f2;   g(b!=' ')v+=(1-f2)*N(_F(b)*t1);}g(t1%W
+ ==0 J t2=0;po++;po%=661;}*(Sint16*)s=(   Sint16)32000*v;s+=2;t1++;t2++;}}SDL_S\
+@@ -66,7 +66,7 @@
+ =b->pitch/4;t=fp=k=c9=0;j=H=1;A=P=0.;Z   =1.;M t0sin[S];M t0cos[S];M t1sin[S];M
+ t1cos[S];_T(sin,h,0)_T(cos,h,0)_T(sin,   w,1)_T(cos,w,1)ms=ae();ab(0,u,u,9);m.x
+ =m.y=r2.y=0; m.h=m.w=r2.x=r2.h=r2.w=u;   af(G,&m,G,&r2);m.x=64;r2.x=0;r2.y=u;af
+-(G,&m,G,&r2);m.x=m.y=u;af(G,&r2,G,&m);   while(! SDL_PollEvent(&e)||e.type!=2 J
++(G,&m,G,&r2);m.x=m.y=u;af(G,&r2,G,&m);   while(!SDL_PollEvent(&e)||(e.type!=2&&e.type!=12)J
+ t++;fp++;g(!c9&&k>4 J k=0;c9=j=1;H=5;A   =0.;Z=1.;Q g(k>1 J P+=.17;o=I*L(P/fy[2
+ ]*ak);s=160.*L(P/fx[2]*ak);ac(b,NULL,0   );g(k==4){c7=MN(50+o,0)+1;c8=MN(100-s,
+ 0)+1;Q{c7=MM(50+o,0)+1;c8=MM(100-s,0)+   1;} v=((U*)b ad)+c8+c7*p; C y=c7;y<Mm(

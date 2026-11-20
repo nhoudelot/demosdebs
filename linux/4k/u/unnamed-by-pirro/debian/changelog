@@ -1,3 +1,24 @@
+unnamed-by-pirro (1.0+1-0ddebs8) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/01_adapt_makefile.patch : use CPPFLAGS (fortify) and
+    LDLIBS, DEP-3 header
+  * debian/patches/02_fix-table-overflow-and-window-close.patch : fix a
+    stack buffer overflow in the sine tables, an uninitialised audio
+    sample, and quit when the window is closed
+  * debian/resources/unnamed-by-pirro.png : added the missing icon (was
+    empty)
+  * debian/control : improved description
+  * debian/resources/unnamed-by-pirro.desktop : added Keywords and
+    French comment, removed the lintian override
+  * debian/unnamed-by-pirro.6.md : updated the manual (keys, end of the
+    intro)
+  * debian/unnamed-by-pirro.lintian-overrides : groff-message override
+    for the pandoc manual
+  * debian/copyright : added fx as copyright holder
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Fri, 20 Nov 2026 01:00:57 +0100
+
 unnamed-by-pirro (1.0+1-0ddebs7) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

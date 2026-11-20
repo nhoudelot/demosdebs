@@ -15,5 +15,8 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: piRro 4k Intro/2004/Linux
- Intro 4k by piRro, released in 2004
+Description: Unnamed - 4k intro by piRro & fx (2004)
+ Unnamed is a 4096-byte C source intro by piRro and fx, entered in the
+ 2004 4k source compo of 320x200.org. Written with SDL 1.2, it shows
+ plasmas, a Sierpinski fractal and spheres made of squares, on a cover of
+ the Zelda main theme synthesised in real time.

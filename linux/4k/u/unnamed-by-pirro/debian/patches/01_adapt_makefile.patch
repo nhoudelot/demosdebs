@@ -1,10 +1,11 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: Adapt the makefile for packaging
+ Replace the upstream makefile with one that uses pkg-config for SDL,
+ honours CPPFLAGS, CFLAGS and LDFLAGS from dpkg-buildflags (hardening),
+ links the libraries through LDLIBS and provides an install target.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-26
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-20
 --- a/Makefile
 +++ b/Makefile
 @@ -1,23 +1,33 @@
@@ -33,7 +34,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +CC    := gcc
 +PKG_CONFIG:=pkg-config
 +CFLAGS   += -std=c99 -Wall -pipe $(shell $(PKG_CONFIG) --cflags sdl)
-+LDFLAGS  += $(shell $(PKG_CONFIG) --libs sdl) -lm
++LDLIBS   += $(shell $(PKG_CONFIG) --libs sdl) -lm
 +TARGET   = unnamed-by-pirro
 +#variable de nettoyage
 +RM_F = rm -f
@@ -51,8 +52,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
 +all: $(TARGET)
 +
-+$(TARGET):
-+	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
++$(TARGET): $(SOURCE) s.h
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $(SOURCE) -o $(TARGET) $(LDLIBS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)

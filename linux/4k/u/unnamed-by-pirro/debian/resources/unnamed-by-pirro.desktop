@@ -1,10 +1,12 @@
 [Desktop Entry]
 Version=1.0
 Name=Unnamed
-GenericName=Demo
-Comment=Demo by piRro, released in 2004
+GenericName=Intro
+Comment=4k intro by piRro & fx, released in 2004
 Type=Application
 Exec=/usr/bin/unnamed-by-pirro
 Icon=unnamed-by-pirro
 Categories=AudioVideo;Game;
 Name[fr_FR]=Unnamed
+Comment[fr_FR]=Intro 4k de piRro & fx, sortie en 2004
+Keywords=demoscene;intro;4k;piRro;
