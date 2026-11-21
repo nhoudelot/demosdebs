@@ -14,20 +14,31 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "wavetraveler-by-francoischazal" "6" "2024-04-04" "Wave Traveler User Manuals" ""
+.TH "wavetraveler-by-francoischazal" "6" "2026-11-20" "Wave Traveler User Manuals" ""
 .hy
 .SH NAME
 .PP
-wavetraveler-by-francoischazal - is the command to run Wave Traveler
+wavetraveler-by-francoischazal - run the Wave Traveler 4k intro
 .SH SYNOPSIS
 .PP
-wavetraveler-by-francoischazal [\f[I]options\f[R]]
+wavetraveler-by-francoischazal
 .SH DESCRIPTION
 .PP
-Wave Traveler is a 4k intro released by Francois Chazal in 2004
+Wave Traveler is a 4k intro released by Francois Chazal in 2004.
+After a small loading screen, it shows wavelength interferences computed
+in real time, in a 400x300 window.
 .SH OPTIONS
 .PP
-there is no options to this program
+This program has no options.
+.SH KEYS
+.PP
+Press any key, or close the window, to quit.
+.SH ENVIRONMENT
+.TP
+\f[B]SDL12COMPAT_SYNC_TO_VBLANK\f[R]
+The animation advances by one step per frame, so it is synchronised to
+the vertical blank by default.
+Set this variable to 0 to disable it.
 .SH INFOS
 .PP
 https://320x200.org/2004/4k/
@@ -35,4 +46,5 @@ https://320x200.org/2004/4k/
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Francois Chazal.
+Nicolas HOUDELOT <nicolas@demosdebs.org>,Claude Opus 5.5,Francois
+Chazal.

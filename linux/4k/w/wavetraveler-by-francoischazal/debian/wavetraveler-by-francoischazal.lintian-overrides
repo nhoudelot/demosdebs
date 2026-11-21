@@ -1,2 +1,2 @@
-wavetraveler-by-francoischazal binary: unknown-section demos
-wavetraveler-by-francoischazal binary: desktop-entry-lacks-keywords-entry [usr/share/applications/wavetraveler-by-francoischazal.desktop]
+unknown-section demos
+groff-message * [usr/share/man/man6/wavetraveler-by-francoischazal.6.gz:*]

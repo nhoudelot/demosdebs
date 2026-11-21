@@ -1,10 +1,10 @@
-Description: updating makefile
- updating makefile to make it more compatible with packaging
+Description: adapt the Makefile to Debian packaging
+ Use pkg-config for SDL, honour CPPFLAGS, CFLAGS and LDFLAGS from
+ dpkg-buildflags (hardening), rename the program and add an install target.
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Applied-Upstream: no
-Last-Update: 2020-04-26
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-20
 --- a/Makefile
 +++ b/Makefile
 @@ -1,22 +1,33 @@
@@ -46,8 +46,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -clean:
 -	@$(RM) *~ \#* *\#
 -	@$(RM) *.o
-+$(TARGET):
-+	 $(CC) $(SOURCE) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
++$(TARGET): $(SOURCE)
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(SOURCE) -o $(TARGET) $(LDFLAGS)
 +
 +install: $(TARGET)
 +	$(INSTALL_DIR) $(DESTDIR)$(bindir)
@@ -58,10 +58,3 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -	@$(RM) $(NAME)
 +clean:
 +	-$(RM_F) $(TARGET)
---- /dev/null
-+++ b/s.h
-@@ -0,0 +1,4 @@
-+#include <SDL/SDL.h>
-+#include <math.h>
-+#include <stdlib.h>
-+

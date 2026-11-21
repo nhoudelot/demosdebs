@@ -1,0 +1,78 @@
+Description: fix an out-of-bounds read, enable V-Sync and quit on window close
+ show() indexes A[] with acos(cos(P) * cos(T)) / pia, which goes up to 2 * N
+ while A[] only had N entries: random memory was read (AddressSanitizer
+ reports a global-buffer-overflow). The interference pattern is symmetric,
+ A(pi - a) = A(a), so the table is simply computed over [0, pi].
+ Also: cast before shifting the alpha value by 24 bits (signed overflow),
+ ask sdl12-compat to sync to vblank (the animation advances per frame),
+ set a window title, quit on SDL_QUIT and call SDL_Quit().
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-20
+--- a/wave4k.c
++++ b/wave4k.c
+@@ -27,7 +27,7 @@
+ };
+   */
+ 
+-float	A[N], l = 9e-3, R = 1e-1, D = 4e-2;
++float	A[2 * N + 1], l = 9e-3, R = 1e-1, D = 4e-2;
+ float	pi2 = 6.283185, pia = 1.570793 / N;
+ 
+ void	init()
+@@ -35,7 +35,7 @@
+   int	i;
+   float	a, b, a1, a2, d0;
+ 
+-  for (i = 0; i < N; i++)
++  for (i = 0; i <= 2 * N; i++)
+     {
+       a = R * cos(i * pia);
+       b = R * sin(i * pia);
+@@ -87,7 +87,11 @@
+   SDL_Event	e;
+   SDL_Surface	*b, *bb;
+ 
++  setenv("SDL12COMPAT_SYNC_TO_VBLANK", "1", 0);
+   b = SDL_SetVideoMode(w, h, 32, 0);
++  if (!b)
++    return 1;
++  SDL_WM_SetCaption("Wave Traveler", "Wave Traveler");
+   bb = SDL_CreateRGBSurface(SDL_SRCALPHA, w, h, 32,
+ 			    0x00ff0000, 0x0000ff00,
+ 			    0x000000ff, 0xff000000);
+@@ -104,7 +108,7 @@
+   init();      
+   now = SDL_GetTicks();
+ 
+-  for(i = 0.0; !SDL_PollEvent(&e) || e.type != 2; i += 1e-2)
++  for(i = 0.0; !SDL_PollEvent(&e) || (e.type != SDL_KEYDOWN && e.type != SDL_QUIT); i += 1e-2)
+     {
+       if (d < 101)
+ 	{
+@@ -114,7 +118,7 @@
+       else if ((d > 100) && (d < 355))
+ 	{
+ 	  if ((SDL_GetTicks() - now) >= 50) d += 5;
+-	  SDL_FillRect(bb, 0, (d - 100) << 24);
++	  SDL_FillRect(bb, 0, (Uint32) (d - 100) << 24);
+ 	  SDL_BlitSurface(bb, 0, b, 0);
+ 	}
+       else if ((d > 354) && (d < 610))
+@@ -122,7 +126,7 @@
+ 	  i = 0.0;
+ 	  show(cos(i * sin(i)), sin(i * cos(i)), 30.0 * (1 + cos(i)) + 5.0);
+ 	  if ((SDL_GetTicks() - now) >= 50) d += 5;
+-	  SDL_FillRect(bb, 0, (610 - d) << 24);
++	  SDL_FillRect(bb, 0, (Uint32) (610 - d) << 24);
+ 	  SDL_BlitSurface(bb, 0, b, 0);
+ 	}
+       else
+@@ -135,5 +139,6 @@
+       SDL_Flip(b);
+     }
+ 
++  SDL_Quit();
+   return 0;
+ }

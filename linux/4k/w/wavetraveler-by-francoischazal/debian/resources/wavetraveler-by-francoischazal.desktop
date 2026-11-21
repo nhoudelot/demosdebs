@@ -1,10 +1,12 @@
 [Desktop Entry]
 Version=1.0
 Name=Wave Traveler
-GenericName=Demo
-Comment=Demo by Francois Chazal, released in 2004
+GenericName=4k intro
+Comment=4k intro by Francois Chazal, released in 2004
+Comment[fr]=Intro 4k de Francois Chazal, sortie en 2004
 Type=Application
 Exec=/usr/bin/wavetraveler-by-francoischazal
 Icon=wavetraveler-by-francoischazal
 Categories=AudioVideo;Game;
-Name[fr_FR]=Wave Traveler
+Keywords=demo;demoscene;intro;4k;
+Keywords[fr]=démo;démoscène;intro;4k;

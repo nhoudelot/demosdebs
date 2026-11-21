@@ -15,5 +15,9 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: Francois Chazal 4k Intro/2004/Linux
- 4k Intro by Francois Chazal, released in 2004
+Description: 4k Intro for Linux, released in 2004
+ Wave Traveler is a 4k intro by Francois Chazal, released in 2004.
+ It shows wavelength interferences, computed in real time with SDL,
+ after a small loading screen.
+ .
+ Press any key or close the window to quit.
