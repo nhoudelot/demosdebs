@@ -1,11 +1,9 @@
 Description: added fullscreen key & resizable window
  added fullscreen function, to go fullscreen and back, with F key
 Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
-Assisted-by: Claude Sonnet 4.6
-Applied-Upstream: no
+Assisted-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Forwarded: not-needed
 Last-Update: 2026-04-11
----
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
 @@ -154,6 +154,12 @@

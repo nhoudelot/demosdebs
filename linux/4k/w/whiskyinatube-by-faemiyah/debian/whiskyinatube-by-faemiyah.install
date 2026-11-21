@@ -1,3 +1,4 @@
+#!/usr/bin/dh-exec
 debian/resources/whiskyinatube-by-faemiyah.desktop usr/share/applications/
 debian/resources/whiskyinatube-by-faemiyah.png usr/share/icons/hicolor/256x256/apps/
-build/whiskyinatube-by-faemiyah usr/bin/
+build/whisky_in_a_tube => usr/bin/whiskyinatube-by-faemiyah

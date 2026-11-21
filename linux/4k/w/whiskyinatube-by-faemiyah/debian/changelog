@@ -1,3 +1,27 @@
+whiskyinatube-by-faemiyah (1.0+git20170414-0ddebs11) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/patches/04_enable-vsync-desktop-fullscreen.patch : enable V-
+    Sync (SDL_GL_SetSwapInterval after context creation) and start
+    fullscreen at the desktop resolution instead of switching the screen
+    to 1280x720
+  * debian/patches/03_add-fullscreen-resize.patch : DEP-3 header fixed
+    (Assisted-By, Forwarded)
+  * debian/resources/whiskyinatube-by-faemiyah.png : real 256x256 icon
+    (was an empty file), cropped from the upstream screenshot
+  * debian/whiskyinatube-by-faemiyah.install : use dh-exec to rename the
+    executable, instead of mv in debian/rules
+  * debian/rules : removed redundant -DUSE_LD (already defined by
+    CMakeLists.txt)
+  * debian/control : improved description
+  * debian/resources/whiskyinatube-by-faemiyah.desktop : added Keywords
+  * debian/whiskyinatube-by-faemiyah.6.md : documented fullscreen, V-
+    Sync and resolution options, fixed --option rendering
+  * debian/whiskyinatube-by-faemiyah.lintian-overrides : override pandoc
+    groff-message false positive
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Nov 2026 02:24:00 +0100
+
 whiskyinatube-by-faemiyah (1.0+git20170414-0ddebs10) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

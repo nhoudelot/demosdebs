@@ -4,11 +4,12 @@ Priority: optional
 Maintainer: Nicolas HOUDELOT <nicolas@demosdebs.org>
 Build-Depends:
  debhelper-compat (= 13),
+ dh-exec,
  cmake,
  libboost-program-options-dev,
  libsdl2-dev,
  libpng-dev,
- libglew-dev,
+ libglew-dev
 Standards-Version: 4.7.3
 Homepage: https://www.pouet.net/prod.php?which=63860
 Vcs-Browser: https://github.com/faemiyah/faemiyah-demoscene_2014-08_4k-intro_whisky_in_a_tube
@@ -20,8 +21,8 @@ Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Description: 4k Intro for Linux, released in 2014
- 4k Intro by Faemiyah, released in 2014
+Description: Whisky in a Tube - 4k intro by Faemiyah, released in 2014
+ 4k intro by Faemiyah, ranked 7th at Assembly 2014 combined 4k intro compo.
  Code:                    Trilkk
  Music, additional code:  Juippi
  Greets to: ADF, Blobtrox, Fit, G-INcorporated, Hedelmae, Lonely Coders,

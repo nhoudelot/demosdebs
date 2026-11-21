@@ -14,7 +14,7 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "whiskyinatube-by-faemiyah" "6" "2024-04-05" "Whisky in a Tube User Manuals" ""
+.TH "whiskyinatube-by-faemiyah" "6" "2026-11-21" "Whisky in a Tube User Manuals" ""
 .hy
 .SH NAME
 .PP
@@ -25,25 +25,35 @@ whiskyinatube-by-faemiyah [\f[I]options\f[R]]
 .SH DESCRIPTION
 .PP
 Whisky in a Tube is a 4k intro released by Faemiyah in august 2014.
-Ended 7th at Assembly 2014
+Ended 7th at Assembly 2014 combined 4k intro compo.
 .PP
-Juippi [Additional code, music] Trilkk [Code]
+By default the intro starts in fullscreen at the desktop resolution,
+with V-Sync enabled.
+The picture keeps its aspect ratio (black bars are added when needed),
+and the window can be resized.
+.IP \[bu] 2
+Juippi: additional code, music
+.IP \[bu] 2
+Trilkk: code
 .SH OPTIONS
 .TP
--d [ \[en]developer ]
+-d [ --developer ]
 Developer mode.
 .TP
--R [ \[en]record ]
-Do not play intro normally, instead save audio as .wav and frames as
-\&.png -files.
+-R [ --record ]
+Do not play intro normally, instead save audio as .raw and frames as
+\&.png -files in the current directory.
+Use it together with -w.
 .TP
--r [ \[en]resolution ] arg
-Resolution to use, specify as `WIDTHxHEIGHT'
+-r [ --resolution ] arg
+Resolution to use, specify as `WIDTHxHEIGHT', `720p' or `1080p'
+(default: 1280x720).
+In fullscreen, the picture is scaled to the desktop resolution.
 .TP
--w [ \[en]window ]
+-w [ --window ]
 Start in window instead of full-screen.
 .TP
--h [ \[en]help ]
+-h [ --help ]
 Print help text.
 .SH KEYS
 .TP
@@ -51,7 +61,7 @@ ESC
 to quit
 .TP
 F
-toggle fullscreen
+toggle fullscreen (desktop resolution)
 .SH INFOS
 .PP
 https://www.pouet.net/prod.php?which=63860
@@ -59,4 +69,4 @@ https://www.pouet.net/prod.php?which=63860
 .PP
 No known bugs.
 .SH AUTHORS
-Nicolas HOUDELOT (nicolas\[at]demosdebs.org),Faemiyah.
+Nicolas HOUDELOT <nicolas@demosdebs.org>,Claude Opus 5.5,Faemiyah.

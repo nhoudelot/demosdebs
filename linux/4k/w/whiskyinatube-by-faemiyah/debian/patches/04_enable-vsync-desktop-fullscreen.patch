@@ -1,0 +1,26 @@
+Description: enable V-Sync and use the desktop resolution in fullscreen
+ Call SDL_GL_SetSwapInterval(1) right after SDL_GL_CreateContext so that
+ buffer swaps are synchronised with the display refresh (no tearing, no
+ busy loop). Start in SDL_WINDOW_FULLSCREEN_DESKTOP instead of
+ SDL_WINDOW_FULLSCREEN, so the screen mode is no longer changed to
+ 1280x720: the intro is letterboxed by the viewport code of
+ 03_add-fullscreen-resize.patch, as when toggling fullscreen with F.
+Author: Nicolas HOUDELOT <nicolas@demosdebs.org>
+Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+Forwarded: not-needed
+Last-Update: 2026-11-21
+--- a/src/intro.cpp
++++ b/src/intro.cpp
+@@ -945,9 +945,11 @@
+ #endif
+   dnload();
+   dnload_SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+-  sdlWindow =  dnload_SDL_CreateWindow("Whisky in a Tube by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,static_cast<int>(screen_w),static_cast<int>(screen_h),SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
++  sdlWindow =  dnload_SDL_CreateWindow("Whisky in a Tube by Faemiyah",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,static_cast<int>(screen_w),static_cast<int>(screen_h),SDL_WINDOW_OPENGL | (flag_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
+   sdlGlcontext = dnload_SDL_GL_CreateContext(sdlWindow);
+ #if defined(USE_LD)
++  // Enable V-Sync: must be called after the GL context has been created.
++  SDL_GL_SetSwapInterval(1);
+   SDL_SetWindowResizable(sdlWindow, SDL_TRUE);
+ #endif
+   dnload_SDL_ShowCursor(flag_developer);
