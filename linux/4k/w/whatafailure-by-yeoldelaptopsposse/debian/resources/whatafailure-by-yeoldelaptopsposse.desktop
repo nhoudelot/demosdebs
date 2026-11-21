@@ -1,10 +1,11 @@
 [Desktop Entry]
 Version=1.0
 Name=what a failure
-GenericName=Demo
-Comment=Demo by Ye Olde Laptops Posse, released in 2012
+GenericName=Intro
+Comment=4k intro by Ye Olde Laptops Posse, released in 2012
 Type=Application
 Exec=/usr/bin/whatafailure-by-yeoldelaptopsposse
 Icon=whatafailure-by-yeoldelaptopsposse
 Categories=AudioVideo;Game;
+Keywords=demoscene;intro;4k;
 Name[fr_FR]=what a failure

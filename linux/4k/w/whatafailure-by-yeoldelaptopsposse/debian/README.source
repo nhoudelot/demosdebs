@@ -1,0 +1,27 @@
+whatafailure-by-yeoldelaptopsposse for Debian
+---------------------------------------------
+
+Upstream only ships prebuilt executables (Linux x86-64, Windows, macOS).
+The Linux executable yo04_lnx is installed unmodified in
+/usr/lib/x86_64-linux-gnu/whatafailure-by-yeoldelaptopsposse/ and run
+by the launcher /usr/bin/whatafailure-by-yeoldelaptopsposse.
+
+The executable was stripped of its section headers to fit in 4 KB, so
+dpkg-shlibdeps cannot read its symbols and produces no dependency: the
+runtime libraries (libc6, libGL, libGLU, freeglut, SDL 1.2) are listed
+by hand in debian/control. It asks for libglut.so.3, provided by a link
+to libglut.so.3.12 (freeglut 3.x) in the executable directory. SDL 1.2
+comes from sdl12-compat (libsdl1.2debian >= 1.2.60, or libsdl1.2-compat
+in its private sdl12-compat/ directory on older distributions).
+
+executable seems to be compiled for an unknown distribution (no section
+headers, no compiler identification left in the file; ELF ABI note:
+GNU/Linux 2.6.15)
+
+Source files:
+-------------
+none listed (section headers removed)
+
+Written by Claude Opus 5.5 <noreply@anthropic.com>, reviewed by Nicolas HOUDELOT.
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Nov 2026 01:47:43 +0100

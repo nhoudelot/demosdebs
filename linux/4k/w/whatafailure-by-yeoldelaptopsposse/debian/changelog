@@ -1,3 +1,26 @@
+whatafailure-by-yeoldelaptopsposse (1.0-0ddebs11) unstable; urgency=medium
+
+  * Changes prepared with Claude Opus 5.5
+  * debian/control : depend on libsdl1.2debian (>= 1.2.60) |
+    libsdl1.2-compat, as libsdl1.2-compat no longer exists on Ubuntu
+    26.04 and Debian forky (the package was uninstallable there)
+  * debian/control : depend on libglut3.12 only (freeglut3 is gone
+    everywhere, and the link targets libglut.so.3.12), add libgl1 and
+    libglu1-mesa, as dpkg-shlibdeps cannot read the sstripped executable
+  * debian/control : expanded the description
+  * debian/rules : removed the useless -xlibsdl1.2debian option of
+    dh_shlibdeps
+  * debian/resources/*.desktop : added Keywords, removed the matching
+    lintian override, added overrides for the prebuilt executable and
+    the pandoc manual
+  * debian/source/lintian-overrides : updated the
+    package-depends-on-hardcoded-libc override
+  * Added debian/README.source, removed unused launcher script and the
+    .docs file of a nonexistent package
+  * Manual : added the competition and credits details
+
+ -- Nicolas HOUDELOT <nicolas@demosdebs.org>  Sat, 21 Nov 2026 01:47:43 +0100
+
 whatafailure-by-yeoldelaptopsposse (1.0-0ddebs10) unstable; urgency=medium
 
   * Recompile for ubuntu 26.04

@@ -12,10 +12,17 @@ Package: whatafailure-by-yeoldelaptopsposse
 Architecture: amd64
 Depends:
  libc6,
- libsdl1.2-compat,
- freeglut3|libglut3.12,
+ libgl1,
+ libglu1-mesa,
+ libglut3.12,
+ libsdl1.2debian (>= 1.2.60) | libsdl1.2-compat,
  ${shlibs:Depends},
  ${misc:Depends},
- common-install-function-ddebs(>=1.18)
+ common-install-function-ddebs (>= 1.18),
 Description: 4k intro for Linux, released in 2012
- 4k intro by Ye Olde Laptops Posse, released in 2012
+ "what a failure" is a 4k intro by Ye Olde Laptops Posse (code and music
+ by provod), released at TokyoDemoFest 2012 where it ranked 2nd in the
+ combined demo/intro competition.
+ .
+ It simulates 4096 particles with SPH (smoothed-particle hydrodynamics)
+ and requires an OpenGL 2.1 capable video card.

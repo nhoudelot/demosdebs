@@ -6,18 +6,15 @@ domain=whatafailure-by-yeoldelaptopsposse
 
 APP_FULLNAME="what a failure"
 APP_COPYRIGHT="Ye Olde Laptops Posse"
-APP_DESC="demo by Ye Olde Laptops Posse released in 2012"
+APP_DESC="4k intro by Ye Olde Laptops Posse released in 2012"
 
 APP_EXE="yo04_lnx"
 
 function run()
 {
-	backuppwd=$(pwd)
 	cd /usr/lib/x86_64-linux-gnu/${domain}
 	LD_LIBRARY_PATH=./:/usr/lib/x86_64-linux-gnu/sdl12-compat/ ./${APP_EXE}
-	cd $backuppwd
 }
-
 
 if [ "$#" -gt "1" ]; then
 	 NSH_std_usage
